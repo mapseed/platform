@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import classNames from "classnames";
 import styled from "react-emotion";
 
@@ -108,7 +108,6 @@ const Button = styled(props => {
     fontSize: "1rem",
     padding: "0.5rem",
 
-    fontFamily: props.theme.text.headerFontFamily,
     fontWeight: "200",
 
     border: "0px solid rgba(27,31,35,0.2)",

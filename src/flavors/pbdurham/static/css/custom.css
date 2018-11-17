@@ -119,39 +119,6 @@ textarea:focus {
 /* =The Site Header
 -------------------------------------------------------------- */
 
-#site-header {
-  background: none !important;
-  background-color: #d6d5d9 !important;
-}
-#site-logo {
-  float: left;
-  height: 1.25em;
-  margin-bottom: 0.25em;
-}
-#nav-btn {
-  background-color: #d6d5d9;
-  color: #58585b;
-  text-shadow: none;
-}
-.access a,
-.access a:visited,
-.access a:active,
-.access a:link {
-  color: #d6d5d9;
-  background-color: #58585b;
-  border: 0;
-}
-.access a:hover {
-  background-color: #045a8b;
-  color: #045a8b;
-}
-a#sign-in-btn {
-  background-color: transparent !important;
-  color: #302d43;
-}
-a#sign-in-btn:hover {
-  color: #045a8b;
-}
 
 /* =The Big Button to Add A New Point
 -------------------------------------------------------------- */

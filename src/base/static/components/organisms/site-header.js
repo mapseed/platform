@@ -7,6 +7,7 @@ import { SiteLogo } from "../atoms/imagery";
 import { Button } from "../atoms/buttons";
 import { Link } from "../atoms/navigation";
 import UserMenu from "../molecules/user-menu";
+import { RegularTitle } from "../atoms/typography";
 
 import { navBarConfigSelector } from "../../state/ducks/nav-bar-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
@@ -41,9 +42,19 @@ const NavButton = styled(props => {
       {props.children}
     </Button>
   );
-})(() => ({
+})(props => ({
+  fontFamily: props.theme.text.navBarFontFamily, 
+  fontWeight: 600,
   marginLeft: "4px",
   marginRight: "4px",
+}));
+
+const SiteTitle = styled(RegularTitle)(props => ({
+  color: props.theme.text.titleColor,
+  fontFamily: props.theme.text.titleFontFamily,
+  marginBottom: 0,
+  marginLeft: "15px",
+  letterSpacing: "1px",
 }));
 
 const NavLink = styled(props => {
@@ -101,7 +112,12 @@ const navItemMappings = {
 const SiteHeader = props => {
   return (
     <SiteHeaderWrapper>
-      <SiteLogo src={props.appConfig.logo} alt={props.appConfig.name} />
+      {props.appConfig.logo && (
+        <SiteLogo src={props.appConfig.logo} alt={props.appConfig.name} />
+      )}
+      {props.appConfig.show_name_in_header && (
+        <SiteTitle>{props.appConfig.name}</SiteTitle>
+      )}
       <NavContainer>
         {props.navBarConfig
           .filter(navBarItem => !navBarItem.hide_from_top_bar)
@@ -136,6 +152,7 @@ SiteHeader.propTypes = {
   appConfig: PropTypes.shape({
     api_root: PropTypes.string.isRequired,
     dataset_download: PropTypes.object,
+    name: PropTypes.string,
   }).isRequired,
   currentTemplate: PropTypes.string.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,

@@ -4,6 +4,8 @@ app:
   title: My Watershed - Central Puget Sound
   # Header name
   name: "My Watershed"
+  show_name_in_header: true 
+
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.)"
   # Meta author that will show up in Google search results
@@ -21,6 +23,17 @@ app:
 
   # Optional. List view is supported by default. Set to false to disable.
   # list_enabled: false
+
+  theme:
+    brand:
+      accent: "#007fbf"
+    bg:
+      default: "#fff"
+      light: "#007fbf"
+    text:
+      titleColor: "#127de4"
+      titleFontFamily: "Palanquin; sans-serif"
+      secondary: "#fff"
 
 languages:
   - code: es
@@ -2082,40 +2095,31 @@ support:
   action_text: supported
   anonymous_name: _(Someone)
 
-pages:
+nav_bar:
+  - title: _(Map Layers)
+    type: left_sidebar_toggle
+    component: MapLayerPanel
+
   - title: _(Community)
-    name: featured/3737
+    type: internal_link
+    url: /featured/3737
 
   - title: _(Classroom)
+    type: internal_link
     name: classroom
-    slug: classroom
-
-  - title: _(Background)
-    slug: background
-    name: background
-    hide_from_top_bar: true
-
-  - title: _(Get involved)
-    slug: getinvolved
-    name: contribute
-    hide_from_top_bar: true
+    url: /page/classroom
 
   - title: _(About)
-    slug: about
+    type: internal_link
+    url: /page/about
     name: overview
-    hide_from_top_bar: false
     pull_right: true
 
   - title: _(Guide)
-    slug: guide
+    type: internal_link
+    url: /page/guide
     name: guide
-    hide_from_top_bar: false
     pull_right: true
-
-  - title: _(Sponsors)
-    slug: sponsors
-    name: sponsors
-    hide_from_top_bar: true
 
 story:
   watersheds:

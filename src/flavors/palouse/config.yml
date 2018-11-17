@@ -319,9 +319,6 @@ left_sidebar:
 place:
   adding_supported: true
   add_button_label: _(Show off your projects)
-  # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
-  show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
   anonymous_name: _(Someone)
@@ -458,20 +455,28 @@ support:
   action_text: supported
   anonymous_name: _(Someone)
 
-pages:
+nav_bar:
   - title: _(About)
-    slug: page/about
+    type: internal_link
+    url: /page/about
     name: overview
     start_page: true
 
   - title: _(Background)
-    slug: page/background
+    type: internal_link
+    url: /page/background
     name: background
     hide_from_top_bar: true
 
   - title: _(Get involved)
-    slug: page/getinvolved
+    type: internal_link
+    url: /page/getinvolved
     name: contribute
+
+  - type: list_toggle
+    show_list_button_label: _(See All Reports)
+    show_map_button_label: _(Show the Map)
+
 
 #story:
 #  example:

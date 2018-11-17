@@ -4,6 +4,8 @@ app:
   title: _(Participatory Budgeting Greensboro)
   # Header name
   name: _(Participatory Budgeting Greensboro)
+  logo: "/static/css/images/pbgreensboro-logobanner.png"
+
   # Meta description that will show up in Google search results
   meta_description: _(Participatory Budgeting for City of Greensboro)
 
@@ -16,9 +18,16 @@ app:
   tagline: _(How would YOU spend $100K?)
 
   theme:
+    bg:
+      default: "#e6eef2"
+      light: "#336e94"
     brand:
+      primary: "#58585b"
+      secondary: "#68bab9"
       accent: "#68bab9"
     text:
+      secondary: "#fff"
+      navBarFontFamily: "proxima-nova; sans-serif"
       headerFontFamily: "Josefin Sans"
       bodyFontFamily: "Montserrat"
 
@@ -697,9 +706,6 @@ activity:
 place:
   adding_supported: true
   add_button_label: _(Submit an idea)
-  # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(Show as a list)
-  show_map_button_label: _(Show on a map)
   title: _(Describe your idea)
   action_text: _(suggested)
   help_text: _(Ideas must be "capital" projects - building, installing, or repairing something for public benefit.)
@@ -1122,17 +1128,23 @@ support:
   action_text: _(supported)
   anonymous_name: _(Someone)
 
-pages:
+nav_bar:
   - title: _(About)
-    slug: about
+    type: internal_link
+    url: /page/about
     name: about
     start_page: true
   - title: _(Guidelines)
-    slug: guidelines
+    type: internal_link
+    url: /page/guidelines
     name: guidelines
   - title: _(Get More Involved)
-    slug: involved
+    type: internal_link
+    url: /page/involved
     name: involved
+  - type: list_toggle
+    show_list_button_label: _(Show as a list)
+    show_map_button_label: _(Show on a map)
 
 notifications:
   on_new_place: false

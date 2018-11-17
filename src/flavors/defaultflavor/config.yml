@@ -4,6 +4,8 @@ app:
   title: Mapseed Demo
   # Header name
   name: "Mapseed Demo"
+  show_name_in_header: true
+
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -25,6 +27,10 @@ app:
 
   # Optional. List view is supported by default. Set to false to disable.
   # list_enabled: false
+
+  theme:
+    text:
+      titleFontFamily: "Quicksand Regular, sans-serif"
 
 # languages:
 #   - code: en_US
@@ -609,9 +615,6 @@ activity:
 place:
   adding_supported: true
   add_button_label: _(Add a report to the map)
-  # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
-  show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
   anonymous_name: _(Someone)
@@ -1158,19 +1161,20 @@ support:
   action_text: supported
   anonymous_name: _(Someone)
 
-pages:
+nav_bar:
   - title: _(About)
-    slug: about
+    type: internal_link
+    url: /page/about
     name: overview
 
-  - title: _(Background)
-    slug: background
-    name: background
-    hide_from_top_bar: true
-
   - title: _(Get involved)
-    slug: getinvolved
+    type: internal_link
+    url: /page/getinvolved
     name: contribute
+
+  - type: list_toggle
+    show_list_button_label: _(See All Reports)
+    show_map_button_label: _(Show the Map)
 
 story:
   example:

@@ -4,6 +4,8 @@ app:
   title: _(Participatory Budgeting Durham)
   # Header name
   name: _(Participatory Budgeting Durham)
+  logo: "/static/css/images/pbdurham-logo-large.png"
+
   # Meta description that will show up in Google search results
   meta_description: _(Participatory Budgeting for City of Durham)
 
@@ -17,10 +19,16 @@ app:
     owner: "smartercleanup"
 
   theme:
+    bg:
+      default: "#d6d5d9"
+      light: "#58585b"
     brand:
-      primary: "#045a8b"
+      primary: "#58585b"
       secondary: "#c3b9c7"
+      accent: "#302d43"
     text:
+      secondary: "#fff"
+      navBarFontFamily: "proxima-nova; sans-serif"
       headerFontFamily: "Josefin Sans"
       bodyFontFamily: "Josefin Sans"
 
@@ -569,9 +577,6 @@ activity:
 place:
   adding_supported: true 
   add_button_label: _(Submit Your Idea)
-  # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(Show as a list)
-  show_map_button_label: _(Show on a map)
   title: _(Describe your idea)
   action_text: _(suggested)
   help_text: _(Ideas must be "capital" projects - building, installing, or repairing something for public benefit.)
@@ -973,17 +978,23 @@ support:
   action_text: _(supported)
   anonymous_name: _(Someone)
 
-pages:
+nav_bar:
   - title: _(About)
-    slug: about
+    type: internal_link
+    url: /page/about
     name: about
     start_page: true
   - title: _(Guidelines)
-    slug: guidelines
+    type: internal_link
+    url: /page/guidelines
     name: guidelines
   - title: _(Get Involved)
-    slug: get-involved
+    type: internal_link
+    url: /page/get-involved
     name: involved
+  - type: list_toggle
+    show_list_button_label: _(Show as a list)
+    show_map_button_label: _(Show on a map)
 
 notifications:
   on_new_place: false

@@ -30,7 +30,7 @@ const AvatarImg = styled("img")({
 
 const MenuButton = styled(props => {
   return (
-    <Button color="primary" className={props.classname} onClick={props.onClick}>
+    <Button color="secondary" className={props.classname} onClick={props.onClick}>
       {props.children}
     </Button>
   );
