@@ -188,6 +188,10 @@ const NavBarHamburger = styled("i")({
     fontFamily: "FontAwesome",
     content: "'\f0c9'",
   },
+
+  [mq[1]]: {
+    display: "none",
+  },
 });
 
 const LogoTitleWrapper = styled("div")({
@@ -204,6 +208,7 @@ const navItemMappings = {
       <NavButton
         variant={props.navBarItem.variant}
         color={props.navBarItem.color || "tertiary"}
+        onClick={props.onClick}
       >
         {props.children}
       </NavButton>
@@ -215,6 +220,7 @@ const navItemMappings = {
         variant={props.navBarItem.variant}
         color={props.navBarItem.color || "tertiary"}
         onClick={() => {
+          props.onClick();
           props.setLeftSidebarComponent(props.navBarItem.component);
           props.setLeftSidebarExpanded(!props.isLeftSidebarExpanded);
         }}
@@ -285,6 +291,11 @@ class SiteHeader extends Component {
                   setLeftSidebarComponent={this.props.setLeftSidebarComponent}
                   setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
                   isLeftSidebarExpanded={this.props.isLeftSidebarExpanded}
+                  onClick={() => {
+                    this.setState({
+                      isHeaderExpanded: false,
+                    });
+                  }}
                 >
                   {navBarItem.title}
                 </NavItemComponent>
