@@ -1,3 +1,5 @@
+/* eslint react/display-name: 0 */
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
@@ -326,7 +328,10 @@ class SiteHeader extends Component {
                 isLanguageMenuVisible={this.state.isLanguageMenuVisible}
               >
                 {this.props.appConfig.languages.map(language => (
-                  <LanguageLink href={`/${language.code}.html`}>
+                  <LanguageLink
+                    key={language.code}
+                    href={`/${language.code}.html`}
+                  >
                     <LanguagePickerMenuItem>
                       {language.label}
                     </LanguagePickerMenuItem>
