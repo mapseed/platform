@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { connect } from "react-redux";
@@ -43,7 +43,7 @@ const NavButton = styled(props => {
     </Button>
   );
 })(props => ({
-  fontFamily: props.theme.text.navBarFontFamily, 
+  fontFamily: props.theme.text.navBarFontFamily,
   fontWeight: 600,
   marginLeft: "4px",
   marginRight: "4px",
@@ -57,13 +57,11 @@ const SiteTitle = styled(RegularTitle)(props => ({
   letterSpacing: "1px",
 }));
 
-const NavLink = styled(props => {
-  return (
-    <Link href={props.href} rel="internal" className={props.className}>
-      {props.children}
-    </Link>
-  );
-})(props => ({
+const NavLink = styled(props => (
+  <Link href={props.href} rel="internal" className={props.className}>
+    {props.children}
+  </Link>
+))(props => ({
   borderLeft:
     props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
 }));
@@ -72,6 +70,42 @@ const NavButtonWrapper = styled("span")(props => ({
   borderLeft:
     props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
 }));
+
+const LanguagePickerMenu = styled("ul")(props => ({
+  display: props.isLanguageMenuVisible ? "block" : "none",
+  position: "fixed",
+  backgroundColor: props.theme.bg.default,
+  border: "3px solid rgba(0, 0, 0, 0.05)",
+}));
+
+const LanguagePickerMenuItem = styled("li")(props => ({
+  textTransform: "uppercase",
+  fontSize: "0.75rem",
+  padding: "8px",
+  "&:hover": {
+    color: props.theme.text.secondary,
+    backgroundColor: props.theme.brand.accent,
+    cursor: "pointer",
+  },
+}));
+
+const LanguagePicker = styled("nav")(props => ({
+  marginRight: "16px",
+  textTransform: "uppercase",
+  "&:hover": {
+    cursor: "pointer",
+  },
+}));
+
+const LanguageLink = styled(Link)({
+  textDecoration: "none",
+});
+
+const RightAlignedContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  marginLeft: "auto",
+});
 
 const navItemMappings = {
   internal_link: props => (
@@ -109,53 +143,104 @@ const navItemMappings = {
   ),
 };
 
-const SiteHeader = props => {
-  return (
-    <SiteHeaderWrapper>
-      {props.appConfig.logo && (
-        <SiteLogo src={props.appConfig.logo} alt={props.appConfig.name} />
-      )}
-      {props.appConfig.show_name_in_header && (
-        <SiteTitle>{props.appConfig.name}</SiteTitle>
-      )}
-      <NavContainer>
-        {props.navBarConfig
-          .filter(navBarItem => !navBarItem.hide_from_top_bar)
-          .map((navBarItem, i) => {
-            const NavItemComponent = navItemMappings[navBarItem.type];
-            return (
-              <NavItemComponent
-                key={i}
-                position={i}
-                navBarItem={navBarItem}
-                currentTemplate={props.currentTemplate}
-                setLeftSidebarComponent={props.setLeftSidebarComponent}
-                setLeftSidebarExpanded={props.setLeftSidebarExpanded}
-                isLeftSidebarExpanded={props.isLeftSidebarExpanded}
+class SiteHeader extends Component {
+  state = {
+    isLanguageMenuVisible: false,
+  };
+
+  render() {
+    return (
+      <SiteHeaderWrapper>
+        {this.props.appConfig.logo && (
+          <SiteLogo
+            src={this.props.appConfig.logo}
+            alt={this.props.appConfig.name}
+          />
+        )}
+        {this.props.appConfig.show_name_in_header && (
+          <SiteTitle>{this.props.appConfig.name}</SiteTitle>
+        )}
+        <NavContainer>
+          {this.props.navBarConfig
+            .filter(navBarItem => !navBarItem.hide_from_top_bar)
+            .map((navBarItem, i) => {
+              const NavItemComponent = navItemMappings[navBarItem.type];
+              return (
+                <NavItemComponent
+                  key={i}
+                  position={i}
+                  navBarItem={navBarItem}
+                  currentTemplate={this.props.currentTemplate}
+                  setLeftSidebarComponent={this.props.setLeftSidebarComponent}
+                  setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
+                  isLeftSidebarExpanded={this.props.isLeftSidebarExpanded}
+                >
+                  {navBarItem.title}
+                </NavItemComponent>
+              );
+            })}
+        </NavContainer>
+        <RightAlignedContainer>
+          {this.props.appConfig.languages && (
+            <LanguagePicker
+              onMouseOver={() =>
+                this.setState({
+                  isLanguageMenuVisible: true,
+                })
+              }
+              onMouseOut={() =>
+                this.setState({
+                  isLanguageMenuVisible: false,
+                })
+              }
+            >
+              {
+                this.props.appConfig.languages.find(
+                  language => language.code === this.props.languageCode,
+                ).label
+              }{" "}
+              ⌄
+              <LanguagePickerMenu
+                isLanguageMenuVisible={this.state.isLanguageMenuVisible}
               >
-                {navBarItem.title}
-              </NavItemComponent>
-            );
-          })}
-      </NavContainer>
-      <UserMenu
-        router={props.router}
-        apiRoot={props.appConfig.api_root}
-        currentUser={props.currentUser}
-        datasetDownloadConfig={props.appConfig.dataset_download}
-      />
-    </SiteHeaderWrapper>
-  );
-};
+                {this.props.appConfig.languages.map(language => (
+                  <LanguageLink href={`/${language.code}.html`}>
+                    <LanguagePickerMenuItem>
+                      {language.label}
+                    </LanguagePickerMenuItem>
+                  </LanguageLink>
+                ))}
+              </LanguagePickerMenu>
+            </LanguagePicker>
+          )}
+          <UserMenu
+            router={this.props.router}
+            apiRoot={this.props.appConfig.api_root}
+            currentUser={this.props.currentUser}
+            datasetDownloadConfig={this.props.appConfig.dataset_download}
+          />
+        </RightAlignedContainer>
+      </SiteHeaderWrapper>
+    );
+  }
+}
 
 SiteHeader.propTypes = {
   appConfig: PropTypes.shape({
     api_root: PropTypes.string.isRequired,
     dataset_download: PropTypes.object,
     name: PropTypes.string,
+    languages: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      }),
+    ),
   }).isRequired,
   currentTemplate: PropTypes.string.isRequired,
+  currentUser: PropTypes.object,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
+  languageCode: PropTypes.string.isRequired,
   navBarConfig: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,

@@ -36,44 +36,7 @@
   <body class="{{#if config.map.geocoding_bar_enabled}} geocoding-bar-enabled{{/if}}">
   <div id="site-wrap">
 
-  <header id="site-header">
-    <!--
-    <h1 id="site-title">{{#block "site-title"}}{{/block}}</h1>
-
-    {{#block "pre_auth_nav"}}{{/block}}
-    <div id="auth-nav-container"></div>
-    {{#block "post_auth_nav"}}{{/block}}
-
-    {{#block "pre_pages_nav"}}{{/block}}
-    <div id="pages-nav-container"></div>
-    {{#block "post_pages_nav"}}{{/block}}
-
-    {{#if config.map.counter}}
-      <div id="place-counter" class="list-toggle-nav"></div>
-    {{/if}}
-
-    {{#if config.languages}}
-      {{#block "language_picker"}}
-        <div id="language-picker">
-          <nav class="access" role="article">
-            <ul class="menu">
-              <li class="menu-item">
-                <a class="current-language {{ languageCode }} btn btn-block">{{#each config.languages}}{{this.label}} {{#unless @last}}/ {{/unless}}{{/each}}⌄</a>
-                <ul class="menu">
-                  {{#each config.languages}}
-                    <li class="menu-item">
-                      <a href="/{{this.code}}.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
-                    </li>
-                  {{/each}}
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      {{/block}}
-    {{/if}}
-    -->
-  </header>
+  <header id="site-header"></header>
 
   <div role="main" id="main">
     <noscript>

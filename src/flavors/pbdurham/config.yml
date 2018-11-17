@@ -28,16 +28,16 @@ app:
       accent: "#302d43"
     text:
       secondary: "#fff"
-      navBarFontFamily: "proxima-nova; sans-serif"
+      navBarFontFamily: "proxima-nova, sans-serif"
       headerFontFamily: "Josefin Sans"
       bodyFontFamily: "Josefin Sans"
 
-languages:
-  - code: en_US
-    label: English
+  languages:
+    - code: en_US
+      label: English
 
-  - code: es
-    label: Español
+    - code: es
+      label: Español
 
 # Settings for map and layer configs
 map:

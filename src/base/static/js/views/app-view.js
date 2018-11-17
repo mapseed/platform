@@ -217,7 +217,7 @@ export default Backbone.View.extend({
             <SiteHeader
               router={this.options.router}
               currentUser={Shareabouts.bootstrapped.currentUser}
-              datasetDownloadConfig={storeState.appConfig.dataset_download}
+              languageCode={this.options.languageCode}
             />
           </ThemeProvider>
         </ThemeProvider>
