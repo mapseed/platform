@@ -6,10 +6,18 @@ import { Button } from "../atoms/buttons";
 import LegacyUtil from "../../js/utils.js";
 import styled from "react-emotion";
 
+import mq from "../../../../media-queries";
+
 const MenuContainer = styled("nav")({
-  display: "block",
   marginLeft: "auto",
   marginRight: "10px",
+
+  [mq[0]]: {
+    display: "none",
+  },
+  [mq[1]]: {
+    display: "block",
+  },
 });
 
 const AvatarImg = styled("img")({
@@ -30,7 +38,11 @@ const AvatarImg = styled("img")({
 
 const MenuButton = styled(props => {
   return (
-    <Button color="secondary" className={props.classname} onClick={props.onClick}>
+    <Button
+      color="secondary"
+      className={props.classname}
+      onClick={props.onClick}
+    >
       {props.children}
     </Button>
   );

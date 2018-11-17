@@ -41,7 +41,8 @@ const SiteLogo = styled(props => {
   return <img src={props.src} alt={props.alt} className={props.className} />;
 })(props => ({
   [mq[0]]: {
-    // TODO: mobile sizing...
+    height: "35px", // 35 === header height (43px) - 2x micro spacing (8px)
+    marginLeft: "16px",
   },
   [mq[1]]: {
     height: "56px", // 56 === header height (64px) - 2x micro spacing (8px)

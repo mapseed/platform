@@ -17,18 +17,38 @@ import {
   setLeftSidebarComponent,
   setLeftSidebarExpanded,
 } from "../../state/ducks/left-sidebar";
+import mq from "../../../../media-queries";
 
 // TODO: Make the outermost div a header element when we dissolve base.hbs.
 // Right now the header element lives in base.hbs.
 const SiteHeaderWrapper = styled("div")(props => ({
   backgroundColor: props.theme.bg.default,
   display: "flex",
-  alignItems: "center",
   height: "100%",
+  alignItems: "center",
+
+  [mq[0]]: {
+    flexDirection: "column",
+    padding: "8px",
+  },
+  [mq[1]]: {
+    flexDirection: "row",
+  },
 }));
 
 const NavContainer = styled("nav")(props => ({
-  marginLeft: "50px",
+  [mq[0]]: {
+    display: props.isHeaderExpanded ? "flex" : "none",
+    flexDirection: "column",
+    width: "100%",
+    marginTop: "16px",
+    alignItems: "stretch",
+  },
+  [mq[1]]: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: "50px",
+  },
 }));
 
 const NavButton = styled(props => {
@@ -47,6 +67,10 @@ const NavButton = styled(props => {
   fontWeight: 600,
   marginLeft: "4px",
   marginRight: "4px",
+
+  [mq[0]]: {
+    width: "100%",
+  },
 }));
 
 const SiteTitle = styled(RegularTitle)(props => ({
@@ -62,20 +86,37 @@ const NavLink = styled(props => (
     {props.children}
   </Link>
 ))(props => ({
-  borderLeft:
-    props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
+  display: "flex",
+  textDecoration: "none",
+
+  [mq[1]]: {
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
+  },
 }));
 
 const NavButtonWrapper = styled("span")(props => ({
-  borderLeft:
-    props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
+  [mq[1]]: {
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
+  },
 }));
 
 const LanguagePickerMenu = styled("ul")(props => ({
-  display: props.isLanguageMenuVisible ? "block" : "none",
-  position: "fixed",
   backgroundColor: props.theme.bg.default,
-  border: "3px solid rgba(0, 0, 0, 0.05)",
+
+  [mq[0]]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    marginTop: "8px",
+  },
+  [mq[1]]: {
+    display: props.isLanguageMenuVisible ? "block" : "none",
+    position: "fixed",
+    border: "3px solid rgba(0, 0, 0, 0.05)",
+  },
 }));
 
 const LanguagePickerMenuItem = styled("li")(props => ({
@@ -87,24 +128,74 @@ const LanguagePickerMenuItem = styled("li")(props => ({
     backgroundColor: props.theme.brand.accent,
     cursor: "pointer",
   },
+
+  [mq[0]]: {
+    width: "100%",
+  },
 }));
 
 const LanguagePicker = styled("nav")(props => ({
-  marginRight: "16px",
   textTransform: "uppercase",
   "&:hover": {
     cursor: "pointer",
+  },
+
+  [mq[0]]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    marginTop: "16px",
+    marginRight: 0,
+  },
+  [mq[1]]: {
+    marginRight: "16px",
   },
 }));
 
 const LanguageLink = styled(Link)({
   textDecoration: "none",
+
+  [mq[0]]: {
+    display: "flex",
+    width: "100%",
+    textAlign: "center",
+  },
 });
 
-const RightAlignedContainer = styled("div")({
-  display: "flex",
+const RightAlignedContainer = styled("div")(props => ({
   alignItems: "center",
-  marginLeft: "auto",
+
+  [mq[0]]: {
+    display: props.isHeaderExpanded ? "flex" : "none",
+    marginLeft: 0,
+    width: "100%",
+  },
+  [mq[1]]: {
+    display: "flex",
+    marginLeft: "auto",
+  },
+}));
+
+const NavBarHamburger = styled("i")({
+  fontSize: "20px",
+  margin: "0 8px 0 8px",
+  "&:hover": {
+    cursor: "pointer",
+  },
+  "&:before": {
+    fontStyle: "normal",
+    fontFamily: "FontAwesome",
+    content: "'\f0c9'",
+  },
+});
+
+const LogoTitleWrapper = styled("div")({
+  [mq[0]]: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+  },
 });
 
 const navItemMappings = {
@@ -132,35 +223,55 @@ const navItemMappings = {
       </NavButton>
     </NavButtonWrapper>
   ),
-  list_toggle: props => (
-    <NavLink href={props.currentTemplate === "map" ? "/list" : "/"}>
+  list_toggle: styled(props => (
+    <NavLink
+      className={props.className}
+      href={props.currentTemplate === "map" ? "/list" : "/"}
+    >
       <NavButton variant="raised" color="secondary">
         {props.currentTemplate === "map"
           ? props.navBarItem.show_list_button_label
           : props.navBarItem.show_map_button_label}
       </NavButton>
     </NavLink>
-  ),
+  ))(() => ({
+    [mq[0]]: {
+      display: "none",
+    },
+    [mq[1]]: {
+      display: "block",
+    },
+  })),
 };
 
 class SiteHeader extends Component {
   state = {
-    isLanguageMenuVisible: false,
+    isLanguageMenuVisible: false, // relevant on desktop layouts
+    isHeaderExpanded: false, // relevant on mobile layouts
   };
 
   render() {
     return (
       <SiteHeaderWrapper>
-        {this.props.appConfig.logo && (
-          <SiteLogo
-            src={this.props.appConfig.logo}
-            alt={this.props.appConfig.name}
+        <LogoTitleWrapper>
+          <NavBarHamburger
+            onClick={() => {
+              this.setState({
+                isHeaderExpanded: !this.state.isHeaderExpanded,
+              });
+            }}
           />
-        )}
-        {this.props.appConfig.show_name_in_header && (
-          <SiteTitle>{this.props.appConfig.name}</SiteTitle>
-        )}
-        <NavContainer>
+          {this.props.appConfig.logo && (
+            <SiteLogo
+              src={this.props.appConfig.logo}
+              alt={this.props.appConfig.name}
+            />
+          )}
+          {this.props.appConfig.show_name_in_header && (
+            <SiteTitle>{this.props.appConfig.name}</SiteTitle>
+          )}
+        </LogoTitleWrapper>
+        <NavContainer isHeaderExpanded={this.state.isHeaderExpanded}>
           {this.props.navBarConfig
             .filter(navBarItem => !navBarItem.hide_from_top_bar)
             .map((navBarItem, i) => {
@@ -180,7 +291,7 @@ class SiteHeader extends Component {
               );
             })}
         </NavContainer>
-        <RightAlignedContainer>
+        <RightAlignedContainer isHeaderExpanded={this.state.isHeaderExpanded}>
           {this.props.appConfig.languages && (
             <LanguagePicker
               onMouseOver={() =>
