@@ -713,24 +713,28 @@ export default Backbone.View.extend({
   },
 
   viewPage: function(slug) {
-    this.renderRightSidebar();
     const pageConfig = _.findWhere(this.options.navBarConfig, {
       url: `/page/${slug}`,
     });
 
-    const pageHtml = Handlebars.templates[pageConfig.name]({
-      config: this.options.config,
-      apiRoot: this.options.apiRoot,
-    });
+    if (pageConfig) {
+      const pageHtml = Handlebars.templates[pageConfig.name]({
+        config: this.options.config,
+        apiRoot: this.options.apiRoot,
+      });
 
-    this.$panel.removeClass().addClass("page page-" + slug);
-    this.showPanel(pageHtml);
-    this.hideNewPin();
-    this.destroyNewModels();
-    this.hideCenterPoint();
-    this.setBodyClass("content-visible");
-    store.dispatch(setMapSizeValidity(false));
-    this.renderMain();
+      this.$panel.removeClass().addClass("page page-" + slug);
+      this.showPanel(pageHtml);
+      this.hideNewPin();
+      this.destroyNewModels();
+      this.hideCenterPoint();
+      this.setBodyClass("content-visible");
+      store.dispatch(setMapSizeValidity(false));
+      this.renderRightSidebar();
+      this.renderMain();
+    } else {
+      this.options.router.navigate("/", { trigger: true });
+    }
   },
 
   showPanel: function(markup, preventScrollToTop) {
