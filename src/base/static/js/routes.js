@@ -104,7 +104,7 @@ Shareabouts.Util = Util;
 
       // Load the default page when there is no page already in the url
       if (Backbone.history.getFragment() === "") {
-        const startPageConfig = _.findWhere(this.options.navBarConfig, {
+        const startPageConfig = _.findWhere(options.navBarConfig, {
           start_page: true,
         });
 
