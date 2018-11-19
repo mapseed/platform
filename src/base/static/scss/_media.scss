@@ -40,24 +40,6 @@
     }
   }
 
-  .content-visible.content-expanded {
-    #map-container {
-      height: 10% !important;
-    }
-    #content {
-      min-height: 90% !important;
-    }
-  }
-
-  .content-visible.content-expanded-mid {
-    #map-container {
-      height: 50% !important;
-    }
-    #content {
-      min-height: 90% !important;
-    }
-  }
-
   .content-visible.place-form-visible {
     #map-container {
       height: 60%;
@@ -99,7 +81,7 @@
   }
 
   #content {
-    // bump up the bottom margin here so content at the very bottom
+    // bump up the bottom padding here so content at the very bottom
     // of a page is not obscured by bottom-clinging buttons
     padding-bottom: 75px;
   }
@@ -287,14 +269,13 @@
     }
 
     #content {
-      top: 72px;
+      top: 72px; // geocode bar height
+      height: calc(100% - 72px - #{$header-height-fullscreen});
     }
 
     #left-sidebar-container {
       // NOTE: 72px represents the height of the geocode address bar on desktop screens
-      height: calc(
-        100% - 72px - #{$header-height-fullscreen} - #{$footer-height-fullscreen}
-      );
+      height: calc(100% - 72px - #{$header-height-fullscreen});
       top: 72px;
     }
   }
