@@ -270,7 +270,7 @@
 
     #content {
       top: 72px; // geocode bar height
-      height: calc(100% - 72px - #{$header-height-fullscreen});
+      height: calc(100% - 72px);
     }
 
     #left-sidebar-container {
