@@ -1,0 +1,824 @@
+{
+  "app": {
+    "title": "_(Bathgate Community Garden)",
+    "name": "_(Bathgate Community Garden)",
+    "meta_description": "_(Welcome!)",
+    "meta_author": "haxgeo.com",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "summary_page_header": "_(Over the next few months, we will work with community members and local stakeholders to design a plan for the garden and begin construction soon after.)"
+  },
+  "languages": [
+    {
+      "code": "en_US",
+      "label": "I Speak English"
+    },
+    {
+      "code": "es",
+      "label": "Hablo Español"
+    }
+  ],
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "cartodb_enabled": false,
+    "geocode_bounding_box": [
+      46.5,
+      -124,
+      48.5,
+      -119
+    ],
+    "options": {
+      "map": {
+        "center": {
+          "lat": 40.84482032566562,
+          "lng": -73.89809310436249
+        },
+        "zoom": 18,
+        "minZoom": 1,
+        "maxZoom": 18
+      },
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      }
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "is_visible_default": true,
+        "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png",
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+      },
+      {
+        "id": "terrain",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "url": "https://stamen-tiles-a.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png"
+      },
+      {
+        "id": "satellite",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "bathgate-input",
+        "is_visible_default": true,
+        "is_topmost_layer": true,
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-input",
+        "type": "place",
+        "slug": "report",
+        "focus_rules": [
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "community_input"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "comment-map-marker.png",
+              "icon-size": 1.2,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "community_input"
+              ],
+              [
+                "<",
+                [
+                  "zoom"
+                ],
+                11
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-dbcf2c.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "community_input"
+              ],
+              [
+                ">=",
+                [
+                  "zoom"
+                ],
+                11
+              ],
+              [
+                "<",
+                [
+                  "zoom"
+                ],
+                16
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "comment-map-marker.png",
+              "icon-size": 0.7,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "community_input"
+              ],
+              [
+                ">=",
+                [
+                  "zoom"
+                ],
+                16
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "comment-map-marker.png",
+              "icon-size": 1,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bathgate-project",
+        "is_visible_default": true,
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-project",
+        "type": "place",
+        "slug": "project",
+        "rules": [
+          {
+            "outline-paint": {
+              "line-width": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "transit",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/ny-transit/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/ny-transit/style.json",
+        "source_layer": "ny-transit"
+      },
+      {
+        "id": "biking",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/ny-bike-lanes/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/ny-bike-lanes/style.json",
+        "source_layer": "ny-bike-lanes"
+      },
+      {
+        "id": "zoning",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/ny-zoning/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/ny-zoning/style.json",
+        "source_layer": "ny-zoning"
+      },
+      {
+        "id": "heatwaves",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/ny-heatwave/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/ny-heatwave/style.json",
+        "source_layer": "ny-heatwave"
+      },
+      {
+        "id": "flood-zones",
+        "type": "raster-tile",
+        "url": "https://a.tiles.mapbox.com/v3/jkeefe.map-dg0rv3jh/{z}/{x}/{y}.png"
+      }
+    ]
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Map Layers)",
+        "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layers": [
+              {
+                "id": "osm",
+                "icon": "/static/css/images/default-map.svg",
+                "title": "_(Default)"
+              },
+              {
+                "id": "satellite",
+                "icon": "/static/css/images/satellite-map.svg",
+                "title": "_(Satellite)"
+              },
+              {
+                "id": "terrain",
+                "icon": "/static/css/images/terrain-map.svg",
+                "title": "_(Terrain)"
+              }
+            ]
+          },
+          {
+            "id": "map-detail",
+            "title": "_(Map detail)",
+            "layers": [
+              {
+                "id": "transit",
+                "icon": "/static/css/images/transit.svg",
+                "title": "_(Transit)"
+              },
+              {
+                "id": "biking",
+                "icon": "/static/css/images/bike-lanes.svg",
+                "title": "_(Biking)"
+              },
+              {
+                "id": "zoning",
+                "icon": "/static/css/images/zoning.svg",
+                "title": "_(Zoning)"
+              },
+              {
+                "id": "bathgate-input",
+                "icon": "/static/css/images/comments.svg",
+                "title": "_(Comments)"
+              },
+              {
+                "id": "bathgate-project",
+                "icon": "/static/css/images/park-icon.png",
+                "title": "_(Project)"
+              }
+            ]
+          },
+          {
+            "id": "climate-risks",
+            "title": "_(Climate risks)",
+            "layers": [
+              {
+                "id": "heatwaves",
+                "icon": "/static/css/images/heatwaves.svg",
+                "title": "_(Heat Waves)"
+              },
+              {
+                "id": "flood-zones",
+                "icon": "/static/css/images/flood-zones.svg",
+                "title": "_(Flood Zones)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "legend",
+        "component": "MapLegendPanel",
+        "icon": "fa-info-circle",
+        "title": "_(Map Legend)",
+        "groupings": [
+          {
+            "title": "_(Transit)",
+            "content": [
+              {
+                "swatch": "#c53932",
+                "label": "_(Train)"
+              },
+              {
+                "swatch": "#2c41d7",
+                "label": "_(Bus)"
+              }
+            ]
+          },
+          {
+            "title": "_(Zoning)",
+            "content": [
+              {
+                "swatch": "#f7fbff",
+                "label": "_(Residential 1)"
+              },
+              {
+                "swatch": "#e1edf8",
+                "label": "_(Residential 2)"
+              },
+              {
+                "swatch": "#ccdff1",
+                "label": "_(Residential 3)"
+              },
+              {
+                "swatch": "#afd1e7",
+                "label": "_(Residential 4)"
+              },
+              {
+                "swatch": "#88bedc",
+                "label": "_(Residential 5)"
+              },
+              {
+                "swatch": "#5fa6d1",
+                "label": "_(Residential 6)"
+              },
+              {
+                "swatch": "#3d8dc3",
+                "label": "_(Residential 7)"
+              },
+              {
+                "swatch": "#2171b5",
+                "label": "_(Residential 8)"
+              },
+              {
+                "swatch": "#0a539e",
+                "label": "_(Residential 9)"
+              },
+              {
+                "swatch": "#f7fbff",
+                "label": "_(Residential 10)"
+              },
+              {
+                "swatch": "#fdd5c4",
+                "label": "_(Manufacturing 1)"
+              },
+              {
+                "swatch": "#fb7050",
+                "label": "_(Manufacturing 2)"
+              },
+              {
+                "swatch": "#ba1419",
+                "label": "_(Manufacturing 3)"
+              },
+              {
+                "swatch": "#f2ef12",
+                "label": "_(Commcercial)"
+              },
+              {
+                "swatch": "#5c946e",
+                "label": "_(Parks)"
+              }
+            ]
+          },
+          {
+            "title": "_(Land temperature)",
+            "content": [
+              {
+                "swatch": "#9b331e",
+                "label": "_(50°C / 122°F)"
+              },
+              {
+                "swatch": "#986434",
+                "label": "_(48°C / 118°F)"
+              },
+              {
+                "swatch": "#cc362b",
+                "label": "_(46°C / 115°F)"
+              },
+              {
+                "swatch": "#e93f33",
+                "label": "_(44°C / 111°F)"
+              },
+              {
+                "swatch": "#e93f33",
+                "label": "_(42°C / 108°F)"
+              },
+              {
+                "swatch": "#f6cbca",
+                "label": "_(40°C / 104°F)"
+              },
+              {
+                "swatch": "#f9cc65",
+                "label": "_(38°C / 100°F)"
+              },
+              {
+                "swatch": "#fdf733",
+                "label": "_(36°C / 99°F)"
+              },
+              {
+                "swatch": "#fcfccb",
+                "label": "_(34°C / 93°F)"
+              },
+              {
+                "swatch": "#cbf9cc",
+                "label": "_(32°C / 90°F)"
+              },
+              {
+                "swatch": "#7ef368",
+                "label": "_(30°C / 86°F)"
+              },
+              {
+                "swatch": "#6ccd13",
+                "label": "_(28°C / 82°F)"
+              },
+              {
+                "swatch": "#97fafc",
+                "label": "_(26°C / 79°F)"
+              },
+              {
+                "swatch": "#59cdfc",
+                "label": "_(24°C / 75°F)"
+              },
+              {
+                "swatch": "#6765fc",
+                "label": "_(22°C / 72°F)"
+              },
+              {
+                "swatch": "#cccccc",
+                "label": "_(20°C / 68°F)"
+              },
+              {
+                "swatch": "#efb1fe",
+                "label": "_(18°C / 64°F)"
+              },
+              {
+                "swatch": "#e55ffd",
+                "label": "_(16°C / 61°F)"
+              },
+              {
+                "swatch": "#9b3999",
+                "label": "_(14°C / 57°F)"
+              },
+              {
+                "swatch": "#152ac9",
+                "label": "_(12°C / 54°F)"
+              },
+              {
+                "swatch": "#323103",
+                "label": "_(10°C / 50°F)"
+              },
+              {
+                "swatch": "#4d3707",
+                "label": "_(8°C / 46°F)"
+              },
+              {
+                "swatch": "#4a0065",
+                "label": "_(6°C / 43°F)"
+              }
+            ]
+          },
+          {
+            "title": "_(Flood zones)",
+            "content": [
+              {
+                "swatch": "#c04b46",
+                "label": "_(Category 1 Hurricane)"
+              },
+              {
+                "swatch": "#eba05c",
+                "label": "_(Category 2 Hurricane)"
+              },
+              {
+                "swatch": "#efe78c",
+                "label": "_(Category 3 Hurricane)"
+              },
+              {
+                "swatch": "#fcf75e",
+                "label": "_(Category 4 Hurricane)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": true,
+    "interval": 30000
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Add your comments)",
+    "show_list_button_label": "_(Comments)",
+    "show_map_button_label": "_(Comments)",
+    "action_text": "_(added)",
+    "title": "_(Tell us more...)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "bathgate-project",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "bathgate-project",
+        "icon_url": "/static/css/images/park-icon.png",
+        "value": "featured_place",
+        "label": "_(Project Site)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "marker": "marker-star.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Enter your email address for updates)",
+            "placeholder": "_(name@mail.com)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "community_input",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "bathgate-input",
+        "icon_url": "/static/css/images/markers/comment-map-marker.svg",
+        "value": "community_input",
+        "label": "_(Add a comment)",
+        "fields": [
+          {
+            "name": "private-age",
+            "prompt": "_(How old are you?)",
+            "type": "range",
+            "max": 100,
+            "min": 15,
+            "default_value": 50,
+            "autocomplete": true,
+            "horizontal_rule_below": true
+          },
+          {
+            "name": "regular_user",
+            "type": "big_toggle",
+            "autocomplete": true,
+            "prompt": "_(Are you a regular user of this garden?)",
+            "display_prompt": "_(I am a regular user of this garden:)",
+            "content": [
+              {
+                "label": "_(I am a regular user of this garden)",
+                "value": "yes"
+              },
+              {
+                "label": "_(I am a regular user of this garden)",
+                "value": "no"
+              }
+            ],
+            "optional": false,
+            "horizontal_rule_below": true
+          },
+          {
+            "name": "children_at_home",
+            "type": "big_toggle",
+            "autocomplete": true,
+            "prompt": "_(Do you have children at home?)",
+            "display_prompt": "_(I have children at home:)",
+            "content": [
+              {
+                "label": "_(I have children at home)",
+                "value": "yes"
+              },
+              {
+                "label": "_(I have children at home)",
+                "value": "no"
+              }
+            ],
+            "optional": false,
+            "horizontal_rule_below": true
+          },
+          {
+            "name": "language",
+            "autocomplete": true,
+            "type": "dropdown",
+            "prompt": "_(What is your preferred language?)",
+            "display_prompt": "_(My preferred language:)",
+            "content": [
+              {
+                "label": "_(Bengali)",
+                "value": "bengali"
+              },
+              {
+                "label": "_(Cantonese)",
+                "value": "cantonese"
+              },
+              {
+                "label": "_(English)",
+                "value": "english"
+              },
+              {
+                "label": "_(Mandarin)",
+                "value": "mandarin"
+              },
+              {
+                "label": "_(Spanish)",
+                "value": "spanish"
+              },
+              {
+                "label": "_(Other)",
+                "value": "other"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Enter your email address for updates)",
+            "placeholder": "_(name@mail.com)",
+            "optional": true,
+            "autocomplete": true
+          },
+          {
+            "name": "input_category",
+            "prompt": "_(What type of comment is this?)",
+            "type": "big_radio",
+            "default_value": "recommendation",
+            "content": [
+              {
+                "label": "_(Recommendation)",
+                "label_plural": "_(Recommendations)",
+                "value": "recommendation"
+              },
+              {
+                "label": "_(Concern)",
+                "label_plural": "_(Concerns)",
+                "value": "concern"
+              }
+            ],
+            "optional": false
+          },
+          {
+            "name": "input_text",
+            "type": "textarea",
+            "autocomplete": false,
+            "prompt": "_(What would encourage you to use this space more often?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Write your comment here)",
+            "optional": false
+          },
+          {
+            "name": "input_subcategory",
+            "prompt": "_(Select any of the below categories that apply:)",
+            "type": "big_checkbox",
+            "content": [
+              {
+                "label": "_(Amenities)",
+                "value": "amenities"
+              },
+              {
+                "label": "_(Horticulture)",
+                "value": "horticulture"
+              },
+              {
+                "label": "_(Programs)",
+                "value": "programs"
+              },
+              {
+                "label": "_(Safety)",
+                "value": "safety"
+              },
+              {
+                "label": "_(Experience)",
+                "value": "experience"
+              },
+              {
+                "label": "_(Other)",
+                "value": "other"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "_(Your name)",
+        "placeholder": "_(Name)",
+        "autocomplete": true,
+        "optional": false
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(Submit comment)"
+      }
+    }
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "pages": [
+    {
+      "title": "_(Map)",
+      "name": "18/40.8448203256656/-73.89809310436249"
+    },
+    {
+      "title": "_(Project)",
+      "slug": "about",
+      "name": "overview",
+      "start_page": true
+    }
+  ],
+  "custom_components": {
+    "InputForm": "VVInputForm",
+    "FieldSummary": "VVFieldSummary"
+  }
+}

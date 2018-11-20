@@ -1,0 +1,1239 @@
+{
+  "app": {
+    "title": "Seattle Neighborhood Greenways",
+    "name": "Seattle Neighborhood Greenways",
+    "meta_description": "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)",
+    "meta_author": "SmarterCleanup.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "cartodb_enabled": true,
+    "geocode_bounding_box": [
+      46.5,
+      -124,
+      48.5,
+      -119
+    ],
+    "options": {
+      "center": {
+        "lat": 47.58787,
+        "lng": -122.32264
+      },
+      "zoom": 12,
+      "minZoom": 1,
+      "maxZoom": 18
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "url": "//api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "satellite",
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "light",
+        "url": "//a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+        "attribution": "Hello World",
+        "type": "basemap"
+      },
+      {
+        "id": "dark",
+        "url": "//api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "greenways",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greenways",
+        "type": "place",
+        "slug": "report"
+      },
+      {
+        "id": "greenways_layer",
+        "type": "cartodb",
+        "url": "https://lenswork64.carto.com/api/v2/viz/d59f6828-6b15-11e6-bed3-0e233c30368f/viz.json"
+      },
+      {
+        "id": "bikemaster",
+        "type": "cartodb",
+        "url": "https://lenswork64.carto.com/api/v2/viz/3851820a-6b19-11e6-9cf5-0ee66e2c9693/viz.json"
+      },
+      {
+        "id": "landuse",
+        "type": "cartodb",
+        "url": "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json",
+        "opacity": 0.5
+      },
+      {
+        "id": "noxious-weeds",
+        "type": "cartodb",
+        "url": "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json",
+        "opacity": 0.5
+      },
+      {
+        "id": "zoning",
+        "type": "esri-feature",
+        "url": "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17",
+        "popupContent": "{{CLASS_DESC}}",
+        "rules": [
+          {
+            "condition": "\"{{properties.CLASS_DESC}}\" === \"Single Family\"",
+            "style": {
+              "color": "#008000",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "\"{{properties.CLASS_DESC}}\" === \"Multi-Family\"",
+            "style": {
+              "color": "#008080",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "\"{{properties.CLASS_DESC}}\" === \"Neighborhood/Commercial\"",
+            "style": {
+              "color": "#800080",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "\"{{properties.CLASS_DESC}}\" === \"Manufacturing/Industrial\"",
+            "style": {
+              "color": "#FFA500",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "true",
+            "style": {
+              "fill": false,
+              "stroke": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "place_types": {
+    "mapboxZoomStyle": [
+      {
+        "condition": "this.layer.focused === true",
+        "icon": {
+          "iconSize": [
+            50,
+            50
+          ],
+          "iconAnchor": [
+            25,
+            25
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom < 16",
+        "icon": {
+          "iconSize": [
+            20,
+            20
+          ],
+          "iconAnchor": [
+            10,
+            10
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom >= 16",
+        "icon": {
+          "iconSize": [
+            30,
+            30
+          ],
+          "iconAnchor": [
+            15,
+            15
+          ]
+        }
+      }
+    ],
+    "mapbox": {
+      "rules": [
+        {
+          "condition": "this.geometry.type == \"LineString\"",
+          "style": {
+            "color": "this.style.color",
+            "opacity": "this.style.opacity",
+            "weight": "this.style.weight"
+          }
+        },
+        {
+          "condition": "this.geometry.type == \"Polygon\"",
+          "style": {
+            "shapeType": "polygon",
+            "fillColor": "this.style.fillColor",
+            "fill": "true",
+            "color": "this.style.color",
+            "opacity": 0.7,
+            "fillOpacity": "this.style.fillOpacity",
+            "weight": "this.style.weight"
+          }
+        }
+      ]
+    },
+    "vegetation": {
+      "label": "_(vegetation report)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-vegetation.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-vegetation.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-vegetation.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "signage": {
+      "label": "_(signage report)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-signage.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-signage.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-signage.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "pavement": {
+      "label": "_(pavement report)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-pavement.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-f95016.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-pavement.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-pavement.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "walkability": {
+      "label": "_(walkability report)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-walkability.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-f95016.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-walkability.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-walkability.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "accessibility": {
+      "label": "_(accessibility report)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-accessibility.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-f95016.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-accessibility.png",
+            "iconSize": [
+              18,
+              21.75
+            ],
+            "iconAnchor": [
+              9,
+              21.75
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-accessibility.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "traffic": {
+      "label": "_(traffic report)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-traffic.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-f95016.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-traffic.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-traffic.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "design": {
+      "label": "_(design suggestion)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-design.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-f95016.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-design.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-design.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sidebar": {
+    "enabled": true,
+    "legend_enabled": true,
+    "slug": "filter-type",
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "list",
+        "view": "GISLegendView",
+        "title": "_(Map Layers:)",
+        "basemaps": [
+          {
+            "id": "light",
+            "title": "_(Light)",
+            "visibleDefault": true
+          },
+          {
+            "id": "osm",
+            "title": "_(OpenStreetMap)",
+            "visibleDefault": false
+          },
+          {
+            "id": "satellite",
+            "title": "_(Satellite View)",
+            "visibleDefault": false
+          },
+          {
+            "id": "dark",
+            "title": "_(Dark)",
+            "visibleDefault": false
+          }
+        ],
+        "groupings": [
+          {
+            "id": "grp-community",
+            "title": "_(Community Data)",
+            "visibleDefault": true,
+            "layers": [
+              {
+                "id": "greenways",
+                "title": "_(Community Reports)",
+                "visibleDefault": true
+              },
+              {
+                "id": "greenways_layer",
+                "title": "_(Greenways)",
+                "visibleDefault": true
+              },
+              {
+                "id": "bikemaster",
+                "title": "_(Bicycle Master Plan)",
+                "visibleDefault": false
+              }
+            ]
+          },
+          {
+            "id": "grp-land",
+            "title": "_(Land Data)",
+            "visibleDefault": false,
+            "layers": [
+              {
+                "id": "landuse",
+                "title": "_(Land use)",
+                "visibleDefault": false
+              },
+              {
+                "id": "noxious-weeds",
+                "title": "_(Noxious Weeds)",
+                "visibleDefault": false
+              },
+              {
+                "id": "zoning",
+                "title": "_(Zoning)",
+                "visibleDefault": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ticker",
+        "view": "ActivityView",
+        "icon": "comments-o",
+        "activity": true,
+        "title": "_(Activity Stream:)"
+      },
+      {
+        "id": "reports_legend",
+        "title": "_(Citizen Reports:)",
+        "view": "LegendView",
+        "icon": "info-circle",
+        "items": [
+          {
+            "title": "_(Observations)",
+            "image": "/static/css/images/markers/marker-observation.png",
+            "url": "/filter/observation"
+          },
+          {
+            "title": "_(Ideas)",
+            "image": "/static/css/images/markers/marker-idea.png",
+            "url": "/filter/idea"
+          },
+          {
+            "title": "_(Questions)",
+            "image": "/static/css/images/markers/marker-question.png",
+            "url": "/filter/question"
+          },
+          {
+            "title": "_(Complaints)",
+            "image": "/static/css/images/markers/marker-complaint.png",
+            "url": "/filter/complaint"
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": true,
+    "interval": 30000
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Submit a neighborhood report)",
+    "show_list_button_label": "_(See All Reports)",
+    "show_map_button_label": "_(Show the Map)",
+    "action_text": "_(added)",
+    "title": "_(Tell us more...)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "vegetation",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "greenways",
+        "icon_url": "/static/css/images/markers/marker-vegetation.png",
+        "value": "vegetation",
+        "label": "_(Vegetation)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "signage",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "greenways",
+        "icon_url": "/static/css/images/markers/marker-signage.png",
+        "value": "signage",
+        "label": "_(Signage)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter question...)"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "pavement",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "greenways",
+        "icon_url": "/static/css/images/markers/marker-pavement.png",
+        "value": "pavement",
+        "label": "_(Pavement)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "walkability",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "greenways",
+        "icon_url": "/static/css/images/markers/marker-walkability.png",
+        "value": "walkability",
+        "label": "_(Walkability)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "walkability_issue",
+            "type": "big_checkbox",
+            "prompt": "_(Walkability issue:)",
+            "display_prompt": "_(Check all that apply:)",
+            "content": [
+              {
+                "label": "_(Slip hazard)",
+                "value": "slip"
+              },
+              {
+                "label": "_(Trip hazard)",
+                "value": "trip"
+              },
+              {
+                "label": "_(Obstruction)",
+                "value": "obstruction"
+              },
+              {
+                "label": "_(Vegetation overgrowth)",
+                "value": "veg_overgrowth"
+              },
+              {
+                "label": "_(Other)",
+                "value": "other"
+              }
+            ]
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description: )",
+            "display_prompt": "_( )",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "accessibility",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "greenways",
+        "icon_url": "/static/css/images/markers/marker-accessibility.png",
+        "value": "accessibility",
+        "label": "_(Accessibility)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "traffic",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "greenways",
+        "icon_url": "/static/css/images/markers/marker-traffic.png",
+        "value": "traffic",
+        "label": "_(Traffic)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "design",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "greenways",
+        "icon_url": "/static/css/images/markers/marker-design.png",
+        "value": "design",
+        "label": "_(Design)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "_(Your name)",
+        "placeholder": "_(Name)",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "type": "text",
+        "prompt": "_(Your Email)",
+        "placeholder": "_(Receive email updates on your report)",
+        "optional": true,
+        "sticky": true
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(Put it on the map!)"
+      }
+    }
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "pages": [
+    {
+      "title": "_(About)",
+      "slug": "about",
+      "name": "overview"
+    },
+    {
+      "title": "_(Background)",
+      "slug": "background",
+      "name": "background",
+      "hide_from_top_bar": true
+    },
+    {
+      "title": "_(Get involved)",
+      "slug": "getinvolved",
+      "name": "contribute"
+    },
+    {
+      "title": "_(Green Screen)",
+      "slug": "greenscreen",
+      "name": "greenscreen",
+      "hide_from_top_bar": true
+    },
+    {
+      "slug": "sponsors",
+      "name": "sponsors",
+      "hide_from_top_bar": true
+    },
+    {
+      "slug": "youthcorps2015",
+      "name": "youthcorps2015",
+      "hide_from_top_bar": true
+    }
+  ]
+}

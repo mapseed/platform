@@ -1,0 +1,1075 @@
+{
+  "app": {
+    "title": "The Green-Duwamish",
+    "name": "The Green-Duwamish Watershed",
+    "meta_description": "_(A free and open source stakeholder map of the Green-Duwamish Watershed (WRIA9))",
+    "meta_author": "SmarterCleanup.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "list_enabled": false
+  },
+  "languages": [
+    {
+      "code": "en_US",
+      "label": "I Speak English"
+    },
+    {
+      "code": "es",
+      "label": "Hablo Español"
+    },
+    {
+      "code": "vi",
+      "label": "tôi nói tiếng việt"
+    }
+  ],
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "cartodb_enabled": true,
+    "geocode_bounding_box": [
+      46.5,
+      -124,
+      48.5,
+      -119
+    ],
+    "options": {
+      "center": {
+        "lat": 47.3858,
+        "lng": -121.90739
+      },
+      "zoom": 11,
+      "minZoom": 1,
+      "maxZoom": 18
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "satellite",
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "additions",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json",
+        "type": "cartodb"
+      },
+      {
+        "id": "duwamish",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish",
+        "type": "place",
+        "slug": "report"
+      },
+      {
+        "id": "trees",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees",
+        "type": "place",
+        "slug": "trees"
+      },
+      {
+        "id": "air",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air",
+        "type": "place",
+        "slug": "air"
+      },
+      {
+        "id": "restoration",
+        "url": "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks",
+        "sources": [
+          "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/test.geojson"
+        ],
+        "type": "landmark"
+      },
+      {
+        "id": "cleanup",
+        "type": "cartodb",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
+      },
+      {
+        "id": "landuse",
+        "type": "cartodb",
+        "url": "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json",
+        "opacity": 0.5
+      },
+      {
+        "id": "phases",
+        "type": "cartodb",
+        "url": "https://gis206.cartodb.com/api/v2/viz/217a2e02-e729-11e5-9bd4-0e5db1731f59/viz.json"
+      },
+      {
+        "id": "duwamish-original",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json",
+        "type": "cartodb",
+        "opacity": 0.4
+      },
+      {
+        "id": "noxious-weeds",
+        "type": "cartodb",
+        "url": "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
+      },
+      {
+        "id": "sun-angles",
+        "type": "cartodb",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/8bcf5444-fe12-11e5-8b83-0e3ff518bd15/viz.json"
+      },
+      {
+        "id": "green-gorge",
+        "type": "cartodb",
+        "url": "https://emayorga.cartodb.com/api/v2/viz/b1edd320-2981-11e3-856d-4d839a7df546/viz.json"
+      },
+      {
+        "id": "emilio",
+        "type": "cartodb",
+        "url": "https://emayorga.cartodb.com/api/v2/viz/fb184750-5e4d-11e3-8523-3d3c64e1fada/viz.json"
+      },
+      {
+        "id": "watershed",
+        "type": "cartodb",
+        "url": "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
+      }
+    ]
+  },
+  "place_types": {
+    "mapboxZoomStyle": [
+      {
+        "condition": "this.layer.focused === true",
+        "icon": {
+          "iconSize": [
+            45,
+            64
+          ],
+          "iconAnchor": [
+            23,
+            64
+          ]
+        }
+      },
+      {
+        "condition": "true",
+        "icon": {
+          "iconSize": [
+            35,
+            50
+          ],
+          "iconAnchor": [
+            17,
+            50
+          ]
+        }
+      }
+    ],
+    "mapbox": {
+      "rules": [
+        {
+          "condition": "this.geometry.type == \"LineString\"",
+          "style": {
+            "color": "this.style.color",
+            "opacity": "this.style.opacity",
+            "weight": "this.style.weight"
+          }
+        },
+        {
+          "condition": "this.geometry.type == \"Polygon\"",
+          "style": {
+            "shapeType": "polygon",
+            "fillColor": "this.style.fillColor",
+            "fill": "true",
+            "color": "this.style.color",
+            "opacity": 0.7,
+            "fillOpacity": "this.style.fillOpacity",
+            "weight": "this.style.weight"
+          }
+        }
+      ]
+    },
+    "danger": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-forest.png"
+          }
+        }
+      ]
+    },
+    "park2": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-gsi.png"
+          }
+        }
+      ]
+    },
+    "industrial": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-research.png"
+          }
+        }
+      ]
+    },
+    "bicycle": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-research.png"
+          }
+        }
+      ]
+    },
+    "swimming": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-swimming.png"
+          }
+        }
+      ]
+    },
+    "theatre": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-tree.png"
+          }
+        }
+      ]
+    },
+    "zoo": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-water.png"
+          }
+        }
+      ]
+    },
+    "farm": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-rec.png"
+          }
+        }
+      ]
+    },
+    "observation": {
+      "label": "_(Observation)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "question": {
+      "label": "_(Question)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "idea": {
+      "label": "_(Idea)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-f95016.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "complaint": {
+      "label": "_(Complaint)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              15,
+              18
+            ],
+            "iconAnchor": [
+              7.5,
+              18
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 16",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "air_watch": {
+      "label": "_(Air Watch)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 17",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "iconSize": [
+              18,
+              21.75
+            ],
+            "iconAnchor": [
+              9,
+              21.75
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 17",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "tree": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-tree.png"
+          }
+        }
+      ]
+    }
+  },
+  "sidebar": {
+    "enabled": true,
+    "legend_enabled": true,
+    "slug": "filter-type",
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "list",
+        "view": "GISLegendView",
+        "title": "_(Map Layers:)",
+        "basemaps": [
+          {
+            "id": "osm",
+            "title": "_(OpenStreetMap)",
+            "visibleDefault": true
+          },
+          {
+            "id": "satellite",
+            "title": "_(Satellite View)",
+            "visibleDefault": false
+          }
+        ],
+        "groupings": [
+          {
+            "id": "grp-land",
+            "title": "_(Land Data)",
+            "visibleDefault": false,
+            "layers": [
+              {
+                "id": "sun-angles",
+                "title": "_(Riparian sun angles)",
+                "description": "_(Riparian sun angles)",
+                "visibleDefault": true
+              },
+              {
+                "id": "noxious-weeds",
+                "title": "_(Noxious Weeds)",
+                "description": "_(Invasive species of weeds)",
+                "visibleDefault": false
+              },
+              {
+                "id": "landuse",
+                "title": "_(Land use)",
+                "description": "_(Land use data from 2010)",
+                "visibleDefault": false
+              },
+              {
+                "id": "phases",
+                "title": "_(Green Seattle partnership)",
+                "description": "_(Restoration phases from the Green Seattle Partnership)",
+                "visibleDefault": true
+              },
+              {
+                "id": "green-gorge",
+                "title": "_(Green river gorge)"
+              },
+              {
+                "id": "emilio",
+                "title": "_(Green River Land Ownership)"
+              },
+              {
+                "id": "watershed",
+                "title": "_(Watershed)",
+                "visibleDefault": true
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "_(Community Data)",
+            "visibleDefault": false,
+            "layers": [
+              {
+                "id": "duwamish",
+                "title": "_(Community Reports)",
+                "description": "_(Reports added to the map by citizens)",
+                "visibleDefault": false
+              },
+              {
+                "id": "trees",
+                "title": "_(Trees)",
+                "description": "_(Reports added to the map by citizens)",
+                "visibleDefault": false
+              },
+              {
+                "id": "air",
+                "title": "_(Air Reports)",
+                "description": "_(Reports added to the map by citizens)",
+                "visibleDefault": false
+              },
+              {
+                "id": "cleanup",
+                "title": "_(River Cleanup Plan)",
+                "description": "_(The EPA-approved cleanup plan for the river)",
+                "visibleDefault": false
+              },
+              {
+                "id": "restoration",
+                "title": "_(Restoration Sites)",
+                "description": "_(Habitat restoration and other improvements)",
+                "visibleDefault": true
+              },
+              {
+                "id": "air",
+                "title": "_(Air Watch Reports)",
+                "description": "_(Air quality reports)",
+                "visibleDefault": true
+              },
+              {
+                "id": "trees",
+                "title": "_(Trees)",
+                "description": "_(New trees)",
+                "visibleDefault": true
+              }
+            ]
+          },
+          {
+            "id": "grp-history",
+            "title": "_(Historical Data)",
+            "visibleDefault": false,
+            "layers": [
+              {
+                "id": "duwamish-original",
+                "title": "_(Original River Path)",
+                "description": "_(The original Duwamish River path)",
+                "visibleDefault": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "organizations",
+        "view": "LegendView",
+        "title": "_(Sites by organization:)",
+        "icon": "users",
+        "items": [
+          {
+            "title": "Port of Seattle",
+            "image": "/static/css/images/pos-logo.jpg",
+            "url": "/filter/observation",
+            "items": [
+              {
+                "title": "_(Terminal 105)",
+                "url": "/terminal-105"
+              },
+              {
+                "title": "_(Puget Creek Estuary)",
+                "url": "/puget-creek-estuary"
+              },
+              {
+                "title": "_(Seattle Seawall Project)",
+                "url": "/seattle-seawall-project"
+              }
+            ]
+          },
+          {
+            "title": "Seattle Public Utilities",
+            "image": "/static/css/images/spu-logo.jpg",
+            "url": "/filter/idea",
+            "items": [
+              {
+                "title": "_(Lower Fauntleroy Creek)",
+                "url": "/lower-fauntleroy-creek"
+              },
+              {
+                "title": "_(Longfellow Creek at Thistle Street)",
+                "url": "/longfellow-creek-at-thistle-street"
+              },
+              {
+                "title": "_(Longfellow Creek 2)",
+                "url": "/longfellow-creek-2"
+              }
+            ]
+          },
+          {
+            "title": "Forterra",
+            "image": "/static/css/images/forterra-logo.jpg",
+            "url": "/filter/complaint",
+            "items": [
+              {
+                "title": "_(Duwamish Hill Preserve)",
+                "url": "/duwamish-hill-preserve"
+              },
+              {
+                "title": "_(Feeder Bluff Protection Acquisition (Beaconsfield))",
+                "url": "/feeder-bluff-protection-acquisition-beaconsfield-ns-11"
+              },
+              {
+                "title": "_(Beaconsfield on the Sound)",
+                "url": "/beaconsfield-on-the-sound-clc"
+              }
+            ]
+          },
+          {
+            "title": "Army Corps of Engineers",
+            "image": "/static/css/images/acoe-logo.png",
+            "url": "/filter/question",
+            "items": [
+              {
+                "title": "_(Marysville to Brown's Point)",
+                "url": "/marysville-to-browns-point"
+              },
+              {
+                "title": "_(Olson Creek Restoration)",
+                "url": "/olson-creek-restoration-project-details-lg-2"
+              },
+              {
+                "title": "_(Hawley Revetment)",
+                "url": "/hawley-revetment-lg-7"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "reports_legend",
+        "view": "LegendView",
+        "title": "_(Legend:)",
+        "icon": "info-circle",
+        "items": [
+          {
+            "title": "_(Wetland protection)",
+            "image": "/static/css/images/markers/marker-swimming.png",
+            "url": "/filter/observation"
+          },
+          {
+            "title": "_(Research & Monitoring)",
+            "image": "/static/css/images/markers/marker-research.png",
+            "url": "/filter/idea"
+          },
+          {
+            "title": "_(Recreation / Open space)",
+            "image": "/static/css/images/markers/marker-rec.png",
+            "url": "/filter/question"
+          },
+          {
+            "title": "_(Tree planting)",
+            "image": "/static/css/images/markers/marker-tree.png",
+            "url": "/filter/complaint"
+          },
+          {
+            "title": "_(Water quality)",
+            "image": "/static/css/images/markers/marker-water.png",
+            "url": "/filter/complaint"
+          },
+          {
+            "title": "_(Forest management)",
+            "image": "/static/css/images/markers/marker-forest.png",
+            "url": "/filter/complaint"
+          },
+          {
+            "title": "_(Green infastructure)",
+            "image": "/static/css/images/markers/marker-gsi.png",
+            "url": "/filter/complaint"
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false,
+    "interval": 30000
+  },
+  "place": {
+    "dataset_slug": "report",
+    "adding_supported": false,
+    "add_button_label": "_(Add a report to the map!)",
+    "show_list_button_label": "_(See All Reports)",
+    "show_map_button_label": "_(Show the Map)",
+    "title": "_(Tell us more...)",
+    "action_text": "_(created)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "location",
+    "categories": {
+      "tree": {
+        "name": "location_type"
+      },
+      "air_watch": {
+        "name": "location_type"
+      }
+    },
+    "items": [
+      {
+        "prompt": "_(Type of report)",
+        "type": "select",
+        "options": [
+          {
+            "label": "_(Observation)",
+            "value": "observation"
+          },
+          {
+            "label": "_(Question)",
+            "value": "question"
+          },
+          {
+            "label": "_(Idea)",
+            "value": "idea"
+          },
+          {
+            "label": "_(Complaint)",
+            "value": "complaint"
+          }
+        ],
+        "name": "location_type",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Title of report)",
+        "type": "text",
+        "name": "name",
+        "optional": null,
+        "attrs": [
+          {
+            "key": "required"
+          },
+          {
+            "key": "placeholder",
+            "value": "_(Enter title)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Description)",
+        "type": "textarea",
+        "name": "description",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Description...)"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Name)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Email)",
+        "type": "text",
+        "name": "private-submitter_email",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Receive email updates on your report)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Image)",
+        "inputfile_label": "_(Add an Image)",
+        "type": "file",
+        "name": "my_image",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "accept",
+            "value": "image/*"
+          }
+        ]
+      }
+    ]
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "sticky": true
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "pages": [
+    {
+      "title": "_(About)",
+      "slug": "about",
+      "name": "about"
+    }
+  ]
+}

@@ -1,0 +1,1665 @@
+{
+  "app": {
+    "title": "Our Puget Sound",
+    "name": "Our Puget Sound",
+    "show_name_in_header": true,
+    "logo": "/static/css/images/soundkeeper-logo-high-res-small.png",
+    "meta_description": "_(Welcome!)",
+    "meta_author": "SmarterCleanup.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#007ec0"
+      },
+      "bg": {
+        "default": "#0f0f3d",
+        "light": "#007fbe"
+      },
+      "text": {
+        "titleColor": "#fff",
+        "secondary": "#fff",
+        "tertiary": "#fff",
+        "titleFontFamily": "AlfaSlabOne-Regular,serif"
+      }
+    }
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geocode_bounding_box": [
+      46.5,
+      -124,
+      48.5,
+      -119
+    ],
+    "options": {
+      "map": {
+        "center": {
+          "lat": 47.5529,
+          "lng": -122.33654
+        },
+        "zoom": 11,
+        "minZoom": 1,
+        "maxZoom": 18
+      },
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      }
+    },
+    "layers": [
+      {
+        "id": "topo",
+        "is_basemap": true,
+        "is_visible_default": true,
+        "type": "raster-tile",
+        "url": "https://stamen-tiles-b.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png"
+      },
+      {
+        "id": "satellite",
+        "is_basemap": true,
+        "type": "raster-tile",
+        "url": "https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
+      },
+      {
+        "id": "light-nolabels",
+        "is_basemap": true,
+        "type": "raster-tile",
+        "url": "https://api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "Hello World"
+      },
+      {
+        "id": "pugetsound",
+        "is_visible_default": true,
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound",
+        "type": "place",
+        "slug": "report",
+        "focus_rules": [
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "pollution"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-observation.png",
+              "icon-size": 1.1,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "pollution"
+              ],
+              [
+                "<",
+                [
+                  "zoom"
+                ],
+                11
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-0d85e9.png",
+              "icon-size": 0.8,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "pollution"
+              ],
+              [
+                ">=",
+                [
+                  "zoom"
+                ],
+                11
+              ],
+              [
+                "<",
+                [
+                  "zoom"
+                ],
+                16
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-observation.png",
+              "icon-size": 0.8,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "pollution"
+              ],
+              [
+                ">=",
+                [
+                  "zoom"
+                ],
+                16
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-observation.png",
+              "icon-size": 1,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "1936aerial",
+        "is_basemap": true,
+        "type": "wmts",
+        "url": "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS",
+        "layers": "BaseMaps_KingCo_Aerial_1936",
+        "tilematrix_set": "default028mm",
+        "version": "1.0.0",
+        "transparent": false,
+        "format": "image/jpg"
+      },
+      {
+        "id": "scorecard-layer",
+        "type": "json",
+        "popup_content": "<div><h3>{{CITYNAME}}</h3></div><div><h4>Total Score: {{LID_Checklist_Master_score}}</h4></div><div><strong>Footprint: </strong>{{LID_Checklist_Master_Footprint}}</div><div><strong>Clearing & Grading: </strong>{{clearing-grading}}</div><div><strong>Permeable: </strong>{{LID_Checklist_Master_Permeable}}</div><div><strong>Tree List: </strong>{{tree-list}}</div><div><strong>Critical Buffers / Native Veg Buffer Enhancement: </strong>{{buffers}}</div>",
+        "source": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
+        "rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "LID_Checklist_Master_score"
+              ],
+              5
+            ],
+            "fill-paint": {
+              "fill-color": "#fef0d9",
+              "fill-opacity": 0.6,
+              "fill-outline-color": "#000000"
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "LID_Checklist_Master_score"
+              ],
+              4
+            ],
+            "fill-paint": {
+              "fill-color": "#fdcc8a",
+              "fill-opacity": 0.6,
+              "fill-outline-color": "#000000"
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "LID_Checklist_Master_score"
+              ],
+              3
+            ],
+            "fill-paint": {
+              "fill-color": "#fc8d59",
+              "fill-opacity": 0.6,
+              "fill-outline-color": "#000000"
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "LID_Checklist_Master_score"
+              ],
+              2
+            ],
+            "fill-paint": {
+              "fill-color": "#e34a33",
+              "fill-opacity": 0.6,
+              "fill-outline-color": "#000000"
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "LID_Checklist_Master_score"
+              ],
+              1
+            ],
+            "fill-paint": {
+              "fill-color": "#b30000",
+              "fill-opacity": 0.6,
+              "fill-outline-color": "#000000"
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "LID_Checklist_Master_score"
+              ],
+              0
+            ],
+            "fill-paint": {
+              "fill-color": "#b30000",
+              "fill-opacity": 0.6,
+              "fill-outline-color": "#000000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "spill-incidents",
+        "type": "json",
+        "source": "https://raw.githubusercontent.com/mapseed/data/master/spill-incidents.geojson",
+        "popup_content": "<div><strong>Oil type: </strong>{{Oil_type}}</div><div><strong>Volume spilled: </strong>{{Quantity_t}} gallons</div>",
+        "rules": [
+          {
+            "filter": [
+              "<=",
+              [
+                "to-number",
+                [
+                  "get",
+                  "Quantity_t"
+                ]
+              ],
+              10
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-red-circle.png",
+              "icon-size": 0.05,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                ">",
+                [
+                  "to-number",
+                  [
+                    "get",
+                    "Quantity_t"
+                  ]
+                ],
+                10
+              ],
+              [
+                "<=",
+                [
+                  "to-number",
+                  [
+                    "get",
+                    "Quantity_t"
+                  ]
+                ],
+                100
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-red-circle.png",
+              "icon-size": 0.1,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                ">",
+                [
+                  "to-number",
+                  [
+                    "get",
+                    "Quantity_t"
+                  ]
+                ],
+                100
+              ],
+              [
+                "<=",
+                [
+                  "to-number",
+                  [
+                    "get",
+                    "Quantity_t"
+                  ]
+                ],
+                1000
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-red-circle.png",
+              "icon-size": 0.2,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          },
+          {
+            "filter": [
+              ">",
+              [
+                "to-number",
+                [
+                  "get",
+                  "Quantity_t"
+                ]
+              ],
+              1000
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-red-circle.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": "shellfish-harvesting",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/shellfish-harvesting/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/shellfish-harvesting/style.json",
+        "source_layer": "harvesting-sites"
+      },
+      {
+        "id": "chinook",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/chinook-habitat/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/chinook-habitat/style.json",
+        "source_layer": "chinook-habitat"
+      },
+      {
+        "id": "critical-habitat",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/nearshore-critical-habitat/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/nearshore-critical-habitat/style.json",
+        "source_layer": "nearshore-critical-habitat"
+      },
+      {
+        "id": "pugetsoundrose",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose",
+        "type": "place",
+        "slug": "rose",
+        "focus_rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "rose-grants"
+            ],
+            "symbol-layout": {
+              "icon-image": "map-pin-marker.png",
+              "icon-size": 0.8,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "rose-grants"
+            ],
+            "symbol-layout": {
+              "icon-image": "map-pin-marker.png",
+              "icon-size": 0.6,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "pugetsoundcases",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases",
+        "type": "place",
+        "slug": "cases",
+        "focus_rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "settled-cases"
+            ],
+            "symbol-layout": {
+              "icon-image": "map-pin-marker-red.png",
+              "icon-size": 0.8,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "settled-cases"
+            ],
+            "symbol-layout": {
+              "icon-image": "map-pin-marker-red.png",
+              "icon-size": 0.6,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "pugetsoundfeatured",
+        "is_visible_default": true,
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured",
+        "type": "place",
+        "slug": "featured",
+        "focus_rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "featured_place"
+            ],
+            "symbol-layout": {
+              "icon-size": 1.1,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "featured_place"
+            ],
+            "symbol-layout": {
+              "icon-size": 0.9,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cleanup-sites",
+        "type": "json",
+        "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/toxic-cleanup-sites.geojson",
+        "popup_content": "<h4>{{cleanupSiteName}}</h4><em>{{siteStatus}}</em>",
+        "cluster": {
+          "is_enabled": true,
+          "cluster_max_zoom": 12,
+          "cluster_radius": 100,
+          "paint": {
+            "circle-color": "#caffca",
+            "circle-radius": 30
+          }
+        },
+        "rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "siteStatus"
+              ],
+              "Awaiting Cleanup"
+            ],
+            "symbol-layout": {
+              "icon-image": "circle-267ab3.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "siteStatus"
+              ],
+              "Cleanup Started"
+            ],
+            "symbol-layout": {
+              "icon-image": "circle-b4df8d.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "siteStatus"
+              ],
+              "NFA"
+            ],
+            "symbol-layout": {
+              "icon-image": "circle-0b655e.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cso",
+        "type": "json",
+        "source": "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson",
+        "popup_content": "{{description}}",
+        "rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "description"
+              ],
+              "No recent overflow"
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-4ab767.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "description"
+              ],
+              "Overflowed in the last 48 hrs"
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-f95016.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "description"
+              ],
+              "Overflowing now"
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-e1264d.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          },
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "description"
+              ],
+              "Data not available"
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-0d85e9.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            },
+            "symbol-paint": {
+              "icon-opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": "clean-marinas",
+        "type": "json",
+        "source": "https://raw.githubusercontent.com/mapseed/data/master/clean-marinas.geojson",
+        "popup_content": "<strong>{{marina-name}}</strong>",
+        "rules": [
+          {
+            "filter": [
+              "<=",
+              [
+                "zoom"
+              ],
+              18
+            ],
+            "symbol-layout": {
+              "icon-image": "map-pin-marker-bluegreen.png",
+              "icon-size": 1,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "hydrography",
+        "type": "wms",
+        "is_basemap": true,
+        "url": "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer",
+        "layers": "0",
+        "version": "1.3.0",
+        "transparent": false,
+        "format": "image/png"
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "component": "StoryNavigator"
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Map Layers:)",
+        "basemaps": null,
+        "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layers": [
+              {
+                "id": "topo",
+                "title": "_(Topography)"
+              },
+              {
+                "id": "satellite",
+                "title": "_(Satellite View)"
+              },
+              {
+                "id": "hydrography",
+                "title": "_(Hydrography)"
+              },
+              {
+                "id": "1936aerial",
+                "title": "_(1936 Aerial View)"
+              },
+              {
+                "id": "light-nolabels",
+                "title": "_(Simple)"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "_(Map layers)",
+            "layers": [
+              {
+                "id": "pugetsound",
+                "title": "_(Community Reports)"
+              },
+              {
+                "id": "pugetsoundfeatured",
+                "title": "_(Featured Sites)"
+              },
+              {
+                "id": "cleanup-sites",
+                "title": "_(Toxic cleanup sites)"
+              },
+              {
+                "id": "pugetsoundrose",
+                "title": "_(Puget Sound Stewardship & Mitigation Fund)"
+              },
+              {
+                "id": "pugetsoundcases",
+                "title": "_(Settled Cases)"
+              },
+              {
+                "id": "scorecard-layer",
+                "title": "_(Scorecard)"
+              },
+              {
+                "id": "cso",
+                "title": "_(Sewer overflow)"
+              },
+              {
+                "id": "shellfish-harvesting",
+                "title": "_(Shellfish Harvesting Sites)"
+              },
+              {
+                "id": "spill-incidents",
+                "title": "_(Oil Spill Incidents)"
+              },
+              {
+                "id": "clean-marinas",
+                "title": "_(Clean Marinas)"
+              },
+              {
+                "id": "chinook",
+                "title": "_(Chinook Habitat)"
+              },
+              {
+                "id": "critical-habitat",
+                "title": "_(Nearshore Critical Habitat)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": true,
+    "interval": 30000
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Add a report)",
+    "show_list_button_label": "_(See All Reports)",
+    "show_map_button_label": "_(Show the Map)",
+    "title": "_(Tell us more...)",
+    "action_text": "_(created)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "location",
+    "default_basemap": "satellite",
+    "place_detail": [
+      {
+        "category": "featured_place",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "pugetsoundfeatured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "featured_place",
+        "label": "_(Featured Site)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "marker": "marker-heart.png"
+              },
+              {
+                "marker": "marker-star.png"
+              },
+              {
+                "marker": "marker-industrial.png"
+              },
+              {
+                "marker": "map-pin-marker.png"
+              },
+              {
+                "marker": "map-pin-marker-red.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "rose-grants",
+        "admin_only": true,
+        "includeOnForm": false,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "pugetsoundrose",
+        "icon_url": "/static/css/images/markers/map-pin-marker.png",
+        "value": "featured_place",
+        "label": "_(Featured Site)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "url": "/static/css/images/markers/marker-heart.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-star.png"
+              },
+              {
+                "url": "/static/css/images/markers/triangle-e1264d.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-industrial.png"
+              },
+              {
+                "url": "/static/css/images/markers/map-pin-marker.png"
+              },
+              {
+                "url": "/static/css/images/markers/map-pin-marker-red.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "settled-cases",
+        "admin_only": true,
+        "includeOnForm": false,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "pugetsoundcases",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "featured_place",
+        "label": "_(Featured Site)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "url": "/static/css/images/markers/marker-heart.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-star.png"
+              },
+              {
+                "url": "/static/css/images/markers/triangle-e1264d.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-industrial.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "pollution",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "pugetsound",
+        "icon_url": "/static/css/images/markers/marker-observation.png",
+        "value": "pollution",
+        "label": "_(Report Pollution)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your report:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": true
+          },
+          {
+            "name": "date",
+            "type": "datetime",
+            "prompt": "_(Date of incident:)",
+            "display_prompt": "_(Date of incident:)",
+            "placeholder": "_(Date of incicent...)",
+            "optional": true
+          },
+          {
+            "name": "waterway",
+            "type": "text",
+            "prompt": "_(Waterway:)",
+            "display_prompt": "_(Waterway:)",
+            "placeholder": "_(Which waterway does the incident concern?)",
+            "optional": true
+          },
+          {
+            "name": "pollution-location",
+            "type": "text",
+            "prompt": "_(Location of pollution)",
+            "display_prompt": "_(Location:)",
+            "placeholder": "_(Enter the location...)",
+            "optional": true
+          },
+          {
+            "name": "pollution-report",
+            "type": "textarea",
+            "prompt": "_(Report what you saw:)",
+            "display_prompt": "_(Report:)",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          },
+          {
+            "name": "reported_to_other",
+            "type": "big_toggle",
+            "prompt": "_(Have you reported this incident to anyone else?)",
+            "display_prompt": "_(Reported to someone else)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "community-action",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "pugetsound",
+        "icon_url": "/static/css/images/markers/marker-heart.png",
+        "value": "question",
+        "label": "_(Add a community action)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Describe your action:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Tell us more...)"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "_(Your name)",
+        "placeholder": "_(Name)",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "type": "text",
+        "prompt": "_(Your Email)",
+        "placeholder": "_(Receive email updates on your report)",
+        "optional": true,
+        "sticky": true
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(Put it on the map!)"
+      }
+    }
+  },
+  "notifications": {
+    "on_new_place": true,
+    "submitter_email_field": "private-submitter_email"
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "nav_bar": [
+    {
+      "title": "_(Stories)",
+      "type": "internal_link",
+      "url": "/page/stories",
+      "name": "overview",
+      "start_page": true
+    },
+    {
+      "title": "_(Layers)",
+      "type": "left_sidebar_toggle",
+      "component": "MapLayerPanel"
+    }
+  ],
+  "story": {
+    "home": {
+      "tagline": "_(Next featured site)",
+      "default_basemap": "satellite",
+      "default_zoom": 15,
+      "default_visible_layers": [
+        "pugetsoundfeatured"
+      ],
+      "order": [
+        {
+          "url": "featured/3927",
+          "zoom": 13,
+          "basemap": "satellite",
+          "spotlight": false
+        },
+        {
+          "url": "featured/3457",
+          "zoom": 14,
+          "basemap": "satellite"
+        },
+        {
+          "url": "featured/3718",
+          "zoom": 16,
+          "spotlight": false,
+          "basemap": "satellite"
+        },
+        {
+          "url": "featured/3471",
+          "zoom": 18,
+          "basemap": "satellite"
+        },
+        {
+          "url": "featured/3931",
+          "zoom": 7,
+          "pan_to": [
+            -122.31682047088867,
+            47.673217479920595
+          ],
+          "visible_layers": [
+            "clean-marinas"
+          ],
+          "spotlight": false,
+          "basemap": "light-nolabels"
+        },
+        {
+          "url": "featured/3929",
+          "zoom": 7,
+          "pan_to": [
+            -122.31682047088867,
+            47.673217479920595
+          ],
+          "visible_layers": [
+            "shellfish-harvesting"
+          ],
+          "basemap": "light-nolabels",
+          "spotlight": false
+        },
+        {
+          "url": "featured/3930",
+          "zoom": 7,
+          "pan_to": [
+            -122.31682047088867,
+            47.673217479920595
+          ],
+          "visible_layers": [
+            "spill-incidents"
+          ],
+          "basemap": "light-nolabels",
+          "spotlight": false
+        },
+        {
+          "url": "featured/3928",
+          "zoom": 10,
+          "pan_to": [
+            -122.31682047088867,
+            47.59085278732215
+          ],
+          "visible_layers": [
+            "cso"
+          ],
+          "spotlight": false,
+          "basemap": "satellite"
+        },
+        {
+          "url": "featured/3979",
+          "zoom": 8,
+          "pan_to": [
+            -122.31682047088867,
+            47.673217479920595
+          ],
+          "visible_layers": [
+            "scorecard-layer"
+          ],
+          "spotlight": false,
+          "basemap": "light-nolabels"
+        },
+        {
+          "url": "featured/3470",
+          "spotlight": false,
+          "zoom": 8,
+          "pan_to": [
+            -122.31682047088867,
+            47.673217479920595
+          ],
+          "visible_layers": [
+            "pugetsoundcases"
+          ]
+        }
+      ]
+    },
+    "rose-grants": {
+      "tagline": "_(Next grant)",
+      "default_zoom": 14,
+      "default_visible_layers": [
+        "pugetsoundrose"
+      ],
+      "order": [
+        {
+          "url": "featured/3469",
+          "zoom": 8,
+          "pan_to": [
+            -122.31682047088867,
+            47.673217479920595
+          ],
+          "spotlight": false,
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+        },
+        {
+          "url": "rose/3473"
+        },
+        {
+          "url": "rose/3474"
+        },
+        {
+          "url": "rose/3475"
+        },
+        {
+          "url": "rose/3476"
+        },
+        {
+          "url": "rose/3477"
+        },
+        {
+          "url": "rose/3478"
+        },
+        {
+          "url": "rose/3479"
+        },
+        {
+          "url": "rose/3480"
+        },
+        {
+          "url": "rose/3481"
+        },
+        {
+          "url": "rose/3482"
+        },
+        {
+          "url": "rose/3483"
+        },
+        {
+          "url": "rose/3484"
+        },
+        {
+          "url": "rose/3485"
+        },
+        {
+          "url": "rose/3486"
+        },
+        {
+          "url": "rose/3487"
+        },
+        {
+          "url": "rose/3488"
+        },
+        {
+          "url": "rose/3489"
+        },
+        {
+          "url": "rose/3490"
+        },
+        {
+          "url": "rose/3491"
+        },
+        {
+          "url": "rose/3492"
+        },
+        {
+          "url": "rose/3493"
+        },
+        {
+          "url": "rose/3494"
+        },
+        {
+          "url": "rose/3495"
+        },
+        {
+          "url": "rose/3496"
+        },
+        {
+          "url": "rose/3497"
+        },
+        {
+          "url": "rose/3498"
+        },
+        {
+          "url": "rose/3499"
+        },
+        {
+          "url": "rose/3500"
+        },
+        {
+          "url": "rose/3501"
+        },
+        {
+          "url": "rose/3502"
+        },
+        {
+          "url": "rose/3503"
+        },
+        {
+          "url": "rose/3504"
+        },
+        {
+          "url": "rose/3505"
+        },
+        {
+          "url": "rose/3506"
+        },
+        {
+          "url": "rose/3507"
+        },
+        {
+          "url": "rose/3508"
+        },
+        {
+          "url": "rose/3509"
+        },
+        {
+          "url": "rose/3510"
+        },
+        {
+          "url": "rose/3511"
+        },
+        {
+          "url": "rose/3512"
+        },
+        {
+          "url": "rose/3513"
+        },
+        {
+          "url": "rose/3514"
+        },
+        {
+          "url": "rose/3515"
+        },
+        {
+          "url": "rose/3516"
+        },
+        {
+          "url": "rose/3517"
+        },
+        {
+          "url": "rose/3518"
+        },
+        {
+          "url": "rose/3519"
+        },
+        {
+          "url": "rose/3520"
+        },
+        {
+          "url": "rose/3521"
+        },
+        {
+          "url": "rose/3522"
+        },
+        {
+          "url": "rose/3523"
+        },
+        {
+          "url": "rose/3524"
+        },
+        {
+          "url": "rose/3525"
+        },
+        {
+          "url": "rose/3526"
+        },
+        {
+          "url": "rose/3527"
+        },
+        {
+          "url": "rose/3528"
+        },
+        {
+          "url": "rose/3529"
+        },
+        {
+          "url": "rose/3530"
+        },
+        {
+          "url": "rose/3531"
+        },
+        {
+          "url": "rose/3532"
+        },
+        {
+          "url": "rose/3533"
+        },
+        {
+          "url": "rose/3534"
+        },
+        {
+          "url": "rose/3535"
+        },
+        {
+          "url": "rose/3536"
+        },
+        {
+          "url": "rose/3537"
+        },
+        {
+          "url": "rose/3538"
+        },
+        {
+          "url": "rose/3539"
+        },
+        {
+          "url": "rose/3540"
+        },
+        {
+          "url": "rose/3541"
+        },
+        {
+          "url": "rose/3542"
+        },
+        {
+          "url": "rose/3543"
+        },
+        {
+          "url": "rose/3544"
+        },
+        {
+          "url": "rose/3545"
+        },
+        {
+          "url": "rose/3546"
+        },
+        {
+          "url": "rose/3547"
+        },
+        {
+          "url": "rose/3548"
+        },
+        {
+          "url": "rose/3549"
+        },
+        {
+          "url": "rose/3550"
+        },
+        {
+          "url": "rose/3551"
+        },
+        {
+          "url": "rose/3552"
+        },
+        {
+          "url": "rose/3553"
+        },
+        {
+          "url": "rose/3554"
+        },
+        {
+          "url": "rose/3555"
+        },
+        {
+          "url": "rose/3556"
+        },
+        {
+          "url": "rose/3557"
+        },
+        {
+          "url": "rose/3558"
+        },
+        {
+          "url": "rose/3559"
+        },
+        {
+          "url": "rose/3560"
+        },
+        {
+          "url": "rose/3561"
+        },
+        {
+          "url": "rose/3562"
+        },
+        {
+          "url": "rose/3563"
+        },
+        {
+          "url": "rose/3564"
+        },
+        {
+          "url": "rose/3565"
+        },
+        {
+          "url": "rose/3565"
+        }
+      ]
+    }
+  }
+}

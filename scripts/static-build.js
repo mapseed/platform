@@ -1,7 +1,6 @@
 require("dotenv").config({ path: "src/.env" });
 const path = require("path");
 const fs = require("fs-extra");
-const yaml = require("js-yaml");
 const Gettext = require("node-gettext");
 const gettextParser = require("gettext-parser");
 const walk = require("object-walk"); // object-walk supports traversal of JS objects
@@ -124,8 +123,8 @@ wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
 // (3) Convert the config yaml to json
 // -----------------------------------------------------------------------------
 
-const flavorConfigPath = path.resolve(flavorBasePath, "config.yml");
-const config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
+const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
+const config = JSON.parse(fs.readFileSync(flavorConfigPath, "utf8"));
 
 // (4) Compile base.hbs and index.html templates for the current flavor
 // -----------------------------------------------------------------------------

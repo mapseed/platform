@@ -1,0 +1,1152 @@
+{
+  "app": {
+    "title": "Our Lake Washington",
+    "name": "Our Lake Washington",
+    "meta_description": "_(We are looking out to keep Lake Washington healthy for all)",
+    "meta_author": "smartercleanup.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "cartodb_enabled": true,
+    "geocoding_enabled": false,
+    "geocode_field_label": "_(Enter an address...)",
+    "geocode_bounding_box": [
+      39.830159,
+      -75.478821,
+      40.167331,
+      -74.781189
+    ],
+    "options": {
+      "center": {
+        "lat": 47.75121,
+        "lng": -122.25882
+      },
+      "zoom": 15,
+      "minZoom": 1,
+      "maxZoom": 18
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "url": "//api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g",
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "light",
+        "url": "//a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+        "attribution": "Hello World",
+        "type": "basemap"
+      },
+      {
+        "id": "contour",
+        "type": "wmts",
+        "url": "http://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS?",
+        "layers": 5,
+        "tilematrixSet": "default028mm",
+        "version": "1.0.0",
+        "transparent": false,
+        "format": "image/png"
+      },
+      {
+        "id": "parcels",
+        "type": "wmts",
+        "url": "http://gismaps.kingcounty.gov/arcgis/rest/services/Property/KingCo_Parcels/MapServer/WMTS?",
+        "layers": 0,
+        "tilematrixSet": "default028mm",
+        "version": "1.0.0",
+        "transparent": false,
+        "format": "image/png"
+      },
+      {
+        "id": "satellite",
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a>&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
+        "type": "basemap"
+      },
+      {
+        "id": "kenmore-land-use",
+        "type": "cartodb",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/7eed0a34-dddb-11e5-9c46-0e787de82d45/viz.json"
+      },
+      {
+        "id": "noxious-weeds",
+        "type": "cartodb",
+        "url": "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
+      },
+      {
+        "id": "watershed-cedar",
+        "type": "cartodb",
+        "url": "https://smartercleanup.carto.com/api/v2/viz/a9ea3c0c-26aa-11e7-95f1-0ecd1babdde5/viz.json"
+      },
+      {
+        "id": "swamp-creek",
+        "type": "cartodb",
+        "url": "https://smartercleanup.carto.com/api/v2/viz/8d603768-47dd-11e7-af3f-0e3ebc282e83/viz.json"
+      },
+      {
+        "id": "eco-regions",
+        "type": "cartodb",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/9d4d8cfa-ddc3-11e5-9bed-0ea31932ec1d/viz.json"
+      },
+      {
+        "id": "duwamish-original",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json",
+        "type": "cartodb",
+        "opacity": 0.4
+      },
+      {
+        "id": "lakewashington",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/lakewashington",
+        "type": "place",
+        "slug": "report"
+      },
+      {
+        "id": "lakewashingtonfeatured",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/lakewashingtonfeatured",
+        "type": "place",
+        "slug": "featured"
+      },
+      {
+        "id": "watershed-sammamish",
+        "type": "cartodb",
+        "url": "https://smartercleanup.carto.com/api/v2/viz/e85f97d4-26af-11e7-af3c-0e3ebc282e83/viz.json"
+      }
+    ]
+  },
+  "place_types": {
+    "mapboxZoomStyle": [
+      {
+        "condition": "this.layer.focused === true",
+        "icon": {
+          "iconSize": [
+            50,
+            50
+          ],
+          "iconAnchor": [
+            25,
+            25
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom < 16",
+        "icon": {
+          "iconSize": [
+            20,
+            20
+          ],
+          "iconAnchor": [
+            10,
+            10
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom >= 16",
+        "icon": {
+          "iconSize": [
+            30,
+            30
+          ],
+          "iconAnchor": [
+            15,
+            15
+          ]
+        }
+      }
+    ],
+    "observation": {
+      "label": "_(Observation)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "iconSize": [
+              12,
+              14.5
+            ],
+            "iconAnchor": [
+              6,
+              14.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "question": {
+      "label": "_(Question)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "iconSize": [
+              12,
+              14.5
+            ],
+            "iconAnchor": [
+              6,
+              14.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "idea": {
+      "label": "_(Idea)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/dot-f95016.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "iconSize": [
+              12,
+              14.5
+            ],
+            "iconAnchor": [
+              6,
+              14.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "complaint": {
+      "label": "_(Complaint)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              12,
+              14.5
+            ],
+            "iconAnchor": [
+              6,
+              14.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 14",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    },
+    "featured_place": {
+      "label": "_(Featured Site)",
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": ""
+          }
+        }
+      ]
+    },
+    "mapbox": {
+      "rules": [
+        {
+          "condition": "this.geometry.type == \"LineString\"",
+          "style": {
+            "color": "this.properties.stroke",
+            "opacity": "this.properties['stroke-opacity']",
+            "weight": "this.properties['stroke-width']"
+          }
+        },
+        {
+          "condition": "this.geometry.type == \"Polygon\"",
+          "style": {
+            "shapeType": "polygon",
+            "fillColor": "this.properties.fill",
+            "fill": "true",
+            "color": "this.properties.stroke",
+            "opacity": 0.7,
+            "fillOpacity": "this.properties['fill-opacity']",
+            "weight": "this.properties['stroke-width']"
+          }
+        },
+        {
+          "condition": "this.geometry.type == \"Point\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-star.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        },
+        {
+          "condition": "this.geometry.type == \"Point\" && this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-star.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sidebar": {
+    "enabled": true,
+    "legend_enabled": true,
+    "slug": "filter-type",
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "list",
+        "view": "GISLegendView",
+        "title": "_(Map Layers:)",
+        "basemaps": [
+          {
+            "id": "osm",
+            "title": "_(OpenStreetMap)",
+            "visibleDefault": false
+          },
+          {
+            "id": "satellite",
+            "title": "_(Satellite View)",
+            "visibleDefault": true
+          },
+          {
+            "id": "light",
+            "title": "_(Light)",
+            "visibleDefault": false
+          }
+        ],
+        "groupings": [
+          {
+            "id": "grp-land",
+            "title": "_(Land Data)",
+            "visibleDefault": false,
+            "layers": [
+              {
+                "id": "lakewashingtonfeatured",
+                "title": "_(Featured Sites)",
+                "visibleDefault": true
+              },
+              {
+                "id": "watershed-sammamish",
+                "title": "_(Lake Sammamish Watershed)",
+                "visibleDefault": false
+              },
+              {
+                "id": "watershed-cedar",
+                "title": "_(Cedar River Watershed)",
+                "visibleDefault": false
+              },
+              {
+                "id": "lakewashington",
+                "title": "_(Community Reports)",
+                "description": "_(Community Reports)",
+                "visibleDefault": true
+              },
+              {
+                "id": "contour",
+                "title": "_(Contour lines)",
+                "visibleDefault": false
+              },
+              {
+                "id": "parcels",
+                "title": "_(Parcels)",
+                "visibleDefault": false
+              },
+              {
+                "id": "noxious-weeds",
+                "title": "_(Noxious Weeds)",
+                "description": "_(Invasive species of weeds)",
+                "visibleDefault": false
+              },
+              {
+                "id": "eco-regions",
+                "title": "_(Eco Regions)",
+                "description": "_(Eco regions of Washington State)",
+                "visibleDefault": false
+              },
+              {
+                "id": "kenmore-land-use",
+                "title": "_(Kenmore land use)",
+                "description": "_(Land use data for Kenmore)",
+                "visibleDefault": false
+              },
+              {
+                "id": "duwamish-original",
+                "title": "_(Original Black river)",
+                "description": "_(Original drainage of the Black river into the old Duwamish before it was removed)",
+                "visibleDefault": false
+              },
+              {
+                "id": "swamp-creek",
+                "title": "_(Swamp creek)",
+                "visibleDefault": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": true,
+    "interval": 30000
+  },
+  "right_sidebar": {
+    "show": true,
+    "visibleDefault": true
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Add a report)",
+    "show_list_button_label": "_(See all reports)",
+    "show_map_button_label": "_(Show the Map)",
+    "title": "_(Tell us more...)",
+    "action_text": "_(created)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Submit)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "featured_place",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "lakewashingtonfeatured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "featured_place",
+        "label": "_(Featured Place)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "url": "/static/css/images/markers/marker-star.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-heart.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "url-title",
+            "type": "custom_url_toolbar",
+            "prompt": "_(Choose a custom URL for this place:)",
+            "placeholder": "my-new-featured-place",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "observation",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "lakewashington",
+        "icon_url": "/static/css/images/markers/marker-observation.png",
+        "value": "observation",
+        "label": "_(Observation)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description of this observation:)",
+            "display_prompt": "_(Further description:)",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "placeholder": "_(Receive email updates on your report)",
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "question",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "lakewashington",
+        "icon_url": "/static/css/images/markers/marker-question.png",
+        "value": "question",
+        "label": "_(Question)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your question:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(What's your question?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter question...)"
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "placeholder": "_(Receive email updates on your report)",
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "idea",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "lakewashington",
+        "icon_url": "/static/css/images/markers/marker-idea.png",
+        "value": "idea",
+        "label": "_(Idea)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your idea:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Describe your idea below:)",
+            "display_prompt": "_(Here's my idea:)",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "placeholder": "_(Receive email updates on your report)",
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "complaint",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "lakewashington",
+        "icon_url": "/static/css/images/markers/marker-complaint.png",
+        "value": "complaint",
+        "label": "_(Complaint)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your complaint:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(What's your complaint?)",
+            "display_prompt": "_(I have the following complaint:)",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "placeholder": "_(Receive email updates on your report)",
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submit": {
+        "type": "submit",
+        "label": "_(Submit)"
+      }
+    },
+    "items": [
+      {
+        "prompt": "_(Type of report)",
+        "type": "select",
+        "options": [
+          {
+            "label": "_(Observation)",
+            "value": "observation"
+          },
+          {
+            "label": "_(Question)",
+            "value": "question"
+          },
+          {
+            "label": "_(Idea)",
+            "value": "idea"
+          },
+          {
+            "label": "_(Complaint)",
+            "value": "complaint"
+          }
+        ],
+        "name": "location_type",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Title of report)",
+        "type": "text",
+        "name": "name",
+        "optional": null,
+        "attrs": [
+          {
+            "key": "required"
+          },
+          {
+            "key": "placeholder",
+            "value": "_(Enter title)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Description)",
+        "type": "textarea",
+        "name": "description",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Description...)"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Name)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Email)",
+        "type": "text",
+        "name": "private-submitter_email",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Receive email updates on your report)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "type": "file",
+        "name": "my_image",
+        "optional": true
+      }
+    ]
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "pages": [
+    {
+      "title": "_(About)",
+      "slug": "about",
+      "name": "overview",
+      "start_page": false
+    },
+    {
+      "title": "_(Get involved)",
+      "slug": "getinvolved",
+      "name": "contribute"
+    },
+    {
+      "title": "_(Sponsors)",
+      "slug": "sponsors",
+      "name": "sponsors",
+      "hide_from_top_bar": true
+    },
+    {
+      "title": "_(Terms)",
+      "slug": "terms",
+      "name": "terms",
+      "hide_from_top_bar": true
+    }
+  ],
+  "notifications": {
+    "on_new_place": true,
+    "submitter_email_field": "private-submitter_email"
+  },
+  "story": {
+    "priorities": {
+      "tagline": "_(Next featured site)",
+      "default_zoom": 17,
+      "default_basemap": "satellite",
+      "default_visible_layers": [
+        "lakewashington",
+        "lakewashingtonfeatured"
+      ],
+      "order": [
+        {
+          "url": "lakepointe",
+          "spotlight": false
+        },
+        {
+          "url": "littlecreek",
+          "spotlight": false
+        },
+        {
+          "url": "kenmore-channel",
+          "spotlight": false
+        },
+        {
+          "url": "swampcreek",
+          "basemap": "light",
+          "zoom": 13,
+          "spotlight": false,
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png",
+          "visible_layers": [
+            "swamp-creek"
+          ]
+        },
+        {
+          "url": "toxic-fish",
+          "spotlight": false,
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+        },
+        {
+          "url": "calportland-cemex",
+          "spotlight": false
+        },
+        {
+          "url": "portage-bay",
+          "spotlight": false
+        },
+        {
+          "url": "shelton-forest",
+          "spotlight": false
+        },
+        {
+          "url": "ballfield",
+          "spotlight": true,
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+        },
+        {
+          "url": "sammamish-river",
+          "zoom": 12,
+          "visible_layers": [
+            "watershed-sammamish"
+          ],
+          "spotlight": false,
+          "basemap": "light"
+        },
+        {
+          "url": "algae",
+          "spotlight": false,
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+        },
+        {
+          "url": "squires-landing",
+          "spotlight": true
+        }
+      ]
+    }
+  }
+}

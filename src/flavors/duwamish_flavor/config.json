@@ -1,0 +1,4004 @@
+{
+  "app": {
+    "title": "Hey Duwamish!",
+    "name": "Hey Duwamish!",
+    "meta_description": "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)",
+    "meta_author": "SmarterCleanup.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "thumbnail": "/static/css/images/fb-thumbnail.png"
+  },
+  "languages": [
+    {
+      "code": "en_US",
+      "label": "I Speak English"
+    },
+    {
+      "code": "es",
+      "label": "Hablo Español"
+    },
+    {
+      "code": "vi",
+      "label": "tôi nói tiếng việt"
+    }
+  ],
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "cartodb_enabled": true,
+    "geocode_bounding_box": [
+      46.5,
+      -124,
+      48.5,
+      -119
+    ],
+    "options": {
+      "center": {
+        "lat": 47.53722,
+        "lng": -122.32573
+      },
+      "zoom": 16,
+      "minZoom": 1,
+      "maxZoom": 18
+    },
+    "layers": [
+      {
+        "id": "transportation",
+        "url": "//{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e72cddbdee5d4ecc81f5731d89655980",
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
+        "type": "basemap"
+      },
+      {
+        "id": "terrain",
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g",
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
+        "type": "basemap"
+      },
+      {
+        "id": "satellite",
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
+        "type": "basemap"
+      },
+      {
+        "id": "blueprint",
+        "url": "//api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg",
+        "attribution": "Hello World",
+        "type": "basemap"
+      },
+      {
+        "id": "vintage",
+        "url": "//api.mapbox.com/styles/v1/mslee/cif5p01n202nisaktvljx9mv3/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg",
+        "attribution": "Hello World",
+        "type": "basemap"
+      },
+      {
+        "id": "dirt-corps",
+        "type": "landmark",
+        "url": "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks",
+        "sources": [
+          "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ]
+      },
+      {
+        "id": "story-markers",
+        "url": "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks",
+        "type": "landmark",
+        "sources": [
+          "http://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ]
+      },
+      {
+        "id": "duwamish",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish",
+        "type": "place",
+        "slug": "report"
+      },
+      {
+        "id": "vision",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/vision",
+        "type": "place",
+        "slug": "vision"
+      },
+      {
+        "id": "dvyc",
+        "type": "landmark",
+        "url": "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks",
+        "sources": [
+          "https://raw.githubusercontent.com/mapseed/data/master/dvyc.geojson"
+        ]
+      },
+      {
+        "id": "restoration",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/restoration",
+        "type": "place",
+        "slug": "restoration"
+      },
+      {
+        "id": "trees",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees",
+        "type": "place",
+        "slug": "trees"
+      },
+      {
+        "id": "duwamishfeatured",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamishfeatured",
+        "type": "place",
+        "slug": "featured"
+      },
+      {
+        "id": "air",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air",
+        "type": "place",
+        "slug": "air"
+      },
+      {
+        "id": "watershed",
+        "type": "cartodb",
+        "url": "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
+      },
+      {
+        "id": "cleanup",
+        "type": "cartodb",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
+      },
+      {
+        "id": "landuse",
+        "type": "cartodb",
+        "url": "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json",
+        "opacity": 0.5
+      },
+      {
+        "id": "phases",
+        "type": "cartodb",
+        "url": "https://gis206.cartodb.com/api/v2/viz/217a2e02-e729-11e5-9bd4-0e5db1731f59/viz.json"
+      },
+      {
+        "id": "duwamish-original",
+        "url": "https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json",
+        "type": "cartodb",
+        "opacity": 0.4
+      },
+      {
+        "id": "noxious-weeds",
+        "type": "cartodb",
+        "url": "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json",
+        "opacity": 0.5
+      },
+      {
+        "id": "cso",
+        "type": "json",
+        "url": "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson",
+        "popupContent": "{{description}}",
+        "rules": [
+          {
+            "condition": "\"{{properties.description}}\" === \"No recent overflow\"",
+            "icon": {
+              "iconUrl": "/static/css/images/markers/dot-4ab767.png",
+              "iconSize": [
+                20,
+                20
+              ],
+              "iconAnchor": [
+                10,
+                10
+              ]
+            },
+            "style": {
+              "opacity": 0.9
+            }
+          },
+          {
+            "condition": "\"{{properties.description}}\" === \"Overflowed in the last 48 hrs\"",
+            "icon": {
+              "iconUrl": "/static/css/images/markers/dot-f95016.png",
+              "iconSize": [
+                20,
+                20
+              ],
+              "iconAnchor": [
+                10,
+                10
+              ]
+            },
+            "style": {
+              "opacity": 0.9
+            }
+          },
+          {
+            "condition": "\"{{properties.description}}\" === \"Overflowing now\"",
+            "icon": {
+              "iconUrl": "/static/css/images/markers/dot-e1264d.png",
+              "iconSize": [
+                20,
+                20
+              ],
+              "iconAnchor": [
+                10,
+                10
+              ]
+            },
+            "style": {
+              "opacity": 0.9
+            }
+          },
+          {
+            "condition": "\"{{properties.description}}\" === \"Data not available\"",
+            "icon": {
+              "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
+              "iconSize": [
+                20,
+                20
+              ],
+              "iconAnchor": [
+                10,
+                10
+              ]
+            },
+            "style": {
+              "opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoning",
+        "type": "esri-feature",
+        "url": "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17",
+        "popupContent": "{{CLASS_DESC}}",
+        "rules": [
+          {
+            "condition": "{{properties.CLASS_DESC}} === \"Single Family\"",
+            "style": {
+              "color": "#008000",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "{{properties.CLASS_DESC}} === \"Multi-Family\"",
+            "style": {
+              "color": "#008080",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "{{properties.CLASS_DESC}} === \"Neighborhood/Commercial\"",
+            "style": {
+              "color": "#800080",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "{{properties.CLASS_DESC}} === \"Manufacturing/Industrial\"",
+            "style": {
+              "color": "#FFA500",
+              "stroke": false
+            }
+          },
+          {
+            "condition": "true",
+            "style": {
+              "fill": false,
+              "stroke": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "place_types": {
+    "georgetownZoomStyle": [
+      {
+        "condition": "this.layer.focused === true",
+        "icon": {
+          "iconSize": [
+            60,
+            60
+          ],
+          "iconAnchor": [
+            30,
+            30
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom < 15",
+        "icon": {
+          "iconSize": [
+            7.5,
+            7.5
+          ],
+          "iconAnchor": [
+            4,
+            4
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom < 17",
+        "icon": {
+          "iconSize": [
+            25,
+            25
+          ],
+          "iconAnchor": [
+            12.5,
+            12.5
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom >= 17",
+        "icon": {
+          "iconSize": [
+            40,
+            40
+          ],
+          "iconAnchor": [
+            20,
+            20
+          ]
+        }
+      }
+    ],
+    "mapboxZoomStyle": [
+      {
+        "condition": "this.layer.focused === true",
+        "icon": {
+          "iconSize": [
+            50,
+            50
+          ],
+          "iconAnchor": [
+            25,
+            25
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom < 15",
+        "icon": {
+          "iconSize": [
+            20,
+            20
+          ],
+          "iconAnchor": [
+            10,
+            10
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom >= 15",
+        "icon": {
+          "iconSize": [
+            30,
+            30
+          ],
+          "iconAnchor": [
+            15,
+            15
+          ]
+        }
+      }
+    ],
+    "reportsZoomStyle": [
+      {
+        "condition": "this.layer.focused === true",
+        "icon": {
+          "iconSize": [
+            50,
+            60
+          ],
+          "iconAnchor": [
+            25,
+            30
+          ],
+          "shadowSize": [
+            50,
+            60
+          ],
+          "shadowAnchor": [
+            14,
+            60
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom < 17",
+        "icon": {
+          "iconSize": [
+            15,
+            18
+          ],
+          "iconAnchor": [
+            7.5,
+            9
+          ]
+        }
+      },
+      {
+        "condition": "this.map.zoom >= 17",
+        "icon": {
+          "iconSize": [
+            30,
+            36
+          ],
+          "iconAnchor": [
+            15,
+            36
+          ]
+        }
+      }
+    ],
+    "featured_place": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconSize": [
+              20,
+              20
+            ],
+            "iconAnchor": [
+              10,
+              10
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "port_of_seattle_featured_place": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconSize": [
+              20,
+              20
+            ],
+            "iconAnchor": [
+              10,
+              10
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "otter_sites": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconSize": [
+              20,
+              20
+            ],
+            "iconAnchor": [
+              10,
+              10
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 13",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "wetland": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-land_comp.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-land_prog.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-land_no-prog-or-dead.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-land_comp.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-land_prog.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-land_no-prog-or-dead.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        }
+      ]
+    },
+    "park": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-parks_comp.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-parks_prog.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-parks_no-prog-or-dead.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-parks_comp.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-parks_prog.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-parks_no-prog-or-dead.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        }
+      ]
+    },
+    "school": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-qual_comp.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-qual_prog.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-qual_no-prog-or-dead.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-qual_comp.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-qual_prog.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-qual_no-prog-or-dead.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        }
+      ]
+    },
+    "police": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-safe_comp.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-safe_prog.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-safe_no-prog-or-dead.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-safe_comp.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-safe_prog.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-safe_no-prog-or-dead.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        }
+      ]
+    },
+    "rail": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-transp_comp.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-transp_prog.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-transp_no-prog-or-dead.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-transp_comp.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-transp_prog.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-transp_no-prog-or-dead.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        }
+      ]
+    },
+    "town-hall": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-hist_comp.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-hist_prog.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-hist_no-prog-or-dead.png",
+            "iconSize": [
+              60,
+              60
+            ],
+            "iconAnchor": [
+              30,
+              30
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-hist_comp.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-hist_prog.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-hist_no-prog-or-dead.png",
+            "iconSize": [
+              25,
+              25
+            ],
+            "iconAnchor": [
+              12.5,
+              12.5
+            ]
+          }
+        }
+      ]
+    },
+    "mapbox": {
+      "rules": [
+        {
+          "condition": "this.geometry.type == \"LineString\"",
+          "style": {
+            "color": "this.style.color",
+            "opacity": "this.style.opacity",
+            "weight": "this.style.weight"
+          }
+        },
+        {
+          "condition": "this.geometry.type == \"Polygon\"",
+          "style": {
+            "shapeType": "polygon",
+            "fillColor": "this.style.fillColor",
+            "fill": "true",
+            "color": "this.style.color",
+            "opacity": 0.7,
+            "fillOpacity": "this.style.fillOpacity",
+            "weight": "this.style.weight"
+          }
+        }
+      ]
+    },
+    "danger": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-construction.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-construction-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-construction.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "park2": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-heart.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-heart-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-heart.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "industrial": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-industrial.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-industrial-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-industrial.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "bicycle": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-bike.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-bike-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-bike.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "swimming": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-swimming.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-swimming-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-swimming.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "theatre": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-art.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-art-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-art.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "zoo": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-whale.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-whale-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-whale.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "tree": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-tree.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 17",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-tree-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-tree.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "star-stroked": {
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-dirtcorps.png",
+            "iconSize": [
+              50,
+              50
+            ],
+            "iconAnchor": [
+              25,
+              25
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 17",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-industrial-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-dirtcorps.png",
+            "iconSize": [
+              30,
+              30
+            ],
+            "iconAnchor": [
+              15,
+              15
+            ]
+          }
+        }
+      ]
+    },
+    "star": {
+      "zoomType": "mapboxZoomStyle",
+      "rules": [
+        {
+          "condition": "true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-star.png"
+          }
+        }
+      ]
+    },
+    "observation": {
+      "label": "_(Observation)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              30
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-observation.png",
+            "iconSize": [
+              30,
+              36
+            ],
+            "iconAnchor": [
+              15,
+              36
+            ]
+          }
+        }
+      ]
+    },
+    "question": {
+      "label": "_(Question)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              30
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-question.png",
+            "iconSize": [
+              30,
+              36
+            ],
+            "iconAnchor": [
+              15,
+              36
+            ]
+          }
+        }
+      ]
+    },
+    "idea": {
+      "label": "_(Idea)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              30
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea.png",
+            "iconSize": [
+              30,
+              36
+            ],
+            "iconAnchor": [
+              15,
+              36
+            ]
+          }
+        }
+      ]
+    },
+    "complaint": {
+      "label": "_(Complaint)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              30
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 15",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint-dot.png",
+            "iconSize": [
+              10,
+              10
+            ],
+            "iconAnchor": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom <= 18",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-complaint.png",
+            "iconSize": [
+              30,
+              36
+            ],
+            "iconAnchor": [
+              15,
+              36
+            ]
+          }
+        }
+      ]
+    },
+    "air_watch": {
+      "label": "_(Air Watch)",
+      "rules": [
+        {
+          "condition": "this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 11",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "iconSize": [
+              10,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom < 17",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "iconSize": [
+              18,
+              21.75
+            ],
+            "iconAnchor": [
+              9,
+              21.75
+            ]
+          }
+        },
+        {
+          "condition": "this.map.zoom >= 17",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-greenwall.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sidebar": {
+    "enabled": true,
+    "legend_enabled": true,
+    "slug": "filter-type",
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "list",
+        "view": "GISLegendView",
+        "title": "_(Map Layers:)",
+        "basemaps": [
+          {
+            "id": "transportation",
+            "title": "_(Transportation)",
+            "visibleDefault": false
+          },
+          {
+            "id": "satellite",
+            "title": "_(Satellite View)",
+            "visibleDefault": false
+          },
+          {
+            "id": "terrain",
+            "title": "_(Terrain)",
+            "visibleDefault": true
+          },
+          {
+            "id": "blueprint",
+            "title": "_(Blueprint)",
+            "visibleDefault": false
+          },
+          {
+            "id": "vintage",
+            "title": "_(Vintage)",
+            "visibleDefault": false
+          }
+        ],
+        "groupings": [
+          {
+            "id": "grp-community",
+            "title": "_(Community Data)",
+            "visibleDefault": true,
+            "layers": [
+              {
+                "id": "duwamish",
+                "title": "_(Duwamish Cleanup Reports)",
+                "visibleDefault": false
+              },
+              {
+                "id": "duwamishfeatured",
+                "title": "_(Featured Sites)",
+                "visibleDefault": true
+              },
+              {
+                "id": "restoration",
+                "title": "_(Restoration Sites)",
+                "visibleDefault": true
+              },
+              {
+                "id": "cleanup",
+                "title": "_(River Cleanup Plan)",
+                "visibleDefault": false
+              },
+              {
+                "id": "dirt-corps",
+                "title": "_(Dirt Corps sites)",
+                "visibleDefault": true
+              },
+              {
+                "id": "story-markers",
+                "title": "_(Stories)",
+                "visibleDefault": false
+              },
+              {
+                "id": "trees",
+                "title": "_(Trees!)",
+                "visibleDefault": true
+              },
+              {
+                "id": "vision",
+                "title": "_(Community Vision)",
+                "visibleDefault": false
+              }
+            ]
+          },
+          {
+            "id": "grp-land",
+            "title": "_(Land Data)",
+            "visibleDefault": false,
+            "layers": [
+              {
+                "id": "landuse",
+                "title": "_(Land use)",
+                "visibleDefault": false
+              },
+              {
+                "id": "phases",
+                "title": "_(Green Seattle partnership)",
+                "visibleDefault": false
+              },
+              {
+                "id": "noxious-weeds",
+                "title": "_(Noxious Weeds)",
+                "visibleDefault": false
+              },
+              {
+                "id": "cso",
+                "title": "_(Sewer Overflow)",
+                "visibleDefault": false
+              },
+              {
+                "id": "watershed",
+                "title": "_(Watershed)",
+                "visibleDefault": false
+              },
+              {
+                "id": "zoning",
+                "title": "_(Zoning)",
+                "visibleDefault": false
+              }
+            ]
+          },
+          {
+            "id": "grp-history",
+            "title": "_(Historical Data)",
+            "visibleDefault": false,
+            "layers": [
+              {
+                "id": "duwamish-original",
+                "title": "_(Original River Path)",
+                "visibleDefault": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ticker",
+        "view": "ActivityView",
+        "icon": "comments-o",
+        "activity": true,
+        "title": "_(Activity Stream:)"
+      },
+      {
+        "id": "reports_legend",
+        "title": "_(Community Reports:)",
+        "view": "LegendView",
+        "icon": "info-circle",
+        "items": [
+          {
+            "title": "_(Observations)",
+            "image": "/static/css/images/markers/marker-observation.png",
+            "url": "/filter/observation"
+          },
+          {
+            "title": "_(Ideas)",
+            "image": "/static/css/images/markers/marker-idea.png",
+            "url": "/filter/idea"
+          },
+          {
+            "title": "_(Questions)",
+            "image": "/static/css/images/markers/marker-question.png",
+            "url": "/filter/question"
+          },
+          {
+            "title": "_(Complaints)",
+            "image": "/static/css/images/markers/marker-complaint.png",
+            "url": "/filter/complaint"
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": true,
+    "interval": 30000
+  },
+  "right_sidebar": {
+    "show": true,
+    "visibleDefault": true,
+    "component": "StoryNavigator"
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Add Report)",
+    "story_button_label": "_(Explore Stories)",
+    "show_list_button_label": "_(See All Reports)",
+    "show_map_button_label": "_(Show the Map)",
+    "title": "_(Tell us more...)",
+    "action_text": "_(created)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "mapbox",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-land_comp.png",
+        "value": "mapbox",
+        "label": "_(Mapbox)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "wetland",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-land_comp.png",
+        "value": "wetland",
+        "label": "_(Wetland)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "park",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-parks_comp.png",
+        "value": "park",
+        "label": "_(Park)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "school",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-qual_comp.png",
+        "value": "school",
+        "label": "_(School)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "police",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-safe_comp.png",
+        "value": "police",
+        "label": "_(Police)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "rail",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-transp_comp.png",
+        "value": "rail",
+        "label": "_(Rail)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "town-hall",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-hist_comp.png",
+        "value": "town-hall",
+        "label": "_(Town Hall)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "danger",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-construction.png",
+        "value": "danger",
+        "label": "_(Danger)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "park2",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-heart.png",
+        "value": "park2",
+        "label": "_(Park2)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "industrial",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-industrial.png",
+        "value": "industrial",
+        "label": "_(Industrial)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "bicycle",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-bike.png",
+        "value": "bicycle",
+        "label": "_(Bicycle)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "swimming",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-swimming.png",
+        "value": "swimming",
+        "label": "_(Swimming)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "theatre",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-art.png",
+        "value": "theatre",
+        "label": "_(Theatre)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "zoo",
+        "includeOnForm": false,
+        "suppressAttachments": true,
+        "name": "location_type",
+        "dataset": "restoration",
+        "icon_url": "/static/css/images/markers/marker-whale.png",
+        "value": "zoo",
+        "label": "_(Zoo)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          }
+        ]
+      },
+      {
+        "category": "featured_place",
+        "admin_only": true,
+        "admin_groups": [
+          "featured_places"
+        ],
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "duwamishfeatured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "featured_place",
+        "label": "_(Featured Site)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "url": "/static/css/images/markers/marker-bike.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-construction.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-foodforest.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-greenwall.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-heart.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_prog.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_prog.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_prog.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "optional": false,
+            "placeholder": "_( )"
+          },
+          {
+            "name": "url-title",
+            "type": "custom_url_toolbar",
+            "prompt": "_(Choose a custom URL for this place:)",
+            "placeholder": "my-new-featured-place",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "otter_sites",
+        "admin_only": true,
+        "admin_groups": [
+          "otters"
+        ],
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "duwamishfeatured",
+        "icon_url": "/static/css/images/markers/otter-icon.png",
+        "value": "otter_sites",
+        "label": "_(Otter sites)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "url": "/static/css/images/markers/otter-icon.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-construction.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-foodforest.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-greenwall.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-heart.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_prog.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_prog.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_prog.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "url-title",
+            "type": "custom_url_toolbar",
+            "prompt": "_(Choose a custom URL for this place:)",
+            "placeholder": "my-new-featured-place",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "port_of_seattle_featured_place",
+        "admin_only": true,
+        "admin_groups": [
+          "port_of_seattle"
+        ],
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "duwamishfeatured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "port_of_seattle_featured_place",
+        "label": "_(Port of Seattle Featured Site)",
+        "fields": [
+          {
+            "name": "published",
+            "type": "publish_control_toolbar"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "url": "/static/css/images/markers/marker-bike.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-construction.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-foodforest.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-greenwall.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-heart.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-hist_prog.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-land_prog.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_comp.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_no-prog-or-dead.png"
+              },
+              {
+                "url": "/static/css/images/markers/marker-transp_prog.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "url-title",
+            "type": "custom_url_toolbar",
+            "prompt": "_(Choose a custom URL for this place:)",
+            "placeholder": "my-new-featured-place",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "observation",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "duwamish",
+        "icon_url": "/static/css/images/markers/marker-observation.png",
+        "value": "observation",
+        "label": "_(Observation)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "autocomplete": true,
+            "prompt": "_(Title of your observation:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "pollution_type",
+            "type": "big_checkbox",
+            "autocomplete": true,
+            "prompt": "_(Types of pollution seen:)",
+            "display_prompt": "_(I saw the following types of pollution here:)",
+            "content": [
+              {
+                "label": "_(Sewage)",
+                "value": "sewage"
+              },
+              {
+                "label": "_(Tires)",
+                "value": "tires"
+              },
+              {
+                "label": "_(Illegal dumpsite)",
+                "value": "dumpsite"
+              },
+              {
+                "label": "_(Litter)",
+                "value": "litter"
+              },
+              {
+                "label": "_(Other)",
+                "value": "other"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "reside_work_georgetown",
+            "type": "big_toggle",
+            "autocomplete": true,
+            "prompt": "_(Do you reside and/or work in the Georgetown or South Park Neighborhood?)",
+            "display_prompt": "_(I reside or work in Georgetown or South Park:)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "autocomplete": true,
+            "prompt": "_(Description of this pollution:)",
+            "display_prompt": "_(Further description:)",
+            "placeholder": "_(Enter description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "optional": true,
+            "sticky": true,
+            "attrs": [
+              {
+                "key": "placeholder",
+                "value": "_(Receive email updates on your report)"
+              },
+              {
+                "key": "size",
+                "value": 30
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "question",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "duwamish",
+        "icon_url": "/static/css/images/markers/marker-question.png",
+        "value": "question",
+        "label": "_(Question)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your question:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_(My question:)",
+            "placeholder": "_(Enter question...)"
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "optional": true,
+            "sticky": true,
+            "attrs": [
+              {
+                "key": "placeholder",
+                "value": "_(Receive email updates on your report)"
+              },
+              {
+                "key": "size",
+                "value": 30
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "idea",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "duwamish",
+        "icon_url": "/static/css/images/markers/marker-idea.png",
+        "value": "idea",
+        "label": "_(Idea)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your idea:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Describe your idea below:)",
+            "display_prompt": "_(Here's my idea:)",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "optional": true,
+            "sticky": true,
+            "attrs": [
+              {
+                "key": "placeholder",
+                "value": "_(Receive email updates on your report)"
+              },
+              {
+                "key": "size",
+                "value": 30
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "complaint",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "duwamish",
+        "icon_url": "/static/css/images/markers/marker-complaint.png",
+        "value": "complaint",
+        "label": "_(Complaint)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your complaint:)",
+            "placeholder": "_(Enter title...)",
+            "display_prompt": "_(Title:)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(What's your complaint?)",
+            "display_prompt": "_(I have the following complaint:)",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "optional": true,
+            "sticky": true,
+            "attrs": [
+              {
+                "key": "placeholder",
+                "value": "_(Receive email updates on your report)"
+              },
+              {
+                "key": "size",
+                "value": 30
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "air_watch",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "air",
+        "icon_url": "/static/css/images/markers/marker-greenwall.png",
+        "value": "air_watch",
+        "label": "_(Air watch)",
+        "fields": [
+          {
+            "name": "date_time_observed",
+            "type": "datetime",
+            "prompt": "_(When did you observe these conditions?)",
+            "display_prompt": "_(I observed these conditions on:)",
+            "optional": true
+          },
+          {
+            "name": "reside_work_georgetown",
+            "type": "big_toggle",
+            "prompt": "_(Do you reside and/or work in the Georgetown or South Park Neighborhood?)",
+            "display_prompt": "_(I reside or work in Georgetown or South Park:)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "odd_smell",
+            "type": "big_toggle",
+            "prompt": "_(I observe an odd smell)",
+            "display_prompt": "_(I observed an odd smell:)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ],
+            "annotation": "_(Please be sure to seek medical attention if needed.)",
+            "optional": true
+          },
+          {
+            "name": "burning",
+            "type": "big_toggle",
+            "prompt": "_(I have burning or itching eyes/nose/skin)",
+            "display_prompt": "_(I have burning or itching eyes/nose/skin:)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ],
+            "annotation": "_(Please be sure to seek medical attention if needed.)",
+            "optional": true
+          },
+          {
+            "name": "difficulty_breathing",
+            "type": "big_toggle",
+            "prompt": "_(I am having difficulty breathing)",
+            "display_prompt": "_(I am having difficulty breathing:)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ],
+            "annotation": "_(Please be sure to seek medical attention if needed.)",
+            "optional": true
+          },
+          {
+            "name": "headache",
+            "type": "big_toggle",
+            "prompt": "_(I am experiencing a headache)",
+            "display_prompt": "_(I am experiencing a headache:)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ],
+            "annotation": "_(Please be sure to seek medical attention if needed.)",
+            "optional": true
+          },
+          {
+            "name": "other_physical_effects",
+            "type": "text",
+            "prompt": "_(Please note other physical effects you are experiencing)",
+            "display_prompt": "_(Other physical effects I experienced:)",
+            "annotation": "_(Please be sure to seek medical attention if needed.)",
+            "optional": false
+          },
+          {
+            "name": "source",
+            "type": "dropdown",
+            "prompt": "_(Select one of the following to identify the source of the bad air quality.)",
+            "display_prompt": "_(Pollution source observed:)",
+            "content": [
+              {
+                "label": "_(Asbestos)",
+                "value": "absestos"
+              },
+              {
+                "label": "_(Burning during burn ban)",
+                "value": "burning"
+              },
+              {
+                "label": "_(Chimney smoke)",
+                "value": "chimney_smoke"
+              },
+              {
+                "label": "_(Gas station)",
+                "value": "gas_station"
+              },
+              {
+                "label": "_(Mobile coater)",
+                "value": "mobile_coater"
+              },
+              {
+                "label": "_(Odor)",
+                "value": "odor"
+              },
+              {
+                "label": "_(Outdoor fire)",
+                "value": "outdoor_fire"
+              },
+              {
+                "label": "_(Vehicle pollution)",
+                "value": "vehicle_pollution"
+              },
+              {
+                "label": "_(Visible emission)",
+                "value": "visible_emission"
+              },
+              {
+                "label": "_(Specific business or industry)",
+                "value": "business_or_industry"
+              },
+              {
+                "label": "_(Don't know/unsure)",
+                "value": "unsure"
+              },
+              {
+                "label": "_(Other (please describe in comments))",
+                "value": "other"
+              }
+            ],
+            "optional": false
+          },
+          {
+            "name": "normal_activities",
+            "type": "big_radio",
+            "prompt": "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)",
+            "display_prompt": "_(My normal activities are affected by the air quality in my neighborhood:)",
+            "content": [
+              {
+                "label": "_(Strongly agree)",
+                "value": "strongly_agree"
+              },
+              {
+                "label": "_(Agree)",
+                "value": "agree"
+              },
+              {
+                "label": "_(Neutral)",
+                "value": "neutral"
+              },
+              {
+                "label": "_(Disagree)",
+                "value": "disagree"
+              },
+              {
+                "label": "_(Strongly disagree)",
+                "value": "strongly_disagree"
+              }
+            ],
+            "optional": false
+          },
+          {
+            "name": "activities_impacted",
+            "type": "dropdown",
+            "prompt": "_(Select one of the following to indicate how your normal activities are impacted.)",
+            "display_prompt": "_(My normal activities were impacted in the following way:)",
+            "content": [
+              {
+                "label": "_(I choose to stay indoors to avoid the source of pollution)",
+                "value": "stay_indoors"
+              },
+              {
+                "label": "_(I close the windows, limiting circulation)",
+                "value": "close_windows"
+              },
+              {
+                "label": "_(I open all windows to circulate air)",
+                "value": "open_windows"
+              },
+              {
+                "label": "_(I avoid outdoor physical activities)",
+                "value": "avoid_outdoor_activities"
+              },
+              {
+                "label": "_(I need to constantly clean surfaces, as they are often greasy or dusty)",
+                "value": "clean_surfaces"
+              },
+              {
+                "label": "_(Other (please specify in comments))",
+                "value": "other"
+              }
+            ],
+            "optional": false
+          },
+          {
+            "name": "additional_comments",
+            "type": "text",
+            "prompt": "_(Provide any additional comments)",
+            "display_prompt": "_(Additional comments:)",
+            "optional": true
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "optional": true,
+            "sticky": true,
+            "attrs": [
+              {
+                "key": "placeholder",
+                "value": "_(Receive email updates on your report)"
+              },
+              {
+                "key": "size",
+                "value": 30
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "tree",
+        "includeOnForm": false,
+        "name": "location_type",
+        "dataset": "trees",
+        "icon_url": "/static/css/images/markers/marker-tree.png",
+        "value": "tree",
+        "label": "_(Tree)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title)",
+            "display_prompt": "_(Title of this tree:)",
+            "placeholder": "_(Enter title)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description)",
+            "display_prompt": "_(Description of this tree:)",
+            "placeholder": "_(Description...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "text",
+            "prompt": "_(Your name)",
+            "placeholder": "_(Name)",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "optional": true,
+            "sticky": true,
+            "attrs": [
+              {
+                "key": "placeholder",
+                "value": "_(Receive email updates on your report)"
+              },
+              {
+                "key": "size",
+                "value": 30
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Image)",
+            "label": "_(Add an Image)",
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submit": {
+        "type": "submit",
+        "label": "_(Put it on the map!)"
+      }
+    },
+    "items": [
+      {
+        "prompt": "_(Type of report)",
+        "type": "select",
+        "options": [
+          {
+            "label": "_(Observation)",
+            "value": "observation"
+          },
+          {
+            "label": "_(Question)",
+            "value": "question"
+          },
+          {
+            "label": "_(Idea)",
+            "value": "idea"
+          },
+          {
+            "label": "_(Complaint)",
+            "value": "complaint"
+          }
+        ],
+        "name": "location_type",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Title of report)",
+        "type": "text",
+        "name": "name",
+        "optional": null,
+        "attrs": [
+          {
+            "key": "required"
+          },
+          {
+            "key": "placeholder",
+            "value": "_(Enter title)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Description)",
+        "type": "textarea",
+        "name": "description",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Description...)"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Name)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Email)",
+        "type": "text",
+        "name": "private-submitter_email",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Receive email updates on your report)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Image)",
+        "inputfile_label": "_(Add an Image)",
+        "type": "file",
+        "name": "my_image",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "accept",
+            "value": "image/*"
+          }
+        ]
+      }
+    ]
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "pages": [
+    {
+      "title": "_(About)",
+      "slug": "about",
+      "name": "overview",
+      "start_page": true
+    },
+    {
+      "title": "_(Background)",
+      "slug": "background",
+      "name": "background",
+      "hide_from_top_bar": true
+    },
+    {
+      "title": "_(Get involved)",
+      "slug": "getinvolved",
+      "name": "contribute"
+    },
+    {
+      "title": "_(Neighborhood Captain)",
+      "slug": "captain",
+      "name": "captain",
+      "hide_from_top_bar": true
+    },
+    {
+      "title": "_(Stories)",
+      "slug": "stories",
+      "name": "stories",
+      "start_page": true,
+      "hide_from_top_bar": true
+    },
+    {
+      "title": "_(Green Screen)",
+      "slug": "greenscreen",
+      "name": "greenscreen",
+      "hide_from_top_bar": true
+    },
+    {
+      "slug": "sponsors",
+      "name": "sponsors",
+      "hide_from_top_bar": true
+    },
+    {
+      "slug": "terms",
+      "name": "terms",
+      "hide_from_top_bar": true
+    },
+    {
+      "slug": "youthcorps2015",
+      "name": "youthcorps2015",
+      "hide_from_top_bar": true
+    },
+    {
+      "title": "_(Terms)",
+      "slug": "terms",
+      "name": "terms",
+      "hide_from_top_bar": true
+    }
+  ],
+  "story": {
+    "community-priorities": {
+      "tagline": "_(Next featured site)",
+      "header": "_(Explore community restoration projects along the Duwamish)",
+      "description": "_(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)",
+      "image_url": "/static/css/images/community-priorities.png",
+      "default_zoom": 17,
+      "default_visible_layers": [
+        "restoration",
+        "duwamishfeatured"
+      ],
+      "order": [
+        {
+          "url": "south-park-landfill",
+          "basemap": "satellite",
+          "sidebar_icon_url": "/static/css/images/markers/marker-construction.png"
+        },
+        {
+          "url": "otters",
+          "sidebar_icon_url": "/static/css/images/markers/otter-icon.png"
+        },
+        {
+          "url": "flume",
+          "sidebar_icon_url": "/static/css/images/markers/marker-transp_comp.png"
+        },
+        {
+          "url": "southparklibrarygreenwall",
+          "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
+        },
+        {
+          "url": "georgetowngreenwall",
+          "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
+        },
+        {
+          "url": "duwamish-waterway-park",
+          "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
+        },
+        {
+          "url": "marra"
+        },
+        {
+          "url": "skatepark"
+        },
+        {
+          "url": "concord"
+        },
+        {
+          "url": "cesar-chavez"
+        },
+        {
+          "url": "rose-end"
+        },
+        {
+          "url": "12th-and-elmgrove"
+        },
+        {
+          "url": "rowing"
+        },
+        {
+          "url": "south-park-neighborhood-center"
+        },
+        {
+          "url": "south-park-community-center"
+        }
+      ],
+      "start_at": "marra"
+    },
+    "pollution": {
+      "tagline": "_(Next featured site)",
+      "header": "_(Take a tour of polluted sites along the Duwamish)",
+      "description": "_(The Duwamish River is one of the most polluted waterways in the country. Explore the sites in this map story to learn about the environmental challenges facing the Duwamish.)",
+      "image_url": "/static/css/images/pollution.jpg",
+      "default_zoom": 13,
+      "default_visible_layers": [
+        "restoration",
+        "watershed"
+      ],
+      "order": [
+        {
+          "url": "cleanup",
+          "zoom": 14,
+          "spotlight": false,
+          "basemap": "terrain",
+          "visible_layers": [
+            "cleanup"
+          ]
+        },
+        {
+          "url": "cso",
+          "zoom": 12,
+          "visible_layers": [
+            "cso"
+          ],
+          "spotlight": false,
+          "basemap": "blueprint"
+        },
+        {
+          "url": "lafarge",
+          "zoom": 17,
+          "basemap": "transportation"
+        },
+        {
+          "url": "burlington-environmental-llc",
+          "zoom": 17,
+          "basemap": "transportation"
+        }
+      ],
+      "start_at": "cso"
+    },
+    "history": {
+      "tagline": "_(Next featured site)",
+      "header": "_(Duwamish history)",
+      "description": "_(Explore the history of the Duwamish River Valley)",
+      "image_url": "/static/css/images/history.jpg",
+      "default_zoom": 13,
+      "default_visible_layers": [
+        "duwamish-original"
+      ],
+      "order": [
+        {
+          "url": "history",
+          "spotlight": false,
+          "basemap": "vintage"
+        },
+        {
+          "url": "blackriver",
+          "spotlight": false,
+          "zoom": 14,
+          "basemap": "satellite"
+        }
+      ],
+      "start_at": "history"
+    },
+    "dirtcorps": {
+      "tagline": "_(Next featured site)",
+      "header": "_(DIRT Corps)",
+      "image_url": "/static/css/images/dirt-corps.jpg",
+      "default_zoom": 17,
+      "default_visible_layers": [
+        "restoration",
+        "dirt-corps"
+      ],
+      "order": [
+        {
+          "url": "dirtcorps",
+          "spotlight": false
+        },
+        {
+          "url": "rose-greenstreet"
+        },
+        {
+          "url": "markey"
+        },
+        {
+          "url": "elmgrove-rain-garden"
+        },
+        {
+          "url": "southern-greenstreet"
+        },
+        {
+          "url": "dirt-corps-classroom"
+        },
+        {
+          "url": "point-rediscovery"
+        },
+        {
+          "url": "green-screen"
+        },
+        {
+          "url": "rain-wise-home"
+        },
+        {
+          "url": "rainwise-home-rose-st"
+        },
+        {
+          "url": "carleton-grocery-gsi"
+        }
+      ]
+    }
+  },
+  "notifications": {
+    "on_new_place": true,
+    "submitter_email_field": "private-submitter_email"
+  }
+}
