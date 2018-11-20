@@ -162,8 +162,13 @@ map:
       type: vector-tile
       is_visible_default: true
       url: https://vector-tiles.mapseed.org/snohomish-county-boundary/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/snohomish-county-boundary/style.json
       source_layer: snohomish-county-boundary
+      mapbox_layers:
+        - id: snohomish-county-boundary
+          type: line
+          paint:
+            "line-color": "#f4c441"
+            "line-width": 2
 
     - id: sub-basins
       type: vector-tile
