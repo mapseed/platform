@@ -27,13 +27,14 @@ app:
 
   theme:
     brand:
-      primary: "#fff"
+      primary: "#007ec0"
     bg:
       default: "#0f0f3d"
       light: "#007fbe"
     text:
       titleColor: "#fff"
       secondary: "#fff"
+      tertiary: "#fff"
       titleFontFamily: "AlfaSlabOne-Regular,serif"
 
 # languages:

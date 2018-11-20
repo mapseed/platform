@@ -82,6 +82,11 @@ const SiteTitle = styled(RegularTitle)(props => ({
   marginBottom: 0,
   marginLeft: "15px",
   letterSpacing: "1px",
+
+  [mq[0]]: {
+    // NOTE: This is an override of our RegularTitle font size.
+    fontSize: "1rem",
+  },
 }));
 
 const NavLink = styled(props => (
@@ -203,9 +208,10 @@ const NavBarHamburger = styled("i")({
 });
 
 const LogoTitleWrapper = styled("div")({
+  display: "flex",
+  alignItems: "center",
+
   [mq[0]]: {
-    display: "flex",
-    alignItems: "center",
     width: "100%",
   },
 });
