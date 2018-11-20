@@ -31,6 +31,7 @@ app:
       default: "#fff"
       light: "#007fbf"
     text:
+      tertiary: "#007ec0"
       titleColor: "#127de4"
       titleFontFamily: "Palanquin; sans-serif"
       secondary: "#fff"
