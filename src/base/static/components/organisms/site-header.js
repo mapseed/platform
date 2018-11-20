@@ -102,6 +102,9 @@ const NavLink = styled(props => (
 
 const NavButtonWrapper = styled("span")(props => ({
   [mq[1]]: {
+    display: "flex",
+    alignItems: "center",
+    height: "24px",
     borderLeft:
       props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },

@@ -35,8 +35,9 @@ app:
       accent: "#40becd"
     text:
       primary: "#fff"
-      secondary: "#02440b"
-      headerFontFamily: "lithos,sans-serif"
+      secondary: "#fff"
+      tertiary: "#02440c"
+      navBarFontFamily: "lithos,sans-serif"
       textTransform: "uppercase"
     bg:
       default: "#f3f5e7"
