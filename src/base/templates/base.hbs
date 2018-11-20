@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 
-<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
@@ -37,53 +32,11 @@
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.js"></script>
-    <script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-  <![endif]-->
-
 </head>
   <body class="{{#if config.map.geocoding_bar_enabled}} geocoding-bar-enabled{{/if}}">
+  <div id="site-wrap">
 
-  <header id="site-header" class="clearfix{{#if config.pages}} has-pages{{/if}}">
-    <h1 id="site-title">{{#block "site-title"}}{{/block}}</h1>
-
-    {{#block "pre_auth_nav"}}{{/block}}
-    <div id="auth-nav-container"></div>
-    {{#block "post_auth_nav"}}{{/block}}
-
-    {{#block "pre_pages_nav"}}{{/block}}
-    <div id="pages-nav-container"></div>
-    {{#block "post_pages_nav"}}{{/block}}
-
-    {{#if config.map.counter}}
-      <div id="place-counter" class="list-toggle-nav"></div>
-    {{/if}}
-
-    {{#if config.languages}}
-      {{#block "language_picker"}}
-        <div id="language-picker">
-          <nav class="access" role="article">
-            <ul class="menu">
-              <li class="menu-item">
-                <a class="current-language {{ languageCode }} btn btn-block">{{#each config.languages}}{{this.label}} {{#unless @last}}/ {{/unless}}{{/each}}⌄</a>
-                <ul class="menu">
-                  {{#each config.languages}}
-                    <li class="menu-item">
-                      <a href="/{{this.code}}.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
-                    </li>
-                  {{/each}}
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      {{/block}}
-    {{/if}}
-
-  </header>
-
-  <div class="unsupported-overlay"></div>
+  <header id="site-header"></header>
 
   <div role="main" id="main">
     <noscript>
@@ -130,6 +83,7 @@
   </div><!-- end #main -->
 
   <div id="list-container"></div>
+  </div>
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -227,7 +181,7 @@
           activity:   {{#serialize config.activity}}{{/serialize}},
           leftSidebar:    {{#serialize config.left_sidebar}}{{/serialize}},
           rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
-          pages:           {{#serialize config.pages}}{{/serialize}},
+          navBar:          {{#serialize config.nav_bar}}{{/serialize}},
           story:           {{#serialize config.story}}{{/serialize}},
           filters:         {{#serialize config.filters}}{{/serialize}},
           datasets:        {{#serialize config.datasets}}{{/serialize}},
@@ -251,7 +205,7 @@
             mapConfig: S.Config.map,
             storyConfig: S.Config.story,
             activityConfig: S.Config.activity,
-            pagesConfig: S.Config.pages,
+            navBarConfig: S.Config.navBar,
             filters: S.Config.filters,
             datasetsConfig: S.Config.datasets,
             customHooks: S.Config.customHooks,

@@ -4,6 +4,8 @@ app:
   title: Snohomish Conservation
   # Header name
   name: "Snohomish Conservation"
+  logo: "/static/css/images/scdHorizontal.png"
+
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -24,20 +26,22 @@ app:
   # places_page_size: 100
 
   # Optional. List view is supported by default. Set to false to disable.
-  #list_enabled: false
+  list_enabled: false
 
   theme:
     brand:
       primary: "#02440b"
       secondary: "#a3c7d9"
+      accent: "#40becd"
     text:
       primary: "#fff"
-      secondary: "#02440b"
-      fontFamily: "lithos,sans-serif"
+      secondary: "#fff"
+      tertiary: "#02440c"
+      navBarFontFamily: "lithos,sans-serif"
       textTransform: "uppercase"
     bg:
-      default: "#02440b"
-      light: "#779300"
+      default: "#f3f5e7"
+      light: "#fff"
 
 # languages:
 #   - code: en_US
@@ -233,9 +237,6 @@ right_sidebar:
 place:
   adding_supported: true
   add_button_label: _(Show off your projects)
-  # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(Local stories)
-  show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
   anonymous_name: _(Someone)
@@ -1612,25 +1613,20 @@ support:
   action_text: supported
   anonymous_name: _(Someone)
 
-pages:
+nav_bar:
   - title: _(About)
-    slug: about
+    type: internal_link
+    url: /page/about
     name: about
     start_page: true
 
   - title: _(Local Stories)
-    name: /featured/4310
-    start_page: false
+    type: internal_link
+    url: /featured/4310
 
-  - title: _(Background)
-    slug: background
-    name: background
-    hide_from_top_bar: true
-
-  - title: _(Sign in)
-    slug: sign-in
-    name: sign-in
-    hide_from_top_bar: true
+  - title: _(Map Layers)
+    type: left_sidebar_toggle
+    component: MapLayerPanel
 
 story:
   example:

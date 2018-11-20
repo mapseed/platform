@@ -107,7 +107,7 @@ class ActivityStream extends Component {
 
   render() {
     return (
-      <ul style={{ paddingLeft: 0 }}>
+      <ul style={{ paddingLeft: 0, marginTop: 0 }}>
         {this.state.activityModels.map((activityModel, i) => {
           const submitterName = activityModel
             .get(constants.TARGET_PROPERTY_NAME)

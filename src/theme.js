@@ -19,6 +19,21 @@ injectGlobal`
     font-family: "Montserrat";
     src: url("/static/css/Montserrat-Regular.ttf")
   }
+  @font-face {
+    font-family: "AlfaSlabOne-Regular";
+    src: url("/static/css/AlfaSlabOne-Regular.ttf");
+  }
+  @font-face { font-family: "Quicksand Regular";
+    src: url("/static/css/Quicksand-Regular.otf");
+  }
+  @font-face {
+    font-family: "proxima-nova";
+    src: url("/static/css/proximanova-regular.otf");
+  }
+  @font-face {
+    font-family: "Palanquin";
+    src: url("/static/css/palanquindark-regular.ttf");
+  }
 `;
 
 export const themePropTypes = PropTypes.shape({
@@ -70,7 +85,7 @@ const theme = {
     secondary: "#a3c7d9",
   },
   bg: {
-    default: "#007fbf",
+    default: "#fff",
     light: "#a3c7d9",
   },
   input: {
@@ -80,11 +95,13 @@ const theme = {
     defaultBgColor: "#ffffff",
   },
   text: {
-    primary: "#fff",
-    secondary: "#a3c7d9",
+    primary: "#36454f",
+    secondary: "#007fbf",
     headerFontFamily: "Roboto,sans-serif",
     bodyFontFamily: "Roboto,sans-serif",
     textTransform: "uppercase",
+    titleColor: "#aaa",
+    titleFontFamily: "Roboto,sans-serif",
   },
   boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
 };

@@ -41,6 +41,8 @@ import {
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
+import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
+import { setCurrentTemplate } from "../../state/ducks/ui.js";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -51,7 +53,7 @@ import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import RightSidebar from "../../components/templates/right-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
-import UserMenu from "../../components/molecules/user-menu";
+import SiteHeader from "../../components/organisms/site-header";
 
 import constants from "../../constants";
 import PlaceList from "../../components/organisms/place-list";
@@ -75,15 +77,10 @@ browserUpdate({
   },
 });
 
-// Views
-var PagesNavView = require("mapseed-pages-nav-view");
-var PlaceCounterView = require("mapseed-place-counter-view");
-
 export default Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
@@ -96,6 +93,7 @@ export default Backbone.View.extend({
     store.dispatch(setAppConfig(this.options.appConfig));
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
+    store.dispatch(setNavBarConfig(this.options.navBarConfig));
 
     // Set initial map position state.
     store.dispatch(
@@ -137,9 +135,6 @@ export default Backbone.View.extend({
     if (this.options.appConfig.places_page_size) {
       placeParams.page_size = this.options.appConfig.places_page_size;
     }
-
-    // Track whether the list view is open:
-    this.isListOpen = false;
 
     // Bootstrapped data from the page
     this.activities = this.options.activities;
@@ -214,34 +209,21 @@ export default Backbone.View.extend({
       Handlebars.templates["add-places"](this.options.placeConfig),
     );
 
-    this.pagesNavView = new PagesNavView({
-      el: "#pages-nav-container",
-      pagesConfig: this.options.pagesConfig,
-      placeConfig: this.options.placeConfig,
-      router: this.options.router,
-    }).render();
-
+    // Site header
     ReactDOM.render(
-      <ThemeProvider theme={theme}>
-        <ThemeProvider theme={this.adjustedTheme}>
-          <UserMenu
-            router={this.options.router}
-            apiRoot={storeState.appConfig.api_root}
-            currentUser={Shareabouts.bootstrapped.currentUser}
-            datasetDownloadConfig={storeState.appConfig.dataset_download}
-          />
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <SiteHeader
+              router={this.options.router}
+              currentUser={Shareabouts.bootstrapped.currentUser}
+              languageCode={this.options.languageCode}
+            />
+          </ThemeProvider>
         </ThemeProvider>
-      </ThemeProvider>,
-      document.getElementById("auth-nav-container"),
+      </Provider>,
+      document.getElementById("site-header"),
     );
-
-    // Init the place-counter
-    this.placeCounterView = new PlaceCounterView({
-      el: "#place-counter",
-      router: this.options.router,
-      mapConfig: this.options.mapConfig,
-      places: this.places,
-    }).render();
 
     // When the user chooses a geocoded address, the address view will fire
     // a geocode event on the namespace. At that point we center the map on
@@ -731,24 +713,28 @@ export default Backbone.View.extend({
   },
 
   viewPage: function(slug) {
-    this.renderRightSidebar();
-    var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
-        slug: slug,
-      }),
-      pageTemplateName = pageConfig.name || pageConfig.slug,
-      pageHtml = Handlebars.templates[pageTemplateName]({
+    const pageConfig = _.findWhere(this.options.navBarConfig, {
+      url: `/page/${slug}`,
+    });
+
+    if (pageConfig) {
+      const pageHtml = Handlebars.templates[pageConfig.name]({
         config: this.options.config,
         apiRoot: this.options.apiRoot,
       });
 
-    this.$panel.removeClass().addClass("page page-" + slug);
-    this.showPanel(pageHtml);
-    this.hideNewPin();
-    this.destroyNewModels();
-    this.hideCenterPoint();
-    this.setBodyClass("content-visible");
-    store.dispatch(setMapSizeValidity(false));
-    this.renderMain();
+      this.$panel.removeClass().addClass("page page-" + slug);
+      this.showPanel(pageHtml);
+      this.hideNewPin();
+      this.destroyNewModels();
+      this.hideCenterPoint();
+      this.setBodyClass("content-visible");
+      store.dispatch(setMapSizeValidity(false));
+      this.renderRightSidebar();
+      this.renderMain();
+    } else {
+      this.options.router.navigate("/", { trigger: true });
+    }
   },
 
   showPanel: function(markup, preventScrollToTop) {
@@ -817,11 +803,6 @@ export default Backbone.View.extend({
     $("#spotlight-mask").hide();
   },
   renderMain: function() {
-    this.isListOpen = false;
-    // Update the "toggle list" button:
-    $(".show-the-list").removeClass("is-visuallyhidden");
-    $(".show-the-map").addClass("is-visuallyhidden");
-
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
 
@@ -868,6 +849,8 @@ export default Backbone.View.extend({
       </Provider>,
       document.getElementById("map-component"),
     );
+
+    store.dispatch(setCurrentTemplate("map"));
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
@@ -879,18 +862,11 @@ export default Backbone.View.extend({
     });
   },
   viewList: function() {
-    this.isListOpen = true;
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
-    $("#main").addClass("is-visuallyhidden");
-    $("#list-container").removeClass("is-visuallyhidden");
     this.renderRightSidebar();
     this.renderList();
   },
   renderList: function() {
-    // Update the list toggle button:
-    $(".show-the-map").removeClass("is-visuallyhidden");
-    $(".show-the-list").addClass("is-visuallyhidden");
-
     // Remove "main page" content:
     $("#geocode-address-bar").addClass("is-visuallyhidden");
     const geocodeAddressBar = document.getElementById("geocode-address-bar");
@@ -919,13 +895,8 @@ export default Backbone.View.extend({
       </Provider>,
       document.getElementById("list-container"),
     );
-  },
-  toggleListView: function() {
-    if (this.isListOpen) {
-      this.options.router.navigate("/", { trigger: true });
-    } else {
-      this.options.router.navigate("list", { trigger: true });
-    }
+
+    store.dispatch(setCurrentTemplate("list"));
   },
 });
 

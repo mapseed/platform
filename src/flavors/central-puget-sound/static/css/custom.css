@@ -9,20 +9,6 @@
   src: url('/static/css/palanquindark-regular.ttf');
 }
 
-/*@font-face {
-  font-family: 'WorkSans-ExtraBold';
-  src: url('WorkSans-ExtraBold.ttf');
-}*/
-
-#site-title a:link,
-#site-title a:visited {
-  color: #127de4 !important;
-  font-weight: normal;
-  font-family: 'Palanquin' !important;
-  display: block;
-  float: left;
-  margin-right: 50px;
-}
 
 #filter-menu-bar .filter-img:before {
   font-family: Roboto, sans-serif !important;
@@ -32,38 +18,8 @@
   font-family: Roboto, sans-serif !important;
 }
 
-#content h1,h2,h3,h4 {
-  font-family: Roboto, sans-serif !important;
-  line-height: 1em;
-}
-
 .story-tagline {
   font-family: "ArchivoBlack", sans-serif !important;
-}
-
-
-/* =Header
--------------------------------------------------------------- */
-@media only screen and (min-width: 60em) {
-  #site-header {
-    /*background: url(/static/css/images/longfellow_creek1.jpg);*/
-    background: none;
-    background-color: #FFF;
-  }
-
-  #site-title a:link, #site-title a:visited {
-    font-size: 3em;
-    line-height: 1.125;
-  }
-
-  /* reorient add a report button to bottom left when content panel is open */
-  .place-form-visible #main-btns-container {
-    display: none !important;
-  }
-
-  .content-expanded-mid #main-btns-container {
-    display: none !important;
-  }
 }
 
 /* =Header bar add report button

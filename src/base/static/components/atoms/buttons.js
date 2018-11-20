@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import classNames from "classnames";
 import styled from "react-emotion";
 
@@ -108,7 +108,6 @@ const Button = styled(props => {
     fontSize: "1rem",
     padding: "0.5rem",
 
-    fontFamily: props.theme.text.headerFontFamily,
     fontWeight: "200",
 
     border: "0px solid rgba(27,31,35,0.2)",
@@ -128,31 +127,35 @@ const Button = styled(props => {
     styles.height = "40px";
   } else if (props.size === "small") {
     styles.width = "auto";
-    styles.height = "24px";
-    styles.fontSize = ".8em";
-    styles.padding = "4px";
+    styles.fontSize = "1rem";
+    styles.padding = "4px 8px 4px 8px";
   }
 
   if (props.variant === "raised") {
     styles.boxShadow = "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)";
+    styles.border = "3px solid rgba(0, 0, 0, 0.05)";
   } else if (props.variant === "outlined") {
     styles.border = `3px solid ${props.theme.brand.primary}`;
   }
 
+  // TODO: Review use of themeing here.
   if (props.color === "primary") {
     styles.backgroundColor = props.theme.brand.primary;
-    styles.color = props.theme.text.primary;
+    styles.color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
+    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].color = props.theme.text.secondary;
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
     styles.color = props.theme.text.secondary;
-    styles["&:hover"].color = props.theme.text.primary;
+    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
-    styles.backgroundColor = "#fff";
-    styles.color = props.theme.brand.primary;
-    styles["&:hover"].color = props.theme.text.primary;
-    styles["&:hover"].backgroundColor = props.theme.text.secondary;
+    styles.backgroundColor = "transparent";
+    styles.color = props.theme.text.tertiary;
+    styles["&:hover"].color = props.theme.text.secondary;
+    styles["&:hover"].backgroundColor = props.theme.brand.accent;
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "black") {
     styles.backgroundColor = "#fff";

@@ -196,7 +196,7 @@ const PlaceListItem = props => {
                     );
                   }}
                 >
-                  <Button color="primary" size="small" variant="raised">
+                  <Button color="secondary" size="small" variant="raised">
                     <SmallText>{props.t("viewOnMap")}</SmallText>
                   </Button>
                 </PlaceInfoButton>

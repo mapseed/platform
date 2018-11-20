@@ -79,7 +79,7 @@ Shareabouts.Util = Util;
         appConfig: options.appConfig,
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
-        pagesConfig: options.pagesConfig,
+        navBarConfig: options.navBarConfig,
         mapConfig: options.mapConfig,
         storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
@@ -104,7 +104,7 @@ Shareabouts.Util = Util;
 
       // Load the default page when there is no page already in the url
       if (Backbone.history.getFragment() === "") {
-        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {
+        const startPageConfig = _.findWhere(options.navBarConfig, {
           start_page: true,
         });
 
@@ -114,7 +114,7 @@ Shareabouts.Util = Util;
           // don't route to the start page on small screens
           $(window).width() > (startPageConfig.show_above_width || 960)
         ) {
-          this.navigate("page/" + startPageConfig.slug, { trigger: true });
+          this.navigate(startPageConfig.slug, { trigger: true });
         }
       }
 

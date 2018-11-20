@@ -6,6 +6,8 @@ app:
   title: Participatory Budgeting Oakland
   # Header name
   name: "Participatory Budgeting Oakland"
+  logo: "/static/css/images/pblogo_large.png"
+
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! Participatory Budgeting Oakland is an innovative democratic process that gives Oakland residents in City Council Districts 1 and 2 the power to decide how to spend city funds in their district. Help us vote now!)"
   # Meta author that will show up in Google search results
@@ -23,6 +25,12 @@ app:
 
   # Optional. List view is supported by default. Set to false to disable.
   # list_enabled: false
+
+  theme:
+    bg:
+      default: "#fff"
+    text:
+      secondary: "#007fbf"
 
 languages:
 
@@ -262,9 +270,6 @@ activity:
 place:
   adding_supported: false
   add_button_label: _(Share your idea!)
-  # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See full list)
-  show_map_button_label: _(Show the Map)
   title: _(Tell us more...)
   action_text: _(suggested)
   anonymous_name: _(Someone)
@@ -686,21 +691,28 @@ support:
   action_text: supported
   anonymous_name: _(Someone)
 
-pages:
+nav_bar:
   - title: _(About)
-    slug: about
+    type: internal_link
+    url: /page/about
     name: overview
     start_page: true
 
   - title: _(Guidelines)
-    slug: guidelines
+    type: internal_link
+    url: /page/guidelines
     name: guidelines
     hide_from_top_bar: false
 
   - title: _(Get more involved)
-    slug: getinvolved
+    type: internal_link
+    url: /page/getinvolved
     name: getinvolved
     hide_from_top_bar: false
+
+  - type: list_toggle
+    show_list_button_label: _(See full list)
+    show_map_button_label: _(Show the Map)
 
 custom_hooks:
   onDetailViewMount: pbOaklandDetailViewMount

@@ -161,7 +161,9 @@ const mergedPOFileOutputPath = path.resolve(outputBasePath, "messages.po");
 
 let activeLanguages;
 if (isProd) {
-  activeLanguages = config.languages ? config.languages : [{ code: "en_US" }];
+  activeLanguages = config.app.languages
+    ? config.app.languages
+    : [{ code: "en_US" }];
 } else {
   activeLanguages = [{ code: "en_US" }];
 }

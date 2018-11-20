@@ -3,16 +3,27 @@ import PropTypes from "prop-types";
 import styled from "react-emotion";
 
 import { UserAvatar } from "../atoms/imagery";
-import { SmallText, Link } from "../atoms/typography";
+import { RegularText, Link } from "../atoms/typography";
 
 const ActivityItemContainer = styled("div")(props => ({
   position: "relative",
   listStyle: "none",
   borderBottom: "1px solid #888",
   paddingRight: "10px",
+}));
+
+const ActivityLink = styled(props => {
+  return (
+    <Link className={props.className} href={props.href} rel="internal">
+      {props.children}
+    </Link>
+  );
+})(props => ({
+  display: "block",
+  textTransform: "none",
   "&:hover": {
-    color: "#fff",
     backgroundColor: props.theme.brand.accent,
+    color: "#fff",
   },
 }));
 
@@ -29,18 +40,18 @@ const ActionTextContainer = styled("div")(props => ({
 
 const ActivityItem = props => (
   <ActivityItemContainer>
-    <Link href={props.url} rel="internal">
+    <ActivityLink href={props.url}>
       <li className={props.className}>
         <UserAvatarContainer>
           <UserAvatar />
         </UserAvatarContainer>
         <ActionTextContainer>
-          <SmallText weight="black">{props.submitterName} </SmallText>
-          <SmallText> {props.actionText}: </SmallText>
-          <SmallText>{props.title}</SmallText>
+          <RegularText weight="black">{props.submitterName} </RegularText>
+          <RegularText> {props.actionText}: </RegularText>
+          <RegularText>{props.title}</RegularText>
         </ActionTextContainer>
       </li>
-    </Link>
+    </ActivityLink>
   </ActivityItemContainer>
 );
 
