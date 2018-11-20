@@ -3,8 +3,8 @@
   "version": "3.19.1",
   "description": "Standalone Shareabouts client and server package",
   "engines": {
-    "node": ">=8.0 <9.0",
-    "npm": ">=5.1 <6.0"
+    "node": ">=10.0 <11.0",
+    "npm": ">=6.0 <7.0"
   },
   "main": "index.js",
   "repository": {
@@ -58,7 +58,7 @@
     "moment": "^2.20.1",
     "node-env-file": "^0.1.7",
     "node-sass": "^4.0.0",
-    "npm": "^5.2.0",
+    "npm": "^6.4.1",
     "rc-color-picker": "^1.2.3",
     "react": "^16.6.0",
     "react-datetime": "~2.14.0",
@@ -86,7 +86,6 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.5.1",
     "babel-preset-react": "~6.24.1",
-    "catw": "^1.0.1",
     "colors": "^1.1.2",
     "compass-mixins": "^0.12.10",
     "compression-webpack-plugin": "^2.0.0",
