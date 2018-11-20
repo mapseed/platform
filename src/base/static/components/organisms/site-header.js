@@ -217,46 +217,46 @@ const LogoTitleWrapper = styled("div")({
 });
 
 const navItemMappings = {
-  internal_link: props => (
+  internal_link: linkProps => (
     <NavLink
       height="24px"
-      position={props.position}
-      href={props.navBarItem.url}
+      position={linkProps.position}
+      href={linkProps.navBarItem.url}
     >
       <NavButton
-        variant={props.navBarItem.variant}
-        color={props.navBarItem.color || "tertiary"}
-        onClick={props.onClick}
+        variant={linkProps.navBarItem.variant}
+        color={linkProps.navBarItem.color || "tertiary"}
+        onClick={linkProps.onClick}
       >
-        {props.children}
+        {linkProps.children}
       </NavButton>
     </NavLink>
   ),
-  left_sidebar_toggle: props => (
-    <NavButtonWrapper position={props.position}>
+  left_sidebar_toggle: linkProps => (
+    <NavButtonWrapper position={linkProps.position}>
       <NavButton
-        variant={props.navBarItem.variant}
-        color={props.navBarItem.color || "tertiary"}
+        variant={linkProps.navBarItem.variant}
+        color={linkProps.navBarItem.color || "tertiary"}
         onClick={() => {
-          props.onClick();
-          props.setLeftSidebarComponent(props.navBarItem.component);
-          props.setLeftSidebarExpanded(!props.isLeftSidebarExpanded);
+          linkProps.onClick();
+          linkProps.setLeftSidebarComponent(linkProps.navBarItem.component);
+          linkProps.setLeftSidebarExpanded(!linkProps.isLeftSidebarExpanded);
         }}
       >
-        {props.children}
+        {linkProps.children}
       </NavButton>
     </NavButtonWrapper>
   ),
-  list_toggle: styled(props => (
+  list_toggle: styled(linkProps => (
     <NavLink
-      className={props.className}
+      className={linkProps.className}
       height="42px"
-      href={props.currentTemplate === "map" ? "/list" : "/"}
+      href={linkProps.currentTemplate === "map" ? "/list" : "/"}
     >
       <NavButton variant="raised" color="primary">
-        {props.currentTemplate === "map"
-          ? props.navBarItem.show_list_button_label
-          : props.navBarItem.show_map_button_label}
+        {linkProps.currentTemplate === "map"
+          ? linkProps.navBarItem.show_list_button_label
+          : linkProps.navBarItem.show_map_button_label}
       </NavButton>
     </NavLink>
   ))(() => ({
