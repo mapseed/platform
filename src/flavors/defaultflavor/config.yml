@@ -29,7 +29,11 @@ app:
   # list_enabled: false
 
   theme:
+    brand:
+      primary: "#a2c7da"
+      accent: "#93b7c9"
     text:
+      tertiary: "#007ec0"
       titleFontFamily: "Quicksand Regular, sans-serif"
 
 # languages:
