@@ -3,7 +3,6 @@ const fs = require("fs-extra");
 const path = require("path");
 const walk = require("object-walk");
 const exec = require("child_process").exec;
-const yaml = require("js-yaml");
 const shell = require("shelljs");
 const colors = require("colors");
 const args = require("optimist").argv;
@@ -35,8 +34,8 @@ const messagesCatalogTempPath = path.resolve(
   flavor,
   "temp-messages",
 );
-const flavorConfigPath = path.resolve(flavorBasePath, "config.yml");
-const config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
+const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
+const config = JSON.parse(fs.readFileSync(flavorConfigPath, "utf8"));
 shell.mkdir("-p", messagesCatalogTempPath);
 
 const escapeQuotes = message => {
