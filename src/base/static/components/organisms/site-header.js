@@ -49,6 +49,7 @@ const NavContainer = styled("nav")(props => ({
   [mq[1]]: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
     marginLeft: "50px",
   },
 }));
@@ -89,18 +90,20 @@ const NavLink = styled(props => (
   </Link>
 ))(props => ({
   display: "flex",
+  alignItems: "center",
   textDecoration: "none",
 
   [mq[1]]: {
+    height: props.height,
     borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
 }));
 
 const NavButtonWrapper = styled("span")(props => ({
   [mq[1]]: {
     borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
 }));
 
@@ -206,7 +209,11 @@ const LogoTitleWrapper = styled("div")({
 
 const navItemMappings = {
   internal_link: props => (
-    <NavLink position={props.position} href={props.navBarItem.url}>
+    <NavLink
+      height="24px"
+      position={props.position}
+      href={props.navBarItem.url}
+    >
       <NavButton
         variant={props.navBarItem.variant}
         color={props.navBarItem.color || "tertiary"}
@@ -234,9 +241,10 @@ const navItemMappings = {
   list_toggle: styled(props => (
     <NavLink
       className={props.className}
+      height="42px"
       href={props.currentTemplate === "map" ? "/list" : "/"}
     >
-      <NavButton variant="raised" color="secondary">
+      <NavButton variant="raised" color="primary">
         {props.currentTemplate === "map"
           ? props.navBarItem.show_list_button_label
           : props.navBarItem.show_map_button_label}

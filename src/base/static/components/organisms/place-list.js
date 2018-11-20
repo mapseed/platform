@@ -193,7 +193,7 @@ class PlaceList extends React.Component {
                 }}
               />
               <SearchButton
-                color="primary"
+                color="secondary"
                 onClick={this._setSortAndFilterPlaces}
                 variant="raised"
               >

@@ -23,11 +23,12 @@ app:
       default: "#d6d5d9"
       light: "#58585b"
     brand:
-      primary: "#58585b"
+      primary: "#045a8b"
       secondary: "#c3b9c7"
       accent: "#302d43"
     text:
       secondary: "#fff"
+      tertiary: "#58585b"
       navBarFontFamily: "proxima-nova, sans-serif"
       headerFontFamily: "Josefin Sans"
       bodyFontFamily: "Josefin Sans"

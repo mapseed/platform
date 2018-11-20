@@ -127,9 +127,8 @@ const Button = styled(props => {
     styles.height = "40px";
   } else if (props.size === "small") {
     styles.width = "auto";
-    styles.height = "24px";
-    styles.fontSize = ".8em";
-    styles.padding = "4px";
+    styles.fontSize = "1rem";
+    styles.padding = "4px 8px 4px 8px";
   }
 
   if (props.variant === "raised") {
@@ -139,18 +138,22 @@ const Button = styled(props => {
     styles.border = `3px solid ${props.theme.brand.primary}`;
   }
 
+  // TODO: Review use of themeing here.
   if (props.color === "primary") {
     styles.backgroundColor = props.theme.brand.primary;
-    styles.color = props.theme.text.primary;
+    styles.color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
+    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].color = props.theme.text.secondary;
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
     styles.color = props.theme.text.secondary;
-    styles["&:hover"].color = props.theme.text.primary;
+    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
-    styles.backgroundColor = props.theme.bg.default;
-    styles.color = props.theme.brand.primary;
+    styles.backgroundColor = "transparent";
+    styles.color = props.theme.text.tertiary;
     styles["&:hover"].color = props.theme.text.secondary;
     styles["&:hover"].backgroundColor = props.theme.brand.accent;
     styles["&:hover"].textDecoration = "none";
