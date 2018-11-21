@@ -15,7 +15,6 @@ import { appConfigSelector } from "../../state/ducks/app-config";
 
 const MetadataBarContainer = styled("div")(props => ({
   fontFamily: props.theme.text.bodyFontFamily,
-  marginBottom: "48px",
   position: "relative",
   lineHeight: "0.9rem",
 }));
