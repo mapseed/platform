@@ -6,6 +6,7 @@ import { LegacyIcon } from "../atoms/feedback";
 import { RegularLabel } from "../atoms/typography";
 
 const ColorSwatch = styled("span")(props => ({
+  flex: "0 0 30px",
   backgroundColor: props.color,
   width: "30px",
   height: "30px",
@@ -16,7 +17,9 @@ const ColorSwatch = styled("span")(props => ({
 const LegendIcon = styled(props => (
   <LegacyIcon icon={props.icon} classes={props.className} />
 ))(() => ({
+  flex: "0 0 30px",
   width: "30px",
+  height: "auto",
   marginRight: "10px",
 }));
 
