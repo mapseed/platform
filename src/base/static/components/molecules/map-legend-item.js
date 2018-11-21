@@ -2,48 +2,40 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 
-import { Icon } from "../atoms/feedback";
+import { LegacyIcon } from "../atoms/feedback";
 import { RegularLabel } from "../atoms/typography";
 
-import "./map-legend-item.scss";
-
 const ColorSwatch = styled("span")(props => ({
+  flex: "0 0 30px",
   backgroundColor: props.color,
-  width: 20,
-  height: 20,
-  marginRight: 10,
+  width: "30px",
+  height: "30px",
+  marginRight: "10px",
 }));
 
 // TODO: Abstract these components out when we refactor other panel types.
-const IconContainer = styled("div")({
-  display: "flex",
-  justifyContent: "center",
-  flex: 1,
-});
+const LegendIcon = styled(props => (
+  <LegacyIcon icon={props.icon} classes={props.className} />
+))(() => ({
+  flex: "0 0 30px",
+  width: "30px",
+  height: "auto",
+  marginRight: "10px",
+}));
 
 const MapLegendItemContainer = styled("div")({
   display: "flex",
   alignItems: "center",
-  marginBottom: 5,
-  paddingLeft: 15,
+  marginBottom: "5px",
+  paddingLeft: "15px",
 });
 
 const MapLegendItem = props => {
   return (
     <MapLegendItemContainer>
-      {props.icon && (
-        <IconContainer>
-          <Icon icon={props.icon} classes="map-legend-item__icon" />
-        </IconContainer>
-      )}
+      {props.icon && <LegendIcon icon={props.icon} />}
       {props.swatch && <ColorSwatch color={props.swatch} />}
-      <RegularLabel
-        styles={{
-          flex: 4,
-        }}
-      >
-        {props.label}
-      </RegularLabel>
+      <RegularLabel>{props.label}</RegularLabel>
     </MapLegendItemContainer>
   );
 };

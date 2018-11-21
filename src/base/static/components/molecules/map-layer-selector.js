@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Spinner from "react-spinner";
 
-import { Icon, InfoModalTrigger } from "../atoms/feedback";
+import { LegacyIcon, InfoModalTrigger } from "../atoms/feedback";
 import "./map-layer-selector.scss";
 
 const MapLayerSelector = props => {
@@ -20,7 +20,7 @@ const MapLayerSelector = props => {
         className="map-layer-selector__selectable-area"
         onClick={() => props.onToggleLayer(props.layerId)}
       >
-        <Icon icon={props.icon} classes="map-layer-selector__id-icon" />
+        <LegacyIcon icon={props.icon} classes="map-layer-selector__id-icon" />
         <span
           className={classNames("map-layer-selector__layer-title", {
             "map-layer-selector__layer-title--selected": props.selected,
@@ -33,7 +33,7 @@ const MapLayerSelector = props => {
             <Spinner />
           </div>
         ) : (
-          <Icon
+          <LegacyIcon
             icon={classNames({
               "fa-check": status === "loaded",
               "fa-times": status === "error",
