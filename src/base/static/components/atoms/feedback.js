@@ -43,7 +43,7 @@ InfoModalTrigger.propTypes = {
 // The source image for an Icon component can be either the name of a
 // FontAwesome icon or the url of an image asset. We assume that if the icon
 // reference ends with an image filetype, the identifier is an image url.
-const Icon = props => {
+const LegacyIcon = props => {
   const icon = /\.(jpg|jpeg|png|gif|bmp|svg)$/.test(props.icon) ? (
     <img
       src={props.prefix ? `${props.prefix}${props.icon}` : props.icon}
@@ -62,14 +62,14 @@ const Icon = props => {
   return icon;
 };
 
-Icon.propTypes = {
+LegacyIcon.propTypes = {
   classes: PropTypes.string,
   icon: PropTypes.string.isRequired,
   prefix: PropTypes.string,
 };
 
-Icon.defaultProps = {
+LegacyIcon.defaultProps = {
   icon: "__no-icon__",
 };
 
-export { ProgressBar, InfoModalTrigger, Icon };
+export { ProgressBar, InfoModalTrigger, LegacyIcon };

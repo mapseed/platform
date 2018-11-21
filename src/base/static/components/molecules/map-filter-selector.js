@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { Icon } from "../atoms/feedback";
+import { LegacyIcon } from "../atoms/feedback";
 import "./map-filter-selector.scss";
 
 const MapFilterSelector = props => {
@@ -12,7 +12,7 @@ const MapFilterSelector = props => {
         className="map-filter-selector__selectable-area"
         onClick={() => props.onToggleFilter(props.filterId)}
       >
-        <Icon icon={props.icon} classes="map-filter-selector__id-icon" />
+        <LegacyIcon icon={props.icon} classes="map-filter-selector__id-icon" />
         <span
           className={classNames("map-filter-selector__filter-title", {
             "map-filter-selector__filter-title--selected": props.isSelected,
@@ -20,7 +20,7 @@ const MapFilterSelector = props => {
         >
           {props.label}
         </span>
-        <Icon
+        <LegacyIcon
           icon={classNames({
             "fa-check": status === "loaded",
             "fa-times": status === "error",
