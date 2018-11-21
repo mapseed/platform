@@ -38,7 +38,7 @@ var entryPoints = [
   "./src/base/static/css/leaflet.draw.css",
   "./src/base/static/css/leaflet-sidebar.css",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
-  "./src/flavors/" + process.env.FLAVOR + "/config.yml",
+  "./src/flavors/" + process.env.FLAVOR + "/config.json",
 ].concat(flavorJsFiles);
 
 var baseViewPaths = glob.sync(
@@ -68,7 +68,7 @@ alias.config = path.resolve(
   __dirname,
   "src/flavors",
   process.env.FLAVOR,
-  "config.yml",
+  "config.json",
 );
 
 var outputBasePath = path.resolve(__dirname, "www");
@@ -129,8 +129,8 @@ module.exports = {
         ],
       },
       {
-        test: /config\.yml$/,
-        use: ["json-loader", "config-loader", "json-loader", "yaml-loader"],
+        test: /config\.json$/,
+        use: ["config-loader", "json-loader"],
       },
       {
         test: /\.svg$/,

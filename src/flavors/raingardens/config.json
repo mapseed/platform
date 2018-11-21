@@ -1,0 +1,405 @@
+{
+  "app": {
+    "title": "12,000 Rain Gardens",
+    "link": "http://12000raingardens.org",
+    "name": "12,000 Rain Gardens",
+    "meta_description": "_(Washington State University and Stewardship Partners are leading a groundbreaking campaign to install 12,000 rain gardens in the Seattle/Puget Sound Region by 2016. This is the map to track our progress. You can actively participate in this exciting campaign by installing one or more rain gardens in your community. In return you will reduce water pollution, prevent flooding, increase home values, make for beautiful, low-maintenance landscapes, and help your community save millions of dollars in pollution clean-up and expensive stormwater projects.)",
+    "meta_author": "SmarterCleanup.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+  },
+  "languages": null,
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "geocoding_enabled": true,
+    "geocoding_bar_enabled": false,
+    "geocode_bounding_box": [
+      45.2,
+      -125,
+      49.3,
+      -116.4
+    ],
+    "suppress_zoom_rules": true,
+    "counter": true,
+    "counter_min": 0,
+    "counter_max": 12000,
+    "options": {
+      "center": {
+        "lat": 47.61345,
+        "lng": -122.29843
+      },
+      "zoom": 11,
+      "minZoom": 7,
+      "maxZoom": 18,
+      "maxBounds": [
+        [
+          45.2,
+          -125
+        ],
+        [
+          49.3,
+          -116.4
+        ]
+      ]
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.m1b2emco/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "raingardens",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/raingardens",
+        "type": "place",
+        "slug": "place"
+      }
+    ]
+  },
+  "place_types": {
+    "raingarden": {
+      "label": "_(rain garden)",
+      "rules": [
+        {
+          "condition": "this.location_type === \"raingarden\" && this.layer.focused === false",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-drop.png",
+            "iconSize": [
+              24,
+              29
+            ],
+            "iconAnchor": [
+              12,
+              29
+            ]
+          }
+        },
+        {
+          "condition": "this.location_type === \"raingarden\" && this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-drop.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        }
+      ]
+    },
+    "idea": {
+      "label": "_(idea)",
+      "rules": [
+        {
+          "condition": "this.location_type === \"idea\" && this.map.zoom < 11 && this.layer.focused === false",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea-trans.png",
+            "iconSize": [
+              7,
+              12
+            ],
+            "iconAnchor": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "condition": "this.location_type === \"idea\" && this.map.zoom < 13 && this.layer.focused === false",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea-trans.png",
+            "iconSize": [
+              24,
+              29
+            ],
+            "iconAnchor": [
+              12,
+              29
+            ]
+          }
+        },
+        {
+          "condition": "this.location_type === \"idea\" && this.map.zoom >= 13 && this.layer.focused === false",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea-trans.png",
+            "iconSize": [
+              38,
+              46
+            ],
+            "iconAnchor": [
+              19,
+              46
+            ]
+          }
+        },
+        {
+          "condition": "this.location_type === \"idea\" && this.layer.focused === true",
+          "icon": {
+            "iconUrl": "/static/css/images/markers/marker-idea-trans.png",
+            "shadowUrl": "/static/css/images/marker-shadow.png",
+            "iconSize": [
+              50,
+              60
+            ],
+            "iconAnchor": [
+              25,
+              60
+            ],
+            "shadowSize": [
+              50,
+              60
+            ],
+            "shadowAnchor": [
+              14,
+              60
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "cluster": {
+    "threshold": 100,
+    "class_small": "raingardens-cluster-small",
+    "class_large": "raingardens-cluster-large",
+    "size_small": 40,
+    "size_large": 60
+  },
+  "sidebar": {
+    "enabled": true,
+    "legend_enabled": true,
+    "slug": "filter-type",
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "list",
+        "view": "GISLegendView",
+        "title": "_(Map Layers:)",
+        "basemaps": [
+          {
+            "id": "osm",
+            "title": "_(OpenStreetMap)",
+            "visibleDefault": true
+          }
+        ],
+        "groupings": [
+          {
+            "id": "grp-community",
+            "title": "_(Community Data)",
+            "visibleDefault": true,
+            "layers": [
+              {
+                "id": "raingardens",
+                "title": "_(Raingardens)",
+                "visibleDefault": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false,
+    "interval": 30000
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Add a rain garden to the map!)",
+    "show_list_button_label": "_(Show as a list)",
+    "show_map_button_label": "_(Back to the Map)",
+    "title": "_(Register your rain garden)",
+    "action_text": "_(added)",
+    "anonymous_name": "_(Anonymous)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "Address",
+    "place_detail": [
+      {
+        "category": "raingarden",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "raingardens",
+        "icon_url": "/static/css/images/markers/marker-drop.png",
+        "value": "raingardens",
+        "label": "_(Rain Garden)",
+        "fields": [
+          {
+            "name": "private-rain_garden_address",
+            "type": "geocoding",
+            "prompt": "_(Rain garden location)",
+            "placeholder": "_(Please type full address, (will not be published))",
+            "size": 30,
+            "optional": false
+          },
+          {
+            "name": "rain_garden_name",
+            "type": "text",
+            "prompt": "_(Garden Name)",
+            "display_prompt": "_(Garden Name:)",
+            "placeholder": "_(Garden Name)",
+            "size": 30,
+            "optional": true
+          },
+          {
+            "name": "rain_garden_size",
+            "type": "text",
+            "prompt": "_(Rain garden size (square feet))",
+            "display_prompt": "_(Rain garden size (square feet):)",
+            "placeholder": "_(Approximate square footage?)",
+            "size": 30,
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "contributing_area",
+            "type": "text",
+            "prompt": "_(Size of contributing area)",
+            "display_prompt": "_(Size of contributing area:)",
+            "placeholder": "_(How large is the catchment area that drains to this rain garden?)",
+            "size": 30,
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Description)",
+            "display_prompt": "_(Description:)",
+            "placeholder": "_(Any notes you want to add for others would be wonderful :))",
+            "optional": true
+          },
+          {
+            "name": "sources",
+            "type": "big_checkbox",
+            "prompt": "_(Primary sources)",
+            "display_prompt": "_(Sources:)",
+            "content": [
+              {
+                "label": "_(Roof)",
+                "value": "roof"
+              },
+              {
+                "label": "_(Pavement)",
+                "value": "pavement"
+              },
+              {
+                "label": "_(Other)",
+                "value": "other"
+              }
+            ]
+          },
+          {
+            "name": "designer",
+            "type": "text",
+            "prompt": "_(Designer)",
+            "display_prompt": "_(Designer:)",
+            "placeholder": "_(Designed by?)",
+            "size": 30,
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "installer",
+            "type": "text",
+            "prompt": "_(Installer)",
+            "display_prompt": "_(Installer:)",
+            "placeholder": "_(Installed by?)",
+            "size": 30,
+            "optional": true,
+            "sticky": true
+          },
+          {
+            "name": "contributor_name",
+            "type": "text",
+            "prompt": "_(Contributor's name)",
+            "display_prompt": "_(Contributor's name:)",
+            "placeholder": "_(Who should we give credit to?)",
+            "size": 30,
+            "optional": false,
+            "sticky": true
+          },
+          {
+            "name": "private-contributor_email",
+            "type": "text",
+            "prompt": "_(Your Email)",
+            "placeholder": "_(Your email address is kept private and will not be published)",
+            "size": 30,
+            "optional": false,
+            "sticky": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(Put it on the map!)"
+      }
+    }
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Like)",
+    "response_name": "_(like)",
+    "response_plural_name": "_(likes)",
+    "action_text": "liked",
+    "anonymous_name": "_(Someone)"
+  }
+}

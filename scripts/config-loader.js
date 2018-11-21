@@ -88,5 +88,5 @@ module.exports = function(source) {
     // ignore exceptions
   }
 
-  return config;
+  return JSON.stringify(config);
 };

@@ -1,0 +1,1049 @@
+{
+  "app": {
+    "title": "Participatory Budgeting Oakland",
+    "name": "Participatory Budgeting Oakland",
+    "logo": "/static/css/images/pblogo_large.png",
+    "meta_description": "_(Welcome! Participatory Budgeting Oakland is an innovative democratic process that gives Oakland residents in City Council Districts 1 and 2 the power to decide how to spend city funds in their district. Help us vote now!)",
+    "meta_author": "HaxGeo.com",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "theme": {
+      "bg": {
+        "default": "#fff"
+      },
+      "text": {
+        "secondary": "#007fbf"
+      }
+    }
+  },
+  "languages": [
+    {
+      "code": "es",
+      "label": "Hablo Español"
+    },
+    {
+      "code": "zh_Hant",
+      "label": "我讲中文"
+    },
+    {
+      "code": "en_US",
+      "label": "I Speak English"
+    }
+  ],
+  "map": {
+    "geolocation_enabled": true,
+    "geocode_bounding_box": [
+      46.5,
+      -124,
+      48.5,
+      -119
+    ],
+    "options": {
+      "map": {
+        "center": {
+          "lat": 37.81555,
+          "lng": -122.25251
+        },
+        "zoom": 13,
+        "minZoom": 1,
+        "maxZoom": 18
+      },
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      }
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "is_visible_default": true,
+        "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png",
+        "attribution": "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>"
+      },
+      {
+        "id": "satellite",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "light",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "url": "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+        "attribution": "Hello World"
+      },
+      {
+        "id": "districts",
+        "type": "vector-tile",
+        "is_visible_default": true,
+        "url": "https://vector-tiles.mapseed.org/oakland-districts/{z}/{x}/{y}.pbf",
+        "style_url": "https://vector-tiles.mapseed.org/oakland-districts/style.json",
+        "source_layer": "oakland-districts"
+      },
+      {
+        "id": "pboakland-featured-2017",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland-featured-2017",
+        "is_visible_default": true,
+        "is_topmost_layer": true,
+        "type": "place",
+        "slug": "featured",
+        "focus_rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "projects-2017"
+            ],
+            "symbol-layout": {
+              "icon-size": 1.4,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "==",
+              [
+                "get",
+                "location_type"
+              ],
+              "projects-2017"
+            ],
+            "symbol-layout": {
+              "icon-size": 1,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "pboakland",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland",
+        "is_visible_default": true,
+        "type": "place",
+        "slug": "idea",
+        "focus_rules": [
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "community"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-accented.png",
+              "icon-size": 1.2
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "parks"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-accented.png",
+              "icon-size": 1.2
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "streets"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-accented.png",
+              "icon-size": 1.2
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "housing"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-accented.png",
+              "icon-size": 1.2
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "community"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-muted.png",
+              "icon-size": 1
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "parks"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-muted.png",
+              "icon-size": 1
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "streets"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-muted.png",
+              "icon-size": 1
+            }
+          },
+          {
+            "filter": [
+              "all",
+              [
+                "==",
+                [
+                  "get",
+                  "location_type"
+                ],
+                "housing"
+              ]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea-muted.png",
+              "icon-size": 1
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Map Layers:)",
+        "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layers": [
+              {
+                "id": "osm",
+                "title": "_(OpenStreetMap)"
+              },
+              {
+                "id": "satellite",
+                "title": "_(Satellite View)"
+              },
+              {
+                "id": "light",
+                "title": "_(Light)"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "_(Community Data)",
+            "layers": [
+              {
+                "id": "pboakland",
+                "title": "_(Community Reports)"
+              },
+              {
+                "id": "pboakland-featured-2017",
+                "title": "_(2017 Featured Project)"
+              },
+              {
+                "id": "districts",
+                "title": "_(Oakland districts)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": true,
+    "component": "MapLegendPanel",
+    "groupings": [
+      {
+        "title": "_(Map Key)",
+        "description": "_(Select a Map Pin to see project details and related ideas)",
+        "content": [
+          {
+            "label": "_(Funded Project)",
+            "icon": "/static/css/images/funded-legend-icon.png"
+          },
+          {
+            "label": "_(Not Funded Project)",
+            "icon": "/static/css/images/losing-legend-icon.png"
+          },
+          {
+            "label": "_(Ideas)",
+            "icon": "/static/css/images/idea-legend-icon.png"
+          },
+          {
+            "label": "_(Ideas Related to Selected Project)",
+            "icon": "/static/css/images/idea-selected-legend-icon.png"
+          }
+        ]
+      },
+      {
+        "title": "_(Project Categories)",
+        "content": [
+          {
+            "label": "_(Youth Services)",
+            "icon": "/static/css/images/youth-legend-icon.png"
+          },
+          {
+            "label": "_(Capital Improvement)",
+            "icon": "/static/css/images/capital-legend-icon.png"
+          },
+          {
+            "label": "_(Senior and Disabled Services)",
+            "icon": "/static/css/images/senior-legend-icon.png"
+          },
+          {
+            "label": "_(Housing Services)",
+            "icon": "/static/css/images/housing-legend-icon.png"
+          },
+          {
+            "label": "_(Homeless Services)",
+            "icon": "/static/css/images/homeless-legend-icon.png"
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": true,
+    "interval": 30000
+  },
+  "place": {
+    "adding_supported": false,
+    "add_button_label": "_(Share your idea!)",
+    "title": "_(Tell us more...)",
+    "action_text": "_(suggested)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Submit)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "projects-2017",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "name": "location_type",
+        "dataset": "pboakland-featured-2017",
+        "icon_url": "/static/css/images/funded-legend-icon.png",
+        "value": "featured_place",
+        "label": "_(2017 Featured Project)",
+        "fields": [
+          {
+            "name": "agency",
+            "type": "text",
+            "placeholder": "_(Agency name)",
+            "prompt": "_(Implemented by)",
+            "display_prompt": "_(Implementation by:)"
+          },
+          {
+            "name": "fiscal-year",
+            "type": "text",
+            "placeholder": "_(Year)",
+            "prompt": "_(Fiscal year)",
+            "display_prompt": "_(Funds appropriated in fiscal year:)"
+          },
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "marker": "marker-capital-funded.png"
+              },
+              {
+                "marker": "marker-capital-losing.png"
+              },
+              {
+                "marker": "marker-youth-funded.png"
+              },
+              {
+                "marker": "marker-youth-losing.png"
+              },
+              {
+                "marker": "marker-senior-funded.png"
+              },
+              {
+                "marker": "marker-senior-losing.png"
+              },
+              {
+                "marker": "marker-homeless-funded.png"
+              },
+              {
+                "marker": "marker-homeless-losing.png"
+              },
+              {
+                "marker": "marker-housing-funded.png"
+              },
+              {
+                "marker": "marker-housing-losing.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "private-related-location-type",
+            "type": "dropdown",
+            "prompt": "_(Choose a related idea type to highlight:)",
+            "display_prompt": "_( )",
+            "content": [
+              {
+                "label": "_(Programs and Services)",
+                "value": "community"
+              },
+              {
+                "label": "_(Parks and Recreation)",
+                "value": "parks"
+              },
+              {
+                "label": "_(Streets and Sidewalks)",
+                "value": "streets"
+              },
+              {
+                "label": "_(Housing and Jobs)",
+                "value": "housing"
+              }
+            ],
+            "optional": false
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "community",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "pboakland",
+        "icon_url": "/static/css/images/markers/marker-youth.png",
+        "value": "community",
+        "label": "_(Community Programs and Services)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your idea:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_( )",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "prompt": "_(Tell us more about your idea to improve our neighborhood?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Ideas must be for a program, service, or infrastructure improvement benefiting low-to-moderate income communities in the district.)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "prompt": "_(Why is this important? What need in the community does this serve?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )",
+            "optional": true
+          },
+          {
+            "name": "venue",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-income",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "parks",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "pboakland",
+        "icon_url": "/static/css/images/markers/marker-parks.png",
+        "value": "parks",
+        "label": "_(Parks and Recreation)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your idea:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_( )",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "prompt": "_(Tell us more about your idea to improve our neighborhood?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Ideas must be for a program, service, or infrastructure improvement benefiting low-to-moderate income communities in the district.)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "prompt": "_(Why is this important? What need in the community does this serve?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )",
+            "optional": true
+          },
+          {
+            "name": "venue",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-income",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "streets",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "pboakland",
+        "icon_url": "/static/css/images/markers/marker-streets.png",
+        "value": "streets",
+        "label": "_(Streets and Sidewalk)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your idea:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_( )",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "prompt": "_(Tell us more about your idea to improve our neighborhood?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Ideas must be for a program, service, or infrastructure improvement benefiting low-to-moderate income communities in the district.)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "prompt": "_(Why is this important? What need in the community does this serve?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )",
+            "optional": true
+          },
+          {
+            "name": "venue",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-income",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "housing",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "pboakland",
+        "icon_url": "/static/css/images/markers/marker-housing.png",
+        "value": "housing",
+        "label": "_(Housing and Jobs)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of your idea:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_( )",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "prompt": "_(Tell us more about your idea to improve our neighborhood?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Ideas must be for a program, service, or infrastructure improvement benefiting low-to-moderate income communities in the district.)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "prompt": "_(Why is this important? What need in the community does this serve?:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )",
+            "optional": true
+          },
+          {
+            "name": "venue",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-income",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "venue": {
+        "type": "dropdown",
+        "optional": true,
+        "admin_only": true,
+        "admin_msg": "_((For administrator use only))",
+        "prompt": "_(Venue name:)",
+        "display_prompt": "_(Submitted at:)",
+        "content": [
+          {
+            "label": "_(Asian Cultural Center)",
+            "value": "asian_cultural_center"
+          },
+          {
+            "label": "_(Williams Chapel)",
+            "value": "williams_chapel"
+          },
+          {
+            "label": "_(Beebe Memorial Cathedral)",
+            "value": "beebe_memorial_cathedral"
+          },
+          {
+            "label": "_(Mobile Assembly at Bella Vista Elementary School)",
+            "value": "bella_vista"
+          },
+          {
+            "label": "_(Other)",
+            "value": "other"
+          }
+        ]
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "optional": true
+      },
+      "private-age": {
+        "autocomplete": true,
+        "type": "text",
+        "prompt": "_(Your age:)",
+        "display_prompt": "_()",
+        "placeholder": "_(Your age will not appear on the map)",
+        "optional": true
+      },
+      "private-ethnicity": {
+        "autocomplete": true,
+        "type": "big_radio",
+        "annotation": "_(Your ethnicity will not appear on the map)",
+        "prompt": "_(Your ethnicity:)",
+        "display_prompt": "_(Ethnicity:)",
+        "content": [
+          {
+            "label": "_(American Indian/Alaskan Native)",
+            "value": "indian-alaskan"
+          },
+          {
+            "label": "_(Asian)",
+            "value": "asian"
+          },
+          {
+            "label": "_(Black or African American)",
+            "value": "black"
+          },
+          {
+            "label": "_(Hispanic or Latino/a)",
+            "value": "hispanic"
+          },
+          {
+            "label": "_(Native Hawaiian or Pacific Islander)",
+            "value": "hawaiian-pacific"
+          },
+          {
+            "label": "_(White)",
+            "value": "white"
+          },
+          {
+            "label": "_(Other)",
+            "value": "other"
+          }
+        ],
+        "optional": true
+      },
+      "private-income": {
+        "autocomplete": true,
+        "type": "dropdown",
+        "prompt": "_(Your income:)",
+        "annotation": "_(Your income will not appear on the map)",
+        "content": [
+          {
+            "label": "_(Under $10,000)",
+            "value": "under-10k"
+          },
+          {
+            "label": "_($10,000 - $14,999)",
+            "value": "10k-15k"
+          },
+          {
+            "label": "_($15,000 - $24,999)",
+            "value": "15k-25k"
+          },
+          {
+            "label": "_($25,000 - $34,999)",
+            "value": "25k-35k"
+          },
+          {
+            "label": "_($35,000 - $49,000)",
+            "value": "35k-49k"
+          },
+          {
+            "label": "_($50,000 - $74,999)",
+            "value": "50k-75k"
+          },
+          {
+            "label": "_($75,000 - $99,000)",
+            "value": "75k-99k"
+          },
+          {
+            "label": "_($100,000 - $149,000)",
+            "value": "100k-149k"
+          },
+          {
+            "label": "_($150,000 or more)",
+            "value": "150k-or-more"
+          }
+        ],
+        "optional": true
+      },
+      "private-volunteer": {
+        "autocomplete": true,
+        "type": "big_toggle",
+        "prompt": "_(I want to volunteer:)",
+        "display_prompt": "_(I want to volunteer:)",
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          }
+        ],
+        "optional": true
+      },
+      "submitter_name": {
+        "autocomplete": true,
+        "type": "text",
+        "prompt": "_(Your name)",
+        "placeholder": "_(Name)",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "autocomplete": true,
+        "type": "text",
+        "prompt": "_(Your Email)",
+        "placeholder": "_(Receive email updates on your idea)",
+        "optional": true,
+        "sticky": true
+      },
+      "private-phone": {
+        "autocomplete": true,
+        "type": "text",
+        "prompt": "_(Your phone number:)",
+        "display_prompt": "_()",
+        "placeholder": "_(Your phone number will not appear on the map)",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(Submit)"
+      }
+    }
+  },
+  "notifications": {
+    "on_new_place": true,
+    "submitter_email_field": "private-submitter_email"
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "show_in_activity_stream": false,
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "nav_bar": [
+    {
+      "title": "_(About)",
+      "type": "internal_link",
+      "url": "/page/about",
+      "name": "overview",
+      "start_page": true
+    },
+    {
+      "title": "_(Guidelines)",
+      "type": "internal_link",
+      "url": "/page/guidelines",
+      "name": "guidelines",
+      "hide_from_top_bar": false
+    },
+    {
+      "title": "_(Get more involved)",
+      "type": "internal_link",
+      "url": "/page/getinvolved",
+      "name": "getinvolved",
+      "hide_from_top_bar": false
+    },
+    {
+      "type": "list_toggle",
+      "show_list_button_label": "_(See full list)",
+      "show_map_button_label": "_(Show the Map)"
+    }
+  ],
+  "custom_hooks": {
+    "onDetailViewMount": "pbOaklandDetailViewMount"
+  }
+}
