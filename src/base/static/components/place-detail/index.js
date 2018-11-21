@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { fromJS, List, Map } from "immutable";
 import { connect } from "react-redux";
+import styled from "react-emotion";
 
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
@@ -58,6 +59,12 @@ const serializeBackboneCollection = collection => {
 
   return serializedCollection;
 };
+
+const PromotionMetadataContainer = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  marginBottom: "24px",
+});
 
 class PlaceDetail extends Component {
   constructor(props) {
@@ -331,37 +338,39 @@ class PlaceDetail extends Component {
         >
           {title}
         </h1>
-        <PromotionBar
-          getLoggingDetails={this.props.model.getLoggingDetails.bind(
-            this.props.model,
+        <PromotionMetadataContainer>
+          {isWithMetadata && (
+            <MetadataBar
+              submitter={submitter}
+              placeModel={this.state.placeModel}
+              surveyModels={this.state.surveyModels}
+            />
           )}
-          isSupported={
-            !!this.state.supportModels.find(model => {
-              return (
-                model.get(constants.USER_TOKEN_PROPERTY_NAME) ===
-                this.props.userToken
-              );
-            })
-          }
-          isHorizontalLayout={isStoryChapter || !isWithMetadata}
-          numSupports={this.state.supportModels.size}
-          onModelIO={this.onChildModelIO.bind(this)}
-          onSocialShare={service =>
-            Util.onSocialShare(this.props.model, service)
-          }
-          supportModelCreate={this.props.model.submissionSets[
-            this.supportType
-          ].create.bind(this.props.model.submissionSets[this.supportType])}
-          userSupportModel={userSupportModel}
-          userToken={this.props.userToken}
-        />
-        {isWithMetadata && (
-          <MetadataBar
-            submitter={submitter}
-            placeModel={this.state.placeModel}
-            surveyModels={this.state.surveyModels}
+          <PromotionBar
+            getLoggingDetails={this.props.model.getLoggingDetails.bind(
+              this.props.model,
+            )}
+            isSupported={
+              !!this.state.supportModels.find(model => {
+                return (
+                  model.get(constants.USER_TOKEN_PROPERTY_NAME) ===
+                  this.props.userToken
+                );
+              })
+            }
+            isHorizontalLayout={isStoryChapter || !isWithMetadata}
+            numSupports={this.state.supportModels.size}
+            onModelIO={this.onChildModelIO.bind(this)}
+            onSocialShare={service =>
+              Util.onSocialShare(this.props.model, service)
+            }
+            supportModelCreate={this.props.model.submissionSets[
+              this.supportType
+            ].create.bind(this.props.model.submissionSets[this.supportType])}
+            userSupportModel={userSupportModel}
+            userToken={this.props.userToken}
           />
-        )}
+        </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
         {this.state.isEditModeToggled ? (
           <PlaceDetailEditor

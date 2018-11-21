@@ -6,15 +6,16 @@ import { connect } from "react-redux";
 
 import FormField from "../form-fields/form-field";
 import Avatar from "../ui-elements/avatar";
-import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 import { EditorButton } from "../atoms/buttons";
+import { SmallText, Time } from "../atoms/typography";
 
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
 import { surveyConfigSelector } from "../../state/ducks/survey-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { appConfigSelector } from "../../state/ducks/app-config";
 
 import "./survey-response-editor.scss";
 
@@ -133,7 +134,15 @@ class SurveyResponseEditor extends Component {
               submitter={this.props.submitter}
               anonymousName={this.props.placeConfig.anonymous_name}
             />
-            <ActionTime time={this.props.attributes.get("updated_datetime")} />
+            {this.props.appConfig.show_timestamps !== false && (
+              <SmallText display="block" textTransform="uppercase">
+                <Time
+                  time={this.props.attributes.get(
+                    constants.CREATED_DATETIME_PROPERTY_NAME,
+                  )}
+                />
+              </SmallText>
+            )}
           </div>
         </div>
       </form>
@@ -142,6 +151,7 @@ class SurveyResponseEditor extends Component {
 }
 
 SurveyResponseEditor.propTypes = {
+  appConfig: PropTypes.object.isRequired,
   attributes: PropTypes.object,
   isSubmitting: PropTypes.bool.isRequired,
   modelId: PropTypes.number.isRequired,
@@ -156,6 +166,7 @@ SurveyResponseEditor.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  appConfig: appConfigSelector(state),
   placeConfig: placeConfigSelector(state),
   surveyConfig: surveyConfigSelector(state),
 });

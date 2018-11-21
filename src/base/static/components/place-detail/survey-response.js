@@ -5,9 +5,11 @@ import { connect } from "react-redux";
 import Avatar from "../ui-elements/avatar";
 import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
+import { Time, SmallText } from "../atoms/typography";
 
 import { surveyConfigSelector } from "../../state/ducks/survey-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { appConfigSelector } from "../../state/ducks/app-config";
 
 import "./survey-response.scss";
 
@@ -57,6 +59,15 @@ class SurveyResponse extends Component {
               }
               anonymousName={this.props.placeConfig.anonymous_name}
             />
+            {this.props.appConfig.show_timestamps !== false && (
+              <SmallText display="block" textTransform="uppercase">
+                <Time
+                  time={this.props.attributes.get(
+                    constants.CREATED_DATETIME_PROPERTY_NAME,
+                  )}
+                />
+              </SmallText>
+            )}
           </div>
         </div>
       </article>
@@ -65,6 +76,7 @@ class SurveyResponse extends Component {
 }
 
 SurveyResponse.propTypes = {
+  appConfig: PropTypes.object.isRequired,
   attributes: PropTypes.object.isRequired,
   modelId: PropTypes.number.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
@@ -75,6 +87,7 @@ SurveyResponse.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  appConfig: appConfigSelector(state),
   surveyConfig: surveyConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });

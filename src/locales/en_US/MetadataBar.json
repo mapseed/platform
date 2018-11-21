@@ -1,4 +1,3 @@
 {
-  "submitterActionText":
-    "<0></0> <2>{{actionText}}</2> this <4>{{placeTypeLabel}}</4>"
+  "submitterActionText": "<0><0>{{submitterName}}</0></0> <2><0>{{actionText}}</0> this</2>"
 }
