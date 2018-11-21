@@ -7,6 +7,7 @@
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "district": null,
     "tagline": "_(How would YOU spend $100K?)",
+    "show_timestamps": false,
     "theme": {
       "bg": {
         "default": "#e6eef2",

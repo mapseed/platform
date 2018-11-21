@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "react-emotion";
+import moment from "moment";
 
 import "./typography.scss";
 
@@ -143,6 +144,9 @@ RegularLabel.propTypes = {
 // Text atoms:
 const textHandler = (props, styles) => {
   styles.fontFamily = props.theme.text.bodyFontFamily;
+  styles.fontWeight = 200;
+  styles.display = props.display || "inline";
+
   switch (props.weight) {
     case "bold":
       styles.fontWeight = 600;
@@ -211,6 +215,12 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
 };
 
+const Time = props => <time>{moment(props.time).fromNow()}</time>;
+
+Time.propTypes = {
+  time: PropTypes.string.isRequired,
+};
+
 export {
   Link,
   WarningMessage,
@@ -229,4 +239,5 @@ export {
   RegularText,
   SmallText,
   MicroText,
+  Time,
 };

@@ -24,7 +24,7 @@
         "tertiary": "#58585b",
         "navBarFontFamily": "proxima-nova, sans-serif",
         "headerFontFamily": "Josefin Sans",
-        "bodyFontFamily": "Josefin Sans"
+        "bodyFontFamily": "proxima-nova"
       }
     },
     "languages": [

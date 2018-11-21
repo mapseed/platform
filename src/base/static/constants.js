@@ -28,6 +28,7 @@ export default {
   SUBMITTER: "submitter",
   USER_TOKEN_PROPERTY_NAME: "user_token",
   CREATED_DATETIME_PROPERTY_NAME: "created_datetime",
+  UPDATED_DATETIME_PROPERTY_NAME: "updated_datetime",
   DATASET_SLUG_PROPERTY_NAME: "datasetSlug",
   MODEL_ID_PROPERTY_NAME: "id",
   STORY_FIELD_NAME: "story",
