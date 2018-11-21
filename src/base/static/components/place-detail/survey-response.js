@@ -63,7 +63,7 @@ class SurveyResponse extends Component {
               <SmallText display="block" textTransform="uppercase">
                 <Time
                   time={this.props.attributes.get(
-                    constants.UPDATED_DATETIME_PROPERTY_NAME,
+                    constants.CREATED_DATETIME_PROPERTY_NAME,
                   )}
                 />
               </SmallText>
