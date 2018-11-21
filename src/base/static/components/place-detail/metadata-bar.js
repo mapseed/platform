@@ -21,6 +21,7 @@ const MetadataBarContainer = styled("div")(props => ({
 
 const PlaceDetailsContainer = styled("div")({
   marginLeft: "60px",
+  marginRight: "8px",
 });
 
 const UserAvatarContainer = styled("div")({
