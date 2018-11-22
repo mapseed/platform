@@ -883,7 +883,10 @@
             "prompt": "_(I practice nutrient management)",
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["nutrient_management_acres", "nutrient_management_datetime"]
+              "targets": [
+                "nutrient_management_acres",
+                "nutrient_management_datetime"
+              ]
             },
             "content": [
               {
@@ -945,6 +948,480 @@
             "type": "textarea",
             "prompt": "_(Please describe your actions below)",
             "hidden_default": true
+          },
+          {
+            "name": "water_filtration_management",
+            "type": "informational_html",
+            "content": "<h5>C. Water and Filtration Management</h5>"
+          },
+          {
+            "//": "=============== GRASSED WATERWAYS ===========================",
+            "name": "grassed_waterways",
+            "type": "big_radio",
+            "prompt": "_(I installed grassed waterways)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "grassed_waterways_feet",
+                "grassed_waterways_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Grassed waterways)",
+              "body": ["Information about grassed waterways..."]
+            }
+          },
+          {
+            "name": "grassed_waterways_feet",
+            "type": "text",
+            "prompt": "_(How many linear feet of grassed waterways?)",
+            "hidden_default": true
+          },
+          {
+            "name": "grassed_waterways_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FILTER STRIPS ==============================",
+            "name": "filter_strips",
+            "type": "big_radio",
+            "prompt": "_(I installed filter strips)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "filter_strips_feet",
+                "filter_strips_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Filter strips)",
+              "body": ["Information about filter strips..."]
+            }
+          },
+          {
+            "name": "filter_strips_feet",
+            "type": "text",
+            "prompt": "_(How many linear feet of filter strips?)",
+            "hidden_default": true
+          },
+          {
+            "name": "filter_strips_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "==================WATER/FILTRATION MGMT OTHER===============",
+            "name": "water_filtration_management_other",
+            "prompt": "_(I practice other nutrient management actions)",
+            "type": "big_radio",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["water_filtration_management_other_action"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "water_filtration_management_other_action",
+            "type": "textarea",
+            "prompt": "_(Please describe your actions below)",
+            "hidden_default": true
+          },
+          {
+            "name": "range_management",
+            "type": "informational_html",
+            "content": "<h5>D. Range Management</h5>"
+          },
+          {
+            "//": "=============== PRESCRIBED GRAZING ==========================",
+            "name": "prescribed_grazing",
+            "type": "big_radio",
+            "prompt": "_(I practice prescribed grazing)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "prescribed_grazing_acres",
+                "prescribed_grazing_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Prescribed grazing)",
+              "body": ["Information about prescribed grazing..."]
+            }
+          },
+          {
+            "name": "prescribed_grazing_acres",
+            "type": "text",
+            "prompt": "_(How many acres of prescribed grazing?)",
+            "hidden_default": true
+          },
+          {
+            "name": "prescribed_grazing_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== RANGE PLANTING =============================",
+            "name": "range_planting",
+            "type": "big_radio",
+            "prompt": "_(I practice range planting)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "range_planting_acres",
+                "range_planting_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Range planting)",
+              "body": ["Information about range planting..."]
+            }
+          },
+          {
+            "name": "range_planting_acres",
+            "type": "text",
+            "prompt": "_(How many acres of range planting?)",
+            "hidden_default": true
+          },
+          {
+            "name": "range_planting_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STOCK WATERING/WELLS ========================",
+            "name": "stock_watering",
+            "type": "big_radio",
+            "prompt": "_(I operate stock watering facilities and/or wells)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "stock_watering_acres",
+                "stock_watering_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Stock watering facilities/wells)",
+              "body": ["Information about stock watering facilities/wells..."]
+            }
+          },
+          {
+            "name": "stock_watering_acres",
+            "type": "text",
+            "prompt": "_(How many acres impacted by stock water facilities and/or wells?)",
+            "hidden_default": true
+          },
+          {
+            "name": "stock_watering_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "==================RANGE MGMT OTHER==========================",
+            "name": "range_management_other",
+            "prompt": "_(I practice other range management actions)",
+            "type": "big_radio",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["range_management_other_action"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "range_management_other_action",
+            "type": "textarea",
+            "prompt": "_(Please describe your actions below)",
+            "hidden_default": true
+          },
+          {
+            "name": "soil_management",
+            "type": "informational_html",
+            "content": "<h5>E. Soil Management</h5>"
+          },
+          {
+            "//": "=============== CONSERVATION CROP ROTATION ==================",
+            "name": "crop_rotation",
+            "type": "big_radio",
+            "prompt": "_(I practice conservation crop rotation)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "crop_rotation_acres",
+                "crop_rotation_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Conservation crop rotation)",
+              "body": ["Information about conservation crop rotation..."]
+            }
+          },
+          {
+            "name": "crop_rotation_acres",
+            "type": "text",
+            "prompt": "_(How many acres of conservation crop rotation)",
+            "hidden_default": true
+          },
+          {
+            "name": "crop_rotation_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== COVER CROP =================================",
+            "name": "cover_crop",
+            "type": "big_radio",
+            "prompt": "_(I plant cover crops)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "cover_crop_acres",
+                "cover_crop_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Cover crops)",
+              "body": ["Information about cover crops..."]
+            }
+          },
+          {
+            "name": "cover_crop_acres",
+            "type": "text",
+            "prompt": "_(How many acres of cover crop?)",
+            "hidden_default": true
+          },
+          {
+            "name": "cover_crop_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== MULCH ======================================",
+            "name": "mulch",
+            "type": "big_radio",
+            "prompt": "_(I use mulch)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "mulch_acres",
+                "mulch_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Mulch)",
+              "body": ["Information about mulch..."]
+            }
+          },
+          {
+            "name": "mulch_acres",
+            "type": "text",
+            "prompt": "_(How many acres of mulch used?)",
+            "hidden_default": true
+          },
+          {
+            "name": "mulch_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "==================SOIL MGMT OTHER===========================",
+            "name": "soil_management_other",
+            "prompt": "_(I practice other soil management actions)",
+            "type": "big_radio",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["soil_management_other_action"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "soil_management_other_action",
+            "type": "textarea",
+            "prompt": "_(Please describe your actions below)",
+            "hidden_default": true
+          },
+          {
+            "name": "habitat_management",
+            "type": "informational_html",
+            "content": "<h5>F. Habitat Management</h5>"
           }
         ]
       }
