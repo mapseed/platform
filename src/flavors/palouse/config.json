@@ -443,7 +443,7 @@
           },
           {
             "start_field_index": 21,
-            "end_field_index": 23,
+            "end_field_index": 100,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)"
           }
@@ -608,54 +608,343 @@
             ]
           },
           {
-            "name": "private-about",
-            "type": "textarea",
-            "autocomplete": true,
-            "prompt": "_(Please describe your property:)",
-            "placeholder": "_(Enter description...)",
-            "optional": true
+            "name": "stewardship_practices_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,56,153,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>7. Your stewardship practices</h4></div>"
           },
           {
-            "name": "conservation-actions",
-            "type": "big_checkbox",
-            "autocomplete": false,
-            "prompt": "_(Which of the following actions have you completed?)",
-            "display_prompt": "_(My actions:)",
+            "name": "stewardship_practices_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p><strong>Your actions count!</strong> Please fill out the form below to officially report stewardship practices on your property.</p><p>If you are unsure about the meaning of a stewardship practice, click the symbol for more information.</p></div></div>"
+          },
+          {
+            "name": "tillage_management_header",
+            "type": "informational_html",
+            "content": "<h5>A. Residue and Tillage Management</h5>"
+          },
+          {
+            "//": "=============== PRECISION AGRICULTURE ======================",
+            "name": "precision_agriculture",
+            "type": "big_radio",
+            "prompt": "_(I practice precision agriculture)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "precision_agriculture_acres",
+                "precision_agriculture_datetime"
+              ]
+            },
             "content": [
               {
-                "label": "_(Choice A)",
-                "value": "choice_a"
+                "label": "_(Yes)",
+                "value": "yes"
               },
               {
-                "label": "_(Choice B)",
-                "value": "choice_b"
+                "label": "_(No)",
+                "value": "no"
               },
               {
-                "label": "_(Choice C)",
-                "value": "choice_c"
-              },
-              {
-                "label": "_(Choice D)",
-                "value": "choice_d"
-              },
-              {
-                "label": "_(Choice E)",
-                "value": "choice_e"
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
               }
             ],
-            "optional": false
+            "modal": {
+              "header": "_(Precision agriculture)",
+              "body": ["Information about precision agriculture..."]
+            }
           },
           {
-            "name": "my_image",
-            "type": "file",
-            "prompt": "_(Please share an image of your work)",
-            "label": "_(Add an Image)",
-            "optional": true
+            "name": "precision_agriculture_acres",
+            "type": "text",
+            "prompt": "_(How many acres of precision agriculture?)",
+            "hidden_default": true
           },
           {
-            "name": "submit_field",
-            "type": "submit",
-            "label": "_(Submit my report)"
+            "name": "precision_agriculture_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== MULCH TILL =================================",
+            "name": "mulch_till",
+            "type": "big_radio",
+            "prompt": "_(I practice mulch till)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["mulch_till_acres", "mulch_till_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Mulch till)",
+              "body": ["Information about mulch till..."]
+            }
+          },
+          {
+            "name": "mulch_till_acres",
+            "type": "text",
+            "prompt": "_(How many acres of mulch till?)",
+            "hidden_default": true
+          },
+          {
+            "name": "mulch_till_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== REDUCED TILL ================================",
+            "name": "reduced_till",
+            "type": "big_radio",
+            "prompt": "_(I practice reduced till)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["reduced_till_acres", "reduced_till_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Reduced till)",
+              "body": ["Information about reduced till..."]
+            }
+          },
+          {
+            "name": "reduced_till_acres",
+            "type": "text",
+            "prompt": "_(How many acres of reduced till?)",
+            "hidden_default": true
+          },
+          {
+            "name": "reduced_till_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== NO TILL/DIRECT SEED ========================",
+            "name": "no_till",
+            "type": "big_radio",
+            "prompt": "_(I practice no till/direct seed)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["no_till_acres", "no_till_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(No till/direct seed)",
+              "body": ["Information about no till/direct seed..."]
+            }
+          },
+          {
+            "name": "no_till_acres",
+            "type": "text",
+            "prompt": "_(How many acres of no till/direct seed?)",
+            "hidden_default": true
+          },
+          {
+            "name": "no_till_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "==================TILLAGE MGMT OTHER========================",
+            "name": "tillage_management_other",
+            "prompt": "_(I practice other tillage management actions)",
+            "type": "big_radio",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["tillage_management_other_action"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "tillage_management_other_action",
+            "type": "textarea",
+            "prompt": "_(Please describe your actions below)",
+            "hidden_default": true
+          },
+          {
+            "name": "chemical_management_header",
+            "type": "informational_html",
+            "content": "<h5>B. Chemical and Nutrient Management</h5>"
+          },
+          {
+            "//": "=============== INTEGRATED PEST MGMT ========================",
+            "name": "pest_management",
+            "type": "big_radio",
+            "prompt": "_(I practice integrated pest management)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["pest_management_acres", "pest_management_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Integrated pest management)",
+              "body": ["Information about integrated pest management..."]
+            }
+          },
+          {
+            "name": "pest_management_acres",
+            "type": "text",
+            "prompt": "_(How many acres of integrated pest management?)",
+            "hidden_default": true
+          },
+          {
+            "name": "pest_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== NUTRIENT MGMT ==============================",
+            "name": "nutrient_management",
+            "type": "big_radio",
+            "prompt": "_(I practice nutrient management)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["nutrient_management_acres", "nutrient_management_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Nutrient management)",
+              "body": ["Information about nutrient management..."]
+            }
+          },
+          {
+            "name": "nutrient_management_acres",
+            "type": "text",
+            "prompt": "_(How many acres of nutrient management?)",
+            "hidden_default": true
+          },
+          {
+            "name": "nutrient_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "==================NUTRIENT MGMT OTHER========================",
+            "name": "nutrient_management_other",
+            "prompt": "_(I practice other nutrient management actions)",
+            "type": "big_radio",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["nutrient_management_other_action"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_other_action",
+            "type": "textarea",
+            "prompt": "_(Please describe your actions below)",
+            "hidden_default": true
           }
         ]
       }
