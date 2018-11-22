@@ -22,10 +22,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "geocoding_engine": "Mapbox",
-    "geocode_hint": [
-      -117.1889785,
-      46.7298657
-    ],
+    "geocode_hint": [-117.1889785, 46.7298657],
     "options": {
       "map": {
         "center": {
@@ -69,9 +66,7 @@
         "type": "json",
         "is_visible_default": true,
         "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/columbia-river.geojson",
-        "feature_types": [
-          "Polygon"
-        ],
+        "feature_types": ["Polygon"],
         "rules": [
           {
             "fill-paint": {
@@ -90,9 +85,7 @@
         "type": "json",
         "is_visible_default": true,
         "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/snake-river.geojson",
-        "feature_types": [
-          "Polygon"
-        ],
+        "feature_types": ["Polygon"],
         "rules": [
           {
             "fill-paint": {
@@ -111,9 +104,7 @@
         "type": "json",
         "is_visible_default": true,
         "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin.geojson",
-        "feature_types": [
-          "Polygon"
-        ],
+        "feature_types": ["Polygon"],
         "rules": [
           {
             "fill-paint": {
@@ -225,14 +216,7 @@
           {
             "id": "palouse-geologic-hazard",
             "type": "fill",
-            "filter": [
-              "==",
-              [
-                "get",
-                "erosion_of"
-              ],
-              "Severe"
-            ],
+            "filter": ["==", ["get", "erosion_of"], "Severe"],
             "paint": {
               "fill-color": "#ff1a1a",
               "fill-opacity": 0.7
@@ -253,10 +237,7 @@
             "paint": {
               "line-color": "#fff",
               "line-width": 3,
-              "line-dasharray": [
-                4,
-                2
-              ]
+              "line-dasharray": [4, 2]
             }
           }
         ]
@@ -274,10 +255,7 @@
               "icon-anchor": "bottom",
               "icon-image": [
                 "match",
-                [
-                  "get",
-                  "location_type"
-                ],
+                ["get", "location_type"],
                 "reports",
                 "map-pin-marker-red.png",
                 "__no-icon-image__"
@@ -287,13 +265,7 @@
         ],
         "rules": [
           {
-            "filter": [
-              "<",
-              [
-                "zoom"
-              ],
-              11
-            ],
+            "filter": ["<", ["zoom"], 11],
             "symbol-layout": {
               "icon-anchor": "bottom",
               "icon-image": "map-pin-marker-red.png",
@@ -301,23 +273,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                16
-              ]
-            ],
+            "filter": ["all", [">=", ["zoom"], 11], ["<", ["zoom"], 16]],
             "symbol-layout": {
               "icon-anchor": "bottom",
               "icon-image": "map-pin-marker-red.png",
@@ -325,13 +281,7 @@
             }
           },
           {
-            "filter": [
-              ">=",
-              [
-                "zoom"
-              ],
-              16
-            ],
+            "filter": [">=", ["zoom"], 16],
             "symbol-layout": {
               "icon-anchor": "bottom",
               "icon-image": "map-pin-marker-red.png",
@@ -457,39 +407,205 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 3,
-            "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
-            "header": "_(Tell Us About Yourself)",
-            "description": "_(This information will remain private)"
+            "end_field_index": 5,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
           },
           {
-            "start_field_index": 4,
-            "end_field_index": 6,
-            "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
-            "header": "_(Your Actions)"
+            "start_field_index": 6,
+            "end_field_index": 8,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
+          },
+          {
+            "start_field_index": 9,
+            "end_field_index": 11,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
+          },
+          {
+            "start_field_index": 12,
+            "end_field_index": 14,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
+          },
+          {
+            "start_field_index": 15,
+            "end_field_index": 17,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
+          },
+          {
+            "start_field_index": 18,
+            "end_field_index": 20,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
+          },
+          {
+            "start_field_index": 21,
+            "end_field_index": 23,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
           }
         ],
         "label": "_(Actions)",
         "fields": [
           {
-            "name": "private-name",
-            "type": "text",
-            "autocomplete": true,
-            "prompt": "_(Your name:)",
-            "placeholder": "_(Enter name...)",
-            "optional": false
+            "name": "location_information_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:#cc9900'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>1. Your property</h4><span style='background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-home' style='margin-left:4px;color:#cc9900;font-size:2em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+          },
+          {
+            "name": "location_why",
+            "type": "informational_html",
+            "content": "<p>Reporting your property location will help Whitman County better allocate VSP resources. Your address will never be shared with anyone.</p>"
           },
           {
             "name": "private-address",
             "type": "geocoding",
-            "prompt": "_(Enter your address:)",
-            "optional": true,
-            "modal": {
-              "header": "_(Information)",
-              "body": [
-                "We collect locations to ensure services are being delivered where they are needed most."
-              ]
-            }
+            "placeholder": "_(Search by address. Your address will never be shared.)",
+            "prompt": " ",
+            "placeholder": " "
+          },
+          {
+            "name": "geolocation",
+            "type": "informational_html",
+            "content": "<p>Geolocate me</p>"
+          },
+          {
+            "name": "drag_map_info",
+            "type": "informational_html",
+            "content": "<p>Drag the map</p>"
+          },
+          {
+            "name": "wetlands_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:rgba(102,255,204,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>2. Wetland areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-leaf' style='color:rgba(102,255,204,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+          },
+          {
+            "name": "wetlands_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Wetland areas</strong> are colored blue-green on the map. Wetland areas are inundated or saturated by surface water or groundwater.</div><div style='flex:1;margin:4px'><img src='/static/css/images/wetlands-cropped.png' alt='Wetland areas' /></div></div>"
+          },
+          {
+            "name": "private-property_on_wetlands",
+            "type": "big_radio",
+            "prompt": "_(Does your property lie on any wetland areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "frequently_flooded_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:rgba(51,102,255,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>3. Frequently flooded areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-tint' style='color:rgba(51,102,255,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+          },
+          {
+            "name": "frequently_flooded_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px'><div style='flex:1;margin:4px'><strong>Frequently flooded areas</strong> are colored blue on the map. Frequently flooded areas are subject to a 1% or greater chance of flooding every year.</div><div style='flex:1;margin:4px'><img src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /></div></div>"
+          },
+          {
+            "name": "private-property_on_frequently_flooded",
+            "type": "big_radio",
+            "prompt": "_(Does your property lie on any frequently flooded areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "geologic_hazard_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:rgba(255,153,0,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>4. Geologic hazard areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-exclamation-triangle' style='color:rgba(255,153,0,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+          },
+          {
+            "name": "geologic_hazard_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Geologic hazard areas</strong> are colored orange on the map. Geologic hazard areas are susceptible to erosion, sliding, earthquakes, and other geological events.</div><div style='flex:1;margin:4px'><img src='/static/css/images/geologic-hazard.jpg' alt='Wetland areas' /></div></div>"
+          },
+          {
+            "name": "private-property_on_geologic_hazard",
+            "type": "big_radio",
+            "prompt": "_(Does your property lie on any geologic hazard areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "critical_aquifer_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,51,204,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>5. Critical aquifer recharge areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-refresh' style='color:rgba(0,51,204,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+          },
+          {
+            "name": "critical_aquifer_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Critical aquifer recharge areas</strong> are colored dark blue on the map. Critical aquifer recharge areas have an effect on aquifers used for potable water.</div><div style='flex:1;margin:4px'><img src='/static/css/images/aquifer-recharge.jpg' alt='Wetland areas' /></div></div>"
+          },
+          {
+            "name": "private-property_on_critical_aquifer",
+            "type": "big_radio",
+            "prompt": "_(Does your property lie on any critical aquifer recharge areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "wildlife_conservation_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,153,51,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>6. Fish and wildlife conservation areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-tree' style='color:rgba(0,153,51,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+          },
+          {
+            "name": "wildlife_conservation_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Fish and wildlife conservation areas</strong> are colored green on the map. Wildlife conservation areas are managed to maintain populations of fish and wildlife.</div><div style='flex:1;margin:4px'><img src='/static/css/images/aquifer-recharge.jpg' alt='Wetland areas' /></div></div>"
+          },
+          {
+            "name": "private-property_on_wildlife_conservation",
+            "type": "big_radio",
+            "prompt": "_(Does your property lie on any fish and wildlife conservation areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
           },
           {
             "name": "private-about",
