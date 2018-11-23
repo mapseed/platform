@@ -1,8 +1,8 @@
 {
   "app": {
-    "title": "Palouse Conservation District",
-    "name": "Palouse Conservation District",
-    "logo": "/static/css/images/palouse-logo.jpg",
+    "title": "Whitman County Voluntary Stewardship Program",
+    "name": "Whitman County Voluntary Stewardship Program",
+    "logo": "/static/css/images/whitman-vsp-logo-large.png",
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
@@ -11,7 +11,7 @@
         "primary": "#007fbf"
       },
       "bg": {
-        "default": "#fff"
+        "default": "#fff0d0"
       },
       "text": {
         "secondary": "#007fbf"
@@ -51,12 +51,12 @@
         "id": "mapbox-light-style",
         "type": "mapbox-style",
         "is_basemap": true,
-        "is_visible_default": true,
         "url": "mapbox://styles/tcroxson/cjo6be9u21c1t2rqwiwtcdryc"
       },
       {
         "id": "satellite",
         "type": "raster-tile",
+        "is_visible_default": true,
         "is_basemap": true,
         "url": "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
@@ -102,7 +102,6 @@
       {
         "id": "palouse-basin",
         "type": "json",
-        "is_visible_default": true,
         "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin.geojson",
         "feature_types": ["Polygon"],
         "rules": [
@@ -134,7 +133,6 @@
       {
         "id": "palouse-critical-aquifer",
         "type": "vector-tile",
-        "is_visible_default": true,
         "url": "https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf",
         "source_layer": "palouse-critical-aquifer",
         "mapbox_layers": [
@@ -151,7 +149,6 @@
       {
         "id": "palouse-critical-conservation-areas",
         "type": "vector-tile",
-        "is_visible_default": true,
         "url": "https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf",
         "source_layer": "palouse-critical-conservation-areas",
         "mapbox_layers": [
@@ -168,7 +165,6 @@
       {
         "id": "palouse-frequently-flooded",
         "type": "vector-tile",
-        "is_visible_default": true,
         "url": "https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf",
         "source_layer": "palouse-frequently-flooded",
         "mapbox_layers": [
@@ -192,7 +188,6 @@
       {
         "id": "palouse-wetlands",
         "type": "vector-tile",
-        "is_visible_default": true,
         "url": "https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf",
         "source_layer": "palouse-wetlands",
         "mapbox_layers": [
@@ -209,7 +204,6 @@
       {
         "id": "palouse-geologic-hazard",
         "type": "vector-tile",
-        "is_visible_default": true,
         "url": "https://vector-tiles.mapseed.org/palouse-geologic-hazard/{z}/{x}/{y}.pbf",
         "source_layer": "palouse-geologic-hazard",
         "mapbox_layers": [
