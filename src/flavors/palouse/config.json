@@ -443,7 +443,7 @@
           },
           {
             "start_field_index": 21,
-            "end_field_index": 100,
+            "end_field_index": 120,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)"
           }
@@ -1422,6 +1422,408 @@
             "name": "habitat_management",
             "type": "informational_html",
             "content": "<h5>F. Habitat Management</h5>"
+          },
+          {
+            "//": "=============== CONSERVATION COVER ==========================",
+            "name": "conservation_cover",
+            "type": "big_radio",
+            "prompt": "_(I use conservation cover)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "conservation_cover_acres",
+                "conservation_cover_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Conservation cover)",
+              "body": ["Information about conservation cover..."]
+            }
+          },
+          {
+            "name": "conservation_cover_acres",
+            "type": "text",
+            "prompt": "_(How many acres of conservation cover?)",
+            "hidden_default": true
+          },
+          {
+            "name": "conservation_cover_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== WEED CONTROL ================================",
+            "name": "weed_control",
+            "type": "big_radio",
+            "prompt": "_(I practice herbaceous weed control)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "weed_control_acres",
+                "weed_control_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Herbaceous weed control)",
+              "body": ["Information about herbaceous weed control..."]
+            }
+          },
+          {
+            "name": "weed_control_acres",
+            "type": "text",
+            "prompt": "_(How many acres of herbaceous weed control?)",
+            "hidden_default": true
+          },
+          {
+            "name": "weed_control_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== TREE/SHRUB ==================================",
+            "name": "tree_shrub",
+            "type": "big_radio",
+            "prompt": "_(I practice tree/shrub establishment)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "tree_shrub_acres",
+                "tree_shrub_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Tree/shrub establishment)",
+              "body": ["Information about tree/shrub establishment..."]
+            }
+          },
+          {
+            "name": "tree_shrub_acres",
+            "type": "text",
+            "prompt": "_(How many acres of tree/shrub establishment?)",
+            "hidden_default": true
+          },
+          {
+            "name": "tree_shrub_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== HEDGEROW ===================================",
+            "name": "hedgerow",
+            "type": "big_radio",
+            "prompt": "_(I maintain hedgerows)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "hedgerow_feet",
+                "hedgerow_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Hedgerows)",
+              "body": ["Information about hedgerows..."]
+            }
+          },
+          {
+            "name": "hedgerow_feet",
+            "type": "text",
+            "prompt": "_(How many linear feet of hedgerows?)",
+            "hidden_default": true
+          },
+          {
+            "name": "hedgerow_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== RIPARIAN PLANTING ===========================",
+            "name": "riparian_planting",
+            "type": "big_radio",
+            "prompt": "_(I practice riparian planting)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "riparian_planting_acres",
+                "riparian_planting_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Riparian planting)",
+              "body": ["Information about riparian planting..."]
+            }
+          },
+          {
+            "name": "riparian_planting_acres",
+            "type": "text",
+            "prompt": "_(How many acres of riparian planting?)",
+            "hidden_default": true
+          },
+          {
+            "name": "riparian_planting_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== NATIVE VEGETATION ===========================",
+            "name": "native_vegetation",
+            "type": "big_radio",
+            "prompt": "_(I maintain native vegetation)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "native_vegetation_acres",
+                "native_vegetation_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Maintenance of native vegetation)",
+              "body": ["Information about maintenance of native vegetation..."]
+            }
+          },
+          {
+            "name": "native_vegetation_acres",
+            "type": "text",
+            "prompt": "_(How many acres of native vegetation maintenance?)",
+            "hidden_default": true
+          },
+          {
+            "name": "native_vegetation_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STREAM HABITAT =============================",
+            "name": "stream_habitat",
+            "type": "big_radio",
+            "prompt": "_(I practice stream habitat improvement and habitat)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "stream_habitat_acres",
+                "stream_habitat_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Stream habitat improvement and management)",
+              "body": ["Information about stream habitat improvement and management..."]
+            }
+          },
+          {
+            "name": "stream_habitat_acres",
+            "type": "text",
+            "prompt": "_(How many acres of stream habitat improvement and management?)",
+            "hidden_default": true
+          },
+          {
+            "name": "stream_habitat_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STREAMBANK FENCING ==========================",
+            "name": "streambank_fencing",
+            "type": "big_radio",
+            "prompt": "_(I installed streambank and shoreline protection fencing)",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "streambank_fencing_feet",
+                "streambank_fencing_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "_(Streambank and shoreline protection fencing)",
+              "body": ["Information about streambank and shoreline protection fencing..."]
+            }
+          },
+          {
+            "name": "streambank_fencing_feet",
+            "type": "text",
+            "prompt": "_(How many linear feet of streambank and shoreline protection fencing?)",
+            "hidden_default": true
+          },
+          {
+            "name": "streambank_fencing_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you last complete this action?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "==================HABITAT MGMT OTHER=========================",
+            "name": "habitat_management_other",
+            "prompt": "_(I practice other habitat management actions)",
+            "type": "big_radio",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["habitat_management_other_action"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "habitat_management_other_action",
+            "type": "textarea",
+            "prompt": "_(Please describe your actions below)",
+            "hidden_default": true
           }
         ]
       }
