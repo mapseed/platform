@@ -443,7 +443,13 @@
           },
           {
             "start_field_index": 21,
-            "end_field_index": 120,
+            "end_field_index": 106,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)"
+          },
+          {
+            "start_field_index": 107,
+            "end_field_index": 115,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)"
           }
@@ -627,6 +633,7 @@
             "name": "precision_agriculture",
             "type": "big_radio",
             "prompt": "_(I practice precision agriculture)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -674,6 +681,7 @@
             "name": "mulch_till",
             "type": "big_radio",
             "prompt": "_(I practice mulch till)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": ["mulch_till_acres", "mulch_till_datetime"]
@@ -718,6 +726,7 @@
             "name": "reduced_till",
             "type": "big_radio",
             "prompt": "_(I practice reduced till)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": ["reduced_till_acres", "reduced_till_datetime"]
@@ -762,6 +771,7 @@
             "name": "no_till",
             "type": "big_radio",
             "prompt": "_(I practice no till/direct seed)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": ["no_till_acres", "no_till_datetime"]
@@ -805,6 +815,7 @@
             "//": "==================TILLAGE MGMT OTHER========================",
             "name": "tillage_management_other",
             "prompt": "_(I practice other tillage management actions)",
+            "optional": true,
             "type": "big_radio",
             "trigger": {
               "trigger_value": "yes",
@@ -837,6 +848,7 @@
             "name": "pest_management",
             "type": "big_radio",
             "prompt": "_(I practice integrated pest management)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": ["pest_management_acres", "pest_management_datetime"]
@@ -881,6 +893,7 @@
             "name": "nutrient_management",
             "type": "big_radio",
             "prompt": "_(I practice nutrient management)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -927,6 +940,7 @@
             "//": "==================NUTRIENT MGMT OTHER========================",
             "name": "nutrient_management_other",
             "prompt": "_(I practice other nutrient management actions)",
+            "optional": true,
             "type": "big_radio",
             "trigger": {
               "trigger_value": "yes",
@@ -959,6 +973,7 @@
             "name": "grassed_waterways",
             "type": "big_radio",
             "prompt": "_(I installed grassed waterways)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -1006,12 +1021,10 @@
             "name": "filter_strips",
             "type": "big_radio",
             "prompt": "_(I installed filter strips)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "filter_strips_feet",
-                "filter_strips_datetime"
-              ]
+              "targets": ["filter_strips_feet", "filter_strips_datetime"]
             },
             "content": [
               {
@@ -1052,6 +1065,7 @@
             "//": "==================WATER/FILTRATION MGMT OTHER===============",
             "name": "water_filtration_management_other",
             "prompt": "_(I practice other nutrient management actions)",
+            "optional": true,
             "type": "big_radio",
             "trigger": {
               "trigger_value": "yes",
@@ -1084,6 +1098,7 @@
             "name": "prescribed_grazing",
             "type": "big_radio",
             "prompt": "_(I practice prescribed grazing)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -1131,12 +1146,10 @@
             "name": "range_planting",
             "type": "big_radio",
             "prompt": "_(I practice range planting)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "range_planting_acres",
-                "range_planting_datetime"
-              ]
+              "targets": ["range_planting_acres", "range_planting_datetime"]
             },
             "content": [
               {
@@ -1178,12 +1191,10 @@
             "name": "stock_watering",
             "type": "big_radio",
             "prompt": "_(I operate stock watering facilities and/or wells)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "stock_watering_acres",
-                "stock_watering_datetime"
-              ]
+              "targets": ["stock_watering_acres", "stock_watering_datetime"]
             },
             "content": [
               {
@@ -1224,6 +1235,7 @@
             "//": "==================RANGE MGMT OTHER==========================",
             "name": "range_management_other",
             "prompt": "_(I practice other range management actions)",
+            "optional": true,
             "type": "big_radio",
             "trigger": {
               "trigger_value": "yes",
@@ -1256,12 +1268,10 @@
             "name": "crop_rotation",
             "type": "big_radio",
             "prompt": "_(I practice conservation crop rotation)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "crop_rotation_acres",
-                "crop_rotation_datetime"
-              ]
+              "targets": ["crop_rotation_acres", "crop_rotation_datetime"]
             },
             "content": [
               {
@@ -1303,12 +1313,10 @@
             "name": "cover_crop",
             "type": "big_radio",
             "prompt": "_(I plant cover crops)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "cover_crop_acres",
-                "cover_crop_datetime"
-              ]
+              "targets": ["cover_crop_acres", "cover_crop_datetime"]
             },
             "content": [
               {
@@ -1350,12 +1358,10 @@
             "name": "mulch",
             "type": "big_radio",
             "prompt": "_(I use mulch)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "mulch_acres",
-                "mulch_datetime"
-              ]
+              "targets": ["mulch_acres", "mulch_datetime"]
             },
             "content": [
               {
@@ -1396,6 +1402,7 @@
             "//": "==================SOIL MGMT OTHER===========================",
             "name": "soil_management_other",
             "prompt": "_(I practice other soil management actions)",
+            "optional": true,
             "type": "big_radio",
             "trigger": {
               "trigger_value": "yes",
@@ -1428,6 +1435,7 @@
             "name": "conservation_cover",
             "type": "big_radio",
             "prompt": "_(I use conservation cover)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -1475,12 +1483,10 @@
             "name": "weed_control",
             "type": "big_radio",
             "prompt": "_(I practice herbaceous weed control)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "weed_control_acres",
-                "weed_control_datetime"
-              ]
+              "targets": ["weed_control_acres", "weed_control_datetime"]
             },
             "content": [
               {
@@ -1522,12 +1528,10 @@
             "name": "tree_shrub",
             "type": "big_radio",
             "prompt": "_(I practice tree/shrub establishment)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "tree_shrub_acres",
-                "tree_shrub_datetime"
-              ]
+              "targets": ["tree_shrub_acres", "tree_shrub_datetime"]
             },
             "content": [
               {
@@ -1569,12 +1573,10 @@
             "name": "hedgerow",
             "type": "big_radio",
             "prompt": "_(I maintain hedgerows)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "hedgerow_feet",
-                "hedgerow_datetime"
-              ]
+              "targets": ["hedgerow_feet", "hedgerow_datetime"]
             },
             "content": [
               {
@@ -1616,6 +1618,7 @@
             "name": "riparian_planting",
             "type": "big_radio",
             "prompt": "_(I practice riparian planting)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -1663,6 +1666,7 @@
             "name": "native_vegetation",
             "type": "big_radio",
             "prompt": "_(I maintain native vegetation)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -1710,12 +1714,10 @@
             "name": "stream_habitat",
             "type": "big_radio",
             "prompt": "_(I practice stream habitat improvement and habitat)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "stream_habitat_acres",
-                "stream_habitat_datetime"
-              ]
+              "targets": ["stream_habitat_acres", "stream_habitat_datetime"]
             },
             "content": [
               {
@@ -1733,7 +1735,9 @@
             ],
             "modal": {
               "header": "_(Stream habitat improvement and management)",
-              "body": ["Information about stream habitat improvement and management..."]
+              "body": [
+                "Information about stream habitat improvement and management..."
+              ]
             }
           },
           {
@@ -1757,6 +1761,7 @@
             "name": "streambank_fencing",
             "type": "big_radio",
             "prompt": "_(I installed streambank and shoreline protection fencing)",
+            "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
@@ -1780,7 +1785,9 @@
             ],
             "modal": {
               "header": "_(Streambank and shoreline protection fencing)",
-              "body": ["Information about streambank and shoreline protection fencing..."]
+              "body": [
+                "Information about streambank and shoreline protection fencing..."
+              ]
             }
           },
           {
@@ -1803,6 +1810,7 @@
             "//": "==================HABITAT MGMT OTHER=========================",
             "name": "habitat_management_other",
             "prompt": "_(I practice other habitat management actions)",
+            "optional": true,
             "type": "big_radio",
             "trigger": {
               "trigger_value": "yes",
@@ -1824,35 +1832,82 @@
             "type": "textarea",
             "prompt": "_(Please describe your actions below)",
             "hidden_default": true
+          },
+          {
+            "name": "additional_info_header",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,56,153,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>8. Almost done!</h4></div>"
+          },
+          {
+            "name": "additional_info",
+            "type": "informational_html",
+            "content": "<p><strong>Thank you for taking the time to report your stewardship practices.</strong></p><p>Information on this page is optional, but will help Whitman County understand how landowners are implementing stewardship practices.</p>"
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Show off your stewardship! Upload a few photos:)",
+            "label": "_(Upload photos)",
+            "optional": true
+          },
+          {
+            "name": "private-landowner_name",
+            "type": "text",
+            "prompt": "_(What is your name?)",
+            "optional": true
+          },
+          {
+            "name": "use_photos",
+            "type": "big_radio",
+            "prompt": "_(Can Whitman County VSP highlight your photos on our website?)",
+            "default_value": "yes",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "share_story",
+            "type": "big_radio",
+            "prompt": "_(Would you be willing to share your stewardship story with the public?)",
+            "default_value": "yes",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "private-landowner_email",
+            "type": "text",
+            "optional": true,
+            "prompt": "_(What is your email address?)"
+          },
+          {
+            "name": "private-landowner_phone",
+            "type": "text",
+            "prompt": "_(What is your phone number?)",
+            "optional": false
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "label": "_(Submit!)"
           }
         ]
       }
-    ],
-    "common_form_elements": {
-      "submitter_name": {
-        "type": "text",
-        "prompt": "_(Your name)",
-        "placeholder": "_(Name)",
-        "optional": true
-      },
-      "private-submitter_email": {
-        "type": "text",
-        "prompt": "_(Your Email)",
-        "placeholder": "_(Receive email updates on your report)",
-        "optional": true,
-        "sticky": true
-      },
-      "my_image": {
-        "type": "file",
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
-        "optional": true
-      },
-      "submit": {
-        "type": "submit",
-        "label": "_(Put it on the map!)"
-      }
-    }
+    ]
   },
   "survey": {
     "submission_type": "comments",
