@@ -137,11 +137,20 @@
         "source_layer": "palouse-critical-aquifer",
         "mapbox_layers": [
           {
-            "id": "palouse-critical-squifer",
+            "id": "palouse-critical-aquifer",
             "type": "fill",
             "paint": {
-              "fill-color": "#ff1a1a",
-              "fill-opacity": 0.7
+              "fill-color": "#0066ff",
+              "fill-opacity": 0.5
+            }
+          },
+          {
+            "id": "palouse-critical-aquifer-outline",
+            "type": "line",
+            "paint": {
+              "line-color": "#0066ff",
+              "line-width": 2,
+              "line-opacity": 0.3
             }
           }
         ]
@@ -156,8 +165,16 @@
             "id": "palouse-critical-convervation-areas",
             "type": "fill",
             "paint": {
-              "fill-color": "#ff1a1a",
-              "fill-opacity": 0.7
+              "fill-pattern": "conservation-fill.png"
+            }
+          },
+          {
+            "id": "palouse-critical-conservation-areas-outline",
+            "type": "line",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-opacity": 0.3
             }
           }
         ]
@@ -172,8 +189,16 @@
             "id": "palouse-frequently-flooded",
             "type": "fill",
             "paint": {
-              "fill-color": "#ff1a1a",
-              "fill-opacity": 0.7
+              "fill-pattern": "frequently-flooded-fill.png"
+            }
+          },
+          {
+            "id": "palouse-frequently-flooded-outline",
+            "type": "line",
+            "paint": {
+              "line-color": "#3366ff",
+              "line-opacity": 0.7,
+              "line-width": 2
             }
           }
         ]
@@ -195,8 +220,7 @@
             "id": "palouse-wetlands",
             "type": "fill",
             "paint": {
-              "fill-color": "#ff1a1a",
-              "fill-opacity": 0.7
+              "fill-pattern": "wetlands-fill.png"
             }
           }
         ]
@@ -212,8 +236,17 @@
             "type": "fill",
             "filter": ["==", ["get", "erosion_of"], "Severe"],
             "paint": {
-              "fill-color": "#ff1a1a",
-              "fill-opacity": 0.7
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "palouse-geologic-hazard-outline",
+            "type": "line",
+            "filter": ["==", ["get", "erosion_of"], "Severe"],
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 1,
+              "line-opacity": 0.3
             }
           }
         ]
@@ -506,12 +539,12 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:rgba(51,102,255,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>3. Frequently flooded areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-tint' style='color:rgba(51,102,255,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+            "content": "<div><div style='display:flex;align-items:center;background-color:rgba(51,102,255,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>3. Frequently flooded areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-tint' style='color:rgba(51,102,255,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div><div style='padding:4px'><img src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='margin:4px'><strong>Frequently flooded areas</strong> are colored blue on the map. Frequently flooded areas are subject to a 1% or greater chance of flooding every year.</div><div style='flex:1;margin:4px'></div></div></div>"
           },
           {
             "name": "frequently_flooded_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px'><div style='flex:1;margin:4px'><strong>Frequently flooded areas</strong> are colored blue on the map. Frequently flooded areas are subject to a 1% or greater chance of flooding every year.</div><div style='flex:1;margin:4px'><img src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /></div></div>"
+            "content": "<div style='padding:4px'><img src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='margin:4px'><strong>Frequently flooded areas</strong> are colored blue on the map. Frequently flooded areas are subject to a 1% or greater chance of flooding every year.</div><div style='flex:1;margin:4px'></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
