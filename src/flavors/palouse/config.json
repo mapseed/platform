@@ -140,8 +140,7 @@
             "id": "palouse-critical-aquifer",
             "type": "fill",
             "paint": {
-              "fill-color": "#0066ff",
-              "fill-opacity": 0.5
+              "fill-pattern": "aquifer-fill.png"
             }
           },
           {
@@ -513,17 +512,17 @@
           {
             "name": "wetlands_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:rgba(102,255,204,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>2. Wetland areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-leaf' style='color:rgba(102,255,204,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland areas</h4>"
           },
           {
             "name": "wetlands_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Wetland areas</strong> are colored blue-green on the map. Wetland areas are inundated or saturated by surface water or groundwater.</div><div style='flex:1;margin:4px'><img src='/static/css/images/wetlands-cropped.png' alt='Wetland areas' /></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/wetlands-alt-cropped.jpg' alt='Wetlands' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
             "type": "big_radio",
-            "prompt": "_(Does your property lie on any wetland areas?)",
+            "prompt": "_(Is your property on any wetland areas?)",
             "optional": false,
             "content": [
               {
@@ -539,17 +538,17 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<div><div style='display:flex;align-items:center;background-color:rgba(51,102,255,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>3. Frequently flooded areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-tint' style='color:rgba(51,102,255,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div><div style='padding:4px'><img src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='margin:4px'><strong>Frequently flooded areas</strong> are colored blue on the map. Frequently flooded areas are subject to a 1% or greater chance of flooding every year.</div><div style='flex:1;margin:4px'></div></div></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently flooded areas</h4>"
           },
           {
             "name": "frequently_flooded_information",
             "type": "informational_html",
-            "content": "<div style='padding:4px'><img src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='margin:4px'><strong>Frequently flooded areas</strong> are colored blue on the map. Frequently flooded areas are subject to a 1% or greater chance of flooding every year.</div><div style='flex:1;margin:4px'></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/frequently-flooded-cropped.jpg' alt='Frequently flooded areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
             "type": "big_radio",
-            "prompt": "_(Does your property lie on any frequently flooded areas?)",
+            "prompt": "_(Is your property on any frequently flooded areas?)",
             "optional": false,
             "content": [
               {
@@ -565,17 +564,17 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:rgba(255,153,0,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>4. Geologic hazard areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-exclamation-triangle' style='color:rgba(255,153,0,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Geologic hazard areas</h4>"
           },
           {
             "name": "geologic_hazard_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Geologic hazard areas</strong> are colored orange on the map. Geologic hazard areas are susceptible to erosion, sliding, earthquakes, and other geological events.</div><div style='flex:1;margin:4px'><img src='/static/css/images/geologic-hazard.jpg' alt='Wetland areas' /></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/geologic-hazard-cropped.jpg' alt='Geologic hazard areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other geological events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_geologic_hazard",
             "type": "big_radio",
-            "prompt": "_(Does your property lie on any geologic hazard areas?)",
+            "prompt": "_(Is your property on any geologic hazard areas?)",
             "optional": false,
             "content": [
               {
@@ -591,17 +590,17 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,51,204,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>5. Critical aquifer recharge areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-refresh' style='color:rgba(0,51,204,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical aquifer recharge areas</h4>"
           },
           {
             "name": "critical_aquifer_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Critical aquifer recharge areas</strong> are colored dark blue on the map. Critical aquifer recharge areas have an effect on aquifers used for potable water.</div><div style='flex:1;margin:4px'><img src='/static/css/images/aquifer-recharge.jpg' alt='Wetland areas' /></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/aquifer-recharge-cropped.jpg' alt='Critical aquifer recharge areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_critical_aquifer",
             "type": "big_radio",
-            "prompt": "_(Does your property lie on any critical aquifer recharge areas?)",
+            "prompt": "_(Is your property on any critical aquifer recharge areas?)",
             "optional": false,
             "content": [
               {
@@ -617,17 +616,17 @@
           {
             "name": "wildlife_conservation_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,153,51,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>6. Fish and wildlife conservation areas</h4><span style='display:flex;align-items:center;justify-content:center;background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-tree' style='color:rgba(0,153,51,0.7);font-size:1.5em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & wildlife conservation areas</h4>"
           },
           {
             "name": "wildlife_conservation_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><strong>Fish and wildlife conservation areas</strong> are colored green on the map. Wildlife conservation areas are managed to maintain populations of fish and wildlife.</div><div style='flex:1;margin:4px'><img src='/static/css/images/aquifer-recharge.jpg' alt='Wetland areas' /></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/wildlife-habitat-cropped.jpg' alt='Fish and wildife conservation areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife conservation areas</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wildlife_conservation",
             "type": "big_radio",
-            "prompt": "_(Does your property lie on any fish and wildlife conservation areas?)",
+            "prompt": "_(Is your property on any fish & wildlife conservation areas?)",
             "optional": false,
             "content": [
               {

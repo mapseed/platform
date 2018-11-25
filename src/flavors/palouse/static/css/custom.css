@@ -9,6 +9,10 @@
 
 /* =Input Form
 -------------------------------------------------------------- */
+.input-form__field-container {
+  padding: 16px;
+}
+
 .input-form__field-container[data-field-type="datetime"],
 .input-form__field-container[data-field-type="big_radio"] {
   background-color: #efefef;
@@ -67,7 +71,7 @@
 }
 
 .big-radio-field {
-  display: block;
+  margin-right: 24px;
   margin-top: 8px;
 }
 
