@@ -5,7 +5,7 @@ import styled from "react-emotion";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
 
-import { Icon } from "./feedback";
+import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
 
@@ -201,7 +201,7 @@ const ToolbarButton = props => {
       {...props}
     >
       {props.icon && (
-        <Icon
+        <LegacyIcon
           classes={classNames("mapseed__toolbar-button-icon", {
             "mapseed__toolbar-button-icon--right-margin": !!props.label,
           })}
