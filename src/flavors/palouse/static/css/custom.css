@@ -4,8 +4,19 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-/* =Header
+body {
+  font-family: Raleway, sans-serif;
+}
+
+/* =Input Button
 -------------------------------------------------------------- */
+#add-place {
+  background-color: #e57c04; // theme.brand.primary
+
+  &:hover {
+    background-color: #ff6201 !important; // theme.brand.accent
+  }
+}
 
 /* =Input Form
 -------------------------------------------------------------- */
@@ -118,8 +129,9 @@
 }
 
 .form-stage-control-bar {
-  background: url("data:image/x-ms-bmp;base64,Qk1AAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABAAAAAAAAoAAAASCwAAEgsAAAAAAAAAAAAA/3//f8pO/38AAA==")
-    repeat;
+  background: none;
+  //  background: url("data:image/x-ms-bmp;base64,Qk1AAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABAAAAAAAAoAAAASCwAAEgsAAAAAAAAAAAAA/3//f8pO/38AAA==")
+  //    repeat;
 }
 
 .mapseed__progress-bar {
@@ -140,6 +152,14 @@
 
 .mapseed__link--disabled:hover {
   color: #ccc !important;
+}
+
+.mapseed__progress-bar {
+  background-color: #efefef;
+}
+
+.mapseed__progress-bar-inner {
+  background-color: #ff6201;
 }
 
 /* =Media Queries

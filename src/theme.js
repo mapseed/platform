@@ -34,6 +34,10 @@ injectGlobal`
     font-family: "Palanquin";
     src: url("/static/css/palanquindark-regular.ttf");
   }
+  @font-face {
+    font-family: "Raleway";
+    src: url("/static/css/Raleway-Regular.ttf");
+  }
 `;
 
 export const themePropTypes = PropTypes.shape({

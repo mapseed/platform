@@ -8,13 +8,17 @@
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
       "brand": {
-        "primary": "#007fbf"
+        "primary": "#e57c04",
+        "secondary": "#d46c4c",
+        "accent": "#ff6201"
       },
       "bg": {
-        "default": "#fff0d0"
+        "default": "#fff8ea"
       },
       "text": {
-        "secondary": "#007fbf"
+        "secondary": "#fff",
+        "headerFontFamily": "Raleway,sans-serif",
+        "bodyFontFamily": "Raleway,sans-serif"
       }
     }
   },
@@ -149,7 +153,7 @@
             "paint": {
               "line-color": "#0066ff",
               "line-width": 2,
-              "line-opacity": 0.3
+              "line-opacity": 0.7
             }
           }
         ]
@@ -173,7 +177,7 @@
             "paint": {
               "line-color": "#10e53d",
               "line-width": 2,
-              "line-opacity": 0.3
+              "line-opacity": 0.7
             }
           }
         ]
@@ -221,6 +225,15 @@
             "paint": {
               "fill-pattern": "wetlands-fill.png"
             }
+          },
+          {
+            "id": "palouse-wetlands-outline",
+            "type": "line",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
           }
         ]
       },
@@ -244,8 +257,8 @@
             "filter": ["==", ["get", "erosion_of"], "Severe"],
             "paint": {
               "line-color": "#e80f0f",
-              "line-width": 1,
-              "line-opacity": 0.3
+              "line-width": 2,
+              "line-opacity": 0.7
             }
           }
         ]
@@ -415,7 +428,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Show off your projects)",
+    "add_button_label": "_(Share Your Stewardship)",
     "action_text": "_(added)",
     "title": "_(Tell us more...)",
     "anonymous_name": "_(Someone)",
@@ -485,7 +498,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:#cc9900'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>1. Your property</h4><span style='background-color:#fff;border-radius:50%;height:40px;width:40px;margin-left:auto;margin-right:8px'><i class='fas fa-home' style='margin-left:4px;color:#cc9900;font-size:2em;font-style:normal;font-family:FontAwesome'></i><span></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h4>"
           },
           {
             "name": "location_why",
