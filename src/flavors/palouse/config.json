@@ -1996,6 +1996,12 @@
       "start_page": true
     },
     {
+      "title": "_(VSP Assistance)",
+      "type": "internal_link",
+      "url": "/page/assistance",
+      "name": "assistance"
+    },
+    {
       "type": "list_toggle",
       "show_list_button_label": "_(Show as a List)",
       "show_map_button_label": "_(Show on a Map)"
