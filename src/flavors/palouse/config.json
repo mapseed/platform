@@ -1996,22 +1996,9 @@
       "start_page": true
     },
     {
-      "title": "_(Background)",
-      "type": "internal_link",
-      "url": "/page/background",
-      "name": "background",
-      "hide_from_top_bar": true
-    },
-    {
-      "title": "_(Get involved)",
-      "type": "internal_link",
-      "url": "/page/getinvolved",
-      "name": "contribute"
-    },
-    {
       "type": "list_toggle",
-      "show_list_button_label": "_(See All Reports)",
-      "show_map_button_label": "_(Show the Map)"
+      "show_list_button_label": "_(Show as a List)",
+      "show_map_button_label": "_(Show on a Map)"
     }
   ]
 }

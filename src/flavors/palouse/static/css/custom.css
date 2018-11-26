@@ -162,5 +162,23 @@ body {
   background-color: #ff6201;
 }
 
-/* =Media Queries
+
+/* =Custom Pages
 -------------------------------------------------------------- */
+
+.next-btn {
+  background-color: #e57c04 !important;
+  border-radius: 3px;
+  float: right;
+  background: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+  color: #fff !important;
+  padding: 0.5em;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: #ff6201 !important;
+  }
+}
