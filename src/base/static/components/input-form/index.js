@@ -17,11 +17,6 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
-import {
-  mapPositionSelector,
-  showLayers,
-  mapLayerStatusesSelector,
-} from "../../state/ducks/map";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
@@ -61,32 +56,19 @@ class InputForm extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentWillReceiveProps(nextProps) {
     if (
-      this.props.isFormResetting ||
-      this.props.selectedCategory !== prevProps.selectedCategory
+      nextProps.isFormResetting ||
+      nextProps.selectedCategory !== nextProps.selectedCategory
     ) {
-      this.initializeForm(this.props.selectedCategory);
-      this.setState({
+      this.initializeForm(nextProps.selectedCategory);
+      this.setState(prevState => ({
         fields: this.getNewFields(prevState.fields),
         isFormSubmitting: false,
         isMapPositioned: false,
         formValidationErrors: new Set(),
         showValidityStatus: false,
-      });
-    }
-
-    // TODO: handle case of very first stage!!!
-    // TODO: basemap switching
-    if (this.state.currentStage !== prevState.currentStage) {
-      console.log("!!!", this.selectedCategoryConfig.multi_stage)
-      // If the new stage sets any map layers, set those now.
-      this.props.showLayers({
-        layerIds: this.selectedCategoryConfig.multi_stage[
-          this.state.currentStage - 1
-        ].layer_ids,
-        layerStatuses: this.props.layerStatuses,
-      });
+      }));
     }
   }
 
@@ -502,14 +484,12 @@ const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
   mapPosition: mapPositionSelector(state),
   placeConfig: placeConfigSelector(state),
-  layerStatuses: mapLayerStatusesSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
-  showLayers: args => dispatch(showLayers(args)),
 });
 
 // Export undecorated component for testing purposes.

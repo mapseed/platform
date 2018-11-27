@@ -36,8 +36,6 @@ import {
   setMapSizeValidity,
   mapPositionSelector,
   mapBasemapSelector,
-  setBasemap, //TODO
-  setLayerStatus, //TODO
   setMapPosition,
   mapLayerStatusesSelector,
   initMapLayers,
@@ -514,7 +512,6 @@ export default Backbone.View.extend({
                   return (
                     <VVInputForm
                       {...props}
-                      store={store}
                       selectedCategory={state.selectedCategory}
                       isSingleCategory={state.isSingleCategory}
                       onCategoryChange={onCategoryChange}
@@ -524,7 +521,6 @@ export default Backbone.View.extend({
                   return (
                     <InputForm
                       {...props}
-                      store={store}
                       selectedCategory={state.selectedCategory}
                       isSingleCategory={state.isSingleCategory}
                       onCategoryChange={onCategoryChange}
@@ -567,7 +563,6 @@ export default Backbone.View.extend({
     if (storyVisibleLayerIds) {
       // Switch story layers on.
       storyVisibleLayerIds.forEach(layerId => {
-        console.log(">>>>>", layerId);
         store.dispatch(
           setLayerStatus(layerId, {
             status: "loading",
@@ -584,7 +579,6 @@ export default Backbone.View.extend({
             layerStatus.isVisible &&
             !storyVisibleLayerIds.includes(layerId)
           ) {
-            console.log("!!!!!!!!!!!!", layerId);
             store.dispatch(
               setLayerStatus(layerId, {
                 isVisible: false,
