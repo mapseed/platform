@@ -61,29 +61,6 @@ class MainMap extends Component {
         break;
     }
 
-    // Set default layer visibility for non-place layers.
-    this.props.layers
-      .filter(layer => layer.is_visible_default && layer.type !== "place")
-      .forEach(layer => {
-        if (layer.is_basemap) {
-          props.setBasemap(layer.id, {
-            id: layer.id,
-            status: "loading",
-            isVisible: true,
-            isBasemap: true,
-            type: layer.type,
-          });
-        } else {
-          props.setLayerStatus(layer.id, {
-            id: layer.id,
-            status: "loading",
-            isVisible: true,
-            isBasemap: false,
-            type: layer.type,
-          });
-        }
-      });
-
     // Instantiate the map.
     this._map = MapProvider(props.container, props.mapConfig.options);
 

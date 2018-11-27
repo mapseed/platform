@@ -47,14 +47,7 @@
         "slug": "demo2",
         "focus_rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "observation2"
-            ],
+            "filter": ["==", ["get", "location_type"], "observation2"],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
               "icon-size": 1.2,
@@ -66,21 +59,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation2"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "observation2"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -91,28 +71,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation2"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "observation2"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -123,21 +84,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation2"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "observation2"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -152,39 +100,17 @@
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
         "type": "place",
         "slug": "demo",
-        "feature_types": [
-          "Point"
-        ],
+        "feature_types": ["Point"],
         "focus_rules": [
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "demo"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "demo"]],
             "symbol-layout": {
               "icon-size": 1.2,
               "icon-anchor": "center"
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "complaint"]],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
               "icon-size": 1.2,
@@ -192,17 +118,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "question"]],
             "symbol-layout": {
               "icon-image": "marker-question.png",
               "icon-size": 1.2,
@@ -210,17 +126,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "idea"]],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
               "icon-size": 1.2,
@@ -228,17 +134,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "observation"]],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
               "icon-size": 1.2,
@@ -250,21 +146,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "demo"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "demo"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -274,28 +157,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "demo"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "demo"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-size": 0.75,
@@ -305,21 +169,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "demo"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "demo"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-size": 0.9,
@@ -329,21 +180,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "complaint"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
@@ -354,28 +192,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "complaint"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
@@ -386,21 +205,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "complaint"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
@@ -411,21 +217,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "question"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-question.png",
@@ -436,28 +229,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "question"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-question.png",
@@ -468,21 +242,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "question"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-question.png",
@@ -493,21 +254,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "idea"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
@@ -518,28 +266,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "idea"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
@@ -550,21 +279,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "idea"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
@@ -575,21 +291,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "observation"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -600,28 +303,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "observation"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -632,21 +316,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "observation"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -661,18 +332,10 @@
         "type": "json",
         "is_visible_default": true,
         "source": "https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson",
-        "feature_types": [
-          "Point"
-        ],
+        "feature_types": ["Point"],
         "rules": [
           {
-            "filter": [
-              ">=",
-              [
-                "zoom"
-              ],
-              1
-            ],
+            "filter": [">=", ["zoom"], 1],
             "symbol-layout": {
               "icon-image": "marker-conserve-water.png",
               "icon-size": 0.5,
@@ -687,35 +350,19 @@
         "type": "json",
         "is_visible_default": true,
         "source": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
-        "feature_types": [
-          "Label",
-          "Polygon"
-        ],
+        "feature_types": ["Label", "Polygon"],
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              5
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 5],
             "label-paint": {
               "text-halo-color": "#fff",
               "text-halo-width": 1
             },
             "label-layout": {
-              "text-field": [
-                "get",
-                "CITYNAME"
-              ],
+              "text-field": ["get", "CITYNAME"],
               "text-size": 14,
               "text-allow-overlap": false,
-              "text-offset": [
-                0,
-                2
-              ]
+              "text-offset": [0, 2]
             },
             "fill-paint": {
               "fill-color": "#fef0d9",
@@ -724,14 +371,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              4
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 4],
             "fill-paint": {
               "fill-color": "#fdcc8a",
               "fill-opacity": 0.6,
@@ -739,14 +379,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              3
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 3],
             "fill-paint": {
               "fill-color": "#fc8d59",
               "fill-opacity": 0.6,
@@ -754,14 +387,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              2
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 2],
             "fill-paint": {
               "fill-color": "#e34a33",
               "fill-opacity": 0.6,
@@ -769,14 +395,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              1
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 1],
             "fill-paint": {
               "fill-color": "#b30000",
               "fill-opacity": 0.6,
@@ -784,14 +403,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              0
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 0],
             "fill-paint": {
               "fill-color": "#b30000",
               "fill-opacity": 0.6,
@@ -904,10 +516,7 @@
                 "title": "_(Sample Raster Tiles with an Extra Long Layer Title)",
                 "info": {
                   "header": "_(Sample raster tile layer)",
-                  "body": [
-                    "_(Some info.)",
-                    "_(Some more info.)"
-                  ]
+                  "body": ["_(Some info.)", "_(Some more info.)"]
                 }
               },
               {
@@ -937,10 +546,7 @@
                 "title": "_(Sample vector tile A)",
                 "info": {
                   "header": "_(Sample vector tile layer)",
-                  "body": [
-                    "_(Some info.)",
-                    "_(Some more info.)"
-                  ]
+                  "body": ["_(Some info.)", "_(Some more info.)"]
                 }
               },
               {
@@ -1003,14 +609,17 @@
             "end_field_index": 3,
             "icon_url": "/static/css/images/markers/marker-observation.png",
             "header": "_(Stage 1)",
-            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)"
+            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)",
+            "basemap_id": "satellite",
+            "layer_ids": ["sample-json-a", "sample-vector-b"]
           },
           {
             "start_field_index": 4,
             "end_field_index": 7,
             "icon_url": "/static/css/images/markers/marker-question.png",
             "header": "_(Stage 2, With a Longer and More Complex Header than Stage 1)",
-            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.)"
+            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.)",
+            "layer_ids": ["sample-vector-a"]
           },
           {
             "start_field_index": 8,
@@ -1079,9 +688,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1094,9 +701,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1109,9 +714,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1125,9 +728,7 @@
             "autocomplete": true,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1161,9 +762,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1197,9 +796,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1233,9 +830,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1270,9 +865,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1288,9 +881,7 @@
             "optional": true,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1301,9 +892,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1314,9 +903,7 @@
             "optional": true,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1338,9 +925,7 @@
             "optional": false,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1351,9 +936,7 @@
             "optional": true,
             "modal": {
               "header": "_(Modal header)",
-              "body": [
-                "Modal body"
-              ]
+              "body": ["Modal body"]
             }
           },
           {
@@ -1519,9 +1102,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "on",
-              "targets": [
-                "toggle_a_datetime"
-              ]
+              "targets": ["toggle_a_datetime"]
             },
             "content": [
               {
@@ -1793,17 +1374,11 @@
       "description": "_(This is the first of two stories. I hope you like it!)",
       "default_zoom": 18,
       "default_basemap": "sample-wmts-a",
-      "default_visible_layers": [
-        "demo",
-        "sample-vector"
-      ],
+      "default_visible_layers": ["demo", "sample-vector"],
       "order": [
         {
           "url": "demo/21",
-          "pan_to": [
-            -122.57256740778439,
-            47.44334015969261
-          ],
+          "pan_to": [-122.57256740778439, 47.44334015969261],
           "zoom": 10
         }
       ]

@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
+import multi from "redux-multi";
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { ThemeProvider } from "emotion-theming";
@@ -35,10 +36,11 @@ import {
   setMapSizeValidity,
   mapPositionSelector,
   mapBasemapSelector,
-  setBasemap,
-  setLayerStatus,
+  setBasemap, //TODO
+  setLayerStatus, //TODO
   setMapPosition,
   mapLayerStatusesSelector,
+  initMapLayers,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -62,7 +64,9 @@ import PlaceList from "../../components/organisms/place-list";
 const store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(multi),
 );
+
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -94,8 +98,7 @@ export default Backbone.View.extend({
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
-
-    // Set initial map position state.
+    store.dispatch(initMapLayers(this.options.mapConfig.layers));
     store.dispatch(
       setMapPosition({
         center: this.options.mapConfig.options.map.center,
@@ -511,6 +514,7 @@ export default Backbone.View.extend({
                   return (
                     <VVInputForm
                       {...props}
+                      store={store}
                       selectedCategory={state.selectedCategory}
                       isSingleCategory={state.isSingleCategory}
                       onCategoryChange={onCategoryChange}
@@ -520,6 +524,7 @@ export default Backbone.View.extend({
                   return (
                     <InputForm
                       {...props}
+                      store={store}
                       selectedCategory={state.selectedCategory}
                       isSingleCategory={state.isSingleCategory}
                       onCategoryChange={onCategoryChange}
@@ -562,6 +567,7 @@ export default Backbone.View.extend({
     if (storyVisibleLayerIds) {
       // Switch story layers on.
       storyVisibleLayerIds.forEach(layerId => {
+        console.log(">>>>>", layerId);
         store.dispatch(
           setLayerStatus(layerId, {
             status: "loading",
@@ -578,6 +584,7 @@ export default Backbone.View.extend({
             layerStatus.isVisible &&
             !storyVisibleLayerIds.includes(layerId)
           ) {
+            console.log("!!!!!!!!!!!!", layerId);
             store.dispatch(
               setLayerStatus(layerId, {
                 isVisible: false,

@@ -8,8 +8,8 @@ import { Header5 } from "../atoms/typography";
 
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
-  setLayerStatus,
-  setBasemap,
+  showLayers,
+  hideLayers,
   mapLayerStatusesSelector,
   mapBasemapSelector,
 } from "../../state/ducks/map";
@@ -24,9 +24,6 @@ const MapLayerGroup = props => {
         const isBasemap = !!props.mapConfig.layers.find(
           layerConfig => layerConfig.id === layer.id,
         ).is_basemap;
-        const layerType = props.mapConfig.layers.find(
-          layerConfig => layerConfig.id === layer.id,
-        ).type;
         const layerStatus = props.layerStatuses[layer.id];
 
         return (
@@ -36,29 +33,23 @@ const MapLayerGroup = props => {
             icon={layer.icon}
             info={layer.info}
             title={layer.title}
-            layerStatus={props.layerStatuses[layer.id]}
-            selected={!!(layerStatus && layerStatus.isVisible)}
+            layerStatus={layerStatus}
+            selected={!!layerStatus.isVisible}
             onToggleLayer={layerId => {
-              if (isBasemap && layerStatus && layerStatus.isVisible) {
+              if (isBasemap && layerStatus.isVisible) {
                 // If the user clicked on the basemap that is already
                 // visible, do nothing.
                 return;
-              } else if (isBasemap) {
-                props.setBasemap(layerId, {
-                  id: layerId,
-                  status: "loading",
-                  isVisible: true,
-                  isBasemap: true,
-                  type: layerType,
+              } else if (layerStatus.isVisible) {
+                // Toggle layer off.
+                props.hideLayers({
+                  layerIds: [layerId],
                 });
               } else {
-                props.setLayerStatus(layerId, {
-                  id: layerId,
-                  status: "loading",
-                  isBasemap: false,
-                  type: layerType,
-                  isVisible:
-                    layerStatus === undefined ? true : !layerStatus.isVisible,
+                // Toggle layer on.
+                props.showLayers({
+                  layerIds: [layerId],
+                  layerStatuses: props.layerStatuses,
                 });
               }
             }}
@@ -122,10 +113,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setLayerStatus: (layerId, layerStatus) =>
-    dispatch(setLayerStatus(layerId, layerStatus)),
-  setBasemap: (layerId, layerStatus) =>
-    dispatch(setBasemap(layerId, layerStatus)),
+  showLayers: args => dispatch(showLayers(args)),
+  hideLayers: args => dispatch(hideLayers(args)),
 });
 
 export default connect(

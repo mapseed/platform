@@ -30,31 +30,88 @@ export const mapUpdatingFilterTargetLayerSelector = state => {
 
 // Actions
 const SET_LAYER_STATUS = "map/SET_LAYER_STATUS";
-const SET_BASEMAP_STATUS = "map/SET_BASEMAP_STATUS";
 const SET_MAP_POSITION = "map/SET_MAP_POSITION";
 const SET_MAP_SIZE_VALIDITY = "map/SET_MAP_SIZE_VALIDITY";
 const ACTIVATE_FEATURE_FILTER = "map/ACTIVATE_FEATURE_FILTER";
 const DEACTIVATE_FEATURE_FILTER = "map/DEACTIVATE_FEATURE_FILTER";
 const RESET_FEATURE_FILTER_GROUP = "map/RESET_FEATURE_FILTER_GROUP";
+const HIDE_VISIBLE_BASEMAP = "map/HIDE_VISIBLE_BASEMAP";
+const SET_VISIBLE_BASEMAP = "map/SET_VISIBLE_BASEMAP";
 
 // Action creators
 export const setLayerStatus = (layerId, layerStatus) => {
-  return {
-    type: SET_LAYER_STATUS,
-    payload: {
-      layerId: layerId,
-      layerStatus: layerStatus,
+  return [
+    layerStatus.isBasemap && {
+      type: HIDE_VISIBLE_BASEMAP,
     },
-  };
+    layerStatus.isBasemap && {
+      type: SET_VISIBLE_BASEMAP,
+      payload: layerId,
+    },
+    {
+      type: SET_LAYER_STATUS,
+      payload: {
+        layerId: layerId,
+        layerStatus: layerStatus,
+      },
+    },
+  ];
 };
-export const setBasemap = (layerId, layerStatus) => {
-  return {
-    type: SET_BASEMAP_STATUS,
-    payload: {
-      layerId: layerId,
-      layerStatus: layerStatus,
+
+export const showLayers = ({
+  layerIds = [],
+  layerStatuses,
+  hideOthers = false,
+}) => {
+  return Object.values(layerStatuses).reduce(
+    (actions, layerStatus) => {
+      if (layerIds.includes(layerStatus.id)) {
+        return actions.concat([
+          setLayerStatus(layerStatus.id, {
+            ...layerStatus,
+            status: "loading",
+            isVisible: true,
+          }),
+        ]);
+      } else if (hideOthers && !layerStatus.isBasemap) {
+        return actions.concat([
+          setLayerStatus(layerStatus.id, {
+            ...layerStatus,
+            isVisible: false,
+          }),
+        ]);
+      } else {
+        return actions;
+      }
     },
-  };
+    [],
+  );
+};
+
+export const hideLayers = ({ layerIds }) => {
+  return layerIds.map(layerId => {
+    return setLayerStatus(layerId, {
+      isVisible: false,
+    });
+  });
+};
+
+export const initMapLayers = layers => {
+  return layers.map(layer => {
+    return setLayerStatus(layer.id, {
+      id: layer.id,
+      isVisible: !!layer.is_visible_default,
+      isBasemap: layer.is_basemap,
+      type: layer.type,
+      status: !!layer.is_visible_default ? "loading" : "",
+    });
+  });
+};
+
+export const setLayerLoaded = layerId => {
+  return setLayerStatus(layerId, {
+    status: "loaded",
+  });
 };
 export const setMapPosition = mapPosition => {
   return {
@@ -148,24 +205,25 @@ export default function reducer(state = INITIAL_STATE, action) {
           featureFilter => featureFilter.groupId !== action.payload.groupId,
         ),
       };
-    case SET_BASEMAP_STATUS:
+    case SET_VISIBLE_BASEMAP:
       return {
         ...state,
-        layerStatuses: {
-          ...state.layerStatuses,
-          // Switch off the old basemap.
-          [state.visibleBasemapId]: {
-            ...state.layerStatuses[state.visibleBasemapId],
-            isVisible: false,
-          },
-          // Switch on the new basemap.
-          [action.payload.layerId]: {
-            ...state.layerStatuses[action.payload.layerId],
-            ...action.payload.layerStatus,
-          },
-        },
-        visibleBasemapId: action.payload.layerId,
+        visibleBasemapId: action.payload,
       };
+    case HIDE_VISIBLE_BASEMAP:
+      if (state.visibleBasemapId) {
+        return {
+          ...state,
+          layerStatuses: {
+            ...state.layerStatuses,
+            [state.visibleBasemapId]: {
+              ...state.layerStatuses[state.visibleBasemapId],
+              isVisible: false,
+            },
+          },
+        };
+      }
+      return state;
     default:
       return state;
   }
