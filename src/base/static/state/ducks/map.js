@@ -57,10 +57,6 @@ export const hideLayers = (layerIds = []) =>
       isVisible: false,
     },
   }));
-
-// TODO
-export const hideLayersExcept = (layerIds = []) => {};
-
 export const initLayers = layers =>
   layers.map(layer => ({
     type: SET_LAYER_STATUS,

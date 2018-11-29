@@ -19,7 +19,7 @@ import theme from "../../../../theme";
 // This only needs to be done once; probably during your application's bootstrapping process.
 import "react-virtualized/styles.css";
 
-import { setMapConfig } from "../../state/ducks/map-config";
+import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
 import { setPlaces } from "../../state/ducks/places";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
@@ -40,6 +40,7 @@ import {
   mapLayerStatusesSelector,
   initLayers,
   showLayers,
+  hideLayers,
   setBasemap,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
@@ -552,11 +553,6 @@ export default Backbone.View.extend({
     // END REACT PORT SECTION //////////////////////////////////////////////////
   },
 
-  setStoryLayerVisibility: model => {
-    store.dispatch(setBasemap(model.get("story").basemap));
-    store.dispatch(showLayers(model.get("story").visibleLayers));
-  },
-
   viewPlace: function(args) {
     this.renderMain();
     this.renderRightSidebar();
@@ -621,7 +617,20 @@ export default Backbone.View.extend({
 
       if (model.get("story")) {
         self.isStoryActive = true;
-        self.setStoryLayerVisibility(model);
+        const storyVisibleLayers = model.get("story").visibleLayers;
+
+        store.dispatch(setBasemap(model.get("story").basemap));
+        store.dispatch(showLayers(storyVisibleLayers));
+        // Hide all other layers.
+        store.dispatch(
+          hideLayers(
+            mapLayersSelector(store.getState())
+              .filter(layer => !layer.is_basemap)
+              .filter(layer => !storyVisibleLayers.includes(layer.id))
+              .map(layer => layer.id),
+          ),
+        );
+
         if (!model.get("story").spotlight) {
           self.hideSpotlightMask();
         }
