@@ -114,8 +114,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  showLayers: args => dispatch(showLayers(args)),
-  hideLayers: args => dispatch(hideLayers(args)),
+  showLayers: layerIds => dispatch(showLayers(layerIds)),
+  hideLayers: layerIds => dispatch(hideLayers(layerIds)),
   setBasemap: basemapId => dispatch(setBasemap(basemapId)),
 });
 

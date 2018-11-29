@@ -26,7 +26,6 @@ import {
   setActiveDrawingTool,
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
-import { mapPositionSelector } from "../../state/ducks/map";
 
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");

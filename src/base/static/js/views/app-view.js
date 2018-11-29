@@ -101,7 +101,6 @@ export default Backbone.View.extend({
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
     store.dispatch(initLayers(this.options.mapConfig.layers));
     store.dispatch(
-      // Set the initial basemap.
       setBasemap(
         this.options.mapConfig.layers.find(
           layer => layer.is_basemap && layer.is_visible_default,
