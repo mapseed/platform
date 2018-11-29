@@ -396,10 +396,10 @@ class MainMap extends Component {
     }
 
     for (let layerId in this.props.layerStatuses) {
+      console.log("!!!", layerId);
       if (
         this.props.layerStatuses[layerId].isVisible &&
-        (!prevProps.layerStatuses[layerId] ||
-          !prevProps.layerStatuses[layerId].isVisible)
+        !prevProps.layerStatuses[layerId].isVisible
       ) {
         // A layer has been switched on.
         this.addLayer(
@@ -408,7 +408,6 @@ class MainMap extends Component {
         );
       } else if (
         !this.props.layerStatuses[layerId].isVisible &&
-        prevProps.layerStatuses[layerId] &&
         prevProps.layerStatuses[layerId].isVisible
       ) {
         // A layer has been switched off.

@@ -929,6 +929,13 @@ export default (container, options) => {
             return (
               data.dataType === "source" &&
               map.isSourceLoaded(data.sourceId) &&
+              // These sources will fire a loaded event but are not relevant
+              // outside mapboxgl-provider.
+              ![
+                "mapbox-gl-draw-cold",
+                "mapbox-gl-draw-hot",
+                "__mapseed-focused-source__",
+              ].includes(data.sourceId) &&
               callback(data.sourceId)
             );
           };
