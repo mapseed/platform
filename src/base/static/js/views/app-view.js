@@ -617,16 +617,18 @@ export default Backbone.View.extend({
 
       if (model.get("story")) {
         self.isStoryActive = true;
-        const storyVisibleLayers = model.get("story").visibleLayers;
+        const storyChapterVisibleLayers = model.get("story").visibleLayers;
+        const storyChapterBasemap = model.get("story").basemap;
 
-        store.dispatch(setBasemap(model.get("story").basemap));
-        store.dispatch(showLayers(storyVisibleLayers));
+        mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
+          store.dispatch(setBasemap(storyChapterBasemap));
+        store.dispatch(showLayers(storyChapterVisibleLayers));
         // Hide all other layers.
         store.dispatch(
           hideLayers(
             mapLayersSelector(store.getState())
               .filter(layer => !layer.is_basemap)
-              .filter(layer => !storyVisibleLayers.includes(layer.id))
+              .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
               .map(layer => layer.id),
           ),
         );
