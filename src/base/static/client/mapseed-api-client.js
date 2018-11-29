@@ -1,8 +1,10 @@
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
-  mapConfig,
+  layers,
   showLayers,
+  setLayerLoaded,
+  setLayerError,
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
@@ -17,8 +19,8 @@ const getPlaceCollections = async ({
   // loop over all place collections
   const placeCollectionPromises = [];
   _.each(placeCollections, function(collection, collectionId) {
-    // TODO: layer loading event; fix in layer UI PR
     const placeCollectionPromise = new Promise((resolve, reject) => {
+      const layer = layers.find(layer => layer.id === collectionId);
       collection.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
@@ -26,12 +28,8 @@ const getPlaceCollections = async ({
         data: placeParams,
         // get the dataset slug and id from the array of map layers
         attributesToAdd: {
-          datasetSlug: _.find(mapConfig.layers, function(layer) {
-            return layer.id == collectionId;
-          }).slug,
-          datasetId: _.find(mapConfig.layers, function(layer) {
-            return layer.id == collectionId;
-          }).id,
+          datasetSlug: layer.slug,
+          datasetId: layer.id,
         },
         attribute: "properties",
 
@@ -61,11 +59,12 @@ const getPlaceCollections = async ({
         },
 
         success: function(fetchedCollection, response, options) {
-          showLayers(collectionId);
-          resolve(fetchedCollection);
+          layer.is_visible_default && setLayerLoaded(collectionId);
+          resolve(fetchedCollection, collectionId);
         },
 
         error: function(err) {
+          layer.is_visible_default && setLayerError(collectionId);
           // eslint-disable-next-line no-console
           console.error(
             `error loading place collection: ${collectionId}: err: ${err}`,

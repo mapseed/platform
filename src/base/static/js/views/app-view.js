@@ -1,6 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
+import ReactDOM from "react-dom";
 import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
 import multi from "redux-multi";
@@ -42,6 +42,8 @@ import {
   showLayers,
   hideLayers,
   setBasemap,
+  setLayerError,
+  setLayerLoaded,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -320,8 +322,10 @@ export default Backbone.View.extend({
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
-      mapConfig: self.options.mapConfig,
+      layers: mapLayersSelector(store.getState()),
       showLayers: layerId => store.dispatch(showLayers([layerId])),
+      setLayerLoaded: layerId => store.dispatch(setLayerLoaded(layerId)),
+      setLayerError: layerId => store.dispatch(setLayerError(layerId)),
     });
 
     // Load activities from the API
