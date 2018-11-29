@@ -110,11 +110,11 @@ Shareabouts.Util = Util;
 
         if (
           startPageConfig &&
-          startPageConfig.slug &&
+          startPageConfig.url &&
           // don't route to the start page on small screens
           $(window).width() > (startPageConfig.show_above_width || 960)
         ) {
-          this.navigate(startPageConfig.slug, { trigger: true });
+          this.navigate(startPageConfig.url, { trigger: true });
         }
       }
 
