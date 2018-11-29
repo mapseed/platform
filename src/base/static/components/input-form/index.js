@@ -482,7 +482,6 @@ const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   geometryStyle: geometryStyleSelector(state),
   mapConfig: mapConfigSelector(state),
-  mapPosition: mapPositionSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
