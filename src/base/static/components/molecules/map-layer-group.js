@@ -10,6 +10,7 @@ import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   showLayers,
   hideLayers,
+  setBasemap,
   mapLayerStatusesSelector,
   mapBasemapSelector,
 } from "../../state/ducks/map";
@@ -40,17 +41,14 @@ const MapLayerGroup = props => {
                 // If the user clicked on the basemap that is already
                 // visible, do nothing.
                 return;
+              } else if (isBasemap) {
+                props.setBasemap(layerId);
               } else if (layerStatus.isVisible) {
                 // Toggle layer off.
-                props.hideLayers({
-                  layerIds: [layerId],
-                });
+                props.hideLayers([layerId]);
               } else {
                 // Toggle layer on.
-                props.showLayers({
-                  layerIds: [layerId],
-                  layerStatuses: props.layerStatuses,
-                });
+                props.showLayers([layerId]);
               }
             }}
           />
@@ -91,6 +89,7 @@ MapLayerGroup.propTypes = {
       title: PropTypes.string,
     }),
   ),
+  hideLayers: PropTypes.func.isRequired,
   layers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -103,6 +102,8 @@ MapLayerGroup.propTypes = {
     isVisible: PropTypes.bool,
     status: PropTypes.string,
   }),
+  setBasemap: PropTypes.func.isRequired,
+  showLayers: PropTypes.func.isRequired,
   title: PropTypes.string,
 };
 
@@ -115,6 +116,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   showLayers: args => dispatch(showLayers(args)),
   hideLayers: args => dispatch(hideLayers(args)),
+  setBasemap: basemapId => dispatch(setBasemap(basemapId))
 });
 
 export default connect(

@@ -19,8 +19,8 @@ import {
   mapSizeValiditySelector,
   setMapSizeValidity,
   setMapPosition,
-  setLayerStatus,
-  setBasemap,
+  setLayerLoaded,
+  setLayerError,
   mapboxStyleIdSelector,
   mapUpdatingFilterGroupIdSelector,
   mapUpdatingFilterTargetLayerSelector,
@@ -103,9 +103,7 @@ class MainMap extends Component {
           // with type mapbox-style.
           sourceId = this.props.mapboxStyleId;
         }
-        this.props.setLayerStatus(sourceId, {
-          status: "loaded",
-        });
+        this.props.setLayerLoaded(sourceId);
       },
       layersStatus: this.props.layerStatuses,
     });
@@ -115,9 +113,7 @@ class MainMap extends Component {
         if (sourceId === "composite") {
           sourceId = this.props.mapboxStyleId;
         }
-        this.props.setLayerStatus(sourceId, {
-          status: "error",
-        });
+        this.props.setLayerError(sourceId);
       },
     });
 
@@ -552,7 +548,8 @@ MainMap.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setBasemap: PropTypes.func.isRequired,
-  setLayerStatus: PropTypes.func.isRequired,
+  setLayerLoaded: PropTypes.func.isRequired,
+  setLayerError: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setMapPosition: PropTypes.func.isRequired,
@@ -586,8 +583,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(componentName)),
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
-  setLayerStatus: (layerId, layerStatus) =>
-    dispatch(setLayerStatus(layerId, layerStatus)),
+  setLayerLoaded: layerId => dispatch(setLayerLoaded(layerId)),
+  setLayerError: layerId => dispatch(setLayerError(layerId)),
   setBasemap: (layerId, layerStatus) =>
     dispatch(setBasemap(layerId, layerStatus)),
   setActiveDrawGeometryId: activeDrawGeometryId =>

@@ -2,7 +2,7 @@ const getPlaceCollections = async ({
   placeParams,
   placeCollections,
   mapConfig,
-  setLayerStatus,
+  showLayers,
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
@@ -61,17 +61,8 @@ const getPlaceCollections = async ({
         },
 
         success: function(fetchedCollection, response, options) {
-          // Mark the layer as "loaded" so the map can render it:
-          setLayerStatus(collectionId, {
-            status: "loaded",
-            type: "place",
-            isBasemap: false,
-            isVisible: !!mapConfig.layers.find(
-              layer => layer.id === collectionId,
-            ).is_visible_default,
-          });
+          showLayers(collectionId)
           resolve(fetchedCollection);
-          // TODO: layer loading event; fix in layer UI PR
         },
 
         error: function(err) {

@@ -38,7 +38,9 @@ import {
   mapBasemapSelector,
   setMapPosition,
   mapLayerStatusesSelector,
-  initMapLayers,
+  initLayers,
+  showLayers,
+  setBasemap,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -96,7 +98,15 @@ export default Backbone.View.extend({
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
-    store.dispatch(initMapLayers(this.options.mapConfig.layers));
+    store.dispatch(initLayers(this.options.mapConfig.layers));
+    store.dispatch(
+      // Set the initial basemap.
+      setBasemap(
+        this.options.mapConfig.layers.find(
+          layer => layer.is_basemap && layer.is_visible_default,
+        ).id,
+      ),
+    );
     store.dispatch(
       setMapPosition({
         center: this.options.mapConfig.options.map.center,
@@ -311,8 +321,7 @@ export default Backbone.View.extend({
       placeParams,
       placeCollections: self.places,
       mapConfig: self.options.mapConfig,
-      setLayerStatus: (layerId, layerStatus) =>
-        store.dispatch(setLayerStatus(layerId, layerStatus)),
+      showLayers: layerId => store.dispatch(showLayers([layerId])),
     });
 
     // Load activities from the API
@@ -386,7 +395,6 @@ export default Backbone.View.extend({
 
     if (this.isStoryActive) {
       this.isStoryActive = false;
-      this.restoreDefaultLayerVisibility();
     }
 
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
@@ -545,52 +553,8 @@ export default Backbone.View.extend({
   },
 
   setStoryLayerVisibility: model => {
-    const storyBasemapId = model.get("story").basemap;
-    const storyVisibleLayerIds = model.get("story").visibleLayers;
-    const visibleBasemapId = mapBasemapSelector(store.getState());
-
-    if (storyBasemapId && storyBasemapId !== visibleBasemapId) {
-      visibleBasemapId &&
-        store.dispatch(
-          setBasemap(storyBasemapId, {
-            id: storyBasemapId,
-            status: "loading",
-            isVisible: true,
-            isBasemap: true,
-          }),
-        );
-    }
-    if (storyVisibleLayerIds) {
-      // Switch story layers on.
-      storyVisibleLayerIds.forEach(layerId => {
-        store.dispatch(
-          setLayerStatus(layerId, {
-            status: "loading",
-            isVisible: true,
-          }),
-        );
-      });
-
-      // Switch all other visible layers off.
-      Object.entries(mapLayerStatusesSelector(store.getState()))
-        .filter(([layerId, layerStatus]) => !layerStatus.isBasemap)
-        .forEach(([layerId, layerStatus]) => {
-          if (
-            layerStatus.isVisible &&
-            !storyVisibleLayerIds.includes(layerId)
-          ) {
-            store.dispatch(
-              setLayerStatus(layerId, {
-                isVisible: false,
-              }),
-            );
-          }
-        });
-    }
-  },
-
-  restoreDefaultLayerVisibility: function() {
-    // TODO
+    store.dispatch(setBasemap(model.get("story").basemap));
+    store.dispatch(showLayers(model.get("story").visibleLayers));
   },
 
   viewPlace: function(args) {
@@ -701,7 +665,6 @@ export default Backbone.View.extend({
 
       if (!model.get("story") && self.isStoryActive) {
         self.isStoryActive = false;
-        self.restoreDefaultLayerVisibility();
       }
 
       store.dispatch(setMapSizeValidity(false));

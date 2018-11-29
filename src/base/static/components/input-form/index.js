@@ -26,6 +26,7 @@ import {
   setActiveDrawingTool,
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
+import { mapPositionSelector } from "../../state/ducks/map";
 
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
@@ -59,7 +60,7 @@ class InputForm extends Component {
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.isFormResetting ||
-      nextProps.selectedCategory !== nextProps.selectedCategory
+      nextProps.selectedCategory !== this.props.selectedCategory
     ) {
       this.initializeForm(nextProps.selectedCategory);
       this.setState(prevState => ({

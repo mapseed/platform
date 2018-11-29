@@ -34,10 +34,7 @@
     "geolocation_enabled": true,
     "geocoding_engine": "Mapbox",
     "geocoding_bar_enabled": false,
-    "geocode_hint": [
-      -121.9859019,
-      48.0381909
-    ],
+    "geocode_hint": [-121.9859019, 48.0381909],
     "options": {
       "map": {
         "center": {
@@ -94,14 +91,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "conservation-actions"
-              ]
+              ["==", ["get", "location_type"], "conservation-actions"]
             ],
             "symbol-layout": {
               "icon-image": "map-pin-marker.png",
@@ -114,14 +104,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "conservation-actions"
-              ]
+              ["==", ["get", "location_type"], "conservation-actions"]
             ],
             "symbol-layout": {
               "icon-image": "map-pin-marker.png",
@@ -141,14 +124,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "featured_place"
-              ]
+              ["==", ["get", "location_type"], "featured_place"]
             ],
             "symbol-layout": {
               "icon-size": 1.2,
@@ -160,14 +136,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "featured_place"
-              ]
+              ["==", ["get", "location_type"], "featured_place"]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -449,9 +418,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_rotational-grazing-datetime"
-              ]
+              "targets": ["farm_rotational-grazing-datetime"]
             },
             "content": [
               {
@@ -483,9 +450,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_fencing-datetime"
-              ]
+              "targets": ["farm_fencing-datetime"]
             },
             "content": [
               {
@@ -517,9 +482,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_off-stream-watering-datetime"
-              ]
+              "targets": ["farm_off-stream-watering-datetime"]
             },
             "content": [
               {
@@ -551,9 +514,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_livestock-heavy-use-areas-datetime"
-              ]
+              "targets": ["farm_livestock-heavy-use-areas-datetime"]
             },
             "content": [
               {
@@ -591,9 +552,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_gutters-diversion-datetime"
-              ]
+              "targets": ["farm_gutters-diversion-datetime"]
             },
             "content": [
               {
@@ -625,9 +584,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_soil-testing-datetime"
-              ]
+              "targets": ["farm_soil-testing-datetime"]
             },
             "content": [
               {
@@ -659,9 +616,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_manure-storage-datetime"
-              ]
+              "targets": ["farm_manure-storage-datetime"]
             },
             "content": [
               {
@@ -693,9 +648,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_septic-datetime"
-              ]
+              "targets": ["farm_septic-datetime"]
             },
             "content": [
               {
@@ -727,10 +680,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "farm_other-action",
-                "farm_other-datetime"
-              ]
+              "targets": ["farm_other-action", "farm_other-datetime"]
             },
             "content": [
               {
@@ -799,9 +749,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_protected-buffers-datetime"
-              ]
+              "targets": ["forest_protected-buffers-datetime"]
             },
             "content": [
               {
@@ -833,9 +781,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_restored-buffers-datetime"
-              ]
+              "targets": ["forest_restored-buffers-datetime"]
             },
             "content": [
               {
@@ -867,9 +813,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_left-trees-snags-etc-datetime"
-              ]
+              "targets": ["forest_left-trees-snags-etc-datetime"]
             },
             "content": [
               {
@@ -901,9 +845,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_maintain-roads-datetime"
-              ]
+              "targets": ["forest_maintain-roads-datetime"]
             },
             "content": [
               {
@@ -935,9 +877,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_reduce-harvest-compaction-datetime"
-              ]
+              "targets": ["forest_reduce-harvest-compaction-datetime"]
             },
             "content": [
               {
@@ -969,9 +909,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_fish-passage-datetime"
-              ]
+              "targets": ["forest_fish-passage-datetime"]
             },
             "content": [
               {
@@ -1003,9 +941,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_logging-slash-etc-datetime"
-              ]
+              "targets": ["forest_logging-slash-etc-datetime"]
             },
             "content": [
               {
@@ -1037,9 +973,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_stewardship-plan-datetime"
-              ]
+              "targets": ["forest_stewardship-plan-datetime"]
             },
             "content": [
               {
@@ -1071,10 +1005,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "forest_other-datetime",
-                "forest_other-action"
-              ]
+              "targets": ["forest_other-datetime", "forest_other-action"]
             },
             "content": [
               {
@@ -1142,9 +1073,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_left-slope-vegetation-datetime"
-              ]
+              "targets": ["shoreline_left-slope-vegetation-datetime"]
             },
             "content": [
               {
@@ -1176,9 +1105,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_slope-native-buffer-datetime"
-              ]
+              "targets": ["shoreline_slope-native-buffer-datetime"]
             },
             "content": [
               {
@@ -1216,9 +1143,7 @@
             },
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_remove-noxious-weeds-datetime"
-              ]
+              "targets": ["shoreline_remove-noxious-weeds-datetime"]
             },
             "content": [
               {
@@ -1250,9 +1175,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_left-dead-trees-datetime"
-              ]
+              "targets": ["shoreline_left-dead-trees-datetime"]
             },
             "content": [
               {
@@ -1284,9 +1207,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_impervious-surfaces-datetime"
-              ]
+              "targets": ["shoreline_impervious-surfaces-datetime"]
             },
             "content": [
               {
@@ -1318,9 +1239,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_relocated-slope-structures-datetime"
-              ]
+              "targets": ["shoreline_relocated-slope-structures-datetime"]
             },
             "content": [
               {
@@ -1352,9 +1271,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_grass-clippings-datetime"
-              ]
+              "targets": ["shoreline_grass-clippings-datetime"]
             },
             "content": [
               {
@@ -1386,9 +1303,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_removed-armoring-datetime"
-              ]
+              "targets": ["shoreline_removed-armoring-datetime"]
             },
             "content": [
               {
@@ -1426,9 +1341,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_pet-waste-datetime"
-              ]
+              "targets": ["shoreline_pet-waste-datetime"]
             },
             "content": [
               {
@@ -1460,10 +1373,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "shoreline_other-action",
-                "shoreline_other-datetime"
-              ]
+              "targets": ["shoreline_other-action", "shoreline_other-datetime"]
             },
             "content": [
               {
@@ -1537,9 +1447,7 @@
             },
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_rain-gardens-datetime"
-              ]
+              "targets": ["urban_rain-gardens-datetime"]
             },
             "content": [
               {
@@ -1571,9 +1479,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_rain-barrels-datetime"
-              ]
+              "targets": ["urban_rain-barrels-datetime"]
             },
             "content": [
               {
@@ -1611,9 +1517,7 @@
             },
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_rain-beds-datetime"
-              ]
+              "targets": ["urban_rain-beds-datetime"]
             },
             "content": [
               {
@@ -1651,9 +1555,7 @@
             },
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_natural-yard-care-datetime"
-              ]
+              "targets": ["urban_natural-yard-care-datetime"]
             },
             "content": [
               {
@@ -1685,9 +1587,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "general_wildlife-backyard-datetime"
-              ]
+              "targets": ["general_wildlife-backyard-datetime"]
             },
             "content": [
               {
@@ -1719,9 +1619,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_pollinator-habitat-datetime"
-              ]
+              "targets": ["urban_pollinator-habitat-datetime"]
             },
             "content": [
               {
@@ -1753,9 +1651,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_water-conservation-datetime"
-              ]
+              "targets": ["urban_water-conservation-datetime"]
             },
             "content": [
               {
@@ -1787,9 +1683,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_compost-mulch-soil-amendments-datetime"
-              ]
+              "targets": ["urban_compost-mulch-soil-amendments-datetime"]
             },
             "content": [
               {
@@ -1821,9 +1715,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_food-garden-datetime"
-              ]
+              "targets": ["urban_food-garden-datetime"]
             },
             "content": [
               {
@@ -1855,9 +1747,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_drainage-concerns-datetime"
-              ]
+              "targets": ["urban_drainage-concerns-datetime"]
             },
             "content": [
               {
@@ -1889,9 +1779,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_pet-waste-datetime"
-              ]
+              "targets": ["urban_pet-waste-datetime"]
             },
             "content": [
               {
@@ -1923,9 +1811,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_septic-datetime"
-              ]
+              "targets": ["urban_septic-datetime"]
             },
             "content": [
               {
@@ -1957,10 +1843,7 @@
             "display_prompt": "_( )",
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "urban_other-action",
-                "urban_other-datetime"
-              ]
+              "targets": ["urban_other-action", "urban_other-datetime"]
             },
             "content": [
               {
@@ -2123,36 +2006,28 @@
     "example": {
       "header": "Local stories",
       "description": "To inspire us",
-      "tagline": "_(Next featured site)",
       "default_zoom": 15,
-      "default_visible_layers": [
-        "snohomish-featured",
-        "snohomish-input"
-      ],
+      "default_basemap": "satellite",
+      "default_visible_layers": ["snohomish-featured", "snohomish-input"],
       "order": [
         {
           "url": "featured/4310",
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
           "url": "featured/4311",
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
           "url": "featured/4309",
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
           "url": "featured/4238",
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
           "url": "featured/4239",
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         }
       ]
