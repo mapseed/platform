@@ -61,7 +61,7 @@ const getPlaceCollections = async ({
         },
 
         success: function(fetchedCollection, response, options) {
-          showLayers(collectionId)
+          showLayers(collectionId);
           resolve(fetchedCollection);
         },
 

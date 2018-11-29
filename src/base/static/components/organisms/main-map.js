@@ -396,7 +396,6 @@ class MainMap extends Component {
     }
 
     for (let layerId in this.props.layerStatuses) {
-      console.log("!!!", layerId);
       if (
         this.props.layerStatuses[layerId].isVisible &&
         !prevProps.layerStatuses[layerId].isVisible
@@ -546,7 +545,6 @@ MainMap.propTypes = {
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
-  setBasemap: PropTypes.func.isRequired,
   setLayerLoaded: PropTypes.func.isRequired,
   setLayerError: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
@@ -584,8 +582,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLayerLoaded: layerId => dispatch(setLayerLoaded(layerId)),
   setLayerError: layerId => dispatch(setLayerError(layerId)),
-  setBasemap: (layerId, layerStatus) =>
-    dispatch(setBasemap(layerId, layerStatus)),
   setActiveDrawGeometryId: activeDrawGeometryId =>
     dispatch(setActiveDrawGeometryId(activeDrawGeometryId)),
 });
