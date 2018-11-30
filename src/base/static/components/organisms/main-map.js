@@ -85,6 +85,14 @@ class MainMap extends Component {
         this.loaded = true;
         for (let layerId in this.props.layerStatuses) {
           if (this.props.layerStatuses[layerId].isVisible) {
+            // Place layers are fetched outside of our mapboxGLProvider, so
+            // we are loading them separately:
+            if (
+              this.props.layerStatuses[layerId].type === "place" &&
+              this.props.layerStatuses[layerId].status !== "loaded"
+            ) {
+              return;
+            }
             this.addLayer(
               this.props.layers.find(layer => layer.id === layerId),
               this.props.layerStatuses[layerId].isBasemap,
@@ -293,6 +301,7 @@ class MainMap extends Component {
           Object.keys(this.props.places).forEach(collectionId => {
             this.props.layerStatuses[collectionId] &&
               this.props.layerStatuses[collectionId].isVisible &&
+              this.props.layerStatuses[collectionId].status === "loaded" &&
               this._map.updateLayerData(
                 collectionId,
                 createGeoJSONFromCollection(this.props.places[collectionId]),
@@ -397,22 +406,39 @@ class MainMap extends Component {
 
     for (let layerId in this.props.layerStatuses) {
       if (
-        this.props.layerStatuses[layerId].isVisible &&
-        !prevProps.layerStatuses[layerId].isVisible
-      ) {
-        // A layer has been switched on.
-        this.addLayer(
-          this.props.layers.find(layer => layer.id === layerId),
-          this.props.layerStatuses[layerId].isBasemap,
-        );
-      } else if (
-        !this.props.layerStatuses[layerId].isVisible &&
+        this.props.layerStatuses[layerId].isVisible !==
         prevProps.layerStatuses[layerId].isVisible
       ) {
-        // A layer has been switched off.
-        this._map.removeLayer(
-          this.props.layers.find(layer => layer.id === layerId),
-        );
+        if (this.props.layerStatuses[layerId].isVisible) {
+          // A layer has been switched on.
+          this.addLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+            this.props.layerStatuses[layerId].isBasemap,
+          );
+        } else {
+          // A layer has been switched off.
+          this._map.removeLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+          );
+        }
+      }
+
+      if (
+        this.props.layerStatuses[layerId].status !==
+        prevProps.layerStatuses[layerId].status
+      ) {
+        if (this.props.layerStatuses[layerId].status === "loaded") {
+          // A layer has been loaded:
+          this.addLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+            this.props.layerStatuses[layerId].isBasemap,
+          );
+        } else if (prevProps.layerStatuses[layerId].status === "loaded") {
+          // A layer was loaded, but is no longer loaded:
+          this._map.removeLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+          );
+        }
       }
     }
   }
@@ -506,6 +532,7 @@ MainMap.propTypes = {
       isVisible: PropTypes.bool,
       isBasemap: PropTypes.bool,
       status: PropTypes.string,
+      type: PropTypes.string,
     }),
   ).isRequired,
   leftSidebarConfig: PropTypes.shape({

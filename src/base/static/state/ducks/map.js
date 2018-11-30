@@ -61,17 +61,16 @@ export const initLayers = layers =>
     type: SET_LAYER_STATUS,
     payload: {
       id: layer.id,
-      isVisible: layer.type !== "place" ? !!layer.is_visible_default : false,
+      isVisible: !!layer.is_visible_default,
       isBasemap: !!layer.is_basemap,
       type: layer.type,
-      status: !!layer.is_visible_default ? "loading" : "",
+      status: layer.is_visible_default ? "loading" : "",
     },
   }));
 export const setLayerLoaded = layerId => ({
   type: SET_LAYER_STATUS,
   payload: {
     id: layerId,
-    isVisible: true,
     status: "loaded",
   },
 });
