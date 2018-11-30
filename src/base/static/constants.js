@@ -17,6 +17,7 @@ export default {
   RANGE_FIELD_TYPENAME: "range",
   INFORMATIONAL_HTML_FIELD_TYPENAME: "informational_html",
   NUMBER_FIELD_TYPENAME: "number",
+  GEOLOCATE_FIELD_TYPENAME: "geolocate",
 
   AUTOFILL_DURATION_DAYS: 30,
 
@@ -116,4 +117,6 @@ export default {
   MAP_TRANSITION_FIT_LINESTRING_COORDS: "map:fit-linestring-coords",
   MAP_TRANSITION_FIT_POLYGON_COORDS: "map:fit-polygonal-coords",
   MAP_TRANSITION_EASE_TO_POINT: "map:ease-to-point",
+
+  TRIGGER_GEOLOCATE_EVENT: "map:trigger-geolocate",
 };

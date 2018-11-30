@@ -918,6 +918,7 @@ export default (container, options) => {
     new mapboxgl.NavigationControl(options.control),
     options.control.position,
   );
+  let geolocateControl;
 
   return AbstractMapFactory({
     on: ({ event, callback }) => {
@@ -1041,7 +1042,12 @@ export default (container, options) => {
     },
 
     getGeolocateControl: () => {
-      return new mapboxgl.GeolocateControl();
+      geolocateControl = new mapboxgl.GeolocateControl();
+      return geolocateControl;
+    },
+
+    triggerGeolocateControl: () => {
+      geolocateControl && geolocateControl.trigger();
     },
 
     getCanvas: () => {

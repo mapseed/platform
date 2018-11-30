@@ -156,6 +156,11 @@ class MainMap extends Component {
       );
 
       this.listeners.push(
+        emitter.addListener(constants.TRIGGER_GEOLOCATE_EVENT, () =>
+          this._map.triggerGeolocateControl(),
+        ),
+      );
+      this.listeners.push(
         emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
           this.props.setActiveDrawGeometryId(
             this._map.drawAddGeometry(geometry)[0],
