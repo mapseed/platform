@@ -21,7 +21,6 @@ import VVFieldSummary from "./vv-field-summary";
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
 import constants from "../../constants";
-import { jumpTo } from "../../utils/scroll-helpers";
 
 // NOTE: These pieces of the config are imported directly here because they
 // don't require translation, which is ok for now.
@@ -158,10 +157,8 @@ class PlaceDetail extends Component {
     // another tick to set the bounding rectangle offsets before calling
     // getBoundingClientRect() in this use case.
     requestAnimationFrame(() => {
-      jumpTo(
-        this.props.container,
-        responseRef.getBoundingClientRect().top - this.topOffset,
-      );
+      this.props.container.scrollTop =
+        responseRef.getBoundingClientRect().top - this.topOffset;
     });
   }
 
