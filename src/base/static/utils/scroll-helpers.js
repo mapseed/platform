@@ -31,4 +31,8 @@ const scrollTo = (elt, to) => {
   }
 };
 
-export { scrollTo };
+const jumpTo = (elt, to) => {
+  elt.scrollTop = to;
+}
+
+export { scrollTo, jumpTo };
