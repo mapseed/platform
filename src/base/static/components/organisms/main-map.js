@@ -84,15 +84,11 @@ class MainMap extends Component {
       callback: () => {
         this.loaded = true;
         for (let layerId in this.props.layerStatuses) {
-          if (this.props.layerStatuses[layerId].isVisible) {
-            // Place layers are fetched outside of our mapboxGLProvider, so
-            // we are loading them separately:
-            if (
-              this.props.layerStatuses[layerId].type === "place" &&
-              this.props.layerStatuses[layerId].status !== "loaded"
-            ) {
-              return;
-            }
+          const layerStatus = this.props.layerStatuses[layerId];
+          if (
+            layerStatus.isVisible &&
+            ["loaded", "loading"].includes(layerStatus.status)
+          ) {
             this.addLayer(
               this.props.layers.find(layer => layer.id === layerId),
               this.props.layerStatuses[layerId].isBasemap,
@@ -113,7 +109,6 @@ class MainMap extends Component {
         }
         this.props.setLayerLoaded(sourceId);
       },
-      layersStatus: this.props.layerStatuses,
     });
     this._map.on({
       event: "layer:error",
@@ -405,15 +400,14 @@ class MainMap extends Component {
     }
 
     for (let layerId in this.props.layerStatuses) {
-      if (
-        this.props.layerStatuses[layerId].isVisible !==
-        prevProps.layerStatuses[layerId].isVisible
-      ) {
-        if (this.props.layerStatuses[layerId].isVisible) {
+      const layerStatus = this.props.layerStatuses[layerId];
+      const prevLayerStatus = prevProps.layerStatuses[layerId];
+      if (layerStatus.isVisible !== prevLayerStatus.isVisible) {
+        if (layerStatus.isVisible) {
           // A layer has been switched on.
           this.addLayer(
             this.props.layers.find(layer => layer.id === layerId),
-            this.props.layerStatuses[layerId].isBasemap,
+            layerStatus.isBasemap,
           );
         } else {
           // A layer has been switched off.
@@ -424,21 +418,14 @@ class MainMap extends Component {
       }
 
       if (
-        this.props.layerStatuses[layerId].status !==
-        prevProps.layerStatuses[layerId].status
+        layerStatus.status === "loading" &&
+        prevLayerStatus.status === "fetching"
       ) {
-        if (this.props.layerStatuses[layerId].status === "loaded") {
-          // A layer has been loaded:
-          this.addLayer(
-            this.props.layers.find(layer => layer.id === layerId),
-            this.props.layerStatuses[layerId].isBasemap,
-          );
-        } else if (prevProps.layerStatuses[layerId].status === "loaded") {
-          // A layer was loaded, but is no longer loaded:
-          this._map.removeLayer(
-            this.props.layers.find(layer => layer.id === layerId),
-          );
-        }
+        // A layer's data has been fetched, so now we add it to the map:
+        this.addLayer(
+          this.props.layers.find(layer => layer.id === layerId),
+          layerStatus.isBasemap,
+        );
       }
     }
   }
