@@ -21,7 +21,7 @@ import VVFieldSummary from "./vv-field-summary";
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
 import constants from "../../constants";
-import { scrollTo } from "../../utils/scroll-helpers";
+import { jumpTo } from "../../utils/scroll-helpers";
 
 // NOTE: These pieces of the config are imported directly here because they
 // don't require translation, which is ok for now.
@@ -34,6 +34,7 @@ import {
 import { surveyConfigSelector } from "../../state/ducks/survey-config";
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { mapConfigSelector } from "../../state/ducks/map-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
@@ -118,6 +119,9 @@ class PlaceDetail extends Component {
       isEditFormSubmitting: false,
       isSurveyEditFormSubmitting: false,
     };
+
+    // topOffset = header bar height + padding + geocoding bar height (if enabled).
+    this.topOffset = 80 + (this.props.mapConfig.geocoding_bar_enabled ? 72 : 0);
   }
 
   componentDidMount() {
@@ -154,9 +158,9 @@ class PlaceDetail extends Component {
     // another tick to set the bounding rectangle offsets before calling
     // getBoundingClientRect() in this use case.
     requestAnimationFrame(() => {
-      scrollTo(
+      jumpTo(
         this.props.container,
-        responseRef.getBoundingClientRect().top - 80,
+        responseRef.getBoundingClientRect().top - this.topOffset,
       );
     });
   }
@@ -431,6 +435,9 @@ PlaceDetail.propTypes = {
     username: PropTypes.string,
   }),
   isGeocodingBarEnabled: PropTypes.bool,
+  mapConfig: PropTypes.shape({
+    geocoding_bar_enabled: PropTypes.bool,
+  }).isRequired,
   model: PropTypes.instanceOf(Backbone.Model),
   placeConfig: PropTypes.object.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
@@ -443,6 +450,7 @@ PlaceDetail.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  mapConfig: mapConfigSelector(state),
   surveyConfig: surveyConfigSelector(state),
   supportConfig: supportConfigSelector(state),
   placeConfig: placeConfigSelector(state),
