@@ -435,6 +435,9 @@ PlaceDetail.propTypes = {
     username: PropTypes.string,
   }),
   isGeocodingBarEnabled: PropTypes.bool,
+  mapConfig: PropTypes.shape({
+    geocoding_bar_enabled: PropTypes.bool,
+  }).isRequired,
   model: PropTypes.instanceOf(Backbone.Model),
   placeConfig: PropTypes.object.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
