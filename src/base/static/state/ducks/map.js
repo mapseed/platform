@@ -50,11 +50,16 @@ export const hideLayers = (layerIds = []) => ({
   type: UPDATE_LAYERS_HIDDEN,
   payload: layerIds,
 });
+// status definitions:
+// unloaded: the layer is not going to be cached or loaded into Mapbox GL
+// fetching: the layer will be loaded into Mapbox GL, but needs to fetch data first
+// loading: the layer is ready to be loaded into Mapbox GL
+// loaded: the layer is loaded and cached in Mapbox GL (even though it may not be visible)
 export const initLayers = layers => {
   return {
     type: INIT_LAYER,
     payload: layers.map(layer => {
-      let loadStatus = "hidden";
+      let loadStatus = "unloaded";
       if (layer.is_visible_default) {
         loadStatus = layer.type === "place" ? "fetching" : "loading";
       }
