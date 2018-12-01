@@ -25,7 +25,7 @@ const GeolocateField = props => {
     <GeolocateButton
       onClick={() => emitter.emit(constants.TRIGGER_GEOLOCATE_EVENT)}
     >
-      <FontAwesomeIcon content="\f05b" fontSize="1.5rem" />
+      <FontAwesomeIcon faClassname="fa fa-crosshairs" fontSize="1.5rem" />
       <GeolocatePlaceholder>{props.placeholder}</GeolocatePlaceholder>
     </GeolocateButton>
   );

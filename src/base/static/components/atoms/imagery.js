@@ -37,22 +37,21 @@ Image.defaultProps = {
   alt: "Untitled image",
 };
 
-const FontAwesomeIcon = styled("span")(props => ({
-  "&:before": {
-    fontFamily: "FontAwesome",
-    fontSize: props.fontSize,
-    content: `"${props.content}"`,
-  },
+const FontAwesomeIcon = styled(props => (
+  <span className={`${props.className} ${props.faClassname}`} />
+))(props => ({
+  fontFamily: "FontAwesome",
+  fontSize: props.fontSize,
 }));
 
 FontAwesomeIcon.propTypes = {
   fontSize: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  faClassname: PropTypes.string.isRequired,
 };
 
 FontAwesomeIcon.defaultProps = {
   fontSize: "1rem",
-  content: "\f0ac", // Globe icon.
+  content: "fa fa-globe",
 };
 
 const SiteLogo = styled(props => {

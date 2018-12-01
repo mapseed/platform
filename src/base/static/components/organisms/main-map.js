@@ -88,7 +88,7 @@ class MainMap extends Component {
     this._map = MapProvider(props.container, props.mapConfig.options);
 
     if (props.mapConfig.geolocation_enabled) {
-      this._map.addControl(this._map.getGeolocateControl(), "top-left");
+      this._map.addGeolocationControl("top-left");
     }
 
     this._map.addCustomControls({
