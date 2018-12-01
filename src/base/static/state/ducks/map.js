@@ -29,81 +29,70 @@ export const mapUpdatingFilterTargetLayerSelector = state => {
 };
 
 // Actions
-const SET_LAYER_STATUS = "map/SET_LAYER_STATUS";
+const SET_LAYER_LOAD_STATUS = "map/SET_LAYER_LOAD_STATUS";
 const SET_MAP_POSITION = "map/SET_MAP_POSITION";
 const SET_MAP_SIZE_VALIDITY = "map/SET_MAP_SIZE_VALIDITY";
 const ACTIVATE_FEATURE_FILTER = "map/ACTIVATE_FEATURE_FILTER";
 const DEACTIVATE_FEATURE_FILTER = "map/DEACTIVATE_FEATURE_FILTER";
 const RESET_FEATURE_FILTER_GROUP = "map/RESET_FEATURE_FILTER_GROUP";
-const HIDE_OLD_BASEMAP = "map/HIDE_OLD_BASEMAP";
-const SHOW_BASEMAP = "map/SHOW_BASEMAP";
+const SET_BASEMAP = "map/SET_BASEMAP";
+const INIT_LAYER = "map/INIT_LAYER";
+const UPDATE_LAYERS_VISIBLE = "map/UPDATE_LAYERS_VISIBLE";
+const UPDATE_LAYERS_HIDDEN = "map/UPDATE_LAYERS_HIDDEN";
 
 // Action creators
-export const showLayers = (layerIds = []) =>
-  layerIds.map(layerId => ({
-    type: SET_LAYER_STATUS,
-    payload: {
-      id: layerId,
-      status: "loading",
-      isVisible: true,
-    },
-  }));
-export const hideLayers = (layerIds = []) =>
-  layerIds.map(layerId => ({
-    type: SET_LAYER_STATUS,
-    payload: {
-      id: layerId,
-      isVisible: false,
-    },
-  }));
+export const showLayers = (layerIds = []) => ({
+  type: UPDATE_LAYERS_VISIBLE,
+  payload: layerIds,
+});
+
+export const hideLayers = (layerIds = []) => ({
+  type: UPDATE_LAYERS_HIDDEN,
+  payload: layerIds,
+});
 export const initLayers = layers => {
-  return layers.map(layer => {
-    let status = "hidden";
-    if (layer.is_visible_default) {
-      status = layer.type === "place" ? "fetching" : "loading";
-    }
-    return {
-      type: SET_LAYER_STATUS,
-      payload: {
+  return {
+    type: INIT_LAYER,
+    payload: layers.map(layer => {
+      let loadStatus = "hidden";
+      if (layer.is_visible_default) {
+        loadStatus = layer.type === "place" ? "fetching" : "loading";
+      }
+      return {
         id: layer.id,
         isVisible: !!layer.is_visible_default,
         isBasemap: !!layer.is_basemap,
         type: layer.type,
-        status: status,
-      },
-    };
-  });
+        loadStatus: loadStatus,
+      };
+    }),
+  };
 };
 export const setLayerLoaded = layerId => ({
-  type: SET_LAYER_STATUS,
+  type: SET_LAYER_LOAD_STATUS,
   payload: {
     id: layerId,
-    status: "loaded",
+    loadStatus: "loaded",
   },
 });
-export const setLayerFetched = layerId => ({
-  type: SET_LAYER_STATUS,
+export const setLayerLoading = layerId => ({
+  type: SET_LAYER_LOAD_STATUS,
   payload: {
     id: layerId,
-    status: "loading",
+    loadStatus: "loading",
   },
 });
 export const setLayerError = layerId => ({
-  type: SET_LAYER_STATUS,
+  type: SET_LAYER_LOAD_STATUS,
   payload: {
     id: layerId,
-    status: "error",
+    loadStatus: "error",
   },
 });
-export const setBasemap = basemapId => [
-  {
-    type: HIDE_OLD_BASEMAP,
-  },
-  {
-    type: SHOW_BASEMAP,
-    payload: basemapId,
-  },
-];
+export const setBasemap = basemapId => ({
+  type: SET_BASEMAP,
+  payload: basemapId,
+});
 export const setMapPosition = mapPosition => {
   return {
     type: SET_MAP_POSITION,
@@ -147,6 +136,8 @@ const INITIAL_STATE = {
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
+  let newStatuses;
+
   switch (action.type) {
     case SET_MAP_SIZE_VALIDITY:
       return {
@@ -160,35 +151,85 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...action.payload,
         },
       };
-    case HIDE_OLD_BASEMAP:
+    case SET_BASEMAP:
+      newStatuses = {
+        [action.payload]: {
+          ...state.layerStatuses[action.payload],
+          isVisible: true,
+          loadStatus: "loading",
+        },
+      };
+
+      // If a previous basemap was already visible, switch it off.
       if (state.visibleBasemapId) {
-        return {
-          ...state,
-          visibleBasemapId: null,
-          layerStatuses: {
-            ...state.layerStatuses,
-            [state.visibleBasemapId]: {
-              ...state.layerStatuses[state.visibleBasemapId],
-              isVisible: false,
-            },
-          },
+        newStatuses[state.visibleBasemapId] = {
+          ...state.layerStatuses[state.visibleBasemapId],
+          isVisible: false,
         };
       }
-      return state;
-    case SHOW_BASEMAP:
+
       return {
         ...state,
         visibleBasemapId: action.payload,
         layerStatuses: {
           ...state.layerStatuses,
-          [action.payload]: {
-            ...state.layerStatuses[action.payload],
-            isVisible: true,
-            status: "loading",
-          },
+          ...newStatuses,
         },
       };
-    case SET_LAYER_STATUS:
+    case INIT_LAYER:
+      newStatuses = action.payload.reduce((memo, loadStatus) => {
+        return {
+          ...memo,
+          [loadStatus.id]: {
+            ...loadStatus,
+          },
+        };
+      }, {});
+
+      return {
+        ...state,
+        layerStatuses: {
+          ...state.layerStatuses,
+          ...newStatuses,
+        },
+      };
+    case UPDATE_LAYERS_VISIBLE:
+      newStatuses = action.payload.reduce((memo, layerId) => {
+        return {
+          ...memo,
+          [layerId]: {
+            ...state.layerStatuses[layerId],
+            isVisible: true,
+          },
+        };
+      }, {});
+
+      return {
+        ...state,
+        layerStatuses: {
+          ...state.layerStatuses,
+          ...newStatuses,
+        },
+      };
+    case UPDATE_LAYERS_HIDDEN:
+      newStatuses = action.payload.reduce((memo, layerId) => {
+        return {
+          ...memo,
+          [layerId]: {
+            ...state.layerStatuses[layerId],
+            isVisible: false,
+          },
+        };
+      }, {});
+
+      return {
+        ...state,
+        layerStatuses: {
+          ...state.layerStatuses,
+          ...newStatuses,
+        },
+      };
+    case SET_LAYER_LOAD_STATUS:
       return {
         ...state,
         layerStatuses: {

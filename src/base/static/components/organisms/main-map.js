@@ -20,6 +20,7 @@ import {
   setMapSizeValidity,
   setMapPosition,
   setLayerLoaded,
+  setLayerLoading,
   setLayerError,
   mapboxStyleIdSelector,
   mapUpdatingFilterGroupIdSelector,
@@ -87,7 +88,7 @@ class MainMap extends Component {
           const layerStatus = this.props.layerStatuses[layerId];
           if (
             layerStatus.isVisible &&
-            ["loaded", "loading"].includes(layerStatus.status)
+            ["loaded", "loading"].includes(layerStatus.loadStatus)
           ) {
             this.addLayer(
               this.props.layers.find(layer => layer.id === layerId),
@@ -296,7 +297,7 @@ class MainMap extends Component {
           Object.keys(this.props.places).forEach(collectionId => {
             this.props.layerStatuses[collectionId] &&
               this.props.layerStatuses[collectionId].isVisible &&
-              this.props.layerStatuses[collectionId].status === "loaded" &&
+              this.props.layerStatuses[collectionId].loadStatus === "loaded" &&
               this._map.updateLayerData(
                 collectionId,
                 createGeoJSONFromCollection(this.props.places[collectionId]),
@@ -418,8 +419,8 @@ class MainMap extends Component {
       }
 
       if (
-        layerStatus.status === "loading" &&
-        prevLayerStatus.status === "fetching"
+        layerStatus.loadStatus === "loading" &&
+        prevLayerStatus.loadStatus === "fetching"
       ) {
         // A layer's data has been fetched, so now we add it to the map:
         this.addLayer(
@@ -465,6 +466,7 @@ class MainMap extends Component {
         this._map.setCursor("");
       });
     } else {
+      this.props.setLayerLoading(layer.id);
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,
@@ -518,7 +520,7 @@ MainMap.propTypes = {
     PropTypes.shape({
       isVisible: PropTypes.bool,
       isBasemap: PropTypes.bool,
-      status: PropTypes.string,
+      loadStatus: PropTypes.string,
       type: PropTypes.string,
     }),
   ).isRequired,
@@ -560,6 +562,7 @@ MainMap.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLayerLoaded: PropTypes.func.isRequired,
+  setLayerLoading: PropTypes.func.isRequired,
   setLayerError: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
@@ -595,6 +598,7 @@ const mapDispatchToProps = dispatch => ({
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLayerLoaded: layerId => dispatch(setLayerLoaded(layerId)),
+  setLayerLoading: layerId => dispatch(setLayerLoading(layerId)),
   setLayerError: layerId => dispatch(setLayerError(layerId)),
   setActiveDrawGeometryId: activeDrawGeometryId =>
     dispatch(setActiveDrawGeometryId(activeDrawGeometryId)),

@@ -7,13 +7,6 @@ import { LegacyIcon, InfoModalTrigger } from "../atoms/feedback";
 import "./map-layer-selector.scss";
 
 const MapLayerSelector = props => {
-  let status;
-  if (!props.layerStatus || !props.layerStatus.isVisible) {
-    status = "hidden";
-  } else {
-    status = props.layerStatus.status;
-  }
-
   return (
     <div className="map-layer-selector">
       <span
@@ -28,21 +21,28 @@ const MapLayerSelector = props => {
         >
           {props.title}
         </span>
-        {status === "loading" && props.layerStatus.isVisible ? (
-          <div className="map-layer-selector__spinner-container">
-            <Spinner />
-          </div>
+        {props.layerStatus.isVisible ? (
+          props.layerStatus.loadStatus === "loading" ||
+          props.layerStatus.loadStatus === "fetching" ? (
+            <div className="map-layer-selector__spinner-container">
+              <Spinner />
+            </div>
+          ) : (
+            <LegacyIcon
+              icon={classNames({
+                "fa-check": props.layerStatus.loadStatus === "loaded",
+                "fa-times": props.layerStatus.loadStatus === "error",
+              })}
+              classes={classNames("map-layer-selector__status-icon", {
+                "map-layer-selector__status-icon--green":
+                  props.layerStatus.loadStatus === "loaded",
+                "map-layer-selector__status-icon--red":
+                  props.layerStatus.loadStatus === "error",
+              })}
+            />
+          )
         ) : (
-          <LegacyIcon
-            icon={classNames({
-              "fa-check": status === "loaded",
-              "fa-times": status === "error",
-            })}
-            classes={classNames("map-layer-selector__status-icon", {
-              "map-layer-selector__status-icon--green": status === "loaded",
-              "map-layer-selector__status-icon--red": status === "error",
-            })}
-          />
+          <LegacyIcon classes="map-layer-selector__status-icon" />
         )}
       </span>
       <InfoModalTrigger
@@ -67,7 +67,7 @@ MapLayerSelector.propTypes = {
   layerStatus: PropTypes.shape({
     isVisible: PropTypes.bool,
     isBasemap: PropTypes.bool,
-    status: PropTypes.string,
+    loadStatus: PropTypes.string,
   }),
   onToggleLayer: PropTypes.func.isRequired,
   selected: PropTypes.bool.isRequired,

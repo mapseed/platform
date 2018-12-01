@@ -3,7 +3,6 @@ import emitter from "../../utils/emitter";
 import ReactDOM from "react-dom";
 import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
-import multi from "redux-multi";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -66,7 +65,6 @@ import PlaceList from "../../components/organisms/place-list";
 const store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(multi),
 );
 
 // END REACT PORT SECTION //////////////////////////////////////////////////////
