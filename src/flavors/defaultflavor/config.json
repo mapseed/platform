@@ -609,14 +609,17 @@
             "end_field_index": 3,
             "icon_url": "/static/css/images/markers/marker-observation.png",
             "header": "_(Stage 1)",
-            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)"
+            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)",
+            "basemap_id": "satellite",
+            "layer_ids": ["sample-json-a", "sample-vector-b"]
           },
           {
             "start_field_index": 4,
             "end_field_index": 7,
             "icon_url": "/static/css/images/markers/marker-question.png",
             "header": "_(Stage 2, With a Longer and More Complex Header than Stage 1)",
-            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.)"
+            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.)",
+            "layer_ids": ["sample-vector-a"]
           },
           {
             "start_field_index": 8,

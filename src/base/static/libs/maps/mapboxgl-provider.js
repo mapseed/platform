@@ -930,6 +930,13 @@ export default (container, options) => {
             return (
               data.dataType === "source" &&
               map.isSourceLoaded(data.sourceId) &&
+              // These sources will fire a loaded event but are not relevant
+              // outside mapboxgl-provider.
+              ![
+                "mapbox-gl-draw-cold",
+                "mapbox-gl-draw-hot",
+                "__mapseed-focused-source__",
+              ].includes(data.sourceId) &&
               callback(data.sourceId)
             );
           };
@@ -1134,7 +1141,7 @@ export default (container, options) => {
       }
 
       if (isBasemap && map.getStyle().name !== DEFAULT_STYLE_NAME) {
-        // If we're loading a basemap, check to see if the prior basemap was
+        // If we're updating the basemap, check to see if the prior basemap was
         // a Mapbox style. If so, reset the map's style and recover all
         // existing sources and layers that were not affiliated with the
         // Mapbox style.

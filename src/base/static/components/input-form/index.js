@@ -17,7 +17,6 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
-import { mapPositionSelector } from "../../state/ducks/map";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
@@ -483,7 +482,6 @@ const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   geometryStyle: geometryStyleSelector(state),
   mapConfig: mapConfigSelector(state),
-  mapPosition: mapPositionSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 

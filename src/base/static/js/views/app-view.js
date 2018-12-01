@@ -1,11 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
+import ReactDOM from "react-dom";
 import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { ThemeProvider } from "emotion-theming";
@@ -18,7 +18,7 @@ import theme from "../../../../theme";
 // This only needs to be done once; probably during your application's bootstrapping process.
 import "react-virtualized/styles.css";
 
-import { setMapConfig } from "../../state/ducks/map-config";
+import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
 import { setPlaces } from "../../state/ducks/places";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
@@ -35,10 +35,13 @@ import {
   setMapSizeValidity,
   mapPositionSelector,
   mapBasemapSelector,
-  setBasemap,
-  setLayerStatus,
   setMapPosition,
-  mapLayerStatusesSelector,
+  initLayers,
+  showLayers,
+  hideLayers,
+  setBasemap,
+  setLayerError,
+  setLayerLoading,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -63,6 +66,7 @@ const store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -94,8 +98,14 @@ export default Backbone.View.extend({
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
-
-    // Set initial map position state.
+    store.dispatch(initLayers(this.options.mapConfig.layers));
+    store.dispatch(
+      setBasemap(
+        this.options.mapConfig.layers.find(
+          layer => layer.is_basemap && layer.is_visible_default,
+        ).id,
+      ),
+    );
     store.dispatch(
       setMapPosition({
         center: this.options.mapConfig.options.map.center,
@@ -309,9 +319,9 @@ export default Backbone.View.extend({
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
-      mapConfig: self.options.mapConfig,
-      setLayerStatus: (layerId, layerStatus) =>
-        store.dispatch(setLayerStatus(layerId, layerStatus)),
+      layers: mapLayersSelector(store.getState()),
+      setLayerLoading: layerId => store.dispatch(setLayerLoading(layerId)),
+      setLayerError: layerId => store.dispatch(setLayerError(layerId)),
     });
 
     // Load activities from the API
@@ -385,7 +395,6 @@ export default Backbone.View.extend({
 
     if (this.isStoryActive) {
       this.isStoryActive = false;
-      this.restoreDefaultLayerVisibility();
     }
 
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
@@ -543,55 +552,6 @@ export default Backbone.View.extend({
     // END REACT PORT SECTION //////////////////////////////////////////////////
   },
 
-  setStoryLayerVisibility: model => {
-    const storyBasemapId = model.get("story").basemap;
-    const storyVisibleLayerIds = model.get("story").visibleLayers;
-    const visibleBasemapId = mapBasemapSelector(store.getState());
-
-    if (storyBasemapId && storyBasemapId !== visibleBasemapId) {
-      visibleBasemapId &&
-        store.dispatch(
-          setBasemap(storyBasemapId, {
-            id: storyBasemapId,
-            status: "loading",
-            isVisible: true,
-            isBasemap: true,
-          }),
-        );
-    }
-    if (storyVisibleLayerIds) {
-      // Switch story layers on.
-      storyVisibleLayerIds.forEach(layerId => {
-        store.dispatch(
-          setLayerStatus(layerId, {
-            status: "loading",
-            isVisible: true,
-          }),
-        );
-      });
-
-      // Switch all other visible layers off.
-      Object.entries(mapLayerStatusesSelector(store.getState()))
-        .filter(([layerId, layerStatus]) => !layerStatus.isBasemap)
-        .forEach(([layerId, layerStatus]) => {
-          if (
-            layerStatus.isVisible &&
-            !storyVisibleLayerIds.includes(layerId)
-          ) {
-            store.dispatch(
-              setLayerStatus(layerId, {
-                isVisible: false,
-              }),
-            );
-          }
-        });
-    }
-  },
-
-  restoreDefaultLayerVisibility: function() {
-    // TODO
-  },
-
   viewPlace: function(args) {
     this.renderMain();
     this.renderRightSidebar();
@@ -656,7 +616,22 @@ export default Backbone.View.extend({
 
       if (model.get("story")) {
         self.isStoryActive = true;
-        self.setStoryLayerVisibility(model);
+        const storyChapterVisibleLayers = model.get("story").visibleLayers;
+        const storyChapterBasemap = model.get("story").basemap;
+
+        mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
+          store.dispatch(setBasemap(storyChapterBasemap));
+        store.dispatch(showLayers(storyChapterVisibleLayers));
+        // Hide all other layers.
+        store.dispatch(
+          hideLayers(
+            mapLayersSelector(store.getState())
+              .filter(layer => !layer.is_basemap)
+              .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
+              .map(layer => layer.id),
+          ),
+        );
+
         if (!model.get("story").spotlight) {
           self.hideSpotlightMask();
         }
@@ -700,7 +675,6 @@ export default Backbone.View.extend({
 
       if (!model.get("story") && self.isStoryActive) {
         self.isStoryActive = false;
-        self.restoreDefaultLayerVisibility();
       }
 
       store.dispatch(setMapSizeValidity(false));

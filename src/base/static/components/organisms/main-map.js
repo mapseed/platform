@@ -19,8 +19,9 @@ import {
   mapSizeValiditySelector,
   setMapSizeValidity,
   setMapPosition,
-  setLayerStatus,
-  setBasemap,
+  setLayerLoaded,
+  setLayerLoading,
+  setLayerError,
   mapboxStyleIdSelector,
   mapUpdatingFilterGroupIdSelector,
   mapUpdatingFilterTargetLayerSelector,
@@ -61,29 +62,6 @@ class MainMap extends Component {
         break;
     }
 
-    // Set default layer visibility for non-place layers.
-    this.props.layers
-      .filter(layer => layer.is_visible_default && layer.type !== "place")
-      .forEach(layer => {
-        if (layer.is_basemap) {
-          props.setBasemap(layer.id, {
-            id: layer.id,
-            status: "loading",
-            isVisible: true,
-            isBasemap: true,
-            type: layer.type,
-          });
-        } else {
-          props.setLayerStatus(layer.id, {
-            id: layer.id,
-            status: "loading",
-            isVisible: true,
-            isBasemap: false,
-            type: layer.type,
-          });
-        }
-      });
-
     // Instantiate the map.
     this._map = MapProvider(props.container, props.mapConfig.options);
 
@@ -107,7 +85,11 @@ class MainMap extends Component {
       callback: () => {
         this.loaded = true;
         for (let layerId in this.props.layerStatuses) {
-          if (this.props.layerStatuses[layerId].isVisible) {
+          const layerStatus = this.props.layerStatuses[layerId];
+          if (
+            layerStatus.isVisible &&
+            ["loaded", "loading"].includes(layerStatus.loadStatus)
+          ) {
             this.addLayer(
               this.props.layers.find(layer => layer.id === layerId),
               this.props.layerStatuses[layerId].isBasemap,
@@ -126,11 +108,8 @@ class MainMap extends Component {
           // with type mapbox-style.
           sourceId = this.props.mapboxStyleId;
         }
-        this.props.setLayerStatus(sourceId, {
-          status: "loaded",
-        });
+        this.props.setLayerLoaded(sourceId);
       },
-      layersStatus: this.props.layerStatuses,
     });
     this._map.on({
       event: "layer:error",
@@ -138,9 +117,7 @@ class MainMap extends Component {
         if (sourceId === "composite") {
           sourceId = this.props.mapboxStyleId;
         }
-        this.props.setLayerStatus(sourceId, {
-          status: "error",
-        });
+        this.props.setLayerError(sourceId);
       },
     });
 
@@ -325,6 +302,7 @@ class MainMap extends Component {
           Object.keys(this.props.places).forEach(collectionId => {
             this.props.layerStatuses[collectionId] &&
               this.props.layerStatuses[collectionId].isVisible &&
+              this.props.layerStatuses[collectionId].loadStatus === "loaded" &&
               this._map.updateLayerData(
                 collectionId,
                 createGeoJSONFromCollection(this.props.places[collectionId]),
@@ -428,24 +406,31 @@ class MainMap extends Component {
     }
 
     for (let layerId in this.props.layerStatuses) {
+      const layerStatus = this.props.layerStatuses[layerId];
+      const prevLayerStatus = prevProps.layerStatuses[layerId];
+      if (layerStatus.isVisible !== prevLayerStatus.isVisible) {
+        if (layerStatus.isVisible) {
+          // A layer has been switched on.
+          this.addLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+            layerStatus.isBasemap,
+          );
+        } else {
+          // A layer has been switched off.
+          this._map.removeLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+          );
+        }
+      }
+
       if (
-        this.props.layerStatuses[layerId].isVisible &&
-        (!prevProps.layerStatuses[layerId] ||
-          !prevProps.layerStatuses[layerId].isVisible)
+        layerStatus.loadStatus === "loading" &&
+        prevLayerStatus.loadStatus === "fetching"
       ) {
-        // A layer has been switched on.
+        // A layer's data has been fetched, so now we add it to the map:
         this.addLayer(
           this.props.layers.find(layer => layer.id === layerId),
-          this.props.layerStatuses[layerId].isBasemap,
-        );
-      } else if (
-        !this.props.layerStatuses[layerId].isVisible &&
-        prevProps.layerStatuses[layerId] &&
-        prevProps.layerStatuses[layerId].isVisible
-      ) {
-        // A layer has been switched off.
-        this._map.removeLayer(
-          this.props.layers.find(layer => layer.id === layerId),
+          layerStatus.isBasemap,
         );
       }
     }
@@ -486,6 +471,7 @@ class MainMap extends Component {
         this._map.setCursor("");
       });
     } else {
+      this.props.setLayerLoading(layer.id);
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,
@@ -539,7 +525,8 @@ MainMap.propTypes = {
     PropTypes.shape({
       isVisible: PropTypes.bool,
       isBasemap: PropTypes.bool,
-      status: PropTypes.string,
+      loadStatus: PropTypes.string,
+      type: PropTypes.string,
     }),
   ).isRequired,
   leftSidebarConfig: PropTypes.shape({
@@ -579,8 +566,9 @@ MainMap.propTypes = {
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
-  setBasemap: PropTypes.func.isRequired,
-  setLayerStatus: PropTypes.func.isRequired,
+  setLayerLoaded: PropTypes.func.isRequired,
+  setLayerLoading: PropTypes.func.isRequired,
+  setLayerError: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setMapPosition: PropTypes.func.isRequired,
@@ -614,10 +602,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(componentName)),
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
-  setLayerStatus: (layerId, layerStatus) =>
-    dispatch(setLayerStatus(layerId, layerStatus)),
-  setBasemap: (layerId, layerStatus) =>
-    dispatch(setBasemap(layerId, layerStatus)),
+  setLayerLoaded: layerId => dispatch(setLayerLoaded(layerId)),
+  setLayerLoading: layerId => dispatch(setLayerLoading(layerId)),
+  setLayerError: layerId => dispatch(setLayerError(layerId)),
   setActiveDrawGeometryId: activeDrawGeometryId =>
     dispatch(setActiveDrawGeometryId(activeDrawGeometryId)),
 });
