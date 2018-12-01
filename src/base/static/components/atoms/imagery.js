@@ -37,6 +37,23 @@ Image.defaultProps = {
   alt: "Untitled image",
 };
 
+const FontAwesomeIcon = styled(props => (
+  <span className={`${props.className} ${props.faClassname}`} />
+))(props => ({
+  fontFamily: "FontAwesome",
+  fontSize: props.fontSize,
+}));
+
+FontAwesomeIcon.propTypes = {
+  fontSize: PropTypes.string.isRequired,
+  faClassname: PropTypes.string.isRequired,
+};
+
+FontAwesomeIcon.defaultProps = {
+  fontSize: "1rem",
+  content: "fa fa-globe",
+};
+
 const SiteLogo = styled(props => {
   return <img src={props.src} alt={props.alt} className={props.className} />;
 })(props => ({
@@ -92,4 +109,4 @@ UserAvatar.defaultProps = {
 
 export default UserAvatar;
 
-export { LegacyImage, Image, UserAvatar, SiteLogo };
+export { LegacyImage, Image, UserAvatar, SiteLogo, FontAwesomeIcon };

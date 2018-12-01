@@ -33,6 +33,7 @@ import {
   InformationalHTMLField,
   NumberField,
   NumberFieldResponse,
+  GeolocateField,
 } from "./types";
 import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
@@ -89,6 +90,14 @@ export default {
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => NumberFieldResponse,
+  },
+  [constants.GEOLOCATE_FIELD_TYPENAME]: {
+    getValidator: getDefaultValidator,
+    getComponent: (fieldConfig, context) => (
+      <GeolocateField {...getSharedFieldProps(fieldConfig, context)} />
+    ),
+    getInitialValue: ({ value }) => value,
+    getResponseComponent: () => null,
   },
   [constants.RICH_TEXTAREA_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,

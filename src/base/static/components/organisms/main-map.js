@@ -88,7 +88,7 @@ class MainMap extends Component {
     this._map = MapProvider(props.container, props.mapConfig.options);
 
     if (props.mapConfig.geolocation_enabled) {
-      this._map.addControl(this._map.getGeolocateControl(), "top-left");
+      this._map.addGeolocationControl("top-left");
     }
 
     this._map.addCustomControls({
@@ -155,6 +155,11 @@ class MainMap extends Component {
         this,
       );
 
+      this.listeners.push(
+        emitter.addListener(constants.TRIGGER_GEOLOCATE_EVENT, () =>
+          this._map.triggerGeolocateControl(),
+        ),
+      );
       this.listeners.push(
         emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
           this.props.setActiveDrawGeometryId(

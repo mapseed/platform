@@ -45,3 +45,6 @@ export {
 export {
   default as NumberFieldResponse,
 } from "../../molecules/form-field-response-types/number-field-response";
+export {
+  default as GeolocateField,
+} from "../../molecules/form-field-types/geolocate-field";
