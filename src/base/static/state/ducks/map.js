@@ -56,23 +56,36 @@ export const hideLayers = (layerIds = []) =>
       isVisible: false,
     },
   }));
-export const initLayers = layers =>
-  layers.map(layer => ({
-    type: SET_LAYER_STATUS,
-    payload: {
-      id: layer.id,
-      isVisible: layer.type !== "place" ? !!layer.is_visible_default : false,
-      isBasemap: !!layer.is_basemap,
-      type: layer.type,
-      status: !!layer.is_visible_default ? "loading" : "",
-    },
-  }));
+export const initLayers = layers => {
+  return layers.map(layer => {
+    let status = "hidden";
+    if (layer.is_visible_default) {
+      status = layer.type === "place" ? "fetching" : "loading";
+    }
+    return {
+      type: SET_LAYER_STATUS,
+      payload: {
+        id: layer.id,
+        isVisible: !!layer.is_visible_default,
+        isBasemap: !!layer.is_basemap,
+        type: layer.type,
+        status: status,
+      },
+    };
+  });
+};
 export const setLayerLoaded = layerId => ({
   type: SET_LAYER_STATUS,
   payload: {
     id: layerId,
-    isVisible: true,
     status: "loaded",
+  },
+});
+export const setLayerFetched = layerId => ({
+  type: SET_LAYER_STATUS,
+  payload: {
+    id: layerId,
+    status: "loading",
   },
 });
 export const setLayerError = layerId => ({

@@ -37,13 +37,12 @@ import {
   mapPositionSelector,
   mapBasemapSelector,
   setMapPosition,
-  mapLayerStatusesSelector,
   initLayers,
   showLayers,
   hideLayers,
   setBasemap,
   setLayerError,
-  setLayerLoaded,
+  setLayerFetched,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -323,8 +322,7 @@ export default Backbone.View.extend({
       placeParams,
       placeCollections: self.places,
       layers: mapLayersSelector(store.getState()),
-      showLayers: layerId => store.dispatch(showLayers([layerId])),
-      setLayerLoaded: layerId => store.dispatch(setLayerLoaded(layerId)),
+      setLayerFetched: layerId => store.dispatch(setLayerFetched(layerId)),
       setLayerError: layerId => store.dispatch(setLayerError(layerId)),
     });
 

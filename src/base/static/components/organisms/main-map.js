@@ -84,7 +84,11 @@ class MainMap extends Component {
       callback: () => {
         this.loaded = true;
         for (let layerId in this.props.layerStatuses) {
-          if (this.props.layerStatuses[layerId].isVisible) {
+          const layerStatus = this.props.layerStatuses[layerId];
+          if (
+            layerStatus.isVisible &&
+            ["loaded", "loading"].includes(layerStatus.status)
+          ) {
             this.addLayer(
               this.props.layers.find(layer => layer.id === layerId),
               this.props.layerStatuses[layerId].isBasemap,
@@ -105,7 +109,6 @@ class MainMap extends Component {
         }
         this.props.setLayerLoaded(sourceId);
       },
-      layersStatus: this.props.layerStatuses,
     });
     this._map.on({
       event: "layer:error",
@@ -293,6 +296,7 @@ class MainMap extends Component {
           Object.keys(this.props.places).forEach(collectionId => {
             this.props.layerStatuses[collectionId] &&
               this.props.layerStatuses[collectionId].isVisible &&
+              this.props.layerStatuses[collectionId].status === "loaded" &&
               this._map.updateLayerData(
                 collectionId,
                 createGeoJSONFromCollection(this.props.places[collectionId]),
@@ -396,22 +400,31 @@ class MainMap extends Component {
     }
 
     for (let layerId in this.props.layerStatuses) {
+      const layerStatus = this.props.layerStatuses[layerId];
+      const prevLayerStatus = prevProps.layerStatuses[layerId];
+      if (layerStatus.isVisible !== prevLayerStatus.isVisible) {
+        if (layerStatus.isVisible) {
+          // A layer has been switched on.
+          this.addLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+            layerStatus.isBasemap,
+          );
+        } else {
+          // A layer has been switched off.
+          this._map.removeLayer(
+            this.props.layers.find(layer => layer.id === layerId),
+          );
+        }
+      }
+
       if (
-        this.props.layerStatuses[layerId].isVisible &&
-        !prevProps.layerStatuses[layerId].isVisible
+        layerStatus.status === "loading" &&
+        prevLayerStatus.status === "fetching"
       ) {
-        // A layer has been switched on.
+        // A layer's data has been fetched, so now we add it to the map:
         this.addLayer(
           this.props.layers.find(layer => layer.id === layerId),
-          this.props.layerStatuses[layerId].isBasemap,
-        );
-      } else if (
-        !this.props.layerStatuses[layerId].isVisible &&
-        prevProps.layerStatuses[layerId].isVisible
-      ) {
-        // A layer has been switched off.
-        this._map.removeLayer(
-          this.props.layers.find(layer => layer.id === layerId),
+          layerStatus.isBasemap,
         );
       }
     }
@@ -506,6 +519,7 @@ MainMap.propTypes = {
       isVisible: PropTypes.bool,
       isBasemap: PropTypes.bool,
       status: PropTypes.string,
+      type: PropTypes.string,
     }),
   ).isRequired,
   leftSidebarConfig: PropTypes.shape({
