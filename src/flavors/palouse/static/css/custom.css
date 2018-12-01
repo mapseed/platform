@@ -25,11 +25,38 @@ body {
 }
 
 .input-form__field-container[data-field-type="datetime"],
+.input-form__field-container[data-field-name="my_image"],
 .input-form__field-container[data-field-type="big_radio"] {
   background-color: #efefef;
   margin-top: 15px;
   margin-bottom: 0;
   box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75);
+}
+
+.input-form__field-container[data-field-type="geocoding"],
+.input-form__field-container[data-field-type="textarea"],
+.input-form__field-container[data-field-name="drag_map_info"],
+.input-form__field-container[data-field-type="geolocate"] {
+  background-color: #efefef;
+  margin-top: 0;
+  margin-bottom: 0;
+  box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75);
+}
+
+.input-form__field-container[data-field-name="private-landowner_email"],
+.input-form__field-container[data-field-name="private-landowner_name"],
+.input-form__field-container[data-field-name="private-landowner_phone"] {
+  margin-top: 15px;
+}
+
+.input-form__field-container[data-field-type="geolocate"] {
+  button {
+    background-color: #efefef !important;
+  }
+}
+
+.geocoding-field__do-geocode-icon:before {
+  color: #e57c04 !important;
 }
 
 .input-form__field-container[data-field-type="informational_html"] {
@@ -161,7 +188,6 @@ body {
 .mapseed__progress-bar-inner {
   background-color: #ff6201;
 }
-
 
 /* =Custom Pages
 -------------------------------------------------------------- */

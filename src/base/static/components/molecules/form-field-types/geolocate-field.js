@@ -8,7 +8,11 @@ import { FontAwesomeIcon } from "../../atoms/imagery";
 import emitter from "../../../utils/emitter";
 import constants from "../../../constants";
 
-const GeolocateButton = styled(Button)(props => ({
+const GeolocateButton = styled(props => (
+  <Button color={props.color} className={props.className}>
+    {props.children}
+  </Button>
+))(props => ({
   display: "flex",
   alignItems: "center",
 }));
@@ -17,12 +21,13 @@ const GeolocatePlaceholder = styled("span")({
   paddingLeft: "8px",
   textTransform: "none",
   textAlign: "left",
-  color: "#999",
+  color: "#444",
 });
 
 const GeolocateField = props => {
   return (
     <GeolocateButton
+      color="tertiary"
       onClick={() => emitter.emit(constants.TRIGGER_GEOLOCATE_EVENT)}
     >
       <FontAwesomeIcon faClassname="fa fa-crosshairs" fontSize="1.5rem" />

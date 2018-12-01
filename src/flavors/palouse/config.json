@@ -17,6 +17,7 @@
       },
       "text": {
         "secondary": "#fff",
+        "tertiary": "#e57c04",
         "headerFontFamily": "Raleway,sans-serif",
         "bodyFontFamily": "Raleway,sans-serif"
       }
@@ -503,25 +504,24 @@
           {
             "name": "location_why",
             "type": "informational_html",
-            "content": "<p>Reporting your property location will help Whitman County better allocate VSP resources. Your address will never be shared with anyone.</p>"
+            "content": "<p>Reporting your property location will help Whitman County better allocate Voluntary Stewardship Program resources.</p><p><strong>Your address will never be shared with anyone.</strong></p><p>Use one of the methods below to set your location:</p>"
           },
           {
             "name": "private-address",
             "type": "geocoding",
-            "placeholder": "_(Search by address. Your address will never be shared.)",
-            "prompt": " ",
-            "placeholder": " "
+            "placeholder": "_(Search by address.)",
+            "prompt": " "
           },
           {
             "name": "geolocation",
             "type": "geolocate",
-            "placeholder": "_(Are you on your property now? Locate me automatically.)",
+            "placeholder": "_(Are you on your property now? Click here to locate yourself automatically.)",
             "optional": true
           },
           {
             "name": "drag_map_info",
             "type": "informational_html",
-            "content": "<p>Drag the map</p>"
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Drag and zoom the map manually.</p></div>"
           },
           {
             "name": "wetlands_header",
@@ -656,7 +656,7 @@
           {
             "name": "stewardship_practices_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,56,153,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>7. Your stewardship practices</h4></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Your stewardship practices</h4>"
           },
           {
             "name": "stewardship_practices_information",
@@ -666,7 +666,7 @@
           {
             "name": "tillage_management_header",
             "type": "informational_html",
-            "content": "<h5>A. Residue and Tillage Management</h5>"
+            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>A. Residue and Tillage Management</h5>"
           },
           {
             "//": "=============== PRECISION AGRICULTURE ======================",
@@ -678,7 +678,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "precision_agriculture_acres",
+                "precision_agriculture_quantity",
                 "precision_agriculture_datetime"
               ]
             },
@@ -729,7 +729,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["mulch_till_acres", "mulch_till_datetime"]
+              "targets": ["mulch_till_quantity", "mulch_till_datetime"]
             },
             "content": [
               {
@@ -753,7 +753,7 @@
           {
             "name": "mulch_till_quantity",
             "metadata": {
-              "units": "_(acres)" 
+              "units": "_(acres)"
             },
             "type": "text",
             "prompt": "_(How many acres of mulch till?)",
@@ -778,7 +778,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["reduced_till_acres", "reduced_till_datetime"]
+              "targets": ["reduced_till_quantity", "reduced_till_datetime"]
             },
             "content": [
               {
@@ -827,7 +827,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["no_till_acres", "no_till_datetime"]
+              "targets": ["no_till_quantity", "no_till_datetime"]
             },
             "content": [
               {
@@ -898,7 +898,7 @@
           {
             "name": "chemical_management_header",
             "type": "informational_html",
-            "content": "<h5>B. Chemical and Nutrient Management</h5>"
+            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>B. Chemical and Nutrient Management</h5>"
           },
           {
             "//": "=============== INTEGRATED PEST MGMT ========================",
@@ -909,7 +909,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["pest_management_acres", "pest_management_datetime"]
+              "targets": ["pest_management_quantity", "pest_management_datetime"]
             },
             "content": [
               {
@@ -959,7 +959,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "nutrient_management_acres",
+                "nutrient_management_quantity",
                 "nutrient_management_datetime"
               ]
             },
@@ -1032,7 +1032,7 @@
           {
             "name": "water_filtration_management",
             "type": "informational_html",
-            "content": "<h5>C. Water and Filtration Management</h5>"
+            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>C. Water and Filtration Management</h5>"
           },
           {
             "//": "=============== GRASSED WATERWAYS ===========================",
@@ -1044,7 +1044,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "grassed_waterways_feet",
+                "grassed_waterways_quantity",
                 "grassed_waterways_datetime"
               ]
             },
@@ -1095,7 +1095,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["filter_strips_feet", "filter_strips_datetime"]
+              "targets": ["filter_strips_quantity", "filter_strips_datetime"]
             },
             "content": [
               {
@@ -1166,7 +1166,7 @@
           {
             "name": "range_management",
             "type": "informational_html",
-            "content": "<h5>D. Range Management</h5>"
+            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>D. Range Management</h5>"
           },
           {
             "//": "=============== PRESCRIBED GRAZING ==========================",
@@ -1178,7 +1178,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "prescribed_grazing_acres",
+                "prescribed_grazing_quantity",
                 "prescribed_grazing_datetime"
               ]
             },
@@ -1229,7 +1229,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["range_planting_acres", "range_planting_datetime"]
+              "targets": ["range_planting_quantity", "range_planting_datetime"]
             },
             "content": [
               {
@@ -1278,7 +1278,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["stock_watering_acres", "stock_watering_datetime"]
+              "targets": ["stock_watering_quantity", "stock_watering_datetime"]
             },
             "content": [
               {
@@ -1349,7 +1349,7 @@
           {
             "name": "soil_management",
             "type": "informational_html",
-            "content": "<h5>E. Soil Management</h5>"
+            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>E. Soil Management</h5>"
           },
           {
             "//": "=============== CONSERVATION CROP ROTATION ==================",
@@ -1360,7 +1360,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["crop_rotation_acres", "crop_rotation_datetime"]
+              "targets": ["crop_rotation_quantity", "crop_rotation_datetime"]
             },
             "content": [
               {
@@ -1409,7 +1409,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["cover_crop_acres", "cover_crop_datetime"]
+              "targets": ["cover_crop_quantity", "cover_crop_datetime"]
             },
             "content": [
               {
@@ -1458,7 +1458,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["mulch_acres", "mulch_datetime"]
+              "targets": ["mulch_quantity", "mulch_datetime"]
             },
             "content": [
               {
@@ -1529,7 +1529,7 @@
           {
             "name": "habitat_management",
             "type": "informational_html",
-            "content": "<h5>F. Habitat Management</h5>"
+            "content": "<h5 style='margin-top:24px; border-bottom:1px solid #ccc'>F. Habitat Management</h5>"
           },
           {
             "//": "=============== CONSERVATION COVER ==========================",
@@ -1541,7 +1541,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "conservation_cover_acres",
+                "conservation_cover_quantity",
                 "conservation_cover_datetime"
               ]
             },
@@ -1592,7 +1592,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["weed_control_acres", "weed_control_datetime"]
+              "targets": ["weed_control_quantity", "weed_control_datetime"]
             },
             "content": [
               {
@@ -1641,7 +1641,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["tree_shrub_acres", "tree_shrub_datetime"]
+              "targets": ["tree_shrub_quantity", "tree_shrub_datetime"]
             },
             "content": [
               {
@@ -1690,7 +1690,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["hedgerow_feet", "hedgerow_datetime"]
+              "targets": ["hedgerow_quantity", "hedgerow_datetime"]
             },
             "content": [
               {
@@ -1740,7 +1740,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "riparian_planting_acres",
+                "riparian_planting_quantity",
                 "riparian_planting_datetime"
               ]
             },
@@ -1792,7 +1792,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "native_vegetation_acres",
+                "native_vegetation_quantity",
                 "native_vegetation_datetime"
               ]
             },
@@ -1843,7 +1843,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["stream_habitat_acres", "stream_habitat_datetime"]
+              "targets": ["stream_habitat_quantity", "stream_habitat_datetime"]
             },
             "content": [
               {
@@ -1895,7 +1895,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "streambank_fencing_feet",
+                "streambank_fencing_quantity",
                 "streambank_fencing_datetime"
               ]
             },
@@ -1970,7 +1970,7 @@
           {
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;background-color:rgba(0,56,153,0.7)'><h4 style='margin:0;padding:8px;color:rgba(0,0,0,0.7)'>8. Almost done!</h4></div>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Almost done!</h4>"
           },
           {
             "name": "additional_info",

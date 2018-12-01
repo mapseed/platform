@@ -39,10 +39,19 @@ Image.defaultProps = {
 
 const FontAwesomeIcon = styled(props => (
   <span className={`${props.className} ${props.faClassname}`} />
-))(props => ({
-  fontFamily: "FontAwesome",
-  fontSize: props.fontSize,
-}));
+))(props => {
+  const styles = {
+    fontFamily: "FontAwesome",
+    fontSize: props.fontSize,
+  };
+
+//  if (props.color === "primary") {
+//    styles.color = props.theme.brand.primary;
+//    styles["&:hover"].color = props.theme.brand.accent;
+//  }
+
+  return styles;
+});
 
 FontAwesomeIcon.propTypes = {
   fontSize: PropTypes.string.isRequired,
@@ -50,6 +59,7 @@ FontAwesomeIcon.propTypes = {
 };
 
 FontAwesomeIcon.defaultProps = {
+  color: "primary",
   fontSize: "1rem",
   content: "fa fa-globe",
 };
