@@ -348,7 +348,6 @@
       {
         "id": "sample-json-b",
         "type": "json",
-        "is_visible_default": true,
         "source": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
         "feature_types": ["Label", "Polygon"],
         "rules": [
@@ -593,7 +592,6 @@
     "anonymous_name": "_(Someone)",
     "submit_button_label": "_(Put it on the map!)",
     "location_item_name": "location",
-    "default_basemap": "satellite",
     "place_detail": [
       {
         "category": "demo",
@@ -610,8 +608,8 @@
             "icon_url": "/static/css/images/markers/marker-observation.png",
             "header": "_(Stage 1)",
             "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)",
-            "basemap_id": "satellite",
-            "layer_ids": ["sample-json-a", "sample-vector-b"]
+            "visible_basemap_id": "sample-raster-tile",
+            "visible_layer_ids": ["sample-json-a", "sample-vector-b"]
           },
           {
             "start_field_index": 4,
@@ -619,17 +617,19 @@
             "icon_url": "/static/css/images/markers/marker-question.png",
             "header": "_(Stage 2, With a Longer and More Complex Header than Stage 1)",
             "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.)",
-            "layer_ids": ["sample-vector-a"]
+            "visible_layer_ids": ["sample-vector-a"]
           },
           {
             "start_field_index": 8,
             "end_field_index": 10,
             "icon_url": "",
-            "header": "_(Stage 3)"
+            "header": "_(Stage 3)",
+            "visible_basemap_id": "sample-wmts-a",
+            "visible_layer_ids": ["sample-json-b"]
           },
           {
             "start_field_index": 11,
-            "end_field_index": 20,
+            "end_field_index": 19,
             "icon_url": "",
             "header": "_(Stage 4)"
           }
@@ -879,17 +879,6 @@
             "name": "publish_control_toolbar",
             "type": "publish_control_toolbar",
             "default_value": "isPublished"
-          },
-          {
-            "name": "url-title",
-            "type": "custom_url_toolbar",
-            "prompt": "_(Custom URL field prompt:)",
-            "placegolder": "_(Enter a custom URL...)",
-            "optional": true,
-            "modal": {
-              "header": "_(Modal header)",
-              "body": ["Modal body"]
-            }
           },
           {
             "name": "datetime_field",
