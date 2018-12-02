@@ -449,43 +449,56 @@
             "start_field_index": 1,
             "end_field_index": 5,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "satellite",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
             "start_field_index": 6,
             "end_field_index": 8,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "satellite",
+            "visible_layer_ids": ["palouse-wetlands", "whitman-county-outline"]
           },
           {
             "start_field_index": 9,
             "end_field_index": 11,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "satellite",
+            "visible_layer_ids": ["palouse-frequently-flooded", "whitman-county-outline"]
           },
           {
             "start_field_index": 12,
             "end_field_index": 14,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "satellite",
+            "visible_layer_ids": ["palouse-geologic-hazard", "whitman-county-outline"]
           },
           {
             "start_field_index": 15,
             "end_field_index": 17,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "satellite",
+            "visible_layer_ids": ["palouse-critical-aquifer", "whitman-county-outline"]
           },
           {
             "start_field_index": 18,
             "end_field_index": 20,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "satellite",
+            "visible_layer_ids": ["palouse-critical-conservation-areas", "whitman-county-outline"]
           },
           {
             "start_field_index": 21,
             "end_field_index": 106,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
             "start_field_index": 107,
@@ -909,7 +922,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["pest_management_quantity", "pest_management_datetime"]
+              "targets": [
+                "pest_management_quantity",
+                "pest_management_datetime"
+              ]
             },
             "content": [
               {
