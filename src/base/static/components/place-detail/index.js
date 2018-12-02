@@ -17,6 +17,7 @@ import FieldSummary from "./field-summary";
 // Flavor custom code
 import SnohomishFieldSummary from "./snohomish-field-summary";
 import VVFieldSummary from "./vv-field-summary";
+import PalouseFieldSummary from "./palouse-field-summary";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
@@ -302,6 +303,18 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <VVFieldSummary
+          attachmentModels={this.state.attachmentModels}
+          fields={this.categoryConfig.fields}
+          placeModel={this.state.placeModel}
+        />
+      );
+    } else if (
+      customComponents &&
+      customComponents.FieldSummary === "PalouseFieldSummary" &&
+      locationType === "reports"
+    ) {
+      fieldSummary = (
+        <PalouseFieldSummary
           attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}

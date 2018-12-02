@@ -120,6 +120,7 @@ const LargeTitle = styled("h1")(props => ({
 
 const RegularTitle = styled("h2")(props => ({
   fontSize: "2rem",
+  lineHeight: "2rem",
   fontFamily: props.theme.text.headerFontFamily,
 }));
 const SmallTitle = styled("h3")(props => ({

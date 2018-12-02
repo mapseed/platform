@@ -39,10 +39,14 @@ Image.defaultProps = {
 
 const FontAwesomeIcon = styled(props => (
   <span className={`${props.className} ${props.faClassname}`} />
-))(props => ({
-  fontFamily: "FontAwesome",
-  fontSize: props.fontSize,
-}));
+))(props => {
+  const styles = {
+    fontFamily: "FontAwesome",
+    fontSize: props.fontSize,
+  };
+
+  return styles;
+});
 
 FontAwesomeIcon.propTypes = {
   fontSize: PropTypes.string.isRequired,
