@@ -166,7 +166,7 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
 
       // If a previous basemap was already visible, switch it off.
-      if (state.visibleBasemapId) {
+      if (state.visibleBasemapId && state.visibleBasemapId !== action.payload) {
         newStatuses[state.visibleBasemapId] = {
           ...state.layerStatuses[state.visibleBasemapId],
           isVisible: false,

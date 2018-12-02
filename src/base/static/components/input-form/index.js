@@ -17,7 +17,10 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
-import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapLayersSelector,
+} from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
 import {
@@ -26,8 +29,12 @@ import {
   setActiveDrawingTool,
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
-import { mapPositionSelector } from "../../state/ducks/map";
-
+import {
+  mapPositionSelector,
+  showLayers,
+  hideLayers,
+  setBasemap,
+} from "../../state/ducks/map";
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
 
@@ -57,20 +64,56 @@ class InputForm extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+    if (this.selectedCategoryConfig.multi_stage) {
+      const stageConfig = this.selectedCategoryConfig.multi_stage[
+        this.state.currentStage - 1
+      ];
+
+      this.setStageLayers(stageConfig);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
     if (
-      nextProps.isFormResetting ||
-      nextProps.selectedCategory !== this.props.selectedCategory
+      this.props.isFormResetting ||
+      this.props.selectedCategory !== prevProps.selectedCategory
     ) {
-      this.initializeForm(nextProps.selectedCategory);
-      this.setState(prevState => ({
+      this.initializeForm(this.props.selectedCategory);
+      this.setState({
         fields: this.getNewFields(prevState.fields),
         isFormSubmitting: false,
         isMapPositioned: false,
         formValidationErrors: new Set(),
         showValidityStatus: false,
-      }));
+      });
     }
+
+    if (
+      this.state.currentStage !== prevState.currentStage &&
+      this.selectedCategoryConfig.multi_stage
+    ) {
+      // Configure layer visibility for this form stage.
+      const stageConfig = this.selectedCategoryConfig.multi_stage[
+        this.state.currentStage - 1
+      ];
+
+      this.setStageLayers(stageConfig);
+    }
+  }
+
+  setStageLayers(stageConfig) {
+    stageConfig.visible_layer_ids &&
+      this.props.showLayers(stageConfig.visible_layer_ids);
+    stageConfig.visible_layer_ids &&
+      this.props.hideLayers(
+        this.props.mapLayers
+          .filter(layer => !layer.is_basemap)
+          .filter(layer => !stageConfig.visible_layer_ids.includes(layer.id))
+          .map(layer => layer.id),
+      );
+    stageConfig.visible_basemap_id &&
+      this.props.setBasemap(stageConfig.visible_basemap_id);
   }
 
   getNewFields(prevFields) {
@@ -460,6 +503,7 @@ InputForm.propTypes = {
   createPlace: PropTypes.func.isRequired,
   geometryStyle: geometryStyleProps,
   hideCenterPoint: PropTypes.func.isRequired,
+  hideLayers: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
@@ -467,6 +511,12 @@ InputForm.propTypes = {
   isLeavingForm: PropTypes.bool,
   isSingleCategory: PropTypes.bool,
   mapConfig: PropTypes.object.isRequired,
+  mapLayers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
@@ -475,6 +525,8 @@ InputForm.propTypes = {
   router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
+  setBasemap: PropTypes.func.isRequired,
+  showLayers: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
@@ -483,6 +535,7 @@ const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   geometryStyle: geometryStyleSelector(state),
   mapConfig: mapConfigSelector(state),
+  mapLayers: mapLayersSelector(state),
   mapPosition: mapPositionSelector(state),
   placeConfig: placeConfigSelector(state),
 });
@@ -491,6 +544,9 @@ const mapDispatchToProps = dispatch => ({
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
+  showLayers: layerIds => dispatch(showLayers(layerIds)),
+  hideLayers: layerIds => dispatch(hideLayers(layerIds)),
+  setBasemap: basemapId => dispatch(setBasemap(basemapId)),
 });
 
 // Export undecorated component for testing purposes.
