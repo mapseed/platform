@@ -1054,7 +1054,6 @@ export default (container, options) => {
     },
 
     triggerGeolocateControl: () => {
-      console.log("trigger", geolocationControl)
       geolocationControl && geolocationControl.trigger();
     },
 

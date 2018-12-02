@@ -45,11 +45,6 @@ const FontAwesomeIcon = styled(props => (
     fontSize: props.fontSize,
   };
 
-//  if (props.color === "primary") {
-//    styles.color = props.theme.brand.primary;
-//    styles["&:hover"].color = props.theme.brand.accent;
-//  }
-
   return styles;
 });
 
@@ -59,7 +54,6 @@ FontAwesomeIcon.propTypes = {
 };
 
 FontAwesomeIcon.defaultProps = {
-  color: "primary",
   fontSize: "1rem",
   content: "fa fa-globe",
 };
