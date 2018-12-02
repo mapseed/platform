@@ -12,7 +12,8 @@
     },
     "theme": {
       "brand": {
-        "primary": "#a2c7da"
+        "primary": "#a2c7da",
+        "accent": "#93b7c9"
       },
       "text": {
         "tertiary": "#007ec0",
