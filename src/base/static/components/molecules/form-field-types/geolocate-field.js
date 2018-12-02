@@ -9,7 +9,11 @@ import emitter from "../../../utils/emitter";
 import constants from "../../../constants";
 
 const GeolocateButton = styled(props => (
-  <Button color={props.color} className={props.className}>
+  <Button
+    color={props.color}
+    className={props.className}
+    onClick={props.onClick}
+  >
     {props.children}
   </Button>
 ))(props => ({

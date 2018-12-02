@@ -7,7 +7,6 @@ import MapboxGLProvider from "../../libs/maps/mapboxgl-provider";
 
 import emitter from "../../utils/emitter";
 import { createGeoJSONFromCollection } from "../../utils/collection-utils";
-
 import {
   mapConfigSelector,
   mapLayersSelector,
@@ -132,11 +131,6 @@ class MainMap extends Component {
         this,
       );
 
-      this.listeners.push(
-        emitter.addListener(constants.TRIGGER_GEOLOCATE_EVENT, () =>
-          this._map.triggerGeolocateControl(),
-        ),
-      );
       this.listeners.push(
         emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
           this.props.setActiveDrawGeometryId(
@@ -341,14 +335,23 @@ class MainMap extends Component {
         },
       ),
     );
-    emitter.addListener(
-      constants.MAP_TRANSITION_FLY_TO_POINT,
-      ({ coordinates, zoom }) => {
-        this._map.flyTo({
-          center: coordinates,
-          zoom: zoom,
-        });
-      },
+    this.listeners.push(
+      emitter.addListener(
+        constants.MAP_TRANSITION_FLY_TO_POINT,
+        ({ coordinates, zoom }) => {
+          this._map.flyTo({
+            center: coordinates,
+            zoom: zoom,
+          });
+        },
+      ),
+    );
+
+    // Geolocation trigger handler.
+    this.listeners.push(
+      emitter.addListener(constants.TRIGGER_GEOLOCATE_EVENT, () => {
+        this._map.triggerGeolocateControl();
+      }),
     );
   }
 
