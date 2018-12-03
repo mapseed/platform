@@ -2129,7 +2129,7 @@
           {
             "name": "wetland_restoration_quantity",
             "type": "number",
-            "prompt": "_(How many acres of wetlands have your restored?)",
+            "prompt": "_(How many acres of wetlands have you restored?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
