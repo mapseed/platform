@@ -12,450 +12,392 @@
     "cartodb_enabled": true,
     "geocoding_enabled": false,
     "geocode_field_label": "_(Enter an address...)",
-    "geocode_bounding_box": [
-      39.830159,
-      -75.478821,
-      40.167331,
-      -74.781189
-    ],
+    "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
-      "center": {
-        "lat": 45.58665,
-        "lng": -122.7566
+      "map": {
+        "center": {
+          "lat": 45.58665,
+          "lng": -122.7566
+        },
+        "zoom": 13,
+        "pitch": 30,
+        "minZoom": 1,
+        "maxZoom": 18
       },
-      "zoom": 13,
-      "minZoom": 1,
-      "maxZoom": 18
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      },
+      "drawing_enabled": false
     },
     "layers": [
       {
         "id": "osm",
-        "url": "//api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "is_visible_default": true,
+        "url": "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w",
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
       },
       {
-        "id": "pins",
-        "url": "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks",
-        "sources": [
-          "http://a.tiles.mapbox.com/v4/smartercleanup.p58e6k92/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-        ],
-        "type": "landmark",
-        "placeType": "mapbox",
-        "opacity": 0.9
+        "id": "source-control",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/willamette-source-control/{z}/{x}/{y}.pbf",
+        "source_layer": "willamette-source-control",
+        "mapbox_layers": [
+          {
+            "id": "source-control-outline",
+            "type": "line",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#fff",
+              "line-opacity": 0.5
+            }
+          },
+          {
+            "id": "source-control-priorities",
+            "type": "fill",
+            "paint": {
+              "fill-opacity": 0.5,
+              "fill-color": [
+                "match",
+                ["get", "priority"],
+                "High",
+                "#f84f40",
+                "Low",
+                "#ffcc00",
+                "Medium",
+                "#ff6600",
+                "Not a Source",
+                "#33a02c",
+                "#000"
+              ]
+            }
+          }
+        ]
       },
       {
-        "id": "source-control",
-        "type": "cartodb",
-        "url": "https://smartercleanup.cartodb.com/api/v2/viz/4a5b14c0-f1fc-11e5-9698-0e5db1731f59/viz.json"
+        "id": "alt-i",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/willamette-alt-i/{z}/{x}/{y}.pbf",
+        "source_layer": "willamette-alt-i",
+        "mapbox_layers": [
+          {
+            "id": "alt-i-outline",
+            "type": "line",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#fff",
+              "line-opacity": 0.5
+            }
+          },
+          {
+            "id": "alt-i-techassign",
+            "type": "fill",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "techassign"],
+                "Cap",
+                "#ff2900",
+                "Dredge",
+                "#fb9a99",
+                "Dredge in Nav-FMD",
+                "#d6301d",
+                "Dredge with Cap",
+                "#850200",
+                "EMNR",
+                "#ffcc00",
+                "In-situ Treatment",
+                "#136400",
+                "MNR",
+                "#cab2d6",
+                "None",
+                "#fff",
+                "OutBound",
+                "#081b47",
+                "#000"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "alt-g",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/willamette-alt-g/{z}/{x}/{y}.pbf",
+        "source_layer": "willamette-alt-g",
+        "mapbox_layers": [
+          {
+            "id": "alt-g-outline",
+            "type": "line",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#fff",
+              "line-opacity": 0.5
+            }
+          },
+          {
+            "id": "alt-g-techassign",
+            "type": "fill",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "techassign"],
+                "Cap",
+                "#ff2900",
+                "Dredge",
+                "#fb9a99",
+                "Dredge in Nav-FMD",
+                "#d6301d",
+                "Dredge with Cap",
+                "#850200",
+                "EMNR",
+                "#ffcc00",
+                "In-situ Treatment",
+                "#136400",
+                "MNR",
+                "#cab2d6",
+                "None",
+                "#fff",
+                "OutBound",
+                "#081b47",
+                "#000"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "alt-h",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/willamette-alt-h/{z}/{x}/{y}.pbf",
+        "source_layer": "willamette-alt-h",
+        "mapbox_layers": [
+          {
+            "id": "alt-h-outline",
+            "type": "line",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#fff",
+              "line-opacity": 0.5
+            }
+          },
+          {
+            "id": "alt-g-techassign",
+            "type": "fill",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "techassign"],
+                "Cap",
+                "#ff2900",
+                "Dredge",
+                "#fb9a99",
+                "Dredge in Nav-FMD",
+                "#d6301d",
+                "Dredge with Cap",
+                "#850200",
+                "EMNR",
+                "#ffcc00",
+                "In-situ Treatment",
+                "#136400",
+                "MNR",
+                "#cab2d6",
+                "None",
+                "#fff",
+                "OutBound",
+                "#081b47",
+                "#000"
+              ]
+            }
+          }
+        ]
       },
       {
         "id": "willamette",
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/willamette",
         "type": "place",
-        "slug": "report"
-      },
-      {
-        "id": "alt-i",
-        "type": "cartodb",
-        "url": "https://smartercleanup.carto.com/api/v2/viz/42dbd342-505c-11e6-bdd2-0e233c30368f/viz.json"
-      },
-      {
-        "id": "alt-g",
-        "type": "cartodb",
-        "url": "https://smartercleanup.carto.com/api/v2/viz/67970018-5060-11e6-86b7-0e3ebc282e83/viz.json"
-      },
-      {
-        "id": "alt-h",
-        "type": "cartodb",
-        "url": "https://smartercleanup.carto.com/api/v2/viz/ebe3fea2-5060-11e6-b6e6-0e233c30368f/viz.json"
+        "slug": "report",
+        "is_visible_default": true,
+        "feature_types": ["Point"],
+        "focus_rules": [
+          {
+            "symbol-layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "complaint",
+                "marker-complaint.png",
+                "question",
+                "marker-question.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "observation"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-0d85e9.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "observation"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-observation.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "idea"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-f95016.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "idea"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "question"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-dbcf2c.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "question"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-question.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "complaint"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-e1264d.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "complaint"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-complaint.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
       }
     ]
   },
-  "place_types": {
-    "observation": {
-      "label": "_(Observation)",
-      "rules": [
-        {
-          "condition": "this.layer.focused === true",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom < 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom >= 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
-          }
-        }
-      ]
-    },
-    "question": {
-      "label": "_(Question)",
-      "rules": [
-        {
-          "condition": "this.layer.focused === true",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-question.png",
-            "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom < 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom >= 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
-          }
-        }
-      ]
-    },
-    "idea": {
-      "label": "_(Idea)",
-      "rules": [
-        {
-          "condition": "this.layer.focused === true",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom < 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom >= 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
-          }
-        }
-      ]
-    },
-    "complaint": {
-      "label": "_(Complaint)",
-      "rules": [
-        {
-          "condition": "this.layer.focused === true",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom < 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
-          }
-        },
-        {
-          "condition": "this.map.zoom >= 10",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
-          }
-        }
-      ]
-    },
-    "mapbox": {
-      "rules": [
-        {
-          "condition": "this.geometry.type == \"LineString\"",
-          "style": {
-            "color": "this.properties.stroke",
-            "opacity": "this.properties[\"stroke-opacity\"]",
-            "weight": "this.properties['stroke-width']"
-          }
-        },
-        {
-          "condition": "this.geometry.type == \"Polygon\"",
-          "style": {
-            "shapeType": "polygon",
-            "fillColor": "this.properties.fill",
-            "fill": "true",
-            "color": "this.properties.stroke",
-            "opacity": 0.7,
-            "fillOpacity": "this.properties[\"fill-opacity\"]",
-            "weight": "this.properties['stroke-width']"
-          }
-        },
-        {
-          "condition": "this.geometry.type == \"Point\" && this.layer.focused === true",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-star.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ],
-            "shadowSize": [
-              60,
-              60
-            ],
-            "shadowAnchor": [
-              30,
-              30
-            ]
-          }
-        },
-        {
-          "condition": "this.geometry.type == \"Point\"",
-          "icon": {
-            "iconUrl": "/static/css/images/markers/marker-star.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
-          }
-        }
-      ]
-    }
-  },
-  "sidebar": {
-    "enabled": true,
-    "legend_enabled": true,
-    "slug": "filter-type",
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "list",
-        "view": "GISLegendView",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "basemaps": [
-          {
-            "id": "osm",
-            "title": "_(OpenStreetMap)",
-            "visibleDefault": true
-          }
-        ],
         "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layers": [
+              {
+                "id": "osm",
+                "title": "_(OpenStreetMap)"
+              }
+            ]
+          },
           {
             "id": "grp-community",
             "title": "_(Data layers)",
-            "visibleDefault": true,
             "layers": [
               {
                 "id": "willamette",
-                "title": "_(Community Reports)",
-                "visibleDefault": true
-              },
-              {
-                "id": "pins",
-                "description": "_(Important cleanup sites and areas of interest along the river)",
-                "title": "_(Important sites)",
-                "visibleDefault": false
+                "title": "_(Community Reports)"
               },
               {
                 "id": "source-control",
-                "description": "_(Source control plan from Oregon Dept. of Environmental Quality (DEQ))",
-                "title": "_(Source control status)",
-                "visibleDefault": false
+                "title": "_(Source control status)"
               },
               {
                 "id": "alt-i",
-                "title": "_(EPA proposed plan (Alternative I))",
-                "visibleDefault": true
+                "title": "_(EPA proposed plan (Alternative I))"
               },
               {
                 "id": "alt-g",
-                "title": "_(Cleanup Alternative G)",
-                "visibleDefault": false
+                "title": "_(Cleanup Alternative G)"
               },
               {
                 "id": "alt-h",
-                "title": "_(Cleanup Alternative H)",
-                "visibleDefault": false
+                "title": "_(Cleanup Alternative H)"
               }
             ]
-          }
-        ]
-      },
-      {
-        "id": "ticker",
-        "view": "ActivityView",
-        "icon": "comments-o",
-        "activity": true,
-        "title": "_(Activity Stream:)"
-      },
-      {
-        "id": "reports_legend",
-        "title": "_(Citizen Reports:)",
-        "view": "LegendView",
-        "icon": "info-circle",
-        "items": [
-          {
-            "title": "_(Observations)",
-            "image": "/static/css/images/markers/marker-observation.png",
-            "url": "/filter/observation"
-          },
-          {
-            "title": "_(Ideas)",
-            "image": "/static/css/images/markers/marker-idea.png",
-            "url": "/filter/idea"
-          },
-          {
-            "title": "_(Questions)",
-            "image": "/static/css/images/markers/marker-question.png",
-            "url": "/filter/question"
-          },
-          {
-            "title": "_(Complaints)",
-            "image": "/static/css/images/markers/marker-complaint.png",
-            "url": "/filter/complaint"
           }
         ]
       }
     ]
   },
   "activity": {
-    "enabled": true,
-    "interval": 30000
+    "enabled": false
   },
   "place": {
     "adding_supported": true,
@@ -807,15 +749,17 @@
     "action_text": "supported",
     "anonymous_name": "_(Someone)"
   },
-  "pages": [
+  "nav_bar": [
     {
       "title": "_(About)",
-      "slug": "about",
+      "type": "internal_link",
+      "url": "/page/about",
       "name": "overview"
     },
     {
       "title": "_(Get involved)",
-      "slug": "getinvolved",
+      "type": "internal_link",
+      "url": "/page/getinvolved",
       "name": "contribute"
     }
   ],
