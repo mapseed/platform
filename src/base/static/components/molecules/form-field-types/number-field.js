@@ -5,8 +5,10 @@ import styled from "react-emotion";
 import { NumberInput } from "../../atoms/input";
 
 const NumberField = styled(NumberInput)(props => ({
-  border: props.theme.input.border,
-  padding: props.theme.input.padding,
+  borderColor: props.theme.brand.tertiary,
+  borderWidth: "4px",
+  borderStyle: "solid",
+  padding: "0.5rem",
   width: "100%",
   boxSizing: "border-box",
   backgroundColor: props.hasAutofill
