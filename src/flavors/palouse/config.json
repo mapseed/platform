@@ -1701,11 +1701,11 @@
           {
             "name": "riparian_buffer_quantity",
             "type": "number",
-            "prompt": "_(How many acres of riparian buffer do you have?)",
-            "placeholder": "_(Approximate acreage)",
+            "prompt": "_(How many linear feet of riparian buffer do you have?)",
+            "placeholder": "_(Approximate linear footage)",
             "hidden_default": true,
             "metadata": {
-              "units": "_(acres)"
+              "units": "_(linear feet)"
             }
           },
           {
