@@ -1235,7 +1235,7 @@ export default (container, options) => {
       map.getSource(FOCUSED_SOURCE_IDENTIFIER).setData(placeLayerFeatures);
     },
 
-    unfocusAllPlaceLayerFeatures: sourceId => {
+    unfocusAllPlaceLayerFeatures: () => {
       map.getSource(FOCUSED_SOURCE_IDENTIFIER) &&
         map.getSource(FOCUSED_SOURCE_IDENTIFIER).setData(EMPTY_GEOJSON);
     },

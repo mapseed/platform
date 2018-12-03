@@ -73,6 +73,13 @@ export const initLayers = layers => {
     }),
   };
 };
+export const setLayerUnloaded = layerId => ({
+  type: SET_LAYER_LOAD_STATUS,
+  payload: {
+    id: layerId,
+    loadStatus: "unloaded",
+  },
+});
 export const setLayerLoaded = layerId => ({
   type: SET_LAYER_LOAD_STATUS,
   payload: {
@@ -241,7 +248,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...state.layerStatuses,
           [action.payload.id]: {
             ...state.layerStatuses[action.payload.id],
-            ...action.payload,
+            loadStatus: action.payload.loadStatus,
           },
         },
       };

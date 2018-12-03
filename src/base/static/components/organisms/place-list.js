@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
-import { placesSelector } from "../../state/ducks/places";
+import { placesSelector, placesPropType } from "../../state/ducks/places";
 import {
   placeConfigSelector,
   placeConfigPropType,
@@ -244,7 +244,7 @@ class PlaceList extends React.Component {
 }
 
 PlaceList.propTypes = {
-  places: PropTypes.array,
+  places: placesPropType,
   placeConfig: placeConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
