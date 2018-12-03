@@ -1,8 +1,9 @@
 {
   "app": {
-    "title": "Parana River Delta",
-    "name": "Parana River Delta",
+    "title": "Territorios de colaboración",
+    "name": "Territorios de colaboración",
     "show_name_in_header": true,
+    "logo": "/static/css/images/LogoCasaRio-B.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
@@ -11,8 +12,9 @@
         "accent": "#93b7c9"
       },
       "text": {
+        "titleColor": "#6BC2D5",
         "tertiary": "#007ec0",
-        "titleFontFamily": "Quicksand Regular, sans-serif"
+        "titleFontFamily": "Roboto, sans-serif"
       }
     }
   },
@@ -26,11 +28,10 @@
     "options": {
       "map": {
         "center": {
-          "lat": -28.1274768,
-          "lng": -57.9806629
+          "lat": -33.81145,
+          "lng": -58.89267
         },
-        "zoom": 7,
-        "pitch": 30,
+        "zoom": 7.65,
         "minZoom": 1,
         "maxZoom": 18
       },
@@ -46,8 +47,14 @@
         "type": "raster-tile",
         "is_basemap": true,
         "is_visible_default": true,
-        "url": "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w",
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "url": "https://api.mapbox.com/styles/v1/bkholmes/cjp7qtxt135mg2smpeg7f89p7/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw",
+        "attribution": "Hello World"
+      },
+      {
+        "id": "satellite",
+        "is_basemap": true,
+        "type": "raster-tile",
+        "url": "https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
       },
       {
         "id": "argentina-input",
@@ -186,21 +193,25 @@
         "id": "gis-layers",
         "icon": "fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
+        "title": "_(Capas:)",
         "groupings": [
           {
             "id": "basemaps",
-            "title": "_(Basemaps)",
+            "title": "_(Mapas)",
             "layers": [
               {
                 "id": "osm",
-                "title": "_(OpenStreetMap)"
+                "title": "_(Delta colores)"
+              },
+              {
+                "id": "satellite",
+                "title": "_(Satélite)"
               }
             ]
           },
           {
             "id": "grp-community",
-            "title": "_(Data layers)",
+            "title": "_(Contribuciones)",
             "layers": [
               {
                 "id": "argentina-input",
@@ -217,7 +228,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Put a comment on the map!)",
+    "add_button_label": "_(Añadir un punto)",
     "show_list_button_label": "_(See all comments)",
     "show_map_button_label": "_(Show the Map)",
     "title": "_(Tell us more...)",
