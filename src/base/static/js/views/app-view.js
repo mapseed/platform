@@ -439,14 +439,16 @@ export default Backbone.View.extend({
   },
 
   viewMap: function(zoom, lat, lng) {
+    let mapPosition;
+
     if (zoom && lat && lng) {
-      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+      mapPosition = {
         coordinates: {
           lat: lat,
           lng: lng,
         },
         zoom: zoom,
-      });
+      };
     }
 
     this.hidePanel();
@@ -454,7 +456,7 @@ export default Backbone.View.extend({
     this.hideNewPin();
     this.destroyNewModels();
     this.setBodyClass();
-    this.renderMain();
+    this.renderMain(mapPosition);
   },
   renderRightSidebar: function() {
     if ($("body").hasClass("right-sidebar-active")) {
@@ -776,7 +778,7 @@ export default Backbone.View.extend({
   hideSpotlightMask: function() {
     $("#spotlight-mask").hide();
   },
-  renderMain: function() {
+  renderMain: function(mapPosition) {
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
 
@@ -825,6 +827,13 @@ export default Backbone.View.extend({
     );
 
     store.dispatch(setCurrentTemplate("map"));
+
+    if (mapPosition) {
+      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+        coordinates: mapPosition.coordinates,
+        zoom: mapPosition.zoom,
+      });
+    }
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
