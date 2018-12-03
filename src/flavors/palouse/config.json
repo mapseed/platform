@@ -939,7 +939,7 @@
             "prompt": "_(How many acres of filter strips are on your property?)",
             "hidden_default": true,
             "metadata": {
-              "units": "_(linear feet)"
+              "units": "_(acres)"
             }
           },
           {
