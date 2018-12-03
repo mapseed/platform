@@ -2,7 +2,6 @@ const getPlaceCollections = async ({
   placeParams,
   placeCollections,
   layers,
-  setLayerLoading,
   setLayerError,
 }) => {
   const $progressContainer = $("#map-progress");
@@ -58,7 +57,6 @@ const getPlaceCollections = async ({
         },
 
         success: function(fetchedCollection, response, options) {
-          layer.is_visible_default && setLayerLoading(collectionId);
           resolve(fetchedCollection, collectionId);
         },
 

@@ -5,7 +5,7 @@ import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
 
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { ThemeProvider } from "emotion-theming";
@@ -34,6 +34,7 @@ import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../state/ducks/app-config";
 import {
   setMapSizeValidity,
+  mapLayerStatusesSelector,
   mapPositionSelector,
   mapBasemapSelector,
   setMapPosition,
@@ -44,6 +45,7 @@ import {
   setLayerError,
   setLayerLoading,
   setMapDragging,
+  setLayerUnloaded,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -318,7 +320,7 @@ export default Backbone.View.extend({
     // that's currently set in the address search bar.
     $(Shareabouts).on("mapdragend", function(evt) {
       if (self.isAddingPlace()) {
-        self.conditionallyReverseGeocode();
+        // no-op
       } else if (self.geocodeAddressView) {
         self.geocodeAddressView.setAddress("");
       }
@@ -346,7 +348,6 @@ export default Backbone.View.extend({
       placeParams,
       placeCollections: self.places,
       layers: mapLayersSelector(store.getState()),
-      setLayerLoading: layerId => store.dispatch(setLayerLoading(layerId)),
       setLayerError: layerId => store.dispatch(setLayerError(layerId)),
     });
 
@@ -373,6 +374,20 @@ export default Backbone.View.extend({
         return [...collection.models.map(model => model.toJSON()), ...places];
       }, []);
       store.dispatch(setPlaces(allPlaces));
+
+      // Update the load statuses of our layers that are being fetched:
+      const layers = mapLayerStatusesSelector(store.getState());
+      Object.values(layers).forEach(layerStatus => {
+        if (layerStatus.loadStatus === "fetching") {
+          if (layerStatus.isVisible) {
+            // mark the layer to be loaded onto the map
+            store.dispatch(setLayerLoading(layerStatus.id));
+          } else {
+            // the layer is now 'fetched', but don't load it into the map.
+            store.dispatch(setLayerUnloaded(layerStatus.id));
+          }
+        }
+      });
     });
   },
 
@@ -442,10 +457,6 @@ export default Backbone.View.extend({
   },
   hasBodyClass: function(className) {
     return $("body").hasClass(className);
-  },
-  conditionallyReverseGeocode: function() {
-    if (this.options.mapConfig.geocoding_enabled) {
-    }
   },
   setLocationRoute: function(zoom, lat, lng) {
     this.options.router.navigate(

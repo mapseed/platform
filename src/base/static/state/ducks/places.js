@@ -1,7 +1,29 @@
+import PropTypes from "prop-types";
+
 // Selectors:
 export const placesSelector = state => {
   return state.places;
 };
+
+export const placePropType = PropTypes.shape({
+  attachments: PropTypes.array.isRequired,
+  updated_datetime: PropTypes.string.isRequired,
+  created_datetime: PropTypes.string.isRequired,
+  dataset: PropTypes.string.isRequired,
+  visible: PropTypes.bool.isRequired,
+  datasetSlug: PropTypes.string.isRequired,
+  submitter_name: PropTypes.string.isRequired,
+  submission_sets: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+  datasetId: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  location_type: PropTypes.string.isRequired,
+  submitter: PropTypes.object,
+  type: PropTypes.string.isRequired,
+});
+
+export const placesPropType = PropTypes.arrayOf(placePropType);
 
 // Actions:
 const SET_PLACES = "places/SET";
