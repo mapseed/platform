@@ -11,6 +11,10 @@
         "primary": "#a2c7da",
         "accent": "#93b7c9"
       },
+      "bg": {
+        "default": "#6F4626",
+        "light": "#007fbe"
+      },
       "text": {
         "titleColor": "#6BC2D5",
         "tertiary": "#007ec0",
