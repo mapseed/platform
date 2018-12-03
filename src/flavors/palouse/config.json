@@ -849,8 +849,8 @@
             "//": "=============== CONSERVATION COVER ==========================",
             "name": "conservation_cover",
             "type": "big_radio",
-            "prompt": "_(I planted conservation cover)",
-            "label": "_(Conservation cover planted)",
+            "prompt": "_(I have conservation cover on my property)",
+            "label": "_(Conservation cover)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
@@ -883,7 +883,7 @@
           {
             "name": "conservation_cover_quantity",
             "type": "number",
-            "prompt": "_(How many acres of conservation cover did you plant?)",
+            "prompt": "_(How many acres of conservation cover do you have on your property?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -895,7 +895,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last plant conservation cover?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -955,7 +955,7 @@
           {
             "//": "==================TILLAGE MGMT OTHER========================",
             "name": "tillage_management_other",
-            "prompt": "_(I practice other residue & tillage management actions)",
+            "prompt": "_(I perform other residue & tillage management actions)",
             "label": "_(Other tillage management practices)",
             "optional": true,
             "type": "big_radio",
@@ -1043,7 +1043,7 @@
           {
             "//": "==================NUTRIENT MGMT OTHER========================",
             "name": "nutrient_management_other",
-            "prompt": "_(I practice other nutrient management actions)",
+            "prompt": "_(I perform other nutrient management actions)",
             "label": "_(Other nutrient management practices)",
             "optional": true,
             "type": "big_radio",
@@ -1131,7 +1131,7 @@
           {
             "//": "==================PEST MGMT OTHER========================",
             "name": "pest_management_other",
-            "prompt": "_(I practice other pest management actions)",
+            "prompt": "_(I perform other pest management actions)",
             "label": "_(Other pest management practices)",
             "optional": true,
             "type": "big_radio",
@@ -1208,7 +1208,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last remove herbaceous weeds?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1272,7 +1272,7 @@
             "//": "=============== WASTE STORAGE ==============================",
             "name": "waste_storage",
             "type": "big_radio",
-            "prompt": "_(I installed waste storage facilities)",
+            "prompt": "_(I operate waste storage facilities)",
             "label": "_(Waste storage facilities)",
             "optional": true,
             "trigger": {
@@ -1566,7 +1566,7 @@
             "metadata": {
               "units": "_(springs)"
             },
-            "prompt": "_(How many springs do you on your property?)",
+            "prompt": "_(How many watering springs are on your property?)",
             "hidden_default": true
           },
           {
@@ -1633,7 +1633,7 @@
           {
             "//": "==================RANGE MGMT OTHER==========================",
             "name": "range_management_other",
-            "prompt": "_(I practice other range, soil, & wildlife management actions)",
+            "prompt": "_(I perform other range, soil, & wildlife management actions)",
             "label": "_(Other range/soil/wildlife management practices)",
             "optional": true,
             "type": "big_radio",
@@ -1667,7 +1667,7 @@
             "//": "=============== RIPARIAN BUFFER ============================",
             "name": "riparian_buffer",
             "type": "big_radio",
-            "prompt": "_(I planted riparian buffers)",
+            "prompt": "_(I have riparian buffers on my property)",
             "label": "_(Riparian buffers)",
             "optional": true,
             "trigger": {
@@ -1701,7 +1701,7 @@
           {
             "name": "riparian_buffer_quantity",
             "type": "number",
-            "prompt": "_(How many acres of riparian buffer did you plant?)",
+            "prompt": "_(How many acres of riparian buffer do you have?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -1713,7 +1713,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last plant riparian buffers?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1768,7 +1768,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last plant channel bank vegetation?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1823,7 +1823,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last install streambank and shoreline protection fencing?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1875,7 +1875,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last perform stream habitat improvement and management techniques?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1884,7 +1884,7 @@
             "//": "=============== HEAVY USE PROTECTION =======================",
             "name": "heavy_use_protection",
             "type": "big_radio",
-            "prompt": "_(I protext heavy use areas)",
+            "prompt": "_(I protect heavy use areas)",
             "label": "_(Heavy use area protection)",
             "optional": true,
             "trigger": {
@@ -1930,7 +1930,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last perform heavy use area protection?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1939,7 +1939,7 @@
             "//": "=============== TREE/SHRUB ==================================",
             "name": "tree_shrub",
             "type": "big_radio",
-            "prompt": "_(I plant trees and shrubs)",
+            "prompt": "_(I establish trees and shrubs)",
             "label": "_(Tree/shrub establishment)",
             "optional": true,
             "trigger": {
@@ -1982,7 +1982,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last establish new trees and shurbs?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -2022,7 +2022,7 @@
           {
             "name": "rare_declining_quantity",
             "type": "number",
-            "prompt": "_(How many acres of rare or declining habitats have your restored?)",
+            "prompt": "_(How many acres of rare or declining habitats have you restored?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -2034,7 +2034,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last restore rare or declining habitats?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -2086,7 +2086,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last manage upland wildlife habitats?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -2141,7 +2141,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
+            "prompt": "_(Approximately when did you last restore wetlands?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -2149,7 +2149,7 @@
           {
             "//": "==================FISH & WILDLIFE MGMT OTHER=================",
             "name": "fish_wildlife_management_other",
-            "prompt": "_(I practice other fish & wildlife management actions)",
+            "prompt": "_(I perform other fish & wildlife management actions)",
             "label": "_(Other fish & wildlife management practices)",
             "optional": true,
             "type": "big_radio",
