@@ -1,10 +1,20 @@
 {
   "app": {
-    "title": "Hey Willamette!",
-    "name": "Hey Willamette!",
+    "title": "Parana River Delta",
+    "name": "Parana River Delta",
+    "show_name_in_header": true,
     "meta_description": "_(We are gathering public input on important issues in the community)",
-    "meta_author": "smartercleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#a2c7da",
+        "accent": "#93b7c9"
+      },
+      "text": {
+        "tertiary": "#007ec0",
+        "titleFontFamily": "Quicksand Regular, sans-serif"
+      }
+    }
   },
   "map": {
     "geolocation_enabled": true,
@@ -16,10 +26,10 @@
     "options": {
       "map": {
         "center": {
-          "lat": 45.58665,
-          "lng": -122.7566
+          "lat": -28.1274768,
+          "lng": -57.9806629
         },
-        "zoom": 13,
+        "zoom": 7,
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
@@ -40,186 +50,8 @@
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
       },
       {
-        "id": "source-control",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-source-control/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-source-control",
-        "mapbox_layers": [
-          {
-            "id": "source-control-outline",
-            "type": "line",
-            "paint": {
-              "line-width": 1,
-              "line-color": "#fff",
-              "line-opacity": 0.5
-            }
-          },
-          {
-            "id": "source-control-priorities",
-            "type": "fill",
-            "paint": {
-              "fill-opacity": 0.5,
-              "fill-color": [
-                "match",
-                ["get", "priority"],
-                "High",
-                "#f84f40",
-                "Low",
-                "#ffcc00",
-                "Medium",
-                "#ff6600",
-                "Not a Source",
-                "#33a02c",
-                "#000"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "alt-i",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-alt-i/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-alt-i",
-        "mapbox_layers": [
-          {
-            "id": "alt-i-outline",
-            "type": "line",
-            "paint": {
-              "line-width": 1,
-              "line-color": "#fff",
-              "line-opacity": 0.5
-            }
-          },
-          {
-            "id": "alt-i-techassign",
-            "type": "fill",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "match",
-                ["get", "techassign"],
-                "Cap",
-                "#ff2900",
-                "Dredge",
-                "#fb9a99",
-                "Dredge in Nav-FMD",
-                "#d6301d",
-                "Dredge with Cap",
-                "#850200",
-                "EMNR",
-                "#ffcc00",
-                "In-situ Treatment",
-                "#136400",
-                "MNR",
-                "#cab2d6",
-                "None",
-                "#fff",
-                "OutBound",
-                "#081b47",
-                "#000"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "alt-g",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-alt-g/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-alt-g",
-        "mapbox_layers": [
-          {
-            "id": "alt-g-outline",
-            "type": "line",
-            "paint": {
-              "line-width": 1,
-              "line-color": "#fff",
-              "line-opacity": 0.5
-            }
-          },
-          {
-            "id": "alt-g-techassign",
-            "type": "fill",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "match",
-                ["get", "techassign"],
-                "Cap",
-                "#ff2900",
-                "Dredge",
-                "#fb9a99",
-                "Dredge in Nav-FMD",
-                "#d6301d",
-                "Dredge with Cap",
-                "#850200",
-                "EMNR",
-                "#ffcc00",
-                "In-situ Treatment",
-                "#136400",
-                "MNR",
-                "#cab2d6",
-                "None",
-                "#fff",
-                "OutBound",
-                "#081b47",
-                "#000"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "alt-h",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-alt-h/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-alt-h",
-        "mapbox_layers": [
-          {
-            "id": "alt-h-outline",
-            "type": "line",
-            "paint": {
-              "line-width": 1,
-              "line-color": "#fff",
-              "line-opacity": 0.5
-            }
-          },
-          {
-            "id": "alt-g-techassign",
-            "type": "fill",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "match",
-                ["get", "techassign"],
-                "Cap",
-                "#ff2900",
-                "Dredge",
-                "#fb9a99",
-                "Dredge in Nav-FMD",
-                "#d6301d",
-                "Dredge with Cap",
-                "#850200",
-                "EMNR",
-                "#ffcc00",
-                "In-situ Treatment",
-                "#136400",
-                "MNR",
-                "#cab2d6",
-                "None",
-                "#fff",
-                "OutBound",
-                "#081b47",
-                "#000"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "willamette",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/willamette",
+        "id": "argentina-input",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-input",
         "type": "place",
         "slug": "report",
         "is_visible_default": true,
@@ -371,24 +203,8 @@
             "title": "_(Data layers)",
             "layers": [
               {
-                "id": "willamette",
+                "id": "argentina-input",
                 "title": "_(Community Reports)"
-              },
-              {
-                "id": "source-control",
-                "title": "_(Source control status)"
-              },
-              {
-                "id": "alt-i",
-                "title": "_(EPA proposed plan (Alternative I))"
-              },
-              {
-                "id": "alt-g",
-                "title": "_(Cleanup Alternative G)"
-              },
-              {
-                "id": "alt-h",
-                "title": "_(Cleanup Alternative H)"
               }
             ]
           }
@@ -414,7 +230,7 @@
         "category": "observation",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observation)",
@@ -457,7 +273,7 @@
         "category": "question",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "_(Question)",
@@ -499,7 +315,7 @@
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -542,7 +358,7 @@
         "category": "complaint",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "_(Complaint)",

@@ -73,6 +73,7 @@ body {
   display: none;
 }
 
+.input-form__field-container[data-field-type="number"],
 .input-form__field-container[data-field-type="text"] {
   background-color: #efefef;
   box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75);
