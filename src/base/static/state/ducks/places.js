@@ -44,7 +44,13 @@ const INITIAL_STATE = [];
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SET_PLACES:
-      return action.payload;
+      return action.payload.reduce((memo, newPlace) => {
+        return !memo.find(place => newPlace.id === place.id)
+          ? [...memo, newPlace]
+          : // If a place already exists in the map duck, make sure we don't
+            // add it again.
+            memo;
+      }, state);
     case CREATE_PLACE:
       return [...state, action.payload];
     default:

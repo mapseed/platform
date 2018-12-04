@@ -570,17 +570,20 @@ export default Backbone.View.extend({
     this.renderRightSidebar();
 
     var self = this;
-    Util.getPlaceFromCollections(
-      {
+    Util.getPlaceFromCollections({
+      collectionsSet: {
         places: this.places,
       },
-      args,
-      this.options.mapConfig,
-      {
+      setPlaces: places => {
+        store.dispatch(setPlaces(places));
+      },
+      args: args,
+      mapConfig: this.options.mapConfig,
+      callbacks: {
         onFound: _.bind(onFound, this),
         onNotFound: _.bind(onNotFound, this),
       },
-    );
+    });
 
     function onFound(model, type, collectionId) {
       // REACT PORT SECTION //////////////////////////////////////////////////
@@ -682,7 +685,7 @@ export default Backbone.View.extend({
       }
 
       emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-        collectionId: collectionId,
+        datasetId: collectionId,
         modelId: model.get("id"),
       });
 

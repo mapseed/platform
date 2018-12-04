@@ -150,12 +150,13 @@ var self = (module.exports = {
     });
   },
 
-  getPlaceFromCollections: function(
+  getPlaceFromCollections: function({
     collectionsSet,
+    setPlaces,
     args,
     mapConfig,
     callbacks,
-  ) {
+  }) {
     const datasetId = _.find(mapConfig.layers, function(layer) {
       return layer.slug === args.datasetSlug;
     }).id;
@@ -169,6 +170,7 @@ var self = (module.exports = {
       collectionsSet.places[datasetId].fetchById(args.modelId, {
         validate: true,
         success: function(model) {
+          setPlaces([model.toJSON()]);
           callbacks.onFound(model, "place", datasetId);
         },
         error: function() {
