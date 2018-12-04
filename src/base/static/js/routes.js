@@ -80,6 +80,7 @@ Shareabouts.Util = Util;
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
         navBarConfig: options.navBarConfig,
+        pagesConfig: options.pagesConfig,
         mapConfig: options.mapConfig,
         storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,

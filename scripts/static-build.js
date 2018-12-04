@@ -27,7 +27,7 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 // (3) Convert config yaml to JSON object
 // (4) Compile base Handlebars templates
 // (5) Localize config and jstemplates, and build index file
-// (5a) Resolve jstemplates flavor overrides and handle pages/ templates
+// (5a) Resolve jstemplates flavor overrides
 // (6) Copy static assets to the dist/ folder
 // (7) Build mapbox symbol spritesheet
 //
@@ -147,12 +147,6 @@ const handlebarsExec = path.resolve(
 );
 const baseJSTemplatesPath = path.resolve(__dirname, "../src/base/jstemplates");
 const flavorJSTemplatesPath = path.resolve(flavorBasePath, "jstemplates");
-const flavorPagesPath = path.resolve(
-  // NOTE: pages are a flavor-only concept,
-  // so there's no basePagesPath
-  flavorBasePath,
-  "jstemplates/pages",
-);
 const outputJSTemplatesPath = path.resolve(outputBasePath, "jstemplates");
 const baseLocaleDir = path.resolve(__dirname, "../src/base/locale");
 const flavorLocaleDir = path.resolve(flavorBasePath, "locale");
@@ -265,7 +259,7 @@ activeLanguages.forEach(language => {
   // Build the story data structure used by the app.
   thisConfig.story = transformStoryContent(thisConfig.story);
 
-  // (5a) Copy all jstemplates and flavor pages to a working directory from
+  // (5a) Copy all jstemplates to a working directory from
   //      which the templates can be localized and precompiled. Also resolve
   //      flavor jstemplates overrides at this step
   // ---------------------------------------------------------------------------
@@ -280,12 +274,6 @@ activeLanguages.forEach(language => {
     fs.copySync(flavorJSTemplatesPath, outputJSTemplatesPath);
   } catch (e) {
     logError("Error copying flavor jstemplates assets: " + e);
-  }
-
-  try {
-    fs.copySync(flavorPagesPath, outputJSTemplatesPath);
-  } catch (e) {
-    logError("Error copying flavor pages assets: " + e);
   }
 
   log("Finished copying jstemplates assets");
@@ -305,7 +293,7 @@ activeLanguages.forEach(language => {
     }
   });
 
-  // Precompile jstemplates and pages Handlebars templates
+  // Precompile jstemplates
   execSync(
     handlebarsExec +
       " -m -e 'html' " +

@@ -23,6 +23,7 @@ import { setPlaces } from "../../state/ducks/places";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setSurveyConfig } from "../../state/ducks/survey-config";
+import { setPagesConfig, pageSelector } from "../../state/ducks/pages-config";
 import {
   isLeftSidebarExpandedSelector,
   setLeftSidebarConfig,
@@ -57,6 +58,7 @@ import InfoModal from "../../components/organisms/info-modal";
 import RightSidebar from "../../components/templates/right-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
 import SiteHeader from "../../components/organisms/site-header";
+import CustomPage from "../../components/organisms/custom-page";
 
 import constants from "../../constants";
 import PlaceList from "../../components/organisms/place-list";
@@ -97,6 +99,7 @@ export default Backbone.View.extend({
     store.dispatch(setAppConfig(this.options.appConfig));
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
+    store.dispatch(setPagesConfig(this.options.pagesConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
     store.dispatch(initLayers(this.options.mapConfig.layers));
     store.dispatch(
@@ -689,52 +692,38 @@ export default Backbone.View.extend({
   },
 
   viewPage: function(slug) {
-    const pageConfig = _.findWhere(this.options.navBarConfig, {
-      url: `/page/${slug}`,
+    const page = pageSelector({
+      state: store.getState(),
+      slug: slug,
+      lang: this.options.languageCode,
     });
 
-    if (pageConfig) {
-      const pageHtml = Handlebars.templates[pageConfig.name]({
-        config: this.options.config,
-        apiRoot: this.options.apiRoot,
-      });
+    if (page) {
+      ReactDOM.render(
+        <CustomPage pageContent={page.content} />,
+        document.querySelector("#content article"),
+      );
 
       this.$panel.removeClass().addClass("page page-" + slug);
-      this.showPanel(pageHtml);
+      this.$panel.show();
       this.hideNewPin();
       this.destroyNewModels();
+      $(Shareabouts).trigger("panelshow", [
+        this.options.router,
+        Backbone.history.getFragment(),
+      ]);
+      Util.log("APP", "panel-state", "open");
       this.hideCenterPoint();
       this.setBodyClass("content-visible");
       store.dispatch(setMapSizeValidity(false));
       this.renderRightSidebar();
       this.renderMain();
+      $("#main-btns-container").addClass(
+        this.options.placeConfig.add_button_location || "pos-top-left",
+      );
     } else {
       this.options.router.navigate("/", { trigger: true });
     }
-  },
-
-  showPanel: function(markup, preventScrollToTop) {
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
-    // END REACT PORT SECTION //////////////////////////////////////////////////
-
-    this.$panelContent.html(markup);
-    this.$panel.show();
-
-    this.setBodyClass("content-visible");
-
-    $(Shareabouts).trigger("panelshow", [
-      this.options.router,
-      Backbone.history.getFragment(),
-    ]);
-
-    $("#main-btns-container").addClass(
-      this.options.placeConfig.add_button_location || "pos-top-left",
-    );
-
-    Util.log("APP", "panel-state", "open");
-
-    store.dispatch(setMapSizeValidity(false));
   },
   showNewPin: function() {
     this.$centerpoint.show().addClass("newpin");
