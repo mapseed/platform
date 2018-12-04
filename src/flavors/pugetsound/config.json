@@ -25,12 +25,7 @@
   },
   "map": {
     "geolocation_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "map": {
         "center": {
@@ -75,17 +70,7 @@
         "slug": "report",
         "focus_rules": [
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "pollution"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "pollution"]],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
               "icon-size": 1.1,
@@ -97,21 +82,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "pollution"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "pollution"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "dot-0d85e9.png",
@@ -122,28 +94,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "pollution"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                16
-              ]
+              ["==", ["get", "location_type"], "pollution"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 16]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -154,21 +107,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "pollution"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                16
-              ]
+              ["==", ["get", "location_type"], "pollution"],
+              [">=", ["zoom"], 16]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -196,14 +136,7 @@
         "source": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              5
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 5],
             "fill-paint": {
               "fill-color": "#fef0d9",
               "fill-opacity": 0.6,
@@ -211,14 +144,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              4
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 4],
             "fill-paint": {
               "fill-color": "#fdcc8a",
               "fill-opacity": 0.6,
@@ -226,14 +152,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              3
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 3],
             "fill-paint": {
               "fill-color": "#fc8d59",
               "fill-opacity": 0.6,
@@ -241,14 +160,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              2
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 2],
             "fill-paint": {
               "fill-color": "#e34a33",
               "fill-opacity": 0.6,
@@ -256,14 +168,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              1
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 1],
             "fill-paint": {
               "fill-color": "#b30000",
               "fill-opacity": 0.6,
@@ -271,14 +176,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "LID_Checklist_Master_score"
-              ],
-              0
-            ],
+            "filter": ["==", ["get", "LID_Checklist_Master_score"], 0],
             "fill-paint": {
               "fill-color": "#b30000",
               "fill-opacity": 0.6,
@@ -294,17 +192,7 @@
         "popup_content": "<div><strong>Oil type: </strong>{{Oil_type}}</div><div><strong>Volume spilled: </strong>{{Quantity_t}} gallons</div>",
         "rules": [
           {
-            "filter": [
-              "<=",
-              [
-                "to-number",
-                [
-                  "get",
-                  "Quantity_t"
-                ]
-              ],
-              10
-            ],
+            "filter": ["<=", ["to-number", ["get", "Quantity_t"]], 10],
             "symbol-layout": {
               "icon-image": "marker-red-circle.png",
               "icon-size": 0.05,
@@ -317,28 +205,8 @@
           {
             "filter": [
               "all",
-              [
-                ">",
-                [
-                  "to-number",
-                  [
-                    "get",
-                    "Quantity_t"
-                  ]
-                ],
-                10
-              ],
-              [
-                "<=",
-                [
-                  "to-number",
-                  [
-                    "get",
-                    "Quantity_t"
-                  ]
-                ],
-                100
-              ]
+              [">", ["to-number", ["get", "Quantity_t"]], 10],
+              ["<=", ["to-number", ["get", "Quantity_t"]], 100]
             ],
             "symbol-layout": {
               "icon-image": "marker-red-circle.png",
@@ -352,28 +220,8 @@
           {
             "filter": [
               "all",
-              [
-                ">",
-                [
-                  "to-number",
-                  [
-                    "get",
-                    "Quantity_t"
-                  ]
-                ],
-                100
-              ],
-              [
-                "<=",
-                [
-                  "to-number",
-                  [
-                    "get",
-                    "Quantity_t"
-                  ]
-                ],
-                1000
-              ]
+              [">", ["to-number", ["get", "Quantity_t"]], 100],
+              ["<=", ["to-number", ["get", "Quantity_t"]], 1000]
             ],
             "symbol-layout": {
               "icon-image": "marker-red-circle.png",
@@ -385,17 +233,7 @@
             }
           },
           {
-            "filter": [
-              ">",
-              [
-                "to-number",
-                [
-                  "get",
-                  "Quantity_t"
-                ]
-              ],
-              1000
-            ],
+            "filter": [">", ["to-number", ["get", "Quantity_t"]], 1000],
             "symbol-layout": {
               "icon-image": "marker-red-circle.png",
               "icon-size": 0.3,
@@ -435,14 +273,7 @@
         "slug": "rose",
         "focus_rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "rose-grants"
-            ],
+            "filter": ["==", ["get", "location_type"], "rose-grants"],
             "symbol-layout": {
               "icon-image": "map-pin-marker.png",
               "icon-size": 0.8,
@@ -452,14 +283,7 @@
         ],
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "rose-grants"
-            ],
+            "filter": ["==", ["get", "location_type"], "rose-grants"],
             "symbol-layout": {
               "icon-image": "map-pin-marker.png",
               "icon-size": 0.6,
@@ -475,14 +299,7 @@
         "slug": "cases",
         "focus_rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "settled-cases"
-            ],
+            "filter": ["==", ["get", "location_type"], "settled-cases"],
             "symbol-layout": {
               "icon-image": "map-pin-marker-red.png",
               "icon-size": 0.8,
@@ -492,14 +309,7 @@
         ],
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "settled-cases"
-            ],
+            "filter": ["==", ["get", "location_type"], "settled-cases"],
             "symbol-layout": {
               "icon-image": "map-pin-marker-red.png",
               "icon-size": 0.6,
@@ -516,14 +326,7 @@
         "slug": "featured",
         "focus_rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "featured_place"
-            ],
+            "filter": ["==", ["get", "location_type"], "featured_place"],
             "symbol-layout": {
               "icon-size": 1.1,
               "icon-anchor": "bottom"
@@ -532,14 +335,7 @@
         ],
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "featured_place"
-            ],
+            "filter": ["==", ["get", "location_type"], "featured_place"],
             "symbol-layout": {
               "icon-size": 0.9,
               "icon-anchor": "bottom"
@@ -563,14 +359,7 @@
         },
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "siteStatus"
-              ],
-              "Awaiting Cleanup"
-            ],
+            "filter": ["==", ["get", "siteStatus"], "Awaiting Cleanup"],
             "symbol-layout": {
               "icon-image": "circle-267ab3.png",
               "icon-size": 0.3,
@@ -578,14 +367,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "siteStatus"
-              ],
-              "Cleanup Started"
-            ],
+            "filter": ["==", ["get", "siteStatus"], "Cleanup Started"],
             "symbol-layout": {
               "icon-image": "circle-b4df8d.png",
               "icon-size": 0.3,
@@ -593,14 +375,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "siteStatus"
-              ],
-              "NFA"
-            ],
+            "filter": ["==", ["get", "siteStatus"], "NFA"],
             "symbol-layout": {
               "icon-image": "circle-0b655e.png",
               "icon-size": 0.3,
@@ -616,14 +391,7 @@
         "popup_content": "{{description}}",
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "description"
-              ],
-              "No recent overflow"
-            ],
+            "filter": ["==", ["get", "description"], "No recent overflow"],
             "symbol-layout": {
               "icon-image": "dot-4ab767.png",
               "icon-size": 1,
@@ -636,10 +404,7 @@
           {
             "filter": [
               "==",
-              [
-                "get",
-                "description"
-              ],
+              ["get", "description"],
               "Overflowed in the last 48 hrs"
             ],
             "symbol-layout": {
@@ -652,14 +417,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "description"
-              ],
-              "Overflowing now"
-            ],
+            "filter": ["==", ["get", "description"], "Overflowing now"],
             "symbol-layout": {
               "icon-image": "dot-e1264d.png",
               "icon-size": 1,
@@ -670,14 +428,7 @@
             }
           },
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "description"
-              ],
-              "Data not available"
-            ],
+            "filter": ["==", ["get", "description"], "Data not available"],
             "symbol-layout": {
               "icon-image": "dot-0d85e9.png",
               "icon-size": 1,
@@ -696,13 +447,7 @@
         "popup_content": "<strong>{{marina-name}}</strong>",
         "rules": [
           {
-            "filter": [
-              "<=",
-              [
-                "zoom"
-              ],
-              18
-            ],
+            "filter": ["<=", ["zoom"], 18],
             "symbol-layout": {
               "icon-image": "map-pin-marker-bluegreen.png",
               "icon-size": 1,
@@ -1241,7 +986,6 @@
       "title": "_(Stories)",
       "type": "internal_link",
       "url": "/page/stories",
-      "name": "overview",
       "start_page": true
     },
     {
@@ -1250,14 +994,55 @@
       "component": "MapLayerPanel"
     }
   ],
+  "pages": [
+    {
+      "slug": "stories",
+      "lang": "en_US",
+      "content": [
+        "<h1>Our Puget Sound is a treasure.</h1>",
+        "<p>Explore some stories to see how we're keeping it healthy for future generations.</p>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/3470' rel='internal'>",
+        "<img src='/static/css/images/watershed-cedar-sq.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Legal action</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-vert flow-vert-right'>",
+        "<a href='/featured/3469' rel='internal'>",
+        "<img src='/static/css/images/watershed-green-duwamish-vert-b.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Puget Sound Stewardship & Mitigation Fund</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/3471' rel='internal'>",
+        "<img src='/static/css/images/watershed-sammamish-alt-sq.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Longfellow Creek - salmon monitoring</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<div class='clearfix'></div>",
+        "<figure class='flow-layout'>",
+        "<a href='/featured/3457' rel='internal'>",
+        "<img src='/static/css/images/watershed-puyallup-alt-horiz.png'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Atlantic Salmon spill</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>"
+      ]
+    }
+  ],
   "story": {
     "home": {
       "tagline": "_(Next featured site)",
       "default_basemap": "satellite",
       "default_zoom": 15,
-      "default_visible_layers": [
-        "pugetsoundfeatured"
-      ],
+      "default_visible_layers": ["pugetsoundfeatured"],
       "order": [
         {
           "url": "featured/3927",
@@ -1284,65 +1069,40 @@
         {
           "url": "featured/3931",
           "zoom": 7,
-          "pan_to": [
-            -122.31682047088867,
-            47.673217479920595
-          ],
-          "visible_layers": [
-            "clean-marinas"
-          ],
+          "pan_to": [-122.31682047088867, 47.673217479920595],
+          "visible_layers": ["clean-marinas"],
           "spotlight": false,
           "basemap": "light-nolabels"
         },
         {
           "url": "featured/3929",
           "zoom": 7,
-          "pan_to": [
-            -122.31682047088867,
-            47.673217479920595
-          ],
-          "visible_layers": [
-            "shellfish-harvesting"
-          ],
+          "pan_to": [-122.31682047088867, 47.673217479920595],
+          "visible_layers": ["shellfish-harvesting"],
           "basemap": "light-nolabels",
           "spotlight": false
         },
         {
           "url": "featured/3930",
           "zoom": 7,
-          "pan_to": [
-            -122.31682047088867,
-            47.673217479920595
-          ],
-          "visible_layers": [
-            "spill-incidents"
-          ],
+          "pan_to": [-122.31682047088867, 47.673217479920595],
+          "visible_layers": ["spill-incidents"],
           "basemap": "light-nolabels",
           "spotlight": false
         },
         {
           "url": "featured/3928",
           "zoom": 10,
-          "pan_to": [
-            -122.31682047088867,
-            47.59085278732215
-          ],
-          "visible_layers": [
-            "cso"
-          ],
+          "pan_to": [-122.31682047088867, 47.59085278732215],
+          "visible_layers": ["cso"],
           "spotlight": false,
           "basemap": "satellite"
         },
         {
           "url": "featured/3979",
           "zoom": 8,
-          "pan_to": [
-            -122.31682047088867,
-            47.673217479920595
-          ],
-          "visible_layers": [
-            "scorecard-layer"
-          ],
+          "pan_to": [-122.31682047088867, 47.673217479920595],
+          "visible_layers": ["scorecard-layer"],
           "spotlight": false,
           "basemap": "light-nolabels"
         },
@@ -1350,30 +1110,20 @@
           "url": "featured/3470",
           "spotlight": false,
           "zoom": 8,
-          "pan_to": [
-            -122.31682047088867,
-            47.673217479920595
-          ],
-          "visible_layers": [
-            "pugetsoundcases"
-          ]
+          "pan_to": [-122.31682047088867, 47.673217479920595],
+          "visible_layers": ["pugetsoundcases"]
         }
       ]
     },
     "rose-grants": {
       "tagline": "_(Next grant)",
       "default_zoom": 14,
-      "default_visible_layers": [
-        "pugetsoundrose"
-      ],
+      "default_visible_layers": ["pugetsoundrose"],
       "order": [
         {
           "url": "featured/3469",
           "zoom": 8,
-          "pan_to": [
-            -122.31682047088867,
-            47.673217479920595
-          ],
+          "pan_to": [-122.31682047088867, 47.673217479920595],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
         },
