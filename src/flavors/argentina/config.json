@@ -8,7 +8,7 @@
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
       "brand": {
-        "primary": "#a2c7da",
+        "primary": "#6BC2D5",
         "accent": "#93b7c9"
       },
       "bg": {
