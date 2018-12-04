@@ -204,22 +204,13 @@
         "id": "mwfeatured",
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured",
         "type": "place",
-        "feature_types": [
-          "Point"
-        ],
+        "feature_types": ["Point"],
         "slug": "featured",
         "focus_rules": [
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "featured_place"
-              ]
+              ["==", ["get", "location_type"], "featured_place"]
             ],
             "symbol-layout": {
               "icon-image": "marker-dot-conserve-water.png",
@@ -230,14 +221,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "featured_school"
-              ]
+              ["==", ["get", "location_type"], "featured_school"]
             ],
             "symbol-layout": {
               "icon-image": "marker-dot-commute-low-carbon.png",
@@ -250,14 +234,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "featured_place"
-              ]
+              ["==", ["get", "location_type"], "featured_place"]
             ],
             "symbol-layout": {
               "icon-image": "marker-dot-conserve-water.png",
@@ -268,14 +245,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "featured_school"
-              ]
+              ["==", ["get", "location_type"], "featured_school"]
             ],
             "symbol-layout": {
               "icon-image": "marker-dot-commute-low-carbon.png",
@@ -3619,30 +3589,142 @@
     {
       "title": "_(Classroom)",
       "type": "internal_link",
-      "name": "classroom",
       "url": "/page/classroom"
     },
     {
       "title": "_(About)",
       "type": "internal_link",
-      "url": "/page/about",
-      "name": "overview",
-      "pull_right": true
+      "url": "/page/about"
     },
     {
       "title": "_(Guide)",
       "type": "internal_link",
-      "url": "/page/guide",
-      "name": "guide",
-      "pull_right": true
+      "url": "/page/guide"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "guide",
+      "lang": "en_US",
+      "content": [
+        "<div class='getinvolved'>",
+        "<i class='fa fa-info-circle'></i>",
+        "<h1 id='getinvolved'>Admin User Guide</h1>",
+        "</div>",
+        "<h5>To get started:</h5>",
+        "<ol>",
+        "<li>Sign in (use the button on the top right)</li>",
+        "<li><a href='http://eepurl.com/6IfA5'>Request access</a> to be an administrator.</li>",
+        "</ol>",
+        "<em>If you're having trouble signing in send a message to feedback@heyduwamish.org and we'll fix it right away!</em>",
+        "<hr>",
+        "<h4>Once you've been approved as an admin, you'll have the ability to edit certain sites on the map</h4>",
+        "<hr>",
+        "<h5>Make sure you're signed in</h5>",
+        "<img src='/static/css/images/test-signin.gif'>",
+        "<h5>Open a site, hit \"Edit this post\"</h5>",
+        "<p>If you don't see an \"Edit this post\" button, you are either not signed in or you don't have permission to edit that particular site.</p>",
+        "<img src='/static/css/images/edit-post.gif'>",
+        "<br>",
+        "<h5>Hit the <strong>Save</strong> button</h5>",
+        "<ul>",
+        "<li>You can use the <strong>Edit this post</strong> button to cancel your changes and go back.</li>",
+        "<li>Hit the <strong>Remove</strong> button to remove the site from the map.</li>",
+        "<li>Save a post in draft mode by setting it from <strong>Published</strong> to <strong>Not published</strong>. When a post is in draft mode, it will <em>not</em> show up on the map. Only admins who are signed in can see it. </li>",
+        "</ul>",
+        "<hr>",
+        "<h4>You can also add new featured sites, directly to the map!</h4>",
+        "<ol>",
+        "<li>Make sure you're signed in.</li>",
+        "<img src='/static/css/images/add-report.gif'>",
+        "<li>Hit <strong>\"Add a report\"</strong> as if you were adding a community report.</li>",
+        "<li><img src='/static/css/images/featured-site-button.gif'>Select the option to <strong>\"Add a featured site\"</strong></li>",
+        "</ol>",
+        "<h4>Draw your site on the map</h4>",
+        "<img src='/static/css/images/polygon-button.gif'>",
+        "<p>You can <strong>add a marker</strong> and select a marker symbol, <strong>draw a line</strong>, or <strong>draw a polygon</strong>.</p>",
+        "<img src='/static/css/images/poly-draw.gif'>",
+        "<h4>Compose your content</h4>",
+        "<p>The content editor offers you a variety of formatting options such as:</p>",
+        "<ul>",
+        "<li>Header selection for large or mid-sized page headers</li>",
+        "<li>Images and video embeds (Youtube or Vimeo)</li>",
+        "<li>Rich text bold, italics, underline, and color selection</li>",
+        "<li>Hyperlinks to other web pages</li>",
+        "</ul>",
+        "<p>Hit the <strong>Save</strong> button if you're ready to publish. Otherwise, you can store it as a draft by setting the state to <strong>unpublished</strong> at the top of the editor.</p>",
+        "<h5>Have fun creating your community map!</h5>",
+        "<i class='fa fa-hand-o-right'></i><a href='http://eepurl.com/6IfA5'>Please reach out</a> if you need any help."
+      ]
+    },
+    {
+      "slug": "sponsors",
+      "lang": "en_US",
+      "content": [
+        "<h1>Sponsors</h1>",
+        "<p>Seed funding provided by the Puget Sound Stewardship and Mitigation Fund, a community grantmaking fund created by Puget Soundkeeper Alliance and administered by the Rose Foundation for Communities and the Environment.</p>",
+        "<p>Additional funding provided by Cascade Water Alliance in partnership with Sustainability Ambassadors.</p>",
+        "<img src='/static/css/images/rose_logo.jpg' alt='Rose Foundation for Communities and the Environment - logo'>",
+        "<img src='/static/css/images/cascade_logo.jpg' alt='Cascade Water Alliance - logo'>",
+        "<img src='/static/css/images/sa-logo.jpg' alt='Sustainability Ambassadors - logo'>",
+        "<p class='btn btn-block btn-large close-btn'>Back to the map</p>"
+      ]
+    },
+    {
+      "slug": "classroom",
+      "lang": "en_US",
+      "content": [
+        "<iframe src='https://docs.google.com/forms/d/e/1FAIpQLSeMZsMyb-7kRKiHc6lMeRnl96C1Tun8U2YWr7YjJz09K-S3lA/viewform?embedded=true' width='640' height='721' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h1>Welcome</h1>",
+        "<p>We are here to educate and inspire action for our Central Puget Sound watersheds</p>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/3333' rel='internal'>",
+        "<img src='/static/css/images/watershed-cedar-sq.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Cedar River / Lake Washington Watershed</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-vert flow-vert-right'>",
+        "<a href='/featured/3334' rel='internal'>",
+        "<img src='/static/css/images/watershed-green-duwamish-vert-b.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Green / Duwamish Watershed</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/3332' rel='internal'>",
+        "<img src='/static/css/images/watershed-sammamish-alt-sq.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Lake Sammamish Watershed</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<div class='clearfix'></div>",
+        "<figure class='flow-layout'>",
+        "<a href='/featured/3335' rel='internal'>",
+        "<img src='/static/css/images/watershed-puyallup-alt-horiz.png'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Puyallup / White Watershed</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<br />",
+        "<p>This project made possible by our generous <a href='/page/sponsors' rel='internal'>sponsors</a>."
+      ]
     }
   ],
   "story": {
     "watersheds": {
       "default_zoom": 18,
-      "default_visible_layers": [
-        "mwfeatured"
-      ],
+      "default_visible_layers": ["mwfeatured"],
       "order": [
         {
           "url": "featured/3737",
@@ -3709,10 +3791,7 @@
             "lng": -122.06291037540797
           },
           "basemap": "light-nolabels",
-          "visible_layers": [
-            "wria-7-8-9",
-            "watershed-sammamish"
-          ],
+          "visible_layers": ["wria-7-8-9", "watershed-sammamish"],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
@@ -3724,10 +3803,7 @@
             "lng": -121.75112573040786
           },
           "basemap": "hillshade",
-          "visible_layers": [
-            "wria-7-8-9",
-            "watershed-cedar-sammamish"
-          ],
+          "visible_layers": ["wria-7-8-9", "watershed-cedar-sammamish"],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
@@ -3739,10 +3815,7 @@
             "lng": -121.89064979555963
           },
           "basemap": "hillshade",
-          "visible_layers": [
-            "wria-7-8-9",
-            "watershed-green"
-          ],
+          "visible_layers": ["wria-7-8-9", "watershed-green"],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
@@ -3754,10 +3827,7 @@
             "lng": -121.92300796523165
           },
           "basemap": "hillshade",
-          "visible_layers": [
-            "wria-7-8-9",
-            "watershed-puyallup"
-          ],
+          "visible_layers": ["wria-7-8-9", "watershed-puyallup"],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         }
