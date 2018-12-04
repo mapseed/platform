@@ -107,6 +107,10 @@ const theme = {
     titleColor: "#aaa",
     titleFontFamily: "Roboto,sans-serif",
   },
+  map: {
+    inputButtonBackgroundColor: "rgba(242,82,24,0.89)",
+    inputButtonHoverBackgroundColor: "#ff8b61",
+  },
   boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
 };
 

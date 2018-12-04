@@ -67,10 +67,15 @@
     <div id="map-container">
       <div id="map-component"></div>
       <div id="ajax-error-msg">{{#_}}We can't connect to the server at the moment. Hang tight while we re-establish communication.{{/_}}</div>
-      <!-- <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div> -->
       <div id="map"></div>
       <div id="spotlight-mask"></div>
-      <div id="layer-info-window-container" class="is-hidden-fadeout"></div>
+      <span id="centerpoint">
+        <span class="shadow"></span>
+        <span class="x"></span>
+        <span class="marker"></span>
+        <span class="overlay"></span>
+      </span>
+      <div id="add-place-button"></div>
     </div>
 
     <div id="content"><!-- .place or .page -->

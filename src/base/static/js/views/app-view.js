@@ -46,7 +46,10 @@ import {
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
-import { setCurrentTemplate } from "../../state/ducks/ui.js";
+import {
+  setCurrentTemplate,
+  setAddPlaceButtonVisibility,
+} from "../../state/ducks/ui.js";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -85,7 +88,6 @@ browserUpdate({
 
 export default Backbone.View.extend({
   events: {
-    "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
   },
   initialize: function() {
@@ -212,14 +214,6 @@ export default Backbone.View.extend({
         }
       },
       this,
-    );
-
-    // Only append the tools to add places (if supported)
-    $("#map-container").append(Handlebars.templates["centerpoint"]());
-    // NOTE: append add place/story buttons after the #map-container
-    // div (rather than inside of it) in order to support bottom-clinging buttons
-    $("#map-container").after(
-      Handlebars.templates["add-places"](this.options.placeConfig),
     );
 
     // Site header
@@ -383,11 +377,11 @@ export default Backbone.View.extend({
       this.hideSpotlightMask();
     }
   },
-  onClickAddPlaceBtn: function(evt) {
-    evt.preventDefault();
-    Util.log("USER", "map", "new-place-btn-click");
-    this.options.router.navigate("/new", { trigger: true });
-  },
+  //  onClickAddPlaceBtn: function(evt) {
+  //    evt.preventDefault();
+  //    Util.log("USER", "map", "new-place-btn-click");
+  //    this.options.router.navigate("/new", { trigger: true });
+  //  },
   onClickClosePanelBtn: function(evt) {
     evt.preventDefault();
 
@@ -801,21 +795,30 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <Provider store={store}>
-        <MainMap
-          container="map"
-          places={this.places}
-          router={this.options.router}
-          onZoomend={this.onMapZoomEnd.bind(this)}
-          onMovestart={this.onMapMoveStart.bind(this)}
-          onMoveend={this.onMapMoveEnd.bind(this)}
-          onDragend={this.onMapDragEnd.bind(this)}
-          store={store}
-        />
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <MainMap
+              addPlaceButtonLabel={this.options.placeConfig.add_button_label}
+              container="map"
+              places={this.places}
+              router={this.options.router}
+              onZoomend={this.onMapZoomEnd.bind(this)}
+              onMovestart={this.onMapMoveStart.bind(this)}
+              onMoveend={this.onMapMoveEnd.bind(this)}
+              onDragend={this.onMapDragEnd.bind(this)}
+              store={store}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
       </Provider>,
       document.getElementById("map-component"),
     );
 
     store.dispatch(setCurrentTemplate("map"));
+
+    if (this.options.placeConfig.adding_supported) {
+      store.dispatch(setAddPlaceButtonVisibility(true));
+    }
 
     if (mapPosition) {
       emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -37,7 +37,11 @@ import {
   setActiveDrawGeometryId,
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
-import { setLeftSidebar } from "../../state/ducks/ui";
+import {
+  setLeftSidebar,
+  addPlaceButtonVisibilitySelector,
+} from "../../state/ducks/ui";
+import AddPlaceButton from "../molecules/add-place-button";
 
 import constants from "../../constants";
 
@@ -485,7 +489,11 @@ class MainMap extends Component {
   }
 
   render() {
-    return null;
+    return (
+      this.props.isAddPlaceButtonVisible && (
+        <AddPlaceButton>{this.props.addPlaceButtonLabel}</AddPlaceButton>
+      )
+    );
   }
 }
 
@@ -584,6 +592,7 @@ MainMap.propTypes = {
 const mapStateToProps = state => ({
   activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeMarker: activeMarkerSelector(state),
+  isAddPlaceButtonVisible: addPlaceButtonVisibilitySelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   mapConfig: mapConfigSelector(state),
   geometryStyle: geometryStyleSelector(state),
