@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -489,11 +489,7 @@ class MainMap extends Component {
   }
 
   render() {
-    return (
-      this.props.isAddPlaceButtonVisible && (
-        <AddPlaceButton>{this.props.addPlaceButtonLabel}</AddPlaceButton>
-      )
-    );
+    return null;
   }
 }
 

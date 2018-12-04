@@ -62,6 +62,7 @@ import RightSidebar from "../../components/templates/right-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
 import SiteHeader from "../../components/organisms/site-header";
 import CustomPage from "../../components/organisms/custom-page";
+import AddPlaceButton from "../../components/molecules/add-place-button";
 
 import constants from "../../constants";
 import PlaceList from "../../components/organisms/place-list";
@@ -279,6 +280,21 @@ export default Backbone.View.extend({
       );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    if (this.options.placeConfig.adding_supported) {
+      ReactDOM.render(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={this.adjustedTheme}>
+              <AddPlaceButton>
+                {this.options.placeConfig.add_button_label}
+              </AddPlaceButton>
+            </ThemeProvider>
+          </ThemeProvider>
+        </Provider>,
+        document.getElementById("info-modal-container"),
+      );
+    }
 
     // When the map center moves, the map view will fire a mapmoveend event
     // on the namespace. If the move was the result of the user dragging, a

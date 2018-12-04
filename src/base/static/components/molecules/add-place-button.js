@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "react-emotion";
 
 import { Button } from "../atoms/buttons";
+import mq from "../../../../media-queries";
 
 const AddPlaceButton = styled(props => (
   <Button
@@ -14,16 +15,24 @@ const AddPlaceButton = styled(props => (
     {props.children}
   </Button>
 ))(props => {
-  console.log("props.theme.map", props.theme.map);
   return {
-    position: "absolute",
-    top: "20px",
-    left: "80px",
     zIndex: 10,
     backgroundColor: props.theme.map.inputButtonBackgroundColor,
 
     "&:hover": {
       backgroundColor: props.theme.map.inputButtonHoverBackgroundColor,
+    },
+
+    [mq[0]]: {
+      position: "fixed",
+      width: "100%",
+      bottom: 0,
+      borderRadius: 0,
+    },
+    [mq[1]]: {
+      position: "absolute",
+      top: "20px",
+      left: "80px",
     },
   };
 });
