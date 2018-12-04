@@ -2294,19 +2294,53 @@
       "title": "_(About)",
       "type": "internal_link",
       "url": "/page/about",
-      "name": "overview",
       "start_page": true
     },
     {
       "title": "_(VSP Assistance)",
       "type": "internal_link",
-      "url": "/page/assistance",
-      "name": "assistance"
+      "url": "/page/assistance"
     },
     {
       "type": "list_toggle",
       "show_list_button_label": "_(Show as a List)",
       "show_map_button_label": "_(Show on a Map)"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "assistance",
+      "lang": "en_US",
+      "content": [
+        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
+        "<p style='margin-bottom:16px'>Your local Conservation District is here to help you meet your stewardship goals.</p>",
+        "<p>Contact your Conservation District for more information:</p>",
+        "<ul style='list-style:none;padding:8px'>",
+        "<li>",
+        "<div style='display:flex'>",
+        "<div style='flex:5'>",
+        "<h5>Palouse Conservation District</h5>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>592-332-4101</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcd@palousecd.org</span></div>",
+        "</div>",
+        "<div style='flex:1'>",
+        "<img src='/static/css/images/palousecd-logo.png'>",
+        "</div>",
+        "</div>",
+        "</li>",
+        "</ul>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h3 id='about-page-header'>Welcome Whitman County voluntary stewards!</h3>",
+        "<img src='/static/css/images/rolling-hills-cropped.jpg' alt='Rolling hills, Whitman County' style='margin:8px 0 8px 0' />",
+        "<p style='margin-bottom:16px'>We greatly appreciate your time in sharing land management practices to tell the story of current stewardship on the Palouse. All responses will remain confidential.</p>",
+        "<p>Click Get Started below to report your conservation practices!</p>",
+        "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
+      ]
     }
   ],
   "custom_components": {
