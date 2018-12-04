@@ -32,12 +32,7 @@
   ],
   "map": {
     "geolocation_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "map": {
         "center": {
@@ -93,14 +88,7 @@
         "slug": "featured",
         "focus_rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "projects-2017"
-            ],
+            "filter": ["==", ["get", "location_type"], "projects-2017"],
             "symbol-layout": {
               "icon-size": 1.4,
               "icon-anchor": "bottom"
@@ -109,14 +97,7 @@
         ],
         "rules": [
           {
-            "filter": [
-              "==",
-              [
-                "get",
-                "location_type"
-              ],
-              "projects-2017"
-            ],
+            "filter": ["==", ["get", "location_type"], "projects-2017"],
             "symbol-layout": {
               "icon-size": 1,
               "icon-anchor": "bottom"
@@ -132,68 +113,28 @@
         "slug": "idea",
         "focus_rules": [
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "community"]],
             "symbol-layout": {
               "icon-image": "marker-idea-accented.png",
               "icon-size": 1.2
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "parks"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "parks"]],
             "symbol-layout": {
               "icon-image": "marker-idea-accented.png",
               "icon-size": 1.2
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "streets"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "streets"]],
             "symbol-layout": {
               "icon-image": "marker-idea-accented.png",
               "icon-size": 1.2
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "housing"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "housing"]],
             "symbol-layout": {
               "icon-image": "marker-idea-accented.png",
               "icon-size": 1.2
@@ -202,68 +143,28 @@
         ],
         "rules": [
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "community"]],
             "symbol-layout": {
               "icon-image": "marker-idea-muted.png",
               "icon-size": 1
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "parks"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "parks"]],
             "symbol-layout": {
               "icon-image": "marker-idea-muted.png",
               "icon-size": 1
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "streets"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "streets"]],
             "symbol-layout": {
               "icon-image": "marker-idea-muted.png",
               "icon-size": 1
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "housing"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "housing"]],
             "symbol-layout": {
               "icon-image": "marker-idea-muted.png",
               "icon-size": 1
@@ -1021,27 +922,72 @@
       "title": "_(About)",
       "type": "internal_link",
       "url": "/page/about",
-      "name": "overview",
       "start_page": true
     },
     {
       "title": "_(Guidelines)",
       "type": "internal_link",
-      "url": "/page/guidelines",
-      "name": "guidelines",
-      "hide_from_top_bar": false
+      "url": "/page/guidelines"
     },
     {
       "title": "_(Get more involved)",
       "type": "internal_link",
-      "url": "/page/getinvolved",
-      "name": "getinvolved",
-      "hide_from_top_bar": false
+      "url": "/page/getinvolved"
     },
     {
       "type": "list_toggle",
       "show_list_button_label": "_(See full list)",
       "show_map_button_label": "_(Show the Map)"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "guidelines",
+      "lang": "en_US",
+      "content": [
+        "<iframe src='https://player.vimeo.com/video/162743651?color=ff9933&byline=0' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
+        "<h2>How does PB work in Oakland?</h2>",
+        "<p>Participatory Budgeting (PB) is an innovative democratic process that gives Oakland residents of City Council Districts 1 and 2 the power to set priorities for how federal Community Development Block Grant (CDBG) funds should be spent to improve low-to-moderate income communities in their districts. The projects that receive the most votes up to the maximum dollar amount will become the CDBG priorities for the district. In December and January, residents came together at events in their districts and online to discuss community needs and brainstorm ideas for funded projects that would benefit low-to-moderate incomes communities. In early February, volunteer budget delegates evaluated and prioritized those ideas and turned them into the priority projects that will appear on the PB ballot from February 18-22, 2017.</p>",
+        "<p>Following the vote, the City of Oakland will release a Request for Proposals (RFP), and city and non-profit agencies may apply for funds to implement priority projects. Community Development District Board Members in Districts 1 and 2 will review all applications in response to the RFP and make recommendations to the city on which should be funded. For more information on the RFP process, <a href='http://www2.oaklandnet.com/government/o/hcd/s/CDBG/index.htm'>visit the City of Oakland's CDBG website</a>.</p>",
+        "<p><strong>In Council District 1</strong>, the 2017-19 CDBG allocation is $113,654 per year over two years, or $227,308 in total. For a map of the CDBG eligible area, <a href='http://www2.oaklandnet.com/oakca1/groups/ceda/documents/webcontent/dowd009136.pdf'>click here</a>.</p>",
+        "<p><strong>In Council District 2</strong>, the 2017-19 CDBG allocation is $278,685 per year over two years, or $557,370 in total. For a map of the CDBG eligible area, <a href='http://www2.oaklandnet.com/oakca1/groups/ceda/documents/webcontent/dowd009137.pdf'>click here</a>.</p>",
+        "<p>Not sure if you live in District 1 or 2? Enter your address on <a href='https://participatorybudgeting.nationbuilder.com/r?u=http%3A%2F%2Fmapgis.oaklandnet.com%2Fcouncildistricts%2F&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1vote&n=7&test_email=1'>this map</a> to find out.</p>",
+        "<em><strong>For a full description of the PB process in Oakland, download the <a href='https://drive.google.com/file/d/0B8FaQ6MQKJm1U0xQSVNUQ1ZEZk0/view?usp=sharin'>PB Oakland 2016-17 Rulebook</a>.</em></strong>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h1>Participatory Budgeting Oakland</h1>",
+        "<img src='/static/css/images/democracy-hands.jpg'>",
+        "<p>is an innovative democratic process that gives Oakland residents of City Council Districts 1 and 2 the power to set priorities for how federal Community Development Block Grant (CDBG) funds should be spent to improve low-to-moderate income communities in their district.</p>",
+        "<a href='http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/oak062978.pdf'><h2>The results are in!</h2></a>",
+        "<strong><em>You made it happen: here are your PB Oakland priorities winners</em></strong>",
+        "<br><br>",
+        "<p>We are excited to share that the first ever PB Oakland process is complete!</p>",
+        "<p>Over 1,200 community members voted in PB Oakland to help decide how to spend $784,678 over 2 years to benefit low-and moderate-income residents in Oakland Council Districts 1 and 2!</p>",
+        "<p>Thank you to everyone who participated in the first ever PB Oakland process! You are helping to deepen democracy and build stronger communities through PB during a time when we all need it the most.</p>",
+        "<p>Special thanks to the Community Development District Board Members, District 1 and 2 Staff, the Budget Delegates, our outreach partners: Asian Pacific Environmental Network (APEN) and Oakland Rising, and all the volunteers and participants! This process has been administered by the City of Oakland Housing & Community Development Department with support from the Participatory Budgeting Project and supported by generous grants from The California Endowment and the Akonadi Foundation.</p>",
+        "<p>The full list of winning priority projects can be found here: <a href='http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/oak062978.pdf'>CD1 and CD2 Funding Priorities</a>. The city of Oakland is currently conducting a Request for Proposals (RFP) process in which the Community Development District Boards will make funding recommendations in April. For more information on the RFP process, <a href='http://www2.oaklandnet.com/government/o/hcd/s/CDBG/index.htm'>click here</a>.</p>",
+        "<p>P.S. If there was an idea you were rooting for that didn’t win, don’t worry! All of the ideas submitted during the process will be shared with both District Boards and Council Office staff for future consideration.</p>",
+        "<p>For more information on the City of Oakland’s Community Development Block Grant (CDBG) program, <a href='http://www2.oaklandnet.com/government/o/hcd/s/CDBG/index.htm' target='_blank'>click here</a>.</p>",
+        "<p>For information on participatory budgeting in the U.S. and Canada, visit the website of the <a href='http://www.participatorybudgeting.org/' target='_blank'>Participatory Budgeting Project</a>.</p>",
+        "<p class='btn btn-block btn-large close-btn'>Explore the map!</p>"
+      ]
+    },
+    {
+      "slug": "getinvolved",
+      "lang": "en_US",
+      "content": [
+        "<h1>Get more involved</h1>",
+        "<p>Already submitted an idea? There are many more ways to get involved in participatory budgeting:</p>",
+        "<h3>Volunteer</h3>",
+        "<p>You can help to get the word out to district residents, facilitate small group meetings, provide support at PB events, and more. Sign up <a href='http://www.123contactform.com/form-2317799/PB-Oakland-Volunteer-Sign-Up' target='_blank'>here</a>.</p>",
+        "<h3>Contact Us</h3>",
+        "<p>Have a question? Feel free to contact us.</p>",
+        "<iframe src='http://www.123contactform.com/form-1169694/PB-Oakland-Contact-Us' height='400' width=100% </iframe>"
+      ]
     }
   ],
   "custom_hooks": {

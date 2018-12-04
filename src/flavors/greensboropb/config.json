@@ -31,10 +31,7 @@
     "geocoding_bar_enabled": true,
     "geocoding_engine": "Mapbox",
     "geocode_field_label": "_(Enter an address...)",
-    "geocode_hint": [
-      -79.82,
-      36.07
-    ],
+    "geocode_hint": [-79.82, 36.07],
     "options": {
       "map": {
         "center": {
@@ -74,17 +71,7 @@
         "is_visible_default": true,
         "focus_rules": [
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "culture"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "culture"]],
             "symbol-layout": {
               "icon-image": "fountain.png",
               "icon-size": 1,
@@ -92,17 +79,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "environment"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "environment"]],
             "symbol-layout": {
               "icon-image": "tree.png",
               "icon-size": 1,
@@ -110,17 +87,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "safety"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "safety"]],
             "symbol-layout": {
               "icon-image": "safety.png",
               "icon-size": 1,
@@ -128,17 +95,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "education"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "education"]],
             "symbol-layout": {
               "icon-image": "education.png",
               "icon-size": 1,
@@ -146,17 +103,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "parks"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "parks"]],
             "symbol-layout": {
               "icon-image": "tree.png",
               "icon-size": 1,
@@ -164,17 +111,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "health"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "health"]],
             "symbol-layout": {
               "icon-image": "health.png",
               "icon-size": 1,
@@ -182,17 +119,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "seniors"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "seniors"]],
             "symbol-layout": {
               "icon-image": "seniors.png",
               "icon-size": 1,
@@ -200,17 +127,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "streets"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "streets"]],
             "symbol-layout": {
               "icon-image": "street-sidewalk.png",
               "icon-size": 1,
@@ -218,17 +135,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "other"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "other"]],
             "symbol-layout": {
               "icon-image": "idea.png",
               "icon-size": 1,
@@ -236,17 +143,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "youth"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "youth"]],
             "symbol-layout": {
               "icon-image": "youth.png",
               "icon-size": 1,
@@ -258,21 +155,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "culture"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "culture"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-b75ab8.png",
@@ -283,28 +167,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "culture"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "culture"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "fountain-small.png",
@@ -315,21 +180,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "culture"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "culture"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "fountain-small.png",
@@ -340,21 +192,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "environment"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "environment"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-7fccd9.png",
@@ -365,28 +204,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "environment"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "environment"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "tree-small.png",
@@ -397,21 +217,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "environment"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "environment"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "tree-small.png",
@@ -422,21 +229,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "safety"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "safety"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-fc9229.png",
@@ -447,28 +241,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "safety"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "safety"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "safety-small.png",
@@ -479,21 +254,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "safety"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "safety"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "safety-small.png",
@@ -504,21 +266,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "eduction"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "eduction"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-0f779e.png",
@@ -529,28 +278,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "education"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "education"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "education-small.png",
@@ -561,21 +291,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "education"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "education"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "education-small.png",
@@ -586,21 +303,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "parks"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "parks"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-55a504.png",
@@ -611,28 +315,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "parks"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "parks"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -643,21 +328,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "parks"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "parks"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "tree-small.png",
@@ -668,21 +340,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "health"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "health"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-ff78be.png",
@@ -693,28 +352,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "health"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "health"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -725,21 +365,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "health"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "health"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "health-small.png",
@@ -750,21 +377,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "seniors"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "seniors"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-c43d52.png",
@@ -775,28 +389,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "seniors"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "seniors"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -807,21 +402,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "seniors"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "seniors"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "seniors-small.png",
@@ -832,21 +414,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "streets"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "streets"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-8ea4b8.png",
@@ -857,28 +426,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "streets"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "streets"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -889,21 +439,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "streets"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "streets"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "street-sidewalk-small.png",
@@ -914,21 +451,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "other"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "other"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-ffd614.png",
@@ -939,28 +463,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "other"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "other"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -971,21 +476,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "other"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "other"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "idea-small.png",
@@ -996,21 +488,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "youth"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "youth"],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "dot-ffd614.png",
@@ -1021,28 +500,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "youth"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "youth"],
+              [">=", ["zoom"], 14],
+              ["<", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-size": 0.5,
@@ -1053,21 +513,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "youth"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                17
-              ]
+              ["==", ["get", "location_type"], "youth"],
+              [">=", ["zoom"], 17]
             ],
             "symbol-layout": {
               "icon-image": "youth-small.png",
@@ -1769,25 +1216,72 @@
       "title": "_(About)",
       "type": "internal_link",
       "url": "/page/about",
-      "name": "about",
       "start_page": true
     },
     {
       "title": "_(Guidelines)",
       "type": "internal_link",
-      "url": "/page/guidelines",
-      "name": "guidelines"
+      "url": "/page/guidelines"
     },
     {
       "title": "_(Get More Involved)",
       "type": "internal_link",
-      "url": "/page/involved",
-      "name": "involved"
+      "url": "/page/involved"
     },
     {
       "type": "list_toggle",
       "show_list_button_label": "_(Show as a list)",
       "show_map_button_label": "_(Show on a map)"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "involved",
+      "lang": "en_US",
+      "content": [
+        "<h1>Get More Involved</h1>",
+        "<p>Already submitted an idea? There are many more ways to get involved in participatory budgeting:</p>",
+        "<h5>Attend a Neighborhood Assembly</h5>",
+        "<p>Each district will have a neighborhood assembly and other, informal idea collection events, to encourage widespread participation. <a href='http://www.greensboro-nc.gov/index.aspx?page=5084'>Click here</a> for upcoming assembly dates, times, and locations.</p>",
+        "<h5>Connect with Us</h5>",
+        "<p>Find us on <a href='https://www.facebook.com/PBGreensboro/' target='_blank'> Facebook</a> and follow us on <a href='https://twitter.com/GreensboroPB' target='_blank'> Twitter</a>!</p>",
+        "<h5>Contact Us</h5>",
+        "<p><strong>Have a question?</strong></p>",
+        "<p>Please contact Valerie Warren, Community Outreach Coordinator for Participatory Budgeting Greensboro, by email at <a href='mailto:valerie@participatorybudgeting.org'>valerie@participatorybudgeting.org</a> or phone at 336‑373‑7750.</p>"
+      ]
+    },
+    {
+      "slug": "guidelines",
+      "lang": "en_US",
+      "content": [
+        "<div class='clearfix'>",
+        "<h1>Project Idea Guidelines</h1>",
+        "<p>Community members can generate initial project ideas at Neighborhood Assembly meetings and \"pop-up\" Participatory Budgeting events across town.</p>",
+        "<p>Eligible projects must:</p>",
+        "<ul>",
+        "<li>Be identified within a City Council District.</li>",
+        "<li>Be on City-owned property (<i>not on other government-owned property such as schools</i>).</li>",
+        "<li>Be a capital improvement (<i>something that can be bought, built, or repaired</i>)</li>",
+        "</ul>",
+        "</div>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h3>Greensboro Participatory Budgeting:</h3>",
+        "<h4>Our Community, Our Decision!</h4>",
+        "<br>",
+        "<p>Greensboro Participatory Budgeting is a democratic process in which community members from all five City Council districts are directly deciding how to spend $500,000 ($100,000 per district).</p>",
+        "<p>From April to November 2017, volunteer budget delegates will work to develop these initial ideas into full project proposals. Greensboro residents will able to vote in October 2017 to determine the winning projects.</p>",
+        "<p>For more information on participatory budgeting in Greensboro, visit <a href='http://www.greensboro-nc.gov/pb' target='_blank'>greensboro-nc.gov/pb</a>.</p>",
+        "<p>For information on the nationwide movement for PB, visit the website of the <a href='http://www.participatorybudgeting.org/' target='_blank'>Participatory Budgeting Project</a>.</p>",
+        "<hr>",
+        "<div class='clearfix' style='padding-top:0.5em;'>",
+        "<a href='http://www.participatorybudgeting.org/' target='_blank'><img src=''/static/css/images/pbp-logo.jpg' style='float:left;max-width:45%;'></a>",
+        "</div>"
+      ]
     }
   ],
   "notifications": {
