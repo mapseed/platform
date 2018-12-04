@@ -1,9 +1,9 @@
 {
   "app": {
-    "title": "Territorios de colaboración",
+    "title": "TERRITORIOS DE COLABORACIÓN",
     "name": "Territorios de colaboración",
     "show_name_in_header": true,
-    "logo": "/static/css/images/LogoCasaRio-B.png",
+    "logo": "/static/css/images/TDC.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
@@ -248,22 +248,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
-        "label": "_(Observation)",
+        "label": "_(Observación)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your observation:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "_(¿De qué se trata?)",
+            "display_prompt": "_(Título:)",
+            "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(Description of this observation:)",
-            "display_prompt": "_(Further description:)",
-            "placeholder": "_(Enter description...)",
+            "prompt": "_(Que se ve, se oye, se huele, se siente, se toca? Y qué importancia tiene? Como se relaciona a la vida común en el territorio?)",
+            "display_prompt": "_(Notar la observación:)",
+            "placeholder": "_(Notar la observación...)",
             "optional": false
           },
           {
@@ -291,22 +291,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
-        "label": "_(Question)",
+        "label": "_(Amenazas / conflictos)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your question:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "_(¿Qué pasa?)",
+            "display_prompt": "_(Título:)",
+            "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(What's your question?)",
-            "display_prompt": "_(My question:)",
-            "placeholder": "_(Enter question...)"
+            "prompt": "_(¿Cuales son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansion de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
+            "display_prompt": "_(Describir la situación)",
+            "placeholder": "_(Describir la situación)"
           },
           {
             "name": "submitter_name",
@@ -333,22 +333,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
-        "label": "_(Idea)",
+        "label": "_(Experiencias sustentables)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your idea:)",
-            "placeholder": "_(Enter title...)",
-            "display_prompt": "_(Title:)",
+            "prompt": "_(¿Qué se hace?)",
+            "placeholder": "_(Introducir título)",
+            "display_prompt": "_(Título:)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(Describe your idea below:)",
-            "display_prompt": "_(Here's my idea:)",
-            "placeholder": "_(Description...)",
+            "prompt": "_()",
+            "display_prompt": "_(¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
+            "placeholder": "_(Describir la experiencia...)",
             "optional": false
           },
           {
@@ -376,22 +376,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
-        "label": "_(Complaint)",
+        "label": "_(Horizontes / potencialidades)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your complaint:)",
-            "placeholder": "_(Enter title...)",
-            "display_prompt": "_(Title:)",
+            "prompt": "_(¿Qué se ve en el futuro?)",
+            "placeholder": "_(Introducir título)",
+            "display_prompt": "_(Título)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(What's your complaint?)",
-            "display_prompt": "_(I have the following complaint:)",
-            "placeholder": "_(Description...)",
+            "prompt": "_(¿Cuales son las actividades que nos permiten avizorar futuros sustentables?)",
+            "display_prompt": "_(Decribir las actividades...)",
+            "placeholder": "_(Descripción...)",
             "optional": false
           },
           {
@@ -416,26 +416,26 @@
     "common_form_elements": {
       "submitter_name": {
         "type": "text",
-        "prompt": "_(Your name)",
-        "placeholder": "_(Name)",
+        "prompt": "_(Tu nombre)",
+        "placeholder": "_(Nombre)",
         "optional": true
       },
       "private-submitter_email": {
         "type": "text",
-        "prompt": "_(Your Email)",
-        "placeholder": "_(Receive email updates on your report)",
+        "prompt": "_(Tu correo electrónico)",
+        "placeholder": "_(Recibir noticias sobre este comentario)",
         "optional": true,
         "sticky": true
       },
       "my_image": {
         "type": "file",
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
+        "prompt": "_(Imágen)",
+        "label": "_(Añadir una imágen)",
         "optional": true
       },
       "submit": {
         "type": "submit",
-        "label": "_(Put it on the map!)"
+        "label": "_(¡Ponerlo en el mapa!)"
       }
     },
     "items": [
@@ -582,13 +582,13 @@
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "_(Sobre nosotros)",
       "type": "internal_link",
       "url": "/page/about",
       "name": "overview"
     },
     {
-      "title": "_(Get involved)",
+      "title": "_(¿Cómo participar?)",
       "type": "internal_link",
       "url": "/page/getinvolved",
       "name": "contribute"
