@@ -12,6 +12,8 @@ const SET_CONFIG = "pages/SET_CONFIG";
 export function setPagesConfig(config) {
   config = config.map(item => ({
     ...item,
+    // Note that page content might be in array format purely for readability's
+    // sake when working with it in the config.
     content: Array.isArray(item.content) ? item.content.join("") : item.content,
   }));
 
