@@ -26,12 +26,17 @@ export const placePropType = PropTypes.shape({
 export const placesPropType = PropTypes.arrayOf(placePropType);
 
 // Actions:
-const SET_PLACES = "places/SET";
+const LOAD_PLACES = "places/LOAD";
+const UPDATE_PLACES = "places/UPDATE";
 const CREATE_PLACE = "places/CREATE";
 
 // Action creators:
-export function setPlaces(places) {
-  return { type: SET_PLACES, payload: places };
+export function loadPlaces(places) {
+  return { type: LOAD_PLACES, payload: places };
+}
+
+export function updatePlaces(places) {
+  return { type: UPDATE_PLACES, payload: places };
 }
 
 export function createPlace(place) {
@@ -43,13 +48,28 @@ const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_PLACES:
+    case LOAD_PLACES:
+      return action.payload;
+    case UPDATE_PLACES:
       return action.payload.reduce((memo, newPlace) => {
-        return !memo.find(place => newPlace.id === place.id)
-          ? [...memo, newPlace]
-          : // If a place already exists in the map duck, make sure we don't
-            // add it again.
-            memo;
+        let oldPlace = memo.find(place => newPlace.id === place.id);
+        if (!oldPlace) {
+          // TODO: fix the race condition in AppView.viewPlace so this doesn't happen:
+          // eslint-disable-next-line no-console
+          console.warn(
+            "PlaceDuck: Updating a place before it was loaded:",
+            newPlace.id,
+          );
+          oldPlace = {};
+        }
+        return [
+          ...memo,
+          {
+            // Override data from the old place with data from the new place:
+            ...oldPlace,
+            ...newPlace,
+          },
+        ];
       }, state);
     case CREATE_PLACE:
       return [...state, action.payload];

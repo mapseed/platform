@@ -152,7 +152,7 @@ var self = (module.exports = {
 
   getPlaceFromCollections: function({
     collectionsSet,
-    setPlaces,
+    updatePlaces,
     args,
     mapConfig,
     callbacks,
@@ -170,7 +170,7 @@ var self = (module.exports = {
       collectionsSet.places[datasetId].fetchById(args.modelId, {
         validate: true,
         success: function(model) {
-          setPlaces([model.toJSON()]);
+          updatePlaces([model.toJSON()]);
           callbacks.onFound(model, "place", datasetId);
         },
         error: function() {

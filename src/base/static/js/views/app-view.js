@@ -19,7 +19,7 @@ import theme from "../../../../theme";
 import "react-virtualized/styles.css";
 
 import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
-import { setPlaces } from "../../state/ducks/places";
+import { loadPlaces, updatePlaces } from "../../state/ducks/places";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setSurveyConfig } from "../../state/ducks/survey-config";
@@ -373,7 +373,7 @@ export default Backbone.View.extend({
       const allPlaces = fetchedCollections.reduce((places, collection) => {
         return [...collection.models.map(model => model.toJSON()), ...places];
       }, []);
-      store.dispatch(setPlaces(allPlaces));
+      store.dispatch(loadPlaces(allPlaces));
 
       // Update the load statuses of our layers that are being fetched:
       const layers = mapLayerStatusesSelector(store.getState());
@@ -595,8 +595,8 @@ export default Backbone.View.extend({
       collectionsSet: {
         places: this.places,
       },
-      setPlaces: places => {
-        store.dispatch(setPlaces(places));
+      updatePlaces: places => {
+        store.dispatch(updatePlaces(places));
       },
       args: args,
       mapConfig: this.options.mapConfig,
