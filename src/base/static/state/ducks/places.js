@@ -12,7 +12,7 @@ export const placePropType = PropTypes.shape({
   dataset: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   datasetSlug: PropTypes.string.isRequired,
-  submitter_name: PropTypes.string.isRequired,
+  submitter_name: PropTypes.string,
   submission_sets: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
   datasetId: PropTypes.string.isRequired,
