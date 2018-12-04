@@ -1,0 +1,84 @@
+.map-layer-selector {
+  display: flex;
+  align-items: center;
+}
+
+.map-layer-selector__selectable-area {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-bottom: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.map-layer-selector__spinner-container {
+  flex: 1;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+
+  .react-spinner {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.map-layer-selector__id-icon {
+  padding-right: 10px;
+  font-size: 1.5em;
+  flex: 1;
+  width: 20px;
+}
+
+.map-layer-selector__info-icon {
+  color: #777;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  &:hover {
+    color: #555;
+    cursor: pointer;
+  }
+}
+
+.map-layer-selector__info-icon--hidden {
+  visibility: hidden;
+}
+
+.map-layer-selector__layer-title {
+  flex: 6;
+
+  &:hover {
+    background-color: #ffffd4;
+  }
+}
+
+.map-layer-selector__layer-title--selected {
+  background-color: #ffff00;
+
+  &:hover {
+    background-color: #ffff00;
+  }
+}
+
+.map-layer-selector__status-icon {
+  color: black;
+  text-align: center;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.map-layer-selector__status-icon--green {
+  color: #000;
+}
+
+.map-layer-selector__status-icon--red {
+  color: #ff0000;
+}
+
+.map-layer-selector__input {
+  display: none;
+}
