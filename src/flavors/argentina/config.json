@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "TERRITORIOS DE COLABORACIÓN",
-    "name": "Territorios de colaboración",
+    "name": "TERRITORIOS DE COLABORACIÓN",
     "show_name_in_header": true,
     "logo": "/static/css/images/TDC.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
@@ -32,10 +32,10 @@
     "options": {
       "map": {
         "center": {
-          "lat": -33.81145,
-          "lng": -58.89267
+          "lat": -33.67868,
+          "lng": -58.78081
         },
-        "zoom": 7.65,
+        "zoom": 8,
         "minZoom": 1,
         "maxZoom": 18
       },
