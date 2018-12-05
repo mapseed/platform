@@ -205,18 +205,6 @@ export default Backbone.View.extend({
       }
     });
 
-    // On any route (/place or /page), hide the list view
-    // and render the contents of the main page:
-    this.options.router.bind(
-      "route",
-      function(route) {
-        if (!_.contains(this.getListRoutes(), route)) {
-          this.renderMain();
-        }
-      },
-      this,
-    );
-
     // Site header
     ReactDOM.render(
       <Provider store={store}>
@@ -282,11 +270,19 @@ export default Backbone.View.extend({
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     if (this.options.placeConfig.adding_supported) {
+      store.dispatch(setAddPlaceButtonVisibility(true));
       ReactDOM.render(
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <ThemeProvider theme={this.adjustedTheme}>
-              <AddPlaceButton>
+              <AddPlaceButton
+                onClick={() => {
+                  Util.log("USER", "map", "new-place-btn-click");
+                  this.options.router.navigate("/new", {
+                    trigger: true,
+                  });
+                }}
+              >
                 {this.options.placeConfig.add_button_label}
               </AddPlaceButton>
             </ThemeProvider>
@@ -393,11 +389,6 @@ export default Backbone.View.extend({
       this.hideSpotlightMask();
     }
   },
-  //  onClickAddPlaceBtn: function(evt) {
-  //    evt.preventDefault();
-  //    Util.log("USER", "map", "new-place-btn-click");
-  //    this.options.router.navigate("/new", { trigger: true });
-  //  },
   onClickClosePanelBtn: function(evt) {
     evt.preventDefault();
 
@@ -500,6 +491,7 @@ export default Backbone.View.extend({
   },
   newPlace: function() {
     this.renderRightSidebar();
+    this.renderMain();
     // REACT PORT SECTION //////////////////////////////////////////////////////
     // NOTE: This wrapper component is temporary, and will be factored out
     // when the AppView is ported.
@@ -563,6 +555,7 @@ export default Backbone.View.extend({
     this.$panel.show();
     this.setBodyClass("content-visible", "place-form-visible");
     store.dispatch(setMapSizeValidity(false));
+    store.dispatch(setAddPlaceButtonVisibility(false));
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     // END REACT PORT SECTION //////////////////////////////////////////////////
   },
@@ -832,15 +825,16 @@ export default Backbone.View.extend({
 
     store.dispatch(setCurrentTemplate("map"));
 
-    if (this.options.placeConfig.adding_supported) {
-      store.dispatch(setAddPlaceButtonVisibility(true));
-    }
-
     if (mapPosition) {
       emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
         coordinates: mapPosition.coordinates,
         zoom: mapPosition.zoom,
       });
+    }
+
+    if (this.options.placeConfig.adding_supported) {
+      console.log("!!!!!!!!!!!!");
+      store.dispatch(setAddPlaceButtonVisibility(true));
     }
   },
   destroyNewModels: function() {

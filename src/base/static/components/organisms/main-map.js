@@ -37,11 +37,7 @@ import {
   setActiveDrawGeometryId,
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
-import {
-  setLeftSidebar,
-  addPlaceButtonVisibilitySelector,
-} from "../../state/ducks/ui";
-import AddPlaceButton from "../molecules/add-place-button";
+import { setLeftSidebar } from "../../state/ducks/ui";
 
 import constants from "../../constants";
 
@@ -588,7 +584,6 @@ MainMap.propTypes = {
 const mapStateToProps = state => ({
   activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeMarker: activeMarkerSelector(state),
-  isAddPlaceButtonVisible: addPlaceButtonVisibilitySelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   mapConfig: mapConfigSelector(state),
   geometryStyle: geometryStyleSelector(state),
