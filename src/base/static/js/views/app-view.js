@@ -43,12 +43,14 @@ import {
   setBasemap,
   setLayerError,
   setLayerLoading,
+  setMapDragging,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
 import {
   setCurrentTemplate,
   setAddPlaceButtonVisibility,
+  setMapCenterpointVisibility,
 } from "../../state/ducks/ui.js";
 
 import MainMap from "../../components/organisms/main-map";
@@ -63,6 +65,7 @@ import LeftSidebar from "../../components/organisms/left-sidebar";
 import SiteHeader from "../../components/organisms/site-header";
 import CustomPage from "../../components/organisms/custom-page";
 import AddPlaceButton from "../../components/molecules/add-place-button";
+import MapCenterpoint from "../../components/molecules/map-centerpoint";
 
 import constants from "../../constants";
 import PlaceList from "../../components/organisms/place-list";
@@ -205,6 +208,40 @@ export default Backbone.View.extend({
       }
     });
 
+    if (this.options.placeConfig.adding_supported) {
+      store.dispatch(setAddPlaceButtonVisibility(true));
+      ReactDOM.render(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={this.adjustedTheme}>
+              <AddPlaceButton
+                onClick={() => {
+                  Util.log("USER", "map", "new-place-btn-click");
+                  this.options.router.navigate("/new", {
+                    trigger: true,
+                  });
+                }}
+              >
+                {this.options.placeConfig.add_button_label}
+              </AddPlaceButton>
+            </ThemeProvider>
+          </ThemeProvider>
+        </Provider>,
+        document.getElementById("add-place-button"),
+      );
+    }
+
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <MapCenterpoint />
+          </ThemeProvider>
+        </ThemeProvider>
+      </Provider>,
+      document.getElementById("map-centerpoint"),
+    );
+
     // Site header
     ReactDOM.render(
       <Provider store={store}>
@@ -269,29 +306,6 @@ export default Backbone.View.extend({
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
-    if (this.options.placeConfig.adding_supported) {
-      store.dispatch(setAddPlaceButtonVisibility(true));
-      ReactDOM.render(
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <AddPlaceButton
-                onClick={() => {
-                  Util.log("USER", "map", "new-place-btn-click");
-                  this.options.router.navigate("/new", {
-                    trigger: true,
-                  });
-                }}
-              >
-                {this.options.placeConfig.add_button_label}
-              </AddPlaceButton>
-            </ThemeProvider>
-          </ThemeProvider>
-        </Provider>,
-        document.getElementById("add-place-button"),
-      );
-    }
-
     // When the map center moves, the map view will fire a mapmoveend event
     // on the namespace. If the move was the result of the user dragging, a
     // mapdragend event will be fired.
@@ -312,15 +326,12 @@ export default Backbone.View.extend({
     this.$panel = $("#content");
     this.$panelContent = $("#content article");
     this.$panelCloseBtn = $(".close-btn");
-    this.$centerpoint = $("#centerpoint");
-    this.$addButton = $("#add-place-btn-container");
 
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
     // Show tools for adding data
     this.setBodyClass();
-    this.showCenterPoint();
 
     // Load places from the API
     // TODO(luke): move this into componentDidMount when App is ported
@@ -374,11 +385,10 @@ export default Backbone.View.extend({
     }
   },
   onMapMoveStart: function(evt) {
-    this.$centerpoint.addClass("dragging");
+    store.dispatch(setMapDragging(true));
   },
   onMapMoveEnd: function(isUserMove = true) {
-    this.$centerpoint.removeClass("dragging");
-
+    store.dispatch(setMapDragging(false));
     if (this.hasBodyClass("content-visible") === false && isUserMove) {
       const { zoom, center } = mapPositionSelector(store.getState());
       this.setLocationRoute(zoom, center.lat, center.lng);
@@ -501,7 +511,6 @@ export default Backbone.View.extend({
           <ThemeProvider theme={this.adjustedTheme}>
             <FormCategoryMenuWrapper
               hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-              hideCenterPoint={this.hideCenterPoint.bind(this)}
               showNewPin={this.showNewPin.bind(this)}
               hideNewPin={this.hideNewPin.bind(this)}
               hidePanel={this.hidePanel.bind(this)}
@@ -616,7 +625,6 @@ export default Backbone.View.extend({
 
       self.hideNewPin();
       self.destroyNewModels();
-      self.hideCenterPoint();
       self.setBodyClass("content-visible");
       self.showSpotlightMask();
 
@@ -716,7 +724,6 @@ export default Backbone.View.extend({
         Backbone.history.getFragment(),
       ]);
       Util.log("APP", "panel-state", "open");
-      this.hideCenterPoint();
       this.setBodyClass("content-visible");
       store.dispatch(setMapSizeValidity(false));
       this.renderRightSidebar();
@@ -729,21 +736,11 @@ export default Backbone.View.extend({
     }
   },
   showNewPin: function() {
-    this.$centerpoint.show().addClass("newpin");
-
+    store.dispatch(setMapCenterpointVisibility(true));
     this.showSpotlightMask();
   },
-  showAddButton: function() {
-    this.$addButton.show();
-  },
-  hideAddButton: function() {
-    this.$addButton.hide();
-  },
-  showCenterPoint: function() {
-    this.$centerpoint.show().removeClass("newpin");
-  },
-  hideCenterPoint: function() {
-    this.$centerpoint.hide();
+  hideNewPin: function() {
+    store.dispatch(setMapCenterpointVisibility(false));
   },
   hidePanel: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
@@ -760,9 +757,6 @@ export default Backbone.View.extend({
 
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();
-  },
-  hideNewPin: function() {
-    this.showCenterPoint();
   },
   showSpotlightMask: function() {
     $("#spotlight-mask").show();

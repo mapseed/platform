@@ -21,6 +21,9 @@ export const currentTemplateSelector = state => {
 export const addPlaceButtonVisibilitySelector = state => {
   return state.ui.isAddPlaceButtonVisible;
 };
+export const mapCenterpointVisibilitySelector = state => {
+  return state.ui.isMapCenterpointVisible;
+};
 
 // Actions:
 const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
@@ -28,6 +31,7 @@ const SET_UI_LEFT_SIDEBAR = "ui/SET_UI_LEFT_SIDEBAR";
 const SET_UI_CONTENT_PANEL = "ui/SET_UI_CONTENT_PANEL";
 const SET_CURRENT_TEMPLATE = "ui/SET_CURRENT_TEMPLATE";
 const SET_ADD_PLACE_BUTTON_VISIBILITY = "ui/SET_ADD_PLACE_BUTTON_VISIBILITY";
+const SET_MAP_CENTERPOINT_VISIBILITY = "ui/SET_MAP_CENTERPOINT_VISIBILITY";
 
 // Action creators:
 export function setContentPanel(isOpen) {
@@ -45,6 +49,9 @@ export function setCurrentTemplate(templateName) {
 export function setAddPlaceButtonVisibility(isVisible) {
   return { type: SET_ADD_PLACE_BUTTON_VISIBILITY, payload: isVisible };
 }
+export function setMapCenterpointVisibility(isVisible) {
+  return { type: SET_MAP_CENTERPOINT_VISIBILITY, payload: isVisible };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -54,6 +61,7 @@ const INITIAL_STATE = {
   leftSidebarComponent: undefined,
   currentTemplate: "map",
   isAddPlaceButtonVisible: false,
+  isMapCenterpointVisible: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -83,6 +91,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isAddPlaceButtonVisible: action.payload,
+      };
+    case SET_MAP_CENTERPOINT_VISIBILITY:
+      return {
+        ...state,
+        isMapCenterpointVisible: action.payload,
       };
     default:
       return state;

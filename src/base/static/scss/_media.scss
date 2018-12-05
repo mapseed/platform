@@ -179,11 +179,6 @@
   }
 
   .geocoding-bar-enabled {
-    #main-btns-container {
-      // geocode bar height + alignment with leaflet controls
-      top: 82px;
-    }
-
     #content {
       top: 72px; // geocode bar height
       height: calc(100% - 72px);

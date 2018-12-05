@@ -27,6 +27,9 @@ export const mapUpdatingFilterGroupIdSelector = state => {
 export const mapUpdatingFilterTargetLayerSelector = state => {
   return state.map.updatingFilterTargetLayer;
 };
+export const mapDraggingSelector = state => {
+  return state.map.isMapDragging;
+}
 
 // Actions
 const SET_LAYER_LOAD_STATUS = "map/SET_LAYER_LOAD_STATUS";
@@ -39,8 +42,13 @@ const SET_BASEMAP = "map/SET_BASEMAP";
 const INIT_LAYER = "map/INIT_LAYER";
 const UPDATE_LAYERS_VISIBLE = "map/UPDATE_LAYERS_VISIBLE";
 const UPDATE_LAYERS_HIDDEN = "map/UPDATE_LAYERS_HIDDEN";
+const SET_MAP_DRAGGING = "map/SET_MAP_DRAGGING";
 
 // Action creators
+export const setMapDragging = isDragging => ({
+  type: SET_MAP_DRAGGING,
+  payload: isDragging,
+})
 export const showLayers = (layerIds = []) => ({
   type: UPDATE_LAYERS_VISIBLE,
   payload: layerIds,
@@ -138,12 +146,18 @@ const INITIAL_STATE = {
   updatingFilterTargetLayer: undefined,
   mapPosition: undefined,
   isMapSizeValid: true,
+  isMapDragging: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
   let newStatuses;
 
   switch (action.type) {
+    case SET_MAP_DRAGGING:
+      return {
+        ...state,
+        isMapDragging: action.payload,
+      };
     case SET_MAP_SIZE_VALIDITY:
       return {
         ...state,
