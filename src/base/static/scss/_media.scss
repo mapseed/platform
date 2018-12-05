@@ -46,40 +46,6 @@
     }
   }
 
-  #main-btns-container {
-    padding: 0;
-    height: 64px;
-    width: 100%;
-    position: fixed;
-    background-color: white;
-    bottom: 0;
-    z-index: 12;
-    font-size: 0.75em;
-    -webkit-box-shadow: 0px -3px 3px 0px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0px -3px 3px 0px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px -3px 3px 0px rgba(0, 0, 0, 0.3);
-
-    #add-place-btn-container {
-      padding: 0;
-      height: 100%;
-
-      #add-place {
-        border-radius: 0;
-        height: 100%;
-        font-size: 2em;
-        padding: 0.6em 0.75em;
-
-        &:hover {
-          background-color: #ff8b61;
-        }
-      }
-    }
-  }
-
-  #nav-stories:hover {
-    background-color: #ff8b61;
-  }
-
   #content {
     // bump up the bottom padding here so content at the very bottom
     // of a page is not obscured by bottom-clinging buttons
@@ -158,56 +124,6 @@
 
   #map {
     height: 100%;
-  }
-
-  #main-btns-container {
-    position: absolute;
-
-    &.pos-top-left {
-      top: 20px;
-      left: 3.5em;
-    }
-
-    &.pos-top-right {
-      top: 20px;
-      right: 10px;
-    }
-
-    &.pos-bot-left {
-      bottom: 2em;
-      left: 2em;
-    }
-
-    background: transparent;
-    font-size: 1.25em;
-    padding: 0;
-    box-shadow: none;
-    border-bottom: 0;
-
-    .btn {
-      padding-right: 1em;
-      padding-left: 1em;
-
-      &:visited,
-      &:link {
-        padding-right: 1em;
-        padding-left: 1em;
-      }
-    }
-
-    .btn-primary:hover {
-      background-color: #ff8b61;
-    }
-  }
-
-  .right-sidebar-visible #main-btns-container {
-    &.pos-top-right {
-      right: calc(#{$sidebar-width} + 10px);
-    }
-  }
-
-  .place-form-visible #main-btns-container {
-    display: none;
   }
 
   // Content
@@ -311,40 +227,6 @@
     box-sizing: border-box;
   }
 
-  /* place detail edit bar */
-  .place-detail-edit-bar {
-    position: fixed;
-    background-color: #fff;
-    border-bottom: 2px solid #ddd;
-    z-index: 5;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    top: $header-height-fullscreen;
-    width: calc(#{$content-visible-width} - 31px);
-  }
-
-  /* rich text editor toolbar, in fixed-top mode */
-  .ql-toolbar {
-    &.fixed-top {
-      position: fixed;
-      top: $header-height-fullscreen + 47px;
-      background-color: #efefef;
-      border: none;
-      z-index: 400;
-      width: calc(#{$content-visible-width} - 32px);
-      border-bottom-width: 0.3em;
-      border-bottom-style: solid;
-      border-bottom-color: #a3c7d9;
-      border-top-width: 1px !important;
-      border-top-color: #dedede !important;
-      border-left-width: 0 !important;
-      border-right-width: 0 !important;
-    }
-    &.no-edit-toolbar {
-      top: $header-height-fullscreen;
-    }
-  }
-
   // Geocoding
   #geocode-address-bar {
     display: flex;
@@ -360,23 +242,6 @@
     margin-top: 0;
     background-color: #fff;
     box-shadow: 0 0.125em 0 rgba(0, 0, 0, 0.2);
-  }
-
-  // The Side Bar
-  #side-bar {
-    position: absolute;
-    top: 4em;
-
-    // height of #site-header
-    right: 0;
-    bottom: 0;
-    left: auto;
-    width: 18em;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    z-index: 15;
-    box-shadow: (-0.325em) 0 0 $opacity-very-low-black;
-    background-color: rgba(255, 255, 255, 0.9);
   }
 
   .activity-enabled {

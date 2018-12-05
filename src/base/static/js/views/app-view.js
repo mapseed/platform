@@ -833,7 +833,6 @@ export default Backbone.View.extend({
     }
 
     if (this.options.placeConfig.adding_supported) {
-      console.log("!!!!!!!!!!!!");
       store.dispatch(setAddPlaceButtonVisibility(true));
     }
   },
