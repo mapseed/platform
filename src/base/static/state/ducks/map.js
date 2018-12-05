@@ -29,7 +29,7 @@ export const mapUpdatingFilterTargetLayerSelector = state => {
 };
 export const mapDraggingSelector = state => {
   return state.map.isMapDragging;
-}
+};
 
 // Actions
 const SET_LAYER_LOAD_STATUS = "map/SET_LAYER_LOAD_STATUS";
@@ -48,7 +48,7 @@ const SET_MAP_DRAGGING = "map/SET_MAP_DRAGGING";
 export const setMapDragging = isDragging => ({
   type: SET_MAP_DRAGGING,
   payload: isDragging,
-})
+});
 export const showLayers = (layerIds = []) => ({
   type: UPDATE_LAYERS_VISIBLE,
   payload: layerIds,
