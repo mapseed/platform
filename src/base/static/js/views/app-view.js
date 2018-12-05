@@ -288,7 +288,7 @@ export default Backbone.View.extend({
             </ThemeProvider>
           </ThemeProvider>
         </Provider>,
-        document.getElementById("info-modal-container"),
+        document.getElementById("add-place-button"),
       );
     }
 
