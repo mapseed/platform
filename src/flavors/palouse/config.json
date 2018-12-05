@@ -21,6 +21,10 @@
         "tertiary": "#e57c04",
         "headerFontFamily": "Raleway,sans-serif",
         "bodyFontFamily": "Raleway,sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#e57c04",
+        "addPlaceButtonHoverBackgroundColor": "#ff6201"
       }
     }
   },

@@ -8,16 +8,6 @@ body {
   font-family: Raleway, sans-serif;
 }
 
-/* =Input Button
--------------------------------------------------------------- */
-#add-place {
-  background-color: #e57c04; // theme.brand.primary
-
-  &:hover {
-    background-color: #ff6201 !important; // theme.brand.accent
-  }
-}
-
 /* =Input Form
 -------------------------------------------------------------- */
 .input-form__field-container {

@@ -51,6 +51,8 @@ import {
   setCurrentTemplate,
   setAddPlaceButtonVisibility,
   setMapCenterpointVisibility,
+  setGeocodeAddressBarVisibility,
+  geocodeAddressBarVisibilitySelector,
 } from "../../state/ducks/ui.js";
 
 import MainMap from "../../components/organisms/main-map";
@@ -321,6 +323,10 @@ export default Backbone.View.extend({
         self.geocodeAddressView.setAddress("");
       }
     });
+
+    if (this.options.mapConfig.geocoding_bar_enabled) {
+      store.dispatch(setGeocodeAddressBarVisibility(true));
+    }
 
     // Cache panel elements that we use a lot
     this.$panel = $("#content");
@@ -773,7 +779,7 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("list-container"));
 
     // render "main page" content:
-    if (this.options.mapConfig.geocoding_bar_enabled) {
+    if (geocodeAddressBarVisibilitySelector(store.getState())) {
       $("#geocode-address-bar").removeClass("is-visuallyhidden");
       ReactDOM.render(
         <Provider store={store}>

@@ -127,10 +127,6 @@
     }
   </script>
 
-  <script>
-    {{#precompile_jstemplates}}{{/precompile_jstemplates}}
-    Handlebars.partials = Handlebars.templates;
-  </script>
   {{#if production}}
     <script src="/dist/{{jsHashedBundleName}}"></script>
   {{else}}
@@ -138,23 +134,6 @@
   {{/if}}
   <script src="{{config.app.api_root}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{config.app.api_root}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
-
-  <!--[if IE LTE 7]>
-  <script>
-    $(function() {
-      var $unsupportedEl = $('.unsupported-overlay');
-      var unsupportedHtml = Handlebars.templates['unsupported-overlay']();
-      $unsupportedEl.hide();
-      $unsupportedEl.html(unsupportedHtml);
-      $unsupportedEl.slideDown();
-      $unsupportedEl.find('.close-btn').click(function(evt) {
-        evt.preventDefault();
-        $unsupportedEl.slideUp();
-        return false;
-      });
-    });
-  </script>
-  <![endif]-->
 
   {{#if production}}
     <script>

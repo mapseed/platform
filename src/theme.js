@@ -100,7 +100,7 @@ const theme = {
   },
   text: {
     primary: "#36454f",
-    secondary: "#007fbf",
+    secondary: "#fff",
     headerFontFamily: "Roboto,sans-serif",
     bodyFontFamily: "Roboto,sans-serif",
     textTransform: "uppercase",
@@ -108,8 +108,8 @@ const theme = {
     titleFontFamily: "Roboto,sans-serif",
   },
   map: {
-    inputButtonBackgroundColor: "rgba(242,82,24,0.89)",
-    inputButtonHoverBackgroundColor: "#ff8b61",
+    addPlaceButtonBackgroundColor: "rgba(242,82,24,0.89)",
+    addPlaceButtonHoverBackgroundColor: "#ff8b61",
   },
   boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
 };
