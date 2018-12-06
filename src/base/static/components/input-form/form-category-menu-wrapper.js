@@ -68,7 +68,6 @@ class FormCategoryMenuWrapper extends Component {
 
 FormCategoryMenuWrapper.propTypes = {
   hideSpotlightMask: PropTypes.func.isRequired,
-  hideCenterPoint: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,

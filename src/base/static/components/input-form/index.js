@@ -389,7 +389,7 @@ class InputForm extends Component {
   render() {
     if (this.isWithCustomGeometry) {
       this.props.hideSpotlightMask();
-      this.props.hideCenterPoint();
+      this.props.hideNewPin();
     } else if (!this.props.selectedCategory) {
       this.props.showNewPin();
     }
@@ -502,7 +502,7 @@ InputForm.propTypes = {
   container: PropTypes.instanceOf(HTMLElement),
   createPlace: PropTypes.func.isRequired,
   geometryStyle: geometryStyleProps,
-  hideCenterPoint: PropTypes.func.isRequired,
+  hideNewPin: PropTypes.func.isRequired,
   hideLayers: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,

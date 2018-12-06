@@ -25,6 +25,10 @@
         "navBarFontFamily": "proxima-nova, sans-serif",
         "headerFontFamily": "Josefin Sans",
         "bodyFontFamily": "proxima-nova"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#045a8b",
+        "addPlaceButtonHoverBackgroundColor": "#302d43"
       }
     },
     "languages": [

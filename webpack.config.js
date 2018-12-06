@@ -33,10 +33,7 @@ var entryPoints = [
   "babel-polyfill",
   "whatwg-fetch",
   "./src/base/static/js/routes.js",
-  "./src/base/static/js/handlebars-helpers.js",
   "./src/base/static/scss/default.scss",
-  "./src/base/static/css/leaflet.draw.css",
-  "./src/base/static/css/leaflet-sidebar.css",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
   "./src/flavors/" + process.env.FLAVOR + "/config.json",
 ].concat(flavorJsFiles);

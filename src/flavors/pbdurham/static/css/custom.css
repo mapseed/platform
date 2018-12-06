@@ -116,26 +116,6 @@ textarea:focus {
   background-color: rgba(166, 149, 171, 1) !important;
 }
 
-/* =The Site Header
--------------------------------------------------------------- */
-
-
-/* =The Big Button to Add A New Point
--------------------------------------------------------------- */
-#add-place-btn-container {
-  background-color: #daf2f2;
-  border: 0;
-}
-a#add-place,
-.input-form-submit-button {
-  background-color: #045a8b;
-  color: #fff;
-}
-a#add-place:hover,
-.input-form-submit-button:hover {
-  background-color: #302d43 !important;
-  color: #fff;
-}
 
 /* =Map
 -------------------------------------------------------------- */
@@ -273,12 +253,6 @@ a#add-place:hover,
   a.list-toggle-btn:hover {
     background-color: #302d43;
     color: #fff;
-  }
-  #main-btns-container {
-    left: 3em !important;
-  }
-  #add-place-btn-container {
-    background-color: transparent;
   }
 }
 

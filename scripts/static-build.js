@@ -26,8 +26,7 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 // (2) Set up Handlebars helpers and resolve template inheritances
 // (3) Convert config yaml to JSON object
 // (4) Compile base Handlebars templates
-// (5) Localize config and jstemplates, and build index file
-// (5a) Resolve jstemplates flavor overrides
+// (5) Localize config and build index file
 // (6) Copy static assets to the dist/ folder
 // (7) Build mapbox symbol spritesheet
 //
@@ -107,15 +106,6 @@ Handlebars.registerHelper("serialize", function(json) {
   return JSON.stringify(json);
 });
 
-// Helper for injecting precompiled templates to the index.html file
-const compiledTemplatesOutputPath = path.resolve(
-  outputBasePath,
-  "templates.js",
-);
-Handlebars.registerHelper("precompile_jstemplates", function() {
-  return fs.readFileSync(compiledTemplatesOutputPath);
-});
-
 // Set up template inheritance resolving
 wax.on(Handlebars);
 wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
@@ -136,8 +126,7 @@ const source = fs.readFileSync(
 const indexTemplate = Handlebars.compile(source);
 
 // (5) Localize the config for each language for the current flavor, precompile
-//     localized jstemplates Handlebars templates, and inject all localized
-//     content into the index-xx.html file
+//     and inject all localized content into the index-xx.html file
 // -----------------------------------------------------------------------------
 
 // Constants and variables to use inside the localization loop below
@@ -145,9 +134,6 @@ const handlebarsExec = path.resolve(
   __dirname,
   "../node_modules/handlebars/bin/handlebars",
 );
-const baseJSTemplatesPath = path.resolve(__dirname, "../src/base/jstemplates");
-const flavorJSTemplatesPath = path.resolve(flavorBasePath, "jstemplates");
-const outputJSTemplatesPath = path.resolve(outputBasePath, "jstemplates");
 const baseLocaleDir = path.resolve(__dirname, "../src/base/locale");
 const flavorLocaleDir = path.resolve(flavorBasePath, "locale");
 const mergedPOFileOutputPath = path.resolve(outputBasePath, "messages.po");
@@ -258,84 +244,6 @@ activeLanguages.forEach(language => {
 
   // Build the story data structure used by the app.
   thisConfig.story = transformStoryContent(thisConfig.story);
-
-  // (5a) Copy all jstemplates to a working directory from
-  //      which the templates can be localized and precompiled. Also resolve
-  //      flavor jstemplates overrides at this step
-  // ---------------------------------------------------------------------------
-
-  try {
-    fs.copySync(baseJSTemplatesPath, outputJSTemplatesPath);
-  } catch (e) {
-    logError("Error copying base jstemplates assets: " + e);
-  }
-
-  try {
-    fs.copySync(flavorJSTemplatesPath, outputJSTemplatesPath);
-  } catch (e) {
-    logError("Error copying flavor jstemplates assets: " + e);
-  }
-
-  log("Finished copying jstemplates assets");
-
-  // Localize jstemplates
-  let templatePath, localizedTemplate;
-  fs.readdirSync(outputJSTemplatesPath).forEach(jsTemplate => {
-    if (jsTemplate.endsWith("html")) {
-      templatePath = path.resolve(outputJSTemplatesPath, jsTemplate);
-      localizedTemplate = fs
-        .readFileSync(templatePath, "utf8")
-        .replace(jsTemplatesGettextRegex, (match, capture) => {
-          return gt.gettext(capture);
-        });
-
-      fs.writeFileSync(templatePath, localizedTemplate, "utf8");
-    }
-  });
-
-  // Precompile jstemplates
-  execSync(
-    handlebarsExec +
-      " -m -e 'html' " +
-      outputJSTemplatesPath +
-      " -f " +
-      compiledTemplatesOutputPath +
-      // List known template helpers. This is a precompilation optimization.
-      " -k current_url" +
-      " -k permalink" +
-      " -k is" +
-      " -k is_not" +
-      " -k if_fileinput_not_supported" +
-      " -k if_not_authenticated" +
-      " -k property" +
-      " -k is_authenticated" +
-      " -k current_user" +
-      " -k formatdatetime" +
-      " -k fromnow" +
-      " -k truncatechars" +
-      " -k is_submitter_name" +
-      " -k action_text" +
-      " -k place_type_label" +
-      " -k survey_label_by_count" +
-      " -k survey_label" +
-      " -k survey_label_plural" +
-      " -k support_label" +
-      " -k support_label_plural" +
-      " -k survey_count" +
-      " -k get_value" +
-      " -k select_item_value" +
-      " -k contains" +
-      " -k place_url" +
-      " -k windowLocation" +
-      " -k nlToBr" +
-      " -k formatDateTime" +
-      " -k fromNow" +
-      " -k times" +
-      " -k range" +
-      " -k select" +
-      " -k ifAnd",
-  );
-  log("Finished jstemplates compilation for " + language.code);
 
   // Build the index-xx.html file for this language
   const outputIndexFile = indexTemplate({

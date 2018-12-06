@@ -43,10 +43,17 @@ import {
   setBasemap,
   setLayerError,
   setLayerLoading,
+  setMapDragging,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
-import { setCurrentTemplate } from "../../state/ducks/ui.js";
+import {
+  setCurrentTemplate,
+  setAddPlaceButtonVisibility,
+  setMapCenterpointVisibility,
+  setGeocodeAddressBarVisibility,
+  geocodeAddressBarVisibilitySelector,
+} from "../../state/ducks/ui.js";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -59,6 +66,8 @@ import RightSidebar from "../../components/templates/right-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
 import SiteHeader from "../../components/organisms/site-header";
 import CustomPage from "../../components/organisms/custom-page";
+import AddPlaceButton from "../../components/molecules/add-place-button";
+import MapCenterpoint from "../../components/molecules/map-centerpoint";
 
 import constants from "../../constants";
 import PlaceList from "../../components/organisms/place-list";
@@ -85,7 +94,6 @@ browserUpdate({
 
 export default Backbone.View.extend({
   events: {
-    "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
   },
   initialize: function() {
@@ -202,24 +210,38 @@ export default Backbone.View.extend({
       }
     });
 
-    // On any route (/place or /page), hide the list view
-    // and render the contents of the main page:
-    this.options.router.bind(
-      "route",
-      function(route) {
-        if (!_.contains(this.getListRoutes(), route)) {
-          this.renderMain();
-        }
-      },
-      this,
-    );
+    if (this.options.placeConfig.adding_supported) {
+      store.dispatch(setAddPlaceButtonVisibility(true));
+      ReactDOM.render(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={this.adjustedTheme}>
+              <AddPlaceButton
+                onClick={() => {
+                  Util.log("USER", "map", "new-place-btn-click");
+                  this.options.router.navigate("/new", {
+                    trigger: true,
+                  });
+                }}
+              >
+                {this.options.placeConfig.add_button_label}
+              </AddPlaceButton>
+            </ThemeProvider>
+          </ThemeProvider>
+        </Provider>,
+        document.getElementById("add-place-button"),
+      );
+    }
 
-    // Only append the tools to add places (if supported)
-    $("#map-container").append(Handlebars.templates["centerpoint"]());
-    // NOTE: append add place/story buttons after the #map-container
-    // div (rather than inside of it) in order to support bottom-clinging buttons
-    $("#map-container").after(
-      Handlebars.templates["add-places"](this.options.placeConfig),
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <MapCenterpoint />
+          </ThemeProvider>
+        </ThemeProvider>
+      </Provider>,
+      document.getElementById("map-centerpoint"),
     );
 
     // Site header
@@ -302,19 +324,20 @@ export default Backbone.View.extend({
       }
     });
 
+    if (this.options.mapConfig.geocoding_bar_enabled) {
+      store.dispatch(setGeocodeAddressBarVisibility(true));
+    }
+
     // Cache panel elements that we use a lot
     this.$panel = $("#content");
     this.$panelContent = $("#content article");
     this.$panelCloseBtn = $(".close-btn");
-    this.$centerpoint = $("#centerpoint");
-    this.$addButton = $("#add-place-btn-container");
 
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
     // Show tools for adding data
     this.setBodyClass();
-    this.showCenterPoint();
 
     // Load places from the API
     // TODO(luke): move this into componentDidMount when App is ported
@@ -368,11 +391,10 @@ export default Backbone.View.extend({
     }
   },
   onMapMoveStart: function(evt) {
-    this.$centerpoint.addClass("dragging");
+    store.dispatch(setMapDragging(true));
   },
   onMapMoveEnd: function(isUserMove = true) {
-    this.$centerpoint.removeClass("dragging");
-
+    store.dispatch(setMapDragging(false));
     if (this.hasBodyClass("content-visible") === false && isUserMove) {
       const { zoom, center } = mapPositionSelector(store.getState());
       this.setLocationRoute(zoom, center.lat, center.lng);
@@ -382,11 +404,6 @@ export default Backbone.View.extend({
     if (this.hasBodyClass("content-visible") === true) {
       this.hideSpotlightMask();
     }
-  },
-  onClickAddPlaceBtn: function(evt) {
-    evt.preventDefault();
-    Util.log("USER", "map", "new-place-btn-click");
-    this.options.router.navigate("/new", { trigger: true });
   },
   onClickClosePanelBtn: function(evt) {
     evt.preventDefault();
@@ -490,6 +507,7 @@ export default Backbone.View.extend({
   },
   newPlace: function() {
     this.renderRightSidebar();
+    this.renderMain();
     // REACT PORT SECTION //////////////////////////////////////////////////////
     // NOTE: This wrapper component is temporary, and will be factored out
     // when the AppView is ported.
@@ -499,7 +517,6 @@ export default Backbone.View.extend({
           <ThemeProvider theme={this.adjustedTheme}>
             <FormCategoryMenuWrapper
               hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-              hideCenterPoint={this.hideCenterPoint.bind(this)}
               showNewPin={this.showNewPin.bind(this)}
               hideNewPin={this.hideNewPin.bind(this)}
               hidePanel={this.hidePanel.bind(this)}
@@ -553,6 +570,7 @@ export default Backbone.View.extend({
     this.$panel.show();
     this.setBodyClass("content-visible", "place-form-visible");
     store.dispatch(setMapSizeValidity(false));
+    store.dispatch(setAddPlaceButtonVisibility(false));
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     // END REACT PORT SECTION //////////////////////////////////////////////////
   },
@@ -613,7 +631,6 @@ export default Backbone.View.extend({
 
       self.hideNewPin();
       self.destroyNewModels();
-      self.hideCenterPoint();
       self.setBodyClass("content-visible");
       self.showSpotlightMask();
 
@@ -713,7 +730,6 @@ export default Backbone.View.extend({
         Backbone.history.getFragment(),
       ]);
       Util.log("APP", "panel-state", "open");
-      this.hideCenterPoint();
       this.setBodyClass("content-visible");
       store.dispatch(setMapSizeValidity(false));
       this.renderRightSidebar();
@@ -726,21 +742,11 @@ export default Backbone.View.extend({
     }
   },
   showNewPin: function() {
-    this.$centerpoint.show().addClass("newpin");
-
+    store.dispatch(setMapCenterpointVisibility(true));
     this.showSpotlightMask();
   },
-  showAddButton: function() {
-    this.$addButton.show();
-  },
-  hideAddButton: function() {
-    this.$addButton.hide();
-  },
-  showCenterPoint: function() {
-    this.$centerpoint.show().removeClass("newpin");
-  },
-  hideCenterPoint: function() {
-    this.$centerpoint.hide();
+  hideNewPin: function() {
+    store.dispatch(setMapCenterpointVisibility(false));
   },
   hidePanel: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
@@ -758,9 +764,6 @@ export default Backbone.View.extend({
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();
   },
-  hideNewPin: function() {
-    this.showCenterPoint();
-  },
   showSpotlightMask: function() {
     $("#spotlight-mask").show();
   },
@@ -776,7 +779,7 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("list-container"));
 
     // render "main page" content:
-    if (this.options.mapConfig.geocoding_bar_enabled) {
+    if (geocodeAddressBarVisibilitySelector(store.getState())) {
       $("#geocode-address-bar").removeClass("is-visuallyhidden");
       ReactDOM.render(
         <Provider store={store}>
@@ -801,16 +804,21 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <Provider store={store}>
-        <MainMap
-          container="map"
-          places={this.places}
-          router={this.options.router}
-          onZoomend={this.onMapZoomEnd.bind(this)}
-          onMovestart={this.onMapMoveStart.bind(this)}
-          onMoveend={this.onMapMoveEnd.bind(this)}
-          onDragend={this.onMapDragEnd.bind(this)}
-          store={store}
-        />
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <MainMap
+              addPlaceButtonLabel={this.options.placeConfig.add_button_label}
+              container="map"
+              places={this.places}
+              router={this.options.router}
+              onZoomend={this.onMapZoomEnd.bind(this)}
+              onMovestart={this.onMapMoveStart.bind(this)}
+              onMoveend={this.onMapMoveEnd.bind(this)}
+              onDragend={this.onMapDragEnd.bind(this)}
+              store={store}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
       </Provider>,
       document.getElementById("map-component"),
     );
@@ -822,6 +830,10 @@ export default Backbone.View.extend({
         coordinates: mapPosition.coordinates,
         zoom: mapPosition.zoom,
       });
+    }
+
+    if (this.options.placeConfig.adding_supported) {
+      store.dispatch(setAddPlaceButtonVisibility(true));
     }
   },
   destroyNewModels: function() {

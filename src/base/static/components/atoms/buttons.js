@@ -118,7 +118,11 @@ const Button = styled(props => {
     },
   };
 
-  if (props.size === "large") {
+  if (props.size === "extra-large") {
+    styles.fontWeight = "800";
+    styles.fontSize = "1.5rem";
+    styles.padding = "16px 24px 16px 24px";
+  } else if (props.size === "large") {
     styles.fontWeight = "600";
     styles.fontSize = "1.25rem";
     styles.padding = "0.5rem 0.75rem 0.5rem 0.75rem";
