@@ -8,7 +8,7 @@ import MapLegendPanel from "../organisms/map-legend-panel";
 import ActivityStream from "../organisms/activity-stream";
 
 import { rightSidebarConfigSelector } from "../../state/ducks/right-sidebar-config";
-import { placesSelector } from "../../state/ducks/places";
+import { placesSelector, placesPropType } from "../../state/ducks/places";
 import { setMapSizeValidity } from "../../state/ducks/map";
 
 import "./right-sidebar.scss";
@@ -29,7 +29,7 @@ const RightSidebar = props => {
         className="right-sidebar__collapse-btn"
       />
       {props.rightSidebarConfig.component === "StoryNavigator" &&
-        props.places.length > 0 && (
+        props.places && (
           <StoryNavigator
             storyConfig={props.storyConfig}
             placeConfig={props.placeConfig}
@@ -61,7 +61,7 @@ const RightSidebar = props => {
 
 RightSidebar.propTypes = {
   legacyPlaces: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
-  places: PropTypes.array.isRequired,
+  places: placesPropType,
   rightSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool.isRequired,
     is_visible_default: PropTypes.bool,

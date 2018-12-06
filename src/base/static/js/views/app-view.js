@@ -19,7 +19,7 @@ import theme from "../../../../theme";
 import "react-virtualized/styles.css";
 
 import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
-import { loadPlaces, updatePlaces } from "../../state/ducks/places";
+import { placesSelector, loadPlaces } from "../../state/ducks/places";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setSurveyConfig } from "../../state/ducks/survey-config";
@@ -144,21 +144,7 @@ export default Backbone.View.extend({
 
     languageModule.changeLanguage(this.options.languageCode);
 
-    var self = this,
-      // Only include submissions if the list view is enabled (anything but false)
-      includeSubmissions = this.options.appConfig.list_enabled !== false,
-      placeParams = {
-        // NOTE: this is to simply support the list view. It won't
-        // scale well, so let's think about a better solution.
-        include_submissions: includeSubmissions,
-      };
-
-    // Use the page size as dictated by the server by default, unless
-    // directed to do otherwise in the configuration.
-    if (this.options.appConfig.places_page_size) {
-      placeParams.page_size = this.options.appConfig.places_page_size;
-    }
-
+    const self = this;
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
@@ -340,54 +326,49 @@ export default Backbone.View.extend({
 
     // Show tools for adding data
     this.setBodyClass();
+  },
+
+  fetchAndLoadPlaces: async function() {
+    // Only include submissions if the list view is enabled (anything but false)
+    const includeSubmissions = this.options.appConfig.list_enabled !== false;
+    const placeParams = {
+      // NOTE: this is to simply support the list view. It won't
+      // scale well, so let's think about a better solution.
+      include_submissions: includeSubmissions,
+    };
+
+    // Use the page size as dictated by the server by default, unless
+    // directed to do otherwise in the configuration.
+    if (this.options.appConfig.places_page_size) {
+      placeParams.page_size = this.options.appConfig.places_page_size;
+    }
 
     // Load places from the API
-    // TODO(luke): move this into componentDidMount when App is ported
-    // to a component:
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
-      placeCollections: self.places,
+      placeCollections: this.places,
       layers: mapLayersSelector(store.getState()),
       setLayerError: layerId => store.dispatch(setLayerError(layerId)),
     });
 
-    // Load activities from the API
-    _.each(this.activities, function(collection, key) {
-      collection.fetch({
-        reset: true,
-        attribute: "target",
-        attributesToAdd: {
-          datasetId: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).id,
-          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).slug,
-        },
-      });
-    });
+    const fetchedCollections = await placeCollectionsPromise;
+    const allPlaces = fetchedCollections.reduce((places, collection) => {
+      return [...collection.models.map(model => model.toJSON()), ...places];
+    }, []);
+    store.dispatch(loadPlaces(allPlaces));
 
-    // TODO(luke): When AppView is ported to a react component, await
-    // the place collections to load in the App component:
-    placeCollectionsPromise.then(fetchedCollections => {
-      const allPlaces = fetchedCollections.reduce((places, collection) => {
-        return [...collection.models.map(model => model.toJSON()), ...places];
-      }, []);
-      store.dispatch(loadPlaces(allPlaces));
-
-      // Update the load statuses of our layers that are being fetched:
-      const layers = mapLayerStatusesSelector(store.getState());
-      Object.values(layers).forEach(layerStatus => {
-        if (layerStatus.loadStatus === "fetching") {
-          if (layerStatus.isVisible) {
-            // mark the layer to be loaded onto the map
-            store.dispatch(setLayerLoading(layerStatus.id));
-          } else {
-            // the layer is now 'fetched', but don't load it into the map.
-            store.dispatch(setLayerUnloaded(layerStatus.id));
-          }
+    // Update the load statuses of our layers that are being fetched:
+    const layers = mapLayerStatusesSelector(store.getState());
+    Object.values(layers).forEach(layerStatus => {
+      if (layerStatus.loadStatus === "fetching") {
+        if (layerStatus.isVisible) {
+          // mark the layer to be loaded onto the map
+          store.dispatch(setLayerLoading(layerStatus.id));
+        } else {
+          // the layer is now 'fetched', but don't load it into the map.
+          store.dispatch(setLayerUnloaded(layerStatus.id));
         }
-      });
+      }
     });
   },
 
@@ -469,7 +450,7 @@ export default Backbone.View.extend({
     );
   },
 
-  viewMap: function(zoom, lat, lng) {
+  viewMap: async function(zoom, lat, lng) {
     let mapPosition;
 
     if (zoom && lat && lng) {
@@ -488,7 +469,11 @@ export default Backbone.View.extend({
     this.destroyNewModels();
     this.setBodyClass();
     this.renderMain(mapPosition);
+    if (!placesSelector(store.getState())) {
+      await this.fetchAndLoadPlaces();
+    }
   },
+
   renderRightSidebar: function() {
     if ($("body").hasClass("right-sidebar-active")) {
       return;
@@ -516,7 +501,7 @@ export default Backbone.View.extend({
       // END REACT PORT SECTION ///////////////////////////////////////////////
     }
   },
-  newPlace: function() {
+  newPlace: async function() {
     this.renderRightSidebar();
     this.renderMain();
     // REACT PORT SECTION //////////////////////////////////////////////////////
@@ -582,147 +567,136 @@ export default Backbone.View.extend({
     this.setBodyClass("content-visible", "place-form-visible");
     store.dispatch(setMapSizeValidity(false));
     store.dispatch(setAddPlaceButtonVisibility(false));
+    if (!placesSelector(store.getState())) {
+      await this.fetchAndLoadPlaces();
+    }
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     // END REACT PORT SECTION //////////////////////////////////////////////////
   },
 
-  viewPlace: function(args) {
+  viewPlace: async function(args) {
     this.renderMain();
     this.renderRightSidebar();
-
-    var self = this;
-    Util.getPlaceFromCollections({
-      collectionsSet: {
-        places: this.places,
-      },
-      updatePlaces: places => {
-        store.dispatch(updatePlaces(places));
-      },
-      args: args,
-      mapConfig: this.options.mapConfig,
-      callbacks: {
-        onFound: _.bind(onFound, this),
-        onNotFound: _.bind(onNotFound, this),
-      },
-    });
-
-    function onFound(model, type, collectionId) {
-      // REACT PORT SECTION //////////////////////////////////////////////////
-      ReactDOM.unmountComponentAtNode(
-        document.querySelector("#content article"),
-      );
-
-      ReactDOM.render(
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <PlaceDetail
-                collectionId={collectionId}
-                container={document.querySelector("#content article")}
-                currentUser={Shareabouts.bootstrapped.currentUser}
-                isGeocodingBarEnabled={
-                  this.options.mapConfig.geocoding_bar_enabled
-                }
-                model={model}
-                places={this.places}
-                scrollToResponseId={args.responseId}
-                router={this.options.router}
-                userToken={this.options.userToken}
-              />
-            </ThemeProvider>
-          </ThemeProvider>
-        </Provider>,
-        document.querySelector("#content article"),
-      );
-
-      this.$panel.show();
-      this.setBodyClass("content-visible");
-
-      $("#main-btns-container").addClass(
-        this.options.placeConfig.add_button_location || "pos-top-left",
-      );
-      // END REACT PORT SECTION //////////////////////////////////////////////
-
-      self.hideNewPin();
-      self.destroyNewModels();
-      self.setBodyClass("content-visible");
-      self.showSpotlightMask();
-
-      const geometry = model.get("geometry");
-
-      if (model.get("story")) {
-        self.isStoryActive = true;
-        const storyChapterVisibleLayers = model.get("story").visibleLayers;
-        const storyChapterBasemap = model.get("story").basemap;
-
-        mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
-          store.dispatch(setBasemap(storyChapterBasemap));
-        store.dispatch(showLayers(storyChapterVisibleLayers));
-        // Hide all other layers.
-        store.dispatch(
-          hideLayers(
-            mapLayersSelector(store.getState())
-              .filter(layer => !layer.is_basemap)
-              .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
-              .map(layer => layer.id),
-          ),
-        );
-
-        if (!model.get("story").spotlight) {
-          self.hideSpotlightMask();
-        }
-
-        if (!self.hasBodyClass("right-sidebar-visible")) {
-          $("body").addClass("right-sidebar-visible");
-        }
-      }
-
-      // Fire an event to set map position, reconciling with custom story
-      // settings if this model is part of a story.
-      const story = model.get("story") || {};
-
-      if (story.panTo) {
-        // If a story chapter declares a custom centerpoint, regardless of the
-        // geometry type, assume that we want to fly to a point.
-        emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-          coordinates:
-            story.panTo || mapPositionSelector(store.getState()).center,
-          zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-        });
-      } else if (geometry.type === "LineString") {
-        emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
-          coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
-        });
-      } else if (geometry.type === "Polygon") {
-        emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
-          coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
-        });
-      } else if (geometry.type === "Point") {
-        emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-          coordinates: geometry.coordinates,
-          zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-        });
-      }
-
-      emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-        datasetId: collectionId,
-        modelId: model.get("id"),
-      });
-
-      if (!model.get("story") && self.isStoryActive) {
-        self.isStoryActive = false;
-      }
-
-      store.dispatch(setMapSizeValidity(false));
+    if (!placesSelector(store.getState())) {
+      await this.fetchAndLoadPlaces();
     }
-
-    function onNotFound() {
-      self.options.router.navigate("/");
+    const datasetId = this.options.mapConfig.layers.find(
+      layer => layer.slug === args.datasetSlug,
+    ).id;
+    const model = this.places[datasetId].get(args.modelId);
+    if (!model) {
+      this.options.router.navigate("/");
       return;
     }
+
+    // REACT PORT SECTION //////////////////////////////////////////////////
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
+
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <PlaceDetail
+              collectionId={datasetId}
+              container={document.querySelector("#content article")}
+              currentUser={Shareabouts.bootstrapped.currentUser}
+              isGeocodingBarEnabled={
+                this.options.mapConfig.geocoding_bar_enabled
+              }
+              model={model}
+              places={this.places}
+              scrollToResponseId={args.responseId}
+              router={this.options.router}
+              userToken={this.options.userToken}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
+      </Provider>,
+      document.querySelector("#content article"),
+    );
+
+    this.$panel.show();
+    this.setBodyClass("content-visible");
+
+    $("#main-btns-container").addClass(
+      this.options.placeConfig.add_button_location || "pos-top-left",
+    );
+    // END REACT PORT SECTION //////////////////////////////////////////////
+
+    this.hideNewPin();
+    this.destroyNewModels();
+    this.setBodyClass("content-visible");
+    this.showSpotlightMask();
+
+    const geometry = model.get("geometry");
+
+    if (model.get("story")) {
+      this.isStoryActive = true;
+      const storyChapterVisibleLayers = model.get("story").visibleLayers;
+      const storyChapterBasemap = model.get("story").basemap;
+
+      mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
+        store.dispatch(setBasemap(storyChapterBasemap));
+      store.dispatch(showLayers(storyChapterVisibleLayers));
+      // Hide all other layers.
+      store.dispatch(
+        hideLayers(
+          mapLayersSelector(store.getState())
+            .filter(layer => !layer.is_basemap)
+            .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
+            .map(layer => layer.id),
+        ),
+      );
+
+      if (!model.get("story").spotlight) {
+        this.hideSpotlightMask();
+      }
+
+      if (!this.hasBodyClass("right-sidebar-visible")) {
+        $("body").addClass("right-sidebar-visible");
+      }
+    }
+
+    // Fire an event to set map position, reconciling with custom story
+    // settings if this model is part of a story.
+    const story = model.get("story") || {};
+
+    if (story.panTo) {
+      // If a story chapter declares a custom centerpoint, regardless of the
+      // geometry type, assume that we want to fly to a point.
+      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
+        coordinates:
+          story.panTo || mapPositionSelector(store.getState()).center,
+        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+      });
+    } else if (geometry.type === "LineString") {
+      emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
+        coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
+      });
+    } else if (geometry.type === "Polygon") {
+      emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
+        coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
+      });
+    } else if (geometry.type === "Point") {
+      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
+        coordinates: geometry.coordinates,
+        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+      });
+    }
+
+    emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
+      datasetId: datasetId,
+      modelId: model.get("id"),
+    });
+
+    if (!model.get("story") && this.isStoryActive) {
+      this.isStoryActive = false;
+    }
+
+    store.dispatch(setMapSizeValidity(false));
   },
 
-  viewPage: function(slug) {
+  viewPage: async function(slug) {
     const page = pageSelector({
       state: store.getState(),
       slug: slug,
@@ -751,6 +725,9 @@ export default Backbone.View.extend({
       $("#main-btns-container").addClass(
         this.options.placeConfig.add_button_location || "pos-top-left",
       );
+      if (!placesSelector(store.getState())) {
+        await this.fetchAndLoadPlaces();
+      }
     } else {
       this.options.router.navigate("/", { trigger: true });
     }
@@ -859,9 +836,12 @@ export default Backbone.View.extend({
       });
     });
   },
-  viewList: function() {
+  viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     this.renderRightSidebar();
+    if (!placesSelector(store.getState())) {
+      await this.fetchAndLoadPlaces();
+    }
     this.renderList();
   },
   renderList: function() {
