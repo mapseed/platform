@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { storyConfigSelector } from "../../state/ducks/story-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { placesPropType } from "../../state/ducks/places";
 
 import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 import Immutable from "immutable";
@@ -160,7 +161,7 @@ StoryNavigator.propTypes = {
     place_detail: PropTypes.array.isRequired,
   }).isRequired,
 
-  places: PropTypes.array.isRequired,
+  places: placesPropType.isRequired,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };

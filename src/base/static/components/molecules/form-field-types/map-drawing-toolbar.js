@@ -74,7 +74,7 @@ class MapDrawingToolbar extends Component {
       }
 
       emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
-        collectionId: this.props.existingCollectionId,
+        datasetId: this.props.existingCollectionId,
         modelId: this.props.existingModelId,
       });
     }

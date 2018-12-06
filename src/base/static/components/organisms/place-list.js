@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
-import { placesSelector } from "../../state/ducks/places";
+import { placesSelector, placesPropType } from "../../state/ducks/places";
 import {
   placeConfigSelector,
   placeConfigPropType,
@@ -12,15 +12,12 @@ import PlaceListItem from "../molecules/place-list-item";
 import { Button } from "../atoms/buttons";
 import { TextInput } from "../atoms/input";
 
-// But if you only use a few react-virtualized components,
-// And you're concerned about increasing your application's bundle size,
-// You can directly import only the components you need, like so:
-import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
-import List from "react-virtualized/dist/commonjs/List";
-import CellMeasurer from "react-virtualized/dist/commonjs/CellMeasurer/CellMeasurer";
-import CellMeasurerCache from "react-virtualized/dist/commonjs/CellMeasurer/CellMeasurerCache";
-// In wepack 4, we can do the following:
-// import { AutoSizer, List } from 'react-virtualized'
+import {
+  AutoSizer,
+  List,
+  CellMeasurer,
+  CellMeasurerCache,
+} from "react-virtualized";
 
 const cache = new CellMeasurerCache({
   defaultHeight: 160,
@@ -227,7 +224,10 @@ class PlaceList extends React.Component {
                 ref={this.setVirtualizedList}
                 height={height}
                 width={width}
-                containerStyle={{ margin: "0 auto", maxWidth: MAX_LIST_WIDTH }}
+                containerStyle={{
+                  margin: "0 auto",
+                  maxWidth: MAX_LIST_WIDTH,
+                }}
                 overscanRowCount={4}
                 noRowsRenderer={this._noRowsRenderer}
                 rowCount={this.state.places.length}
@@ -244,7 +244,7 @@ class PlaceList extends React.Component {
 }
 
 PlaceList.propTypes = {
-  places: PropTypes.array,
+  places: placesPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
