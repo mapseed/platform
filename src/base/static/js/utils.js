@@ -150,39 +150,6 @@ var self = (module.exports = {
     });
   },
 
-  getPlaceFromCollections: function({
-    collectionsSet,
-    updatePlaces,
-    args,
-    mapConfig,
-    callbacks,
-  }) {
-    const datasetId = _.find(mapConfig.layers, function(layer) {
-      return layer.slug === args.datasetSlug;
-    }).id;
-    const model = collectionsSet.places[datasetId].get(args.modelId);
-
-    if (model) {
-      callbacks.onFound(model, "place", datasetId);
-    } else {
-      // If the model has not already loaded, fetch it by id
-      // from the API
-      collectionsSet.places[datasetId].fetchById(args.modelId, {
-        validate: true,
-        success: function(model) {
-          updatePlaces([model.toJSON()]);
-          callbacks.onFound(model, "place", datasetId);
-        },
-        error: function() {
-          callbacks.onNotFound();
-        },
-        data: {
-          include_submissions: Shareabouts.Config.app.list_enabled !== false,
-        },
-      });
-    }
-  },
-
   getAttrs: function($form) {
     var attrs = {},
       multivalues = [];
