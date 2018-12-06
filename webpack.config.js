@@ -26,9 +26,6 @@ if (isProd) {
   shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
 }
 
-var flavorJsFiles = glob.sync(
-  "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js",
-);
 var entryPoints = [
   "babel-polyfill",
   "whatwg-fetch",
@@ -36,31 +33,9 @@ var entryPoints = [
   "./src/base/static/scss/default.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
   "./src/flavors/" + process.env.FLAVOR + "/config.json",
-].concat(flavorJsFiles);
+];
 
-var baseViewPaths = glob.sync(
-  path.resolve(__dirname, "src/base/static/js/views/*.js"),
-);
-var alias = {};
-
-for (var i = 0; i < baseViewPaths.length; i++) {
-  var baseViewPath = baseViewPaths[i];
-  var viewName = baseViewPath.match(/\/([^\/]*)\.js$/)[1];
-  var aliasName = "mapseed-" + viewName + "$";
-  var flavorViewPath = path.resolve(
-    __dirname,
-    "src/flavors",
-    process.env.FLAVOR,
-    "static/js/views/",
-    viewName + ".js",
-  );
-  if (fs.existsSync(flavorViewPath)) {
-    alias[aliasName] = flavorViewPath;
-  } else {
-    alias[aliasName] = baseViewPath;
-  }
-}
-
+let alias = {};
 alias.config = path.resolve(
   __dirname,
   "src/flavors",

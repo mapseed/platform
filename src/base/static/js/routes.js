@@ -3,7 +3,7 @@
 import PlaceModel from "./models/place-model.js";
 import Util from "./utils.js";
 import PlaceCollection from "./models/place-collection.js";
-import AppView from "mapseed-app-view";
+import AppView from "./views/app-view.js";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
