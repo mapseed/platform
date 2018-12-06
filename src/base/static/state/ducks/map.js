@@ -42,11 +42,11 @@ const SET_BASEMAP = "map/SET_BASEMAP";
 const INIT_LAYER = "map/INIT_LAYER";
 const UPDATE_LAYERS_VISIBLE = "map/UPDATE_LAYERS_VISIBLE";
 const UPDATE_LAYERS_HIDDEN = "map/UPDATE_LAYERS_HIDDEN";
-const SET_MAP_DRAGGING = "map/SET_MAP_DRAGGING";
+const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
 
 // Action creators
 export const setMapDragging = isDragging => ({
-  type: SET_MAP_DRAGGING,
+  type: UPDATE_MAP_DRAGGING,
   payload: isDragging,
 });
 export const showLayers = (layerIds = []) => ({
@@ -153,7 +153,7 @@ export default function reducer(state = INITIAL_STATE, action) {
   let newStatuses;
 
   switch (action.type) {
-    case SET_MAP_DRAGGING:
+    case UPDATE_MAP_DRAGGING:
       return {
         ...state,
         isMapDragging: action.payload,
