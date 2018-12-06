@@ -5,7 +5,6 @@ const Gettext = require("node-gettext");
 const gettextParser = require("gettext-parser");
 const walk = require("object-walk"); // object-walk supports traversal of JS objects
 const Handlebars = require("handlebars");
-const wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 const execSync = require("child_process").execSync;
 const glob = require("glob");
 const colors = require("colors");
@@ -23,9 +22,9 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 //
 // Overview:
 // (1) Configure paths, variables, and utilities
-// (2) Set up Handlebars helpers and resolve template inheritances
+// (2) Set up Handlebars helpers
 // (3) Convert config yaml to JSON object
-// (4) Compile base Handlebars templates
+// (4) Compile base Handlebars template
 // (5) Localize config and build index file
 // (6) Copy static assets to the dist/ folder
 // (7) Build mapbox symbol spritesheet
@@ -96,7 +95,7 @@ Object.keys(process.env).forEach(function(key) {
   }
 });
 
-// (2) Register Handlebars helpers and resolve template inheritances
+// (2) Register Handlebars helpers
 // -----------------------------------------------------------------------------
 
 // Helper for serializing config objects and injecting them into the index.html
@@ -106,21 +105,17 @@ Handlebars.registerHelper("serialize", function(json) {
   return JSON.stringify(json);
 });
 
-// Set up template inheritance resolving
-wax.on(Handlebars);
-wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
-
 // (3) Convert the config yaml to json
 // -----------------------------------------------------------------------------
 
 const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
 const config = JSON.parse(fs.readFileSync(flavorConfigPath, "utf8"));
 
-// (4) Compile base.hbs and index.html templates for the current flavor
+// (4) Compile base.hbs template
 // -----------------------------------------------------------------------------
 
 const source = fs.readFileSync(
-  path.resolve(flavorBasePath, "templates/index.html"),
+  path.resolve(__dirname, "../src/base/templates/base.hbs"),
   "utf8",
 );
 const indexTemplate = Handlebars.compile(source);
