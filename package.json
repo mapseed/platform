@@ -117,7 +117,6 @@
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "watchify": "^3.4.0",
-    "wax-on": "^1.2.0",
     "webpack": "^4.24.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",

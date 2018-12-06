@@ -1348,19 +1348,43 @@
     {
       "title": "_(About)",
       "type": "internal_link",
-      "url": "/page/about",
-      "name": "overview"
+      "url": "/page/about"
     },
     {
       "title": "_(Get involved)",
       "type": "internal_link",
-      "url": "/page/getinvolved",
-      "name": "contribute"
+      "url": "/page/getinvolved"
     },
     {
       "type": "list_toggle",
       "show_list_button_label": "_(See All Reports)",
       "show_map_button_label": "_(Show the Map)"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "getinvolved",
+      "lang": "en_US",
+      "content": [
+        "<h1>Get involved</h1>",
+        "<p>Want to help out? Excellent!</p>",
+        "<p>The best way to be involved is to <a href='/new' rel='internal'>submit a report</a> on the map, or comment on someone else's report.</p>",
+        "<p>We can also use help writing <a href='http://github.com/smartercleanup/duwamish'>code</a>, designing a better interface, and promoting the project.</p>",
+        "<p>If you want to see a project like this in your community, let us know!</p>",
+        "<a href='http://eepurl.com/6IfA5'>Send us a message</a> and we'll be in touch."
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h1>Welcome</h1>",
+        "<p>We are a community of residents and stakeholders who are monitoring important issues in our community.</p>",
+        "<ul>",
+        "<li>Help us out and <a href='/new' rel='internal'>submit a report</a> on the map!</li>",
+        "</ul>",
+        "<p class='btn btn-block btn-large'><a href='/' rel='internal'>Start Mapping!</a></p>"
+      ]
     }
   ],
   "story": {

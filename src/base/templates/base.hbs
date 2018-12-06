@@ -11,7 +11,6 @@
   <!-- Mobile Viewport Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 
-  {{#block "app_icons"}}
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
   <link rel="icon" href="/static/css/images/favicon.ico?v=2">
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/css/images/apple-touch-icon-144x144-precomposed.png">
@@ -19,7 +18,6 @@
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/css/images/apple-touch-icon-72x72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="/static/css/images/apple-touch-icon-precomposed.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  {{/block}}
 
   <!-- Google WebFonts -->
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -63,23 +61,19 @@
     {{/if}}
 
     <div id="left-sidebar-container"></div>
-
     <div id="map-container">
       <div id="map-component"></div>
       <div id="ajax-error-msg">{{#_}}We can't connect to the server at the moment. Hang tight while we re-establish communication.{{/_}}</div>
-      <!-- <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div> -->
       <div id="map"></div>
       <div id="spotlight-mask"></div>
-      <div id="layer-info-window-container" class="is-hidden-fadeout"></div>
+      <span id="map-centerpoint"></span>
     </div>
-
-    <div id="content"><!-- .place or .page -->
+    <div id="content">
       <a href="#" class="close-btn">&#10005;<span>{{#_}}Close{{/_}}</span></a>
       <article></article>
-    </div><!-- end #content -->
-
+    </div>
+    <div id="add-place-button"></div>
     <div id="right-sidebar-container"></div>
-
   </div><!-- end #main -->
 
   <div id="list-container"></div>
@@ -93,7 +87,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
   {{else}}
@@ -101,7 +94,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
   {{/if}}
@@ -133,10 +125,6 @@
     }
   </script>
 
-  <script>
-    {{#precompile_jstemplates}}{{/precompile_jstemplates}}
-    Handlebars.partials = Handlebars.templates;
-  </script>
   {{#if production}}
     <script src="/dist/{{jsHashedBundleName}}"></script>
   {{else}}
@@ -144,23 +132,6 @@
   {{/if}}
   <script src="{{config.app.api_root}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{config.app.api_root}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
-
-  <!--[if IE LTE 7]>
-  <script>
-    $(function() {
-      var $unsupportedEl = $('.unsupported-overlay');
-      var unsupportedHtml = Handlebars.templates['unsupported-overlay']();
-      $unsupportedEl.hide();
-      $unsupportedEl.html(unsupportedHtml);
-      $unsupportedEl.slideDown();
-      $unsupportedEl.find('.close-btn').click(function(evt) {
-        evt.preventDefault();
-        $unsupportedEl.slideUp();
-        return false;
-      });
-    });
-  </script>
-  <![endif]-->
 
   {{#if production}}
     <script>
@@ -182,6 +153,7 @@
           leftSidebar:    {{#serialize config.left_sidebar}}{{/serialize}},
           rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
           navBar:          {{#serialize config.nav_bar}}{{/serialize}},
+          pages:           {{#serialize config.pages}}{{/serialize}},
           story:           {{#serialize config.story}}{{/serialize}},
           filters:         {{#serialize config.filters}}{{/serialize}},
           datasets:        {{#serialize config.datasets}}{{/serialize}},
@@ -206,6 +178,7 @@
             storyConfig: S.Config.story,
             activityConfig: S.Config.activity,
             navBarConfig: S.Config.navBar,
+            pagesConfig: S.Config.pages,
             filters: S.Config.filters,
             datasetsConfig: S.Config.datasets,
             customHooks: S.Config.customHooks,
@@ -250,8 +223,6 @@
     </p>
   </noscript>
   {{/if}}
-
-  {{#block "includes"}}{{/block}}
 
 </body>
 </html>

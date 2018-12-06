@@ -18,12 +18,27 @@ export const contentPanelOpenSelector = state => {
 export const currentTemplateSelector = state => {
   return state.ui.currentTemplate;
 };
+export const addPlaceButtonVisibilitySelector = state => {
+  return state.ui.isAddPlaceButtonVisible;
+};
+export const mapCenterpointVisibilitySelector = state => {
+  return state.ui.isMapCenterpointVisible;
+};
+export const geocodeAddressBarVisibilitySelector = state => {
+  return state.ui.isGeocodeAddressBarVisible;
+};
 
 // Actions:
 const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
 const SET_UI_LEFT_SIDEBAR = "ui/SET_UI_LEFT_SIDEBAR";
 const SET_UI_CONTENT_PANEL = "ui/SET_UI_CONTENT_PANEL";
 const SET_CURRENT_TEMPLATE = "ui/SET_CURRENT_TEMPLATE";
+const UPDATE_ADD_PLACE_BUTTON_VISIBILITY =
+  "ui/UPDATE_ADD_PLACE_BUTTON_VISIBILITY";
+const UPDATE_MAP_CENTERPOINT_VISIBILITY =
+  "ui/UPDATE_MAP_CENTERPOINT_VISIBILITY";
+const UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY =
+  "ui/UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY";
 
 // Action creators:
 export function setContentPanel(isOpen) {
@@ -38,6 +53,15 @@ export function setLeftSidebar(status) {
 export function setCurrentTemplate(templateName) {
   return { type: SET_CURRENT_TEMPLATE, payload: templateName };
 }
+export function setAddPlaceButtonVisibility(isVisible) {
+  return { type: UPDATE_ADD_PLACE_BUTTON_VISIBILITY, payload: isVisible };
+}
+export function setMapCenterpointVisibility(isVisible) {
+  return { type: UPDATE_MAP_CENTERPOINT_VISIBILITY, payload: isVisible };
+}
+export function setGeocodeAddressBarVisibility(isVisible) {
+  return { type: UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY, payload: isVisible };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -46,6 +70,9 @@ const INITIAL_STATE = {
   isLeftSidebarExpanded: false,
   leftSidebarComponent: undefined,
   currentTemplate: "map",
+  isAddPlaceButtonVisible: false,
+  isMapCenterpointVisible: false,
+  isGeocodeAddressBarVisible: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -70,6 +97,21 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         currentTemplate: action.payload,
+      };
+    case UPDATE_ADD_PLACE_BUTTON_VISIBILITY:
+      return {
+        ...state,
+        isAddPlaceButtonVisible: action.payload,
+      };
+    case UPDATE_MAP_CENTERPOINT_VISIBILITY:
+      return {
+        ...state,
+        isMapCenterpointVisible: action.payload,
+      };
+    case UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY:
+      return {
+        ...state,
+        isGeocodeAddressBarVisible: action.payload,
       };
     default:
       return state;

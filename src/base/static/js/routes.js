@@ -3,7 +3,7 @@
 import PlaceModel from "./models/place-model.js";
 import Util from "./utils.js";
 import PlaceCollection from "./models/place-collection.js";
-import AppView from "mapseed-app-view";
+import AppView from "./views/app-view.js";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
@@ -80,6 +80,7 @@ Shareabouts.Util = Util;
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
         navBarConfig: options.navBarConfig,
+        pagesConfig: options.pagesConfig,
         mapConfig: options.mapConfig,
         storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
