@@ -1,18 +1,23 @@
 {
   "app": {
-    "title": "Parana River Delta",
-    "name": "Parana River Delta",
+    "title": "TERRITORIOS DE COLABORACIÓN",
+    "name": "TERRITORIOS DE COLABORACIÓN",
     "show_name_in_header": true,
+    "logo": "/static/css/images/TDC.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
       "brand": {
-        "primary": "#a2c7da",
+        "primary": "#6BC2D5",
         "accent": "#93b7c9"
+      },
+      "bg": {
+        "default": "#6F4626",
+        "light": "#007fbe"
       },
       "text": {
         "tertiary": "#007ec0",
-        "titleFontFamily": "Quicksand Regular, sans-serif"
+        "titleFontFamily": "Roboto, sans-serif"
       }
     }
   },
@@ -26,10 +31,10 @@
     "options": {
       "map": {
         "center": {
-          "lat": -28.1274768,
-          "lng": -57.9806629
+          "lat": -33.67868,
+          "lng": -58.78081
         },
-        "zoom": 7,
+        "zoom": 8,
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
@@ -46,8 +51,14 @@
         "type": "raster-tile",
         "is_basemap": true,
         "is_visible_default": true,
-        "url": "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w",
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "url": "https://api.mapbox.com/styles/v1/bkholmes/cjp7qtxt135mg2smpeg7f89p7/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw",
+        "attribution": "Hello World"
+      },
+      {
+        "id": "satellite",
+        "is_basemap": true,
+        "type": "raster-tile",
+        "url": "https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
       },
       {
         "id": "argentina-input",
@@ -186,21 +197,21 @@
         "id": "gis-layers",
         "icon": "fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
+        "title": "_(Capas:)",
         "groupings": [
           {
             "id": "basemaps",
-            "title": "_(Basemaps)",
+            "title": "_(Mapas)",
             "layers": [
               {
                 "id": "osm",
-                "title": "_(OpenStreetMap)"
+                "title": "_(Delta colores)"
               }
             ]
           },
           {
             "id": "grp-community",
-            "title": "_(Data layers)",
+            "title": "_(Contribuciones)",
             "layers": [
               {
                 "id": "argentina-input",
@@ -217,7 +228,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Put a comment on the map!)",
+    "add_button_label": "_(Añadir un punto)",
     "show_list_button_label": "_(See all comments)",
     "show_map_button_label": "_(Show the Map)",
     "title": "_(Tell us more...)",
@@ -233,22 +244,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
-        "label": "_(Observation)",
+        "label": "_(Observación)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your observation:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "_(¿De qué se trata?)",
+            "display_prompt": "_(Título:)",
+            "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(Description of this observation:)",
-            "display_prompt": "_(Further description:)",
-            "placeholder": "_(Enter description...)",
+            "prompt": "_(Que se ve, se oye, se huele, se siente, se toca? Y qué importancia tiene? Como se relaciona a la vida común en el territorio?)",
+            "display_prompt": "_(Notar la observación:)",
+            "placeholder": "_(Notar la observación...)",
             "optional": false
           },
           {
@@ -276,22 +287,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
-        "label": "_(Question)",
+        "label": "_(Amenazas / conflictos)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your question:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "_(¿Qué pasa?)",
+            "display_prompt": "_(Título:)",
+            "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(What's your question?)",
-            "display_prompt": "_(My question:)",
-            "placeholder": "_(Enter question...)"
+            "prompt": "_(¿Cuales son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansion de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
+            "display_prompt": "_(Describir la situación)",
+            "placeholder": "_(Describir la situación)"
           },
           {
             "name": "submitter_name",
@@ -318,22 +329,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
-        "label": "_(Idea)",
+        "label": "_(Experiencias sustentables)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your idea:)",
-            "placeholder": "_(Enter title...)",
-            "display_prompt": "_(Title:)",
+            "prompt": "_(¿Qué se hace?)",
+            "placeholder": "_(Introducir título)",
+            "display_prompt": "_(Título:)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(Describe your idea below:)",
-            "display_prompt": "_(Here's my idea:)",
-            "placeholder": "_(Description...)",
+            "prompt": "_( )",
+            "display_prompt": "_(¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
+            "placeholder": "_(Describir la experiencia...)",
             "optional": false
           },
           {
@@ -361,22 +372,22 @@
         "dataset": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
-        "label": "_(Complaint)",
+        "label": "_(Horizontes / potencialidades)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your complaint:)",
-            "placeholder": "_(Enter title...)",
-            "display_prompt": "_(Title:)",
+            "prompt": "_(¿Qué se ve en el futuro?)",
+            "placeholder": "_(Introducir título)",
+            "display_prompt": "_(Título)",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(What's your complaint?)",
-            "display_prompt": "_(I have the following complaint:)",
-            "placeholder": "_(Description...)",
+            "prompt": "_(¿Cuales son las actividades que nos permiten avizorar futuros sustentables?)",
+            "display_prompt": "_(Decribir las actividades...)",
+            "placeholder": "_(Descripción...)",
             "optional": false
           },
           {
@@ -401,26 +412,26 @@
     "common_form_elements": {
       "submitter_name": {
         "type": "text",
-        "prompt": "_(Your name)",
-        "placeholder": "_(Name)",
+        "prompt": "_(Tu nombre)",
+        "placeholder": "_(Nombre)",
         "optional": true
       },
       "private-submitter_email": {
         "type": "text",
-        "prompt": "_(Your Email)",
-        "placeholder": "_(Receive email updates on your report)",
+        "prompt": "_(Tu correo electrónico)",
+        "placeholder": "_(Recibir noticias sobre este comentario)",
         "optional": true,
         "sticky": true
       },
       "my_image": {
         "type": "file",
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
+        "prompt": "_(Imágen)",
+        "label": "_(Añadir una imágen)",
         "optional": true
       },
       "submit": {
         "type": "submit",
-        "label": "_(Put it on the map!)"
+        "label": "_(¡Ponerlo en el mapa!)"
       }
     },
     "items": [
@@ -567,12 +578,12 @@
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "_(Sobre nosotros)",
       "type": "internal_link",
       "url": "/page/about"
     },
     {
-      "title": "_(Get involved)",
+      "title": "_(¿Cómo participar?)",
       "type": "internal_link",
       "url": "/page/getinvolved"
     }
@@ -582,9 +593,9 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<h1>Welcome</h1>",
-        "<p>We are a community of residents and stakeholders who are monitoring important issues on the Parana River Delta.</p>",
-        "<p class='btn btn-block btn-large'><a href='/' rel='internal'>Start Mapping!</a></p>"
+        "<h1>BIENVENIDA</h1>",
+        "<p><img src='/static/css/images/Territorios.png'><br><br>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento comprendido por cinco campañas que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO es una de las etapas del proyecto La Tierra NØ Resistirá un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO  es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa a diez años que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territoriosdecolaboracion.wordpress.com'>https://territoriosdecolaboracion.wordpress.com</a></p>",
+        "<p class='btn btn-block btn-large'><a href='/' rel='internal'>Explorar el mapa</a></p>"
       ]
     },
     {
