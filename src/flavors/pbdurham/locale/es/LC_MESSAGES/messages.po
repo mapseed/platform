@@ -230,8 +230,8 @@ msgstr "Su edad:"
 msgid "Your age will not appear on the map"
 msgstr "Tu edad no aparecerá en el mapa"
 
-msgid "Your ethnicity (your ethnicity will not appear on the map):"
-msgstr "Su origen étnico (su origen étnico no aparecerá en el mapa):"
+msgid "Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):"
+msgstr "Su raza/origen étnico (marque todo lo que corresponda; su raza/origen étnico no aparecerá en el mapa):"
 
 msgid "Ethnicity:"
 msgstr "Origen étnico:"
@@ -245,8 +245,8 @@ msgstr "Asiático"
 msgid "Black or African American"
 msgstr "Negro o afroamericano"
 
-msgid "Hispanic or Latino/a"
-msgstr "Hispano o latino"
+msgid "Hispanic or Latinx"
+msgstr "Hispano o latinx"
 
 msgid "Native Hawaiian or Pacific Islander"
 msgstr "Nativo de Hawái o las islas del Pacífico"

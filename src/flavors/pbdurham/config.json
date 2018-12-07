@@ -1088,7 +1088,7 @@
       "private-ethnicity": {
         "autocomplete": false,
         "type": "big_checkbox",
-        "prompt": "_(Your ethnicity (your ethnicity will not appear on the map):)",
+        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
         "display_prompt": "_(Ethnicity:)",
         "content": [
           {
@@ -1104,7 +1104,7 @@
             "value": "black"
           },
           {
-            "label": "_(Hispanic or Latino/a)",
+            "label": "_(Hispanic or Latinx)",
             "value": "hispanic"
           },
           {
