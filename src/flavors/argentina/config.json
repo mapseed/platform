@@ -17,7 +17,8 @@
       },
       "text": {
         "tertiary": "#5CCBE6",
-        "titleFontFamily": "Roboto, sans-serif"
+        "titleFontFamily": "Roboto, sans-serif",
+        "titleColor": "#5CCBE6"
       }
     }
   },
@@ -59,6 +60,12 @@
         "is_basemap": true,
         "type": "raster-tile",
         "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
+      },
+      {
+        "id": "topografico",
+        "is_basemap": true,
+        "type": "raster-tile",
+        "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
       },
       {
         "id": "argentina-input",
@@ -208,8 +215,8 @@
                 "title": "_(Mapa base)"
               },
               {
-                "id": "satellite",
-                "title": "_(Satélite)"
+                "id": "topografico",
+                "title": "_(Topográfico)"
               }
             ]
           },
