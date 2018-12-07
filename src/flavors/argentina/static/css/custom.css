@@ -36,7 +36,19 @@
     background-color: #dac39a;
   }
 }
+.map-layer-selector__status-icon--green {
+  color: #BD9462;
+}
 
+.map-layer-selector__status-icon--red {
+  color: black;
+}
+
+.mapseed__close-button {
+    border: none;
+    background-color: transparent;
+    color: #BD9462;
+}
 /* =Header
 -------------------------------------------------------------- */
 
