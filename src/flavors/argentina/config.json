@@ -454,7 +454,7 @@
             "name": "description",
             "type": "textarea",
             "prompt": "_( ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "placeholder": "_(Describir la experiencia...)",
             "optional": false
           },
