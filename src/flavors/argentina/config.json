@@ -18,7 +18,7 @@
       "text": {
         "tertiary": "#5CCBE6",
         "titleFontFamily": "Roboto, sans-serif",
-        "titleColor": "#5CCBE6"
+        "titleColor": "#ffffff"
       }
     }
   },
@@ -32,19 +32,19 @@
     "options": {
       "map": {
         "center": {
-          "lat": -33.39989,
-          "lng": -58.82012
+          "lat": -32.68976,
+          "lng": -60.38602
         },
-        "zoom": 7.17,
+        "zoom": 7.59,
         "pitch": 0,
         "minZoom": 1,
-        "maxZoom": 18
+        "maxZoom": 19
       },
       "control": {
         "showCompass": true,
         "position": "top-left"
       },
-      "drawing_enabled": false
+      "drawing_enabled": true
     },
     "layers": [
       {
@@ -62,10 +62,51 @@
         "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
       },
       {
+        "id": "argentina-campanas",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/argentina-campanas/{z}/{x}/{y}.pbf",
+        "source_layer": "argentina-campanas",
+        "mapbox_layers": [
+          {
+            "id": "argentina-campanas-outline",
+            "type": "line",
+            "paint": {
+              "line-color": "#ddd",
+              "line-width": 3,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
         "id": "topografico",
         "is_basemap": true,
         "type": "raster-tile",
         "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+      },
+      {
+        "id": "argentina-featured",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-featured",
+        "type": "place",
+        "slug": "featured",
+        "focus_rules": [
+          {
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "symbol-layout": {
+              "icon-size": 1.1,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "symbol-layout": {
+              "icon-size": 0.9,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
       },
       {
         "id": "argentina-input",
@@ -196,6 +237,11 @@
       }
     ]
   },
+  "right_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": true,
+    "component": "StoryNavigator"
+  },
   "left_sidebar": {
     "is_enabled": true,
     "is_visible_default": false,
@@ -227,6 +273,14 @@
               {
                 "id": "argentina-input",
                 "title": "_(Comentarios)"
+              },
+              {
+                "id": "argentina-featured",
+                "title": "_(Sitios Destacados)"
+              },
+              {
+                "id": "argentina-campanas",
+                "title": "_(Campañas)"
               }
             ]
           }
@@ -248,6 +302,52 @@
     "submit_button_label": "_(Submit)",
     "location_item_name": "location",
     "place_detail": [
+      {
+        "category": "featured_place",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "dataset": "argentina-featured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "featured_place",
+        "label": "_(Featured Site)",
+        "fields": [
+          {
+            "name": "geometry",
+            "type": "map_drawing_toolbar",
+            "content": [
+              {
+                "marker": "marker-heart.png"
+              },
+              {
+                "marker": "marker-star.png"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title of this featured site:)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "_(Description:)",
+            "display_prompt": "_( )",
+            "placeholder": "_( )"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
       {
         "category": "observation",
         "includeOnForm": true,
@@ -353,8 +453,8 @@
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_( )",
-            "display_prompt": "_(¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
+            "prompt": "_( ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
+            "display_prompt": "_( )",
             "placeholder": "_(Describir la experiencia...)",
             "optional": false
           },
@@ -613,17 +713,53 @@
       "slug": "getinvolved",
       "lang": "en_US",
       "content": [
-        "<h1>Get involved</h1>",
-        "<p>Want to help out? Excellent!</p>",
-        "<p>The best way to be involved is to <a href='/new' rel='internal'>submit a report</a> on the map, or comment on someone else's report.</p>",
-        "<p>We can also use help writing <a href='http://github.com/smartercleanup/duwamish'>code</a>, designing a better interface, and promoting the project.</p>",
-        "<p>If you want to see a project like this in your community, let us know!</p>",
-        "<a href='http://eepurl.com/6IfA5'>Send us a message</a> and we'll be in touch."
+        "<h1>INVOLUCRARSE</h1>",
+        "<p><img src='/static/css/images/Participar.png'></p>",
+        "<p>¿Querés participar en la construcción de este mapa? Es muy sencillo.</p>",
+        "<p>La mejor forma de hacerlo es tocar <span style='color:#E95A22'><strong>AÑADIR PUNTO</strong></span> y mover el mapa hacia el sitio de interés.</p>",
+        "<p>Una vez ubicado el punto, podes reportar sobre un tema que esté relacionado con alguna de las 4 categorias que aparecen:</p>",
+        "<p><strong>1. Observación<br>2. Amenazas / Conflictos<br>3. Experiencias Sustentables<br>4. Horizontes / Potencialidades</strong></p>",
+        "<p>También podés comentar el punto de otra persona.</p>",
+        "<p>Con tu colaboración podemos amplificar voces y difundir acciones desde la mirada de quien vive, siente y conoce su lugar.</p>"
       ]
     }
   ],
-  "notifications": {
-    "on_new_place": true,
-    "submitter_email_field": "private-submitter_email"
+  "story": {
+    "campanas": {
+      "header": "_(Campañas)",
+      "default_basemap": "osm",
+      "default_visible_layers": [
+        "argentina-campanas",
+        "argentina-input",
+        "argentina-featured"
+      ],
+      "order": [
+        {
+          "url": "featured/5343",
+          "pan_to": [-60.15449, -32.61944],
+          "zoom": 9
+        },
+        {
+          "url": "featured/5342",
+          "pan_to": [-60.55924, -32.97406],
+          "zoom": 8
+        },
+        {
+          "url": "featured/5344",
+          "pan_to": [-58.7518, -34.12086],
+          "zoom": 8
+        },
+        {
+          "url": "featured/5345",
+          "pan_to": [-58.65104, -34.31237],
+          "zoom": 9
+        },
+        {
+          "url": "featured/5346",
+          "pan_to": [-57.91877, -34.88249],
+          "zoom": 10
+        }
+      ]
+    }
   }
 }
