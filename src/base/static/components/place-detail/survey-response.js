@@ -7,7 +7,10 @@ import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
 import { Time, SmallText } from "../atoms/typography";
 
-import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import {
+  commentsSurveyConfigPropType,
+  commentsSurveyConfigSelector,
+} from "../../state/ducks/survey-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 
@@ -27,7 +30,7 @@ class SurveyResponse extends Component {
         ref={response => (this.responseRef = response)}
       >
         <div className="place-detail-survey-response__body">
-          {this.props.surveyConfig.items
+          {this.props.commentsSurveyConfig.items
             .filter(
               field =>
                 field.type !== constants.SUBMIT_FIELD_TYPENAME &&
@@ -83,12 +86,12 @@ SurveyResponse.propTypes = {
   placeConfig: PropTypes.object.isRequired,
   scrollToResponseId: PropTypes.string,
   submitter: PropTypes.object.isRequired,
-  surveyConfig: PropTypes.object.isRequired,
+  commentsSurveyConfig: commentsSurveyConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
-  surveyConfig: surveyConfigSelector(state),
+  commentsSurveyConfig: commentsSurveyConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 

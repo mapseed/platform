@@ -274,6 +274,7 @@
     "hide_metadata_bar": true,
     "place_detail": [
       {
+        "surveyId": "featured_place",
         "category": "featured_place",
         "admin_only": true,
         "includeOnForm": true,
@@ -325,6 +326,7 @@
         ]
       },
       {
+        "surveyId": "conservation-actions",
         "category": "conservation-actions",
         "submitter_editing_supported": true,
         "includeOnForm": true,
@@ -1945,33 +1947,49 @@
     }
   },
   "survey": {
-    "submission_type": "comments",
-    "show_responses": true,
-    "single_submission": false,
-    "response_name": "_(comment)",
-    "response_plural_name": "_(comments)",
-    "action_text": "_(commented on)",
-    "anonymous_name": "_(Someone)",
-    "title": "_(Leave a Comment)",
-    "form_link_text": "_(Leave a Comment)",
-    "submit_btn_text": "_(Comment)",
-    "items": [
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "forms": [
       {
-        "prompt": "_(Comment)",
-        "label": "_(Comment)",
-        "type": "textarea",
-        "name": "comment"
+        "id": "featured_place",
+        "datasetId": "snohomish-featured",
+        "label": "_(Featured Site)",
+        "icon_url": "/static/css/images/markers/map-pin-star-marker.png"
       },
       {
-        "prompt": "_(Your Name)",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true
-      },
-      {
-        "type": "submit",
-        "name": "submit",
-        "label": "_(Comment)"
+        "id": "conservation-actions",
+        "dataset": "snohomish-input",
+        "label": "_(Conservation Actions)",
+        "icon": "/static/css/images/markers/map-pin-marker.png"
       }
     ]
   },

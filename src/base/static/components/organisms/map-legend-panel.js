@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
+import { connect } from "react-redux";
 
-import { Image } from "../atoms/imagery";
-import { Paragraph, Header4 } from "../atoms/typography";
-import MapLegendGroup from "../molecules/map-legend-group";
+import MapLegendItem from "../molecules/map-legend-item";
+import {
+  surveyFormsConfigPropType,
+  surveyFormsConfigSelector,
+} from "../../state/ducks/survey-config";
 
 const MapLegendPanelContainer = styled("div")(props => ({
   padding: 10,
@@ -15,16 +18,11 @@ const MapLegendPanelContainer = styled("div")(props => ({
 const MapLegendPanel = props => {
   return (
     <MapLegendPanelContainer isThemed={props.isThemed}>
-      {props.config.title && <Header4>{props.config.title}</Header4>}
-      {props.config.description && (
-        <Paragraph>{props.config.description}</Paragraph>
-      )}
-      {props.config.groupings.map((grouping, i) => (
-        <MapLegendGroup
-          key={i}
-          content={grouping.content}
-          description={grouping.description}
-          title={grouping.title}
+      {props.surveyFormsConfig.map(surveyForm => (
+        <MapLegendItem
+          key={surveyForm.id}
+          icon={surveyForm.icon}
+          label={surveyForm.label}
         />
       ))}
     </MapLegendPanelContainer>
@@ -32,23 +30,14 @@ const MapLegendPanel = props => {
 };
 
 MapLegendPanel.propTypes = {
-  config: PropTypes.shape({
-    description: PropTypes.string,
-    groupings: PropTypes.arrayOf(
-      PropTypes.shape({
-        content: PropTypes.arrayOf(
-          PropTypes.shape({
-            icon: PropTypes.string,
-            label: PropTypes.string.isRequired,
-            swatch: PropTypes.string,
-          }),
-        ),
-        title: PropTypes.string,
-      }),
-    ),
-    title: PropTypes.string,
-  }),
+  surveyFormsConfig: surveyFormsConfigPropType.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
   isThemed: PropTypes.bool,
 };
 
-export default MapLegendPanel;
+const mapStateToProps = state => ({
+  surveyFormsConfig: surveyFormsConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(MapLegendPanel);

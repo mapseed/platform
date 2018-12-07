@@ -5,14 +5,6 @@ import styled from "react-emotion";
 import { LegacyIcon } from "../atoms/feedback";
 import { RegularLabel } from "../atoms/typography";
 
-const ColorSwatch = styled("span")(props => ({
-  flex: "0 0 30px",
-  backgroundColor: props.color,
-  width: "30px",
-  height: "30px",
-  marginRight: "10px",
-}));
-
 // TODO: Abstract these components out when we refactor other panel types.
 const LegendIcon = styled(props => (
   <LegacyIcon icon={props.icon} classes={props.className} />
@@ -33,15 +25,10 @@ const MapLegendItemContainer = styled("div")({
 const MapLegendItem = props => {
   return (
     <MapLegendItemContainer>
-      {props.icon && <LegendIcon icon={props.icon} />}
-      {props.swatch && <ColorSwatch color={props.swatch} />}
+      <LegendIcon icon={props.icon} />
       <RegularLabel>{props.label}</RegularLabel>
     </MapLegendItemContainer>
   );
-};
-
-ColorSwatch.propTypes = {
-  color: PropTypes.string.isRequired,
 };
 
 MapLegendItem.propTypes = {

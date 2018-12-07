@@ -13,7 +13,10 @@ import { SmallText, Time } from "../atoms/typography";
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
-import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import {
+  commentsSurveyConfigPropType,
+  commentsSurveyConfigSelector,
+} from "../../state/ducks/survey-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 
@@ -23,7 +26,7 @@ class SurveyResponseEditor extends Component {
   constructor(props) {
     super(props);
 
-    const fields = this.props.surveyConfig.items
+    const fields = this.props.commentsSurveyConfig.items
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
       .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
@@ -104,7 +107,7 @@ class SurveyResponseEditor extends Component {
               ? this.props.t("notSaved")
               : this.props.t("saved")}
           </em>
-          {this.props.surveyConfig.items
+          {this.props.commentsSurveyConfig.items
             .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
             .map(fieldConfig => (
               <FormField
@@ -161,14 +164,14 @@ SurveyResponseEditor.propTypes = {
   submitter: PropTypes.shape({
     avatar_url: PropTypes.string,
   }),
-  surveyConfig: PropTypes.object.isRequired,
+  commentsSurveyConfig: commentsSurveyConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   placeConfig: placeConfigSelector(state),
-  surveyConfig: surveyConfigSelector(state),
+  commentsSurveyConfig: commentsSurveyConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(

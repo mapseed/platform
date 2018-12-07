@@ -10,7 +10,10 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 import ActivityItem from "../molecules/activity-item";
 
 import { mapPlaceLayersSelector } from "../../state/ducks/map-config";
-import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import {
+  commentsSurveyConfigPropType,
+  commentsSurveyConfigSelector,
+} from "../../state/ducks/survey-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 
 import constants from "../../constants";
@@ -142,8 +145,8 @@ class ActivityStream extends Component {
                 this.props.places[collectionId]
                   .get(placeId)
                   .get(constants.TITLE_PROPERTY_NAME);
-              anonymousName = this.props.surveyConfig.anonymous_name;
-              actionText = this.props.surveyConfig.action_text;
+              anonymousName = this.props.commentsSurveyConfig.anonymous_name;
+              actionText = this.props.commentsSurveyConfig.action_text;
               url = `/${slug}/${placeId}/response/${target.get(
                 constants.MODEL_ID_PROPERTY_NAME,
               )}`;
@@ -176,16 +179,13 @@ ActivityStream.propTypes = {
   }).isRequired,
   placeLayers: PropTypes.array.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
-  surveyConfig: PropTypes.shape({
-    action_text: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
-  }).isRequired,
+  commentsSurveyConfig: commentsSurveyConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
   placeLayers: mapPlaceLayersSelector(state),
-  surveyConfig: surveyConfigSelector(state),
+  commentsSurveyConfig: commentsSurveyConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(ActivityStream);
