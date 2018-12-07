@@ -9,14 +9,14 @@
     "theme": {
       "brand": {
         "primary": "#6BC2D5",
-        "accent": "#93b7c9"
+        "accent": "#000000"
       },
       "bg": {
         "default": "#6F4626",
         "light": "#007fbe"
       },
       "text": {
-        "tertiary": "#007ec0",
+        "tertiary": "#5CCBE6",
         "titleFontFamily": "Roboto, sans-serif"
       }
     }
@@ -31,11 +31,11 @@
     "options": {
       "map": {
         "center": {
-          "lat": -33.67868,
-          "lng": -58.78081
+          "lat": -33.39989,
+          "lng": -58.82012
         },
-        "zoom": 8,
-        "pitch": 30,
+        "zoom": 7.17,
+        "pitch": 0,
         "minZoom": 1,
         "maxZoom": 18
       },
@@ -58,7 +58,7 @@
         "id": "satellite",
         "is_basemap": true,
         "type": "raster-tile",
-        "url": "https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
+        "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
       },
       {
         "id": "argentina-input",
@@ -144,7 +144,7 @@
               ["<", ["zoom"], 10]
             ],
             "symbol-layout": {
-              "icon-image": "dot-dbcf2c.png",
+              "icon-image": "dot-e1264d.png",
               "icon-size": 1,
               "icon-anchor": "center"
             }
@@ -156,7 +156,7 @@
               [">=", ["zoom"], 10]
             ],
             "symbol-layout": {
-              "icon-image": "marker-question.png",
+              "icon-image": "marker-complaint.png",
               "icon-size": 0.5,
               "icon-anchor": "bottom"
             }
@@ -168,7 +168,7 @@
               ["<", ["zoom"], 10]
             ],
             "symbol-layout": {
-              "icon-image": "dot-e1264d.png",
+              "icon-image": "dot-dbcf2c.png",
               "icon-size": 1,
               "icon-anchor": "center"
             }
@@ -180,7 +180,7 @@
               [">=", ["zoom"], 10]
             ],
             "symbol-layout": {
-              "icon-image": "marker-complaint.png",
+              "icon-image": "marker-question.png",
               "icon-size": 0.5,
               "icon-anchor": "bottom"
             }
@@ -201,11 +201,15 @@
         "groupings": [
           {
             "id": "basemaps",
-            "title": "_(Mapas)",
+            "title": "_(Geografía)",
             "layers": [
               {
                 "id": "osm",
-                "title": "_(Delta colores)"
+                "title": "_(Mapa base)"
+              },
+              {
+                "id": "satellite",
+                "title": "_(Satélite)"
               }
             ]
           },
@@ -215,7 +219,7 @@
             "layers": [
               {
                 "id": "argentina-input",
-                "title": "_(Community Reports)"
+                "title": "_(Comentarios)"
               }
             ]
           }
@@ -228,7 +232,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Añadir un punto)",
+    "add_button_label": "_(Añadir punto)",
     "show_list_button_label": "_(See all comments)",
     "show_map_button_label": "_(Show the Map)",
     "title": "_(Tell us more...)",
@@ -285,7 +289,7 @@
         "includeOnForm": true,
         "name": "location_type",
         "dataset": "argentina-input",
-        "icon_url": "/static/css/images/markers/marker-question.png",
+        "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "question",
         "label": "_(Amenazas / conflictos)",
         "fields": [
@@ -370,7 +374,7 @@
         "includeOnForm": true,
         "name": "location_type",
         "dataset": "argentina-input",
-        "icon_url": "/static/css/images/markers/marker-complaint.png",
+        "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "complaint",
         "label": "_(Horizontes / potencialidades)",
         "fields": [
@@ -412,13 +416,13 @@
     "common_form_elements": {
       "submitter_name": {
         "type": "text",
-        "prompt": "_(Tu nombre)",
+        "prompt": "_(Nombre)",
         "placeholder": "_(Nombre)",
         "optional": true
       },
       "private-submitter_email": {
         "type": "text",
-        "prompt": "_(Tu correo electrónico)",
+        "prompt": "_(Correo electrónico)",
         "placeholder": "_(Recibir noticias sobre este comentario)",
         "optional": true,
         "sticky": true
@@ -431,7 +435,7 @@
       },
       "submit": {
         "type": "submit",
-        "label": "_(¡Ponerlo en el mapa!)"
+        "label": "_(¡Añadir al mapa!)"
       }
     },
     "items": [

@@ -6,11 +6,12 @@ import MapboxGLProvider from "../../libs/maps/mapboxgl-provider";
 // Import other providers here as they become available
 
 import emitter from "../../utils/emitter";
-import { createGeoJSONFromCollection } from "../../utils/collection-utils";
+import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import {
   mapConfigSelector,
   mapLayersSelector,
 } from "../../state/ducks/map-config";
+import { placesSelector, placesPropType } from "../../state/ducks/places";
 import {
   mapBasemapSelector,
   mapLayerStatusesSelector,
@@ -37,7 +38,6 @@ import {
   setActiveDrawGeometryId,
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
-import { setLeftSidebar } from "../../state/ducks/ui";
 
 import constants from "../../constants";
 
@@ -234,10 +234,12 @@ class MainMap extends Component {
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        collectionId => {
+        datasetId => {
           this._map.updateLayerData(
-            collectionId,
-            createGeoJSONFromCollection(this.props.places[collectionId]),
+            datasetId,
+            createGeoJSONFromPlaces(
+              this.props.places.filter(place => place.datasetId === datasetId),
+            ),
           );
         },
       ),
@@ -245,45 +247,42 @@ class MainMap extends Component {
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
-        collectionId => {
+        datasetId => {
           this._map.updateLayerData(
-            collectionId,
-            createGeoJSONFromCollection(this.props.places[collectionId]),
+            datasetId,
+            createGeoJSONFromPlaces(
+              this.props.places.filter(place => place.datasetId === datasetId),
+            ),
           );
-          this._map.unfocusAllPlaceLayerFeatures(collectionId);
+          this._map.unfocusAllPlaceLayerFeatures();
         },
       ),
     );
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
-        ({ collectionId, modelId }) => {
+        ({ datasetId, modelId }) => {
           // To focus a feature in a layer, we first remove it from the origin layer
           // above, then add it to a separate focused layer. That way we can control
           // the focused layer independently of the source layer and ensure focused
           // features always render above all other features.
           // TODO: Support multiple focused features simultaneously.
-          const focusedFeatures = createGeoJSONFromCollection(
-            this.props.places[collectionId].filter(
-              model => model.get(constants.MODEL_ID_PROPERTY_NAME) === modelId,
-            ),
+          const focusedFeatures = createGeoJSONFromPlaces(
+            this.props.places.filter(place => place.id === modelId),
           );
 
-          this._map.focusPlaceLayerFeatures(collectionId, focusedFeatures);
+          this._map.focusPlaceLayerFeatures(datasetId, focusedFeatures);
         },
       ),
     );
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_HIDE_PLACE_EVENT,
-        ({ collectionId, modelId }) => {
+        ({ datasetId, modelId }) => {
           this._map.updateLayerData(
-            collectionId,
-            createGeoJSONFromCollection(
-              this.props.places[collectionId].filter(
-                model =>
-                  model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId,
-              ),
+            datasetId,
+            createGeoJSONFromPlaces(
+              this.props.places.filter(place => place.id !== modelId),
             ),
           );
         },
@@ -293,16 +292,25 @@ class MainMap extends Component {
       emitter.addListener(
         constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT,
         () => {
-          Object.keys(this.props.places).forEach(collectionId => {
-            this.props.layerStatuses[collectionId] &&
-              this.props.layerStatuses[collectionId].isVisible &&
-              this.props.layerStatuses[collectionId].loadStatus === "loaded" &&
+          Object.values(this.props.layerStatuses)
+            .filter(
+              status =>
+                status.type === "place" &&
+                status.isVisible &&
+                status.loadStatus === "loaded",
+            )
+            .forEach(status => {
+              const datasetId = status.id;
               this._map.updateLayerData(
-                collectionId,
-                createGeoJSONFromCollection(this.props.places[collectionId]),
+                datasetId,
+                createGeoJSONFromPlaces(
+                  this.props.places.filter(
+                    place => place.datasetId === datasetId,
+                  ),
+                ),
               );
-            this._map.unfocusAllPlaceLayerFeatures(collectionId);
-          });
+            });
+          this._map.unfocusAllPlaceLayerFeatures();
         },
       ),
     );
@@ -445,7 +453,9 @@ class MainMap extends Component {
 
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
-      layer.source = createGeoJSONFromCollection(this.props.places[layer.id]);
+      layer.source = createGeoJSONFromPlaces(
+        this.props.places.filter(place => place.datasetId === layer.id),
+      );
 
       this._map.addLayer({
         layer: layer,
@@ -565,7 +575,7 @@ MainMap.propTypes = {
   onMovestart: PropTypes.func.isRequired,
   onMoveend: PropTypes.func.isRequired,
   onDragend: PropTypes.func.isRequired,
-  places: PropTypes.object.isRequired,
+  places: placesPropType,
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
@@ -595,6 +605,7 @@ const mapStateToProps = state => ({
   mapboxStyleId: mapboxStyleIdSelector(state),
   updatingFilterGroupId: mapUpdatingFilterGroupIdSelector(state),
   updatingFilterTargetLayer: mapUpdatingFilterTargetLayerSelector(state),
+  places: placesSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

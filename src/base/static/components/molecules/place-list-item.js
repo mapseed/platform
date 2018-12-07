@@ -10,6 +10,7 @@ import {
   placeConfigSelector,
   placeConfigPropType,
 } from "../../state/ducks/place-config";
+import { placePropType } from "../../state/ducks/places";
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 import { connect } from "react-redux";
@@ -252,7 +253,7 @@ const PlaceListItem = props => {
 };
 
 PlaceListItem.propTypes = {
-  place: PropTypes.object.isRequired,
+  place: placePropType.isRequired,
   t: PropTypes.func.isRequired,
   supportConfig: PropTypes.shape({
     action_text: PropTypes.string.isRequired,
