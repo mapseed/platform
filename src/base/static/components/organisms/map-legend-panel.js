@@ -31,8 +31,6 @@ const MapLegendPanel = props => {
 
 MapLegendPanel.propTypes = {
   surveyFormsConfig: surveyFormsConfigPropType.isRequired,
-  title: PropTypes.string,
-  description: PropTypes.string,
   isThemed: PropTypes.bool,
 };
 
