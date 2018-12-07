@@ -157,9 +157,48 @@
             "id": "palouse-critical-aquifer-outline",
             "type": "line",
             "paint": {
-              "line-color": "#0066ff",
+              "line-color": "#e57339",
               "line-width": 2,
               "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "palouse-analysis-units",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf",
+        "source_layer": "palouse-analysis-units",
+        "mapbox_layers": [
+          {
+            "id": "palouse-analysis-units",
+            "type": "fill",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "Unit"],
+                "Rock",
+                "#ba4763",
+                "Snake",
+                "#0d2f5e",
+                "Palouse",
+                "#c5a00b",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "palouse-analysis-units-labels",
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "Unit"],
+              "text-size": 17,
+              "text-allow-overlap": false
             }
           }
         ]
@@ -394,7 +433,7 @@
               },
               {
                 "id": "palouse-critical-conservation-areas",
-                "title": "_(Critical Conservation Areas)"
+                "title": "_(Fish & Wildlife Conservation Areas)"
               },
               {
                 "id": "palouse-frequently-flooded",
@@ -403,6 +442,10 @@
               {
                 "id": "palouse-huc-12",
                 "title": "_(Subbasins)"
+              },
+              {
+                "id": "palouse-analysis-units",
+                "title": "_(Watershed Analysis Units)"
               },
               {
                 "id": "palouse-wetlands",
@@ -445,6 +488,7 @@
         "category": "reports",
         "submitter_editing_supported": true,
         "includeOnForm": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
         "dataset": "palouse-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
@@ -452,11 +496,22 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 5,
+            "end_field_index": 3,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+          },
+          {
+            "start_field_index": 4,
+            "end_field_index": 5,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "satellite",
+            "visible_layer_ids": [
+              "palouse-analysis-units",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 6,
@@ -512,14 +567,42 @@
           },
           {
             "start_field_index": 21,
-            "end_field_index": 112,
+            "end_field_index": 40,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
-            "start_field_index": 113,
-            "end_field_index": 121,
+            "start_field_index": 41,
+            "end_field_index": 48,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+          },
+          {
+            "start_field_index": 49,
+            "end_field_index": 56,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+          },
+          {
+            "start_field_index": 57,
+            "end_field_index": 88,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+          },
+          {
+            "start_field_index": 89,
+            "end_field_index": 120,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+          },
+          {
+            "start_field_index": 121,
+            "end_field_index": 129,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)"
           }
@@ -534,29 +617,42 @@
           {
             "name": "location_why",
             "type": "informational_html",
-            "content": "<p>Reporting your property location will help Whitman County better allocate Voluntary Stewardship Program resources.</p><p><strong>Your address will never be shared with anyone.</strong></p><p>Use one of the methods below to set your location:</p>"
-          },
-          {
-            "name": "private-address",
-            "type": "geocoding",
-            "placeholder": "_(Search by address.)",
-            "prompt": " "
-          },
-          {
-            "name": "geolocation",
-            "type": "geolocate",
-            "placeholder": "_(Are you on your property now? Click here to locate yourself automatically.)",
-            "optional": true
+            "content": "<p>Reporting your property location will help Whitman County better allocate Voluntary Stewardship Program resources.</p>"
           },
           {
             "name": "drag_map_info",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Drag and zoom the map manually.</p></div>"
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the map on your property.</p></div>"
+          },
+          {
+            "name": "analysis_units_header",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watershed analysis unit</h4>"
+          },
+          {
+            "name": "analysis_unit",
+            "type": "big_radio",
+            "prompt": "_(Of the three watershed analysis units indicated on the map (Rock, Palouse, and Snake), which region does your property primarily lie in?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Rock Analysis Unit)",
+                "value": "rock"
+              },
+              {
+                "label": "_(Palouse Analysis Unit)",
+                "value": "palouse"
+              },
+              {
+                "label": "_(Snake Analysis Unit)",
+                "value": "snake"
+              }
+            ]
           },
           {
             "name": "wetlands_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland areas</h4>"
           },
           {
             "name": "wetlands_information",
@@ -582,7 +678,7 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently flooded areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h4>"
           },
           {
             "name": "frequently_flooded_information",
@@ -608,7 +704,7 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Geologic hazard areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Geologic hazard areas</h4>"
           },
           {
             "name": "geologic_hazard_information",
@@ -634,7 +730,7 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical aquifer recharge areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical aquifer recharge areas</h4>"
           },
           {
             "name": "critical_aquifer_information",
@@ -660,7 +756,7 @@
           {
             "name": "wildlife_conservation_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & wildlife conservation areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & wildlife conservation areas</h4>"
           },
           {
             "name": "wildlife_conservation_information",
@@ -684,19 +780,32 @@
             ]
           },
           {
-            "name": "stewardship_practices_header",
+            "name": "residue_tillage_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Your stewardship practices</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Residue and Tillage Management</h4>"
           },
           {
-            "name": "stewardship_practices_information",
+            "name": "residue_tillage_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p><strong>Your actions count!</strong> Please fill out the form below to officially report stewardship practices on your property.</p><p>If you are unsure about the meaning of a stewardship practice, click the symbol for more information.</p></div></div>"
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your residue and tillage management practices.</p></div></div>"
           },
           {
-            "name": "tillage_management_header",
-            "type": "informational_html",
-            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>A. Residue and Tillage Management</h5>"
+            "name": "residue-tillage_no-residue-tillage",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-residue-tillage",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-residue-tillage"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "residue-tillage"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "=============== NO TILL/DIRECT SEED ========================",
@@ -987,7 +1096,30 @@
           {
             "name": "nutrient_management",
             "type": "informational_html",
-            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>B. Nutrient Management</h5>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Nutrient Management</h4>"
+          },
+          {
+            "name": "nutrient_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+          },
+          {
+            "name": "nutrient-management_no-nutrient-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-nutrient-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-nutrient-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "nutrient-management"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "=============== INTEGRATED NUTRIENT MGMT ====================",
@@ -1075,7 +1207,30 @@
           {
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>C. Pest Management</h5>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Pest Management</h4>"
+          },
+          {
+            "name": "pest_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your pest management practices.</p></div></div>"
+          },
+          {
+            "name": "pest-management_no-pest-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-pest-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-pest-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "pest-management"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "=============== INTEGRATED PEST MGMT ========================",
@@ -1163,7 +1318,30 @@
           {
             "name": "range_management",
             "type": "informational_html",
-            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>D. Range, Soil, & Wildlife Management</h5>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>11. Range, Soil, & Wildlife Management</h4>"
+          },
+          {
+            "name": "range_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your range, soil, & wildlife management practices.</p></div></div>"
+          },
+          {
+            "name": "range-management_no-range-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-range-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-range-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "range-management"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "=============== WEED CONTROL ================================",
@@ -1665,7 +1843,30 @@
           {
             "name": "fish_wildlife_management",
             "type": "informational_html",
-            "content": "<h5 style='margin-top:24px;border-bottom:1px solid #ccc'>E. Fish & Wildlife Management</h5>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>12. Fish & Wildlife Management</h4>"
+          },
+          {
+            "name": "fish_wildlife_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your fish & wildlife management practices.</p></div></div>"
+          },
+          {
+            "name": "fish-wildlife-management_no-fish-wildlife-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-fish-wildlife-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-fish-wildlife-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "fish-wildlife-management"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "=============== RIPARIAN BUFFER ============================",
@@ -2181,12 +2382,12 @@
           {
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Almost done!</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost done!</h4>"
           },
           {
             "name": "additional_info",
             "type": "informational_html",
-            "content": "<p><strong>Thank you for taking the time to report your stewardship practices.</strong></p><p>Information on this page is optional, but will help Whitman County understand how landowners are implementing stewardship practices.</p>"
+            "content": "<p><strong>Thank you for taking the time to report your stewardship practices.</strong></p><p>Information on this page will help Whitman County understand how landowners are implementing stewardship practices.</p>"
           },
           {
             "name": "my_image",
@@ -2317,20 +2518,53 @@
       "lang": "en_US",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
-        "<p style='margin-bottom:16px'>Your local Conservation District is here to help you meet your stewardship goals.</p>",
-        "<p>Contact your Conservation District for more information:</p>",
-        "<ul style='list-style:none;padding:8px'>",
+        "<p style='margin-bottom:16px'>Your local Conservation District or Whitman County Cattelmen's Association are here to help you meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact your local CD or Whitman County Cattlemen's for more information or visit the following website: <a href='https://whitmancountyvsp.com/' target='_blank'>www.whitmancountyvsp.com</a>.</p>",
+        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
-        "<div style='display:flex'>",
-        "<div style='flex:5'>",
-        "<h5>Palouse Conservation District</h5>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>592-332-4101</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcd@palousecd.org</span></div>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Bradley Johnson</h5>",
+        "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
+        "<p style='margin:0'><em>Palouse Conservation District</em></p>",
         "</div>",
-        "<div style='flex:1'>",
-        "<img src='/static/css/images/palousecd-logo.png'>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>bradleyj@palousecd.org</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>James Schierman</h5>",
+        "<p style='margin:0'><em>District Coordinator</em></p>",
+        "<p style='margin:0'><em>Palouse Rock-Lake Conservation District</em></p>",
         "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-648-3680</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>Jschierman.prlcd@gmail.com</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Brian Bell</h5>",
+        "<p style='margin:0'><em>District Manager</em></p>",
+        "<p style='margin:0'><em>Whitman Conservation District</em></p>",
         "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-288-4644</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>brianwhitmancd@gmail.com</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Jessica Self</h5>",
+        "<p style='margin:0'><em>Grants Manager</em></p>",
+        "<p style='margin:0'><em>Palouse Conservation District</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-332-4101 x114</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>JessicaS@palousecd.org</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Raymond Brown</h5>",
+        "<p style='margin:0'><em>District Manager</em></p>",
+        "<p style='margin:0'><em>Pine Creek Conservation District</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-285-5122</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pinecreekcd@frontier.com</span></div>",
         "</li>",
         "</ul>"
       ]
@@ -2339,9 +2573,9 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<h3 id='about-page-header'>Welcome Whitman County voluntary stewards!</h3>",
+        "<h3 id='about-page-header'>Welcome Whitman County Voluntary Stewards!</h3>",
         "<img src='/static/css/images/rolling-hills-cropped.jpg' alt='Rolling hills, Whitman County' style='margin:8px 0 8px 0' />",
-        "<p style='margin-bottom:16px'>We greatly appreciate your time in sharing land management practices to tell the story of current stewardship on the Palouse. All responses will remain confidential.</p>",
+        "<p style='margin-bottom:16px'>We greatly appreciate your time in sharing land management practices to tell the story of current stewardship on the Palouse.</p>",
         "<p>Click Get Started below to report your conservation practices!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
