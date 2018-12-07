@@ -157,7 +157,7 @@
             "id": "palouse-critical-aquifer-outline",
             "type": "line",
             "paint": {
-              "line-color": "#0066ff",
+              "line-color": "#e57339",
               "line-width": 2,
               "line-opacity": 0.7
             }
@@ -627,7 +627,7 @@
           {
             "name": "analysis_units_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Watershed analysis unit</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watershed analysis unit</h4>"
           },
           {
             "name": "analysis_unit",
@@ -678,7 +678,7 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently flooded areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h4>"
           },
           {
             "name": "frequently_flooded_information",
@@ -704,7 +704,7 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Geologic hazard areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Geologic hazard areas</h4>"
           },
           {
             "name": "geologic_hazard_information",
@@ -730,7 +730,7 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical aquifer recharge areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical aquifer recharge areas</h4>"
           },
           {
             "name": "critical_aquifer_information",
@@ -756,7 +756,7 @@
           {
             "name": "wildlife_conservation_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & wildlife conservation areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & wildlife conservation areas</h4>"
           },
           {
             "name": "wildlife_conservation_information",
@@ -782,7 +782,7 @@
           {
             "name": "residue_tillage_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Residue and Tillage Management</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Residue and Tillage Management</h4>"
           },
           {
             "name": "residue_tillage_information",
@@ -1096,7 +1096,7 @@
           {
             "name": "nutrient_management",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>8. Nutrient Management</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Nutrient Management</h4>"
           },
           {
             "name": "nutrient_management_information",
@@ -1207,7 +1207,7 @@
           {
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Pest Management</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Pest Management</h4>"
           },
           {
             "name": "pest_management_information",
@@ -1318,7 +1318,7 @@
           {
             "name": "range_management",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Range, Soil, & Wildlife Management</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>11. Range, Soil, & Wildlife Management</h4>"
           },
           {
             "name": "range_management_information",
@@ -1843,7 +1843,7 @@
           {
             "name": "fish_wildlife_management",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>11. Fish & Wildlife Management</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>12. Fish & Wildlife Management</h4>"
           },
           {
             "name": "fish_wildlife_management_information",
@@ -2382,7 +2382,7 @@
           {
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Almost done!</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost done!</h4>"
           },
           {
             "name": "additional_info",
