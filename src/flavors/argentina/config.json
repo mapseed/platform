@@ -33,7 +33,7 @@
       "map": {
         "center": {
           "lat": -32.68976,
-          "lng": -60.38602
+          "lng": -60.35317
         },
         "zoom": 7.59,
         "pitch": 0,
@@ -73,7 +73,7 @@
             "paint": {
               "line-color": "#ddd",
               "line-width": 3,
-              "line-opacity": 0.7
+              "line-opacity": 0
             }
           }
         ]
@@ -239,7 +239,7 @@
   },
   "right_sidebar": {
     "is_enabled": true,
-    "is_visible_default": true,
+    "is_visible_default": false,
     "component": "StoryNavigator"
   },
   "left_sidebar": {
