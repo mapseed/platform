@@ -19,7 +19,7 @@ import { setStoryConfig } from "../../../../../base/static/state/ducks/story-con
 import { setLeftSidebarConfig } from "../../../../../base/static/state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../../../../../base/static/state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../../../../base/static/state/ducks/app-config";
-import { setSurveyConfig } from "../../../../../base/static/state/ducks/survey-config";
+import { loadFormsConfig } from "../../../../../base/static/state/ducks/forms-config";
 import { setSupportConfig } from "../../../../../state/ducks/support-config";
 
 import MainMap from "../../../../../base/static/components/organisms/main-map";
@@ -61,7 +61,7 @@ module.exports = AppView.extend({
     store.dispatch(setRightSidebarConfig(this.options.rightSidebarConfig));
     store.dispatch(setStoryConfig(this.options.storyConfig));
     store.dispatch(setAppConfig(this.options.appConfig));
-    store.dispatch(setSurveyConfig(this.options.surveyConfig));
+    store.dispatch(loadFormsConfig(this.options.formsConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
 
     const storeState = store.getState();
@@ -220,7 +220,7 @@ module.exports = AppView.extend({
         placeConfig: this.options.placeConfig,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
-        surveyConfig: this.options.surveyConfig,
+        formsConfig: this.options.formsConfig,
         supportConfig: this.options.supportConfig,
         placeConfig: this.options.placeConfig,
         mapConfig: this.options.mapConfig,

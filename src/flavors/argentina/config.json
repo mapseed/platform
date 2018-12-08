@@ -303,6 +303,7 @@
     "location_item_name": "location",
     "place_detail": [
       {
+        "formId": "featured_place",
         "category": "featured_place",
         "admin_only": true,
         "includeOnForm": true,
@@ -349,6 +350,7 @@
         ]
       },
       {
+        "formId": "observation",
         "category": "observation",
         "includeOnForm": true,
         "name": "location_type",
@@ -392,6 +394,7 @@
         ]
       },
       {
+        "formId": "question",
         "category": "question",
         "includeOnForm": true,
         "name": "location_type",
@@ -434,6 +437,7 @@
         ]
       },
       {
+        "formId": "idea",
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
@@ -477,6 +481,7 @@
         ]
       },
       {
+        "formId": "complaint",
         "category": "complaint",
         "includeOnForm": true,
         "name": "location_type",
@@ -648,34 +653,68 @@
       }
     ]
   },
-  "survey": {
-    "submission_type": "comments",
-    "show_responses": true,
-    "single_submission": false,
-    "response_name": "_(comment)",
-    "response_plural_name": "_(comments)",
-    "action_text": "_(commented on)",
-    "anonymous_name": "_(Someone)",
-    "title": "_(Leave a Comment)",
-    "form_link_text": "_(Leave a Comment)",
-    "submit_btn_text": "_(Comment)",
-    "items": [
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "places": [
       {
-        "prompt": "_(Comment)",
-        "label": "_(Comment)",
-        "type": "textarea",
-        "name": "comment"
+        "id": "featured_place",
+        "datasetId": "argentina-featured",
+        "label": "_(Featured Site)",
+        "icon": "/static/css/images/markers/marker-star.png"
       },
       {
-        "prompt": "_(Your Name)",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true
+        "id": "observation",
+        "datasetId": "argentina-input",
+        "label": "_(Observación)",
+        "icon": "/static/css/images/markers/marker-observation.png"
       },
       {
-        "type": "submit",
-        "name": "submit",
-        "label": "_(Comment)"
+        "id": "question",
+        "datasetId": "argentina-input",
+        "label": "_(Amenazas / conflictos)",
+        "icon": "/static/css/images/markers/marker-question.png"
+      },
+      {
+        "id": "idea",
+        "datasetId": "argentina-input",
+        "label": "_(Experiencias sustentables)",
+        "icon": "/static/css/images/markers/marker-idea.png"
+      },
+      {
+        "id": "complaint",
+        "datasetId": "argentina-input",
+        "label": "_(Horizontes / potencialidades)",
+        "icon": "/static/css/images/markers/marker-complaint.png"
       }
     ]
   },

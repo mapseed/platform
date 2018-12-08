@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
+import { connect } from "react-redux";
 
-import { Image } from "../atoms/imagery";
-import { Paragraph, Header4 } from "../atoms/typography";
-import MapLegendGroup from "../molecules/map-legend-group";
+import MapLegendItem from "../molecules/map-legend-item";
+import {
+  placeFormsConfigPropType,
+  placeFormsConfigSelector,
+} from "../../state/ducks/forms-config";
 
 const MapLegendPanelContainer = styled("div")(props => ({
   padding: 10,
@@ -15,16 +18,11 @@ const MapLegendPanelContainer = styled("div")(props => ({
 const MapLegendPanel = props => {
   return (
     <MapLegendPanelContainer isThemed={props.isThemed}>
-      {props.config.title && <Header4>{props.config.title}</Header4>}
-      {props.config.description && (
-        <Paragraph>{props.config.description}</Paragraph>
-      )}
-      {props.config.groupings.map((grouping, i) => (
-        <MapLegendGroup
-          key={i}
-          content={grouping.content}
-          description={grouping.description}
-          title={grouping.title}
+      {props.placeFormsConfig.map(placeForm => (
+        <MapLegendItem
+          key={placeForm.id}
+          icon={placeForm.icon}
+          label={placeForm.label}
         />
       ))}
     </MapLegendPanelContainer>
@@ -32,23 +30,12 @@ const MapLegendPanel = props => {
 };
 
 MapLegendPanel.propTypes = {
-  config: PropTypes.shape({
-    description: PropTypes.string,
-    groupings: PropTypes.arrayOf(
-      PropTypes.shape({
-        content: PropTypes.arrayOf(
-          PropTypes.shape({
-            icon: PropTypes.string,
-            label: PropTypes.string.isRequired,
-            swatch: PropTypes.string,
-          }),
-        ),
-        title: PropTypes.string,
-      }),
-    ),
-    title: PropTypes.string,
-  }),
+  placeFormsConfig: placeFormsConfigPropType.isRequired,
   isThemed: PropTypes.bool,
 };
 
-export default MapLegendPanel;
+const mapStateToProps = state => ({
+  placeFormsConfig: placeFormsConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(MapLegendPanel);

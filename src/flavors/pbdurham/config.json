@@ -494,37 +494,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "ActivityStreamWithLegend",
-    "groupings": [
-      {
-        "content": [
-          {
-            "label": "_(Art & Culture)",
-            "icon": "/static/css/images/markers/fountain.png"
-          },
-          {
-            "label": "_(Parks & Recreation)",
-            "icon": "/static/css/images/markers/tree.png"
-          },
-          {
-            "label": "_(Streets & Sidewalks)",
-            "icon": "/static/css/images/markers/street-sidewalk.png"
-          },
-          {
-            "label": "_(Health & Wellness)",
-            "icon": "/static/css/images/markers/health.png"
-          },
-          {
-            "label": "_(Safety & Environment)",
-            "icon": "/static/css/images/markers/safety.png"
-          },
-          {
-            "label": "_(Other)",
-            "icon": "/static/css/images/markers/idea.png"
-          }
-        ]
-      }
-    ]
+    "component": "ActivityStreamWithLegend"
   },
   "left_sidebar": {
     "is_enabled": true,
@@ -626,6 +596,7 @@
     "location_item_name": "location",
     "place_detail": [
       {
+        "formId": "culture",
         "category": "culture",
         "includeOnForm": true,
         "includeOnList": true,
@@ -700,6 +671,7 @@
         ]
       },
       {
+        "formId": "parks",
         "category": "parks",
         "includeOnForm": true,
         "includeOnList": true,
@@ -774,6 +746,7 @@
         ]
       },
       {
+        "formId": "streets",
         "category": "streets",
         "includeOnForm": true,
         "includeOnList": true,
@@ -848,6 +821,7 @@
         ]
       },
       {
+        "formId": "health",
         "category": "health",
         "includeOnForm": true,
         "includeOnList": true,
@@ -922,6 +896,7 @@
         ]
       },
       {
+        "formId": "safety",
         "category": "safety",
         "includeOnForm": true,
         "includeOnList": true,
@@ -996,6 +971,7 @@
         ]
       },
       {
+        "formId": "other",
         "category": "other",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1173,34 +1149,74 @@
       }
     }
   },
-  "survey": {
-    "submission_type": "comments",
-    "adding_enabled": false,
-    "show_responses": true,
-    "response_name": "_(comment)",
-    "response_plural_name": "_(comments)",
-    "action_text": "_(commented on)",
-    "anonymous_name": "_(Someone)",
-    "title": "_(Leave a Comment)",
-    "form_link_text": "_(Leave a Comment)",
-    "submit_btn_text": "_(Comment)",
-    "items": [
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "adding_enabled": false,
+      "show_responses": true,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "places": [
       {
-        "prompt": "_(Comment)",
-        "label": "_(Comment)",
-        "type": "textarea",
-        "name": "comment"
+        "id": "culture",
+        "datasetId": "pbdurham",
+        "label": "_(Art & Culture)",
+        "icon": "/static/css/images/markers/fountain.png"
       },
       {
-        "prompt": "_(Your Name)",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true
+        "id": "parks",
+        "datasetId": "pbdurham",
+        "label": "_(Parks & Recreation)",
+        "icon": "/static/css/images/markers/tree.png"
       },
       {
-        "type": "submit",
-        "name": "submit",
-        "label": "_(Comment)"
+        "id": "streets",
+        "datasetId": "pbdurham",
+        "label": "_(Streets & Sidewalks)",
+        "icon": "/static/css/images/markers/street-sidewalk.png"
+      },
+      {
+        "id": "health",
+        "datasetId": "pbdurham",
+        "label": "_(Health & Wellness)",
+        "icon": "/static/css/images/markers/health.png"
+      },
+      {
+        "id": "safety",
+        "datasetId": "pbdurham",
+        "label": "_(Safety & Environment)",
+        "icon": "/static/css/images/markers/safety.png"
+      },
+      {
+        "id": "other",
+        "datasetId": "pbdurham",
+        "label": "_(Other)",
+        "icon": "/static/css/images/markers/idea.png"
       }
     ]
   },

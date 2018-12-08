@@ -11,7 +11,6 @@ import {
 } from "../../state/ducks/left-sidebar";
 import MapFilterPanel from "./map-filter-panel";
 import MapLayerPanel from "./map-layer-panel";
-import MapLegendPanel from "./map-legend-panel";
 
 import "./left-sidebar.scss";
 
@@ -24,9 +23,6 @@ const LeftSidebar = props => {
       />
       {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
       {props.leftSidebarComponent === "MapFilterPanel" && <MapFilterPanel />}
-      {props.leftSidebarComponent === "MapLegendPanel" && (
-        <MapLegendPanel config={props.mapLegendPanelConfig} />
-      )}
     </div>
   ) : null;
 };

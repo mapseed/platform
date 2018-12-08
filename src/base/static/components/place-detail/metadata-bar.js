@@ -10,7 +10,10 @@ import { translate, Trans } from "react-i18next";
 import constants from "../../constants";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import {
+  commentFormConfigPropType,
+  commentFormConfigSelector,
+} from "../../state/ducks/forms-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 
 const MetadataBarContainer = styled("div")(props => ({
@@ -53,8 +56,8 @@ const MetadataBar = props => {
         <SmallText display="block" textTransform="uppercase">
           {props.surveyModels.size}{" "}
           {props.surveyModels.size === 1
-            ? props.surveyConfig.response_name
-            : props.surveyConfig.response_plural_name}
+            ? props.commentFormConfig.response_name
+            : props.commentFormConfig.response_plural_name}
         </SmallText>
         {props.appConfig.show_timestamps !== false && (
           <SmallText display="block" textTransform="uppercase">
@@ -77,13 +80,13 @@ MetadataBar.propTypes = {
   placeModel: PropTypes.object.isRequired,
   surveyModels: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
-  surveyConfig: PropTypes.object.isRequired,
+  commentFormConfig: commentFormConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   placeConfig: placeConfigSelector(state),
-  surveyConfig: surveyConfigSelector(state),
+  commentFormConfig: commentFormConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(translate("MetadataBar")(MetadataBar));

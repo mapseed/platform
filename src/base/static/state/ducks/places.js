@@ -17,7 +17,7 @@ export const placePropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   datasetId: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   location_type: PropTypes.string.isRequired,
   submitter: PropTypes.object,
   type: PropTypes.string.isRequired,
