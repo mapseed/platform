@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 
 // Selectors:
-export const commentsSurveyConfigSelector = state => {
-  return state.surveyConfig.comments;
+export const commentFormConfigSelector = state => {
+  return state.formsConfig.comments;
 };
 
-export const surveyFormsConfigSelector = state => {
-  return state.surveyConfig.forms;
+export const placeFormsConfigSelector = state => {
+  return state.formsConfig.places;
 };
 
-export const commentsSurveyConfigPropType = PropTypes.shape({
+export const commentFormConfigPropType = PropTypes.shape({
   items: PropTypes.arrayOf(
     PropTypes.shape({
       prompt: PropTypes.string,
@@ -21,7 +21,7 @@ export const commentsSurveyConfigPropType = PropTypes.shape({
   response_plural_name: PropTypes.string.isRequired,
 });
 
-export const surveyFormsConfigPropType = PropTypes.arrayOf(
+export const placeFormsConfigPropType = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.string.isRequired,
     datasetId: PropTypes.string.isRequired,
@@ -31,10 +31,10 @@ export const surveyFormsConfigPropType = PropTypes.arrayOf(
 );
 
 // Actions:
-const LOAD = "survey-config/LOAD";
+const LOAD = "form-config/LOAD";
 
 // Action creators:
-export function setSurveyConfig(config) {
+export function loadFormsConfig(config) {
   return { type: LOAD, payload: config };
 }
 

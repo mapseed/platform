@@ -22,7 +22,7 @@ import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
 import { placesSelector, loadPlaces } from "../../state/ducks/places";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
-import { setSurveyConfig } from "../../state/ducks/survey-config";
+import { loadFormsConfig } from "../../state/ducks/forms-config";
 import { setPagesConfig, pageSelector } from "../../state/ducks/pages-config";
 import {
   isLeftSidebarExpandedSelector,
@@ -107,7 +107,7 @@ export default Backbone.View.extend({
     store.dispatch(setRightSidebarConfig(this.options.rightSidebarConfig));
     store.dispatch(setStoryConfig(this.options.storyConfig));
     store.dispatch(setAppConfig(this.options.appConfig));
-    store.dispatch(setSurveyConfig(this.options.surveyConfig));
+    store.dispatch(loadFormsConfig(this.options.formsConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setPagesConfig(this.options.pagesConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
@@ -329,12 +329,9 @@ export default Backbone.View.extend({
   },
 
   fetchAndLoadPlaces: async function() {
-    // Only include submissions if the list view is enabled (anything but false)
-    const includeSubmissions = this.options.appConfig.list_enabled !== false;
     const placeParams = {
-      // NOTE: this is to simply support the list view. It won't
-      // scale well, so let's think about a better solution.
-      include_submissions: includeSubmissions,
+      // NOTE: this is to include comments/supports while fetching our place models
+      include_submissions: true,
     };
 
     // Use the page size as dictated by the server by default, unless

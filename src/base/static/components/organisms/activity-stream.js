@@ -11,9 +11,9 @@ import ActivityItem from "../molecules/activity-item";
 
 import { mapPlaceLayersSelector } from "../../state/ducks/map-config";
 import {
-  commentsSurveyConfigPropType,
-  commentsSurveyConfigSelector,
-} from "../../state/ducks/survey-config";
+  commentFormConfigPropType,
+  commentFormConfigSelector,
+} from "../../state/ducks/forms-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 
 import constants from "../../constants";
@@ -145,8 +145,8 @@ class ActivityStream extends Component {
                 this.props.places[collectionId]
                   .get(placeId)
                   .get(constants.TITLE_PROPERTY_NAME);
-              anonymousName = this.props.commentsSurveyConfig.anonymous_name;
-              actionText = this.props.commentsSurveyConfig.action_text;
+              anonymousName = this.props.commentFormConfig.anonymous_name;
+              actionText = this.props.commentFormConfig.action_text;
               url = `/${slug}/${placeId}/response/${target.get(
                 constants.MODEL_ID_PROPERTY_NAME,
               )}`;
@@ -179,13 +179,13 @@ ActivityStream.propTypes = {
   }).isRequired,
   placeLayers: PropTypes.array.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
-  commentsSurveyConfig: commentsSurveyConfigPropType.isRequired,
+  commentFormConfig: commentFormConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
   placeLayers: mapPlaceLayersSelector(state),
-  commentsSurveyConfig: commentsSurveyConfigSelector(state),
+  commentFormConfig: commentFormConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(ActivityStream);

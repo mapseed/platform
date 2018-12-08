@@ -32,9 +32,9 @@ import {
 } from "config";
 
 import {
-  commentsSurveyConfigPropType,
-  commentsSurveyConfigSelector,
-} from "../../state/ducks/survey-config";
+  commentFormConfigPropType,
+  commentFormConfigSelector,
+} from "../../state/ducks/forms-config";
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
@@ -74,7 +74,7 @@ class PlaceDetail extends Component {
   constructor(props) {
     super(props);
 
-    this.surveyType = this.props.commentsSurveyConfig.submission_type;
+    this.surveyType = this.props.commentFormConfig.submission_type;
     this.supportType = this.props.supportConfig.submission_type;
     if (!this.props.model.submissionSets[this.surveyType]) {
       this.props.model.submissionSets[
@@ -457,14 +457,14 @@ PlaceDetail.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   scrollToResponseId: PropTypes.string,
   supportConfig: PropTypes.object.isRequired,
-  commentsSurveyConfig: commentsSurveyConfigPropType.isRequired,
+  commentFormConfig: commentFormConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   userToken: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
-  commentsSurveyConfig: commentsSurveyConfigSelector(state),
+  commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });

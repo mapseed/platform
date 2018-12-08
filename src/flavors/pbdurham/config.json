@@ -596,7 +596,7 @@
     "location_item_name": "location",
     "place_detail": [
       {
-        "surveyId": "culture",
+        "formId": "culture",
         "category": "culture",
         "includeOnForm": true,
         "includeOnList": true,
@@ -671,7 +671,7 @@
         ]
       },
       {
-        "surveyId": "parks",
+        "formId": "parks",
         "category": "parks",
         "includeOnForm": true,
         "includeOnList": true,
@@ -746,7 +746,7 @@
         ]
       },
       {
-        "surveyId": "streets",
+        "formId": "streets",
         "category": "streets",
         "includeOnForm": true,
         "includeOnList": true,
@@ -821,7 +821,7 @@
         ]
       },
       {
-        "surveyId": "health",
+        "formId": "health",
         "category": "health",
         "includeOnForm": true,
         "includeOnList": true,
@@ -896,7 +896,7 @@
         ]
       },
       {
-        "surveyId": "safety",
+        "formId": "safety",
         "category": "safety",
         "includeOnForm": true,
         "includeOnList": true,
@@ -971,7 +971,7 @@
         ]
       },
       {
-        "surveyId": "other",
+        "formId": "other",
         "category": "other",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1149,7 +1149,7 @@
       }
     }
   },
-  "survey": {
+  "forms": {
     "comments": {
       "submission_type": "comments",
       "adding_enabled": false,
@@ -1181,7 +1181,7 @@
         }
       ]
     },
-    "forms": [
+    "places": [
       {
         "id": "culture",
         "datasetId": "pbdurham",

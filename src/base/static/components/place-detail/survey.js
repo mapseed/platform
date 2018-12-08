@@ -12,9 +12,9 @@ import Avatar from "../ui-elements/avatar";
 import SurveyResponseEditor from "./survey-response-editor";
 
 import {
-  commentsSurveyConfigPropType,
-  commentsSurveyConfigSelector,
-} from "../../state/ducks/survey-config";
+  commentFormConfigPropType,
+  commentFormConfigSelector,
+} from "../../state/ducks/forms-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 
 import constants from "../../constants";
@@ -51,7 +51,7 @@ class Survey extends Component {
   }
 
   initializeFields() {
-    return this.props.commentsSurveyConfig.items.reduce((fields, field) => {
+    return this.props.commentFormConfig.items.reduce((fields, field) => {
       fields = fields.set(
         field.name,
         Map()
@@ -136,8 +136,8 @@ class Survey extends Component {
           <h4 className="place-detail-survey__num-comments-header">
             {numSubmissions}{" "}
             {numSubmissions === 1
-              ? this.props.commentsSurveyConfig.response_name
-              : this.props.commentsSurveyConfig.response_plural_name}
+              ? this.props.commentFormConfig.response_name
+              : this.props.commentFormConfig.response_plural_name}
           </h4>
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
@@ -180,7 +180,7 @@ class Survey extends Component {
               <FormField
                 key={fieldState.get(constants.FIELD_RENDER_KEY)}
                 isInitializing={this.state.isInitializing}
-                fieldConfig={this.props.commentsSurveyConfig.items.find(
+                fieldConfig={this.props.commentFormConfig.items.find(
                   field => field.name === fieldName,
                 )}
                 updatingField={this.state.updatingField}
@@ -222,7 +222,7 @@ Survey.propTypes = {
   onModelIO: PropTypes.func.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.string,
-  commentsSurveyConfig: commentsSurveyConfigPropType.isRequired,
+  commentFormConfig: commentFormConfigPropType.isRequired,
   surveyModels: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
   onSurveyCollectionCreate: PropTypes.func.isRequired,
@@ -235,7 +235,7 @@ Survey.propTypes = {
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
-  commentsSurveyConfig: commentsSurveyConfigSelector(state),
+  commentFormConfig: commentFormConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(translate("Survey")(Survey));

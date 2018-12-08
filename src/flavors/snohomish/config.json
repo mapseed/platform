@@ -274,7 +274,7 @@
     "hide_metadata_bar": true,
     "place_detail": [
       {
-        "surveyId": "featured_place",
+        "formId": "featured_place",
         "category": "featured_place",
         "admin_only": true,
         "includeOnForm": true,
@@ -326,7 +326,7 @@
         ]
       },
       {
-        "surveyId": "conservation-actions",
+        "formId": "conservation-actions",
         "category": "conservation-actions",
         "submitter_editing_supported": true,
         "includeOnForm": true,
@@ -1946,7 +1946,7 @@
       }
     }
   },
-  "survey": {
+  "forms": {
     "comments": {
       "submission_type": "comments",
       "show_responses": true,
@@ -1978,7 +1978,7 @@
         }
       ]
     },
-    "forms": [
+    "places": [
       {
         "id": "featured_place",
         "datasetId": "snohomish-featured",

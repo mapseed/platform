@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 
 import MapLegendItem from "../molecules/map-legend-item";
 import {
-  surveyFormsConfigPropType,
-  surveyFormsConfigSelector,
-} from "../../state/ducks/survey-config";
+  placeFormsConfigPropType,
+  placeFormsConfigSelector,
+} from "../../state/ducks/forms-config";
 
 const MapLegendPanelContainer = styled("div")(props => ({
   padding: 10,
@@ -18,11 +18,11 @@ const MapLegendPanelContainer = styled("div")(props => ({
 const MapLegendPanel = props => {
   return (
     <MapLegendPanelContainer isThemed={props.isThemed}>
-      {props.surveyFormsConfig.map(surveyForm => (
+      {props.placeFormsConfig.map(placeForm => (
         <MapLegendItem
-          key={surveyForm.id}
-          icon={surveyForm.icon}
-          label={surveyForm.label}
+          key={placeForm.id}
+          icon={placeForm.icon}
+          label={placeForm.label}
         />
       ))}
     </MapLegendPanelContainer>
@@ -30,12 +30,12 @@ const MapLegendPanel = props => {
 };
 
 MapLegendPanel.propTypes = {
-  surveyFormsConfig: surveyFormsConfigPropType.isRequired,
+  placeFormsConfig: placeFormsConfigPropType.isRequired,
   isThemed: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  surveyFormsConfig: surveyFormsConfigSelector(state),
+  placeFormsConfig: placeFormsConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(MapLegendPanel);

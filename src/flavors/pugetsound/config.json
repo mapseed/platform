@@ -585,6 +585,7 @@
     "default_basemap": "satellite",
     "place_detail": [
       {
+        "formId": "featured_place",
         "category": "featured_place",
         "admin_only": true,
         "includeOnForm": true,
@@ -644,6 +645,7 @@
         ]
       },
       {
+        "formId": "rose-grants",
         "category": "rose-grants",
         "admin_only": true,
         "includeOnForm": false,
@@ -718,6 +720,7 @@
         ]
       },
       {
+        "formId": "settled-cases",
         "category": "settled-cases",
         "admin_only": true,
         "includeOnForm": false,
@@ -786,6 +789,7 @@
         ]
       },
       {
+        "formId": "pollution",
         "category": "pollution",
         "includeOnForm": true,
         "name": "location_type",
@@ -870,6 +874,7 @@
         ]
       },
       {
+        "formId": "community-action",
         "category": "community-action",
         "includeOnForm": true,
         "name": "location_type",
@@ -942,7 +947,8 @@
     "on_new_place": true,
     "submitter_email_field": "private-submitter_email"
   },
-  "survey": {
+  "forms": {
+    "comments": {
     "submission_type": "comments",
     "show_responses": true,
     "single_submission": false,
@@ -970,6 +976,39 @@
         "type": "submit",
         "name": "submit",
         "label": "_(Comment)"
+      }
+    ]
+    },
+    "places": [
+      {
+        "id": "featured_place",
+        "datasetId": "pugetsoundfeatured",
+        "label": "_(Featured Site)",
+        "icon": "/static/css/images/markers/marker-star.png"
+      },
+      {
+        "id": "rose-grants",
+        "datasetId": "pugetsoundrose",
+        "label": "_(Featured Site)",
+        "icon": "/static/css/images/markers/map-pin-marker.png"
+      },
+      {
+        "id": "settled-cases",
+        "datasetId": "pugetsoundcases",
+        "label": "_(Featured Site)",
+        "icon": "/static/css/images/markers/marker-star.png"
+      },
+      {
+        "id": "pollution",
+        "datasetId": "pugetsound",
+        "label": "_(Report Pollution)",
+        "icon": "/static/css/images/markers/marker-observation.png"
+      },
+      {
+        "id": "community-action",
+        "datasetId": "pugetsound",
+        "label": "_(Add a community action)",
+        "icon": "/static/css/images/markers/marker-heart.png"
       }
     ]
   },
