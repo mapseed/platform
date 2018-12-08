@@ -77,7 +77,7 @@ Shareabouts.Util = Util;
         placeTypes: options.placeTypes,
         cluster: options.cluster,
         appConfig: options.appConfig,
-        surveyConfig: options.surveyConfig,
+        formsConfig: options.formsConfig,
         supportConfig: options.supportConfig,
         navBarConfig: options.navBarConfig,
         pagesConfig: options.pagesConfig,

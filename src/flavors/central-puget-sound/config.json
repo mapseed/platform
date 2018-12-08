@@ -643,6 +643,7 @@
     "default_basemap": "satellite",
     "place_detail": [
       {
+        "formId": "featured_school",
         "category": "featured_school",
         "admin_only": true,
         "includeOnForm": true,
@@ -711,6 +712,7 @@
         ]
       },
       {
+        "formId": "featured_place",
         "category": "featured_place",
         "admin_only": true,
         "includeOnForm": true,
@@ -866,6 +868,7 @@
         ]
       },
       {
+        "formId": "conserve-water",
         "category": "conserve-water",
         "includeOnForm": true,
         "includeOnList": true,
@@ -979,6 +982,7 @@
         ]
       },
       {
+        "formId": "prevent-stormwater",
         "category": "prevent-stormwater",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1091,6 +1095,7 @@
         ]
       },
       {
+        "formId": "only-flush",
         "category": "only-flush",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1195,6 +1200,7 @@
         ]
       },
       {
+        "formId": "conserve-energy",
         "category": "conserve-energy",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1292,6 +1298,7 @@
         ]
       },
       {
+        "formId": "waste-less",
         "category": "waste-less",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1385,6 +1392,7 @@
         ]
       },
       {
+        "formId": "commute-low-carbon",
         "category": "commute-low-carbon",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1470,6 +1478,7 @@
         ]
       },
       {
+        "formId": "eat-local-organic",
         "category": "eat-local-organic",
         "includeOnForm": true,
         "includeOnList": true,
@@ -1547,6 +1556,7 @@
         ]
       },
       {
+        "formId": "restore-salmon-habitat",
         "category": "restore-salmon-habitat",
         "includeOnForm": true,
         "includeOnList": true,
@@ -3536,34 +3546,92 @@
       }
     }
   },
-  "survey": {
-    "submission_type": "comments",
-    "show_responses": true,
-    "single_submission": false,
-    "response_name": "_(comment)",
-    "response_plural_name": "_(comments)",
-    "action_text": "_(commented on)",
-    "anonymous_name": "_(Someone)",
-    "title": "_(Leave a Comment)",
-    "form_link_text": "_(Leave a Comment)",
-    "submit_btn_text": "_(Comment)",
-    "items": [
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "places": [
       {
-        "prompt": "_(Comment)",
-        "label": "_(Comment)",
-        "type": "textarea",
-        "name": "comment"
+        "id": "featured_school",
+        "datasetId": "mwfeatured",
+        "label": "_(Featured School)",
+        "icon": "/static/css/images/markers/marker-dot-commute-low-carbon.png"
       },
       {
-        "prompt": "_(Your Name)",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true
+        "id": "featured_place",
+        "datasetId": "mwfeatured",
+        "label": "_(Featured Site)",
+        "icon": "/static/css/images/markers/marker-star.png"
       },
       {
-        "type": "submit",
-        "name": "submit",
-        "label": "_(Comment)"
+        "id": "conserve-water",
+        "datasetId": "mw",
+        "label": "_(Conserve Water)",
+        "icon": "/static/css/images/markers/marker-conserve-water.png"
+      },
+      {
+        "id": "prevent-stormwater",
+        "datasetId": "mw",
+        "label": "_(Conserve Water)",
+        "icon": "/static/css/images/markers/marker-prevent-stormwater-pollution.png"
+      },
+      {
+        "id": "conserve-energy",
+        "datasetId": "mw",
+        "label": "_(Conserve Energy)",
+        "icon": "/static/css/images/markers/marker-conserve-energy.png"
+      },
+      {
+        "id": "waste-less",
+        "datasetId": "mw",
+        "label": "_(Waste Less)",
+        "icon": "/static/css/images/markers/marker-waste-less.png"
+      },
+      {
+        "id": "commute-low-carbon",
+        "datasetId": "mw",
+        "label": "_(Commute Low Carbon)",
+        "icon": "/static/css/images/markers/marker-commute-low-carbon.png"
+      },
+      {
+        "id": "eat-local-organic",
+        "datasetId": "mw",
+        "label": "_(Eat Local Organic)",
+        "icon": "/static/css/images/markers/marker-eat-local-organic.png"
+      },
+      {
+        "id": "restore-salmon-habitat",
+        "datasetId": "mw",
+        "label": "_(Restore Salmon Habitat)",
+        "icon": "/static/css/images/markers/marker-restore-salmon-habitat.png"
       }
     ]
   },

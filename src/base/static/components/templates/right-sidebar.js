@@ -7,7 +7,10 @@ import StoryNavigator from "../organisms/story-navigator";
 import MapLegendPanel from "../organisms/map-legend-panel";
 import ActivityStream from "../organisms/activity-stream";
 
-import { rightSidebarConfigSelector } from "../../state/ducks/right-sidebar-config";
+import {
+  rightSidebarConfigPropType,
+  rightSidebarConfigSelector,
+} from "../../state/ducks/right-sidebar-config";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
 import { setMapSizeValidity } from "../../state/ducks/map";
 
@@ -48,7 +51,7 @@ const RightSidebar = props => {
       )}
       {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
         <Fragment>
-          <MapLegendPanel config={props.rightSidebarConfig} isThemed={true} />
+          <MapLegendPanel isThemed={true} />
           <ActivityStream
             config={props.rightSidebarConfig}
             places={props.legacyPlaces}
@@ -62,12 +65,7 @@ const RightSidebar = props => {
 RightSidebar.propTypes = {
   legacyPlaces: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   places: placesPropType,
-  rightSidebarConfig: PropTypes.shape({
-    is_enabled: PropTypes.bool.isRequired,
-    is_visible_default: PropTypes.bool,
-    component: PropTypes.string.isRequired,
-    content: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  }),
+  rightSidebarConfig: rightSidebarConfigPropType.isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,
   storyConfig: PropTypes.object,
   placeConfig: PropTypes.shape({
