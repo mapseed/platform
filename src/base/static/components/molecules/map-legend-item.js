@@ -2,18 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 
-import { LegacyIcon } from "../atoms/feedback";
+import { Image } from "../atoms/imagery";
 import { RegularLabel } from "../atoms/typography";
 
-// TODO: Abstract these components out when we refactor other panel types.
-const LegendIcon = styled(props => (
-  <LegacyIcon icon={props.icon} classes={props.className} />
-))(() => ({
+const LegendIcon = styled(Image)({
   flex: "0 0 30px",
   width: "30px",
   height: "auto",
   marginRight: "10px",
-}));
+});
 
 const MapLegendItemContainer = styled("div")({
   display: "flex",
@@ -25,7 +22,7 @@ const MapLegendItemContainer = styled("div")({
 const MapLegendItem = props => {
   return (
     <MapLegendItemContainer>
-      <LegendIcon icon={props.icon} />
+      <LegendIcon src={props.icon} />
       <RegularLabel>{props.label}</RegularLabel>
     </MapLegendItemContainer>
   );

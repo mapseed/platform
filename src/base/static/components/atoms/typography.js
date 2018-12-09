@@ -129,14 +129,21 @@ const SmallTitle = styled("h3")(props => ({
 }));
 
 // TODO: Other label types.
-const RegularLabel = styled("label")(
-  props => (
-    {
-      color: "#444",
-    },
-    props.styles
-  ),
-);
+const LargeLabel = styled("label")(props => ({
+  fontSize: "1.5rem",
+  fontFamily: props.theme.text.headerFontFamily,
+}));
+
+const RegularLabel = styled("label")(props => ({
+  fontSize: "1rem",
+  lineHeight: "1.2rem",
+  fontFamily: props.theme.text.headerFontFamily,
+}));
+
+const SmallLabel = styled("label")(props => ({
+  fontSize: "0.7rem",
+  fontFamily: props.theme.text.headerFontFamily,
+}));
 
 RegularLabel.propTypes = {
   styles: PropTypes.object,
@@ -232,7 +239,9 @@ export {
   Header4,
   Header5,
   Header6,
+  LargeLabel,
   RegularLabel,
+  SmallLabel,
   LargeTitle,
   RegularTitle,
   SmallTitle,
