@@ -451,11 +451,12 @@ class MainMap extends Component {
         );
       }
     }
+
+    // Update place datasets when filters have been updated:
     if (prevProps.filters.length !== this.props.filters.length) {
-      const datasetIds = this.props.filters.reduce((memo, filter) => {
-        memo.push(filter.datasetId);
-        return memo;
-      }, []);
+      const datasetIds = this.props.layers
+        .filter(layerConfig => layerConfig.type === "place")
+        .map(layerConfig => layerConfig.id);
       datasetIds.forEach(datasetId => {
         const layerStatus = this.props.layerStatuses[datasetId];
         const layerConfig = this.props.layers.find(

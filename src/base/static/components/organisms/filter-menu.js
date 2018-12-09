@@ -106,6 +106,7 @@ class FilterMenu extends Component {
     this.setState({ isModalOpen: false });
   };
   render() {
+    const isFiltering = this.props.filters.length > 0;
     return (
       <Fragment>
         <FilterNavButton
@@ -114,7 +115,7 @@ class FilterMenu extends Component {
             this.openModal();
           }}
         >
-          {this.props.navBarItem.title}
+          {`${this.props.navBarItem.title}${isFiltering ? " (on)" : ""}`}
         </FilterNavButton>
         <Modal
           style={modalStyles}
@@ -126,14 +127,12 @@ class FilterMenu extends Component {
             <FilterMenuTitle>{"Filter Menu"}</FilterMenuTitle>
             <FilterOptions>
               <CategoryFilterOption
-                isSelected={this.props.filters.length === 0}
+                isSelected={!isFiltering}
                 onClick={() => {
                   this.props.updateFilters([]);
                 }}
               >
-                <CategoryLabel isSelected={this.props.filters.length === 0}>
-                  {"All"}
-                </CategoryLabel>
+                <CategoryLabel isSelected={!isFiltering}>{"All"}</CategoryLabel>
               </CategoryFilterOption>
               {this.props.placeFormsConfig.map(placeForm => {
                 const isFilterSelected = !!this.props.filters.find(
