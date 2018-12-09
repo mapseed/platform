@@ -4,7 +4,6 @@ export const filtersSelector = state => {
   return state.filters;
 };
 
-// export const filtersPropType = PropTypes.arrayOf(PropTypes.string);
 export const filtersPropType = PropTypes.arrayOf(
   PropTypes.shape({
     formId: PropTypes.string,
