@@ -1185,7 +1185,7 @@ export default (container, options) => {
       map.remove();
     },
 
-    removeLayer: (layer, { clearCache = false }) => {
+    removeLayer: (layer, { clearCache = false } = {}) => {
       if (layer && layersCache[layer.id]) {
         layersCache[layer.id].forEach(mapboxLayer => {
           !!map.getLayer(mapboxLayer.id) && map.removeLayer(mapboxLayer.id);
