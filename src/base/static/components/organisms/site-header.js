@@ -1,17 +1,21 @@
 /* eslint react/display-name: 0 */
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { connect } from "react-redux";
 
 import { SiteLogo } from "../atoms/imagery";
-import { Button } from "../atoms/buttons";
 import { Link } from "../atoms/navigation";
+import { NavButton } from "../molecules/buttons";
+import { NavLink } from "../molecules/typography";
 import UserMenu from "../molecules/user-menu";
 import { RegularTitle } from "../atoms/typography";
 
-import { navBarConfigSelector } from "../../state/ducks/nav-bar-config";
+import {
+  navBarConfigPropType,
+  navBarConfigSelector,
+} from "../../state/ducks/nav-bar-config";
+import FilterMenu from "./filter-menu";
 import { appConfigSelector } from "../../state/ducks/app-config";
 import { currentTemplateSelector } from "../../state/ducks/ui";
 import {
@@ -54,28 +58,6 @@ const NavContainer = styled("nav")(props => ({
   },
 }));
 
-const NavButton = styled(props => {
-  return (
-    <Button
-      className={props.className}
-      color={props.color}
-      variant={props.variant}
-      onClick={props.onClick}
-    >
-      {props.children}
-    </Button>
-  );
-})(props => ({
-  fontFamily: props.theme.text.navBarFontFamily,
-  fontWeight: 600,
-  marginLeft: "4px",
-  marginRight: "4px",
-
-  [mq[0]]: {
-    width: "100%",
-  },
-}));
-
 const SiteTitle = styled(RegularTitle)(props => ({
   color: props.theme.text.titleColor,
   fontFamily: props.theme.text.titleFontFamily,
@@ -86,22 +68,6 @@ const SiteTitle = styled(RegularTitle)(props => ({
   [mq[0]]: {
     // NOTE: This is an override of our RegularTitle font size.
     fontSize: "1rem",
-  },
-}));
-
-const NavLink = styled(props => (
-  <Link href={props.href} rel="internal" className={props.className}>
-    {props.children}
-  </Link>
-))(props => ({
-  display: "flex",
-  alignItems: "center",
-  textDecoration: "none",
-
-  [mq[1]]: {
-    height: props.height,
-    borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
 }));
 
@@ -267,6 +233,7 @@ const navItemMappings = {
       display: "block",
     },
   })),
+  filter: FilterMenu,
 };
 
 class SiteHeader extends Component {
@@ -297,29 +264,27 @@ class SiteHeader extends Component {
           )}
         </LogoTitleWrapper>
         <NavContainer isHeaderExpanded={this.state.isHeaderExpanded}>
-          {this.props.navBarConfig
-            .filter(navBarItem => !navBarItem.hide_from_top_bar)
-            .map((navBarItem, i) => {
-              const NavItemComponent = navItemMappings[navBarItem.type];
-              return (
-                <NavItemComponent
-                  key={i}
-                  position={i}
-                  navBarItem={navBarItem}
-                  currentTemplate={this.props.currentTemplate}
-                  setLeftSidebarComponent={this.props.setLeftSidebarComponent}
-                  setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
-                  isLeftSidebarExpanded={this.props.isLeftSidebarExpanded}
-                  onClick={() => {
-                    this.setState({
-                      isHeaderExpanded: false,
-                    });
-                  }}
-                >
-                  {navBarItem.title}
-                </NavItemComponent>
-              );
-            })}
+          {this.props.navBarConfig.map((navBarItem, i) => {
+            const NavItemComponent = navItemMappings[navBarItem.type];
+            return (
+              <NavItemComponent
+                key={i}
+                position={i}
+                navBarItem={navBarItem}
+                currentTemplate={this.props.currentTemplate}
+                setLeftSidebarComponent={this.props.setLeftSidebarComponent}
+                setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
+                isLeftSidebarExpanded={this.props.isLeftSidebarExpanded}
+                onClick={() => {
+                  this.setState({
+                    isHeaderExpanded: false,
+                  });
+                }}
+              >
+                {navBarItem.title}
+              </NavItemComponent>
+            );
+          })}
         </NavContainer>
         <RightAlignedContainer isHeaderExpanded={this.state.isHeaderExpanded}>
           {this.props.appConfig.languages && (
@@ -387,16 +352,7 @@ SiteHeader.propTypes = {
   currentUser: PropTypes.object,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
-  navBarConfig: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      type: PropTypes.string.isRequired,
-      url: PropTypes.string,
-      start_page: PropTypes.bool,
-      name: PropTypes.string,
-      component: PropTypes.string,
-    }),
-  ),
+  navBarConfig: navBarConfigPropType,
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,

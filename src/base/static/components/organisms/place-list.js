@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
-import { placesSelector, placesPropType } from "../../state/ducks/places";
+import {
+  filteredPlacesSelector,
+  placesSelector,
+  placesPropType,
+} from "../../state/ducks/places";
 import {
   placeConfigSelector,
   placeConfigPropType,
@@ -251,7 +255,7 @@ PlaceList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  places: placesSelector(state),
+  places: filteredPlacesSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
