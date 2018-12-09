@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { NavButton } from "../molecules/buttons";
+import { NavButton, CloseButton } from "../molecules/buttons";
 import { Image } from "../atoms/imagery";
-import { RegularTitle, LargeLabel } from "../atoms/typography";
+import { Link, RegularTitle, LargeLabel } from "../atoms/typography";
 import styled from "react-emotion";
 import mq from "../../../../media-queries";
 import { connect } from "react-redux";
@@ -39,10 +39,13 @@ const FilterMenuWrapper = styled("div")({
   height: "100%",
 });
 
+const FilterMenuHeading = styled("div")({
+  display: "flex",
+});
 const FilterMenuTitle = styled(RegularTitle)({
+  textAlign: "center",
   marginLeft: "auto",
   marginRight: "auto",
-  textAlign: "center",
 });
 const FilterOptions = styled("div")({
   marginLeft: "auto",
@@ -133,7 +136,10 @@ class FilterMenu extends Component {
           contentLabel="set your filters"
         >
           <FilterMenuWrapper>
-            <FilterMenuTitle>{"Filter Menu"}</FilterMenuTitle>
+            <FilterMenuHeading>
+              <FilterMenuTitle>{"Filter Menu"}</FilterMenuTitle>
+              <CloseButton onClick={this.closeModal} />
+            </FilterMenuHeading>
             <FilterOptions>
               <CategoryFilterOption
                 isSelected={!isFiltering}

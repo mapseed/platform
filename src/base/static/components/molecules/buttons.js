@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "react-emotion";
 import { Button } from "../atoms/buttons";
+import { Link } from "../atoms/typography";
 import mq from "../../../../media-queries";
 
 const NavButton = styled(props => {
@@ -25,4 +26,13 @@ const NavButton = styled(props => {
   },
 }));
 
-export { NavButton };
+const CloseButton = styled(props => (
+  <Link className={props.className} onClick={props.onClick}>
+    {"✕"}
+  </Link>
+))({
+  color: "red",
+  fontSize: "1.5em",
+});
+
+export { NavButton, CloseButton };
