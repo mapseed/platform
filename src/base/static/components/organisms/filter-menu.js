@@ -55,6 +55,14 @@ const CategoryFilterOption = styled("div")(props => ({
   alignItems: "center",
 
   background: props.isSelected ? props.theme.bg.highlighted : "clear",
+  color: props.isSelected
+    ? props.theme.text.highlighted
+    : props.theme.text.primary,
+
+  "&:hover": {
+    background: props.theme.bg.highlighted,
+    color: props.theme.text.highlighted,
+  },
 }));
 const CategoryImage = styled(Image)({
   width: "30px",
@@ -62,10 +70,11 @@ const CategoryImage = styled(Image)({
 });
 const CategoryLabel = styled(LargeLabel)(props => ({
   marginLeft: "8px",
+  color: "unset",
 
-  color: props.isSelected
-    ? props.theme.text.highlighted
-    : props.theme.text.primary,
+  "&:hover": {
+    color: props.theme.text.highlighted,
+  },
 }));
 
 const modalStyles = {
