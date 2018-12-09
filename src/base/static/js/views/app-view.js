@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import emitter from "../../utils/emitter";
 import ReactDOM from "react-dom";
 import languageModule from "../../language-module";
@@ -56,6 +56,8 @@ import {
   setGeocodeAddressBarVisibility,
   geocodeAddressBarVisibilitySelector,
 } from "../../state/ducks/ui.js";
+
+const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -761,10 +763,13 @@ export default Backbone.View.extend({
   renderMain: function(mapPosition) {
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
+    $("#dashboard-container").addClass("is-visuallyhidden");
 
     // remove "list page" content:
-    $("#list-container").addClass("is-visuallyhidden");
     ReactDOM.unmountComponentAtNode(document.getElementById("list-container"));
+    ReactDOM.unmountComponentAtNode(
+      document.getElementById("dashboard-container"),
+    );
 
     // render "main page" content:
     if (geocodeAddressBarVisibilitySelector(store.getState())) {
@@ -872,6 +877,32 @@ export default Backbone.View.extend({
     );
 
     store.dispatch(setCurrentTemplate("list"));
+  },
+  viewDashboard: function() {
+    // If module fails to load (eg: due to network error), use error boundaries to
+    // show a helpful message
+    // https://reactjs.org/docs/code-splitting.html#error-boundaries
+    $("#geocode-address-bar").addClass("is-visuallyhidden");
+    const geocodeAddressBar = document.getElementById("geocode-address-bar");
+    if (geocodeAddressBar) {
+      ReactDOM.unmountComponentAtNode(geocodeAddressBar);
+    }
+    ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
+
+    $("#dashboard-container").removeClass("is-visuallyhidden");
+    ReactDOM.render(
+      <Suspense fallback={<div>Loading...</div>}>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={this.adjustedTheme}>
+              <Dashboard />
+            </ThemeProvider>
+          </ThemeProvider>
+        </Provider>
+      </Suspense>,
+      document.getElementById("dashboard-container"),
+    );
+    store.dispatch(setCurrentTemplate("dashboard"));
   },
 });
 

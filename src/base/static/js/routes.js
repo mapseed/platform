@@ -13,6 +13,7 @@ Shareabouts.Util = Util;
     routes: {
       "": "viewMap",
       "page/:slug": "viewPage",
+      dashboard: "viewDashboard",
       ":dataset/:id": "viewPlace",
       new: "newPlace",
       ":dataset/:id/response/:response_id": "viewPlace",
@@ -131,6 +132,11 @@ Shareabouts.Util = Util;
     viewMap: function(zoom, lat, lng) {
       this.recordGoogleAnalyticsHit("/");
       this.appView.viewMap(zoom, lat, lng);
+    },
+
+    viewDashboard: function() {
+      this.recordGoogleAnalyticsHit("/dashboard");
+      this.appView.viewDashboard();
     },
 
     newPlace: function() {

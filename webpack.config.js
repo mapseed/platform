@@ -1,13 +1,10 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
-const shell = require("shelljs");
 
 require("dotenv").config({ path: "src/.env" });
 require("babel-polyfill");
 var path = require("path");
-var glob = require("glob");
-var fs = require("fs");
 
 const PORT = 8000;
 
@@ -18,13 +15,7 @@ if (!process.env.FLAVOR) {
 
 const isProd = process.env.NODE_ENV === "production";
 
-if (isProd) {
-  // If we're building for production, webpack runs before
-  // scripts/static-build.js, so make sure the output directory is cleaned out.
-  const outputBasePath = path.resolve(__dirname, "www");
-  shell.rm("-rf", outputBasePath);
-  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
-}
+const outputPath = path.resolve(__dirname, "www");
 
 var entryPoints = [
   "babel-polyfill",
@@ -43,7 +34,6 @@ alias.config = path.resolve(
   "config.json",
 );
 
-var outputBasePath = path.resolve(__dirname, "www");
 const extractSCSS = new MiniCssExtractPlugin({
   // Options similar to the same options in webpackOptions.output
   // both options are optional
@@ -55,7 +45,9 @@ module.exports = {
   mode: isProd ? "production" : "development",
   entry: entryPoints,
   output: {
-    path: path.join(outputBasePath, "dist"),
+    path: outputPath,
+    // use this for our dynamic imports, like "1.bundle.js"
+    chunkFilename: "[name].bundle.js",
     filename: isProd ? "[chunkhash].bundle.js" : "bundle.js",
   },
   resolve: {
@@ -126,7 +118,7 @@ module.exports = {
   ],
   devtool: isProd ? false : "cheap-eval-souce-map",
   devServer: {
-    contentBase: outputBasePath,
+    contentBase: outputPath,
     historyApiFallback: {
       disableDotRule: true,
     },

@@ -40,19 +40,12 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 // Control logging output
 const verbose = true;
 
-const outputBasePath = path.resolve(__dirname, "../www");
-const distPath = path.resolve(outputBasePath, "dist");
 const isProd = process.env.NODE_ENV === "production";
-
-if (!isProd) {
-  // If we're building for development, this script runs before webpack so make
-  // sure that the output directory is cleaned out.
-  shell.rm("-rf", outputBasePath);
-  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
-}
+shell.mkdir(__dirname, "../www");
+const outputPath = path.resolve(__dirname, "../www");
 
 let jsHashedBundleName, cssHashedBundleName;
-glob.sync(distPath + "/+(*.bundle.js|*.bundle.css)").forEach(path => {
+glob.sync(outputPath + "/+(*.bundle.js|*.bundle.css)").forEach(path => {
   path = path.split("/");
   if (path[path.length - 1].endsWith("js")) {
     jsHashedBundleName = path[path.length - 1] + ".gz";
@@ -125,13 +118,9 @@ const indexTemplate = Handlebars.compile(source);
 // -----------------------------------------------------------------------------
 
 // Constants and variables to use inside the localization loop below
-const handlebarsExec = path.resolve(
-  __dirname,
-  "../node_modules/handlebars/bin/handlebars",
-);
 const baseLocaleDir = path.resolve(__dirname, "../src/base/locale");
 const flavorLocaleDir = path.resolve(flavorBasePath, "locale");
-const mergedPOFileOutputPath = path.resolve(outputBasePath, "messages.po");
+const mergedPOFileOutputPath = path.resolve(outputPath, "messages.po");
 
 let activeLanguages;
 if (isProd) {
@@ -143,7 +132,6 @@ if (isProd) {
 }
 
 // NOTE: We use [\s\S] here instead of . so we can match newlines.
-const jsTemplatesGettextRegex = /{{#_}}([\s\S]*?){{\/_}}/g;
 const configGettextRegex = /^_\(/;
 
 // Gettext object
@@ -261,7 +249,7 @@ activeLanguages.forEach(language => {
 
   // Write out final xx.html file
   outputIndexFilename = path.resolve(
-    outputBasePath,
+    outputPath,
     (language.code == "en_US" ? "index" : language.code) + ".html",
   );
 
@@ -286,7 +274,7 @@ const baseImageAssetsPath = path.resolve(
   __dirname,
   "../src/base/static/css/images",
 );
-const outputImageAssetsPath = path.resolve(outputBasePath, "static/css/images");
+const outputImageAssetsPath = path.resolve(outputPath, "static/css/images");
 
 try {
   fs.copySync(baseImageAssetsPath, outputImageAssetsPath);
@@ -316,11 +304,7 @@ fontPaths.forEach(fontPath => {
   try {
     fs.copySync(
       fontPath,
-      path.resolve(
-        outputBasePath,
-        "static/css",
-        fontPath.split("/").slice(-1)[0],
-      ),
+      path.resolve(outputPath, "static/css", fontPath.split("/").slice(-1)[0]),
     );
   } catch (e) {
     logError("Error copying font file: " + e);
@@ -330,7 +314,7 @@ fontPaths.forEach(fontPath => {
 try {
   fs.copySync(
     path.resolve(__dirname, "../src/base/static/legacy-libs"),
-    path.resolve(outputBasePath, "legacy-libs"),
+    path.resolve(outputPath, "legacy-libs"),
   );
 } catch (e) {
   logError("Error copying flavor libs files: " + e);

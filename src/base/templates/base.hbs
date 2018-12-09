@@ -23,7 +23,7 @@
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
   {{#if production}}
-    <link rel="stylesheet" href="/dist/{{cssHashedBundleName}}">
+    <link rel="stylesheet" href="/{{cssHashedBundleName}}">
   {{else}}
     <link rel="stylesheet" href="/bundle.css">
   {{/if}}
@@ -77,7 +77,8 @@
   </div><!-- end #main -->
 
   <div id="list-container"></div>
-  </div>
+  <div id="dashboard-container"></div>
+  </div><!-- end #site-wrap -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -126,7 +127,7 @@
   </script>
 
   {{#if production}}
-    <script src="/dist/{{jsHashedBundleName}}"></script>
+    <script src="/{{jsHashedBundleName}}"></script>
   {{else}}
     <script src="/bundle.js"></script>
   {{/if}}
@@ -189,7 +190,7 @@
       }(Shareabouts, jQuery));
     </script>
   {{else}}
-    <script src="/dist/config-en_US.js" type="text/javascript"></script>
+    <script src="/config-en_US.js" type="text/javascript"></script>
   {{/if}}
 
   {{#if settings.googleAnalyticsId}}
