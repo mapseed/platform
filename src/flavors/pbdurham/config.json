@@ -1252,7 +1252,7 @@
       "show_map_button_label": "_(Show on a map)"
     },
     {
-      "title": "_(Filters)",
+      "title": "_(Filter Ideas)",
       "enabled_label": "_(Filters Enabled)",
       "type": "filter"
     }

@@ -48,6 +48,7 @@ const CategoryFilterOption = styled("li")(props => ({
   alignItems: "center",
 
   background: props.isSelected ? props.theme.bg.highlighted : "clear",
+  cursor: "pointer",
   color: props.isSelected
     ? props.theme.text.highlighted
     : props.theme.text.primary,
@@ -61,10 +62,10 @@ const CategoryFilterOption = styled("li")(props => ({
 const CategoryLabel = styled(RegularLabel)(props => ({
   color: "unset",
   margin: "4px 16px 4px 16px",
+  cursor: "pointer",
 
   "&:hover": {
     color: props.theme.text.highlighted,
-    cursor: "pointer",
   },
 }));
 
