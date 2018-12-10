@@ -146,6 +146,7 @@ class FilterMenu extends Component {
                     filter => filter.formId === placeForm.id,
                   );
                   return (
+                    // eslint-disable-next-line react/jsx-key
                     <CategoryFilterOption
                       {...getItemProps({
                         key: placeForm.id,
