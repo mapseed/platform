@@ -20,7 +20,7 @@ import Modal from "react-modal";
 Modal.setAppElement("#main");
 
 const FilterNavButton = styled(linkProps => (
-  <NavButton variant="raised" color="primary" onClick={linkProps.onClick}>
+  <NavButton color={"tertiary"} onClick={linkProps.onClick}>
     {linkProps.children}
   </NavButton>
 ))(() => ({
@@ -124,7 +124,9 @@ class FilterMenu extends Component {
         {({ getItemProps, getToggleButtonProps, getMenuProps, isOpen }) => (
           <div>
             <FilterNavButton {...getToggleButtonProps()}>
-              {`${this.props.navBarItem.title}${isFiltering ? " (on)" : ""}`}
+              {`${this.props.navBarItem.title}${
+                isFiltering ? " (on) ⌄" : " ⌄"
+              }`}
             </FilterNavButton>
             {isOpen && (
               <CategoryFilterDropdown {...getMenuProps()}>

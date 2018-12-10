@@ -189,11 +189,7 @@ const navItemMappings = {
       position={linkProps.position}
       href={linkProps.navBarItem.url}
     >
-      <NavButton
-        variant={linkProps.navBarItem.variant}
-        color={linkProps.navBarItem.color || "tertiary"}
-        onClick={linkProps.onClick}
-      >
+      <NavButton color={"tertiary"} onClick={linkProps.onClick}>
         {linkProps.children}
       </NavButton>
     </NavLink>
@@ -201,8 +197,7 @@ const navItemMappings = {
   left_sidebar_toggle: linkProps => (
     <NavButtonWrapper position={linkProps.position}>
       <NavButton
-        variant={linkProps.navBarItem.variant}
-        color={linkProps.navBarItem.color || "tertiary"}
+        color={"tertiary"}
         onClick={() => {
           linkProps.onClick();
           linkProps.setLeftSidebarComponent(linkProps.navBarItem.component);
