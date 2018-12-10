@@ -9,7 +9,7 @@ import { Link } from "../atoms/navigation";
 import { NavButton } from "../molecules/buttons";
 import { NavLink } from "../molecules/typography";
 import UserMenu from "../molecules/user-menu";
-import { RegularTitle } from "../atoms/typography";
+import { RegularTitle, RegularLabel } from "../atoms/typography";
 
 import {
   navBarConfigPropType,
@@ -94,17 +94,18 @@ const LanguagePickerMenu = styled("ul")(props => ({
   [mq[1]]: {
     display: props.isLanguageMenuVisible ? "block" : "none",
     position: "fixed",
-    border: "3px solid rgba(0, 0, 0, 0.05)",
+    border: `4px solid ${props.theme.brand.accent}`,
   },
 }));
 
 const LanguagePickerMenuItem = styled("li")(props => ({
+  fontFamily: props.theme.text.navBarFontFamily,
   textTransform: "uppercase",
   fontSize: "0.75rem",
   padding: "8px",
   "&:hover": {
-    color: props.theme.text.secondary,
-    backgroundColor: props.theme.brand.accent,
+    color: props.theme.text.highlighted,
+    backgroundColor: props.theme.bg.highlighted,
     cursor: "pointer",
   },
 
@@ -115,6 +116,7 @@ const LanguagePickerMenuItem = styled("li")(props => ({
 
 const LanguagePicker = styled("nav")(props => ({
   textTransform: "uppercase",
+  fontFamily: props.theme.text.navBarFontFamily,
   "&:hover": {
     cursor: "pointer",
   },
@@ -310,7 +312,7 @@ class SiteHeader extends Component {
                     href={`/${language.code}.html`}
                   >
                     <LanguagePickerMenuItem>
-                      {language.label}
+                      <RegularLabel>{language.label}</RegularLabel>
                     </LanguagePickerMenuItem>
                   </LanguageLink>
                 ))}
