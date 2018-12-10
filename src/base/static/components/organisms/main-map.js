@@ -458,12 +458,17 @@ class MainMap extends Component {
         .filter(layerConfig => layerConfig.type === "place")
         .map(layerConfig => layerConfig.id);
       datasetIds.forEach(datasetId => {
-        const layerStatus = this.props.layerStatuses[datasetId];
         const layerConfig = this.props.layers.find(
           layer => layer.id === datasetId,
         );
-        this._map.removeLayer(layerConfig, { clearCache: true });
-        this.addLayer(layerConfig, layerStatus.isBasemap);
+        this._map.updateLayerData(
+          layerConfig.id,
+          createGeoJSONFromPlaces(
+            this.props.places.filter(
+              place => place.datasetId === layerConfig.id,
+            ),
+          ),
+        );
       });
     }
   }

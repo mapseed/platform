@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { NavButton, CloseButton } from "../molecules/buttons";
-import { Image } from "../atoms/imagery";
-import { Link, RegularTitle, LargeLabel } from "../atoms/typography";
+import { NavButton } from "../molecules/buttons";
+import { RegularLabel } from "../atoms/typography";
+import Downshift from "downshift";
 import styled from "react-emotion";
 import mq from "../../../../media-queries";
 import { connect } from "react-redux";
@@ -32,29 +32,19 @@ const FilterNavButton = styled(linkProps => (
   },
 }));
 
-const FilterMenuWrapper = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
-  height: "100%",
-});
+const CategoryFilterDropdown = styled("ul")(props => ({
+  backgroundColor: props.theme.bg.default,
+  position: "absolute",
+  maxWidth: "180px",
+  border: `4px solid ${props.theme.brand.accent}`,
+}));
 
-const FilterMenuHeading = styled("div")({
-  display: "flex",
-});
-const FilterMenuTitle = styled(RegularTitle)({
-  textAlign: "center",
-  marginLeft: "auto",
-  marginRight: "auto",
-});
-const FilterOptions = styled("div")({
-  marginLeft: "auto",
-  marginRight: "auto",
-});
-const CategoryFilterOption = styled("div")(props => ({
+const CategoryFilterOption = styled("li")(props => ({
   display: "flex",
   flexDirection: "row",
   marginBottom: "8px",
+  justifyContent: "center",
+  textAlign: "center",
   alignItems: "center",
 
   background: props.isSelected ? props.theme.bg.highlighted : "clear",
@@ -67,44 +57,30 @@ const CategoryFilterOption = styled("div")(props => ({
     color: props.theme.text.highlighted,
   },
 }));
-const CategoryImage = styled(Image)({
-  width: "30px",
-  height: "auto",
-});
-const CategoryLabel = styled(LargeLabel)(props => ({
-  marginLeft: "8px",
+
+const CategoryLabel = styled(RegularLabel)(props => ({
   color: "unset",
+  margin: "4px 16px 4px 16px",
 
   "&:hover": {
     color: props.theme.text.highlighted,
   },
 }));
 
-const modalStyles = {
-  content: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#fff",
-    borderRadius: "8px",
-    outline: "none",
-    boxShadow: "0 1px 5px rgba(0, 0, 0, 0.65)",
-    wordWrap: "break-word",
-    maxWidth: "95%",
-    maxHeight: "95%",
-    width: "360px",
-  },
-
-  overlay: {
-    position: "fixed",
-    top: "0px",
-    left: "0px",
-    right: "0px",
-    bottom: "0px",
-    backgroundColor: "rgba(255, 255, 255, 0.7)",
-    zIndex: 99,
-  },
+const stateReducer = (state, changes) => {
+  // this prevents the menu from being closed when the user
+  // selects an item with a keyboard or mouse
+  switch (changes.type) {
+    case Downshift.stateChangeTypes.keyDownEnter:
+    case Downshift.stateChangeTypes.clickItem:
+      return {
+        ...changes,
+        isOpen: state.isOpen,
+        highlightedIndex: state.highlightedIndex,
+      };
+    default:
+      return changes;
+  }
 };
 
 class FilterMenu extends Component {
@@ -119,71 +95,74 @@ class FilterMenu extends Component {
   };
   render() {
     const isFiltering = this.props.filters.length > 0;
+
     return (
-      <Fragment>
-        <FilterNavButton
-          onClick={() => {
-            this.props.onClick();
-            this.openModal();
-          }}
-        >
-          {`${this.props.navBarItem.title}${isFiltering ? " (on)" : ""}`}
-        </FilterNavButton>
-        <Modal
-          style={modalStyles}
-          isOpen={this.state.isModalOpen}
-          onRequestClose={this.closeModal}
-          contentLabel="set your filters"
-        >
-          <FilterMenuWrapper>
-            <FilterMenuHeading>
-              <FilterMenuTitle>{"Filter Menu"}</FilterMenuTitle>
-              <CloseButton onClick={this.closeModal} />
-            </FilterMenuHeading>
-            <FilterOptions>
-              <CategoryFilterOption
-                isSelected={!isFiltering}
-                onClick={() => {
-                  this.props.updateFilters([]);
-                }}
-              >
-                <CategoryLabel isSelected={!isFiltering}>{"All"}</CategoryLabel>
-              </CategoryFilterOption>
-              {this.props.placeFormsConfig.map(placeForm => {
-                const isFilterSelected = !!this.props.filters.find(
-                  filter => filter.formId === placeForm.id,
-                );
-                return (
-                  <CategoryFilterOption
-                    key={placeForm.id}
-                    isSelected={isFilterSelected}
-                    onClick={() => {
-                      isFilterSelected
-                        ? this.props.updateFilters(
-                            this.props.filters.filter(
-                              filter => filter.formId !== placeForm.id,
-                            ),
-                          )
-                        : this.props.updateFilters([
-                            ...this.props.filters,
-                            {
-                              formId: placeForm.id,
-                              datasetId: placeForm.datasetId,
-                            },
-                          ]);
-                    }}
-                  >
-                    <CategoryImage src={placeForm.icon} />
-                    <CategoryLabel isSelected={isFilterSelected}>
-                      {placeForm.label}
-                    </CategoryLabel>
-                  </CategoryFilterOption>
-                );
-              })}
-            </FilterOptions>
-          </FilterMenuWrapper>
-        </Modal>
-      </Fragment>
+      <Downshift
+        stateReducer={stateReducer}
+        onSelect={placeForm => {
+          if (!placeForm.id) {
+            return this.props.updateFilters([]);
+          }
+          const isFilterSelected = !!this.props.filters.find(
+            filter => filter.formId === placeForm.id,
+          );
+          isFilterSelected
+            ? this.props.updateFilters(
+                this.props.filters.filter(
+                  filter => filter.formId !== placeForm.id,
+                ),
+              )
+            : this.props.updateFilters([
+                ...this.props.filters,
+                {
+                  formId: placeForm.id,
+                  datasetId: placeForm.datasetId,
+                },
+              ]);
+        }}
+      >
+        {({ getItemProps, getToggleButtonProps, getMenuProps, isOpen }) => (
+          <div>
+            <FilterNavButton {...getToggleButtonProps()}>
+              {`${this.props.navBarItem.title}${isFiltering ? " (on)" : ""}`}
+            </FilterNavButton>
+            {isOpen && (
+              <CategoryFilterDropdown {...getMenuProps()}>
+                <CategoryFilterOption
+                  {...getItemProps({
+                    item: {},
+                    index: 0,
+                  })}
+                  isSelected={!isFiltering}
+                >
+                  <CategoryLabel isSelected={!isFiltering}>
+                    {"All"}
+                  </CategoryLabel>
+                </CategoryFilterOption>
+                {this.props.placeFormsConfig.map((placeForm, index) => {
+                  const isFilterSelected = !!this.props.filters.find(
+                    filter => filter.formId === placeForm.id,
+                  );
+                  return (
+                    <CategoryFilterOption
+                      {...getItemProps({
+                        key: placeForm.id,
+                        index: index + 1,
+                        item: placeForm,
+                      })}
+                      isSelected={isFilterSelected}
+                    >
+                      <CategoryLabel isSelected={isFilterSelected}>
+                        {placeForm.label}
+                      </CategoryLabel>
+                    </CategoryFilterOption>
+                  );
+                })}
+              </CategoryFilterDropdown>
+            )}
+          </div>
+        )}
+      </Downshift>
     );
   }
 }
