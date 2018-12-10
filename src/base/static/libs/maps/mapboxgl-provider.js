@@ -1186,11 +1186,11 @@ export default (container, options) => {
     },
 
     removeLayer: layer => {
-      layer &&
-        layersCache[layer.id] &&
+      if (layer && layersCache[layer.id]) {
         layersCache[layer.id].forEach(mapboxLayer => {
           !!map.getLayer(mapboxLayer.id) && map.removeLayer(mapboxLayer.id);
         });
+      }
     },
 
     isLayerCached: layerId => {

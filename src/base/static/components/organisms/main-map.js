@@ -11,7 +11,12 @@ import {
   mapConfigSelector,
   mapLayersSelector,
 } from "../../state/ducks/map-config";
-import { placesSelector, placesPropType } from "../../state/ducks/places";
+import {
+  filteredPlacesSelector,
+  placesSelector,
+  placesPropType,
+} from "../../state/ducks/places";
+import { filtersSelector, filtersPropType } from "../../state/ducks/filters";
 import {
   mapBasemapSelector,
   mapLayerStatusesSelector,
@@ -416,6 +421,7 @@ class MainMap extends Component {
       });
     }
 
+    // Check if a layer's visibibility or load status has changed:
     for (let layerId in this.props.layerStatuses) {
       const layerStatus = this.props.layerStatuses[layerId];
       const prevLayerStatus = prevProps.layerStatuses[layerId];
@@ -444,6 +450,26 @@ class MainMap extends Component {
           layerStatus.isBasemap,
         );
       }
+    }
+
+    // Update place datasets when filters have been updated:
+    if (prevProps.filters.length !== this.props.filters.length) {
+      const datasetIds = this.props.layers
+        .filter(layerConfig => layerConfig.type === "place")
+        .map(layerConfig => layerConfig.id);
+      datasetIds.forEach(datasetId => {
+        const layerConfig = this.props.layers.find(
+          layer => layer.id === datasetId,
+        );
+        this._map.updateLayerData(
+          layerConfig.id,
+          createGeoJSONFromPlaces(
+            this.props.places.filter(
+              place => place.datasetId === layerConfig.id,
+            ),
+          ),
+        );
+      });
     }
   }
 
@@ -589,6 +615,7 @@ MainMap.propTypes = {
   store: PropTypes.object.isRequired,
   updatingFilterGroupId: PropTypes.string,
   updatingFilterTargetLayer: PropTypes.string,
+  filters: filtersPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -605,7 +632,8 @@ const mapStateToProps = state => ({
   mapboxStyleId: mapboxStyleIdSelector(state),
   updatingFilterGroupId: mapUpdatingFilterGroupIdSelector(state),
   updatingFilterTargetLayer: mapUpdatingFilterTargetLayerSelector(state),
-  places: placesSelector(state),
+  places: filteredPlacesSelector(state),
+  filters: filtersSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

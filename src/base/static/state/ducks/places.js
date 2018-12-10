@@ -4,6 +4,20 @@ import PropTypes from "prop-types";
 export const placesSelector = state => {
   return state.places;
 };
+export const filteredPlacesSelector = state => {
+  const filters = state.filters;
+  if (!state.places || filters.length === 0) {
+    return state.places;
+  }
+  // a formId and a location_type are currenty equivalent
+  const filteredFormIds = filters.reduce((memo, filter) => {
+    memo.push(filter.formId);
+    return memo;
+  }, []);
+  return state.places.filter(place =>
+    filteredFormIds.includes(place.location_type),
+  );
+};
 
 export const placePropType = PropTypes.shape({
   attachments: PropTypes.array.isRequired,

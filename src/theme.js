@@ -91,6 +91,7 @@ const theme = {
   bg: {
     default: "#fff",
     light: "#a3c7d9",
+    highlighted: "#007fbf",
   },
   input: {
     border: "0.25em solid #a3c7d9",
@@ -101,6 +102,7 @@ const theme = {
   text: {
     primary: "#36454f",
     secondary: "#fff",
+    highlighted: "#fff",
     headerFontFamily: "Roboto,sans-serif",
     bodyFontFamily: "Roboto,sans-serif",
     textTransform: "uppercase",

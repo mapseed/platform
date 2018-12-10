@@ -42,7 +42,8 @@ const MenuButton = styled(props => {
       {props.children}
     </Button>
   );
-})(() => ({
+})(props => ({
+  fontFamily: props.theme.text.navBarFontFamily,
   fontSize: "0.75em",
   textAlign: "center",
   textDecoration: "none",
