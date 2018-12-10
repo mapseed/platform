@@ -64,6 +64,7 @@ const CategoryLabel = styled(RegularLabel)(props => ({
 
   "&:hover": {
     color: props.theme.text.highlighted,
+    cursor: "pointer",
   },
 }));
 
