@@ -17,6 +17,7 @@ import {
 } from "../../state/ducks/nav-bar-config";
 import FilterMenu from "./filter-menu";
 import { appConfigSelector } from "../../state/ducks/app-config";
+import { mapConfigSelector } from "../../state/ducks/map-config";
 import { currentTemplateSelector } from "../../state/ducks/ui";
 import {
   isLeftSidebarExpandedSelector,
@@ -175,14 +176,24 @@ const NavBarHamburger = styled("i")({
   },
 });
 
-const LogoTitleWrapper = styled("div")({
+const LogoTitleWrapper = styled(props => (
+  <Link
+    className={props.className}
+    variant="unstyled"
+    href={`/${props.zoom}/${props.lat}/${props.lng}`}
+    rel="internal"
+  >
+    {props.children}
+  </Link>
+))(() => ({
   display: "flex",
   alignItems: "center",
+  textDecoration: "none",
 
   [mq[0]]: {
     width: "100%",
   },
-});
+}));
 
 const navItemMappings = {
   internal_link: linkProps => (
@@ -242,7 +253,11 @@ class SiteHeader extends Component {
   render() {
     return (
       <SiteHeaderWrapper>
-        <LogoTitleWrapper>
+        <LogoTitleWrapper
+          zoom={this.props.mapConfig.options.map.zoom.toFixed(2)}
+          lat={this.props.mapConfig.options.map.center.lat.toFixed(5)}
+          lng={this.props.mapConfig.options.map.center.lng.toFixed(5)}
+        >
           <NavBarHamburger
             onClick={() => {
               this.setState({
@@ -349,6 +364,17 @@ SiteHeader.propTypes = {
   currentUser: PropTypes.object,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
+  mapConfig: PropTypes.shape({
+    options: PropTypes.shape({
+      map: PropTypes.shape({
+        center: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lng: PropTypes.number.isRequired,
+        }).isRequired,
+        zoom: PropTypes.number.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
   navBarConfig: navBarConfigPropType,
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
@@ -359,6 +385,7 @@ const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
+  mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
 });
 
