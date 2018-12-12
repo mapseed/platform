@@ -32,10 +32,10 @@
     "options": {
       "map": {
         "center": {
-          "lat": -32.68976,
-          "lng": -60.35317
+          "lat": -33.41863,
+          "lng": -59.50497
         },
-        "zoom": 7.59,
+        "zoom": 7,
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 19
@@ -239,7 +239,7 @@
   },
   "right_sidebar": {
     "is_enabled": true,
-    "is_visible_default": false,
+    "is_visible_default": true,
     "component": "StoryNavigator"
   },
   "left_sidebar": {
@@ -744,7 +744,7 @@
       "lang": "en_US",
       "content": [
         "<h1>BIENVENIDA</h1>",
-        "<p><img src='/static/css/images/Territorios.png'><br><br>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento comprendido por cinco campañas que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO es una de las etapas del proyecto La Tierra NØ Resistirá un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO  es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa a diez años que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territoriosdecolaboracion.wordpress.com'>https://territoriosdecolaboracion.wordpress.com</a></p>",
+        "<p><img src='/static/css/images/Territorios.png'><br><br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una de las etapas del proyecto <em>La Tierra NØ Resistirá</em>, un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territoriosdecolaboracion.wordpress.com'>https://territoriosdecolaboracion.wordpress.com</a></p>",
         "<p class='btn btn-block btn-large'><a href='/' rel='internal'>Explorar el mapa</a></p>"
       ]
     },
@@ -776,22 +776,22 @@
         {
           "url": "featured/5343",
           "pan_to": [-60.15449, -32.61944],
-          "zoom": 9
+          "zoom": 10
         },
         {
           "url": "featured/5342",
-          "pan_to": [-60.55924, -32.97406],
-          "zoom": 8
+          "pan_to": [-60.62840, -32.88260],
+          "zoom": 10
         },
         {
           "url": "featured/5344",
-          "pan_to": [-58.7518, -34.12086],
-          "zoom": 8
+          "pan_to": [-58.58174, -34.41313],
+          "zoom": 10
         },
         {
           "url": "featured/5345",
-          "pan_to": [-58.65104, -34.31237],
-          "zoom": 9
+          "pan_to": [-58.88098, -34.15955],
+          "zoom": 10
         },
         {
           "url": "featured/5346",
