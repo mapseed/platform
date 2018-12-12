@@ -56,6 +56,11 @@
         "attribution": "Hello World"
       },
       {
+        "id": "rios-vivos",
+        "type": "raster-tile",
+        "url": "http://ecotopia.today/riosvivos/mosaicos/riosvivos/{z}/{x}/{y}.png"
+      },
+      {
         "id": "satellite",
         "is_basemap": true,
         "type": "raster-tile",
@@ -281,6 +286,10 @@
               {
                 "id": "argentina-campanas",
                 "title": "_(Campañas)"
+              },
+              {
+                "id": "rios-vivos",
+                "title": "_(Rios Vivos)"
               }
             ]
           }
@@ -780,7 +789,7 @@
         },
         {
           "url": "featured/5342",
-          "pan_to": [-60.62840, -32.88260],
+          "pan_to": [-60.6284, -32.8826],
           "zoom": 10
         },
         {
