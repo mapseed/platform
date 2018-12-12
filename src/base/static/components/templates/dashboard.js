@@ -129,11 +129,16 @@ const SurveyWrapper = styled("div")({
   display: "grid",
   gridTemplateRows: "max-content",
   gridTemplateAreas: `
-                    'title title'
-                    'categories demographics'
+                    'title'
+                    'categories'
+                    'demographics'
                 `,
 });
 const ChartTitle = styled(SmallTitle)({
+  margin: "0 auto 0 auto",
+  textAlign: "center",
+});
+const ChartWrapper = styled("div")({
   margin: "0 auto 0 auto",
 });
 const CategoriesWrapper = styled("div")({
@@ -199,20 +204,40 @@ class Dashboard extends Component {
 
   getBarChartData = () => {
     const totalPlaces = this.props.places ? this.props.places.length : 100;
+
+    const ethnicityLabelMappings = {
+      "indian-alaskan": "American Indian/Alaskan Native",
+      asian: "Asian",
+      black: "Black or African American",
+      hispanic: "Hispanic or Latinx",
+      "hawaiian-pacific": "Native Hawaiian or Pacific Islander",
+      white: "White",
+      "other-ethnicity": "Other",
+    };
     const grouped = this.props.places
       ? this.props.places.reduce((memo, place) => {
           // add the place to the memo's ethnicity bucket for each
           // ethnicity that was selected
-          place["private-ethnicity"].forEach(ethnicity => {
-            if (memo[ethnicity]) {
-              memo[ethnicity].push(place);
+          if (place["private-ethnicity"].length === 0) {
+            if (memo["(No response)"]) {
+              memo["(No response)"].push(place);
             } else {
-              memo[ethnicity] = [place];
+              memo["(No response)"] = [place];
+            }
+            return memo;
+          }
+          place["private-ethnicity"].forEach(ethnicity => {
+            const ethnicityLabel = ethnicityLabelMappings[ethnicity];
+            if (memo[ethnicityLabel]) {
+              memo[ethnicityLabel].push(place);
+            } else {
+              memo[ethnicityLabel] = [place];
             }
           });
           return memo;
         }, {})
       : [];
+    console.log("grouped:", grouped);
     const piechartData = Object.entries(grouped).map(([ethnicity, places]) => ({
       ethnicity,
       count: places.length,
@@ -237,21 +262,9 @@ class Dashboard extends Component {
   renderPieChartLabel = pieProps => {
     const { category, percent, count } = pieProps;
     return `${category}, ${count} (${(percent * 100).toFixed(0)}%)`;
-
-    // return <text>{`${category}, ${count}`}</text>;
-
-    // return (
-    //   <div>
-    //     <SmallLabel>{`${category}, ${count}`}</SmallLabel>
-    //     <br />
-    //     <SmallLabel>{`${(percent * 100).toFixed(0)}%`}</SmallLabel>
-    //   </div>
-    // );
   };
 
   render() {
-    // const places = this.props.places ? this.props.places.filter(place => place.datasetId === this.props.dashboardConfig.datasetId) : []
-    // const places = this.props.places && this.props.places.length
     const commentsCount =
       this.props.places &&
       this.props.places.reduce((count, place) => {
@@ -269,23 +282,24 @@ class Dashboard extends Component {
         return count;
       }, 0);
 
-    const piechartData = this.getPieChartData();
+    const pieChartData = this.getPieChartData();
+    const barChartData = this.getBarChartData();
 
-    // const piechartData = [
-    // {name: 'Group A', value: 400}, {name: 'Group B', value: 300},
-    // {name: 'Group C', value: 300}, {name: 'Group D', value: 200},
-    // {name: 'Group E', value: 278}, {name: 'Group F', value: 189}
-    // ]
-
-    // const linedata = [
-    // { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-    // { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-    // { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-    // { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-    // { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-    // { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-    // { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
-    // ];
+    const barChartTicks = barChartData.map(datum => {
+      if (datum.ethnicity.length > 18) {
+        return `${datum.ethnicity.slice(0, 15)}…`;
+      } else {
+        return datum.ethnicity;
+      }
+    });
+    const tickFormat = label => {
+      console.log("tickformat: label:", label);
+      if (label.length > 18) {
+        return `${label.slice(0, 15)}…`;
+      } else {
+        return label;
+      }
+    };
 
     return (
       <DashboardWrapper>
@@ -346,51 +360,59 @@ class Dashboard extends Component {
         </EngagementWrapper>
         <SurveyWrapper>
           <RegularTitle style={{ gridArea: "title" }}>Survey Data</RegularTitle>
-          {/* TODO: add ethnicity as a bar chart, using count and percentage */}
-          {/* TODO: add categories as a pie chart */}
           <CategoriesWrapper>
             <ChartTitle>Categories</ChartTitle>
-            <PieChart width={800} height={400}>
-              <Pie
-                isAnimationActive={false}
-                data={piechartData}
-                dataKey="count"
-                nameKey="category"
-                cx={200}
-                cy={200}
-                outerRadius={80}
-                innerRadius={35}
-                fill="#8884d8"
-                label={this.renderPieChartLabel}
-              >
-                {piechartData.map((entry, index) => (
-                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              {/* <Pie data={data02} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d"/> */}
-              <Tooltip />
-            </PieChart>
+            <ChartWrapper>
+              <PieChart width={500} height={400}>
+                <Pie
+                  isAnimationActive={false}
+                  data={pieChartData}
+                  dataKey="count"
+                  nameKey="category"
+                  cx={200}
+                  cy={200}
+                  outerRadius={80}
+                  innerRadius={35}
+                  fill="#8884d8"
+                  label={this.renderPieChartLabel}
+                >
+                  {pieChartData.map((entry, index) => (
+                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ChartWrapper>
           </CategoriesWrapper>
           <DemographicsWrapper>
             <ChartTitle>Demographics</ChartTitle>
-            <BarChart
-              width={730}
-              height={250}
-              data={this.getBarChartData()}
-              margin={{ top: 5, right: 30, left: 20, bottom: 24 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="ethnicity">
-                <Label value="Ethnicity" offset={0} position="insideBottom" />
-              </XAxis>
-              <YAxis />
-              <YAxis yAxisId="right" orientation="right" />
-              <Tooltip />
-              {/* <Legend /> */}
-              <Bar yAxisId="right" dataKey="count" fill={BLUE}>
-                <LabelList dataKey="count" position="top" />
-              </Bar>
-            </BarChart>
+            <ChartWrapper>
+              <BarChart
+                width={1200}
+                height={350}
+                data={barChartData}
+                margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="ethnicity"
+                  tickFormatter={tickFormat}
+                  angle={-45}
+                  textAnchor="end"
+                >
+                  <Label value="Ethnicity" offset={96} position="bottom" />
+                </XAxis>
+                <YAxis>
+                  <Label value="Count" angle={-90} position="left" />
+                </YAxis>
+                {/* <YAxis yAxisId="right" orientation="left" /> */}
+                <Tooltip />
+                {/* <Bar yAxisId="right" dataKey="count" fill={BLUE}> */}
+                <Bar dataKey="count" fill={BLUE}>
+                  <LabelList dataKey="count" position="top" />
+                </Bar>
+              </BarChart>
+            </ChartWrapper>
           </DemographicsWrapper>
         </SurveyWrapper>
       </DashboardWrapper>

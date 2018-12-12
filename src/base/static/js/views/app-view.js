@@ -889,9 +889,6 @@ export default Backbone.View.extend({
     store.dispatch(setCurrentTemplate("list"));
   },
   viewDashboard: function() {
-    // If module fails to load (eg: due to network error), use error boundaries to
-    // show a helpful message
-    // https://reactjs.org/docs/code-splitting.html#error-boundaries
     $("#geocode-address-bar").addClass("is-visuallyhidden");
     const geocodeAddressBar = document.getElementById("geocode-address-bar");
     if (geocodeAddressBar) {
@@ -901,6 +898,9 @@ export default Backbone.View.extend({
 
     $("#dashboard-container").removeClass("is-visuallyhidden");
     this.fetchAndLoadPlaces();
+    // If module fails to load (eg: due to network error), use error boundaries to
+    // show a helpful message
+    // https://reactjs.org/docs/code-splitting.html#error-boundaries
     ReactDOM.render(
       <Suspense fallback={<div>Loading...</div>}>
         <Provider store={store}>
