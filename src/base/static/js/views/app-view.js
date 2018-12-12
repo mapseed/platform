@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
+import LegacyUtil from "../utils.js";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../../../theme";
 
@@ -32,6 +33,7 @@ import {
 } from "../../state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../state/ducks/app-config";
+import { loadDashboardConfig } from "../../state/ducks/dashboard-config";
 import {
   setMapSizeValidity,
   mapLayerStatusesSelector,
@@ -113,6 +115,9 @@ export default Backbone.View.extend({
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setPagesConfig(this.options.pagesConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
+    if (this.options.dashboardConfig) {
+      store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
+    }
     store.dispatch(initLayers(this.options.mapConfig.layers));
     store.dispatch(
       setBasemap(
@@ -331,9 +336,13 @@ export default Backbone.View.extend({
   },
 
   fetchAndLoadPlaces: async function() {
+    const includePrivate =
+      this.options.dashboardConfig &&
+      LegacyUtil.getAdminStatus(this.options.dashboardConfig.datasetId);
     const placeParams = {
       // NOTE: this is to include comments/supports while fetching our place models
       include_submissions: true,
+      include_private: includePrivate,
     };
 
     // Use the page size as dictated by the server by default, unless
@@ -348,6 +357,7 @@ export default Backbone.View.extend({
       placeCollections: this.places,
       layers: mapLayersSelector(store.getState()),
       setLayerError: layerId => store.dispatch(setLayerError(layerId)),
+      withCredentials: includePrivate,
     });
 
     const fetchedCollections = await placeCollectionsPromise;
@@ -890,12 +900,17 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
 
     $("#dashboard-container").removeClass("is-visuallyhidden");
+    this.fetchAndLoadPlaces();
     ReactDOM.render(
       <Suspense fallback={<div>Loading...</div>}>
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <ThemeProvider theme={this.adjustedTheme}>
-              <Dashboard />
+              <Dashboard
+                router={this.options.router}
+                datasetDownloadConfig={this.options.appConfig.dataset_download}
+                apiRoot={this.options.appConfig.api_root}
+              />
             </ThemeProvider>
           </ThemeProvider>
         </Provider>

@@ -145,6 +145,7 @@
             "session:" + S.Util.cookies.get("sa-api-sessionid")),
           app:        {{#serialize config.app}}{{/serialize}},
           place:      {{#serialize config.place}}{{/serialize}},
+          dashboard:      {{#serialize config.dashboard}}{{/serialize}},
           placeTypes: {{#serialize config.place_types}}{{/serialize}},
           cluster:    {{#serialize config.cluster}}{{/serialize}},
           forms:     {{#serialize config.forms}}{{/serialize}},
@@ -181,7 +182,8 @@
             navBarConfig: S.Config.navBar,
             pagesConfig: S.Config.pages,
             filters: S.Config.filters,
-            datasetsConfig: S.Config.datasets,
+            datasets: S.Config.datasets,
+            dashboardConfig: S.Config.dashboard,
             customHooks: S.Config.customHooks,
             customComponents: S.Config.customComponents,
             languageCode: "{{ languageCode }}"

@@ -5,7 +5,6 @@ import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import {
   filteredPlacesSelector,
-  placesSelector,
   placesPropType,
 } from "../../state/ducks/places";
 import {

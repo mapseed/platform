@@ -4,6 +4,15 @@ import PropTypes from "prop-types";
 export const placesSelector = state => {
   return state.places;
 };
+export const dashboardPlacesSelector = state => {
+  if (!state.places) {
+    return state.places;
+  }
+  return state.places.filter(
+    place => place.datasetId === state.dashboardConfig.datasetId,
+  );
+};
+
 export const filteredPlacesSelector = state => {
   const filters = state.filters;
   if (!state.places || filters.length === 0) {

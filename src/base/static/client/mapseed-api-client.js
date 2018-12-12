@@ -3,6 +3,7 @@ const getPlaceCollections = async ({
   placeCollections,
   layers,
   setLayerError,
+  withCredentials,
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
@@ -30,6 +31,7 @@ const getPlaceCollections = async ({
           datasetId: layer.id,
         },
         attribute: "properties",
+        xhrFields: { withCredentials },
 
         // Only do this for the first page...
         pageSuccess: _.once(function(collection, data) {

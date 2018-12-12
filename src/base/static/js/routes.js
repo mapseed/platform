@@ -88,6 +88,7 @@ Shareabouts.Util = Util;
         leftSidebarConfig: options.leftSidebarConfig,
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
+        dashboardConfig: options.dashboardConfig,
         userToken: options.userToken,
         router: this,
         filters: options.filters,
