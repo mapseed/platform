@@ -47,6 +47,7 @@
     "classnames": "^2.2.5",
     "compass-importer": "^0.4.1",
     "dotenv": "^4.0.0",
+    "downshift": "^3.1.5",
     "emotion": "^9.2.6",
     "emotion-theming": "^9.2.6",
     "esprima": "^3.1.3",

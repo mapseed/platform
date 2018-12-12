@@ -1,7 +1,19 @@
+import PropTypes from "prop-types";
 // Selectors:
 export const navBarConfigSelector = state => {
   return state.navBarConfig;
 };
+
+export const navBarConfigPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    title: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    url: PropTypes.string,
+    start_page: PropTypes.bool,
+    name: PropTypes.string,
+    component: PropTypes.string,
+  }),
+);
 
 // Actions:
 const SET_CONFIG = "navBar/SET_CONFIG";

@@ -1,30 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import styled from "react-emotion";
 import mq from "../../../../media-queries";
-
-import "./imagery.scss";
-
-const LegacyImage = ({ ...props }) => {
-  return (
-    <img
-      className={classNames("mapseed__image", props.classes)}
-      src={props.src}
-      alt={props.alt}
-    />
-  );
-};
-
-LegacyImage.propTypes = {
-  alt: PropTypes.string.isRequired,
-  classes: PropTypes.string,
-  src: PropTypes.string.isRequired,
-};
-
-LegacyImage.defaultProps = {
-  alt: "Untitled image",
-};
 
 const Image = props => <img src={props.src} alt={props.alt} {...props} />;
 
@@ -113,4 +90,4 @@ UserAvatar.defaultProps = {
 
 export default UserAvatar;
 
-export { LegacyImage, Image, UserAvatar, SiteLogo, FontAwesomeIcon };
+export { Image, UserAvatar, SiteLogo, FontAwesomeIcon };
