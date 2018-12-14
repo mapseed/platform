@@ -212,7 +212,7 @@ class InputForm extends Component {
   }
 
   validateForm(successCallback) {
-    const {
+    let {
       validationErrors: newValidationErrors,
       isValid,
     } = this.getFields().reduce(
@@ -225,6 +225,11 @@ class InputForm extends Component {
       },
       { validationErrors: new Set(), isValid: true },
     );
+
+    if (!this.props.isMapDragged) {
+      newValidationErrors.add("mapNotDragged");
+      isValid = false;
+    }
 
     if (isValid) {
       successCallback();
@@ -509,6 +514,7 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
+  isMapDragged: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   mapConfig: PropTypes.object.isRequired,
   mapLayers: PropTypes.arrayOf(

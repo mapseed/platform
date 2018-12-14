@@ -22,6 +22,7 @@ import {
   mapLayerStatusesSelector,
   mapFeatureFiltersSelector,
   mapSizeValiditySelector,
+  updateMapDragged,
   setMapSizeValidity,
   setMapPosition,
   setLayerLoaded,
@@ -205,6 +206,7 @@ class MainMap extends Component {
           this._map.getBBoxString(),
           this._map.getZoom(),
         );
+        this.props.updateMapDragged(true);
         this.props.onDragend();
       },
     });
@@ -605,6 +607,7 @@ MainMap.propTypes = {
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
+  updateMapDragged: PropTypes.func.isRequired,
   setLayerLoaded: PropTypes.func.isRequired,
   setLayerLoading: PropTypes.func.isRequired,
   setLayerError: PropTypes.func.isRequired,
@@ -637,6 +640,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateMapDragged: isMapDragged => dispatch(updateMapDragged(isMapDragged)),
   setMapPosition: mapPosition => dispatch(setMapPosition(mapPosition)),
   setMapSizeValidity: isMapSizeValid =>
     dispatch(setMapSizeValidity(isMapSizeValid)),

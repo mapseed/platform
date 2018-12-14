@@ -11,6 +11,9 @@ export const mapSizeValiditySelector = state => {
 export const mapPositionSelector = state => {
   return state.map.mapPosition;
 };
+export const mapDraggedSelector = state => {
+  return state.map.isMapDragged;
+};
 export const mapboxStyleIdSelector = state => {
   return (
     Object.values(state.map.layerStatuses).find(layerStatus => {
@@ -43,6 +46,7 @@ const INIT_LAYER = "map/INIT_LAYER";
 const UPDATE_LAYERS_VISIBLE = "map/UPDATE_LAYERS_VISIBLE";
 const UPDATE_LAYERS_HIDDEN = "map/UPDATE_LAYERS_HIDDEN";
 const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
+const UPDATE_IS_MAP_DRAGGED = "map/UPDATE_IS_MAP_DRAGGED";
 
 // Action creators
 export const setMapDragging = isDragging => ({
@@ -143,6 +147,12 @@ export const resetFeatureFilterGroup = filterInfo => {
     payload: filterInfo,
   };
 };
+export const updateMapDragged = isMapDragged => {
+  return {
+    type: UPDATE_IS_MAP_DRAGGED,
+    payload: isMapDragged,
+  };
+};
 
 // Reducers
 const INITIAL_STATE = {
@@ -154,6 +164,7 @@ const INITIAL_STATE = {
   mapPosition: undefined,
   isMapSizeValid: true,
   isMapDragging: false,
+  isMapDragged: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -290,6 +301,11 @@ export default function reducer(state = INITIAL_STATE, action) {
         featureFilters: state.featureFilters.filter(
           featureFilter => featureFilter.groupId !== action.payload.groupId,
         ),
+      };
+    case UPDATE_IS_MAP_DRAGGED:
+      return {
+        ...state,
+        isMapDragged: action.payload,
       };
     default:
       return state;

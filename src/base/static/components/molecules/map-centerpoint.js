@@ -4,7 +4,7 @@ import styled from "react-emotion";
 import { connect } from "react-redux";
 
 import { mapCenterpointVisibilitySelector } from "../../state/ducks/ui";
-import { mapDraggingSelector } from "../../state/ducks/map";
+import { mapDraggingSelector, mapDraggedSelector } from "../../state/ducks/map";
 
 const MapCenterpointX = styled("span")({
   display: "block",
@@ -43,6 +43,17 @@ const MapCenterpointMarker = styled("span")(props => ({
   transition: "top 0.4s ease",
 }));
 
+const MapCenterpointOverlay = styled("span")({
+  width: "175px",
+  height: "175px",
+  display: "block",
+  position: "absolute",
+  top: "-85px",
+  left: "-64px",
+  background: "url(/static/css/images/marker-arrow-overlay.png) no-repeat",
+  backgroundSize: "150px",
+});
+
 const MapCenterpoint = styled(
   props =>
     props.isMapCenterpointVisible ? (
@@ -50,6 +61,7 @@ const MapCenterpoint = styled(
         <MapCenterpointShadow isMapDragging={props.isMapDragging} />
         {props.isMapDragging && <MapCenterpointX />}
         <MapCenterpointMarker isMapDragging={props.isMapDragging} />
+        {!props.isMapDragged && <MapCenterpointOverlay />}
       </span>
     ) : null,
 )(() => ({
@@ -66,11 +78,13 @@ const MapCenterpoint = styled(
 
 MapCenterpoint.propTypes = {
   isMapCenterpointVisible: PropTypes.bool.isRequired,
+  isMapDragged: PropTypes.bool.isRequired,
   isMapDragging: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   isMapCenterpointVisible: mapCenterpointVisibilitySelector(state),
+  isMapDragged: mapDraggedSelector(state),
   isMapDragging: mapDraggingSelector(state),
 });
 
