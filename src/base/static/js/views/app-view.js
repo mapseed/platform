@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
-import LegacyUtil from "../utils.js";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../../../theme";
 
@@ -336,13 +335,9 @@ export default Backbone.View.extend({
   },
 
   fetchAndLoadPlaces: async function() {
-    const includePrivate =
-      this.options.dashboardConfig &&
-      LegacyUtil.getAdminStatus(this.options.dashboardConfig.datasetId);
     const placeParams = {
       // NOTE: this is to include comments/supports while fetching our place models
       include_submissions: true,
-      include_private: includePrivate,
     };
 
     // Use the page size as dictated by the server by default, unless
@@ -357,7 +352,8 @@ export default Backbone.View.extend({
       placeCollections: this.places,
       layers: mapLayersSelector(store.getState()),
       setLayerError: layerId => store.dispatch(setLayerError(layerId)),
-      withCredentials: includePrivate,
+      privateDatasetId:
+        this.options.dashboardConfig && this.options.dashboardConfig.datasetId,
     });
 
     const fetchedCollections = await placeCollectionsPromise;
@@ -812,7 +808,6 @@ export default Backbone.View.extend({
             <MainMap
               addPlaceButtonLabel={this.options.placeConfig.add_button_label}
               container="map"
-              places={this.places}
               router={this.options.router}
               onZoomend={this.onMapZoomEnd.bind(this)}
               onMovestart={this.onMapMoveStart.bind(this)}

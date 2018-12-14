@@ -1,9 +1,11 @@
+import LegacyUtil from "../utils.js";
+
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
   layers,
   setLayerError,
-  withCredentials,
+  privateDatasetId,
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
@@ -20,18 +22,25 @@ const getPlaceCollections = async ({
   _.each(placeCollections, function(collection, collectionId) {
     const placeCollectionPromise = new Promise((resolve, reject) => {
       const layer = layers.find(layer => layer.id === collectionId);
+      // if we are fetching a dataset id to be used in the dashboard,
+      // and the user has access to that dataset:
+      const includePrivate =
+        collectionId === privateDatasetId &&
+        LegacyUtil.getAdminStatus(privateDatasetId);
       collection.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
         validate: true,
-        data: placeParams,
+        data: includePrivate
+          ? { ...placeParams, include_private: true }
+          : placeParams,
         // get the dataset slug and id from the array of map layers
         attributesToAdd: {
           datasetSlug: layer.slug,
           datasetId: layer.id,
         },
         attribute: "properties",
-        xhrFields: { withCredentials },
+        xhrFields: { withCredentials: includePrivate },
 
         // Only do this for the first page...
         pageSuccess: _.once(function(collection, data) {
@@ -62,11 +71,12 @@ const getPlaceCollections = async ({
           resolve(fetchedCollection, collectionId);
         },
 
-        error: function(err) {
+        error: function(collection, err) {
           layer.is_visible_default && setLayerError(collectionId);
           // eslint-disable-next-line no-console
           console.error(
-            `error loading place collection: ${collectionId}: err: ${err}`,
+            `error loading place collection: ${collectionId}: err:`,
+            err,
           );
           reject(err);
           // TODO: layer loading event; fix in layer UI PR
