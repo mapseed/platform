@@ -24,10 +24,14 @@ Shareabouts.Util = Util;
 
     initialize: function(options) {
       var self = this,
-        startPageConfig,
         // store config details for places
         configArrays = {};
 
+      fetch(`${options.appConfig.api_root}utils/session-key?format=json`).then(
+        session => {
+          Shareabouts.Util.cookies.save("sa-api-sessionid", session.sessionid);
+        },
+      );
       // store individual place collections for each place type
       this.places = {};
       // store individual activity collections for each place type
