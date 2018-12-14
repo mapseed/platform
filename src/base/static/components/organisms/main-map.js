@@ -22,6 +22,7 @@ import {
   mapLayerStatusesSelector,
   mapFeatureFiltersSelector,
   mapSizeValiditySelector,
+  setIsMapDragged,
   setMapSizeValidity,
   setMapPosition,
   setLayerLoaded,
@@ -205,6 +206,7 @@ class MainMap extends Component {
           this._map.getBBoxString(),
           this._map.getZoom(),
         );
+        this.props.setIsMapDragged(true);
         this.props.onDragend();
       },
     });
@@ -637,6 +639,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  setIsMapDragged: isMapDragged => dispatch(setIsMapDragged(isMapDragged)),
   setMapPosition: mapPosition => dispatch(setMapPosition(mapPosition)),
   setMapSizeValidity: isMapSizeValid =>
     dispatch(setMapSizeValidity(isMapSizeValid)),

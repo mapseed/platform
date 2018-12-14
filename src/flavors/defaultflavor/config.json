@@ -478,6 +478,7 @@
         "id": "sample-raster-tile",
         "type": "raster-tile",
         "is_basemap": true,
+        "is_visible_default": true,
         "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
         "attribution": "Hello"
       },
@@ -485,7 +486,6 @@
         "id": "sample-mapbox-style",
         "type": "mapbox-style",
         "is_basemap": true,
-        "is_visible_default": true,
         "url": "mapbox://styles/tcroxson/cji2ji0mw0qip2rmsnlhtdjyb",
         "attribution": "Hello"
       }

@@ -1,17 +1,31 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import styled from "react-emotion";
+import { translate } from "react-i18next";
 
 import InputFormCategorySelector from "./input-form-category-selector";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { setIsMapDragged, mapDraggedSelector } from "../../state/ducks/map";
 import { getCategoryConfig } from "../../utils/config-utils";
 
 const Util = require("../../js/utils.js");
 
+const DragMapAlert = styled("div")({
+  backgroundColor: "#ffc107",
+  color: "#fff",
+  border: "2px dotted #ffffff",
+  borderRadius: "8px",
+  padding: "8px",
+  marginBottom: "8px",
+  fontWeight: "800",
+});
+
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
     super(props);
+    this.props.setIsMapDragged(false);
     this.visibleCategoryConfigs = this.props.placeConfig.place_detail
       .filter(config => config.includeOnForm)
       .filter(config => {
@@ -48,11 +62,16 @@ class FormCategoryMenuWrapper extends Component {
     return (
       <div className="input-form-category-menu-container">
         {this.state.isShowingCategorySelector && (
-          <InputFormCategorySelector
-            onCategoryChange={this.onCategoryChange.bind(this)}
-            selectedCategory={this.state.selectedCategory}
-            visibleCategoryConfigs={this.visibleCategoryConfigs}
-          />
+          <Fragment>
+            {!this.props.isMapDragged && (
+              <DragMapAlert>{this.props.t("dragMapAlert")}</DragMapAlert>
+            )}
+            <InputFormCategorySelector
+              onCategoryChange={this.onCategoryChange.bind(this)}
+              selectedCategory={this.state.selectedCategory}
+              visibleCategoryConfigs={this.visibleCategoryConfigs}
+            />
+          </Fragment>
         )}
         {this.state.selectedCategory
           ? this.props.render(
@@ -79,12 +98,23 @@ FormCategoryMenuWrapper.propTypes = {
     PropTypes.objectOf(PropTypes.func),
   ]),
   containers: PropTypes.instanceOf(NodeList),
+  isMapDragged: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
+  setIsMapDragged: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 const mapStateToProps = state => ({
+  isMapDragged: mapDraggedSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(FormCategoryMenuWrapper);
+const mapDispatchToProps = dispatch => ({
+  setIsMapDragged: isMapDragged => dispatch(setIsMapDragged(isMapDragged)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate("FormCategoryMenuWrapper")(FormCategoryMenuWrapper));
