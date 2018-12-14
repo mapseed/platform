@@ -58,7 +58,7 @@
       {
         "id": "rios-vivos",
         "type": "raster-tile",
-        "url": "http://ecotopia.today/riosvivos/mosaicos/riosvivos/{z}/{x}/{y}.png"
+        "url": "https://ecotopia.today/riosvivos/mosaicos/riosvivos/{z}/{x}/{y}.png"
       },
       {
         "id": "satellite",
