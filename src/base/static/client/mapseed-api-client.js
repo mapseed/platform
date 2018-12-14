@@ -1,4 +1,4 @@
-import LegacyUtil from "../utils.js";
+import LegacyUtil from "../js/utils";
 
 const getPlaceCollections = async ({
   placeParams,
