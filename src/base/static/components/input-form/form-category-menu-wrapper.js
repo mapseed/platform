@@ -7,7 +7,7 @@ import { translate } from "react-i18next";
 import InputFormCategorySelector from "./input-form-category-selector";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { setIsMapDragged, mapDraggedSelector } from "../../state/ducks/map";
+import { updateMapDragged, mapDraggedSelector } from "../../state/ducks/map";
 import { getCategoryConfig } from "../../utils/config-utils";
 
 const Util = require("../../js/utils.js");
@@ -25,7 +25,6 @@ const DragMapAlert = styled("div")({
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
     super(props);
-    this.props.setIsMapDragged(false);
     this.visibleCategoryConfigs = this.props.placeConfig.place_detail
       .filter(config => config.includeOnForm)
       .filter(config => {
@@ -45,6 +44,7 @@ class FormCategoryMenuWrapper extends Component {
   }
 
   componentDidMount() {
+    this.props.updateMapDragged(false);
     this.props.showNewPin();
   }
 
@@ -100,7 +100,7 @@ FormCategoryMenuWrapper.propTypes = {
   containers: PropTypes.instanceOf(NodeList),
   isMapDragged: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
-  setIsMapDragged: PropTypes.func.isRequired,
+  updateMapDragged: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
@@ -111,7 +111,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setIsMapDragged: isMapDragged => dispatch(setIsMapDragged(isMapDragged)),
+  updateMapDragged: isMapDragged => dispatch(updateMapDragged(isMapDragged)),
 });
 
 export default connect(

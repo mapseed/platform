@@ -46,7 +46,7 @@ const INIT_LAYER = "map/INIT_LAYER";
 const UPDATE_LAYERS_VISIBLE = "map/UPDATE_LAYERS_VISIBLE";
 const UPDATE_LAYERS_HIDDEN = "map/UPDATE_LAYERS_HIDDEN";
 const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
-const SET_IS_MAP_DRAGGED = "map/SET_IS_MAP_DRAGGED";
+const UPDATE_IS_MAP_DRAGGED = "map/UPDATE_IS_MAP_DRAGGED";
 
 // Action creators
 export const setMapDragging = isDragging => ({
@@ -147,9 +147,9 @@ export const resetFeatureFilterGroup = filterInfo => {
     payload: filterInfo,
   };
 };
-export const setIsMapDragged = isMapDragged => {
+export const updateMapDragged = isMapDragged => {
   return {
-    type: SET_IS_MAP_DRAGGED,
+    type: UPDATE_IS_MAP_DRAGGED,
     payload: isMapDragged,
   };
 };
@@ -302,7 +302,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           featureFilter => featureFilter.groupId !== action.payload.groupId,
         ),
       };
-    case SET_IS_MAP_DRAGGED:
+    case UPDATE_IS_MAP_DRAGGED:
       return {
         ...state,
         isMapDragged: action.payload,
