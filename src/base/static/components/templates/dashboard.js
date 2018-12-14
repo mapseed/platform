@@ -20,6 +20,7 @@ import {
   LargeTitle,
   SmallTitle,
   RegularText,
+  SmallText,
   LargeLabel,
   SmallLabel,
   ExtraLargeLabel,
@@ -69,8 +70,6 @@ const DashboardWrapper = styled("div")({
   margin: "8px auto 24px auto",
 });
 
-// NOTE: using template literal syntax, until we figure out how to
-// configure 'grid-template-areas' using object syntax
 const OverviewWrapper = styled("div")({
   display: "grid",
   gridTemplateRows: "max-content",
@@ -82,10 +81,6 @@ const OverviewWrapper = styled("div")({
   `,
   marginBottom: "24px",
 });
-
-// const CardsWrapper = styled("div")(props => ({
-//   justifyContent: "space-around",
-// }));
 
 const CardWrapper = styled("div")(props => ({
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -140,9 +135,6 @@ const SurveyWrapper = styled("div")({
 const ChartTitle = styled(SmallTitle)({
   margin: "0 auto 0 auto",
   textAlign: "center",
-});
-const ChartWrapper = styled("div")({
-  margin: "0 auto 0 auto",
 });
 const CategoriesWrapper = styled("div")({
   gridArea: "categories",
@@ -241,7 +233,7 @@ class Dashboard extends Component {
     const piechartData = Object.entries(grouped).map(([ethnicity, places]) => ({
       ethnicity,
       count: places.length,
-      percent: `${(places.length / totalPlaces).toFixed(0)}`,
+      percent: `${((places.length * 100) / totalPlaces).toFixed(0)}%`,
     }));
     return piechartData;
   };
@@ -358,57 +350,76 @@ class Dashboard extends Component {
           <RegularTitle style={{ gridArea: "title" }}>Survey Data</RegularTitle>
           <CategoriesWrapper>
             <ChartTitle>Categories</ChartTitle>
-            <ChartWrapper>
-              <ResponsiveContainer width="100%" height={400}>
-                <PieChart>
-                  <Pie
-                    isAnimationActive={false}
-                    data={pieChartData}
-                    dataKey="count"
-                    nameKey="category"
-                    outerRadius={80}
-                    innerRadius={35}
-                    fill="#8884d8"
-                    label={this.renderPieChartLabel}
-                  >
-                    {pieChartData.map((entry, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </ChartWrapper>
+            <ResponsiveContainer width="100%" height={400}>
+              <PieChart>
+                <Pie
+                  isAnimationActive={false}
+                  data={pieChartData}
+                  dataKey="count"
+                  nameKey="category"
+                  outerRadius={80}
+                  innerRadius={35}
+                  fill="#8884d8"
+                  label={this.renderPieChartLabel}
+                >
+                  {pieChartData.map((entry, index) => (
+                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
           </CategoriesWrapper>
           <DemographicsWrapper>
             <ChartTitle>Demographics</ChartTitle>
-            <ChartWrapper>
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart
-                  width={1200}
-                  height={350}
-                  data={barChartData}
-                  margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
+            <ResponsiveContainer width="100%" height={360}>
+              <BarChart
+                data={barChartData}
+                margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="ethnicity"
+                  tickFormatter={barChartTickFormat}
+                  angle={-45}
+                  textAnchor="end"
                 >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="ethnicity"
-                    tickFormatter={barChartTickFormat}
-                    angle={-45}
-                    textAnchor="end"
-                  >
-                    <Label value="Ethnicity" offset={96} position="bottom" />
-                  </XAxis>
-                  <YAxis>
-                    <Label value="Count" angle={-90} position="left" />
-                  </YAxis>
-                  <Tooltip />
-                  <Bar dataKey="count" fill={BLUE}>
-                    <LabelList dataKey="count" position="top" />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartWrapper>
+                  <Label
+                    content={() => (
+                      <g>
+                        <text x="50%" y={286} textAnchor="middle">
+                          Ethnicity
+                        </text>
+                        <text
+                          x="50%"
+                          y={320}
+                          fontSize=".7em"
+                          textAnchor="middle"
+                        >
+                          {
+                            "*race/ethinicity may not add up to 100% because of multiple choices"
+                          }
+                        </text>
+                      </g>
+                    )}
+                    offset={96}
+                    position="bottom"
+                  />
+                </XAxis>
+                <YAxis>
+                  <Label value="Count" angle={-90} position="left" />
+                </YAxis>
+                <Tooltip
+                  labelFormatter={(label, args) => label}
+                  formatter={(value, name, props) =>
+                    `${props.payload.count} (${props.payload.percent})`
+                  }
+                />
+                <Bar dataKey="count" fill={BLUE}>
+                  <LabelList dataKey="count" position="top" />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </DemographicsWrapper>
         </SurveyWrapper>
       </DashboardWrapper>
