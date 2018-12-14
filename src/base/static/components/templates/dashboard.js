@@ -24,21 +24,16 @@ import {
   LargeLabel,
   ExtraLargeLabel,
 } from "../atoms/typography";
+import CategoriesPieChart from "../molecules/categories-pie-chart";
+import DemographicsBarChart from "../molecules/demographics-bar-chart";
 import { connect } from "react-redux";
 import styled from "react-emotion";
 
 import groupBy from "lodash.groupby";
 import {
-  ResponsiveContainer,
   LineChart,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
   Line,
   Label,
-  LabelList,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -194,64 +189,6 @@ class Dashboard extends Component {
     return linechartData;
   };
 
-  getBarChartData = () => {
-    const totalPlaces = this.props.places ? this.props.places.length : 100;
-
-    const grouped = this.props.places
-      ? this.props.places.reduce((memo, place) => {
-          // add the place to the memo's ethnicity bucket for each
-          // ethnicity that was selected
-          if (place["private-ethnicity"].length === 0) {
-            if (memo["(No response)"]) {
-              memo["(No response)"].push(place);
-            } else {
-              memo["(No response)"] = [place];
-            }
-            return memo;
-          }
-          place["private-ethnicity"].forEach(ethnicity => {
-            const ethnicityLabel = this.props.formFieldsConfig
-              .find(fieldConfig => fieldConfig.id === "private-ethnicity")
-              .content.find(content => content.value === ethnicity).label;
-            if (memo[ethnicityLabel]) {
-              memo[ethnicityLabel].push(place);
-            } else {
-              memo[ethnicityLabel] = [place];
-            }
-          });
-          return memo;
-        }, {})
-      : [];
-    const piechartData = Object.entries(grouped).map(([ethnicity, places]) => ({
-      ethnicity,
-      count: places.length,
-      percent: `${((places.length * 100) / totalPlaces).toFixed(0)}%`,
-    }));
-    return piechartData;
-  };
-
-  getPieChartData = () => {
-    const grouped = this.props.places
-      ? groupBy(this.props.places, place => place.location_type)
-      : {};
-    // NOTE: location_type and form id are the same thing,
-    // also category and form label are also the same thing
-    const piechartData = Object.entries(grouped).map(
-      ([locationType, places]) => ({
-        category: this.props.placeFormsConfig.find(
-          form => form.id === locationType,
-        ).label,
-        count: places.length,
-      }),
-    );
-    return piechartData;
-  };
-
-  renderPieChartLabel = pieProps => {
-    const { category, percent, count } = pieProps;
-    return `${category}, ${count} (${(percent * 100).toFixed(0)}%)`;
-  };
-
   render() {
     const commentsCount =
       this.props.places &&
@@ -269,17 +206,6 @@ class Dashboard extends Component {
         }
         return count;
       }, 0);
-
-    const pieChartData = this.getPieChartData();
-    const barChartData = this.getBarChartData();
-
-    const barChartTickFormat = label => {
-      if (label.length > 18) {
-        return `${label.slice(0, 15)}…`;
-      } else {
-        return label;
-      }
-    };
 
     return (
       <DashboardWrapper>
@@ -336,82 +262,32 @@ class Dashboard extends Component {
             />
           </LineChart>
         </EngagementWrapper>
-        <SurveyWrapper>
-          <RegularTitle style={{ gridArea: "title" }}>Survey</RegularTitle>
-          <CategoriesWrapper>
-            <ChartTitle>Categories</ChartTitle>
-            <ResponsiveContainer width="100%" height={400}>
-              <PieChart>
-                <Pie
-                  isAnimationActive={false}
-                  data={pieChartData}
-                  dataKey="count"
-                  nameKey="category"
-                  outerRadius={80}
-                  innerRadius={35}
-                  fill="#8884d8"
-                  label={this.renderPieChartLabel}
-                >
-                  {pieChartData.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </CategoriesWrapper>
-          <DemographicsWrapper>
-            <ChartTitle>Demographics</ChartTitle>
-            <ResponsiveContainer width="100%" height={360}>
-              <BarChart
-                data={barChartData}
-                margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="ethnicity"
-                  tickFormatter={barChartTickFormat}
-                  angle={-45}
-                  textAnchor="end"
-                >
-                  <Label
-                    content={() => (
-                      <g>
-                        <text x="50%" y={286} textAnchor="middle">
-                          Ethnicity
-                        </text>
-                        <text
-                          x="50%"
-                          y={320}
-                          fontSize=".7em"
-                          textAnchor="middle"
-                        >
-                          {
-                            "*race/ethinicity may not add up to 100% because of multiple choices"
-                          }
-                        </text>
-                      </g>
-                    )}
-                    offset={96}
-                    position="bottom"
-                  />
-                </XAxis>
-                <YAxis>
-                  <Label value="Count" angle={-90} position="left" />
-                </YAxis>
-                <Tooltip
-                  labelFormatter={label => label}
-                  formatter={(value, name, props) =>
-                    `${props.payload.count} (${props.payload.percent})`
-                  }
+        {this.props.dashboardConfig.surveyMetrics && (
+          <SurveyWrapper>
+            <RegularTitle style={{ gridArea: "title" }}>Survey</RegularTitle>
+            {/* TODO: Make these charts more data-driven. Right now, they are hard coded for durham */}
+            {this.props.dashboardConfig.surveyMetrics.categories && (
+              <CategoriesWrapper>
+                <ChartTitle>Categories</ChartTitle>
+                <CategoriesPieChart
+                  places={this.props.places}
+                  placeFormsConfig={this.props.placeFormsConfig}
+                  colors={COLORS}
                 />
-                <Bar dataKey="count" fill={BLUE}>
-                  <LabelList dataKey="count" position="top" />
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </DemographicsWrapper>
-        </SurveyWrapper>
+              </CategoriesWrapper>
+            )}
+            {this.props.dashboardConfig.surveyMetrics.demographics && (
+              <DemographicsWrapper>
+                <ChartTitle>Demographics</ChartTitle>
+                <DemographicsBarChart
+                  barFillColor={BLUE}
+                  formFieldsConfig={this.props.formFieldsConfig}
+                  places={this.props.places}
+                />
+              </DemographicsWrapper>
+            )}
+          </SurveyWrapper>
+        )}
       </DashboardWrapper>
     );
   }
