@@ -1220,6 +1220,47 @@
         "label": "_(Other)",
         "icon": "/static/css/images/markers/idea.png"
       }
+    ],
+    "fields": [
+      {
+        "id": "private-ethnicity",
+        "autocomplete": false,
+        "type": "big_checkbox",
+        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
+        "display_prompt": "_(Ethnicity:)",
+        "label": "_(Ethnicity:)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(American Indian/Alaskan Native)",
+            "value": "indian-alaskan"
+          },
+          {
+            "label": "_(Asian)",
+            "value": "asian"
+          },
+          {
+            "label": "_(Black or African American)",
+            "value": "black"
+          },
+          {
+            "label": "_(Hispanic or Latinx)",
+            "value": "hispanic"
+          },
+          {
+            "label": "_(Native Hawaiian or Pacific Islander)",
+            "value": "hawaiian-pacific"
+          },
+          {
+            "label": "_(White)",
+            "value": "white"
+          },
+          {
+            "label": "_(Other)",
+            "value": "other-ethnicity"
+          }
+        ]
+      }
     ]
   },
   "support": {

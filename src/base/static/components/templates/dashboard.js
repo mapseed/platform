@@ -12,6 +12,8 @@ import {
 import {
   placeFormsConfigSelector,
   placeFormsConfigPropType,
+  formFieldsConfigSelector,
+  formFieldsConfigPropType,
 } from "../../state/ducks/forms-config";
 import { HorizontalRule } from "../atoms/layout";
 import {
@@ -19,10 +21,7 @@ import {
   RegularTitle,
   LargeTitle,
   SmallTitle,
-  RegularText,
-  SmallText,
   LargeLabel,
-  SmallLabel,
   ExtraLargeLabel,
 } from "../atoms/typography";
 import { connect } from "react-redux";
@@ -76,8 +75,8 @@ const OverviewWrapper = styled("div")({
   gridTemplateColumns: "1fr 1fr 1fr",
   gridTemplateAreas: `
     'title title title'
-    'card1 card2 card3'
     'link link link'
+    'card1 card2 card3'
   `,
   marginBottom: "24px",
 });
@@ -198,15 +197,6 @@ class Dashboard extends Component {
   getBarChartData = () => {
     const totalPlaces = this.props.places ? this.props.places.length : 100;
 
-    const ethnicityLabelMappings = {
-      "indian-alaskan": "American Indian/Alaskan Native",
-      asian: "Asian",
-      black: "Black or African American",
-      hispanic: "Hispanic or Latinx",
-      "hawaiian-pacific": "Native Hawaiian or Pacific Islander",
-      white: "White",
-      "other-ethnicity": "Other",
-    };
     const grouped = this.props.places
       ? this.props.places.reduce((memo, place) => {
           // add the place to the memo's ethnicity bucket for each
@@ -220,7 +210,9 @@ class Dashboard extends Component {
             return memo;
           }
           place["private-ethnicity"].forEach(ethnicity => {
-            const ethnicityLabel = ethnicityLabelMappings[ethnicity];
+            const ethnicityLabel = this.props.formFieldsConfig
+              .find(fieldConfig => fieldConfig.id === "private-ethnicity")
+              .content.find(content => content.value === ethnicity).label;
             if (memo[ethnicityLabel]) {
               memo[ethnicityLabel].push(place);
             } else {
@@ -336,18 +328,16 @@ class Dashboard extends Component {
             </YAxis>
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
-            {/* <Legend /> */}
             <Line
               type="monotone"
               dataKey="count"
               stroke={BLUE}
               activeDot={{ r: 8 }}
             />
-            {/*<Line type="monotone" dataKey="count" stroke="#82ca9d" />*/}
           </LineChart>
         </EngagementWrapper>
         <SurveyWrapper>
-          <RegularTitle style={{ gridArea: "title" }}>Survey Data</RegularTitle>
+          <RegularTitle style={{ gridArea: "title" }}>Survey</RegularTitle>
           <CategoriesWrapper>
             <ChartTitle>Categories</ChartTitle>
             <ResponsiveContainer width="100%" height={400}>
@@ -410,7 +400,7 @@ class Dashboard extends Component {
                   <Label value="Count" angle={-90} position="left" />
                 </YAxis>
                 <Tooltip
-                  labelFormatter={(label, args) => label}
+                  labelFormatter={label => label}
                   formatter={(value, name, props) =>
                     `${props.payload.count} (${props.payload.percent})`
                   }
@@ -433,12 +423,14 @@ Dashboard.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   places: placesPropType,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
+  formFieldsConfig: formFieldsConfigPropType,
 };
 
 const mapStateToProps = state => ({
   places: dashboardPlacesSelector(state),
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),
+  formFieldsConfig: formFieldsConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(Dashboard);
