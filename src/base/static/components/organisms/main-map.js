@@ -607,6 +607,7 @@ MainMap.propTypes = {
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
+  setIsMapDragged: PropTypes.func.isRequired,
   setLayerLoaded: PropTypes.func.isRequired,
   setLayerLoading: PropTypes.func.isRequired,
   setLayerError: PropTypes.func.isRequired,

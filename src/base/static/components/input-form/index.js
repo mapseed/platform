@@ -231,8 +231,6 @@ class InputForm extends Component {
       isValid = false;
     }
 
-    console.log("newValidationErrors", newValidationErrors);
-
     if (isValid) {
       successCallback();
     } else {
@@ -516,6 +514,7 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
+  isMapDragged: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   mapConfig: PropTypes.object.isRequired,
   mapLayers: PropTypes.arrayOf(
