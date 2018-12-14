@@ -13,10 +13,6 @@ const getPlaceCollections = async ({
   let totalPages = 0;
   let pageSize;
 
-  // TODO(luke): Once backbone models are ported into the redux store,
-  // mapseedApiClient will handle the logic for handling the responses
-  // from the api directly.
-
   // loop over all place collections
   const placeCollectionPromises = [];
   _.each(placeCollections, function(collection, collectionId) {

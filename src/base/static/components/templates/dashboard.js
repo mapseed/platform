@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LegacyUtil from "../../js/utils.js";
 import {
@@ -9,6 +9,10 @@ import {
   dashboardConfigSelector,
   dashboardConfigPropType,
 } from "../../state/ducks/dashboard-config";
+import {
+  placeFormsConfigSelector,
+  placeFormsConfigPropType,
+} from "../../state/ducks/forms-config";
 import { HorizontalRule } from "../atoms/layout";
 import {
   Link,
@@ -25,10 +29,10 @@ import styled from "react-emotion";
 
 import groupBy from "lodash.groupby";
 import {
+  ResponsiveContainer,
   LineChart,
   BarChart,
   Bar,
-  Legend,
   PieChart,
   Pie,
   Cell,
@@ -42,7 +46,8 @@ import {
 } from "recharts";
 
 const MAX_DASHBOARD_WIDTH = "1120px";
-// const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+// These are the colors we use for our charts:
 const BLUE = "#5DA5DA";
 const COLORS = [
   "#4D4D4D",
@@ -83,9 +88,7 @@ const OverviewWrapper = styled("div")({
 // }));
 
 const CardWrapper = styled("div")(props => ({
-  // boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-  // borderRadius: "5px",
   margin: "8px",
   border: "2px solid grey",
   gridArea: props.gridArea,
@@ -180,7 +183,6 @@ class Dashboard extends Component {
           return `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
         })
       : {};
-    console.log("grouped:", grouped);
 
     // Get a list of all days in range, to account for days where no posts were made:
     const daysGrouped = getDaysArray(minDate, maxDate).reduce((memo, date) => {
@@ -198,7 +200,6 @@ class Dashboard extends Component {
         return a.date - b.date;
       });
 
-    console.log("linechartData:", linechartData);
     return linechartData;
   };
 
@@ -237,13 +238,11 @@ class Dashboard extends Component {
           return memo;
         }, {})
       : [];
-    console.log("grouped:", grouped);
     const piechartData = Object.entries(grouped).map(([ethnicity, places]) => ({
       ethnicity,
       count: places.length,
       percent: `${(places.length / totalPlaces).toFixed(0)}`,
     }));
-    console.log("barChartData:", piechartData);
     return piechartData;
   };
 
@@ -251,11 +250,16 @@ class Dashboard extends Component {
     const grouped = this.props.places
       ? groupBy(this.props.places, place => place.location_type)
       : {};
-    const piechartData = Object.entries(grouped).map(([category, places]) => ({
-      category,
-      count: places.length,
-    }));
-    console.log("pieChartData:", piechartData);
+    // NOTE: location_type and form id are the same thing,
+    // also category and form label are also the same thing
+    const piechartData = Object.entries(grouped).map(
+      ([locationType, places]) => ({
+        category: this.props.placeFormsConfig.find(
+          form => form.id === locationType,
+        ).label,
+        count: places.length,
+      }),
+    );
     return piechartData;
   };
 
@@ -285,15 +289,7 @@ class Dashboard extends Component {
     const pieChartData = this.getPieChartData();
     const barChartData = this.getBarChartData();
 
-    const barChartTicks = barChartData.map(datum => {
-      if (datum.ethnicity.length > 18) {
-        return `${datum.ethnicity.slice(0, 15)}…`;
-      } else {
-        return datum.ethnicity;
-      }
-    });
-    const tickFormat = label => {
-      console.log("tickformat: label:", label);
+    const barChartTickFormat = label => {
       if (label.length > 18) {
         return `${label.slice(0, 15)}…`;
       } else {
@@ -363,55 +359,55 @@ class Dashboard extends Component {
           <CategoriesWrapper>
             <ChartTitle>Categories</ChartTitle>
             <ChartWrapper>
-              <PieChart width={500} height={400}>
-                <Pie
-                  isAnimationActive={false}
-                  data={pieChartData}
-                  dataKey="count"
-                  nameKey="category"
-                  cx={200}
-                  cy={200}
-                  outerRadius={80}
-                  innerRadius={35}
-                  fill="#8884d8"
-                  label={this.renderPieChartLabel}
-                >
-                  {pieChartData.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
+              <ResponsiveContainer width="100%" height={400}>
+                <PieChart>
+                  <Pie
+                    isAnimationActive={false}
+                    data={pieChartData}
+                    dataKey="count"
+                    nameKey="category"
+                    outerRadius={80}
+                    innerRadius={35}
+                    fill="#8884d8"
+                    label={this.renderPieChartLabel}
+                  >
+                    {pieChartData.map((entry, index) => (
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
             </ChartWrapper>
           </CategoriesWrapper>
           <DemographicsWrapper>
             <ChartTitle>Demographics</ChartTitle>
             <ChartWrapper>
-              <BarChart
-                width={1200}
-                height={350}
-                data={barChartData}
-                margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="ethnicity"
-                  tickFormatter={tickFormat}
-                  angle={-45}
-                  textAnchor="end"
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart
+                  width={1200}
+                  height={350}
+                  data={barChartData}
+                  margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
                 >
-                  <Label value="Ethnicity" offset={96} position="bottom" />
-                </XAxis>
-                <YAxis>
-                  <Label value="Count" angle={-90} position="left" />
-                </YAxis>
-                {/* <YAxis yAxisId="right" orientation="left" /> */}
-                <Tooltip />
-                {/* <Bar yAxisId="right" dataKey="count" fill={BLUE}> */}
-                <Bar dataKey="count" fill={BLUE}>
-                  <LabelList dataKey="count" position="top" />
-                </Bar>
-              </BarChart>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="ethnicity"
+                    tickFormatter={barChartTickFormat}
+                    angle={-45}
+                    textAnchor="end"
+                  >
+                    <Label value="Ethnicity" offset={96} position="bottom" />
+                  </XAxis>
+                  <YAxis>
+                    <Label value="Count" angle={-90} position="left" />
+                  </YAxis>
+                  <Tooltip />
+                  <Bar dataKey="count" fill={BLUE}>
+                    <LabelList dataKey="count" position="top" />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </ChartWrapper>
           </DemographicsWrapper>
         </SurveyWrapper>
@@ -425,11 +421,13 @@ Dashboard.propTypes = {
   apiRoot: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router),
   places: placesPropType,
+  placeFormsConfig: placeFormsConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   places: dashboardPlacesSelector(state),
   dashboardConfig: dashboardConfigSelector(state),
+  placeFormsConfig: placeFormsConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(Dashboard);
