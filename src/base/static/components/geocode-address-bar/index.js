@@ -17,7 +17,7 @@ class GeocodeAddressBar extends Component {
     };
   }
 
-  onChange(fieldName, fieldValue, evt) {
+  onChange(fieldName, fieldValue) {
     this.setState({
       value: fieldValue,
       isTriggeringGeocode: false,
