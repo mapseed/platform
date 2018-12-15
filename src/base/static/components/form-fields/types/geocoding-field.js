@@ -21,9 +21,6 @@ class GeocodingField extends Component {
       isWithGeocodingError: false,
     };
     this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
-    this.hint =
-      this.props.mapConfig.geocode_bounding_box ||
-      this.props.mapConfig.geocode_hint;
   }
 
   componentDidUpdate(prevProps) {
@@ -37,31 +34,36 @@ class GeocodingField extends Component {
       isGeocoding: true,
       isWithGeocodingError: false,
     });
-    let address = this.props.value;
+    const address = this.props.value;
 
-    Util[this.geocodingEngine].geocode(address, this.hint, {
-      success: data => {
-        let locationsData = data.results[0].locations;
-        if (locationsData.length > 0) {
-          this.setState({
-            isGeocoding: false,
-            isWithGeocodingError: false,
-          });
-          emitter.emit("geocode", locationsData[0]);
-        } else {
+    Util[this.geocodingEngine].geocode({
+      location: address,
+      hint: this.props.mapConfig.geocode_hint,
+      bbox: this.props.mapConfig.geocode_bounding_box,
+      options: {
+        success: data => {
+          const locationsData = data.results[0] && data.results[0].locations;
+          if (locationsData && locationsData.length > 0) {
+            this.setState({
+              isGeocoding: false,
+              isWithGeocodingError: false,
+            });
+            emitter.emit("geocode", locationsData[0]);
+          } else {
+            this.setState({
+              isGeocoding: false,
+              isWithGeocodingError: true,
+            });
+          }
+        },
+        error: () => {
           this.setState({
             isGeocoding: false,
             isWithGeocodingError: true,
           });
-        }
-      },
-      error: () => {
-        this.setState({
-          isGeocoding: false,
-          isWithGeocodingError: true,
-        });
-        // eslint-disable-next-line no-console
-        console.error("There was an error while geocoding: ", arguments);
+          // eslint-disable-next-line no-console
+          console.error("There was an error while geocoding: ", arguments);
+        },
       },
     });
   }
@@ -85,6 +87,7 @@ class GeocodingField extends Component {
           placeholder={this.props.placeholder}
           value={this.props.value}
           onBlur={this.doGeocode.bind(this)}
+          onKeyDown={e => this.props.onKeyDown(e)}
           onChange={e => this.props.onChange(e.target.name, e.target.value)}
         />
         <div
@@ -93,7 +96,7 @@ class GeocodingField extends Component {
               .isWithGeocodingError,
           })}
         >
-          {this.props.t("fields:geocodingField:locationNotFoundError")}
+          {this.props.t("locationNotFoundError")}
         </div>
       </div>
     );
@@ -104,6 +107,7 @@ GeocodingField.propTypes = {
   mapConfig: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func,
   placeholder: PropTypes.string,
   t: PropTypes.func.isRequired,
   isTriggeringGeocode: PropTypes.bool,

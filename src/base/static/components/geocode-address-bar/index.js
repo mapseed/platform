@@ -24,6 +24,14 @@ class GeocodeAddressBar extends Component {
     });
   }
 
+  onKeyDown(evt) {
+    if (evt.key === "Tab") {
+      // Prevent the default field-switching behavior of a Tab press here
+      // because it screws up the UI.
+      evt.preventDefault();
+    }
+  }
+
   onSubmit(evt) {
     evt.preventDefault();
     this.setState({
@@ -36,6 +44,7 @@ class GeocodeAddressBar extends Component {
       <form className="geocode-address-bar" onSubmit={this.onSubmit.bind(this)}>
         <GeocodingField
           mapConfig={this.props.mapConfig}
+          onKeyDown={this.onKeyDown}
           onChange={this.onChange.bind(this)}
           name="geocode-address-bar"
           placeholder={this.props.t("placeholderMsg")}

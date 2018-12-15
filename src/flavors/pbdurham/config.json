@@ -48,6 +48,7 @@
     "geocoding_engine": "Mapbox",
     "geocode_field_label": "_(Enter an address...)",
     "geocode_hint": [-78.906412, 35.9954801],
+    "geocode_bounding_box": [-79.09479, 35.865179, -78.78392, 36.119792],
     "options": {
       "map": {
         "center": {
@@ -286,7 +287,7 @@
             ],
             "symbol-layout": {
               "icon-image": "fountain-small.png",
-              "icon-size": 0.5,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           },
@@ -298,7 +299,7 @@
             ],
             "symbol-layout": {
               "icon-image": "fountain.png",
-              "icon-size": 0.6,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           },
@@ -323,7 +324,7 @@
             ],
             "symbol-layout": {
               "icon-image": "safety-small.png",
-              "icon-size": 0.5,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           },
@@ -335,7 +336,7 @@
             ],
             "symbol-layout": {
               "icon-image": "safety.png",
-              "icon-size": 0.6,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           },
@@ -359,7 +360,7 @@
               ["<", ["zoom"], 13]
             ],
             "symbol-layout": {
-              "icon-size": 0.5,
+              "icon-size": 0.4,
               "icon-image": "tree-small.png",
               "icon-anchor": "bottom"
             }
@@ -372,7 +373,7 @@
             ],
             "symbol-layout": {
               "icon-image": "tree.png",
-              "icon-size": 0.6,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           },
@@ -396,7 +397,7 @@
               ["<", ["zoom"], 13]
             ],
             "symbol-layout": {
-              "icon-size": 0.5,
+              "icon-size": 0.4,
               "icon-image": "health-small.png",
               "icon-anchor": "bottom"
             }
@@ -409,7 +410,7 @@
             ],
             "symbol-layout": {
               "icon-image": "health.png",
-              "icon-size": 0.6,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           },
@@ -433,7 +434,7 @@
               ["<", ["zoom"], 13]
             ],
             "symbol-layout": {
-              "icon-size": 0.5,
+              "icon-size": 0.4,
               "icon-image": "street-sidewalk-small.png",
               "icon-anchor": "bottom"
             }
@@ -446,7 +447,7 @@
             ],
             "symbol-layout": {
               "icon-image": "street-sidewalk.png",
-              "icon-size": 0.6,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           },
@@ -470,7 +471,7 @@
               ["<", ["zoom"], 13]
             ],
             "symbol-layout": {
-              "icon-size": 0.5,
+              "icon-size": 0.4,
               "icon-image": "idea-small.png",
               "icon-anchor": "bottom"
             }
@@ -483,7 +484,7 @@
             ],
             "symbol-layout": {
               "icon-image": "idea.png",
-              "icon-size": 0.6,
+              "icon-size": 0.4,
               "icon-anchor": "bottom"
             }
           }
