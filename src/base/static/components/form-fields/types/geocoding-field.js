@@ -83,7 +83,6 @@ class GeocodingField extends Component {
         <input
           className="geocoding-field__input"
           name={this.props.name}
-          tabIndex="-1"
           type="text"
           placeholder={this.props.placeholder}
           value={this.props.value}
