@@ -1,7 +1,7 @@
 {
   "app": {
-    "title": "Regional Transit Planning",
-    "name": "Regional Transit Planning",
+    "title": "Regional Transportation Plan",
+    "name": "Regional Transportation Plan",
     "logo": "/static/css/images/psrclogo.jpg",
     "show_name_in_header": true,
     "meta_description": "_(Welcome!)",
@@ -256,7 +256,11 @@
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "light-nolabels",
-            "visible_layer_ids": ["bike-network", "bike-plan", "transportation-demo-input"]
+            "visible_layer_ids": [
+              "bike-network",
+              "bike-plan",
+              "transportation-demo-input"
+            ]
           }
         ],
         "label": "_(Actions)",
