@@ -27,7 +27,6 @@
     }
   },
   "dashboard": {
-    "title": "What are your conservation actions?",
     "datasetId": "snohomish-input",
     "datasetOwner": "smartercleanup"
   },

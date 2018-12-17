@@ -39,7 +39,6 @@
     ]
   },
   "dashboard": {
-    "title": "How should we spend 2.4 million dollars?",
     "datasetId": "pbdurham",
     "datasetOwner": "smartercleanup",
     "surveyMetrics": {

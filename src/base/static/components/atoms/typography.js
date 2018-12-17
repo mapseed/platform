@@ -114,7 +114,7 @@ Header6.propTypes = {
 
 // Title atoms:
 const LargeTitle = styled("h1")(props => ({
-  fontSize: "3rem",
+  fontSize: "2.5rem",
   fontFamily: props.theme.text.headerFontFamily,
 }));
 

@@ -64,17 +64,32 @@ const DashboardWrapper = styled("div")({
   margin: "8px auto 24px auto",
 });
 
+const DashboardTitle = styled(LargeTitle)({
+  marginBottom: 0,
+});
+
+const DashboardHorizontalRule = styled(HorizontalRule)({
+  marginTop: 0,
+});
+
 const OverviewWrapper = styled("div")({
   display: "grid",
-  gridTemplateRows: "max-content",
-  gridTemplateColumns: "1fr 1fr 1fr",
   gridTemplateAreas: `
-    'title title title'
-    'link link link'
-    'card1 card2 card3'
+    'title'
+    'link'
+    'cardsWrapper'
   `,
   marginBottom: "24px",
 });
+
+const CardsWrapper = styled("div")(props => ({
+  gridArea: "cardsWrapper",
+  display: "grid",
+  gridTemplateAreas: `
+    'card1 card2 card3'
+  `,
+  justifyItems: "center",
+}));
 
 const CardWrapper = styled("div")(props => ({
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -85,7 +100,7 @@ const CardWrapper = styled("div")(props => ({
   gridTemplateRows: "auto",
   gridTemplateColumns: "auto",
   padding: "16px",
-  maxWidth: "160px",
+  width: "160px",
 }));
 
 const CardNumber = styled(ExtraLargeLabel)(props => ({
@@ -209,25 +224,10 @@ class Dashboard extends Component {
 
     return (
       <DashboardWrapper>
-        <LargeTitle>{this.props.dashboardConfig.title}</LargeTitle>
-        <HorizontalRule />
+        <DashboardTitle>{"Analytics Dashboard"}</DashboardTitle>
+        <DashboardHorizontalRule />
         <OverviewWrapper>
           <RegularTitle style={{ gridArea: "title" }}>Overview</RegularTitle>
-          <Card
-            gridArea="card1"
-            label="Ideas"
-            number={this.props.places ? this.props.places.length : "..."}
-          />
-          <Card
-            gridArea="card2"
-            label="Comments"
-            number={commentsCount ? commentsCount : "..."}
-          />
-          <Card
-            gridArea="card3"
-            label="Supports"
-            number={supportsCount ? supportsCount : "..."}
-          />
           <DownloadDataLink
             href={`${this.props.apiRoot}${
               this.props.dashboardConfig.datasetOwner
@@ -237,6 +237,23 @@ class Dashboard extends Component {
           >
             {`Download Survey Data`}
           </DownloadDataLink>
+          <CardsWrapper>
+            <Card
+              gridArea="card1"
+              label="Ideas"
+              number={this.props.places ? this.props.places.length : "..."}
+            />
+            <Card
+              gridArea="card2"
+              label="Comments"
+              number={commentsCount ? commentsCount : "..."}
+            />
+            <Card
+              gridArea="card3"
+              label="Supports"
+              number={supportsCount ? supportsCount : "..."}
+            />
+          </CardsWrapper>
         </OverviewWrapper>
         <EngagementWrapper>
           <RegularTitle>Engagement</RegularTitle>
