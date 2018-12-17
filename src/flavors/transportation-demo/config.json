@@ -195,7 +195,7 @@
             "title": "_(Regional Data)",
             "layers": [
               {
-                "id": "transporation-demo-input",
+                "id": "transportation-demo-input",
                 "title": "_(Community Input)"
               },
               {
@@ -256,7 +256,7 @@
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "light-nolabels",
-            "visible_layer_ids": ["bike-network", "bike-plan"]
+            "visible_layer_ids": ["bike-network", "bike-plan", "transportation-demo-input"]
           }
         ],
         "label": "_(Actions)",
