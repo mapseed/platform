@@ -1,0 +1,478 @@
+{
+  "app": {
+    "title": "Regional Transportation Plan",
+    "name": "Regional Transportation Plan",
+    "logo": "/static/css/images/psrclogo.jpg",
+    "show_name_in_header": true,
+    "meta_description": "_(Welcome!)",
+    "meta_author": "HaxGeo.com",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#e57c04",
+        "secondary": "#d46c4c",
+        "tertiary": "#999",
+        "accent": "#ff6201"
+      },
+      "bg": {
+        "default": "#fff"
+      },
+      "text": {
+        "secondary": "#fff",
+        "tertiary": "#e57c04",
+        "headerFontFamily": "Raleway,sans-serif",
+        "bodyFontFamily": "Raleway,sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#e57c04",
+        "addPlaceButtonHoverBackgroundColor": "#ff6201"
+      }
+    }
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "geocoding_engine": "Mapbox",
+    "geocode_hint": [-117.1889785, 46.7298657],
+    "options": {
+      "map": {
+        "center": {
+          "lat": 47.39327308616325,
+          "lng": -122.29317726069291
+        },
+        "zoom": 8.6,
+        "pitch": 40,
+        "minZoom": 1,
+        "maxZoom": 18
+      },
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      },
+      "drawing_enabled": false
+    },
+    "layers": [
+      {
+        "id": "light-nolabels",
+        "is_basemap": true,
+        "is_visible_default": true,
+        "type": "raster-tile",
+        "url": "https://api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "Hello World"
+      },
+      {
+        "id": "satellite",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "url": "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+      },
+      {
+        "id": "bike-network",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/puget-sound-regional-bike-network/{z}/{x}/{y}.pbf",
+        "source_layer": "puget-sound-regional-bike-network",
+        "mapbox_layers": [
+          {
+            "id": "bike-network",
+            "type": "line",
+            "paint": {
+              "line-color": "#0000ff",
+              "line-width": 2,
+              "line-opacity": 0.3,
+              "line-dasharray": [2, 1]
+            }
+          }
+        ]
+      },
+      {
+        "id": "bike-plan",
+        "type": "vector-tile",
+        "url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/puget-sound-regional-bike-plan/{z}/{x}/{y}.pbf",
+        "source_layer": "puget-sound-regional-bike-plan",
+        "mapbox_layers": [
+          {
+            "id": "bike-plan",
+            "type": "line",
+            "paint": {
+              "line-color": "#ff6201",
+              "line-width": 2,
+              "line-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "st3-ballard-west-seattle",
+        "type": "vector-tile",
+        "url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/st3-ballard-west-seattle/{z}/{x}/{y}.pbf",
+        "source_layer": "st3-ballard-west-seattle",
+        "mapbox_layers": [
+          {
+            "id": "st3-ballard-west-seattle",
+            "type": "line",
+            "paint": {
+              "line-color": "#ff0000",
+              "line-width": 2,
+              "line-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "transit-planning",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/puget-sound-regional-transit-planning/{z}/{x}/{y}.pbf",
+        "source_layer": "puget-sound-regional-transit-planning",
+        "is_visible_default": true,
+        "mapbox_layers": [
+          {
+            "id": "psrp-1",
+            "type": "line",
+            "paint": {
+              "line-color": "#cc9900",
+              "line-width": 2,
+              "line-dasharray": [2, 1]
+            }
+          }
+        ]
+      },
+      {
+        "id": "transportation-demo-input",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/transportation-demo",
+        "is_visible_default": true,
+        "type": "place",
+        "slug": "report",
+        "focus_rules": [
+          {
+            "symbol-layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": "marker-observation.png"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": ["<", ["zoom"], 11],
+            "symbol-layout": {
+              "icon-anchor": "bottom",
+              "icon-image": "marker-observation.png",
+              "icon-size": 0.5
+            }
+          },
+          {
+            "filter": ["all", [">=", ["zoom"], 11], ["<", ["zoom"], 16]],
+            "symbol-layout": {
+              "icon-anchor": "bottom",
+              "icon-image": "marker-observation.png",
+              "icon-size": 0.6
+            }
+          },
+          {
+            "filter": [">=", ["zoom"], 16],
+            "symbol-layout": {
+              "icon-anchor": "bottom",
+              "icon-image": "marker-observation.png",
+              "icon-size": 0.7
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": false
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Map Layers:)",
+        "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layers": [
+              {
+                "id": "light-nolabels",
+                "title": "_(Light)"
+              },
+              {
+                "id": "satellite",
+                "title": "_(Satellite View)"
+              }
+            ]
+          },
+          {
+            "id": "grp-other",
+            "title": "_(Regional Data)",
+            "layers": [
+              {
+                "id": "transportation-demo-input",
+                "title": "_(Community Input)"
+              },
+              {
+                "id": "transit-planning",
+                "title": "_(Regional Transit Planning Projects)"
+              },
+              {
+                "id": "bike-network",
+                "title": "_(Bike Network)"
+              },
+              {
+                "id": "bike-plan",
+                "title": "_(Bike Plan)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Add Your Voice)",
+    "action_text": "_(added)",
+    "title": "_(Tell us more...)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "reports",
+        "category": "reports",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "transportation-demo-input",
+        "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "value": "demo",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 2,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "light-nolabels",
+            "visible_layer_ids": ["transit-planning", "st3-ballard-west-seattle"]
+          },
+          {
+            "start_field_index": 3,
+            "end_field_index": 4,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "light-nolabels",
+            "visible_layer_ids": ["bike-network", "bike-plan"]
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 9,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_basemap_id": "light-nolabels",
+            "visible_layer_ids": [
+              "bike-network",
+              "bike-plan",
+              "transportation-demo-input"
+            ]
+          }
+        ],
+        "label": "_(Actions)",
+        "fields": [
+          {
+            "name": "regional-plan-header",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. High Speed Light Rail</h4>"
+          },
+          {
+            "name": "regional-plan-description",
+            "type": "informational_html",
+            "content": "<p>Coming up next, we will be installing new trains to connect West Seattle and Ballard to the light rail network.</p><img style='margin-bottom:16px' src='/static/css/images/light-rail.jpg' alt='Light rail' /><p>The West Seattle and Ballard Link extensions will provide fast, reliable light rail connections to dense residential and job centers throughout the region while the new downtown Seattle Light Rail Tunnel provides capacity for the entire regional system to operate efficiently.</p><p>Here's your chance to tell us what YOU think of the plan so far...</p>"
+          },
+          {
+            "name": "bike-header",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Expansive Bike Network</h4>"
+          },
+          {
+            "name": "bike-description",
+            "type": "informational_html",
+            "content": "<p><a href='https://www.psrc.org/our-work/vision-2040' target='_blank'>VISION 2050</a> and the <a href='https://www.psrc.org/our-work/rtp' target='_blank'>Regional Transporation Plan</a> call for the development of a transportation system that offers more travel choices while preserving environmental quality and open space. Active transportation plays a key role in achieving these goals.</p><p>An expanded bicycle network is part of the plan to keep traffic down and our airways clean.</p><img style='margin-bottom:16px' src='/static/css/images/bike-network.jpg' alt='Biking'/><p>Guided by the Active Transportation Plan, PSRC is working with communities throughout the region to plan for and implement efficient and effective bicycle and pedestrian projects and programs.</p><p>The <a href='https://www.psrc.org/committee/bicycle-pedestrian-advisory-committee' target='_blank'>Bicycle and Pedestrian Advisory Committee</a> provides input to PSRC staff, policy boards, and other advisory committees on a variety of bicycle and pedestrian-related planning issues.</p><p>Here's your chance to tell us what YOU think of the plan so far...</p>"
+          },
+          {
+            "name": "input-header",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Tell us what you think!</h4>"
+          },
+          {
+            "prompt": "_(Ttile)",
+            "type": "text",
+            "name": "ttile",
+            "optional": true
+          },
+          {
+            "name": "comment",
+            "type": "textarea",
+            "prompt": "_(What would you like to share?)",
+            "placeholder": "_(Your thoughts...)"
+          },
+          {
+            "name": "private-get-notified",
+            "type": "big_radio",
+            "prompt": "_(I would like to get notified on important announcements about the 2040 plan)",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "submit_field",
+            "type": "submit",
+            "label": "_(Put it on the map!)"
+          }
+        ]
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "reports",
+        "datasetId": "transportation-demo-input",
+        "label": "_(Actions)",
+        "icon": "/static/css/images/markers/map-pin-marker-red.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "nav_bar": [
+    {
+      "title": "_(About)",
+      "type": "internal_link",
+      "url": "/page/about",
+      "start_page": true
+    },
+    {
+      "type": "list_toggle",
+      "show_list_button_label": "_(Show as a List)",
+      "show_map_button_label": "_(Show on a Map)"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "assistance",
+      "lang": "en_US",
+      "content": [
+        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
+        "<p style='margin-bottom:16px'>Your local Conservation District or Whitman County Cattelmen's Association are here to help you meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact your local CD or Whitman County Cattlemen's for more information or visit the following website: <a href='https://whitmancountyvsp.com/' target='_blank'>www.whitmancountyvsp.com</a>.</p>",
+        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
+        "<li>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Bradley Johnson</h5>",
+        "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
+        "<p style='margin:0'><em>Palouse Conservation District</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>bradleyj@palousecd.org</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>James Schierman</h5>",
+        "<p style='margin:0'><em>District Coordinator</em></p>",
+        "<p style='margin:0'><em>Palouse Rock-Lake Conservation District</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-648-3680</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>Jschierman.prlcd@gmail.com</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Brian Bell</h5>",
+        "<p style='margin:0'><em>District Manager</em></p>",
+        "<p style='margin:0'><em>Whitman Conservation District</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-288-4644</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>brianwhitmancd@gmail.com</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Jessica Self</h5>",
+        "<p style='margin:0'><em>Grants Manager</em></p>",
+        "<p style='margin:0'><em>Palouse Conservation District</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-332-4101 x114</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>JessicaS@palousecd.org</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<h5 style='margin-bottom:0'>Raymond Brown</h5>",
+        "<p style='margin:0'><em>District Manager</em></p>",
+        "<p style='margin:0'><em>Pine Creek Conservation District</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-285-5122</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pinecreekcd@frontier.com</span></div>",
+        "</li>",
+        "</ul>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h3 id='about-page-header'>What's your vision for a thriving region?</h3>",
+        "<p>Our cities are growing fast —help us make a good plan!</p>",
+        "<img src='/static/css/images/cover-image.jpg' alt='Puget Sound regional planning' style='margin:8px 0 8px 0' />",
+        "<p style='margin-bottom:16px'>The Puget Sound Regional Council is thinking big. With 3,500,000 expected to move here by 2040, we need to make sure everyone gets to share the beauty and quality of life we all enjoy.</p>",
+        "<p>Here's your chance to tell us what YOU think of the plan so far...</p>",
+        "<a href='/new' rel='internal' class='next-btn'>Let's get started</a>"
+      ]
+    }
+  ]
+}

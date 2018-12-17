@@ -58,12 +58,6 @@
         "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"
       },
       {
-        "id": "mapbox-light-style",
-        "type": "mapbox-style",
-        "is_basemap": true,
-        "url": "mapbox://styles/tcroxson/cjo6be9u21c1t2rqwiwtcdryc"
-      },
-      {
         "id": "satellite",
         "type": "raster-tile",
         "is_visible_default": true,
@@ -396,10 +390,6 @@
               {
                 "id": "osm",
                 "title": "_(OpenStreetMap)"
-              },
-              {
-                "id": "mapbox-light-style",
-                "title": "_(Mapbox Light Style)"
               },
               {
                 "id": "satellite",

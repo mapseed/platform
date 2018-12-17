@@ -758,7 +758,7 @@ var self = (module.exports = {
       return data;
     },
 
-    geocode: function(location, hint, options) {
+    geocode: function({ location, hint, bbox, options }) {
       var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
         originalSuccess = options && options.success,
         transformedResultsSuccess = function(data) {
@@ -781,6 +781,9 @@ var self = (module.exports = {
         mapboxToken;
       if (hint) {
         options.url += "&proximity=" + hint.join(",");
+      }
+      if (bbox) {
+        options.url += "&bbox=" + bbox.join(",");
       }
       options.success = transformedResultsSuccess;
       $.ajax(options);

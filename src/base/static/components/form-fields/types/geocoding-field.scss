@@ -18,6 +18,10 @@
   box-shadow: $geocoding-field-error-box-shadow;
 }
 
+.geocoding-field__geocoding-error--visible {
+  display: block;
+}
+
 .geocoding-field__input {
   width: $geocoding-field-width;
   border: $geocoding-field-border;

@@ -62,6 +62,7 @@ describe("InputForm", () => {
     const errorMessage1 = "error1";
     const errorMessage2 = "error2";
     const errorMessage3 = "error3";
+    const mapNotDraggedError = "mapNotDragged";
     wrapper.setState({
       fields: OrderedMap({
         [fieldName1]: Map({
@@ -84,7 +85,7 @@ describe("InputForm", () => {
 
     wrapper.instance().onSubmit(eventStub);
     expect(wrapper.state("formValidationErrors")).toEqual(
-      new Set([errorMessage3]),
+      new Set([errorMessage3, mapNotDraggedError]),
     );
   });
 
