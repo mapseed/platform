@@ -1,7 +1,7 @@
 {
   "app": {
-    "title": "Regional Transit Planning",
-    "name": "Regional Transit Planning",
+    "title": "Regional Transportation Plan",
+    "name": "Regional Transportation Plan",
     "logo": "/static/css/images/psrclogo.jpg",
     "show_name_in_header": true,
     "meta_description": "_(Welcome!)",
@@ -95,6 +95,23 @@
             "type": "line",
             "paint": {
               "line-color": "#ff6201",
+              "line-width": 2,
+              "line-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "st3-ballard-west-seattle",
+        "type": "vector-tile",
+        "url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/st3-ballard-west-seattle/{z}/{x}/{y}.pbf",
+        "source_layer": "st3-ballard-west-seattle",
+        "mapbox_layers": [
+          {
+            "id": "st3-ballard-west-seattle",
+            "type": "line",
+            "paint": {
+              "line-color": "#ff0000",
               "line-width": 2,
               "line-opacity": 1
             }
@@ -240,7 +257,7 @@
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "light-nolabels",
-            "visible_layer_ids": ["transit-planning"]
+            "visible_layer_ids": ["transit-planning", "st3-ballard-west-seattle"]
           },
           {
             "start_field_index": 3,
@@ -256,7 +273,11 @@
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "light-nolabels",
-            "visible_layer_ids": ["bike-network", "bike-plan", "transportation-demo-input"]
+            "visible_layer_ids": [
+              "bike-network",
+              "bike-plan",
+              "transportation-demo-input"
+            ]
           }
         ],
         "label": "_(Actions)",
