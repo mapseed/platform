@@ -102,6 +102,23 @@
         ]
       },
       {
+        "id": "st3-ballard-west-seattle",
+        "type": "vector-tile",
+        "url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/st3-ballard-west-seattle/{z}/{x}/{y}.pbf",
+        "source_layer": "st3-ballard-west-seattle",
+        "mapbox_layers": [
+          {
+            "id": "st3-ballard-west-seattle",
+            "type": "line",
+            "paint": {
+              "line-color": "#ff0000",
+              "line-width": 2,
+              "line-opacity": 1
+            }
+          }
+        ]
+      },
+      {
         "id": "transit-planning",
         "type": "vector-tile",
         "url": "https://vector-tiles.mapseed.org/puget-sound-regional-transit-planning/{z}/{x}/{y}.pbf",
@@ -240,7 +257,7 @@
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "light-nolabels",
-            "visible_layer_ids": ["transit-planning"]
+            "visible_layer_ids": ["transit-planning", "st3-ballard-west-seattle"]
           },
           {
             "start_field_index": 3,
