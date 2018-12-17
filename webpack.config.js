@@ -47,8 +47,8 @@ module.exports = {
   output: {
     path: outputPath,
     // use this for our dynamic imports, like "1.bundle.js"
-    chunkFilename: "[name].bundle.js",
-    filename: isProd ? "[chunkhash].bundle.js" : "bundle.js",
+    chunkFilename: "[chunkhash].bundle.js",
+    filename: isProd ? "[chunkhash].main.bundle.js" : "main.bundle.js",
   },
   resolve: {
     alias: alias,

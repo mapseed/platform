@@ -45,7 +45,7 @@ shell.mkdir(__dirname, "../www");
 const outputPath = path.resolve(__dirname, "../www");
 
 let jsHashedBundleName, cssHashedBundleName;
-glob.sync(outputPath + "/+(*.bundle.js|*.bundle.css)").forEach(path => {
+glob.sync(outputPath + "/+(*.main.bundle.js|*.bundle.css)").forEach(path => {
   path = path.split("/");
   if (path[path.length - 1].endsWith("js")) {
     jsHashedBundleName = path[path.length - 1] + ".gz";
@@ -98,7 +98,7 @@ Handlebars.registerHelper("serialize", function(json) {
   return JSON.stringify(json);
 });
 
-// (3) Convert the config yaml to json
+// (3) Parse the config json file
 // -----------------------------------------------------------------------------
 
 const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
