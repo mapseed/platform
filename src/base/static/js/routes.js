@@ -27,12 +27,9 @@ Shareabouts.Util = Util;
         // store config details for places
         configArrays = {};
 
-      fetch(
-        `https://dev-api.heyduwamish.org/api/v2/utils/session-key?format=json`,
-        {
-          credentials: "include",
-        },
-      ).then(async session => {
+      fetch(`${options.appConfig.api_root}utils/session-key?format=json`, {
+        credentials: "include",
+      }).then(async session => {
         const sessionJson = await session.json();
         Shareabouts.Util.cookies.save(
           "sa-api-sessionid",
