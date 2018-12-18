@@ -384,7 +384,7 @@
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(Que se ve, se oye, se huele, se siente, se toca? Y qué importancia tiene? Como se relaciona a la vida común en el territorio?)",
+            "prompt": "_(¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?)",
             "display_prompt": "_(Notar la observación:)",
             "placeholder": "_(Notar la observación...)",
             "optional": false
@@ -428,7 +428,7 @@
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(¿Cuales son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansion de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
+            "prompt": "_(¿Cuáles son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansión de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
             "display_prompt": "_(Describir la situación)",
             "placeholder": "_(Describir la situación)"
           },
@@ -515,7 +515,7 @@
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(¿Cuales son las actividades que nos permiten avizorar futuros sustentables?)",
+            "prompt": "_(¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?)",
             "display_prompt": "_(Decribir las actividades...)",
             "placeholder": "_(Descripción...)",
             "optional": false
@@ -758,7 +758,7 @@
       "lang": "en_US",
       "content": [
         "<h1>BIENVENIDA</h1>",
-        "<p><img src='/static/css/images/Territorios.png'><br><br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una de las etapas del proyecto <em>La Tierra NØ Resistirá</em>, un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territoriosdecolaboracion.wordpress.com'>https://territoriosdecolaboracion.wordpress.com</a><br><br>Programación del mapa: <a href='https://mapseed.org'>https://mapseed.org</a></p>",
+        "<p><img src='/static/css/images/Territorios.png'><br><br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una de las etapas del proyecto <em>La Tierra NØ Resistirá</em>, un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territorios.casarioarteyambiente.org'>https://territorios.casarioarteyambiente.org</a><br><br>Programación del mapa: <a href='https://mapseed.org'>https://mapseed.org</a></p>",
         "<p class='btn btn-block btn-large'><a href='/' rel='internal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explorar los territorios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>"
       ]
     },
