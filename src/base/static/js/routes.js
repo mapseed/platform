@@ -13,6 +13,7 @@ Shareabouts.Util = Util;
     routes: {
       "": "viewMap",
       "page/:slug": "viewPage",
+      dashboard: "viewDashboard",
       ":dataset/:id": "viewPlace",
       new: "newPlace",
       ":dataset/:id/response/:response_id": "viewPlace",
@@ -23,9 +24,18 @@ Shareabouts.Util = Util;
 
     initialize: function(options) {
       var self = this,
-        startPageConfig,
         // store config details for places
         configArrays = {};
+
+      fetch(`${options.appConfig.api_root}utils/session-key?format=json`, {
+        credentials: "include",
+      }).then(async session => {
+        const sessionJson = await session.json();
+        Shareabouts.Util.cookies.save(
+          "sa-api-sessionid",
+          sessionJson.sessionid,
+        );
+      });
 
       // store individual place collections for each place type
       this.places = {};
@@ -87,6 +97,7 @@ Shareabouts.Util = Util;
         leftSidebarConfig: options.leftSidebarConfig,
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
+        dashboardConfig: options.dashboardConfig,
         userToken: options.userToken,
         router: this,
         filters: options.filters,
@@ -131,6 +142,11 @@ Shareabouts.Util = Util;
     viewMap: function(zoom, lat, lng) {
       this.recordGoogleAnalyticsHit("/");
       this.appView.viewMap(zoom, lat, lng);
+    },
+
+    viewDashboard: function() {
+      this.recordGoogleAnalyticsHit("/dashboard");
+      this.appView.viewDashboard();
     },
 
     newPlace: function() {

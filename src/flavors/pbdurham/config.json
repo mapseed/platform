@@ -5,10 +5,6 @@
     "logo": "/static/css/images/pbdurham-logo-large.png",
     "meta_description": "_(Participatory Budgeting for City of Durham)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
-    "dataset_download": {
-      "slug": "pbdurham",
-      "owner": "smartercleanup"
-    },
     "theme": {
       "bg": {
         "default": "#d6d5d9",
@@ -41,6 +37,14 @@
         "label": "Español"
       }
     ]
+  },
+  "dashboard": {
+    "datasetId": "pbdurham",
+    "datasetOwner": "smartercleanup",
+    "surveyMetrics": {
+      "categories": true,
+      "demographics": true
+    }
   },
   "map": {
     "geolocation_enabled": true,
@@ -1218,6 +1222,47 @@
         "datasetId": "pbdurham",
         "label": "_(Other)",
         "icon": "/static/css/images/markers/idea.png"
+      }
+    ],
+    "fields": [
+      {
+        "id": "private-ethnicity",
+        "autocomplete": false,
+        "type": "big_checkbox",
+        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
+        "display_prompt": "_(Ethnicity:)",
+        "label": "_(Ethnicity:)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(American Indian/Alaskan Native)",
+            "value": "indian-alaskan"
+          },
+          {
+            "label": "_(Asian)",
+            "value": "asian"
+          },
+          {
+            "label": "_(Black or African American)",
+            "value": "black"
+          },
+          {
+            "label": "_(Hispanic or Latinx)",
+            "value": "hispanic"
+          },
+          {
+            "label": "_(Native Hawaiian or Pacific Islander)",
+            "value": "hawaiian-pacific"
+          },
+          {
+            "label": "_(White)",
+            "value": "white"
+          },
+          {
+            "label": "_(Other)",
+            "value": "other-ethnicity"
+          }
+        ]
       }
     ]
   },

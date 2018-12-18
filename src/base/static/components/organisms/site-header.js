@@ -18,6 +18,10 @@ import {
 import FilterMenu from "./filter-menu";
 import { appConfigSelector } from "../../state/ducks/app-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  dashboardConfigSelector,
+  dashboardConfigPropType,
+} from "../../state/ducks/dashboard-config";
 import { currentTemplateSelector } from "../../state/ducks/ui";
 import {
   isLeftSidebarExpandedSelector,
@@ -338,7 +342,8 @@ class SiteHeader extends Component {
             router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
             currentUser={this.props.currentUser}
-            datasetDownloadConfig={this.props.appConfig.dataset_download}
+            currentTemplate={this.props.currentTemplate}
+            dashboardConfig={this.props.dashboardConfig}
           />
         </RightAlignedContainer>
       </SiteHeaderWrapper>
@@ -376,6 +381,7 @@ SiteHeader.propTypes = {
     }).isRequired,
   }).isRequired,
   navBarConfig: navBarConfigPropType,
+  dashboardConfig: dashboardConfigPropType,
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
@@ -387,6 +393,7 @@ const mapStateToProps = state => ({
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
+  dashboardConfig: dashboardConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

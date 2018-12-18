@@ -23,7 +23,7 @@
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
   {{#if production}}
-    <link rel="stylesheet" href="/dist/{{cssHashedBundleName}}">
+    <link rel="stylesheet" href="/{{cssHashedBundleName}}">
   {{else}}
     <link rel="stylesheet" href="/bundle.css">
   {{/if}}
@@ -77,7 +77,8 @@
   </div><!-- end #main -->
 
   <div id="list-container"></div>
-  </div>
+  <div id="dashboard-container"></div>
+  </div><!-- end #site-wrap -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -106,7 +107,7 @@
   <!-- Bootstrap site and user information -->
   <script>
     var Shareabouts = Shareabouts || {};
-    
+
     Shareabouts.bootstrapped = {
       staticUrl: '/static/',
       mapQuestKey: '{{ settings.mapQuestKey }}',
@@ -118,20 +119,14 @@
       if (data && !data.name) data.name = data.username
       Shareabouts.bootstrapped.currentUser = data;
     }
-    function setApiSessionCookie(data) {
-      if (data) {
-        Shareabouts.Util.cookies.save('sa-api-sessionid', data.sessionid);
-      }
-    }
   </script>
 
   {{#if production}}
-    <script src="/dist/{{jsHashedBundleName}}"></script>
+    <script src="/{{jsHashedBundleName}}"></script>
   {{else}}
-    <script src="/bundle.js"></script>
+    <script src="/main.bundle.js"></script>
   {{/if}}
   <script src="{{config.app.api_root}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
-  <script src="{{config.app.api_root}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
 
   {{#if production}}
     <script>
@@ -144,6 +139,7 @@
             "session:" + S.Util.cookies.get("sa-api-sessionid")),
           app:        {{#serialize config.app}}{{/serialize}},
           place:      {{#serialize config.place}}{{/serialize}},
+          dashboard:      {{#serialize config.dashboard}}{{/serialize}},
           placeTypes: {{#serialize config.place_types}}{{/serialize}},
           cluster:    {{#serialize config.cluster}}{{/serialize}},
           forms:     {{#serialize config.forms}}{{/serialize}},
@@ -180,7 +176,8 @@
             navBarConfig: S.Config.navBar,
             pagesConfig: S.Config.pages,
             filters: S.Config.filters,
-            datasetsConfig: S.Config.datasets,
+            datasets: S.Config.datasets,
+            dashboardConfig: S.Config.dashboard,
             customHooks: S.Config.customHooks,
             customComponents: S.Config.customComponents,
             languageCode: "{{ languageCode }}"
@@ -189,7 +186,7 @@
       }(Shareabouts, jQuery));
     </script>
   {{else}}
-    <script src="/dist/config-en_US.js" type="text/javascript"></script>
+    <script src="/config-en_US.js" type="text/javascript"></script>
   {{/if}}
 
   {{#if settings.googleAnalyticsId}}

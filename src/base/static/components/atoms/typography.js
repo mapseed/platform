@@ -114,7 +114,7 @@ Header6.propTypes = {
 
 // Title atoms:
 const LargeTitle = styled("h1")(props => ({
-  fontSize: "3rem",
+  fontSize: "2.5rem",
   fontFamily: props.theme.text.headerFontFamily,
 }));
 
@@ -129,6 +129,11 @@ const SmallTitle = styled("h3")(props => ({
 }));
 
 // TODO: Other label types.
+const ExtraLargeLabel = styled("label")(props => ({
+  fontSize: "2rem",
+  fontFamily: props.theme.text.headerFontFamily,
+}));
+
 const LargeLabel = styled("label")(props => ({
   fontSize: "1.5rem",
   fontFamily: props.theme.text.headerFontFamily,
@@ -220,7 +225,7 @@ const Link = styled("a")(props => ({
 }));
 
 Link.propTypes = {
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
 };
 
 const Time = props => <time>{moment(props.time).fromNow()}</time>;
@@ -239,6 +244,7 @@ export {
   Header4,
   Header5,
   Header6,
+  ExtraLargeLabel,
   LargeLabel,
   RegularLabel,
   SmallLabel,

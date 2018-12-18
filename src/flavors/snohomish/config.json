@@ -6,10 +6,6 @@
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
-    "dataset_download": {
-      "slug": "snohomish-input",
-      "owner": "smartercleanup"
-    },
     "list_enabled": false,
     "theme": {
       "brand": {
@@ -29,6 +25,10 @@
         "light": "#fff"
       }
     }
+  },
+  "dashboard": {
+    "datasetId": "snohomish-input",
+    "datasetOwner": "smartercleanup"
   },
   "map": {
     "geolocation_enabled": true,
@@ -1983,11 +1983,11 @@
         "id": "featured_place",
         "datasetId": "snohomish-featured",
         "label": "_(Featured Site)",
-        "icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+        "icon": "/static/css/images/markers/map-pin-star-marker.png"
       },
       {
         "id": "conservation-actions",
-        "dataset": "snohomish-input",
+        "datasetId": "snohomish-input",
         "label": "_(Conservation Actions)",
         "icon": "/static/css/images/markers/map-pin-marker.png"
       }

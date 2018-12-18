@@ -81,7 +81,7 @@ module.exports = function(source) {
     languageCode: "en_US",
   });
 
-  const outputPath = path.resolve(__dirname, "../www/dist/config-en_US.js");
+  const outputPath = path.resolve(__dirname, "../www/config-en_US.js");
   try {
     fs.writeFileSync(outputPath, outputFile);
   } catch (e) {
