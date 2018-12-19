@@ -42,6 +42,8 @@ Shareabouts.Util = Util;
       // store individual activity collections for each place type
       this.activities = {};
 
+      this.isAddingSupported = !!options.placeConfig.adding_supported;
+
       PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
@@ -150,8 +152,12 @@ Shareabouts.Util = Util;
     },
 
     newPlace: function() {
-      this.recordGoogleAnalyticsHit("/new");
-      this.appView.newPlace();
+      if (this.isAddingSupported) {
+        this.recordGoogleAnalyticsHit("/new");
+        this.appView.newPlace();
+      } else {
+        this.navigate("/", { trigger: true });
+      }
     },
 
     viewPlace: function(datasetSlug, modelId, responseId) {
