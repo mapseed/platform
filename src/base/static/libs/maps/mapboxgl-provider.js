@@ -968,7 +968,7 @@ export default (container, options) => {
           let targetLayer = null;
           !mapProviderLayer.id.includes(CLUSTER_LAYER_IDENTIFIER) &&
             map.on(eventName, mapProviderLayer.id, evt => {
-              if (eventName === "click" || eventName === "touchstart") {
+              if (eventName === "click") {
                 // For click and touchstart events, we query rendered features
                 // here to obtain a single array of layers below the clicked-on
                 // point. The first entry in this array corresponds to the

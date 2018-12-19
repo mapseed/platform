@@ -493,18 +493,14 @@ class MainMap extends Component {
       });
 
       // Bind map interaction events for this place layer.
-      this._map.bindPlaceLayerEvents(
-        ["click", "touchstart"],
-        layer.id,
-        clickedOnLayer => {
-          this.props.router.navigate(
-            `/${
-              clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
-            }/${clickedOnLayer.properties.id}`,
-            { trigger: true },
-          );
-        },
-      );
+      this._map.bindPlaceLayerEvents(["click"], layer.id, clickedOnLayer => {
+        this.props.router.navigate(
+          `/${
+            clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
+          }/${clickedOnLayer.properties.id}`,
+          { trigger: true },
+        );
+      });
       this._map.bindPlaceLayerEvents(["mouseenter"], layer.id, () => {
         this._map.setCursor("pointer");
       });
