@@ -57,7 +57,7 @@
     "i18next": "^10.2.2",
     "immutable": "^3.8.2",
     "lodash.groupby": "^4.6.0",
-    "mapbox-gl": "^0.45.0-beta.1",
+    "mapbox-gl": "^0.51.0",
     "moment": "^2.20.1",
     "node-env-file": "^0.1.7",
     "node-sass": "^4.0.0",
