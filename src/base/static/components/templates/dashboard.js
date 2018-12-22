@@ -181,13 +181,16 @@ class Dashboard extends Component {
           if (maxDate < date) {
             maxDate = date;
           }
-          return `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
+          return `${date.getMonth() +
+            1}/${date.getDate()}/${date.getFullYear()}`;
         })
       : {};
 
     // Get a list of all days in range, to account for days where no posts were made:
     const daysGrouped = getDaysArray(minDate, maxDate).reduce((memo, date) => {
-      memo[`${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`] = [];
+      memo[
+        `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+      ] = [];
       return memo;
     }, {});
 
