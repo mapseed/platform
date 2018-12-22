@@ -1389,7 +1389,6 @@
         "<h3>Durham Participatory Budgeting:</h3>",
         "<h4>Put your money where your ideas are!</h4>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
-        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Submit Your Idea</a>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
         "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
         "<p>\"One-time projects\" are projects with one-time expenditures that address a community need. Projects can be built on City, Durham Housing Authority, and private land, upon donation. \"One-time projects\" may include physical infrastructure, technological improvements, and community enhancements. Examples of \"one-time projects\" include park improvements, computers for a community center, bus shelters, and bike-lanes. \"One-time projects\" may have some sort of associated operating cost. However, they do not require the City to hire additional staff.</p>",
