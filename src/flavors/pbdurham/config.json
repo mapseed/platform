@@ -591,7 +591,7 @@
     "show_in_right_panel": true
   },
   "place": {
-    "adding_supported": true,
+    "adding_supported": false,
     "add_button_label": "_(Submit Your Idea)",
     "title": "_(Describe your idea)",
     "action_text": "_(suggested)",
