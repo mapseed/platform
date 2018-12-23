@@ -104,6 +104,17 @@ Handlebars.registerHelper("serialize", function(json) {
 const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
 const config = JSON.parse(fs.readFileSync(flavorConfigPath, "utf8"));
 
+// set the default values for our config:
+
+// `show_timestamps`:
+if (!config.app.hasOwnProperty("show_timestamps")) {
+  config.app.show_timestamps = true;
+}
+// `time_zone`:
+if (!config.app.time_zone) {
+  config.app.time_zone = "America/Los_Angeles";
+}
+
 // (4) Compile base.hbs template
 // -----------------------------------------------------------------------------
 
