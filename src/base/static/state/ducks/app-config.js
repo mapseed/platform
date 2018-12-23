@@ -1,7 +1,26 @@
+import PropTypes from "prop-types";
 // Selectors:
 export const appConfigSelector = state => {
   return state.appConfig;
 };
+
+export const appConfigPropType = PropTypes.shape({
+  title: PropTypes.string.isRequired,
+  meta_description: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string,
+  api_root: PropTypes.string.isRequired,
+  dataset_download: PropTypes.object,
+  name: PropTypes.string,
+  time_zone: PropTypes.string.isRequired,
+  languages: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ),
+  logo: PropTypes.string,
+  show_name_in_header: PropTypes.bool,
+});
 
 // Actions:
 const SET_CONFIG = "app/SET_CONFIG";

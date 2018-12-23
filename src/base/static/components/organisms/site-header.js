@@ -16,7 +16,10 @@ import {
   navBarConfigSelector,
 } from "../../state/ducks/nav-bar-config";
 import FilterMenu from "./filter-menu";
-import { appConfigSelector } from "../../state/ducks/app-config";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   dashboardConfigSelector,
@@ -352,19 +355,7 @@ class SiteHeader extends Component {
 }
 
 SiteHeader.propTypes = {
-  appConfig: PropTypes.shape({
-    api_root: PropTypes.string.isRequired,
-    dataset_download: PropTypes.object,
-    name: PropTypes.string,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        code: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      }),
-    ),
-    logo: PropTypes.string,
-    show_name_in_header: PropTypes.bool,
-  }).isRequired,
+  appConfig: appConfigPropType.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   currentUser: PropTypes.object,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,

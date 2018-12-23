@@ -14,7 +14,10 @@ import {
   commentFormConfigPropType,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
-import { appConfigSelector } from "../../state/ducks/app-config";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
 
 const MetadataBarContainer = styled("div")(props => ({
   fontFamily: props.theme.text.bodyFontFamily,
@@ -59,7 +62,7 @@ const MetadataBar = props => {
             ? props.commentFormConfig.response_name
             : props.commentFormConfig.response_plural_name}
         </SmallText>
-        {props.appConfig.show_timestamps !== false && (
+        {props.appConfig.show_timestamps && (
           <SmallText display="block" textTransform="uppercase">
             <Time
               time={props.placeModel.get(
@@ -74,7 +77,7 @@ const MetadataBar = props => {
 };
 
 MetadataBar.propTypes = {
-  appConfig: PropTypes.object.isRequired,
+  appConfig: appConfigPropType.isRequired,
   avatarSrc: PropTypes.string,
   placeConfig: PropTypes.object.isRequired,
   placeModel: PropTypes.object.isRequired,
