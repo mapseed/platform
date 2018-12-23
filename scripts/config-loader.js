@@ -3,10 +3,11 @@ const Handlebars = require("handlebars");
 const fs = require("fs-extra");
 const path = require("path");
 
-const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
-  .transformCommonFormElements;
-const transformStoryContent = require("../src/base/static/utils/config-loader-utils")
-  .transformStoryContent;
+const {
+  setConfigDefaults,
+  transformCommonFormElements,
+  transformStoryContent,
+} = require("../src/base/static/utils/config-loader-utils");
 
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
@@ -34,16 +35,7 @@ module.exports = function(source) {
     }
   });
 
-  // set the default values for our config:
-
-  // `show_timestamps`:
-  if (!config.app.hasOwnProperty("show_timestamps")) {
-    config.app.show_timestamps = true;
-  }
-  // `time_zone`:
-  if (!config.app.time_zone) {
-    config.app.time_zone = "America/Los_Angeles";
-  }
+  setConfigDefaults(config);
 
   // If we have dataset urls defined in the .env file, overwrite the default
   // urls found in the config here.
