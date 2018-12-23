@@ -52,7 +52,21 @@ const transformCommonFormElements = (placeDetail, commonFormElements) => {
   });
 };
 
+const setConfigDefaults = config => {
+  // set the default values for our config:
+
+  // `show_timestamps`:
+  if (!config.app.hasOwnProperty("show_timestamps")) {
+    config.app.show_timestamps = true;
+  }
+  // `time_zone`:
+  if (!config.app.time_zone) {
+    config.app.time_zone = "America/Los_Angeles";
+  }
+};
+
 module.exports = {
   transformStoryContent,
   transformCommonFormElements,
+  setConfigDefaults,
 };

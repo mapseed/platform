@@ -12,10 +12,11 @@ const Spritesmith = require("spritesmith");
 const shell = require("shelljs");
 const zlib = require("zlib");
 
-const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
-  .transformCommonFormElements;
-const transformStoryContent = require("../src/base/static/utils/config-loader-utils")
-  .transformStoryContent;
+const {
+  setConfigDefaults,
+  transformCommonFormElements,
+  transformStoryContent,
+} = require("../src/base/static/utils/config-loader-utils");
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
@@ -103,6 +104,8 @@ Handlebars.registerHelper("serialize", function(json) {
 
 const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
 const config = JSON.parse(fs.readFileSync(flavorConfigPath, "utf8"));
+
+setConfigDefaults(config);
 
 // (4) Compile base.hbs template
 // -----------------------------------------------------------------------------

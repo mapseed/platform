@@ -5,6 +5,7 @@
     "logo": "/static/css/images/pbdurham-logo-large.png",
     "meta_description": "_(Participatory Budgeting for City of Durham)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "time_zone": "America/New_York",
     "theme": {
       "bg": {
         "default": "#d6d5d9",

@@ -5,7 +5,6 @@ import emitter from "../../utils/emitter";
 import { connect } from "react-redux";
 
 import FormField from "../form-fields/form-field";
-import SecondaryButton from "../ui-elements/secondary-button";
 import SurveyResponse from "./survey-response";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 import Avatar from "../ui-elements/avatar";
@@ -15,7 +14,10 @@ import {
   commentFormConfigPropType,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
-import { appConfigSelector } from "../../state/ducks/app-config";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
 
 import constants from "../../constants";
 import { translate } from "react-i18next";
@@ -213,9 +215,7 @@ class Survey extends Component {
 }
 
 Survey.propTypes = {
-  appConfig: PropTypes.shape({
-    api_root: PropTypes.string.isRequired,
-  }).isRequired,
+  appConfig: appConfigPropType.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,

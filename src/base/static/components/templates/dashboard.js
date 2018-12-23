@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LegacyUtil from "../../js/utils.js";
+import moment from "moment";
+import "moment-timezone";
 import {
   dashboardPlacesSelector,
   placesPropType,
@@ -9,6 +11,10 @@ import {
   dashboardConfigSelector,
   dashboardConfigPropType,
 } from "../../state/ducks/dashboard-config";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
 import {
   placeFormsConfigSelector,
   placeFormsConfigPropType,
@@ -170,31 +176,36 @@ class Dashboard extends Component {
   }
 
   getLineChartData = () => {
-    let minDate = new Date(8640000000000000);
-    let maxDate = new Date(0);
+    // `moment` has better time zone support, so we are using it here
+    // instead of `Date`.
+    let minDate = moment(8640000000000000); // Sep 13, 275760
+    let maxDate = moment(0); // Jan 1, 1970
+    const timeZone = this.props.appConfig.time_zone;
     const grouped = this.props.places
       ? groupBy(this.props.places, place => {
-          const date = new Date(place.created_datetime);
+          const date = moment(place.created_datetime);
           if (minDate > date) {
             minDate = date;
           }
           if (maxDate < date) {
             maxDate = date;
           }
-          return `${date.getMonth() +
-            1}/${date.getDate()}/${date.getFullYear()}`;
+          return date.tz(timeZone).format("MM/DD/YYYY");
         })
       : {};
 
     // Get a list of all days in range, to account for days where no posts were made:
-    const daysGrouped = getDaysArray(minDate, maxDate).reduce((memo, date) => {
+    const daysGrouped = getDaysArray(
+      new Date(minDate),
+      new Date(maxDate),
+    ).reduce((memo, date) => {
       memo[
         `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
       ] = [];
       return memo;
     }, {});
 
-    const linechartData = Object.entries({ ...daysGrouped, ...grouped })
+    const lineChartData = Object.entries({ ...daysGrouped, ...grouped })
       .map(([day, places]) => ({
         date: new Date(day),
         day,
@@ -204,7 +215,7 @@ class Dashboard extends Component {
         return a.date - b.date;
       });
 
-    return linechartData;
+    return lineChartData;
   };
 
   render() {
@@ -315,6 +326,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   dashboardConfig: dashboardConfigPropType.isRequired,
+  appConfig: appConfigPropType.isRequired,
   apiRoot: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router),
   places: placesPropType,
@@ -323,6 +335,7 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  appConfig: appConfigSelector(state),
   places: dashboardPlacesSelector(state),
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),

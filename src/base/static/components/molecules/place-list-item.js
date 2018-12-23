@@ -12,7 +12,10 @@ import {
 } from "../../state/ducks/place-config";
 import { placePropType } from "../../state/ducks/places";
 import { supportConfigSelector } from "../../state/ducks/support-config";
-import { appConfigSelector } from "../../state/ducks/app-config";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import { HorizontalRule } from "../atoms/layout";
@@ -259,11 +262,7 @@ PlaceListItem.propTypes = {
     action_text: PropTypes.string.isRequired,
   }),
   placeConfig: placeConfigPropType.isRequired,
-  appConfig: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    meta_description: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string,
-  }),
+  appConfig: appConfigPropType.isRequired,
   onLoad: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
