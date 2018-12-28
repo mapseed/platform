@@ -18,7 +18,10 @@ import {
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { appConfigSelector } from "../../state/ducks/app-config";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
 
 import "./survey-response-editor.scss";
 
@@ -137,7 +140,7 @@ class SurveyResponseEditor extends Component {
               submitter={this.props.submitter}
               anonymousName={this.props.placeConfig.anonymous_name}
             />
-            {this.props.appConfig.show_timestamps !== false && (
+            {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
                 <Time
                   time={this.props.attributes.get(
@@ -154,7 +157,7 @@ class SurveyResponseEditor extends Component {
 }
 
 SurveyResponseEditor.propTypes = {
-  appConfig: PropTypes.object.isRequired,
+  appConfig: appConfigPropType.isRequired,
   attributes: PropTypes.object,
   isSubmitting: PropTypes.bool.isRequired,
   modelId: PropTypes.number.isRequired,

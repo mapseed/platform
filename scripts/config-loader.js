@@ -3,10 +3,11 @@ const Handlebars = require("handlebars");
 const fs = require("fs-extra");
 const path = require("path");
 
-const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
-  .transformCommonFormElements;
-const transformStoryContent = require("../src/base/static/utils/config-loader-utils")
-  .transformStoryContent;
+const {
+  setConfigDefaults,
+  transformCommonFormElements,
+  transformStoryContent,
+} = require("../src/base/static/utils/config-loader-utils");
 
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
@@ -33,6 +34,8 @@ module.exports = function(source) {
       datasetSiteUrls[key] = process.env[key];
     }
   });
+
+  setConfigDefaults(config);
 
   // If we have dataset urls defined in the .env file, overwrite the default
   // urls found in the config here.
