@@ -3658,16 +3658,6 @@
       "title": "_(Classroom)",
       "type": "internal_link",
       "url": "/page/classroom"
-    },
-    {
-      "title": "_(About)",
-      "type": "internal_link",
-      "url": "/page/about"
-    },
-    {
-      "title": "_(Guide)",
-      "type": "internal_link",
-      "url": "/page/guide"
     }
   ],
   "pages": [
