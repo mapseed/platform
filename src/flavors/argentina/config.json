@@ -382,6 +382,12 @@
             "optional": false
           },
           {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
+          },
+          {
             "name": "description",
             "type": "textarea",
             "prompt": "_(¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?)",
@@ -424,6 +430,12 @@
             "display_prompt": "_(Título:)",
             "placeholder": "_(Introducir títuló...)",
             "optional": false
+          },
+          {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
           },
           {
             "name": "description",
@@ -469,6 +481,12 @@
             "optional": false
           },
           {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
+          },
+          {
             "name": "description",
             "type": "textarea",
             "prompt": "_( ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
@@ -511,6 +529,12 @@
             "placeholder": "_(Introducir título)",
             "display_prompt": "_(Título)",
             "optional": false
+          },
+          {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
           },
           {
             "name": "description",
