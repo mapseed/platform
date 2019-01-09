@@ -1,0 +1,691 @@
+{
+  "app": {
+    "title": "Deep Time Chicago",
+    "name": "Deep Time Chicago",
+    "show_name_in_header": true,
+    "logo": "/static/css/images/TDC.png",
+    "meta_description": "_(We are gathering public input on important issues in the community)",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#6BC2D5",
+        "accent": "#000000"
+      },
+      "bg": {
+        "default": "#6F4626",
+        "light": "#007fbe"
+      },
+      "text": {
+        "tertiary": "#5CCBE6",
+        "titleFontFamily": "Roboto, sans-serif",
+        "titleColor": "#ffffff"
+      }
+    }
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "cartodb_enabled": true,
+    "geocoding_enabled": false,
+    "geocode_field_label": "_(Enter an address...)",
+    "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
+    "options": {
+      "map": {
+        "center": {
+          "lat": -33.41863,
+          "lng": -59.50497
+        },
+        "zoom": 7,
+        "pitch": 0,
+        "minZoom": 1,
+        "maxZoom": 19
+      },
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      },
+      "drawing_enabled": true
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "is_visible_default": true,
+        "url": "https://api.mapbox.com/styles/v1/bkholmes/cjpnap2zz2ln12rqonivzcpx0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw",
+        "attribution": "Hello World"
+      },
+      {
+        "id": "satellite",
+        "is_basemap": true,
+        "type": "raster-tile",
+        "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
+      },
+      {
+        "id": "topografico",
+        "is_basemap": true,
+        "type": "raster-tile",
+        "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+      },
+      {
+        "id": "deeptimechicago-input",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/deeptimechicago-input",
+        "type": "place",
+        "slug": "report",
+        "is_visible_default": true,
+        "feature_types": ["Point"],
+        "focus_rules": [
+          {
+            "symbol-layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "complaint",
+                "marker-complaint.png",
+                "question",
+                "marker-question.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "observation"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-0d85e9.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "observation"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-observation.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "idea"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-f95016.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "idea"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-idea.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "question"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-e1264d.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "question"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-complaint.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "complaint"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-dbcf2c.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "complaint"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-question.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": true,
+    "component": "StoryNavigator"
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Capas:)",
+        "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Geografía)",
+            "layers": [
+              {
+                "id": "osm",
+                "title": "_(Mapa base)"
+              },
+              {
+                "id": "topografico",
+                "title": "_(Topográfico)"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "_(Contribuciones)",
+            "layers": [
+              {
+                "id": "deeptimechiacgo-input",
+                "title": "_(Comentarios)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Añadir punto)",
+    "show_list_button_label": "_(See all comments)",
+    "show_map_button_label": "_(Show the Map)",
+    "title": "_(Tell us more...)",
+    "action_text": "_(created)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Submit)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "observation",
+        "category": "observation",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "deeptimechicago-input",
+        "icon_url": "/static/css/images/markers/marker-observation.png",
+        "value": "observation",
+        "label": "_(Observación)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(¿De qué se trata?)",
+            "display_prompt": "_(Título:)",
+            "placeholder": "_(Introducir títuló...)",
+            "optional": false
+          },
+          {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?)",
+            "display_prompt": "_(Notar la observación:)",
+            "placeholder": "_(Notar la observación...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "question",
+        "category": "question",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "deeptimechicago-input",
+        "icon_url": "/static/css/images/markers/marker-complaint.png",
+        "value": "question",
+        "label": "_(Amenazas / conflictos)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(¿Qué pasa?)",
+            "display_prompt": "_(Título:)",
+            "placeholder": "_(Introducir títuló...)",
+            "optional": false
+          },
+          {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(¿Cuáles son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansión de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
+            "display_prompt": "_(Describir la situación)",
+            "placeholder": "_(Describir la situación)"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "idea",
+        "category": "idea",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "deeptimechicago-input",
+        "icon_url": "/static/css/images/markers/marker-idea.png",
+        "value": "idea",
+        "label": "_(Experiencias sustentables)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(¿Qué se hace?)",
+            "placeholder": "_(Introducir título)",
+            "display_prompt": "_(Título:)",
+            "optional": false
+          },
+          {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_( ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Describir la experiencia...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "complaint",
+        "category": "complaint",
+        "includeOnForm": true,
+        "name": "location_type",
+        "dataset": "deeptimechicago-input",
+        "icon_url": "/static/css/images/markers/marker-question.png",
+        "value": "complaint",
+        "label": "_(Horizontes / potencialidades)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(¿Qué se ve en el futuro?)",
+            "placeholder": "_(Introducir título)",
+            "display_prompt": "_(Título)",
+            "optional": false
+          },
+          {
+            "name": "video",
+            "type": "rich_textarea",
+            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?)",
+            "display_prompt": "_(Decribir las actividades...)",
+            "placeholder": "_(Descripción...)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "_(Nombre)",
+        "placeholder": "_(Nombre)",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "type": "text",
+        "prompt": "_(Correo electrónico)",
+        "placeholder": "_(Recibir noticias sobre este comentario)",
+        "optional": true,
+        "sticky": true
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Imágen)",
+        "label": "_(Añadir una imágen)",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(¡Añadir al mapa!)"
+      }
+    },
+    "items": [
+      {
+        "prompt": "_(Type of report)",
+        "type": "select",
+        "options": [
+          {
+            "label": "_(Observation)",
+            "value": "observation"
+          },
+          {
+            "label": "_(Question)",
+            "value": "question"
+          },
+          {
+            "label": "_(Idea)",
+            "value": "idea"
+          },
+          {
+            "label": "_(Complaint)",
+            "value": "complaint"
+          }
+        ],
+        "name": "location_type",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Title of report)",
+        "type": "text",
+        "name": "name",
+        "optional": null,
+        "attrs": [
+          {
+            "key": "required"
+          },
+          {
+            "key": "placeholder",
+            "value": "_(Enter title)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Description)",
+        "type": "textarea",
+        "name": "description",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Description...)"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Name)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Email)",
+        "type": "text",
+        "name": "private-submitter_email",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Receive email updates on your report)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "type": "file",
+        "name": "my_image",
+        "optional": true
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "observation",
+        "datasetId": "deeptimechicago-input",
+        "label": "_(Observation)",
+        "icon": "/static/css/images/markers/marker-observation.png"
+      },
+      {
+        "id": "question",
+        "datasetId": "deeptimechicago-input",
+        "label": "_(Question)",
+        "icon": "/static/css/images/markers/marker-question.png"
+      },
+      {
+        "id": "idea",
+        "datasetId": "deeptimechicago-input",
+        "label": "_(Idea)",
+        "icon": "/static/css/images/markers/marker-idea.png"
+      },
+      {
+        "id": "complaint",
+        "datasetId": "deeptimechicago-input",
+        "label": "_(Complaint)",
+        "icon": "/static/css/images/markers/marker-complaint.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "nav_bar": [
+    {
+      "title": "_(Sobre nosotros)",
+      "type": "internal_link",
+      "url": "/page/about"
+    },
+    {
+      "title": "_(¿Cómo participar?)",
+      "type": "internal_link",
+      "url": "/page/getinvolved"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h1>BIENVENIDA</h1>",
+        "<p><img src='/static/css/images/Territorios.png'><br><br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una de las etapas del proyecto <em>La Tierra NØ Resistirá</em>, un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territorios.casarioarteyambiente.org'>https://territorios.casarioarteyambiente.org</a><br><br>Programación del mapa: <a href='https://mapseed.org'>https://mapseed.org</a></p>",
+        "<p class='btn btn-block btn-large'><a href='/' rel='internal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explorar los territorios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>"
+      ]
+    },
+    {
+      "slug": "getinvolved",
+      "lang": "en_US",
+      "content": [
+        "<h1>INVOLUCRARSE</h1>",
+        "<p><img src='/static/css/images/Participar.png'></p>",
+        "<p>¿Querés participar en la construcción de este mapa? Es muy sencillo.</p>",
+        "<p>La mejor forma de hacerlo es tocar <span style='color:#E95A22'><strong>AÑADIR PUNTO</strong></span> y mover el mapa hacia el sitio de interés.</p>",
+        "<p>Una vez ubicado el punto, podes reportar sobre un tema que esté relacionado con alguna de las 4 categorias que aparecen:</p>",
+        "<p><strong>1. Observación<br>2. Amenazas / Conflictos<br>3. Experiencias Sustentables<br>4. Horizontes / Potencialidades</strong></p>",
+        "<p>También podés comentar el punto de otra persona.</p>",
+        "<p>Con tu colaboración podemos amplificar voces y difundir acciones desde la mirada de quien vive, siente y conoce su lugar.</p>",
+        "<p class='btn btn-block btn-large'><a href='/' rel='internal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explorar los territorios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>"
+      ]
+    }
+  ],
+  "story": {
+  }
+}
