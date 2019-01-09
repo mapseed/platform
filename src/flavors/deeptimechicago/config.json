@@ -197,9 +197,7 @@
     ]
   },
   "right_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": true,
-    "component": "StoryNavigator"
+    "is_enabled": false
   },
   "left_sidebar": {
     "is_enabled": true,
@@ -685,7 +683,5 @@
         "<p class='btn btn-block btn-large'><a href='/' rel='internal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explorar los territorios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>"
       ]
     }
-  ],
-  "story": {
-  }
+  ]
 }
