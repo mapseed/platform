@@ -42,6 +42,7 @@
   "dashboard": {
     "datasetId": "pbdurham",
     "datasetOwner": "smartercleanup",
+    "datasetLabel": "idea",
     "surveyMetrics": {
       "categories": true,
       "demographics": true

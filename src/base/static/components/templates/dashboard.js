@@ -235,6 +235,7 @@ class Dashboard extends Component {
         }
         return count;
       }, 0);
+    const datasetLabel = this.props.dashboardConfig.datasetLabel;
 
     return (
       <DashboardWrapper>
@@ -254,7 +255,7 @@ class Dashboard extends Component {
           <CardsWrapper>
             <Card
               gridArea="card1"
-              label="Ideas"
+              label={`${datasetLabel}s`}
               number={this.props.places ? this.props.places.length : "..."}
             />
             <Card
@@ -281,7 +282,7 @@ class Dashboard extends Component {
               <Label value="Date" position="bottom" />
             </XAxis>
             <YAxis>
-              <Label value="Number of Ideas" angle={-90} />
+              <Label value={`Number of ${datasetLabel}s`} angle={-90} />
             </YAxis>
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
