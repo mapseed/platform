@@ -28,6 +28,7 @@
   },
   "dashboard": {
     "datasetId": "snohomish-input",
+    "datasetLabel": "project",
     "datasetOwner": "smartercleanup"
   },
   "map": {
