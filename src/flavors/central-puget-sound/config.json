@@ -22,16 +22,6 @@
       }
     }
   },
-  "languages": [
-    {
-      "code": "es",
-      "label": "Hablo Español"
-    },
-    {
-      "code": "en_US",
-      "label": "I Speak English"
-    }
-  ],
   "map": {
     "geolocation_enabled": true,
     "options": {

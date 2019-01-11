@@ -7,7 +7,6 @@
     "meta_author": "SmarterCleanup.org",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/"
   },
-  "languages": null,
   "map": {
     "geolocation_enabled": true,
     "geolocation_onload": false,

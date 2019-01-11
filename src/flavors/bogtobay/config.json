@@ -6,16 +6,6 @@
     "meta_author": "SmarterCleanup.org",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/"
   },
-  "languages": [
-    {
-      "code": "es",
-      "label": "Hablo Español"
-    },
-    {
-      "code": "en_US",
-      "label": "I Speak English"
-    }
-  ],
   "map": {
     "geolocation_enabled": true,
     "geolocation_onload": false,

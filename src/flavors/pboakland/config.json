@@ -18,16 +18,16 @@
   },
   "languages": [
     {
+      "code": "en_US",
+      "label": "I Speak English"
+    },
+    {
       "code": "es",
       "label": "Hablo Español"
     },
     {
       "code": "zh_Hant",
       "label": "我讲中文"
-    },
-    {
-      "code": "en_US",
-      "label": "I Speak English"
     }
   ],
   "map": {
