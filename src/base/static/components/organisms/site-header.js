@@ -258,7 +258,6 @@ class SiteHeader extends Component {
   };
 
   render() {
-    console.log("this.props.languageCode", this.props.languageCode);
     return (
       <SiteHeaderWrapper>
         <LogoTitleWrapper

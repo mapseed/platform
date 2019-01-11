@@ -118,6 +118,13 @@ const indexTemplate = Handlebars.compile(source);
 
 // (5) Localize the config for each language for the current flavor, precompile
 //     and inject all localized content into the index-xx.html file
+//     We make the following assumptions about flavor languages:
+//       1. If a flavor declares no languages, we build a single index.html
+//          file in English.
+//       2. If a flavor declares languages, we assume the first language listed
+//          is the default language. This language will load with the main
+//          index.html file. Other languages will be built in index-xx.html
+//          format, where xx represents the language code.
 // -----------------------------------------------------------------------------
 
 // Constants and variables to use inside the localization loop below
