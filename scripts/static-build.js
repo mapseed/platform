@@ -118,6 +118,13 @@ const indexTemplate = Handlebars.compile(source);
 
 // (5) Localize the config for each language for the current flavor, precompile
 //     and inject all localized content into the index-xx.html file
+//     We make the following assumptions about flavor languages:
+//       1. If a flavor declares no languages, we build a single index.html
+//          file in English.
+//       2. If a flavor declares languages, we assume the first language listed
+//          is the default language. This language will load with the main
+//          index.html file. Other languages will be built in index-xx.html
+//          format, where xx represents the language code.
 // -----------------------------------------------------------------------------
 
 // Constants and variables to use inside the localization loop below
@@ -131,7 +138,9 @@ if (isProd) {
     ? config.app.languages
     : [{ code: "en_US" }];
 } else {
-  activeLanguages = [{ code: "en_US" }];
+  activeLanguages = config.app.languages
+    ? [config.app.languages[0]]
+    : [{ code: "en_US" }];
 }
 
 // NOTE: We use [\s\S] here instead of . so we can match newlines.
@@ -143,7 +152,7 @@ let thisConfig, flavorPOPath, mergedPOFile, outputIndexFilename;
 
 // Loop over all languages defined in a given flavor's config file and
 // generate fully localized output.
-activeLanguages.forEach(language => {
+activeLanguages.forEach((language, langNum) => {
   // Quick and dirty config clone
   thisConfig = JSON.parse(JSON.stringify(config));
   flavorPOPath = path.resolve(
@@ -253,7 +262,7 @@ activeLanguages.forEach(language => {
   // Write out final xx.html file
   outputIndexFilename = path.resolve(
     outputPath,
-    (language.code == "en_US" ? "index" : language.code) + ".html",
+    (langNum === 0 ? "index" : language.code) + ".html",
   );
 
   if (isProd) {

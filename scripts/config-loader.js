@@ -11,7 +11,7 @@ const {
 
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
-// static site) will be rebuilt. This loader only rebuilds the English version
+// static site) will be rebuilt. This loader only rebuilds the primary language version
 // of the config; to test other languages in development it will be necessary
 // to produce a full production build:
 //   npm run build
@@ -81,10 +81,10 @@ module.exports = function(source) {
   const template = Handlebars.compile(templateSource);
   const outputFile = template({
     config: config,
-    languageCode: "en_US",
+    languageCode: config.app.languages ? config.app.languages[0].code : "en_US",
   });
 
-  const outputPath = path.resolve(__dirname, "../www/config-en_US.js");
+  const outputPath = path.resolve(__dirname, "../www/config.js");
   try {
     fs.writeFileSync(outputPath, outputFile);
   } catch (e) {
