@@ -131,7 +131,9 @@ if (isProd) {
     ? config.app.languages
     : [{ code: "en_US" }];
 } else {
-  activeLanguages = [{ code: "en_US" }];
+  activeLanguages = config.app.languages
+    ? [config.app.languages[0]]
+    : [{ code: "en_US" }];
 }
 
 // NOTE: We use [\s\S] here instead of . so we can match newlines.
@@ -143,7 +145,7 @@ let thisConfig, flavorPOPath, mergedPOFile, outputIndexFilename;
 
 // Loop over all languages defined in a given flavor's config file and
 // generate fully localized output.
-activeLanguages.forEach(language => {
+activeLanguages.forEach((language, langNum) => {
   // Quick and dirty config clone
   thisConfig = JSON.parse(JSON.stringify(config));
   flavorPOPath = path.resolve(
@@ -253,7 +255,7 @@ activeLanguages.forEach(language => {
   // Write out final xx.html file
   outputIndexFilename = path.resolve(
     outputPath,
-    (language.code == "en_US" ? "index" : language.code) + ".html",
+    (langNum === 0 ? "index" : language.code) + ".html",
   );
 
   if (isProd) {

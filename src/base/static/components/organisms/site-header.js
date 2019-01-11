@@ -258,6 +258,7 @@ class SiteHeader extends Component {
   };
 
   render() {
+    console.log("this.props.languageCode", this.props.languageCode);
     return (
       <SiteHeaderWrapper>
         <LogoTitleWrapper
@@ -306,41 +307,42 @@ class SiteHeader extends Component {
           })}
         </NavContainer>
         <RightAlignedContainer isHeaderExpanded={this.state.isHeaderExpanded}>
-          {this.props.appConfig.languages && (
-            <LanguagePicker
-              onMouseOver={() =>
-                this.setState({
-                  isLanguageMenuVisible: true,
-                })
-              }
-              onMouseOut={() =>
-                this.setState({
-                  isLanguageMenuVisible: false,
-                })
-              }
-            >
-              {
-                this.props.appConfig.languages.find(
-                  language => language.code === this.props.languageCode,
-                ).label
-              }{" "}
-              ⌄
-              <LanguagePickerMenu
-                isLanguageMenuVisible={this.state.isLanguageMenuVisible}
+          {this.props.appConfig.languages &&
+            this.props.appConfig.languages.length > 1 && (
+              <LanguagePicker
+                onMouseOver={() =>
+                  this.setState({
+                    isLanguageMenuVisible: true,
+                  })
+                }
+                onMouseOut={() =>
+                  this.setState({
+                    isLanguageMenuVisible: false,
+                  })
+                }
               >
-                {this.props.appConfig.languages.map(language => (
-                  <LanguageLink
-                    key={language.code}
-                    href={`/${language.code}.html`}
-                  >
-                    <LanguagePickerMenuItem>
-                      <RegularLabel>{language.label}</RegularLabel>
-                    </LanguagePickerMenuItem>
-                  </LanguageLink>
-                ))}
-              </LanguagePickerMenu>
-            </LanguagePicker>
-          )}
+                {
+                  this.props.appConfig.languages.find(
+                    language => language.code === this.props.languageCode,
+                  ).label
+                }{" "}
+                ⌄
+                <LanguagePickerMenu
+                  isLanguageMenuVisible={this.state.isLanguageMenuVisible}
+                >
+                  {this.props.appConfig.languages.map(language => (
+                    <LanguageLink
+                      key={language.code}
+                      href={`/${language.code}.html`}
+                    >
+                      <LanguagePickerMenuItem>
+                        <RegularLabel>{language.label}</RegularLabel>
+                      </LanguagePickerMenuItem>
+                    </LanguageLink>
+                  ))}
+                </LanguagePickerMenu>
+              </LanguagePicker>
+            )}
           <UserMenu
             router={this.props.router}
             apiRoot={this.props.appConfig.api_root}

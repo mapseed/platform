@@ -20,7 +20,13 @@
         "titleFontFamily": "Roboto, sans-serif",
         "titleColor": "#ffffff"
       }
-    }
+    },
+    "languages": [
+      {
+        "code": "es",
+        "label": "Hablo Español"
+      }
+    ]
   },
   "map": {
     "geolocation_enabled": true,
@@ -814,7 +820,7 @@
       "order": [
         {
           "url": "featured/5343",
-          "pan_to": [-60.50, -32.35],
+          "pan_to": [-60.5, -32.35],
           "zoom": 10
         },
         {
@@ -844,7 +850,7 @@
           "visible_layers": ["presencia-agua"],
           "spotlight": false,
           "basemap": "osm"
-}
+        }
       ]
     }
   }
