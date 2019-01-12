@@ -56,14 +56,19 @@ class WrappedVideo extends BlockEmbed {
     iframe.setAttribute("allowfullscreen", true);
     iframe.style =
       "position: absolute; top: 0; left: 0; width: 100%; height: 100%;";
-    iframe.className = "ql-video";
     node.appendChild(iframe);
 
     return node;
   }
+
+  static value(domNode) {
+    const iframe = domNode.querySelector("iframe");
+    return iframe.getAttribute("src");
+  }
 }
 WrappedVideo.blotName = "wrappedVideo";
 WrappedVideo.tagName = "DIV";
+WrappedVideo.className = "ql-wrapped-video";
 Quill.register(WrappedVideo);
 
 let onAddAttachment;
