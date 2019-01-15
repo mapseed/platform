@@ -585,7 +585,7 @@
     "interval": 30000
   },
   "place": {
-    "adding_supported": ["delegates", "reviewers"],
+    "adding_supported": true,
     "add_button_label": "_(Add a report to the map)",
     "action_text": "_(added)",
     "title": "_(Tell us more...)",
