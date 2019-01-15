@@ -962,6 +962,7 @@
           {
             "name": "big_checkbox_field",
             "type": "big_checkbox",
+            "admin_groups": ["delegates", "reviewers"],
             "prompt": "_(Types of pollution seen:)",
             "display_prompt": "_( )",
             "content": [
