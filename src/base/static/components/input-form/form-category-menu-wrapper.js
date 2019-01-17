@@ -10,8 +10,6 @@ import { placeConfigSelector } from "../../state/ducks/place-config";
 import { updateMapDragged, mapDraggedSelector } from "../../state/ducks/map";
 import { getCategoryConfig } from "../../utils/config-utils";
 
-const Util = require("../../js/utils.js");
-
 const DragMapAlert = styled("div")({
   backgroundColor: "#ffc107",
   color: "#fff",

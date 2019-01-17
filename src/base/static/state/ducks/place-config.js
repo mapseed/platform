@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 
-import { userSelector } from "./user";
-
 // Selectors:
 export const placeConfigSelector = state => {
   return state.placeConfig;
@@ -40,16 +38,11 @@ export function setPlaceConfig(config, user) {
         field.isVisible = true;
       } else {
         // Otherwise, determine if the field should be shown for the current
-        // user.
-        const groups = user.groups.filter(
-          group => group.dataset_slug === category.dataset_slug,
-        );
-
-        // If the user groups array and the field admin_groups array share a
-        // common element, this field shoud be visible for the current user.
-        field.isVisible = groups.some(group =>
-          field.restrict_to_groups.includes(group.name),
-        );
+        // user. If the user groups array and the field admin_groups array share
+        // a common element, this field shoud be visible for the current user.
+        field.isVisible = user.groups
+          .filter(group => group.dataset_slug === category.dataset_slug)
+          .some(group => field.restrict_to_groups.includes(group.name));
       }
 
       return field;
