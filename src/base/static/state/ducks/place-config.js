@@ -34,7 +34,7 @@ const LOAD = "place-config/LOAD";
 export function setPlaceConfig(config, user) {
   config.place_detail = config.place_detail.map(category => {
     category.fields = category.fields.map(field => {
-      if (!field.admin_groups) {
+      if (!field.restrict_to_groups) {
         // If a form field declares no admin group, assume it should be visible
         // to all users.
         field.isVisible = true;
@@ -50,8 +50,10 @@ export function setPlaceConfig(config, user) {
 
         // If the user groups array and the field admin_groups array share a
         // common element, this field shoud be visible for the current user.
-        field.isVisible = user.groups.some(group =>
-          field.admin_groups.includes(group.name),
+        field.isVisible = groups.some(group =>
+          field.restrict_to_groups
+            .concat(["administrators"])
+            .includes(group.name),
         );
       }
 
