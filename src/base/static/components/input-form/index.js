@@ -437,23 +437,26 @@ class InputForm extends Component {
         >
           {this.getFields()
             .map((fieldState, fieldName) => {
+              const fieldConfig = this.selectedCategoryConfig.fields.find(
+                field => field.name === fieldName,
+              );
               return (
-                <FormField
-                  fieldConfig={this.selectedCategoryConfig.fields.find(
-                    field => field.name === fieldName,
-                  )}
-                  disabled={this.state.isFormSubmitting}
-                  fieldState={fieldState}
-                  isInitializing={this.state.isInitializing}
-                  key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                  onAddAttachment={this.onAddAttachment.bind(this)}
-                  onFieldChange={this.onFieldChange.bind(this)}
-                  places={this.props.places}
-                  router={this.props.router}
-                  showValidityStatus={this.state.showValidityStatus}
-                  updatingField={this.state.updatingField}
-                  onClickSubmit={this.onSubmit.bind(this)}
-                />
+                fieldConfig.isVisible && (
+                  <FormField
+                    fieldConfig={fieldConfig}
+                    disabled={this.state.isFormSubmitting}
+                    fieldState={fieldState}
+                    isInitializing={this.state.isInitializing}
+                    key={fieldState.get(constants.FIELD_RENDER_KEY)}
+                    onAddAttachment={this.onAddAttachment.bind(this)}
+                    onFieldChange={this.onFieldChange.bind(this)}
+                    places={this.props.places}
+                    router={this.props.router}
+                    showValidityStatus={this.state.showValidityStatus}
+                    updatingField={this.state.updatingField}
+                    onClickSubmit={this.onSubmit.bind(this)}
+                  />
+                )
               );
             })
             .toArray()}
