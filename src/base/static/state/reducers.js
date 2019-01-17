@@ -17,6 +17,7 @@ import navBarConfigReducer from "./ducks/nav-bar-config";
 import pagesConfigReducer from "./ducks/pages-config";
 import dashboardConfigReducer from "./ducks/dashboard-config";
 import userReducer from "./ducks/user";
+import datasetsConfigReducer from "./ducks/datasets-config";
 
 const reducers = combineReducers({
   map: mapReducer,
@@ -36,6 +37,7 @@ const reducers = combineReducers({
   pagesConfig: pagesConfigReducer,
   dashboardConfig: dashboardConfigReducer,
   user: userReducer,
+  datasetsConfig: datasetsConfigReducer,
 });
 
 export default reducers;

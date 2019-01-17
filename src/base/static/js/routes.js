@@ -106,6 +106,7 @@ Shareabouts.Util = Util;
         languageCode: options.languageCode,
         customHooks: options.customHooks,
         customComponents: options.customComponents,
+        datasetsConfig: options.datasetsConfig,
       });
 
       // Start tracking the history

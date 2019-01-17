@@ -1,4 +1,16 @@
 {
+  "datasets": [
+    {
+      "id": "demo",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
+      "anonymous_adding_supported": true
+    },
+    {
+      "id": "demo2",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
+      "anonymous_adding_supported": false
+    }
+  ],
   "app": {
     "title": "Mapseed Demo",
     "name": "Mapseed Demo",
@@ -962,7 +974,6 @@
           {
             "name": "big_checkbox_field",
             "type": "big_checkbox",
-            "admin_groups": ["delegates", "reviewers"],
             "prompt": "_(Types of pollution seen:)",
             "display_prompt": "_( )",
             "content": [

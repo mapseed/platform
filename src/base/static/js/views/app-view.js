@@ -58,6 +58,7 @@ import {
   geocodeAddressBarVisibilitySelector,
 } from "../../state/ducks/ui.js";
 import { loadUser, userSelector } from "../../state/ducks/user";
+import { loadDatasetsConfig } from "../../state/ducks/datasets-config";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
@@ -106,6 +107,7 @@ export default Backbone.View.extend({
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
     store.dispatch(loadUser(Shareabouts.bootstrapped.currentUser));
+    store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
       setPlaceConfig(this.options.placeConfig, userSelector(store.getState())),
