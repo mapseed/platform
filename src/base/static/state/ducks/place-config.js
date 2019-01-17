@@ -35,25 +35,20 @@ export function setPlaceConfig(config, user) {
   config.place_detail = config.place_detail.map(category => {
     category.fields = category.fields.map(field => {
       if (!field.restrict_to_groups) {
-        // If a form field declares no admin group, assume it should be visible
-        // to all users.
+        // If a form field is not restricted to any groups, assume it should be
+        // visible to all users.
         field.isVisible = true;
       } else {
         // Otherwise, determine if the field should be shown for the current
         // user.
-        const groups = user.groups.filter(group => {
-          // Filter out groups that are not part of the dataset that this
-          // category belongs to.
-          const [datasetId] = group.dataset.split("/").slice(-1);
-          return datasetId === category.dataset;
-        });
+        const groups = user.groups.filter(
+          group => group.dataset_slug === category.dataset_slug,
+        );
 
         // If the user groups array and the field admin_groups array share a
         // common element, this field shoud be visible for the current user.
         field.isVisible = groups.some(group =>
-          field.restrict_to_groups
-            .concat(["administrators"])
-            .includes(group.name),
+          field.restrict_to_groups.includes(group.name),
         );
       }
 
