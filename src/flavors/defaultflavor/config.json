@@ -3,12 +3,22 @@
     {
       "id": "demo",
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
-      "anonymous_adding_supported": true
+      "anonymous_permissions": [
+        {
+          "abilities": ["create", "retrieve"],
+          "submission_set": "*"
+        }
+      ]
     },
     {
       "id": "demo2",
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
-      "anonymous_adding_supported": false
+      "anonymous_permissions": [
+        {
+          "abilities": [],
+          "submission_set": "*"
+        }
+      ]
     }
   ],
   "app": {

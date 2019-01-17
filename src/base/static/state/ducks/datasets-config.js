@@ -1,5 +1,5 @@
 // Selectors:
-export const datasetSelector = (state, id) => {
+export const datasetConfigSelector = (state, id) => {
   return state.datasetConfigs.filter(datasetConfig => datasetConfig.id === id);
 };
 
