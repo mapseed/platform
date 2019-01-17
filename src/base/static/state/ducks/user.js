@@ -15,6 +15,21 @@ export const hasGroupAbilityInAnyDataset = ({
         perm.abilities.includes(ability),
     ),
   );
+export const hasGroupAbilityInDataset = ({
+  state,
+  ability,
+  submissionSet,
+  datasetSlug,
+}) =>
+  state.user.groups.some(group =>
+    group.permissions.some(
+      perm =>
+        group.dataset_slug === datasetSlug &&
+        (perm.submission_set === "*" ||
+          perm.submission_set === submissionSet) &&
+        perm.abilities.includes(ability),
+    ),
+  );
 
 // Actions:
 const LOAD = "user/LOAD";

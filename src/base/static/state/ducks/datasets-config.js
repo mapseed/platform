@@ -1,11 +1,28 @@
 // Selectors:
-export const datasetConfigSelector = (state, id) => {
-  return state.datasetsConfig.filter(datasetConfig => datasetConfig.id === id);
+export const datasetConfigSelector = (state, datasetSlug) => {
+  return state.datasetsConfig.filter(
+    datasetConfig => datasetConfig.dataset_slug === datasetSlug,
+  );
 };
 export const hasAnonAbilityInAnyDataset = ({ state, ability, submissionSet }) =>
   state.datasetsConfig.some(config =>
     config.anonymous_permissions.some(
       perm =>
+        (perm.submission_set === "*" ||
+          perm.submission_set === submissionSet) &&
+        perm.abilities.includes(ability),
+    ),
+  );
+export const hasAnonAbilityInDataset = ({
+  state,
+  ability,
+  submissionSet,
+  datasetSlug,
+}) =>
+  state.datasetsConfig.some(config =>
+    config.anonymous_permissions.some(
+      perm =>
+        config.dataset_slug === datasetSlug &&
         (perm.submission_set === "*" ||
           perm.submission_set === submissionSet) &&
         perm.abilities.includes(ability),

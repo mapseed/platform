@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import InputFormCategoryButton from "./input-form-category-button";
+
+import { hasGroupAbilityInDataset } from "../../state/ducks/user";
+import { hasAnonAbilityInDataset } from "../../state/ducks/datasets-config";
 
 class InputFormCategorySelector extends Component {
   constructor(props) {
@@ -24,7 +28,19 @@ class InputFormCategorySelector extends Component {
         {this.props.visibleCategoryConfigs.map(config => {
           const isSelected = this.props.selectedCategory === config.category;
 
-          return (
+          // NOTE: These permissions checks do not allow for the possibility
+          // of controlling category visibility on a group-by-group basis,
+          // though we may want to add that feature at some point.
+          return this.props.hasAnonAbilityInDataset({
+            ability: "create",
+            submissionSet: "places",
+            datasetSlug: config.dataset_slug,
+          }) ||
+            this.props.hasGroupAbilityInDataset({
+              ability: "create",
+              submissionSet: "places",
+              datasetSlug: config.dataset_slug,
+            }) ? (
             <InputFormCategoryButton
               isSelected={isSelected}
               isCategoryMenuCollapsed={this.state.isCollapsed}
@@ -36,7 +52,7 @@ class InputFormCategorySelector extends Component {
               }}
               onExpandCategories={() => this.setState({ isCollapsed: false })}
             />
-          );
+          ) : null;
         })}
       </div>
     );
@@ -49,4 +65,11 @@ InputFormCategorySelector.propTypes = {
   visibleCategoryConfigs: PropTypes.array.isRequired,
 };
 
-export default InputFormCategorySelector;
+const mapStateToProps = state => ({
+  hasGroupAbilityInDataset: params =>
+    hasGroupAbilityInDataset({ state, ...params }),
+  hasAnonAbilityInDataset: params =>
+    hasAnonAbilityInDataset({ state, ...params }),
+});
+
+export default connect(mapStateToProps)(InputFormCategorySelector);

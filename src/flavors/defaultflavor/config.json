@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "id": "demo",
+      "dataset_slug": "demo",
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
       "anonymous_permissions": [
         {
@@ -11,7 +11,7 @@
       ]
     },
     {
-      "id": "demo2",
+      "dataset_slug": "demo2",
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
       "anonymous_permissions": [
         {
@@ -622,6 +622,7 @@
         "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
+        "dataset_slug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "demo",
         "multi_stage": [
@@ -969,6 +970,7 @@
         "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
+        "dataset_slug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observation)",
@@ -1043,6 +1045,7 @@
         "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
+        "dataset_slug": "demo",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "_(Question)",
@@ -1098,6 +1101,7 @@
         "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
+        "dataset_slug": "demo",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -1197,6 +1201,7 @@
         "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
+        "dataset_slug": "demo",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "_(Complaint)",
@@ -1242,6 +1247,7 @@
         "includeOnList": true,
         "name": "location_type",
         "dataset": "demo2",
+        "dataset_slug": "demo2",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation2",
         "label": "_(Observation 2)",
