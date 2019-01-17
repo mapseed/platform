@@ -35,6 +35,7 @@ export const hasUserAbilityInPlace = ({
   submitter,
   isSubmitterEditingSupported = false,
 }) =>
+  // Users are assumed to have all abilities on their own places.
   isSubmitterEditingSupported &&
   submitter &&
   state.user.username === submitter.username &&

@@ -6,7 +6,7 @@
       "anonymous_permissions": [
         {
           "abilities": ["retrieve"],
-          "submission_set": "places"
+          "submission_set": "comments"
         }
       ]
     },
@@ -15,7 +15,7 @@
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
       "anonymous_permissions": [
         {
-          "abilities": [],
+          "abilities": ["create"],
           "submission_set": "*"
         }
       ]

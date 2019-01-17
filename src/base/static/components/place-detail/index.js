@@ -416,6 +416,7 @@ class PlaceDetail extends Component {
           fieldSummary
         )}
         <Survey
+          collectionId={this.props.collectionId}
           currentUser={this.props.currentUser}
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
             this.props.model,
