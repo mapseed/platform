@@ -38,6 +38,10 @@ import {
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  hasUserAbilityInPlace,
+  hasGroupAbilityInDataset,
+} from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
@@ -113,12 +117,17 @@ class PlaceDetail extends Component {
         this.props.model.attachmentCollection,
       ),
       isEditModeToggled: false,
-      isEditable: Util.getAdminStatus(
-        this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
-        this.categoryConfig.admin_groups,
-        !!this.categoryConfig.submitter_editing_supported,
-        this.props.model.get(constants.SUBMITTER),
-      ),
+      isEditable:
+        this.props.hasUserAbilityInPlace({
+          submitter: this.props.model.get(constants.SUBMITTER),
+          isSubmitterEditingSupported: this.categoryConfig
+            .submitter_editing_supported,
+        }) ||
+        this.props.hasGroupAbilityInDataset({
+          ability: "update",
+          submissionSet: "places",
+          datasetSlug: this.props.collectionId,
+        }),
       isEditFormSubmitting: false,
       isSurveyEditFormSubmitting: false,
     };
@@ -463,6 +472,9 @@ PlaceDetail.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  hasGroupAbilityInDataset: params =>
+    hasGroupAbilityInDataset({ state, ...params }),
+  hasUserAbilityInPlace: params => hasUserAbilityInPlace({ state, ...params }),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),

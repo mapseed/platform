@@ -30,6 +30,15 @@ export const hasGroupAbilityInDataset = ({
         perm.abilities.includes(ability),
     ),
   );
+export const hasUserAbilityInPlace = ({
+  state,
+  submitter,
+  isSubmitterEditingSupported = false,
+}) =>
+  isSubmitterEditingSupported &&
+  submitter &&
+  state.user.username === submitter.username &&
+  state.user.provider_id === submitter.provider_id;
 
 // Actions:
 const LOAD = "user/LOAD";
