@@ -57,8 +57,15 @@ import {
   setGeocodeAddressBarVisibility,
   geocodeAddressBarVisibilitySelector,
 } from "../../state/ducks/ui.js";
-import { loadUser, userSelector } from "../../state/ducks/user";
-import { loadDatasetsConfig } from "../../state/ducks/datasets-config";
+import {
+  loadUser,
+  userSelector,
+  hasGroupAbilityInAnyDataset,
+} from "../../state/ducks/user";
+import {
+  loadDatasetsConfig,
+  hasAnonAbilityInAnyDataset,
+} from "../../state/ducks/datasets-config";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
@@ -210,7 +217,18 @@ export default Backbone.View.extend({
       }
     });
 
-    if (this.options.placeConfig.adding_supported) {
+    if (
+      hasAnonAbilityInAnyDataset({
+        state: store.getState(),
+        submissionSet: "places",
+        ability: "create",
+      }) ||
+      hasGroupAbilityInAnyDataset({
+        state: store.getState(),
+        submissionSet: "places",
+        ability: "create",
+      })
+    ) {
       store.dispatch(setAddPlaceButtonVisibility(true));
       ReactDOM.render(
         <Provider store={store}>
@@ -232,7 +250,6 @@ export default Backbone.View.extend({
         document.getElementById("add-place-button"),
       );
     }
-
     ReactDOM.render(
       <Provider store={store}>
         <ThemeProvider theme={theme}>

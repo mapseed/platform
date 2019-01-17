@@ -2,6 +2,21 @@
 export const userSelector = state => {
   return state.user;
 };
+export const hasGroupAbilityInAnyDataset = ({
+  state,
+  ability,
+  submissionSet,
+  datasetSlug,
+}) =>
+  state.user.groups.some(group =>
+    group.permissions.some(
+      perm =>
+        perm.dataset_slug === datasetSlug &&
+        (perm.submission_set === "*" ||
+          perm.submission_set === submissionSet) &&
+        perm.abilities.includes(ability),
+    ),
+  );
 
 // Actions:
 const LOAD = "user/LOAD";
@@ -20,10 +35,7 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOAD:
-      return {
-        ...state,
-        ...action.payload,
-      };
+      return action.payload;
     default:
       return state;
   }
