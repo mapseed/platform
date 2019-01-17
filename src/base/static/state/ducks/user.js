@@ -6,12 +6,10 @@ export const hasGroupAbilityInAnyDataset = ({
   state,
   ability,
   submissionSet,
-  datasetSlug,
 }) =>
   state.user.groups.some(group =>
     group.permissions.some(
       perm =>
-        perm.dataset_slug === datasetSlug &&
         (perm.submission_set === "*" ||
           perm.submission_set === submissionSet) &&
         perm.abilities.includes(ability),
