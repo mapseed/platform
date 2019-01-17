@@ -6,15 +6,19 @@ export const hasGroupAbilityInAnyDataset = ({
   state,
   ability,
   submissionSet,
+  datasetSlugs,
 }) =>
-  state.user.groups.some(group =>
-    group.permissions.some(
-      perm =>
-        (perm.submission_set === "*" ||
-          perm.submission_set === submissionSet) &&
-        perm.abilities.includes(ability),
-    ),
-  );
+  state.user.groups
+    // Limit to datasets used on this flavor only.
+    .filter(group => datasetSlugs.includes(group.dataset_slug))
+    .some(group =>
+      group.permissions.some(
+        perm =>
+          (perm.submission_set === "*" ||
+            perm.submission_set === submissionSet) &&
+          perm.abilities.includes(ability),
+      ),
+    );
 export const hasGroupAbilityInDataset = ({
   state,
   ability,

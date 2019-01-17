@@ -1,9 +1,7 @@
 // Selectors:
-export const datasetConfigSelector = (state, datasetSlug) => {
-  return state.datasetsConfig.filter(
-    datasetConfig => datasetConfig.dataset_slug === datasetSlug,
-  );
-};
+export const datasetSlugsSelector = state =>
+  state.datasetsConfig.map(config => config.dataset_slug);
+
 export const hasAnonAbilityInAnyDataset = ({ state, ability, submissionSet }) =>
   state.datasetsConfig.some(config =>
     config.anonymous_permissions.some(

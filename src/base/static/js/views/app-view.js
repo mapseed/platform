@@ -65,6 +65,7 @@ import {
 import {
   loadDatasetsConfig,
   hasAnonAbilityInAnyDataset,
+  datasetSlugsSelector,
 } from "../../state/ducks/datasets-config";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
@@ -227,6 +228,7 @@ export default Backbone.View.extend({
         state: store.getState(),
         submissionSet: "places",
         ability: "create",
+        datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {
       store.dispatch(setAddPlaceButtonVisibility(true));
