@@ -60,6 +60,8 @@ class InputFormCategorySelector extends Component {
 }
 
 InputFormCategorySelector.propTypes = {
+  hasAnonAbilityInDataset: PropTypes.func.isRequired,
+  hasGroupAbilityInDataset: PropTypes.func.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
   selectedCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   visibleCategoryConfigs: PropTypes.array.isRequired,

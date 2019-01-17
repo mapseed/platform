@@ -457,6 +457,8 @@ PlaceDetail.propTypes = {
     provider_type: PropTypes.string,
     username: PropTypes.string,
   }),
+  hasGroupAbilityInDataset: PropTypes.func.isRequired,
+  hasUserAbilityInPlace: PropTypes.func.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
   mapConfig: PropTypes.shape({
     geocoding_bar_enabled: PropTypes.bool,

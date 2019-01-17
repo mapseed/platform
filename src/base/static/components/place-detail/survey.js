@@ -224,6 +224,8 @@ class Survey extends Component {
 
 Survey.propTypes = {
   appConfig: appConfigPropType.isRequired,
+  collectionId: PropTypes.string.isRequired,
+  hasAnonAbilityInDataset: PropTypes.func.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,

@@ -254,7 +254,9 @@ class InputForm extends Component {
     this.setState({
       isFormSubmitting: true,
     });
-    const collection = this.props.places[this.selectedCategoryConfig.dataset_slug];
+    const collection = this.props.places[
+      this.selectedCategoryConfig.dataset_slug
+    ];
     collection.add(
       {
         location_type: this.selectedCategoryConfig.category,

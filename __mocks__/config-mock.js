@@ -9,14 +9,17 @@ module.exports = {
           {
             name: "test1",
             type: "text",
+            isVisible: true,
           },
           {
             name: "test2",
             type: "text",
+            isVisible: true,
           },
           {
             name: "test3",
             type: "text",
+            isVisible: true,
           },
         ],
       },
@@ -42,18 +45,22 @@ module.exports = {
           {
             name: "test1",
             type: "text",
+            isVisible: true,
           },
           {
             name: "test2",
             type: "text",
+            isVisible: true,
           },
           {
             name: "test3",
             type: "text",
+            isVisible: true,
           },
           {
             name: "test4",
-            type: "text,"
+            type: "text",
+            isVisible: true,
           },
         ],
       },
