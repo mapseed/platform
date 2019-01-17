@@ -2,7 +2,6 @@
   "datasets": [
     {
       "dataset_slug": "demo",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve"],
@@ -12,7 +11,6 @@
     },
     {
       "dataset_slug": "demo2",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
