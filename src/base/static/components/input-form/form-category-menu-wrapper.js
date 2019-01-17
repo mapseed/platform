@@ -25,14 +25,9 @@ const DragMapAlert = styled("div")({
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
     super(props);
-    this.visibleCategoryConfigs = this.props.placeConfig.place_detail
-      .filter(config => config.includeOnForm)
-      .filter(config => {
-        return !(
-          config.admin_only &&
-          !Util.getAdminStatus(config.dataset, config.admin_groups)
-        );
-      });
+    this.visibleCategoryConfigs = this.props.placeConfig.place_detail.filter(
+      config => config.includeOnForm,
+    );
     this.state = {
       selectedCategory:
         this.visibleCategoryConfigs.length === 1

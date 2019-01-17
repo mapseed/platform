@@ -30,48 +30,16 @@ var self = (module.exports = {
     }
   },
 
-  // Determine whether or not the current logged-in user has admin rights
-  // for the passed datasetId. Returns true or false.
-  getAdminStatus: function(
-    datasetId,
-    adminGroups = [],
-    isSubmitterEditingEnabled = false,
-    submitter = null,
-  ) {
-    // First, check if the current user is the submitter of the place.
-    if (
+  // Determine whether the current user is a member of the "administrators"
+  // group.
+  getAdminStatus: function(datasetId) {
+    return (
       Shareabouts.bootstrapped.currentUser &&
-      submitter &&
-      isSubmitterEditingEnabled &&
-      Shareabouts.bootstrapped.currentUser.username === submitter.username &&
-      Shareabouts.bootstrapped.currentUser.provider_id === submitter.provider_id
-    ) {
-      return true;
-    }
-
-    // Next, check if the current user is a member of an approved admin group.
-    if (
-      Shareabouts.bootstrapped.currentUser &&
-      Shareabouts.bootstrapped.currentUser.groups
-    ) {
-      return !!Shareabouts.bootstrapped.currentUser.groups.find(group => {
-        // Get the name of the datasetId from the end of the full url
-        // provided in Shareabouts.bootstrapped.currentUser.groups
-        const url = group.dataset.split("/");
-        const match = url[url.length - 1];
-
-        if (
-          match &&
-          match === datasetId &&
-          (group.name === "administrators" ||
-            adminGroups.indexOf(group.name) > -1)
-        ) {
-          return true;
-        }
-      });
-    }
-
-    return false;
+      Shareabouts.bootstrapped.currentUser.groups.some(
+        group =>
+          group.dataset_slug === datasetId && group.name === "administrators",
+      )
+    );
   },
 
   buildSharingQuerystring: function(components) {
