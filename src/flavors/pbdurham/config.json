@@ -684,7 +684,6 @@
             "type": "text",
             "placeholder": "...",
             "name": "title",
-            "restrict_to_groups": ["delegates", "staff"],
             "optional": false
           },
           {
@@ -693,7 +692,6 @@
             "type": "text",
             "placeholder": "...",
             "name": "related_ideas",
-            "restrict_to_groups": ["delegates", "staff"],
             "optional": false
           },
           {
@@ -702,7 +700,6 @@
             "type": "text",
             "placeholder": "...",
             "name": "project_locations",
-            "restrict_to_groups": ["delegates", "staff"],
             "optional": true
           },
           {
@@ -711,7 +708,6 @@
             "type": "textarea",
             "placeholder": "_(Briefly describe the project)",
             "name": "project_description",
-            "restrict_to_groups": ["delegates", "staff"],
             "optional": true
           },
           {
@@ -720,7 +716,6 @@
             "type": "big_radio",
             "name": "delegate_equity_score",
             "optional": true,
-            "restrict_to_groups": ["delegates", "staff"],
             "content": [
               {
                 "label": "_(1 - Low contribution to advancing equity)",
@@ -742,7 +737,6 @@
             "type": "big_radio",
             "name": "delegate_impact_score",
             "optional": true,
-            "restrict_to_groups": ["delegates", "staff"],
             "content": [
               {
                 "label": "_(1 - Low impact)",
@@ -764,7 +758,6 @@
             "type": "big_radio",
             "name": "delegate_feasibility_score",
             "optional": true,
-            "restrict_to_groups": ["delegates", "staff"],
             "content": [
               {
                 "label": "_(1 - Project is not feasible)",
@@ -786,7 +779,6 @@
             "type": "text",
             "placeholder": "...",
             "name": "delegate_project_budget",
-            "restrict_to_groups": ["delegates", "staff"],
             "optional": true
           },
           {
@@ -794,14 +786,12 @@
             "display_prompt": "_(Project Cost Estimation:)",
             "type": "text",
             "placeholder": "...",
-            "restrict_to_groups": ["delegates", "staff"],
             "name": "delegate_cost_estimation",
             "optional": true
           },
           {
             "name": "staff_review_header",
             "type": "informational_html",
-            "restrict_to_groups": ["staff"],
             "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
           },
           {
@@ -810,7 +800,6 @@
             "type": "big_radio",
             "name": "staff_equity_score",
             "optional": true,
-            "restrict_to_groups": ["staff"],
             "content": [
               {
                 "label": "_(1 - Low contribution to advancing equity)",
@@ -831,7 +820,6 @@
             "display_prompt": "_(Impact Assessment Score)",
             "type": "big_radio",
             "name": "staff_impact_score",
-            "restrict_to_groups": ["staff"],
             "optional": true,
             "content": [
               {
@@ -853,7 +841,6 @@
             "display_prompt": "_(Feasibility Assessment Score)",
             "type": "big_radio",
             "name": "staff_feasibility_score",
-            "restrict_to_groups": ["staff"],
             "optional": true,
             "content": [
               {
@@ -875,7 +862,6 @@
             "type": "textarea",
             "placeholder": "...",
             "name": "staff_project_budget",
-            "restrict_to_groups": ["staff"],
             "optional": true
           },
           {
@@ -883,7 +869,6 @@
             "type": "text",
             "placeholder": "...",
             "name": "staff_cost_estimation",
-            "restrict_to_groups": ["staff"],
             "optional": true
           },
           {
