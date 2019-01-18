@@ -5,6 +5,8 @@ import Util from "./utils.js";
 import PlaceCollection from "./models/place-collection.js";
 import AppView from "./views/app-view.js";
 
+import { recordGoogleAnalyticsHit } from "../utils/analytics";
+
 // Global-namespace Util
 Shareabouts.Util = Util;
 
@@ -143,26 +145,21 @@ Shareabouts.Util = Util;
     },
 
     viewMap: function(zoom, lat, lng) {
-      this.recordGoogleAnalyticsHit("/");
+      recordGoogleAnalyticsHit("/");
       this.appView.viewMap(zoom, lat, lng);
     },
 
     viewDashboard: function() {
-      this.recordGoogleAnalyticsHit("/dashboard");
+      recordGoogleAnalyticsHit("/dashboard");
       this.appView.viewDashboard();
     },
 
     newPlace: function() {
-      if (this.isAddingSupported) {
-        this.recordGoogleAnalyticsHit("/new");
-        this.appView.newPlace();
-      } else {
-        this.navigate("/", { trigger: true });
-      }
+      this.appView.newPlace();
     },
 
     viewPlace: function(datasetSlug, modelId, responseId) {
-      this.recordGoogleAnalyticsHit(`/${datasetSlug}/${modelId}`);
+      recordGoogleAnalyticsHit(`/${datasetSlug}/${modelId}`);
       this.appView.viewPlace({
         datasetSlug: datasetSlug,
         modelId: modelId,
@@ -171,12 +168,12 @@ Shareabouts.Util = Util;
     },
 
     viewPage: function(slug) {
-      this.recordGoogleAnalyticsHit("/page/" + slug);
+      recordGoogleAnalyticsHit("/page/" + slug);
       this.appView.viewPage(slug);
     },
 
     viewList: function() {
-      this.recordGoogleAnalyticsHit("/list");
+      recordGoogleAnalyticsHit("/list");
       this.appView.viewList();
     },
 
@@ -191,13 +188,6 @@ Shareabouts.Util = Util;
           fragment.indexOf("page") === -1 &&
           fragment.indexOf("list") === -1)
       );
-    },
-
-    recordGoogleAnalyticsHit(route) {
-      if (typeof ga !== "undefined") {
-        ga("set", "page", route);
-        ga("send", "pageview");
-      }
     },
   });
 })(Shareabouts, jQuery, Util.console);

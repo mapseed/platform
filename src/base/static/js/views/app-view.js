@@ -67,6 +67,7 @@ import {
   hasAnonAbilityInAnyDataset,
   datasetSlugsSelector,
 } from "../../state/ducks/datasets-config";
+import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
@@ -532,75 +533,92 @@ export default Backbone.View.extend({
     }
   },
   newPlace: async function() {
-    this.renderRightSidebar();
-    this.renderMain();
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    // NOTE: This wrapper component is temporary, and will be factored out
-    // when the AppView is ported.
-    ReactDOM.render(
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <FormCategoryMenuWrapper
-              hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-              showNewPin={this.showNewPin.bind(this)}
-              hideNewPin={this.hideNewPin.bind(this)}
-              hidePanel={this.hidePanel.bind(this)}
-              places={this.places}
-              router={this.options.router}
-              customHooks={this.options.customHooks}
-              // '#content article' and 'body' represent the two containers into
-              // which panel content is rendered (one at desktop size and one at
-              // mobile size).
-              // TODO: Improve this when we move overall app layout management to
-              // Redux.
-              container={document.querySelector(
-                Util.getPageLayout() === '"desktop"' ||
-                Util.getPageLayout() === "desktop"
-                  ? "#content article"
-                  : "body",
-              )}
-              render={(state, props, onCategoryChange) => {
-                if (
-                  props.customComponents &&
-                  props.customComponents.InputForm === "VVInputForm"
-                ) {
-                  return (
-                    <VVInputForm
-                      {...props}
-                      selectedCategory={state.selectedCategory}
-                      isSingleCategory={state.isSingleCategory}
-                      onCategoryChange={onCategoryChange}
-                    />
-                  );
-                } else {
-                  return (
-                    <InputForm
-                      {...props}
-                      selectedCategory={state.selectedCategory}
-                      isSingleCategory={state.isSingleCategory}
-                      onCategoryChange={onCategoryChange}
-                    />
-                  );
-                }
-              }}
-              customComponents={this.options.customComponents}
-            />
+    if (
+      hasAnonAbilityInAnyDataset({
+        state: store.getState(),
+        submissionSet: "places",
+        ability: "create",
+      }) ||
+      hasGroupAbilityInAnyDataset({
+        state: store.getState(),
+        submissionSet: "places",
+        ability: "create",
+        datasetSlugs: datasetSlugsSelector(store.getState()),
+      })
+    ) {
+      recordGoogleAnalyticsHit("/new");
+      this.renderRightSidebar();
+      this.renderMain();
+      // REACT PORT SECTION //////////////////////////////////////////////////////
+      // NOTE: This wrapper component is temporary, and will be factored out
+      // when the AppView is ported.
+      ReactDOM.render(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={this.adjustedTheme}>
+              <FormCategoryMenuWrapper
+                hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+                showNewPin={this.showNewPin.bind(this)}
+                hideNewPin={this.hideNewPin.bind(this)}
+                hidePanel={this.hidePanel.bind(this)}
+                places={this.places}
+                router={this.options.router}
+                customHooks={this.options.customHooks}
+                // '#content article' and 'body' represent the two containers into
+                // which panel content is rendered (one at desktop size and one at
+                // mobile size).
+                // TODO: Improve this when we move overall app layout management to
+                // Redux.
+                container={document.querySelector(
+                  Util.getPageLayout() === '"desktop"' ||
+                  Util.getPageLayout() === "desktop"
+                    ? "#content article"
+                    : "body",
+                )}
+                render={(state, props, onCategoryChange) => {
+                  if (
+                    props.customComponents &&
+                    props.customComponents.InputForm === "VVInputForm"
+                  ) {
+                    return (
+                      <VVInputForm
+                        {...props}
+                        selectedCategory={state.selectedCategory}
+                        isSingleCategory={state.isSingleCategory}
+                        onCategoryChange={onCategoryChange}
+                      />
+                    );
+                  } else {
+                    return (
+                      <InputForm
+                        {...props}
+                        selectedCategory={state.selectedCategory}
+                        isSingleCategory={state.isSingleCategory}
+                        onCategoryChange={onCategoryChange}
+                      />
+                    );
+                  }
+                }}
+                customComponents={this.options.customComponents}
+              />
+            </ThemeProvider>
           </ThemeProvider>
-        </ThemeProvider>
-      </Provider>,
-      document.querySelector("#content article"),
-    );
+        </Provider>,
+        document.querySelector("#content article"),
+      );
 
-    this.$panel.removeClass().addClass("place-form");
-    this.$panel.show();
-    this.setBodyClass("content-visible", "place-form-visible");
-    store.dispatch(setMapSizeValidity(false));
-    store.dispatch(setAddPlaceButtonVisibility(false));
-    if (!placesSelector(store.getState())) {
-      await this.fetchAndLoadPlaces();
+      this.$panel.removeClass().addClass("place-form");
+      this.$panel.show();
+      this.setBodyClass("content-visible", "place-form-visible");
+      store.dispatch(setMapSizeValidity(false));
+      store.dispatch(setAddPlaceButtonVisibility(false));
+      if (!placesSelector(store.getState())) {
+        await this.fetchAndLoadPlaces();
+      }
+      emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
+    } else {
+      this.options.router.navigate("/", { trigger: true });
     }
-    emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     // END REACT PORT SECTION //////////////////////////////////////////////////
   },
 
@@ -855,9 +873,7 @@ export default Backbone.View.extend({
       });
     }
 
-    if (this.options.placeConfig.adding_supported) {
-      store.dispatch(setAddPlaceButtonVisibility(true));
-    }
+    store.dispatch(setAddPlaceButtonVisibility(true));
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
