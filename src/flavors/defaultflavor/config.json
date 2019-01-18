@@ -4,8 +4,8 @@
       "dataset_slug": "demo",
       "anonymous_permissions": [
         {
-          "abilities": ["retrieve"],
-          "submission_set": "comments"
+          "abilities": ["create", "retrieve"],
+          "submission_set": "*"
         }
       ]
     },
