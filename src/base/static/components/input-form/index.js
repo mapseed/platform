@@ -117,27 +117,31 @@ class InputForm extends Component {
   }
 
   getNewFields(prevFields) {
-    return this.selectedCategoryConfig.fields.reduce((memo, field) => {
-      return memo.set(
-        field.name,
-        Map({
-          [constants.FIELD_VALUE_KEY]: "",
-          [constants.FIELD_TRIGGER_VALUE_KEY]:
-            field.trigger && field.trigger.trigger_value,
-          [constants.FIELD_TRIGGER_TARGETS_KEY]:
-            field.trigger && fromJS(field.trigger.targets),
-          [constants.FIELD_VISIBILITY_KEY]: field.hidden_default ? false : true,
-          [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-            ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
-            : this.selectedCategoryConfig.category + field.name,
-          [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
-            constants.FIELD_AUTO_FOCUS_KEY,
-          ),
-          [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
-            field.advance_stage_on_value,
-        }),
-      );
-    }, OrderedMap());
+    return this.selectedCategoryConfig.fields
+      .filter(field => field.isVisible)
+      .reduce((memo, field) => {
+        return memo.set(
+          field.name,
+          Map({
+            [constants.FIELD_VALUE_KEY]: "",
+            [constants.FIELD_TRIGGER_VALUE_KEY]:
+              field.trigger && field.trigger.trigger_value,
+            [constants.FIELD_TRIGGER_TARGETS_KEY]:
+              field.trigger && fromJS(field.trigger.targets),
+            [constants.FIELD_VISIBILITY_KEY]: field.hidden_default
+              ? false
+              : true,
+            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
+              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+              : this.selectedCategoryConfig.category + field.name,
+            [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
+              constants.FIELD_AUTO_FOCUS_KEY,
+            ),
+            [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
+              field.advance_stage_on_value,
+          }),
+        );
+      }, OrderedMap());
   }
 
   initializeForm(selectedCategory) {
