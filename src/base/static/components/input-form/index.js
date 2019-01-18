@@ -223,6 +223,7 @@ class InputForm extends Component {
       ({ validationErrors, isValid }, field) => {
         if (!field.get(constants.FIELD_VALIDITY_KEY)) {
           validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
+          console.log("!!!", field);
           isValid = false;
         }
         return { validationErrors, isValid };

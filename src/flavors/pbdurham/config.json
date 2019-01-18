@@ -258,20 +258,40 @@
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
         "type": "place",
         "feature_types": ["Point", "LineString", "Polygon"],
+        "is_topmost_layer": true,
         "slug": "project",
         "is_visible_default": true,
         "focus_rules": [
           {
             "symbol-layout": {
-              "icon-size": 1.2,
+              "icon-image": "money.png",
+              "icon-size": 0.3,
               "icon-anchor": "bottom"
             }
           }
         ],
         "rules": [
           {
+            "filter": ["<", ["zoom"], 10],
             "symbol-layout": {
-              "icon-size": 1.2,
+              "icon-image": "money.png",
+              "icon-size": 0.1,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": ["all", [">=", ["zoom"], 10], ["<", ["zoom"], 13]],
+            "symbol-layout": {
+              "icon-image": "money.png",
+              "icon-size": 0.2,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [">=", ["zoom"], 13],
+            "symbol-layout": {
+              "icon-image": "money.png",
+              "icon-size": 0.2,
               "icon-anchor": "bottom"
             }
           }
@@ -635,7 +655,7 @@
     "show_in_right_panel": true
   },
   "place": {
-    "add_button_label": "_(Submit Your Idea)",
+    "add_button_label": "_(Submit Project)",
     "title": "_(Describe your idea)",
     "action_text": "_(suggested)",
     "help_text": "_(Ideas must be \"capital\" projects - building, installing, or repairing something for public benefit.)",
@@ -650,53 +670,52 @@
         "includeOnList": false,
         "name": "location_type",
         "dataset_slug": "pbdurham-projects",
-        "icon_url": "/static/css/images/markers/marker-star.png",
+        "icon_url": "/static/css/images/markers/money.png",
         "value": "project",
         "label": "_(Project Proposal)",
         "fields": [
           {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "marker-star.png"
-              }
-            ]
-          },
-          {
             "prompt": "_(Project Name)",
             "type": "text",
             "placeholder": "...",
-            "name": "project_name",
+            "name": "title",
+            "restrict_to_groups": ["delegates", "staff"],
             "optional": false
           },
           {
             "prompt": "_(Idea(s) it comes from: (List idea tracker number(s)))",
+            "display_prompt": "_(Related ideas:)",
             "type": "text",
             "placeholder": "...",
             "name": "related_ideas",
+            "restrict_to_groups": ["delegates", "staff"],
             "optional": false
           },
           {
             "prompt": "_(Location(s): (address, intersection, or landmark name))",
+            "display_prompt": "_(Locations:)",
             "type": "text",
             "placeholder": "...",
             "name": "project_locations",
+            "restrict_to_groups": ["delegates", "staff"],
             "optional": true
           },
           {
             "prompt": "_(Brief Description: (1-2 sentences describing what the project involves))",
+            "display_prompt": "_(Description:)",
             "type": "textarea",
             "placeholder": "_(Briefly describe the project)",
             "name": "project_description",
+            "restrict_to_groups": ["delegates", "staff"],
             "optional": true
           },
           {
             "prompt": "_(Equity Assessment Score)",
-            "display_prompt": "_(Equity Assessment Score)",
+            "display_prompt": "_(Equity Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_equity_score",
             "optional": true,
+            "restrict_to_groups": ["delegates", "staff"],
             "content": [
               {
                 "label": "_(1 - Low contribution to advancing equity)",
@@ -714,10 +733,11 @@
           },
           {
             "prompt": "_(Impact Assessment Score)",
-            "display_prompt": "_(Impact Assessment Score)",
+            "display_prompt": "_(Impact Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_impact_score",
             "optional": true,
+            "restrict_to_groups": ["delegates", "staff"],
             "content": [
               {
                 "label": "_(1 - Low impact)",
@@ -735,10 +755,11 @@
           },
           {
             "prompt": "_(Feasibility Assessment Score)",
-            "display_prompt": "_(Feasibility Assessment Score)",
+            "display_prompt": "_(Feasibility Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_feasibility_score",
             "optional": true,
+            "restrict_to_groups": ["delegates", "staff"],
             "content": [
               {
                 "label": "_(1 - Project is not feasible)",
@@ -756,21 +777,26 @@
           },
           {
             "prompt": "_(Project Budget)",
-            "type": "textarea",
+            "display_prompt": "_(Project Budget:)",
+            "type": "text",
             "placeholder": "...",
             "name": "delegate_project_budget",
+            "restrict_to_groups": ["delegates", "staff"],
             "optional": true
           },
           {
             "prompt": "_(Cost Estimation)",
-            "type": "textarea",
+            "display_prompt": "_(Project Cost Estimation:)",
+            "type": "text",
             "placeholder": "...",
+            "restrict_to_groups": ["delegates", "staff"],
             "name": "delegate_cost_estimation",
             "optional": true
           },
           {
             "name": "staff_review_header",
             "type": "informational_html",
+            "restrict_to_groups": ["staff"],
             "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
           },
           {
@@ -779,6 +805,7 @@
             "type": "big_radio",
             "name": "staff_equity_score",
             "optional": true,
+            "restrict_to_groups": ["staff"],
             "content": [
               {
                 "label": "_(1 - Low contribution to advancing equity)",
@@ -799,6 +826,7 @@
             "display_prompt": "_(Impact Assessment Score)",
             "type": "big_radio",
             "name": "staff_impact_score",
+            "restrict_to_groups": ["staff"],
             "optional": true,
             "content": [
               {
@@ -820,6 +848,7 @@
             "display_prompt": "_(Feasibility Assessment Score)",
             "type": "big_radio",
             "name": "staff_feasibility_score",
+            "restrict_to_groups": ["staff"],
             "optional": true,
             "content": [
               {
@@ -841,13 +870,15 @@
             "type": "textarea",
             "placeholder": "...",
             "name": "staff_project_budget",
+            "restrict_to_groups": ["staff"],
             "optional": true
           },
           {
             "prompt": "_(Cost Estimation)",
-            "type": "textarea",
+            "type": "text",
             "placeholder": "...",
             "name": "staff_cost_estimation",
+            "restrict_to_groups": ["staff"],
             "optional": true
           },
           {
