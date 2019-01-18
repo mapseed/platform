@@ -115,7 +115,8 @@ export default Backbone.View.extend({
   initialize: function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    store.dispatch(loadUser(Shareabouts.bootstrapped.currentUser));
+    Shareabouts.bootstrapped.currentUser &&
+      store.dispatch(loadUser(Shareabouts.bootstrapped.currentUser));
     store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
