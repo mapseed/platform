@@ -8,6 +8,15 @@
           "submission_set": "*"
         }
       ]
+    },
+    {
+      "dataset_slug": "pbdurham-projects",
+      "anonymous_permissions": [
+        {
+          "abilities": ["retrieve", "create"],
+          "submission_set": "places"
+        }
+      ]
     }
   ],
   "app": {
@@ -651,7 +660,7 @@
     "show_in_right_panel": true
   },
   "place": {
-    "add_button_label": "_(Submit Your Idea)",
+    "add_button_label": "_(Submit New Project)",
     "title": "_(Describe your idea)",
     "action_text": "_(suggested)",
     "help_text": "_(Ideas must be \"capital\" projects - building, installing, or repairing something for public benefit.)",
