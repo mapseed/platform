@@ -288,7 +288,7 @@
             "layers": [
               {
                 "id": "argentina-input",
-                "title": "_(Comentarios)"
+                "title": "_(Puntos)"
               },
               {
                 "id": "argentina-featured",
@@ -334,7 +334,7 @@
         "dataset": "argentina-featured",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
-        "label": "_(Featured Site)",
+        "label": "_(Campañas / Temas)",
         "fields": [
           {
             "name": "geometry",
@@ -351,17 +351,17 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of this featured site:)",
+            "prompt": "_(Título:)",
             "display_prompt": "_( )",
-            "placeholder": "_(Enter title...)",
+            "placeholder": "_(Introducir título)",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "_(Description:)",
+            "prompt": "_(Contenido:)",
             "display_prompt": "_( )",
-            "placeholder": "_( )"
+            "placeholder": "_(Escribir texto. Se puede añadir enlaces, fotos o videos.)"
           },
           {
             "name": "submit",
@@ -388,17 +388,11 @@
             "optional": false
           },
           {
-            "name": "video",
-            "type": "rich_textarea",
-            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
-            "optional": true
-          },
-          {
             "name": "description",
-            "type": "textarea",
+            "type": "rich_textarea",
             "prompt": "_(¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?)",
             "display_prompt": "_(Notar la observación:)",
-            "placeholder": "_(Notar la observación...)",
+            "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)",
             "optional": false
           },
           {
@@ -438,17 +432,11 @@
             "optional": false
           },
           {
-            "name": "video",
-            "type": "rich_textarea",
-            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
-            "optional": true
-          },
-          {
             "name": "description",
-            "type": "textarea",
+            "type": "rich_textarea",
             "prompt": "_(¿Cuáles son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansión de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
             "display_prompt": "_(Describir la situación)",
-            "placeholder": "_(Describir la situación)"
+            "placeholder": "_(Describir la situación. Se puede añadir enlaces, fotos o videos.)"
           },
           {
             "name": "submitter_name",
@@ -487,17 +475,11 @@
             "optional": false
           },
           {
-            "name": "video",
-            "type": "rich_textarea",
-            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
-            "optional": true
-          },
-          {
             "name": "description",
-            "type": "textarea",
+            "type": "rich_textarea",
             "prompt": "_( ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
             "display_prompt": "_( )",
-            "placeholder": "_(Describir la experiencia...)",
+            "placeholder": "_(Describir la experiencia. Se puede añadir enlaces, fotos o videos.)",
             "optional": false
           },
           {
@@ -537,17 +519,11 @@
             "optional": false
           },
           {
-            "name": "video",
-            "type": "rich_textarea",
-            "prompt": "_(Añadir video oprimiendo el último ícono aquí abajo:)",
-            "optional": true
-          },
-          {
             "name": "description",
-            "type": "textarea",
+            "type": "rich_textarea",
             "prompt": "_(¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?)",
             "display_prompt": "_(Decribir las actividades...)",
-            "placeholder": "_(Descripción...)",
+            "placeholder": "_(Describir tu visión. Se puede añadir enlaces, fotos o videos.)",
             "optional": false
           },
           {
@@ -655,7 +631,7 @@
         ]
       },
       {
-        "prompt": "_(Your Name)",
+        "prompt": "_(Tu nombre)",
         "type": "text",
         "name": "submitter_name",
         "optional": true,
@@ -708,16 +684,16 @@
       "anonymous_name": "_(Someone)",
       "title": "_(Leave a Comment)",
       "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "submit_btn_text": "_(Comentario)",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "_(Comentario)",
+          "label": "_(Comentario)",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "_(Tu nombre)",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -725,7 +701,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "_(Comentario)"
         }
       ]
     },
@@ -802,6 +778,7 @@
         "<p>La mejor forma de hacerlo es tocar <span style='color:#E95A22'><strong>AÑADIR PUNTO</strong></span> y mover el mapa hacia el sitio de interés.</p>",
         "<p>Una vez ubicado el punto, podes reportar sobre un tema que esté relacionado con alguna de las 4 categorias que aparecen:</p>",
         "<p><strong>1. Observación<br>2. Amenazas / Conflictos<br>3. Experiencias Sustentables<br>4. Horizontes / Potencialidades</strong></p>",
+        "<p>Podés añadir un enlace, una imágen o un video, utilizando los botónes del editor.</p>",
         "<p>También podés comentar el punto de otra persona.</p>",
         "<p>Con tu colaboración podemos amplificar voces y difundir acciones desde la mirada de quien vive, siente y conoce su lugar.</p>",
         "<p class='btn btn-block btn-large'><a href='/' rel='internal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explorar los territorios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>"
