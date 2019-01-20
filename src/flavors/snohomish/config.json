@@ -339,7 +339,7 @@
         "showMetadata": false,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset_slug": "snohomish-featured",
+        "datasetSlug": "snohomish-featured",
         "icon_url": "/static/css/images/markers/map-pin-star-marker.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -389,7 +389,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset_slug": "snohomish-input",
+        "datasetSlug": "snohomish-input",
         "icon_url": "/static/css/images/markers/map-pin-marker.png",
         "value": "conservation-actions",
         "multi_stage": [

@@ -492,7 +492,7 @@
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset_slug": "palouse-input",
+        "datasetSlug": "palouse-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "value": "demo",
         "multi_stage": [

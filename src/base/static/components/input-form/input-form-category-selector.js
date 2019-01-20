@@ -32,12 +32,12 @@ class InputFormCategorySelector extends Component {
             (this.props.hasAnonAbilityInDataset({
               ability: "create",
               submissionSet: "places",
-              datasetSlug: config.dataset_slug,
+              datasetSlug: config.datasetSlug,
             }) ||
               this.props.hasGroupAbilityInDatasets({
                 ability: "create",
                 submissionSet: "places",
-                datasetSlugs: [config.dataset_slug],
+                datasetSlugs: [config.datasetSlug],
               })) && (
               <InputFormCategoryButton
                 isSelected={isSelected}
