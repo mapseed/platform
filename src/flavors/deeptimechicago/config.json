@@ -1,4 +1,15 @@
 {
+  "datasets": [
+    {
+      "slug": "deeptimechicago-input",
+      "anonymous_permissions": [
+        {
+          "abilities": "create",
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Deep Time Chicago",
     "name": "Deep Time Chicago",
@@ -256,7 +267,7 @@
         "category": "observation",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observación)",
@@ -306,7 +317,7 @@
         "category": "question",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "question",
         "label": "_(Amenazas / conflictos)",
@@ -355,7 +366,7 @@
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Experiencias sustentables)",
@@ -405,7 +416,7 @@
         "category": "complaint",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "complaint",
         "label": "_(Horizontes / potencialidades)",

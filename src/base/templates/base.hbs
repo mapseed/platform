@@ -154,7 +154,8 @@
           filters:         {{#serialize config.filters}}{{/serialize}},
           datasets:        {{#serialize config.datasets}}{{/serialize}},
           customHooks:     {{#serialize config.custom_hooks}}{{/serialize}},
-          customComponents:{{#serialize config.custom_components}}{{/serialize}}
+          customComponents:{{#serialize config.custom_components}}{{/serialize}},
+          datasets:        {{#serialize config.datasets}}{{/serialize}}
         };
         $(function() {
           // Ready set go!
@@ -180,6 +181,7 @@
             dashboardConfig: S.Config.dashboard,
             customHooks: S.Config.customHooks,
             customComponents: S.Config.customComponents,
+            datasetsConfig: S.Config.datasets,
             languageCode: "{{ languageCode }}"
           });
         });

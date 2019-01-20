@@ -1,4 +1,24 @@
 {
+  "datasets": [
+    {
+      "slug": "mw",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "mwfeatured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "My Watershed - Central Puget Sound",
     "name": "My Watershed",
@@ -642,7 +662,7 @@
         "suppressAttachments": true,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "mwfeatured",
+        "datasetSlug": "mwfeatured",
         "icon_url": "/static/css/images/markers/marker-dot-commute-low-carbon.png",
         "value": "featured_school",
         "label": "_(Featured School)",
@@ -711,7 +731,7 @@
         "suppressAttachments": true,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "mwfeatured",
+        "datasetSlug": "mwfeatured",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -863,7 +883,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
         "label": "_(Conserve Water)",
@@ -977,7 +997,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
         "label": "_(Prevent Stormwater Pollution)",
@@ -1090,7 +1110,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-only-flush-this.png",
         "value": "only-flush",
         "label": "_(Think - Toilet, Shower, Sink)",
@@ -1195,7 +1215,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-energy.png",
         "value": "conserve-energy",
         "label": "_(Conserve Energy)",
@@ -1293,7 +1313,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
         "label": "_(Waste Less)",
@@ -1387,7 +1407,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
         "label": "_(Commute Low Carbon)",
@@ -1473,7 +1493,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
         "label": "_(Eat Local Organic)",
@@ -1551,7 +1571,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
         "label": "_(Restore Salmon Habitat)",

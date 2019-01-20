@@ -1,4 +1,15 @@
 {
+  "datasets": [
+    {
+      "slug": "pbdurham",
+      "anonymous_permissions": [
+        {
+          "abilities": ["retrieve"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "_(Participatory Budgeting Durham)",
     "name": "_(Participatory Budgeting Durham)",
@@ -593,7 +604,6 @@
     "show_in_right_panel": true
   },
   "place": {
-    "adding_supported": false,
     "add_button_label": "_(Submit Your Idea)",
     "title": "_(Describe your idea)",
     "action_text": "_(suggested)",
@@ -608,7 +618,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pbdurham",
+        "datasetSlug": "pbdurham",
         "icon_url": "/static/css/images/markers/fountain.png",
         "value": "culture",
         "label": "_(Art & Culture)",
@@ -683,7 +693,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pbdurham",
+        "datasetSlug": "pbdurham",
         "icon_url": "/static/css/images/markers/tree.png",
         "value": "parks",
         "label": "_(Parks & Recreation)",
@@ -758,7 +768,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pbdurham",
+        "datasetSlug": "pbdurham",
         "icon_url": "/static/css/images/markers/street-sidewalk.png",
         "value": "streets",
         "label": "_(Streets & Sidewalks)",
@@ -833,7 +843,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pbdurham",
+        "datasetSlug": "pbdurham",
         "icon_url": "/static/css/images/markers/health.png",
         "value": "health",
         "label": "_(Health & Wellness)",
@@ -908,7 +918,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pbdurham",
+        "datasetSlug": "pbdurham",
         "icon_url": "/static/css/images/markers/safety.png",
         "value": "safety",
         "label": "_(Safety & Environment)",
@@ -983,7 +993,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pbdurham",
+        "datasetSlug": "pbdurham",
         "icon_url": "/static/css/images/markers/idea.png",
         "value": "other",
         "label": "_(Other)",

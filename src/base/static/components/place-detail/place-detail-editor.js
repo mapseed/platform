@@ -43,6 +43,7 @@ class PlaceDetailEditor extends Component {
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
       .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
+      .filter(field => field.isVisible)
       .forEach(field => {
         fields = fields.set(
           field.name,
@@ -262,31 +263,33 @@ class PlaceDetailEditor extends Component {
               );
 
               return (
-                <FormField
-                  existingGeometry={this.props.placeModel.get(
-                    constants.GEOMETRY_PROPERTY_NAME,
-                  )}
-                  existingGeometryStyle={this.props.placeModel.get(
-                    constants.GEOMETRY_STYLE_PROPERTY_NAME,
-                  )}
-                  existingModelId={this.props.placeModel.get(
-                    constants.MODEL_ID_PROPERTY_NAME,
-                  )}
-                  existingCollectionId={this.props.collectionId}
-                  fieldConfig={fieldConfig}
-                  attachmentModels={this.props.attachmentModels}
-                  categoryConfig={this.categoryConfig}
-                  disabled={this.state.isSubmitting}
-                  fieldState={fieldState}
-                  onAddAttachment={this.props.onAddAttachment}
-                  isInitializing={this.state.isInitializing}
-                  key={fieldName}
-                  onFieldChange={this.onFieldChange.bind(this)}
-                  places={this.props.places}
-                  router={this.props.router}
-                  showValidityStatus={this.state.showValidityStatus}
-                  updatingField={this.state.updatingField}
-                />
+                fieldConfig.isVisible && (
+                  <FormField
+                    existingGeometry={this.props.placeModel.get(
+                      constants.GEOMETRY_PROPERTY_NAME,
+                    )}
+                    existingGeometryStyle={this.props.placeModel.get(
+                      constants.GEOMETRY_STYLE_PROPERTY_NAME,
+                    )}
+                    existingModelId={this.props.placeModel.get(
+                      constants.MODEL_ID_PROPERTY_NAME,
+                    )}
+                    existingCollectionId={this.props.collectionId}
+                    fieldConfig={fieldConfig}
+                    attachmentModels={this.props.attachmentModels}
+                    categoryConfig={this.categoryConfig}
+                    disabled={this.state.isSubmitting}
+                    fieldState={fieldState}
+                    onAddAttachment={this.props.onAddAttachment}
+                    isInitializing={this.state.isInitializing}
+                    key={fieldName}
+                    onFieldChange={this.onFieldChange.bind(this)}
+                    places={this.props.places}
+                    router={this.props.router}
+                    showValidityStatus={this.state.showValidityStatus}
+                    updatingField={this.state.updatingField}
+                  />
+                )
               );
             })
             .toArray()}

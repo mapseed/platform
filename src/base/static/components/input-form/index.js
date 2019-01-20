@@ -117,27 +117,31 @@ class InputForm extends Component {
   }
 
   getNewFields(prevFields) {
-    return this.selectedCategoryConfig.fields.reduce((memo, field) => {
-      return memo.set(
-        field.name,
-        Map({
-          [constants.FIELD_VALUE_KEY]: "",
-          [constants.FIELD_TRIGGER_VALUE_KEY]:
-            field.trigger && field.trigger.trigger_value,
-          [constants.FIELD_TRIGGER_TARGETS_KEY]:
-            field.trigger && fromJS(field.trigger.targets),
-          [constants.FIELD_VISIBILITY_KEY]: field.hidden_default ? false : true,
-          [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-            ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
-            : this.selectedCategoryConfig.category + field.name,
-          [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
-            constants.FIELD_AUTO_FOCUS_KEY,
-          ),
-          [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
-            field.advance_stage_on_value,
-        }),
-      );
-    }, OrderedMap());
+    return this.selectedCategoryConfig.fields
+      .filter(field => field.isVisible)
+      .reduce((memo, field) => {
+        return memo.set(
+          field.name,
+          Map({
+            [constants.FIELD_VALUE_KEY]: "",
+            [constants.FIELD_TRIGGER_VALUE_KEY]:
+              field.trigger && field.trigger.trigger_value,
+            [constants.FIELD_TRIGGER_TARGETS_KEY]:
+              field.trigger && fromJS(field.trigger.targets),
+            [constants.FIELD_VISIBILITY_KEY]: field.hidden_default
+              ? false
+              : true,
+            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
+              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+              : this.selectedCategoryConfig.category + field.name,
+            [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
+              constants.FIELD_AUTO_FOCUS_KEY,
+            ),
+            [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
+              field.advance_stage_on_value,
+          }),
+        );
+      }, OrderedMap());
   }
 
   initializeForm(selectedCategory) {
@@ -254,14 +258,16 @@ class InputForm extends Component {
     this.setState({
       isFormSubmitting: true,
     });
-    const collection = this.props.places[this.selectedCategoryConfig.dataset];
+    const collection = this.props.places[
+      this.selectedCategoryConfig.dataset_slug
+    ];
     collection.add(
       {
         location_type: this.selectedCategoryConfig.category,
         datasetSlug: this.props.mapConfig.layers.find(
-          layer => this.selectedCategoryConfig.dataset === layer.id,
+          layer => this.selectedCategoryConfig.dataset_slug === layer.id,
         ).slug,
-        datasetId: this.selectedCategoryConfig.dataset,
+        datasetId: this.selectedCategoryConfig.dataset_slug,
         showMetadata: this.selectedCategoryConfig.showMetadata,
       },
       { wait: true },
@@ -314,7 +320,7 @@ class InputForm extends Component {
 
         emitter.emit(
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-          this.selectedCategoryConfig.dataset,
+          this.selectedCategoryConfig.dataset_slug,
         );
         this.props.createPlace(response.toJSON());
 
@@ -437,23 +443,26 @@ class InputForm extends Component {
         >
           {this.getFields()
             .map((fieldState, fieldName) => {
+              const fieldConfig = this.selectedCategoryConfig.fields.find(
+                field => field.name === fieldName,
+              );
               return (
-                <FormField
-                  fieldConfig={this.selectedCategoryConfig.fields.find(
-                    field => field.name === fieldName,
-                  )}
-                  disabled={this.state.isFormSubmitting}
-                  fieldState={fieldState}
-                  isInitializing={this.state.isInitializing}
-                  key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                  onAddAttachment={this.onAddAttachment.bind(this)}
-                  onFieldChange={this.onFieldChange.bind(this)}
-                  places={this.props.places}
-                  router={this.props.router}
-                  showValidityStatus={this.state.showValidityStatus}
-                  updatingField={this.state.updatingField}
-                  onClickSubmit={this.onSubmit.bind(this)}
-                />
+                fieldConfig.isVisible && (
+                  <FormField
+                    fieldConfig={fieldConfig}
+                    disabled={this.state.isFormSubmitting}
+                    fieldState={fieldState}
+                    isInitializing={this.state.isInitializing}
+                    key={fieldState.get(constants.FIELD_RENDER_KEY)}
+                    onAddAttachment={this.onAddAttachment.bind(this)}
+                    onFieldChange={this.onFieldChange.bind(this)}
+                    places={this.props.places}
+                    router={this.props.router}
+                    showValidityStatus={this.state.showValidityStatus}
+                    updatingField={this.state.updatingField}
+                    onClickSubmit={this.onSubmit.bind(this)}
+                  />
+                )
               );
             })
             .toArray()}
