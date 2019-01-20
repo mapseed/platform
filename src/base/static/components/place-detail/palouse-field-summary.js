@@ -58,7 +58,8 @@ const SnohomishFieldSummary = props => {
               <RegularText>{fieldConfig.label}</RegularText>
               <RegularText>
                 {props.placeModel.get(actionQuantityConfig.name)}{" "}
-                {actionQuantityConfig.metadata.units}
+                {actionQuantityConfig.metadata &&
+                  actionQuantityConfig.metadata.units}
               </RegularText>
             </ActionSummaryItem>
           );

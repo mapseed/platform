@@ -29,7 +29,7 @@ export const placeConfigPropType = PropTypes.shape({
 const LOAD = "place-config/LOAD";
 
 // Action creators:
-export function setPlaceConfig(config, user) {
+export function loadPlaceConfig(config, user) {
   config.place_detail = config.place_detail.map(category => {
     category.fields = category.fields.map(field => {
       if (!field.restrict_to_groups) {
@@ -41,7 +41,7 @@ export function setPlaceConfig(config, user) {
         // user. If the user groups array and the field admin_groups array share
         // a common element, this field shoud be visible for the current user.
         field.isVisible = user.groups
-          .filter(group => group.dataset_slug === category.dataset_slug)
+          .filter(group => group.dataset_slug === category.datasetSlug)
           .some(group => field.restrict_to_groups.includes(group.name));
       }
 

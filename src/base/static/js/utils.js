@@ -30,18 +30,6 @@ var self = (module.exports = {
     }
   },
 
-  // Determine whether the current user is a member of the "administrators"
-  // group.
-  getAdminStatus: function(datasetId) {
-    return (
-      Shareabouts.bootstrapped.currentUser &&
-      Shareabouts.bootstrapped.currentUser.groups.some(
-        group =>
-          group.dataset_slug === datasetId && group.name === "administrators",
-      )
-    );
-  },
-
   buildSharingQuerystring: function(components) {
     return [
       "?url=",

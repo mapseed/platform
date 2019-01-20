@@ -1,4 +1,15 @@
 {
+  "datasets": [
+    {
+      "slug": "palouse-input",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Whitman County Voluntary Stewardship Program",
     "name": "Whitman County Voluntary Stewardship Program",
@@ -481,7 +492,7 @@
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "palouse-input",
+        "datasetSlug": "palouse-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "value": "demo",
         "multi_stage": [

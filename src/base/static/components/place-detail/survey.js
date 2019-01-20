@@ -245,8 +245,8 @@ Survey.propTypes = {
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
-  hasAnonAbilityInDataset: params =>
-    hasAnonAbilityInDataset({ state, ...params }),
+  hasAnonAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
+    hasAnonAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
   commentFormConfig: commentFormConfigSelector(state),
 });
 

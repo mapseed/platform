@@ -8,6 +8,8 @@ import InputFormCategorySelector from "./input-form-category-selector";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { updateMapDragged, mapDraggedSelector } from "../../state/ducks/map";
+import { hasGroupAbilityInDatasets } from "../../state/ducks/user";
+import { hasAnonAbilityInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 
 const DragMapAlert = styled("div")({
@@ -24,7 +26,18 @@ class FormCategoryMenuWrapper extends Component {
   constructor(props) {
     super(props);
     this.visibleCategoryConfigs = this.props.placeConfig.place_detail.filter(
-      config => config.includeOnForm,
+      config =>
+        config.includeOnForm &&
+        (this.props.hasAnonAbilityInDataset({
+          ability: "create",
+          submissionSet: "places",
+          datasetSlug: config.datasetSlug,
+        }) ||
+          this.props.hasGroupAbilityInDatasets({
+            ability: "create",
+            submissionSet: "places",
+            datasetSlugs: [config.datasetSlug],
+          })),
     );
     this.state = {
       selectedCategory:
@@ -79,6 +92,8 @@ class FormCategoryMenuWrapper extends Component {
 }
 
 FormCategoryMenuWrapper.propTypes = {
+  hasAnonAbilityInDataset: PropTypes.func.isRequired,
+  hasGroupAbilityInDatasets: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
@@ -99,6 +114,10 @@ FormCategoryMenuWrapper.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  hasGroupAbilityInDatasets: ({ ability, submissionSet, datasetSlugs }) =>
+    hasGroupAbilityInDatasets({ state, ability, submissionSet, datasetSlugs }),
+  hasAnonAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
+    hasAnonAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
   isMapDragged: mapDraggedSelector(state),
   placeConfig: placeConfigSelector(state),
 });

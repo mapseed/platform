@@ -40,7 +40,7 @@ import { placeConfigSelector } from "../../state/ducks/place-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   hasUserAbilityInPlace,
-  hasGroupAbilityInDataset,
+  hasGroupAbilityInDatasets,
 } from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -123,10 +123,10 @@ class PlaceDetail extends Component {
           isSubmitterEditingSupported: this.categoryConfig
             .submitter_editing_supported,
         }) ||
-        this.props.hasGroupAbilityInDataset({
+        this.props.hasGroupAbilityInDatasets({
           ability: "update",
           submissionSet: "places",
-          datasetSlug: this.props.collectionId,
+          datasetSlugs: [this.props.collectionId],
         }),
       isEditFormSubmitting: false,
       isSurveyEditFormSubmitting: false,
@@ -457,7 +457,7 @@ PlaceDetail.propTypes = {
     provider_type: PropTypes.string,
     username: PropTypes.string,
   }),
-  hasGroupAbilityInDataset: PropTypes.func.isRequired,
+  hasGroupAbilityInDatasets: PropTypes.func.isRequired,
   hasUserAbilityInPlace: PropTypes.func.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
   mapConfig: PropTypes.shape({
@@ -475,9 +475,10 @@ PlaceDetail.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  hasGroupAbilityInDataset: params =>
-    hasGroupAbilityInDataset({ state, ...params }),
-  hasUserAbilityInPlace: params => hasUserAbilityInPlace({ state, ...params }),
+  hasGroupAbilityInDatasets: ({ ability, submissionSet, datasetSlugs }) =>
+    hasGroupAbilityInDatasets({ state, ability, submissionSet, datasetSlugs }),
+  hasUserAbilityInPlace: ({ submitter, isSubmitterEditingSupported }) =>
+    hasUserAbilityInPlace({ state, submitter, isSubmitterEditingSupported }),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),

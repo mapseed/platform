@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
+import { connect } from "react-redux";
 import { Link, SmallText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
-import LegacyUtil from "../../js/utils.js";
 import styled from "react-emotion";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
+
+import { hasAdminAbilities } from "../../state/ducks/user";
 
 import mq from "../../../../media-queries";
 
@@ -169,7 +171,7 @@ class UserMenu extends React.Component {
           <Menu isMenuOpen={this.state.isMenuOpen} isLoggedIn={true}>
             <MenuItem>
               {this.props.dashboardConfig &&
-                LegacyUtil.getAdminStatus(
+                this.props.hasAdminAbilities(
                   this.props.dashboardConfig.datasetId,
                 ) && (
                   <Link
@@ -237,10 +239,15 @@ class UserMenu extends React.Component {
 UserMenu.propTypes = {
   currentUser: PropTypes.object,
   dashboardConfig: dashboardConfigPropType,
+  hasAdminAbilities: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   t: PropTypes.func.isRequired,
 };
 
-export default translate("UserMenu")(UserMenu);
+const mapStateToProps = state => ({
+  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+});
+
+export default connect(mapStateToProps)(translate("UserMenu")(UserMenu));
