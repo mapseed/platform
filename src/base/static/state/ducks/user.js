@@ -31,7 +31,8 @@ export const hasUserAbilityInPlace = ({
   state.user.provider_id === submitter.provider_id;
 export const hasAdminAbilities = (state, datasetSlug) =>
   state.user.groups.some(
-    group => group.slug === datasetSlug && group.name === "administrators",
+    group =>
+      group.dataset_slug === datasetSlug && group.name === "administrators",
   );
 
 // Actions:

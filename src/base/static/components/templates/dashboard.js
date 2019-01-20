@@ -329,7 +329,7 @@ Dashboard.propTypes = {
   dashboardConfig: dashboardConfigPropType.isRequired,
   appConfig: appConfigPropType.isRequired,
   apiRoot: PropTypes.string,
-  hasAdminAbilities: PropTypes.bool.isRequired,
+  hasAdminAbilities: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   places: placesPropType,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
