@@ -7,6 +7,28 @@
           "abilities": ["retrieve"],
           "submission_set": "comments"
         }
+      ],
+      "tags": [
+        {
+          "id": 4,
+          "name": "above costs",
+          "parent": 2
+        },
+        {
+          "id": 3,
+          "name": "illegal",
+          "parent": 2
+        },
+        {
+          "id": 2,
+          "name": "remove",
+          "parent": null
+        },
+        {
+          "id": 1,
+          "name": "vetted",
+          "parent": null
+        }
       ]
     },
     {

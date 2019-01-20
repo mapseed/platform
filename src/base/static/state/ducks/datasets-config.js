@@ -26,6 +26,23 @@ export const hasAnonAbilityInDataset = ({
         perm.abilities.includes(ability),
     ),
   );
+export const getTagsFromPlaceTag = (state, datasetSlug, placeTag) => {
+  let tags = [];
+  const traverse = tagId => {
+    const node = state.datasetsConfig
+      .find(dataset => dataset.dataset_slug === datasetSlug)
+      .tags.find(tag => tag.id === tagId);
+    if (node) {
+      tags = tags.concat([node]);
+      traverse(node.parent);
+    }
+  };
+  traverse(placeTag.id);
+
+  // Traversing the tag tree produces an array of tags in backward order, so
+  // return the reversed array.
+  return tags.reverse();
+};
 
 // Actions:
 const LOAD = "datasets-config/LOAD";

@@ -27,6 +27,9 @@ export const mapCenterpointVisibilitySelector = state => {
 export const geocodeAddressBarVisibilitySelector = state => {
   return state.ui.isGeocodeAddressBarVisible;
 };
+export const isEditModeToggled = state => {
+  return state.ui.isEditModeToggled;
+};
 
 // Actions:
 const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
@@ -39,6 +42,7 @@ const UPDATE_MAP_CENTERPOINT_VISIBILITY =
   "ui/UPDATE_MAP_CENTERPOINT_VISIBILITY";
 const UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY =
   "ui/UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY";
+const UPDATE_EDIT_MODE_TOGGLED = "ui/UPDATE_EDIT_MODE_TOGGLED";
 
 // Action creators:
 export function setContentPanel(isOpen) {
@@ -62,6 +66,9 @@ export function setMapCenterpointVisibility(isVisible) {
 export function setGeocodeAddressBarVisibility(isVisible) {
   return { type: UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY, payload: isVisible };
 }
+export function updateEditModeToggled(isToggled) {
+  return { type: UPDATE_EDIT_MODE_TOGGLED, payload: isToggled };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -73,6 +80,7 @@ const INITIAL_STATE = {
   isAddPlaceButtonVisible: false,
   isMapCenterpointVisible: false,
   isGeocodeAddressBarVisible: false,
+  isEditModeToggled: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -112,6 +120,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isGeocodeAddressBarVisible: action.payload,
+      };
+    case UPDATE_EDIT_MODE_TOGGLED:
+      return {
+        ...state,
+        isEditModeToggled: action.payload,
       };
     default:
       return state;
