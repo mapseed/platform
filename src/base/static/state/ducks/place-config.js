@@ -29,7 +29,7 @@ export const placeConfigPropType = PropTypes.shape({
 const LOAD = "place-config/LOAD";
 
 // Action creators:
-export function setPlaceConfig(config, user) {
+export function loadPlaceConfig(config, user) {
   config.place_detail = config.place_detail.map(category => {
     category.fields = category.fields.map(field => {
       if (!field.restrict_to_groups) {

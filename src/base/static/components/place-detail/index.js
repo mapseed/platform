@@ -475,9 +475,10 @@ PlaceDetail.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  hasGroupAbilityInDataset: params =>
-    hasGroupAbilityInDataset({ state, ...params }),
-  hasUserAbilityInPlace: params => hasUserAbilityInPlace({ state, ...params }),
+  hasGroupAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
+    hasGroupAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
+  hasUserAbilityInPlace: ({ submitter, isSubmitterEditingSupported }) =>
+    hasUserAbilityInPlace({ state, submitter, isSubmitterEditingSupported }),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),

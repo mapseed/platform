@@ -1,6 +1,6 @@
 // Selectors:
 export const datasetSlugsSelector = state =>
-  state.datasetsConfig.map(config => config.dataset_slug);
+  state.datasetsConfig.map(config => config.slug);
 
 export const hasAnonAbilityInAnyDataset = ({ state, ability, submissionSet }) =>
   state.datasetsConfig.some(config =>
@@ -20,7 +20,7 @@ export const hasAnonAbilityInDataset = ({
   state.datasetsConfig.some(config =>
     config.anonymous_permissions.some(
       perm =>
-        config.dataset_slug === datasetSlug &&
+        config.slug === datasetSlug &&
         (perm.submission_set === "*" ||
           perm.submission_set === submissionSet) &&
         perm.abilities.includes(ability),

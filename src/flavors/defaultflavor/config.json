@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "dataset_slug": "demo",
+      "slug": "demo",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve"],
@@ -10,7 +10,7 @@
       ]
     },
     {
-      "dataset_slug": "demo2",
+      "slug": "demo2",
       "anonymous_permissions": [
         {
           "abilities": ["create"],

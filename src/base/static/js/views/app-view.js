@@ -20,7 +20,7 @@ import "react-virtualized/styles.css";
 
 import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
 import { placesSelector, loadPlaces } from "../../state/ducks/places";
-import { setPlaceConfig } from "../../state/ducks/place-config";
+import { loadPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { loadFormsConfig } from "../../state/ducks/forms-config";
 import { setPagesConfig, pageSelector } from "../../state/ducks/pages-config";
@@ -60,7 +60,8 @@ import {
 import {
   loadUser,
   userSelector,
-  hasGroupAbilityInAnyDataset,
+  hasGroupAbilityInDatasets,
+  hasAdminAbilities,
 } from "../../state/ducks/user";
 import {
   loadDatasetsConfig,
@@ -120,7 +121,7 @@ export default Backbone.View.extend({
     store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
-      setPlaceConfig(this.options.placeConfig, userSelector(store.getState())),
+      loadPlaceConfig(this.options.placeConfig, userSelector(store.getState())),
     );
     store.dispatch(setLeftSidebarConfig(this.options.leftSidebarConfig));
     store.dispatch(setRightSidebarConfig(this.options.rightSidebarConfig));
@@ -226,7 +227,7 @@ export default Backbone.View.extend({
         submissionSet: "places",
         ability: "create",
       }) ||
-      hasGroupAbilityInAnyDataset({
+      hasGroupAbilityInDatasets({
         state: store.getState(),
         submissionSet: "places",
         ability: "create",
@@ -379,8 +380,10 @@ export default Backbone.View.extend({
       placeCollections: this.places,
       layers: mapLayersSelector(store.getState()),
       setLayerError: layerId => store.dispatch(setLayerError(layerId)),
-      privateDatasetId:
+      includePrivate: hasAdminAbilities(
+        store.getState(),
         this.options.dashboardConfig && this.options.dashboardConfig.datasetId,
+      ),
     });
 
     const fetchedCollections = await placeCollectionsPromise;
@@ -540,7 +543,7 @@ export default Backbone.View.extend({
         submissionSet: "places",
         ability: "create",
       }) ||
-      hasGroupAbilityInAnyDataset({
+      hasGroupAbilityInDatasets({
         state: store.getState(),
         submissionSet: "places",
         ability: "create",

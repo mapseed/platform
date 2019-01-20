@@ -31,28 +31,32 @@ class InputFormCategorySelector extends Component {
           // NOTE: These permissions checks do not allow for the possibility
           // of controlling category visibility on a group-by-group basis,
           // though we may want to add that feature at some point.
-          return this.props.hasAnonAbilityInDataset({
-            ability: "create",
-            submissionSet: "places",
-            datasetSlug: config.dataset_slug,
-          }) ||
-            this.props.hasGroupAbilityInDataset({
+          return (
+            this.props.hasAnonAbilityInDataset({
               ability: "create",
               submissionSet: "places",
               datasetSlug: config.dataset_slug,
-            }) ? (
-            <InputFormCategoryButton
-              isSelected={isSelected}
-              isCategoryMenuCollapsed={this.state.isCollapsed}
-              isSingleCategory={this.props.visibleCategoryConfigs.length === 1}
-              key={config.category}
-              categoryName={config.category}
-              onCategoryChange={evt => {
-                this.setCategory(evt.target.value, false);
-              }}
-              onExpandCategories={() => this.setState({ isCollapsed: false })}
-            />
-          ) : null;
+            }) ||
+            (this.props.hasGroupAbilityInDataset({
+              ability: "create",
+              submissionSet: "places",
+              datasetSlug: config.dataset_slug,
+            }) && (
+              <InputFormCategoryButton
+                isSelected={isSelected}
+                isCategoryMenuCollapsed={this.state.isCollapsed}
+                isSingleCategory={
+                  this.props.visibleCategoryConfigs.length === 1
+                }
+                key={config.category}
+                categoryName={config.category}
+                onCategoryChange={evt => {
+                  this.setCategory(evt.target.value, false);
+                }}
+                onExpandCategories={() => this.setState({ isCollapsed: false })}
+              />
+            ))
+          );
         })}
       </div>
     );
@@ -68,10 +72,10 @@ InputFormCategorySelector.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  hasGroupAbilityInDataset: params =>
-    hasGroupAbilityInDataset({ state, ...params }),
-  hasAnonAbilityInDataset: params =>
-    hasAnonAbilityInDataset({ state, ...params }),
+  hasGroupAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
+    hasGroupAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
+  hasAnonAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
+    hasAnonAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
 });
 
 export default connect(mapStateToProps)(InputFormCategorySelector);

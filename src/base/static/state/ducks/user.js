@@ -2,38 +2,23 @@
 export const userSelector = state => {
   return state.user;
 };
-export const hasGroupAbilityInAnyDataset = ({
+export const hasGroupAbilityInDatasets = ({
   state,
   ability,
   submissionSet,
   datasetSlugs,
 }) =>
   state.user.groups
-    // Limit to datasets used on this flavor only.
     .filter(group => datasetSlugs.includes(group.dataset_slug))
     .some(group =>
       group.permissions.some(
         perm =>
+          group.dataset_slug === datasetSlugs &&
           (perm.submission_set === "*" ||
             perm.submission_set === submissionSet) &&
           perm.abilities.includes(ability),
       ),
     );
-export const hasGroupAbilityInDataset = ({
-  state,
-  ability,
-  submissionSet,
-  datasetSlug,
-}) =>
-  state.user.groups.some(group =>
-    group.permissions.some(
-      perm =>
-        group.dataset_slug === datasetSlug &&
-        (perm.submission_set === "*" ||
-          perm.submission_set === submissionSet) &&
-        perm.abilities.includes(ability),
-    ),
-  );
 export const hasUserAbilityInPlace = ({
   state,
   submitter,
@@ -44,6 +29,10 @@ export const hasUserAbilityInPlace = ({
   submitter &&
   state.user.username === submitter.username &&
   state.user.provider_id === submitter.provider_id;
+export const hasAdminAbilities = (state, datasetSlug) =>
+  state.user.groups.some(
+    group => group.slug === datasetSlug && group.name === "administrators",
+  );
 
 // Actions:
 const LOAD = "user/LOAD";
