@@ -1,7 +1,7 @@
 {
-  "name": "smartercleanup-django-client",
-  "version": "3.19.1",
-  "description": "Standalone Shareabouts client and server package",
+  "name": "mapseed-platform",
+  "version": "1.0.0",
+  "description": "Plant a map, grow a community",
   "engines": {
     "node": ">=10.0 <11.0",
     "npm": ">=6.0 <7.0"
@@ -9,21 +9,21 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/smartercleanup/platform.git"
+    "url": "https://github.com/mapseed/platform.git"
   },
   "keywords": [
     "maps",
     "crowdsourcing",
     "engagement"
   ],
-  "author": "SmarterCleanup",
+  "author": "Mapseed",
   "license": "GPL",
   "bugs": {
-    "url": "https://github.com/smartercleanup/platform/issues"
+    "url": "https://github.com/mapseed/platform/issues"
   },
-  "homepage": "https://github.com/smartercleanup/platform",
+  "homepage": "https://github.com/mapseed/platform",
   "scripts": {
-    "start": "node scripts/static-build.js && webpack-dev-server --progress",
+    "start": "rm -rf www/* && node scripts/static-build.js && webpack-dev-server --progress",
     "deploy": "node scripts/deploy.js",
     "build-deploy": "npm run build && npm run deploy",
     "test": "jest --verbose --config ./jest.config.js",
@@ -32,13 +32,14 @@
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p --progress",
     "watch-js": "webpack -d --watch",
-    "build": "npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
+    "build": "rm -rf www/* && npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
     "prettier": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.0.9",
     "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "babel-plugin-emotion": "^9.2.11",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-polyfill": "^6.23.0",
@@ -55,15 +56,17 @@
     "glob": "^7.1.1",
     "i18next": "^10.2.2",
     "immutable": "^3.8.2",
-    "mapbox-gl": "^0.45.0-beta.1",
+    "lodash.groupby": "^4.6.0",
+    "mapbox-gl": "^0.51.0",
     "moment": "^2.20.1",
+    "moment-timezone": "^0.5.23",
     "node-env-file": "^0.1.7",
     "node-sass": "^4.0.0",
     "npm": "^6.4.1",
     "rc-color-picker": "^1.2.3",
-    "react": "^16.6.0",
+    "react": "^16.7.0",
     "react-datetime": "~2.14.0",
-    "react-dom": "~16.2.0",
+    "react-dom": "~16.7.0",
     "react-emotion": "~9.2.6",
     "react-i18next": "~7.5.1",
     "react-modal": "~3.4.4",
@@ -71,6 +74,7 @@
     "react-redux": "~5.0.7",
     "react-spinner": "~0.2.7",
     "react-virtualized": "^9.20.1",
+    "recharts": "^1.4.1",
     "redux": "^4.0.0",
     "s3-website": "^3.2.2",
     "shelljs": "^0.5.3",
@@ -118,7 +122,7 @@
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "watchify": "^3.4.0",
-    "webpack": "^4.24.0",
+    "webpack": "^4.27.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-modernizr-loader": "^4.0.1",

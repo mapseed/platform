@@ -5,6 +5,7 @@ import { Link, SmallText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
 import LegacyUtil from "../../js/utils.js";
 import styled from "react-emotion";
+import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
 
 import mq from "../../../../media-queries";
 
@@ -141,10 +142,6 @@ const SocialLoginButton = styled(Link)(props => {
   };
 });
 
-const DownloadDataLink = styled(Link)({
-  textDecoration: "none",
-});
-
 class UserMenu extends React.Component {
   state = {
     isMenuOpen: false,
@@ -162,6 +159,7 @@ class UserMenu extends React.Component {
   render() {
     if (this.props.currentUser) {
       // If user is logged in
+      const isDashboard = this.props.currentTemplate === "dashboard";
       return (
         <MenuContainer role="article">
           <AvatarImg
@@ -169,22 +167,26 @@ class UserMenu extends React.Component {
             src={this.props.currentUser.avatar_url}
           />
           <Menu isMenuOpen={this.state.isMenuOpen} isLoggedIn={true}>
-            {this.props.datasetDownloadConfig &&
-              LegacyUtil.getAdminStatus(
-                this.props.datasetDownloadConfig.slug,
-              ) && (
-                <MenuItem>
-                  <DownloadDataLink
-                    href={`${this.props.apiRoot}${
-                      this.props.datasetDownloadConfig.owner
-                    }/datasets/${
-                      this.props.datasetDownloadConfig.slug
-                    }/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
+            <MenuItem>
+              {this.props.dashboardConfig &&
+                LegacyUtil.getAdminStatus(
+                  this.props.dashboardConfig.datasetId,
+                ) && (
+                  <Link
+                    onClick={() => {
+                      this.props.router.navigate(
+                        isDashboard ? "/" : "/dashboard",
+                        {
+                          trigger: true,
+                        },
+                      );
+                      this.setState({ isMenuOpen: false });
+                    }}
                   >
-                    {`Download Survey Data`}
-                  </DownloadDataLink>
-                </MenuItem>
-              )}
+                    {isDashboard ? "back to map" : `go to dashboard`}
+                  </Link>
+                )}
+            </MenuItem>
             <MenuItem>
               <div>
                 <SmallText>{this.props.t("signedInAs")}</SmallText>{" "}
@@ -234,11 +236,10 @@ class UserMenu extends React.Component {
 
 UserMenu.propTypes = {
   currentUser: PropTypes.object,
+  dashboardConfig: dashboardConfigPropType,
+  currentTemplate: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
-  datasetDownloadConfig: PropTypes.shape({
-    owner: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-  }),
+  router: PropTypes.instanceOf(Backbone.Router),
   t: PropTypes.func.isRequired,
 };
 

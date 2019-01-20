@@ -16,8 +16,15 @@ import {
   navBarConfigSelector,
 } from "../../state/ducks/nav-bar-config";
 import FilterMenu from "./filter-menu";
-import { appConfigSelector } from "../../state/ducks/app-config";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  dashboardConfigSelector,
+  dashboardConfigPropType,
+} from "../../state/ducks/dashboard-config";
 import { currentTemplateSelector } from "../../state/ducks/ui";
 import {
   isLeftSidebarExpandedSelector,
@@ -299,46 +306,48 @@ class SiteHeader extends Component {
           })}
         </NavContainer>
         <RightAlignedContainer isHeaderExpanded={this.state.isHeaderExpanded}>
-          {this.props.appConfig.languages && (
-            <LanguagePicker
-              onMouseOver={() =>
-                this.setState({
-                  isLanguageMenuVisible: true,
-                })
-              }
-              onMouseOut={() =>
-                this.setState({
-                  isLanguageMenuVisible: false,
-                })
-              }
-            >
-              {
-                this.props.appConfig.languages.find(
-                  language => language.code === this.props.languageCode,
-                ).label
-              }{" "}
-              ⌄
-              <LanguagePickerMenu
-                isLanguageMenuVisible={this.state.isLanguageMenuVisible}
+          {this.props.appConfig.languages &&
+            this.props.appConfig.languages.length > 1 && (
+              <LanguagePicker
+                onMouseOver={() =>
+                  this.setState({
+                    isLanguageMenuVisible: true,
+                  })
+                }
+                onMouseOut={() =>
+                  this.setState({
+                    isLanguageMenuVisible: false,
+                  })
+                }
               >
-                {this.props.appConfig.languages.map(language => (
-                  <LanguageLink
-                    key={language.code}
-                    href={`/${language.code}.html`}
-                  >
-                    <LanguagePickerMenuItem>
-                      <RegularLabel>{language.label}</RegularLabel>
-                    </LanguagePickerMenuItem>
-                  </LanguageLink>
-                ))}
-              </LanguagePickerMenu>
-            </LanguagePicker>
-          )}
+                {
+                  this.props.appConfig.languages.find(
+                    language => language.code === this.props.languageCode,
+                  ).label
+                }{" "}
+                ⌄
+                <LanguagePickerMenu
+                  isLanguageMenuVisible={this.state.isLanguageMenuVisible}
+                >
+                  {this.props.appConfig.languages.map(language => (
+                    <LanguageLink
+                      key={language.code}
+                      href={`/${language.code}.html`}
+                    >
+                      <LanguagePickerMenuItem>
+                        <RegularLabel>{language.label}</RegularLabel>
+                      </LanguagePickerMenuItem>
+                    </LanguageLink>
+                  ))}
+                </LanguagePickerMenu>
+              </LanguagePicker>
+            )}
           <UserMenu
             router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
             currentUser={this.props.currentUser}
-            datasetDownloadConfig={this.props.appConfig.dataset_download}
+            currentTemplate={this.props.currentTemplate}
+            dashboardConfig={this.props.dashboardConfig}
           />
         </RightAlignedContainer>
       </SiteHeaderWrapper>
@@ -347,19 +356,7 @@ class SiteHeader extends Component {
 }
 
 SiteHeader.propTypes = {
-  appConfig: PropTypes.shape({
-    api_root: PropTypes.string.isRequired,
-    dataset_download: PropTypes.object,
-    name: PropTypes.string,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        code: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      }),
-    ),
-    logo: PropTypes.string,
-    show_name_in_header: PropTypes.bool,
-  }).isRequired,
+  appConfig: appConfigPropType.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   currentUser: PropTypes.object,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
@@ -376,6 +373,7 @@ SiteHeader.propTypes = {
     }).isRequired,
   }).isRequired,
   navBarConfig: navBarConfigPropType,
+  dashboardConfig: dashboardConfigPropType,
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
@@ -387,6 +385,7 @@ const mapStateToProps = state => ({
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
+  dashboardConfig: dashboardConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

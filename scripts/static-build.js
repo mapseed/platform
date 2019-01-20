@@ -12,10 +12,11 @@ const Spritesmith = require("spritesmith");
 const shell = require("shelljs");
 const zlib = require("zlib");
 
-const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
-  .transformCommonFormElements;
-const transformStoryContent = require("../src/base/static/utils/config-loader-utils")
-  .transformStoryContent;
+const {
+  setConfigDefaults,
+  transformCommonFormElements,
+  transformStoryContent,
+} = require("../src/base/static/utils/config-loader-utils");
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
@@ -40,19 +41,12 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 // Control logging output
 const verbose = true;
 
-const outputBasePath = path.resolve(__dirname, "../www");
-const distPath = path.resolve(outputBasePath, "dist");
 const isProd = process.env.NODE_ENV === "production";
-
-if (!isProd) {
-  // If we're building for development, this script runs before webpack so make
-  // sure that the output directory is cleaned out.
-  shell.rm("-rf", outputBasePath);
-  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
-}
+shell.mkdir(__dirname, "../www");
+const outputPath = path.resolve(__dirname, "../www");
 
 let jsHashedBundleName, cssHashedBundleName;
-glob.sync(distPath + "/+(*.bundle.js|*.bundle.css)").forEach(path => {
+glob.sync(outputPath + "/+(*.main.bundle.js|*.bundle.css)").forEach(path => {
   path = path.split("/");
   if (path[path.length - 1].endsWith("js")) {
     jsHashedBundleName = path[path.length - 1] + ".gz";
@@ -105,11 +99,13 @@ Handlebars.registerHelper("serialize", function(json) {
   return JSON.stringify(json);
 });
 
-// (3) Convert the config yaml to json
+// (3) Parse the config json file
 // -----------------------------------------------------------------------------
 
 const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
 const config = JSON.parse(fs.readFileSync(flavorConfigPath, "utf8"));
+
+setConfigDefaults(config);
 
 // (4) Compile base.hbs template
 // -----------------------------------------------------------------------------
@@ -122,16 +118,19 @@ const indexTemplate = Handlebars.compile(source);
 
 // (5) Localize the config for each language for the current flavor, precompile
 //     and inject all localized content into the index-xx.html file
+//     We make the following assumptions about flavor languages:
+//       1. If a flavor declares no languages, we build a single index.html
+//          file in English.
+//       2. If a flavor declares languages, we assume the first language listed
+//          is the default language. This language will load with the main
+//          index.html file. Other languages will be built in index-xx.html
+//          format, where xx represents the language code.
 // -----------------------------------------------------------------------------
 
 // Constants and variables to use inside the localization loop below
-const handlebarsExec = path.resolve(
-  __dirname,
-  "../node_modules/handlebars/bin/handlebars",
-);
 const baseLocaleDir = path.resolve(__dirname, "../src/base/locale");
 const flavorLocaleDir = path.resolve(flavorBasePath, "locale");
-const mergedPOFileOutputPath = path.resolve(outputBasePath, "messages.po");
+const mergedPOFileOutputPath = path.resolve(outputPath, "messages.po");
 
 let activeLanguages;
 if (isProd) {
@@ -139,11 +138,12 @@ if (isProd) {
     ? config.app.languages
     : [{ code: "en_US" }];
 } else {
-  activeLanguages = [{ code: "en_US" }];
+  activeLanguages = config.app.languages
+    ? [config.app.languages[0]]
+    : [{ code: "en_US" }];
 }
 
 // NOTE: We use [\s\S] here instead of . so we can match newlines.
-const jsTemplatesGettextRegex = /{{#_}}([\s\S]*?){{\/_}}/g;
 const configGettextRegex = /^_\(/;
 
 // Gettext object
@@ -152,7 +152,7 @@ let thisConfig, flavorPOPath, mergedPOFile, outputIndexFilename;
 
 // Loop over all languages defined in a given flavor's config file and
 // generate fully localized output.
-activeLanguages.forEach(language => {
+activeLanguages.forEach((language, langNum) => {
   // Quick and dirty config clone
   thisConfig = JSON.parse(JSON.stringify(config));
   flavorPOPath = path.resolve(
@@ -261,8 +261,8 @@ activeLanguages.forEach(language => {
 
   // Write out final xx.html file
   outputIndexFilename = path.resolve(
-    outputBasePath,
-    (language.code == "en_US" ? "index" : language.code) + ".html",
+    outputPath,
+    (langNum === 0 ? "index" : language.code) + ".html",
   );
 
   if (isProd) {
@@ -286,7 +286,7 @@ const baseImageAssetsPath = path.resolve(
   __dirname,
   "../src/base/static/css/images",
 );
-const outputImageAssetsPath = path.resolve(outputBasePath, "static/css/images");
+const outputImageAssetsPath = path.resolve(outputPath, "static/css/images");
 
 try {
   fs.copySync(baseImageAssetsPath, outputImageAssetsPath);
@@ -316,11 +316,7 @@ fontPaths.forEach(fontPath => {
   try {
     fs.copySync(
       fontPath,
-      path.resolve(
-        outputBasePath,
-        "static/css",
-        fontPath.split("/").slice(-1)[0],
-      ),
+      path.resolve(outputPath, "static/css", fontPath.split("/").slice(-1)[0]),
     );
   } catch (e) {
     logError("Error copying font file: " + e);
@@ -330,7 +326,7 @@ fontPaths.forEach(fontPath => {
 try {
   fs.copySync(
     path.resolve(__dirname, "../src/base/static/legacy-libs"),
-    path.resolve(outputBasePath, "legacy-libs"),
+    path.resolve(outputPath, "legacy-libs"),
   );
 } catch (e) {
   logError("Error copying flavor libs files: " + e);

@@ -597,6 +597,7 @@
         "category": "demo",
         "submitter_editing_supported": true,
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
@@ -688,6 +689,7 @@
           {
             "name": "text_field",
             "type": "text",
+            "includeOnListItem": true,
             "autocomplete": true,
             "prompt": "_(Single line text field input prompt:)",
             "display_prompt": "_(Rendered text field:)",
@@ -701,6 +703,7 @@
           {
             "name": "textarea_field",
             "type": "textarea",
+            "includeOnListItem": true,
             "autocomplete": true,
             "prompt": "_(Multiline textarea field input prompt:)",
             "display_prompt": "_(Rendered textarea field:)",
@@ -714,6 +717,7 @@
           {
             "name": "rich_textarea_field",
             "type": "rich_textarea",
+            "includeOnListItem": true,
             "autocomplete": true,
             "prompt": "_(Multiline rich textarea field input prompt:)",
             "display_prompt": "_(Rendered rich text:)",
@@ -876,11 +880,6 @@
             }
           },
           {
-            "name": "publish_control_toolbar",
-            "type": "publish_control_toolbar",
-            "default_value": "isPublished"
-          },
-          {
             "name": "datetime_field",
             "type": "datetime",
             "prompt": "_(Datetime field prompt:)",
@@ -945,6 +944,7 @@
       {
         "category": "observation",
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
@@ -991,6 +991,7 @@
           {
             "name": "description",
             "type": "textarea",
+            "includeOnListItem": true,
             "prompt": "_(Description:)",
             "display_prompt": "_( )",
             "placeholder": "_(Enter description...)",
@@ -1017,6 +1018,7 @@
       {
         "category": "question",
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
         "icon_url": "/static/css/images/markers/marker-question.png",
@@ -1026,6 +1028,7 @@
           {
             "name": "title",
             "type": "text",
+            "includeOnListItem": true,
             "prompt": "_(Title of your question:)",
             "display_prompt": "_(Title:)",
             "placeholder": "_(Enter title...)",
@@ -1044,6 +1047,7 @@
           {
             "name": "description",
             "type": "textarea",
+            "includeOnListItem": true,
             "prompt": "_(What's your question?)",
             "display_prompt": "_( )",
             "placeholder": "_(Enter question...)"
@@ -1069,6 +1073,7 @@
       {
         "category": "idea",
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
         "icon_url": "/static/css/images/markers/marker-idea.png",
@@ -1086,6 +1091,7 @@
           {
             "name": "description",
             "type": "textarea",
+            "includeOnListItem": true,
             "prompt": "_(Describe your idea below:)",
             "display_prompt": "_( )",
             "placeholder": "_(Description...)",
@@ -1166,6 +1172,7 @@
       {
         "category": "complaint",
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "dataset": "demo",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
@@ -1183,6 +1190,7 @@
           {
             "name": "description",
             "type": "textarea",
+            "includeOnListItem": true,
             "prompt": "_(What's your complaint?)",
             "display_prompt": "_( )",
             "placeholder": "_(Description...)",
@@ -1209,6 +1217,7 @@
       {
         "category": "observation2",
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "dataset": "demo2",
         "icon_url": "/static/css/images/markers/marker-observation.png",
@@ -1255,6 +1264,7 @@
           {
             "name": "description",
             "type": "textarea",
+            "includeOnListItem": true,
             "prompt": "_(Description:)",
             "display_prompt": "_( )",
             "placeholder": "_(Enter description...)",
@@ -1295,6 +1305,7 @@
       },
       "my_image": {
         "type": "file",
+        "includeOnListItem": true,
         "prompt": "_(Image)",
         "label": "_(Add an Image)",
         "optional": true
@@ -1303,6 +1314,39 @@
         "type": "submit",
         "label": "_(Put it on the map!)"
       }
+    }
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "adding_enabled": false,
+      "show_responses": true,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
     }
   },
   "survey": {

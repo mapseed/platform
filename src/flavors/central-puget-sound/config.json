@@ -22,16 +22,6 @@
       }
     }
   },
-  "languages": [
-    {
-      "code": "es",
-      "label": "Hablo Español"
-    },
-    {
-      "code": "en_US",
-      "label": "I Speak English"
-    }
-  ],
   "map": {
     "geolocation_enabled": true,
     "options": {
@@ -3658,16 +3648,6 @@
       "title": "_(Classroom)",
       "type": "internal_link",
       "url": "/page/classroom"
-    },
-    {
-      "title": "_(About)",
-      "type": "internal_link",
-      "url": "/page/about"
-    },
-    {
-      "title": "_(Guide)",
-      "type": "internal_link",
-      "url": "/page/guide"
     }
   ],
   "pages": [

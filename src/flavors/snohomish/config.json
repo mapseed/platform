@@ -6,10 +6,6 @@
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
-    "dataset_download": {
-      "slug": "snohomish-input",
-      "owner": "smartercleanup"
-    },
     "list_enabled": false,
     "theme": {
       "brand": {
@@ -29,6 +25,11 @@
         "light": "#fff"
       }
     }
+  },
+  "dashboard": {
+    "datasetId": "snohomish-input",
+    "datasetLabel": "project",
+    "datasetOwner": "smartercleanup"
   },
   "map": {
     "geolocation_enabled": true,
@@ -173,8 +174,45 @@
         "id": "wria-boundaries",
         "type": "vector-tile",
         "url": "https://vector-tiles.mapseed.org/wria-boundaries/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/wria-boundaries/style.json",
-        "source_layer": "wria-boundaries"
+        "source_layer": "wria-boundaries",
+        "mapbox_layers": [
+          {
+            "id": "wria-boundaries",
+            "type": "fill",
+            "paint": {
+              "fill-color": [
+                "match",
+                ["get", "wria_nm"],
+                "Island",
+                "#0f3b82",
+                "Stillaguamish",
+                "#b2df8a",
+                "Snohomish",
+                "#fb9a99",
+                "Lower Skagit / Samish",
+                "#33a02c",
+                "Upper Skagit",
+                "#e31a1c",
+                "Cedar-Sammamish",
+                "#1f78b4",
+                "#000000"
+              ],
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "wria-boundaries-labels",
+            "type": "symbol",
+            "layout": {
+              "text-field": ["get", "wria_nm"]
+            },
+            "paint": {
+              "text-color": "#000000",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1
+            }
+          }
+        ]
       },
       {
         "id": "hydrography",
@@ -1983,11 +2021,11 @@
         "id": "featured_place",
         "datasetId": "snohomish-featured",
         "label": "_(Featured Site)",
-        "icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+        "icon": "/static/css/images/markers/map-pin-star-marker.png"
       },
       {
         "id": "conservation-actions",
-        "dataset": "snohomish-input",
+        "datasetId": "snohomish-input",
         "label": "_(Conservation Actions)",
         "icon": "/static/css/images/markers/map-pin-marker.png"
       }

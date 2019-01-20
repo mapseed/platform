@@ -5,10 +5,7 @@
     "logo": "/static/css/images/pbdurham-logo-large.png",
     "meta_description": "_(Participatory Budgeting for City of Durham)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
-    "dataset_download": {
-      "slug": "pbdurham",
-      "owner": "smartercleanup"
-    },
+    "time_zone": "America/New_York",
     "theme": {
       "bg": {
         "default": "#d6d5d9",
@@ -41,6 +38,15 @@
         "label": "Español"
       }
     ]
+  },
+  "dashboard": {
+    "datasetId": "pbdurham",
+    "datasetOwner": "smartercleanup",
+    "datasetLabel": "idea",
+    "surveyMetrics": {
+      "categories": true,
+      "demographics": true
+    }
   },
   "map": {
     "geolocation_enabled": true,
@@ -587,7 +593,7 @@
     "show_in_right_panel": true
   },
   "place": {
-    "adding_supported": true,
+    "adding_supported": false,
     "add_button_label": "_(Submit Your Idea)",
     "title": "_(Describe your idea)",
     "action_text": "_(suggested)",
@@ -1219,6 +1225,47 @@
         "label": "_(Other)",
         "icon": "/static/css/images/markers/idea.png"
       }
+    ],
+    "fields": [
+      {
+        "id": "private-ethnicity",
+        "autocomplete": false,
+        "type": "big_checkbox",
+        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
+        "display_prompt": "_(Ethnicity:)",
+        "label": "_(Ethnicity:)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(American Indian/Alaskan Native)",
+            "value": "indian-alaskan"
+          },
+          {
+            "label": "_(Asian)",
+            "value": "asian"
+          },
+          {
+            "label": "_(Black or African American)",
+            "value": "black"
+          },
+          {
+            "label": "_(Hispanic or Latinx)",
+            "value": "hispanic"
+          },
+          {
+            "label": "_(Native Hawaiian or Pacific Islander)",
+            "value": "hawaiian-pacific"
+          },
+          {
+            "label": "_(White)",
+            "value": "white"
+          },
+          {
+            "label": "_(Other)",
+            "value": "other-ethnicity"
+          }
+        ]
+      }
     ]
   },
   "support": {
@@ -1344,7 +1391,6 @@
         "<h3>Durham Participatory Budgeting:</h3>",
         "<h4>Put your money where your ideas are!</h4>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
-        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Submit Your Idea</a>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
         "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
         "<p>\"One-time projects\" are projects with one-time expenditures that address a community need. Projects can be built on City, Durham Housing Authority, and private land, upon donation. \"One-time projects\" may include physical infrastructure, technological improvements, and community enhancements. Examples of \"one-time projects\" include park improvements, computers for a community center, bus shelters, and bike-lanes. \"One-time projects\" may have some sort of associated operating cost. However, they do not require the City to hire additional staff.</p>",

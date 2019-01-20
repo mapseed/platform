@@ -9,6 +9,28 @@ export const placeFormsConfigSelector = state => {
   return state.formsConfig.places;
 };
 
+export const formFieldsConfigSelector = state => {
+  return state.formsConfig.fields;
+};
+
+export const formFieldsConfigPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    autocomplete: PropTypes.bool,
+    type: PropTypes.string.isRequired,
+    prompt: PropTypes.string.isRequired,
+    display_prompt: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    optional: PropTypes.bool.isRequired,
+    content: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }),
+    ),
+  }),
+);
+
 export const commentFormConfigPropType = PropTypes.shape({
   items: PropTypes.arrayOf(
     PropTypes.shape({
