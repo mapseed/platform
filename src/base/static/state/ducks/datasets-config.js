@@ -30,7 +30,7 @@ export const getTagsFromPlaceTag = (state, datasetSlug, placeTag) => {
   let tags = [];
   const traverse = tagId => {
     const node = state.datasetsConfig
-      .find(dataset => dataset.dataset_slug === datasetSlug)
+      .find(dataset => dataset.slug === datasetSlug)
       .tags.find(tag => tag.id === tagId);
     if (node) {
       tags = tags.concat([node]);
