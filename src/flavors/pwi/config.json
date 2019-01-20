@@ -1,4 +1,24 @@
 {
+  "datasets": [
+    {
+      "slug": "pwi-input",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "pwi-featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Just & Healthy Food",
     "name": "Just & Healthy Food",
@@ -26,12 +46,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "map": {
         "center": {
@@ -85,17 +100,7 @@
         "slug": "report",
         "focus_rules": [
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "complaint"]],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
               "icon-size": 1.2,
@@ -103,17 +108,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "question"]],
             "symbol-layout": {
               "icon-image": "marker-question.png",
               "icon-size": 1.2,
@@ -121,17 +116,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "idea"]],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
               "icon-size": 1.2,
@@ -139,17 +124,7 @@
             }
           },
           {
-            "filter": [
-              "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ]
-            ],
+            "filter": ["all", ["==", ["get", "location_type"], "observation"]],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
               "icon-size": 1.2,
@@ -161,21 +136,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "complaint"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
@@ -186,28 +148,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "complaint"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
@@ -218,21 +161,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "complaint"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "complaint"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-complaint.png",
@@ -243,21 +173,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "question"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-question.png",
@@ -268,28 +185,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "question"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-question.png",
@@ -300,21 +198,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "question"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "question"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-question.png",
@@ -325,21 +210,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "idea"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
@@ -350,28 +222,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "idea"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
@@ -382,21 +235,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "idea"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "idea"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-idea.png",
@@ -407,21 +247,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "observation"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -432,28 +259,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "observation"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -464,21 +272,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "observation"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                14
-              ]
+              ["==", ["get", "location_type"], "observation"],
+              [">=", ["zoom"], 14]
             ],
             "symbol-layout": {
               "icon-image": "marker-observation.png",
@@ -612,7 +407,7 @@
         "suppressAttachments": true,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "pwi-featured",
+        "dataset_slug": "pwi-featured",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -669,7 +464,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pwi-input",
+        "dataset_slug": "pwi-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observation)",
@@ -739,7 +534,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pwi-input",
+        "dataset_slug": "pwi-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "_(Question)",
@@ -784,7 +579,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pwi-input",
+        "dataset_slug": "pwi-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -830,7 +625,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "pwi-input",
+        "dataset_slug": "pwi-input",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "_(Complaint)",
@@ -958,10 +753,7 @@
     "example": {
       "tagline": "_(Next featured site)",
       "default_zoom": 16,
-      "default_visible_layers": [
-        "pwi-featured",
-        "pwi-input"
-      ],
+      "default_visible_layers": ["pwi-featured", "pwi-input"],
       "order": [
         {
           "url": "featured/4059",
@@ -972,9 +764,7 @@
             "lng": -122.41241455078125
           },
           "spotlight": false,
-          "visible_layers": [
-            "vacant-parcels"
-          ],
+          "visible_layers": ["vacant-parcels"],
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {

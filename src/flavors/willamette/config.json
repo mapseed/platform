@@ -1,4 +1,15 @@
 {
+  "datasets": [
+    {
+      "slug": "willamette",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Hey Willamette!",
     "name": "Hey Willamette!",
@@ -414,7 +425,7 @@
         "category": "observation",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset_slug": "willamette",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observation)",
@@ -457,7 +468,7 @@
         "category": "question",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset_slug": "willamette",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "_(Question)",
@@ -499,7 +510,7 @@
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset_slug": "willamette",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -542,7 +553,7 @@
         "category": "complaint",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "dataset_slug": "willamette",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "_(Complaint)",

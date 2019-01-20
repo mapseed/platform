@@ -1,4 +1,42 @@
 {
+  "datasets": [
+    {
+      "slug": "pugetsound",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "pugetsoundfeatured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
+    },
+    {
+      "slug": "pugetsoundrose",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
+    },
+    {
+      "slug": "pugetsoundcases",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Our Puget Sound",
     "name": "Our Puget Sound",
@@ -593,7 +631,7 @@
         "suppressAttachments": true,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "pugetsoundfeatured",
+        "dataset_slug": "pugetsoundfeatured",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -653,7 +691,7 @@
         "suppressAttachments": true,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "pugetsoundrose",
+        "dataset_slug": "pugetsoundrose",
         "icon_url": "/static/css/images/markers/map-pin-marker.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -728,7 +766,7 @@
         "suppressAttachments": true,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "pugetsoundcases",
+        "dataset_slug": "pugetsoundcases",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -793,7 +831,7 @@
         "category": "pollution",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "pugetsound",
+        "dataset_slug": "pugetsound",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "pollution",
         "label": "_(Report Pollution)",
@@ -878,7 +916,7 @@
         "category": "community-action",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "pugetsound",
+        "dataset_slug": "pugetsound",
         "icon_url": "/static/css/images/markers/marker-heart.png",
         "value": "question",
         "label": "_(Add a community action)",
@@ -949,35 +987,35 @@
   },
   "forms": {
     "comments": {
-    "submission_type": "comments",
-    "show_responses": true,
-    "single_submission": false,
-    "response_name": "_(comment)",
-    "response_plural_name": "_(comments)",
-    "action_text": "_(commented on)",
-    "anonymous_name": "_(Someone)",
-    "title": "_(Leave a Comment)",
-    "form_link_text": "_(Leave a Comment)",
-    "submit_btn_text": "_(Comment)",
-    "items": [
-      {
-        "prompt": "_(Comment)",
-        "label": "_(Comment)",
-        "type": "textarea",
-        "name": "comment"
-      },
-      {
-        "prompt": "_(Your Name)",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true
-      },
-      {
-        "type": "submit",
-        "name": "submit",
-        "label": "_(Comment)"
-      }
-    ]
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
     },
     "places": [
       {
