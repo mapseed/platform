@@ -239,7 +239,7 @@ class UserMenu extends React.Component {
 UserMenu.propTypes = {
   currentUser: PropTypes.object,
   dashboardConfig: dashboardConfigPropType,
-  hasAdminAbilities: PropTypes.bool.isRequired,
+  hasAdminAbilities: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),

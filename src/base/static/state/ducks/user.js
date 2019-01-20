@@ -13,7 +13,7 @@ export const hasGroupAbilityInDatasets = ({
     .some(group =>
       group.permissions.some(
         perm =>
-          group.dataset_slug === datasetSlugs &&
+          datasetSlugs.includes(group.dataset_slug) &&
           (perm.submission_set === "*" ||
             perm.submission_set === submissionSet) &&
           perm.abilities.includes(ability),

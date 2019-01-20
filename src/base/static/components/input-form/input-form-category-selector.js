@@ -4,16 +4,13 @@ import { connect } from "react-redux";
 
 import InputFormCategoryButton from "./input-form-category-button";
 
-import { hasGroupAbilityInDataset } from "../../state/ducks/user";
+import { hasGroupAbilityInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilityInDataset } from "../../state/ducks/datasets-config";
 
 class InputFormCategorySelector extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isCollapsed: false,
-    };
-  }
+  state = {
+    isCollapsed: false,
+  };
 
   setCategory(categoryName) {
     this.setState({
@@ -32,16 +29,16 @@ class InputFormCategorySelector extends Component {
           // of controlling category visibility on a group-by-group basis,
           // though we may want to add that feature at some point.
           return (
-            this.props.hasAnonAbilityInDataset({
+            (this.props.hasAnonAbilityInDataset({
               ability: "create",
               submissionSet: "places",
               datasetSlug: config.dataset_slug,
             }) ||
-            (this.props.hasGroupAbilityInDataset({
-              ability: "create",
-              submissionSet: "places",
-              datasetSlug: config.dataset_slug,
-            }) && (
+              this.props.hasGroupAbilityInDatasets({
+                ability: "create",
+                submissionSet: "places",
+                datasetSlugs: [config.dataset_slug],
+              })) && (
               <InputFormCategoryButton
                 isSelected={isSelected}
                 isCategoryMenuCollapsed={this.state.isCollapsed}
@@ -55,7 +52,7 @@ class InputFormCategorySelector extends Component {
                 }}
                 onExpandCategories={() => this.setState({ isCollapsed: false })}
               />
-            ))
+            )
           );
         })}
       </div>
@@ -65,15 +62,15 @@ class InputFormCategorySelector extends Component {
 
 InputFormCategorySelector.propTypes = {
   hasAnonAbilityInDataset: PropTypes.func.isRequired,
-  hasGroupAbilityInDataset: PropTypes.func.isRequired,
+  hasGroupAbilityInDatasets: PropTypes.func.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
   selectedCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   visibleCategoryConfigs: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({
-  hasGroupAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
-    hasGroupAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
+  hasGroupAbilityInDatasets: ({ ability, submissionSet, datasetSlugs }) =>
+    hasGroupAbilityInDatasets({ state, ability, submissionSet, datasetSlugs }),
   hasAnonAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
     hasAnonAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
 });
