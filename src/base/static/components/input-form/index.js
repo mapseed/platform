@@ -259,15 +259,15 @@ class InputForm extends Component {
       isFormSubmitting: true,
     });
     const collection = this.props.places[
-      this.selectedCategoryConfig.dataset_slug
+      this.selectedCategoryConfig.datasetSlug
     ];
     collection.add(
       {
         location_type: this.selectedCategoryConfig.category,
         datasetSlug: this.props.mapConfig.layers.find(
-          layer => this.selectedCategoryConfig.dataset_slug === layer.id,
+          layer => this.selectedCategoryConfig.datasetSlug === layer.id,
         ).slug,
-        datasetId: this.selectedCategoryConfig.dataset_slug,
+        datasetId: this.selectedCategoryConfig.datasetSlug,
         showMetadata: this.selectedCategoryConfig.showMetadata,
       },
       { wait: true },
@@ -320,7 +320,7 @@ class InputForm extends Component {
 
         emitter.emit(
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-          this.selectedCategoryConfig.dataset_slug,
+          this.selectedCategoryConfig.datasetSlug,
         );
         this.props.createPlace(response.toJSON());
 
