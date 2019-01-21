@@ -12,12 +12,12 @@ const TagContainer = styled("div")(props => ({
   display: "flex",
   alignItems: "center",
   marginBottom: "8px",
-  borderTop: "1px solid #a8a8a8",
-  borderRight: "1px solid #c8c8c8",
-  borderBottom: 0,
-  borderLeft: "1px solid #c8c8c8",
+  borderTop: props.isActive ? "1px solid #a8a8a8" : "1px dashed #aaa",
+  borderRight: props.isActive ? "1px solid #c8c8c8" : "1px dashed #aaa",
+  borderBottom: props.isActive ? 0 : "1px dashed #aaa",
+  borderLeft: props.isActive ? "1px solid #c8c8c8" : "1px dashed #aaa",
   borderRadius: "3px",
-  backgroundColor: props.backgroundColor || "#6495ed",
+  backgroundColor: props.isActive ? "#6495ed" : "transparent",
 }));
 
 const TagComment = styled(SmallText)(props => ({
@@ -51,11 +51,19 @@ class Tag extends Component {
 
   render() {
     return (
-      <TagContainer isExpanded={this.state.isExpanded}>
-        {this.props.placeTag.comment && (
+      <TagContainer
+        isActive={this.props.isActive}
+        isExpanded={this.state.isExpanded}
+      >
+        <TagLabelSet
+          tag={this.props.tag}
+          isActive={this.props.isActive}
+          datasetSlug={this.props.datasetSlug}
+        />
+        {this.props.tag.comment && (
           <Fragment>
             <TagComment isExpanded={this.state.isExpanded}>
-              {this.props.placeTag.comment}
+              {this.props.tag.comment}
             </TagComment>
             <ExpandCollapseButton
               onClick={() =>
@@ -76,9 +84,17 @@ class Tag extends Component {
 }
 
 Tag.propTypes = {
-  placeTag: PropTypes.shape({
+  isActive: PropTypes.bool.isRequired,
+  placeTags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      comment: PropTypes.string,
+    }),
+  ),
+  tag: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    comment: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    parent: PropTypes.number,
   }).isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,

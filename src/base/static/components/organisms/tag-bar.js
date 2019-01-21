@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Tag from "../molecules/tag";
 import TagEditor from "../molecules/tag-editor";
 
-import { getAllTags } from "../../state/ducks/datasets-config";
+import { getAllTagsForDataset } from "../../state/ducks/datasets-config";
 
 const TagBarContainer = styled("div")({
   borderBottom: "2px solid #ddd",
@@ -18,31 +18,35 @@ const TagBar = props => {
   return (
     <TagBarContainer>
       {props.isEditModeToggled
-        ? props.tags.map(placeTag => (
-            <TagEditor
-              key={placeTag.id}
-              datasetSlug={props.datasetSlug}
-              tag={placeTag}
-            />
-          ))
-        : props
-            .getAllTags(props.datasetSlug)
+        ? props
+            .getAllTagsForDataset(props.datasetSlug)
             .map(tag => (
-              <Tag
+              <TagEditor
                 key={tag.id}
                 datasetSlug={props.datasetSlug}
                 tag={tag}
+                isActive={props.placeTags.some(
+                  placeTag => placeTag.id === tag.id,
+                )}
               />
-            ))}
+            ))
+        : props.placeTags.map(placeTag => (
+            <Tag
+              key={placeTag.id}
+              datasetSlug={props.datasetSlug}
+              placeTag={placeTag}
+              isActive={true}
+            />
+          ))}
     </TagBarContainer>
   );
 };
 
 TagBar.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
-  getAllTags: PropTypes.func.isRequired,
+  getAllTagsForDataset: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
-  tags: PropTypes.arrayOf(
+  placeTags: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       comment: PropTypes.string,
@@ -51,7 +55,7 @@ TagBar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  getAllTags: datasetSlug => getAllTags(state, datasetSlug),
+  getAllTagsForDataset: datasetSlug => getAllTagsForDataset(state, datasetSlug),
 });
 
 export default connect(mapStateToProps)(TagBar);

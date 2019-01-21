@@ -108,6 +108,20 @@ class PlaceDetail extends Component {
       this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
+    // TEMPORARY
+    this.props.model.set("tags", [
+      {
+        id: 4,
+        comment:
+          "Way, way too expensive. There's no way we can spend this money on something like this!",
+      },
+      {
+        id: 3,
+        comment:
+          "Totally illegal. This would break at least five laws in our city, so we can't do it.",
+      },
+    ]);
+
     this.state = {
       // NOTE: We remove the story property before serializing, so it doesn't
       // get saved.
@@ -346,19 +360,6 @@ class PlaceDetail extends Component {
       );
     }
 
-    const mockTagData = [
-      {
-        id: 4,
-        comment:
-          "Way, way too expensive. There's no way we can spend this money on something like this!",
-      },
-      {
-        id: 3,
-        comment:
-          "Totally illegal. This would break at least five laws in our city, so we can't do it.",
-      },
-    ];
-
     return (
       <PlaceDetailContainer isEditable={this.state.isEditable}>
         {this.state.isEditable && (
@@ -373,7 +374,7 @@ class PlaceDetail extends Component {
         )}
         <TagBar
           isEditModeToggled={this.props.isEditModeToggled}
-          tags={mockTagData}
+          placeTags={this.state.placeModel.get("tags").toJS()}
           datasetSlug={this.props.collectionId}
         />
         <h1
