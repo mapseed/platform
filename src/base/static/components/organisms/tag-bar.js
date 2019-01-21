@@ -24,8 +24,10 @@ const TagBar = props => {
               <TagEditor
                 key={tag.id}
                 datasetSlug={props.datasetSlug}
+                onClick={props.onToggleTag}
+                onUpdateComment={props.onUpdateComment}
                 tag={tag}
-                isActive={props.placeTags.some(
+                placeTag={props.placeTags.find(
                   placeTag => placeTag.id === tag.id,
                 )}
               />
@@ -46,6 +48,8 @@ TagBar.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
   getAllTagsForDataset: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
+  onToggleTag: PropTypes.func.isRequired,
+  onUpdateComment: PropTypes.func.isRequired,
   placeTags: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

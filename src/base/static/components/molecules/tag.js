@@ -14,7 +14,7 @@ const TagContainer = styled("div")(props => ({
   marginBottom: "8px",
   borderTop: "1px solid #a8a8a8",
   borderRight: "1px solid #c8c8c8",
-  borderBottom: 0,
+  borderBottom: "1px solid transparent",
   borderLeft: "1px solid #c8c8c8",
   borderRadius: "3px",
   backgroundColor: props.backgroundColor || "#6495ed",

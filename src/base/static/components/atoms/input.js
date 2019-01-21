@@ -29,13 +29,29 @@ const TextInput = styled(props => {
   return styles;
 });
 
-const TextareaInput = styled(props => (
+const TextareaInput = props => (
   <textarea
+    className={props.className}
     placeholder={props.placeholder}
     onChange={props.onChange}
     onKeyPress={props.onKeyPress}
+    onClick={props.onClick}
+    onFocus={props.onFocus}
+    onBlur={props.onBlur}
+    value={props.value}
   />
-));
+);
+
+TextareaInput.propTypes = {
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func,
+  onClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  value: PropTypes.string,
+};
 
 const CheckboxInput = props => {
   return (

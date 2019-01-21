@@ -283,6 +283,48 @@ class PlaceDetail extends Component {
     }
   }
 
+  onToggleTag({ tagId, isActive, comment }) {
+    if (isActive) {
+      // Remove a placeTag from the Place model.
+      this.props.model.set(
+        "tags",
+        this.props.model.get("tags").filter(tag => tag.id !== tagId),
+      );
+    } else {
+      // Add a new placeTag to the Place model.
+      this.props.model.set(
+        "tags",
+        this.props.model.get("tags").concat([
+          {
+            id: tagId,
+            comment: comment,
+          },
+        ]),
+      );
+    }
+
+    this.setState({
+      placeModel: fromJS(this.props.model.attributes),
+    });
+  }
+
+  onUpdateComment(tagId, comment) {
+    this.props.model.set(
+      "tags",
+      this.props.model.get("tags").map(tag => {
+        if (tag.id === tagId) {
+          tag.comment = comment;
+        }
+
+        return tag;
+      }),
+    );
+
+    this.setState({
+      placeModel: fromJS(this.props.model.attributes),
+    });
+  }
+
   render() {
     // This is an unfortunate series of checks, but needed at the moment.
     // TODO: We should revisit why this is necessary in the first place and see
@@ -375,6 +417,8 @@ class PlaceDetail extends Component {
         <TagBar
           isEditModeToggled={this.props.isEditModeToggled}
           placeTags={this.state.placeModel.get("tags").toJS()}
+          onToggleTag={this.onToggleTag.bind(this)}
+          onUpdateComment={this.onUpdateComment.bind(this)}
           datasetSlug={this.props.collectionId}
         />
         <h1
