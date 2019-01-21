@@ -8,6 +8,7 @@ import TagLabelSet from "./tag-label-set";
 
 const TagContainer = styled("div")(props => ({
   outline: "none",
+  boxSizing: "border-box",
   width: "100%",
   padding: "8px",
   display: "flex",
