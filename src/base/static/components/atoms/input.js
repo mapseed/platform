@@ -29,6 +29,14 @@ const TextInput = styled(props => {
   return styles;
 });
 
+const TextareaInput = styled(props => (
+  <textarea
+    placeholder={props.placeholder}
+    onChange={props.onChange}
+    onKeyPress={props.onKeyPress}
+  />
+));
+
 const CheckboxInput = props => {
   return (
     <input
@@ -93,4 +101,4 @@ DatetimeInput.propTypes = {
   value: PropTypes.string,
 };
 
-export { CheckboxInput, DatetimeInput, NumberInput, TextInput };
+export { CheckboxInput, DatetimeInput, NumberInput, TextInput, TextareaInput };

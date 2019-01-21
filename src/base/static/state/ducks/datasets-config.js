@@ -43,6 +43,9 @@ export const getTagsFromPlaceTag = (state, datasetSlug, placeTag) => {
   // return the reversed array.
   return tags.reverse();
 };
+export const getAllTags = (state, datasetSlug) =>
+  state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
+    .tags;
 
 // Actions:
 const LOAD = "datasets-config/LOAD";

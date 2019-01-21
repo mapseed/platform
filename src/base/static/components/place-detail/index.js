@@ -357,11 +357,6 @@ class PlaceDetail extends Component {
         comment:
           "Totally illegal. This would break at least five laws in our city, so we can't do it.",
       },
-      {
-        id: 1,
-        comment:
-          "This is a great idea! The reviewers loved the concept and we're excited to get started on this idea.",
-      },
     ];
 
     return (
@@ -376,7 +371,11 @@ class PlaceDetail extends Component {
             }}
           />
         )}
-        <TagBar tags={mockTagData} datasetSlug={this.props.collectionId} />
+        <TagBar
+          isEditModeToggled={this.props.isEditModeToggled}
+          tags={mockTagData}
+          datasetSlug={this.props.collectionId}
+        />
         <h1
           className={classNames("place-detail-view__header", {
             "place-detail-view__header--centered": isStoryChapter,
@@ -506,6 +505,7 @@ const mapStateToProps = state => ({
     hasGroupAbilityInDatasets({ state, ability, submissionSet, datasetSlugs }),
   hasUserAbilityInPlace: ({ submitter, isSubmitterEditingSupported }) =>
     hasUserAbilityInPlace({ state, submitter, isSubmitterEditingSupported }),
+  isEditModeToggled: isEditModeToggled(state),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),

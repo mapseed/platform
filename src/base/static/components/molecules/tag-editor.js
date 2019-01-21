@@ -52,15 +52,10 @@ class Tag extends Component {
   render() {
     return (
       <TagContainer isExpanded={this.state.isExpanded}>
-        <TagLabelSet
-          tag={this.props.tag}
-          color="#fff"
-          datasetSlug={this.props.datasetSlug}
-        />
-        {this.props.tag.comment && (
+        {this.props.placeTag.comment && (
           <Fragment>
             <TagComment isExpanded={this.state.isExpanded}>
-              {this.props.tag.comment}
+              {this.props.placeTag.comment}
             </TagComment>
             <ExpandCollapseButton
               onClick={() =>
@@ -81,9 +76,8 @@ class Tag extends Component {
 }
 
 Tag.propTypes = {
-  tag: PropTypes.shape({
+  placeTag: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    name: PropTypes.string,
     comment: PropTypes.string,
   }).isRequired,
   datasetSlug: PropTypes.string.isRequired,
