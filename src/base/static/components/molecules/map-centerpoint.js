@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { connect } from "react-redux";
+import { translate } from "react-i18next";
 
 import { mapCenterpointVisibilitySelector } from "../../state/ducks/ui";
 import { mapDraggingSelector, mapDraggedSelector } from "../../state/ducks/map";
@@ -43,7 +44,7 @@ const MapCenterpointMarker = styled("span")(props => ({
   transition: "top 0.4s ease",
 }));
 
-const MapCenterpointOverlay = styled("span")({
+const MapCenterpointOverlay = styled("span")(props => ({
   width: "175px",
   height: "175px",
   display: "block",
@@ -52,7 +53,21 @@ const MapCenterpointOverlay = styled("span")({
   left: "-64px",
   background: "url(/static/css/images/marker-arrow-overlay.png) no-repeat",
   backgroundSize: "150px",
-});
+  textAlign: "center",
+
+  "&:before": {
+    content: `"${props.overlayMsg}"`,
+    textTransform: "uppercase",
+    fontWeight: 800,
+    color: "#ffff00",
+    textShadow:
+      "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+    position: "absolute",
+    top: "20px",
+    left: 0,
+    right: 0,
+  },
+}));
 
 const MapCenterpoint = styled(
   props =>
@@ -61,7 +76,9 @@ const MapCenterpoint = styled(
         <MapCenterpointShadow isMapDragging={props.isMapDragging} />
         {props.isMapDragging && <MapCenterpointX />}
         <MapCenterpointMarker isMapDragging={props.isMapDragging} />
-        {!props.isMapDragged && <MapCenterpointOverlay />}
+        {!props.isMapDragged && (
+          <MapCenterpointOverlay overlayMsg={props.t("overlayMsg")} />
+        )}
       </span>
     ) : null,
 )(() => ({
@@ -80,6 +97,7 @@ MapCenterpoint.propTypes = {
   isMapCenterpointVisible: PropTypes.bool.isRequired,
   isMapDragged: PropTypes.bool.isRequired,
   isMapDragging: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -88,4 +106,6 @@ const mapStateToProps = state => ({
   isMapDragging: mapDraggingSelector(state),
 });
 
-export default connect(mapStateToProps)(MapCenterpoint);
+export default connect(mapStateToProps)(
+  translate("MapCenterpoint")(MapCenterpoint),
+);

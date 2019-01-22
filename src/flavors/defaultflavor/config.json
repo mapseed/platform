@@ -1,4 +1,24 @@
 {
+  "datasets": [
+    {
+      "slug": "demo",
+      "anonymous_permissions": [
+        {
+          "abilities": ["retrieve"],
+          "submission_set": "comments"
+        }
+      ]
+    },
+    {
+      "slug": "demo2",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Mapseed Demo",
     "name": "Mapseed Demo",
@@ -599,7 +619,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "demo",
         "multi_stage": [
@@ -945,8 +965,9 @@
         "category": "observation",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observation)",
@@ -963,6 +984,7 @@
             "name": "big_checkbox_field",
             "type": "big_checkbox",
             "prompt": "_(Types of pollution seen:)",
+            "restrict_to_groups": ["officials"],
             "display_prompt": "_( )",
             "content": [
               {
@@ -1019,8 +1041,9 @@
         "category": "question",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "_(Question)",
@@ -1074,8 +1097,9 @@
         "category": "idea",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -1173,8 +1197,9 @@
         "category": "complaint",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "_(Complaint)",
@@ -1218,8 +1243,9 @@
         "category": "observation2",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo2",
+        "datasetSlug": "demo2",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation2",
         "label": "_(Observation 2)",

@@ -1,4 +1,24 @@
 {
+  "datasets": [
+    {
+      "slug": "snohomish-input",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create", "retrieve"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "snohomish-featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create", "retrieve"],
+          "submission_set": "comments"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Snohomish Conservation",
     "name": "Snohomish Conservation",
@@ -301,7 +321,6 @@
     "component": "StoryNavigator"
   },
   "place": {
-    "adding_supported": true,
     "add_button_label": "_(Show off your projects)",
     "action_text": "_(added)",
     "title": "_(Tell us more...)",
@@ -320,7 +339,7 @@
         "showMetadata": false,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "snohomish-featured",
+        "datasetSlug": "snohomish-featured",
         "icon_url": "/static/css/images/markers/map-pin-star-marker.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -370,7 +389,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "snohomish-input",
+        "datasetSlug": "snohomish-input",
         "icon_url": "/static/css/images/markers/map-pin-marker.png",
         "value": "conservation-actions",
         "multi_stage": [

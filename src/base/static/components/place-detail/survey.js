@@ -18,6 +18,7 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
+import { hasAnonAbilityInDataset } from "../../state/ducks/datasets-config";
 
 import constants from "../../constants";
 import { translate } from "react-i18next";
@@ -34,6 +35,11 @@ class Survey extends Component {
       isFormSubmitting: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
+      isWithForm: this.props.hasAnonAbilityInDataset({
+        ability: "create",
+        submissionSet: "comments",
+        datasetSlug: this.props.collectionId,
+      }),
     };
   }
 
@@ -173,29 +179,31 @@ class Survey extends Component {
           errors={Array.from(this.state.formValidationErrors)}
           headerMsg={t("validationErrorHeaderMsg")}
         />
-        <form
-          className="place-detail-survey__form"
-          onSubmit={evt => evt.preventDefault()}
-        >
-          {this.state.fields
-            .map((fieldState, fieldName) => (
-              <FormField
-                key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                isInitializing={this.state.isInitializing}
-                fieldConfig={this.props.commentFormConfig.items.find(
-                  field => field.name === fieldName,
-                )}
-                updatingField={this.state.updatingField}
-                showValidityStatus={this.state.showValidityStatus}
-                disabled={this.state.isFormSubmitting}
-                onFieldChange={this.onFieldChange.bind(this)}
-                fieldState={fieldState}
-                onClickSubmit={this.onSubmit.bind(this)}
-              />
-            ))
-            .toArray()}
-        </form>
-        {this.props.currentUser ? (
+        {this.state.isWithForm && (
+          <form
+            className="place-detail-survey__form"
+            onSubmit={evt => evt.preventDefault()}
+          >
+            {this.state.fields
+              .map((fieldState, fieldName) => (
+                <FormField
+                  key={fieldState.get(constants.FIELD_RENDER_KEY)}
+                  isInitializing={this.state.isInitializing}
+                  fieldConfig={this.props.commentFormConfig.items.find(
+                    field => field.name === fieldName,
+                  )}
+                  updatingField={this.state.updatingField}
+                  showValidityStatus={this.state.showValidityStatus}
+                  disabled={this.state.isFormSubmitting}
+                  onFieldChange={this.onFieldChange.bind(this)}
+                  fieldState={fieldState}
+                  onClickSubmit={this.onSubmit.bind(this)}
+                />
+              ))
+              .toArray()}
+          </form>
+        )}
+        {this.props.currentUser && this.state.isWithForm ? (
           <span className="place-detail-survey__submit-user-info">
             <Avatar size="small" src={this.props.currentUser.avatar_url} />
             <span className="place-detail-survey__username">
@@ -216,6 +224,8 @@ class Survey extends Component {
 
 Survey.propTypes = {
   appConfig: appConfigPropType.isRequired,
+  collectionId: PropTypes.string.isRequired,
+  hasAnonAbilityInDataset: PropTypes.func.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
@@ -235,6 +245,8 @@ Survey.propTypes = {
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
+  hasAnonAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
+    hasAnonAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
   commentFormConfig: commentFormConfigSelector(state),
 });
 

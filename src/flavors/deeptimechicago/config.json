@@ -1,4 +1,15 @@
 {
+  "datasets": [
+    {
+      "slug": "deeptimechicago-input",
+      "anonymous_permissions": [
+        {
+          "abilities": "create",
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "bioregional art",
     "name": "CREATING CASCADIA",
@@ -259,7 +270,7 @@
         "category": "sensation",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/sensation.png",
         "value": "sensation",
         "label": "_(Sensation)",
@@ -299,7 +310,7 @@
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -338,7 +349,7 @@
         "category": "artwork",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/artwork.png",
         "value": "artwork",
         "label": "_(Artwork)",
@@ -378,7 +389,7 @@
         "category": "event",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "deeptimechicago-input",
+        "datasetSlug": "deeptimechicago-input",
         "icon_url": "/static/css/images/markers/event.png",
         "value": "event",
         "label": "_(Event)",

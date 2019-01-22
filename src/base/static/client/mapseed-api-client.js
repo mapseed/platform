@@ -1,11 +1,9 @@
-import LegacyUtil from "../js/utils";
-
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
   layers,
   setLayerError,
-  privateDatasetId,
+  includePrivate,
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
@@ -20,9 +18,6 @@ const getPlaceCollections = async ({
       const layer = layers.find(layer => layer.id === collectionId);
       // if we are fetching a dataset id to be used in the dashboard,
       // and the user has access to that dataset:
-      const includePrivate =
-        collectionId === privateDatasetId &&
-        LegacyUtil.getAdminStatus(privateDatasetId);
       collection.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
