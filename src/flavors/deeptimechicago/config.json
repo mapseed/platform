@@ -78,7 +78,7 @@
         "is_basemap": true,
         "is_visible_default": true,
         "type": "raster-tile",
-        "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
+        "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
       },
       {
         "id": "deeptimechicago-input",
