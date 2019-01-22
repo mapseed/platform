@@ -269,6 +269,7 @@
         "is_visible_default": true,
         "focus_rules": [
           {
+            "filter": ["==", ["get", "location_type"], "projects"],
             "symbol-layout": {
               "icon-image": "money.png",
               "icon-size": 0.3,
@@ -278,7 +279,11 @@
         ],
         "rules": [
           {
-            "filter": ["<", ["zoom"], 10],
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "projects"],
+              ["<", ["zoom"], 10]
+            ],
             "symbol-layout": {
               "icon-image": "money.png",
               "icon-size": 0.1,
@@ -286,7 +291,12 @@
             }
           },
           {
-            "filter": ["all", [">=", ["zoom"], 10], ["<", ["zoom"], 13]],
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "projects"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
             "symbol-layout": {
               "icon-image": "money.png",
               "icon-size": 0.2,
@@ -294,7 +304,11 @@
             }
           },
           {
-            "filter": [">=", ["zoom"], 13],
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "projects"],
+              [">=", ["zoom"], 13]
+            ],
             "symbol-layout": {
               "icon-image": "money.png",
               "icon-size": 0.2,
