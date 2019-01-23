@@ -12,21 +12,27 @@
         {
           "id": 4,
           "name": "above costs",
+          "is_enabled": true,
           "parent": 2
         },
         {
           "id": 3,
           "name": "illegal",
+          "is_enabled": true,
           "parent": 2
         },
         {
           "id": 2,
           "name": "remove",
+          "color": "#dc3545",
+          "is_enabled": false,
           "parent": null
         },
         {
           "id": 1,
           "name": "vetted",
+          "color": "#28a745",
+          "is_enabled": true,
           "parent": null
         }
       ]
@@ -141,6 +147,7 @@
         "id": "demo",
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
         "type": "place",
+        "is_visible_default": true,
         "slug": "demo",
         "feature_types": ["Point"],
         "focus_rules": [

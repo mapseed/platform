@@ -283,8 +283,8 @@ class PlaceDetail extends Component {
     }
   }
 
-  onToggleTag({ tagId, isActive, comment }) {
-    if (isActive) {
+  onToggleTag({ tagId, isTagged, comment }) {
+    if (isTagged) {
       // Remove a placeTag from the Place model.
       this.props.model.set(
         "tags",

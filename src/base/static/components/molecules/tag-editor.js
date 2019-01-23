@@ -14,15 +14,19 @@ const TagContainer = styled("div")(props => ({
   display: "flex",
   alignItems: "center",
   marginBottom: "8px",
-  borderTop: props.isActive ? "1px solid #a8a8a8" : "1px dashed #aaa",
-  borderRight: props.isActive ? "1px solid #c8c8c8" : "1px dashed #aaa",
-  borderBottom: props.isActive ? "1px solid transparent" : "1px dashed #aaa",
-  borderLeft: props.isActive ? "1px solid #c8c8c8" : "1px dashed #aaa",
+  borderTop: props.isTagged ? "1px solid #a8a8a8" : "1px dashed #aaa",
+  borderRight: props.isTagged ? "1px solid #c8c8c8" : "1px dashed #aaa",
+  borderBottom: props.isTagged ? "1px solid transparent" : "1px dashed #aaa",
+  borderLeft: props.isTagged ? "1px solid #c8c8c8" : "1px dashed #aaa",
   borderRadius: "3px",
-  backgroundColor: props.isActive ? "#6495ed" : "transparent",
+  backgroundColor: props.isTagged
+    ? props.backgroundColor || "#6495ed"
+    : "transparent",
 
   "&:hover": {
     cursor: "pointer",
+    backgroundColor: props.backgroundColor || "#6495ed",
+    opacity: props.isTagged ? 1 : 0.3,
   },
 }));
 
@@ -61,25 +65,22 @@ class TagEditor extends Component {
   };
 
   render() {
-    const isActive = !!this.props.placeTag;
+    const isTagged = !!this.props.placeTag;
 
     return (
       <TagContainer
-        isActive={isActive}
+        isTagged={isTagged}
+        backgroundColor={this.props.backgroundColor}
         onClick={() => {
           this.props.onClick({
             tagId: this.props.tag.id,
-            isActive: isActive,
+            isTagged: isTagged,
             comment: this.state.comment,
           });
         }}
       >
-        <TagLabelSet
-          tag={this.props.tag}
-          isActive={isActive}
-          datasetSlug={this.props.datasetSlug}
-        />
-        {isActive && (
+        <TagLabelSet tagSet={this.props.tagSet} isTagged={isTagged} />
+        {isTagged && (
           <CommentBox
             value={this.state.comment}
             placeholder="(Add a comment...)"
@@ -122,6 +123,12 @@ TagEditor.propTypes = {
   onUpdateComment: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
+  tagSet: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      parent: PropTypes.number,
+    }),
+  ).isRequired,
 };
 
 export default translate("TagEditor")(TagEditor);

@@ -51,13 +51,11 @@ class Tag extends Component {
 
   render() {
     return (
-      <TagContainer isExpanded={this.state.isExpanded}>
-        <TagLabelSet
-          tag={this.props.placeTag}
-          color="#fff"
-          datasetSlug={this.props.datasetSlug}
-          isActive={true}
-        />
+      <TagContainer
+        backgroundColor={this.props.backgroundColor}
+        isExpanded={this.state.isExpanded}
+      >
+        <TagLabelSet tagSet={this.props.tagSet} isTagged={true} />
         {this.props.placeTag.comment && (
           <Fragment>
             <TagComment isExpanded={this.state.isExpanded}>
@@ -82,12 +80,19 @@ class Tag extends Component {
 }
 
 Tag.propTypes = {
+  backgroundColor: PropTypes.string,
   placeTag: PropTypes.shape({
     id: PropTypes.number.isRequired,
     comment: PropTypes.string,
   }).isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
+  tagSet: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      parent: PropTypes.number,
+    }),
+  ).isRequired,
 };
 
 export default translate("Tag")(Tag);
