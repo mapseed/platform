@@ -4,7 +4,7 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 
 import { SmallText } from "../atoms/typography";
-import TagLabelSet from "./tag-label-set";
+import TagNameSet from "./tag-name-set";
 
 const TagContainer = styled("div")(props => ({
   outline: "none",
@@ -55,7 +55,7 @@ class Tag extends Component {
         backgroundColor={this.props.backgroundColor}
         isExpanded={this.state.isExpanded}
       >
-        <TagLabelSet tagSet={this.props.tagSet} isTagged={true} />
+        <TagNameSet tagNames={this.props.tagNames} isTagged={true} />
         {this.props.placeTag.comment && (
           <Fragment>
             <TagComment isExpanded={this.state.isExpanded}>
@@ -87,12 +87,7 @@ Tag.propTypes = {
   }).isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  tagSet: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      parent: PropTypes.number,
-    }),
-  ).isRequired,
+  tagNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default translate("Tag")(Tag);

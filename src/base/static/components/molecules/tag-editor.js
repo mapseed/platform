@@ -4,7 +4,7 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 
 import { TextareaInput } from "../atoms/input";
-import TagLabelSet from "./tag-label-set";
+import TagNameSet from "./tag-name-set";
 
 const TagContainer = styled("div")(props => ({
   outline: "none",
@@ -79,7 +79,7 @@ class TagEditor extends Component {
           });
         }}
       >
-        <TagLabelSet tagSet={this.props.tagSet} isTagged={isTagged} />
+        <TagNameSet tagNames={this.props.tagNames} isTagged={isTagged} />
         {isTagged && (
           <CommentBox
             value={this.state.comment}
@@ -110,6 +110,7 @@ class TagEditor extends Component {
 }
 
 TagEditor.propTypes = {
+  backgroundColor: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   placeTag: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -123,12 +124,7 @@ TagEditor.propTypes = {
   onUpdateComment: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  tagSet: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      parent: PropTypes.number,
-    }),
-  ).isRequired,
+  tagNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default translate("TagEditor")(TagEditor);

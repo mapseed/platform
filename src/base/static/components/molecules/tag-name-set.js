@@ -27,16 +27,16 @@ const RestTagText = styled(SmallText)(props => ({
 
 const tagTextStyles = [PrimaryTagText, SecondaryTagText, RestTagText];
 
-const TagLabelSet = props => {
+const TagNameSet = props => {
   return (
     <Fragment>
-      {props.tagSet.map((tag, i) => {
+      {props.tagNames.map((tagName, i) => {
         i = i < tagTextStyles.length - 1 ? i : tagTextStyles.length - 1;
         const TagText = tagTextStyles[i];
 
         return (
-          <TagText isActive={props.isTagged} key={tag.id}>
-            {tag.name}
+          <TagText isActive={props.isTagged} key={i}>
+            {tagName}
           </TagText>
         );
       })}
@@ -44,16 +44,9 @@ const TagLabelSet = props => {
   );
 };
 
-TagLabelSet.propTypes = {
+TagNameSet.propTypes = {
   isTagged: PropTypes.bool.isRequired,
-  tagSet: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      isActive: PropTypes.bool.isRequired,
-      color: PropTypes.string,
-      comment: PropTypes.string,
-    }),
-  ),
+  tagNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default TagLabelSet;
+export default TagNameSet;
