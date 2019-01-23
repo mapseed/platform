@@ -13,27 +13,27 @@
           "id": 4,
           "name": "above costs",
           "color": "#dc3545",
-          "is_enabled": true,
+          "isEnabled": true,
           "parent": 2
         },
         {
           "id": 3,
           "name": "illegal",
           "color": "#dc3545",
-          "is_enabled": true,
+          "isEnabled": true,
           "parent": 2
         },
         {
           "id": 2,
           "name": "remove",
-          "is_enabled": false,
+          "isEnabled": false,
           "parent": null
         },
         {
           "id": 1,
           "name": "vetted",
           "color": "#28a745",
-          "is_enabled": true,
+          "isEnabled": true,
           "parent": null
         }
       ]

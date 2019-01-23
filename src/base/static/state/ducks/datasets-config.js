@@ -45,11 +45,12 @@ export const getAllTagNamesFromId = ({ state, datasetSlug, tagId }) => {
   return tagNames.reverse();
 };
 export const getAllTagsForDataset = (state, datasetSlug) =>
-  state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
-    .tags;
+  state.datasetsConfig
+    .find(datasetConfig => datasetConfig.slug === datasetSlug)
+    .tags.filter(tag => tag.isEnabled);
 export const getColorForTagId = ({ state, datasetSlug, tagId }) =>
-  state
-    .datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
+  state.datasetsConfig
+    .find(datasetConfig => datasetConfig.slug === datasetSlug)
     .tags.find(tag => tag.id === tagId).color;
 
 // Actions:
