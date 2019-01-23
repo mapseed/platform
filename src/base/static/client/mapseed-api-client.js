@@ -1,3 +1,14 @@
+const getDatasets = async datasetUrls => {
+  const datasets = [];
+  datasetUrls.forEach(url => {
+    fetch(url).then(async result => {
+      datasets.push(await result.json());
+    });
+  });
+
+  return datasets
+};
+
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
@@ -59,7 +70,7 @@ const getPlaceCollections = async ({
           }
         },
 
-        success: function(fetchedCollection, response, options) {
+        success: function(fetchedCollection) {
           resolve(fetchedCollection, collectionId);
         },
 
@@ -85,6 +96,7 @@ const getActivity = activityCollections => {
     activityCollection.fetch({
       success: successCallback,
       error: (collection, error) => {
+        // eslint-disable-next-line no-console
         console.error("Error fetching activity collection", error);
       },
     });
@@ -97,5 +109,8 @@ export default {
   },
   activity: {
     get: getActivity,
+  },
+  datasets: {
+    get: getDatasets,
   },
 };

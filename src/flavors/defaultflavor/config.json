@@ -7,35 +7,6 @@
           "abilities": ["retrieve"],
           "submission_set": "comments"
         }
-      ],
-      "tags": [
-        {
-          "id": 4,
-          "name": "above costs",
-          "color": "#dc3545",
-          "isEnabled": true,
-          "parent": 2
-        },
-        {
-          "id": 3,
-          "name": "illegal",
-          "color": "#dc3545",
-          "isEnabled": true,
-          "parent": 2
-        },
-        {
-          "id": 2,
-          "name": "remove",
-          "isEnabled": false,
-          "parent": null
-        },
-        {
-          "id": 1,
-          "name": "vetted",
-          "color": "#28a745",
-          "isEnabled": true,
-          "parent": null
-        }
       ]
     },
     {

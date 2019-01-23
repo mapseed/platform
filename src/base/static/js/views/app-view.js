@@ -68,6 +68,7 @@ import {
   hasAnonAbilityInAnyDataset,
   datasetSlugsSelector,
 } from "../../state/ducks/datasets-config";
+import { loadDatasets } from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
@@ -171,6 +172,8 @@ export default Backbone.View.extend({
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
+
+    this.fetchAndLoadDatasets();
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
@@ -360,6 +363,15 @@ export default Backbone.View.extend({
 
     // Show tools for adding data
     this.setBodyClass();
+  },
+
+  fetchAndLoadDatasets: async function() {
+    const datasetUrls = this.options.mapConfig.layers
+      .filter(layer => layer.type === "place")
+      .map(layer => layer.url);
+    const datasets = await mapseedApiClient.datasets.get(datasetUrls);
+
+    store.dispatch(loadDatasets(datasets));
   },
 
   fetchAndLoadPlaces: async function() {
