@@ -3,7 +3,7 @@ const getPlaceCollections = async ({
   placeCollections,
   layers,
   setLayerError,
-  includePrivate,
+  hasAdminAbilities,
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
@@ -16,6 +16,7 @@ const getPlaceCollections = async ({
   _.each(placeCollections, function(collection, collectionId) {
     const placeCollectionPromise = new Promise((resolve, reject) => {
       const layer = layers.find(layer => layer.id === collectionId);
+      const includePrivate = hasAdminAbilities(collectionId);
       // if we are fetching a dataset id to be used in the dashboard,
       // and the user has access to that dataset:
       collection.fetchAllPages({

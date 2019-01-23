@@ -380,10 +380,9 @@ export default Backbone.View.extend({
       placeCollections: this.places,
       layers: mapLayersSelector(store.getState()),
       setLayerError: layerId => store.dispatch(setLayerError(layerId)),
-      includePrivate: hasAdminAbilities(
-        store.getState(),
-        this.options.dashboardConfig && this.options.dashboardConfig.datasetId,
-      ),
+      hasAdminAbilities: datasetSlug => {
+        return hasAdminAbilities(store.getState(), datasetSlug);
+      },
     });
 
     const fetchedCollections = await placeCollectionsPromise;
