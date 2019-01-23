@@ -113,12 +113,12 @@ class PlaceDetail extends Component {
       {
         id: 4,
         comment:
-          "Way, way too expensive. There's no way we can spend this money on something like this!",
+          "This is a great idea, but will likely exceed the maximum budget for projects.",
       },
       {
         id: 3,
         comment:
-          "Totally illegal. This would break at least five laws in our city, so we can't do it.",
+          "This idea would violate the following city codes: A, B, C, E, G, H.",
       },
     ]);
 

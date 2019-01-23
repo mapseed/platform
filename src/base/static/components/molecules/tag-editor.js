@@ -31,16 +31,16 @@ const TagContainer = styled("div")(props => ({
 }));
 
 const CommentBox = styled(TextareaInput)(props => ({
+  outline: "none !important",
   padding: "0 8px 0 6px",
   overflow: props.isFocused ? "visible" : "hidden",
   height: props.isFocused ? "5rem" : "0.7rem",
   lineHeight: props.isFocused ? "1rem" : "0.8rem",
   background: "transparent",
-  textOverflow: props.isFocused ? "unset" : "ellipsis",
-  borderLeft: "1px solid #fff",
-  borderRight: "none",
-  borderTop: "none",
-  borderBottom: "none",
+  borderLeft: "1px solid #fff !important",
+  borderRight: "none !important",
+  borderTop: "none !important",
+  borderBottom: "none !important",
   color: "#fff",
   fontStyle: "italic",
   fontSize: "0.75rem",
