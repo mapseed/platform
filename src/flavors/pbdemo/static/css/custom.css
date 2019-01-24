@@ -1,0 +1,266 @@
+/* =Base Styles
+-------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+
+/* Typography */
+body,
+select,
+input,
+textarea {
+  font-family: "proxima-nova", Tahoma, Verdana, Segoe, sans-serif;
+}
+label {
+  font-size: 1em;
+  text-transform: none;
+  color: #555;
+}
+
+h1 {
+  font-family: "Josefin Sans", sans-serif;
+  color: #045a8b;
+}
+
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  color: #045a8b;
+}
+
+li.clearfix {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  color: #000000;
+}
+
+/* Buttons */
+.btn,
+.btn:visited,
+.btn:link {
+  background-color: #045a8b;
+  color: #fff;
+}
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
+  background-color: #045a8b;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #045a8b;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+  background-color: #116faf;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background-color: #045a8b;
+  color: #fff;
+}
+
+/* Forms */
+label {
+}
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select,
+textarea {
+  border: 0.25em solid #a695ab !important;
+}
+input:focus,
+textarea:focus {
+  border: 0.25em solid #302d43;
+  outline: 2px solid #302d43;
+}
+
+.help-text {
+  font-size: small;
+  opacity: 0.8;
+}
+
+.input-form-category-button__image-container--active {
+  background-color: rgba(166, 149, 171, 0.43) !important;
+}
+
+.input-form-category-button__label:hover {
+  border-color: rgba(166, 149, 171, 1) !important;
+}
+
+.input-form-category-button__label-text--active {
+  border-color: rgba(166, 149, 171, 1) !important;
+  background-color: rgba(166, 149, 171, 1) !important;
+}
+
+.big-checkbox-field__label--toggled,
+.big-toggle-field__label--toggled {
+  border-color: rgba(166, 149, 171, 1) !important;
+}
+
+.big-checkbox-field__label--toggled:before,
+.big-toggle-field__label--toggled:before {
+  background-color: rgba(166, 149, 171, 1) !important;
+}
+
+
+/* =Map
+-------------------------------------------------------------- */
+#map-container {
+  background: #ccc;
+}
+
+#map {
+  background: #ccc;
+}
+
+#centerpoint.newpin .overlay {
+  &:before {
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 800;
+    font-size: 1.1em;
+    content: "Drag the map";
+    background-image: url(/static/css/images/marker-arrow-overlay.png);
+    background-size: cover;
+    width: 139px;
+    height: 162px;
+    left: -58px;
+    top: -75px;
+    position: absolute;
+    text-transform: uppercase;
+    color: yellow;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+}
+
+/* =Custom pages
+-------------------------------------------------------------- */
+#about-img {
+  margin: 20px 0 20px 0;
+}
+
+#get-involved-img {
+  margin-bottom: 20px;
+}
+
+/* https://stackoverflow.com/questions/42858199/vimeo-full-width */
+#guidelines-video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* This percentage reflects the native aspect ratio (16:9) of the video embed */
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+#guidelines-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#about-submit-btn {
+  color: #fff !important;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: #302d43;
+  }
+}
+
+/* =Geocode Address Bar
+-------------------------------------------------------------- */
+#geocode-address-bar {
+  background-color: #c3b9c7;
+}
+
+.geocoding-field__do-geocode-icon:before {
+  color: #d6d5d9;
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+/* Mobile/tablet size */
+@media only screen and (max-width: 60em) {
+  #site-logo {
+    margin-top: 0.3em;
+  }
+
+  #auth-nav-container {
+    display: none;
+  }
+}
+
+/* Desktop size */
+@media only screen and (min-width: 60em) {
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 1em;
+  }
+  #site-logo {
+    height: 4em;
+    margin: 0 0 0 -0.5em;
+  }
+  .access {
+    font-size: 0.75em;
+  }
+  .access li {
+    margin: 0;
+  }
+  .access a,
+  .access a:visited,
+  .access a:active,
+  .access a:link {
+    background-color: #d6d5d9;
+    color: #58585b;
+    box-shadow: none;
+  }
+  .access a:hover {
+    background-color: #302d43;
+    color: #fff;
+  }
+  .list-toggle-nav {
+    font-size: 0.75em;
+    float: left;
+  }
+  a.list-toggle-btn:visited,
+  a.list-toggle-btn:active,
+  a.list-toggle-btn:link {
+    background-color: #d6d5d9;
+    color: #58585b;
+    text-shadow: none;
+    box-shadow: none;
+    border: 0;
+    padding-top: 10px;
+  }
+  a.list-toggle-btn:hover {
+    background-color: #302d43;
+    color: #fff;
+  }
+}
+
+.user-support {
+  background-color: #a3c7d9;
+}
+
+.user-support.disabled:hover,
+.user-support.disabled:hover label {
+  background-color: #045a8b;
+}
