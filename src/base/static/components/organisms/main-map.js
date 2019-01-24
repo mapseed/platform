@@ -13,7 +13,6 @@ import {
 } from "../../state/ducks/map-config";
 import {
   filteredPlacesSelector,
-  placesSelector,
   placesPropType,
 } from "../../state/ducks/places";
 import { filtersSelector, filtersPropType } from "../../state/ducks/filters";
