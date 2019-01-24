@@ -1,0 +1,1431 @@
+{
+  "datasets": [
+    {
+      "slug": "pbdurham",
+      "anonymous_permissions": [
+        {
+          "abilities": ["retrieve", "create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "_(Participatory Budgeting Durham)",
+    "name": "_(Participatory Budgeting Durham)",
+    "logo": "/static/css/images/pbdurham-logo-large.png",
+    "meta_description": "_(Participatory Budgeting for City of Durham)",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "time_zone": "America/New_York",
+    "theme": {
+      "bg": {
+        "default": "#d6d5d9",
+        "light": "#58585b"
+      },
+      "brand": {
+        "primary": "#045a8b",
+        "secondary": "#c3b9c7",
+        "accent": "#302d43"
+      },
+      "text": {
+        "secondary": "#fff",
+        "tertiary": "#58585b",
+        "navBarFontFamily": "proxima-nova, sans-serif",
+        "headerFontFamily": "Josefin Sans",
+        "bodyFontFamily": "proxima-nova"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#045a8b",
+        "addPlaceButtonHoverBackgroundColor": "#302d43"
+      }
+    },
+    "languages": [
+      {
+        "code": "en_US",
+        "label": "English"
+      },
+      {
+        "code": "es",
+        "label": "Español"
+      }
+    ]
+  },
+  "dashboard": {
+    "datasetId": "pbdurham",
+    "datasetOwner": "smartercleanup",
+    "datasetLabel": "idea",
+    "surveyMetrics": {
+      "categories": true,
+      "demographics": true
+    }
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geocoding_bar_enabled": true,
+    "geocoding_engine": "Mapbox",
+    "geocode_field_label": "_(Enter an address...)",
+    "geocode_hint": [-78.906412, 35.9954801],
+    "geocode_bounding_box": [-79.09479, 35.865179, -78.78392, 36.119792],
+    "options": {
+      "map": {
+        "center": {
+          "lat": 35.976899833978976,
+          "lng": -78.88370073534878
+        },
+        "zoom": 10.2,
+        "pitch": 30,
+        "minZoom": 1,
+        "maxZoom": 18
+      },
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      },
+      "drawing_enabled": false
+    },
+    "layers": [
+      {
+        "id": "osm",
+        "type": "raster-tile",
+        "is_visible_default": true,
+        "is_basemap": true,
+        "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png",
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+      },
+      {
+        "id": "satellite",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "durham-bike-trails",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/durham-bike-trails/{z}/{x}/{y}.pbf",
+        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bike-trails/style.json",
+        "source_layer": "durham-bike-trails"
+      },
+      {
+        "id": "durham-bus-routes",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/durham-bus-routes/{z}/{x}/{y}.pbf",
+        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-routes/style.json",
+        "source_layer": "durham-bus-routes"
+      },
+      {
+        "id": "durham-bus-stops",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/durham-bus-stops/{z}/{x}/{y}.pbf",
+        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-stops/style.json",
+        "source_layer": "durham-bus-stops"
+      },
+      {
+        "id": "durham-libraries",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/durham-libraries/{z}/{x}/{y}.pbf",
+        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-libraries/style.json",
+        "source_layer": "durham-libraries"
+      },
+      {
+        "id": "durham-schools",
+        "type": "vector-tile",
+        "url": "https://vector-tiles.mapseed.org/durham-schools/{z}/{x}/{y}.pbf",
+        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-schools/style.json",
+        "source_layer": "durham-schools"
+      },
+      {
+        "id": "durham-city-boundary",
+        "type": "json",
+        "is_visible_default": true,
+        "feature_types": ["Polygon"],
+        "source": "https://opendata.arcgis.com/datasets/ebc766f44138423ebe2edfe25ad9f133_0.geojson",
+        "rules": [
+          {
+            "fill-layout": {
+              "visibility": "none"
+            },
+            "outline-paint": {
+              "line-color": "#ffff66",
+              "line-opacity": 0.8,
+              "line-width": 3,
+              "line-offset": -1
+            },
+            "outline-layout": {
+              "line-join": "round",
+              "line-cap": "round"
+            }
+          }
+        ]
+      },
+      {
+        "id": "durham-council-wards",
+        "type": "json",
+        "is_visible_default": true,
+        "feature_types": ["Polygon", "Label"],
+        "source": "https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson",
+        "rules": [
+          {
+            "label-paint": {
+              "text-halo-color": "#ffff66",
+              "text-halo-width": 1
+            },
+            "label-layout": {
+              "text-padding": 50,
+              "text-field": ["get", "DisField"],
+              "text-size": 17,
+              "text-allow-overlap": false,
+              "text-offset": [0, 2]
+            },
+            "fill-paint": {
+              "fill-color": "#cccccc",
+              "fill-opacity": [
+                "interpolate",
+                ["linear", 1],
+                ["zoom"],
+                0,
+                0.3,
+                14,
+                0
+              ]
+            },
+            "outline-layout": {
+              "line-join": "round",
+              "line-cap": "round"
+            },
+            "outline-paint": {
+              "line-color": "#444",
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "durham-existing-trails",
+        "type": "json",
+        "feature_types": ["LineString"],
+        "source": "https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson",
+        "rules": [
+          {
+            "line-paint": {
+              "line-color": "#ed101b",
+              "line-width": 2,
+              "line-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "durham-proposed-trails",
+        "type": "json",
+        "feature_types": ["LineString"],
+        "source": "https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson",
+        "rules": [
+          {
+            "filter": ["==", ["get", "CityCounty"], "City"],
+            "line-paint": {
+              "line-color": "#ed101b",
+              "line-width": 2,
+              "line-opacity": 1,
+              "line-dasharray": [1, 2]
+            }
+          }
+        ]
+      },
+      {
+        "id": "durham-parks",
+        "type": "json",
+        "source": "https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson",
+        "rules": [
+          {
+            "fill-paint": {
+              "fill-color": "#7cd411",
+              "fill-opacity": 0.7
+            },
+            "outline-paint": {
+              "line-color": "#ffffff",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "pbdurham",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
+        "type": "place",
+        "feature_types": ["Point"],
+        "slug": "idea",
+        "is_visible_default": true,
+        "focus_rules": [
+          {
+            "symbol-layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "culture",
+                "fountain.png",
+                "safety",
+                "safety.png",
+                "parks",
+                "tree.png",
+                "health",
+                "health.png",
+                "streets",
+                "street-sidewalk.png",
+                "other",
+                "idea.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "culture"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-b75ab8.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "culture"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "fountain-small.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "culture"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "fountain.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "safety"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-fc9229.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "safety"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "safety-small.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "safety"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "safety.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "parks"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-55a504.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "parks"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "tree-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "parks"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "tree.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "health"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-ff78be.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "health"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "health-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "health"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "health.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "streets"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-8ea4b8.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "streets"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "street-sidewalk-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "streets"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "street-sidewalk.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "other"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-ffd614.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "other"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "idea-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "other"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "idea.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": true,
+    "component": "ActivityStreamWithLegend"
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Map Layers:)",
+        "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layers": [
+              {
+                "id": "osm",
+                "title": "_(Neighborhood Style)"
+              },
+              {
+                "id": "satellite",
+                "title": "_(Satellite View)"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "_(Community Data)",
+            "layers": [
+              {
+                "id": "pbdurham",
+                "title": "_(Your Ideas)"
+              }
+            ]
+          },
+          {
+            "id": "grp-city",
+            "title": "_(City Data)",
+            "layers": [
+              {
+                "id": "durham-bike-trails",
+                "title": "_(Bike Lanes)"
+              },
+              {
+                "id": "durham-bus-routes",
+                "title": "_(Bus Routes)"
+              },
+              {
+                "id": "durham-bus-stops",
+                "title": "_(Bus Stops)"
+              },
+              {
+                "id": "durham-libraries",
+                "title": "_(Libraries)"
+              },
+              {
+                "id": "durham-schools",
+                "title": "_(Schools)"
+              },
+              {
+                "id": "durham-council-wards",
+                "title": "_(City Council Wards)"
+              },
+              {
+                "id": "durham-city-boundary",
+                "title": "_(City Boundary)"
+              },
+              {
+                "id": "durham-existing-trails",
+                "title": "_(Existing Trails)"
+              },
+              {
+                "id": "durham-proposed-trails",
+                "title": "_(Proposed Trails)"
+              },
+              {
+                "id": "durham-parks",
+                "title": "_(Parks)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": true,
+    "interval": 30000,
+    "show_in_right_panel": true
+  },
+  "place": {
+    "add_button_label": "_(Submit New Project)",
+    "title": "_(Describe your idea)",
+    "action_text": "_(suggested)",
+    "help_text": "_(Ideas must be \"capital\" projects - building, installing, or repairing something for public benefit.)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Share my idea)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "culture",
+        "category": "culture",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "pbdurham",
+        "icon_url": "/static/css/images/markers/fountain.png",
+        "value": "culture",
+        "label": "_(Art & Culture)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Choose a descriptive title for your idea)",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
+            "display_prompt": "_(My project idea is:)",
+            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(Why is this important? What need in the community does this serve?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-home_address",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "parks",
+        "category": "parks",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "pbdurham",
+        "icon_url": "/static/css/images/markers/tree.png",
+        "value": "parks",
+        "label": "_(Parks & Recreation)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Choose a descriptive title for your idea)",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
+            "display_prompt": "_(My project idea is:)",
+            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(Why is this important? What need in the community does this serve?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-home_address",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "streets",
+        "category": "streets",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "pbdurham",
+        "icon_url": "/static/css/images/markers/street-sidewalk.png",
+        "value": "streets",
+        "label": "_(Streets & Sidewalks)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Choose a descriptive title for your idea)",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
+            "display_prompt": "_(My project idea is:)",
+            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(Why is this important? What need in the community does this serve?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-home_address",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "health",
+        "category": "health",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "pbdurham",
+        "icon_url": "/static/css/images/markers/health.png",
+        "value": "health",
+        "label": "_(Health & Wellness)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Choose a descriptive title for your idea)",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
+            "display_prompt": "_(My project idea is:)",
+            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(Why is this important? What need in the community does this serve?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-home_address",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "safety",
+        "category": "safety",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "pbdurham",
+        "icon_url": "/static/css/images/markers/safety.png",
+        "value": "safety",
+        "label": "_(Safety & Environment)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Choose a descriptive title for your idea)",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
+            "display_prompt": "_(My project idea is:)",
+            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(Why is this important? What need in the community does this serve?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-home_address",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "other",
+        "category": "other",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "pbdurham",
+        "icon_url": "/static/css/images/markers/idea.png",
+        "value": "other",
+        "label": "_(Other)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Choose a descriptive title for your idea)",
+            "optional": false
+          },
+          {
+            "name": "idea-what",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(What is your idea for what should be built or repaired in our neighborhood?)",
+            "display_prompt": "_(My project idea is:)",
+            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "optional": true
+          },
+          {
+            "name": "idea-why",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "_(Why is this important? What need in the community does this serve?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-age",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-ethnicity",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-home_address",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-phone",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-volunteer",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "optional": true
+      },
+      "private-age": {
+        "autocomplete": false,
+        "type": "text",
+        "prompt": "_(Your age:)",
+        "display_prompt": "_( )",
+        "placeholder": "_(Your age will not appear on the map)",
+        "optional": true
+      },
+      "private-ethnicity": {
+        "autocomplete": false,
+        "type": "big_checkbox",
+        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
+        "display_prompt": "_(Ethnicity:)",
+        "content": [
+          {
+            "label": "_(American Indian/Alaskan Native)",
+            "value": "indian-alaskan"
+          },
+          {
+            "label": "_(Asian)",
+            "value": "asian"
+          },
+          {
+            "label": "_(Black or African American)",
+            "value": "black"
+          },
+          {
+            "label": "_(Hispanic or Latinx)",
+            "value": "hispanic"
+          },
+          {
+            "label": "_(Native Hawaiian or Pacific Islander)",
+            "value": "hawaiian-pacific"
+          },
+          {
+            "label": "_(White)",
+            "value": "white"
+          },
+          {
+            "label": "_(Other)",
+            "value": "other-ethnicity"
+          }
+        ],
+        "optional": true
+      },
+      "private-home_address": {
+        "autocomplete": false,
+        "type": "text",
+        "prompt": "_(Your home address:)",
+        "placeholder": "_(Your home address will not appear on the map)",
+        "optional": true
+      },
+      "submitter_name": {
+        "autocomplete": false,
+        "type": "text",
+        "prompt": "_(Your name:)",
+        "placeholder": "_(Name)",
+        "optional": false
+      },
+      "private-submitter_email": {
+        "autocomplete": false,
+        "type": "text",
+        "prompt": "_(Your Email:)",
+        "placeholder": "_(Your email will not appear on the map)",
+        "optional": false
+      },
+      "private-phone": {
+        "autocomplete": false,
+        "type": "text",
+        "prompt": "_(Your phone number:)",
+        "display_prompt": "_( )",
+        "placeholder": "_(Your phone number will not appear on the map)",
+        "optional": true
+      },
+      "private-volunteer": {
+        "type": "big_toggle",
+        "prompt": "_(I'd like to volunteer as a Budget Delegate)",
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          }
+        ],
+        "optional": true,
+        "attribution": "_(Budget Delegates will meet 6 - 8 times from December through June​ to evaluate project ideas, work with city staff to research the projects and will receive training and support to develop proposals for the ballot.)"
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(Put it on the map!)"
+      }
+    }
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "adding_enabled": false,
+      "show_responses": true,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "culture",
+        "datasetId": "pbdurham",
+        "label": "_(Art & Culture)",
+        "icon": "/static/css/images/markers/fountain.png"
+      },
+      {
+        "id": "parks",
+        "datasetId": "pbdurham",
+        "label": "_(Parks & Recreation)",
+        "icon": "/static/css/images/markers/tree.png"
+      },
+      {
+        "id": "streets",
+        "datasetId": "pbdurham",
+        "label": "_(Streets & Sidewalks)",
+        "icon": "/static/css/images/markers/street-sidewalk.png"
+      },
+      {
+        "id": "health",
+        "datasetId": "pbdurham",
+        "label": "_(Health & Wellness)",
+        "icon": "/static/css/images/markers/health.png"
+      },
+      {
+        "id": "safety",
+        "datasetId": "pbdurham",
+        "label": "_(Safety & Environment)",
+        "icon": "/static/css/images/markers/safety.png"
+      },
+      {
+        "id": "other",
+        "datasetId": "pbdurham",
+        "label": "_(Other)",
+        "icon": "/static/css/images/markers/idea.png"
+      }
+    ],
+    "fields": [
+      {
+        "id": "private-ethnicity",
+        "autocomplete": false,
+        "type": "big_checkbox",
+        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
+        "display_prompt": "_(Ethnicity:)",
+        "label": "_(Ethnicity:)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(American Indian/Alaskan Native)",
+            "value": "indian-alaskan"
+          },
+          {
+            "label": "_(Asian)",
+            "value": "asian"
+          },
+          {
+            "label": "_(Black or African American)",
+            "value": "black"
+          },
+          {
+            "label": "_(Hispanic or Latinx)",
+            "value": "hispanic"
+          },
+          {
+            "label": "_(Native Hawaiian or Pacific Islander)",
+            "value": "hawaiian-pacific"
+          },
+          {
+            "label": "_(White)",
+            "value": "white"
+          },
+          {
+            "label": "_(Other)",
+            "value": "other-ethnicity"
+          }
+        ]
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "adding_enabled": false,
+    "submit_btn_text": "_(Support This!)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "_(supported)",
+    "anonymous_name": "_(Someone)"
+  },
+  "nav_bar": [
+    {
+      "title": "_(About)",
+      "type": "internal_link",
+      "url": "/page/about",
+      "start_page": true
+    },
+    {
+      "title": "_(Guidelines)",
+      "type": "internal_link",
+      "url": "/page/guidelines"
+    },
+    {
+      "title": "_(Get Involved)",
+      "type": "internal_link",
+      "url": "/page/get-involved"
+    },
+    {
+      "type": "list_toggle",
+      "show_list_button_label": "_(Show as a list)",
+      "show_map_button_label": "_(Show on a map)"
+    },
+    {
+      "title": "_(Filter Ideas)",
+      "enabled_label": "_(Filters Enabled)",
+      "type": "filter"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "get-involved",
+      "lang": "en_US",
+      "content": [
+        "<h1>Get Involved</h1>",
+        "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
+        "<p>Already submitted an idea? There are many more ways to get involved in participatory budgeting:</p>",
+        "<p><strong>Become a Budget Delegate</strong></p>",
+        "<p>Volunteers will be recruited to serve as Budget Delegates. During the Proposal Development phase of the process, these volunteer Budget Delegates will work the community and staff of relevant city of Durham departments to develop ideas into budget proposals. They will receive training and support from Durham PB Implementation Staff to do so.  In addition to supporting the Budget Delegates, Durham PB Implementation staff will also serve to facilitate communication so that projects can be developed in a timely manner.</p>",
+        "<p><strong>Attend a Neighborhood Assembly</strong></p>",
+        "<p>Each ward will have a neighborhood assembly and other, informal idea collection events, to encourage widespread participation. Visit <a href='http://www.pbdurham.org' target='_blank'>www.pbdurham.org</a> for upcoming assembly dates, times, and locations.</p>",
+        "<p><strong>Connect with Us</strong></p>",
+        "<a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>",
+        "<img src='/static/css/images/facebook-32.png' alt='Facebook icon' />",
+        "</a>",
+        "<a href='https://twitter.com/PBDurhamNC' target='_blank'>",
+        "<img src='/static/css/images/twitter-32.png' alt='Twitter icon' />",
+        "</a>",
+        "<p>Find us on <a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>Facebook</a> and follow us on <a href='https://twitter.com/PBDurhamNC' target='_blank'>Twitter!</a></p>",
+        "<p><strong>Contact Us</strong></p>",
+        "<p><strong>Have a Question?</strong></p>",
+        "<p>Please contact Robin Baker, Budget Engagement Coordinator for Participatory Budgeting Durham, by email at pbdurham@durhamnc.gov or phone at 984-227-3395.</p>"
+      ]
+    },
+    {
+      "slug": "get-involved",
+      "lang": "es",
+      "content": [
+        "<h1>Involucrarse</h1>",
+        "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
+        "<p>¿Ya has enviado una idea? Hay muchas más formas de involucrarse en el presupuesto participativo:</p>",
+        "<p><strong>Conviértete en un delegado de presupuesto</strong></p>",
+        "<p>Los voluntarios serán reclutados para servir como los Delegados del Presupuesto. Durante el desarrollo de propuestas, estos Delegados del Presupuesto trabajarán con la comunidad y los empleados de la Ciudad de Durham para desarrollar ideas en propuestas presupuestarias. Recibirán formación y apoyo del Personal de implementación. El personal de implementación también facilitarán la comunicación para que los proyectos pueden ser desarrollado en manera oportuna.</p>",
+        "<p><strong>Asista a una asamblea de barrio</strong></p>",
+        "<p>Cada barrio tendrá una asamblea de barrio y otros eventos informales de recopilación de ideas para fomentar la participación generalizada. <a href='http://www.pbdurham.org' target='_blank'>Aún se está desarrollando la página web</a> para las próximas fechas, horarios y ubicaciones de la asamblea.</p>",
+        "<p><strong>Conéctate con nosotros</strong></p>",
+        "<a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>",
+        "<img src='/static/css/images/facebook-32.png' alt='Facebook icon' />",
+        "</a>",
+        "<a href='https://twitter.com/PBDurhamNC' target='_blank'>",
+        "<img src='/static/css/images/twitter-32.png' alt='Twitter icon' />",
+        "</a>",
+        "<p>¡Encuéntrenos en <a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>Facebook</a> y síganos en <a href='https://twitter.com/PBDurhamNC' target='_blank'>Twitter!</a></p>",
+        "<p><strong>Comunícate con nosotros</strong></p>",
+        "<p><strong>¿Tengo una pregunta?</strong></p>",
+        "<p>Comuníquese con Robin Baker, Coordinador de participación en el presupuesto para el presupuesto participativo de Durham, por correo electrónico a pbdurham@durhamnc.gov o llame al 984-227-3395.</p>"
+      ]
+    },
+    {
+      "slug": "guidelines",
+      "lang": "en_US",
+      "content": [
+        "<div class='clearfix'>",
+        "<h1>Project Idea Guidelines</h1>",
+        "<div id='guidelines-video-container'>",
+        "<iframe id='guidelines-video' src='https://player.vimeo.com/video/162743651?color=ff9933&byline=0' width='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
+        "</div>",
+        "<p>Residents and students of Durham age 13 and older can generate initial project ideas at idea collection assemblies, \"pop-up\" events, and online at <a href='https://www.pbdurham.org' target='_blank'>pbdurham.org</a>.</p>",
+        "<p>Idea Collection is open from November 1st - December 21st.</p>",
+        "<p>To review all guidelines for the process please read the PB Rulebook (link to come).</p>",
+        "</div>"
+      ]
+    },
+    {
+      "slug": "guidelines",
+      "lang": "es",
+      "content": [
+        "<div class='clearfix'>",
+        "<h1>Pautas para las idea de proyecto</h1>",
+        "<div id='guidelines-video-container'>",
+        "<iframe id='guidelines-video' src='https://player.vimeo.com/video/162743651?color=ff9933&byline=0' width='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
+        "</div>",
+        "<p>Los residentes y los estudiantes de Durham de 13 años y mayores pueden generar ideas de proyectos iniciales en asambleas de colección de ideas, eventos emergentes y en línea a <a href='https://www.pbdurham.org' target='_blank'>pbdurham.org</a>.</p>",
+        "<p>Colección de ideas está abierta el 1 de noviembre hasta el 21 de diciembre.</p>",
+        "<p>Para repasar todos las directrices para el proceso, por favor lean el libro de reglas de PB (haz clic aquí).</p>",
+        "</div>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h3>Durham Participatory Budgeting:</h3>",
+        "<h4>Put your money where your ideas are!</h4>",
+        "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
+        "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
+        "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
+        "<p>\"One-time projects\" are projects with one-time expenditures that address a community need. Projects can be built on City, Durham Housing Authority, and private land, upon donation. \"One-time projects\" may include physical infrastructure, technological improvements, and community enhancements. Examples of \"one-time projects\" include park improvements, computers for a community center, bus shelters, and bike-lanes. \"One-time projects\" may have some sort of associated operating cost. However, they do not require the City to hire additional staff.</p>",
+        "<p>For more information on participatory budgeting in Durham, <a href='https://www.pbdurham.org' target='_blank'>Click here!</a></p>",
+        "<p>For information on the nationwide movement for PB, visit the website of the <a href='http://www.participatorybudgeting.org/' target='_blank'>Participatory Budgeting Project.</a></p>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "es",
+      "content": [
+        "<h3>Presupuesto participativo de Durham:</h3>",
+        "<h4>¡Pon tu dinero donde están tus ideas!</h4>",
+        "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
+        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Envíe su idea</a>",
+        "<p>El presupuesto participativo de Durham es un proceso democrático en el que los miembros de la comunidad de los tres distritos municipales deciden directamente cómo gastar $ 2.4 millones ($ 800,000 por distrito).</p>",
+        "<p>De Noviembre del 2018 a Marzo del 2019, los delegados voluntarios del presupuesto trabajarán para desarrollar estas ideas iniciales en propuestas de proyectos completos. Los residentes de Durham podrán votar en Mayo del 2019 para determinar los proyectos ganadores.</p>",
+        "<p>Proyectos de una sola vez son proyectos con gastos de una sola vez que abordan una necesidad comunitaria. Los proyectos pueden ser construido en tierra de la ciudad, La Autoridad de Vivienda de Durham (Durham Housing Authority) y tierra privada al recibir donaciones. Proyectos de una sola vez pueden incluir infraestructura física, mejoras tecnológicas y mejoras comunitarias. Ejemplos de proyectos de una sola vez incluyen mejoras del parque, las computadoras para un centro comunitario, refugios para autobuses y carriles para bicicletas. Proyectos de una sola vez pueden tener algún costo de operación asociado. Sin embargo, no requieren que la ciudad contratara personal adicional.</p>",
+        "<p>Para obtener más información sobre el presupuesto participativo en Durham, <a href='https://www.pbdurham.org' target='_blank'>¡haga clic aquí!</a></p>",
+        "<p>Para obtener información sobre el movimiento nacional de PB, visite el sitio web del <a href='http://www.participatorybudgeting.org/' target='_blank'>Proyecto de Presupuesto Participativo.</a></p>"
+      ]
+    }
+  ],
+  "notifications": {
+    "on_new_place": false,
+    "submitter_email_field": "private-email"
+  }
+}
