@@ -378,7 +378,7 @@ export default Backbone.View.extend({
     const placeParams = {
       // NOTE: this is to include comments/supports while fetching our place models
       include_submissions: true,
-      include_tags: true
+      include_tags: true,
     };
 
     // Use the page size as dictated by the server by default, unless
