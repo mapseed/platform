@@ -40,9 +40,12 @@ class MapDrawingToolbar extends Component {
   componentDidMount() {
     this.props.resetDrawingToolbarState();
     this.props.setMarkers(this.props.markers);
-    emitter.addListener(constants.DRAW_UPDATE_GEOMETRY_EVENT, geometry => {
-      this.props.onChange(this.props.name, geometry);
-    });
+    this.drawUpdateListener = emitter.addListener(
+      constants.DRAW_UPDATE_GEOMETRY_EVENT,
+      geometry => {
+        this.props.onChange(this.props.name, geometry);
+      },
+    );
 
     if (this.props.existingGeometry) {
       emitter.emit(
@@ -78,6 +81,10 @@ class MapDrawingToolbar extends Component {
         modelId: this.props.existingModelId,
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.drawUpdateListener.remove();
   }
 
   render() {
