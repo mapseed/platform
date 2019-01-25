@@ -154,6 +154,12 @@ class InputForm extends Component {
         field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
       ) >= 0;
     this.attachments = [];
+    if (this.isWithCustomGeometry) {
+      this.props.hideSpotlightMask();
+      this.props.hideNewPin();
+    } else {
+      this.props.showNewPin();
+    }
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -398,13 +404,6 @@ class InputForm extends Component {
   }
 
   render() {
-    if (this.isWithCustomGeometry) {
-      this.props.hideSpotlightMask();
-      this.props.hideNewPin();
-    } else if (!this.props.selectedCategory) {
-      this.props.showNewPin();
-    }
-
     const cn = {
       form: classNames("input-form__form", this.props.className, {
         "input-form__form--inactive": this.state.isFormSubmitting,
