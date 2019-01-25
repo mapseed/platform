@@ -6,7 +6,31 @@ const getDatasets = async datasetUrls => {
     });
   });
 
-  return datasets
+  return datasets;
+};
+
+const status = response => {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+};
+
+const json = response => response.json();
+
+const updatePlaceTag = ({ placeTag, newData, onSuccess, onFailure }) => {
+  fetch(placeTag.url, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "PATCH",
+    body: JSON.stringify(newData),
+  })
+    .then(status)
+    .then(json)
+    .then(data => onSuccess(data))
+    .catch(error => onFailure(error));
 };
 
 const getPlaceCollections = async ({
@@ -112,5 +136,8 @@ export default {
   },
   datasets: {
     get: getDatasets,
+  },
+  placeTags: {
+    update: updatePlaceTag,
   },
 };

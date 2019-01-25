@@ -294,15 +294,11 @@ class PlaceDetail extends Component {
     });
   }
 
-  onUpdateComment(tagId, comment) {
+  onUpdateComment(tagData) {
     this.props.model.set(
       "tags",
       this.props.model.get("tags").map(tag => {
-        if (tag.id === tagId) {
-          tag.comment = comment;
-        }
-
-        return tag;
+        return tagData.id === tag.id ? tagData : tag;
       }),
     );
 

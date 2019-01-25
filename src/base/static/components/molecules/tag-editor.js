@@ -6,6 +6,8 @@ import { translate } from "react-i18next";
 import { TextareaInput } from "../atoms/input";
 import TagNameSet from "./tag-name-set";
 
+import mapseedApiClient from "../../client/mapseed-api-client";
+
 const TagContainer = styled("div")(props => ({
   outline: "none",
   boxSizing: "border-box",
@@ -61,7 +63,7 @@ const CommentBox = styled(TextareaInput)(props => ({
 class TagEditor extends Component {
   state = {
     isFocused: false,
-    comment: this.props.placeTag && this.props.placeTag.note,
+    note: this.props.placeTag && this.props.placeTag.note,
   };
 
   render() {
@@ -75,19 +77,29 @@ class TagEditor extends Component {
           this.props.onClick({
             tagId: this.props.tag.id,
             isTagged: isTagged,
-            comment: this.state.comment,
+            note: this.state.note,
           });
         }}
       >
         <TagNameSet tagNames={this.props.tagNames} isTagged={isTagged} />
         {isTagged && (
           <CommentBox
-            value={this.state.comment}
+            value={this.state.note}
             placeholder="(Add a comment...)"
             isFocused={this.state.isFocused}
             onBlur={() => {
               // Save the comment text on blur.
-              this.props.onUpdateComment(this.props.tag.id, this.state.comment);
+              mapseedApiClient.placeTags.update({
+                placeTag: this.props.placeTag,
+                newData: {
+                  note: this.state.note,
+                },
+                onSuccess: tagData => this.props.onUpdateComment(tagData),
+                onFailure: () => {
+                  // eslint-disable-next-line no-console
+                  console.log("Error: Tag note did note save.");
+                },
+              });
               this.setState({ isFocused: false });
             }}
             onFocus={() => {
@@ -99,7 +111,7 @@ class TagEditor extends Component {
             onChange={evt => {
               evt.preventDefault();
               this.setState({
-                comment: evt.target.value,
+                note: evt.target.value,
               });
             }}
           />
@@ -113,6 +125,7 @@ TagEditor.propTypes = {
   backgroundColor: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   placeTag: PropTypes.shape({
+    url: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     note: PropTypes.string,
   }),
