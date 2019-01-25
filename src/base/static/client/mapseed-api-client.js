@@ -19,6 +19,20 @@ const status = response => {
 
 const json = response => response.json();
 
+const createPlaceTag = ({ placeUrl, tagData, onSuccess, onFailure }) => {
+  fetch(`${placeUrl}/tags`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(tagData),
+  })
+    .then(status)
+    .then(json)
+    .then(data => onSuccess(data))
+    .catch(error => onFailure(error));
+};
+
 const updatePlaceTag = ({ placeTag, newData, onSuccess, onFailure }) => {
   fetch(placeTag.url, {
     headers: {
@@ -30,6 +44,18 @@ const updatePlaceTag = ({ placeTag, newData, onSuccess, onFailure }) => {
     .then(status)
     .then(json)
     .then(data => onSuccess(data))
+    .catch(error => onFailure(error));
+};
+
+const deletePlaceTag = ({ url, onSuccess, onFailure }) => {
+  fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+  })
+    .then(status)
+    .then(() => onSuccess())
     .catch(error => onFailure(error));
 };
 
@@ -138,6 +164,8 @@ export default {
     get: getDatasets,
   },
   placeTags: {
+    create: createPlaceTag,
     update: updatePlaceTag,
+    delete: deletePlaceTag,
   },
 };

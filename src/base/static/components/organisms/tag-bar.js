@@ -28,8 +28,9 @@ const TagBar = props => {
               <TagEditor
                 key={tag.id}
                 datasetSlug={props.datasetSlug}
-                onClick={props.onToggleTag}
                 onUpdateComment={props.onUpdateComment}
+                onDeletePlaceTag={props.onDeletePlaceTag}
+                onCreatePlaceTag={props.onCreatePlaceTag}
                 backgroundColor={tag.color}
                 tagNames={props.getAllTagNamesFromTagId(
                   props.datasetSlug,
@@ -39,6 +40,7 @@ const TagBar = props => {
                 placeTag={props.placeTags.find(
                   placeTag => placeTag.tag === tag.url,
                 )}
+                placeUrl={props.placeUrl}
               />
             );
           })
@@ -70,7 +72,8 @@ TagBar.propTypes = {
   getColorForTag: PropTypes.func.isRequired,
   getTagFromUrl: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
-  onToggleTag: PropTypes.func.isRequired,
+  onDeletePlaceTag: PropTypes.func.isRequired,
+  onCreatePlaceTag: PropTypes.func.isRequired,
   onUpdateComment: PropTypes.func.isRequired,
   placeTags: PropTypes.arrayOf(
     PropTypes.shape({
@@ -78,6 +81,7 @@ TagBar.propTypes = {
       comment: PropTypes.string,
     }),
   ),
+  placeUrl: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({

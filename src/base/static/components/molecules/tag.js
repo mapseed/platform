@@ -83,7 +83,7 @@ Tag.propTypes = {
   backgroundColor: PropTypes.string,
   placeTag: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    comment: PropTypes.string,
+    note: PropTypes.string,
   }).isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,

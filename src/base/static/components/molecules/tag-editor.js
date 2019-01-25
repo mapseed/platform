@@ -63,7 +63,7 @@ const CommentBox = styled(TextareaInput)(props => ({
 class TagEditor extends Component {
   state = {
     isFocused: false,
-    note: this.props.placeTag && this.props.placeTag.note,
+    note: this.props.placeTag ? this.props.placeTag.note : "",
   };
 
   render() {
@@ -74,11 +74,32 @@ class TagEditor extends Component {
         isTagged={isTagged}
         backgroundColor={this.props.backgroundColor}
         onClick={() => {
-          this.props.onClick({
-            tagId: this.props.tag.id,
-            isTagged: isTagged,
-            note: this.state.note,
-          });
+          // Toggle the placeTag.
+          if (isTagged) {
+            mapseedApiClient.placeTags.delete({
+              url: this.props.placeTag.url,
+              onSuccess: () =>
+                this.props.onDeletePlaceTag(this.props.placeTag.id),
+              onFailure: err => {
+                // eslint-disable-next-line no-console
+                console.log("Error: Failed to delete tag.", err);
+              },
+            });
+          } else {
+            mapseedApiClient.placeTags.create({
+              placeUrl: this.props.placeUrl,
+              tagData: {
+                note: this.state.note,
+                place: this.props.placeUrl,
+                tag: this.props.tag.url,
+              },
+              onSuccess: tagData => this.props.onCreatePlaceTag(tagData),
+              onFailure: err => {
+                // eslint-disable-next-line no-console
+                console.log("Error: Failed to create tag.", err);
+              },
+            });
+          }
         }}
       >
         <TagNameSet tagNames={this.props.tagNames} isTagged={isTagged} />
@@ -95,9 +116,9 @@ class TagEditor extends Component {
                   note: this.state.note,
                 },
                 onSuccess: tagData => this.props.onUpdateComment(tagData),
-                onFailure: () => {
+                onFailure: err => {
                   // eslint-disable-next-line no-console
-                  console.log("Error: Tag note did note save.");
+                  console.log("Error: Tag note did note save.", err);
                 },
               });
               this.setState({ isFocused: false });
@@ -123,17 +144,20 @@ class TagEditor extends Component {
 
 TagEditor.propTypes = {
   backgroundColor: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
   placeTag: PropTypes.shape({
     url: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     note: PropTypes.string,
   }),
+  placeUrl: PropTypes.string.isRequired,
   tag: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     parent: PropTypes.number,
+    url: PropTypes.string.isRequired,
   }).isRequired,
+  onCreatePlaceTag: PropTypes.func.isRequired,
+  onDeletePlaceTag: PropTypes.func.isRequired,
   onUpdateComment: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,

@@ -269,25 +269,22 @@ class PlaceDetail extends Component {
     }
   }
 
-  onToggleTag({ tagId, isTagged, comment }) {
-    if (isTagged) {
-      // Remove a placeTag from the Place model.
-      this.props.model.set(
-        "tags",
-        this.props.model.get("tags").filter(tag => tag.id !== tagId),
-      );
-    } else {
-      // Add a new placeTag to the Place model.
-      this.props.model.set(
-        "tags",
-        this.props.model.get("tags").concat([
-          {
-            id: tagId,
-            comment: comment,
-          },
-        ]),
-      );
-    }
+  onCreatePlaceTag(tagData) {
+    this.props.model.set(
+      "tags",
+      this.props.model.get("tags").concat([tagData]),
+    );
+
+    this.setState({
+      placeModel: fromJS(this.props.model.attributes),
+    });
+  }
+
+  onDeletePlaceTag(placeTagId) {
+    this.props.model.set(
+      "tags",
+      this.props.model.get("tags").filter(tag => tag.id !== placeTagId),
+    );
 
     this.setState({
       placeModel: fromJS(this.props.model.attributes),
@@ -399,9 +396,11 @@ class PlaceDetail extends Component {
         <TagBar
           isEditModeToggled={this.props.isEditModeToggled}
           placeTags={this.state.placeModel.get("tags").toJS()}
-          onToggleTag={this.onToggleTag.bind(this)}
+          onDeletePlaceTag={this.onDeletePlaceTag.bind(this)}
+          onCreatePlaceTag={this.onCreatePlaceTag.bind(this)}
           onUpdateComment={this.onUpdateComment.bind(this)}
           datasetSlug={this.props.collectionId}
+          placeUrl={this.state.placeModel.get("url")}
         />
         <h1
           className={classNames("place-detail-view__header", {
