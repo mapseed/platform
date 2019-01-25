@@ -7,7 +7,7 @@ import { RegularText, SmallText } from "../atoms/typography";
 const PrimaryTagText = styled(RegularText)(props => ({
   whiteSpace: "nowrap",
   textTransform: "uppercase",
-  color: props.isActive ? "#fff" : "#ccc",
+  color: props.isTagged ? "#fff" : "#ccc",
   fontWeight: 800,
   marginRight: "8px",
 }));
@@ -20,7 +20,7 @@ const SecondaryTagText = styled(RegularText)(props => ({
 
 const RestTagText = styled(SmallText)(props => ({
   whiteSpace: "nowrap",
-  color: props.isEnabled ? "#fff" : "#ccc",
+  color: props.isTagged ? "#fff" : "#ccc",
   fontStyle: "italic",
   marginRight: "8px",
 }));
@@ -35,7 +35,7 @@ const TagNameSet = props => {
         const TagText = tagTextStyles[i];
 
         return (
-          <TagText isActive={props.isTagged} key={i}>
+          <TagText isTagged={props.isTagged} key={i}>
             {tagName}
           </TagText>
         );

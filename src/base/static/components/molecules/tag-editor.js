@@ -61,7 +61,7 @@ const CommentBox = styled(TextareaInput)(props => ({
 class TagEditor extends Component {
   state = {
     isFocused: false,
-    comment: this.props.placeTag && this.props.placeTag.comment,
+    comment: this.props.placeTag && this.props.placeTag.note,
   };
 
   render() {
@@ -114,7 +114,7 @@ TagEditor.propTypes = {
   onClick: PropTypes.func.isRequired,
   placeTag: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    comment: PropTypes.string,
+    note: PropTypes.string,
   }),
   tag: PropTypes.shape({
     id: PropTypes.number.isRequired,

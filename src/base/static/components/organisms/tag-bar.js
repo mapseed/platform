@@ -8,9 +8,10 @@ import TagEditor from "../molecules/tag-editor";
 
 import {
   getAllTagsForDataset,
-  getAllTagNamesFromId,
-  getColorForTagId,
-} from "../../state/ducks/datasets-config";
+  getAllTagNamesFromTagId,
+  getColorForTag,
+  getTagFromUrl,
+} from "../../state/ducks/datasets";
 
 const TagBarContainer = styled("div")({
   borderBottom: "2px solid #ddd",
@@ -30,10 +31,13 @@ const TagBar = props => {
                 onClick={props.onToggleTag}
                 onUpdateComment={props.onUpdateComment}
                 backgroundColor={tag.color}
-                tagNames={props.getAllTagNamesFromId(props.datasetSlug, tag.id)}
+                tagNames={props.getAllTagNamesFromTagId(
+                  props.datasetSlug,
+                  tag.id,
+                )}
                 tag={tag}
                 placeTag={props.placeTags.find(
-                  placeTag => placeTag.id === tag.id,
+                  placeTag => placeTag.tag === tag.url,
                 )}
               />
             );
@@ -43,14 +47,14 @@ const TagBar = props => {
               <Tag
                 key={placeTag.id}
                 datasetSlug={props.datasetSlug}
-                backgroundColor={props.getColorForTagId(
+                backgroundColor={props.getColorForTag(
                   props.datasetSlug,
-                  placeTag.id,
+                  placeTag.tag,
                 )}
                 placeTag={placeTag}
-                tagNames={props.getAllTagNamesFromId(
+                tagNames={props.getAllTagNamesFromTagId(
                   props.datasetSlug,
-                  placeTag.id,
+                  props.getTagFromUrl(props.datasetSlug, placeTag.tag).id,
                 )}
               />
             );
@@ -62,8 +66,9 @@ const TagBar = props => {
 TagBar.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
   getAllTagsForDataset: PropTypes.func.isRequired,
-  getAllTagNamesFromId: PropTypes.func.isRequired,
-  getColorForTagId: PropTypes.func.isRequired,
+  getAllTagNamesFromTagId: PropTypes.func.isRequired,
+  getColorForTag: PropTypes.func.isRequired,
+  getTagFromUrl: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   onToggleTag: PropTypes.func.isRequired,
   onUpdateComment: PropTypes.func.isRequired,
@@ -76,11 +81,13 @@ TagBar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  getAllTagNamesFromId: (datasetSlug, tagId) =>
-    getAllTagNamesFromId({ state, datasetSlug, tagId }),
+  getAllTagNamesFromTagId: (datasetSlug, tagId) =>
+    getAllTagNamesFromTagId({ state, datasetSlug, tagId }),
   getAllTagsForDataset: datasetSlug => getAllTagsForDataset(state, datasetSlug),
-  getColorForTagId: (datasetSlug, tagId) =>
-    getColorForTagId({ state, datasetSlug, tagId }),
+  getColorForTag: (datasetSlug, tagUrl) =>
+    getColorForTag({ state, datasetSlug, tagUrl }),
+  getTagFromUrl: (datasetSlug, tagUrl) =>
+    getTagFromUrl({ state, datasetSlug, tagUrl }),
 });
 
 export default connect(mapStateToProps)(TagBar);

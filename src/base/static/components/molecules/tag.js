@@ -56,10 +56,10 @@ class Tag extends Component {
         isExpanded={this.state.isExpanded}
       >
         <TagNameSet tagNames={this.props.tagNames} isTagged={true} />
-        {this.props.placeTag.comment && (
+        {this.props.placeTag.note && (
           <Fragment>
             <TagComment isExpanded={this.state.isExpanded}>
-              {this.props.placeTag.comment}
+              {this.props.placeTag.note}
             </TagComment>
             <ExpandCollapseButton
               onClick={() =>

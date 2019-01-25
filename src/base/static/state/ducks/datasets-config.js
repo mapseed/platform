@@ -26,32 +26,6 @@ export const hasAnonAbilityInDataset = ({
         perm.abilities.includes(ability),
     ),
   );
-// Look up the tag tree and assemble all labels.
-export const getAllTagNamesFromId = ({ state, datasetSlug, tagId }) => {
-  let tagNames = [];
-  const traverse = id => {
-    const node = state.datasetsConfig
-      .find(dataset => dataset.slug === datasetSlug)
-      .tags.find(tag => tag.id === id);
-    if (node) {
-      tagNames = tagNames.concat([node.name]);
-      traverse(node.parent);
-    }
-  };
-  traverse(tagId);
-
-  // Traversing the tag tree produces an array in backward order, so
-  // return the reversed array.
-  return tagNames.reverse();
-};
-export const getAllTagsForDataset = (state, datasetSlug) =>
-  state.datasetsConfig
-    .find(datasetConfig => datasetConfig.slug === datasetSlug)
-    .tags.filter(tag => tag.isEnabled);
-export const getColorForTagId = ({ state, datasetSlug, tagId }) =>
-  state.datasetsConfig
-    .find(datasetConfig => datasetConfig.slug === datasetSlug)
-    .tags.find(tag => tag.id === tagId).color;
 
 // Actions:
 const LOAD = "datasets-config/LOAD";

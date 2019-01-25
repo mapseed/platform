@@ -108,20 +108,6 @@ class PlaceDetail extends Component {
       this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
-    // TEMPORARY
-    this.props.model.set("tags", [
-      {
-        id: 4,
-        comment:
-          "This is a great idea, but will likely exceed the maximum budget for projects.",
-      },
-      {
-        id: 3,
-        comment:
-          "This idea would violate the following city codes: A, B, C, E, G, H.",
-      },
-    ]);
-
     this.state = {
       // NOTE: We remove the story property before serializing, so it doesn't
       // get saved.
