@@ -2123,6 +2123,18 @@
         {
           "url": "featured/4239",
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+        },
+        {
+          "url": "featured/6847",
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+        },
+        {
+          "url": "featured/6846",
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+        },
+        {
+          "url": "featured/6845",
+          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         }
       ]
     }
