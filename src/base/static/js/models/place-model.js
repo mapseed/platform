@@ -7,6 +7,9 @@ module.exports = Backbone.Model.extend({
   defaults: {
     type: "place",
   },
+  url: function() {
+    return `${Backbone.Model.prototype.url.call(this)}?include_tags=true`;
+  },
   initialize: function() {
     var attachmentData;
 
