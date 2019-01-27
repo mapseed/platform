@@ -136,19 +136,6 @@
         ]
       },
       {
-        "id": "palouse-basin-streams",
-        "type": "json",
-        "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson",
-        "rules": [
-          {
-            "line-paint": {
-              "line-color": "#34518f",
-              "line-width": 1.5
-            }
-          }
-        ]
-      },
-      {
         "id": "palouse-critical-aquifer",
         "type": "vector-tile",
         "url": "https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf",
@@ -207,6 +194,20 @@
               "text-field": ["get", "Unit"],
               "text-size": 17,
               "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "palouse-basin-streams",
+        "type": "json",
+        "is_topmost_layer": true,
+        "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson",
+        "rules": [
+          {
+            "line-paint": {
+              "line-color": "#1a1aff",
+              "line-width": 1.5
             }
           }
         ]
@@ -501,34 +502,35 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 3,
+            "end_field_index": 4,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
-            "start_field_index": 4,
-            "end_field_index": 5,
+            "start_field_index": 5,
+            "end_field_index": 6,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
             "visible_layer_ids": [
               "palouse-analysis-units",
+              "palouse-basin-streams",
               "whitman-county-outline"
             ]
           },
           {
-            "start_field_index": 6,
-            "end_field_index": 8,
+            "start_field_index": 7,
+            "end_field_index": 9,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
             "visible_layer_ids": ["palouse-wetlands", "whitman-county-outline"]
           },
           {
-            "start_field_index": 9,
-            "end_field_index": 11,
+            "start_field_index": 10,
+            "end_field_index": 12,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
@@ -538,8 +540,8 @@
             ]
           },
           {
-            "start_field_index": 12,
-            "end_field_index": 14,
+            "start_field_index": 13,
+            "end_field_index": 15,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
@@ -549,8 +551,8 @@
             ]
           },
           {
-            "start_field_index": 15,
-            "end_field_index": 17,
+            "start_field_index": 16,
+            "end_field_index": 18,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
@@ -560,8 +562,8 @@
             ]
           },
           {
-            "start_field_index": 18,
-            "end_field_index": 20,
+            "start_field_index": 19,
+            "end_field_index": 21,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
@@ -571,45 +573,53 @@
             ]
           },
           {
-            "start_field_index": 21,
-            "end_field_index": 40,
+            "start_field_index": 22,
+            "end_field_index": 30,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
-            "start_field_index": 41,
-            "end_field_index": 48,
+            "start_field_index": 31,
+            "end_field_index": 39,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
-            "start_field_index": 49,
-            "end_field_index": 56,
+            "start_field_index": 40,
+            "end_field_index": 45,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
-            "start_field_index": 57,
-            "end_field_index": 88,
+            "start_field_index": 46,
+            "end_field_index": 60,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
-            "start_field_index": 89,
-            "end_field_index": 120,
+            "start_field_index": 61,
+            "end_field_index": 69,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           },
           {
-            "start_field_index": 121,
-            "end_field_index": 129,
+            "start_field_index": 70,
+            "end_field_index": 87,
             "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)"
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+          },
+          {
+            "start_field_index": 88,
+            "end_field_index": 96,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
           }
         ],
         "label": "_(Actions)",
@@ -622,12 +632,19 @@
           {
             "name": "location_why",
             "type": "informational_html",
-            "content": "<p>Reporting your property location will help Whitman County better allocate Voluntary Stewardship Program resources.</p>"
+            "content": "<p>Reporting your property location will help Whitman County VSP understand stewardship strategies that have been completed.</p><p>At the end of this survey you will be able to hide your location information or voluntarily choose to make it public for the VSP report.</p>"
           },
           {
             "name": "drag_map_info",
             "type": "informational_html",
             "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the map on your property.</p></div>"
+          },
+          {
+            "name": "address",
+            "type": "geocoding",
+            "prompt": "_(Search by address)",
+            "placeholder": "_(Your address will never be shared)",
+            "optional": true
           },
           {
             "name": "analysis_units_header",
@@ -637,7 +654,7 @@
           {
             "name": "analysis_unit",
             "type": "big_radio",
-            "prompt": "_(Of the three watershed analysis units indicated on the map (Rock, Palouse, and Snake), which region does your property primarily lie in?)",
+            "prompt": "_(Of the three VSP watershed analysis units on map (Rock, Palouse, or Snake), which unit primarily represents your farm or ranch?  All reporting for VSP will be at the watershed analysis unit scale level. Complete multiple surveys for areas that are distinctively different.)",
             "optional": false,
             "content": [
               {
@@ -667,7 +684,7 @@
           {
             "name": "private-property_on_wetlands",
             "type": "big_radio",
-            "prompt": "_(Is your property on any wetland areas?)",
+            "prompt": "_(Are there any wetlands?)",
             "optional": false,
             "content": [
               {
@@ -693,7 +710,7 @@
           {
             "name": "private-property_on_frequently_flooded",
             "type": "big_radio",
-            "prompt": "_(Is your property on any frequently flooded areas?)",
+            "prompt": "_(Are there any frequently flooded areas?)",
             "optional": false,
             "content": [
               {
@@ -719,7 +736,7 @@
           {
             "name": "private-property_on_geologic_hazard",
             "type": "big_radio",
-            "prompt": "_(Is your property on any geologic hazard areas?)",
+            "prompt": "_(Are there any geologically hazardous areas?)",
             "optional": false,
             "content": [
               {
@@ -745,7 +762,7 @@
           {
             "name": "private-property_on_critical_aquifer",
             "type": "big_radio",
-            "prompt": "_(Is your property on any critical aquifer recharge areas?)",
+            "prompt": "_(Are there any critical aquifers recharge areas?)",
             "optional": false,
             "content": [
               {
@@ -771,7 +788,7 @@
           {
             "name": "private-property_on_wildlife_conservation",
             "type": "big_radio",
-            "prompt": "_(Is your property on any fish & wildlife conservation areas?)",
+            "prompt": "_(Are there any fish & wildlife conservation areas?)",
             "optional": false,
             "content": [
               {
@@ -813,10 +830,56 @@
             "optional": true
           },
           {
+            "//": "=============== CONVENTIONAL TILL ================================",
+            "name": "conventional_till",
+            "type": "big_radio",
+            "prompt": "_(I use a conventional tillage system)",
+            "label": "_(Conventional till)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["conventional_till_quantity", "conventional_till_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "conventional_till_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres do you use a conventional tillage system?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "conventional_till_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start using a conventional tillage system?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
             "//": "=============== NO TILL/DIRECT SEED ========================",
             "name": "no_till",
             "type": "big_radio",
-            "prompt": "_(I converted from a conventional tilled system to a no till/direct seed system)",
+            "prompt": "_(I use residue and tillage management – No Till, Strip Till, Direct Seed, 2-pass, or Mulch Till)",
             "label": "_(No till/direct seed)",
             "optional": true,
             "trigger": {
@@ -841,7 +904,7 @@
           {
             "name": "no_till_quantity",
             "type": "number",
-            "prompt": "_(On how many acres of land do you use a no till/direct seed system?)",
+            "prompt": "_(On how many acres of land do you use residue and tillage management?)",
             "hidden_default": true,
             "placeholder": "_(Approximate acreage)",
             "metadata": {
@@ -853,21 +916,355 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you convert to a no till/direct seed system?)",
+            "prompt": "_(Approximately when did you start using residue and tillage management practices?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
           },
           {
-            "//": "=============== REDUCED TILL ================================",
-            "name": "reduced_till",
+            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
+            "name": "nutrient_management_header",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Nutrient Management</h4>"
+          },
+          {
+            "name": "nutrient_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+          },
+          {
+            "name": "nutrient-management_no-nutrient-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-nutrient-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-nutrient-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "nutrient-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== NUTRIENT MGMT ====================",
+            "name": "nutrient_management",
             "type": "big_radio",
-            "prompt": "_(I use reduced tillage, mulch tillage, or conservation tillage methods)",
-            "label": "_(Reduced/mulch/conservation till)",
+            "prompt": "_(I use nutrient management practices)",
+            "label": "_(Nutrient management)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["reduced_till_quantity", "reduced_till_datetime"]
+              "targets": [
+                "nutrient_management_quantity",
+                "nutrient_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres do you use nutrient management practices?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "nutrient_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start using nutrient management practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== CHEMICAL MGMT ====================",
+            "name": "chemical_management",
+            "type": "big_radio",
+            "prompt": "_(I use chemical management practices)",
+            "label": "_(Chemical management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "chemical_management_quantity",
+                "chemical_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "chemical_management_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres do you use chemical management practices?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "chemical_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start using chemical management practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "------------SECTION: PEST MGMT--------------------",
+            "name": "pest_management_header",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Pest Management</h4>"
+          },
+          {
+            "name": "pest_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your pest management practices.</p></div></div>"
+          },
+          {
+            "name": "pest-management_no-pest-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-pest-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-pest-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "pest-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== PEST MGMT ========================",
+            "name": "pest_management",
+            "type": "big_radio",
+            "prompt": "_(I use pest management practices)",
+            "label": "_(Pest management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "pest_management_quantity",
+                "pest_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pest_management_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres do you use pest management practices?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "pest_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start using pest management practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "--------------SECTION: RANGE MGMT---------------------------",
+            "name": "range_management",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc'>11. Range Management</h4>"
+          },
+          {
+            "name": "range_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your range management practices.</p></div></div>"
+          },
+          {
+            "name": "range-management_no-range-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-range-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-range-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "range-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== MANAGED GRAZING ========================",
+            "name": "managed_grazing",
+            "type": "big_radio",
+            "prompt": "_(I use managed grazing practices)",
+            "label": "_(Managed grazing)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "managed_grazing_quantity",
+                "managed_grazing_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "managed_grazing_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres do you use managed grazing practices?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "managed_grazing_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start using managed grazing practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== RANGE PLANTINGS ==========================",
+            "name": "range_plantings",
+            "type": "big_radio",
+            "prompt": "_(I have completed range plantings)",
+            "label": "_(Range plantings)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "range_plantings_quantity",
+                "range_plantings_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "range_plantings_quantity",
+            "type": "number",
+            "metadata": {
+              "units": "_(stock tanks)"
+            },
+            "prompt": "_(On how many acres have you completed range plantings?)",
+            "hidden_default": true
+          },
+          {
+            "name": "range_plantings_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start range plantings?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== WATERING FACILITIES ==========================",
+            "name": "watering_facility",
+            "type": "big_radio",
+            "prompt": "_(I operate watering facilities)",
+            "label": "_(Watering facilities)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "watering_facility_quantity",
+                "watering_facility_datetime"
+              ]
             },
             "content": [
               {
@@ -884,32 +1281,107 @@
               }
             ],
             "modal": {
-              "header": "_(Reduced/mulch/conservation till)",
+              "header": "_(Watering facilities)",
               "body": [
-                "Mulch tillage systems use a single pass hoe drill or low disturbance two-pass system.",
-                "Conservation tillage systems use no inversion tillage equipment."
+                "Watering facilities are a permanent livestock and/or wildlife watering facility for storage and/or drinking access."
               ]
             }
           },
           {
-            "name": "reduced_till_quantity",
+            "name": "watering_facility_quantity",
             "type": "number",
-            "prompt": "_(On how many acres do you use reduced/mulch/conservation tillage methods?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
             "metadata": {
-              "units": "_(acres)"
-            }
+              "units": "_(stock tanks)"
+            },
+            "prompt": "_(How many stock tanks do you operate?)",
+            "hidden_default": true
           },
           {
-            "name": "reduced_till_datetime",
+            "name": "watering_facility_datetime",
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last use reduced/mulch/conservation tillage methods?)",
+            "prompt": "_(Approximately when did you start using watering facilities?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
+          },
+          {
+            "//": "=============== WATER WELLS ==========================",
+            "name": "water_wells",
+            "type": "big_radio",
+            "prompt": "_(I operate water wells for domestic animals)",
+            "label": "_(Water wells)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "water_wells_quantity",
+                "water_wells_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "water_wells_quantity",
+            "type": "number",
+            "metadata": {
+              "units": "_(wells)"
+            },
+            "prompt": "_(How many wells do you operate?)",
+            "hidden_default": true
+          },
+          {
+            "name": "water_wells_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start operating water wells?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "--------------SECTION: SOIL MGMT---------------------------",
+            "name": "soil_management",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc'>12. Soil Management</h4>"
+          },
+          {
+            "name": "soil_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your soil management practices.</p></div></div>"
+          },
+          {
+            "name": "soil-management_no-soil-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-soil-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-soil-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "soil-management"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "=============== COVER CROP =================================",
@@ -958,10 +1430,85 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last plant cover crops?)",
+            "prompt": "_(Approximately when did you start planting cover crops?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
+          },
+          {
+            "//": "=============== MULCHING =================================",
+            "name": "mulching",
+            "type": "big_radio",
+            "prompt": "_(I use mulching on my property)",
+            "label": "_(Mulching)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["mulching_quantity", "mulching_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "mulching_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres do you use mulching?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "mulching_datetime",
+            "type": "datetime",
+            "date_format": "YYYY-MM",
+            "display_format": "MMMM YYYY",
+            "prompt": "_(Approximately when did you start using mulching?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
+            "name": "fish_wildlife_management",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc'>13. Fish & Wildlife Management</h4>"
+          },
+          {
+            "name": "fish_wildlife_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your fish & wildlife management practices.</p></div></div>"
+          },
+          {
+            "name": "fish-wildlife-management_no-fish-wildlife-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-fish-wildlife-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-fish-wildlife-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "fish-wildlife-management"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "=============== CONSERVATION COVER ==========================",
@@ -1013,21 +1560,21 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last plant conservation cover?)",
+            "prompt": "_(Approximately when did you start planting conservation cover?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
           },
           {
-            "//": "=============== FILTER STRIPS ==============================",
-            "name": "filter_strips",
+            "//": "=============== GRASSED WATERWAYS ==================================",
+            "name": "grassed_waterways",
             "type": "big_radio",
-            "prompt": "_(I have filter strips on my property)",
-            "label": "_(Filter strips)",
+            "prompt": "_(I use grassed waterways)",
+            "label": "_(Grassed waterways)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["filter_strips_quantity", "filter_strips_datetime"]
+              "targets": ["grassed_waterways_quantity", "grassed_waterways_datetime"]
             },
             "content": [
               {
@@ -1042,318 +1589,34 @@
                 "label": "_(No, but I'm interested)",
                 "value": "interested"
               }
-            ],
-            "modal": {
-              "header": "_(Filter strips)",
-              "body": [
-                "Filter strips are areas of native herbaceous vegetation that remove contaminants from overland flow."
-              ]
-            }
-          },
-          {
-            "name": "filter_strips_quantity",
-            "type": "number",
-            "placeholder": "_(Approximate acreage)",
-            "prompt": "_(How many acres of filter strips are on your property?)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "filter_strips_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last plant filter strips?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "==================TILLAGE MGMT OTHER========================",
-            "name": "tillage_management_other",
-            "prompt": "_(I perform other residue & tillage management actions)",
-            "label": "_(Other tillage management practices)",
-            "optional": true,
-            "type": "big_radio",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["tillage_management_other_action"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              }
             ]
           },
           {
-            "name": "tillage_management_other_action",
-            "type": "textarea",
-            "prompt": "_(Please describe your actions below)",
-            "hidden_default": true
-          },
-          {
-            "name": "nutrient_management",
-            "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Nutrient Management</h4>"
-          },
-          {
-            "name": "nutrient_management_information",
-            "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
-          },
-          {
-            "name": "nutrient-management_no-nutrient-management",
-            "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
-            "advance_stage_on_value": "no-nutrient-management",
-            "content": [
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "no-nutrient-management"
-              },
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "nutrient-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== INTEGRATED NUTRIENT MGMT ====================",
-            "name": "integrated_nutrient_management",
-            "type": "big_radio",
-            "prompt": "_(I use integrated nutrient management practices)",
-            "label": "_(Integrated nutrient management)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "integrated_nutrient_management_quantity",
-                "integrated_nutrient_management_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Integrated nutrient management)",
-              "body": [
-                "Integrated nutrient management consists of basic nutrient management on land for proper rate, source, method of placement and timing of application."
-              ]
-            }
-          },
-          {
-            "name": "integrated_nutrient_management_quantity",
+            "name": "grassed_waterways_quantity",
             "type": "number",
-            "prompt": "_(On how many acres do you use integrated nutrient management practices?)",
-            "placeholder": "_(Approximate acreage)",
+            "prompt": "_(How many linear feet of grassed waterways do you maintain?)",
+            "placeholder": "_(Approximate linear footage)",
             "hidden_default": true,
             "metadata": {
-              "units": "_(acres)"
+              "units": "_(linear feet)"
             }
           },
           {
-            "name": "integrated_nutrient_management_datetime",
+            "name": "grassed_waterways_datetime",
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last use integrated nutrient management practices?)",
+            "prompt": "_(Approximately when did you start establishing grassed waterways?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
-          },
-          {
-            "//": "==================NUTRIENT MGMT OTHER========================",
-            "name": "nutrient_management_other",
-            "prompt": "_(I perform other nutrient management actions)",
-            "label": "_(Other nutrient management practices)",
-            "optional": true,
-            "type": "big_radio",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["nutrient_management_other_action"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              }
-            ]
-          },
-          {
-            "name": "nutrient_management_other_action",
-            "type": "textarea",
-            "prompt": "_(Please describe your actions below)",
-            "hidden_default": true
-          },
-          {
-            "name": "pest_management_header",
-            "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Pest Management</h4>"
-          },
-          {
-            "name": "pest_management_information",
-            "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your pest management practices.</p></div></div>"
-          },
-          {
-            "name": "pest-management_no-pest-management",
-            "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
-            "advance_stage_on_value": "no-pest-management",
-            "content": [
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "no-pest-management"
-              },
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "pest-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== INTEGRATED PEST MGMT ========================",
-            "name": "pest_management",
-            "type": "big_radio",
-            "prompt": "_(I use integrated pest management practices)",
-            "label": "_(Integrated pest management)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pest_management_quantity",
-                "pest_management_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Integrated pest management)",
-              "body": [
-                "Integrated pest management consists of a comprehensive plan on how specific pest management risks will be prevented or mitigated."
-              ]
-            }
-          },
-          {
-            "name": "pest_management_quantity",
-            "type": "number",
-            "prompt": "_(On how many acres do you use integrated pest management practices?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "pest_management_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last use integrated pest management practices?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "==================PEST MGMT OTHER========================",
-            "name": "pest_management_other",
-            "prompt": "_(I perform other pest management actions)",
-            "label": "_(Other pest management practices)",
-            "optional": true,
-            "type": "big_radio",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["pest_management_other_action"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              }
-            ]
-          },
-          {
-            "name": "pest_management_other_action",
-            "type": "textarea",
-            "prompt": "_(Please describe your actions below)",
-            "hidden_default": true
-          },
-          {
-            "name": "range_management",
-            "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>11. Range, Soil, & Wildlife Management</h4>"
-          },
-          {
-            "name": "range_management_information",
-            "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your range, soil, & wildlife management practices.</p></div></div>"
-          },
-          {
-            "name": "range-management_no-range-management",
-            "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
-            "advance_stage_on_value": "no-range-management",
-            "content": [
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "no-range-management"
-              },
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "range-management"
-              }
-            ],
-            "optional": true
           },
           {
             "//": "=============== WEED CONTROL ================================",
             "name": "weed_control",
             "type": "big_radio",
-            "prompt": "_(I control herbaceous weeds)",
-            "label": "_(Herbaceous weed control)",
+            "prompt": "_(I control weeds)",
+            "label": "_(Weed control)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
@@ -1372,18 +1635,12 @@
                 "label": "_(No, but I'm interested)",
                 "value": "interested"
               }
-            ],
-            "modal": {
-              "header": "_(Herbaceous weed control)",
-              "body": [
-                "Herbaceous weed control consists of removal of herbaceous weeds of light infestation by mowing."
-              ]
-            }
+            ]
           },
           {
             "name": "weed_control_quantity",
             "type": "number",
-            "prompt": "_(On how many acres do you control herbaceous weeds?)",
+            "prompt": "_(On how many acres do you control weeds?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -1395,752 +1652,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last remove herbaceous weeds?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== PRESCRIBED GRAZING ==========================",
-            "name": "prescribed_grazing",
-            "type": "big_radio",
-            "prompt": "_(I follow a prescribed grazing schedule)",
-            "label": "_(Prescribed grazing schedule)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "prescribed_grazing_quantity",
-                "prescribed_grazing_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Prescribed grazing)",
-              "body": [
-                "A prescribed grazing schedule consists of an adaptively managed schedule for grazing on native species."
-              ]
-            }
-          },
-          {
-            "name": "prescribed_grazing_quantity",
-            "type": "number",
-            "prompt": "_(How many acres of your property follow a prescribed grazing schedule?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acers)"
-            }
-          },
-          {
-            "name": "prescribed_grazing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last follow a prescribed grazing schedule?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== WASTE STORAGE ==============================",
-            "name": "waste_storage",
-            "type": "big_radio",
-            "prompt": "_(I operate waste storage facilities)",
-            "label": "_(Waste storage facilities)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["waste_storage_quantity", "waste_storage_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Waste storage facilities)",
-              "body": [
-                "Waste storage facilities are earthen liquid waste impoundments constructed to store waste such as manure."
-              ]
-            }
-          },
-          {
-            "name": "waste_storage_quantity",
-            "type": "number",
-            "prompt": "_(How many waste storage facilities are on your property?)",
-            "placeholder": "_(Approximate number)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(facilities)"
-            }
-          },
-          {
-            "name": "waste_storage_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last install a waste storage facility?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "================== FENCING =================================",
-            "name": "fencing",
-            "type": "big_radio",
-            "prompt": "_(I maintain fencing on my property)",
-            "label": "_(Fencing)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["fencing_quantity", "fencing_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Fencing)",
-              "body": [
-                "Fencing allows for the implementation of grazing management."
-              ]
-            }
-          },
-          {
-            "name": "fencing_quantity",
-            "type": "number",
-            "prompt": "_(How many linear feet of fencing do you maintain?)",
-            "placeholder": "_(Approximate linear footage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(linear feet)"
-            }
-          },
-          {
-            "name": "fencing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last install fencing?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== STOCK WATERING/WELLS ========================",
-            "name": "stock_watering",
-            "type": "big_radio",
-            "prompt": "_(I operate stock watering wells)",
-            "label": "_(Stock watering wells)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["stock_watering_quantity", "stock_watering_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "stock_watering_quantity",
-            "type": "number",
-            "metadata": {
-              "units": "_(wells)"
-            },
-            "prompt": "_(How many stock watering wells do you operate?)",
-            "hidden_default": true
-          },
-          {
-            "name": "stock_watering_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last install a stock watering well?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== LIVESTOCK PIPELINE ==========================",
-            "name": "livestock_pipeline",
-            "type": "big_radio",
-            "prompt": "_(I maintain livestock watering pipelines)",
-            "label": "_(Livestock pipelines)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "livestock_pipeline_quantity",
-                "livestock_pipeline_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Livestock watering pipelines)",
-              "body": [
-                "Livestock watering pipelines sit below ground and are for delivering water to a stock tank."
-              ]
-            }
-          },
-          {
-            "name": "livestock_pipeline_quantity",
-            "type": "number",
-            "prompt": "_(How many linear feet of livestock watering pipeline do you maintain?)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(linear feet)"
-            }
-          },
-          {
-            "name": "livestock_pipeline_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last install livestock watering pipelines?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== WATERING FACILITY ==========================",
-            "name": "watering_facility",
-            "type": "big_radio",
-            "prompt": "_(I operate watering facilities)",
-            "label": "_(Watering facilities)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "watering_facility_quantity",
-                "watering_facility_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Watering facilities)",
-              "body": [
-                "Watering facilities are a permanent livestock and/or wildlife watering facility for storage and/or drinking access."
-              ]
-            }
-          },
-          {
-            "name": "watering_facility_quantity",
-            "type": "number",
-            "metadata": {
-              "units": "_(facilities)"
-            },
-            "prompt": "_(How many watering facilities do you operate?)",
-            "hidden_default": true
-          },
-          {
-            "name": "watering_facility_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last install a watering facility?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== SPRING DEVELOPMENT =========================",
-            "name": "spring_development",
-            "type": "big_radio",
-            "prompt": "_(I have watering springs on my property)",
-            "label": "_(Spring development)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "spring_development_quantity",
-                "spring_development_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Spring development)",
-              "body": [
-                "A spring is a source to provide water for livestock and/or wildlife needs."
-              ]
-            }
-          },
-          {
-            "name": "spring_development_quantity",
-            "type": "number",
-            "metadata": {
-              "units": "_(springs)"
-            },
-            "prompt": "_(How many watering springs are on your property?)",
-            "hidden_default": true
-          },
-          {
-            "name": "spring_development_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last develop a new watering spring?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== PUMPING PLANT ==============================",
-            "name": "pumping_plant",
-            "type": "big_radio",
-            "prompt": "_(I operate pumping plants)",
-            "label": "_(Spring development)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["pumping_plant_quantity", "pumping_plant_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Pumping plant)",
-              "body": [
-                "A pumping plant supplies a reliable water source for livestock."
-              ]
-            }
-          },
-          {
-            "name": "pumping_plant_quantity",
-            "type": "number",
-            "metadata": {
-              "units": "_(plants)"
-            },
-            "prompt": "_(How many pumping plants do you operate?)",
-            "hidden_default": true
-          },
-          {
-            "name": "pumping_plant_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last install a pumping plant?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "==================RANGE MGMT OTHER==========================",
-            "name": "range_management_other",
-            "prompt": "_(I perform other range, soil, & wildlife management actions)",
-            "label": "_(Other range/soil/wildlife management practices)",
-            "optional": true,
-            "type": "big_radio",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["range_management_other_action"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              }
-            ]
-          },
-          {
-            "name": "range_management_other_action",
-            "type": "textarea",
-            "prompt": "_(Please describe your actions below)",
-            "hidden_default": true
-          },
-          {
-            "name": "fish_wildlife_management",
-            "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>12. Fish & Wildlife Management</h4>"
-          },
-          {
-            "name": "fish_wildlife_management_information",
-            "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your fish & wildlife management practices.</p></div></div>"
-          },
-          {
-            "name": "fish-wildlife-management_no-fish-wildlife-management",
-            "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
-            "advance_stage_on_value": "no-fish-wildlife-management",
-            "content": [
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "no-fish-wildlife-management"
-              },
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "fish-wildlife-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== RIPARIAN BUFFER ============================",
-            "name": "riparian_buffer",
-            "type": "big_radio",
-            "prompt": "_(I have riparian buffers on my property)",
-            "label": "_(Riparian buffers)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "riparian_buffer_quantity",
-                "riparian_buffer_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Riparian buffers)",
-              "body": [
-                "Riparian buffers are trees and/or shrubs to restore riparian plant communities and associated benefits."
-              ]
-            }
-          },
-          {
-            "name": "riparian_buffer_quantity",
-            "type": "number",
-            "prompt": "_(How many linear feet of riparian buffer do you have?)",
-            "placeholder": "_(Approximate linear footage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(linear feet)"
-            }
-          },
-          {
-            "name": "riparian_buffer_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last plant riparian buffers?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== CHANNEL BANK VEGETATION ====================",
-            "name": "channel_bank_vegetation",
-            "type": "big_radio",
-            "prompt": "_(I have channel bank vegetation on my property)",
-            "label": "_(Channel bank vegetation)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "channel_bank_vegetation_quantity",
-                "channel_bank_vegetation_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Channel bank vegetation)",
-              "body": [
-                "Channel bank vegetation consists of willows for root cohesion."
-              ]
-            }
-          },
-          {
-            "name": "channel_bank_vegetation_quantity",
-            "type": "number",
-            "prompt": "_(How many acres of channel bank vegetation are on your property?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "channel_bank_vegetation_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last plant channel bank vegetation?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== STREAMBANK PROTECTION FENCING ===============",
-            "name": "streambank_fencing",
-            "type": "big_radio",
-            "prompt": "_(I maintain streambank and shoreline protection fencing)",
-            "label": "_(Streambank and shoreline fencing)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "streambank_fencing_quantity",
-                "streambank_fencing_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Streambank and shoreline protection fencing)",
-              "body": [
-                "Streambank and shoreline protection fencing consists of bioengineered techniques."
-              ]
-            }
-          },
-          {
-            "name": "streambank_fencing_quantity",
-            "type": "number",
-            "prompt": "_(How many linear feet of streambank and shoreline protection fencing do you maintain?)",
-            "placeholder": "_(Approximate linear footage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(linear feet)"
-            }
-          },
-          {
-            "name": "streambank_fencing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last install streambank and shoreline protection fencing?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== STREAM HABITAT =============================",
-            "name": "stream_habitat",
-            "type": "big_radio",
-            "prompt": "_(I practice stream habitat improvement and management techniques)",
-            "label": "_(Stream habitat management)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["stream_habitat_quantity", "stream_habitat_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Stream habitat improvement and management)",
-              "body": [
-                "Stream habitat improvement and management consists of log structures placed in stream channels to improve aquatic habitat."
-              ]
-            }
-          },
-          {
-            "name": "stream_habitat_quantity",
-            "type": "text",
-            "prompt": "_(How many acres of stream habitat do you improve and manage?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "stream_habitat_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last perform stream habitat improvement and management techniques?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== HEAVY USE PROTECTION =======================",
-            "name": "heavy_use_protection",
-            "type": "big_radio",
-            "prompt": "_(I protect heavy use areas)",
-            "label": "_(Heavy use area protection)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "heavy_use_protection_quantity",
-                "heavy_use_protection_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Heavy use area protection)",
-              "body": [
-                "Heavy use area protection consists of maintaining stable, non-eroding surfaces with rock and/or gravel to stop soil erosion."
-              ]
-            }
-          },
-          {
-            "name": "heavy_use_protection_quantity",
-            "type": "number",
-            "prompt": "_(How many acres of heavy use area do you protect?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "heavy_use_protection_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last perform heavy use area protection?)",
+            "prompt": "_(Approximately when did you start controlling weeds?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -2181,10 +1693,10 @@
             "name": "tree_shrub_quantity",
             "type": "number",
             "prompt": "_(How many acres of trees and shrubs have you established?)",
-            "placeholder": "_(Approximate acreage)",
+            "placeholder": "_(Approximate number of trees/shrubs)",
             "hidden_default": true,
             "metadata": {
-              "units": "_(acres)"
+              "units": "_(trees/shrubs)"
             }
           },
           {
@@ -2192,59 +1704,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last establish new trees and shurbs?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== RESTORATION OF DECLINING HABITATS  ==========",
-            "name": "rare_declining",
-            "type": "big_radio",
-            "prompt": "_(I have restored rare or declining habitats on my property)",
-            "label": "_(Rare/declining habitat restoration)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["rare_declining_quantity", "rare_declining_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Rare and declining habitats)",
-              "body": [
-                "Rare and declining habitats are native plant or wildlife habitats that are a resource concern."
-              ]
-            }
-          },
-          {
-            "name": "rare_declining_quantity",
-            "type": "number",
-            "prompt": "_(How many acres of rare or declining habitats have you restored?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "rare_declining_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last restore rare or declining habitats?)",
+            "prompt": "_(Approximately when did you start establishing new trees and shrubs?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -2296,108 +1756,25 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last manage upland wildlife habitats?)",
+            "prompt": "_(Approximately when did you start managing upland wildlife habitats?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== WETLAND RESTORATION ========================",
-            "name": "wetland_restoration",
-            "type": "big_radio",
-            "prompt": "_(I have restored wetlands on my property)",
-            "label": "_(Wetlands restored)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "wetland_restoration_quantity",
-                "wetland_restoration_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "_(Wetland restoration)",
-              "body": [
-                "Wetland restoration consists of protecting and or restoring water inundated areas."
-              ]
-            }
-          },
-          {
-            "name": "wetland_restoration_quantity",
-            "type": "number",
-            "prompt": "_(How many acres of wetlands have you restored?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "wetland_restoration_datetime",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last restore wetlands?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "==================FISH & WILDLIFE MGMT OTHER=================",
-            "name": "fish_wildlife_management_other",
-            "prompt": "_(I perform other fish & wildlife management actions)",
-            "label": "_(Other fish & wildlife management practices)",
-            "optional": true,
-            "type": "big_radio",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["fish_wildlife_management_other_action"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              }
-            ]
-          },
-          {
-            "name": "fish_wildlife_management_other_action",
-            "type": "textarea",
-            "prompt": "_(Please describe your actions below)",
             "hidden_default": true
           },
           {
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost done!</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h4>"
           },
           {
             "name": "additional_info",
             "type": "informational_html",
-            "content": "<p><strong>Thank you for taking the time to report your stewardship practices.</strong></p><p>Information on this page will help Whitman County understand how landowners are implementing stewardship practices.</p>"
+            "content": "<p><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><p>Information on this page will determine how your information is shared.  We will report all practices at the watershed analysis unit scale, but if you are interested in having your project showcased you can give us permission below.  Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
           },
           {
             "name": "my_image",
             "type": "file",
-            "prompt": "_(Show off your stewardship! Upload a few photos:)",
+            "prompt": "_(Show your stewardship practices! Upload photos:)",
             "label": "_(Upload photos)",
             "optional": true
           },
@@ -2405,7 +1782,7 @@
             "name": "private-landowner_name",
             "type": "text",
             "prompt": "_(What is your name?)",
-            "optional": true
+            "optional": false
           },
           {
             "name": "private-use_photos",
@@ -2449,6 +1826,7 @@
             "name": "private-landowner_phone",
             "type": "text",
             "prompt": "_(What is your phone number?)",
+            "placeholder": "_(Your phone number will never be shared)",
             "optional": false
           },
           {
@@ -2533,14 +1911,13 @@
       "lang": "en_US",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
-        "<p style='margin-bottom:16px'>Your local Conservation District or Whitman County Cattelmen's Association are here to help you meet your stewardship goals.</p>",
-        "<p style='margin-bottom:8px'>Contact your local CD or Whitman County Cattlemen's for more information or visit the following website: <a href='https://whitmancountyvsp.com/' target='_blank'>www.whitmancountyvsp.com</a>.</p>",
+        "<p style='margin-bottom:16px'>Your Whitman County VSP Coordinators or Whitman County Cattlemen’s, Wheat Growers or Farm Bureau are here to help meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator and/or Grower Group or for more information visit: <a href='https://whitmancountyvsp.com/' target='_blank'>www.whitmancountyvsp.com</a>.</p>",
         "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
         "<div style='margin-bottom: 8px'>",
         "<h5 style='margin-bottom:0'>Bradley Johnson</h5>",
         "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
-        "<p style='margin:0'><em>Palouse Conservation District</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
         "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>bradleyj@palousecd.org</span></div>",
@@ -2549,7 +1926,6 @@
         "<div style='margin-bottom: 8px'>",
         "<h5 style='margin-bottom:0'>James Schierman</h5>",
         "<p style='margin:0'><em>District Coordinator</em></p>",
-        "<p style='margin:0'><em>Palouse Rock-Lake Conservation District</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-648-3680</span></div>",
         "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>Jschierman.prlcd@gmail.com</span></div>",
@@ -2558,7 +1934,6 @@
         "<div style='margin-bottom: 8px'>",
         "<h5 style='margin-bottom:0'>Brian Bell</h5>",
         "<p style='margin:0'><em>District Manager</em></p>",
-        "<p style='margin:0'><em>Whitman Conservation District</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-288-4644</span></div>",
         "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>brianwhitmancd@gmail.com</span></div>",
@@ -2567,7 +1942,6 @@
         "<div style='margin-bottom: 8px'>",
         "<h5 style='margin-bottom:0'>Jessica Self</h5>",
         "<p style='margin:0'><em>Grants Manager</em></p>",
-        "<p style='margin:0'><em>Palouse Conservation District</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-332-4101 x114</span></div>",
         "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>JessicaS@palousecd.org</span></div>",
@@ -2576,7 +1950,6 @@
         "<div style='margin-bottom: 8px'>",
         "<h5 style='margin-bottom:0'>Raymond Brown</h5>",
         "<p style='margin:0'><em>District Manager</em></p>",
-        "<p style='margin:0'><em>Pine Creek Conservation District</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-285-5122</span></div>",
         "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pinecreekcd@frontier.com</span></div>",
@@ -2590,9 +1963,10 @@
       "content": [
         "<h3 id='about-page-header'>Welcome Whitman County Voluntary Stewards!</h3>",
         "<img src='/static/css/images/rolling-hills-cropped.jpg' alt='Rolling hills, Whitman County' style='margin:8px 0 16px 0' />",
-        "<p>Whitman County Voluntary Stewardship Program (VSP) provides an innovative approach for protecting critical areas on agriculture lands that enhance our environment through voluntary measure, while promoting agriculture viability.  VSP allows farmers and ranchers more flexibility in either using programs or self-funding stewardship strategies to protect and/or restore critical areas.  VSP also collects previous and on-going project data from all projects landowners want to report, which will help document program participation and the importance of agriculture viability.  Visit <a href='https://www.whitmancountyvsp.com' target='_blank'>www.whitmancountyvsp.com</a> for more information.",
+        "<p>Whitman County Voluntary Stewardship Program (VSP) provides an innovative approach for reporting the protection of critical areas on agriculture lands that enhance our environment through voluntary measure, while promoting agriculture viability. VSP voluntarily collects previous and on-going stewardship data from all interested landowners, which helps document VSP participation and the importance of agriculture viability.</p>",
+        "<p>Visit <a href='http://www.whitmancountyvsp.com' target='_blank'>www.whitmancountyvsp.com</a> for more information",
         "<p>Whitman County agriculture has an important story to tell!  Help promote Whitman County agriculture by sharing your story! VSP success relies on voluntary participation by landowners!</p>",
-        "<p style='margin-bottom:16px'>We greatly appreciate your time in sharing stewardship practices that tell the story of current stewardship strategies in Whitman County.</p>",
+        "<p style='margin-bottom:16px'>Whitman County VSP appreciates your time sharing stewardship practices!</p>",
         "<p>Click Get Started below to report your conservation practices!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
