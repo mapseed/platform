@@ -1159,7 +1159,7 @@
             "//": "=============== MANAGED GRAZING ========================",
             "name": "managed_grazing",
             "type": "big_radio",
-            "prompt": "_(I follow managed grazing practices)",
+            "prompt": "_(I use managed grazing practices)",
             "label": "_(Managed grazing)",
             "optional": true,
             "trigger": {
@@ -1208,7 +1208,7 @@
             "//": "=============== RANGE PLANTINGS ==========================",
             "name": "range_plantings",
             "type": "big_radio",
-            "prompt": "_(I have completed range_plantings)",
+            "prompt": "_(I have completed range plantings)",
             "label": "_(Range plantings)",
             "optional": true,
             "trigger": {
@@ -1430,7 +1430,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last plant cover crops?)",
+            "prompt": "_(Approximately when did you start planting cover crops?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1560,7 +1560,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last plant conservation cover?)",
+            "prompt": "_(Approximately when did you start planting conservation cover?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1615,8 +1615,8 @@
             "//": "=============== WEED CONTROL ================================",
             "name": "weed_control",
             "type": "big_radio",
-            "prompt": "_(I control herbaceous weeds)",
-            "label": "_(Herbaceous weed control)",
+            "prompt": "_(I control weeds)",
+            "label": "_(Weed control)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
@@ -1635,18 +1635,12 @@
                 "label": "_(No, but I'm interested)",
                 "value": "interested"
               }
-            ],
-            "modal": {
-              "header": "_(Herbaceous weed control)",
-              "body": [
-                "Herbaceous weed control consists of removal of herbaceous weeds of light infestation by mowing."
-              ]
-            }
+            ]
           },
           {
             "name": "weed_control_quantity",
             "type": "number",
-            "prompt": "_(On how many acres do you control herbaceous weeds?)",
+            "prompt": "_(On how many acres do you control weeds?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -1658,7 +1652,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last remove herbaceous weeds?)",
+            "prompt": "_(Approximately when did you start controlling weeds?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1762,7 +1756,7 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last manage upland wildlife habitats?)",
+            "prompt": "_(Approximately when did you start managing upland wildlife habitats?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
