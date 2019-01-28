@@ -11,44 +11,52 @@ const json = response => response.json();
 const getDatasets = async datasetUrls =>
   Promise.all(datasetUrls.map(url => fetch(url).then(json)));
 
-const createPlaceTag = ({ placeUrl, tagData, onSuccess, onFailure }) => {
-  fetch(`${placeUrl}/tags`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify(tagData),
-  })
-    .then(status)
-    .then(json)
-    .then(data => onSuccess(data))
-    .catch(error => onFailure(error));
+const createPlaceTag = async (url, tagData) => {
+  try {
+    return await fetch(`${url}/tags`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(tagData),
+    })
+      .then(status)
+      .then(json);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log("Error: Failed to create tag.", err);
+  }
 };
 
-const updatePlaceTag = ({ placeTag, newData, onSuccess, onFailure }) => {
-  fetch(placeTag.url, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "PATCH",
-    body: JSON.stringify(newData),
-  })
-    .then(status)
-    .then(json)
-    .then(data => onSuccess(data))
-    .catch(error => onFailure(error));
+const updatePlaceTag = async (url, newData) => {
+  try {
+    return await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
+      body: JSON.stringify(newData),
+    })
+      .then(status)
+      .then(json);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log("Error: Tag note did note save.", err);
+  }
 };
 
-const deletePlaceTag = ({ url, onSuccess, onFailure }) => {
-  fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "DELETE",
-  })
-    .then(status)
-    .then(() => onSuccess())
-    .catch(error => onFailure(error));
+const deletePlaceTag = async url => {
+  try {
+    await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    }).then(status);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log("Error: Failed to delete tag.", err);
+  }
 };
 
 const getPlaceCollections = async ({

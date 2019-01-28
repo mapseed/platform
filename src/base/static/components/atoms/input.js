@@ -29,18 +29,30 @@ const TextInput = styled(props => {
   return styles;
 });
 
-const TextareaInput = props => (
-  <textarea
-    className={props.className}
-    placeholder={props.placeholder}
-    onChange={props.onChange}
-    onKeyPress={props.onKeyPress}
-    onClick={props.onClick}
-    onFocus={props.onFocus}
-    onBlur={props.onBlur}
-    value={props.value}
-  />
-);
+const TextareaInput = styled(props => {
+  return (
+    <textarea
+      className={props.className}
+      placeholder={props.placeholder}
+      onChange={props.onChange}
+      onKeyPress={props.onKeyPress}
+      onClick={props.onClick}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+      value={props.value}
+    />
+  );
+})(() => ({
+  "&::-webkit-input-placeholder": {
+    color: "#ddd",
+  },
+  "&:-moz-placeholder": {
+    color: "#ddd",
+  },
+  "&:-ms-input-placeholder": {
+    color: "#ddd",
+  },
+}));
 
 TextareaInput.propTypes = {
   className: PropTypes.string,

@@ -28,7 +28,7 @@ const TagBar = props => {
               <TagEditor
                 key={tag.id}
                 datasetSlug={props.datasetSlug}
-                onUpdateComment={props.onUpdateComment}
+                onUpdateTagNote={props.onUpdateTagNote}
                 onDeletePlaceTag={props.onDeletePlaceTag}
                 onCreatePlaceTag={props.onCreatePlaceTag}
                 backgroundColor={tag.color}
@@ -71,7 +71,7 @@ TagBar.propTypes = {
   isEditModeToggled: PropTypes.bool.isRequired,
   onDeletePlaceTag: PropTypes.func.isRequired,
   onCreatePlaceTag: PropTypes.func.isRequired,
-  onUpdateComment: PropTypes.func.isRequired,
+  onUpdateTagNote: PropTypes.func.isRequired,
   placeTags: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

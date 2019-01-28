@@ -266,7 +266,7 @@ class PlaceDetail extends Component {
     }
   }
 
-  onCreatePlaceTag(tagData) {
+  onCreatePlaceTag = tagData => {
     this.props.model.set(
       "tags",
       this.props.model.get("tags").concat([tagData]),
@@ -275,9 +275,9 @@ class PlaceDetail extends Component {
     this.setState({
       placeModel: fromJS(this.props.model.attributes),
     });
-  }
+  };
 
-  onDeletePlaceTag(placeTagId) {
+  onDeletePlaceTag = placeTagId => {
     this.props.model.set(
       "tags",
       this.props.model.get("tags").filter(tag => tag.id !== placeTagId),
@@ -286,9 +286,9 @@ class PlaceDetail extends Component {
     this.setState({
       placeModel: fromJS(this.props.model.attributes),
     });
-  }
+  };
 
-  onUpdateComment(tagData) {
+  onUpdateTagNote = tagData => {
     this.props.model.set(
       "tags",
       this.props.model.get("tags").map(tag => {
@@ -299,7 +299,7 @@ class PlaceDetail extends Component {
     this.setState({
       placeModel: fromJS(this.props.model.attributes),
     });
-  }
+  };
 
   render() {
     // This is an unfortunate series of checks, but needed at the moment.
@@ -393,9 +393,9 @@ class PlaceDetail extends Component {
         <TagBar
           isEditModeToggled={this.props.isEditModeToggled}
           placeTags={this.state.placeModel.get("tags").toJS()}
-          onDeletePlaceTag={this.onDeletePlaceTag.bind(this)}
-          onCreatePlaceTag={this.onCreatePlaceTag.bind(this)}
-          onUpdateComment={this.onUpdateComment.bind(this)}
+          onDeletePlaceTag={this.onDeletePlaceTag}
+          onCreatePlaceTag={this.onCreatePlaceTag}
+          onUpdateTagNote={this.onUpdateTagNote}
           datasetSlug={this.props.collectionId}
           placeUrl={this.state.placeModel.get("url")}
         />

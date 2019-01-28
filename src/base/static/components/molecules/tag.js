@@ -4,7 +4,7 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 
 import { SmallText } from "../atoms/typography";
-import TagDisplayName from "./tag-display-name";
+import TagName from "./tag-name";
 
 const TagContainer = styled("div")(props => ({
   outline: "none",
@@ -22,12 +22,14 @@ const TagContainer = styled("div")(props => ({
 
 const TagNote = styled(SmallText)(props => ({
   whiteSpace: props.isExpanded ? "unset" : "nowrap",
-  textOverflow: "ellipsis",
+  textOverflow: props.isExpanded ? "unset" : "ellipsis",
   color: "#fff",
   fontStyle: "italic",
   overflow: "hidden",
+  wordWrap: props.isExpanded ? "break-word" : "normal",
   borderLeft: "1px solid #fff",
   paddingLeft: "6px",
+  paddingRight: "8px",
   textAlign: "left",
 }));
 
@@ -35,6 +37,7 @@ const ExpandCollapseButton = styled("button")({
   backgroundColor: "transparent",
   border: "none",
   outline: "none",
+  padding: "0 8px 0 0",
 });
 
 const ExpandCollapseText = styled(SmallText)({
@@ -52,7 +55,7 @@ class Tag extends Component {
   render() {
     return (
       <TagContainer backgroundColor={this.props.backgroundColor}>
-        <TagDisplayName displayName={this.props.displayName} isTagged={true} />
+        <TagName displayName={this.props.displayName} isSelected={true} />
         {this.props.placeTag.note && (
           <Fragment>
             <TagNote isExpanded={this.state.isExpanded}>

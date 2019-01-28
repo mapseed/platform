@@ -4,7 +4,7 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 
 import { TextareaInput } from "../atoms/input";
-import TagDisplayName from "./tag-display-name";
+import TagName from "./tag-name";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -16,19 +16,19 @@ const TagContainer = styled("div")(props => ({
   display: "flex",
   alignItems: "center",
   marginBottom: "8px",
-  borderTop: props.isTagged ? "1px solid #a8a8a8" : "1px dashed #aaa",
-  borderRight: props.isTagged ? "1px solid #c8c8c8" : "1px dashed #aaa",
-  borderBottom: props.isTagged ? "1px solid transparent" : "1px dashed #aaa",
-  borderLeft: props.isTagged ? "1px solid #c8c8c8" : "1px dashed #aaa",
+  borderTop: props.isSelected ? "1px solid #a8a8a8" : "1px dashed #aaa",
+  borderRight: props.isSelected ? "1px solid #c8c8c8" : "1px dashed #aaa",
+  borderBottom: props.isSelected ? "1px solid transparent" : "1px dashed #aaa",
+  borderLeft: props.isSelected ? "1px solid #c8c8c8" : "1px dashed #aaa",
   borderRadius: "3px",
-  backgroundColor: props.isTagged
+  backgroundColor: props.isSelected
     ? props.backgroundColor || "#6495ed"
     : "transparent",
 
   "&:hover": {
     cursor: "pointer",
     backgroundColor: props.backgroundColor || "#6495ed",
-    opacity: props.isTagged ? 1 : 0.3,
+    opacity: props.isSelected ? 1 : 0.3,
   },
 }));
 
@@ -48,16 +48,6 @@ const NoteBox = styled(TextareaInput)(props => ({
   fontSize: "0.75rem",
   fontWeight: "normal",
   transition: "all .5s ease",
-
-  "&::-webkit-input-placeholder": {
-    color: props.isActive ? "#ddd" : "#ccc",
-  },
-  "&:-moz-placeholder": {
-    color: props.isActive ? "#ddd" : "#ccc",
-  },
-  "&:-ms-input-placeholder": {
-    color: props.isActive ? "#ddd" : "#ccc",
-  },
 }));
 
 class TagEditor extends Component {
@@ -66,62 +56,60 @@ class TagEditor extends Component {
     note: this.props.placeTag ? this.props.placeTag.note : "",
   };
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
-    const isTagged = !!this.props.placeTag;
+    const isSelected = !!this.props.placeTag;
 
     return (
       <TagContainer
-        isTagged={isTagged}
+        isSelected={isSelected}
         backgroundColor={this.props.backgroundColor}
-        onClick={() => {
+        onClick={async () => {
           // Toggle the placeTag.
-          if (isTagged) {
-            mapseedApiClient.placeTags.delete({
-              url: this.props.placeTag.url,
-              onSuccess: () =>
-                this.props.onDeletePlaceTag(this.props.placeTag.id),
-              onFailure: err => {
-                // eslint-disable-next-line no-console
-                console.log("Error: Failed to delete tag.", err);
-              },
-            });
+          if (isSelected) {
+            await mapseedApiClient.placeTags.delete(this.props.placeTag.url);
+            this.props.onDeletePlaceTag(this.props.placeTag.id);
           } else {
-            mapseedApiClient.placeTags.create({
-              placeUrl: this.props.placeUrl,
-              tagData: {
+            const tagData = await mapseedApiClient.placeTags.create(
+              this.props.placeUrl,
+              {
                 note: this.state.note,
                 place: this.props.placeUrl,
                 tag: this.props.tag.url,
               },
-              onSuccess: tagData => this.props.onCreatePlaceTag(tagData),
-              onFailure: err => {
-                // eslint-disable-next-line no-console
-                console.log("Error: Failed to create tag.", err);
-              },
-            });
+            );
+            this.props.onCreatePlaceTag(tagData);
           }
         }}
       >
-        <TagDisplayName displayName={this.props.displayName} isTagged={isTagged} />
-        {isTagged && (
+        <TagName displayName={this.props.displayName} isSelected={isSelected} />
+        {isSelected && (
           <NoteBox
             value={this.state.note}
-            placeholder="(Add a comment...)"
+            placeholder={this.props.t("addNotePlaceholder")}
             isFocused={this.state.isFocused}
-            onBlur={() => {
+            onBlur={async () => {
               // Save the note text on blur.
-              mapseedApiClient.placeTags.update({
-                placeTag: this.props.placeTag,
-                newData: {
+              const tagData = await mapseedApiClient.placeTags.update(
+                this.props.placeTag.url,
+                {
                   note: this.state.note,
                 },
-                onSuccess: tagData => this.props.onUpdateComment(tagData),
-                onFailure: err => {
-                  // eslint-disable-next-line no-console
-                  console.log("Error: Tag note did note save.", err);
-                },
-              });
-              this.setState({ isFocused: false });
+              );
+              this.props.onUpdateTagNote(tagData);
+              if (this._isMounted) {
+                // The blur event could fire after the component unmounts (for
+                // example if the user closes the content panel). Only update
+                // the local state if the component is still mounted.
+                this.setState({ isFocused: false });
+              }
             }}
             onFocus={() => {
               this.setState({ isFocused: true });
@@ -158,7 +146,7 @@ TagEditor.propTypes = {
   }).isRequired,
   onCreatePlaceTag: PropTypes.func.isRequired,
   onDeletePlaceTag: PropTypes.func.isRequired,
-  onUpdateComment: PropTypes.func.isRequired,
+  onUpdateTagNote: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
