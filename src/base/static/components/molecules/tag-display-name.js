@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 
-import { RegularText, SmallText } from "../atoms/typography";
+import { RegularText } from "../atoms/typography";
 
 const PrimaryTagText = styled(RegularText)(props => ({
   whiteSpace: "nowrap",
@@ -12,30 +12,23 @@ const PrimaryTagText = styled(RegularText)(props => ({
   marginRight: "8px",
 }));
 
-const SecondaryTagText = styled(RegularText)(props => ({
+const RestTagText = styled(RegularText)(props => ({
   whiteSpace: "nowrap",
   color: props.isTagged ? "#fff" : "#ccc",
   marginRight: "8px",
 }));
 
-const RestTagText = styled(SmallText)(props => ({
-  whiteSpace: "nowrap",
-  color: props.isTagged ? "#fff" : "#ccc",
-  fontStyle: "italic",
-  marginRight: "8px",
-}));
+const tagTextStyles = [PrimaryTagText, RestTagText];
 
-const tagTextStyles = [PrimaryTagText, SecondaryTagText, RestTagText];
-
-const TagNameSet = props => {
+const TagDisplayName = props => {
   return (
     <Fragment>
-      {props.tagNames.map((tagName, i) => {
+      {props.displayName.map((tagName, i) => {
         i = i < tagTextStyles.length - 1 ? i : tagTextStyles.length - 1;
         const TagText = tagTextStyles[i];
 
         return (
-          <TagText isTagged={props.isTagged} key={i}>
+          <TagText isTagged={props.isTagged} key={tagName}>
             {tagName}
           </TagText>
         );
@@ -44,9 +37,9 @@ const TagNameSet = props => {
   );
 };
 
-TagNameSet.propTypes = {
+TagDisplayName.propTypes = {
   isTagged: PropTypes.bool.isRequired,
-  tagNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default TagNameSet;
+export default TagDisplayName;

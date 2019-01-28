@@ -8,7 +8,7 @@ import TagEditor from "../molecules/tag-editor";
 
 import {
   getAllTagsForDataset,
-  getAllTagNamesFromTagId,
+  getTagDisplayName,
   getColorForTag,
   getTagFromUrl,
 } from "../../state/ducks/datasets";
@@ -32,10 +32,7 @@ const TagBar = props => {
                 onDeletePlaceTag={props.onDeletePlaceTag}
                 onCreatePlaceTag={props.onCreatePlaceTag}
                 backgroundColor={tag.color}
-                tagNames={props.getAllTagNamesFromTagId(
-                  props.datasetSlug,
-                  tag.id,
-                )}
+                displayName={props.getTagDisplayName(props.datasetSlug, tag.id)}
                 tag={tag}
                 placeTag={props.placeTags.find(
                   placeTag => placeTag.tag === tag.url,
@@ -54,7 +51,7 @@ const TagBar = props => {
                   placeTag.tag,
                 )}
                 placeTag={placeTag}
-                tagNames={props.getAllTagNamesFromTagId(
+                displayName={props.getTagDisplayName(
                   props.datasetSlug,
                   props.getTagFromUrl(props.datasetSlug, placeTag.tag).id,
                 )}
@@ -68,7 +65,7 @@ const TagBar = props => {
 TagBar.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
   getAllTagsForDataset: PropTypes.func.isRequired,
-  getAllTagNamesFromTagId: PropTypes.func.isRequired,
+  getTagDisplayName: PropTypes.func.isRequired,
   getColorForTag: PropTypes.func.isRequired,
   getTagFromUrl: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
@@ -85,8 +82,8 @@ TagBar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  getAllTagNamesFromTagId: (datasetSlug, tagId) =>
-    getAllTagNamesFromTagId({ state, datasetSlug, tagId }),
+  getTagDisplayName: (datasetSlug, tagId) =>
+    getTagDisplayName({ state, datasetSlug, tagId }),
   getAllTagsForDataset: datasetSlug => getAllTagsForDataset(state, datasetSlug),
   getColorForTag: (datasetSlug, tagUrl) =>
     getColorForTag({ state, datasetSlug, tagUrl }),

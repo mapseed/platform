@@ -4,7 +4,7 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 
 import { TextareaInput } from "../atoms/input";
-import TagNameSet from "./tag-name-set";
+import TagDisplayName from "./tag-display-name";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -32,7 +32,7 @@ const TagContainer = styled("div")(props => ({
   },
 }));
 
-const CommentBox = styled(TextareaInput)(props => ({
+const NoteBox = styled(TextareaInput)(props => ({
   outline: "none !important",
   padding: "0 8px 0 6px",
   overflow: props.isFocused ? "visible" : "hidden",
@@ -102,14 +102,14 @@ class TagEditor extends Component {
           }
         }}
       >
-        <TagNameSet tagNames={this.props.tagNames} isTagged={isTagged} />
+        <TagDisplayName displayName={this.props.displayName} isTagged={isTagged} />
         {isTagged && (
-          <CommentBox
+          <NoteBox
             value={this.state.note}
             placeholder="(Add a comment...)"
             isFocused={this.state.isFocused}
             onBlur={() => {
-              // Save the comment text on blur.
+              // Save the note text on blur.
               mapseedApiClient.placeTags.update({
                 placeTag: this.props.placeTag,
                 newData: {
@@ -161,7 +161,7 @@ TagEditor.propTypes = {
   onUpdateComment: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  tagNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default translate("TagEditor")(TagEditor);

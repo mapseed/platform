@@ -1,14 +1,3 @@
-const getDatasets = async datasetUrls => {
-  const datasets = [];
-  datasetUrls.forEach(url => {
-    fetch(url).then(async result => {
-      datasets.push(await result.json());
-    });
-  });
-
-  return datasets;
-};
-
 const status = response => {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response);
@@ -18,6 +7,9 @@ const status = response => {
 };
 
 const json = response => response.json();
+
+const getDatasets = async datasetUrls =>
+  Promise.all(datasetUrls.map(url => fetch(url).then(json)));
 
 const createPlaceTag = ({ placeUrl, tagData, onSuccess, onFailure }) => {
   fetch(`${placeUrl}/tags`, {

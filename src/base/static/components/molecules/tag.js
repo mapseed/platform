@@ -4,7 +4,7 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 
 import { SmallText } from "../atoms/typography";
-import TagNameSet from "./tag-name-set";
+import TagDisplayName from "./tag-display-name";
 
 const TagContainer = styled("div")(props => ({
   outline: "none",
@@ -20,7 +20,7 @@ const TagContainer = styled("div")(props => ({
   backgroundColor: props.backgroundColor || "#6495ed",
 }));
 
-const TagComment = styled(SmallText)(props => ({
+const TagNote = styled(SmallText)(props => ({
   whiteSpace: props.isExpanded ? "unset" : "nowrap",
   textOverflow: "ellipsis",
   color: "#fff",
@@ -51,16 +51,13 @@ class Tag extends Component {
 
   render() {
     return (
-      <TagContainer
-        backgroundColor={this.props.backgroundColor}
-        isExpanded={this.state.isExpanded}
-      >
-        <TagNameSet tagNames={this.props.tagNames} isTagged={true} />
+      <TagContainer backgroundColor={this.props.backgroundColor}>
+        <TagDisplayName displayName={this.props.displayName} isTagged={true} />
         {this.props.placeTag.note && (
           <Fragment>
-            <TagComment isExpanded={this.state.isExpanded}>
+            <TagNote isExpanded={this.state.isExpanded}>
               {this.props.placeTag.note}
-            </TagComment>
+            </TagNote>
             <ExpandCollapseButton
               onClick={() =>
                 this.setState({ isExpanded: !this.state.isExpanded })
@@ -87,7 +84,7 @@ Tag.propTypes = {
   }).isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  tagNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default translate("Tag")(Tag);
