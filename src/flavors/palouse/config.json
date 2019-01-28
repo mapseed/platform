@@ -838,7 +838,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["conventional_till_quantity", "conventional_till_datetime"]
+              "targets": [
+                "conventional_till_quantity",
+                "conventional_till_datetime"
+              ]
             },
             "content": [
               {
@@ -1315,10 +1318,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "water_wells_quantity",
-                "water_wells_datetime"
-              ]
+              "targets": ["water_wells_quantity", "water_wells_datetime"]
             },
             "content": [
               {
@@ -1574,7 +1574,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["grassed_waterways_quantity", "grassed_waterways_datetime"]
+              "targets": [
+                "grassed_waterways_quantity",
+                "grassed_waterways_datetime"
+              ]
             },
             "content": [
               {
@@ -1965,9 +1968,10 @@
         "<img src='/static/css/images/rolling-hills-cropped.jpg' alt='Rolling hills, Whitman County' style='margin:8px 0 16px 0' />",
         "<p>Whitman County Voluntary Stewardship Program (VSP) provides an innovative approach for reporting the protection of critical areas on agriculture lands that enhance our environment through voluntary measure, while promoting agriculture viability. VSP voluntarily collects previous and on-going stewardship data from all interested landowners, which helps document VSP participation and the importance of agriculture viability.</p>",
         "<p>Visit <a href='http://www.whitmancountyvsp.com' target='_blank'>www.whitmancountyvsp.com</a> for more information",
-        "<p>Whitman County agriculture has an important story to tell!  Help promote Whitman County agriculture by sharing your story! VSP success relies on voluntary participation by landowners!</p>",
-        "<p style='margin-bottom:16px'>Whitman County VSP appreciates your time sharing stewardship practices!</p>",
-        "<p>Click Get Started below to report your conservation practices!</p>",
+        "<p><strong>Help promote Whitman County agriculture by sharing stewardship strategies!</strong></p>",
+        "<p><strong>VSP success relies on voluntary participation by landowners!</strong></p>",
+        "<p style='margin-bottom:16px'><strong>Whitman County VSP appreciates your time sharing stewardship practices!</strong></p>",
+        "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
     }
