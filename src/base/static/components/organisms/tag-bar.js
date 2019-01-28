@@ -20,45 +20,49 @@ const TagBarContainer = styled("div")({
 });
 
 const TagBar = props => {
-  return (
+  return props.isEditModeToggled ? (
     <TagBarContainer>
-      {props.isEditModeToggled
-        ? props.getAllTagsForDataset(props.datasetSlug).map(tag => {
-            return (
-              <TagEditor
-                key={tag.id}
-                datasetSlug={props.datasetSlug}
-                onUpdateTagNote={props.onUpdateTagNote}
-                onDeletePlaceTag={props.onDeletePlaceTag}
-                onCreatePlaceTag={props.onCreatePlaceTag}
-                backgroundColor={tag.color}
-                displayName={props.getTagDisplayName(props.datasetSlug, tag.id)}
-                tag={tag}
-                placeTag={props.placeTags.find(
-                  placeTag => placeTag.tag === tag.url,
-                )}
-                placeUrl={props.placeUrl}
-              />
-            );
-          })
-        : props.placeTags.map(placeTag => {
-            return (
-              <Tag
-                key={placeTag.id}
-                datasetSlug={props.datasetSlug}
-                backgroundColor={props.getColorForTag(
-                  props.datasetSlug,
-                  placeTag.tag,
-                )}
-                placeTag={placeTag}
-                displayName={props.getTagDisplayName(
-                  props.datasetSlug,
-                  props.getTagFromUrl(props.datasetSlug, placeTag.tag).id,
-                )}
-              />
-            );
-          })}
+      {props.getAllTagsForDataset(props.datasetSlug).map(tag => {
+        return (
+          <TagEditor
+            key={tag.id}
+            datasetSlug={props.datasetSlug}
+            onUpdateTagNote={props.onUpdateTagNote}
+            onDeletePlaceTag={props.onDeletePlaceTag}
+            onCreatePlaceTag={props.onCreatePlaceTag}
+            backgroundColor={tag.color}
+            displayName={props.getTagDisplayName(props.datasetSlug, tag.id)}
+            tag={tag}
+            placeTag={props.placeTags.find(
+              placeTag => placeTag.tag === tag.url,
+            )}
+            placeUrl={props.placeUrl}
+          />
+        );
+      })}
     </TagBarContainer>
+  ) : (
+    props.placeTags.length > 0 && (
+      <TagBarContainer>
+        {props.placeTags.map(placeTag => {
+          return (
+            <Tag
+              key={placeTag.id}
+              datasetSlug={props.datasetSlug}
+              backgroundColor={props.getColorForTag(
+                props.datasetSlug,
+                placeTag.tag,
+              )}
+              placeTag={placeTag}
+              displayName={props.getTagDisplayName(
+                props.datasetSlug,
+                props.getTagFromUrl(props.datasetSlug, placeTag.tag).id,
+              )}
+            />
+          );
+        })}
+      </TagBarContainer>
+    )
   );
 };
 
