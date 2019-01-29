@@ -24,7 +24,7 @@ const createPlaceTag = async (url, tagData) => {
       .then(json);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.log("Error: Failed to create tag.", err);
+    console.error("Error: Failed to create tag.", err);
   }
 };
 
@@ -41,7 +41,7 @@ const updatePlaceTag = async (url, newData) => {
       .then(json);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.log("Error: Tag note did note save.", err);
+    console.error("Error: Tag note did note save.", err);
   }
 };
 
@@ -55,7 +55,7 @@ const deletePlaceTag = async url => {
     }).then(status);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.log("Error: Failed to delete tag.", err);
+    console.error("Error: Failed to delete tag.", err);
   }
 };
 

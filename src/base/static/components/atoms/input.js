@@ -42,7 +42,7 @@ const TextareaInput = styled(props => {
       value={props.value}
     />
   );
-})(() => ({
+})(props => ({
   "&::-webkit-input-placeholder": {
     color: "#ddd",
   },
@@ -52,6 +52,13 @@ const TextareaInput = styled(props => {
   "&:-ms-input-placeholder": {
     color: "#ddd",
   },
+  padding: props.padding,
+  fontWeight: props.fontWeight,
+  fontStyle: props.fontStyle,
+  color: props.textColor,
+  height: props.height,
+  fontSize: props.fontSize,
+  background: props.background,
 }));
 
 TextareaInput.propTypes = {
@@ -63,6 +70,17 @@ TextareaInput.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   value: PropTypes.string,
+};
+
+TextareaInput.defaultProps = {
+  padding: "8px",
+  fontWeight: "normal",
+  fontStyle: "normal",
+  textColor: "#000",
+  height: "200px",
+  fontSize: "1rem",
+  background: "#fff",
+  lineHeight: "1.5rem",
 };
 
 const CheckboxInput = props => {

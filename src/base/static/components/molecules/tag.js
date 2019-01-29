@@ -6,6 +6,8 @@ import { translate } from "react-i18next";
 import { SmallText } from "../atoms/typography";
 import TagName from "./tag-name";
 
+import { tagPropType, placeTagPropType } from "../../state/ducks/datasets";
+
 const TagContainer = styled("div")(props => ({
   outline: "none",
   padding: "8px",
@@ -30,6 +32,7 @@ const TagNote = styled(SmallText)(props => ({
   borderLeft: "1px solid #fff",
   paddingLeft: "6px",
   paddingRight: "8px",
+  paddingTop: "3px",
   textAlign: "left",
 }));
 
@@ -55,7 +58,7 @@ class Tag extends Component {
   render() {
     return (
       <TagContainer backgroundColor={this.props.backgroundColor}>
-        <TagName displayName={this.props.displayName} isSelected={true} />
+        <TagName displayName={this.props.tag.displayName} isSelected={true} />
         {this.props.placeTag.note && (
           <Fragment>
             <TagNote isExpanded={this.state.isExpanded}>
@@ -81,13 +84,10 @@ class Tag extends Component {
 
 Tag.propTypes = {
   backgroundColor: PropTypes.string,
-  placeTag: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    note: PropTypes.string,
-  }).isRequired,
+  placeTag: placeTagPropType.isRequired,
+  tag: tagPropType,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default translate("Tag")(Tag);

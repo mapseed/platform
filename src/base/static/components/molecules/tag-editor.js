@@ -6,6 +6,8 @@ import { translate } from "react-i18next";
 import { TextareaInput } from "../atoms/input";
 import TagName from "./tag-name";
 
+import { tagPropType, placeTagPropType } from "../../state/ducks/datasets";
+
 import mapseedApiClient from "../../client/mapseed-api-client";
 
 const TagContainer = styled("div")(props => ({
@@ -34,19 +36,11 @@ const TagContainer = styled("div")(props => ({
 
 const NoteBox = styled(TextareaInput)(props => ({
   outline: "none !important",
-  padding: "0 8px 0 6px",
   overflow: props.isFocused ? "visible" : "hidden",
-  height: props.isFocused ? "5rem" : "0.7rem",
-  lineHeight: props.isFocused ? "1rem" : "0.8rem",
-  background: "transparent",
   borderLeft: "1px solid #fff !important",
   borderRight: "none !important",
   borderTop: "none !important",
   borderBottom: "none !important",
-  color: "#fff",
-  fontStyle: "italic",
-  fontSize: "0.75rem",
-  fontWeight: "normal",
   transition: "all .5s ease",
 }));
 
@@ -89,9 +83,20 @@ class TagEditor extends Component {
           }
         }}
       >
-        <TagName displayName={this.props.displayName} isSelected={isSelected} />
+        <TagName
+          displayName={this.props.tag.displayName}
+          isSelected={isSelected}
+        />
         {isSelected && (
           <NoteBox
+            padding="0 8px 0 6px"
+            fontWeight="normal"
+            fontStyle="italic"
+            textColor="#fff"
+            fontSize="0.75rem"
+            height={this.state.isFocused ? "5rem" : "0.7rem"}
+            lineHeight={this.state.isFocused ? "1rem" : "0.8rem"}
+            background="transparent"
             value={this.state.note}
             placeholder={this.props.t("addNotePlaceholder")}
             isFocused={this.state.isFocused}
@@ -132,24 +137,14 @@ class TagEditor extends Component {
 
 TagEditor.propTypes = {
   backgroundColor: PropTypes.string,
-  placeTag: PropTypes.shape({
-    url: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    note: PropTypes.string,
-  }),
+  placeTag: placeTagPropType,
   placeUrl: PropTypes.string.isRequired,
-  tag: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    parent: PropTypes.number,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
+  tag: tagPropType,
   onCreatePlaceTag: PropTypes.func.isRequired,
   onDeletePlaceTag: PropTypes.func.isRequired,
   onUpdateTagNote: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default translate("TagEditor")(TagEditor);

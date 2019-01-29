@@ -11,6 +11,7 @@ import {
   getTagDisplayName,
   getColorForTag,
   getTagFromUrl,
+  placeTagPropType,
 } from "../../state/ducks/datasets";
 
 const TagBarContainer = styled("div")({
@@ -31,7 +32,6 @@ const TagBar = props => {
             onDeletePlaceTag={props.onDeletePlaceTag}
             onCreatePlaceTag={props.onCreatePlaceTag}
             backgroundColor={tag.color}
-            displayName={props.getTagDisplayName(props.datasetSlug, tag.id)}
             tag={tag}
             placeTag={props.placeTags.find(
               placeTag => placeTag.tag === tag.url,
@@ -54,10 +54,7 @@ const TagBar = props => {
                 placeTag.tag,
               )}
               placeTag={placeTag}
-              displayName={props.getTagDisplayName(
-                props.datasetSlug,
-                props.getTagFromUrl(props.datasetSlug, placeTag.tag).id,
-              )}
+              tag={props.getTagFromUrl(props.datasetSlug, placeTag.tag)}
             />
           );
         })}
@@ -76,12 +73,7 @@ TagBar.propTypes = {
   onDeletePlaceTag: PropTypes.func.isRequired,
   onCreatePlaceTag: PropTypes.func.isRequired,
   onUpdateTagNote: PropTypes.func.isRequired,
-  placeTags: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      comment: PropTypes.string,
-    }),
-  ),
+  placeTags: PropTypes.arrayOf(placeTagPropType),
   placeUrl: PropTypes.string.isRequired,
 };
 

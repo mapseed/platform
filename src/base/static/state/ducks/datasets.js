@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 // Selectors:
 export const datasetSelector = (state, datasetSlug) =>
   state.datasets.find(dataset => dataset.slug === datasetSlug);
@@ -37,10 +39,7 @@ export function loadDatasets(datasets) {
         const children = getTagChildren(dataset, tag);
 
         tag.children = children;
-        tag.displayName =
-          children.length > 0
-            ? children.map(child => child.name).concat([tag.name])
-            : [tag.name];
+        tag.displayName = children.map(child => child.name).concat([tag.name]);
 
         return tag;
       });
@@ -50,11 +49,6 @@ export function loadDatasets(datasets) {
 
   return { type: LOAD, payload: datasets };
 }
-
-export const getTagDisplayName = ({ state, datasetSlug, tagId }) =>
-  state.datasets
-    .find(dataset => dataset.slug === datasetSlug)
-    .tags.find(tag => tag.id === tagId).displayName;
 
 export const getTagFromUrl = ({ state, datasetSlug, tagUrl }) =>
   state.datasets
@@ -70,6 +64,21 @@ export const getColorForTag = ({ state, datasetSlug, tagUrl }) =>
   state.datasets
     .find(dataset => dataset.slug === datasetSlug)
     .tags.find(tag => tag.url === tagUrl).color;
+
+export const tagPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  parent: PropTypes.number,
+  url: PropTypes.string.isRequired,
+  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
+}).isRequired;
+
+export const placeTagPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  note: PropTypes.string,
+  tag: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+});
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
