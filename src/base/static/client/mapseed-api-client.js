@@ -17,6 +17,7 @@ const createPlaceTag = async (url, tagData) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       method: "POST",
       body: JSON.stringify(tagData),
     })
@@ -34,6 +35,7 @@ const updatePlaceTag = async (url, newData) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       method: "PATCH",
       body: JSON.stringify(newData),
     })
@@ -51,6 +53,7 @@ const deletePlaceTag = async url => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       method: "DELETE",
     }).then(status);
   } catch (err) {

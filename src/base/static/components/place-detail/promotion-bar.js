@@ -26,6 +26,7 @@ class PromotionBar extends Component {
       // unsupport.
       this.props.userSupportModel.destroy({
         wait: true,
+        xhrFields: { withCredentials: true },
         success: () => {
           Util.log(
             "USER",
@@ -55,6 +56,7 @@ class PromotionBar extends Component {
         { user_token: this.props.userToken, visible: true },
         {
           wait: true,
+          xhrFields: { withCredentials: true },
           beforeSend: xhr => {
             // Do not generate activity for anonymous supports
             if (!Shareabouts.bootstrapped.currentUser) {
