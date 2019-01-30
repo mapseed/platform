@@ -67,9 +67,9 @@ class DatetimeField extends Component {
                 value={
                   (this.props.value &&
                     this.props.value !== this.ongoingValue &&
-                    moment(this.props.value).format(
-                      this.props.displayFormat,
-                    )) ||
+                    moment(this.props.value)
+                      .utc()
+                      .format(this.props.displayFormat)) ||
                   ""
                 }
               />
