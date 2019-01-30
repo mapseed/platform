@@ -2,18 +2,25 @@
 export const datasetSlugsSelector = state =>
   state.datasetsConfig.map(config => config.slug);
 
-export const hasAnonAbilityInAnyDataset = ({ state, ability, submissionSet }) =>
+export const hasAnonAbilitiesInAnyDataset = ({
+  state,
+  abilities,
+  submissionSet,
+}) =>
   state.datasetsConfig.some(config =>
     config.anonymous_permissions.some(
       perm =>
         (perm.submission_set === "*" ||
           perm.submission_set === submissionSet) &&
-        perm.abilities.includes(ability),
+        // All the passed abilities must exist in the array of allowed
+        // abilities.
+        abilities.filter(ability => perm.abilities.includes(ability)).length ===
+          abilities.length,
     ),
   );
-export const hasAnonAbilityInDataset = ({
+export const hasAnonAbilitiesInDataset = ({
   state,
-  ability,
+  abilities,
   submissionSet,
   datasetSlug,
 }) =>
@@ -23,7 +30,8 @@ export const hasAnonAbilityInDataset = ({
         config.slug === datasetSlug &&
         (perm.submission_set === "*" ||
           perm.submission_set === submissionSet) &&
-        perm.abilities.includes(ability),
+        abilities.filter(ability => perm.abilities.includes(ability)).length ===
+          abilities.length,
     ),
   );
 

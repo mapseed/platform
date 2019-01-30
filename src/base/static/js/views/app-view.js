@@ -60,12 +60,12 @@ import {
 import {
   loadUser,
   userSelector,
-  hasGroupAbilityInDatasets,
+  hasGroupAbilitiesInDatasets,
   hasAdminAbilities,
 } from "../../state/ducks/user";
 import {
   loadDatasetsConfig,
-  hasAnonAbilityInAnyDataset,
+  hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,
 } from "../../state/ducks/datasets-config";
 import { loadDatasets } from "../../state/ducks/datasets";
@@ -225,15 +225,15 @@ export default Backbone.View.extend({
     });
 
     if (
-      hasAnonAbilityInAnyDataset({
+      hasAnonAbilitiesInAnyDataset({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        abilities: ["create"],
       }) ||
-      hasGroupAbilityInDatasets({
+      hasGroupAbilitiesInDatasets({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        ability: ["create"],
         datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {
@@ -550,15 +550,15 @@ export default Backbone.View.extend({
   },
   newPlace: async function() {
     if (
-      hasAnonAbilityInAnyDataset({
+      hasAnonAbilitiesInAnyDataset({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        abilities: ["create"],
       }) ||
-      hasGroupAbilityInDatasets({
+      hasGroupAbilitiesInDatasets({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        abilities: ["create"],
         datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {
