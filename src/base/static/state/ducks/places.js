@@ -23,8 +23,8 @@ export const filteredPlacesSelector = state => {
     memo.push(filter.formId);
     return memo;
   }, []);
-  return state.places.filter(place =>
-    filteredFormIds.includes(place.location_type),
+  return state.places.filter(
+    place => filteredFormIds.includes(place.location_type) && !place.is_private,
   );
 };
 

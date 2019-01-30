@@ -1,4 +1,6 @@
 {
   "validationHeader":
-    "Your post is looking good, but we need some more information before we can proceed."
+    "Your post is looking good, but we need some more information before we can proceed.",
+  "privateSubmissionModalHeader": "Thank you!",
+  "privateSubmissionModalBody": "Your information was submitted successfully, and will remain private."
 }

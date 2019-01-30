@@ -1,7 +1,7 @@
 import constants from "../constants";
 
 const createGeoJSONFromPlaces = places => {
-  const features = places.map(place => {
+  const features = places.filter(place => !place.is_private).map(place => {
     const properties = Object.keys(place).reduce(
       (geoJSONProperties, property) => {
         geoJSONProperties[property] = place[property];
