@@ -152,7 +152,7 @@ class Survey extends Component {
         <div className="place-detail-survey-responses">
           {this.props.surveyModels.map(attributes => {
             {
-              return this.props.isEditModeToggled ? (
+              return this.props.isEditModeToggled && this.props.isEditable ? (
                 <SurveyResponseEditor
                   key={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   isSubmitting={this.props.isSubmitting}
@@ -227,6 +227,7 @@ Survey.propTypes = {
   collectionId: PropTypes.string.isRequired,
   hasAnonAbilityInDataset: PropTypes.func.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   onModelIO: PropTypes.func.isRequired,

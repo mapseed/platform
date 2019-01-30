@@ -24,24 +24,26 @@ const EditorBar = props => {
         isEditModeToggled={props.isEditModeToggled}
         onClick={props.onToggleEditMode}
       />
-      {props.isEditModeToggled && (
-        <EditorButton
-          className="place-detail-editor-bar__remove-button"
-          isSubmitting={props.isSubmitting}
-          label={props.t("removeBtn")}
-          type="remove"
-          onClick={() => emitter.emit("place-model:remove")}
-        />
-      )}
-      {props.isEditModeToggled && (
-        <EditorButton
-          className="place-detail-editor-bar__save-button"
-          isSubmitting={props.isSubmitting}
-          label={props.t("saveBtn")}
-          type="save"
-          onClick={() => emitter.emit("place-model:update")}
-        />
-      )}
+      {props.isEditModeToggled &&
+        props.isPlaceDetailEditable && (
+          <EditorButton
+            className="place-detail-editor-bar__remove-button"
+            isSubmitting={props.isSubmitting}
+            label={props.t("removeBtn")}
+            type="remove"
+            onClick={() => emitter.emit("place-model:remove")}
+          />
+        )}
+      {props.isEditModeToggled &&
+        props.isPlaceDetailEditable && (
+          <EditorButton
+            className="place-detail-editor-bar__save-button"
+            isSubmitting={props.isSubmitting}
+            label={props.t("saveBtn")}
+            type="save"
+            onClick={() => emitter.emit("place-model:update")}
+          />
+        )}
       <div className="place-detail-editor-bar__clearfix" />
     </div>
   );
@@ -49,6 +51,8 @@ const EditorBar = props => {
 
 EditorBar.propTypes = {
   isGeocodingBarEnabled: PropTypes.bool,
+  isPlaceDetailEditable: PropTypes.bool.isRequired,
+  isTagBarEditable: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   onToggleEditMode: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,

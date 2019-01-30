@@ -40,8 +40,8 @@ import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
-  hasUserAbilityInPlace,
-  hasGroupAbilityInDatasets,
+  hasUserAbilitiesInPlace,
+  hasGroupAbilitiesInDatasets,
 } from "../../state/ducks/user";
 import { isEditModeToggled, updateEditModeToggled } from "../../state/ducks/ui";
 
@@ -119,14 +119,19 @@ class PlaceDetail extends Component {
       attachmentModels: serializeBackboneCollection(
         this.props.model.attachmentCollection,
       ),
-      isEditable:
-        this.props.hasUserAbilityInPlace({
+      isTagBarEditable: this.props.hasGroupAbilitiesInDatasets({
+        abilities: ["update", "destroy", "create"],
+        submissionSet: "tags",
+        datasetSlugs: [this.props.collectionId],
+      }),
+      isPlaceDetailEditable:
+        this.props.hasUserAbilitiesInPlace({
           submitter: this.props.model.get(constants.SUBMITTER),
           isSubmitterEditingSupported: this.categoryConfig
             .submitter_editing_supported,
         }) ||
-        this.props.hasGroupAbilityInDatasets({
-          ability: "update",
+        this.props.hasGroupAbilitiesInDatasets({
+          abilities: ["update"],
           submissionSet: "places",
           datasetSlugs: [this.props.collectionId],
         }),
@@ -379,10 +384,16 @@ class PlaceDetail extends Component {
     }
 
     return (
-      <PlaceDetailContainer isEditable={this.state.isEditable}>
-        {this.state.isEditable && (
+      <PlaceDetailContainer
+        isEditable={
+          this.state.isPlaceDetailEditable || this.state.isTagBarEditable
+        }
+      >
+        {(this.state.isPlaceDetailEditable || this.state.isTagBarEditable) && (
           <EditorBar
             isEditModeToggled={this.props.isEditModeToggled}
+            isPlaceDetailEditable={this.state.isPlaceDetailEditable}
+            isTagBarEditable={this.state.isTagBarEditable}
             isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
@@ -392,6 +403,7 @@ class PlaceDetail extends Component {
         )}
         <TagBar
           isEditModeToggled={this.props.isEditModeToggled}
+          isEditable={this.state.isTagBarEditable}
           placeTags={this.state.placeModel.get("tags").toJS()}
           onDeletePlaceTag={this.onDeletePlaceTag}
           onCreatePlaceTag={this.onCreatePlaceTag}
@@ -440,7 +452,7 @@ class PlaceDetail extends Component {
           />
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
-        {this.props.isEditModeToggled ? (
+        {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
           <PlaceDetailEditor
             collectionId={this.props.collectionId}
             placeModel={this.state.placeModel}
@@ -464,6 +476,7 @@ class PlaceDetail extends Component {
             this.props.model,
           )}
           isEditModeToggled={this.props.isEditModeToggled}
+          isEditable={this.state.isPlaceDetailEditable}
           isSubmitting={this.state.isSurveyEditFormSubmitting}
           surveyModels={this.state.surveyModels}
           onModelIO={this.onChildModelIO.bind(this)}
@@ -499,8 +512,8 @@ PlaceDetail.propTypes = {
     provider_type: PropTypes.string,
     username: PropTypes.string,
   }),
-  hasGroupAbilityInDatasets: PropTypes.func.isRequired,
-  hasUserAbilityInPlace: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  hasUserAbilitiesInPlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
   mapConfig: PropTypes.shape({
@@ -524,10 +537,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  hasGroupAbilityInDatasets: ({ ability, submissionSet, datasetSlugs }) =>
-    hasGroupAbilityInDatasets({ state, ability, submissionSet, datasetSlugs }),
-  hasUserAbilityInPlace: ({ submitter, isSubmitterEditingSupported }) =>
-    hasUserAbilityInPlace({ state, submitter, isSubmitterEditingSupported }),
+  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      submissionSet,
+      datasetSlugs,
+    }),
+  hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
+    hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
   isEditModeToggled: isEditModeToggled(state),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),

@@ -21,7 +21,7 @@ const TagBarContainer = styled("div")({
 });
 
 const TagBar = props => {
-  return props.isEditModeToggled ? (
+  return props.isEditModeToggled && props.isEditable ? (
     <TagBarContainer>
       {props.getAllTagsForDataset(props.datasetSlug).map(tag => {
         return (
@@ -69,6 +69,7 @@ TagBar.propTypes = {
   getTagDisplayName: PropTypes.func.isRequired,
   getColorForTag: PropTypes.func.isRequired,
   getTagFromUrl: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   onDeletePlaceTag: PropTypes.func.isRequired,
   onCreatePlaceTag: PropTypes.func.isRequired,
