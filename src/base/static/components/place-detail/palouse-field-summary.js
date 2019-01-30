@@ -27,6 +27,7 @@ const SnohomishFieldSummary = props => {
     props.placeModel,
   ).filter(fieldConfig => props.placeModel.get(fieldConfig.name) === "yes");
   const numActions = fieldConfigs.length;
+  const description = props.placeModel.get("practices_description");
 
   return (
     <div>
@@ -46,6 +47,7 @@ const SnohomishFieldSummary = props => {
             )}
           />
         ))}
+      {description && <RegularText>{description}</RegularText>}
       <ActionSummary>
         {fieldConfigs.map((fieldConfig, idx) => {
           const actionQuantityConfig =
