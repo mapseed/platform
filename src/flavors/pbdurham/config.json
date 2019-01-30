@@ -14,7 +14,7 @@
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
-          "submission_set": "places"
+          "submission_set": "comments"
         }
       ]
     }
