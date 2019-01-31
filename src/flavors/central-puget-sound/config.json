@@ -3783,13 +3783,7 @@
     {
       "title": "_(Classroom)",
       "type": "internal_link",
-      "url": "/page/classroom"
-    },
-    {
-      "title": "_(About)",
-      "type": "internal_link",
-      "url": "/page/about",
-      "start_page": true
+      "url": "/page/about"
     }
   ],
   "pages": [
