@@ -16,6 +16,7 @@ Shareabouts.Util = Util;
       "": "viewMap",
       "page/:slug": "viewPage",
       dashboard: "viewDashboard",
+      sha: "viewSha",
       ":dataset/:id": "viewPlace",
       new: "newPlace",
       ":dataset/:id/response/:response_id": "viewPlace",
@@ -170,6 +171,11 @@ Shareabouts.Util = Util;
     viewPage: function(slug) {
       recordGoogleAnalyticsHit("/page/" + slug);
       this.appView.viewPage(slug);
+    },
+
+    viewSha: function() {
+      recordGoogleAnalyticsHit("/sha");
+      this.appView.viewSha();
     },
 
     viewList: function() {

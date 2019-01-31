@@ -747,6 +747,17 @@ export default Backbone.View.extend({
     store.dispatch(setMapSizeValidity(false));
   },
 
+  viewSha: function() {
+    $("#main").addClass("is-visuallyhidden");
+    $("#list-container").addClass("is-visuallyhidden");
+    $("#dashboard-container").addClass("is-visuallyhidden");
+    $("#sha-container").removeClass("is-visuallyhidden");
+    ReactDOM.render(
+      <div>{GIT_SHA}</div>,
+      document.getElementById("sha-container"),
+    );
+  },
+
   viewPage: async function(slug) {
     const page = pageSelector({
       state: store.getState(),
@@ -816,12 +827,14 @@ export default Backbone.View.extend({
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
     $("#dashboard-container").addClass("is-visuallyhidden");
+    $("#sha-container").addClass("is-visuallyhidden");
 
     // remove "list page" content:
     ReactDOM.unmountComponentAtNode(document.getElementById("list-container"));
     ReactDOM.unmountComponentAtNode(
       document.getElementById("dashboard-container"),
     );
+    ReactDOM.unmountComponentAtNode(document.getElementById("sha-container"));
 
     // render "main page" content:
     if (geocodeAddressBarVisibilitySelector(store.getState())) {
