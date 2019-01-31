@@ -34,7 +34,7 @@ class FormCategoryMenuWrapper extends Component {
           datasetSlug: config.datasetSlug,
         }) ||
           this.props.hasGroupAbilitiesInDatasets({
-            ability: ["create"],
+            abilities: ["create"],
             submissionSet: "places",
             datasetSlugs: [config.datasetSlug],
           })),

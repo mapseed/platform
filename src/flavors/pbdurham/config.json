@@ -10,7 +10,7 @@
       ]
     },
     {
-      "dataset_slug": "pbdurham-projects",
+      "slug": "pbdurham-projects",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
@@ -689,7 +689,7 @@
         "includeOnForm": true,
         "includeOnList": false,
         "name": "location_type",
-        "dataset_slug": "pbdurham-projects",
+        "datasetSlug": "pbdurham-projects",
         "icon_url": "/static/css/images/markers/money.png",
         "value": "project",
         "label": "_(Project Proposal)",

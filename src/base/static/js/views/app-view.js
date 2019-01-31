@@ -233,7 +233,7 @@ export default Backbone.View.extend({
       hasGroupAbilitiesInDatasets({
         state: store.getState(),
         submissionSet: "places",
-        ability: ["create"],
+        abilities: ["create"],
         datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {
