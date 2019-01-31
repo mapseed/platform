@@ -32,6 +32,7 @@ input {
     &[type=tel],
     &[type=time],
     &[type=url],
+    &[type=number],
     &[type=week] {
         outline: 0;
         border: 0.25em solid $button-background-lightblue;
