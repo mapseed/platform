@@ -826,14 +826,14 @@
             "name": "partners-stakeholders",
             "type": "textarea",
             "prompt": "_(Partners / Stakeholders)",
-            "placeholder": "_(Who are the stakeholders and what is their role or relationship in this problem/solution?)",
+            "placeholder": "_(Who are the stakeholders and what is their relationship to this problem/solution?)",
             "display_prompt": "_(Partners / Stakeholders:)"
           },
           {
             "name": "action",
             "type": "rich_textarea",
             "prompt": "_(Actions Taken, Photos, and Next Steps)",
-            "placeholder": "_(Concise outline of steps taken that show how the solution was designed, how data were collected, and how stakeholders were identified, consulted, or informed.)",
+            "placeholder": "_(Concise outline of steps taken that show how the solution was designed, how data were collected, and how stakeholders were identified, consulted, or informed. Insert photos to help tell your story. If possible, be sure to describe the actual impact of your project in relation to community sustainability goals and performance measures. Consider embedding links to community goals or metrics. What are your next steps or recommendations for future classes?)",
             "display_prompt": "_(Actions Taken, Photos, and Next Steps:)"
           },
           {
@@ -3873,7 +3873,7 @@
       "content": [
         "<h3 style='font-family:Palanquin, sans-serif'>Classroom Impact Reporting Protocol</h3>",
         "<img style='margin-top:16px;margin-bottom:16px' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
-        "<p>Add your classroom reports to the map! Let your students and stakeholders track and visualize the positive impact of their classroom and community projects. Need admin support to get started? Just ask.</p>",
+        "<p>Add your classroom reports to the map! Let your students and stakeholders track and visualize the positive impact of their classroom and community projects. Need admin support to get started? <a href='/page/guide' rel='internal'>Just ask.</a></p>",
         "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-large'>REPORT IT!</a>"
       ]
     }
