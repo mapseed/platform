@@ -3784,6 +3784,12 @@
       "title": "_(Classroom)",
       "type": "internal_link",
       "url": "/page/classroom"
+    },
+    {
+      "title": "_(About)",
+      "type": "internal_link",
+      "url": "/page/about",
+      "start_page": true
     }
   ],
   "pages": [
@@ -3865,43 +3871,10 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<h1>Welcome</h1>",
-        "<p>We are here to educate and inspire action for our Central Puget Sound watersheds</p>",
-        "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/3333' rel='internal'>",
-        "<img src='/static/css/images/watershed-cedar-sq.jpg'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Cedar River / Lake Washington Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<figure class='flow-layout flow-vert flow-vert-right'>",
-        "<a href='/featured/3334' rel='internal'>",
-        "<img src='/static/css/images/watershed-green-duwamish-vert-b.jpg'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Green / Duwamish Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/3332' rel='internal'>",
-        "<img src='/static/css/images/watershed-sammamish-alt-sq.jpg'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Lake Sammamish Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<div class='clearfix'></div>",
-        "<figure class='flow-layout'>",
-        "<a href='/featured/3335' rel='internal'>",
-        "<img src='/static/css/images/watershed-puyallup-alt-horiz.png'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Puyallup / White Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<br />",
-        "<p>This project made possible by our generous <a href='/page/sponsors' rel='internal'>sponsors</a>."
+        "<h3 style='font-family:Palanquin, sans-serif'>Classroom Impact Reporting Protocol</h3>",
+        "<img style='margin-top:16px;margin-bottom:16px' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
+        "<p>Add your classroom reports to the map! Let your students and stakeholders track and visualize the positive impact of their classroom and community projects. Need admin support to get started? Just ask.</p>",
+        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-large'>REPORT IT!</a>"
       ]
     }
   ],
