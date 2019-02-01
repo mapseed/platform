@@ -800,6 +800,8 @@ export default Backbone.View.extend({
       $("#main-btns-container").addClass(
         this.options.placeConfig.add_button_location || "pos-top-left",
       );
+      this.hideSpotlightMask();
+
       if (!placesSelector(store.getState())) {
         await this.fetchAndLoadPlaces();
       }
