@@ -1,3 +1,67 @@
+const status = response => {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+};
+
+const json = response => response.json();
+
+const getDatasets = async datasetUrls =>
+  Promise.all(datasetUrls.map(url => fetch(url).then(json)));
+
+const createPlaceTag = async (url, tagData) => {
+  try {
+    return await fetch(`${url}/tags`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify(tagData),
+    })
+      .then(status)
+      .then(json);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to create tag.", err);
+  }
+};
+
+const updatePlaceTag = async (url, newData) => {
+  try {
+    return await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "PATCH",
+      body: JSON.stringify(newData),
+    })
+      .then(status)
+      .then(json);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Tag note did note save.", err);
+  }
+};
+
+const deletePlaceTag = async url => {
+  try {
+    await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "DELETE",
+    }).then(status);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to delete tag.", err);
+  }
+};
+
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
@@ -59,7 +123,7 @@ const getPlaceCollections = async ({
           }
         },
 
-        success: function(fetchedCollection, response, options) {
+        success: function(fetchedCollection) {
           resolve(fetchedCollection, collectionId);
         },
 
@@ -85,6 +149,7 @@ const getActivity = activityCollections => {
     activityCollection.fetch({
       success: successCallback,
       error: (collection, error) => {
+        // eslint-disable-next-line no-console
         console.error("Error fetching activity collection", error);
       },
     });
@@ -97,5 +162,13 @@ export default {
   },
   activity: {
     get: getActivity,
+  },
+  datasets: {
+    get: getDatasets,
+  },
+  placeTags: {
+    create: createPlaceTag,
+    update: updatePlaceTag,
+    delete: deletePlaceTag,
   },
 };

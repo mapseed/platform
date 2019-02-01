@@ -119,6 +119,7 @@
         "id": "demo",
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
         "type": "place",
+        "is_visible_default": true,
         "slug": "demo",
         "feature_types": ["Point"],
         "focus_rules": [

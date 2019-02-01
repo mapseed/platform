@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 
 import InputFormCategoryButton from "./input-form-category-button";
 
-import { hasGroupAbilityInDatasets } from "../../state/ducks/user";
-import { hasAnonAbilityInDataset } from "../../state/ducks/datasets-config";
+import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
+import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 
 class InputFormCategorySelector extends Component {
   state = {
@@ -29,13 +29,13 @@ class InputFormCategorySelector extends Component {
           // of controlling category visibility on a group-by-group basis,
           // though we may want to add that feature at some point.
           return (
-            (this.props.hasAnonAbilityInDataset({
-              ability: "create",
+            (this.props.hasAnonAbilitiesInDataset({
+              abilities: ["create"],
               submissionSet: "places",
               datasetSlug: config.datasetSlug,
             }) ||
-              this.props.hasGroupAbilityInDatasets({
-                ability: "create",
+              this.props.hasGroupAbilitiesInDatasets({
+                abilites: ["create"],
                 submissionSet: "places",
                 datasetSlugs: [config.datasetSlug],
               })) && (
@@ -61,18 +61,23 @@ class InputFormCategorySelector extends Component {
 }
 
 InputFormCategorySelector.propTypes = {
-  hasAnonAbilityInDataset: PropTypes.func.isRequired,
-  hasGroupAbilityInDatasets: PropTypes.func.isRequired,
+  hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
   selectedCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   visibleCategoryConfigs: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({
-  hasGroupAbilityInDatasets: ({ ability, submissionSet, datasetSlugs }) =>
-    hasGroupAbilityInDatasets({ state, ability, submissionSet, datasetSlugs }),
-  hasAnonAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
-    hasAnonAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
+  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      submissionSet,
+      datasetSlugs,
+    }),
+  hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
+    hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
 });
 
 export default connect(mapStateToProps)(InputFormCategorySelector);

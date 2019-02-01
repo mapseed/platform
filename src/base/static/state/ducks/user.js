@@ -2,9 +2,9 @@
 export const userSelector = state => {
   return state.user;
 };
-export const hasGroupAbilityInDatasets = ({
+export const hasGroupAbilitiesInDatasets = ({
   state,
-  ability,
+  abilities,
   submissionSet,
   datasetSlugs,
 }) =>
@@ -16,15 +16,19 @@ export const hasGroupAbilityInDatasets = ({
           datasetSlugs.includes(group.dataset_slug) &&
           (perm.submission_set === "*" ||
             perm.submission_set === submissionSet) &&
-          perm.abilities.includes(ability),
+          // All the passed abilities must exist in the array of allowed
+          // abilities.
+          abilities.filter(ability => perm.abilities.includes(ability))
+            .length === abilities.length,
       ),
     );
-export const hasUserAbilityInPlace = ({
+export const hasUserAbilitiesInPlace = ({
   state,
   submitter,
   isSubmitterEditingSupported = false,
 }) =>
-  // Users are assumed to have all abilities on their own places.
+  // Users are assumed to have all abilities on their own places, except for
+  // the ability to edit tags.
   isSubmitterEditingSupported &&
   submitter &&
   state.user.username === submitter.username &&

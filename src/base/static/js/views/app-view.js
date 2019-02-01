@@ -60,14 +60,15 @@ import {
 import {
   loadUser,
   userSelector,
-  hasGroupAbilityInDatasets,
+  hasGroupAbilitiesInDatasets,
   hasAdminAbilities,
 } from "../../state/ducks/user";
 import {
   loadDatasetsConfig,
-  hasAnonAbilityInAnyDataset,
+  hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,
 } from "../../state/ducks/datasets-config";
+import { loadDatasets } from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
@@ -172,6 +173,8 @@ export default Backbone.View.extend({
     this.activities = this.options.activities;
     this.places = this.options.places;
 
+    this.fetchAndLoadDatasets();
+
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
     this.isStoryActive = false;
@@ -222,15 +225,15 @@ export default Backbone.View.extend({
     });
 
     if (
-      hasAnonAbilityInAnyDataset({
+      hasAnonAbilitiesInAnyDataset({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        abilities: ["create"],
       }) ||
-      hasGroupAbilityInDatasets({
+      hasGroupAbilitiesInDatasets({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        abilities: ["create"],
         datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {
@@ -362,10 +365,20 @@ export default Backbone.View.extend({
     this.setBodyClass();
   },
 
+  fetchAndLoadDatasets: async function() {
+    const datasetUrls = this.options.mapConfig.layers
+      .filter(layer => layer.type === "place")
+      .map(layer => layer.url);
+    const datasets = await mapseedApiClient.datasets.get(datasetUrls);
+
+    store.dispatch(loadDatasets(datasets));
+  },
+
   fetchAndLoadPlaces: async function() {
     const placeParams = {
       // NOTE: this is to include comments/supports while fetching our place models
       include_submissions: true,
+      include_tags: true,
     };
 
     // Use the page size as dictated by the server by default, unless
@@ -537,15 +550,15 @@ export default Backbone.View.extend({
   },
   newPlace: async function() {
     if (
-      hasAnonAbilityInAnyDataset({
+      hasAnonAbilitiesInAnyDataset({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        abilities: ["create"],
       }) ||
-      hasGroupAbilityInDatasets({
+      hasGroupAbilitiesInDatasets({
         state: store.getState(),
         submissionSet: "places",
-        ability: "create",
+        abilities: ["create"],
         datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {

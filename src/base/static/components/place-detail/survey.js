@@ -18,7 +18,7 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
-import { hasAnonAbilityInDataset } from "../../state/ducks/datasets-config";
+import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 
 import constants from "../../constants";
 import { translate } from "react-i18next";
@@ -35,8 +35,8 @@ class Survey extends Component {
       isFormSubmitting: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
-      isWithForm: this.props.hasAnonAbilityInDataset({
-        ability: "create",
+      isWithForm: this.props.hasAnonAbilitiesInDataset({
+        abilities: ["create"],
         submissionSet: "comments",
         datasetSlug: this.props.collectionId,
       }),
@@ -152,7 +152,7 @@ class Survey extends Component {
         <div className="place-detail-survey-responses">
           {this.props.surveyModels.map(attributes => {
             {
-              return this.props.isEditModeToggled ? (
+              return this.props.isEditModeToggled && this.props.isEditable ? (
                 <SurveyResponseEditor
                   key={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   isSubmitting={this.props.isSubmitting}
@@ -225,8 +225,9 @@ class Survey extends Component {
 Survey.propTypes = {
   appConfig: appConfigPropType.isRequired,
   collectionId: PropTypes.string.isRequired,
-  hasAnonAbilityInDataset: PropTypes.func.isRequired,
+  hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   onModelIO: PropTypes.func.isRequired,
@@ -245,8 +246,8 @@ Survey.propTypes = {
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
-  hasAnonAbilityInDataset: ({ ability, submissionSet, datasetSlug }) =>
-    hasAnonAbilityInDataset({ state, ability, submissionSet, datasetSlug }),
+  hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
+    hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
   commentFormConfig: commentFormConfigSelector(state),
 });
 

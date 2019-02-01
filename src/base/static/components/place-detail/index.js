@@ -9,6 +9,7 @@ import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
 import EditorBar from "./editor-bar";
+import TagBar from "../organisms/tag-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 import emitter from "../../utils/emitter";
 
@@ -39,9 +40,10 @@ import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
-  hasUserAbilityInPlace,
-  hasGroupAbilityInDatasets,
+  hasUserAbilitiesInPlace,
+  hasGroupAbilitiesInDatasets,
 } from "../../state/ducks/user";
+import { isEditModeToggled, updateEditModeToggled } from "../../state/ducks/ui";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
@@ -74,6 +76,10 @@ const PromotionMetadataContainer = styled("div")({
   marginBottom: "24px",
 });
 
+const PlaceDetailContainer = styled("div")(props => ({
+  paddingTop: props.isEditable ? "60px" : 0,
+}));
+
 class PlaceDetail extends Component {
   constructor(props) {
     super(props);
@@ -103,9 +109,6 @@ class PlaceDetail extends Component {
     );
 
     this.state = {
-      // NOTE: We remove the story property before serializing, so it doesn't
-      // get saved.
-      // TODO: A proper story model would avoid this problem.
       placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
         this.props.model.submissionSets[this.supportType],
@@ -116,15 +119,19 @@ class PlaceDetail extends Component {
       attachmentModels: serializeBackboneCollection(
         this.props.model.attachmentCollection,
       ),
-      isEditModeToggled: false,
-      isEditable:
-        this.props.hasUserAbilityInPlace({
+      isTagBarEditable: this.props.hasGroupAbilitiesInDatasets({
+        abilities: ["update", "destroy", "create"],
+        submissionSet: "tags",
+        datasetSlugs: [this.props.collectionId],
+      }),
+      isPlaceDetailEditable:
+        this.props.hasUserAbilitiesInPlace({
           submitter: this.props.model.get(constants.SUBMITTER),
           isSubmitterEditingSupported: this.categoryConfig
             .submitter_editing_supported,
         }) ||
-        this.props.hasGroupAbilityInDatasets({
-          ability: "update",
+        this.props.hasGroupAbilitiesInDatasets({
+          abilities: ["update"],
           submissionSet: "places",
           datasetSlugs: [this.props.collectionId],
         }),
@@ -241,7 +248,6 @@ class PlaceDetail extends Component {
       this.setState({ isEditFormSubmitting: true });
     } else if (action === constants.PLACE_MODEL_IO_END_SUCCESS_ACTION) {
       this.setState({
-        isEditModeToggled: false,
         isEditFormSubmitting: false,
         placeModel: fromJS(this.props.model.attributes),
         attachmentModels: serializeBackboneCollection(
@@ -264,6 +270,41 @@ class PlaceDetail extends Component {
       });
     }
   }
+
+  onCreatePlaceTag = tagData => {
+    this.props.model.set(
+      "tags",
+      this.props.model.get("tags").concat([tagData]),
+    );
+
+    this.setState({
+      placeModel: fromJS(this.props.model.attributes),
+    });
+  };
+
+  onDeletePlaceTag = placeTagId => {
+    this.props.model.set(
+      "tags",
+      this.props.model.get("tags").filter(tag => tag.id !== placeTagId),
+    );
+
+    this.setState({
+      placeModel: fromJS(this.props.model.attributes),
+    });
+  };
+
+  onUpdateTagNote = tagData => {
+    this.props.model.set(
+      "tags",
+      this.props.model.get("tags").map(tag => {
+        return tagData.id === tag.id ? tagData : tag;
+      }),
+    );
+
+    this.setState({
+      placeModel: fromJS(this.props.model.attributes),
+    });
+  };
 
   render() {
     // This is an unfortunate series of checks, but needed at the moment.
@@ -343,23 +384,36 @@ class PlaceDetail extends Component {
     }
 
     return (
-      <div className="place-detail-view">
-        {this.state.isEditable && (
+      <PlaceDetailContainer
+        isEditable={
+          this.state.isPlaceDetailEditable || this.state.isTagBarEditable
+        }
+      >
+        {(this.state.isPlaceDetailEditable || this.state.isTagBarEditable) && (
           <EditorBar
-            isEditModeToggled={this.state.isEditModeToggled}
+            isEditModeToggled={this.props.isEditModeToggled}
+            isPlaceDetailEditable={this.state.isPlaceDetailEditable}
+            isTagBarEditable={this.state.isTagBarEditable}
             isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
-              this.setState({
-                isEditModeToggled: !this.state.isEditModeToggled,
-              });
+              this.props.updateEditModeToggled(!this.props.isEditModeToggled);
             }}
           />
         )}
+        <TagBar
+          isEditModeToggled={this.props.isEditModeToggled}
+          isEditable={this.state.isTagBarEditable}
+          placeTags={this.state.placeModel.get("tags").toJS()}
+          onDeletePlaceTag={this.onDeletePlaceTag}
+          onCreatePlaceTag={this.onCreatePlaceTag}
+          onUpdateTagNote={this.onUpdateTagNote}
+          datasetSlug={this.props.collectionId}
+          placeUrl={this.state.placeModel.get("url")}
+        />
         <h1
           className={classNames("place-detail-view__header", {
             "place-detail-view__header--centered": isStoryChapter,
-            "place-detail-view__header--with-top-space": this.state.isEditable,
           })}
         >
           {title}
@@ -398,7 +452,7 @@ class PlaceDetail extends Component {
           />
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
-        {this.state.isEditModeToggled ? (
+        {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
           <PlaceDetailEditor
             collectionId={this.props.collectionId}
             placeModel={this.state.placeModel}
@@ -421,7 +475,8 @@ class PlaceDetail extends Component {
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
             this.props.model,
           )}
-          isEditModeToggled={this.state.isEditModeToggled}
+          isEditModeToggled={this.props.isEditModeToggled}
+          isEditable={this.state.isPlaceDetailEditable}
           isSubmitting={this.state.isSurveyEditFormSubmitting}
           surveyModels={this.state.surveyModels}
           onModelIO={this.onChildModelIO.bind(this)}
@@ -435,7 +490,7 @@ class PlaceDetail extends Component {
           submitter={submitter}
           userToken={this.props.userToken}
         />
-      </div>
+      </PlaceDetailContainer>
     );
   }
 }
@@ -457,8 +512,9 @@ PlaceDetail.propTypes = {
     provider_type: PropTypes.string,
     username: PropTypes.string,
   }),
-  hasGroupAbilityInDatasets: PropTypes.func.isRequired,
-  hasUserAbilityInPlace: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  hasUserAbilitiesInPlace: PropTypes.func.isRequired,
+  isEditModeToggled: PropTypes.bool.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
   mapConfig: PropTypes.shape({
     geocoding_bar_enabled: PropTypes.bool,
@@ -471,18 +527,33 @@ PlaceDetail.propTypes = {
   supportConfig: PropTypes.object.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
+  updateEditModeToggled: PropTypes.func.isRequired,
   userToken: PropTypes.string.isRequired,
 };
 
+const mapDispatchToProps = dispatch => ({
+  updateEditModeToggled: isToggled =>
+    dispatch(updateEditModeToggled(isToggled)),
+});
+
 const mapStateToProps = state => ({
-  hasGroupAbilityInDatasets: ({ ability, submissionSet, datasetSlugs }) =>
-    hasGroupAbilityInDatasets({ state, ability, submissionSet, datasetSlugs }),
-  hasUserAbilityInPlace: ({ submitter, isSubmitterEditingSupported }) =>
-    hasUserAbilityInPlace({ state, submitter, isSubmitterEditingSupported }),
+  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      submissionSet,
+      datasetSlugs,
+    }),
+  hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
+    hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
+  isEditModeToggled: isEditModeToggled(state),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(translate("PlaceDetail")(PlaceDetail));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate("PlaceDetail")(PlaceDetail));
