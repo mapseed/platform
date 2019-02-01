@@ -24,7 +24,11 @@ const getPlaceCollections = async ({
         // Check for a valid location type before adding it to the collection
         validate: true,
         data: includePrivate
-          ? { ...placeParams, include_private: true }
+          ? {
+              ...placeParams,
+              include_private_places: true,
+              include_private_fields: true,
+            }
           : placeParams,
         // get the dataset slug and id from the array of map layers
         attributesToAdd: {
