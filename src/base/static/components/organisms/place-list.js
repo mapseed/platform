@@ -254,6 +254,8 @@ PlaceList.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  // NOTE: the filter below should be removed when we refactor Backbone
+  // models into Redux.
   places: filteredPlacesSelector(state).filter(place => !place.private),
   placeConfig: placeConfigSelector(state),
 });
