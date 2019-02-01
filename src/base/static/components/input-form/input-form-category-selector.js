@@ -35,7 +35,7 @@ class InputFormCategorySelector extends Component {
               datasetSlug: config.datasetSlug,
             }) ||
               this.props.hasGroupAbilitiesInDatasets({
-                abilites: ["create"],
+                abilities: ["create"],
                 submissionSet: "places",
                 datasetSlugs: [config.datasetSlug],
               })) && (
