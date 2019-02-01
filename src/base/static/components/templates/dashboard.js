@@ -248,7 +248,7 @@ class Dashboard extends Component {
               this.props.dashboardConfig.datasetOwner
             }/datasets/${
               this.props.dashboardConfig.datasetId
-            }/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
+            }/mapseed-places.csv?format=csv&include_private_places&include_private_fields&page_size=10000`}
           >
             {`Download Survey Data`}
           </DownloadDataLink>

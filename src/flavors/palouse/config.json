@@ -1917,18 +1917,18 @@
             ]
           },
           {
-            "name": "private-share_story",
+            "name": "private",
             "type": "big_radio",
-            "prompt": "_(Would you be willing to share your stewardship story with the public?)",
-            "default_value": "no",
+            "prompt": "_(Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.)",
+            "default_value": true,
             "content": [
               {
                 "label": "_(Yes)",
-                "value": "yes"
+                "value": false
               },
               {
                 "label": "_(No)",
-                "value": "no"
+                "value": true
               }
             ]
           },

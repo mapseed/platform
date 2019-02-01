@@ -368,7 +368,15 @@ class InputForm extends Component {
   }
 
   defaultPostSave(model) {
-    this.props.router.navigate(Util.getUrl(model), { trigger: true });
+    if (model.get("private")) {
+      this.props.router.navigate("/", { trigger: true });
+      emitter.emit("info-modal:open", {
+        header: this.props.t("privateSubmissionModalHeader"),
+        body: [this.props.t("privateSubmissionModalBody")],
+      });
+    } else {
+      this.props.router.navigate(Util.getUrl(model), { trigger: true });
+    }
   }
 
   getStageStartField() {
