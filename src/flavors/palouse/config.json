@@ -1920,9 +1920,9 @@
             ]
           },
           {
-            "name": "is_private",
+            "name": "private",
             "type": "big_radio",
-            "prompt": "_(Would you be willing to share your stewardship story with the public?)",
+            "prompt": "_(Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.)",
             "default_value": true,
             "content": [
               {

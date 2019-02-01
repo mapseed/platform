@@ -368,7 +368,7 @@ class InputForm extends Component {
   }
 
   defaultPostSave(model) {
-    if (model.get("is_private")) {
+    if (model.get("private")) {
       this.props.router.navigate("/", { trigger: true });
       emitter.emit("info-modal:open", {
         header: this.props.t("privateSubmissionModalHeader"),

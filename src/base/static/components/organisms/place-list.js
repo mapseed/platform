@@ -254,7 +254,7 @@ PlaceList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  places: filteredPlacesSelector(state),
+  places: filteredPlacesSelector(state).filter(place => !place.private),
   placeConfig: placeConfigSelector(state),
 });
 

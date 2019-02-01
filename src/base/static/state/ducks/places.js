@@ -24,7 +24,7 @@ export const filteredPlacesSelector = state => {
     return memo;
   }, []);
   return state.places.filter(
-    place => filteredFormIds.includes(place.location_type) && !place.is_private,
+    place => filteredFormIds.includes(place.location_type),
   );
 };
 
