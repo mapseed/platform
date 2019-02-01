@@ -51,7 +51,7 @@
           "lng": -117.51842014278026
         },
         "zoom": 8,
-        "pitch": 40,
+        "pitch": 15,
         "minZoom": 1,
         "maxZoom": 18,
         "scrollZoom": {
@@ -193,7 +193,8 @@
             "layout": {
               "text-field": ["get", "Unit"],
               "text-size": 17,
-              "text-allow-overlap": false
+              "text-allow-overlap": true,
+              "text-padding": 0
             }
           }
         ]
