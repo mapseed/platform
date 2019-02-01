@@ -67,12 +67,12 @@ export function createPlace(place) {
 }
 
 // Reducers:
-const INITIAL_STATE = null;
+const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOAD_PLACES:
-      return action.payload;
+      return state.concat(action.payload);
     case UPDATE_PLACE:
       return action.payload.reduce((memo, newPlace) => {
         let oldPlace = memo.find(place => newPlace.id === place.id);

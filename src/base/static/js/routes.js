@@ -26,9 +26,7 @@ Shareabouts.Util = Util;
     },
 
     initialize: function(options) {
-      var self = this,
-        // store config details for places
-        configArrays = {};
+      var self = this;
 
       fetch(`${options.appConfig.api_root}utils/session-key?format=json`, {
         credentials: "include",
@@ -40,29 +38,27 @@ Shareabouts.Util = Util;
         );
       });
 
-      // store individual place collections for each place type
-      this.places = {};
       // store individual activity collections for each place type
       this.activities = {};
 
       this.isAddingSupported = !!options.placeConfig.adding_supported;
 
-      PlaceModel.prototype.getLoggingDetails = function() {
-        return this.id;
-      };
+      //PlaceModel.prototype.getLoggingDetails = function() {
+        //return this.id;
+      //};
 
       // Reject a place that does not have a supported place_detail configuration.
       // This will prevent invalid places from being added or saved to the collection.
-      PlaceModel.prototype.validate = function(attrs) {
-        if (
-          !S.Config.place.place_detail.find(
-            placeDetail => placeDetail.category === attrs.location_type,
-          )
-        ) {
-          console.warn(attrs.location_type + " is not supported.");
-          return attrs.location_type + " is not supported.";
-        }
-      };
+   //   PlaceModel.prototype.validate = function(attrs) {
+   //     if (
+   //       !S.Config.place.place_detail.find(
+   //         placeDetail => placeDetail.category === attrs.location_type,
+   //       )
+   //     ) {
+   //       console.warn(attrs.location_type + " is not supported.");
+   //       return attrs.location_type + " is not supported.";
+   //     }
+   //   };
 
       // Global route changes
       this.bind("route", function(route, router) {
@@ -71,21 +67,21 @@ Shareabouts.Util = Util;
 
       this.loading = true;
 
-      // set up place configs and instantiate place collections
-      configArrays.places = options.mapConfig.layers.filter(function(layer) {
-        return layer.type && layer.type === "place";
-      });
-      _.each(configArrays.places, function(config) {
-        var collection = new PlaceCollection([], {
-          url: config.url + "/places",
-        });
-        self.places[config.id] = collection;
-      });
+    //  // set up place configs and instantiate place collections
+    //  configArrays.places = options.mapConfig.layers.filter(function(layer) {
+    //    return layer.type && layer.type === "place";
+    //  });
+    //  _.each(configArrays.places, function(config) {
+    //    var collection = new PlaceCollection([], {
+    //      url: config.url + "/places",
+    //    });
+    //    self.places[config.id] = collection;
+    //  });
 
       this.appView = new AppView({
         el: "body",
         places: this.places,
-        datasetConfigs: configArrays,
+        datasetConfigs: options.datasetsConfig,
         apiRoot: options.appConfig.api_root,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,

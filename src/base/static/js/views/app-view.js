@@ -43,9 +43,8 @@ import {
   showLayers,
   hideLayers,
   setBasemap,
-  setLayerError,
-  setLayerLoading,
   setMapDragging,
+  setLayerLoading,
   setLayerUnloaded,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
@@ -67,6 +66,7 @@ import {
   loadDatasetsConfig,
   hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,
+  datasetConfigsSelector,
 } from "../../state/ducks/datasets-config";
 import { loadDatasets } from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
@@ -387,22 +387,21 @@ export default Backbone.View.extend({
       placeParams.page_size = this.options.appConfig.places_page_size;
     }
 
-    // Load places from the API
-    const placeCollectionsPromise = mapseedApiClient.place.get({
-      placeParams,
-      placeCollections: this.places,
-      layers: mapLayersSelector(store.getState()),
-      setLayerError: layerId => store.dispatch(setLayerError(layerId)),
-      hasAdminAbilities: datasetSlug => {
-        return hasAdminAbilities(store.getState(), datasetSlug);
-      },
-    });
+    // TODO: layer loading and loaded feedback
+    const datasetConfigs = datasetConfigsSelector(store.getState());
+    datasetConfigs.forEach(async config => {
+      const placePagePromises = await mapseedApiClient.place.get({
+        url: `${config.url}/places`,
+        datasetSlug: config.slug,
+        placeParams: placeParams,
+        includePrivate: hasAdminAbilities(store.getState(), config.slug),
+      });
 
-    const fetchedCollections = await placeCollectionsPromise;
-    const allPlaces = fetchedCollections.reduce((places, collection) => {
-      return [...collection.models.map(model => model.toJSON()), ...places];
-    }, []);
-    store.dispatch(loadPlaces(allPlaces));
+      await placePagePromises.forEach(async placePromise => {
+        const placeData = await placePromise;
+        store.dispatch(loadPlaces(placeData));
+      });
+    });
 
     // Update the load statuses of our layers that are being fetched:
     const layers = mapLayerStatusesSelector(store.getState());
@@ -516,7 +515,7 @@ export default Backbone.View.extend({
     this.destroyNewModels();
     this.setBodyClass();
     this.renderMain(mapPosition);
-    if (!placesSelector(store.getState())) {
+    if (!placesSelector(store.getState()).length) {
       await this.fetchAndLoadPlaces();
     }
   },
@@ -628,7 +627,7 @@ export default Backbone.View.extend({
       this.setBodyClass("content-visible", "place-form-visible");
       store.dispatch(setMapSizeValidity(false));
       store.dispatch(setAddPlaceButtonVisibility(false));
-      if (!placesSelector(store.getState())) {
+      if (!placesSelector(store.getState()).length) {
         await this.fetchAndLoadPlaces();
       }
       emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
@@ -641,7 +640,7 @@ export default Backbone.View.extend({
   viewPlace: async function(args) {
     this.renderMain();
     this.renderRightSidebar();
-    if (!placesSelector(store.getState())) {
+    if (!placesSelector(store.getState()).length) {
       await this.fetchAndLoadPlaces();
     }
     const datasetId = this.options.mapConfig.layers.find(
@@ -918,7 +917,7 @@ export default Backbone.View.extend({
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     this.renderRightSidebar();
-    if (!placesSelector(store.getState())) {
+    if (!placesSelector(store.getState()).length) {
       await this.fetchAndLoadPlaces();
     }
     this.renderList();

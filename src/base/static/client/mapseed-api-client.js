@@ -62,90 +62,60 @@ const deletePlaceTag = async url => {
   }
 };
 
-const getPlaceCollections = async ({
-  placeParams,
-  placeCollections,
-  layers,
-  setLayerError,
-  hasAdminAbilities,
-}) => {
-  const $progressContainer = $("#map-progress");
-  const $currentProgress = $("#map-progress .current-progress");
-  let pagesComplete = 0;
-  let totalPages = 0;
-  let pageSize;
+const buildQuerystring = params =>
+  Object.entries(params).reduce((querystring, [param, value]) => {
+    return `${querystring}&${param}=${value}`;
+  }, "?");
 
-  // loop over all place collections
-  const placeCollectionPromises = [];
-  _.each(placeCollections, function(collection, collectionId) {
-    const placeCollectionPromise = new Promise((resolve, reject) => {
-      const layer = layers.find(layer => layer.id === collectionId);
-      const includePrivate = hasAdminAbilities(collectionId);
-      // if we are fetching a dataset id to be used in the dashboard,
-      // and the user has access to that dataset:
-      collection.fetchAllPages({
-        remove: false,
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        data: includePrivate
-          ? {
-              ...placeParams,
-              include_private_places: true,
-              include_private_fields: true,
-            }
-          : placeParams,
-        // get the dataset slug and id from the array of map layers
-        attributesToAdd: {
-          datasetSlug: layer.slug,
-          datasetId: layer.id,
-        },
-        attribute: "properties",
-        xhrFields: { withCredentials: includePrivate },
+const fromGeoJSON = (featureCollection, datasetSlug) =>
+  Promise.resolve(
+    featureCollection.features.map(feature => ({
+      geometry: feature.geometry,
+      _datasetSlug: datasetSlug,
+      ...feature.properties,
+    })),
+  );
 
-        // Only do this for the first page...
-        pageSuccess: _.once(function(collection, data) {
-          pageSize = data.features.length;
-          totalPages = totalPages += Math.ceil(data.metadata.length / pageSize);
+// Get all the places for a single dataset
+const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
+  try {
+    const placePagePromises = [];
+    placeParams = includePrivate
+      ? { ...placeParams, include_private: true }
+      : placeParams;
 
-          if (data.metadata.next) {
-            $progressContainer.show();
-          }
-        }),
+    const firstPagePromise = fetch(`${url}${buildQuerystring(placeParams)}`)
+      .then(status)
+      .then(json);
 
-        // Do this for every page...
-        pageComplete: function() {
-          var percent;
+    placePagePromises.push(firstPagePromise);
 
-          pagesComplete++;
-          percent = (pagesComplete / totalPages) * 100;
-          $currentProgress.width(percent + "%");
+    await firstPagePromise.then(data => {
+      // Fetch additional pages of data, if they exist.
+      if (data.metadata.next) {
+        const pageSize = data.features.length;
+        const totalPages =
+          pageSize > 0 ? Math.ceil(data.metadata.length / pageSize) : 0;
 
-          if (pagesComplete === totalPages) {
-            _.delay(function() {
-              $progressContainer.hide();
-            }, 2000);
-          }
-        },
-
-        success: function(fetchedCollection) {
-          resolve(fetchedCollection, collectionId);
-        },
-
-        error: function(collection, err) {
-          layer.is_visible_default && setLayerError(collectionId);
-          // eslint-disable-next-line no-console
-          console.error(
-            `error loading place collection: ${collectionId}: err:`,
-            err,
+        for (let i = 2; i <= totalPages; i++) {
+          placeParams = { ...placeParams, page: i };
+          placePagePromises.push(
+            fetch(`${url}${buildQuerystring(placeParams)}`)
+              .then(status)
+              .then(json),
           );
-          reject(err);
-          // TODO: layer loading event; fix in layer UI PR
-        },
-      });
+        }
+      }
     });
-    placeCollectionPromises.push(placeCollectionPromise);
-  });
-  return await Promise.all(placeCollectionPromises);
+
+    // Before returning, convert from GeoJSON to a simple hash of Place data.
+    return placePagePromises.map(placePagePromise =>
+      placePagePromise.then(data => fromGeoJSON(data, datasetSlug)),
+    );
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to fetch places.", err);
+  }
 };
 
 const getActivity = activityCollections => {
@@ -162,7 +132,7 @@ const getActivity = activityCollections => {
 
 export default {
   place: {
-    get: getPlaceCollections,
+    get: getPlaces,
   },
   activity: {
     get: getActivity,

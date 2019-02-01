@@ -2,6 +2,8 @@
 export const datasetSlugsSelector = state =>
   state.datasetsConfig.map(config => config.slug);
 
+export const datasetConfigsSelector = state => state.datasetsConfig;
+
 export const hasAnonAbilitiesInAnyDataset = ({
   state,
   abilities,
