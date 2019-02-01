@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { List, Map } from "immutable";
 import classNames from "classnames";
+import { connect } from "react-redux";
 
 import { InfoModalTrigger } from "../atoms/feedback";
 import fieldDefinitions from "./field-definitions";
 import { translate } from "react-i18next";
 import constants from "../../constants";
+
+import { isEditModeToggled } from "../../state/ducks/ui";
 
 import "./form-field.scss";
 
@@ -31,11 +34,16 @@ class FormField extends Component {
     // We have to coordinate between the FormField component and its parent--
     // which manages the state--in order to initialize properly. We should
     // search for a better pattern to support field state management.
+
+    // In edit mode, don't fill in default values.
+    const defaultValue = this.props.isEditModeToggled
+      ? null
+      : this.props.fieldConfig.default_value;
     const initialFieldValue = this.fieldDefinition.getInitialValue({
       value:
         this.props.fieldState.get(constants.FIELD_VALUE_KEY) ||
         autofillValue ||
-        this.props.fieldConfig.default_value ||
+        defaultValue ||
         "",
       fieldConfig: this.props.fieldConfig,
       attachmentModels: this.props.attachmentModels,
@@ -148,6 +156,7 @@ FormField.propTypes = {
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
+  isEditModeToggled: PropTypes.bool.isRequired,
   isInitializing: PropTypes.bool,
   updatingField: PropTypes.string,
   map: PropTypes.object,
@@ -169,4 +178,8 @@ FormField.defaultProps = {
   attachmentModels: new List(),
 };
 
-export default translate("FormField")(FormField);
+const mapStateToProps = state => ({
+  isEditModeToggled: isEditModeToggled(state),
+});
+
+export default connect(mapStateToProps)(translate("FormField")(FormField));

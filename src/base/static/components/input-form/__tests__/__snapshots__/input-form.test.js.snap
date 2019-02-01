@@ -9,8 +9,7 @@ exports[`InputForm renders input form 1`] = `
     id="mapseed-input-form"
     onSubmit={[Function]}
   >
-    <FormField
-      attachmentModels={Immutable.List []}
+    <Connect(FormField)
       disabled={false}
       fieldConfig={
         Object {
@@ -41,11 +40,9 @@ exports[`InputForm renders input form 1`] = `
         }
       }
       showValidityStatus={false}
-      t={[Function]}
       updatingField={null}
     />
-    <FormField
-      attachmentModels={Immutable.List []}
+    <Connect(FormField)
       disabled={false}
       fieldConfig={
         Object {
@@ -76,11 +73,9 @@ exports[`InputForm renders input form 1`] = `
         }
       }
       showValidityStatus={false}
-      t={[Function]}
       updatingField={null}
     />
-    <FormField
-      attachmentModels={Immutable.List []}
+    <Connect(FormField)
       disabled={false}
       fieldConfig={
         Object {
@@ -111,7 +106,6 @@ exports[`InputForm renders input form 1`] = `
         }
       }
       showValidityStatus={false}
-      t={[Function]}
       updatingField={null}
     />
   </form>
