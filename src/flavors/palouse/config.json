@@ -494,7 +494,6 @@
         "category": "reports",
         "submitter_editing_supported": true,
         "includeOnForm": true,
-        "includeOnList": true,
         "submitter_editing_supported": true,
         "name": "location_type",
         "datasetSlug": "palouse-input",
@@ -1882,7 +1881,6 @@
           },
           {
             "name": "my_image",
-            "includeOnList": true,
             "type": "file",
             "prompt": "_(Show your stewardship practices! Upload photos:)",
             "label": "_(Upload photos)",
@@ -1890,7 +1888,6 @@
           },
           {
             "name": "practices_description",
-            "includeOnList": true,
             "type": "textarea",
             "prompt": "_(Add a description of your stewardship practices!)",
             "display_prompt": "_(Description:)",
