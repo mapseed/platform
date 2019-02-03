@@ -35,7 +35,7 @@ import {
   NumberFieldResponse,
   GeolocateField,
 } from "./types";
-import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
+import { isWithAnyValue, isNotEmpty } from "./validators";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
@@ -86,7 +86,11 @@ export default {
   [constants.NUMBER_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
     getComponent: (fieldConfig, context) => (
-      <NumberField {...getSharedFieldProps(fieldConfig, context)} />
+      <NumberField
+        {...getSharedFieldProps(fieldConfig, context)}
+        min={fieldConfig.min}
+        max={fieldConfig.max}
+      />
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => NumberFieldResponse,

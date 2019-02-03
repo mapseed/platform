@@ -113,6 +113,8 @@ const NumberInput = props => {
       value={props.value}
       placeholder={props.placeholder}
       onChange={e => props.onChange(e.target.name, e.target.value)}
+      min={props.min}
+      max={props.max}
     />
   );
 };
@@ -124,6 +126,8 @@ NumberInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
 };
 
 const DatetimeInput = props => {

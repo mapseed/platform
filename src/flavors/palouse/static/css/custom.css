@@ -86,6 +86,7 @@ body {
 
 .textarea-field,
 .text-field,
+input[type="number"],
 .datetime-field__input {
   border-color: #999999;
   border-width: 4px;
