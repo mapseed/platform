@@ -14,6 +14,7 @@ import {
 import {
   filteredPlacesSelector,
   placesPropType,
+  datasetLengthSelector,
 } from "../../state/ducks/places";
 import { filtersSelector, filtersPropType } from "../../state/ducks/filters";
 import {
@@ -422,22 +423,19 @@ class MainMap extends Component {
       });
     }
 
-    // Check if a layer's visibibility or load status has changed:
+    // Check if a layer's visibility or load status has changed:
     for (let layerId in this.props.layerStatuses) {
+      const layer = this.props.layers.find(layer => layer.id === layerId);
       const layerStatus = this.props.layerStatuses[layerId];
       const prevLayerStatus = prevProps.layerStatuses[layerId];
+
       if (layerStatus.isVisible !== prevLayerStatus.isVisible) {
         if (layerStatus.isVisible) {
           // A layer has been switched on.
-          this.addLayer(
-            this.props.layers.find(layer => layer.id === layerId),
-            layerStatus.isBasemap,
-          );
+          this.addLayer(layer, layerStatus.isBasemap);
         } else {
           // A layer has been switched off.
-          this._map.removeLayer(
-            this.props.layers.find(layer => layer.id === layerId),
-          );
+          this._map.removeLayer(layer);
         }
       }
 
@@ -446,10 +444,8 @@ class MainMap extends Component {
         prevLayerStatus.loadStatus === "fetching"
       ) {
         // A layer's data has been fetched, so now we add it to the map:
-        this.addLayer(
-          this.props.layers.find(layer => layer.id === layerId),
-          layerStatus.isBasemap,
-        );
+        // TODO: Paginated loading.
+        this.addLayer(layer, layerStatus.isBasemap);
       }
     }
 
@@ -526,6 +522,7 @@ MainMap.propTypes = {
   activeDrawGeometryId: PropTypes.string,
   activeMarker: PropTypes.string,
   container: PropTypes.string.isRequired,
+  datasetLengthSelector: PropTypes.func.isRequired,
   geometryStyle: geometryStyleProps,
   featureFilters: PropTypes.arrayOf(
     PropTypes.shape({
@@ -619,6 +616,8 @@ MainMap.propTypes = {
 const mapStateToProps = state => ({
   activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeMarker: activeMarkerSelector(state),
+  datasetLengthSelector: datasetSlug =>
+    datasetLengthSelector(state, datasetSlug),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   mapConfig: mapConfigSelector(state),
   geometryStyle: geometryStyleSelector(state),

@@ -387,9 +387,10 @@ export default Backbone.View.extend({
       placeParams.page_size = this.options.appConfig.places_page_size;
     }
 
-    // TODO: layer loading and loaded feedback
     const datasetConfigs = datasetConfigsSelector(store.getState());
-    datasetConfigs.forEach(async config => {
+    const layerStatuses = mapLayerStatusesSelector(store.getState());
+
+    await datasetConfigs.forEach(async config => {
       const placePagePromises = await mapseedApiClient.place.get({
         url: `${config.url}/places`,
         datasetSlug: config.slug,
@@ -397,23 +398,15 @@ export default Backbone.View.extend({
         includePrivate: hasAdminAbilities(store.getState(), config.slug),
       });
 
-      await placePagePromises.forEach(async placePromise => {
-        const placeData = await placePromise;
-        store.dispatch(loadPlaces(placeData));
-      });
-    });
+      const placeData = await Promise.all(placePagePromises);
+      store.dispatch(
+        loadPlaces(
+          placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+        ),
+      );
 
-    // Update the load statuses of our layers that are being fetched:
-    const layers = mapLayerStatusesSelector(store.getState());
-    Object.values(layers).forEach(layerStatus => {
-      if (layerStatus.loadStatus === "fetching") {
-        if (layerStatus.isVisible) {
-          // mark the layer to be loaded onto the map
-          store.dispatch(setLayerLoading(layerStatus.id));
-        } else {
-          // the layer is now 'fetched', but don't load it into the map.
-          store.dispatch(setLayerUnloaded(layerStatus.id));
-        }
+      if (layerStatuses[config.slug].isVisible) {
+        store.dispatch(setLayerLoading(config.slug));
       }
     });
   },
@@ -801,7 +794,7 @@ export default Backbone.View.extend({
       );
       this.hideSpotlightMask();
 
-      if (!placesSelector(store.getState())) {
+      if (!placesSelector(store.getState()).length) {
         await this.fetchAndLoadPlaces();
       }
     } else {

@@ -71,6 +71,8 @@ const fromGeoJSON = (featureCollection, datasetSlug) =>
   Promise.resolve(
     featureCollection.features.map(feature => ({
       geometry: feature.geometry,
+      // Add a private field for the slug each Place belongs to, so we can
+      // filter by dataset when we need to.
       _datasetSlug: datasetSlug,
       ...feature.properties,
     })),
@@ -108,7 +110,7 @@ const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
       }
     });
 
-    // Before returning, convert from GeoJSON to a simple hash of Place data.
+    // Convert from GeoJSON to a simple hash of Place data.
     return placePagePromises.map(placePagePromise =>
       placePagePromise.then(data => fromGeoJSON(data, datasetSlug)),
     );

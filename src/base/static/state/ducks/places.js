@@ -28,6 +28,9 @@ export const filteredPlacesSelector = state => {
   );
 };
 
+export const datasetLengthSelector = (state, datasetSlug) =>
+  state.places.filter(place => place._datasetSlug === datasetSlug).length;
+
 export const placePropType = PropTypes.shape({
   attachments: PropTypes.array.isRequired,
   updated_datetime: PropTypes.string.isRequired,
