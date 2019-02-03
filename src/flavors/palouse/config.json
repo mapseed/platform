@@ -858,6 +858,7 @@
             "name": "conventional_till_quantity",
             "type": "number",
             "prompt": "_(How many acres?)",
+            "min": 0,
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -904,6 +905,7 @@
             "name": "no_till_quantity",
             "type": "number",
             "prompt": "_(On how many acres of land do you use residue and tillage management?)",
+            "min": 0,
             "hidden_default": true,
             "placeholder": "_(Approximate acreage)",
             "metadata": {
@@ -981,6 +983,7 @@
           {
             "name": "nutrient_management_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1060,6 +1063,7 @@
             "name": "pest_management_quantity",
             "type": "number",
             "prompt": "_(How many acres?)",
+            "min": 0,
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -1138,6 +1142,7 @@
             "name": "managed_grazing_quantity",
             "type": "number",
             "prompt": "_(How many acres?)",
+            "min": 0,
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
             "metadata": {
@@ -1186,6 +1191,7 @@
           {
             "name": "range_plantings_quantity",
             "type": "number",
+            "min": 0,
             "metadata": {
               "units": "_(acres)"
             },
@@ -1234,6 +1240,7 @@
           {
             "name": "watering_facility_quantity",
             "type": "number",
+            "min": 0,
             "metadata": {
               "units": "_(stock tanks)"
             },
@@ -1279,6 +1286,7 @@
           {
             "name": "water_wells_quantity",
             "type": "number",
+            "min": 0,
             "metadata": {
               "units": "_(wells)"
             },
@@ -1353,6 +1361,7 @@
           {
             "name": "cover_crop_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1399,6 +1408,7 @@
           {
             "name": "mulching_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1477,6 +1487,7 @@
           {
             "name": "conservation_cover_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1526,6 +1537,7 @@
           {
             "name": "critical_area_planting_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1575,6 +1587,7 @@
           {
             "name": "grassed_waterways_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many feet?)",
             "placeholder": "_(Approximate footage)",
             "hidden_default": true,
@@ -1621,6 +1634,7 @@
           {
             "name": "weed_control_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1667,6 +1681,7 @@
           {
             "name": "tree_shrub_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1713,6 +1728,7 @@
           {
             "name": "upland_habitat_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many acres?)",
             "placeholder": "_(Approximate acreage)",
             "hidden_default": true,
@@ -1759,6 +1775,7 @@
           {
             "name": "hedgerow_planting_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many feet?)",
             "placeholder": "_(Approximate footage)",
             "hidden_default": true,
@@ -1805,6 +1822,7 @@
           {
             "name": "open_channel_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many feet?)",
             "placeholder": "_(Approximate footage)",
             "hidden_default": true,
@@ -1851,6 +1869,7 @@
           {
             "name": "fencing_quantity",
             "type": "number",
+            "min": 0,
             "prompt": "_(How many feet?)",
             "placeholder": "_(Approximate footage)",
             "hidden_default": true,
