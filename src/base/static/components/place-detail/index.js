@@ -74,8 +74,8 @@ const PlaceDetailContainer = styled("div")(props => ({
 class PlaceDetail extends Component {
   state = {
     place: fromJS(this.props.getPlace(this.props.placeId)),
-    isEditFormSubmitting: false,
     isSurveyEditFormSubmitting: false,
+    placeRequestType: null,
   };
   categoryConfig = getCategoryConfig(
     this.props.placeConfig,
@@ -123,9 +123,12 @@ class PlaceDetail extends Component {
       this.props.getPlace(this.props.placeId).submission_sets.support.length !==
         this.state.place.get("submission_sets").get("support").size ||
       this.props.getPlace(this.props.placeId).submission_sets.comments
-        .length !== this.state.place.get("submission_sets").get("comments").size
+        .length !==
+        this.state.place.get("submission_sets").get("comments").size ||
+      !fromJS(this.props.getPlace(this.props.placeId)).equals(this.state.place)
     ) {
-      // If a support or comment has been added, removed, or updated.
+      // If a support or comment has been added, removed, or updated, or if the
+      // Place itself has changed.
       this.setState({
         place: fromJS(this.props.getPlace(this.props.placeId)),
       });
@@ -143,6 +146,14 @@ class PlaceDetail extends Component {
         responseRef.getBoundingClientRect().top - this.topOffset;
     });
   }
+
+  onAddAttachment = () => {}; // TODO
+
+  setPlaceRequestType = requestType => {
+    this.setState({
+      placeRequestType: requestType,
+    });
+  };
 
   render() {
     const title =
@@ -211,17 +222,17 @@ class PlaceDetail extends Component {
 
     return (
       <PlaceDetailContainer
-        isEditable={
-          this.state.isPlaceDetailEditable || this.state.isTagBarEditable
-        }
+        isEditable={this.isPlaceDetailEditable || this.isTagBarEditable}
       >
-        {(this.state.isPlaceDetailEditable || this.state.isTagBarEditable) && (
+        {(this.isPlaceDetailEditable || this.isTagBarEditable) && (
           <EditorBar
             isEditModeToggled={this.props.isEditModeToggled}
-            isPlaceDetailEditable={this.state.isPlaceDetailEditable}
-            isTagBarEditable={this.state.isTagBarEditable}
+            isPlaceDetailEditable={this.isPlaceDetailEditable}
+            isTagBarEditable={this.isTagBarEditable}
             isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
             isSubmitting={this.state.isEditFormSubmitting}
+            onClickRemovePlace={() => this.setPlaceRequestType("remove")}
+            onClickUpdatePlace={() => this.setPlaceRequestType("update")}
             onToggleEditMode={() => {
               this.props.updateEditModeToggled(!this.props.isEditModeToggled);
             }}
@@ -271,19 +282,14 @@ class PlaceDetail extends Component {
           />
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
-        {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
+        {this.props.isEditModeToggled && this.isPlaceDetailEditable ? (
           <PlaceDetailEditor
-            collectionId={this.props.collectionId}
-            placeModel={this.state.placeModel}
+            place={this.state.place}
+            onRequestEnd={() => this.setState({ placeRequestType: null })}
+            placeRequestType={this.state.placeRequestType}
             container={this.props.container}
-            attachmentModels={this.state.attachmentModels}
-            onAddAttachment={this.onAddAttachment.bind(this)}
-            onAttachmentModelRemove={this.onAttachmentModelRemove.bind(this)}
-            onModelIO={this.onChildModelIO.bind(this)}
-            onPlaceModelSave={this.props.model.save.bind(this.props.model)}
-            places={this.props.places}
+            onAddAttachment={this.onAddAttachment}
             router={this.props.router}
-            isSubmitting={this.state.isEditFormSubmitting}
           />
         ) : (
           fieldSummary

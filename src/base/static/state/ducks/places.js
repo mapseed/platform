@@ -124,17 +124,18 @@ export default function reducer(state = INITIAL_STATE, action) {
     case LOAD_PLACES:
       return state.concat(action.payload);
     case UPDATE_PLACE:
-      return action.payload.reduce((memo, newPlace) => {
-        let oldPlace = memo.find(place => newPlace.id === place.id);
-        return [
-          ...memo,
-          {
-            // Override data from the old place with data from the new place:
-            ...oldPlace,
-            ...newPlace,
-          },
-        ];
-      }, state);
+      return state.map(place => {
+        if (place.id === action.payload.id) {
+          place = {
+            ...place,
+            ...action.payload,
+          };
+          place.submission_sets.support = place.submission_sets.support || [];
+          place.submission_sets.comments = place.submission_sets.comments || [];
+        }
+
+        return place;
+      });
     case CREATE_PLACE:
       return [...state, action.payload];
     case CREATE_PLACE_SUPPORT:
@@ -160,7 +161,6 @@ export default function reducer(state = INITIAL_STATE, action) {
     case CREATE_PLACE_COMMENT:
       return state.map(place => {
         if (place.id === action.payload.placeId) {
-          console.log("!!!!", action.payload.commentData)
           place.submission_sets.comments = (
             place.submission_sets.comments || []
           ).concat(action.payload.commentData);

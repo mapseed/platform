@@ -67,7 +67,7 @@ const buildQuerystring = params =>
     return `${querystring}&${param}=${value}`;
   }, "?");
 
-const fromGeoJSON = (featureCollection, datasetSlug) =>
+const fromGeoJSONFeatureCollection = (featureCollection, datasetSlug) =>
   Promise.resolve(
     featureCollection.features.map(feature => ({
       geometry: feature.geometry,
@@ -78,15 +78,48 @@ const fromGeoJSON = (featureCollection, datasetSlug) =>
     })),
   );
 
+const fromGeoJSONFeature = feature => ({
+  geometry: feature.geometry,
+  ...feature.properties,
+});
+
+const toGeoJSONFeature = placeData => {
+  // We intentionally strip out some keys from the placeData object which
+  // should not be sent in the request payload.
+  /* eslint-disable no-unused-vars */
+  const {
+    geometry,
+    submitter,
+    tags,
+    submission_sets,
+    attachments,
+    _datasetSlug,
+    ...rest
+  } = placeData;
+  /* eslint-enable no-unused-vars */
+
+  return {
+    type: "Feature",
+    geometry,
+    properties: rest,
+  };
+};
+
 // Get all the places for a single dataset
 const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
   try {
     const placePagePromises = [];
     placeParams = includePrivate
-      ? { ...placeParams, include_private: true }
+      ? {
+          ...placeParams,
+          include_private_places: true,
+          include_private_fields: true,
+        }
       : placeParams;
 
-    const firstPagePromise = fetch(`${url}${buildQuerystring(placeParams)}`)
+    const firstPagePromise = fetch(`${url}${buildQuerystring(placeParams)}`, {
+      credentials: "include",
+    })
       .then(status)
       .then(json);
 
@@ -102,7 +135,9 @@ const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
         for (let i = 2; i <= totalPages; i++) {
           placeParams = { ...placeParams, page: i };
           placePagePromises.push(
-            fetch(`${url}${buildQuerystring(placeParams)}`)
+            fetch(`${url}${buildQuerystring(placeParams)}`, {
+              credentials: "include",
+            })
               .then(status)
               .then(json),
           );
@@ -112,11 +147,40 @@ const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
 
     return placePagePromises.map(placePagePromise =>
       // Convert from GeoJSON to a simple object of Place data.
-      placePagePromise.then(data => fromGeoJSON(data, datasetSlug)),
+      placePagePromise.then(data =>
+        fromGeoJSONFeatureCollection(data, datasetSlug),
+      ),
     );
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to fetch places.", err);
+  }
+};
+
+// TODO: include_private_places and include_private_fields ??
+const updatePlace = async (placeUrl, placeData) => {
+  try {
+    placeData = toGeoJSONFeature(placeData);
+    return await fetch(
+      `${placeUrl}${buildQuerystring({
+        include_tags: true,
+        include_submissions: true,
+      })}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shareabouts-Silent": true, // To prevent new Actions on update.
+        },
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify(placeData),
+      },
+    )
+      .then(status)
+      .then(json);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Place did note save.", err);
   }
 };
 
@@ -181,7 +245,7 @@ const createComment = async (placeUrl, commentData) => {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to create comment.", err);
   }
-}
+};
 
 const deleteComment = async (placeUrl, commentId) => {
   try {
@@ -201,6 +265,7 @@ const deleteComment = async (placeUrl, commentId) => {
 export default {
   place: {
     get: getPlaces,
+    update: updatePlace,
   },
   activity: {
     get: getActivity,
@@ -220,5 +285,8 @@ export default {
     create: createPlaceTag,
     update: updatePlaceTag,
     delete: deletePlaceTag,
+  },
+  utils: {
+    fromGeoJSONFeature: fromGeoJSONFeature,
   },
 };

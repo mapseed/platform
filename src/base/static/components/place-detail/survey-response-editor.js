@@ -37,7 +37,7 @@ class SurveyResponseEditor extends Component {
         return memo.set(
           field.name,
           Map({
-            [constants.FIELD_VALUE_KEY]: this.props.attributes.get(field.name),
+            [constants.FIELD_VALUE_KEY]: this.props.comment.get(field.name),
           }),
         );
       }, OrderedMap());
@@ -120,7 +120,7 @@ class SurveyResponseEditor extends Component {
                 fieldState={this.state.fields.get(fieldConfig.name)}
                 isInitializing={this.state.isInitializing}
                 key={fieldConfig.name}
-                modelId={this.props.attributes.get(
+                modelId={this.props.comment.get(
                   constants.MODEL_ID_PROPERTY_NAME,
                 )}
                 onFieldChange={this.onFieldChange.bind(this)}
@@ -143,7 +143,7 @@ class SurveyResponseEditor extends Component {
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
                 <Time
-                  time={this.props.attributes.get(
+                  time={this.props.comment.get(
                     constants.CREATED_DATETIME_PROPERTY_NAME,
                   )}
                 />
@@ -158,7 +158,7 @@ class SurveyResponseEditor extends Component {
 
 SurveyResponseEditor.propTypes = {
   appConfig: appConfigPropType.isRequired,
-  attributes: PropTypes.object,
+  comment: PropTypes.instanceOf(Map),
   isSubmitting: PropTypes.bool.isRequired,
   modelId: PropTypes.number.isRequired,
   onSurveyModelRemove: PropTypes.func.isRequired,
