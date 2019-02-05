@@ -28,9 +28,6 @@ const TagBar = props => {
           <TagEditor
             key={tag.id}
             datasetSlug={props.datasetSlug}
-            onUpdateTagNote={props.onUpdateTagNote}
-            onDeletePlaceTag={props.onDeletePlaceTag}
-            onCreatePlaceTag={props.onCreatePlaceTag}
             backgroundColor={tag.color}
             tag={tag}
             placeTag={props.placeTags.find(
@@ -71,9 +68,6 @@ TagBar.propTypes = {
   getTagFromUrl: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
-  onDeletePlaceTag: PropTypes.func.isRequired,
-  onCreatePlaceTag: PropTypes.func.isRequired,
-  onUpdateTagNote: PropTypes.func.isRequired,
   placeTags: PropTypes.arrayOf(placeTagPropType),
   placeUrl: PropTypes.string.isRequired,
 };

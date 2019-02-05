@@ -155,12 +155,12 @@ Shareabouts.Util = Util;
       this.appView.newPlace();
     },
 
-    viewPlace: function(datasetSlug, modelId, responseId) {
-      recordGoogleAnalyticsHit(`/${datasetSlug}/${modelId}`);
+    viewPlace: function(placeSlug, placeId, responseId) {
+      recordGoogleAnalyticsHit(`/${placeSlug}/${placeId}`);
       this.appView.viewPlace({
-        datasetSlug: datasetSlug,
-        modelId: modelId,
-        responseId: responseId,
+        placeSlug: placeSlug,
+        placeId: parseInt(placeId),
+        responseId: parseInt(responseId),
       });
     },
 

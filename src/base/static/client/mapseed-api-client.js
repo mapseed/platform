@@ -110,8 +110,8 @@ const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
       }
     });
 
-    // Convert from GeoJSON to a simple hash of Place data.
     return placePagePromises.map(placePagePromise =>
+      // Convert from GeoJSON to a simple object of Place data.
       placePagePromise.then(data => fromGeoJSON(data, datasetSlug)),
     );
   } catch (err) {
@@ -132,12 +132,86 @@ const getActivity = activityCollections => {
   });
 };
 
+const createSupport = async (placeUrl, supportData) => {
+  try {
+    return await fetch(`${placeUrl}/support`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify(supportData),
+    })
+      .then(status)
+      .then(json);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to create support.", err);
+  }
+};
+
+const deleteSupport = async (placeUrl, supportId) => {
+  try {
+    return await fetch(`${placeUrl}/support/${supportId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "DELETE",
+    }).then(status);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to delete support.", err);
+  }
+};
+
+const createComment = async (placeUrl, commentData) => {
+  try {
+    return await fetch(`${placeUrl}/comments`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify(commentData),
+    })
+      .then(status)
+      .then(json);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to create comment.", err);
+  }
+}
+
+const deleteComment = async (placeUrl, commentId) => {
+  try {
+    return await fetch(`${placeUrl}/comments/${commentId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "DELETE",
+    }).then(status);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to delete comment.", err);
+  }
+};
+
 export default {
   place: {
     get: getPlaces,
   },
   activity: {
     get: getActivity,
+  },
+  support: {
+    create: createSupport,
+    delete: deleteSupport,
+  },
+  comments: {
+    create: createComment,
+    delete: deleteComment,
   },
   datasets: {
     get: getDatasets,

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Map } from "immutable";
 
 import ResponseField from "../form-fields/response-field";
 import fieldResponseFilter from "../../utils/field-response-filter";
@@ -10,26 +11,25 @@ import constants from "../../constants";
 const FieldSummary = props => {
   return (
     <div className="field-summary">
-      {props.attachmentModels
+      {props.place
+        .get("attachments")
         .filter(
           attachment =>
             attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
             constants.COVER_IMAGE_CODE,
         )
-        .map((attachmentModel, i) => (
+        .map((attachment, i) => (
           <CoverImage
             key={i}
-            imageUrl={attachmentModel.get(
-              constants.ATTACHMENT_FILE_PROPERTY_NAME,
-            )}
+            imageUrl={attachment.get(constants.ATTACHMENT_FILE_PROPERTY_NAME)}
           />
         ))}
-      {fieldResponseFilter(props.fields, props.placeModel).map(fieldConfig => (
+      {fieldResponseFilter(props.fields, props.place).map(fieldConfig => (
         <ResponseField
           key={fieldConfig.name}
           fieldConfig={fieldConfig}
-          fieldValue={props.placeModel.get(fieldConfig.name)}
-          attachmentModels={props.attachmentModels}
+          fieldValue={props.place.get(fieldConfig.name)}
+          attachments={props.place.get("attachments")}
         />
       ))}
     </div>
@@ -38,8 +38,7 @@ const FieldSummary = props => {
 
 FieldSummary.propTypes = {
   fields: PropTypes.array.isRequired,
-  placeModel: PropTypes.object.isRequired,
-  attachmentModels: PropTypes.object.isRequired,
+  place: PropTypes.instanceOf(Map),
 };
 
 export default FieldSummary;

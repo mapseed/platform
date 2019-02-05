@@ -20,8 +20,6 @@ import SnohomishFieldSummary from "./snohomish-field-summary";
 import VVFieldSummary from "./vv-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
 
-const SubmissionCollection = require("../../js/models/submission-collection.js");
-
 import constants from "../../constants";
 
 // NOTE: These pieces of the config are imported directly here because they
@@ -44,6 +42,7 @@ import {
   hasGroupAbilitiesInDatasets,
 } from "../../state/ducks/user";
 import { isEditModeToggled, updateEditModeToggled } from "../../state/ducks/ui";
+import { placeSelector } from "../../state/ducks/places";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
@@ -56,18 +55,10 @@ const hooks = {
   pbOaklandDetailViewMount: state => {
     emitter.emit("layer-view:style", {
       action: constants.FOCUS_TARGET_LAYER_ACTION,
+      // TODO
       targetLocationType: state.placeModel.get("related-location-type"),
     });
   },
-};
-
-const serializeBackboneCollection = collection => {
-  let serializedCollection = List();
-  collection.each(model => {
-    serializedCollection = serializedCollection.push(fromJS(model.attributes));
-  });
-
-  return serializedCollection;
 };
 
 const PromotionMetadataContainer = styled("div")({
@@ -81,92 +72,63 @@ const PlaceDetailContainer = styled("div")(props => ({
 }));
 
 class PlaceDetail extends Component {
-  constructor(props) {
-    super(props);
-
-    this.surveyType = this.props.commentFormConfig.submission_type;
-    this.supportType = this.props.supportConfig.submission_type;
-    if (!this.props.model.submissionSets[this.surveyType]) {
-      this.props.model.submissionSets[
-        this.surveyType
-      ] = new SubmissionCollection(null, {
-        submissionType: this.surveyType,
-        placeModel: this.props.model,
-      });
-    }
-    if (!this.props.model.submissionSets[this.supportType]) {
-      this.props.model.submissionSets[
-        this.supportType
-      ] = new SubmissionCollection(null, {
-        submissionType: this.supportType,
-        placeModel: this.props.model,
-      });
-    }
-
-    this.categoryConfig = getCategoryConfig(
-      this.props.placeConfig,
-      this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
-    );
-
-    this.state = {
-      placeModel: fromJS(this.props.model.attributes),
-      supportModels: serializeBackboneCollection(
-        this.props.model.submissionSets[this.supportType],
-      ),
-      surveyModels: serializeBackboneCollection(
-        this.props.model.submissionSets[this.surveyType],
-      ),
-      attachmentModels: serializeBackboneCollection(
-        this.props.model.attachmentCollection,
-      ),
-      isTagBarEditable: this.props.hasGroupAbilitiesInDatasets({
-        abilities: ["update", "destroy", "create"],
-        submissionSet: "tags",
-        datasetSlugs: [this.props.collectionId],
-      }),
-      isPlaceDetailEditable:
-        this.props.hasUserAbilitiesInPlace({
-          submitter: this.props.model.get(constants.SUBMITTER),
-          isSubmitterEditingSupported: this.categoryConfig
-            .submitter_editing_supported,
-        }) ||
-        this.props.hasGroupAbilitiesInDatasets({
-          abilities: ["update"],
-          submissionSet: "places",
-          datasetSlugs: [this.props.collectionId],
-        }),
-      isEditFormSubmitting: false,
-      isSurveyEditFormSubmitting: false,
-    };
-
-    // topOffset = header bar height + padding + geocoding bar height (if enabled).
-    this.topOffset = 80 + (this.props.mapConfig.geocoding_bar_enabled ? 72 : 0);
-  }
+  state = {
+    place: fromJS(this.props.getPlace(this.props.placeId)),
+    isEditFormSubmitting: false,
+    isSurveyEditFormSubmitting: false,
+  };
+  categoryConfig = getCategoryConfig(
+    this.props.placeConfig,
+    this.state.place.get(constants.LOCATION_TYPE_PROPERTY_NAME),
+  );
+  submitter = this.state.place.get("submitter") || Map();
+  submitterName = this.state.place.get(constants.SUBMITTER)
+    ? this.state.place.get(constants.SUBMITTER)
+    : this.state.place.get(constants.NAME_PROPERTY_NAME) ||
+      this.props.placeConfig.anonymous_name;
+  isTagBarEditable = this.props.hasGroupAbilitiesInDatasets({
+    abilities: ["update", "destroy", "create"],
+    submissionSet: "tags",
+    datasetSlugs: [this.state.place.get("_datasetSlug")],
+  });
+  isPlaceDetailEditable =
+    this.props.hasUserAbilitiesInPlace({
+      submitter: this.state.place.get(constants.SUBMITTER),
+      isSubmitterEditingSupported: this.categoryConfig
+        .submitter_editing_supported,
+    }) ||
+    this.props.hasGroupAbilitiesInDatasets({
+      abilities: ["update"],
+      submissionSet: "places",
+      datasetSlugs: [this.state.place.get("_datasetSlug")],
+    });
+  // topOffset = header bar height + padding + geocoding bar height (if enabled).
+  topOffset = 80 + (this.props.mapConfig.geocoding_bar_enabled ? 72 : 0);
 
   componentDidMount() {
-    // Maintain reset listeners for submission collections in case the detail
-    // view is instantiated before these collections have been fetched.
-    this.props.model.submissionSets[this.supportType].on(
-      "reset",
-      collection => {
-        this.setState({
-          supportModels: serializeBackboneCollection(collection),
-        });
-      },
-    );
-
-    this.props.model.submissionSets[this.surveyType].on("reset", collection => {
-      this.setState({
-        surveyModels: serializeBackboneCollection(collection),
-      });
-    });
-
     this.props.container.scrollTop = 0;
+
     // Fire on mount hook.
     // The on mount hook allows flavors to run arbitrary code after the detail
     // view mounts.
+
+    // TODO
     if (customHooks && customHooks.onDetailViewMount) {
       hooks[customHooks.onDetailViewMount](this.state);
+    }
+  }
+
+  componentDidUpdate() {
+    if (
+      this.props.getPlace(this.props.placeId).submission_sets.support.length !==
+        this.state.place.get("submission_sets").get("support").size ||
+      this.props.getPlace(this.props.placeId).submission_sets.comments
+        .length !== this.state.place.get("submission_sets").get("comments").size
+    ) {
+      // If a support or comment has been added, removed, or updated.
+      this.setState({
+        place: fromJS(this.props.getPlace(this.props.placeId)),
+      });
     }
   }
 
@@ -182,157 +144,25 @@ class PlaceDetail extends Component {
     });
   }
 
-  onAddAttachment(attachment) {
-    this.props.model.attachmentCollection.add(attachment);
-  }
-
-  // NOTE: Because we serialize our survey model collection before passing it
-  // down to the survey editor, we aren't able to (easily) pass down a
-  // reference to each survey model's save method. As a result, we have a
-  // special handler here to update survey models.
-  onSurveyModelSave(attrs, modelId, onSuccess) {
-    this.setState({ isSurveyEditFormSubmitting: true });
-    this.props.model.submissionSets[this.surveyType].get(modelId).save(attrs, {
-      success: () => {
-        this.setState({
-          isSurveyEditFormSubmitting: false,
-          surveyModels: serializeBackboneCollection(
-            this.props.model.submissionSets[this.surveyType],
-          ),
-        });
-        onSuccess();
-      },
-    });
-  }
-
-  onSurveyModelRemove(modelId) {
-    if (confirm(this.props.t("confirmSurveyRemove"))) {
-      this.props.model.submissionSets[this.surveyType].get(modelId).destroy({
-        success: () => {
-          this.setState({
-            surveyModels: serializeBackboneCollection(
-              this.props.model.submissionSets[this.surveyType],
-            ),
-          });
-        },
-      });
-    }
-  }
-
-  onAttachmentModelRemove(modelId) {
-    if (confirm(this.props.t("confirmAttachmentRemove"))) {
-      this.props.model.attachmentCollection.get(modelId).update(
-        { visible: false },
-        {
-          success: () => {
-            this.props.model.attachmentCollection.remove(modelId);
-            this.setState({
-              attachmentModels: serializeBackboneCollection(
-                this.props.model.attachmentCollection,
-              ),
-            });
-            Util.log("USER", "place-editor", "remove-attachment");
-          },
-          error: () => {
-            Util.log("USER", "place-editor", "fail-to-remove-attachment");
-          },
-        },
-      );
-    }
-  }
-
-  // Handle the various results of Backbone model save/update calls that
-  // occur in child components.
-  onChildModelIO(action) {
-    if (action === constants.PLACE_MODEL_IO_START_ACTION) {
-      this.setState({ isEditFormSubmitting: true });
-    } else if (action === constants.PLACE_MODEL_IO_END_SUCCESS_ACTION) {
-      this.setState({
-        isEditFormSubmitting: false,
-        placeModel: fromJS(this.props.model.attributes),
-        attachmentModels: serializeBackboneCollection(
-          this.props.model.attachmentCollection,
-        ),
-      });
-    } else if (action === constants.PLACE_MODEL_IO_END_ERROR_ACTION) {
-      this.setState({ isEditFormSubmitting: false });
-    } else if (action === constants.SURVEY_MODEL_IO_END_SUCCESS_ACTION) {
-      this.setState({
-        surveyModels: serializeBackboneCollection(
-          this.props.model.submissionSets[this.surveyType],
-        ),
-      });
-    } else if (action === constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION) {
-      this.setState({
-        supportModels: serializeBackboneCollection(
-          this.props.model.submissionSets[this.supportType],
-        ),
-      });
-    }
-  }
-
-  onCreatePlaceTag = tagData => {
-    this.props.model.set(
-      "tags",
-      this.props.model.get("tags").concat([tagData]),
-    );
-
-    this.setState({
-      placeModel: fromJS(this.props.model.attributes),
-    });
-  };
-
-  onDeletePlaceTag = placeTagId => {
-    this.props.model.set(
-      "tags",
-      this.props.model.get("tags").filter(tag => tag.id !== placeTagId),
-    );
-
-    this.setState({
-      placeModel: fromJS(this.props.model.attributes),
-    });
-  };
-
-  onUpdateTagNote = tagData => {
-    this.props.model.set(
-      "tags",
-      this.props.model.get("tags").map(tag => {
-        return tagData.id === tag.id ? tagData : tag;
-      }),
-    );
-
-    this.setState({
-      placeModel: fromJS(this.props.model.attributes),
-    });
-  };
-
   render() {
-    // This is an unfortunate series of checks, but needed at the moment.
-    // TODO: We should revisit why this is necessary in the first place and see
-    // if we can refactor.
     const title =
-      this.state.placeModel.get(constants.FULL_TITLE_PROPERTY_NAME) ||
-      this.state.placeModel.get(constants.TITLE_PROPERTY_NAME) ||
-      this.state.placeModel.get(constants.NAME_PROPERTY_NAME);
-    const locationType = this.state.placeModel.get(
+      this.state.place.get(constants.FULL_TITLE_PROPERTY_NAME) ||
+      this.state.place.get(constants.TITLE_PROPERTY_NAME) ||
+      this.state.place.get(constants.NAME_PROPERTY_NAME);
+    const locationType = this.state.place.get(
       constants.LOCATION_TYPE_PROPERTY_NAME,
     );
-    const submitter = this.state.placeModel.get(constants.SUBMITTER) || Map();
-    const isStoryChapter = !!this.state.placeModel.get(
-      constants.STORY_FIELD_NAME,
-    );
-    const userSupportModel = this.props.model.submissionSets[
-      this.supportType
-    ].find(model => {
-      return (
-        model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
-      );
-    });
+    const isStoryChapter = !!this.state.place.get(constants.STORY_FIELD_NAME);
+    const supports = this.state.place
+      .get("submission_sets")
+      .get("support", List());
+    const comments = this.state.place
+      .get("submission_sets")
+      .get("comments", List());
     const isWithMetadata =
       !isStoryChapter &&
       !(
-        this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
-        false
+        this.state.place.get(constants.SHOW_METADATA_PROPERTY_NAME) === false
       ) &&
       !this.props.placeConfig.hide_metadata_bar;
     // TODO: dissolve when flavor abstraction is ready
@@ -344,9 +174,8 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <SnohomishFieldSummary
-          attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
-          placeModel={this.state.placeModel}
+          place={this.state.place}
         />
       );
     } else if (
@@ -356,9 +185,8 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <VVFieldSummary
-          attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
-          placeModel={this.state.placeModel}
+          place={this.state.place}
         />
       );
     } else if (
@@ -368,17 +196,15 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <PalouseFieldSummary
-          attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
-          placeModel={this.state.placeModel}
+          place={this.state.place}
         />
       );
     } else {
       fieldSummary = (
         <FieldSummary
-          attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
-          placeModel={this.state.placeModel}
+          place={this.state.place}
         />
       );
     }
@@ -403,13 +229,10 @@ class PlaceDetail extends Component {
         )}
         <TagBar
           isEditModeToggled={this.props.isEditModeToggled}
-          isEditable={this.state.isTagBarEditable}
-          placeTags={this.state.placeModel.get("tags").toJS()}
-          onDeletePlaceTag={this.onDeletePlaceTag}
-          onCreatePlaceTag={this.onCreatePlaceTag}
-          onUpdateTagNote={this.onUpdateTagNote}
-          datasetSlug={this.props.collectionId}
-          placeUrl={this.state.placeModel.get("url")}
+          isEditable={this.isTagBarEditable}
+          placeTags={this.state.place.get("tags").toJS()}
+          datasetSlug={this.state.place.get("_datasetSlug")}
+          placeUrl={this.state.place.get("url")}
         />
         <h1
           className={classNames("place-detail-view__header", {
@@ -421,33 +244,29 @@ class PlaceDetail extends Component {
         <PromotionMetadataContainer>
           {isWithMetadata && (
             <MetadataBar
-              submitter={submitter}
-              placeModel={this.state.placeModel}
-              surveyModels={this.state.surveyModels}
+              createdDatetime={this.state.place.get(
+                constants.CREATED_DATETIME_PROPERTY_NAME,
+              )}
+              submitterName={this.submitterName}
+              submitterAvatarUrl={this.submitter.get("avatar_url")}
+              numComments={comments.size}
+              actionText={this.props.placeConfig.action_text}
             />
           )}
           <PromotionBar
-            getLoggingDetails={this.props.model.getLoggingDetails.bind(
-              this.props.model,
-            )}
-            isSupported={
-              !!this.state.supportModels.find(model => {
-                return (
-                  model.get(constants.USER_TOKEN_PROPERTY_NAME) ===
-                  this.props.userToken
-                );
-              })
-            }
             isHorizontalLayout={isStoryChapter || !isWithMetadata}
-            numSupports={this.state.supportModels.size}
-            onModelIO={this.onChildModelIO.bind(this)}
+            numSupports={supports.size}
             onSocialShare={service =>
-              Util.onSocialShare(this.props.model, service)
+              Util.onSocialShare(this.state.place, service)
             }
-            supportModelCreate={this.props.model.submissionSets[
-              this.supportType
-            ].create.bind(this.props.model.submissionSets[this.supportType])}
-            userSupportModel={userSupportModel}
+            userSupport={supports.find(support => {
+              return (
+                support.get(constants.USER_TOKEN_PROPERTY_NAME) ===
+                this.props.userToken
+              );
+            })}
+            placeUrl={this.state.place.get("url")}
+            placeId={this.state.place.get("id")}
             userToken={this.props.userToken}
           />
         </PromotionMetadataContainer>
@@ -470,24 +289,17 @@ class PlaceDetail extends Component {
           fieldSummary
         )}
         <Survey
-          collectionId={this.props.collectionId}
+          placeUrl={this.state.place.get("url")}
+          placeId={this.state.place.get("id")}
+          datasetSlug={this.state.place.get("_datasetSlug")}
           currentUser={this.props.currentUser}
-          getLoggingDetails={this.props.model.getLoggingDetails.bind(
-            this.props.model,
-          )}
           isEditModeToggled={this.props.isEditModeToggled}
-          isEditable={this.state.isPlaceDetailEditable}
+          isEditable={this.isPlaceDetailEditable}
           isSubmitting={this.state.isSurveyEditFormSubmitting}
-          surveyModels={this.state.surveyModels}
-          onModelIO={this.onChildModelIO.bind(this)}
+          comments={comments}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
-          onSurveyCollectionCreate={this.props.model.submissionSets[
-            this.surveyType
-          ].create.bind(this.props.model.submissionSets[this.surveyType])}
-          onSurveyModelSave={this.onSurveyModelSave.bind(this)}
-          onSurveyModelRemove={this.onSurveyModelRemove.bind(this)}
           scrollToResponseId={this.props.scrollToResponseId}
-          submitter={submitter}
+          submitter={this.submitter}
           userToken={this.props.userToken}
         />
       </PlaceDetailContainer>
@@ -496,7 +308,6 @@ class PlaceDetail extends Component {
 }
 
 PlaceDetail.propTypes = {
-  collectionId: PropTypes.string.isRequired,
   container: PropTypes.instanceOf(HTMLElement),
   currentUser: PropTypes.shape({
     avatar_url: PropTypes.string,
@@ -519,11 +330,11 @@ PlaceDetail.propTypes = {
   mapConfig: PropTypes.shape({
     geocoding_bar_enabled: PropTypes.bool,
   }).isRequired,
-  model: PropTypes.instanceOf(Backbone.Model),
   placeConfig: PropTypes.object.isRequired,
-  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
+  placeId: PropTypes.number.isRequired,
+  getPlace: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
-  scrollToResponseId: PropTypes.string,
+  scrollToResponseId: PropTypes.number,
   supportConfig: PropTypes.object.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
@@ -549,6 +360,7 @@ const mapStateToProps = state => ({
   isEditModeToggled: isEditModeToggled(state),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
+  getPlace: placeId => placeSelector(state, placeId),
   supportConfig: supportConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });

@@ -19,7 +19,11 @@ import theme from "../../../../theme";
 import "react-virtualized/styles.css";
 
 import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
-import { placesSelector, loadPlaces } from "../../state/ducks/places";
+import {
+  placesSelector,
+  loadPlaces,
+  placeExists,
+} from "../../state/ducks/places";
 import { loadPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { loadFormsConfig } from "../../state/ducks/forms-config";
@@ -636,11 +640,9 @@ export default Backbone.View.extend({
     if (!placesSelector(store.getState()).length) {
       await this.fetchAndLoadPlaces();
     }
-    const datasetId = this.options.mapConfig.layers.find(
-      layer => layer.slug === args.datasetSlug,
-    ).id;
-    const model = this.places[datasetId].get(args.modelId);
-    if (!model) {
+
+    // TODO: direct route to place
+    if (!placeExists(store.getState(), args.placeId)) {
       this.options.router.navigate("/");
       return;
     }
@@ -653,14 +655,12 @@ export default Backbone.View.extend({
         <ThemeProvider theme={theme}>
           <ThemeProvider theme={this.adjustedTheme}>
             <PlaceDetail
-              collectionId={datasetId}
+              placeId={args.placeId}
               container={document.querySelector("#content article")}
               currentUser={Shareabouts.bootstrapped.currentUser}
               isGeocodingBarEnabled={
                 this.options.mapConfig.geocoding_bar_enabled
               }
-              model={model}
-              places={this.places}
               scrollToResponseId={args.responseId}
               router={this.options.router}
               userToken={this.options.userToken}
@@ -684,70 +684,70 @@ export default Backbone.View.extend({
     this.setBodyClass("content-visible");
     this.showSpotlightMask();
 
-    const geometry = model.get("geometry");
+    //const geometry = model.get("geometry");
 
-    if (model.get("story")) {
-      this.isStoryActive = true;
-      const storyChapterVisibleLayers = model.get("story").visibleLayers;
-      const storyChapterBasemap = model.get("story").basemap;
+    //    if (model.get("story")) {
+    //      this.isStoryActive = true;
+    //      const storyChapterVisibleLayers = model.get("story").visibleLayers;
+    //      const storyChapterBasemap = model.get("story").basemap;
+    //
+    //      mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
+    //        store.dispatch(setBasemap(storyChapterBasemap));
+    //      store.dispatch(showLayers(storyChapterVisibleLayers));
+    //      // Hide all other layers.
+    //      store.dispatch(
+    //        hideLayers(
+    //          mapLayersSelector(store.getState())
+    //            .filter(layer => !layer.is_basemap)
+    //            .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
+    //            .map(layer => layer.id),
+    //        ),
+    //      );
+    //
+    //      if (!model.get("story").spotlight) {
+    //        this.hideSpotlightMask();
+    //      }
+    //
+    //      if (!this.hasBodyClass("right-sidebar-visible")) {
+    //        $("body").addClass("right-sidebar-visible");
+    //      }
+    //    }
+    //
+    //    // Fire an event to set map position, reconciling with custom story
+    //    // settings if this model is part of a story.
+    //    const story = model.get("story") || {};
+    //
+    //    if (story.panTo) {
+    //      // If a story chapter declares a custom centerpoint, regardless of the
+    //      // geometry type, assume that we want to fly to a point.
+    //      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
+    //        coordinates:
+    //          story.panTo || mapPositionSelector(store.getState()).center,
+    //        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+    //      });
+    //    } else if (geometry.type === "LineString") {
+    //      emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
+    //        coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
+    //      });
+    //    } else if (geometry.type === "Polygon") {
+    //      emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
+    //        coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
+    //      });
+    //    } else if (geometry.type === "Point") {
+    //      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
+    //        coordinates: geometry.coordinates,
+    //        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+    //      });
+    //    }
 
-      mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
-        store.dispatch(setBasemap(storyChapterBasemap));
-      store.dispatch(showLayers(storyChapterVisibleLayers));
-      // Hide all other layers.
-      store.dispatch(
-        hideLayers(
-          mapLayersSelector(store.getState())
-            .filter(layer => !layer.is_basemap)
-            .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
-            .map(layer => layer.id),
-        ),
-      );
+    //emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
+    //  datasetId: datasetId,
+    //  modelId: model.get("id"),
+    //});
 
-      if (!model.get("story").spotlight) {
-        this.hideSpotlightMask();
-      }
-
-      if (!this.hasBodyClass("right-sidebar-visible")) {
-        $("body").addClass("right-sidebar-visible");
-      }
-    }
-
-    // Fire an event to set map position, reconciling with custom story
-    // settings if this model is part of a story.
-    const story = model.get("story") || {};
-
-    if (story.panTo) {
-      // If a story chapter declares a custom centerpoint, regardless of the
-      // geometry type, assume that we want to fly to a point.
-      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-        coordinates:
-          story.panTo || mapPositionSelector(store.getState()).center,
-        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-      });
-    } else if (geometry.type === "LineString") {
-      emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
-        coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
-      });
-    } else if (geometry.type === "Polygon") {
-      emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
-        coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
-      });
-    } else if (geometry.type === "Point") {
-      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-        coordinates: geometry.coordinates,
-        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-      });
-    }
-
-    emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-      datasetId: datasetId,
-      modelId: model.get("id"),
-    });
-
-    if (!model.get("story") && this.isStoryActive) {
-      this.isStoryActive = false;
-    }
+    //    if (!model.get("story") && this.isStoryActive) {
+    //      this.isStoryActive = false;
+    //    }
 
     store.dispatch(setMapSizeValidity(false));
   },

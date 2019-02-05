@@ -4,12 +4,9 @@ import { connect } from "react-redux";
 import styled from "react-emotion";
 
 import { UserAvatar } from "../atoms/imagery";
-import { Time, SmallText, RegularText, Paragraph } from "../atoms/typography";
+import { Time, SmallText, RegularText } from "../atoms/typography";
 import { translate, Trans } from "react-i18next";
 
-import constants from "../../constants";
-
-import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
   commentFormConfigPropType,
   commentFormConfigSelector,
@@ -36,59 +33,45 @@ const UserAvatarContainer = styled("div")({
   top: 0,
 });
 
-const MetadataBar = props => {
-  // TODO: place type label replacement; fix in editor PR
-  const actionText = props.placeConfig.action_text;
-  const submitterName =
-    props.submitter.get(constants.NAME_PROPERTY_NAME) ||
-    props.placeModel.get(constants.SUBMITTER_NAME) ||
-    props.placeConfig.anonymous_name;
-
-  return (
-    <MetadataBarContainer>
-      <UserAvatarContainer>
-        <UserAvatar size="large" src={props.submitter.avatar_url} />
-      </UserAvatarContainer>
-      <PlaceDetailsContainer>
-        <div style={{ marginBottom: "3px" }}>
-          <Trans i18nKey="submitterActionText">
-            <RegularText weight="black">{{ submitterName }}</RegularText>{" "}
-            <RegularText>{{ actionText }} this</RegularText>
-          </Trans>
-        </div>
+const MetadataBar = props => (
+  <MetadataBarContainer>
+    <UserAvatarContainer>
+      <UserAvatar size="large" src={props.submitterAvatarUrl} />
+    </UserAvatarContainer>
+    <PlaceDetailsContainer>
+      <div style={{ marginBottom: "3px" }}>
+        <Trans i18nKey="submitterActionText">
+          <RegularText weight="black">{props.submitterName}</RegularText>{" "}
+          <RegularText>{props.actionText} this</RegularText>
+        </Trans>
+      </div>
+      <SmallText display="block" textTransform="uppercase">
+        {props.numComments}{" "}
+        {props.numComments === 1
+          ? props.commentFormConfig.response_name
+          : props.commentFormConfig.response_plural_name}
+      </SmallText>
+      {props.appConfig.show_timestamps && (
         <SmallText display="block" textTransform="uppercase">
-          {props.surveyModels.size}{" "}
-          {props.surveyModels.size === 1
-            ? props.commentFormConfig.response_name
-            : props.commentFormConfig.response_plural_name}
+          <Time time={props.createdDatetime} />
         </SmallText>
-        {props.appConfig.show_timestamps && (
-          <SmallText display="block" textTransform="uppercase">
-            <Time
-              time={props.placeModel.get(
-                constants.CREATED_DATETIME_PROPERTY_NAME,
-              )}
-            />
-          </SmallText>
-        )}
-      </PlaceDetailsContainer>
-    </MetadataBarContainer>
-  );
-};
+      )}
+    </PlaceDetailsContainer>
+  </MetadataBarContainer>
+);
 
 MetadataBar.propTypes = {
   appConfig: appConfigPropType.isRequired,
-  avatarSrc: PropTypes.string,
-  placeConfig: PropTypes.object.isRequired,
-  placeModel: PropTypes.object.isRequired,
-  surveyModels: PropTypes.object.isRequired,
-  submitter: PropTypes.object.isRequired,
+  actionText: PropTypes.string.isRequired,
+  createdDatetime: PropTypes.string.isRequired,
+  numComments: PropTypes.number.isRequired,
+  submitterName: PropTypes.string.isRequired,
+  submitterAvatarUrl: PropTypes.string,
   commentFormConfig: commentFormConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
-  placeConfig: placeConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
 });
 

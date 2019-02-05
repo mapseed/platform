@@ -44,7 +44,7 @@ class SurveyResponse extends Component {
                 key={field.name}
                 className="place-detail-survey-response__paragraph"
               >
-                {this.props.attributes.get(field.name)}
+                {this.props.comment.get(field.name)}
               </p>
             ))}
         </div>
@@ -57,8 +57,8 @@ class SurveyResponse extends Component {
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
               submitterName={
-                this.props.attributes.get(constants.SUBMITTER_NAME) ||
-                this.props.attributes.getIn([
+                this.props.comment.get(constants.SUBMITTER_NAME) ||
+                this.props.comment.getIn([
                   constants.SUBMITTER,
                   constants.NAME_PROPERTY_NAME,
                 ])
@@ -67,11 +67,7 @@ class SurveyResponse extends Component {
             />
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
-                <Time
-                  time={this.props.attributes.get(
-                    constants.CREATED_DATETIME_PROPERTY_NAME,
-                  )}
-                />
+                <Time time={this.props.comment.get("created_datetime")} />
               </SmallText>
             )}
           </div>
@@ -83,11 +79,10 @@ class SurveyResponse extends Component {
 
 SurveyResponse.propTypes = {
   appConfig: appConfigPropType.isRequired,
-  attributes: PropTypes.object.isRequired,
-  modelId: PropTypes.number.isRequired,
+  comment: PropTypes.object.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  scrollToResponseId: PropTypes.string,
+  scrollToResponseId: PropTypes.number,
   submitter: PropTypes.object.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
 };

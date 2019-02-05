@@ -24,10 +24,10 @@ const ActionSummaryItem = styled("li")(props => ({
 const SnohomishFieldSummary = props => {
   const fieldConfigs = fieldResponseFilter(
     props.fields,
-    props.placeModel,
-  ).filter(fieldConfig => props.placeModel.get(fieldConfig.name) === "yes");
+    props.place,
+  ).filter(fieldConfig => props.place.get(fieldConfig.name) === "yes");
   const numActions = fieldConfigs.length;
-  const description = props.placeModel.get("practices_description");
+  const description = props.place.get("practices_description");
 
   return (
     <div>
@@ -59,7 +59,7 @@ const SnohomishFieldSummary = props => {
             <ActionSummaryItem key={fieldConfig.name} idx={idx}>
               <RegularText>{fieldConfig.label}</RegularText>
               <RegularText>
-                {props.placeModel.get(actionQuantityConfig.name)}{" "}
+                {props.place.get(actionQuantityConfig.name)}{" "}
                 {actionQuantityConfig.metadata &&
                   actionQuantityConfig.metadata.units}
               </RegularText>
@@ -74,7 +74,7 @@ const SnohomishFieldSummary = props => {
 SnohomishFieldSummary.propTypes = {
   attachmentModels: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
-  placeModel: PropTypes.object.isRequired,
+  place: PropTypes.object.isRequired,
 };
 
 export default SnohomishFieldSummary;

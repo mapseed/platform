@@ -31,6 +31,14 @@ export const filteredPlacesSelector = state => {
 export const datasetLengthSelector = (state, datasetSlug) =>
   state.places.filter(place => place._datasetSlug === datasetSlug).length;
 
+export const placeSelector = (state, placeId) => {
+  return state.places.find(place => place.id === placeId);
+};
+
+export const placeExists = (state, placeId) => {
+  return !!state.places.find(place => place.id === placeId);
+};
+
 export const placePropType = PropTypes.shape({
   attachments: PropTypes.array.isRequired,
   updated_datetime: PropTypes.string.isRequired,
@@ -55,9 +63,20 @@ export const placesPropType = PropTypes.arrayOf(placePropType);
 const LOAD_PLACES = "places/LOAD";
 const UPDATE_PLACE = "places/UPDATE";
 const CREATE_PLACE = "places/CREATE";
+const CREATE_PLACE_SUPPORT = "places/CREATE_PLACE_SUPPORT";
+const REMOVE_PLACE_SUPPORT = "places/REMOVE_PLACE_SUPPORT";
+const CREATE_PLACE_COMMENT = "places/CREATE_PLACE_COMMENT";
+const REMOVE_PLACE_COMMENT = "places/REMOVE_PLACE_COMMENT";
 
 // Action creators:
 export function loadPlaces(places) {
+  places = places.map(place => {
+    place.submission_sets.support = place.submission_sets.support || [];
+    place.submission_sets.comments = place.submission_sets.comments || [];
+
+    return place;
+  });
+
   return { type: LOAD_PLACES, payload: places };
 }
 
@@ -67,6 +86,34 @@ export function updatePlace(place) {
 
 export function createPlace(place) {
   return { type: CREATE_PLACE, payload: place };
+}
+
+export function createPlaceSupport(placeId, supportData) {
+  return {
+    type: CREATE_PLACE_SUPPORT,
+    payload: {
+      placeId,
+      supportData,
+    },
+  };
+}
+
+export function removePlaceSupport(placeId, supportId) {
+  return { type: REMOVE_PLACE_SUPPORT, payload: { placeId, supportId } };
+}
+
+export function createPlaceComment(placeId, commentData) {
+  return {
+    type: CREATE_PLACE_COMMENT,
+    payload: {
+      placeId,
+      commentData,
+    },
+  };
+}
+
+export function removePlaceComment(placeId, commentId) {
+  return { type: REMOVE_PLACE_SUPPORT, payload: { placeId, commentId } };
 }
 
 // Reducers:
@@ -90,6 +137,47 @@ export default function reducer(state = INITIAL_STATE, action) {
       }, state);
     case CREATE_PLACE:
       return [...state, action.payload];
+    case CREATE_PLACE_SUPPORT:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.submission_sets.support = (
+            place.submission_sets.support || []
+          ).concat(action.payload.supportData);
+        }
+
+        return place;
+      });
+    case REMOVE_PLACE_SUPPORT:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.submission_sets.support = place.submission_sets.support.filter(
+            support => support.id !== action.payload.supportId,
+          );
+        }
+
+        return place;
+      });
+    case CREATE_PLACE_COMMENT:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          console.log("!!!!", action.payload.commentData)
+          place.submission_sets.comments = (
+            place.submission_sets.comments || []
+          ).concat(action.payload.commentData);
+        }
+
+        return place;
+      });
+    case REMOVE_PLACE_COMMENT:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.submission_sets.comments = place.submission_sets.comments.filter(
+            comment => comment.id !== action.payload.commentId,
+          );
+        }
+
+        return place;
+      });
     default:
       return state;
   }
