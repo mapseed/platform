@@ -83,7 +83,7 @@ class PlaceDetail extends Component {
   );
   submitter = this.state.place.get("submitter") || Map();
   submitterName = this.state.place.get(constants.SUBMITTER)
-    ? this.state.place.get(constants.SUBMITTER)
+    ? this.state.place.get(constants.SUBMITTER).get("name")
     : this.state.place.get(constants.NAME_PROPERTY_NAME) ||
       this.props.placeConfig.anonymous_name;
   isTagBarEditable = this.props.hasGroupAbilitiesInDatasets({

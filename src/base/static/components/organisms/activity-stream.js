@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { List, fromJS } from "immutable";
 
-import ActionCollection from "../../js/models/action-collection.js";
 import mapseedApiClient from "../../client/mapseed-api-client";
 
 import ActivityItem from "../molecules/activity-item";

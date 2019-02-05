@@ -1,8 +1,6 @@
 /*globals Backbone jQuery _ */
 
-import PlaceModel from "./models/place-model.js";
 import Util from "./utils.js";
-import PlaceCollection from "./models/place-collection.js";
 import AppView from "./views/app-view.js";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
@@ -43,10 +41,6 @@ Shareabouts.Util = Util;
 
       this.isAddingSupported = !!options.placeConfig.adding_supported;
 
-      //PlaceModel.prototype.getLoggingDetails = function() {
-        //return this.id;
-      //};
-
       // Reject a place that does not have a supported place_detail configuration.
       // This will prevent invalid places from being added or saved to the collection.
    //   PlaceModel.prototype.validate = function(attrs) {
@@ -66,17 +60,6 @@ Shareabouts.Util = Util;
       });
 
       this.loading = true;
-
-    //  // set up place configs and instantiate place collections
-    //  configArrays.places = options.mapConfig.layers.filter(function(layer) {
-    //    return layer.type && layer.type === "place";
-    //  });
-    //  _.each(configArrays.places, function(config) {
-    //    var collection = new PlaceCollection([], {
-    //      url: config.url + "/places",
-    //    });
-    //    self.places[config.id] = collection;
-    //  });
 
       this.appView = new AppView({
         el: "body",
