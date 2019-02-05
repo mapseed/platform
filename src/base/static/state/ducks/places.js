@@ -69,6 +69,9 @@ const REMOVE_PLACE_SUPPORT = "places/REMOVE_PLACE_SUPPORT";
 const CREATE_PLACE_COMMENT = "places/CREATE_PLACE_COMMENT";
 const REMOVE_PLACE_COMMENT = "places/REMOVE_PLACE_COMMENT";
 const UPDATE_PLACE_COMMENT = "places/UPDATE_PLACE_COMMENT";
+const CREATE_PLACE_TAG = "places/CREATE_PLACE_TAG";
+const REMOVE_PLACE_TAG = "places/REMOVE_PLACE_TAG";
+const UPDATE_PLACE_TAG_NOTE = "places/UPDATE_PLACE_TAG_NOTE";
 
 // Action creators:
 export function loadPlaces(places) {
@@ -124,6 +127,14 @@ export function removePlaceComment(placeId, commentId) {
 
 export function updatePlaceComment(placeId, commentData) {
   return { type: UPDATE_PLACE_COMMENT, payload: { placeId, commentData } };
+}
+
+export function createPlaceTag(placeId, placeTagData) {
+  return { type: CREATE_PLACE_TAG, payload: { placeId, placeTagData } };
+}
+
+export function removePlaceTag(placeId, placeTagId) {
+  return { type: REMOVE_PLACE_TAG, payload: { placeId, placeTagId } };
 }
 
 // Reducers:
@@ -201,6 +212,24 @@ export default function reducer(state = INITIAL_STATE, action) {
 
               return comment;
             },
+          );
+        }
+
+        return place;
+      });
+    case CREATE_PLACE_TAG:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.tags = place.tags.concat([action.payload.placeTagData]);
+        }
+
+        return place;
+      });
+    case REMOVE_PLACE_TAG:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.tags = place.tags.filter(
+            tag => tag.id !== action.payload.placeTagId,
           );
         }
 

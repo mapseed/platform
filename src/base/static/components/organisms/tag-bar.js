@@ -30,6 +30,7 @@ const TagBar = props => {
             datasetSlug={props.datasetSlug}
             backgroundColor={tag.color}
             tag={tag}
+            placeId={props.placeId}
             placeTag={props.placeTags.find(
               placeTag => placeTag.tag === tag.url,
             )}
@@ -68,6 +69,7 @@ TagBar.propTypes = {
   getTagFromUrl: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
+  placeId: PropTypes.number.isRequired,
   placeTags: PropTypes.arrayOf(placeTagPropType),
   placeUrl: PropTypes.string.isRequired,
 };

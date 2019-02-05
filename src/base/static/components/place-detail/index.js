@@ -123,26 +123,26 @@ class PlaceDetail extends Component {
 
     if (
       // Have supports been added or removed?
-      this.props.getPlace(this.props.placeId).submission_sets.support.length !==
-        this.state.place.get("submission_sets").get("support").size ||
-      // Have comments been added or removed?
-      this.props.getPlace(this.props.placeId).submission_sets.comments
-        .length !==
-        this.state.place.get("submission_sets").get("comments").size ||
+      newPlace.getIn(["submission_sets", "support"]).size !==
+        this.state.place.getIn(["submission_sets", "support"]).size ||
       // Has Place data changed?
       !newPlace.equals(this.state.place) ||
-      // Has the data of any comment changed?
+      // Has the data of any comment changed, or have comments been added or
+      // removed?
       newPlace
-        .get("submission_sets")
-        .get("comments")
-        .filter((comment, i) => {
-          return comment.equals(
-            this.state.place
-              .get("submission_sets")
-              .get("comments")
-              .get(i),
-          );
-        }).size !== this.state.place.get("submission_sets").get("comments").size
+        .getIn(["submission_sets", "comments"])
+        .filter((comment, i) =>
+          comment.equals(
+            this.state.place.getIn(["submission_sets", "comments", i]),
+          ),
+        ).size !==
+        this.state.place.getIn(["submission_sets", "comments"]).size ||
+      // Has the data of any placeTag changed, or have placeTags been added or
+      // removed?
+      newPlace
+        .get("tags")
+        .filter((tag, i) => tag.equals(this.state.place.getIn(["tags", i])))
+        .size !== this.state.place.get("tags").size
     ) {
       this.setState({
         place: newPlace,
@@ -259,6 +259,7 @@ class PlaceDetail extends Component {
           placeTags={this.state.place.get("tags").toJS()}
           datasetSlug={this.state.place.get("_datasetSlug")}
           placeUrl={this.state.place.get("url")}
+          placeId={this.state.place.get("id")}
         />
         <h1
           className={classNames("place-detail-view__header", {

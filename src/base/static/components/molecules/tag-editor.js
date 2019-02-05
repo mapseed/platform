@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import styled from "react-emotion";
 import { translate } from "react-i18next";
 
@@ -7,8 +8,11 @@ import { TextareaInput } from "../atoms/input";
 import TagName from "./tag-name";
 
 import { tagPropType, placeTagPropType } from "../../state/ducks/datasets";
+import { createPlaceTag, removePlaceTag } from "../../state/ducks/places";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
+
+const Util = require("../../js/utils.js");
 
 const TagContainer = styled("div")(props => ({
   outline: "none",
@@ -58,6 +62,37 @@ class TagEditor extends Component {
     this._isMounted = false;
   }
 
+  onClickCreatePlaceTag = async () => {
+    const response = await mapseedApiClient.placeTags.create(
+      this.props.placeUrl,
+      {
+        note: this.state.note,
+        place: this.props.placeUrl,
+        tag: this.props.tag.url,
+      },
+    );
+
+    if (response) {
+      this.props.createPlaceTag(this.props.placeId, response);
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place-tags", "fail-to-create-place-tag");
+    }
+  };
+
+  onClickRemovePlaceTag = async () => {
+    const response = await mapseedApiClient.placeTags.delete(
+      this.props.placeTag.url,
+    );
+
+    if (response) {
+      this.props.removePlaceTag(this.props.placeId, this.props.placeTag.id);
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place-tags", "fail-to-remove-place-tag");
+    }
+  };
+
   render() {
     const isSelected = !!this.props.placeTag;
 
@@ -65,21 +100,12 @@ class TagEditor extends Component {
       <TagContainer
         isSelected={isSelected}
         backgroundColor={this.props.backgroundColor}
-        onClick={async () => {
+        onClick={() => {
           // Toggle the placeTag.
           if (isSelected) {
-            await mapseedApiClient.placeTags.delete(this.props.placeTag.url);
-            this.props.onDeletePlaceTag(this.props.placeTag.id);
+            this.onClickRemovePlaceTag();
           } else {
-            const tagData = await mapseedApiClient.placeTags.create(
-              this.props.placeUrl,
-              {
-                note: this.state.note,
-                place: this.props.placeUrl,
-                tag: this.props.tag.url,
-              },
-            );
-            this.props.onCreatePlaceTag(tagData);
+            this.onClickCreatePlaceTag();
           }
         }}
       >
@@ -137,14 +163,24 @@ class TagEditor extends Component {
 
 TagEditor.propTypes = {
   backgroundColor: PropTypes.string,
+  createPlaceTag: PropTypes.func.isRequired,
+  placeId: PropTypes.number.isRequired,
   placeTag: placeTagPropType,
   placeUrl: PropTypes.string.isRequired,
+  removePlaceTag: PropTypes.func.isRequired,
   tag: tagPropType,
-  onCreatePlaceTag: PropTypes.func.isRequired,
-  onDeletePlaceTag: PropTypes.func.isRequired,
-  onUpdateTagNote: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
 };
 
-export default translate("TagEditor")(TagEditor);
+const mapDispatchToProps = dispatch => ({
+  createPlaceTag: (placeId, placeTagData) =>
+    dispatch(createPlaceTag(placeId, placeTagData)),
+  removePlaceTag: (placeId, placeTagId) =>
+    dispatch(removePlaceTag(placeId, placeTagId)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(translate("TagEditor")(TagEditor));

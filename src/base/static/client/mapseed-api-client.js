@@ -49,7 +49,7 @@ const updatePlaceTag = async (url, newData) => {
 
 const deletePlaceTag = async url => {
   try {
-    await fetch(url, {
+    return await fetch(url, {
       headers: {
         "Content-Type": "application/json",
       },
