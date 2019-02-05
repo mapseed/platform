@@ -119,18 +119,33 @@ class PlaceDetail extends Component {
   }
 
   componentDidUpdate() {
+    const newPlace = fromJS(this.props.getPlace(this.props.placeId));
+
     if (
+      // Have supports been added or removed?
       this.props.getPlace(this.props.placeId).submission_sets.support.length !==
         this.state.place.get("submission_sets").get("support").size ||
+      // Have comments been added or removed?
       this.props.getPlace(this.props.placeId).submission_sets.comments
         .length !==
         this.state.place.get("submission_sets").get("comments").size ||
-      !fromJS(this.props.getPlace(this.props.placeId)).equals(this.state.place)
+      // Has Place data changed?
+      !newPlace.equals(this.state.place) ||
+      // Has the data of any comment changed?
+      newPlace
+        .get("submission_sets")
+        .get("comments")
+        .filter((comment, i) => {
+          return comment.equals(
+            this.state.place
+              .get("submission_sets")
+              .get("comments")
+              .get(i),
+          );
+        }).size !== this.state.place.get("submission_sets").get("comments").size
     ) {
-      // If a support or comment has been added, removed, or updated, or if the
-      // Place itself has changed.
       this.setState({
-        place: fromJS(this.props.getPlace(this.props.placeId)),
+        place: newPlace,
       });
     }
   }

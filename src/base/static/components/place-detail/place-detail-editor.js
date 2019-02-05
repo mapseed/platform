@@ -162,23 +162,6 @@ class PlaceDetailEditor extends Component {
       });
       scrollTo(this.props.container, 0, 300);
     }
-
-    //  emitter.addListener(constants.PLACE_MODEL_REMOVE_EVENT, () => {
-    //    // TODO: Replace this confirm, as it won't respond to client-side i18n
-    //    // changes, plus it's a bad UX pattern.
-    //    if (confirm(this.props.t("confirmRemove"))) {
-    //      this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
-    //      this.props.onPlaceModelSave(
-    //        {
-    //          visible: false,
-    //        },
-    //        {
-    //          success: this.onPlaceModelRemoveSuccess.bind(this),
-    //          error: this.onPlaceModelRemoveError.bind(this),
-    //        },
-    //      );
-    //    }
-    //  });
   }
 
   async removePlace() {

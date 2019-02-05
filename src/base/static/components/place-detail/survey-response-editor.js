@@ -13,6 +13,8 @@ import { SmallText, Time } from "../atoms/typography";
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
+const Util = require("../../js/utils.js");
+
 import {
   commentFormConfigPropType,
   commentFormConfigSelector,
@@ -22,6 +24,12 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
+import {
+  updatePlaceComment,
+  removePlaceComment,
+} from "../../state/ducks/places";
+
+import mapseedApiClient from "../../client/mapseed-api-client";
 
 import "./survey-response-editor.scss";
 
@@ -59,28 +67,54 @@ class SurveyResponseEditor extends Component {
     }));
   }
 
-  successCallback() {
-    this.setState({
-      isModified: false,
+  getCommentData() {
+    return this.state.fields
+      .filter(field => !!field.get(constants.FIELD_VALUE_KEY))
+      .map(field => field.get(constants.FIELD_VALUE_KEY))
+      .toJS();
+  }
+
+  async onClickSave() {
+    const response = await mapseedApiClient.comments.update({
+      placeUrl: this.props.placeUrl,
+      commentId: this.props.comment.get("id"),
+      commentData: this.getCommentData(),
     });
+
+    if (response) {
+      this.props.updatePlaceComment(this.props.placeId, response);
+      this.setState({
+        isModified: false,
+      });
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "comments", "fail-to-update-comment");
+    }
   }
 
-  onClickSave(evt) {
-    evt.preventDefault();
-    this.props.onSurveyModelSave(
-      this.state.fields
-        .filter(field => !!field.get(constants.FIELD_VALUE_KEY))
-        .map(field => field.get(constants.FIELD_VALUE_KEY))
-        .toJS(),
-      this.props.modelId,
-      this.successCallback.bind(this),
-    );
-  }
+  onClickRemove = async () => {
+    const response = await mapseedApiClient.comments.update({
+      placeUrl: this.props.placeUrl,
+      commentId: this.props.comment.get("id"),
+      commentData: {
+        ...this.getCommentData(),
+        visible: false,
+      },
+    });
 
-  onClickRemove(evt) {
-    evt.preventDefault();
-    this.props.onSurveyModelRemove(this.props.modelId);
-  }
+    if (response) {
+      this.setState({
+        isModified: false,
+      });
+      this.props.removePlaceComment(
+        this.props.placeId,
+        this.props.comment.get("id"),
+      );
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "comments", "fail-to-remove-comment");
+    }
+  };
 
   render() {
     return (
@@ -91,14 +125,18 @@ class SurveyResponseEditor extends Component {
             isSubmitting={this.props.isSubmitting}
             type="remove"
             label=""
-            onClick={this.onClickRemove.bind(this)}
+            onClick={() => {
+              if (confirm(this.props.t("confirmCommentRemove"))) {
+                this.onClickRemove();
+              }
+            }}
           />
           <EditorButton
             className="place-detail-survey-editor__save-button"
             isSubmitting={this.props.isSubmitting}
             type="save"
             label=""
-            onClick={this.onClickSave.bind(this)}
+            onClick={this.onClickSave}
           />
           <em
             className={classNames("place-detail-survey-editor__save-status", {
@@ -160,13 +198,14 @@ SurveyResponseEditor.propTypes = {
   appConfig: appConfigPropType.isRequired,
   comment: PropTypes.instanceOf(Map),
   isSubmitting: PropTypes.bool.isRequired,
-  modelId: PropTypes.number.isRequired,
-  onSurveyModelRemove: PropTypes.func.isRequired,
-  onSurveyModelSave: PropTypes.func.isRequired,
+  placeId: PropTypes.number.isRequired,
+  placeUrl: PropTypes.string.isRequired,
   placeConfig: PropTypes.object.isRequired,
   submitter: PropTypes.shape({
     avatar_url: PropTypes.string,
   }),
+  updatePlaceComment: PropTypes.func.isRequired,
+  removePlaceComment: PropTypes.func.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
 };
@@ -177,6 +216,14 @@ const mapStateToProps = state => ({
   commentFormConfig: commentFormConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(
-  translate("SurveyResponseEditor")(SurveyResponseEditor),
-);
+const mapDispatchToProps = dispatch => ({
+  updatePlaceComment: (placeId, commentData) =>
+    dispatch(updatePlaceComment(placeId, commentData)),
+  removePlaceComment: (placeId, commentId) =>
+    dispatch(removePlaceComment(placeId, commentId)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate("SurveyResponseEditor")(SurveyResponseEditor));

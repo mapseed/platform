@@ -247,18 +247,22 @@ const createComment = async (placeUrl, commentData) => {
   }
 };
 
-const deleteComment = async (placeUrl, commentId) => {
+const updateComment = async ({ placeUrl, commentId, commentData }) => {
   try {
-    return await fetch(`${placeUrl}/comments/${commentId}`, {
+    return await fetch(`${placeUrl}/comments/${commentId}?include_invisible`, {
       headers: {
         "Content-Type": "application/json",
+        "X-Shareabouts-Silent": true, // To prevent new Actions on update.
       },
       credentials: "include",
-      method: "DELETE",
-    }).then(status);
+      method: "PUT",
+      body: JSON.stringify(commentData),
+    })
+      .then(status)
+      .then(json);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Error: Failed to delete comment.", err);
+    console.error("Error: Comment did not save.", err);
   }
 };
 
@@ -276,7 +280,7 @@ export default {
   },
   comments: {
     create: createComment,
-    delete: deleteComment,
+    update: updateComment,
   },
   datasets: {
     get: getDatasets,

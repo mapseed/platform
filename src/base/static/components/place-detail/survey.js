@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map, OrderedMap } from "immutable";
+import { Map, OrderedMap, List } from "immutable";
 import emitter from "../../utils/emitter";
 import { connect } from "react-redux";
 
@@ -139,8 +139,8 @@ class Survey extends Component {
                 <SurveyResponseEditor
                   key={comment.get("id")}
                   isSubmitting={this.props.isSubmitting}
-                  onSurveyModelRemove={this.props.onSurveyModelRemove}
-                  onSurveyModelSave={this.props.onSurveyModelSave}
+                  placeId={this.props.placeId}
+                  placeUrl={this.props.placeUrl}
                   comment={comment}
                   submitter={this.props.submitter}
                 />
@@ -205,12 +205,16 @@ class Survey extends Component {
 
 Survey.propTypes = {
   appConfig: appConfigPropType.isRequired,
+  comments: PropTypes.instanceOf(List),
+  createPlaceComment: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
+  placeId: PropTypes.number.isRequired,
+  placeUrl: PropTypes.string.isRequired,
   scrollToResponseId: PropTypes.number,
   commentFormConfig: commentFormConfigPropType.isRequired,
   currentUser: PropTypes.object,

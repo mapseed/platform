@@ -68,6 +68,7 @@ const CREATE_PLACE_SUPPORT = "places/CREATE_PLACE_SUPPORT";
 const REMOVE_PLACE_SUPPORT = "places/REMOVE_PLACE_SUPPORT";
 const CREATE_PLACE_COMMENT = "places/CREATE_PLACE_COMMENT";
 const REMOVE_PLACE_COMMENT = "places/REMOVE_PLACE_COMMENT";
+const UPDATE_PLACE_COMMENT = "places/UPDATE_PLACE_COMMENT";
 
 // Action creators:
 export function loadPlaces(places) {
@@ -118,7 +119,11 @@ export function createPlaceComment(placeId, commentData) {
 }
 
 export function removePlaceComment(placeId, commentId) {
-  return { type: REMOVE_PLACE_SUPPORT, payload: { placeId, commentId } };
+  return { type: REMOVE_PLACE_COMMENT, payload: { placeId, commentId } };
+}
+
+export function updatePlaceComment(placeId, commentData) {
+  return { type: UPDATE_PLACE_COMMENT, payload: { placeId, commentData } };
 }
 
 // Reducers:
@@ -180,6 +185,22 @@ export default function reducer(state = INITIAL_STATE, action) {
         if (place.id === action.payload.placeId) {
           place.submission_sets.comments = place.submission_sets.comments.filter(
             comment => comment.id !== action.payload.commentId,
+          );
+        }
+
+        return place;
+      });
+    case UPDATE_PLACE_COMMENT:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.submission_sets.comments = place.submission_sets.comments.map(
+            comment => {
+              if (comment.id === action.payload.commentData.id) {
+                comment = action.payload.commentData;
+              }
+
+              return comment;
+            },
           );
         }
 

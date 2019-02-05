@@ -21,6 +21,7 @@ const EditorButton = props => {
       })}
       disabled={props.isSubmitting}
       onClick={props.onClick}
+      type="button"
     >
       <span
         className={classNames("editor-button__icon", {
