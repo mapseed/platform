@@ -28,7 +28,11 @@ const EditorBar = props => {
             className="place-detail-editor-bar__remove-button"
             label={props.t("removeBtn")}
             type="remove"
-            onClick={props.onClickRemovePlace}
+            onClick={() => {
+              if (confirm(props.t("confirmRemove"))) {
+                props.onClickRemovePlace();
+              }
+            }}
           />
         )}
       {props.isEditModeToggled &&

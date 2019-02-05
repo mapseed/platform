@@ -63,6 +63,7 @@ export const placesPropType = PropTypes.arrayOf(placePropType);
 const LOAD_PLACES = "places/LOAD";
 const UPDATE_PLACE = "places/UPDATE";
 const CREATE_PLACE = "places/CREATE";
+const REMOVE_PLACE = "places/REMOVE";
 const CREATE_PLACE_SUPPORT = "places/CREATE_PLACE_SUPPORT";
 const REMOVE_PLACE_SUPPORT = "places/REMOVE_PLACE_SUPPORT";
 const CREATE_PLACE_COMMENT = "places/CREATE_PLACE_COMMENT";
@@ -86,6 +87,10 @@ export function updatePlace(place) {
 
 export function createPlace(place) {
   return { type: CREATE_PLACE, payload: place };
+}
+
+export function removePlace(placeId) {
+  return { type: REMOVE_PLACE, payload: placeId };
 }
 
 export function createPlaceSupport(placeId, supportData) {
@@ -138,6 +143,8 @@ export default function reducer(state = INITIAL_STATE, action) {
       });
     case CREATE_PLACE:
       return [...state, action.payload];
+    case REMOVE_PLACE:
+      return state.filter(place => place.id !== action.payload);
     case CREATE_PLACE_SUPPORT:
       return state.map(place => {
         if (place.id === action.payload.placeId) {

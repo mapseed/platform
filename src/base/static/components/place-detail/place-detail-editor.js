@@ -24,7 +24,7 @@ import {
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { updatePlace } from "../../state/ducks/places";
+import { updatePlace, removePlace } from "../../state/ducks/places";
 import { updateEditModeToggled } from "../../state/ducks/ui";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -181,6 +181,37 @@ class PlaceDetailEditor extends Component {
     //  });
   }
 
+  async removePlace() {
+    const response = await mapseedApiClient.place.update(
+      this.props.place.get("url"),
+      {
+        ...this.props.place.toJS(),
+        visible: false,
+      },
+    );
+
+    this.setState({
+      isNetworkRequestInFlight: false,
+    });
+
+    if (response) {
+      // TODO: is this needed any more?
+      emitter.emit(
+        constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
+        this.props.place.get("_datasetSlug"),
+      );
+
+      this.props.router.navigate("/", {trigger: true });
+      this.props.removePlace(this.props.place.get("id"));
+      Util.log("USER", "place", "successfully-remove-place");
+      this.props.updateEditModeToggled(false);
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place", "fail-to-remove-place");
+      this.props.onRequestEnd();
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (
       prevProps.placeRequestType !== this.props.placeRequestType &&
@@ -201,25 +232,6 @@ class PlaceDetailEditor extends Component {
           break;
       }
     }
-  }
-
-  componentWillUnmount() {
-    emitter.removeAllListeners(constants.PLACE_MODEL_UPDATE_EVENT);
-    emitter.removeAllListeners(constants.PLACE_MODEL_REMOVE_EVENT);
-  }
-
-  onPlaceModelRemoveSuccess(model) {
-    model.collection.remove(model.id);
-    emitter.emit(
-      constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
-      this.props.collectionId,
-    );
-    this.props.router.navigate("/", { trigger: true });
-  }
-
-  onPlaceModelRemoveError() {
-    this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
-    Util.log("USER", "place-editor", "fail-to-remove-place");
   }
 
   triggerFieldVisibility(targets, isVisible) {
@@ -323,7 +335,6 @@ class PlaceDetailEditor extends Component {
                     isInitializing={this.state.isInitializing}
                     key={fieldName}
                     onFieldChange={this.onFieldChange.bind(this)}
-                    places={this.props.places}
                     router={this.props.router}
                     showValidityStatus={this.state.showValidityStatus}
                     updatingField={this.state.updatingField}
@@ -351,8 +362,10 @@ PlaceDetailEditor.propTypes = {
   placeConfig: PropTypes.object.isRequired,
   place: PropTypes.object.isRequired,
   placeRequestType: PropTypes.string,
+  removePlace: PropTypes.func.isRequired,
   router: PropTypes.object,
   t: PropTypes.func.isRequired,
+  updateEditModeToggled: PropTypes.func.isRequired,
   updatePlace: PropTypes.func.isRequired,
 };
 
@@ -366,6 +379,7 @@ const mapDispatchToProps = dispatch => ({
   updateEditModeToggled: isToggled =>
     dispatch(updateEditModeToggled(isToggled)),
   updatePlace: place => dispatch(updatePlace(place)),
+  removePlace: placeId => dispatch(removePlace(placeId)),
 });
 
 export default connect(
