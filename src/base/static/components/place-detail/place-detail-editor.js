@@ -46,6 +46,7 @@ class PlaceDetailEditor extends Component {
       this.props.place.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
+    this.attachments = [];
     let fields = OrderedMap();
     this.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
@@ -125,7 +126,7 @@ class PlaceDetailEditor extends Component {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
 
-      const response = await mapseedApiClient.place.update(
+      let response = await mapseedApiClient.place.update(
         this.props.place.get("url"),
         {
           ...this.props.place.toJS(),
@@ -138,19 +139,32 @@ class PlaceDetailEditor extends Component {
       });
 
       if (response) {
+        response = await mapseedApiClient.utils.fromGeoJSONFeature(
+          // TODO: move this to api client
+          response,
+          this.props.place.get("_datasetSlug"),
+        );
+
+        // Save attachments.
+        if (this.attachments.length) {
+          const attachmentPromises = await mapseedApiClient.attachments.create(
+            response.url,
+            this.attachments,
+          );
+
+          response.attachments = response.attachments.concat(
+            await Promise.all(attachmentPromises),
+          );
+        }
+
         emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
+
         // TODO: is this needed any more?
         emitter.emit(
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
           this.props.place.get("_datasetSlug"),
         );
-        this.props.updatePlace(
-          mapseedApiClient.utils.fromGeoJSONFeature(
-            // TODO: move this to api client
-            response,
-            this.props.place.get("_datasetSlug"),
-          ),
-        );
+        this.props.updatePlace(response);
         Util.log("USER", "place", "successfully-update-place");
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
@@ -207,7 +221,6 @@ class PlaceDetailEditor extends Component {
     );
 
     if (response) {
-      console.log("Success!", response);
       this.props.removePlaceAttachment(
         this.props.place.get("id"),
         attachmentId,
@@ -216,6 +229,10 @@ class PlaceDetailEditor extends Component {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place", "fail-to-remove-attachment");
     }
+  };
+
+  onAddAttachment = attachment => {
+    this.attachments.push(attachment);
   };
 
   componentDidUpdate(prevProps) {
@@ -332,7 +349,7 @@ class PlaceDetailEditor extends Component {
                     categoryConfig={this.categoryConfig}
                     disabled={this.state.isSubmitting}
                     fieldState={fieldState}
-                    onAddAttachment={this.props.onAddAttachment}
+                    onAddAttachment={this.onAddAttachment}
                     isInitializing={this.state.isInitializing}
                     key={fieldName}
                     onFieldChange={this.onFieldChange.bind(this)}

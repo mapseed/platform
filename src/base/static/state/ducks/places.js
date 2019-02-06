@@ -73,6 +73,7 @@ const CREATE_PLACE_TAG = "places/CREATE_PLACE_TAG";
 const REMOVE_PLACE_TAG = "places/REMOVE_PLACE_TAG";
 const UPDATE_PLACE_TAG_NOTE = "places/UPDATE_PLACE_TAG_NOTE";
 const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
+const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
 
 // Action creators:
 export function loadPlaces(places) {
@@ -142,6 +143,13 @@ export function removePlaceAttachment(placeId, attachmentId) {
   return { type: REMOVE_PLACE_ATTACHMENT, payload: { placeId, attachmentId } };
 }
 
+export function createPlaceAttachment(placeId, attachmentData) {
+  return {
+    type: CREATE_PLACE_ATTACHMENT,
+    payload: { placeId, attachmentData },
+  };
+}
+
 const normalizeSubmissionSets = place => {
   // A place with no comments or supports will arrive from the API without any
   // information about these submission sets. Because we assume that comments
@@ -163,7 +171,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case UPDATE_PLACE:
       return state.map(place => {
         if (place.id === action.payload.id) {
-          action.payload = normalizeSubmissionSets(action.paylaod);
+          action.payload = normalizeSubmissionSets(action.payload);
           place = {
             ...place,
             ...action.payload,
@@ -257,6 +265,16 @@ export default function reducer(state = INITIAL_STATE, action) {
           place.attachments = place.attachments.filter(
             attachment => attachment.id !== action.payload.attachmentId,
           );
+        }
+
+        return place;
+      });
+    case CREATE_PLACE_ATTACHMENT:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.attachments = place.attachments.concat([
+            action.payload.attachmentData,
+          ]);
         }
 
         return place;
