@@ -82,6 +82,7 @@ body {
   line-height: 1.4em;
   min-height: 30px;
   background-color: #efefef;
+  overflow: hidden;
 }
 
 .textarea-field,
