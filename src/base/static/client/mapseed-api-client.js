@@ -318,6 +318,24 @@ const createAttachments = async (placeUrl, attachments) => {
   }
 };
 
+const deleteAttachment = async (placeUrl, attachmentId) => {
+  try {
+    return await fetch(`${placeUrl}/attachments/${attachmentId}`, {
+      credentials: "include",
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        visible: false,
+      }),
+    }).then(status);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to delete attachment.", err);
+  }
+};
+
 export default {
   place: {
     get: getPlaces,
@@ -345,6 +363,7 @@ export default {
   },
   attachments: {
     create: createAttachments,
+    delete: deleteAttachment,
   },
   utils: {
     fromGeoJSONFeature: fromGeoJSONFeature,

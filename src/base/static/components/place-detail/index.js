@@ -122,6 +122,9 @@ class PlaceDetail extends Component {
     const newPlace = fromJS(this.props.getPlace(this.props.placeId));
 
     if (
+      // Have attachments been added or removed?
+      newPlace.get("attachments").size !==
+        this.state.place.get("attachments").size ||
       // Have supports been added or removed?
       newPlace.getIn(["submission_sets", "support"]).size !==
         this.state.place.getIn(["submission_sets", "support"]).size ||

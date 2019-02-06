@@ -72,6 +72,7 @@ const UPDATE_PLACE_COMMENT = "places/UPDATE_PLACE_COMMENT";
 const CREATE_PLACE_TAG = "places/CREATE_PLACE_TAG";
 const REMOVE_PLACE_TAG = "places/REMOVE_PLACE_TAG";
 const UPDATE_PLACE_TAG_NOTE = "places/UPDATE_PLACE_TAG_NOTE";
+const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
 
 // Action creators:
 export function loadPlaces(places) {
@@ -135,6 +136,10 @@ export function createPlaceTag(placeId, placeTagData) {
 
 export function removePlaceTag(placeId, placeTagId) {
   return { type: REMOVE_PLACE_TAG, payload: { placeId, placeTagId } };
+}
+
+export function removePlaceAttachment(placeId, attachmentId) {
+  return { type: REMOVE_PLACE_ATTACHMENT, payload: { placeId, attachmentId } };
 }
 
 const normalizeSubmissionSets = place => {
@@ -241,6 +246,16 @@ export default function reducer(state = INITIAL_STATE, action) {
         if (place.id === action.payload.placeId) {
           place.tags = place.tags.filter(
             tag => tag.id !== action.payload.placeTagId,
+          );
+        }
+
+        return place;
+      });
+    case REMOVE_PLACE_ATTACHMENT:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.attachments = place.attachments.filter(
+            attachment => attachment.id !== action.payload.attachmentId,
           );
         }
 

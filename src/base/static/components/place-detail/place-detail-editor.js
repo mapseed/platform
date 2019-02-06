@@ -24,7 +24,11 @@ import {
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { updatePlace, removePlace } from "../../state/ducks/places";
+import {
+  updatePlace,
+  removePlace,
+  removePlaceAttachment,
+} from "../../state/ducks/places";
 import { updateEditModeToggled } from "../../state/ducks/ui";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -141,7 +145,8 @@ class PlaceDetailEditor extends Component {
           this.props.place.get("_datasetSlug"),
         );
         this.props.updatePlace(
-          mapseedApiClient.utils.fromGeoJSONFeature( // TODO: move this to api client
+          mapseedApiClient.utils.fromGeoJSONFeature(
+            // TODO: move this to api client
             response,
             this.props.place.get("_datasetSlug"),
           ),
@@ -184,7 +189,7 @@ class PlaceDetailEditor extends Component {
         this.props.place.get("_datasetSlug"),
       );
 
-      this.props.router.navigate("/", {trigger: true });
+      this.props.router.navigate("/", { trigger: true });
       this.props.removePlace(this.props.place.get("id"));
       Util.log("USER", "place", "successfully-remove-place");
       this.props.updateEditModeToggled(false);
@@ -194,6 +199,24 @@ class PlaceDetailEditor extends Component {
       this.props.onRequestEnd();
     }
   }
+
+  onClickRemoveAttachment = async attachmentId => {
+    const response = mapseedApiClient.attachments.delete(
+      this.props.place.get("url"),
+      attachmentId,
+    );
+
+    if (response) {
+      console.log("Success!", response);
+      this.props.removePlaceAttachment(
+        this.props.place.get("id"),
+        attachmentId,
+      );
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place", "fail-to-remove-attachment");
+    }
+  };
 
   componentDidUpdate(prevProps) {
     if (
@@ -266,18 +289,13 @@ class PlaceDetailEditor extends Component {
               attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
               constants.COVER_IMAGE_CODE,
           )
-          .map((attachmentModel, i) => (
+          .map((attachment, i) => (
             <CoverImage
               key={i}
-              isShowingDeleteButton={true}
-              imageUrl={attachmentModel.get(
-                constants.ATTACHMENT_FILE_PROPERTY_NAME,
-              )}
-              onClickRemove={() =>
-                this.props.onAttachmentModelRemove(
-                  attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME),
-                )
-              }
+              isEditable={true}
+              imageUrl={attachment.get("file")}
+              attachmentId={attachment.get("id")}
+              onClickRemove={this.onClickRemoveAttachment}
             />
           ))}
         <form className="place-detail-editor__form">
@@ -346,6 +364,7 @@ PlaceDetailEditor.propTypes = {
   place: PropTypes.object.isRequired,
   placeRequestType: PropTypes.string,
   removePlace: PropTypes.func.isRequired,
+  removePlaceAttachment: PropTypes.func.isRequired,
   router: PropTypes.object,
   t: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
@@ -363,6 +382,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateEditModeToggled(isToggled)),
   updatePlace: place => dispatch(updatePlace(place)),
   removePlace: placeId => dispatch(removePlace(placeId)),
+  removePlaceAttachment: (placeId, attachmentId) =>
+    dispatch(removePlaceAttachment(placeId, attachmentId)),
 });
 
 export default connect(
