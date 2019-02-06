@@ -45,16 +45,14 @@ export const placePropType = PropTypes.shape({
   created_datetime: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  datasetSlug: PropTypes.string.isRequired,
+  _datasetSlug: PropTypes.string.isRequired,
   submitter_name: PropTypes.string,
   submission_sets: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
-  datasetId: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   title: PropTypes.string,
   location_type: PropTypes.string.isRequired,
   submitter: PropTypes.object,
-  type: PropTypes.string.isRequired,
 });
 
 export const placesPropType = PropTypes.arrayOf(placePropType);

@@ -34,7 +34,7 @@ CoverImage.defaultProps = {
 };
 
 CoverImage.propTypes = {
-  attachmentId: PropTypes.number.isRequired,
+  attachmentId: PropTypes.number,
   imageUrl: PropTypes.string.isRequired,
   isEditable: PropTypes.bool.isRequired,
   onClickRemove: PropTypes.func,
