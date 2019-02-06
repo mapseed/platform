@@ -288,6 +288,36 @@ const updateComment = async ({ placeUrl, commentId, commentData }) => {
   }
 };
 
+const createAttachments = async (placeUrl, attachments) => {
+  try {
+    const attachmentPromises = [];
+    attachments.forEach(attachment => {
+      const formData = new FormData();
+      if (attachment.blob) {
+        formData.append("file", attachment.blob);
+      }
+      formData.append("name", attachment.name);
+      formData.append("type", attachment.type);
+      formData.append("visible", true);
+
+      attachmentPromises.push(
+        fetch(`${placeUrl}/attachments`, {
+          credentials: "include",
+          method: "POST",
+          body: formData,
+        })
+          .then(status)
+          .then(json),
+      );
+    });
+
+    return attachmentPromises;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to create attachments.", err);
+  }
+};
+
 export default {
   place: {
     get: getPlaces,
@@ -312,6 +342,9 @@ export default {
     create: createPlaceTag,
     update: updatePlaceTag,
     delete: deletePlaceTag,
+  },
+  attachments: {
+    create: createAttachments,
   },
   utils: {
     fromGeoJSONFeature: fromGeoJSONFeature,

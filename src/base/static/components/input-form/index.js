@@ -303,10 +303,6 @@ class InputForm extends Component {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
 
-    //   this.attachments.forEach(attachment => {
-    //     model.attachmentCollection.add(attachment);
-    //   });
-
     // Fire pre-save hook.
     // The pre-save hook allows flavors to attach arbitrary data to the attrs
     // object before submission to the database.
@@ -321,6 +317,16 @@ class InputForm extends Component {
     });
 
     if (response) {
+      // Save attachments.
+      if (this.attachments.length) {
+        const attachmentPromises = await mapseedApiClient.attachments.create(
+          response.url,
+          this.attachments,
+        );
+
+        response.attachments = await Promise.all(attachmentPromises);
+      }
+
       this.props.createPlace(response);
       Util.log("USER", "new-place", "successfully-add-place");
       this.setState({ isFormSubmitting: false, showValidityStatus: false });

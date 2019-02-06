@@ -477,7 +477,9 @@ class MainMap extends Component {
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
       layer.source = createGeoJSONFromPlaces(
-        this.props.places.filter(place => place.datasetId === layer.id),
+        this.props.places.filter(
+          place => place._datasetSlug === layer.datasetSlug,
+        ),
       );
 
       this._map.addLayer({
