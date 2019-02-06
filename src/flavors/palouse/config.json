@@ -1905,7 +1905,7 @@
           {
             "name": "my_image",
             "type": "file",
-            "prompt": "_(Show your stewardship practices! Upload photos:)",
+            "prompt": "_(Show your stewardship practices! Upload photos before, during, or after you implemented your stewardship practices:)",
             "label": "_(Upload photos)",
             "optional": true
           },
