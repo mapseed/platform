@@ -73,6 +73,9 @@ module.exports = Backbone.Model.extend({
         }
         return myXhr;
       },
+      xhrFields: {
+        withCredentials: true,
+      },
       //Ajax events
       success: function(attachmentResponse) {
         var args = Array.prototype.slice.call(arguments);

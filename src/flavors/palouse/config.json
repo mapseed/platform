@@ -1756,7 +1756,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["hedgerow_planting_quantity", "hedgerow_planting_datetime"]
+              "targets": [
+                "hedgerow_planting_quantity",
+                "hedgerow_planting_datetime"
+              ]
             },
             "content": [
               {
@@ -1940,15 +1943,15 @@
             "name": "private",
             "type": "big_radio",
             "prompt": "_(Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.)",
-            "default_value": "true",
+            "default_value": "yes",
             "content": [
               {
                 "label": "_(Yes)",
-                "value": ""
+                "value": "no"
               },
               {
                 "label": "_(No)",
-                "value": "true"
+                "value": "yes"
               }
             ],
             "optional": true

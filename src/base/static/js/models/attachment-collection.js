@@ -9,7 +9,7 @@ module.exports = Backbone.Collection.extend({
 
   url: function() {
     var thingModel = this.options.thingModel,
-      thingUrl = thingModel.url();
+      thingUrl = thingModel.url().split("?")[0];
 
     return thingUrl + "/attachments";
   },
