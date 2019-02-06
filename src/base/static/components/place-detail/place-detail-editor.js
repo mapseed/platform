@@ -141,7 +141,7 @@ class PlaceDetailEditor extends Component {
           this.props.place.get("_datasetSlug"),
         );
         this.props.updatePlace(
-          mapseedApiClient.utils.fromGeoJSONFeature(
+          mapseedApiClient.utils.fromGeoJSONFeature( // TODO: move this to api client
             response,
             this.props.place.get("_datasetSlug"),
           ),

@@ -78,10 +78,12 @@ const fromGeoJSONFeatureCollection = (featureCollection, datasetSlug) =>
     })),
   );
 
-const fromGeoJSONFeature = feature => ({
-  geometry: feature.geometry,
-  ...feature.properties,
-});
+const fromGeoJSONFeature = (feature, datasetSlug) =>
+  Promise.resolve({
+    geometry: feature.geometry,
+    _datasetSlug: datasetSlug,
+    ...feature.properties,
+  });
 
 const toGeoJSONFeature = placeData => {
   // We intentionally strip out some keys from the placeData object which
@@ -184,6 +186,26 @@ const updatePlace = async (placeUrl, placeData) => {
   }
 };
 
+const createPlace = async ({ datasetUrl, placeData, datasetSlug }) => {
+  try {
+    placeData = toGeoJSONFeature(placeData);
+    return await fetch(`${datasetUrl}/places?include_tags`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify(placeData),
+    })
+      .then(status)
+      .then(json)
+      .then(response => fromGeoJSONFeature(response, datasetSlug));
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to create place.", err);
+  }
+};
+
 const getActivity = activityCollections => {
   activityCollections.forEach(([activityCollection, successCallback]) => {
     activityCollection.fetch({
@@ -269,6 +291,7 @@ const updateComment = async ({ placeUrl, commentId, commentData }) => {
 export default {
   place: {
     get: getPlaces,
+    create: createPlace,
     update: updatePlace,
   },
   activity: {

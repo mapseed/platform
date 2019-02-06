@@ -137,6 +137,17 @@ export function removePlaceTag(placeId, placeTagId) {
   return { type: REMOVE_PLACE_TAG, payload: { placeId, placeTagId } };
 }
 
+const normalizeSubmissionSets = place => {
+  // A place with no comments or supports will arrive from the API without any
+  // information about these submission sets. Because we assume that comments
+  // and supports are a part of every Mapseed instance, make sure we at least
+  // have an empty array for comments and supports on every place.
+  place.submission_sets.support = place.submission_sets.support || [];
+  place.submission_sets.comments = place.submission_sets.comments || [];
+
+  return place;
+};
+
 // Reducers:
 const INITIAL_STATE = [];
 
@@ -147,26 +158,26 @@ export default function reducer(state = INITIAL_STATE, action) {
     case UPDATE_PLACE:
       return state.map(place => {
         if (place.id === action.payload.id) {
+          action.payload = normalizeSubmissionSets(action.paylaod);
           place = {
             ...place,
             ...action.payload,
           };
-          place.submission_sets.support = place.submission_sets.support || [];
-          place.submission_sets.comments = place.submission_sets.comments || [];
         }
 
         return place;
       });
     case CREATE_PLACE:
+      action.payload = normalizeSubmissionSets(action.payload);
       return [...state, action.payload];
     case REMOVE_PLACE:
       return state.filter(place => place.id !== action.payload);
     case CREATE_PLACE_SUPPORT:
       return state.map(place => {
         if (place.id === action.payload.placeId) {
-          place.submission_sets.support = (
-            place.submission_sets.support || []
-          ).concat(action.payload.supportData);
+          place.submission_sets.support = place.submission_sets.support.concat(
+            action.payload.supportData,
+          );
         }
 
         return place;
@@ -184,9 +195,9 @@ export default function reducer(state = INITIAL_STATE, action) {
     case CREATE_PLACE_COMMENT:
       return state.map(place => {
         if (place.id === action.payload.placeId) {
-          place.submission_sets.comments = (
-            place.submission_sets.comments || []
-          ).concat(action.payload.commentData);
+          place.submission_sets.comments = place.submission_sets.comments.concat(
+            action.payload.commentData,
+          );
         }
 
         return place;

@@ -573,7 +573,6 @@ export default Backbone.View.extend({
                 showNewPin={this.showNewPin.bind(this)}
                 hideNewPin={this.hideNewPin.bind(this)}
                 hidePanel={this.hidePanel.bind(this)}
-                places={this.places}
                 router={this.options.router}
                 customHooks={this.options.customHooks}
                 // '#content article' and 'body' represent the two containers into
@@ -596,6 +595,8 @@ export default Backbone.View.extend({
                       <VVInputForm
                         {...props}
                         selectedCategory={state.selectedCategory}
+                        datasetUrl={state.datasetUrl}
+                        datasetSlug={state.datasetSlug}
                         isSingleCategory={state.isSingleCategory}
                         onCategoryChange={onCategoryChange}
                       />
@@ -605,6 +606,8 @@ export default Backbone.View.extend({
                       <InputForm
                         {...props}
                         selectedCategory={state.selectedCategory}
+                        datasetUrl={state.datasetUrl}
+                        datasetSlug={state.datasetSlug}
                         isSingleCategory={state.isSingleCategory}
                         onCategoryChange={onCategoryChange}
                       />

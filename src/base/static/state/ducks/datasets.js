@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 export const datasetSelector = (state, datasetSlug) =>
   state.datasets.find(dataset => dataset.slug === datasetSlug);
 
+export const datasetUrlSelector = (state, datasetSlug) =>
+  state.datasets.find(dataset => dataset.slug === datasetSlug).url;
+
 // Actions:
 const LOAD = "datasets/LOAD";
 

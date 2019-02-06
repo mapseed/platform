@@ -38,6 +38,8 @@ import {
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
 
+import mapseedApiClient from "../../client/mapseed-api-client";
+
 // TEMPORARY: We define flavor hooks here for the time being.
 const MYWATER_SCHOOL_DISTRICTS = require("../../../../flavors/central-puget-sound/static/school-districts.json");
 const hooks = {
@@ -255,34 +257,21 @@ class InputForm extends Component {
   onSubmit() {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
-    this.validateForm(this.saveModel.bind(this));
+    this.validateForm(this.createPlace);
   }
 
-  saveModel() {
-    // TODO: this state should disable individual fields as well (?), not just
-    //       the submit button.
+  createPlace = async () => {
     this.setState({
       isFormSubmitting: true,
     });
-    const collection = this.props.places[
-      this.selectedCategoryConfig.datasetSlug
-    ];
-    collection.add(
-      {
-        location_type: this.selectedCategoryConfig.category,
-        datasetSlug: this.props.mapConfig.layers.find(
-          layer => this.selectedCategoryConfig.datasetSlug === layer.id,
-        ).slug,
-        datasetId: this.selectedCategoryConfig.datasetSlug,
-        showMetadata: this.selectedCategoryConfig.showMetadata,
-      },
-      { wait: true },
-    );
-    const model = collection.at(collection.length - 1);
-    let attrs = this.state.fields
-      .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
-      .map(state => state.get(constants.FIELD_VALUE_KEY))
-      .toJS();
+
+    let attrs = {
+      ...this.state.fields
+        .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
+        .map(state => state.get(constants.FIELD_VALUE_KEY))
+        .toJS(),
+      location_type: this.selectedCategoryConfig.category,
+    };
 
     // A form field with name "private" should use the value "yes" to indicate
     // that a place should be private.
@@ -314,9 +303,9 @@ class InputForm extends Component {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
 
-    this.attachments.forEach(attachment => {
-      model.attachmentCollection.add(attachment);
-    });
+    //   this.attachments.forEach(attachment => {
+    //     model.attachmentCollection.add(attachment);
+    //   });
 
     // Fire pre-save hook.
     // The pre-save hook allows flavors to attach arbitrary data to the attrs
@@ -325,62 +314,69 @@ class InputForm extends Component {
       attrs = hooks[this.props.customHooks.preSave](attrs);
     }
 
-    model.save(attrs, {
-      success: response => {
-        Util.log("USER", "new-place", "successfully-add-place");
-
-        emitter.emit(
-          constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-          this.selectedCategoryConfig.datasetSlug,
-        );
-        this.props.createPlace(response.toJSON());
-
-        // Save autofill values as necessary.
-        // TODO: This logic is better suited for the FormField component,
-        // perhaps in an onSave hook.
-        this.selectedCategoryConfig.fields.forEach(fieldConfig => {
-          if (fieldConfig.autocomplete) {
-            Util.saveAutocompleteValue(
-              fieldConfig.name,
-              this.state.fields
-                .get(fieldConfig.name)
-                .get(constants.FIELD_VALUE_KEY),
-              constants.AUTOFILL_DURATION_DAYS,
-            );
-          }
-        });
-
-        this.setState({ isFormSubmitting: false, showValidityStatus: false });
-
-        // Fire post-save hook.
-        // The post-save hook allows flavors to hijack the default
-        // route-to-detail-view behavior.
-        if (this.props.customHooks && this.props.customHooks.postSave) {
-          this.props.customHooks.postSave(
-            response,
-            model,
-            this.defaultPostSave.bind(this),
-          );
-        } else {
-          this.defaultPostSave(model);
-        }
-      },
-      error: () => {
-        Util.log("USER", "new-place", "fail-to-add-place");
-      },
-      wait: true,
+    const response = await mapseedApiClient.place.create({
+      datasetUrl: this.props.datasetUrl,
+      placeData: attrs,
+      datasetSlug: this.props.datasetSlug,
     });
-  }
 
-  defaultPostSave(model) {
-    if (model.get("private")) {
+    if (response) {
+      this.props.createPlace(response);
+      Util.log("USER", "new-place", "successfully-add-place");
+      this.setState({ isFormSubmitting: false, showValidityStatus: false });
+
+      emitter.emit(
+        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+        this.selectedCategoryConfig.datasetSlug,
+      );
+
+      // Save autofill values as necessary.
+      // TODO: This logic is better suited for the FormField component,
+      // perhaps in an onSave hook.
+      this.selectedCategoryConfig.fields.forEach(fieldConfig => {
+        if (fieldConfig.autocomplete) {
+          Util.saveAutocompleteValue(
+            fieldConfig.name,
+            this.state.fields
+              .get(fieldConfig.name)
+              .get(constants.FIELD_VALUE_KEY),
+            constants.AUTOFILL_DURATION_DAYS,
+          );
+        }
+      });
+
+      // Fire post-save hook.
+      // The post-save hook allows flavors to hijack the default
+      // route-to-detail-view behavior.
+      if (this.props.customHooks && this.props.customHooks.postSave) {
+        this.props.customHooks.postSave(
+          response,
+          response,
+          this.defaultPostSave.bind(this),
+        );
+      } else {
+        this.defaultPostSave(response);
+      }
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place", "fail-to-create-place");
+    }
+  };
+
+  defaultPostSave(place) {
+    if (place.private) {
       this.props.router.navigate("/", { trigger: true });
       emitter.emit("info-modal:open", {
         header: this.props.t("privateSubmissionModalHeader"),
         body: [this.props.t("privateSubmissionModalBody")],
       });
     } else {
-      this.props.router.navigate(Util.getUrl(model), { trigger: true });
+      this.props.router.navigate(
+        `${this.selectedCategoryConfig.placeSlug}/${place.id}`,
+        {
+          trigger: true,
+        },
+      );
     }
   }
 
@@ -527,6 +523,8 @@ InputForm.propTypes = {
   ]),
   container: PropTypes.instanceOf(HTMLElement),
   createPlace: PropTypes.func.isRequired,
+  datasetUrl: PropTypes.string.isRequired,
+  datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
   hideNewPin: PropTypes.func.isRequired,
   hideLayers: PropTypes.func.isRequired,
