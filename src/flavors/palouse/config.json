@@ -163,6 +163,7 @@
         "id": "palouse-analysis-units",
         "type": "vector-tile",
         "url": "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf",
+        "is_visible_default": true,
         "source_layer": "palouse-analysis-units",
         "mapbox_layers": [
           {
@@ -507,7 +508,11 @@
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visible_basemap_id": "satellite",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visible_layer_ids": [
+              "palouse-analysis-units",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 5,
@@ -633,12 +638,12 @@
           {
             "name": "location_why",
             "type": "informational_html",
-            "content": "<p>Reporting your property location will help Whitman County VSP understand stewardship strategies that have been completed.</p><p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p>"
+            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p><p><strong>If you own multiple properties, please report on all your properties as long as they all lie in the same Watershed Analysis Unit (Rock, Palouse, or Snake), as shown on the map.</strong></p>"
           },
           {
             "name": "drag_map_info",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the map on your property.</p></div>"
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the map on your property. If you own multiple properties in a Watershed Analysis Unit (Rock, Palouse, or Snake), please ensure your location is set somewhere inside the Analysis Unit.</p></div>"
           },
           {
             "name": "address",
@@ -655,7 +660,7 @@
           {
             "name": "analysis_unit",
             "type": "big_radio",
-            "prompt": "_(Of the three VSP watershed analysis units on map (Rock, Palouse, or Snake), which unit primarily represents your farm or ranch?  All reporting for VSP will be at the watershed analysis unit scale level. Complete multiple surveys for areas that are distinctively different.)",
+            "prompt": "_(Of the three VSP watershed analysis units on map (Rock, Palouse, or Snake), which unit primarily represents your farm or ranch?  All reporting for VSP will be at the watershed analysis unit scale level. Complete multiple surveys for areas that are distinctly different.)",
             "optional": false,
             "content": [
               {
@@ -685,7 +690,7 @@
           {
             "name": "private-property_on_wetlands",
             "type": "big_radio",
-            "prompt": "_(Are there any wetlands?)",
+            "prompt": "_(Are there any wetlands? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -711,7 +716,7 @@
           {
             "name": "private-property_on_frequently_flooded",
             "type": "big_radio",
-            "prompt": "_(Are there any frequently flooded areas?)",
+            "prompt": "_(Are there any frequently flooded areas? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -727,17 +732,17 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Geologic hazard areas</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Severe geologic hazard areas</h4>"
           },
           {
             "name": "geologic_hazard_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/geologic-hazard-cropped.jpg' alt='Geologic hazard areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other geological events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/geologic-hazard-cropped.jpg' alt='Geologic hazard areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_geologic_hazard",
             "type": "big_radio",
-            "prompt": "_(Are there any geologically hazardous areas?)",
+            "prompt": "_(Are there any severe geologic hazard areas? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -763,7 +768,7 @@
           {
             "name": "private-property_on_critical_aquifer",
             "type": "big_radio",
-            "prompt": "_(Are there any critical aquifers recharge areas?)",
+            "prompt": "_(Are there any critical aquifer recharge areas? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -789,7 +794,7 @@
           {
             "name": "private-property_on_wildlife_conservation",
             "type": "big_radio",
-            "prompt": "_(Are there any fish & wildlife conservation areas?)",
+            "prompt": "_(Are there any fish & wildlife conservation areas? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -1308,7 +1313,7 @@
             "//": "--------------SECTION: SOIL MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>12. Soil Management</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>12. Soil & Erosion Management</h4>"
           },
           {
             "name": "soil_management_information",
@@ -2040,11 +2045,6 @@
       "title": "_(VSP Assistance)",
       "type": "internal_link",
       "url": "/page/assistance"
-    },
-    {
-      "type": "list_toggle",
-      "show_list_button_label": "_(Show as a List)",
-      "show_map_button_label": "_(Show on a Map)"
     }
   ],
   "pages": [
@@ -2095,7 +2095,7 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<h3 id='about-page-header'>Welcome Whitman County Voluntary Stewards!</h3>",
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Whitman County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/rolling-hills-cropped.jpg' alt='Rolling hills, Whitman County' style='margin:8px 0 16px 0' />",
         "<p>Whitman County Voluntary Stewardship Program (VSP) provides an innovative approach for reporting the protection of critical areas on agriculture lands that enhance our environment through voluntary measures, while promoting agriculture viability. VSP voluntarily collects previous and on-going stewardship data from all interested landowners, which helps document VSP participation and the importance of agriculture viability.</p>",
         "<p>Visit <a href='http://www.whitmancountyvsp.com' target='_blank'>www.whitmancountyvsp.com</a> for more information",
