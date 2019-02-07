@@ -23,6 +23,8 @@ import {
   placesSelector,
   loadPlaces,
   placeSelector,
+  placesLoadStatusSelector,
+  updatePlacesLoadStatus,
 } from "../../state/ducks/places";
 import { loadPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
@@ -379,6 +381,8 @@ export default Backbone.View.extend({
   },
 
   fetchAndLoadPlaces: async function() {
+    store.dispatch(updatePlacesLoadStatus("loading"));
+
     const placeParams = {
       // NOTE: this is to include comments/supports while fetching our place models
       include_submissions: true,
@@ -393,22 +397,30 @@ export default Backbone.View.extend({
 
     const datasetConfigs = datasetConfigsSelector(store.getState());
     const layerStatuses = mapLayerStatusesSelector(store.getState());
+    const placePagePromises = await Promise.all(
+      datasetConfigs.map(config => {
+        return mapseedApiClient.place.get({
+          url: `${config.url}/places`,
+          datasetSlug: config.slug,
+          placeParams: placeParams,
+          includePrivate: hasAdminAbilities(store.getState(), config.slug),
+        });
+      }),
+    );
 
-    await datasetConfigs.forEach(async config => {
-      const placePagePromises = await mapseedApiClient.place.get({
-        url: `${config.url}/places`,
-        datasetSlug: config.slug,
-        placeParams: placeParams,
-        includePrivate: hasAdminAbilities(store.getState(), config.slug),
-      });
+    const placeData = await Promise.all(
+      placePagePromises.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+    );
 
-      const placeData = await Promise.all(placePagePromises);
-      store.dispatch(
-        loadPlaces(
-          placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-        ),
-      );
+    store.dispatch(
+      loadPlaces(
+        placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+      ),
+    );
+    store.dispatch(updatePlacesLoadStatus("loaded"));
 
+    // Mark visible layers as "loading" so the map will load and render them.
+    datasetConfigs.forEach(config => {
       if (layerStatuses[config.slug].isVisible) {
         store.dispatch(setLayerLoading(config.slug));
       }
@@ -512,7 +524,7 @@ export default Backbone.View.extend({
     this.destroyNewModels();
     this.setBodyClass();
     this.renderMain(mapPosition);
-    if (!placesSelector(store.getState()).length) {
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
   },
@@ -627,7 +639,7 @@ export default Backbone.View.extend({
       this.setBodyClass("content-visible", "place-form-visible");
       store.dispatch(setMapSizeValidity(false));
       store.dispatch(setAddPlaceButtonVisibility(false));
-      if (!placesSelector(store.getState()).length) {
+      if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
       emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
@@ -640,13 +652,13 @@ export default Backbone.View.extend({
   viewPlace: async function(args) {
     this.renderMain();
     this.renderRightSidebar();
-    if (!placesSelector(store.getState()).length) {
+
+    // TODO: Direct load to place.
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
 
     const place = placeSelector(store.getState(), args.placeId);
-
-    // TODO: direct route to place
     if (!place) {
       this.options.router.navigate("/");
       return;
@@ -799,7 +811,7 @@ export default Backbone.View.extend({
       );
       this.hideSpotlightMask();
 
-      if (!placesSelector(store.getState()).length) {
+      if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
     } else {
@@ -915,9 +927,10 @@ export default Backbone.View.extend({
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     this.renderRightSidebar();
-    if (!placesSelector(store.getState()).length) {
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
+
     this.renderList();
   },
   renderList: function() {
@@ -961,7 +974,10 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
 
     $("#dashboard-container").removeClass("is-visuallyhidden");
-    this.fetchAndLoadPlaces();
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
+      this.fetchAndLoadPlaces();
+    }
+
     // If module fails to load (eg: due to network error), use error boundaries to
     // show a helpful message
     // https://reactjs.org/docs/code-splitting.html#error-boundaries

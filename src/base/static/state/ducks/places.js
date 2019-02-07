@@ -1,42 +1,47 @@
 import PropTypes from "prop-types";
 
 // Selectors:
+export const placesLoadStatusSelector = state => {
+  return state.places.loadStatus;
+};
+
 export const placesSelector = state => {
-  return state.places;
+  return state.places.placeModels;
 };
 export const dashboardPlacesSelector = state => {
-  if (!state.places) {
-    return state.places;
+  if (!state.places.placeModels) {
+    return state.places.placeModels;
   }
-  return state.places.filter(
+  return state.places.placeModels.filter(
     place => place.datasetId === state.dashboardConfig.datasetId,
   );
 };
 
 export const filteredPlacesSelector = state => {
   const filters = state.filters;
-  if (!state.places || filters.length === 0) {
-    return state.places;
+  if (!state.places.placeModels || filters.length === 0) {
+    return state.places.placeModels;
   }
   // a formId and a location_type are currenty equivalent
   const filteredFormIds = filters.reduce((memo, filter) => {
     memo.push(filter.formId);
     return memo;
   }, []);
-  return state.places.filter(place =>
+  return state.places.placeModels.filter(place =>
     filteredFormIds.includes(place.location_type),
   );
 };
 
 export const datasetLengthSelector = (state, datasetSlug) =>
-  state.places.filter(place => place._datasetSlug === datasetSlug).length;
+  state.places.placeModels.filter(place => place._datasetSlug === datasetSlug)
+    .length;
 
 export const placeSelector = (state, placeId) => {
-  return state.places.find(place => place.id === placeId);
+  return state.places.placeModels.find(place => place.id === placeId);
 };
 
 export const placeExists = (state, placeId) => {
-  return !!state.places.find(place => place.id === placeId);
+  return !!state.places.placeModels.find(place => place.id === placeId);
 };
 
 export const placePropType = PropTypes.shape({
@@ -72,6 +77,7 @@ const REMOVE_PLACE_TAG = "places/REMOVE_PLACE_TAG";
 const UPDATE_PLACE_TAG = "places/UPDATE_PLACE_TAG";
 const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
 const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
+const UPDATE_PLACES_LOAD_STATUS = "places/UPDATE_PLACES_LOAD_STATUS";
 
 // Action creators:
 export function loadPlaces(places) {
@@ -152,6 +158,13 @@ export function createPlaceAttachment(placeId, attachmentData) {
   };
 }
 
+export function updatePlacesLoadStatus(loadStatus) {
+  return {
+    type: UPDATE_PLACES_LOAD_STATUS,
+    payload: loadStatus,
+  };
+}
+
 const normalizeSubmissionSets = place => {
   // A place with no comments or supports will arrive from the API without any
   // information about these submission sets. Because we assume that comments
@@ -164,137 +177,189 @@ const normalizeSubmissionSets = place => {
 };
 
 // Reducers:
-const INITIAL_STATE = [];
+const INITIAL_STATE = {
+  placeModels: [],
+  loadStatus: "unloaded",
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case UPDATE_PLACES_LOAD_STATUS:
+      return {
+        ...state,
+        loadStatus: action.payload,
+      };
     case LOAD_PLACES:
-      return state.concat(action.payload);
+      return {
+        ...state,
+        placeModels: state.placeModels.concat(action.payload),
+      };
     case UPDATE_PLACE:
-      return state.map(place => {
-        if (place.id === action.payload.id) {
-          action.payload = normalizeSubmissionSets(action.payload);
-          place = {
-            ...place,
-            ...action.payload,
-          };
-        }
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.id) {
+            action.payload = normalizeSubmissionSets(action.payload);
+            place = {
+              ...place,
+              ...action.payload,
+            };
+          }
 
-        return place;
-      });
+          return place;
+        }),
+      };
     case CREATE_PLACE:
       action.payload = normalizeSubmissionSets(action.payload);
-      return [...state, action.payload];
+      return {
+        ...state,
+        placeModels: [...state.placeModels, action.payload],
+      };
     case REMOVE_PLACE:
-      return state.filter(place => place.id !== action.payload);
+      return {
+        ...state,
+        placeModels: state.placeModels.filter(
+          place => place.id !== action.payload,
+        ),
+      };
     case CREATE_PLACE_SUPPORT:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.submission_sets.support = place.submission_sets.support.concat(
-            action.payload.supportData,
-          );
-        }
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.submission_sets.support = place.submission_sets.support.concat(
+              action.payload.supportData,
+            );
+          }
 
-        return place;
-      });
+          return place;
+        }),
+      };
     case REMOVE_PLACE_SUPPORT:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.submission_sets.support = place.submission_sets.support.filter(
-            support => support.id !== action.payload.supportId,
-          );
-        }
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.submission_sets.support = place.submission_sets.support.filter(
+              support => support.id !== action.payload.supportId,
+            );
+          }
 
-        return place;
-      });
+          return place;
+        }),
+      };
     case CREATE_PLACE_COMMENT:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.submission_sets.comments = place.submission_sets.comments.concat(
-            action.payload.commentData,
-          );
-        }
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.submission_sets.comments = place.submission_sets.comments.concat(
+              action.payload.commentData,
+            );
+          }
 
-        return place;
-      });
+          return place;
+        }),
+      };
     case REMOVE_PLACE_COMMENT:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.submission_sets.comments = place.submission_sets.comments.filter(
-            comment => comment.id !== action.payload.commentId,
-          );
-        }
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.submission_sets.comments = place.submission_sets.comments.filter(
+              comment => comment.id !== action.payload.commentId,
+            );
+          }
 
-        return place;
-      });
+          return place;
+        }),
+      };
     case UPDATE_PLACE_COMMENT:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.submission_sets.comments = place.submission_sets.comments.map(
-            comment => {
-              if (comment.id === action.payload.commentData.id) {
-                comment = action.payload.commentData;
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.submission_sets.comments = place.submission_sets.comments.map(
+              comment => {
+                if (comment.id === action.payload.commentData.id) {
+                  comment = action.payload.commentData;
+                }
+
+                return comment;
+              },
+            );
+          }
+
+          return place;
+        }),
+      };
+    case CREATE_PLACE_TAG:
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.tags = place.tags.concat([action.payload.placeTagData]);
+          }
+
+          return place;
+        }),
+      };
+    case REMOVE_PLACE_TAG:
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.tags = place.tags.filter(
+              tag => tag.id !== action.payload.placeTagId,
+            );
+          }
+
+          return place;
+        }),
+      };
+    case UPDATE_PLACE_TAG:
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.tags = place.tags.map(placeTag => {
+              if (placeTag.id === action.payload.placeTagData.id) {
+                placeTag = action.payload.placeTagData;
               }
 
-              return comment;
-            },
-          );
-        }
+              return placeTag;
+            });
+          }
 
-        return place;
-      });
-    case CREATE_PLACE_TAG:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.tags = place.tags.concat([action.payload.placeTagData]);
-        }
-
-        return place;
-      });
-    case REMOVE_PLACE_TAG:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.tags = place.tags.filter(
-            tag => tag.id !== action.payload.placeTagId,
-          );
-        }
-
-        return place;
-      });
-    case UPDATE_PLACE_TAG:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.tags = place.tags.map(placeTag => {
-            if (placeTag.id === action.payload.placeTagData.id) {
-              placeTag = action.payload.placeTagData;
-            }
-
-            return placeTag;
-          });
-        }
-
-        return place;
-      });
+          return place;
+        }),
+      };
     case REMOVE_PLACE_ATTACHMENT:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.attachments = place.attachments.filter(
-            attachment => attachment.id !== action.payload.attachmentId,
-          );
-        }
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.attachments = place.attachments.filter(
+              attachment => attachment.id !== action.payload.attachmentId,
+            );
+          }
 
-        return place;
-      });
+          return place;
+        }),
+      };
     case CREATE_PLACE_ATTACHMENT:
-      return state.map(place => {
-        if (place.id === action.payload.placeId) {
-          place.attachments = place.attachments.concat([
-            action.payload.attachmentData,
-          ]);
-        }
+      return {
+        ...state,
+        placeModels: state.placeModels.map(place => {
+          if (place.id === action.payload.placeId) {
+            place.attachments = place.attachments.concat([
+              action.payload.attachmentData,
+            ]);
+          }
 
-        return place;
-      });
+          return place;
+        }),
+      };
     default:
       return state;
   }
