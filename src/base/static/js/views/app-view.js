@@ -22,7 +22,7 @@ import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
 import {
   placesSelector,
   loadPlaces,
-  placeExists,
+  placeSelector,
 } from "../../state/ducks/places";
 import { loadPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
@@ -644,8 +644,10 @@ export default Backbone.View.extend({
       await this.fetchAndLoadPlaces();
     }
 
+    const place = placeSelector(store.getState(), args.placeId);
+
     // TODO: direct route to place
-    if (!placeExists(store.getState(), args.placeId)) {
+    if (!place) {
       this.options.router.navigate("/");
       return;
     }
@@ -687,8 +689,6 @@ export default Backbone.View.extend({
     this.setBodyClass("content-visible");
     this.showSpotlightMask();
 
-    //const geometry = model.get("geometry");
-
     //    if (model.get("story")) {
     //      this.isStoryActive = true;
     //      const storyChapterVisibleLayers = model.get("story").visibleLayers;
@@ -720,33 +720,35 @@ export default Backbone.View.extend({
     //    // settings if this model is part of a story.
     //    const story = model.get("story") || {};
     //
-    //    if (story.panTo) {
-    //      // If a story chapter declares a custom centerpoint, regardless of the
-    //      // geometry type, assume that we want to fly to a point.
-    //      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-    //        coordinates:
-    //          story.panTo || mapPositionSelector(store.getState()).center,
-    //        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-    //      });
-    //    } else if (geometry.type === "LineString") {
-    //      emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
-    //        coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
-    //      });
-    //    } else if (geometry.type === "Polygon") {
-    //      emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
-    //        coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
-    //      });
-    //    } else if (geometry.type === "Point") {
-    //      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-    //        coordinates: geometry.coordinates,
-    //        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-    //      });
-    //    }
+    const story = {}; // TEMPORARY
 
-    //emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-    //  datasetId: datasetId,
-    //  modelId: model.get("id"),
-    //});
+    if (story.panTo) {
+      // If a story chapter declares a custom centerpoint, regardless of the
+      // geometry type, assume that we want to fly to a point.
+      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
+        coordinates:
+          story.panTo || mapPositionSelector(store.getState()).center,
+        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+      });
+    } else if (place.geometry.type === "LineString") {
+      emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
+        coordinates: story.panTo ? [story.panTo] : place.geometry.coordinates,
+      });
+    } else if (place.geometry.type === "Polygon") {
+      emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
+        coordinates: story.panTo ? [[story.panTo]] : place.geometry.coordinates,
+      });
+    } else if (place.geometry.type === "Point") {
+      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
+        coordinates: place.geometry.coordinates,
+        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+      });
+    }
+
+    emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
+      datasetSlug: place._datasetSlug,
+      placeId: place.id,
+    });
 
     //    if (!model.get("story") && this.isStoryActive) {
     //      this.isStoryActive = false;

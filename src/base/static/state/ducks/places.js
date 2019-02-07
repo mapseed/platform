@@ -69,7 +69,7 @@ const REMOVE_PLACE_COMMENT = "places/REMOVE_PLACE_COMMENT";
 const UPDATE_PLACE_COMMENT = "places/UPDATE_PLACE_COMMENT";
 const CREATE_PLACE_TAG = "places/CREATE_PLACE_TAG";
 const REMOVE_PLACE_TAG = "places/REMOVE_PLACE_TAG";
-const UPDATE_PLACE_TAG_NOTE = "places/UPDATE_PLACE_TAG_NOTE";
+const UPDATE_PLACE_TAG = "places/UPDATE_PLACE_TAG";
 const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
 const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
 
@@ -135,6 +135,10 @@ export function createPlaceTag(placeId, placeTagData) {
 
 export function removePlaceTag(placeId, placeTagId) {
   return { type: REMOVE_PLACE_TAG, payload: { placeId, placeTagId } };
+}
+
+export function updatePlaceTag(placeId, placeTagData) {
+  return { type: UPDATE_PLACE_TAG, payload: { placeId, placeTagData } };
 }
 
 export function removePlaceAttachment(placeId, attachmentId) {
@@ -253,6 +257,20 @@ export default function reducer(state = INITIAL_STATE, action) {
           place.tags = place.tags.filter(
             tag => tag.id !== action.payload.placeTagId,
           );
+        }
+
+        return place;
+      });
+    case UPDATE_PLACE_TAG:
+      return state.map(place => {
+        if (place.id === action.payload.placeId) {
+          place.tags = place.tags.map(placeTag => {
+            if (placeTag.id === action.payload.placeTagData.id) {
+              placeTag = action.payload.placeTagData;
+            }
+
+            return placeTag;
+          });
         }
 
         return place;

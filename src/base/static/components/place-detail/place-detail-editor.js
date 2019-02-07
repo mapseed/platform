@@ -164,10 +164,14 @@ class PlaceDetailEditor extends Component {
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
           this.props.place.get("_datasetSlug"),
         );
+
         this.props.updatePlace(response);
+
         Util.log("USER", "place", "successfully-update-place");
+
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
+
         scrollTo(this.props.container, 0, 100);
       } else {
         alert("Oh dear. It looks like that didn't save. Please try again.");

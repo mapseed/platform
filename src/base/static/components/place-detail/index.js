@@ -165,8 +165,6 @@ class PlaceDetail extends Component {
     });
   }
 
-  onAddAttachment = () => {}; // TODO
-
   setPlaceRequestType = requestType => {
     this.setState({
       placeRequestType: requestType,
@@ -307,7 +305,6 @@ class PlaceDetail extends Component {
             onRequestEnd={() => this.setState({ placeRequestType: null })}
             placeRequestType={this.state.placeRequestType}
             container={this.props.container}
-            onAddAttachment={this.onAddAttachment}
             router={this.props.router}
           />
         ) : (

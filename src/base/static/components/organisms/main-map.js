@@ -268,17 +268,17 @@ class MainMap extends Component {
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
-        ({ datasetId, modelId }) => {
+        ({ datasetSlug, placeId }) => {
           // To focus a feature in a layer, we first remove it from the origin layer
           // above, then add it to a separate focused layer. That way we can control
           // the focused layer independently of the source layer and ensure focused
           // features always render above all other features.
           // TODO: Support multiple focused features simultaneously.
           const focusedFeatures = createGeoJSONFromPlaces(
-            this.props.places.filter(place => place.id === modelId),
+            this.props.places.filter(place => place.id === placeId),
           );
 
-          this._map.focusPlaceLayerFeatures(datasetId, focusedFeatures);
+          this._map.focusPlaceLayerFeatures(datasetSlug, focusedFeatures);
         },
       ),
     );

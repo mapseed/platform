@@ -8,7 +8,11 @@ import { TextareaInput } from "../atoms/input";
 import TagName from "./tag-name";
 
 import { tagPropType, placeTagPropType } from "../../state/ducks/datasets";
-import { createPlaceTag, removePlaceTag } from "../../state/ducks/places";
+import {
+  createPlaceTag,
+  removePlaceTag,
+  updatePlaceTag,
+} from "../../state/ducks/places";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -93,6 +97,30 @@ class TagEditor extends Component {
     }
   };
 
+  onBlurTagNote = async () => {
+    // Save the note text on blur.
+    const response = await mapseedApiClient.placeTags.update(
+      this.props.placeTag.url,
+      {
+        note: this.state.note,
+      },
+    );
+
+    if (response) {
+      this.props.updatePlaceTag(response);
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place-tags", "fail-to-update-place-tag");
+    }
+
+    if (this._isMounted) {
+      // The blur event could fire after the component unmounts (for
+      // example if the user closes the content panel). Only update
+      // the local state if the component is still mounted.
+      this.setState({ isFocused: false });
+    }
+  };
+
   render() {
     const isSelected = !!this.props.placeTag;
 
@@ -126,22 +154,7 @@ class TagEditor extends Component {
             value={this.state.note}
             placeholder={this.props.t("addNotePlaceholder")}
             isFocused={this.state.isFocused}
-            onBlur={async () => {
-              // Save the note text on blur.
-              const tagData = await mapseedApiClient.placeTags.update(
-                this.props.placeTag.url,
-                {
-                  note: this.state.note,
-                },
-              );
-              this.props.onUpdateTagNote(tagData);
-              if (this._isMounted) {
-                // The blur event could fire after the component unmounts (for
-                // example if the user closes the content panel). Only update
-                // the local state if the component is still mounted.
-                this.setState({ isFocused: false });
-              }
-            }}
+            onBlur={this.onBlurTagNote}
             onFocus={() => {
               this.setState({ isFocused: true });
             }}
@@ -171,6 +184,7 @@ TagEditor.propTypes = {
   tag: tagPropType,
   datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
+  updatePlaceTag: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -178,6 +192,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createPlaceTag(placeId, placeTagData)),
   removePlaceTag: (placeId, placeTagId) =>
     dispatch(removePlaceTag(placeId, placeTagId)),
+  updatePlaceTag: (placeId, placeTagData) =>
+    dispatch(updatePlaceTag(placeId, placeTagData)),
 });
 
 export default connect(
