@@ -19,12 +19,14 @@
     "MAP_PROVIDER_TOKEN": false,
     "GIT_SHA": false,
     "L": false,
-    "ga": false
+    "ga": false,
+    "workbox": false
   },
   "env": {
     "browser": true,
     "es6": true,
     "jest": true,
+    "serviceworker": true,
     "node": true
   },
   "rules": {

@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");
 
 require("dotenv").config({ path: "src/.env" });
@@ -120,6 +121,10 @@ module.exports = {
     extractSCSS,
     new CompressionPlugin({
       filename: "[path].gz[query]",
+    }),
+    new WorkboxPlugin.InjectManifest({
+      swSrc: path.join("src", "sw.js"),
+      swDest: path.join(outputPath, "service-worker.js"),
     }),
   ],
   devtool: isProd ? false : "cheap-eval-souce-map",
