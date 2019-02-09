@@ -17,7 +17,18 @@
     "logo": "/static/css/images/bellevue-logo.png",
     "meta_description": "_(Decide where to put dockless bike sharing in Bellevue!)",
     "meta_author": "mapseed.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "theme": {
+      "brand": {
+        "secondary": "#08626E"
+      },
+      "bg": {
+        "default": "#217B87"
+      },
+      "text": {
+        "titleColor": "#fff"
+      }
+    }
   },
   "map": {
     "geolocation_enabled": false,
@@ -186,6 +197,10 @@
             "optional": true
           },
           {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
             "name": "submit",
             "type": "common_form_element"
           }
@@ -319,6 +334,39 @@
         "optional": true
       }
     ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "adding_enabled": false,
+      "show_responses": true,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    }
   },
   "survey": {
     "submission_type": "comments",
