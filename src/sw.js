@@ -52,25 +52,19 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^https:\/\/cdnjs.cloudflare.com\/ajax\/libs\//,
-  workbox.strategies.networkFirst({
-    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
-  }),
+  workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^https:\/\/ajax.googleapis.com\/ajax\/libs\//,
-  workbox.strategies.networkFirst({
-    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
-  }),
+  workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^https:\/\/maxcdn.bootstrapcdn.com\/font-awesome\//,
-  workbox.strategies.networkFirst({
-    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
-  }),
+  workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
 
@@ -86,8 +80,6 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^https:\/\/tile3.f4map.com\/tiles\/f4_2d\//,
-  workbox.strategies.networkFirst({
-    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
-  }),
+  workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
