@@ -25,18 +25,20 @@ workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.loadModule("workbox-strategies");
+workbox.loadModule("workbox-routing");
 
-// mapseed api routes:
-// TODO: get the API_ROOT from our env variable:
-workbox.routing.registerRoute(
-  // "process is not defined"?
-  // /^${process.env.API_ROOT}/,
-  /^http:\/\/localhost:8001\/api\/v2\//,
-  workbox.strategies.networkFirst({
-    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
-  }),
-  "GET",
-);
+self.addEventListener("install", event => {
+  const cacheName = workbox.core.cacheNames.runtime;
+
+  const apiRoot = new URL(location).searchParams.get("apiRoot");
+  workbox.routing.registerRoute(
+    new RegExp(apiRoot),
+    workbox.strategies.networkFirst({
+      plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
+    }),
+    "GET",
+  );
+});
 
 // base.hbs routes:
 // ideally, these should be pre-cached

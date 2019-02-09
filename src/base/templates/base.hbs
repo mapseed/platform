@@ -80,6 +80,24 @@
   <div id="dashboard-container"></div>
   </div><!-- end #site-wrap -->
 
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        console.log("config.app.api_root: {{config.app.api_root}}")
+        var test = "{{config.app.api_root}}"
+        console.log("test:", test)
+        navigator.serviceWorker
+          .register("/service-worker.js?apiRoot=" + encodeURIComponent(test))
+          .then(registration => {
+            console.log("SW registered: ", registration);
+          })
+          .catch(registrationError => {
+            console.log("SW registration failed: ", registrationError);
+          });
+      });
+    }
+
+    </script>
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/static/libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
