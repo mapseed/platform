@@ -1,8 +1,23 @@
+import PropTypes from "prop-types";
+
 // Selectors:
 export const datasetSlugsSelector = state =>
   state.datasetsConfig.map(config => config.slug);
 
 export const datasetConfigsSelector = state => state.datasetsConfig;
+
+export const datasetConfigPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    anonymous_permissions: PropTypes.arrayOf(
+      PropTypes.shape({
+        abilities: PropTypes.arrayOf(PropTypes.string).isRequired,
+        submission_set: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+  }),
+).isRequired;
 
 export const hasAnonAbilitiesInAnyDataset = ({
   state,

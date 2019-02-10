@@ -74,7 +74,7 @@ class SurveyResponseEditor extends Component {
       .toJS();
   }
 
-  async onClickSave() {
+  onClickSave = async () => {
     const response = await mapseedApiClient.comments.update({
       placeUrl: this.props.placeUrl,
       commentId: this.props.comment.get("id"),
@@ -90,7 +90,7 @@ class SurveyResponseEditor extends Component {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "comments", "fail-to-update-comment");
     }
-  }
+  };
 
   onClickRemove = async () => {
     const response = await mapseedApiClient.comments.update({

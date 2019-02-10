@@ -3,6 +3,7 @@
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
       "slug": "pbdurham",
+      "clientSlug": "idea",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve"],
@@ -17,6 +18,7 @@
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
+      "clientSlug": "project",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],

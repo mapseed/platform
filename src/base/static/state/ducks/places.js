@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 export const placesLoadStatusSelector = state => {
   return state.places.loadStatus;
 };
-
 export const placesSelector = state => {
   return state.places.placeModels;
 };
@@ -37,7 +36,7 @@ export const datasetLengthSelector = (state, datasetSlug) =>
     .length;
 
 export const placeSelector = (state, placeId) => {
-  return state.places.placeModels.find(place => place.id === placeId);
+  return state.places.placeModels.find(place => place.id === parseInt(placeId));
 };
 
 export const placeExists = (state, placeId) => {

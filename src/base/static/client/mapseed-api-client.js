@@ -25,7 +25,7 @@ const createPlaceTag = async (url, tagData) => {
       .then(json);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Error: Failed to create tag.", err);
+    console.error("Error: Failed to create Place tag.", err);
   }
 };
 
@@ -43,7 +43,7 @@ const updatePlaceTag = async (url, newData) => {
       .then(json);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Error: Tag note did note save.", err);
+    console.error("Error: Failed to update Place tag note.", err);
   }
 };
 
@@ -58,7 +58,7 @@ const deletePlaceTag = async url => {
     }).then(status);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Error: Failed to delete tag.", err);
+    console.error("Error: Failed to delete Place tag.", err);
   }
 };
 
@@ -182,7 +182,7 @@ const updatePlace = async (placeUrl, placeData) => {
       .then(json);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Error: Place did note save.", err);
+    console.error("Error: Failed to update Place.", err);
   }
 };
 
@@ -202,20 +202,34 @@ const createPlace = async ({ datasetUrl, placeData, datasetSlug }) => {
       .then(response => fromGeoJSONFeature(response, datasetSlug));
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Error: Failed to create place.", err);
+    console.error("Error: Failed to create Place.", err);
   }
 };
 
-const getActivity = activityCollections => {
-  activityCollections.forEach(([activityCollection, successCallback]) => {
-    activityCollection.fetch({
-      success: successCallback,
-      error: (collection, error) => {
-        // eslint-disable-next-line no-console
-        console.error("Error fetching activity collection", error);
-      },
-    });
-  });
+const getActivity = async (datasetUrl, clientSlug) => {
+  try {
+    return await fetch(`${datasetUrl}/actions`, {
+      credentials: "include",
+    })
+      .then(status)
+      .then(json)
+      .then(response => {
+        return Promise.resolve(
+          // Note that activity is returned from the API in paginated form.
+          // Here we load just the first page, assuming only the most
+          // recent page of activity is useful to the user.
+          response.results.map(activity => ({
+            ...activity,
+            // Add the "client slug" to be used with activity from this dataset.
+            // The client slug is used in urls in the client.
+            _clientSlug: clientSlug,
+          })),
+        );
+      });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to fetch actions.", err);
+  }
 };
 
 const createSupport = async (placeUrl, supportData) => {
@@ -284,7 +298,7 @@ const updateComment = async ({ placeUrl, commentId, commentData }) => {
       .then(json);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Error: Comment did not save.", err);
+    console.error("Error: Failed to update comment.", err);
   }
 };
 
