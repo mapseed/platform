@@ -1,7 +1,9 @@
 {
   "datasets": [
     {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound",
       "slug": "pugetsound",
+      "clientSlug": "idea",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -10,7 +12,9 @@
       ]
     },
     {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound",
       "slug": "pugetsoundfeatured",
+      "clientSlug": "featured",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -19,7 +23,9 @@
       ]
     },
     {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose",
       "slug": "pugetsoundrose",
+      "clientSlug": "rose",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -28,7 +34,9 @@
       ]
     },
     {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases",
       "slug": "pugetsoundcases",
+      "clientSlug": "cases",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -104,6 +112,7 @@
         "id": "pugetsound",
         "is_visible_default": true,
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound",
+        "datasetSlug": "pugetsound",
         "type": "place",
         "slug": "report",
         "focus_rules": [
@@ -307,6 +316,7 @@
       {
         "id": "pugetsoundrose",
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose",
+        "datasetSlug": "pugetsoundrose",
         "type": "place",
         "slug": "rose",
         "focus_rules": [
@@ -333,6 +343,7 @@
       {
         "id": "pugetsoundcases",
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases",
+        "datasetSlug": "pugetsoundcases",
         "type": "place",
         "slug": "cases",
         "focus_rules": [
@@ -360,6 +371,7 @@
         "id": "pugetsoundfeatured",
         "is_visible_default": true,
         "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured",
+        "datasetSlug": "pugetsoundfeatured",
         "type": "place",
         "slug": "featured",
         "focus_rules": [
@@ -1122,29 +1134,29 @@
       "default_visible_layers": ["pugetsoundfeatured"],
       "order": [
         {
-          "url": "featured/3927",
+          "placeId": 3927,
           "zoom": 13,
           "basemap": "satellite",
           "spotlight": false
         },
         {
-          "url": "featured/3457",
+          "placeId": 3457,
           "zoom": 14,
           "basemap": "satellite"
         },
         {
-          "url": "featured/3718",
+          "placeId": 3718,
           "zoom": 16,
           "spotlight": false,
           "basemap": "satellite"
         },
         {
-          "url": "featured/3471",
+          "placeId": 3471,
           "zoom": 18,
           "basemap": "satellite"
         },
         {
-          "url": "featured/3931",
+          "placeId": 3931,
           "zoom": 7,
           "pan_to": [-122.31682047088867, 47.673217479920595],
           "visible_layers": ["clean-marinas"],
@@ -1152,7 +1164,7 @@
           "basemap": "light-nolabels"
         },
         {
-          "url": "featured/3929",
+          "placeId": 3929,
           "zoom": 7,
           "pan_to": [-122.31682047088867, 47.673217479920595],
           "visible_layers": ["shellfish-harvesting"],
@@ -1160,7 +1172,7 @@
           "spotlight": false
         },
         {
-          "url": "featured/3930",
+          "placeId": 3930,
           "zoom": 7,
           "pan_to": [-122.31682047088867, 47.673217479920595],
           "visible_layers": ["spill-incidents"],
@@ -1168,7 +1180,7 @@
           "spotlight": false
         },
         {
-          "url": "featured/3928",
+          "placeId": 3928,
           "zoom": 10,
           "pan_to": [-122.31682047088867, 47.59085278732215],
           "visible_layers": ["cso"],
@@ -1176,7 +1188,7 @@
           "basemap": "satellite"
         },
         {
-          "url": "featured/3979",
+          "placeId": 3979,
           "zoom": 8,
           "pan_to": [-122.31682047088867, 47.673217479920595],
           "visible_layers": ["scorecard-layer"],
@@ -1184,7 +1196,7 @@
           "basemap": "light-nolabels"
         },
         {
-          "url": "featured/3470",
+          "placeId": 3470,
           "spotlight": false,
           "zoom": 8,
           "pan_to": [-122.31682047088867, 47.673217479920595],
@@ -1198,293 +1210,293 @@
       "default_visible_layers": ["pugetsoundrose"],
       "order": [
         {
-          "url": "featured/3469",
+          "placeId": 3469,
           "zoom": 8,
           "pan_to": [-122.31682047088867, 47.673217479920595],
           "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+          "sidebar_icon_placeId": "/static/css/images/markers/map-pin-marker.png"
         },
         {
-          "url": "rose/3473"
+          "placeId": 3473
         },
         {
-          "url": "rose/3474"
+          "placeId": 3474
         },
         {
-          "url": "rose/3475"
+          "placeId": 3475
         },
         {
-          "url": "rose/3476"
+          "placeId": 3476
         },
         {
-          "url": "rose/3477"
+          "placeId": 3477
         },
         {
-          "url": "rose/3478"
+          "placeId": 3478
         },
         {
-          "url": "rose/3479"
+          "placeId": 3479
         },
         {
-          "url": "rose/3480"
+          "placeId": 3480
         },
         {
-          "url": "rose/3481"
+          "placeId": 3481
         },
         {
-          "url": "rose/3482"
+          "placeId": 3482
         },
         {
-          "url": "rose/3483"
+          "placeId": 3483
         },
         {
-          "url": "rose/3484"
+          "placeId": 3484
         },
         {
-          "url": "rose/3485"
+          "placeId": 3485
         },
         {
-          "url": "rose/3486"
+          "placeId": 3486
         },
         {
-          "url": "rose/3487"
+          "placeId": 3487
         },
         {
-          "url": "rose/3488"
+          "placeId": 3488
         },
         {
-          "url": "rose/3489"
+          "placeId": 3489
         },
         {
-          "url": "rose/3490"
+          "placeId": 3490
         },
         {
-          "url": "rose/3491"
+          "placeId": 3491
         },
         {
-          "url": "rose/3492"
+          "placeId": 3492
         },
         {
-          "url": "rose/3493"
+          "placeId": 3493
         },
         {
-          "url": "rose/3494"
+          "placeId": 3494
         },
         {
-          "url": "rose/3495"
+          "placeId": 3495
         },
         {
-          "url": "rose/3496"
+          "placeId": 3496
         },
         {
-          "url": "rose/3497"
+          "placeId": 3497
         },
         {
-          "url": "rose/3498"
+          "placeId": 3498
         },
         {
-          "url": "rose/3499"
+          "placeId": 3499
         },
         {
-          "url": "rose/3500"
+          "placeId": 3500
         },
         {
-          "url": "rose/3501"
+          "placeId": 3501
         },
         {
-          "url": "rose/3502"
+          "placeId": 3502
         },
         {
-          "url": "rose/3503"
+          "placeId": 3503
         },
         {
-          "url": "rose/3504"
+          "placeId": 3504
         },
         {
-          "url": "rose/3505"
+          "placeId": 3505
         },
         {
-          "url": "rose/3506"
+          "placeId": 3506
         },
         {
-          "url": "rose/3507"
+          "placeId": 3507
         },
         {
-          "url": "rose/3508"
+          "placeId": 3508
         },
         {
-          "url": "rose/3509"
+          "placeId": 3509
         },
         {
-          "url": "rose/3510"
+          "placeId": 3510
         },
         {
-          "url": "rose/3511"
+          "placeId": 3511
         },
         {
-          "url": "rose/3512"
+          "placeId": 3512
         },
         {
-          "url": "rose/3513"
+          "placeId": 3513
         },
         {
-          "url": "rose/3514"
+          "placeId": 3514
         },
         {
-          "url": "rose/3515"
+          "placeId": 3515
         },
         {
-          "url": "rose/3516"
+          "placeId": 3516
         },
         {
-          "url": "rose/3517"
+          "placeId": 3517
         },
         {
-          "url": "rose/3518"
+          "placeId": 3518
         },
         {
-          "url": "rose/3519"
+          "placeId": 3519
         },
         {
-          "url": "rose/3520"
+          "placeId": 3520
         },
         {
-          "url": "rose/3521"
+          "placeId": 3521
         },
         {
-          "url": "rose/3522"
+          "placeId": 3522
         },
         {
-          "url": "rose/3523"
+          "placeId": 3523
         },
         {
-          "url": "rose/3524"
+          "placeId": 3524
         },
         {
-          "url": "rose/3525"
+          "placeId": 3525
         },
         {
-          "url": "rose/3526"
+          "placeId": 3526
         },
         {
-          "url": "rose/3527"
+          "placeId": 3527
         },
         {
-          "url": "rose/3528"
+          "placeId": 3528
         },
         {
-          "url": "rose/3529"
+          "placeId": 3529
         },
         {
-          "url": "rose/3530"
+          "placeId": 3530
         },
         {
-          "url": "rose/3531"
+          "placeId": 3531
         },
         {
-          "url": "rose/3532"
+          "placeId": 3532
         },
         {
-          "url": "rose/3533"
+          "placeId": 3533
         },
         {
-          "url": "rose/3534"
+          "placeId": 3534
         },
         {
-          "url": "rose/3535"
+          "placeId": 3535
         },
         {
-          "url": "rose/3536"
+          "placeId": 3536
         },
         {
-          "url": "rose/3537"
+          "placeId": 3537
         },
         {
-          "url": "rose/3538"
+          "placeId": 3538
         },
         {
-          "url": "rose/3539"
+          "placeId": 3539
         },
         {
-          "url": "rose/3540"
+          "placeId": 3540
         },
         {
-          "url": "rose/3541"
+          "placeId": 3541
         },
         {
-          "url": "rose/3542"
+          "placeId": 3542
         },
         {
-          "url": "rose/3543"
+          "placeId": 3543
         },
         {
-          "url": "rose/3544"
+          "placeId": 3544
         },
         {
-          "url": "rose/3545"
+          "placeId": 3545
         },
         {
-          "url": "rose/3546"
+          "placeId": 3546
         },
         {
-          "url": "rose/3547"
+          "placeId": 3547
         },
         {
-          "url": "rose/3548"
+          "placeId": 3548
         },
         {
-          "url": "rose/3549"
+          "placeId": 3549
         },
         {
-          "url": "rose/3550"
+          "placeId": 3550
         },
         {
-          "url": "rose/3551"
+          "placeId": 3551
         },
         {
-          "url": "rose/3552"
+          "placeId": 3552
         },
         {
-          "url": "rose/3553"
+          "placeId": 3553
         },
         {
-          "url": "rose/3554"
+          "placeId": 3554
         },
         {
-          "url": "rose/3555"
+          "placeId": 3555
         },
         {
-          "url": "rose/3556"
+          "placeId": 3556
         },
         {
-          "url": "rose/3557"
+          "placeId": 3557
         },
         {
-          "url": "rose/3558"
+          "placeId": 3558
         },
         {
-          "url": "rose/3559"
+          "placeId": 3559
         },
         {
-          "url": "rose/3560"
+          "placeId": 3560
         },
         {
-          "url": "rose/3561"
+          "placeId": 3561
         },
         {
-          "url": "rose/3562"
+          "placeId": 3562
         },
         {
-          "url": "rose/3563"
+          "placeId": 3563
         },
         {
-          "url": "rose/3564"
+          "placeId": 3564
         },
         {
-          "url": "rose/3565"
+          "placeId": 3565
         },
         {
-          "url": "rose/3565"
+          "placeId": 3565
         }
       ]
     }

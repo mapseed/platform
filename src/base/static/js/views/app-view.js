@@ -27,7 +27,10 @@ import {
   updatePlacesLoadStatus,
 } from "../../state/ducks/places";
 import { loadPlaceConfig } from "../../state/ducks/place-config";
-import { setStoryConfig } from "../../state/ducks/story-config";
+import {
+  setStoryConfig,
+  storyConfigSelector,
+} from "../../state/ducks/story-config";
 import { loadFormsConfig } from "../../state/ducks/forms-config";
 import { setPagesConfig, pageSelector } from "../../state/ducks/pages-config";
 import {
@@ -415,6 +418,7 @@ export default Backbone.View.extend({
     store.dispatch(
       loadPlaces(
         placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+        storyConfigSelector(store.getState()),
       ),
     );
     store.dispatch(updatePlacesLoadStatus("loaded"));
@@ -521,7 +525,6 @@ export default Backbone.View.extend({
     this.hidePanel();
     this.renderRightSidebar();
     this.hideNewPin();
-    this.destroyNewModels();
     this.setBodyClass();
     this.renderMain(mapPosition);
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
@@ -697,44 +700,38 @@ export default Backbone.View.extend({
     // END REACT PORT SECTION //////////////////////////////////////////////
 
     this.hideNewPin();
-    this.destroyNewModels();
     this.setBodyClass("content-visible");
     this.showSpotlightMask();
+    const story = place.story;
 
-    //    if (model.get("story")) {
-    //      this.isStoryActive = true;
-    //      const storyChapterVisibleLayers = model.get("story").visibleLayers;
-    //      const storyChapterBasemap = model.get("story").basemap;
-    //
-    //      mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
-    //        store.dispatch(setBasemap(storyChapterBasemap));
-    //      store.dispatch(showLayers(storyChapterVisibleLayers));
-    //      // Hide all other layers.
-    //      store.dispatch(
-    //        hideLayers(
-    //          mapLayersSelector(store.getState())
-    //            .filter(layer => !layer.is_basemap)
-    //            .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
-    //            .map(layer => layer.id),
-    //        ),
-    //      );
-    //
-    //      if (!model.get("story").spotlight) {
-    //        this.hideSpotlightMask();
-    //      }
-    //
-    //      if (!this.hasBodyClass("right-sidebar-visible")) {
-    //        $("body").addClass("right-sidebar-visible");
-    //      }
-    //    }
-    //
-    //    // Fire an event to set map position, reconciling with custom story
-    //    // settings if this model is part of a story.
-    //    const story = model.get("story") || {};
-    //
-    const story = {}; // TEMPORARY
+    if (story) {
+      this.isStoryActive = true;
 
-    if (story.panTo) {
+      mapBasemapSelector(store.getState()) !== story.basemap &&
+        store.dispatch(setBasemap(story.basemap));
+      store.dispatch(showLayers(story.visibleLayers));
+      // Hide all other layers.
+      store.dispatch(
+        hideLayers(
+          mapLayersSelector(store.getState())
+            .filter(layer => !layer.is_basemap)
+            .filter(layer => !story.visibleLayers.includes(layer.id))
+            .map(layer => layer.id),
+        ),
+      );
+
+      if (story.spotlight) {
+        this.hideSpotlightMask();
+      }
+
+      if (!this.hasBodyClass("right-sidebar-visible")) {
+        $("body").addClass("right-sidebar-visible");
+      }
+    }
+
+    // Fire an event to set map position, reconciling with custom story
+    // settings if this model is part of a story.
+    if (story && story.panTo) {
       // If a story chapter declares a custom centerpoint, regardless of the
       // geometry type, assume that we want to fly to a point.
       emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
@@ -744,16 +741,19 @@ export default Backbone.View.extend({
       });
     } else if (place.geometry.type === "LineString") {
       emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
-        coordinates: story.panTo ? [story.panTo] : place.geometry.coordinates,
+        coordinates:
+          story && story.panTo ? [story.panTo] : place.geometry.coordinates,
       });
     } else if (place.geometry.type === "Polygon") {
       emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
-        coordinates: story.panTo ? [[story.panTo]] : place.geometry.coordinates,
+        coordinates:
+          story && story.panTo ? [[story.panTo]] : place.geometry.coordinates,
       });
     } else if (place.geometry.type === "Point") {
       emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
         coordinates: place.geometry.coordinates,
-        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+        zoom:
+          (story && story.zoom) || mapPositionSelector(store.getState()).zoom,
       });
     }
 
@@ -762,9 +762,9 @@ export default Backbone.View.extend({
       placeId: place.id,
     });
 
-    //    if (!model.get("story") && this.isStoryActive) {
-    //      this.isStoryActive = false;
-    //    }
+    if (!place.story && this.isStoryActive) {
+      this.isStoryActive = false;
+    }
 
     store.dispatch(setMapSizeValidity(false));
   },
@@ -796,7 +796,6 @@ export default Backbone.View.extend({
       this.$panel.removeClass().addClass("page page-" + slug);
       this.$panel.show();
       this.hideNewPin();
-      this.destroyNewModels();
       $(Shareabouts).trigger("panelshow", [
         this.options.router,
         Backbone.history.getFragment(),
@@ -914,15 +913,6 @@ export default Backbone.View.extend({
     }
 
     store.dispatch(setAddPlaceButtonVisibility(true));
-  },
-  destroyNewModels: function() {
-    _.each(this.places, function(collection) {
-      collection.each(function(model) {
-        if (model && model.isNew()) {
-          model.destroy();
-        }
-      });
-    });
   },
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);

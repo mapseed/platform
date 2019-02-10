@@ -1,5 +1,4 @@
 /*globals Backbone jQuery _ */
-
 import Util from "./utils.js";
 import AppView from "./views/app-view.js";
 
@@ -8,7 +7,7 @@ import { recordGoogleAnalyticsHit } from "../utils/analytics";
 // Global-namespace Util
 Shareabouts.Util = Util;
 
-(function(S, $, console) {
+(function(S, $) {
   S.App = Backbone.Router.extend({
     routes: {
       "": "viewMap",
@@ -36,26 +35,8 @@ Shareabouts.Util = Util;
         );
       });
 
-      // store individual activity collections for each place type
-      this.activities = {};
-
-      this.isAddingSupported = !!options.placeConfig.adding_supported;
-
-      // Reject a place that does not have a supported place_detail configuration.
-      // This will prevent invalid places from being added or saved to the collection.
-   //   PlaceModel.prototype.validate = function(attrs) {
-   //     if (
-   //       !S.Config.place.place_detail.find(
-   //         placeDetail => placeDetail.category === attrs.location_type,
-   //       )
-   //     ) {
-   //       console.warn(attrs.location_type + " is not supported.");
-   //       return attrs.location_type + " is not supported.";
-   //     }
-   //   };
-
       // Global route changes
-      this.bind("route", function(route, router) {
+      this.bind("route", function() {
         Util.log("ROUTE", self.getCurrentPath());
       });
 

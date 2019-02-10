@@ -79,10 +79,13 @@ const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
 const UPDATE_PLACES_LOAD_STATUS = "places/UPDATE_PLACES_LOAD_STATUS";
 
 // Action creators:
-export function loadPlaces(places) {
+export function loadPlaces(places, storyConfig = {}) {
   places = places.map(place => {
     place.submission_sets.support = place.submission_sets.support || [];
     place.submission_sets.comments = place.submission_sets.comments || [];
+    place.story = Object.values(storyConfig).reduce((memo, story) => {
+      return story.chapters.find(chapter => chapter.placeId === place.id);
+    }, null);
 
     return place;
   });
