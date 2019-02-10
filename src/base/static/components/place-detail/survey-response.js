@@ -21,7 +21,7 @@ import "./survey-response.scss";
 
 class SurveyResponse extends Component {
   componentDidMount() {
-    if (this.props.modelId === parseInt(this.props.scrollToResponseId)) {
+    if (this.props.comment.get("id") === this.props.scrollToResponseId) {
       this.props.onMountTargetResponse(this.responseRef);
     }
   }
