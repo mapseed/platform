@@ -1,0 +1,434 @@
+{
+  "datasets": [
+    {
+      "slug": "bellevue-bike-share",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "Bellevue Bike Sharing",
+    "name": "Bellevue Bike Sharing",
+    "show_name_in_header": true,
+    "logo": "/static/css/images/bellevue-logo.png",
+    "meta_description": "_(Decide where to put dockless bike sharing in Bellevue!)",
+    "meta_author": "mapseed.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "theme": {
+      "brand": {
+        "secondary": "#08626E"
+      },
+      "bg": {
+        "default": "#217B87"
+      },
+      "text": {
+        "titleColor": "#fff"
+      }
+    }
+  },
+  "map": {
+    "geolocation_enabled": false,
+    "geolocation_onload": false,
+    "cartodb_enabled": true,
+    "geocoding_enabled": false,
+    "options": {
+      "map": {
+        "center": {
+          "lat": 47.61306,
+          "lng": -122.19538
+        },
+        "zoom": 13.5,
+        "pitch": 30,
+        "minZoom": 1,
+        "maxZoom": 18
+      },
+      "control": {
+        "showCompass": true,
+        "position": "top-left"
+      },
+      "drawing_enabled": false
+    },
+    "layers": [
+      {
+        "id": "f4",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png",
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+      },
+      {
+        "id": "satellite",
+        "type": "raster-tile",
+        "is_basemap": true,
+        "is_visible_default": true,
+        "url": "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      {
+        "id": "bellevue-bike-share",
+        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
+        "type": "place",
+        "slug": "report",
+        "is_visible_default": true,
+        "feature_types": ["Point"],
+        "focus_rules": [
+          {
+            "symbol-layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "bike-share",
+                "bike-marker.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "observation"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-4bad92.png",
+              "icon-size": 1,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "bike-share"],
+              [">=", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "bike-marker.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Map Layers:)",
+        "groupings": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layers": [
+              {
+                "id": "satellite",
+                "title": "_(Satellite)"
+              },
+              {
+                "id": "f4",
+                "title": "_(Streets)"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "_(Data layers)",
+            "layers": [
+              {
+                "id": "bellevue-bike-share",
+                "title": "_(Suggested Bike Share Locations)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Suggest a bike share location!)",
+    "show_list_button_label": "_(See all comments)",
+    "show_map_button_label": "_(Show the Map)",
+    "title": "_(Tell us more...)",
+    "action_text": "_(created)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Submit)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "bike-share",
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "bellevue-bike-share",
+        "icon_url": "/static/css/images/markers/bike-marker.png",
+        "value": "bike-share",
+        "label": "_(Bike Share Location)",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "_(Add a descriptive title:)",
+            "display_prompt": "_(Title:)",
+            "placeholder": "_(Enter title...)",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "_(Why does this location need bike sharing?)",
+            "display_prompt": "_( )",
+            "placeholder": "_(...)",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "_(Your name)",
+        "placeholder": "_(Name)",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "type": "text",
+        "prompt": "_(Your Email)",
+        "placeholder": "_(Receive email updates on your report)",
+        "optional": true,
+        "sticky": true
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "_(Put it on the map!)"
+      }
+    },
+    "items": [
+      {
+        "prompt": "_(Type of report)",
+        "type": "select",
+        "options": [
+          {
+            "label": "_(Observation)",
+            "value": "observation"
+          },
+          {
+            "label": "_(Question)",
+            "value": "question"
+          },
+          {
+            "label": "_(Idea)",
+            "value": "idea"
+          },
+          {
+            "label": "_(Complaint)",
+            "value": "complaint"
+          }
+        ],
+        "name": "location_type",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Title of report)",
+        "type": "text",
+        "name": "name",
+        "optional": null,
+        "attrs": [
+          {
+            "key": "required"
+          },
+          {
+            "key": "placeholder",
+            "value": "_(Enter title)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Description)",
+        "type": "textarea",
+        "name": "description",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Description...)"
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Name)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Your Email)",
+        "type": "text",
+        "name": "private-submitter_email",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "_(Receive email updates on your report)"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "_(Image)",
+        "label": "_(Add an Image)",
+        "type": "file",
+        "name": "my_image",
+        "optional": true
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "adding_enabled": false,
+      "show_responses": true,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    }
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "_(comment)",
+    "response_plural_name": "_(comments)",
+    "action_text": "_(commented on)",
+    "anonymous_name": "_(Someone)",
+    "title": "_(Leave a Comment)",
+    "form_link_text": "_(Leave a Comment)",
+    "submit_btn_text": "_(Comment)",
+    "items": [
+      {
+        "prompt": "_(Comment)",
+        "label": "_(Comment)",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "_(Your Name)",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "_(Comment)"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "nav_bar": [
+    {
+      "title": "_(About)",
+      "type": "internal_link",
+      "url": "/page/about",
+      "name": "overview"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<h1>Welcome</h1>",
+        "<p>Bike sharing is coming to Bellevue! Use this map to suggest sharing locations.</p>",
+        "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
+        "<p class='btn btn-block btn-large'><a href='/new' rel='internal'>Suggest a location!</a></p>"
+      ]
+    }
+  ],
+  "notifications": {
+    "on_new_place": true,
+    "submitter_email_field": "private-submitter_email"
+  }
+}
