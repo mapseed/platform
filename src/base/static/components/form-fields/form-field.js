@@ -79,8 +79,6 @@ class FormField extends Component {
           constants.FIELD_VALIDITY_KEY,
           this.validator.validate({
             value: fieldValue,
-            places: this.props.places,
-            modelId: this.props.modelId,
           }),
         )
         .set(

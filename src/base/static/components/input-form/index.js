@@ -470,7 +470,6 @@ class InputForm extends Component {
                     key={fieldState.get(constants.FIELD_RENDER_KEY)}
                     onAddAttachment={this.onAddAttachment.bind(this)}
                     onFieldChange={this.onFieldChange.bind(this)}
-                    places={this.props.places}
                     router={this.props.router}
                     showValidityStatus={this.state.showValidityStatus}
                     updatingField={this.state.updatingField}
@@ -551,7 +550,6 @@ InputForm.propTypes = {
   mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
-  places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,

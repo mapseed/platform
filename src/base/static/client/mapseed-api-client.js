@@ -83,10 +83,11 @@ const fromGeoJSONFeatureCollection = ({
     })),
   );
 
-const fromGeoJSONFeature = (feature, datasetSlug) =>
+const fromGeoJSONFeature = ({ feature, datasetSlug, clientSlug }) =>
   Promise.resolve({
     geometry: feature.geometry,
     _datasetSlug: datasetSlug,
+    _clientSlug: clientSlug,
     ...feature.properties,
   });
 
@@ -220,8 +221,8 @@ const createPlace = async ({
     })
       .then(status)
       .then(json)
-      .then(featureCollection =>
-        fromGeoJSONFeature({ featureCollection, datasetSlug, clientSlug }),
+      .then(feature =>
+        fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
       );
   } catch (err) {
     // eslint-disable-next-line no-console

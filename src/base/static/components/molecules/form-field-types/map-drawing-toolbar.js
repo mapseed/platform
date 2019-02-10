@@ -77,8 +77,8 @@ class MapDrawingToolbar extends Component {
       }
 
       emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
-        datasetId: this.props.existingCollectionId,
-        modelId: this.props.existingModelId,
+        datasetSlug: this.props.datasetSlug,
+        placeId: this.props.existingPlaceId,
       });
     }
   }
@@ -364,10 +364,10 @@ MapDrawingToolbar.propTypes = {
   activeColorpicker: PropTypes.string,
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
-  existingCollectionId: PropTypes.string,
   existingGeometry: PropTypes.instanceOf(Map),
-  existingModelId: PropTypes.number,
+  existingPlaceId: PropTypes.number,
   existingGeometryStyle: PropTypes.instanceOf(Map),
+  datasetSlug: PropTypes.string.isRequired,
   geometryStyle: PropTypes.shape({
     [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
     [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,

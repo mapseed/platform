@@ -20,7 +20,6 @@ import "react-virtualized/styles.css";
 
 import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
 import {
-  placesSelector,
   loadPlaces,
   placeSelector,
   placesLoadStatusSelector,
@@ -54,7 +53,6 @@ import {
   setBasemap,
   setMapDragging,
   setLayerLoading,
-  setLayerUnloaded,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";

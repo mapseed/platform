@@ -76,7 +76,7 @@ export const initLayers = layers => {
         loadStatus = layer.type === "place" ? "fetching" : "loading";
       }
       return {
-        id: layer.id,
+        id: layer.type === "place" ? layer.datasetSlug : layer.id,
         isVisible: !!layer.is_visible_default,
         isBasemap: !!layer.is_basemap,
         type: layer.type,

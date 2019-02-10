@@ -206,8 +206,8 @@ export default {
         markers={fieldConfig.content.map(item => item.marker)}
         existingGeometry={context.props.existingGeometry}
         existingGeometryStyle={context.props.existingGeometryStyle}
-        existingCollectionId={context.props.existingCollectionId}
-        existingModelId={context.props.existingModelId}
+        existingPlaceId={context.props.existingPlaceId}
+        datasetSlug={context.props.datasetSlug}
       />
     ),
     getInitialValue: ({ value }) => value,

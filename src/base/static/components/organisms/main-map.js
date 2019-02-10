@@ -237,15 +237,17 @@ class MainMap extends Component {
       },
     });
 
-    // Handlers for Mapseed place collections.
+    // Handlers for Mapseed datasets.
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        datasetId => {
+        datasetSlug => {
           this._map.updateLayerData(
-            datasetId,
+            datasetSlug,
             createGeoJSONFromPlaces(
-              this.props.places.filter(place => place.datasetId === datasetId),
+              this.props.places.filter(
+                place => place._datasetSlug === datasetSlug,
+              ),
             ),
           );
         },
@@ -287,11 +289,11 @@ class MainMap extends Component {
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_HIDE_PLACE_EVENT,
-        ({ datasetId, modelId }) => {
+        ({ datasetSlug, placeId }) => {
           this._map.updateLayerData(
-            datasetId,
+            datasetSlug,
             createGeoJSONFromPlaces(
-              this.props.places.filter(place => place.id !== modelId),
+              this.props.places.filter(place => place.id !== placeId),
             ),
           );
         },
@@ -309,12 +311,12 @@ class MainMap extends Component {
                 status.loadStatus === "loaded",
             )
             .forEach(status => {
-              const datasetId = status.id;
+              const datasetSlug = status.id;
               this._map.updateLayerData(
-                datasetId,
+                datasetSlug,
                 createGeoJSONFromPlaces(
                   this.props.places.filter(
-                    place => place.datasetId === datasetId,
+                    place => place._datasetSlug === datasetSlug,
                   ),
                 ),
               );
@@ -453,18 +455,18 @@ class MainMap extends Component {
 
     // Update place datasets when filters have been updated:
     if (prevProps.filters.length !== this.props.filters.length) {
-      const datasetIds = this.props.layers
+      const datasetSlugs = this.props.layers
         .filter(layerConfig => layerConfig.type === "place")
-        .map(layerConfig => layerConfig.id);
-      datasetIds.forEach(datasetId => {
+        .map(layerConfig => layerConfig.datasetSlug);
+      datasetSlugs.forEach(datasetSlug => {
         const layerConfig = this.props.layers.find(
-          layer => layer.id === datasetId,
+          layer => layer.id === datasetSlug,
         );
         this._map.updateLayerData(
-          layerConfig.id,
+          layerConfig.datasetSlug,
           createGeoJSONFromPlaces(
             this.props.places.filter(
-              place => place.datasetId === layerConfig.id,
+              place => place._datasetSlug === layerConfig.datasetSlug,
             ),
           ),
         );

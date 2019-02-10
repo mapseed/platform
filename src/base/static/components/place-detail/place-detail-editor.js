@@ -337,16 +337,10 @@ class PlaceDetailEditor extends Component {
               return (
                 fieldConfig.isVisible && (
                   <FormField
-                    existingGeometry={this.props.place.get(
-                      constants.GEOMETRY_PROPERTY_NAME,
-                    )}
-                    existingGeometryStyle={this.props.place.get(
-                      constants.GEOMETRY_STYLE_PROPERTY_NAME,
-                    )}
-                    existingModelId={this.props.place.get(
-                      constants.MODEL_ID_PROPERTY_NAME,
-                    )}
-                    existingCollectionId={this.props.collectionId}
+                    existingGeometry={this.props.place.get("geometry")}
+                    existingGeometryStyle={this.props.place.get("style")}
+                    existingPlaceId={this.props.place.get("id")}
+                    datasetSlug={this.props.place.get("_datasetSlug")}
                     fieldConfig={fieldConfig}
                     attachmentModels={this.props.attachmentModels}
                     categoryConfig={this.categoryConfig}
