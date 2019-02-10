@@ -269,7 +269,6 @@
       },
       {
         "id": "pbdurham-projects",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
         "type": "place",
         "datasetSlug": "pbdurham-projects",
         "feature_types": ["Point", "LineString", "Polygon"],
@@ -327,7 +326,6 @@
       },
       {
         "id": "pbdurham",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
         "type": "place",
         "datasetSlug": "pbdurham",
         "feature_types": ["Point"],
