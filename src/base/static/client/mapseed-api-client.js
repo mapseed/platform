@@ -67,13 +67,18 @@ const buildQuerystring = params =>
     return `${querystring}&${param}=${value}`;
   }, "?");
 
-const fromGeoJSONFeatureCollection = (featureCollection, datasetSlug) =>
+const fromGeoJSONFeatureCollection = ({
+  featureCollection,
+  datasetSlug,
+  clientSlug,
+}) =>
   Promise.resolve(
     featureCollection.features.map(feature => ({
       geometry: feature.geometry,
       // Add a private field for the slug each Place belongs to, so we can
       // filter by dataset when we need to.
       _datasetSlug: datasetSlug,
+      _clientSlug: clientSlug,
       ...feature.properties,
     })),
   );
@@ -96,6 +101,7 @@ const toGeoJSONFeature = placeData => {
     submission_sets,
     attachments,
     _datasetSlug,
+    _clientSlug,
     ...rest
   } = placeData;
   /* eslint-enable no-unused-vars */
@@ -108,7 +114,13 @@ const toGeoJSONFeature = placeData => {
 };
 
 // Get all the places for a single dataset
-const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
+const getPlaces = async ({
+  url,
+  placeParams,
+  includePrivate,
+  datasetSlug,
+  clientSlug,
+}) => {
   try {
     const placePagePromises = [];
     placeParams = includePrivate
@@ -149,8 +161,12 @@ const getPlaces = async ({ url, placeParams, includePrivate, datasetSlug }) => {
 
     return placePagePromises.map(placePagePromise =>
       // Convert from GeoJSON to a simple object of Place data.
-      placePagePromise.then(data =>
-        fromGeoJSONFeatureCollection(data, datasetSlug),
+      placePagePromise.then(featureCollection =>
+        fromGeoJSONFeatureCollection({
+          featureCollection,
+          datasetSlug,
+          clientSlug,
+        }),
       ),
     );
   } catch (err) {
@@ -186,7 +202,12 @@ const updatePlace = async (placeUrl, placeData) => {
   }
 };
 
-const createPlace = async ({ datasetUrl, placeData, datasetSlug }) => {
+const createPlace = async ({
+  datasetUrl,
+  placeData,
+  datasetSlug,
+  clientSlug,
+}) => {
   try {
     placeData = toGeoJSONFeature(placeData);
     return await fetch(`${datasetUrl}/places?include_tags`, {
@@ -199,7 +220,9 @@ const createPlace = async ({ datasetUrl, placeData, datasetSlug }) => {
     })
       .then(status)
       .then(json)
-      .then(response => fromGeoJSONFeature(response, datasetSlug));
+      .then(featureCollection =>
+        fromGeoJSONFeature({ featureCollection, datasetSlug, clientSlug }),
+      );
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to create Place.", err);

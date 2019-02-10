@@ -12,7 +12,7 @@
       ]
     },
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured",
       "slug": "pugetsoundfeatured",
       "clientSlug": "featured",
       "anonymous_permissions": [

@@ -1,8 +1,8 @@
 import constants from "../constants";
 
 // Replace rich text image markup with <img /> tags.
-const insertEmbeddedImages = (html, attachmentModels) => {
-  const images = attachmentModels
+const insertEmbeddedImages = (html, attachments) => {
+  const images = attachments
     .filter(
       attributes =>
         attributes.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===

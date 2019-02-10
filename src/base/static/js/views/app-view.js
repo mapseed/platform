@@ -405,6 +405,7 @@ export default Backbone.View.extend({
         return mapseedApiClient.place.get({
           url: `${config.url}/places`,
           datasetSlug: config.slug,
+          clientSlug: config.clientSlug,
           placeParams: placeParams,
           includePrivate: hasAdminAbilities(store.getState(), config.slug),
         });
@@ -548,7 +549,6 @@ export default Backbone.View.extend({
           <ThemeProvider theme={theme}>
             <ThemeProvider theme={this.adjustedTheme}>
               <RightSidebar
-                legacyPlaces={this.places}
                 router={this.options.router}
               />
             </ThemeProvider>

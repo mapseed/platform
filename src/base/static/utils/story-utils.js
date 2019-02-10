@@ -6,19 +6,19 @@ const hydrateStoriesFromConfig = ({ places, storyConfig }) => {
   const hydratedStories = Object.entries(storyConfig).reduce(
     (stories, storyEntry) => {
       const storyName = storyEntry[0];
+
       return stories.set(
-        storyEntry[0],
+        storyName,
         Immutable.Map()
           .set(
             "chapters",
             storyEntry[1].chapters.reduce((urlToPlaceModel, chapter) => {
               const model = places.find(place => {
-                const placeId = parseInt(chapter.url.split("/")[1]);
-                return place.id === placeId;
+                return parseInt(place.id) === parseInt(chapter.placeId);
               });
               if (model) {
                 return urlToPlaceModel.set(
-                  chapter.url,
+                  chapter.placeId,
                   Immutable.fromJS(model).set(
                     "sidebarIconUrl",
                     chapter.sidebarIconUrl,
