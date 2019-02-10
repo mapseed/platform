@@ -201,14 +201,13 @@ class PlaceDetailEditor extends Component {
     });
 
     if (response) {
-      // TODO: is this needed any more?
+      this.props.router.navigate("/", { trigger: true });
+      this.props.removePlace(this.props.place.get("id"));
       emitter.emit(
         constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
         this.props.place.get("_datasetSlug"),
       );
 
-      this.props.router.navigate("/", { trigger: true });
-      this.props.removePlace(this.props.place.get("id"));
       Util.log("USER", "place", "successfully-remove-place");
       this.props.updateEditModeToggled(false);
     } else {

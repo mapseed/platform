@@ -254,11 +254,13 @@ class MainMap extends Component {
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
-        datasetId => {
+        datasetSlug => {
           this._map.updateLayerData(
-            datasetId,
+            datasetSlug,
             createGeoJSONFromPlaces(
-              this.props.places.filter(place => place.datasetId === datasetId),
+              this.props.places.filter(
+                place => place._datasetSlug === datasetSlug,
+              ),
             ),
           );
           this._map.unfocusAllPlaceLayerFeatures();
