@@ -76,7 +76,7 @@ const REMOVE_PLACE_TAG = "places/REMOVE_PLACE_TAG";
 const UPDATE_PLACE_TAG = "places/UPDATE_PLACE_TAG";
 const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
 const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
-const UPDATE_PLACES_LOAD_STATUS = "places/UPDATE_PLACES_LOAD_STATUS";
+const UPDATE_LOAD_STATUS = "places/UPDATE_LOAD_STATUS";
 
 // Action creators:
 export function loadPlaces(places, storyConfig = {}) {
@@ -165,7 +165,7 @@ export function createPlaceAttachment(placeId, attachmentData) {
 
 export function updatePlacesLoadStatus(loadStatus) {
   return {
-    type: UPDATE_PLACES_LOAD_STATUS,
+    type: UPDATE_LOAD_STATUS,
     payload: loadStatus,
   };
 }
@@ -189,7 +189,7 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case UPDATE_PLACES_LOAD_STATUS:
+    case UPDATE_LOAD_STATUS:
       return {
         ...state,
         loadStatus: action.payload,

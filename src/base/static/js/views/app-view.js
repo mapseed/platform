@@ -75,7 +75,11 @@ import {
   datasetSlugsSelector,
   datasetConfigsSelector,
 } from "../../state/ducks/datasets-config";
-import { loadDatasets } from "../../state/ducks/datasets";
+import {
+  loadDatasets,
+  datasetsLoadStatusSelector,
+  updateDatasetsLoadStatus,
+} from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
@@ -121,7 +125,7 @@ export default Backbone.View.extend({
   events: {
     "click .close-btn": "onClickClosePanelBtn",
   },
-  initialize: function() {
+  initialize: async function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
     Shareabouts.bootstrapped.currentUser &&
@@ -176,11 +180,6 @@ export default Backbone.View.extend({
     languageModule.changeLanguage(this.options.languageCode);
 
     const self = this;
-    // Bootstrapped data from the page
-    this.activities = this.options.activities;
-    this.places = this.options.places;
-
-    this.fetchAndLoadDatasets();
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
@@ -373,12 +372,15 @@ export default Backbone.View.extend({
   },
 
   fetchAndLoadDatasets: async function() {
-    const datasetUrls = this.options.mapConfig.layers
-      .filter(layer => layer.type === "place")
-      .map(layer => layer.url);
+    store.dispatch(updateDatasetsLoadStatus("loading"));
+
+    const datasetUrls = datasetConfigsSelector(store.getState()).map(
+      datasetConfig => datasetConfig.url,
+    );
     const datasets = await mapseedApiClient.datasets.get(datasetUrls);
 
     store.dispatch(loadDatasets(datasets));
+    store.dispatch(updateDatasetsLoadStatus("loaded"));
   },
 
   fetchAndLoadPlaces: async function() {
@@ -526,6 +528,9 @@ export default Backbone.View.extend({
     this.hideNewPin();
     this.setBodyClass();
     this.renderMain(mapPosition);
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      await this.fetchAndLoadDatasets();
+    }
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
@@ -546,9 +551,7 @@ export default Backbone.View.extend({
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <ThemeProvider theme={this.adjustedTheme}>
-              <RightSidebar
-                router={this.options.router}
-              />
+              <RightSidebar router={this.options.router} />
             </ThemeProvider>
           </ThemeProvider>
         </Provider>,
@@ -571,6 +574,10 @@ export default Backbone.View.extend({
         datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {
+      if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+        await this.fetchAndLoadDatasets();
+      }
+
       recordGoogleAnalyticsHit("/new");
       this.renderRightSidebar();
       this.renderMain();
@@ -654,6 +661,9 @@ export default Backbone.View.extend({
     this.renderMain();
     this.renderRightSidebar();
 
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      await this.fetchAndLoadDatasets();
+    }
     // TODO: Direct load to place.
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
@@ -808,6 +818,9 @@ export default Backbone.View.extend({
       );
       this.hideSpotlightMask();
 
+      if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+        await this.fetchAndLoadDatasets();
+      }
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
@@ -915,6 +928,9 @@ export default Backbone.View.extend({
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     this.renderRightSidebar();
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      await this.fetchAndLoadDatasets();
+    }
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
@@ -962,6 +978,9 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
 
     $("#dashboard-container").removeClass("is-visuallyhidden");
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      this.fetchAndLoadDatasets();
+    }
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       this.fetchAndLoadPlaces();
     }

@@ -2,15 +2,28 @@ import PropTypes from "prop-types";
 
 // Selectors:
 export const datasetSelector = (state, datasetSlug) =>
-  state.datasets.find(dataset => dataset.slug === datasetSlug);
+  state.datasets.datasetModels.find(dataset => dataset.slug === datasetSlug);
 
-export const datasetUrlSelector = (state, datasetSlug) =>
-  state.datasets.find(dataset => dataset.slug === datasetSlug).url;
+export const datasetUrlSelector = (state, datasetSlug) => {
+  return state.datasets.datasetModels.find(
+    dataset => dataset.slug === datasetSlug,
+  ).url;
+};
+
+export const datasetsLoadStatusSelector = state => state.datasets.loadStatus;
 
 // Actions:
 const LOAD = "datasets/LOAD";
+const UPDATE_LOAD_STATUS = "datasets/UPDATE_LOAD_STATUS";
 
 // Action creators:
+export function updateDatasetsLoadStatus(loadStatus) {
+  return {
+    type: UPDATE_LOAD_STATUS,
+    payload: loadStatus,
+  };
+}
+
 export function loadDatasets(datasets) {
   const getTagChildren = (dataset, node) => {
     const childNodes = [];
@@ -85,12 +98,23 @@ export const placeTagPropType = PropTypes.shape({
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = [];
+const INITIAL_STATE = {
+  datasetModels: [],
+  loadStatus: "unloaded",
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOAD:
-      return action.payload;
+      return {
+        ...state,
+        datasetModels: action.payload,
+      };
+    case UPDATE_LOAD_STATUS:
+      return {
+        ...state,
+        loadStatus: action.payload,
+      };
     default:
       return state;
   }

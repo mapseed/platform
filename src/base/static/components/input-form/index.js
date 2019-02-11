@@ -23,6 +23,7 @@ import {
 } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
+import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
 import {
   activeMarkerSelector,
   geometryStyleSelector,
@@ -314,9 +315,12 @@ class InputForm extends Component {
       datasetUrl: this.props.datasetUrl,
       placeData: attrs,
       datasetSlug: this.props.datasetSlug,
+      clientSlug: this.props.datasetClientSlugSelector(this.props.datasetSlug),
     });
 
     if (response) {
+      Util.log("USER", "new-place", "successfully-add-place");
+
       // Save attachments.
       if (this.attachments.length) {
         const attachmentPromises = await mapseedApiClient.attachments.create(
@@ -327,8 +331,9 @@ class InputForm extends Component {
         response.attachments = await Promise.all(attachmentPromises);
       }
 
-      this.props.createPlace(response);
-      Util.log("USER", "new-place", "successfully-add-place");
+      // Only add this place to the places duck if it isn't private.
+      !response.private && this.props.createPlace(response);
+
       this.setState({ isFormSubmitting: false, showValidityStatus: false });
 
       emitter.emit(
@@ -528,6 +533,7 @@ InputForm.propTypes = {
   ]),
   container: PropTypes.instanceOf(HTMLElement),
   createPlace: PropTypes.func.isRequired,
+  datasetClientSlugSelector: PropTypes.func.isRequired,
   datasetUrl: PropTypes.string.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
@@ -562,6 +568,8 @@ InputForm.propTypes = {
 
 const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
+  datasetClientSlugSelector: datasetSlug =>
+    datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   mapConfig: mapConfigSelector(state),
   mapLayers: mapLayersSelector(state),

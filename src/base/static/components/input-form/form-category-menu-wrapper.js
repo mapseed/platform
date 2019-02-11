@@ -41,14 +41,23 @@ class FormCategoryMenuWrapper extends Component {
             datasetSlugs: [config.datasetSlug],
           })),
     );
-    this.state = {
-      selectedCategory:
-        this.visibleCategoryConfigs.length === 1
-          ? this.visibleCategoryConfigs[0].category
-          : null,
-      isShowingCategorySelector: this.visibleCategoryConfigs.length !== 1,
-      isSingleCategory: this.visibleCategoryConfigs.length === 1,
-    };
+
+    if (this.visibleCategoryConfigs.length === 1) {
+      const selectedCategoryConfig = getCategoryConfig(
+        this.props.placeConfig,
+        this.visibleCategoryConfigs[0].category,
+      );
+
+      this.state = {
+        selectedCategory: this.visibleCategoryConfigs[0].category,
+        isShowingCategorySelector: false,
+        isSingleCategory: true,
+        datasetUrl: this.props.datasetUrlSelector(
+          selectedCategoryConfig.datasetSlug,
+        ),
+        datasetSlug: selectedCategoryConfig.datasetSlug,
+      };
+    }
   }
 
   componentDidMount() {
@@ -66,7 +75,7 @@ class FormCategoryMenuWrapper extends Component {
       selectedCategory: selectedCategory,
       isShowingCategorySelector: !categoryConfig.multi_stage,
       datasetUrl: this.props.datasetUrlSelector(categoryConfig.datasetSlug),
-      datasetSlug: categoryConfig.datasetSlug
+      datasetSlug: categoryConfig.datasetSlug,
     });
   }
 
