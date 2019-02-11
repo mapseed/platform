@@ -2,6 +2,8 @@
   "datasets": [
     {
       "slug": "willamette",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/willamette",
+      "clientSlug": "report",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -13,6 +15,7 @@
   "app": {
     "title": "Hey Willamette!",
     "name": "Hey Willamette!",
+    "logo": "/static/css/images/site-title_hey-willamette.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
     "meta_author": "smartercleanup.org",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/"
@@ -230,9 +233,8 @@
       },
       {
         "id": "willamette",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/willamette",
         "type": "place",
-        "slug": "report",
+        "datasetSlug": "willamette",
         "is_visible_default": true,
         "feature_types": ["Point"],
         "focus_rules": [
