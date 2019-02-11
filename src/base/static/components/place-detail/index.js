@@ -25,10 +25,7 @@ import constants from "../../constants";
 // NOTE: These pieces of the config are imported directly here because they
 // don't require translation, which is ok for now.
 // TODO: Eventually dissolve these imports.
-import {
-  custom_hooks as customHooks,
-  custom_components as customComponents,
-} from "config";
+import { custom_components as customComponents } from "config";
 
 import {
   commentFormConfigPropType,
@@ -107,15 +104,6 @@ class PlaceDetail extends Component {
 
   componentDidMount() {
     this.props.container.scrollTop = 0;
-
-    // Fire on mount hook.
-    // The on mount hook allows flavors to run arbitrary code after the detail
-    // view mounts.
-
-    // TODO
-    if (customHooks && customHooks.onDetailViewMount) {
-      hooks[customHooks.onDetailViewMount](this.state);
-    }
   }
 
   componentDidUpdate(prevProps) {
