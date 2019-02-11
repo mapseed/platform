@@ -57,6 +57,12 @@ class FormCategoryMenuWrapper extends Component {
         ),
         datasetSlug: selectedCategoryConfig.datasetSlug,
       };
+    } else {
+      this.state = {
+        selectedCategory: null,
+        isShowingCategorySelector: true,
+        isSingleCategory: false,
+      }
     }
   }
 

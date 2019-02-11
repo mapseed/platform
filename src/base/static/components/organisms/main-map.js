@@ -14,7 +14,6 @@ import {
 import {
   filteredPlacesSelector,
   placesPropType,
-  datasetLengthSelector,
 } from "../../state/ducks/places";
 import { filtersSelector, filtersPropType } from "../../state/ducks/filters";
 import {
@@ -528,7 +527,6 @@ MainMap.propTypes = {
   activeDrawGeometryId: PropTypes.string,
   activeMarker: PropTypes.string,
   container: PropTypes.string.isRequired,
-  datasetLengthSelector: PropTypes.func.isRequired,
   geometryStyle: geometryStyleProps,
   featureFilters: PropTypes.arrayOf(
     PropTypes.shape({
@@ -622,8 +620,6 @@ MainMap.propTypes = {
 const mapStateToProps = state => ({
   activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeMarker: activeMarkerSelector(state),
-  datasetLengthSelector: datasetSlug =>
-    datasetLengthSelector(state, datasetSlug),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   mapConfig: mapConfigSelector(state),
   geometryStyle: geometryStyleSelector(state),
