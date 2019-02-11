@@ -55,7 +55,10 @@ var self = (module.exports = {
         desc: place.get("description") || appConfig.meta_description,
         img:
           place.get("attachments").size > 0
-            ? place.get("attachments").get(0).get("file")
+            ? place
+                .get("attachments")
+                .get(0)
+                .get("file")
             : [
                 window.location.protocol,
                 "//",
@@ -77,19 +80,19 @@ var self = (module.exports = {
 
     if (components.img.startsWith("data:")) {
       //  TODO
-    //  // If the image was just created and has a data url, fetch the attachment
-    //  // collection to obtain the S3 url before contacting the sharing microservice.
-    //  return new Promise((resolve, reject) => {
-    //    model.attachmentCollection.fetch({
-    //      reset: true,
-    //      success: collection => {
-    //        components.img = collection.first().get("file");
-    //        const queryString = this.buildSharingQuerystring(components);
-    //        resolve(encodeURIComponent(`${shareUrl}${queryString}`));
-    //      },
-    //      error: _ => reject(_),
-    //    });
-    //  });
+      //  // If the image was just created and has a data url, fetch the attachment
+      //  // collection to obtain the S3 url before contacting the sharing microservice.
+      //  return new Promise((resolve, reject) => {
+      //    model.attachmentCollection.fetch({
+      //      reset: true,
+      //      success: collection => {
+      //        components.img = collection.first().get("file");
+      //        const queryString = this.buildSharingQuerystring(components);
+      //        resolve(encodeURIComponent(`${shareUrl}${queryString}`));
+      //      },
+      //      error: _ => reject(_),
+      //    });
+      //  });
     } else {
       // return a promise that immediately resolves to our share url:
       const queryString = this.buildSharingQuerystring(components);

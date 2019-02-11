@@ -18,10 +18,7 @@ const filterStage = (fieldConfigs, stageName) => {
 };
 
 const SnohomishFieldSummary = props => {
-  const fieldConfigs = fieldResponseFilter(
-    props.fields,
-    props.place,
-  ).filter(
+  const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
     fieldConfig =>
       fieldConfig.type === constants.BIG_TOGGLE_FIELD_TYPENAME &&
       props.place.get(fieldConfig.name) === "yes",
@@ -40,7 +37,8 @@ const SnohomishFieldSummary = props => {
         <span className="snohomish-num-actions">{fieldConfigs.length}</span>{" "}
         {fieldConfigs.length === 1 ? "action" : "actions"}
       </Header1>
-      {props.place.get("attachments")
+      {props.place
+        .get("attachments")
         .filter(
           attachment =>
             attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
@@ -49,9 +47,7 @@ const SnohomishFieldSummary = props => {
         .map((attachment, i) => (
           <CoverImage
             key={i}
-            imageUrl={attachment.get(
-              constants.ATTACHMENT_FILE_PROPERTY_NAME,
-            )}
+            imageUrl={attachment.get(constants.ATTACHMENT_FILE_PROPERTY_NAME)}
           />
         ))}
       {stages.farm.length > 0 && (

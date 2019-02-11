@@ -98,10 +98,10 @@ class PlaceDetailEditor extends Component {
         .map(state => state.get(constants.FIELD_VALUE_KEY))
         .toJS();
 
-        // A form field with name "private" should use the value "yes" to indicate
-        // that a place should be private.
-        // TODO: Make a special form field to encapsulate this.
-        attrs.private = attrs.private === "yes" ? true : false;
+      // A form field with name "private" should use the value "yes" to indicate
+      // that a place should be private.
+      // TODO: Make a special form field to encapsulate this.
+      attrs.private = attrs.private === "yes" ? true : false;
 
       if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
         attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
@@ -370,6 +370,7 @@ PlaceDetailEditor.propTypes = {
   attachmentModels: PropTypes.object,
   container: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   onAddAttachment: PropTypes.func,
   onRequestEnd: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,

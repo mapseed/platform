@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import { Map } from "immutable"
+import { Map } from "immutable";
 
 import styled from "react-emotion";
 import SupportButton from "../ui-elements/support-button";

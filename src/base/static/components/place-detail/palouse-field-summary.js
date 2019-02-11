@@ -22,10 +22,9 @@ const ActionSummaryItem = styled("li")(props => ({
 }));
 
 const SnohomishFieldSummary = props => {
-  const fieldConfigs = fieldResponseFilter(
-    props.fields,
-    props.place,
-  ).filter(fieldConfig => props.place.get(fieldConfig.name) === "yes");
+  const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
+    fieldConfig => props.place.get(fieldConfig.name) === "yes",
+  );
   const numActions = fieldConfigs.length;
   const description = props.place.get("practices_description");
 
