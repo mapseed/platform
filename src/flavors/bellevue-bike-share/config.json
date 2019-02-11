@@ -2,6 +2,8 @@
   "datasets": [
     {
       "slug": "bellevue-bike-share",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
+      "clientSlug": "report",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -70,9 +72,8 @@
       },
       {
         "id": "bellevue-bike-share",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
         "type": "place",
-        "slug": "report",
+        "datasetSlug": "bellevue-bike-share",
         "is_visible_default": true,
         "feature_types": ["Point"],
         "focus_rules": [
