@@ -141,8 +141,6 @@ class PlaceDetailEditor extends Component {
       });
 
       if (response) {
-        console.log("response", response);
-
         // Save attachments.
         if (this.attachments.length) {
           const attachmentPromises = await mapseedApiClient.attachments.create(
@@ -186,13 +184,15 @@ class PlaceDetailEditor extends Component {
   }
 
   async removePlace() {
-    const response = await mapseedApiClient.place.update(
-      this.props.place.get("url"),
-      {
+    const response = await mapseedApiClient.place.update({
+      placeUrl: this.props.place.get("url"),
+      placeData: {
         ...this.props.place.toJS(),
         visible: false,
       },
-    );
+      datasetSlug: this.props.place.get("_datasetSlug"),
+      clientSlug: this.props.place.get("_clientSlug"),
+    });
 
     this.setState({
       isNetworkRequestInFlight: false,
