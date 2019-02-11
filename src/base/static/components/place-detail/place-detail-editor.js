@@ -126,24 +126,22 @@ class PlaceDetailEditor extends Component {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
 
-      let response = await mapseedApiClient.place.update(
-        this.props.place.get("url"),
-        {
+      const response = await mapseedApiClient.place.update({
+        placeUrl: this.props.place.get("url"),
+        placeData: {
           ...this.props.place.toJS(),
           ...attrs,
         },
-      );
+        datasetSlug: this.props.place.get("_datasetSlug"),
+        clientSlug: this.props.place.get("_clientSlug"),
+      });
 
       this.setState({
         isNetworkRequestInFlight: false,
       });
 
       if (response) {
-        response = await mapseedApiClient.utils.fromGeoJSONFeature(
-          // TODO: move this to api client
-          response,
-          this.props.place.get("_datasetSlug"),
-        );
+        console.log("response", response);
 
         // Save attachments.
         if (this.attachments.length) {

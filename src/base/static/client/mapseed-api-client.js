@@ -177,7 +177,12 @@ const getPlaces = async ({
 };
 
 // TODO: include_private_places and include_private_fields ??
-const updatePlace = async (placeUrl, placeData) => {
+const updatePlace = async ({
+  placeUrl,
+  placeData,
+  datasetSlug,
+  clientSlug,
+}) => {
   try {
     placeData = toGeoJSONFeature(placeData);
     return await fetch(
@@ -196,7 +201,10 @@ const updatePlace = async (placeUrl, placeData) => {
       },
     )
       .then(status)
-      .then(json);
+      .then(json)
+      .then(feature =>
+        fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
+      );
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to update Place.", err);
@@ -402,8 +410,5 @@ export default {
   attachments: {
     create: createAttachments,
     delete: deleteAttachment,
-  },
-  utils: {
-    fromGeoJSONFeature: fromGeoJSONFeature,
   },
 };
