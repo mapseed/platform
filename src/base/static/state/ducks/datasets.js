@@ -67,17 +67,17 @@ export function loadDatasets(datasets) {
 }
 
 export const getTagFromUrl = ({ state, datasetSlug, tagUrl }) =>
-  state.datasets
+  state.datasets.datasetModels
     .find(dataset => dataset.slug === datasetSlug)
     .tags.find(tag => tag.url === tagUrl);
 
 export const getAllTagsForDataset = (state, datasetSlug) =>
-  state.datasets
+  state.datasets.datasetModels
     .find(dataset => dataset.slug === datasetSlug)
     .tags.filter(tag => tag.isEnabled);
 
 export const getColorForTag = ({ state, datasetSlug, tagUrl }) =>
-  state.datasets
+  state.datasets.datasetModels
     .find(dataset => dataset.slug === datasetSlug)
     .tags.find(tag => tag.url === tagUrl).color;
 

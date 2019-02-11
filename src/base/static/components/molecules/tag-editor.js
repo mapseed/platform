@@ -107,7 +107,7 @@ class TagEditor extends Component {
     );
 
     if (response) {
-      this.props.updatePlaceTag(response);
+      this.props.updatePlaceTag(this.props.placeId, response);
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place-tags", "fail-to-update-place-tag");

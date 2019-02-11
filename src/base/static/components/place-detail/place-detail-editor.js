@@ -370,7 +370,7 @@ PlaceDetailEditor.propTypes = {
   attachmentModels: PropTypes.object,
   container: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool,
   onAddAttachment: PropTypes.func,
   onRequestEnd: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
