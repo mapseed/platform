@@ -103,15 +103,11 @@ class PlaceDetailEditor extends Component {
       // TODO: Make a special form field to encapsulate this.
       attrs.private = attrs.private === "yes" ? true : false;
 
-      if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-        attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
-          this.state.fields
-            .get(constants.GEOMETRY_PROPERTY_NAME)
-            .get(constants.FIELD_VALUE_KEY)[
-            constants.GEOMETRY_TYPE_PROPERTY_NAME
-          ] === "Point"
+      if (this.state.fields.get("geometry")) {
+        attrs.style =
+          this.state.fields.getIn(["geometry", "value", "type"]) === "Point"
             ? {
-                [constants.MARKER_ICON_PROPERTY_NAME]: this.props.activeMarker,
+                "marker-symbol": this.props.activeMarker,
               }
             : this.props.geometryStyle;
       }
@@ -141,6 +137,8 @@ class PlaceDetailEditor extends Component {
       });
 
       if (response) {
+        Util.log("USER", "place", "successfully-update-place");
+
         // Save attachments.
         if (this.attachments.length) {
           const attachmentPromises = await mapseedApiClient.attachments.create(
@@ -155,15 +153,12 @@ class PlaceDetailEditor extends Component {
 
         emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
 
-        // TODO: is this needed any more?
+        this.props.updatePlace(response);
+
         emitter.emit(
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
           this.props.place.get("_datasetSlug"),
         );
-
-        this.props.updatePlace(response);
-
-        Util.log("USER", "place", "successfully-update-place");
 
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();

@@ -76,6 +76,7 @@ class MapDrawingToolbar extends Component {
           break;
       }
 
+      emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
       emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
         datasetSlug: this.props.datasetSlug,
         placeId: this.props.existingPlaceId,

@@ -118,7 +118,7 @@ class PlaceDetail extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const newPlace = fromJS(this.props.getPlace(this.props.placeId));
 
     if (
@@ -150,6 +150,17 @@ class PlaceDetail extends Component {
       this.setState({
         place: newPlace,
       });
+    }
+
+    if (
+      this.props.isEditModeToggled !== prevProps.isEditModeToggled &&
+      !this.props.isEditModeToggled
+    ) {
+      emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
+      emitter.emit(
+        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+        this.state.place.get("_datasetSlug"),
+      );
     }
   }
 

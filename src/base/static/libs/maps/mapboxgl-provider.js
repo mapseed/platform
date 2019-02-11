@@ -805,6 +805,7 @@ export default (container, options) => {
               `user_${constants.MARKER_ICON_PROPERTY_NAME}`,
             ],
             "icon-allow-overlap": true,
+            "icon-anchor": "bottom",
           },
         },
         // Points: unselected.
@@ -823,6 +824,7 @@ export default (container, options) => {
               `user_${constants.MARKER_ICON_PROPERTY_NAME}`,
             ],
             "icon-allow-overlap": true,
+            "icon-anchor": "bottom",
           },
         },
 

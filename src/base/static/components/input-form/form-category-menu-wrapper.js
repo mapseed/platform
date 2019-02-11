@@ -62,7 +62,7 @@ class FormCategoryMenuWrapper extends Component {
         selectedCategory: null,
         isShowingCategorySelector: true,
         isSingleCategory: false,
-      }
+      };
     }
   }
 

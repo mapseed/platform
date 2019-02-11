@@ -292,7 +292,10 @@ class MainMap extends Component {
           this._map.updateLayerData(
             datasetSlug,
             createGeoJSONFromPlaces(
-              this.props.places.filter(place => place.id !== placeId),
+              this.props.places.filter(
+                place =>
+                  place._datasetSlug === datasetSlug && place.id !== placeId,
+              ),
             ),
           );
         },
@@ -397,22 +400,18 @@ class MainMap extends Component {
     if (this.props.activeDrawGeometryId) {
       // Update styling for in-progress geometry being drawn with the
       // MapDrawingToolbar.
-      if (this.props.activeMarker !== prevProps.activeMarker) {
-        this._map.drawSetFeatureProperty(
-          this.props.activeDrawGeometryId,
-          constants.MARKER_ICON_PROPERTY_NAME,
-          this.props.activeMarker,
-        );
-      }
+      this._map.drawSetFeatureProperty(
+        this.props.activeDrawGeometryId,
+        constants.MARKER_ICON_PROPERTY_NAME,
+        this.props.activeMarker,
+      );
       Object.entries(this.props.geometryStyle).forEach(
         ([styleProperty, value]) => {
-          if (value !== prevProps.geometryStyle[styleProperty]) {
-            this._map.drawSetFeatureProperty(
-              this.props.activeDrawGeometryId,
-              styleProperty,
-              value,
-            );
-          }
+          this._map.drawSetFeatureProperty(
+            this.props.activeDrawGeometryId,
+            styleProperty,
+            value,
+          );
         },
       );
     }

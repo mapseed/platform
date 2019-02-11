@@ -7,8 +7,6 @@ import { RegularTitle, RegularText } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 
-import constants from "../../constants";
-
 const ActionSummary = styled("ul")({
   padding: 0,
 });
@@ -32,19 +30,11 @@ const SnohomishFieldSummary = props => {
     <div>
       <RegularTitle>{numActions} Actions</RegularTitle>
       <HorizontalRule spacing="tiny" />
-      {props.attachmentModels
-        .filter(
-          attachment =>
-            attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-            constants.COVER_IMAGE_CODE,
-        )
-        .map((attachmentModel, i) => (
-          <CoverImage
-            key={i}
-            imageUrl={attachmentModel.get(
-              constants.ATTACHMENT_FILE_PROPERTY_NAME,
-            )}
-          />
+      {props.place
+        .get("attachments")
+        .filter(attachment => attachment.get("type") === "CO")
+        .map((attachment, i) => (
+          <CoverImage key={i} imageUrl={attachment.get("file")} />
         ))}
       {description && <RegularText>{description}</RegularText>}
       <ActionSummary>
@@ -71,7 +61,6 @@ const SnohomishFieldSummary = props => {
 };
 
 SnohomishFieldSummary.propTypes = {
-  attachmentModels: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
   place: PropTypes.object.isRequired,
 };

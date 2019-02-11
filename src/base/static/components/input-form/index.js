@@ -279,12 +279,10 @@ class InputForm extends Component {
     // TODO: Make a special form field to encapsulate this.
     attrs.private = attrs.private === "yes" ? true : false;
 
-    if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-      attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
-        this.state.fields
-          .get(constants.GEOMETRY_PROPERTY_NAME)
-          .get(constants.FIELD_VALUE_KEY).type === "Point"
-          ? { [constants.MARKER_ICON_PROPERTY_NAME]: this.props.activeMarker }
+    if (this.state.fields.get("geometry")) {
+      attrs["style"] =
+        this.state.fields.getIn(["geometry", "value", "type"]) === "Point"
+          ? { "marker-symbol": this.props.activeMarker }
           : this.props.geometryStyle;
     } else {
       const center = this.props.mapPosition.center;

@@ -62,7 +62,8 @@ import {
   setMapCenterpointVisibility,
   setGeocodeAddressBarVisibility,
   geocodeAddressBarVisibilitySelector,
-} from "../../state/ducks/ui.js";
+  updateEditModeToggled,
+} from "../../state/ducks/ui";
 import {
   loadUser,
   userSelector,
@@ -674,6 +675,8 @@ export default Backbone.View.extend({
       this.options.router.navigate("/");
       return;
     }
+
+    store.dispatch(updateEditModeToggled(false));
 
     // REACT PORT SECTION //////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
