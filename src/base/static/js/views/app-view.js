@@ -82,7 +82,7 @@ import {
   updateDatasetsLoadStatus,
 } from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
-import { loadMapStyle } from "../../state/ducks/map-alt";
+import { loadMapStyle, loadMapSourceData } from "../../state/ducks/map-alt";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
@@ -435,12 +435,12 @@ export default Backbone.View.extend({
 
     store.dispatch(updatePlacesLoadStatus("loaded"));
 
-    // Mark visible layers as "loading" so the map will load and render them.
-    datasetConfigs.forEach(config => {
-      if (layerStatuses[config.slug].isVisible) {
-        store.dispatch(setLayerLoading(config.slug));
-      }
-    });
+    //   // Mark visible layers as "loading" so the map will load and render them.
+    //   datasetConfigs.forEach(config => {
+    //     if (layerStatuses[config.slug].isVisible) {
+    //       store.dispatch(setLayerLoading(config.slug));
+    //     }
+    //   });
   },
 
   getListRoutes: function() {

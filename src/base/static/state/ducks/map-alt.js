@@ -15,6 +15,7 @@ export const mapStyleSelector = state => {
 // Actions:
 const UPDATE_VIEWPORT = "map-alt/UPDATE_VIEWPORT";
 const UPDATE_STYLE = "map-alt/UPDATE_STYLE";
+const LOAD_SOURCE = "map-alt/LOAD_SOURCE";
 
 // Action creators:
 export function updateMapViewport(viewport) {
@@ -23,6 +24,16 @@ export function updateMapViewport(viewport) {
 
 export function updateMapStyle(style) {
   return { type: UPDATE_STYLE, payload: style };
+}
+
+export function loadMapSourceData(sourceData, sourceId) {
+  return {
+    type: LOAD_SOURCE,
+    payload: {
+      sourceData,
+      sourceId,
+    },
+  };
 }
 
 const appendFilters = (existingFilters, ...filtersToAdd) => {
@@ -121,6 +132,20 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case LOAD_SOURCE:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.sourceId]: {
+              ...state.style.sources[action.payload.sourceId],
+              data: action.payload.sourceData,
+            },
+          },
+        },
+      };
     case UPDATE_VIEWPORT:
       return {
         ...state,

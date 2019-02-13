@@ -105,6 +105,14 @@ class MainMap extends Component {
 
   mapRef = createRef();
 
+  componentDidUpdate(prevProps) {
+    if (this.props.mapStyle.sources !== prevProps.mapStyle.sources) {
+      this.setState({
+        mapStyle: fromJS(this.props.mapStyle),
+      });
+    }
+  }
+
   onMapClick = () => {
     console.log("onMapClick");
   };

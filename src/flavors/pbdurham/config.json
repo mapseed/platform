@@ -456,6 +456,7 @@
             "type": "symbol",
             "source": "pbdurham-projects",
             "layout": {
+              "icon-allow-overlap": true,
               "icon-image": "money.png",
               "icon-size": 0.3,
               "icon-anchor": "bottom"
@@ -468,6 +469,7 @@
             "type": "symbol",
             "source": "pbdurham-projects",
             "layout": {
+              "icon-allow-overlap": true,
               "icon-anchor": "bottom",
               "icon-image": "money.png",
               "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
@@ -478,13 +480,14 @@
       {
         "id": "pbdurham",
         "datasetSlug": "pbdurham",
-        "visible_default": true,
+        "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
             "id": "pbdurham-focused",
             "type": "symbol",
             "source": "pbdurham",
             "layout": {
+              "icon-allow-overlap": true,
               "icon-size": 0.7,
               "icon-anchor": "bottom",
               "icon-image": [
@@ -513,6 +516,7 @@
             "type": "symbol",
             "source": "pbdurham",
             "layout": {
+              "icon-allow-overlap": true,
               "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
               "icon-size": ["step", ["zoom"], 0.3, 10, 0.4],
               "icon-image": [
