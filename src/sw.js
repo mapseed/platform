@@ -27,16 +27,38 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 workbox.loadModule("workbox-strategies");
 workbox.loadModule("workbox-routing");
 
+// background sync for POST requests:
+// TODO: load page, examine the queue
+// go offline on PC and server, POST some new places
+// close the page, open a blank page, examine the queue
+// with the page still closed, turn on the server, examine the queue
+// if no sync event fired, turn PC online, examine the queue
+// check server logs as well.
+// double check the cookies!
+const bgSyncPlugin = new workbox.backgroundSync.Plugin("mapseedBgQueue", {
+  maxRetentionTime: 24 * 60, // Retry for max of 24 Hours
+});
+
 self.addEventListener("install", event => {
   const cacheName = workbox.core.cacheNames.runtime;
 
   const apiRoot = new URL(location).searchParams.get("apiRoot");
+  // instead of making this a runtime cache, we can cache all the
+  // local, prod, and dev api's explicitely
   workbox.routing.registerRoute(
     new RegExp(apiRoot),
     workbox.strategies.networkFirst({
       plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
     }),
     "GET",
+  );
+
+  workbox.routing.registerRoute(
+    new RegExp(apiRoot),
+    workbox.strategies.networkOnly({
+      plugins: [bgSyncPlugin],
+    }),
+    "POST",
   );
 });
 
@@ -51,19 +73,19 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-  /^https:\/\/cdnjs.cloudflare.com\/ajax\/libs\//,
+  /^http[s]?:\/\/cdnjs.cloudflare.com\/ajax\/libs\//,
   workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
 
 workbox.routing.registerRoute(
-  /^https:\/\/ajax.googleapis.com\/ajax\/libs\//,
+  /^http[s]?:\/\/ajax.googleapis.com\/ajax\/libs\//,
   workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
 
 workbox.routing.registerRoute(
-  /^https:\/\/maxcdn.bootstrapcdn.com\/font-awesome\//,
+  /^http[s]?:\/\/maxcdn.bootstrapcdn.com\/font-awesome\//,
   workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
@@ -79,7 +101,31 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-  /^https:\/\/tile3.f4map.com\/tiles\/f4_2d\//,
+  /^http[s]?:\/\/tile3.f4map.com\/tiles\/f4_2d\//,
+  workbox.strategies.staleWhileRevalidate(),
+  "GET",
+);
+
+workbox.routing.registerRoute(
+  /^http[s]?:\/\/api.tiles.mapbox.com\/v4\/smartercleanup.pe3o4gdn\//,
+  workbox.strategies.staleWhileRevalidate(),
+  "GET",
+);
+
+workbox.routing.registerRoute(
+  /^http[s]?:\/\/api.mapbox.com\/fonts\//,
+  workbox.strategies.staleWhileRevalidate(),
+  "GET",
+);
+
+workbox.routing.registerRoute(
+  /^https:\/\/assets.mapseed.org\/geo\//,
+  workbox.strategies.staleWhileRevalidate(),
+  "GET",
+);
+
+workbox.routing.registerRoute(
+  /^https:\/\/vector-tiles.mapseed.org\//,
   workbox.strategies.staleWhileRevalidate(),
   "GET",
 );
