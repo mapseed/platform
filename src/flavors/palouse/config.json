@@ -98,7 +98,7 @@
       },
       "palouse-basin-streams": {
         "type": "geojson",
-        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson"
+        "data": "https://assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson"
       },
       "palouse-critical-conservation-areas": {
         "type": "vector",
