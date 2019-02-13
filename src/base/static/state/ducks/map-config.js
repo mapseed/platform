@@ -10,6 +10,9 @@ export const mapPlaceLayersSelector = state => {
     layer => layer.type && layer.type === "place",
   );
 };
+export const mapOptionsSelector = state => {
+  return state.mapConfig.options.map;
+};
 
 // Actions:
 const SET_CONFIG = "map-config/SET";

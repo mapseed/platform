@@ -82,10 +82,11 @@ import {
   updateDatasetsLoadStatus,
 } from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
+import { loadMapStyle } from "../../state/ducks/map-alt";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
-import MainMap from "../../components/organisms/main-map";
+import MainMap from "../../components/templates/map";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -144,23 +145,24 @@ export default Backbone.View.extend({
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setPagesConfig(this.options.pagesConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
+    store.dispatch(loadMapStyle(this.options.mapConfig));
     if (this.options.dashboardConfig) {
       store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
     }
-    store.dispatch(initLayers(this.options.mapConfig.layers));
-    store.dispatch(
-      setBasemap(
-        this.options.mapConfig.layers.find(
-          layer => layer.is_basemap && layer.is_visible_default,
-        ).id,
-      ),
-    );
-    store.dispatch(
-      setMapPosition({
-        center: this.options.mapConfig.options.map.center,
-        zoom: this.options.mapConfig.options.map.zoom,
-      }),
-    );
+    //store.dispatch(initLayers(this.options.mapConfig.layers));
+    //store.dispatch(
+    //  setBasemap(
+    //    this.options.mapConfig.layers.find(
+    //      layer => layer.is_basemap && layer.is_visible_default,
+    //    ).id,
+    //  ),
+    //);
+    //store.dispatch(
+    //  setMapPosition({
+    //    center: this.options.mapConfig.options.map.center,
+    //    zoom: this.options.mapConfig.options.map.zoom,
+    //  }),
+    //);
 
     const storeState = store.getState();
     this.flavorTheme = storeState.appConfig.theme;
