@@ -51,7 +51,9 @@ class SurveyResponse extends Component {
         <div className="place-detail-survey-response__metadata-bar">
           <Avatar
             className="place-detail-survey-response__avatar"
-            src={this.props.submitter.avatar_url}
+            src={
+              this.props.submitter ? this.props.submitter.avatar_url : undefined
+            }
           />
           <div className="place-detail-survey-response__details-container">
             <SubmitterName
@@ -80,7 +82,7 @@ SurveyResponse.propTypes = {
   onMountTargetResponse: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   scrollToResponseId: PropTypes.number,
-  submitter: PropTypes.object.isRequired,
+  submitter: PropTypes.object,
   commentFormConfig: commentFormConfigPropType.isRequired,
 };
 

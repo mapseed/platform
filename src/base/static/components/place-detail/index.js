@@ -140,10 +140,7 @@ class PlaceDetail extends Component {
       place.location_type === "conservation-actions"
     ) {
       fieldSummary = (
-        <SnohomishFieldSummary
-          fields={categoryConfig.fields}
-          place={place}
-        />
+        <SnohomishFieldSummary fields={categoryConfig.fields} place={place} />
       );
     } else if (
       customComponents &&
@@ -151,10 +148,7 @@ class PlaceDetail extends Component {
       place.location_type === "community_input"
     ) {
       fieldSummary = (
-        <VVFieldSummary
-          fields={categoryConfig.fields}
-          place={place}
-        />
+        <VVFieldSummary fields={categoryConfig.fields} place={place} />
       );
     } else if (
       customComponents &&
@@ -162,10 +156,7 @@ class PlaceDetail extends Component {
       place.location_type === "reports"
     ) {
       fieldSummary = (
-        <PalouseFieldSummary
-          fields={categoryConfig.fields}
-          place={place}
-        />
+        <PalouseFieldSummary fields={categoryConfig.fields} place={place} />
       );
     } else {
       fieldSummary = (
@@ -210,7 +201,9 @@ class PlaceDetail extends Component {
           <MetadataBar
             createdDatetime={place.created_datetime}
             submitterName={submitterName}
-            submitterAvatarUrl={place.submitter && place.submitter.avatar_url}
+            submitterAvatarUrl={
+              place.submitter ? place.submitter.avatar_url : undefined
+            }
             numComments={comments.length}
             actionText={this.props.placeConfig.action_text}
           />

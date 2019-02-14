@@ -218,7 +218,7 @@ Survey.propTypes = {
   scrollToResponseId: PropTypes.number,
   commentFormConfig: commentFormConfigPropType.isRequired,
   currentUser: PropTypes.object,
-  submitter: PropTypes.object.isRequired,
+  submitter: PropTypes.object,
   t: PropTypes.func.isRequired,
   userToken: PropTypes.string,
 };
