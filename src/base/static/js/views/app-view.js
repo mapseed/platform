@@ -401,28 +401,30 @@ export default Backbone.View.extend({
 
     const datasetConfigs = datasetConfigsSelector(store.getState());
     const layerStatuses = mapLayerStatusesSelector(store.getState());
-    const placePagePromises = await Promise.all(
-      datasetConfigs.map(config => {
-        return mapseedApiClient.place.get({
+    await Promise.all(
+      datasetConfigs.map(async config => {
+        const placePagePromises = await mapseedApiClient.place.get({
           url: `${config.url}/places`,
           datasetSlug: config.slug,
           clientSlug: config.clientSlug,
           placeParams: placeParams,
           includePrivate: hasAdminAbilities(store.getState(), config.slug),
         });
+
+        // TODO: This Promise.all() should eventually be replaced with a loop 
+        // that updates the Places duck when each Promise in placePagePromises 
+        // resolves. We are punting this (briefly) for now, since the map 
+        // abstraction will not yet detect changes in the length of the Places 
+        // duck. We will address this deficiency very soon in an upcoming PR.
+        const placeData = await Promise.all(placePagePromises);
+        store.dispatch(
+          loadPlaces(
+            placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+          ),
+        );
       }),
     );
 
-    const placeData = await Promise.all(
-      placePagePromises.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-    );
-
-    store.dispatch(
-      loadPlaces(
-        placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-        storyConfigSelector(store.getState()),
-      ),
-    );
     store.dispatch(updatePlacesLoadStatus("loaded"));
 
     // Mark visible layers as "loading" so the map will load and render them.

@@ -6,7 +6,6 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 
 import ActivityItem from "../molecules/activity-item";
 
-import { mapPlaceLayersSelector } from "../../state/ducks/map-config";
 import {
   commentFormConfigPropType,
   commentFormConfigSelector,
@@ -45,15 +44,6 @@ class ActivityStream extends Component {
 
   componentWillUnmount() {
     clearInterval(this.pollingIntervalId);
-  }
-
-  fetchActivity() {
-    mapseedApiClient.activity.get(
-      this.activities.map(activity => [
-        activity.collection,
-        this.successCallback.bind(this),
-      ]),
-    );
   }
 
   render() {
