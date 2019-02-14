@@ -26,10 +26,7 @@ import {
   updatePlacesLoadStatus,
 } from "../../state/ducks/places";
 import { loadPlaceConfig } from "../../state/ducks/place-config";
-import {
-  setStoryConfig,
-  storyConfigSelector,
-} from "../../state/ducks/story-config";
+import { setStoryConfig } from "../../state/ducks/story-config";
 import { loadFormsConfig } from "../../state/ducks/forms-config";
 import { setPagesConfig, pageSelector } from "../../state/ducks/pages-config";
 import {
@@ -411,10 +408,10 @@ export default Backbone.View.extend({
           includePrivate: hasAdminAbilities(store.getState(), config.slug),
         });
 
-        // TODO: This Promise.all() should eventually be replaced with a loop 
-        // that updates the Places duck when each Promise in placePagePromises 
-        // resolves. We are punting this (briefly) for now, since the map 
-        // abstraction will not yet detect changes in the length of the Places 
+        // TODO: This Promise.all() should eventually be replaced with a loop
+        // that updates the Places duck when each Promise in placePagePromises
+        // resolves. We are punting this (briefly) for now, since the map
+        // abstraction will not yet detect changes in the length of the Places
         // duck. We will address this deficiency very soon in an upcoming PR.
         const placeData = await Promise.all(placePagePromises);
         store.dispatch(
@@ -689,6 +686,7 @@ export default Backbone.View.extend({
           <ThemeProvider theme={this.adjustedTheme}>
             <PlaceDetail
               placeId={args.placeId}
+              datasetSlug={place._datasetSlug}
               container={document.querySelector("#content article")}
               currentUser={Shareabouts.bootstrapped.currentUser}
               isGeocodingBarEnabled={

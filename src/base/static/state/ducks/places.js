@@ -202,23 +202,27 @@ export default function reducer(state = INITIAL_STATE, action) {
     case UPDATE_PLACE:
       return {
         ...state,
-        placeModels: state.placeModels.map(place => {
-          if (place.id === action.payload.id) {
-            action.payload = normalizeSubmissionSets(action.payload);
-            place = {
-              ...place,
-              ...action.payload,
-            };
-          }
-
-          return place;
-        }),
+        placeModels: [
+          // Filter out the place model that's being updated.
+          ...state.placeModels.filter(
+            placeModel => placeModel.id !== action.payload.id,
+          ),
+          {
+            // Add it back in, along with the updated data.
+            ...state.placeModels.find(
+              placeModel => placeModel.id === action.payload.id,
+            ),
+            ...normalizeSubmissionSets(action.payload),
+          },
+        ],
       };
     case CREATE_PLACE:
-      action.payload = normalizeSubmissionSets(action.payload);
       return {
         ...state,
-        placeModels: [...state.placeModels, action.payload],
+        placeModels: [
+          ...state.placeModels,
+          normalizeSubmissionSets(action.payload),
+        ],
       };
     case REMOVE_PLACE:
       return {

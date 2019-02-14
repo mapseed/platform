@@ -28,6 +28,7 @@ import {
   updatePlace,
   removePlace,
   removePlaceAttachment,
+  placePropType,
 } from "../../state/ducks/places";
 import { updateEditModeToggled } from "../../state/ducks/ui";
 
@@ -43,7 +44,7 @@ class PlaceDetailEditor extends Component {
 
     this.categoryConfig = getCategoryConfig(
       this.props.placeConfig,
-      this.props.place.get(constants.LOCATION_TYPE_PROPERTY_NAME),
+      this.props.place.location_type,
     );
 
     this.attachments = [];
@@ -57,7 +58,7 @@ class PlaceDetailEditor extends Component {
         fields = fields.set(
           field.name,
           Map()
-            .set(constants.FIELD_VALUE_KEY, this.props.place.get(field.name))
+            .set(constants.FIELD_VALUE_KEY, this.props.place[field.name])
             .set(
               constants.FIELD_VISIBILITY_KEY,
               field.hidden_default ? false : true,
@@ -123,13 +124,13 @@ class PlaceDetailEditor extends Component {
         });
 
       const response = await mapseedApiClient.place.update({
-        placeUrl: this.props.place.get("url"),
+        placeUrl: this.props.place.url,
         placeData: {
-          ...this.props.place.toJS(),
+          ...this.props.place,
           ...attrs,
         },
-        datasetSlug: this.props.place.get("_datasetSlug"),
-        clientSlug: this.props.place.get("_clientSlug"),
+        datasetSlug: this.props.place._datasetSlug,
+        clientSlug: this.props.place._clientSlug,
       });
 
       this.setState({
@@ -157,7 +158,7 @@ class PlaceDetailEditor extends Component {
 
         emitter.emit(
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-          this.props.place.get("_datasetSlug"),
+          this.props.place._datasetSlug,
         );
 
         this.props.updateEditModeToggled(false);
@@ -180,13 +181,13 @@ class PlaceDetailEditor extends Component {
 
   async removePlace() {
     const response = await mapseedApiClient.place.update({
-      placeUrl: this.props.place.get("url"),
+      placeUrl: this.props.place.url,
       placeData: {
-        ...this.props.place.toJS(),
+        ...this.props.place,
         visible: false,
       },
-      datasetSlug: this.props.place.get("_datasetSlug"),
-      clientSlug: this.props.place.get("_clientSlug"),
+      datasetSlug: this.props.place._datasetSlug,
+      clientSlug: this.props.place._clientSlug,
     });
 
     this.setState({
@@ -195,10 +196,10 @@ class PlaceDetailEditor extends Component {
 
     if (response) {
       this.props.router.navigate("/", { trigger: true });
-      this.props.removePlace(this.props.place.get("id"));
+      this.props.removePlace(this.props.place.id);
       emitter.emit(
         constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
-        this.props.place.get("_datasetSlug"),
+        this.props.place._datasetSlug,
       );
 
       Util.log("USER", "place", "successfully-remove-place");
@@ -212,15 +213,12 @@ class PlaceDetailEditor extends Component {
 
   onClickRemoveAttachment = async attachmentId => {
     const response = mapseedApiClient.attachments.delete(
-      this.props.place.get("url"),
+      this.props.place.url,
       attachmentId,
     );
 
     if (response) {
-      this.props.removePlaceAttachment(
-        this.props.place.get("id"),
-        attachmentId,
-      );
+      this.props.removePlaceAttachment(this.props.place.id, attachmentId);
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place", "fail-to-remove-attachment");
@@ -295,19 +293,14 @@ class PlaceDetailEditor extends Component {
           errors={Array.from(this.state.formValidationErrors)}
           headerMsg={this.props.t("validationErrorHeaderMsg")}
         />
-        {this.props.place
-          .get("attachments")
-          .filter(
-            attachment =>
-              attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-              constants.COVER_IMAGE_CODE,
-          )
+        {this.props.place.attachments
+          .filter(attachment => attachment.type === "CO")
           .map((attachment, i) => (
             <CoverImage
               key={i}
               isEditable={true}
-              imageUrl={attachment.get("file")}
-              attachmentId={attachment.get("id")}
+              imageUrl={attachment.file}
+              attachmentId={attachment.id}
               onClickRemove={this.onClickRemoveAttachment}
             />
           ))}
@@ -330,12 +323,12 @@ class PlaceDetailEditor extends Component {
               return (
                 fieldConfig.isVisible && (
                   <FormField
-                    existingGeometry={this.props.place.get("geometry")}
-                    existingGeometryStyle={this.props.place.get("style")}
-                    existingPlaceId={this.props.place.get("id")}
-                    datasetSlug={this.props.place.get("_datasetSlug")}
+                    existingGeometry={this.props.place.geometry}
+                    existingGeometryStyle={this.props.place.style}
+                    existingPlaceId={this.props.place.id}
+                    datasetSlug={this.props.place._datasetSlug}
                     fieldConfig={fieldConfig}
-                    attachmentModels={this.props.attachmentModels}
+                    attachments={this.props.attachments}
                     categoryConfig={this.categoryConfig}
                     disabled={this.state.isSubmitting}
                     fieldState={fieldState}
@@ -360,14 +353,14 @@ class PlaceDetailEditor extends Component {
 
 PlaceDetailEditor.propTypes = {
   activeMarker: PropTypes.string,
-  attachmentModels: PropTypes.object,
+  attachments: PropTypes.array,
   container: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
   isSubmitting: PropTypes.bool,
   onAddAttachment: PropTypes.func,
   onRequestEnd: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  place: PropTypes.object.isRequired,
+  place: placePropType.isRequired,
   placeRequestType: PropTypes.string,
   removePlace: PropTypes.func.isRequired,
   removePlaceAttachment: PropTypes.func.isRequired,

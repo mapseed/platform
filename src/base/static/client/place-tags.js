@@ -56,7 +56,7 @@ const deletePlaceTag = async url => {
       throw new Error(response.statusText);
     }
 
-    return await response.json();
+    return response;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to delete Place tag.", err);

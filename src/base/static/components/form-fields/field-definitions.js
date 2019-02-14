@@ -113,8 +113,8 @@ export default {
         bounds="#content"
       />
     ),
-    getInitialValue: ({ value, attachmentModels }) =>
-      insertEmbeddedImages(value, attachmentModels),
+    getInitialValue: ({ value, attachments }) =>
+      insertEmbeddedImages(value, attachments),
     getResponseComponent: () => RichTextareaFieldResponse,
   },
   [constants.BIG_CHECKBOX_FIELD_TYPENAME]: {

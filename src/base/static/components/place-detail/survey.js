@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map, OrderedMap, List } from "immutable";
+import { Map, OrderedMap } from "immutable";
 import emitter from "../../utils/emitter";
 import { connect } from "react-redux";
 
@@ -137,7 +137,7 @@ class Survey extends Component {
             {
               return this.props.isEditModeToggled && this.props.isEditable ? (
                 <SurveyResponseEditor
-                  key={comment.get("id")}
+                  key={comment.id}
                   isSubmitting={this.props.isSubmitting}
                   placeId={this.props.placeId}
                   placeUrl={this.props.placeUrl}
@@ -146,7 +146,7 @@ class Survey extends Component {
                 />
               ) : (
                 <SurveyResponse
-                  key={comment.get("id")}
+                  key={comment.id}
                   comment={comment}
                   onMountTargetResponse={this.props.onMountTargetResponse}
                   scrollToResponseId={this.props.scrollToResponseId}
@@ -205,7 +205,7 @@ class Survey extends Component {
 
 Survey.propTypes = {
   appConfig: appConfigPropType.isRequired,
-  comments: PropTypes.instanceOf(List),
+  comments: PropTypes.array,
   createPlaceComment: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,

@@ -51,14 +51,11 @@ var self = (module.exports = {
     var appConfig = Shareabouts.Config.app,
       shareUrl = "http://social.mapseed.org",
       components = {
-        title: place.get("title") || place.get("name") || appConfig.title,
-        desc: place.get("description") || appConfig.meta_description,
+        title: place.title || place.name || appConfig.title,
+        desc: place.description || appConfig.meta_description,
         img:
-          place.get("attachments").size > 0
-            ? place
-                .get("attachments")
-                .get(0)
-                .get("file")
+          place.attachments.length > 0
+            ? place.attachments[0].file
             : [
                 window.location.protocol,
                 "//",
@@ -70,7 +67,7 @@ var self = (module.exports = {
           "//",
           window.location.host,
           "/",
-          place.get("_datasetSlug") + "/" + place.get("id"),
+          place._datasetSlug + "/" + place.id,
         ].join(""),
       },
       $img = $("img[src='" + components.img + "']");
@@ -78,26 +75,9 @@ var self = (module.exports = {
     components["height"] = $img.height() || 630;
     components["width"] = $img.width() || 1200;
 
-    if (components.img.startsWith("data:")) {
-      //  TODO
-      //  // If the image was just created and has a data url, fetch the attachment
-      //  // collection to obtain the S3 url before contacting the sharing microservice.
-      //  return new Promise((resolve, reject) => {
-      //    model.attachmentCollection.fetch({
-      //      reset: true,
-      //      success: collection => {
-      //        components.img = collection.first().get("file");
-      //        const queryString = this.buildSharingQuerystring(components);
-      //        resolve(encodeURIComponent(`${shareUrl}${queryString}`));
-      //      },
-      //      error: _ => reject(_),
-      //    });
-      //  });
-    } else {
-      // return a promise that immediately resolves to our share url:
-      const queryString = this.buildSharingQuerystring(components);
-      return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`));
-    }
+    // return a promise that immediately resolves to our share url:
+    const queryString = this.buildSharingQuerystring(components);
+    return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`));
   },
 
   onSocialShare: function(place, service) {

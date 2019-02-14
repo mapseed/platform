@@ -45,7 +45,7 @@ class SurveyResponseEditor extends Component {
         return memo.set(
           field.name,
           Map({
-            [constants.FIELD_VALUE_KEY]: this.props.comment.get(field.name),
+            [constants.FIELD_VALUE_KEY]: this.props.comment[field.name],
           }),
         );
       }, OrderedMap());
@@ -77,7 +77,7 @@ class SurveyResponseEditor extends Component {
   onClickSave = async () => {
     const response = await mapseedApiClient.comments.update({
       placeUrl: this.props.placeUrl,
-      commentId: this.props.comment.get("id"),
+      commentId: this.props.comment.id,
       commentData: this.getCommentData(),
     });
 
@@ -95,7 +95,7 @@ class SurveyResponseEditor extends Component {
   onClickRemove = async () => {
     const response = await mapseedApiClient.comments.update({
       placeUrl: this.props.placeUrl,
-      commentId: this.props.comment.get("id"),
+      commentId: this.props.comment.id,
       commentData: {
         ...this.getCommentData(),
         visible: false,
@@ -106,10 +106,7 @@ class SurveyResponseEditor extends Component {
       this.setState({
         isModified: false,
       });
-      this.props.removePlaceComment(
-        this.props.placeId,
-        this.props.comment.get("id"),
-      );
+      this.props.removePlaceComment(this.props.placeId, this.props.comment.id);
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "comments", "fail-to-remove-comment");
@@ -158,9 +155,6 @@ class SurveyResponseEditor extends Component {
                 fieldState={this.state.fields.get(fieldConfig.name)}
                 isInitializing={this.state.isInitializing}
                 key={fieldConfig.name}
-                modelId={this.props.comment.get(
-                  constants.MODEL_ID_PROPERTY_NAME,
-                )}
                 onFieldChange={this.onFieldChange.bind(this)}
                 showValidityStatus={this.state.showValidityStatus}
                 updatingField={this.state.updatingField}
@@ -180,11 +174,7 @@ class SurveyResponseEditor extends Component {
             />
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
-                <Time
-                  time={this.props.comment.get(
-                    constants.CREATED_DATETIME_PROPERTY_NAME,
-                  )}
-                />
+                <Time time={this.props.comment.created_datetime} />
               </SmallText>
             )}
           </div>
@@ -196,7 +186,7 @@ class SurveyResponseEditor extends Component {
 
 SurveyResponseEditor.propTypes = {
   appConfig: appConfigPropType.isRequired,
-  comment: PropTypes.instanceOf(Map),
+  comment: PropTypes.object,
   isSubmitting: PropTypes.bool.isRequired,
   placeId: PropTypes.number.isRequired,
   placeUrl: PropTypes.string.isRequired,

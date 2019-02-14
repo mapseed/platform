@@ -3,15 +3,9 @@ import constants from "../constants";
 // Replace rich text image markup with <img /> tags.
 const insertEmbeddedImages = (html, attachments) => {
   const images = attachments
-    .filter(
-      attributes =>
-        attributes.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-        constants.RICH_TEXT_IMAGE_CODE,
-    )
-    .reduce((images, attributes) => {
-      images[
-        attributes.get(constants.ATTACHMENT_NAME_PROPERTY_NAME)
-      ] = attributes.get(constants.ATTACHMENT_FILE_PROPERTY_NAME);
+    .filter(attachment => attachment.type === "RT")
+    .reduce((images, attachment) => {
+      images[attachment.name] = attachment.file;
       return images;
     }, {});
   const regex = new RegExp(

@@ -1,3 +1,9 @@
+import {
+  fromGeoJSONFeature,
+  fromGeoJSONFeatureCollection,
+  toGeoJSONFeature,
+} from "../utils/place-utils";
+
 const status = response => {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response);
@@ -6,25 +12,72 @@ const status = response => {
   }
 };
 
-// Turn GeoJSON FeatureCollections into plain objects of Place data.
-const fromGeoJSONFeatureCollection = async ({
-  featureCollection,
-  datasetSlug,
-  clientSlug,
-}) =>
-  await featureCollection.features.map(feature => ({
-    geometry: feature.geometry,
-    // Add a private field for the slug each Place belongs to, so we can
-    // filter by dataset when we need to.
-    _datasetSlug: datasetSlug,
-    _clientSlug: clientSlug,
-    ...feature.properties,
-  }));
-
 const buildQuerystring = params =>
   Object.entries(params).reduce((querystring, [param, value]) => {
     return `${querystring}&${param}=${value}`;
   }, "?");
+
+// TODO: include_private_places and include_private_fields ??
+const updatePlace = async ({
+  placeUrl,
+  placeData,
+  datasetSlug,
+  clientSlug,
+}) => {
+  try {
+    placeData = toGeoJSONFeature(placeData);
+    return await fetch(
+      `${placeUrl}${buildQuerystring({
+        include_tags: true,
+        include_submissions: true,
+      })}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shareabouts-Silent": true, // To prevent new Actions on update.
+        },
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify(placeData),
+      },
+    )
+      .then(status)
+      .then(data => data.json())
+      .then(feature =>
+        fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
+      );
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to update Place.", err);
+  }
+};
+
+const createPlace = async ({
+  datasetUrl,
+  placeData,
+  datasetSlug,
+  clientSlug,
+}) => {
+  try {
+    placeData = toGeoJSONFeature(placeData);
+    return await fetch(`${datasetUrl}/places?include_tags`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify(placeData),
+    })
+      .then(status)
+      .then(data => data.json())
+      .then(feature =>
+        fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
+      );
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to create Place.", err);
+  }
+};
 
 const getPlaces = async ({
   url,
@@ -108,6 +161,6 @@ const getPlaces = async ({
 
 export default {
   get: getPlaces,
-  //create: createPlace,
-  //update: updatePlace,
+  create: createPlace,
+  update: updatePlace,
 };

@@ -7,6 +7,8 @@ import { RegularTitle, RegularText } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 
+import { placePropType } from "../../state/ducks/places"
+
 const ActionSummary = styled("ul")({
   padding: 0,
 });
@@ -21,20 +23,19 @@ const ActionSummaryItem = styled("li")(props => ({
 
 const SnohomishFieldSummary = props => {
   const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
-    fieldConfig => props.place.get(fieldConfig.name) === "yes",
+    fieldConfig => props.place[fieldConfig.name] === "yes",
   );
   const numActions = fieldConfigs.length;
-  const description = props.place.get("practices_description");
+  const description = props.place.practices_description;
 
   return (
     <div>
       <RegularTitle>{numActions} Actions</RegularTitle>
       <HorizontalRule spacing="tiny" />
-      {props.place
-        .get("attachments")
-        .filter(attachment => attachment.get("type") === "CO")
+      {props.place.attachments
+        .filter(attachment => attachment.type === "CO")
         .map((attachment, i) => (
-          <CoverImage key={i} imageUrl={attachment.get("file")} />
+          <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       {description && <RegularText>{description}</RegularText>}
       <ActionSummary>
@@ -48,7 +49,7 @@ const SnohomishFieldSummary = props => {
             <ActionSummaryItem key={fieldConfig.name} idx={idx}>
               <RegularText>{fieldConfig.label}</RegularText>
               <RegularText>
-                {props.place.get(actionQuantityConfig.name)}{" "}
+                {props.place[actionQuantityConfig.name]}{" "}
                 {actionQuantityConfig.metadata &&
                   actionQuantityConfig.metadata.units}
               </RegularText>
@@ -62,7 +63,7 @@ const SnohomishFieldSummary = props => {
 
 SnohomishFieldSummary.propTypes = {
   fields: PropTypes.array.isRequired,
-  place: PropTypes.object.isRequired,
+  place: placePropType.isRequired,
 };
 
 export default SnohomishFieldSummary;

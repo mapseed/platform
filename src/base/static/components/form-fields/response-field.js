@@ -62,7 +62,7 @@ ResponseField.propTypes = {
     PropTypes.object,
     PropTypes.number,
   ]).isRequired,
-  attachments: PropTypes.instanceOf(List),
+  attachments: PropTypes.array,
 };
 
 export default ResponseField;

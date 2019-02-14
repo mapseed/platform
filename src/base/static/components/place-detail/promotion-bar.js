@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import { Map } from "immutable";
 
 import styled from "react-emotion";
 import SupportButton from "../ui-elements/support-button";
@@ -32,11 +31,12 @@ class PromotionBar extends Component {
     if (this.props.userSupport) {
       // If we already have user support for the current user token, we should
       // unsupport.
-      const supportId = this.props.userSupport.get("id");
+      const supportId = this.props.userSupport.id;
       const response = await mapseedApiClient.support.delete(
         this.props.placeUrl,
         supportId,
       );
+
       if (response) {
         this.props.removePlaceSupport(this.props.placeId, supportId);
         Util.log("USER", "place", "successfully-unsupport");
@@ -105,7 +105,7 @@ PromotionBar.propTypes = {
   isHorizontalLayout: PropTypes.bool.isRequired,
   numSupports: PropTypes.number,
   onSocialShare: PropTypes.func.isRequired,
-  userSupport: PropTypes.instanceOf(Map),
+  userSupport: PropTypes.object,
   userToken: PropTypes.string,
   placeId: PropTypes.number.isRequired,
   placeUrl: PropTypes.string.isRequired,

@@ -34,7 +34,7 @@ const deleteSupport = async (placeUrl, supportId) => {
       throw new Error(response.statusText);
     }
 
-    return await response.json();
+    return response;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to delete support.", err);

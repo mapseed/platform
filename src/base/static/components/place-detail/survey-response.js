@@ -21,7 +21,7 @@ import "./survey-response.scss";
 
 class SurveyResponse extends Component {
   componentDidMount() {
-    if (this.props.comment.get("id") === this.props.scrollToResponseId) {
+    if (this.props.comment.id === this.props.scrollToResponseId) {
       this.props.onMountTargetResponse(this.responseRef);
     }
   }
@@ -44,7 +44,7 @@ class SurveyResponse extends Component {
                 key={field.name}
                 className="place-detail-survey-response__paragraph"
               >
-                {this.props.comment.get(field.name)}
+                {this.props.comment[field.name]}
               </p>
             ))}
         </div>
@@ -57,17 +57,14 @@ class SurveyResponse extends Component {
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
               submitterName={
-                this.props.comment.get(constants.SUBMITTER_NAME) ||
-                this.props.comment.getIn([
-                  constants.SUBMITTER,
-                  constants.NAME_PROPERTY_NAME,
-                ])
+                this.props.comment.submitter &&
+                this.props.comment.submitter.name
               }
               anonymousName={this.props.placeConfig.anonymous_name}
             />
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
-                <Time time={this.props.comment.get("created_datetime")} />
+                <Time time={this.props.comment.created_datetime} />
               </SmallText>
             )}
           </div>

@@ -989,8 +989,5 @@
         "<iframe src='http://www.123contactform.com/form-1169694/PB-Oakland-Contact-Us' height='400' width=100% </iframe>"
       ]
     }
-  ],
-  "custom_hooks": {
-    "onDetailViewMount": "pbOaklandDetailViewMount"
-  }
+  ]
 }
