@@ -14,6 +14,7 @@ export const datasetConfigPropType = PropTypes.arrayOf(
   PropTypes.shape({
     url: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
+    clientSlug: PropTypes.string.isRequired,
     anonymous_permissions: PropTypes.arrayOf(
       PropTypes.shape({
         abilities: PropTypes.arrayOf(PropTypes.string).isRequired,

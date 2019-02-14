@@ -664,7 +664,8 @@ export default Backbone.View.extend({
     if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadDatasets();
     }
-    // TODO: Direct load to place.
+    // TODO: Restore the ability to fetch a single place's data on a direct
+    // route to that place and render immediately.
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }

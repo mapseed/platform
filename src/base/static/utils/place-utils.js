@@ -23,21 +23,20 @@ const createGeoJSONFromPlaces = places => {
   };
 };
 
-const fromGeoJSONFeature = async ({ feature, datasetSlug, clientSlug }) =>
-  await {
-    geometry: feature.geometry,
-    _datasetSlug: datasetSlug,
-    _clientSlug: clientSlug,
-    ...feature.properties,
-  };
+const fromGeoJSONFeature = ({ feature, datasetSlug, clientSlug }) => ({
+  geometry: feature.geometry,
+  _datasetSlug: datasetSlug,
+  _clientSlug: clientSlug,
+  ...feature.properties,
+});
 
 // Turn GeoJSON FeatureCollections into plain objects of Place data.
-const fromGeoJSONFeatureCollection = async ({
+const fromGeoJSONFeatureCollection = ({
   featureCollection,
   datasetSlug,
   clientSlug,
 }) =>
-  await featureCollection.features.map(feature => ({
+  featureCollection.features.map(feature => ({
     geometry: feature.geometry,
     // Add a private field for the slug each Place belongs to, so we can
     // filter by dataset when we need to.

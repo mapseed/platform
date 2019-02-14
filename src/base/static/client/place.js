@@ -1,3 +1,5 @@
+import qs from "qs";
+
 import {
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
@@ -12,11 +14,6 @@ const status = response => {
   }
 };
 
-const buildQuerystring = params =>
-  Object.entries(params).reduce((querystring, [param, value]) => {
-    return `${querystring}&${param}=${value}`;
-  }, "?");
-
 // TODO: include_private_places and include_private_fields ??
 const updatePlace = async ({
   placeUrl,
@@ -26,8 +23,8 @@ const updatePlace = async ({
 }) => {
   try {
     placeData = toGeoJSONFeature(placeData);
-    return await fetch(
-      `${placeUrl}${buildQuerystring({
+    const response = await fetch(
+      `${placeUrl}?${qs.stringify({
         include_tags: true,
         include_submissions: true,
       })}`,
@@ -40,12 +37,15 @@ const updatePlace = async ({
         method: "PUT",
         body: JSON.stringify(placeData),
       },
-    )
-      .then(status)
-      .then(data => data.json())
-      .then(feature =>
-        fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
-      );
+    );
+
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error(response.statusText);
+    }
+
+    const feature = await response.json();
+
+    return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to update Place.", err);
@@ -60,19 +60,23 @@ const createPlace = async ({
 }) => {
   try {
     placeData = toGeoJSONFeature(placeData);
-    return await fetch(`${datasetUrl}/places?include_tags`, {
+
+    const response = await fetch(`${datasetUrl}/places?include_tags`, {
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
       method: "POST",
       body: JSON.stringify(placeData),
-    })
-      .then(status)
-      .then(data => data.json())
-      .then(feature =>
-        fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
-      );
+    });
+
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error(response.statusText);
+    }
+
+    const feature = await response.json();
+
+    return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to create Place.", err);
@@ -87,7 +91,6 @@ const getPlaces = async ({
   clientSlug,
 }) => {
   try {
-    let firstPageMetadata;
     placeParams = includePrivate
       ? {
           ...placeParams,
@@ -96,63 +99,58 @@ const getPlaces = async ({
         }
       : placeParams;
 
-    const firstPagePromise = fetch(`${url}${buildQuerystring(placeParams)}`, {
+    const response = await fetch(`${url}?${qs.stringify(placeParams)}`, {
       credentials: "include",
-    })
-      .then(status)
-      .then(data => data.json())
-      .then(data => {
-        // Peel off the first page's metadata so we can retain it before
-        // transforming the first page from a GeoJSON collection.
-        firstPageMetadata = data.metadata;
+    });
 
-        return Promise.resolve(data);
-      })
-      .then(featureCollection =>
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error(response.statusText);
+    }
+
+    const firstPage = await response.json();
+    const placePagePromises = [];
+
+    // Fetch additional pages of data, if they exist.
+    if (firstPage.metadata.next) {
+      const pageSize = firstPage.features.length;
+      const totalPages =
+        pageSize > 0 ? Math.ceil(firstPage.metadata.length / pageSize) : 0;
+
+      for (let i = 2; i <= totalPages; i++) {
+        placeParams = { ...placeParams, page: i };
+        placePagePromises.push(
+          fetch(`${url}?${qs.stringify(placeParams)}`, {
+            credentials: "include",
+          })
+            .then(status)
+            .then(data => data.json())
+            .then(featureCollection =>
+              fromGeoJSONFeatureCollection({
+                featureCollection,
+                datasetSlug,
+                clientSlug,
+              }),
+            ),
+        );
+      }
+    }
+
+    // Promisfy the first page and add it to the array of returned Promises.
+    placePagePromises.push(
+      Promise.resolve(
         fromGeoJSONFeatureCollection({
-          featureCollection,
+          featureCollection: firstPage,
           datasetSlug,
           clientSlug,
         }),
-      );
-
-    const placePagePromises = [firstPagePromise];
-
-    await firstPagePromise.then(data => {
-      // Fetch additional pages of data, if they exist.
-      if (firstPageMetadata.next) {
-        const pageSize = data.length;
-        const totalPages =
-          pageSize > 0 ? Math.ceil(firstPageMetadata.length / pageSize) : 0;
-
-        for (let i = 2; i <= totalPages; i++) {
-          placeParams = { ...placeParams, page: i };
-          placePagePromises.push(
-            fetch(`${url}${buildQuerystring(placeParams)}`, {
-              credentials: "include",
-            })
-              .then(status)
-              .then(data => data.json())
-              .then(featureCollection =>
-                fromGeoJSONFeatureCollection({
-                  featureCollection,
-                  datasetSlug,
-                  clientSlug,
-                }),
-              ),
-          );
-        }
-      }
-    });
+      ),
+    );
 
     // Note that this method returns an array of Promises, each of which will
     // resolve to a page of Place data transformed from GeoJSON. We return
     // these Promises so the calling code can act on pages of data as they
     // resolve one by one.
-    return placePagePromises.reduce(
-      (flat, toFlatten) => flat.concat(toFlatten),
-      [],
-    );
+    return placePagePromises;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error: Failed to fetch places.", err);
