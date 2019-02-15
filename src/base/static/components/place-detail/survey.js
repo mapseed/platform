@@ -142,7 +142,6 @@ class Survey extends Component {
                   placeId={this.props.placeId}
                   placeUrl={this.props.placeUrl}
                   comment={comment}
-                  submitter={this.props.submitter}
                 />
               ) : (
                 <SurveyResponse
@@ -150,7 +149,6 @@ class Survey extends Component {
                   comment={comment}
                   onMountTargetResponse={this.props.onMountTargetResponse}
                   scrollToResponseId={this.props.scrollToResponseId}
-                  submitter={this.props.submitter}
                 />
               );
             }

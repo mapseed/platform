@@ -164,12 +164,19 @@ class SurveyResponseEditor extends Component {
         <div className="place-detail-survey-response__metadata-bar">
           <Avatar
             className="place-detail-survey-response__avatar"
-            src={this.props.submitter.avatar_url}
+            src={
+              this.props.comment.submitter
+                ? this.props.comment.submitter.avatar_url
+                : undefined
+            }
           />
           <div className="place-detail-survey-response__details-container">
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
-              submitter={this.props.submitter}
+              submitter={
+                this.props.comment.submitter &&
+                this.props.comment.submitter.name
+              }
               anonymousName={this.props.placeConfig.anonymous_name}
             />
             {this.props.appConfig.show_timestamps && (
@@ -191,9 +198,6 @@ SurveyResponseEditor.propTypes = {
   placeId: PropTypes.number.isRequired,
   placeUrl: PropTypes.string.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  submitter: PropTypes.shape({
-    avatar_url: PropTypes.string,
-  }),
   updatePlaceComment: PropTypes.func.isRequired,
   removePlaceComment: PropTypes.func.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
