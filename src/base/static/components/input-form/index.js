@@ -390,7 +390,9 @@ class InputForm extends Component {
       });
     } else {
       this.props.router.navigate(
-        `${this.selectedCategoryConfig.placeSlug}/${place.id}`,
+        `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+          place.id
+        }`,
         {
           trigger: true,
         },

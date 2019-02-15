@@ -97,9 +97,10 @@
       },
       {
         "id": "satellite",
-        "is_basemap": true,
         "type": "raster-tile",
-        "url": "https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
+        "is_basemap": true,
+        "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
       },
       {
         "id": "light-nolabels",
