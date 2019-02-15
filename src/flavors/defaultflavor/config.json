@@ -2,15 +2,19 @@
   "datasets": [
     {
       "slug": "demo",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
+      "clientSlug": "demo",
       "anonymous_permissions": [
         {
-          "abilities": ["retrieve"],
-          "submission_set": "comments"
+          "abilities": ["create"],
+          "submission_set": "*"
         }
       ]
     },
     {
       "slug": "demo2",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
+      "clientSlug": "demo2",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -62,7 +66,7 @@
     "layers": [
       {
         "id": "demo2",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
+        "datasetSlug": "demo2",
         "type": "place",
         "slug": "demo2",
         "focus_rules": [
@@ -117,7 +121,7 @@
       },
       {
         "id": "demo",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
+        "datasetSlug": "demo",
         "type": "place",
         "is_visible_default": true,
         "slug": "demo",
@@ -1468,7 +1472,7 @@
       "default_visible_layers": ["demo", "sample-vector"],
       "order": [
         {
-          "url": "demo/21",
+          "placeId": 21,
           "pan_to": [-122.57256740778439, 47.44334015969261],
           "zoom": 10
         }

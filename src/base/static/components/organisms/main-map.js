@@ -236,15 +236,17 @@ class MainMap extends Component {
       },
     });
 
-    // Handlers for Mapseed place collections.
+    // Handlers for Mapseed datasets.
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        datasetId => {
+        datasetSlug => {
           this._map.updateLayerData(
-            datasetId,
+            datasetSlug,
             createGeoJSONFromPlaces(
-              this.props.places.filter(place => place.datasetId === datasetId),
+              this.props.places.filter(
+                place => place._datasetSlug === datasetSlug,
+              ),
             ),
           );
         },
@@ -253,11 +255,13 @@ class MainMap extends Component {
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
-        datasetId => {
+        datasetSlug => {
           this._map.updateLayerData(
-            datasetId,
+            datasetSlug,
             createGeoJSONFromPlaces(
-              this.props.places.filter(place => place.datasetId === datasetId),
+              this.props.places.filter(
+                place => place._datasetSlug === datasetSlug,
+              ),
             ),
           );
           this._map.unfocusAllPlaceLayerFeatures();
@@ -267,28 +271,31 @@ class MainMap extends Component {
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
-        ({ datasetId, modelId }) => {
+        ({ datasetSlug, placeId }) => {
           // To focus a feature in a layer, we first remove it from the origin layer
           // above, then add it to a separate focused layer. That way we can control
           // the focused layer independently of the source layer and ensure focused
           // features always render above all other features.
           // TODO: Support multiple focused features simultaneously.
           const focusedFeatures = createGeoJSONFromPlaces(
-            this.props.places.filter(place => place.id === modelId),
+            this.props.places.filter(place => place.id === placeId),
           );
 
-          this._map.focusPlaceLayerFeatures(datasetId, focusedFeatures);
+          this._map.focusPlaceLayerFeatures(datasetSlug, focusedFeatures);
         },
       ),
     );
     this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_HIDE_PLACE_EVENT,
-        ({ datasetId, modelId }) => {
+        ({ datasetSlug, placeId }) => {
           this._map.updateLayerData(
-            datasetId,
+            datasetSlug,
             createGeoJSONFromPlaces(
-              this.props.places.filter(place => place.id !== modelId),
+              this.props.places.filter(
+                place =>
+                  place._datasetSlug === datasetSlug && place.id !== placeId,
+              ),
             ),
           );
         },
@@ -306,12 +313,12 @@ class MainMap extends Component {
                 status.loadStatus === "loaded",
             )
             .forEach(status => {
-              const datasetId = status.id;
+              const datasetSlug = status.id;
               this._map.updateLayerData(
-                datasetId,
+                datasetSlug,
                 createGeoJSONFromPlaces(
                   this.props.places.filter(
-                    place => place.datasetId === datasetId,
+                    place => place._datasetSlug === datasetSlug,
                   ),
                 ),
               );
@@ -393,22 +400,18 @@ class MainMap extends Component {
     if (this.props.activeDrawGeometryId) {
       // Update styling for in-progress geometry being drawn with the
       // MapDrawingToolbar.
-      if (this.props.activeMarker !== prevProps.activeMarker) {
-        this._map.drawSetFeatureProperty(
-          this.props.activeDrawGeometryId,
-          constants.MARKER_ICON_PROPERTY_NAME,
-          this.props.activeMarker,
-        );
-      }
+      this._map.drawSetFeatureProperty(
+        this.props.activeDrawGeometryId,
+        constants.MARKER_ICON_PROPERTY_NAME,
+        this.props.activeMarker,
+      );
       Object.entries(this.props.geometryStyle).forEach(
         ([styleProperty, value]) => {
-          if (value !== prevProps.geometryStyle[styleProperty]) {
-            this._map.drawSetFeatureProperty(
-              this.props.activeDrawGeometryId,
-              styleProperty,
-              value,
-            );
-          }
+          this._map.drawSetFeatureProperty(
+            this.props.activeDrawGeometryId,
+            styleProperty,
+            value,
+          );
         },
       );
     }
@@ -422,22 +425,19 @@ class MainMap extends Component {
       });
     }
 
-    // Check if a layer's visibibility or load status has changed:
+    // Check if a layer's visibility or load status has changed:
     for (let layerId in this.props.layerStatuses) {
+      const layer = this.props.layers.find(layer => layer.id === layerId);
       const layerStatus = this.props.layerStatuses[layerId];
       const prevLayerStatus = prevProps.layerStatuses[layerId];
+
       if (layerStatus.isVisible !== prevLayerStatus.isVisible) {
         if (layerStatus.isVisible) {
           // A layer has been switched on.
-          this.addLayer(
-            this.props.layers.find(layer => layer.id === layerId),
-            layerStatus.isBasemap,
-          );
+          this.addLayer(layer, layerStatus.isBasemap);
         } else {
           // A layer has been switched off.
-          this._map.removeLayer(
-            this.props.layers.find(layer => layer.id === layerId),
-          );
+          this._map.removeLayer(layer);
         }
       }
 
@@ -446,27 +446,25 @@ class MainMap extends Component {
         prevLayerStatus.loadStatus === "fetching"
       ) {
         // A layer's data has been fetched, so now we add it to the map:
-        this.addLayer(
-          this.props.layers.find(layer => layer.id === layerId),
-          layerStatus.isBasemap,
-        );
+        // TODO: Paginated loading.
+        this.addLayer(layer, layerStatus.isBasemap);
       }
     }
 
     // Update place datasets when filters have been updated:
     if (prevProps.filters.length !== this.props.filters.length) {
-      const datasetIds = this.props.layers
+      const datasetSlugs = this.props.layers
         .filter(layerConfig => layerConfig.type === "place")
-        .map(layerConfig => layerConfig.id);
-      datasetIds.forEach(datasetId => {
+        .map(layerConfig => layerConfig.datasetSlug);
+      datasetSlugs.forEach(datasetSlug => {
         const layerConfig = this.props.layers.find(
-          layer => layer.id === datasetId,
+          layer => layer.id === datasetSlug,
         );
         this._map.updateLayerData(
-          layerConfig.id,
+          layerConfig.datasetSlug,
           createGeoJSONFromPlaces(
             this.props.places.filter(
-              place => place.datasetId === layerConfig.id,
+              place => place._datasetSlug === layerConfig.datasetSlug,
             ),
           ),
         );
@@ -481,7 +479,9 @@ class MainMap extends Component {
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
       layer.source = createGeoJSONFromPlaces(
-        this.props.places.filter(place => place.datasetId === layer.id),
+        this.props.places.filter(
+          place => place._datasetSlug === layer.datasetSlug,
+        ),
       );
 
       this._map.addLayer({

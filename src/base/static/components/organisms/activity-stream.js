@@ -1,53 +1,38 @@
 import React, { Component } from "react";
-import styled from "react-emotion";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { List, fromJS } from "immutable";
 
-import ActionCollection from "../../js/models/action-collection.js";
 import mapseedApiClient from "../../client/mapseed-api-client";
 
 import ActivityItem from "../molecules/activity-item";
 
-import { mapPlaceLayersSelector } from "../../state/ducks/map-config";
 import {
   commentFormConfigPropType,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-
-import constants from "../../constants";
+import { loadActivity, activitySelector } from "../../state/ducks/activity";
+import {
+  datasetConfigsSelector,
+  datasetConfigPropType,
+} from "../../state/ducks/datasets-config";
+import { placeSelector } from "../../state/ducks/places";
 
 class ActivityStream extends Component {
-  state = {
-    activityModels: List(),
+  fetchActivity = async () => {
+    const activityPromises = await Promise.all(
+      this.props.datasetConfigs.map(config =>
+        mapseedApiClient.activity.get(config.url, config.clientSlug),
+      ),
+    );
+    const activityData = await Promise.all(
+      activityPromises.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+    );
+
+    this.props.loadActivity(activityData);
   };
-  slugProperty = "__slug";
-  collectionIdProperty = "__collectionId";
-  placeIdProperty = "__placeId";
-  activities = this.props.placeLayers.map(placeLayer => ({
-    slug: placeLayer.slug,
-    collectionId: placeLayer.id,
-    collection: new ActionCollection([], {
-      url: `${placeLayer.url}/actions`,
-    }),
-  }));
 
-  componentDidMount() {
-    this.activities.forEach(activity => {
-      activity.collection.on(
-        "add",
-        model => {
-          this.onAddAction({
-            model: model,
-            slug: activity.slug,
-            collectionId: activity.collectionId,
-          });
-        },
-        this,
-      );
-    });
-
+  async componentDidMount() {
     // TODO: Refactor polling for websockets.
     // In the meantime, we've hard-coded a generous polling interval of 45
     // seconds.
@@ -59,101 +44,50 @@ class ActivityStream extends Component {
 
   componentWillUnmount() {
     clearInterval(this.pollingIntervalId);
-    this.activities.forEach(activity => {
-      activity.collection.off("add", null, this);
-    });
-  }
-
-  successCallback(model) {
-    // When the collection has fetched successfully, sort activities in reverse
-    // chronological order.
-    this.setState({
-      activityModels: this.state.activityModels.sort((a, b) => {
-        return (
-          new Date(b.get(constants.CREATED_DATETIME_PROPERTY_NAME)) -
-          new Date(a.get(constants.CREATED_DATETIME_PROPERTY_NAME))
-        );
-      }),
-    });
-  }
-
-  fetchActivity() {
-    mapseedApiClient.activity.get(
-      this.activities.map(activity => [
-        activity.collection,
-        this.successCallback.bind(this),
-      ]),
-    );
-  }
-
-  onAddAction({ model, slug, collectionId }) {
-    // Get the id of the place related to this action.
-    model.attributes[this.placeIdProperty] = model.get(
-      constants.TARGET_PROPERTY_NAME,
-    ).place
-      ? model
-          .get(constants.TARGET_PROPERTY_NAME)
-          .place.split("/")
-          .slice(-1)[0]
-      : model.get(constants.TARGET_PROPERTY_NAME).id;
-    model.attributes[this.slugProperty] = slug;
-    model.attributes[this.collectionIdProperty] = collectionId;
-
-    // When we get a new activity model, just unshift it to the front of the
-    // List of serialized models.
-    this.setState({
-      activityModels: this.state.activityModels.unshift(
-        fromJS(model.attributes),
-      ),
-    });
   }
 
   render() {
     return (
       <ul style={{ paddingLeft: 0, marginTop: 0 }}>
-        {this.state.activityModels.map((activityModel, i) => {
-          const submitterName = activityModel
-            .get(constants.TARGET_PROPERTY_NAME)
-            .get(constants.SUBMITTER_NAME);
-          const target = activityModel.get(constants.TARGET_PROPERTY_NAME);
-          const collectionId = activityModel.get(this.collectionIdProperty);
-          const placeId = activityModel.get(this.placeIdProperty);
-          const slug = activityModel.get(this.slugProperty);
+        {this.props.activity.map((activity, i) => {
+          const target = activity.target;
+          const submitterName =
+            (target.submitter && target.submitter.name) ||
+            target.submitter_name;
           let title;
           let anonymousName;
           let url;
           let actionText;
+          let place;
 
           // We support activity for place and comment creation.
-          switch (activityModel.get("target_type")) {
+          switch (activity.target_type) {
             case "place":
               // To derive the title for place activity, we assume there is
               // always a model attribute called "title".
-              title = activityModel
-                .get(constants.TARGET_PROPERTY_NAME)
-                .get(constants.TITLE_PROPERTY_NAME);
+              title = target.title;
               anonymousName = this.props.placeConfig.anonymous_name;
               actionText = this.props.placeConfig.action_text;
-              url = `/${slug}/${placeId}`;
+              url = `/${activity._clientSlug}/${target.id}`;
               break;
             case "comments":
               // To derive the title for comment activity, we look up the
               // corresponding place model and assume there is a field on
               // that model called "title".
-              title =
-                this.props.places[collectionId].get(placeId) &&
-                this.props.places[collectionId]
-                  .get(placeId)
-                  .get(constants.TITLE_PROPERTY_NAME);
+              place =
+                this.props.placeSelector(
+                  target.place.split("/").slice(-1)[0],
+                ) || {};
+              title = place && place.title;
               anonymousName = this.props.commentFormConfig.anonymous_name;
               actionText = this.props.commentFormConfig.action_text;
-              url = `/${slug}/${placeId}/response/${target.get(
-                constants.MODEL_ID_PROPERTY_NAME,
-              )}`;
+              url = `/${activity._clientSlug}/${place.id}/response/${
+                target.id
+              }`;
               break;
             default:
               // If there are other action types in the collection (like
-              // supports), return null.
+              // supports), do not render them.
               return null;
           }
 
@@ -173,19 +107,30 @@ class ActivityStream extends Component {
 }
 
 ActivityStream.propTypes = {
+  activity: PropTypes.array.isRequired, // TODO
+  datasetConfigs: datasetConfigPropType,
+  loadActivity: PropTypes.func.isRequired,
   placeConfig: PropTypes.shape({
     action_text: PropTypes.string.isRequired,
     anonymous_name: PropTypes.string.isRequired,
   }).isRequired,
-  placeLayers: PropTypes.array.isRequired,
-  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
+  placeSelector: PropTypes.func.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
+  activity: activitySelector(state),
+  datasetConfigs: datasetConfigsSelector(state),
   placeConfig: placeConfigSelector(state),
-  placeLayers: mapPlaceLayersSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
+  placeSelector: placeId => placeSelector(state, placeId),
 });
 
-export default connect(mapStateToProps)(ActivityStream);
+const mapDispatchToProps = dispatch => ({
+  loadActivity: activity => dispatch(loadActivity(activity)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ActivityStream);

@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { storyConfigSelector } from "../../state/ducks/story-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { placesPropType } from "../../state/ducks/places";
+import {
+  placesPropType,
+  placesLoadStatusSelector,
+} from "../../state/ducks/places";
 
 import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 import Immutable from "immutable";
@@ -23,45 +26,54 @@ class StoryNavigator extends Component {
 
     this.state = {
       currentStory: Immutable.Map(),
-      currentRoute: "",
+      currentPlaceId: null,
       isStoryDataReady: false,
       isWithError: false,
     };
+
+    this.stories = [];
   }
 
+  onRoute = (_, route) => {
+    const currentStoryState = this.getCurrentStoryState(route[1]);
+    currentStoryState && this.setState(currentStoryState);
+  };
+
   componentDidMount() {
-    try {
+    this.props.router.on("route", this.onRoute);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.placesLoadStatus !== "loaded" &&
+      this.props.placesLoadStatus === "loaded"
+    ) {
       // TODO(luke): implement hydrateStoriesFromConfig here
-      const stories = hydrateStoriesFromConfig({
+      this.stories = hydrateStoriesFromConfig({
         places: this.props.places,
         storyConfig: this.props.storyConfig,
       });
-      this.stories = stories;
 
-      this.props.router.on("route", (fn, route) => {
-        const currentStoryState = this.getCurrentStoryState(route.join("/"));
-        currentStoryState && this.setState(currentStoryState);
-      });
-      this.setState(
-        this.getCurrentStoryState(Backbone.history.getFragment(), false),
-      );
-    } catch (e) {
-      // TODO(luke): use a logger to log the exception here
-      this.setState({
-        isWithError: true,
-      });
+      const placeId = Backbone.history.getFragment().split("/")[1];
+      this.setState(this.getCurrentStoryState(placeId, false));
     }
   }
 
-  getCurrentStoryState(route, isInitialized = true) {
+  componentWillUnmount() {
+    this.props.router.off("route", this.onRoute);
+  }
+
+  getCurrentStoryState(placeId, isInitialized = true) {
+    placeId = parseInt(placeId);
+
     const currentStory = this.stories.find(story => {
-      return story.get("chapters").get(route);
+      return story.get("chapters").get(placeId);
     });
 
     if (currentStory) {
       return {
         currentStory: currentStory,
-        currentRoute: route,
+        currentPlaceId: placeId,
         isStoryDataReady: true,
       };
     } else if (!isInitialized) {
@@ -71,7 +83,7 @@ class StoryNavigator extends Component {
       };
     } else {
       return {
-        currentRoute: route,
+        currentPlaceId: placeId,
         isStoryDataReady: true,
       };
     }
@@ -138,8 +150,10 @@ class StoryNavigator extends Component {
                   key={route}
                   title={this.getTitle(chapter)}
                   iconUrl={this.getIconUrl(chapter, route)}
-                  isSelected={this.state.currentRoute === route}
-                  placeUrl={route}
+                  isSelected={this.state.currentPlaceId === chapter.get("id")}
+                  placeUrl={`${chapter.get("_clientSlug")}/${chapter.get(
+                    "id",
+                  )}`}
                 />
               );
             })
@@ -160,13 +174,14 @@ StoryNavigator.propTypes = {
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }).isRequired,
-
   places: placesPropType.isRequired,
+  placesLoadStatus: PropTypes.string.isRequired,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  placesLoadStatus: placesLoadStatusSelector(state),
   storyConfig: storyConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });

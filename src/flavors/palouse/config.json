@@ -1,7 +1,9 @@
 {
   "datasets": [
     {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input",
       "slug": "palouse-input",
+      "clientSlug": "report",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -339,10 +341,9 @@
       },
       {
         "id": "palouse-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input",
         "is_visible_default": true,
+        "datasetSlug": "palouse-input",
         "type": "place",
-        "slug": "report",
         "focus_rules": [
           {
             "symbol-layout": {

@@ -2,6 +2,8 @@
   "datasets": [
     {
       "slug": "pbdurham",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
+      "clientSlug": "idea",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
@@ -252,10 +254,9 @@
       },
       {
         "id": "pbdurham",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
         "type": "place",
+        "datasetSlug": "pbdurham",
         "feature_types": ["Point"],
-        "slug": "idea",
         "is_visible_default": true,
         "focus_rules": [
           {

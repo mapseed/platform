@@ -12,6 +12,8 @@ import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 
+import { datasetUrlSelector } from "../../state/ducks/datasets";
+
 const DragMapAlert = styled("div")({
   backgroundColor: "#ffc107",
   color: "#fff",
@@ -39,14 +41,29 @@ class FormCategoryMenuWrapper extends Component {
             datasetSlugs: [config.datasetSlug],
           })),
     );
-    this.state = {
-      selectedCategory:
-        this.visibleCategoryConfigs.length === 1
-          ? this.visibleCategoryConfigs[0].category
-          : null,
-      isShowingCategorySelector: this.visibleCategoryConfigs.length !== 1,
-      isSingleCategory: this.visibleCategoryConfigs.length === 1,
-    };
+
+    if (this.visibleCategoryConfigs.length === 1) {
+      const selectedCategoryConfig = getCategoryConfig(
+        this.props.placeConfig,
+        this.visibleCategoryConfigs[0].category,
+      );
+
+      this.state = {
+        selectedCategory: this.visibleCategoryConfigs[0].category,
+        isShowingCategorySelector: false,
+        isSingleCategory: true,
+        datasetUrl: this.props.datasetUrlSelector(
+          selectedCategoryConfig.datasetSlug,
+        ),
+        datasetSlug: selectedCategoryConfig.datasetSlug,
+      };
+    } else {
+      this.state = {
+        selectedCategory: null,
+        isShowingCategorySelector: true,
+        isSingleCategory: false,
+      };
+    }
   }
 
   componentDidMount() {
@@ -55,12 +72,16 @@ class FormCategoryMenuWrapper extends Component {
   }
 
   onCategoryChange(selectedCategory) {
+    const categoryConfig = getCategoryConfig(
+      this.props.placeConfig,
+      selectedCategory,
+    );
+
     this.setState({
       selectedCategory: selectedCategory,
-      isShowingCategorySelector: !getCategoryConfig(
-        this.props.placeConfig,
-        selectedCategory,
-      ).multi_stage,
+      isShowingCategorySelector: !categoryConfig.multi_stage,
+      datasetUrl: this.props.datasetUrlSelector(categoryConfig.datasetSlug),
+      datasetSlug: categoryConfig.datasetSlug,
     });
   }
 
@@ -92,6 +113,7 @@ class FormCategoryMenuWrapper extends Component {
 }
 
 FormCategoryMenuWrapper.propTypes = {
+  datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
@@ -114,6 +136,7 @@ FormCategoryMenuWrapper.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  datasetUrlSelector: datasetSlug => datasetUrlSelector(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
     hasGroupAbilitiesInDatasets({
       state,

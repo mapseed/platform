@@ -2,6 +2,8 @@
   "datasets": [
     {
       "slug": "argentina-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-input",
+      "clientSlug": "report",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -11,6 +13,8 @@
     },
     {
       "slug": "argentina-featured",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-featured",
+      "clientSlug": "featured",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -122,7 +126,7 @@
       },
       {
         "id": "argentina-featured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-featured",
+        "datasetSlug": "argentina-featured",
         "type": "place",
         "slug": "featured",
         "focus_rules": [
@@ -146,7 +150,7 @@
       },
       {
         "id": "argentina-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-input",
+        "datasetSlug": "argentina-input",
         "type": "place",
         "slug": "report",
         "is_visible_default": true,
@@ -787,32 +791,32 @@
       ],
       "order": [
         {
-          "url": "featured/5343",
+          "placeId": 5343,
           "pan_to": [-60.5, -32.35],
           "zoom": 10
         },
         {
-          "url": "featured/5342",
+          "placeId": 5342,
           "pan_to": [-60.58, -32.86],
           "zoom": 10
         },
         {
-          "url": "featured/5344",
+          "placeId": 5344,
           "pan_to": [-58.53, -34.41313],
           "zoom": 10
         },
         {
-          "url": "featured/5345",
+          "placeId": 5345,
           "pan_to": [-58.88098, -34.15955],
           "zoom": 10
         },
         {
-          "url": "featured/5346",
+          "placeId": 5346,
           "pan_to": [-57.91877, -34.88249],
           "zoom": 10
         },
         {
-          "url": "featured/5347",
+          "placeId": 5347,
           "zoom": 8,
           "pan_to": [-60.45222, -33.16636],
           "visible_layers": ["presencia-agua"],

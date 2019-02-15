@@ -5,6 +5,8 @@ import fieldResponseFilter from "../../utils/field-response-filter";
 import { Header1, Header4, Paragraph } from "../atoms/typography";
 import CoverImage from "../molecules/cover-image";
 
+import { placePropType } from "../../state/ducks/places";
+
 import constants from "../../constants";
 
 const filterStage = (fieldConfigs, stageName) => {
@@ -18,13 +20,10 @@ const filterStage = (fieldConfigs, stageName) => {
 };
 
 const SnohomishFieldSummary = props => {
-  const fieldConfigs = fieldResponseFilter(
-    props.fields,
-    props.placeModel,
-  ).filter(
+  const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
     fieldConfig =>
       fieldConfig.type === constants.BIG_TOGGLE_FIELD_TYPENAME &&
-      props.placeModel.get(fieldConfig.name) === "yes",
+      props.place[fieldConfig.name] === "yes",
   );
   const stages = {
     farm: filterStage(fieldConfigs, "farm"),
@@ -40,19 +39,10 @@ const SnohomishFieldSummary = props => {
         <span className="snohomish-num-actions">{fieldConfigs.length}</span>{" "}
         {fieldConfigs.length === 1 ? "action" : "actions"}
       </Header1>
-      {props.attachmentModels
-        .filter(
-          attachment =>
-            attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-            constants.COVER_IMAGE_CODE,
-        )
-        .map((attachmentModel, i) => (
-          <CoverImage
-            key={i}
-            imageUrl={attachmentModel.get(
-              constants.ATTACHMENT_FILE_PROPERTY_NAME,
-            )}
-          />
+      {props.place.attachments
+        .filter(attachment => attachment.type === "CO")
+        .map((attachment, i) => (
+          <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       {stages.farm.length > 0 && (
         <div className="snohomish-stage-summary">
@@ -99,9 +89,8 @@ const SnohomishFieldSummary = props => {
 };
 
 SnohomishFieldSummary.propTypes = {
-  attachmentModels: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
-  placeModel: PropTypes.object.isRequired,
+  place: placePropType.isRequired,
 };
 
 export default SnohomishFieldSummary;

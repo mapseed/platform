@@ -33,7 +33,6 @@ exports[`InputForm renders input form 1`] = `
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      places={Object {}}
       router={
         Object {
           "on": [Function],
@@ -66,7 +65,6 @@ exports[`InputForm renders input form 1`] = `
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      places={Object {}}
       router={
         Object {
           "on": [Function],
@@ -99,7 +97,6 @@ exports[`InputForm renders input form 1`] = `
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      places={Object {}}
       router={
         Object {
           "on": [Function],

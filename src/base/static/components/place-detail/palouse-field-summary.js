@@ -7,7 +7,7 @@ import { RegularTitle, RegularText } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 
-import constants from "../../constants";
+import { placePropType } from "../../state/ducks/places";
 
 const ActionSummary = styled("ul")({
   padding: 0,
@@ -22,30 +22,20 @@ const ActionSummaryItem = styled("li")(props => ({
 }));
 
 const SnohomishFieldSummary = props => {
-  const fieldConfigs = fieldResponseFilter(
-    props.fields,
-    props.placeModel,
-  ).filter(fieldConfig => props.placeModel.get(fieldConfig.name) === "yes");
+  const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
+    fieldConfig => props.place[fieldConfig.name] === "yes",
+  );
   const numActions = fieldConfigs.length;
-  const description = props.placeModel.get("practices_description");
+  const description = props.place.practices_description;
 
   return (
     <div>
       <RegularTitle>{numActions} Actions</RegularTitle>
       <HorizontalRule spacing="tiny" />
-      {props.attachmentModels
-        .filter(
-          attachment =>
-            attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-            constants.COVER_IMAGE_CODE,
-        )
-        .map((attachmentModel, i) => (
-          <CoverImage
-            key={i}
-            imageUrl={attachmentModel.get(
-              constants.ATTACHMENT_FILE_PROPERTY_NAME,
-            )}
-          />
+      {props.place.attachments
+        .filter(attachment => attachment.type === "CO")
+        .map((attachment, i) => (
+          <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       {description && <RegularText>{description}</RegularText>}
       <ActionSummary>
@@ -59,7 +49,7 @@ const SnohomishFieldSummary = props => {
             <ActionSummaryItem key={fieldConfig.name} idx={idx}>
               <RegularText>{fieldConfig.label}</RegularText>
               <RegularText>
-                {props.placeModel.get(actionQuantityConfig.name)}{" "}
+                {props.place[actionQuantityConfig.name]}{" "}
                 {actionQuantityConfig.metadata &&
                   actionQuantityConfig.metadata.units}
               </RegularText>
@@ -72,9 +62,8 @@ const SnohomishFieldSummary = props => {
 };
 
 SnohomishFieldSummary.propTypes = {
-  attachmentModels: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
-  placeModel: PropTypes.object.isRequired,
+  place: placePropType.isRequired,
 };
 
 export default SnohomishFieldSummary;

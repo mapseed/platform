@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import React, { Component } from "react";
-import { Map } from "immutable";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
@@ -50,17 +49,15 @@ class MapDrawingToolbar extends Component {
     if (this.props.existingGeometry) {
       emitter.emit(
         constants.DRAW_INIT_GEOMETRY_EVENT,
-        this.props.existingGeometry.toJS(),
+        this.props.existingGeometry,
       );
-      switch (
-        this.props.existingGeometry.get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-      ) {
+      switch (this.props.existingGeometry.type) {
         case "Point":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_MARKER_TOOL);
           this.props.setMarkers(this.props.markers);
           this.props.setActiveMarkerIndex(
             this.props.markers.indexOf(
-              this.props.existingGeometryStyle.toJS()[
+              this.props.existingGeometryStyle[
                 constants.MARKER_ICON_PROPERTY_NAME
               ],
             ),
@@ -68,17 +65,18 @@ class MapDrawingToolbar extends Component {
           break;
         case "LineString":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_POLYLINE_TOOL);
-          this.props.setGeometryStyle(this.props.existingGeometryStyle.toJS());
+          this.props.setGeometryStyle(this.props.existingGeometryStyle);
           break;
         case "Polygon":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_POLYGON_TOOL);
-          this.props.setGeometryStyle(this.props.existingGeometryStyle.toJS());
+          this.props.setGeometryStyle(this.props.existingGeometryStyle);
           break;
       }
 
+      emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
       emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
-        datasetId: this.props.existingCollectionId,
-        modelId: this.props.existingModelId,
+        datasetSlug: this.props.datasetSlug,
+        placeId: this.props.existingPlaceId,
       });
     }
   }
@@ -364,10 +362,10 @@ MapDrawingToolbar.propTypes = {
   activeColorpicker: PropTypes.string,
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
-  existingCollectionId: PropTypes.string,
-  existingGeometry: PropTypes.instanceOf(Map),
-  existingModelId: PropTypes.number,
-  existingGeometryStyle: PropTypes.instanceOf(Map),
+  existingGeometry: PropTypes.object,
+  existingPlaceId: PropTypes.number,
+  existingGeometryStyle: PropTypes.object,
+  datasetSlug: PropTypes.string,
   geometryStyle: PropTypes.shape({
     [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
     [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,

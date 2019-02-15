@@ -5,11 +5,10 @@ import styled from "react-emotion";
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, Link } from "../atoms/typography";
 
-const ActivityItemContainer = styled("div")(props => ({
+const ActivityItemContainer = styled("div")(() => ({
   position: "relative",
   listStyle: "none",
   borderBottom: "1px solid #888",
-  paddingRight: "10px",
 }));
 
 const ActivityLink = styled(props => {
@@ -27,13 +26,13 @@ const ActivityLink = styled(props => {
   },
 }));
 
-const UserAvatarContainer = styled("div")(props => ({
+const UserAvatarContainer = styled("div")(() => ({
   position: "absolute",
   top: "13px",
   left: "10px",
 }));
 
-const ActionTextContainer = styled("div")(props => ({
+const ActionTextContainer = styled("div")(() => ({
   paddingLeft: "40px",
   paddingTop: "10px",
 }));

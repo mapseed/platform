@@ -205,10 +205,10 @@ activeLanguages.forEach((language, langNum) => {
   // for a given dataset, use that value here.
   // Note that we retain the <DATASET>_SITE_URL environment variable format,
   // where dataset names map to the uppercase name with _SITE_URL appended.
-  thisConfig.map.layers.forEach((layer, i) => {
-    if (datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"]) {
-      thisConfig.map.layers[i].url =
-        datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"];
+  thisConfig.datasets.forEach((dataset, i) => {
+    if (datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"]) {
+      thisConfig.datasets[i].url =
+        datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"];
     }
   });
 

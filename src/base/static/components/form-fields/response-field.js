@@ -45,7 +45,7 @@ const ResponseField = props => {
         <FieldResponseComponent
           label={getLabel(props.fieldValue, props.fieldConfig)}
           value={props.fieldValue}
-          attachmentModels={props.attachmentModels}
+          attachments={props.attachments}
           labels={getCheckboxLabels(props.fieldValue, props.fieldConfig)}
           fieldConfig={props.fieldConfig}
         />
@@ -62,7 +62,7 @@ ResponseField.propTypes = {
     PropTypes.object,
     PropTypes.number,
   ]).isRequired,
-  attachmentModels: PropTypes.object,
+  attachments: PropTypes.array,
 };
 
 export default ResponseField;

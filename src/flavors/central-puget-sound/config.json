@@ -2,6 +2,8 @@
   "datasets": [
     {
       "slug": "mw",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw",
+      "clientSlug": "report",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -11,6 +13,8 @@
     },
     {
       "slug": "mwfeatured",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured",
+      "clientSlug": "featured",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -20,6 +24,8 @@
     },
     {
       "slug": "mw-featured-projects",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw-featured-projects",
+      "clientSlug": "project",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -197,7 +203,7 @@
       {
         "id": "mw",
         "is_visible_default": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw",
+        "datasetSlug": "mw",
         "type": "place",
         "slug": "report",
         "focus_rules": [
@@ -221,11 +227,10 @@
       },
       {
         "id": "mw-featured-projects",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw-featured-projects",
+        "datasetSlug": "mw-featured-projects",
         "type": "place",
         "is_visible_default": true,
         "feature_types": ["Point"],
-        "slug": "project",
         "focus_rules": [
           {
             "filter": [
@@ -255,11 +260,10 @@
       },
       {
         "id": "mwfeatured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured",
+        "datasetSlug": "mwfeatured",
         "is_visible_default": true,
         "type": "place",
         "feature_types": ["Point"],
-        "slug": "featured",
         "focus_rules": [
           {
             "filter": [
@@ -3879,64 +3883,64 @@
       "default_visible_layers": ["mwfeatured"],
       "order": [
         {
-          "url": "featured/3737",
+          "placeId": 3737,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3363",
+          "placeId": 3363,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3360",
+          "placeId": 3360,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3362",
+          "placeId": 3362,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3328",
+          "placeId": 3328,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3329",
+          "placeId": 3329,
           "zoom": 18,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3330",
+          "placeId": 3330,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3331",
+          "placeId": 3331,
           "zoom": 14,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3747",
+          "placeId": 3747,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3748",
+          "placeId": 3748,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3332",
+          "placeId": 3332,
           "zoom": 8,
           "pan_to": {
             "lat": 47.631653886906804,
@@ -3948,7 +3952,7 @@
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3333",
+          "placeId": 3333,
           "zoom": 8,
           "pan_to": {
             "lat": 47.64123180739975,
@@ -3960,7 +3964,7 @@
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3334",
+          "placeId": 3334,
           "zoom": 8,
           "pan_to": {
             "lat": 47.32023597632835,
@@ -3972,7 +3976,7 @@
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3335",
+          "placeId": 3335,
           "zoom": 8,
           "pan_to": {
             "lat": 47.08293753263453,

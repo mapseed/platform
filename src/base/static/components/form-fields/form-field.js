@@ -46,7 +46,7 @@ class FormField extends Component {
         defaultValue ||
         "",
       fieldConfig: this.props.fieldConfig,
-      attachmentModels: this.props.attachmentModels,
+      attachments: this.props.attachments,
     });
 
     this.state = {
@@ -79,8 +79,6 @@ class FormField extends Component {
           constants.FIELD_VALIDITY_KEY,
           this.validator.validate({
             value: fieldValue,
-            places: this.props.places,
-            modelId: this.props.modelId,
           }),
         )
         .set(
@@ -152,7 +150,7 @@ class FormField extends Component {
 }
 
 FormField.propTypes = {
-  attachmentModels: PropTypes.instanceOf(List),
+  attachments: PropTypes.array,
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
@@ -160,7 +158,6 @@ FormField.propTypes = {
   isInitializing: PropTypes.bool,
   updatingField: PropTypes.string,
   map: PropTypes.object,
-  modelId: PropTypes.number,
   onFieldChange: PropTypes.func.isRequired,
   places: PropTypes.object,
   router: PropTypes.object,
@@ -175,7 +172,7 @@ FormField.propTypes = {
 };
 
 FormField.defaultProps = {
-  attachmentModels: new List(),
+  attachments: [],
 };
 
 const mapStateToProps = state => ({

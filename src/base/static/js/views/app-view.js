@@ -19,7 +19,12 @@ import theme from "../../../../theme";
 import "react-virtualized/styles.css";
 
 import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
-import { placesSelector, loadPlaces } from "../../state/ducks/places";
+import {
+  loadPlaces,
+  placeSelector,
+  placesLoadStatusSelector,
+  updatePlacesLoadStatus,
+} from "../../state/ducks/places";
 import { loadPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { loadFormsConfig } from "../../state/ducks/forms-config";
@@ -43,10 +48,8 @@ import {
   showLayers,
   hideLayers,
   setBasemap,
-  setLayerError,
-  setLayerLoading,
   setMapDragging,
-  setLayerUnloaded,
+  setLayerLoading,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -56,7 +59,8 @@ import {
   setMapCenterpointVisibility,
   setGeocodeAddressBarVisibility,
   geocodeAddressBarVisibilitySelector,
-} from "../../state/ducks/ui.js";
+  updateEditModeToggled,
+} from "../../state/ducks/ui";
 import {
   loadUser,
   userSelector,
@@ -67,8 +71,13 @@ import {
   loadDatasetsConfig,
   hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,
+  datasetConfigsSelector,
 } from "../../state/ducks/datasets-config";
-import { loadDatasets } from "../../state/ducks/datasets";
+import {
+  loadDatasets,
+  datasetsLoadStatusSelector,
+  updateDatasetsLoadStatus,
+} from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
@@ -114,7 +123,7 @@ export default Backbone.View.extend({
   events: {
     "click .close-btn": "onClickClosePanelBtn",
   },
-  initialize: function() {
+  initialize: async function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
     Shareabouts.bootstrapped.currentUser &&
@@ -169,11 +178,6 @@ export default Backbone.View.extend({
     languageModule.changeLanguage(this.options.languageCode);
 
     const self = this;
-    // Bootstrapped data from the page
-    this.activities = this.options.activities;
-    this.places = this.options.places;
-
-    this.fetchAndLoadDatasets();
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
@@ -366,15 +370,20 @@ export default Backbone.View.extend({
   },
 
   fetchAndLoadDatasets: async function() {
-    const datasetUrls = this.options.mapConfig.layers
-      .filter(layer => layer.type === "place")
-      .map(layer => layer.url);
+    store.dispatch(updateDatasetsLoadStatus("loading"));
+
+    const datasetUrls = datasetConfigsSelector(store.getState()).map(
+      datasetConfig => datasetConfig.url,
+    );
     const datasets = await mapseedApiClient.datasets.get(datasetUrls);
 
     store.dispatch(loadDatasets(datasets));
+    store.dispatch(updateDatasetsLoadStatus("loaded"));
   },
 
   fetchAndLoadPlaces: async function() {
+    store.dispatch(updatePlacesLoadStatus("loading"));
+
     const placeParams = {
       // NOTE: this is to include comments/supports while fetching our place models
       include_submissions: true,
@@ -387,34 +396,43 @@ export default Backbone.View.extend({
       placeParams.page_size = this.options.appConfig.places_page_size;
     }
 
-    // Load places from the API
-    const placeCollectionsPromise = mapseedApiClient.place.get({
-      placeParams,
-      placeCollections: this.places,
-      layers: mapLayersSelector(store.getState()),
-      setLayerError: layerId => store.dispatch(setLayerError(layerId)),
-      hasAdminAbilities: datasetSlug => {
-        return hasAdminAbilities(store.getState(), datasetSlug);
-      },
-    });
+    const datasetConfigs = datasetConfigsSelector(store.getState());
+    const layerStatuses = mapLayerStatusesSelector(store.getState());
+    await Promise.all(
+      datasetConfigs.map(async config => {
+        // Note that the response here is an array of page Promises.
+        const response = await mapseedApiClient.place.get({
+          url: `${config.url}/places`,
+          datasetSlug: config.slug,
+          clientSlug: config.clientSlug,
+          placeParams: placeParams,
+          includePrivate: hasAdminAbilities(store.getState(), config.slug),
+        });
 
-    const fetchedCollections = await placeCollectionsPromise;
-    const allPlaces = fetchedCollections.reduce((places, collection) => {
-      return [...collection.models.map(model => model.toJSON()), ...places];
-    }, []);
-    store.dispatch(loadPlaces(allPlaces));
-
-    // Update the load statuses of our layers that are being fetched:
-    const layers = mapLayerStatusesSelector(store.getState());
-    Object.values(layers).forEach(layerStatus => {
-      if (layerStatus.loadStatus === "fetching") {
-        if (layerStatus.isVisible) {
-          // mark the layer to be loaded onto the map
-          store.dispatch(setLayerLoading(layerStatus.id));
+        if (response) {
+          // TODO: This Promise.all() should eventually be replaced with a loop
+          // that updates the Places duck when each Promise in placePagePromises
+          // resolves. We are punting this (briefly) for now, since the map
+          // abstraction will not yet detect changes in the length of the Places
+          // duck. We will address this deficiency very soon in an upcoming PR.
+          const placeData = await Promise.all(response);
+          store.dispatch(
+            loadPlaces(
+              placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+            ),
+          );
         } else {
-          // the layer is now 'fetched', but don't load it into the map.
-          store.dispatch(setLayerUnloaded(layerStatus.id));
+          Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
         }
+      }),
+    );
+
+    store.dispatch(updatePlacesLoadStatus("loaded"));
+
+    // Mark visible layers as "loading" so the map will load and render them.
+    datasetConfigs.forEach(config => {
+      if (layerStatuses[config.slug].isVisible) {
+        store.dispatch(setLayerLoading(config.slug));
       }
     });
   },
@@ -513,10 +531,12 @@ export default Backbone.View.extend({
     this.hidePanel();
     this.renderRightSidebar();
     this.hideNewPin();
-    this.destroyNewModels();
     this.setBodyClass();
     this.renderMain(mapPosition);
-    if (!placesSelector(store.getState())) {
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      await this.fetchAndLoadDatasets();
+    }
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
   },
@@ -536,10 +556,7 @@ export default Backbone.View.extend({
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <ThemeProvider theme={this.adjustedTheme}>
-              <RightSidebar
-                legacyPlaces={this.places}
-                router={this.options.router}
-              />
+              <RightSidebar router={this.options.router} />
             </ThemeProvider>
           </ThemeProvider>
         </Provider>,
@@ -562,6 +579,10 @@ export default Backbone.View.extend({
         datasetSlugs: datasetSlugsSelector(store.getState()),
       })
     ) {
+      if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+        await this.fetchAndLoadDatasets();
+      }
+
       recordGoogleAnalyticsHit("/new");
       this.renderRightSidebar();
       this.renderMain();
@@ -577,7 +598,6 @@ export default Backbone.View.extend({
                 showNewPin={this.showNewPin.bind(this)}
                 hideNewPin={this.hideNewPin.bind(this)}
                 hidePanel={this.hidePanel.bind(this)}
-                places={this.places}
                 router={this.options.router}
                 customHooks={this.options.customHooks}
                 // '#content article' and 'body' represent the two containers into
@@ -600,6 +620,8 @@ export default Backbone.View.extend({
                       <VVInputForm
                         {...props}
                         selectedCategory={state.selectedCategory}
+                        datasetUrl={state.datasetUrl}
+                        datasetSlug={state.datasetSlug}
                         isSingleCategory={state.isSingleCategory}
                         onCategoryChange={onCategoryChange}
                       />
@@ -609,6 +631,8 @@ export default Backbone.View.extend({
                       <InputForm
                         {...props}
                         selectedCategory={state.selectedCategory}
+                        datasetUrl={state.datasetUrl}
+                        datasetSlug={state.datasetSlug}
                         isSingleCategory={state.isSingleCategory}
                         onCategoryChange={onCategoryChange}
                       />
@@ -628,7 +652,7 @@ export default Backbone.View.extend({
       this.setBodyClass("content-visible", "place-form-visible");
       store.dispatch(setMapSizeValidity(false));
       store.dispatch(setAddPlaceButtonVisibility(false));
-      if (!placesSelector(store.getState())) {
+      if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
       emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
@@ -641,17 +665,23 @@ export default Backbone.View.extend({
   viewPlace: async function(args) {
     this.renderMain();
     this.renderRightSidebar();
-    if (!placesSelector(store.getState())) {
+
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      await this.fetchAndLoadDatasets();
+    }
+    // TODO: Restore the ability to fetch a single place's data on a direct
+    // route to that place and render immediately.
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
-    const datasetId = this.options.mapConfig.layers.find(
-      layer => layer.slug === args.datasetSlug,
-    ).id;
-    const model = this.places[datasetId].get(args.modelId);
-    if (!model) {
+
+    const place = placeSelector(store.getState(), args.placeId);
+    if (!place) {
       this.options.router.navigate("/");
       return;
     }
+
+    store.dispatch(updateEditModeToggled(false));
 
     // REACT PORT SECTION //////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
@@ -661,14 +691,13 @@ export default Backbone.View.extend({
         <ThemeProvider theme={theme}>
           <ThemeProvider theme={this.adjustedTheme}>
             <PlaceDetail
-              collectionId={datasetId}
+              placeId={args.placeId}
+              datasetSlug={place._datasetSlug}
               container={document.querySelector("#content article")}
               currentUser={Shareabouts.bootstrapped.currentUser}
               isGeocodingBarEnabled={
                 this.options.mapConfig.geocoding_bar_enabled
               }
-              model={model}
-              places={this.places}
               scrollToResponseId={args.responseId}
               router={this.options.router}
               userToken={this.options.userToken}
@@ -688,31 +717,27 @@ export default Backbone.View.extend({
     // END REACT PORT SECTION //////////////////////////////////////////////
 
     this.hideNewPin();
-    this.destroyNewModels();
     this.setBodyClass("content-visible");
     this.showSpotlightMask();
+    const story = place.story;
 
-    const geometry = model.get("geometry");
-
-    if (model.get("story")) {
+    if (story) {
       this.isStoryActive = true;
-      const storyChapterVisibleLayers = model.get("story").visibleLayers;
-      const storyChapterBasemap = model.get("story").basemap;
 
-      mapBasemapSelector(store.getState()) !== storyChapterBasemap &&
-        store.dispatch(setBasemap(storyChapterBasemap));
-      store.dispatch(showLayers(storyChapterVisibleLayers));
+      mapBasemapSelector(store.getState()) !== story.basemap &&
+        store.dispatch(setBasemap(story.basemap));
+      store.dispatch(showLayers(story.visibleLayers));
       // Hide all other layers.
       store.dispatch(
         hideLayers(
           mapLayersSelector(store.getState())
             .filter(layer => !layer.is_basemap)
-            .filter(layer => !storyChapterVisibleLayers.includes(layer.id))
+            .filter(layer => !story.visibleLayers.includes(layer.id))
             .map(layer => layer.id),
         ),
       );
 
-      if (!model.get("story").spotlight) {
+      if (story.spotlight) {
         this.hideSpotlightMask();
       }
 
@@ -723,9 +748,7 @@ export default Backbone.View.extend({
 
     // Fire an event to set map position, reconciling with custom story
     // settings if this model is part of a story.
-    const story = model.get("story") || {};
-
-    if (story.panTo) {
+    if (story && story.panTo) {
       // If a story chapter declares a custom centerpoint, regardless of the
       // geometry type, assume that we want to fly to a point.
       emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
@@ -733,27 +756,30 @@ export default Backbone.View.extend({
           story.panTo || mapPositionSelector(store.getState()).center,
         zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
       });
-    } else if (geometry.type === "LineString") {
+    } else if (place.geometry.type === "LineString") {
       emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
-        coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
+        coordinates:
+          story && story.panTo ? [story.panTo] : place.geometry.coordinates,
       });
-    } else if (geometry.type === "Polygon") {
+    } else if (place.geometry.type === "Polygon") {
       emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
-        coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
+        coordinates:
+          story && story.panTo ? [[story.panTo]] : place.geometry.coordinates,
       });
-    } else if (geometry.type === "Point") {
+    } else if (place.geometry.type === "Point") {
       emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-        coordinates: geometry.coordinates,
-        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+        coordinates: place.geometry.coordinates,
+        zoom:
+          (story && story.zoom) || mapPositionSelector(store.getState()).zoom,
       });
     }
 
     emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-      datasetId: datasetId,
-      modelId: model.get("id"),
+      datasetSlug: place._datasetSlug,
+      placeId: place.id,
     });
 
-    if (!model.get("story") && this.isStoryActive) {
+    if (!place.story && this.isStoryActive) {
       this.isStoryActive = false;
     }
 
@@ -787,7 +813,6 @@ export default Backbone.View.extend({
       this.$panel.removeClass().addClass("page page-" + slug);
       this.$panel.show();
       this.hideNewPin();
-      this.destroyNewModels();
       $(Shareabouts).trigger("panelshow", [
         this.options.router,
         Backbone.history.getFragment(),
@@ -802,7 +827,10 @@ export default Backbone.View.extend({
       );
       this.hideSpotlightMask();
 
-      if (!placesSelector(store.getState())) {
+      if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+        await this.fetchAndLoadDatasets();
+      }
+      if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
     } else {
@@ -906,21 +934,16 @@ export default Backbone.View.extend({
 
     store.dispatch(setAddPlaceButtonVisibility(true));
   },
-  destroyNewModels: function() {
-    _.each(this.places, function(collection) {
-      collection.each(function(model) {
-        if (model && model.isNew()) {
-          model.destroy();
-        }
-      });
-    });
-  },
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     this.renderRightSidebar();
-    if (!placesSelector(store.getState())) {
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      await this.fetchAndLoadDatasets();
+    }
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
+
     this.renderList();
   },
   renderList: function() {
@@ -964,7 +987,13 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
 
     $("#dashboard-container").removeClass("is-visuallyhidden");
-    this.fetchAndLoadPlaces();
+    if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
+      this.fetchAndLoadDatasets();
+    }
+    if (placesLoadStatusSelector(store.getState()) === "unloaded") {
+      this.fetchAndLoadPlaces();
+    }
+
     // If module fails to load (eg: due to network error), use error boundaries to
     // show a helpful message
     // https://reactjs.org/docs/code-splitting.html#error-boundaries

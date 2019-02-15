@@ -21,7 +21,7 @@ import "./survey-response.scss";
 
 class SurveyResponse extends Component {
   componentDidMount() {
-    if (this.props.modelId === parseInt(this.props.scrollToResponseId)) {
+    if (this.props.comment.id === this.props.scrollToResponseId) {
       this.props.onMountTargetResponse(this.responseRef);
     }
   }
@@ -44,34 +44,31 @@ class SurveyResponse extends Component {
                 key={field.name}
                 className="place-detail-survey-response__paragraph"
               >
-                {this.props.attributes.get(field.name)}
+                {this.props.comment[field.name]}
               </p>
             ))}
         </div>
         <div className="place-detail-survey-response__metadata-bar">
           <Avatar
             className="place-detail-survey-response__avatar"
-            src={this.props.submitter.avatar_url}
+            src={
+              this.props.comment.submitter
+                ? this.props.comment.submitter.avatar_url
+                : undefined
+            }
           />
           <div className="place-detail-survey-response__details-container">
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
               submitterName={
-                this.props.attributes.get(constants.SUBMITTER_NAME) ||
-                this.props.attributes.getIn([
-                  constants.SUBMITTER,
-                  constants.NAME_PROPERTY_NAME,
-                ])
+                this.props.comment.submitter &&
+                this.props.comment.submitter.name
               }
               anonymousName={this.props.placeConfig.anonymous_name}
             />
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
-                <Time
-                  time={this.props.attributes.get(
-                    constants.CREATED_DATETIME_PROPERTY_NAME,
-                  )}
-                />
+                <Time time={this.props.comment.created_datetime} />
               </SmallText>
             )}
           </div>
@@ -83,12 +80,10 @@ class SurveyResponse extends Component {
 
 SurveyResponse.propTypes = {
   appConfig: appConfigPropType.isRequired,
-  attributes: PropTypes.object.isRequired,
-  modelId: PropTypes.number.isRequired,
+  comment: PropTypes.object.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  scrollToResponseId: PropTypes.string,
-  submitter: PropTypes.object.isRequired,
+  scrollToResponseId: PropTypes.number,
   commentFormConfig: commentFormConfigPropType.isRequired,
 };
 

@@ -2,6 +2,8 @@
   "datasets": [
     {
       "slug": "snohomish-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-input",
+      "clientSlug": "report",
       "anonymous_permissions": [
         {
           "abilities": ["create", "retrieve"],
@@ -11,6 +13,8 @@
     },
     {
       "slug": "snohomish-featured",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-featured",
+      "clientSlug": "featured",
       "anonymous_permissions": [
         {
           "abilities": ["create", "retrieve"],
@@ -104,8 +108,8 @@
       },
       {
         "id": "snohomish-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-input",
         "type": "place",
+        "datasetSlug": "snohomish-input",
         "slug": "report",
         "is_visible_default": true,
         "focus_rules": [
@@ -137,8 +141,8 @@
       },
       {
         "id": "snohomish-featured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-featured",
         "type": "place",
+        "datasetSlug": "snohomish-featured",
         "slug": "featured",
         "is_visible_default": true,
         "focus_rules": [
@@ -2105,35 +2109,35 @@
       "default_visible_layers": ["snohomish-featured", "snohomish-input"],
       "order": [
         {
-          "url": "featured/4310",
+          "placeId": 4310,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
-          "url": "featured/4311",
+          "placeId": 4311,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
-          "url": "featured/4309",
+          "placeId": 4309,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
-          "url": "featured/4238",
+          "placeId": 4238,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
-          "url": "featured/4239",
+          "placeId": 4239,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
-          "url": "featured/6847",
+          "placeId": 6847,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
-          "url": "featured/6846",
+          "placeId": 6846,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         },
         {
-          "url": "featured/6845",
+          "placeId": 6845,
           "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
         }
       ]

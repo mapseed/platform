@@ -1,16 +1,24 @@
 {
   "datasets": [
     {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
       "slug": "pbdurham",
+      "clientSlug": "idea",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve"],
           "submission_set": "*"
+        },
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
         }
       ]
     },
     {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
+      "clientSlug": "project",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
@@ -261,11 +269,10 @@
       },
       {
         "id": "pbdurham-projects",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
         "type": "place",
+        "datasetSlug": "pbdurham-projects",
         "feature_types": ["Point", "LineString", "Polygon"],
         "is_topmost_layer": true,
-        "slug": "project",
         "is_visible_default": true,
         "focus_rules": [
           {
@@ -319,10 +326,9 @@
       },
       {
         "id": "pbdurham",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
         "type": "place",
+        "datasetSlug": "pbdurham",
         "feature_types": ["Point"],
-        "slug": "idea",
         "is_visible_default": true,
         "focus_rules": [
           {

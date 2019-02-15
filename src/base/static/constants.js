@@ -39,6 +39,9 @@ export default {
   IS_VISIBLE_PROPERTY_NAME: "visible",
   IS_FOCUSED_PROPERTY_NAME: "isFocused",
   TARGET_PROPERTY_NAME: "target",
+  SUBMISSION_SETS: "submission_sets",
+  SUPPORT: "support",
+  URL: "url",
 
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",

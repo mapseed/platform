@@ -2,6 +2,8 @@
   "datasets": [
     {
       "slug": "deeptimechicago-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/deeptimechicago-input",
+      "clientSlug": "report",
       "anonymous_permissions": [
         {
           "abilities": "create",
@@ -44,7 +46,7 @@
       "map": {
         "center": {
           "lat": 47.25457,
-          "lng": -122.44420
+          "lng": -122.4442
         },
         "zoom": 5.62,
         "pitch": 0,
@@ -82,9 +84,8 @@
       },
       {
         "id": "deeptimechicago-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/deeptimechicago-input",
         "type": "place",
-        "slug": "report",
+        "datasetSlug": "deeptimechicago-input",
         "is_visible_default": true,
         "feature_types": ["Point"],
         "focus_rules": [

@@ -19,6 +19,7 @@ import dashboardConfigReducer from "./ducks/dashboard-config";
 import userReducer from "./ducks/user";
 import datasetsConfigReducer from "./ducks/datasets-config";
 import datasetsReducer from "./ducks/datasets";
+import activityReducer from "./ducks/activity";
 
 const reducers = combineReducers({
   map: mapReducer,
@@ -40,6 +41,7 @@ const reducers = combineReducers({
   user: userReducer,
   datasetsConfig: datasetsConfigReducer,
   datasets: datasetsReducer,
+  activity: activityReducer,
 });
 
 export default reducers;
