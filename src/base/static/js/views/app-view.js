@@ -26,7 +26,10 @@ import {
   updatePlacesLoadStatus,
 } from "../../state/ducks/places";
 import { loadPlaceConfig } from "../../state/ducks/place-config";
-import { setStoryConfig } from "../../state/ducks/story-config";
+import {
+  setStoryConfig,
+  storyConfigSelector,
+} from "../../state/ducks/story-config";
 import { loadFormsConfig } from "../../state/ducks/forms-config";
 import { setPagesConfig, pageSelector } from "../../state/ducks/pages-config";
 import {
@@ -419,6 +422,7 @@ export default Backbone.View.extend({
           store.dispatch(
             loadPlaces(
               placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+              storyConfigSelector(store.getState()),
             ),
           );
         } else {
@@ -721,8 +725,12 @@ export default Backbone.View.extend({
     this.showSpotlightMask();
     const story = place.story;
 
+    console.log("place", place);
+
     if (story) {
       this.isStoryActive = true;
+
+      console.log("!!!!", story);
 
       mapBasemapSelector(store.getState()) !== story.basemap &&
         store.dispatch(setBasemap(story.basemap));

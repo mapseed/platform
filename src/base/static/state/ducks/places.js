@@ -84,6 +84,9 @@ export function loadPlaces(places, storyConfig = {}) {
     return flat.concat(toFlatten.chapters);
   }, []);
 
+  console.log("storyConfig", storyConfig)
+  console.log("storyChapters", storyChapters)
+
   places = places.map(place => {
     place.submission_sets.support = place.submission_sets.support || [];
     place.submission_sets.comments = place.submission_sets.comments || [];
