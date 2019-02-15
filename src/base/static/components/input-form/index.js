@@ -309,28 +309,38 @@ class InputForm extends Component {
       attrs = hooks[this.props.customHooks.preSave](attrs);
     }
 
-    const response = await mapseedApiClient.place.create({
+    const placeResponse = await mapseedApiClient.place.create({
       datasetUrl: this.props.datasetUrl,
       placeData: attrs,
       datasetSlug: this.props.datasetSlug,
       clientSlug: this.props.datasetClientSlugSelector(this.props.datasetSlug),
     });
 
-    if (response) {
+    if (placeResponse) {
       Util.log("USER", "new-place", "successfully-add-place");
 
       // Save attachments.
       if (this.attachments.length) {
-        const attachmentPromises = await mapseedApiClient.attachments.create(
-          response.url,
-          this.attachments,
-        );
+        await Promise.all(
+          this.attachments.map(async attachment => {
+            const attachmentResponse = await mapseedApiClient.attachments.create(
+              placeResponse.url,
+              attachment,
+            );
 
-        response.attachments = await Promise.all(attachmentPromises);
+            if (attachmentResponse) {
+              placeResponse.attachments.push(attachmentResponse);
+              Util.log("USER", "dataset", "successfully-add-attachment");
+            } else {
+              alert("Oh dear. It looks like an attachment didn't save.");
+              Util.log("USER", "place", "fail-to-add-attachment");
+            }
+          }),
+        );
       }
 
       // Only add this place to the places duck if it isn't private.
-      !response.private && this.props.createPlace(response);
+      !placeResponse.private && this.props.createPlace(placeResponse);
 
       this.setState({ isFormSubmitting: false, showValidityStatus: false });
 
@@ -359,12 +369,11 @@ class InputForm extends Component {
       // route-to-detail-view behavior.
       if (this.props.customHooks && this.props.customHooks.postSave) {
         this.props.customHooks.postSave(
-          response,
-          response,
+          placeResponse,
           this.defaultPostSave.bind(this),
         );
       } else {
-        this.defaultPostSave(response);
+        this.defaultPostSave(placeResponse);
       }
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");

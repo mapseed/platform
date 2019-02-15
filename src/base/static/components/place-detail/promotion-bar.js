@@ -53,6 +53,7 @@ class PromotionBar extends Component {
           visible: true,
         },
       );
+
       if (response) {
         this.props.createPlaceSupport(this.props.placeId, response);
         Util.log("USER", "place", "successfully-support");

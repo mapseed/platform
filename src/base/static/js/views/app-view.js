@@ -400,7 +400,8 @@ export default Backbone.View.extend({
     const layerStatuses = mapLayerStatusesSelector(store.getState());
     await Promise.all(
       datasetConfigs.map(async config => {
-        const placePagePromises = await mapseedApiClient.place.get({
+        // Note that the response here is an array of page Promises.
+        const response = await mapseedApiClient.place.get({
           url: `${config.url}/places`,
           datasetSlug: config.slug,
           clientSlug: config.clientSlug,
@@ -408,17 +409,21 @@ export default Backbone.View.extend({
           includePrivate: hasAdminAbilities(store.getState(), config.slug),
         });
 
-        // TODO: This Promise.all() should eventually be replaced with a loop
-        // that updates the Places duck when each Promise in placePagePromises
-        // resolves. We are punting this (briefly) for now, since the map
-        // abstraction will not yet detect changes in the length of the Places
-        // duck. We will address this deficiency very soon in an upcoming PR.
-        const placeData = await Promise.all(placePagePromises);
-        store.dispatch(
-          loadPlaces(
-            placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-          ),
-        );
+        if (response) {
+          // TODO: This Promise.all() should eventually be replaced with a loop
+          // that updates the Places duck when each Promise in placePagePromises
+          // resolves. We are punting this (briefly) for now, since the map
+          // abstraction will not yet detect changes in the length of the Places
+          // duck. We will address this deficiency very soon in an upcoming PR.
+          const placeData = await Promise.all(response);
+          store.dispatch(
+            loadPlaces(
+              placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+            ),
+          );
+        } else {
+          Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
+        }
       }),
     );
 
