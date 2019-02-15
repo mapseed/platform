@@ -1,7 +1,11 @@
 import constants from "../constants";
 
-export default (fieldList, place) =>
-  fieldList
+export default (fieldConfigs, place) => {
+  if (!fieldConfigs) {
+    return [];
+  }
+
+  return fieldConfigs
     .filter(
       fieldConfig =>
         ![
@@ -21,3 +25,4 @@ export default (fieldList, place) =>
     )
     .filter(fieldConfig => fieldConfig.name.indexOf("private-") !== 0)
     .filter(fieldConfig => !!place[fieldConfig.name]);
+};
