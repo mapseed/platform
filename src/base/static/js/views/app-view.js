@@ -725,14 +725,11 @@ export default Backbone.View.extend({
     this.showSpotlightMask();
     const story = place.story;
 
-    console.log("place", place);
-
     if (story) {
       this.isStoryActive = true;
 
-      console.log("!!!!", story);
-
-      mapBasemapSelector(store.getState()) !== story.basemap &&
+      story.basemap &&
+        mapBasemapSelector(store.getState()) !== story.basemap &&
         store.dispatch(setBasemap(story.basemap));
       store.dispatch(showLayers(story.visibleLayers));
       // Hide all other layers.
