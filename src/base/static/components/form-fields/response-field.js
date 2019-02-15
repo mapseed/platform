@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { List } from "immutable";
 
 import fieldDefinitions from "./field-definitions";
 
@@ -12,9 +11,7 @@ import "./response-field.scss";
 const getCheckboxLabels = (fieldValue, fieldConfig) => {
   if (!fieldConfig.content) return null;
 
-  if (List.isList(fieldValue)) {
-    fieldValue = fieldValue.toArray();
-  } else {
+  if (!Array.isArray(fieldValue)) {
     fieldValue = [fieldValue];
   }
 
