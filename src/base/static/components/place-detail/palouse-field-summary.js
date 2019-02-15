@@ -7,7 +7,7 @@ import { RegularTitle, RegularText } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 
-import { placePropType } from "../../state/ducks/places"
+import { placePropType } from "../../state/ducks/places";
 
 const ActionSummary = styled("ul")({
   padding: 0,

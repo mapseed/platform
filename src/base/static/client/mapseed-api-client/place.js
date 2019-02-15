@@ -4,7 +4,7 @@ import {
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
   toGeoJSONFeature,
-} from "../utils/place-utils";
+} from "../../utils/place-utils";
 
 // TODO: include_private_places and include_private_fields ??
 const updatePlace = async ({

@@ -1,10 +1,10 @@
-import activityClient from "./activity";
-import attachmentsClient from "./attachments";
-import commentsClient from "./comments";
-import datasetsClient from "./datasets";
-import placeClient from "./place";
-import placeTagsClient from "./place-tags";
-import supportClient from "./support";
+import activityClient from "./mapseed-api-client/activity";
+import attachmentsClient from "./mapseed-api-client/attachments";
+import commentsClient from "./mapseed-api-client/comments";
+import datasetsClient from "./mapseed-api-client/datasets";
+import placeClient from "./mapseed-api-client/place";
+import placeTagsClient from "./mapseed-api-client/place-tags";
+import supportClient from "./mapseed-api-client/support";
 
 export default {
   activity: activityClient,
