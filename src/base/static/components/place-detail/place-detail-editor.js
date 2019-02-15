@@ -123,7 +123,7 @@ class PlaceDetailEditor extends Component {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
 
-      const response = await mapseedApiClient.place.update({
+      const placeResponse = await mapseedApiClient.place.update({
         placeUrl: this.props.place.url,
         placeData: {
           ...this.props.place,
@@ -137,24 +137,32 @@ class PlaceDetailEditor extends Component {
         isNetworkRequestInFlight: false,
       });
 
-      if (response) {
+      if (placeResponse) {
         Util.log("USER", "place", "successfully-update-place");
 
         // Save attachments.
         if (this.attachments.length) {
-          const attachmentPromises = await mapseedApiClient.attachments.create(
-            response.url,
-            this.attachments,
-          );
+          await Promise.all(
+            this.attachments.map(async attachment => {
+              const attachmentResponse = await mapseedApiClient.attachments.create(
+                placeResponse.url,
+                attachment,
+              );
 
-          response.attachments = response.attachments.concat(
-            await Promise.all(attachmentPromises),
+              if (attachmentResponse) {
+                placeResponse.attachments.push(attachmentResponse);
+                Util.log("USER", "dataset", "successfully-add-attachment");
+              } else {
+                alert("Oh dear. It looks like an attachment didn't save.");
+                Util.log("USER", "place", "fail-to-add-attachment");
+              }
+            }),
           );
         }
 
         emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
 
-        this.props.updatePlace(response);
+        this.props.updatePlace(placeResponse);
 
         emitter.emit(
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
@@ -328,7 +336,7 @@ class PlaceDetailEditor extends Component {
                     existingPlaceId={this.props.place.id}
                     datasetSlug={this.props.place._datasetSlug}
                     fieldConfig={fieldConfig}
-                    attachments={this.props.attachments}
+                    attachments={this.props.place.attachments}
                     categoryConfig={this.categoryConfig}
                     disabled={this.state.isSubmitting}
                     fieldState={fieldState}
