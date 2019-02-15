@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { List } from "immutable";
 
 import { insertEmbeddedImages } from "../../../utils/embedded-images";
 
@@ -16,7 +15,7 @@ const RichTextareaFieldResponse = props => {
 };
 
 RichTextareaFieldResponse.propTypes = {
-  attachments: PropTypes.instanceOf(List),
+  attachments: PropTypes.array,
   value: PropTypes.string.isRequired,
 };
 

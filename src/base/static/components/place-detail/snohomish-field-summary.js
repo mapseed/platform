@@ -89,7 +89,6 @@ const SnohomishFieldSummary = props => {
 };
 
 SnohomishFieldSummary.propTypes = {
-  attachmentModels: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
   place: placePropType.isRequired,
 };

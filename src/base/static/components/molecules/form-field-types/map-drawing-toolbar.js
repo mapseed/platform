@@ -50,17 +50,15 @@ class MapDrawingToolbar extends Component {
     if (this.props.existingGeometry) {
       emitter.emit(
         constants.DRAW_INIT_GEOMETRY_EVENT,
-        this.props.existingGeometry.toJS(),
+        this.props.existingGeometry,
       );
-      switch (
-        this.props.existingGeometry.get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-      ) {
+      switch (this.props.existingGeometry.type) {
         case "Point":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_MARKER_TOOL);
           this.props.setMarkers(this.props.markers);
           this.props.setActiveMarkerIndex(
             this.props.markers.indexOf(
-              this.props.existingGeometryStyle.toJS()[
+              this.props.existingGeometryStyle[
                 constants.MARKER_ICON_PROPERTY_NAME
               ],
             ),
@@ -68,11 +66,11 @@ class MapDrawingToolbar extends Component {
           break;
         case "LineString":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_POLYLINE_TOOL);
-          this.props.setGeometryStyle(this.props.existingGeometryStyle.toJS());
+          this.props.setGeometryStyle(this.props.existingGeometryStyle);
           break;
         case "Polygon":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_POLYGON_TOOL);
-          this.props.setGeometryStyle(this.props.existingGeometryStyle.toJS());
+          this.props.setGeometryStyle(this.props.existingGeometryStyle);
           break;
       }
 
@@ -365,9 +363,9 @@ MapDrawingToolbar.propTypes = {
   activeColorpicker: PropTypes.string,
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
-  existingGeometry: PropTypes.instanceOf(Map),
+  existingGeometry: PropTypes.object,
   existingPlaceId: PropTypes.number,
-  existingGeometryStyle: PropTypes.instanceOf(Map),
+  existingGeometryStyle: PropTypes.object,
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: PropTypes.shape({
     [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
