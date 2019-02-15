@@ -281,7 +281,7 @@ class InputForm extends Component {
 
     if (this.state.fields.get("geometry")) {
       attrs["style"] =
-        this.state.fields.getIn(["geometry", "value", "type"]) === "Point"
+        this.state.fields.getIn(["geometry", "value"]).type === "Point"
           ? { "marker-symbol": this.props.activeMarker }
           : this.props.geometryStyle;
     } else {

@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import React, { Component } from "react";
-import { Map } from "immutable";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
@@ -366,7 +365,7 @@ MapDrawingToolbar.propTypes = {
   existingGeometry: PropTypes.object,
   existingPlaceId: PropTypes.number,
   existingGeometryStyle: PropTypes.object,
-  datasetSlug: PropTypes.string.isRequired,
+  datasetSlug: PropTypes.string,
   geometryStyle: PropTypes.shape({
     [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
     [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
