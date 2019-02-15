@@ -15,9 +15,37 @@ export const mapStyleSelector = state => {
 // Actions:
 const UPDATE_VIEWPORT = "map-alt/UPDATE_VIEWPORT";
 const UPDATE_STYLE = "map-alt/UPDATE_STYLE";
-const LOAD_SOURCE = "map-alt/LOAD_SOURCE";
+const LOAD_LAYER_GROUPS_STATUS = "map-alt/LOAD_LAYER_GROUPS_STATUS";
+const UPDATE_LAYER_GROUP_STATUS = "map-alt/UPDATE_LAYER_GROUP_STATUS";
+const UPDATE_MAP_GEOJSON_SOURCE = "map-alt/UPDATE_MAP_GEOJSON_SOURCE";
 
 // Action creators:
+export function loadLayerGroupsStatus(groupIds) {
+  return {
+    type: LOAD_LAYER_GROUPS_STATUS,
+    // We initialize all layers to have a status of "unloaded".
+    payload: groupIds.reduce(
+      (statuses, id) => ({
+        ...statuses,
+        [id]: "unloaded",
+      }),
+      {},
+    ),
+  };
+}
+
+// Layer status terminology:
+// "unloaded": The map has not yet begun to fetch data for this layer.
+// "loading": The map has begun fetching data for this layer but has not finished.
+// "loaded": All data for this layer has been fetched. Rendering may or may not be in progress.
+// "error": An error occurred when fetching data for this layer.
+export function updateLayerGroupsStatus(groupId, status) {
+  return {
+    type: UPDATE_LAYER_GROUP_STATUS,
+    payload: { groupId, status },
+  };
+}
+
 export function updateMapViewport(viewport) {
   return { type: UPDATE_VIEWPORT, payload: viewport };
 }
@@ -26,12 +54,12 @@ export function updateMapStyle(style) {
   return { type: UPDATE_STYLE, payload: style };
 }
 
-export function loadMapSourceData(sourceData, sourceId) {
+export function updateMapGeoJSONSourceData(sourceId, sourceData) {
   return {
-    type: LOAD_SOURCE,
+    type: UPDATE_MAP_GEOJSON_SOURCE,
     payload: {
-      sourceData,
       sourceId,
+      sourceData,
     },
   };
 }
@@ -49,9 +77,26 @@ const appendFilters = (existingFilters, ...filtersToAdd) => {
   return newFilters;
 };
 
-export function loadMapStyle(mapConfig) {
+export function loadMapStyle(mapConfig, datasetsConfig) {
   const style = {
-    sources: mapConfig.mapboxSources,
+    sources: {
+      ...mapConfig.mapboxSources,
+      ...datasetsConfig.reduce(
+        (memo, config) => ({
+          ...memo,
+          // Add an empty GeoJSON source for each dataset of Places declared in
+          // the config, namespaced by its slug.
+          [config.slug]: {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [],
+            },
+          },
+        }),
+        {},
+      ),
+    },
     // Preprocess the layers array such that we accommodate Mapseed-specific
     // map features, such as default visibility, focused styling, etc.
     layers: mapConfig.layerGroups
@@ -128,11 +173,12 @@ const INITIAL_STATE = {
     sources: {},
     layers: [],
   },
+  layerGroupsStatus: {},
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case LOAD_SOURCE:
+    case UPDATE_MAP_GEOJSON_SOURCE:
       return {
         ...state,
         style: {
@@ -141,7 +187,12 @@ export default function reducer(state = INITIAL_STATE, action) {
             ...state.style.sources,
             [action.payload.sourceId]: {
               ...state.style.sources[action.payload.sourceId],
-              data: action.payload.sourceData,
+              data: {
+                ...state.style.sources[action.payload.sourceId].data,
+                features: state.style.sources[
+                  action.payload.sourceId
+                ].data.features.concat(action.payload.sourceData),
+              },
             },
           },
         },
@@ -167,6 +218,19 @@ export default function reducer(state = INITIAL_STATE, action) {
         style: {
           ...state.style,
           ...action.payload,
+        },
+      };
+    case LOAD_LAYER_GROUPS_STATUS:
+      return {
+        ...state,
+        layerGroupsStatus: action.payload,
+      };
+    case UPDATE_LAYER_GROUP_STATUS:
+      return {
+        ...state,
+        layerGroupsStatus: {
+          ...state.layerGroupsStatus,
+          [action.payload.groupId]: action.payload.status,
         },
       };
     default:

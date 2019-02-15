@@ -125,6 +125,7 @@ class MainMap extends Component {
     return (
       <MapGL
         ref={this.mapRef}
+        reuseMaps={true}
         mapOptions={this.props.mapOptions}
         width={this.props.mapViewport.width}
         height={this.props.mapViewport.height}

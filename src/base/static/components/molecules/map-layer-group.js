@@ -22,9 +22,9 @@ const MapLayerGroup = props => {
       <HorizontalRule spacing="tiny" />
       <Header5>{props.title}</Header5>
       {props.layers.map(layer => {
-        const isBasemap = !!props.mapConfig.layers.find(
+        const isBasemap = !!props.mapConfig.layerGroups.find(
           layerConfig => layerConfig.id === layer.id,
-        ).is_basemap;
+        ).basemap;
         const layerStatus = props.layerStatuses[layer.id];
 
         return (
@@ -61,7 +61,7 @@ const MapLayerGroup = props => {
 MapLayerGroup.propTypes = {
   classes: PropTypes.string,
   mapConfig: PropTypes.shape({
-    layers: PropTypes.arrayOf(
+    layerGroups: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,

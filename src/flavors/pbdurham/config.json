@@ -164,20 +164,6 @@
       "durham-parks": {
         "type": "geojson",
         "data": "https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson"
-      },
-      "pbdurham": {
-        "type": "geojson",
-        "data": {
-          "type": "FeatureCollection",
-          "features": []
-        }
-      },
-      "pbdurham-projects": {
-        "type": "geojson",
-        "data": {
-          "type": "FeatureCollection",
-          "features": []
-        }
       }
     },
     "layerGroups": [

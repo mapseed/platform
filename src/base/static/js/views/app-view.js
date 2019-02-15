@@ -82,7 +82,11 @@ import {
   updateDatasetsLoadStatus,
 } from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
-import { loadMapStyle, loadMapSourceData } from "../../state/ducks/map-alt";
+import {
+  loadMapStyle,
+  loadLayerGroupsStatus,
+  updateMapGeoJSONSourceData,
+} from "../../state/ducks/map-alt";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
@@ -145,18 +149,17 @@ export default Backbone.View.extend({
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setPagesConfig(this.options.pagesConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
-    store.dispatch(loadMapStyle(this.options.mapConfig));
+    store.dispatch(
+      loadMapStyle(this.options.mapConfig, this.options.datasetsConfig),
+    );
     if (this.options.dashboardConfig) {
       store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
     }
-    //store.dispatch(initLayers(this.options.mapConfig.layers));
-    //store.dispatch(
-    //  setBasemap(
-    //    this.options.mapConfig.layers.find(
-    //      layer => layer.is_basemap && layer.is_visible_default,
-    //    ).id,
-    //  ),
-    //);
+    store.dispatch(
+      loadLayerGroupsStatus(
+        this.options.mapConfig.layerGroups.map(group => group.id),
+      ),
+    );
     //store.dispatch(
     //  setMapPosition({
     //    center: this.options.mapConfig.options.map.center,
@@ -415,18 +418,24 @@ export default Backbone.View.extend({
         });
 
         if (response) {
-          // TODO: This Promise.all() should eventually be replaced with a loop
-          // that updates the Places duck when each Promise in placePagePromises
-          // resolves. We are punting this (briefly) for now, since the map
-          // abstraction will not yet detect changes in the length of the Places
-          // duck. We will address this deficiency very soon in an upcoming PR.
-          const placeData = await Promise.all(response);
-          store.dispatch(
-            loadPlaces(
-              placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-              storyConfigSelector(store.getState()),
-            ),
-          );
+          response.forEach(async placePagePromise => {
+            // Load places into the places duck.
+            const pageData = await placePagePromise;
+            store.dispatch(
+              loadPlaces(
+                pageData.places,
+                storyConfigSelector(store.getState()),
+              ),
+            );
+
+            // Update the map.
+            store.dispatch(
+              updateMapGeoJSONSourceData(
+                config.slug,
+                pageData.placesGeoJSONFeatures,
+              ),
+            );
+          });
         } else {
           Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
         }
