@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
-import { Link } from "../atoms/typography";
+import styled from "react-emotion";
+import { Link, RegularTitle, RegularText } from "../atoms/typography";
+import { CloseButton } from "../molecules/buttons";
+import { Button } from "../atoms/buttons";
 
 import Modal from "react-modal";
 Modal.setAppElement("#main");
@@ -31,8 +33,31 @@ const modalStyles = {
   },
 };
 
-const OfflineDownloadMenu = props => {
+const OfflineMenuWrapper = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  height: "100%",
+});
+
+const OfflineMenuHeading = styled("div")({
+  display: "flex",
+});
+const OfflineMenuTitle = styled(RegularTitle)({
+  textAlign: "center",
+  marginLeft: "auto",
+  marginRight: "auto",
+});
+
+const fetchOfflineData = () => {
+  console.log("fetching offline data");
+};
+
+const OfflineDownloadMenu = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeModal = () => setIsModalOpen(() => false);
+
+  const [isDownloading, setIsDownloading] = useState(false);
   return (
     <Fragment>
       <Link onClick={() => setIsModalOpen(() => true)}>
@@ -41,17 +66,37 @@ const OfflineDownloadMenu = props => {
       <Modal
         style={modalStyles}
         isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(() => false)}
+        onRequestClose={closeModal}
         contentLabel="offline download menu"
       >
-        {`offline download menu content`}
+        <OfflineMenuWrapper>
+          <Fragment>
+            <OfflineMenuHeading>
+              <OfflineMenuTitle>{"Offline Menu"}</OfflineMenuTitle>
+              <CloseButton onClick={closeModal} />
+            </OfflineMenuHeading>
+            {isDownloading ? (
+              <RegularText>{`downloading... TODO: show progress`}</RegularText>
+            ) : (
+              <Fragment>
+                <RegularText>
+                  {`Downloading your offline data may take a few minutes. Are you ready to downlaod?`}
+                </RegularText>
+                <Button
+                  onClick={() => {
+                    setIsDownloading(() => true);
+                    fetchOfflineData();
+                  }}
+                >
+                  {"Ok"}
+                </Button>
+              </Fragment>
+            )}
+          </Fragment>
+        </OfflineMenuWrapper>
       </Modal>
     </Fragment>
   );
-};
-
-OfflineDownloadMenu.propTypes = {
-  button: PropTypes.element,
 };
 
 export default OfflineDownloadMenu;
