@@ -4,6 +4,7 @@ import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { Link, SmallText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
+import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "react-emotion";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
 
@@ -233,6 +234,9 @@ class UserMenu extends React.Component {
                 Facebook
               </SocialLoginButton>
             </SocialMediaMenuItem>
+            <MenuItem>
+              <OfflineDownloadMenu />
+            </MenuItem>
           </Menu>
         </MenuContainer>
       );
