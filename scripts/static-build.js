@@ -240,6 +240,7 @@ activeLanguages.forEach((language, langNum) => {
     jsHashedBundleName: jsHashedBundleName,
     cssHashedBundleName: cssHashedBundleName,
     config: thisConfig,
+    flavor: flavor,
     settings: {
       mapboxToken: process.env.MAPBOX_TOKEN || "",
       clickyAnalyticsId: process.env.CLICKY_ANALYTICS_ID || "",

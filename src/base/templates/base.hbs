@@ -83,11 +83,10 @@
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        console.log("config.app.api_root: {{config.app.api_root}}")
-        var test = "{{config.app.api_root}}"
-        console.log("test:", test)
+        var apiRoot = encodeURIComponent("{{config.app.api_root}}");
+        var flavor = encodeURIComponent("{{flavor}}");
         navigator.serviceWorker
-          .register("/service-worker.js?apiRoot=" + encodeURIComponent(test))
+          .register("/service-worker.js?apiRoot=" + apiRoot + "&flavor=" + flavor)
           .then(registration => {
             console.log("SW registered: ", registration);
           })

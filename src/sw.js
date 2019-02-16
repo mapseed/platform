@@ -10,6 +10,12 @@ importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js",
 );
 
+// TODO: send an alert to the user when this data is about to expire
+// Ideally, users can look up when their cache is about to expire
+// by storing the date that they successfully performed a sync in the db.
+const TILE_CACHE_EXPIRATION = 24 * 60 * 60 * 90; // 90 days
+const TILE_CACHE_NAME = "tiles-cache";
+
 workbox.skipWaiting();
 workbox.clientsClaim();
 
@@ -39,27 +45,41 @@ const bgSyncPlugin = new workbox.backgroundSync.Plugin("mapseedBgQueue", {
   maxRetentionTime: 24 * 60, // Retry for max of 24 Hours
 });
 
-self.addEventListener("install", event => {
-  const cacheName = workbox.core.cacheNames.runtime;
+const flavor = new URL(location).searchParams.get("flavor");
 
-  const apiRoot = new URL(location).searchParams.get("apiRoot");
-  // instead of making this a runtime cache, we can cache all the
-  // local, prod, and dev api's explicitely
-  workbox.routing.registerRoute(
-    new RegExp(apiRoot),
-    workbox.strategies.networkFirst({
-      plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
-    }),
-    "GET",
-  );
+// Set the cache names for our runtime cache and precache
+workbox.core.setCacheNameDetails({
+  prefix: flavor,
+  suffix: "v1",
+});
 
-  workbox.routing.registerRoute(
-    new RegExp(apiRoot),
-    workbox.strategies.networkOnly({
-      plugins: [bgSyncPlugin],
-    }),
-    "POST",
-  );
+const apiRoot = new URL(location).searchParams.get("apiRoot");
+// runtime cache for all calls to the local, prod, and dev api's explicitely:
+workbox.routing.registerRoute(
+  new RegExp(apiRoot),
+  workbox.strategies.networkFirst({
+    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
+  }),
+  "GET",
+);
+
+// We still need to respond to the request when the app is offline...
+// ...and update the map legend when a request "fails", but is in the cache
+workbox.routing.registerRoute(
+  new RegExp(apiRoot),
+  workbox.strategies.networkOnly({
+    plugins: [bgSyncPlugin],
+  }),
+  "POST",
+);
+
+
+
+self.addEventListener("install", function(event) {
+  event.waitUntil(async () => {
+    // Create our tiles-cache:
+    caches.open(TILE_CACHE_NAME);
+  });
 });
 
 // base.hbs routes:
@@ -102,30 +122,65 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/tile3.f4map.com\/tiles\/f4_2d\//,
-  workbox.strategies.staleWhileRevalidate(),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: TILE_CACHE_NAME,
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxAgeSeconds: TILE_CACHE_EXPIRATION,
+      }),
+    ],
+  }),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/api.tiles.mapbox.com\/v4\/smartercleanup.pe3o4gdn\//,
-  workbox.strategies.staleWhileRevalidate(),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: TILE_CACHE_NAME,
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxAgeSeconds: TILE_CACHE_EXPIRATION,
+      }),
+    ],
+  }),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/api.mapbox.com\/fonts\//,
-  workbox.strategies.staleWhileRevalidate(),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: TILE_CACHE_NAME,
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxAgeSeconds: TILE_CACHE_EXPIRATION,
+      }),
+    ],
+  }),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^https:\/\/assets.mapseed.org\/geo\//,
-  workbox.strategies.staleWhileRevalidate(),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: TILE_CACHE_NAME,
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxAgeSeconds: TILE_CACHE_EXPIRATION,
+      }),
+    ],
+  }),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^https:\/\/vector-tiles.mapseed.org\//,
-  workbox.strategies.staleWhileRevalidate(),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: TILE_CACHE_NAME,
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxAgeSeconds: TILE_CACHE_EXPIRATION,
+      }),
+    ],
+  }),
   "GET",
 );
