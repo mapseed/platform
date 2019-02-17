@@ -7,6 +7,10 @@ import { Button } from "../atoms/buttons";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "react-emotion";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
+import {
+  offlineConfigSelector,
+  mapTileLayersSelector,
+} from "../../state/ducks/map-config";
 
 import {
   userSelector,
@@ -235,7 +239,10 @@ class UserMenu extends React.Component {
               </SocialLoginButton>
             </SocialMediaMenuItem>
             <MenuItem>
-              <OfflineDownloadMenu />
+              <OfflineDownloadMenu
+                offlineBoundingBox={this.props.offlineBoundingBox}
+                mapTileLayerConfigs={this.props.mapTileLayerConfigs}
+              />
             </MenuItem>
           </Menu>
         </MenuContainer>
@@ -247,6 +254,8 @@ class UserMenu extends React.Component {
 UserMenu.propTypes = {
   currentUser: userPropType,
   dashboardConfig: dashboardConfigPropType,
+  offlineBoundingBox: PropTypes.object,
+  mapTileLayerConfigs: PropTypes.array,
   hasAdminAbilities: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
@@ -257,6 +266,8 @@ UserMenu.propTypes = {
 const mapStateToProps = state => ({
   currentUser: userSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  offlineBoundingBox: offlineConfigSelector(state),
+  mapTileLayerConfigs: mapTileLayersSelector(state),
 });
 
 export default connect(mapStateToProps)(translate("UserMenu")(UserMenu));

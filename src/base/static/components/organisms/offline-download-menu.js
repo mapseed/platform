@@ -3,6 +3,11 @@ import styled from "react-emotion";
 import { Link, RegularTitle, RegularText } from "../atoms/typography";
 import { CloseButton } from "../molecules/buttons";
 import { Button } from "../atoms/buttons";
+import { getTilePaths } from "../../utils/geo";
+import {
+  mapLayerConfigsPropType,
+  offlineConfigPropType,
+} from "../../state/ducks/map-config";
 
 import Modal from "react-modal";
 Modal.setAppElement("#main");
@@ -49,11 +54,23 @@ const OfflineMenuTitle = styled(RegularTitle)({
   marginRight: "auto",
 });
 
-const fetchOfflineData = () => {
-  console.log("fetching offline data");
+const fetchOfflineData = (offlineBoundingBox, mapTileLayerConfigs) => {
+  const { southWest, northEast } = offlineBoundingBox;
+
+  const tilePaths = getTilePaths(southWest, northEast);
+  tilePaths.forEach(({ zoom, lat, lng }) => {
+    mapTileLayerConfigs.forEach(mapTileLayerConfig => {
+      const newUrl = mapTileLayerConfig.url
+        .replace("{z}", zoom)
+        .replace("{x}", lng)
+        .replace("{y}", lat);
+      console.log("fetching newUrl:", newUrl);
+      fetch(newUrl);
+    });
+  });
 };
 
-const OfflineDownloadMenu = () => {
+const OfflineDownloadMenu = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = () => setIsModalOpen(() => false);
 
@@ -85,7 +102,10 @@ const OfflineDownloadMenu = () => {
                 <Button
                   onClick={() => {
                     setIsDownloading(() => true);
-                    fetchOfflineData();
+                    fetchOfflineData(
+                      props.offlineBoundingBox,
+                      props.mapTileLayerConfigs,
+                    );
                   }}
                 >
                   {"Ok"}
@@ -97,6 +117,11 @@ const OfflineDownloadMenu = () => {
       </Modal>
     </Fragment>
   );
+};
+
+OfflineDownloadMenu.propTypes = {
+  mapTileLayerConfigs: mapLayerConfigsPropType,
+  offlineBoundingBox: offlineConfigPropType,
 };
 
 export default OfflineDownloadMenu;

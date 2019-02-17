@@ -46,6 +46,16 @@
     "geolocation_onload": false,
     "geocoding_engine": "Mapbox",
     "geocode_hint": [-117.1889785, 46.7298657],
+    "offlineBoundingBox": {
+      "southWest": {
+        "lat": 46.375191,
+        "lng": -117.022911
+      },
+      "northEast": {
+        "lat": 47.593241,
+        "lng": -118.79526
+      }
+    },
     "options": {
       "scrollZoomAroundCenter": true,
       "mapViewport": {
@@ -70,7 +80,7 @@
           "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
         "tileSize": 256,
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
       },
       "columbia-river": {
         "type": "geojson",

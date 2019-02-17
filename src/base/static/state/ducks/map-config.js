@@ -1,5 +1,25 @@
 import PropTypes from "prop-types";
 
+// PropTypes:
+export const mapLayerConfigsPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    url: PropTypes.string,
+  }),
+);
+
+export const offlineConfigPropType = PropTypes.shape({
+  southWest: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }).isRequired,
+  northEast: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }).isRequired,
+});
+
 // Selectors:
 export const mapConfigSelector = state => {
   return state.mapConfig;
@@ -7,10 +27,18 @@ export const mapConfigSelector = state => {
 export const mapLayerGroupsSelector = state => {
   return state.mapConfig.layerGroups;
 };
+export const mapTileLayersSelector = state => {
+  return state.mapConfig.layers.filter(
+    layer => layer.type && ["raster-tile", "vector-tile"].includes(layer.type),
+  );
+};
 export const mapPlaceLayersSelector = state => {
   return state.mapConfig.layers.filter(
     layer => layer.type && layer.type === "place",
   );
+};
+export const offlineConfigSelector = state => {
+  return state.mapConfig.offlineBoundingBox;
 };
 
 // Actions:
@@ -49,6 +77,8 @@ export const mapConfigPropType = PropTypes.shape({
       data: PropTypes.string,
     }),
   ).isRequired,
+  offlineBoundingBox: offlineConfigPropType,
+  layers: mapLayerConfigsPropType,
   layerGroups: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
