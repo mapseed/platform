@@ -13,35 +13,19 @@ export const layerGroupsStatusSelector = state =>
 // Actions:
 const UPDATE_VIEWPORT = "map-alt/UPDATE_VIEWPORT";
 const UPDATE_STYLE = "map-alt/UPDATE_STYLE";
-const LOAD_LAYER_GROUPS_STATUS = "map-alt/LOAD_LAYER_GROUPS_STATUS";
 const UPDATE_LAYER_GROUP_STATUS = "map-alt/UPDATE_LAYER_GROUP_STATUS";
 const UPDATE_MAP_GEOJSON_SOURCE = "map-alt/UPDATE_MAP_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map-alt/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_STATUS = "map-alt/UPDATE_SOURCE_STATUS";
-
-// Action creators:
-export function loadLayerGroupsStatus(groupIds) {
-  return {
-    type: LOAD_LAYER_GROUPS_STATUS,
-    // We initialize all layers to have a status of "unloaded".
-    payload: groupIds.reduce(
-      (statuses, id) => ({
-        ...statuses,
-        [id]: "unloaded",
-      }),
-      {},
-    ),
-  };
-}
 
 // Layer group load status terminology:
 // "unloaded": The map has not yet begun to fetch data for any source consumed
 //     by this layer group.
 // "loading": The map has begun fetching data for one or more sources consumed
 //     by this layer group, but has not finished.
-// "loaded": All data for all sources consumed by this layer group have been 
+// "loaded": All data for all sources consumed by this layer group have been
 //     fetched. Rendering may or may not be in progress.
-// "error": An error occurred when fetching data for one or more sources 
+// "error": An error occurred when fetching data for one or more sources
 //     consumed by this layer group. Note that an "error" status will take
 //     precedence over a "loading" status. So, if one source consumed by a
 //     layer group has a load status of "loading" and another has a load status
@@ -92,54 +76,60 @@ const appendFilters = (existingFilters, ...filtersToAdd) => {
 };
 
 export function loadMapStyle(mapConfig, datasetsConfig) {
+  const defaultVisibleLayerGroups = mapConfig.layerGroups.filter(
+    lg => !!lg.visibleDefault,
+  );
+  const defaultActiveSources = Object.entries({
+    ...mapConfig.mapboxSources,
+    ...datasetsConfig.reduce(
+      (memo, config) => ({
+        ...memo,
+        // Add an empty GeoJSON source for each dataset of Places declared in
+        // the config, namespaced by its slug.
+        [config.slug]: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [],
+          },
+        },
+      }),
+      {},
+    ),
+  }).reduce((memo, [sourceId, source]) => {
+    if (
+      defaultVisibleLayerGroups.some(lg =>
+        lg.mapboxLayers.some(mbl => mbl.source === sourceId),
+      )
+    ) {
+      // On load, only add sources to the map which are consumed by layers
+      // contained in layer groups which are visible by default.
+      return {
+        ...memo,
+        [sourceId]: source,
+      };
+    }
+
+    return memo;
+  }, {});
+
   const style = {
-    sources: {
-      ...mapConfig.mapboxSources,
-      ...datasetsConfig.reduce(
-        (memo, config) => ({
-          ...memo,
-          // Add an empty GeoJSON source for each dataset of Places declared in
-          // the config, namespaced by its slug.
-          [config.slug]: {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: [],
-            },
-          },
-        }),
-        {},
-      ),
-    },
-    // Preprocess the layers array such that we accommodate Mapseed-specific
-    // map features, such as default visibility, focused styling, etc.
+    sources: defaultActiveSources,
     layers: mapConfig.layerGroups
-      .map(layerGroup => {
-        const layers = layerGroup.mapboxLayers.map(layer => ({
-          ...layer,
-          layout: {
-            ...layer.layout,
-            // Set initial layer visisbility.
-            visibility: layerGroup.visibleDefault ? "visible" : "none",
-          },
-        }));
-
-        const focusedLayers = layerGroup.mapboxFocusedLayers
-          ? layerGroup.mapboxFocusedLayers.map(focusedLayer => ({
-              layout: {
-                ...focusedLayer.layout,
-                visibility: "none",
-              },
-              filter: appendFilters(focusedLayer.filter, [
-                "==",
-                ["get", "__mapseed-is-focused__"],
-                true,
-              ]),
-              ...focusedLayer,
-            }))
-          : [];
-
-        return layers.concat(focusedLayers);
+      .filter(lg => !!lg.visibleDefault)
+      .map(lg => {
+        return lg.mapboxFocusedLayers
+          ? lg.mapboxLayers.concat(
+              lg.mapboxFocusedLayers.map(mbfl => ({
+                ...mbfl,
+                filter: appendFilters(mbfl.filter, [
+                  "==",
+                  ["get", "__mapseed-focused__"],
+                  true,
+                ]),
+              })),
+            )
+          : lg.mapboxLayers;
       })
       .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
   };

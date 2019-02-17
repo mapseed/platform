@@ -84,7 +84,6 @@ import {
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 import {
   loadMapStyle,
-  loadLayerGroupsStatus,
   updateMapGeoJSONSourceData,
 } from "../../state/ducks/map-alt";
 
@@ -155,11 +154,6 @@ export default Backbone.View.extend({
     if (this.options.dashboardConfig) {
       store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
     }
-    store.dispatch(
-      loadLayerGroupsStatus(
-        this.options.mapConfig.layerGroups.map(group => group.id),
-      ),
-    );
     //store.dispatch(
     //  setMapPosition({
     //    center: this.options.mapConfig.options.map.center,
