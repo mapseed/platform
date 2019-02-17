@@ -5,12 +5,15 @@ import { connect } from "react-redux";
 import { fromJS } from "immutable";
 import styled from "react-emotion";
 
+import { updateSourceStatus } from "../../state/ducks/map-alt";
+
 import {
   mapStyleSelector,
   mapViewportSelector,
   mapViewportPropType,
   mapStylePropType,
   updateMapViewport,
+  sourcesStatusSelector,
 } from "../../state/ducks/map-alt";
 import { mapOptionsSelector } from "../../state/ducks/map-config";
 import {
@@ -100,10 +103,35 @@ CustomControl.defaultProps = {
 
 class MainMap extends Component {
   state = {
+    // TODO: I think converting to immutable data types is no longer necessary...
     mapStyle: fromJS(this.props.mapStyle),
   };
 
   mapRef = createRef();
+
+  componentDidMount() {
+    this.map = this.mapRef.current.getMap();
+
+    // NOTE: MapboxGL fires many redundant loading events, so only update load
+    // status state if a new type of event is fired.
+    // TODO: To cut down on the volume of sourcedata events, we could only
+    // add sources to MapboxGL if/when they are requested by a layer.
+    this.map.on("error", evt => {
+      if (this.props.sourcesStatus[evt.sourceId] !== "error") {
+        this.props.updateSourceStatus(evt.sourceId, "error");
+      }
+    });
+
+    this.map.on("sourcedata", evt => {
+      const status = this.map.isSourceLoaded(evt.sourceId)
+        ? "loaded"
+        : "loading";
+
+      if (this.props.sourcesStatus[evt.sourceId] !== status) {
+        this.props.updateSourceStatus(evt.sourceId, status);
+      }
+    });
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.mapStyle.sources !== prevProps.mapStyle.sources) {
@@ -183,7 +211,9 @@ MainMap.propTypes = {
   mapOptions: PropTypes.object,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
+  sourcesStatus: PropTypes.object.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
+  updateSourceStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -191,6 +221,7 @@ const mapStateToProps = state => ({
   mapOptions: mapOptionsSelector(state),
   mapViewport: mapViewportSelector(state),
   mapStyle: mapStyleSelector(state),
+  sourcesStatus: sourcesStatusSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -199,6 +230,8 @@ const mapDispatchToProps = dispatch => ({
   setLeftSidebarComponent: component =>
     dispatch(setLeftSidebarComponent(component)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
+  updateSourceStatus: (sourceId, status) =>
+    dispatch(updateSourceStatus(sourceId, status)),
 });
 
 export default connect(

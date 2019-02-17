@@ -434,7 +434,6 @@
       {
         "id": "pbdurham-projects",
         "datasetSlug": "pbdurham-projects",
-        "topmostLayer": true,
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
@@ -564,11 +563,11 @@
         "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "osm",
                 "title": "_(Neighborhood Style)"
@@ -582,7 +581,7 @@
           {
             "id": "grp-community",
             "title": "_(Community Data)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "pbdurham",
                 "title": "_(Your Ideas)"
@@ -596,7 +595,7 @@
           {
             "id": "grp-city",
             "title": "_(City Data)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "durham-bike-trails",
                 "title": "_(Bike Lanes)"

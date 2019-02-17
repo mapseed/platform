@@ -4,13 +4,11 @@ import { FlyToInterpolator } from "react-map-gl";
 const interpolator = new FlyToInterpolator();
 
 // Selectors:
-export const mapViewportSelector = state => {
-  return state.mapAlt.viewport;
-};
-
-export const mapStyleSelector = state => {
-  return state.mapAlt.style;
-};
+export const mapViewportSelector = state => state.mapAlt.viewport;
+export const mapStyleSelector = state => state.mapAlt.style;
+export const sourcesStatusSelector = state => state.mapAlt.sourcesStatus;
+export const layerGroupsStatusSelector = state =>
+  state.mapAlt.layerGroupsStatus;
 
 // Actions:
 const UPDATE_VIEWPORT = "map-alt/UPDATE_VIEWPORT";
@@ -18,6 +16,8 @@ const UPDATE_STYLE = "map-alt/UPDATE_STYLE";
 const LOAD_LAYER_GROUPS_STATUS = "map-alt/LOAD_LAYER_GROUPS_STATUS";
 const UPDATE_LAYER_GROUP_STATUS = "map-alt/UPDATE_LAYER_GROUP_STATUS";
 const UPDATE_MAP_GEOJSON_SOURCE = "map-alt/UPDATE_MAP_GEOJSON_SOURCE";
+const LOAD_STYLE_AND_METADATA = "map-alt/LOAD_STYLE_AND_METADATA";
+const UPDATE_SOURCE_STATUS = "map-alt/UPDATE_SOURCE_STATUS";
 
 // Action creators:
 export function loadLayerGroupsStatus(groupIds) {
@@ -34,15 +34,29 @@ export function loadLayerGroupsStatus(groupIds) {
   };
 }
 
-// Layer status terminology:
-// "unloaded": The map has not yet begun to fetch data for this layer.
-// "loading": The map has begun fetching data for this layer but has not finished.
-// "loaded": All data for this layer has been fetched. Rendering may or may not be in progress.
-// "error": An error occurred when fetching data for this layer.
+// Layer group load status terminology:
+// "unloaded": The map has not yet begun to fetch data for any source consumed
+//     by this layer group.
+// "loading": The map has begun fetching data for one or more sources consumed
+//     by this layer group, but has not finished.
+// "loaded": All data for all sources consumed by this layer group have been 
+//     fetched. Rendering may or may not be in progress.
+// "error": An error occurred when fetching data for one or more sources 
+//     consumed by this layer group. Note that an "error" status will take
+//     precedence over a "loading" status. So, if one source consumed by a
+//     layer group has a load status of "loading" and another has a load status
+//     of "error", the status of the layer group will be "error".
 export function updateLayerGroupsStatus(groupId, status) {
   return {
     type: UPDATE_LAYER_GROUP_STATUS,
     payload: { groupId, status },
+  };
+}
+
+export function updateSourceStatus(sourceId, status) {
+  return {
+    type: UPDATE_SOURCE_STATUS,
+    payload: { sourceId, status },
   };
 }
 
@@ -101,30 +115,28 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     // map features, such as default visibility, focused styling, etc.
     layers: mapConfig.layerGroups
       .map(layerGroup => {
-        const layers = layerGroup.mapboxLayers.map(layer => {
-          // Set initial layer visisbility.
-          layer.layout = {
+        const layers = layerGroup.mapboxLayers.map(layer => ({
+          ...layer,
+          layout: {
             ...layer.layout,
+            // Set initial layer visisbility.
             visibility: layerGroup.visibleDefault ? "visible" : "none",
-          };
-
-          return layer;
-        });
+          },
+        }));
 
         const focusedLayers = layerGroup.mapboxFocusedLayers
-          ? layerGroup.mapboxFocusedLayers.map(focusedLayer => {
-              focusedLayer.layout = {
+          ? layerGroup.mapboxFocusedLayers.map(focusedLayer => ({
+              layout: {
                 ...focusedLayer.layout,
                 visibility: "none",
-              };
-              focusedLayer.filter = appendFilters(focusedLayer.filter, [
+              },
+              filter: appendFilters(focusedLayer.filter, [
                 "==",
                 ["get", "__mapseed-is-focused__"],
                 true,
-              ]);
-
-              return focusedLayer;
-            })
+              ]),
+              ...focusedLayer,
+            }))
           : [];
 
         return layers.concat(focusedLayers);
@@ -132,7 +144,35 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
       .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
   };
 
-  return { type: UPDATE_STYLE, payload: style };
+  const layerGroupsStatus = mapConfig.layerGroups.reduce(
+    (memo, layerGroup) => ({
+      ...memo,
+      [layerGroup.id]: {
+        isBasemap: !!layerGroup.basemap,
+        isVisible: !!layerGroup.visibleDefault,
+        // Sources which this layerGroup consumes:
+        sourceIds: [
+          ...new Set(
+            layerGroup.mapboxLayers.map(mapboxLayer => mapboxLayer.source),
+          ),
+        ],
+      },
+    }),
+    {},
+  );
+
+  const sourcesStatus = Object.keys(style.sources).reduce(
+    (memo, sourceId) => ({
+      ...memo,
+      [sourceId]: "unloaded",
+    }),
+    {},
+  );
+
+  return {
+    type: LOAD_STYLE_AND_METADATA,
+    payload: { style, sourcesStatus, layerGroupsStatus },
+  };
 }
 
 export const mapViewportPropType = PropTypes.shape({
@@ -174,6 +214,7 @@ const INITIAL_STATE = {
     layers: [],
   },
   layerGroupsStatus: {},
+  sourcesStatus: {},
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -212,25 +253,39 @@ export default function reducer(state = INITIAL_STATE, action) {
           width: window.innerWidth,
         },
       };
-    case UPDATE_STYLE:
+    case LOAD_STYLE_AND_METADATA:
       return {
         ...state,
         style: {
           ...state.style,
-          ...action.payload,
+          ...action.payload.style,
+        },
+        layerGroupsStatus: {
+          ...state.layerGroupsStatus,
+          ...action.payload.layerGroupsStatus,
+        },
+        sourcesStatus: {
+          ...state.sourcesStatus,
+          ...action.payload.sourcesStatus,
         },
       };
-    case LOAD_LAYER_GROUPS_STATUS:
+    case UPDATE_SOURCE_STATUS:
       return {
         ...state,
-        layerGroupsStatus: action.payload,
+        sourcesStatus: {
+          ...state.sourcesStatus,
+          [action.payload.sourceId]: action.payload.status,
+        },
       };
     case UPDATE_LAYER_GROUP_STATUS:
       return {
         ...state,
         layerGroupsStatus: {
           ...state.layerGroupsStatus,
-          [action.payload.groupId]: action.payload.status,
+          [action.payload.groupId]: {
+            ...state.layerGrouspsStatus[action.payload.groupId],
+            status: action.payload.status,
+          },
         },
       };
     default:
