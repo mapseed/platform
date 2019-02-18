@@ -767,6 +767,7 @@ export default Backbone.View.extend({
       const newViewport = {
         latitude: story.panTo[1],
         longitude: story.panTo[0],
+        transitionDuration: 3000,
       };
       if (story.zoom) {
         newViewport.zoom = story.zoom;
@@ -788,7 +789,7 @@ export default Backbone.View.extend({
         updateMapViewport({
           latitude: newViewport.latitude,
           longitude: newViewport.longitude,
-          transitionDuration: 300,
+          transitionDuration: story ? 3000 : 200,
           zoom: newViewport.zoom,
         }),
       );
@@ -796,7 +797,7 @@ export default Backbone.View.extend({
       const newViewport = {
         latitude: place.geometry.coordinates[1],
         longitude: place.geometry.coordinates[0],
-        transitionDuration: 300,
+        transitionDuration: story ? 3000 : 200,
       };
       if (story && story.zoom) {
         newViewport.zoom = story.zoom;

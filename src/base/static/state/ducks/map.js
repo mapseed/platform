@@ -3,7 +3,7 @@ import { FlyToInterpolator } from "react-map-gl";
 
 import { easeInOutCubic } from "../../utils/scroll-helpers";
 
-const interpolator = new FlyToInterpolator();
+console.log("!!", new FlyToInterpolator())
 
 // Selectors:
 export const mapViewportSelector = state => state.map.viewport;
@@ -25,7 +25,6 @@ const UPDATE_MAP_GEOJSON_SOURCE = "map/UPDATE_MAP_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
-const UPDATE_MAP_SIZE_VALIDITY = "map/UPDATE_MAP_SIZE_VALIDITY";
 
 // Layer group load status terminology:
 // ------------------------------------
@@ -44,13 +43,6 @@ export function updateLayerGroupLoadStatus(groupId, loadStatus) {
   return {
     type: UPDATE_LAYER_GROUP_LOAD_STATUS,
     payload: { groupId, loadStatus },
-  };
-}
-
-export function updateMapSizeValidity(isValidSize) {
-  return {
-    type: UPDATE_MAP_SIZE_VALIDITY,
-    payload: isValidSize,
   };
 }
 
@@ -74,15 +66,15 @@ export function updateMapViewport(viewport) {
 
 export function updateMapViewportFromReactMapGL(viewport) {
   // We have a special action creator for viewport updates that originate from
-  // react-map-gl. The reason for this is that react-map-gl seems to cache 
-  // the width and height of the map container at the beginning of a 
+  // react-map-gl. The reason for this is that react-map-gl seems to cache
+  // the width and height of the map container at the beginning of a
   // transition. If the viewport change that initiated the transition also
   // changed the width and/or height (for example when a Place is clicked and
   // the map resizes to make way for the content panel), then react-map-gl will
   // immediately undo the width and height change. The result of this is yet
   // another version of the off-center bug.
   //
-  // So, we strip out the height and width from any viewport changes 
+  // So, we strip out the height and width from any viewport changes
   // originating from react-map-gl. There should never be a situation where
   // react-map-gl should be setting the width or height of the map container.
   const { width, height, ...rest } = viewport;
@@ -267,7 +259,7 @@ const INITIAL_STATE = {
     height: 0,
     minZoom: 1,
     maxZoom: 18,
-    transitionInterpolator: interpolator,
+    transitionInterpolator: new FlyToInterpolator(),
     transitionEasing: easeInOutCubic,
   },
   style: {
@@ -476,11 +468,6 @@ export default function reducer(state = INITIAL_STATE, action) {
             };
           }),
         },
-      };
-    case UPDATE_MAP_SIZE_VALIDITY:
-      return {
-        ...state,
-        isMapSizeValid: action.payload,
       };
     default:
       return state;
