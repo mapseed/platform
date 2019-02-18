@@ -52,6 +52,7 @@ import {
   setBasemap,
   setMapDragging,
   setLayerLoading,
+  updateMapViewport,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -153,12 +154,8 @@ export default Backbone.View.extend({
     if (this.options.dashboardConfig) {
       store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
     }
-    //store.dispatch(
-    //  setMapPosition({
-    //    center: this.options.mapConfig.options.map.center,
-    //    zoom: this.options.mapConfig.options.map.zoom,
-    //  }),
-    //);
+    // Set default map position.
+    store.dispatch(updateMapViewport(this.options.mapConfig.options.map));
 
     const storeState = store.getState();
     this.flavorTheme = storeState.appConfig.theme;

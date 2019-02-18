@@ -226,6 +226,8 @@ export const mapViewportPropType = PropTypes.shape({
   transitionInterpolator: PropTypes.object,
   transitionDuration: PropTypes.number,
   transitionEasing: PropTypes.func,
+  minZoom: PropTypes.number.isRequired,
+  maxZoom: PropTypes.number.isRequired,
 });
 
 export const mapStylePropType = PropTypes.shape({
@@ -242,6 +244,8 @@ const INITIAL_STATE = {
     width: window.innerWidth,
     height: window.innerHeight,
     transitionInterpolator: interpolator,
+    minZoom: 1,
+    maxZoom: 18,
   },
   style: {
     version: 8,

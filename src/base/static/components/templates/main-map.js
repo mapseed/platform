@@ -14,7 +14,6 @@ import {
   updateSourceLoadStatus,
   sourcesMetadataSelector,
 } from "../../state/ducks/map";
-import { mapOptionsSelector } from "../../state/ducks/map-config";
 import {
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
@@ -165,7 +164,6 @@ class MainMap extends Component {
       <MapGL
         ref={this.mapRef}
         reuseMaps={true}
-        mapOptions={this.props.mapOptions}
         width={this.props.mapViewport.width}
         height={this.props.mapViewport.height}
         latitude={this.props.mapViewport.latitude}
@@ -177,6 +175,8 @@ class MainMap extends Component {
         transitionInterpolator={this.props.mapViewport.transitionInterpolator}
         transitionEasing={this.props.mapViewport.transitionEasing}
         mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
+        minZoom={this.props.mapViewport.minZoom}
+        maxZoom={this.props.mapViewport.maxZoom}
         onViewportChange={viewport => this.props.updateMapViewport(viewport)}
         interactiveLayerIds={this.props.interactiveLayerIds}
         mapStyle={this.props.mapStyle}
@@ -227,7 +227,6 @@ MainMap.propTypes = {
   }).isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
-  mapOptions: PropTypes.object,
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
@@ -239,7 +238,6 @@ MainMap.propTypes = {
 const mapStateToProps = state => ({
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
-  mapOptions: mapOptionsSelector(state),
   mapViewport: mapViewportSelector(state),
   mapStyle: mapStyleSelector(state),
   sourcesMetadata: sourcesMetadataSelector(state),
