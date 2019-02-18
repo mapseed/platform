@@ -1,311 +1,439 @@
-// Selectors
-export const mapBasemapSelector = state => {
-  return state.map.visibleBasemapId;
-};
-export const mapLayerStatusesSelector = state => {
-  return state.map.layerStatuses;
-};
-export const mapSizeValiditySelector = state => {
-  return state.map.isMapSizeValid;
-};
-export const mapPositionSelector = state => {
-  return state.map.mapPosition;
-};
-export const mapDraggedSelector = state => {
-  return state.map.isMapDragged;
-};
-export const mapboxStyleIdSelector = state => {
-  return (
-    Object.values(state.map.layerStatuses).find(layerStatus => {
-      return layerStatus.type === "mapbox-style" && layerStatus.isVisible;
-    }) || {}
-  ).id;
-};
-export const mapFeatureFiltersSelector = state => {
-  return state.map.featureFilters;
-};
-export const mapUpdatingFilterGroupIdSelector = state => {
-  return state.map.updatingFilterGroupId;
-};
-export const mapUpdatingFilterTargetLayerSelector = state => {
-  return state.map.updatingFilterTargetLayer;
-};
-export const mapDraggingSelector = state => {
-  return state.map.isMapDragging;
-};
+import PropTypes from "prop-types";
+import { FlyToInterpolator } from "react-map-gl";
 
-// Actions
-const SET_LAYER_LOAD_STATUS = "map/SET_LAYER_LOAD_STATUS";
-const SET_MAP_POSITION = "map/SET_MAP_POSITION";
-const SET_MAP_SIZE_VALIDITY = "map/SET_MAP_SIZE_VALIDITY";
-const ACTIVATE_FEATURE_FILTER = "map/ACTIVATE_FEATURE_FILTER";
-const DEACTIVATE_FEATURE_FILTER = "map/DEACTIVATE_FEATURE_FILTER";
-const RESET_FEATURE_FILTER_GROUP = "map/RESET_FEATURE_FILTER_GROUP";
-const SET_BASEMAP = "map/SET_BASEMAP";
-const INIT_LAYER = "map/INIT_LAYER";
-const UPDATE_LAYERS_VISIBLE = "map/UPDATE_LAYERS_VISIBLE";
-const UPDATE_LAYERS_HIDDEN = "map/UPDATE_LAYERS_HIDDEN";
-const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
-const UPDATE_IS_MAP_DRAGGED = "map/UPDATE_IS_MAP_DRAGGED";
+const interpolator = new FlyToInterpolator();
 
-// Action creators
-export const setMapDragging = isDragging => ({
-  type: UPDATE_MAP_DRAGGING,
-  payload: isDragging,
-});
-export const showLayers = (layerIds = []) => ({
-  type: UPDATE_LAYERS_VISIBLE,
-  payload: layerIds,
-});
+// Selectors:
+export const mapViewportSelector = state => state.map.viewport;
+export const mapStyleSelector = state => state.map.style;
+export const sourcesMetadataSelector = state => state.map.sourcesMetadata;
+export const layerGroupsMetadataSelector = state =>
+  state.map.layerGroupsMetadata;
+export const mapDraggingSelector = state => false; // TODO
+export const mapDraggedSelector = state => false; // TODO
 
-export const hideLayers = (layerIds = []) => ({
-  type: UPDATE_LAYERS_HIDDEN,
-  payload: layerIds,
-});
-// status definitions:
-// unloaded: the layer is not going to be cached or loaded into Mapbox GL
-// fetching: the layer will be loaded into Mapbox GL, but needs to fetch data first
-// loading: the layer is ready to be loaded into Mapbox GL
-// loaded: the layer is loaded and cached in Mapbox GL (even though it may not be visible)
-export const initLayers = layers => {
+// Actions:
+const UPDATE_VIEWPORT = "map/UPDATE_VIEWPORT";
+const UPDATE_STYLE = "map/UPDATE_STYLE";
+const UPDATE_LAYER_GROUP_LOAD_STATUS = "map/UPDATE_LAYER_GROUP_LOAD_STATUS";
+const UPDATE_MAP_GEOJSON_SOURCE = "map/UPDATE_MAP_GEOJSON_SOURCE";
+const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
+const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
+const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
+
+// Layer group load status terminology:
+// ------------------------------------
+// "unloaded": The map has not yet begun to fetch data for any source consumed
+//     by this layer group.
+// "loading": The map has begun fetching data for one or more sources consumed
+//     by this layer group, but has not finished.
+// "loaded": All data for all sources consumed by this layer group have been
+//     fetched. Rendering may or may not be in progress.
+// "error": An error occurred when fetching data for one or more sources
+//     consumed by this layer group. Note that an "error" status will take
+//     precedence over a "loading" status. So, if one source consumed by a
+//     layer group has a load status of "loading" and another has a load status
+//     of "error", the status of the layer group will be "error".
+export function updateLayerGroupLoadStatus(groupId, loadStatus) {
   return {
-    type: INIT_LAYER,
-    payload: layers.map(layer => {
-      let loadStatus = "unloaded";
-      if (layer.is_visible_default) {
-        loadStatus = layer.type === "place" ? "fetching" : "loading";
-      }
-      return {
-        id: layer.type === "place" ? layer.datasetSlug : layer.id,
-        isVisible: !!layer.is_visible_default,
-        isBasemap: !!layer.is_basemap,
-        type: layer.type,
-        loadStatus: loadStatus,
-      };
+    type: UPDATE_LAYER_GROUP_LOAD_STATUS,
+    payload: { groupId, loadStatus },
+  };
+}
+
+export function setMapSizeValidity(isValidSize) {
+  return {
+    type: "TEMP",
+    payload: {},
+  }; // TODO
+}
+
+export function updateLayerGroupVisibility(layerGroupId, isVisible) {
+  return {
+    type: UPDATE_LAYER_GROUP_VISIBILITY,
+    payload: { layerGroupId, isVisible },
+  };
+}
+
+export function updateSourceLoadStatus(sourceId, loadStatus) {
+  return {
+    type: UPDATE_SOURCE_LOAD_STATUS,
+    payload: { sourceId, loadStatus },
+  };
+}
+
+export function updateMapViewport(viewport) {
+  return { type: UPDATE_VIEWPORT, payload: viewport };
+}
+
+export function updateMapStyle(style) {
+  return { type: UPDATE_STYLE, payload: style };
+}
+
+export function updateMapGeoJSONSourceData(sourceId, sourceData) {
+  return {
+    type: UPDATE_MAP_GEOJSON_SOURCE,
+    payload: {
+      sourceId,
+      sourceData,
+    },
+  };
+}
+
+const appendFilters = (existingFilters, ...filtersToAdd) => {
+  const newFilters = filtersToAdd.reduce(
+    (newFilters, filterToAdd) => [...newFilters, filterToAdd],
+    existingFilters ? [existingFilters] : [],
+  );
+
+  // If an existing filter does not already start with the logical AND
+  // operator "all", we need to prepend it.
+  newFilters[0] !== "all" && newFilters.unshift("all");
+
+  return newFilters;
+};
+
+export function loadMapStyle(mapConfig, datasetsConfig) {
+  const style = {
+    sources: {
+      ...mapConfig.mapboxSources,
+      ...datasetsConfig.reduce(
+        (memo, config) => ({
+          ...memo,
+          // Add an empty GeoJSON source for each dataset of Places declared in
+          // the config, namespaced by its slug.
+          [config.slug]: {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [],
+            },
+          },
+        }),
+        {},
+      ),
+    },
+    layers: mapConfig.layerGroups
+      //.filter(lg => !!lg.visibleDefault)
+      .map(lg => {
+        return (lg.mapboxFocusedLayers
+          ? lg.mapboxLayers.concat(
+              lg.mapboxFocusedLayers.map(mbfl => ({
+                ...mbfl,
+                filter: appendFilters(mbfl.filter, [
+                  "==",
+                  ["get", "__mapseed-is-focused__"],
+                  true,
+                ]),
+              })),
+            )
+          : lg.mapboxLayers
+        ).map(layer => ({
+          ...layer,
+          layout: {
+            ...layer.layout,
+            visibility: lg.visibleDefault ? "visible" : "none",
+          },
+        }));
+      })
+      .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+  };
+
+  const layerGroupsMetadata = mapConfig.layerGroups.reduce(
+    (memo, layerGroup) => ({
+      ...memo,
+      [layerGroup.id]: {
+        isBasemap: !!layerGroup.basemap,
+        isVisible: !!layerGroup.visibleDefault,
+        // Mapbox layer ids which make up this layerGroup:
+        layerIds: layerGroup.mapboxLayers
+          .concat(layerGroup.mapboxFocusedLayers || [])
+          .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+          .map(layer => layer.id),
+        // Source ids which this layerGroup consumes:
+        sourceIds: [
+          ...new Set(
+            layerGroup.mapboxLayers.map(mapboxLayer => mapboxLayer.source),
+          ),
+        ],
+      },
     }),
-  };
-};
-export const setLayerUnloaded = layerId => ({
-  type: SET_LAYER_LOAD_STATUS,
-  payload: {
-    id: layerId,
-    loadStatus: "unloaded",
-  },
-});
-export const setLayerLoaded = layerId => ({
-  type: SET_LAYER_LOAD_STATUS,
-  payload: {
-    id: layerId,
-    loadStatus: "loaded",
-  },
-});
-export const setLayerLoading = layerId => ({
-  type: SET_LAYER_LOAD_STATUS,
-  payload: {
-    id: layerId,
-    loadStatus: "loading",
-  },
-});
-export const setLayerError = layerId => ({
-  type: SET_LAYER_LOAD_STATUS,
-  payload: {
-    id: layerId,
-    loadStatus: "error",
-  },
-});
-export const setBasemap = basemapId => ({
-  type: SET_BASEMAP,
-  payload: basemapId,
-});
-export const setMapPosition = mapPosition => {
-  return {
-    type: SET_MAP_POSITION,
-    payload: mapPosition,
-  };
-};
-export const setMapSizeValidity = isValidSize => {
-  return {
-    type: SET_MAP_SIZE_VALIDITY,
-    payload: isValidSize,
-  };
-};
-export const activateFeatureFilter = filterInfo => {
-  return {
-    type: ACTIVATE_FEATURE_FILTER,
-    payload: filterInfo,
-  };
-};
-export const deactivateFeatureFilter = filterInfo => {
-  return {
-    type: DEACTIVATE_FEATURE_FILTER,
-    payload: filterInfo,
-  };
-};
-export const resetFeatureFilterGroup = filterInfo => {
-  return {
-    type: RESET_FEATURE_FILTER_GROUP,
-    payload: filterInfo,
-  };
-};
-export const updateMapDragged = isMapDragged => {
-  return {
-    type: UPDATE_IS_MAP_DRAGGED,
-    payload: isMapDragged,
-  };
-};
+    {},
+  );
 
-// Reducers
+  const defaultVisibleLayerGroups = mapConfig.layerGroups.filter(
+    lg => !!lg.visibleDefault,
+  );
+  const sourcesMetadata = Object.keys(style.sources).reduce(
+    (memo, sourceId) => ({
+      ...memo,
+      [sourceId]: {
+        loadStatus: "unloaded",
+        // An "active" source is a source that is consumed by at least one
+        // visible layer. On map load, only sources consumed by default visible
+        // layers will be active, so indicate that here.
+        isActive: defaultVisibleLayerGroups.some(lg =>
+          lg.mapboxLayers.some(mbl => mbl.source === sourceId),
+        ),
+        // Layer group ids containing layers which consume this source:
+        layerGroupIds: mapConfig.layerGroups
+          .filter(lg =>
+            lg.mapboxLayers
+              .concat(lg.mapboxFocusedLayers || [])
+              .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+              .some(mbl => mbl.source === sourceId),
+          )
+          .map(lg => lg.id),
+      },
+    }),
+    {},
+  );
+
+  const basemapLayerIds = mapConfig.layerGroups
+    .filter(lg => !!lg.basemap)
+    .map(lg => lg.mapboxLayers.concat(lg.mapboxFocusedLayers || []))
+    .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+    .map(layer => layer.id);
+
+  return {
+    type: LOAD_STYLE_AND_METADATA,
+    payload: { style, sourcesMetadata, layerGroupsMetadata, basemapLayerIds },
+  };
+}
+
+export const mapViewportPropType = PropTypes.shape({
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  zoom: PropTypes.number,
+  pitch: PropTypes.number,
+  bearing: PropTypes.number,
+  transitionInterpolator: PropTypes.object,
+  transitionDuration: PropTypes.number,
+  transitionEasing: PropTypes.func,
+});
+
+export const mapStylePropType = PropTypes.shape({
+  version: PropTypes.number,
+  name: PropTypes.string,
+  sources: PropTypes.object,
+  layers: PropTypes.arrayOf(PropTypes.object),
+});
+
+// Reducers:
+// TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
-  visibleBasemapId: undefined,
-  layerStatuses: {},
-  featureFilters: [],
-  updatingFilterGroupId: undefined,
-  updatingFilterTargetLayer: undefined,
-  mapPosition: undefined,
-  isMapSizeValid: true,
-  isMapDragging: false,
-  isMapDragged: false,
+  viewport: {
+    width: window.innerWidth,
+    height: window.innerHeight,
+    transitionInterpolator: interpolator,
+  },
+  style: {
+    version: 8,
+    name: "Mapseed",
+    glyphs: "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+    sprite: `${window.location.protocol}//${
+      window.location.host
+    }/static/css/images/markers/spritesheet`,
+    sources: {},
+    layers: [],
+  },
+  layerGroupsMetadata: {},
+  sourcesMetadata: {},
+  basemapLayerIds: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
-  let newStatuses;
-
   switch (action.type) {
-    case UPDATE_MAP_DRAGGING:
+    case UPDATE_MAP_GEOJSON_SOURCE:
       return {
         ...state,
-        isMapDragging: action.payload,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.sourceId]: {
+              ...state.style.sources[action.payload.sourceId],
+              data: {
+                ...state.style.sources[action.payload.sourceId].data,
+                features: state.style.sources[
+                  action.payload.sourceId
+                ].data.features.concat(action.payload.sourceData),
+              },
+            },
+          },
+        },
       };
-    case SET_MAP_SIZE_VALIDITY:
+    case UPDATE_VIEWPORT:
       return {
         ...state,
-        isMapSizeValid: action.payload,
-      };
-    case SET_MAP_POSITION:
-      return {
-        ...state,
-        mapPosition: {
+        viewport: {
+          ...state.viewport,
           ...action.payload,
+          // NOTE: This is a fix for an apparent bug in react-map-gl.
+          // See: https://github.com/uber/react-map-gl/issues/630
+          bearing: isNaN(action.payload.bearing)
+            ? state.viewport.bearing
+            : action.payload.bearing,
+          height: window.innerHeight,
+          width: window.innerWidth,
         },
       };
-    case SET_BASEMAP:
-      newStatuses = {
-        [action.payload]: {
-          ...state.layerStatuses[action.payload],
-          isVisible: true,
-          loadStatus: "loading",
-        },
-      };
-
-      // If a previous basemap was already visible, switch it off.
-      if (state.visibleBasemapId && state.visibleBasemapId !== action.payload) {
-        newStatuses[state.visibleBasemapId] = {
-          ...state.layerStatuses[state.visibleBasemapId],
-          isVisible: false,
-        };
-      }
-
+    case LOAD_STYLE_AND_METADATA:
       return {
         ...state,
-        visibleBasemapId: action.payload,
-        layerStatuses: {
-          ...state.layerStatuses,
-          ...newStatuses,
+        style: {
+          ...state.style,
+          ...action.payload.style,
         },
+        layerGroupsMetadata: {
+          ...state.layerGroupsMetadata,
+          ...action.payload.layerGroupsMetadata,
+        },
+        sourcesMetadata: {
+          ...state.sourcesMetadata,
+          ...action.payload.sourcesMetadata,
+        },
+        basemapLayerIds: action.payload.basemapLayerIds,
       };
-    case INIT_LAYER:
-      newStatuses = action.payload.reduce((memo, loadStatus) => {
-        return {
-          ...memo,
-          [loadStatus.id]: {
-            ...loadStatus,
-          },
-        };
-      }, {});
-
+    case UPDATE_SOURCE_LOAD_STATUS:
       return {
         ...state,
-        layerStatuses: {
-          ...state.layerStatuses,
-          ...newStatuses,
-        },
-      };
-    case UPDATE_LAYERS_VISIBLE:
-      newStatuses = action.payload.reduce((memo, layerId) => {
-        return {
-          ...memo,
-          [layerId]: {
-            ...state.layerStatuses[layerId],
-            isVisible: true,
-          },
-        };
-      }, {});
-
-      return {
-        ...state,
-        layerStatuses: {
-          ...state.layerStatuses,
-          ...newStatuses,
-        },
-      };
-    case UPDATE_LAYERS_HIDDEN:
-      newStatuses = action.payload.reduce((memo, layerId) => {
-        return {
-          ...memo,
-          [layerId]: {
-            ...state.layerStatuses[layerId],
-            isVisible: false,
-          },
-        };
-      }, {});
-
-      return {
-        ...state,
-        layerStatuses: {
-          ...state.layerStatuses,
-          ...newStatuses,
-        },
-      };
-    case SET_LAYER_LOAD_STATUS:
-      return {
-        ...state,
-        layerStatuses: {
-          ...state.layerStatuses,
-          [action.payload.id]: {
-            ...state.layerStatuses[action.payload.id],
+        sourcesMetadata: {
+          ...state.sourcesMetadata,
+          [action.payload.sourceId]: {
+            ...state.sourcesMetadata[action.payload.sourceId],
             loadStatus: action.payload.loadStatus,
           },
         },
       };
-    case ACTIVATE_FEATURE_FILTER:
+    case UPDATE_LAYER_GROUP_LOAD_STATUS:
       return {
         ...state,
-        updatingFilterGroupId: action.payload.groupId,
-        updatingFilterTargetLayer: action.payload.targetLayer,
-        featureFilters: state.featureFilters.concat(action.payload),
+        layerGroupsMetadata: {
+          ...state.layerGroupsMetadata,
+          [action.payload.groupId]: {
+            ...state.layerGrouspsMetadata[action.payload.groupId],
+            loadStatus: action.payload.loadStatus,
+          },
+        },
       };
-    case DEACTIVATE_FEATURE_FILTER:
+    case UPDATE_LAYER_GROUP_VISIBILITY:
       return {
         ...state,
-        updatingFilterGroupId: action.payload.groupId,
-        updatingFilterTargetLayer: action.payload.targetLayer,
-        featureFilters: state.featureFilters.filter(
-          featureFilter => featureFilter.id !== action.payload.id,
+        layerGroupsMetadata: Object.entries(state.layerGroupsMetadata).reduce(
+          (memo, [layerGroupId, metadata]) => {
+            let newVisibilityStatus;
+            if (
+              state.layerGroupsMetadata[action.payload.layerGroupId]
+                .isBasemap &&
+              metadata.isBasemap &&
+              layerGroupId !== action.payload.layerGroupId
+            ) {
+              // If the layer group in the payload is a basemap, switch off
+              // other basemap layer groups.
+              newVisibilityStatus = false;
+            } else if (layerGroupId === action.payload.layerGroupId) {
+              newVisibilityStatus = action.payload.isVisible;
+            }
+
+            return {
+              ...memo,
+              [layerGroupId]: {
+                ...metadata,
+                isVisible:
+                  typeof newVisibilityStatus === "undefined"
+                    ? metadata.isVisible
+                    : newVisibilityStatus,
+              },
+            };
+          },
+          {},
         ),
-      };
-    case RESET_FEATURE_FILTER_GROUP:
-      return {
-        ...state,
-        updatingFilterGroupId: action.payload.groupId,
-        updatingFilterTargetLayer: action.payload.targetLayer,
-        featureFilters: state.featureFilters.filter(
-          featureFilter => featureFilter.groupId !== action.payload.groupId,
+        // Update active status of sources consumed by this layer group.
+        sourcesMetadata: Object.entries(state.sourcesMetadata).reduce(
+          (memo, [sourceId, sourceMetadata]) => {
+            let newActiveStatus;
+            if (
+              action.payload.isVisible &&
+              state.layerGroupsMetadata[
+                action.payload.layerGroupId
+              ].sourceIds.includes(sourceId)
+            ) {
+              // If we're switching a layer group on and this sourceId is
+              // consumed by a layer in this layer group, set the source to be
+              // active.
+              newActiveStatus = true;
+            } else if (
+              !action.payload.isVisible &&
+              !state.sourcesMetadata[sourceId].layerGroupIds.some(
+                id => state.layerGroupsMetadata[id].isVisible,
+              )
+            ) {
+              // Otherwise, if we're switching a layer group off and all other
+              // layer groups with layers that consume this source are not
+              // visible, we can set this source to be inactive.
+              newActiveStatus = false;
+            }
+
+            return {
+              ...memo,
+              [sourceId]: {
+                ...sourceMetadata,
+                isActive:
+                  typeof newActiveStatus !== "undefined"
+                    ? newActiveStatus
+                    : sourceMetadata.isActive,
+              },
+            };
+          },
+          {},
         ),
-      };
-    case UPDATE_IS_MAP_DRAGGED:
-      return {
-        ...state,
-        isMapDragged: action.payload,
+        style: {
+          ...state.style,
+          // Set visibility on all layers making up this layer group. Also
+          // update basemap layer visibility if this layer group is a
+          // basemap.
+          layers: state.style.layers.map(layer => {
+            let newVisibilityStatus;
+            if (
+              state.layerGroupsMetadata[
+                action.payload.layerGroupId
+              ].layerIds.includes(layer.id)
+            ) {
+              // If this layer is part of the layer group, adjust its
+              // visibility accordingly.
+              newVisibilityStatus = action.payload.isVisible
+                ? "visible"
+                : "none";
+            }
+            if (
+              state.layerGroupsMetadata[action.payload.layerGroupId]
+                .isBasemap &&
+              state.basemapLayerIds.includes(layer.id) &&
+              !state.layerGroupsMetadata[
+                action.payload.layerGroupId
+              ].layerIds.includes(layer.id)
+            ) {
+              // If this layer group is a basemap, check to see if this layer
+              // belongs to another basemap. If so, switch it off.
+              // TODO: keep layerMetadataStatus in sync with this
+              newVisibilityStatus = "none";
+            }
+
+            return {
+              ...layer,
+              layout: {
+                ...layer.layout,
+                visibility:
+                  typeof newVisibilityStatus === "undefined"
+                    ? layer.layout.visibility
+                    : newVisibilityStatus,
+              },
+            };
+          }),
+        },
       };
     default:
       return state;

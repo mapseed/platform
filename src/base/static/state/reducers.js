@@ -20,10 +20,8 @@ import userReducer from "./ducks/user";
 import datasetsConfigReducer from "./ducks/datasets-config";
 import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
-import mapAltReducer from "./ducks/map-alt";
 
 const reducers = combineReducers({
-  map: mapReducer,
   places: placesReducer,
   ui: uiReducer,
   leftSidebar: leftSidebarReducer,
@@ -43,7 +41,7 @@ const reducers = combineReducers({
   datasetsConfig: datasetsConfigReducer,
   datasets: datasetsReducer,
   activity: activityReducer,
-  mapAlt: mapAltReducer,
+  map: mapReducer,
 });
 
 export default reducers;

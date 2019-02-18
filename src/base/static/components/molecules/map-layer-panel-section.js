@@ -10,12 +10,11 @@ import { HorizontalRule } from "../atoms/layout";
 import { Header5 } from "../atoms/typography";
 
 import { mapConfigSelector } from "../../state/ducks/map-config";
-import { mapBasemapSelector } from "../../state/ducks/map";
 import {
   sourcesMetadataSelector,
   layerGroupsMetadataSelector,
   updateLayerGroupVisibility,
-} from "../../state/ducks/map-alt";
+} from "../../state/ducks/map";
 
 import "./map-layer-panel-section.css";
 
@@ -226,7 +225,6 @@ const mapStateToProps = state => ({
   layerGroupsMetadata: layerGroupsMetadataSelector(state),
   mapConfig: mapConfigSelector(state),
   sourcesMetadata: sourcesMetadataSelector(state),
-  visibleBasemapId: mapBasemapSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

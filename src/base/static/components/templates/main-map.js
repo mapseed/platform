@@ -12,7 +12,7 @@ import {
   updateMapViewport,
   updateSourceLoadStatus,
   sourcesMetadataSelector,
-} from "../../state/ducks/map-alt";
+} from "../../state/ducks/map";
 import { mapOptionsSelector } from "../../state/ducks/map-config";
 import {
   leftSidebarConfigSelector,

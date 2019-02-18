@@ -45,7 +45,6 @@ import {
   setMapSizeValidity,
   mapLayerStatusesSelector,
   mapPositionSelector,
-  mapBasemapSelector,
   setMapPosition,
   initLayers,
   showLayers,
@@ -85,11 +84,11 @@ import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 import {
   loadMapStyle,
   updateMapGeoJSONSourceData,
-} from "../../state/ducks/map-alt";
+} from "../../state/ducks/map";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
-import MainMap from "../../components/templates/map";
+import MainMap from "../../components/templates/main-map";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -399,7 +398,7 @@ export default Backbone.View.extend({
     }
 
     const datasetConfigs = datasetConfigsSelector(store.getState());
-    const layerStatuses = mapLayerStatusesSelector(store.getState());
+    //const layerStatuses = mapLayerStatusesSelector(store.getState());
     await Promise.all(
       datasetConfigs.map(async config => {
         // Note that the response here is an array of page Promises.
@@ -734,7 +733,7 @@ export default Backbone.View.extend({
       this.isStoryActive = true;
 
       story.basemap &&
-        mapBasemapSelector(store.getState()) !== story.basemap &&
+        //mapBasemapSelector(store.getState()) !== story.basemap && // TODO
         store.dispatch(setBasemap(story.basemap));
       store.dispatch(showLayers(story.visibleLayers));
       // Hide all other layers.
