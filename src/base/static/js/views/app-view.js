@@ -62,6 +62,7 @@ import {
   geocodeAddressBarVisibilitySelector,
   updateEditModeToggled,
   setContentPanel,
+  setRightSidebar,
   rightSidebarExpandedSelector,
   contentPanelOpenSelector,
 } from "../../state/ducks/ui";
@@ -556,6 +557,10 @@ export default Backbone.View.extend({
       $("body").addClass("right-sidebar-active");
       if (this.options.rightSidebarConfig.is_visible_default) {
         $("body").addClass("right-sidebar-visible");
+        store.dispatch(setRightSidebar(true));
+        updateMapViewport({
+          width: this.getMapWidth(),
+        });
       }
 
       // REACT PORT SECTION ///////////////////////////////////////////////////
@@ -660,7 +665,6 @@ export default Backbone.View.extend({
       this.$panel.removeClass().addClass("place-form");
       this.showPanel();
       this.setBodyClass("content-visible", "place-form-visible");
-      //store.dispatch(updateMapSizeValidity(false));
       store.dispatch(setAddPlaceButtonVisibility(false));
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
@@ -751,7 +755,7 @@ export default Backbone.View.extend({
         updateMapViewport({
           latitude: newViewport.latitude,
           longitude: newViewport.longitude,
-          transitionDuration: story ? 3000 : 400,
+          transitionDuration: story ? 3000 : 200,
           zoom: newViewport.zoom,
         }),
       );
@@ -759,7 +763,7 @@ export default Backbone.View.extend({
       const newViewport = {
         latitude: place.geometry.coordinates[1],
         longitude: place.geometry.coordinates[0],
-        transitionDuration: story ? 3000 : 400,
+        transitionDuration: story ? 3000 : 200,
       };
       if (story && story.zoom) {
         newViewport.zoom = story.zoom;
@@ -768,15 +772,11 @@ export default Backbone.View.extend({
       store.dispatch(updateMapViewport(newViewport));
     }
 
-    //  emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-    //    datasetSlug: place._datasetSlug,
-    //    placeId: place.id,
-    //  });
-
     if (!place.story && this.isStoryActive) {
       this.isStoryActive = false;
     }
 
+    // Focus this Place's feature on the map.
     const { geometry, ...rest } = place;
     store.dispatch(
       focusGeoJSONFeatures([
@@ -823,7 +823,6 @@ export default Backbone.View.extend({
     this.hideNewPin();
     this.setBodyClass("content-visible");
     this.showSpotlightMask();
-
   },
 
   getMapWidth() {
@@ -879,7 +878,6 @@ export default Backbone.View.extend({
       this.showPanel();
       this.hideNewPin();
       this.setBodyClass("content-visible");
-      //store.dispatch(updateMapSizeValidity(false));
       this.renderRightSidebar();
       this.renderMain();
       $("#main-btns-container").addClass(
@@ -922,7 +920,6 @@ export default Backbone.View.extend({
 
     this.$panel.hide();
     this.setBodyClass();
-    //store.dispatch(updateMapSizeValidity(false));
 
     $("#main-btns-container").addClass(
       this.options.placeConfig.add_button_location || "pos-top-left",
