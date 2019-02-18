@@ -2,10 +2,7 @@ import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
-import { fromJS } from "immutable";
 import styled from "react-emotion";
-
-import { updateSourceStatus } from "../../state/ducks/map-alt";
 
 import {
   mapStyleSelector,
@@ -13,7 +10,8 @@ import {
   mapViewportPropType,
   mapStylePropType,
   updateMapViewport,
-  sourcesStatusSelector,
+  updateSourceLoadStatus,
+  sourcesMetadataSelector,
 } from "../../state/ducks/map-alt";
 import { mapOptionsSelector } from "../../state/ducks/map-config";
 import {
@@ -103,8 +101,7 @@ CustomControl.defaultProps = {
 
 class MainMap extends Component {
   state = {
-    // TODO: I think converting to immutable data types is no longer necessary...
-    mapStyle: fromJS(this.props.mapStyle),
+    isMapLoaded: false,
   };
 
   mapRef = createRef();
@@ -113,32 +110,31 @@ class MainMap extends Component {
     this.map = this.mapRef.current.getMap();
 
     // NOTE: MapboxGL fires many redundant loading events, so only update load
-    // status state if a new type of event is fired.
-    // TODO: To cut down on the volume of sourcedata events, we could only
-    // add sources to MapboxGL if/when they are requested by a layer.
+    // status state if a new type of event is fired, and if the target source 
+    // is active on the map (i.e. is being consumed by at least one visible
+    // layer).
     this.map.on("error", evt => {
-      if (this.props.sourcesStatus[evt.sourceId] !== "error") {
-        this.props.updateSourceStatus(evt.sourceId, "error");
+      if (
+        this.props.sourcesMetadata[evt.sourceId].isActive &&
+        this.props.sourcesMetadata[evt.sourceId].loadStatus !== "error"
+      ) {
+        this.props.updateSourceLoadStatus(evt.sourceId, "error");
       }
     });
 
     this.map.on("sourcedata", evt => {
-      const status = this.map.isSourceLoaded(evt.sourceId)
+      if (!this.props.sourcesMetadata[evt.sourceId].isActive) {
+        return;
+      }
+
+      const loadStatus = this.map.isSourceLoaded(evt.sourceId)
         ? "loaded"
         : "loading";
 
-      if (this.props.sourcesStatus[evt.sourceId] !== status) {
-        this.props.updateSourceStatus(evt.sourceId, status);
+      if (this.props.sourcesMetadata[evt.sourceId].loadStatus !== loadStatus) {
+        this.props.updateSourceLoadStatus(evt.sourceId, loadStatus);
       }
     });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.mapStyle.sources !== prevProps.mapStyle.sources) {
-      this.setState({
-        mapStyle: fromJS(this.props.mapStyle),
-      });
-    }
   }
 
   onMapClick = () => {
@@ -146,7 +142,9 @@ class MainMap extends Component {
   };
 
   onMapLoad = () => {
-    console.log("onMapLoad");
+    this.setState({
+      isMapLoaded: true,
+    });
   };
 
   render() {
@@ -167,27 +165,31 @@ class MainMap extends Component {
         transitionEasing={this.props.mapViewport.transitionEasing}
         mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
         onViewportChange={viewport => this.props.updateMapViewport(viewport)}
-        mapStyle={this.state.mapStyle}
+        mapStyle={this.props.mapStyle}
         onLoad={this.onMapLoad}
         onClick={this.onMapClick}
       >
-        <MapControlsContainer>
-          <NavigationControl
-            onViewportChange={viewport =>
-              this.props.updateMapViewport(viewport)
-            }
-          />
-          <GeolocateControl updateMapViewport={this.props.updateMapViewport} />
-          {this.props.leftSidebarConfig.panels.map(panel => (
-            <CustomControl
-              key={panel.id}
-              icon={panel.icon}
-              component={panel.component}
-              setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
-              setLeftSidebarComponent={this.props.setLeftSidebarComponent}
+        {this.state.isMapLoaded && (
+          <MapControlsContainer>
+            <NavigationControl
+              onViewportChange={viewport =>
+                this.props.updateMapViewport(viewport)
+              }
             />
-          ))}
-        </MapControlsContainer>
+            <GeolocateControl
+              updateMapViewport={this.props.updateMapViewport}
+            />
+            {this.props.leftSidebarConfig.panels.map(panel => (
+              <CustomControl
+                key={panel.id}
+                icon={panel.icon}
+                component={panel.component}
+                setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
+                setLeftSidebarComponent={this.props.setLeftSidebarComponent}
+              />
+            ))}
+          </MapControlsContainer>
+        )}
       </MapGL>
     );
   }
@@ -211,9 +213,9 @@ MainMap.propTypes = {
   mapOptions: PropTypes.object,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
-  sourcesStatus: PropTypes.object.isRequired,
+  sourcesMetadata: PropTypes.object.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
-  updateSourceStatus: PropTypes.func.isRequired,
+  updateSourceLoadStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -221,7 +223,7 @@ const mapStateToProps = state => ({
   mapOptions: mapOptionsSelector(state),
   mapViewport: mapViewportSelector(state),
   mapStyle: mapStyleSelector(state),
-  sourcesStatus: sourcesStatusSelector(state),
+  sourcesMetadata: sourcesMetadataSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -230,8 +232,8 @@ const mapDispatchToProps = dispatch => ({
   setLeftSidebarComponent: component =>
     dispatch(setLeftSidebarComponent(component)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
-  updateSourceStatus: (sourceId, status) =>
-    dispatch(updateSourceStatus(sourceId, status)),
+  updateSourceLoadStatus: (sourceId, loadStatus) =>
+    dispatch(updateSourceLoadStatus(sourceId, loadStatus)),
 });
 
 export default connect(

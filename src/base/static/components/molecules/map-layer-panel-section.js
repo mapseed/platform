@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "react-spinner";
@@ -12,8 +12,9 @@ import { Header5 } from "../atoms/typography";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import { mapBasemapSelector } from "../../state/ducks/map";
 import {
-  sourcesStatusSelector,
-  layerGroupsStatusSelector,
+  sourcesMetadataSelector,
+  layerGroupsMetadataSelector,
+  updateLayerGroupVisibility,
 } from "../../state/ducks/map-alt";
 
 import "./map-layer-panel-section.css";
@@ -22,6 +23,7 @@ const MapLayerSelectorContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   paddingLeft: "16px",
+  paddingRight: "16px",
   marginBottom: "16px",
 });
 
@@ -40,6 +42,7 @@ const LayerGroupsStatusContainer = styled("span")({
   alignItems: "center",
   width: "24px",
   height: "24px",
+  marginLeft: "16px",
 });
 
 const SpinnerContainer = styled("div")({
@@ -50,10 +53,10 @@ const SpinnerContainer = styled("div")({
 
 const LayerGroupTitle = styled("span")(props => ({
   flex: 6,
-  backgroundColor: props.isSelected ? "#ffff00" : "initial",
+  backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "initial",
 
   "&:hover": {
-    backgroundColor: props.isSelected ? "#ffff00" : "#ffffd4",
+    backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "#ffffd4",
   },
 }));
 
@@ -86,8 +89,8 @@ const statusColors = {
 const MapLayerSelector = props => {
   return (
     <MapLayerSelectorContainer>
-      <SelectableArea>
-        <LayerGroupTitle isSelected={props.isSelected}>
+      <SelectableArea onClick={props.onToggleLayerGroup}>
+        <LayerGroupTitle isLayerGroupVisible={props.isLayerGroupVisible}>
           {props.title}
         </LayerGroupTitle>
         <LayerGroupsStatusContainer>
@@ -126,7 +129,7 @@ MapLayerSelector.propTypes = {
   info: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   loadStatus: PropTypes.string.isRequired,
-  onToggleLayer: PropTypes.func.isRequired,
+  onToggleLayerGroup: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
 };
@@ -136,47 +139,62 @@ MapLayerSelector.defaultProps = {
   type: "layer",
 };
 
-const MapLayerPanelSection = props => {
-  return (
-    <div>
-      <HorizontalRule spacing="tiny" />
-      <Header5>{props.title}</Header5>
-      {props.layerGroups.map(layerGroup => {
-        // Assume at first that all sources consumed by layers in this
-        // layerGroup have loaded.
-        let loadStatus = "loaded";
-        const sourcesStatus = props.layerGroupsStatus[
-          layerGroup.id
-        ].sourceIds.map(sourceId => props.sourcesStatus[sourceId]);
+class MapLayerPanelSection extends Component {
+  onToggleLayerGroup = (layerGroupId, layerGroupMetadata) => {
+    this.props.updateLayerGroupVisibility(
+      layerGroupId,
+      !layerGroupMetadata.isVisible,
+    );
+  };
 
-        if (sourcesStatus.includes("error")) {
-          // If any source has an error, set the entire layerGroup's status to
-          // "error".
-          loadStatus = "error";
-        } else if (sourcesStatus.includes("loading")) {
-          // Otherwise, if any source is still loading, set the entire
-          // layerGroup's status to "loading".
-          loadStatus = "loading";
-        }
+  render() {
+    return (
+      <div>
+        <HorizontalRule spacing="tiny" />
+        <Header5>{this.props.title}</Header5>
+        {this.props.layerGroups.map(lg => {
+          // Assume at first that all sources consumed by layers in this
+          // layerGroup have loaded.
+          let loadStatus = "loaded";
+          const layerGroupMetadata = this.props.layerGroupsMetadata[lg.id];
+          const sourcesStatus = layerGroupMetadata.sourceIds.map(
+            sourceId =>
+              this.props.sourcesMetadata[sourceId]
+                ? this.props.sourcesMetadata[sourceId].loadStatus
+                : "unloaded",
+          );
 
-        return (
-          <MapLayerSelector
-            key={layerGroup.id}
-            id={layerGroup.id}
-            info={layerGroup.info}
-            title={layerGroup.title}
-            loadStatus={loadStatus}
-            isLayerGroupVisible={
-              props.layerGroupsStatus[layerGroup.id].isVisible
-            }
-            isSelected={true}
-            onToggleLayer={() => {}}
-          />
-        );
-      })}
-    </div>
-  );
-};
+          if (sourcesStatus.includes("error")) {
+            // If any source has an error, set the entire layerGroup's status to
+            // "error".
+            loadStatus = "error";
+          } else if (sourcesStatus.includes("loading")) {
+            // Otherwise, if any source is still loading, set the entire
+            // layerGroup's status to "loading".
+            loadStatus = "loading";
+          }
+
+          return (
+            <MapLayerSelector
+              key={lg.id}
+              id={lg.id}
+              info={lg.info}
+              title={lg.title}
+              loadStatus={loadStatus}
+              isLayerGroupVisible={
+                this.props.layerGroupsMetadata[lg.id].isVisible
+              }
+              isSelected={true}
+              onToggleLayerGroup={() =>
+                this.onToggleLayerGroup(lg.id, layerGroupMetadata)
+              }
+            />
+          );
+        })}
+      </div>
+    );
+  }
+}
 
 MapLayerPanelSection.propTypes = {
   mapConfig: PropTypes.shape({
@@ -193,19 +211,23 @@ MapLayerPanelSection.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   ),
-  layerGroupsStatus: PropTypes.object.isRequired,
-  sourcesStatus: PropTypes.object.isRequired,
+  layerGroupsMetadata: PropTypes.object.isRequired,
+  sourcesMetadata: PropTypes.object.isRequired,
   title: PropTypes.string,
+  updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  layerGroupsStatus: layerGroupsStatusSelector(state),
+  layerGroupsMetadata: layerGroupsMetadataSelector(state),
   mapConfig: mapConfigSelector(state),
-  sourcesStatus: sourcesStatusSelector(state),
+  sourcesMetadata: sourcesMetadataSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
+    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
+});
 
 export default connect(
   mapStateToProps,
