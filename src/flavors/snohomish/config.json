@@ -313,7 +313,7 @@
           {
             "id": "snohomish-input-focused",
             "type": "symbol",
-            "source": "snohomish-input",
+            "filter": ["==", ["get", "location_type"], "conservation-actions"],
             "layout": {
               "icon-allow-overlap": true,
               "icon-image": "map-pin-marker.png",
@@ -345,7 +345,7 @@
           {
             "id": "snohomish-featured-focused-points",
             "type": "symbol",
-            "source": "snohomish-featured",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
             "layout": {
               "icon-allow-overlap": true,
               "icon-size": 1.2,

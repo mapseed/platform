@@ -3,8 +3,6 @@ import { FlyToInterpolator } from "react-map-gl";
 
 import { easeInOutCubic } from "../../utils/scroll-helpers";
 
-console.log("!!", new FlyToInterpolator())
-
 // Selectors:
 export const mapViewportSelector = state => state.map.viewport;
 export const mapStyleSelector = state => state.map.style;
@@ -25,6 +23,7 @@ const UPDATE_MAP_GEOJSON_SOURCE = "map/UPDATE_MAP_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
+const FOCUS_GEOJSON_FEATURES = "map/FOCUS_GEOJSON_FEATURES";
 
 // Layer group load status terminology:
 // ------------------------------------
@@ -43,6 +42,13 @@ export function updateLayerGroupLoadStatus(groupId, loadStatus) {
   return {
     type: UPDATE_LAYER_GROUP_LOAD_STATUS,
     payload: { groupId, loadStatus },
+  };
+}
+
+export function focusGeoJSONFeatures(features) {
+  return {
+    type: FOCUS_GEOJSON_FEATURES,
+    payload: features,
   };
 }
 
@@ -96,18 +102,18 @@ export function updateMapGeoJSONSourceData(sourceId, sourceData) {
   };
 }
 
-const appendFilters = (existingFilters, ...filtersToAdd) => {
-  const newFilters = filtersToAdd.reduce(
-    (newFilters, filterToAdd) => [...newFilters, filterToAdd],
-    existingFilters ? [existingFilters] : [],
-  );
-
-  // If an existing filter does not already start with the logical AND
-  // operator "all", we need to prepend it.
-  newFilters[0] !== "all" && newFilters.unshift("all");
-
-  return newFilters;
-};
+//const appendFilters = (existingFilters, ...filtersToAdd) => {
+//  const newFilters = filtersToAdd.reduce(
+//    (newFilters, filterToAdd) => [...newFilters, filterToAdd],
+//    existingFilters ? [existingFilters] : [],
+//  );
+//
+//  // If an existing filter does not already start with the logical AND
+//  // operator "all", we need to prepend it.
+//  newFilters[0] !== "all" && newFilters.unshift("all");
+//
+//  return newFilters;
+//};
 
 export function loadMapStyle(mapConfig, datasetsConfig) {
   const style = {
@@ -128,31 +134,49 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
         }),
         {},
       ),
+      // Add an empty GeoJSON source that will hold all features that have
+      // become "focused" (i.e. because the user clicked on a Place). We
+      // maintain a separate source for focused features because reflowing the
+      // data to a full source is expensive and produces a noticeable lag as
+      // the user clicks around Places on the map.
+      //
+      // One drawback to this approach is the original, unfocused feature
+      // remains on the map. We can mitigate this a bit by ensuring that
+      // focused layers always render on top of non-focused layers.
+      "__mapseed-focused-source__": {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [],
+        },
+      },
     },
     layers: mapConfig.layerGroups
-      //.filter(lg => !!lg.visibleDefault)
-      .map(lg => {
-        return (lg.mapboxFocusedLayers
-          ? lg.mapboxLayers.concat(
-              lg.mapboxFocusedLayers.map(mbfl => ({
-                ...mbfl,
-                filter: appendFilters(mbfl.filter, [
-                  "==",
-                  ["get", "__mapseed-is-focused__"],
-                  true,
-                ]),
-              })),
-            )
-          : lg.mapboxLayers
-        ).map(layer => ({
-          ...layer,
+      .map(lg => ({
+        ...lg,
+        mapboxLayers: lg.mapboxLayers.map(mbl => ({
+          ...mbl,
           layout: {
-            ...layer.layout,
+            ...mbl.layout,
+            // Set default visibility.
             visibility: lg.visibleDefault ? "visible" : "none",
           },
-        }));
-      })
-      .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+        })),
+      }))
+      .reduce((memo, lg) => memo.concat(lg.mapboxLayers), [])
+      // Add on layers representing the styling of focused geometry at the top
+      // of the layer stack so focused geometry renders topmost.
+      .concat(
+        mapConfig.layerGroups
+          .reduce((memo, lg) => memo.concat(lg.mapboxFocusedLayers || []), [])
+          .map(mbl => ({
+            ...mbl,
+            // All focused layers will have the same source. Focused layers 
+            // will only render geometry if the focused source has been 
+            // populated with features to focus.
+            source: "__mapseed-focused-source__",
+          })),
+      ),
   };
 
   const layerGroupsMetadata = mapConfig.layerGroups.reduce(
@@ -295,6 +319,23 @@ export default function reducer(state = INITIAL_STATE, action) {
                 features: state.style.sources[
                   action.payload.sourceId
                 ].data.features.concat(action.payload.sourceData),
+              },
+            },
+          },
+        },
+      };
+    case FOCUS_GEOJSON_FEATURES:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            "__mapseed-focused-source__": {
+              type: "geojson",
+              data: {
+                type: "FeatureCollection",
+                features: action.payload,
               },
             },
           },

@@ -108,6 +108,7 @@ class MainMap extends Component {
   };
 
   mapRef = createRef();
+  features = [];
 
   onWindowResize = () => {
     const container = this.props.container.getBoundingClientRect();
@@ -160,17 +161,29 @@ class MainMap extends Component {
     window.removeEventListener("resize", this.onWindowResize);
   }
 
-  onMapClick = evt => {
+  onMouseDown = evt => {
+    // Relying on react-map-gl's built-in onClick handler produces a noticeable
+    // lag when clicking around Places on the map. It's not clear why, but we
+    // get better performance by querying rendered features as soon as the 
+    // onMouseDown event fires, and using the onMouseUp handler to test if the
+    // most recent queried feature is one we shoud route to (i.e. is a Place).
+    //
+    // Note that if no features are found in the query, an empty array is 
+    // returned.
+    this.features = this.map.queryRenderedFeatures(evt.point);
+  };
+
+  onMouseUp = () => {
     if (
-      evt.features.length &&
-      evt.features[0].properties &&
-      evt.features[0].properties._clientSlug
+      this.features.length &&
+      this.features[0].properties &&
+      this.features[0].properties._clientSlug
     ) {
       // If the topmost clicked-on feature has a _clientSlug property, there's
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
       this.props.router.navigate(
-        `/${evt.features[0].properties._clientSlug}/${evt.features[0].id}`,
+        `/${this.features[0].properties._clientSlug}/${this.features[0].id}`,
         { trigger: true },
       );
     }
@@ -200,6 +213,8 @@ class MainMap extends Component {
         mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
         minZoom={this.props.mapViewport.minZoom}
         maxZoom={this.props.mapViewport.maxZoom}
+        onMouseUp={this.onMouseUp}
+        onMouseDown={this.onMouseDown}
         onViewportChange={viewport =>
           this.props.updateMapViewportFromReactMapGL(viewport)
         }

@@ -20,7 +20,7 @@ import theme from "../../../../theme";
 // This only needs to be done once; probably during your application's bootstrapping process.
 import "react-virtualized/styles.css";
 
-import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
+import { setMapConfig } from "../../state/ducks/map-config";
 import {
   loadPlaces,
   placeSelector,
@@ -50,7 +50,7 @@ import {
   setBasemap,
   setMapDragging,
   updateMapViewport,
-  updateMapSizeValidity,
+  focusGeoJSONFeatures,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -695,45 +695,7 @@ export default Backbone.View.extend({
 
     store.dispatch(updateEditModeToggled(false));
 
-    // REACT PORT SECTION //////////////////////////////////////////////////
-    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
-
-    ReactDOM.render(
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <PlaceDetail
-              placeId={args.placeId}
-              datasetSlug={place._datasetSlug}
-              container={document.querySelector("#content article")}
-              currentUser={Shareabouts.bootstrapped.currentUser}
-              isGeocodingBarEnabled={
-                this.options.mapConfig.geocoding_bar_enabled
-              }
-              scrollToResponseId={args.responseId}
-              router={this.options.router}
-              userToken={this.options.userToken}
-            />
-          </ThemeProvider>
-        </ThemeProvider>
-      </Provider>,
-      document.querySelector("#content article"),
-    );
-
-    $("#main-btns-container").addClass(
-      this.options.placeConfig.add_button_location || "pos-top-left",
-    );
-
-    //store.dispatch(updateMapSizeValidity(false));
-
-    // END REACT PORT SECTION //////////////////////////////////////////////
-
-    this.showPanel();
-    this.hideNewPin();
-    this.setBodyClass("content-visible");
-    this.showSpotlightMask();
     const story = place.story;
-
     if (story) {
       this.isStoryActive = true;
 
@@ -789,7 +751,7 @@ export default Backbone.View.extend({
         updateMapViewport({
           latitude: newViewport.latitude,
           longitude: newViewport.longitude,
-          transitionDuration: story ? 3000 : 200,
+          transitionDuration: story ? 3000 : 400,
           zoom: newViewport.zoom,
         }),
       );
@@ -797,7 +759,7 @@ export default Backbone.View.extend({
       const newViewport = {
         latitude: place.geometry.coordinates[1],
         longitude: place.geometry.coordinates[0],
-        transitionDuration: story ? 3000 : 200,
+        transitionDuration: story ? 3000 : 400,
       };
       if (story && story.zoom) {
         newViewport.zoom = story.zoom;
@@ -814,6 +776,54 @@ export default Backbone.View.extend({
     if (!place.story && this.isStoryActive) {
       this.isStoryActive = false;
     }
+
+    const { geometry, ...rest } = place;
+    store.dispatch(
+      focusGeoJSONFeatures([
+        {
+          type: "Feature",
+          geometry: {
+            type: geometry.type,
+            coordinates: geometry.coordinates,
+          },
+          properties: rest,
+        },
+      ]),
+    );
+
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
+
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <PlaceDetail
+              placeId={args.placeId}
+              datasetSlug={place._datasetSlug}
+              container={document.querySelector("#content article")}
+              currentUser={Shareabouts.bootstrapped.currentUser}
+              isGeocodingBarEnabled={
+                this.options.mapConfig.geocoding_bar_enabled
+              }
+              scrollToResponseId={args.responseId}
+              router={this.options.router}
+              userToken={this.options.userToken}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
+      </Provider>,
+      document.querySelector("#content article"),
+    );
+
+    $("#main-btns-container").addClass(
+      this.options.placeConfig.add_button_location || "pos-top-left",
+    );
+
+    this.showPanel();
+    this.hideNewPin();
+    this.setBodyClass("content-visible");
+    this.showSpotlightMask();
+
   },
 
   getMapWidth() {
