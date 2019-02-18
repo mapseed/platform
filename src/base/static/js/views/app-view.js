@@ -42,17 +42,13 @@ import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../state/ducks/app-config";
 import { loadDashboardConfig } from "../../state/ducks/dashboard-config";
 import {
-  setMapSizeValidity,
-  mapLayerStatusesSelector,
   mapPositionSelector,
-  setMapPosition,
-  initLayers,
   showLayers,
   hideLayers,
   setBasemap,
   setMapDragging,
-  setLayerLoading,
   updateMapViewport,
+  updateMapSizeValidity,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -655,7 +651,7 @@ export default Backbone.View.extend({
       this.$panel.removeClass().addClass("place-form");
       this.$panel.show();
       this.setBodyClass("content-visible", "place-form-visible");
-      store.dispatch(setMapSizeValidity(false));
+      store.dispatch(updateMapSizeValidity(false));
       store.dispatch(setAddPlaceButtonVisibility(false));
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
@@ -789,7 +785,7 @@ export default Backbone.View.extend({
       this.isStoryActive = false;
     }
 
-    store.dispatch(setMapSizeValidity(false));
+    store.dispatch(updateMapSizeValidity(false));
   },
 
   viewSha: function() {
@@ -825,7 +821,7 @@ export default Backbone.View.extend({
       ]);
       Util.log("APP", "panel-state", "open");
       this.setBodyClass("content-visible");
-      store.dispatch(setMapSizeValidity(false));
+      store.dispatch(updateMapSizeValidity(false));
       this.renderRightSidebar();
       this.renderMain();
       $("#main-btns-container").addClass(
@@ -857,7 +853,7 @@ export default Backbone.View.extend({
 
     this.$panel.hide();
     this.setBodyClass();
-    store.dispatch(setMapSizeValidity(false));
+    store.dispatch(updateMapSizeValidity(false));
 
     $("#main-btns-container").addClass(
       this.options.placeConfig.add_button_location || "pos-top-left",
@@ -915,7 +911,7 @@ export default Backbone.View.extend({
           <ThemeProvider theme={this.adjustedTheme}>
             <MainMap
               addPlaceButtonLabel={this.options.placeConfig.add_button_label}
-              container="map"
+              container={document.getElementById("map-container")}
               router={this.options.router}
               onZoomend={this.onMapZoomEnd.bind(this)}
               onMovestart={this.onMapMoveStart.bind(this)}

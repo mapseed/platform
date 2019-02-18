@@ -12,7 +12,7 @@ import {
   rightSidebarConfigSelector,
 } from "../../state/ducks/right-sidebar-config";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
-import { setMapSizeValidity } from "../../state/ducks/map";
+import { updateMapSizeValidity } from "../../state/ducks/map";
 
 import "./right-sidebar.scss";
 
@@ -27,7 +27,7 @@ const RightSidebar = props => {
       <ToggleSidebarButton
         onClick={() => {
           $("body").toggleClass("right-sidebar-visible");
-          props.setMapSizeValidity(false);
+          props.updateMapSizeValidity(false);
         }}
         className="right-sidebar__collapse-btn"
       />
@@ -58,7 +58,7 @@ const RightSidebar = props => {
 RightSidebar.propTypes = {
   places: placesPropType,
   rightSidebarConfig: rightSidebarConfigPropType.isRequired,
-  setMapSizeValidity: PropTypes.func.isRequired,
+  updateMapSizeValidity: PropTypes.func.isRequired,
   storyConfig: PropTypes.object,
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
@@ -72,7 +72,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setMapSizeValidity: isValid => dispatch(setMapSizeValidity(isValid)),
+  updateMapSizeValidity: isValid => dispatch(updateMapSizeValidity(isValid)),
 });
 
 export default connect(

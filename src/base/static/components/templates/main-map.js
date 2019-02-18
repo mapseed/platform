@@ -6,6 +6,7 @@ import styled from "react-emotion";
 
 import {
   interactiveLayerIdsSelector,
+  setMapSizeValiditySelector,
   mapStyleSelector,
   mapViewportSelector,
   mapViewportPropType,
@@ -13,6 +14,7 @@ import {
   updateMapViewport,
   updateSourceLoadStatus,
   sourcesMetadataSelector,
+  updateMapSizeValidity,
 } from "../../state/ducks/map";
 import {
   leftSidebarConfigSelector,
@@ -106,13 +108,24 @@ class MainMap extends Component {
 
   mapRef = createRef();
 
-  componentDidMount() {
-    this.map = this.mapRef.current.getMap();
+  onWindowResize = () => {
+    const container = this.props.container.getBoundingClientRect();
 
-    // NOTE: MapboxGL fires many redundant loading events, so only update load
-    // status state if a new type of event is fired, and if the target source
-    // is active on the map (i.e. is being consumed by at least one visible
-    // layer).
+    this.props.updateMapViewport({
+      height: container.height,
+      width: container.width,
+    });
+  };
+
+  componentDidMount() {
+    window.addEventListener("resize", this.onWindowResize);
+
+    // MapboxGL fires many redundant source events, so we only update load
+    // or error status state if a new type of event is fired, and if the target
+    // source is active on the map (i.e. is being consumed by at least one
+    // visible layer). It's necessary to attach these events to a ref of the
+    // map because react-map-gl does not expose the event binding API itself.
+    this.map = this.mapRef.current.getMap();
     this.map.on("error", evt => {
       if (
         this.props.sourcesMetadata[evt.sourceId].isActive &&
@@ -135,6 +148,22 @@ class MainMap extends Component {
         this.props.updateSourceLoadStatus(evt.sourceId, loadStatus);
       }
     });
+  }
+
+  componentDidUpdate() {
+    if (!this.props.isMapSizeValid) {
+      const container = this.props.container.getBoundingClientRect();
+      this.props.updateMapViewport({
+        height: container.height,
+        width: container.width,
+      });
+
+      this.props.updateMapSizeValidity(true);
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onWindowResize);
   }
 
   onMapClick = evt => {
@@ -212,6 +241,7 @@ class MainMap extends Component {
 }
 
 MainMap.propTypes = {
+  container: PropTypes.instanceOf(Element).isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
@@ -221,7 +251,6 @@ MainMap.propTypes = {
         id: PropTypes.string.isRequired,
         icon: PropTypes.string.isRequired,
         title: PropTypes.string,
-        groupings: PropTypes.array.isRequired,
       }),
     ),
   }).isRequired,
@@ -230,12 +259,14 @@ MainMap.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
+  updateMapSizeValidity: PropTypes.func.isRequired,
   sourcesMetadata: PropTypes.object.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  isMapSizeValid: setMapSizeValiditySelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapViewport: mapViewportSelector(state),
@@ -248,6 +279,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLeftSidebarComponent: component =>
     dispatch(setLeftSidebarComponent(component)),
+  updateMapSizeValidity: isValid => dispatch(updateMapSizeValidity(isValid)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
   updateSourceLoadStatus: (sourceId, loadStatus) =>
     dispatch(updateSourceLoadStatus(sourceId, loadStatus)),

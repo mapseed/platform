@@ -11,6 +11,7 @@ export const layerGroupsMetadataSelector = state =>
   state.map.layerGroupsMetadata;
 export const interactiveLayerIdsSelector = state =>
   state.map.interactiveLayerIds;
+export const setMapSizeValiditySelector = state => state.map.isMapSizeValid;
 export const mapDraggingSelector = state => false; // TODO
 export const mapDraggedSelector = state => false; // TODO
 
@@ -22,6 +23,7 @@ const UPDATE_MAP_GEOJSON_SOURCE = "map/UPDATE_MAP_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
+const UPDATE_MAP_SIZE_VALIDITY = "map/UPDATE_MAP_SIZE_VALIDITY";
 
 // Layer group load status terminology:
 // ------------------------------------
@@ -43,11 +45,11 @@ export function updateLayerGroupLoadStatus(groupId, loadStatus) {
   };
 }
 
-export function setMapSizeValidity(isValidSize) {
+export function updateMapSizeValidity(isValidSize) {
   return {
-    type: "TEMP",
-    payload: {},
-  }; // TODO
+    type: UPDATE_MAP_SIZE_VALIDITY,
+    payload: isValidSize,
+  };
 }
 
 export function updateLayerGroupVisibility(layerGroupId, isVisible) {
@@ -241,8 +243,8 @@ export const mapStylePropType = PropTypes.shape({
 // TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
   viewport: {
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
     transitionInterpolator: interpolator,
     minZoom: 1,
     maxZoom: 18,
@@ -261,6 +263,7 @@ const INITIAL_STATE = {
   sourcesMetadata: {},
   basemapLayerIds: [],
   interactiveLayerIds: [],
+  isMapSizeValid: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -295,8 +298,6 @@ export default function reducer(state = INITIAL_STATE, action) {
           bearing: isNaN(action.payload.bearing)
             ? state.viewport.bearing
             : action.payload.bearing,
-          height: window.innerHeight,
-          width: window.innerWidth,
         },
       };
     case LOAD_STYLE_AND_METADATA:
@@ -454,6 +455,11 @@ export default function reducer(state = INITIAL_STATE, action) {
             };
           }),
         },
+      };
+    case UPDATE_MAP_SIZE_VALIDITY:
+      return {
+        ...state,
+        isMapSizeValid: action.payload,
       };
     default:
       return state;
