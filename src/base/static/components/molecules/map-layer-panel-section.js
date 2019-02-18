@@ -141,6 +141,11 @@ MapLayerSelector.defaultProps = {
 
 class MapLayerPanelSection extends Component {
   onToggleLayerGroup = (layerGroupId, layerGroupMetadata) => {
+    if (layerGroupMetadata.isBasemap && layerGroupMetadata.isVisible) {
+      // Prevent toggling current visible basemaps.
+      return;
+    }
+
     this.props.updateLayerGroupVisibility(
       layerGroupId,
       !layerGroupMetadata.isVisible,

@@ -180,9 +180,15 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     {},
   );
 
+  const basemapLayerIds = mapConfig.layerGroups
+    .filter(lg => !!lg.basemap)
+    .map(lg => lg.mapboxLayers.concat(lg.mapboxFocusedLayers || []))
+    .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+    .map(layer => layer.id);
+
   return {
     type: LOAD_STYLE_AND_METADATA,
-    payload: { style, sourcesMetadata, layerGroupsMetadata },
+    payload: { style, sourcesMetadata, layerGroupsMetadata, basemapLayerIds },
   };
 }
 
@@ -226,6 +232,7 @@ const INITIAL_STATE = {
   },
   layerGroupsMetadata: {},
   sourcesMetadata: {},
+  basemapLayerIds: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -279,6 +286,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...state.sourcesMetadata,
           ...action.payload.sourcesMetadata,
         },
+        basemapLayerIds: action.payload.basemapLayerIds,
       };
     case UPDATE_SOURCE_LOAD_STATUS:
       return {
@@ -305,14 +313,35 @@ export default function reducer(state = INITIAL_STATE, action) {
     case UPDATE_LAYER_GROUP_VISIBILITY:
       return {
         ...state,
-        // Update visibility status on this layer group's metadata.
-        layerGroupsMetadata: {
-          ...state.layerGroupsMetadata,
-          [action.payload.layerGroupId]: {
-            ...state.layerGroupsMetadata[action.payload.layerGroupId],
-            isVisible: action.payload.isVisible,
+        layerGroupsMetadata: Object.entries(state.layerGroupsMetadata).reduce(
+          (memo, [layerGroupId, metadata]) => {
+            let newVisibilityStatus;
+            if (
+              state.layerGroupsMetadata[action.payload.layerGroupId]
+                .isBasemap &&
+              metadata.isBasemap &&
+              layerGroupId !== action.payload.layerGroupId
+            ) {
+              // If the layer group in the payload is a basemap, switch off
+              // other basemap layer groups.
+              newVisibilityStatus = false;
+            } else if (layerGroupId === action.payload.layerGroupId) {
+              newVisibilityStatus = action.payload.isVisible;
+            }
+
+            return {
+              ...memo,
+              [layerGroupId]: {
+                ...metadata,
+                isVisible:
+                  typeof newVisibilityStatus === "undefined"
+                    ? metadata.isVisible
+                    : newVisibilityStatus,
+              },
+            };
           },
-        },
+          {},
+        ),
         // Update active status of sources consumed by this layer group.
         sourcesMetadata: Object.entries(state.sourcesMetadata).reduce(
           (memo, [sourceId, sourceMetadata]) => {
@@ -354,23 +383,46 @@ export default function reducer(state = INITIAL_STATE, action) {
         ),
         style: {
           ...state.style,
-          // Set visibility on all layers making up this layer group.
+          // Set visibility on all layers making up this layer group. Also
+          // update basemap layer visibility if this layer group is a
+          // basemap.
           layers: state.style.layers.map(layer => {
+            let newVisibilityStatus;
             if (
               state.layerGroupsMetadata[
                 action.payload.layerGroupId
               ].layerIds.includes(layer.id)
             ) {
-              return {
-                ...layer,
-                layout: {
-                  ...layer.layout,
-                  visibility: action.payload.isVisible ? "visible" : "none",
-                },
-              };
+              // If this layer is part of the layer group, adjust its
+              // visibility accordingly.
+              newVisibilityStatus = action.payload.isVisible
+                ? "visible"
+                : "none";
+            }
+            if (
+              state.layerGroupsMetadata[action.payload.layerGroupId]
+                .isBasemap &&
+              state.basemapLayerIds.includes(layer.id) &&
+              !state.layerGroupsMetadata[
+                action.payload.layerGroupId
+              ].layerIds.includes(layer.id)
+            ) {
+              // If this layer group is a basemap, check to see if this layer
+              // belongs to another basemap. If so, switch it off.
+              // TODO: keep layerMetadataStatus in sync with this
+              newVisibilityStatus = "none";
             }
 
-            return layer;
+            return {
+              ...layer,
+              layout: {
+                ...layer.layout,
+                visibility:
+                  typeof newVisibilityStatus === "undefined"
+                    ? layer.layout.visibility
+                    : newVisibilityStatus,
+              },
+            };
           }),
         },
       };
