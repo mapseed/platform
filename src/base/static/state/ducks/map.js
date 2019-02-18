@@ -9,6 +9,8 @@ export const mapStyleSelector = state => state.map.style;
 export const sourcesMetadataSelector = state => state.map.sourcesMetadata;
 export const layerGroupsMetadataSelector = state =>
   state.map.layerGroupsMetadata;
+export const interactiveLayerIdsSelector = state =>
+  state.map.interactiveLayerIds;
 export const mapDraggingSelector = state => false; // TODO
 export const mapDraggedSelector = state => false; // TODO
 
@@ -195,9 +197,21 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
     .map(layer => layer.id);
 
+  const interactiveLayerIds = mapConfig.layerGroups
+    .filter(lg => !!lg.interactive)
+    .map(lg => lg.mapboxLayers.concat(lg.mapboxFocusedLayers || []))
+    .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+    .map(layer => layer.id);
+
   return {
     type: LOAD_STYLE_AND_METADATA,
-    payload: { style, sourcesMetadata, layerGroupsMetadata, basemapLayerIds },
+    payload: {
+      style,
+      sourcesMetadata,
+      layerGroupsMetadata,
+      basemapLayerIds,
+      interactiveLayerIds,
+    },
   };
 }
 
@@ -242,6 +256,7 @@ const INITIAL_STATE = {
   layerGroupsMetadata: {},
   sourcesMetadata: {},
   basemapLayerIds: [],
+  interactiveLayerIds: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -296,6 +311,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...action.payload.sourcesMetadata,
         },
         basemapLayerIds: action.payload.basemapLayerIds,
+        interactiveLayerIds: action.payload.interactiveLayerIds,
       };
     case UPDATE_SOURCE_LOAD_STATUS:
       return {

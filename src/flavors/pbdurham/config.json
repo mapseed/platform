@@ -434,6 +434,7 @@
       {
         "id": "pbdurham-projects",
         "datasetSlug": "pbdurham-projects",
+        "interactive": true,
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
@@ -465,6 +466,7 @@
       {
         "id": "pbdurham",
         "datasetSlug": "pbdurham",
+        "interactive": true,
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {

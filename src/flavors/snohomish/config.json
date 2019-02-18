@@ -309,6 +309,7 @@
       {
         "id": "snohomish-input",
         "datasetSlug": "snohomish-input",
+        "interactive": true,
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
@@ -340,6 +341,7 @@
       {
         "id": "snohomish-featured",
         "datasetSlug": "snohomish-featured",
+        "interactive": true,
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {

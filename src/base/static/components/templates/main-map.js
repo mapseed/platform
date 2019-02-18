@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import styled from "react-emotion";
 
 import {
+  interactiveLayerIdsSelector,
   mapStyleSelector,
   mapViewportSelector,
   mapViewportPropType,
@@ -110,7 +111,7 @@ class MainMap extends Component {
     this.map = this.mapRef.current.getMap();
 
     // NOTE: MapboxGL fires many redundant loading events, so only update load
-    // status state if a new type of event is fired, and if the target source 
+    // status state if a new type of event is fired, and if the target source
     // is active on the map (i.e. is being consumed by at least one visible
     // layer).
     this.map.on("error", evt => {
@@ -137,8 +138,20 @@ class MainMap extends Component {
     });
   }
 
-  onMapClick = () => {
-    console.log("onMapClick");
+  onMapClick = evt => {
+    if (
+      evt.features.length &&
+      evt.features[0].properties &&
+      evt.features[0].properties._clientSlug
+    ) {
+      // If the topmost clicked-on feature has a _clientSlug property, there's
+      // a good bet we've clicked on a Place. Assume we have and route to the
+      // Place's detail view.
+      this.props.router.navigate(
+        `/${evt.features[0].properties._clientSlug}/${evt.features[0].id}`,
+        { trigger: true },
+      );
+    }
   };
 
   onMapLoad = () => {
@@ -165,8 +178,11 @@ class MainMap extends Component {
         transitionEasing={this.props.mapViewport.transitionEasing}
         mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
         onViewportChange={viewport => this.props.updateMapViewport(viewport)}
+        interactiveLayerIds={this.props.interactiveLayerIds}
         mapStyle={this.props.mapStyle}
         onLoad={this.onMapLoad}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
         onClick={this.onMapClick}
       >
         {this.state.isMapLoaded && (
@@ -196,6 +212,7 @@ class MainMap extends Component {
 }
 
 MainMap.propTypes = {
+  interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
     is_visible_default: PropTypes.bool,
@@ -211,6 +228,7 @@ MainMap.propTypes = {
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   mapOptions: PropTypes.object,
+  router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   sourcesMetadata: PropTypes.object.isRequired,
@@ -220,6 +238,7 @@ MainMap.propTypes = {
 
 const mapStateToProps = state => ({
   leftSidebarConfig: leftSidebarConfigSelector(state),
+  interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapOptions: mapOptionsSelector(state),
   mapViewport: mapViewportSelector(state),
   mapStyle: mapStyleSelector(state),

@@ -101,7 +101,14 @@ const finalizePlaceData = ({ featureCollection, datasetSlug, clientSlug }) => ({
     datasetSlug,
     clientSlug,
   }),
-  placesGeoJSONFeatures: featureCollection.features,
+  placesGeoJSONFeatures: featureCollection.features.map(feature => ({
+    ...feature,
+    properties: {
+      ...feature.properties,
+      _datasetSlug: datasetSlug,
+      _clientSlug: clientSlug,
+    },
+  })),
 });
 
 const getPlaces = async ({
