@@ -12,7 +12,8 @@ import {
   rightSidebarConfigSelector,
 } from "../../state/ducks/right-sidebar-config";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
-import { updateMapSizeValidity } from "../../state/ducks/map";
+import { setRightSidebar } from "../../state/ducks/ui";
+import { updateMapViewport } from "../../state/ducks/map";
 
 import "./right-sidebar.scss";
 
@@ -27,7 +28,11 @@ const RightSidebar = props => {
       <ToggleSidebarButton
         onClick={() => {
           $("body").toggleClass("right-sidebar-visible");
-          props.updateMapSizeValidity(false);
+
+          props.setRightSidebar($("body").hasClass("right-sidebar-visible"));
+          props.updateMapViewport({
+            width: props.getMapWidth(),
+          });
         }}
         className="right-sidebar__collapse-btn"
       />
@@ -56,14 +61,16 @@ const RightSidebar = props => {
 };
 
 RightSidebar.propTypes = {
+  getMapWidth: PropTypes.func.isRequired,
   places: placesPropType,
   rightSidebarConfig: rightSidebarConfigPropType.isRequired,
-  updateMapSizeValidity: PropTypes.func.isRequired,
   storyConfig: PropTypes.object,
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }),
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  setRightSidebar: PropTypes.func.isRequired,
+  updateMapViewport: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -72,7 +79,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapSizeValidity: isValid => dispatch(updateMapSizeValidity(isValid)),
+  setRightSidebar: isVisible => dispatch(setRightSidebar(isVisible)),
+  updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
 });
 
 export default connect(

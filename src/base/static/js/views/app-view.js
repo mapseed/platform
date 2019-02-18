@@ -3,6 +3,8 @@ import emitter from "../../utils/emitter";
 import ReactDOM from "react-dom";
 import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
+import WebMercatorViewport from "viewport-mercator-project";
+import getExtentFromGeometry from "turf-extent";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
@@ -59,6 +61,9 @@ import {
   setGeocodeAddressBarVisibility,
   geocodeAddressBarVisibilitySelector,
   updateEditModeToggled,
+  setContentPanel,
+  rightSidebarExpandedSelector,
+  contentPanelOpenSelector,
 } from "../../state/ducks/ui";
 import {
   loadUser,
@@ -353,6 +358,7 @@ export default Backbone.View.extend({
 
     // Cache panel elements that we use a lot
     this.$panel = $("#content");
+    this.$rightSidebar = $("#right-sidebar-container");
     this.$panelContent = $("#content article");
     this.$panelCloseBtn = $(".close-btn");
 
@@ -557,7 +563,10 @@ export default Backbone.View.extend({
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <ThemeProvider theme={this.adjustedTheme}>
-              <RightSidebar router={this.options.router} />
+              <RightSidebar
+                router={this.options.router}
+                getMapWidth={this.getMapWidth.bind(this)}
+              />
             </ThemeProvider>
           </ThemeProvider>
         </Provider>,
@@ -649,9 +658,9 @@ export default Backbone.View.extend({
       );
 
       this.$panel.removeClass().addClass("place-form");
-      this.$panel.show();
+      this.showPanel();
       this.setBodyClass("content-visible", "place-form-visible");
-      store.dispatch(updateMapSizeValidity(false));
+      //store.dispatch(updateMapSizeValidity(false));
       store.dispatch(setAddPlaceButtonVisibility(false));
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
@@ -682,6 +691,8 @@ export default Backbone.View.extend({
       return;
     }
 
+    this.setBodyClass("content-visible");
+
     store.dispatch(updateEditModeToggled(false));
 
     // REACT PORT SECTION //////////////////////////////////////////////////
@@ -709,14 +720,15 @@ export default Backbone.View.extend({
       document.querySelector("#content article"),
     );
 
-    this.$panel.show();
-    this.setBodyClass("content-visible");
-
     $("#main-btns-container").addClass(
       this.options.placeConfig.add_button_location || "pos-top-left",
     );
+
+    //store.dispatch(updateMapSizeValidity(false));
+
     // END REACT PORT SECTION //////////////////////////////////////////////
 
+    this.showPanel();
     this.hideNewPin();
     this.setBodyClass("content-visible");
     this.showSpotlightMask();
@@ -725,19 +737,20 @@ export default Backbone.View.extend({
     if (story) {
       this.isStoryActive = true;
 
-      story.basemap &&
-        //mapBasemapSelector(store.getState()) !== story.basemap && // TODO
-        store.dispatch(setBasemap(story.basemap));
-      store.dispatch(showLayers(story.visibleLayers));
-      // Hide all other layers.
-      store.dispatch(
-        hideLayers(
-          mapLayersSelector(store.getState())
-            .filter(layer => !layer.is_basemap)
-            .filter(layer => !story.visibleLayers.includes(layer.id))
-            .map(layer => layer.id),
-        ),
-      );
+      //    TODO: story layer visibility.
+      //    story.basemap &&
+      //      //mapBasemapSelector(store.getState()) !== story.basemap && // TODO
+      //      store.dispatch(setBasemap(story.basemap));
+      //    store.dispatch(showLayers(story.visibleLayers));
+      //    // Hide all other layers.
+      //    store.dispatch(
+      //      hideLayers(
+      //        mapLayersSelector(store.getState())
+      //          .filter(layer => !layer.is_basemap)
+      //          .filter(layer => !story.visibleLayers.includes(layer.id))
+      //          .map(layer => layer.id),
+      //      ),
+      //    );
 
       if (story.spotlight) {
         this.hideSpotlightMask();
@@ -748,44 +761,83 @@ export default Backbone.View.extend({
       }
     }
 
-    // Fire an event to set map position, reconciling with custom story
-    // settings if this model is part of a story.
+    // Set the new map viewport, reconciling with custom story settings if this
+    // model is part of a story.
     if (story && story.panTo) {
-      // If a story chapter declares a custom centerpoint, regardless of the
-      // geometry type, assume that we want to fly to a point.
-      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-        coordinates:
-          story.panTo || mapPositionSelector(store.getState()).center,
-        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-      });
-    } else if (place.geometry.type === "LineString") {
-      emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
-        coordinates:
-          story && story.panTo ? [story.panTo] : place.geometry.coordinates,
-      });
-    } else if (place.geometry.type === "Polygon") {
-      emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
-        coordinates:
-          story && story.panTo ? [[story.panTo]] : place.geometry.coordinates,
-      });
+      const newViewport = {
+        latitude: story.panTo[1],
+        longitude: story.panTo[0],
+      };
+      if (story.zoom) {
+        newViewport.zoom = story.zoom;
+      }
+
+      store.dispatch(updateMapViewport(newViewport));
+    } else if (
+      place.geometry.type === "LineString" ||
+      place.geometry.type === "Polygon"
+    ) {
+      const extent = getExtentFromGeometry(place.geometry);
+      const newViewport = this.getWebMercatorViewport().fitBounds(
+        // WebMercatorViewport wants bounds in [[lng, lat], [lng lat]] form.
+        [[extent[0], extent[1]], [extent[2], extent[3]]],
+        { padding: 50 },
+      );
+
+      store.dispatch(
+        updateMapViewport({
+          latitude: newViewport.latitude,
+          longitude: newViewport.longitude,
+          transitionDuration: 300,
+          zoom: newViewport.zoom,
+        }),
+      );
     } else if (place.geometry.type === "Point") {
-      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-        coordinates: place.geometry.coordinates,
-        zoom:
-          (story && story.zoom) || mapPositionSelector(store.getState()).zoom,
-      });
+      const newViewport = {
+        latitude: place.geometry.coordinates[1],
+        longitude: place.geometry.coordinates[0],
+        transitionDuration: 300,
+      };
+      if (story && story.zoom) {
+        newViewport.zoom = story.zoom;
+      }
+
+      store.dispatch(updateMapViewport(newViewport));
     }
 
-    emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-      datasetSlug: place._datasetSlug,
-      placeId: place.id,
-    });
+    //  emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
+    //    datasetSlug: place._datasetSlug,
+    //    placeId: place.id,
+    //  });
 
     if (!place.story && this.isStoryActive) {
       this.isStoryActive = false;
     }
+  },
 
-    store.dispatch(updateMapSizeValidity(false));
+  getMapWidth() {
+    // To avoid a race condition between CSS resizing elements and the map
+    // initiating a viewport change, we manually calculate what the width of
+    // the map *should* be given the current state of the UI. The race
+    // condition that this code avoids was the cause of the old off-center bug.
+    return (
+      window.innerWidth -
+      (contentPanelOpenSelector(store.getState()) ? this.$panel.width() : 0) -
+      (rightSidebarExpandedSelector(store.getState())
+        ? this.$rightSidebar.width()
+        : 0)
+    );
+  },
+
+  getWebMercatorViewport: function() {
+    const container = document
+      .getElementById("map-container")
+      .getBoundingClientRect();
+
+    return new WebMercatorViewport({
+      width: container.width,
+      height: container.height,
+    });
   },
 
   viewSha: function() {
@@ -813,15 +865,10 @@ export default Backbone.View.extend({
       );
 
       this.$panel.removeClass().addClass("page page-" + slug);
-      this.$panel.show();
+      this.showPanel();
       this.hideNewPin();
-      $(Shareabouts).trigger("panelshow", [
-        this.options.router,
-        Backbone.history.getFragment(),
-      ]);
-      Util.log("APP", "panel-state", "open");
       this.setBodyClass("content-visible");
-      store.dispatch(updateMapSizeValidity(false));
+      //store.dispatch(updateMapSizeValidity(false));
       this.renderRightSidebar();
       this.renderMain();
       $("#main-btns-container").addClass(
@@ -846,6 +893,17 @@ export default Backbone.View.extend({
   hideNewPin: function() {
     store.dispatch(setMapCenterpointVisibility(false));
   },
+  showPanel: function() {
+    this.$panel.show();
+    Util.log("APP", "panel-state", "open");
+    store.dispatch(setContentPanel(true));
+
+    store.dispatch(
+      updateMapViewport({
+        width: this.getMapWidth(),
+      }),
+    );
+  },
   hidePanel: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
@@ -853,7 +911,7 @@ export default Backbone.View.extend({
 
     this.$panel.hide();
     this.setBodyClass();
-    store.dispatch(updateMapSizeValidity(false));
+    //store.dispatch(updateMapSizeValidity(false));
 
     $("#main-btns-container").addClass(
       this.options.placeConfig.add_button_location || "pos-top-left",
@@ -861,6 +919,13 @@ export default Backbone.View.extend({
 
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();
+
+    store.dispatch(setContentPanel(false));
+    store.dispatch(
+      updateMapViewport({
+        width: this.getMapWidth(),
+      }),
+    );
   },
   showSpotlightMask: function() {
     $("#spotlight-mask").show();

@@ -12,6 +12,7 @@ import {
   mapViewportPropType,
   mapStylePropType,
   updateMapViewport,
+  updateMapViewportFromReactMapGL,
   updateSourceLoadStatus,
   sourcesMetadataSelector,
   updateMapSizeValidity,
@@ -110,7 +111,6 @@ class MainMap extends Component {
 
   onWindowResize = () => {
     const container = this.props.container.getBoundingClientRect();
-
     this.props.updateMapViewport({
       height: container.height,
       width: container.width,
@@ -118,6 +118,12 @@ class MainMap extends Component {
   };
 
   componentDidMount() {
+    const container = this.props.container.getBoundingClientRect();
+    this.props.updateMapViewport({
+      height: container.height,
+      width: container.width,
+    });
+
     window.addEventListener("resize", this.onWindowResize);
 
     // MapboxGL fires many redundant source events, so we only update load
@@ -148,18 +154,6 @@ class MainMap extends Component {
         this.props.updateSourceLoadStatus(evt.sourceId, loadStatus);
       }
     });
-  }
-
-  componentDidUpdate() {
-    if (!this.props.isMapSizeValid) {
-      const container = this.props.container.getBoundingClientRect();
-      this.props.updateMapViewport({
-        height: container.height,
-        width: container.width,
-      });
-
-      this.props.updateMapSizeValidity(true);
-    }
   }
 
   componentWillUnmount() {
@@ -206,7 +200,9 @@ class MainMap extends Component {
         mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
         minZoom={this.props.mapViewport.minZoom}
         maxZoom={this.props.mapViewport.maxZoom}
-        onViewportChange={viewport => this.props.updateMapViewport(viewport)}
+        onViewportChange={viewport =>
+          this.props.updateMapViewportFromReactMapGL(viewport)
+        }
         interactiveLayerIds={this.props.interactiveLayerIds}
         mapStyle={this.props.mapStyle}
         onLoad={this.onMapLoad}
@@ -243,6 +239,7 @@ class MainMap extends Component {
 MainMap.propTypes = {
   container: PropTypes.instanceOf(Element).isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isMapSizeValid: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
     is_visible_default: PropTypes.bool,
@@ -262,6 +259,7 @@ MainMap.propTypes = {
   updateMapSizeValidity: PropTypes.func.isRequired,
   sourcesMetadata: PropTypes.object.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
+  updateMapViewportFromReactMapGL: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
 };
 
@@ -281,6 +279,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(component)),
   updateMapSizeValidity: isValid => dispatch(updateMapSizeValidity(isValid)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
+  updateMapViewportFromReactMapGL: viewport =>
+    dispatch(updateMapViewportFromReactMapGL(viewport)),
   updateSourceLoadStatus: (sourceId, loadStatus) =>
     dispatch(updateSourceLoadStatus(sourceId, loadStatus)),
 });
