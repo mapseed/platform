@@ -4,6 +4,7 @@ import { Link, RegularTitle, RegularText } from "../atoms/typography";
 import { CloseButton } from "../molecules/buttons";
 import { Button } from "../atoms/buttons";
 import { getTilePaths } from "../../utils/geo";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import {
   mapLayerConfigsPropType,
   offlineConfigPropType,
@@ -12,6 +13,7 @@ import {
 import Modal from "react-modal";
 Modal.setAppElement("#main");
 
+// TODO: refactor these into generic Modal layout atoms:
 const modalStyles = {
   content: {
     position: "absolute",
@@ -38,34 +40,78 @@ const modalStyles = {
   },
 };
 
-const OfflineMenuWrapper = styled("div")({
+const ModalWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
   width: "100%",
   height: "100%",
+  justifyContent: "space-between",
 });
 
-const OfflineMenuHeading = styled("div")({
+const ModalHeading = styled("div")({
   display: "flex",
 });
-const OfflineMenuTitle = styled(RegularTitle)({
+const ModalTitle = styled(RegularTitle)({
   textAlign: "center",
   marginLeft: "auto",
   marginRight: "auto",
 });
+const ModalBody = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  marginTop: "16px",
+  height: "100%",
+  flex: "1 0",
+});
+const ModalFooter = styled("div")({
+  display: "flex",
+  marginTop: "16px",
+  justifyContent: "flex-end",
+});
 
-const fetchOfflineData = (offlineBoundingBox, mapTileLayerConfigs) => {
+const fetchOfflineData = (
+  offlineBoundingBox,
+  mapLayerConfigs,
+  setPercentDownloaded,
+  setPhase,
+) => {
   const { southWest, northEast } = offlineBoundingBox;
 
   const tilePaths = getTilePaths(southWest, northEast);
-  tilePaths.forEach(({ zoom, lat, lng }) => {
-    mapTileLayerConfigs.forEach(mapTileLayerConfig => {
-      const newUrl = mapTileLayerConfig.url
-        .replace("{z}", zoom)
-        .replace("{x}", lng)
-        .replace("{y}", lat);
-      console.log("fetching newUrl:", newUrl);
-      fetch(newUrl);
+  const urlsToFetch = tilePaths
+    .reduce(
+      (urls, { zoom, lat, lng }) =>
+        urls.concat(
+          mapLayerConfigs
+            .filter(
+              layer =>
+                layer.type &&
+                ["raster-tile", "vector-tile"].includes(layer.type),
+            )
+            .map(mapTileLayerConfig => {
+              return mapTileLayerConfig.url
+                .replace("{z}", zoom)
+                .replace("{x}", lng)
+                .replace("{y}", lat);
+            }),
+        ),
+      [],
+    )
+    .concat(
+      mapLayerConfigs
+        .filter(layer => layer.type && layer.type === "json")
+        .map(mapLayerConfig => mapLayerConfig.source),
+    );
+
+  let fetchedRequests = 0;
+  let totalRequests = urlsToFetch.length;
+  urlsToFetch.forEach(url => {
+    fetch(url).then(() => {
+      fetchedRequests++;
+      setPercentDownloaded(parseInt((fetchedRequests / totalRequests) * 100));
+      if (fetchedRequests === totalRequests) {
+        setPhase("downloaded");
+      }
     });
   });
 };
@@ -74,7 +120,9 @@ const OfflineDownloadMenu = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = () => setIsModalOpen(() => false);
 
-  const [isDownloading, setIsDownloading] = useState(false);
+  // one of "prompt", "downloading", or "finished"
+  const [phase, setPhase] = useState("prompt");
+  const [percentDownloaded, setPercentDownloaded] = useState(0);
   return (
     <Fragment>
       <Link onClick={() => setIsModalOpen(() => true)}>
@@ -86,42 +134,78 @@ const OfflineDownloadMenu = props => {
         onRequestClose={closeModal}
         contentLabel="offline download menu"
       >
-        <OfflineMenuWrapper>
+        <ModalWrapper>
           <Fragment>
-            <OfflineMenuHeading>
-              <OfflineMenuTitle>{"Offline Menu"}</OfflineMenuTitle>
+            <ModalHeading>
+              <ModalTitle>{"Offline Menu"}</ModalTitle>
               <CloseButton onClick={closeModal} />
-            </OfflineMenuHeading>
-            {isDownloading ? (
-              <RegularText>{`downloading... TODO: show progress`}</RegularText>
-            ) : (
+            </ModalHeading>
+            {phase === "prompt" && (
               <Fragment>
-                <RegularText>
-                  {`Downloading your offline data may take a few minutes. Are you ready to downlaod?`}
-                </RegularText>
-                <Button
-                  onClick={() => {
-                    setIsDownloading(() => true);
-                    fetchOfflineData(
-                      props.offlineBoundingBox,
-                      props.mapTileLayerConfigs,
-                    );
-                  }}
-                >
-                  {"Ok"}
-                </Button>
+                <ModalBody>
+                  <RegularText textAlign="center">
+                    {`Downloading the offline app may take a minute. Are you ready to download?`}
+                  </RegularText>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    size={"full-width"}
+                    color={"primary"}
+                    onClick={() => {
+                      fetchOfflineData(
+                        props.offlineBoundingBox,
+                        props.mapLayerConfigs,
+                        setPercentDownloaded,
+                        setPhase,
+                      );
+                      setPhase("downloading");
+                    }}
+                  >
+                    {"Ok"}
+                  </Button>
+                </ModalFooter>
+              </Fragment>
+            )}
+            {phase === "downloading" && (
+              <ModalBody>
+                <RegularText textAlign="center">{`Downloading the Mapseed app...`}</RegularText>
+                <LinearProgress
+                  style={{ marginTop: "8px", marginBottom: "8px" }}
+                  value={percentDownloaded}
+                  variant={"determinate"}
+                />
+                <RegularText textAlign="center">{`${percentDownloaded}%`}</RegularText>
+              </ModalBody>
+            )}
+            {phase === "downloaded" && (
+              <Fragment>
+                <ModalBody>
+                  <RegularText textAlign="center">{`Mapseed has been downloaded!`}</RegularText>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    size={"full-width"}
+                    color={"primary"}
+                    onClick={() => {
+                      setPhase("prompt");
+                      setIsModalOpen(() => false);
+                    }}
+                  >
+                    {"OK"}
+                  </Button>
+                </ModalFooter>
               </Fragment>
             )}
           </Fragment>
-        </OfflineMenuWrapper>
+        </ModalWrapper>
       </Modal>
     </Fragment>
   );
 };
 
 OfflineDownloadMenu.propTypes = {
-  mapTileLayerConfigs: mapLayerConfigsPropType,
-  offlineBoundingBox: offlineConfigPropType,
+  mapLayerConfigs: mapLayerConfigsPropType.isRequired,
+  offlineBoundingBox: offlineConfigPropType.isRequired,
 };
 
 export default OfflineDownloadMenu;

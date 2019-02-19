@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 import styled from "react-emotion";
+import { lighten } from "@material-ui/core/styles/colorManipulator";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
 
@@ -119,7 +120,9 @@ const Button = styled(props => {
     },
   };
 
-  if (props.size === "extra-large") {
+  if (props.size === "full-width") {
+    styles.width = "100%";
+  } else if (props.size === "extra-large") {
     styles.fontWeight = "800";
     styles.fontSize = "1.5rem";
     styles.padding = "16px 24px 16px 24px";
@@ -143,17 +146,26 @@ const Button = styled(props => {
     styles.border = `3px solid ${props.theme.brand.primary}`;
   }
 
-  // TODO: Review use of themeing here.
+  // TODO: Review use of theming here.
+  if (props.color2 === "primary") {
+    console.warn("oh wow");
+    styles.backgroundColor = props.theme.brand.primary;
+    styles.color = props.theme.text.secondary;
+    styles["&:hover"].textDecoration = "none";
+    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
+    styles["&:hover"].color = props.theme.text.secondary;
+  }
+
   if (props.color === "primary") {
     styles.backgroundColor = props.theme.brand.primary;
     styles.color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
-    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
     styles["&:hover"].color = props.theme.text.secondary;
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
     styles.color = props.theme.text.secondary;
-    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
     styles["&:hover"].color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
@@ -166,13 +178,13 @@ const Button = styled(props => {
     styles.backgroundColor = "#fff";
     styles.color = "black";
     styles["&:hover"].color = "grey";
-    styles["&:hover"].backgroundColor = "#fff";
+    styles["&:hover"].backgroundColor = lighten("#fff", 0.6);
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "grey") {
     styles.backgroundColor = "#fff";
     styles.color = "grey";
     styles["&:hover"].color = "black";
-    styles["&:hover"].backgroundColor = "#fff";
+    styles["&:hover"].backgroundColor = lighten("#fff", 0.6);
     styles["&:hover"].textDecoration = "none";
   }
 
@@ -192,6 +204,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   variant: PropTypes.string,
   color: PropTypes.string,
+  size: PropTypes.string,
 };
 
 Button.defaultProps = {

@@ -159,6 +159,7 @@ const textHandler = (props, styles) => {
   styles.fontFamily = props.theme.text.bodyFontFamily;
   styles.fontWeight = 200;
   styles.display = props.display || "inline";
+  styles.textAlign = props.textAlign || "left";
 
   switch (props.weight) {
     case "bold":

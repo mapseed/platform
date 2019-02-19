@@ -12,6 +12,8 @@ import { createStore } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { ThemeProvider } from "emotion-theming";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
 import theme from "../../../../theme";
 
 // Most of react-virtualized's styles are functional (eg position, size).
@@ -181,6 +183,7 @@ export default Backbone.View.extend({
     store.dispatch(loadMapViewport(this.options.mapConfig.options.mapViewport));
 
     const storeState = store.getState();
+    // TODO: refactor and clean up this logic into a separate theme provider
     this.flavorTheme = storeState.appConfig.theme;
     this.adjustedTheme = this.flavorTheme
       ? // ? ancestorTheme => ({ ...ancestorTheme, ...this.flavorTheme,  })
@@ -195,6 +198,37 @@ export default Backbone.View.extend({
           text: { ...ancestorTheme.text, ...this.flavorTheme.text },
         })
       : {};
+    // This is our theme, with overrides from our flavor:
+    this.theme = {
+      ...theme,
+      ...this.flavorTheme,
+      brand: { ...theme.brand, ...this.flavorTheme.brand },
+      bg: {
+        ...theme.bg,
+        ...this.flavorTheme.bg,
+      },
+      text: { ...theme.text, ...this.flavorTheme.text },
+    };
+    this.muiTheme = createMuiTheme({
+      palette: {
+        primary: {
+          // light: will be calculated from palette.primary.main,
+          main: this.theme.brand.primary,
+          // dark: will be calculated from palette.primary.main,
+          // contrastText: will be calculated to contrast with palette.primary.main
+        },
+        secondary: {
+          light: this.theme.text.highlighted,
+          main: this.theme.brand.secondary,
+          // dark: will be calculated from palette.secondary.main,
+          contrastText: this.theme.text.primary,
+        },
+        // error: will use the default color
+      },
+      typography: {
+        useNextVariants: true,
+      },
+    });
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -769,16 +803,18 @@ export default Backbone.View.extend({
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <ThemeProvider theme={this.adjustedTheme}>
-            <PlaceDetail
-              placeId={args.placeId}
-              datasetSlug={place._datasetSlug}
-              container={document.querySelector("#content article")}
-              isGeocodingBarEnabled={
-                this.options.mapConfig.geocoding_bar_enabled
-              }
-              scrollToResponseId={args.responseId}
-              router={this.options.router}
-            />
+            <MuiThemeProvider theme={this.muiTheme}>
+              <PlaceDetail
+                placeId={args.placeId}
+                datasetSlug={place._datasetSlug}
+                container={document.querySelector("#content article")}
+                isGeocodingBarEnabled={
+                  this.options.mapConfig.geocoding_bar_enabled
+                }
+                scrollToResponseId={args.responseId}
+                router={this.options.router}
+              />
+            </MuiThemeProvider>
           </ThemeProvider>
         </ThemeProvider>
       </Provider>,

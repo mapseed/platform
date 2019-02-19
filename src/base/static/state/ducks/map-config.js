@@ -27,11 +27,6 @@ export const mapConfigSelector = state => {
 export const mapLayerGroupsSelector = state => {
   return state.mapConfig.layerGroups;
 };
-export const mapTileLayersSelector = state => {
-  return state.mapConfig.layers.filter(
-    layer => layer.type && ["raster-tile", "vector-tile"].includes(layer.type),
-  );
-};
 export const mapPlaceLayersSelector = state => {
   return state.mapConfig.layers.filter(
     layer => layer.type && layer.type === "place",

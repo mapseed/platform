@@ -9,7 +9,7 @@ import styled from "react-emotion";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
 import {
   offlineConfigSelector,
-  mapTileLayersSelector,
+  mapLayersSelector,
 } from "../../state/ducks/map-config";
 
 import {
@@ -199,6 +199,12 @@ class UserMenu extends React.Component {
                 )}
             </MenuItem>
             <MenuItem>
+              <OfflineDownloadMenu
+                offlineBoundingBox={this.props.offlineBoundingBox}
+                mapLayerConfigs={this.props.mapLayerConfigs}
+              />
+            </MenuItem>
+            <MenuItem>
               <div>
                 <SmallText>{this.props.t("signedInAs")}</SmallText>{" "}
                 {this.props.currentUser.name}
@@ -238,12 +244,6 @@ class UserMenu extends React.Component {
                 Facebook
               </SocialLoginButton>
             </SocialMediaMenuItem>
-            <MenuItem>
-              <OfflineDownloadMenu
-                offlineBoundingBox={this.props.offlineBoundingBox}
-                mapTileLayerConfigs={this.props.mapTileLayerConfigs}
-              />
-            </MenuItem>
           </Menu>
         </MenuContainer>
       );
@@ -255,7 +255,7 @@ UserMenu.propTypes = {
   currentUser: userPropType,
   dashboardConfig: dashboardConfigPropType,
   offlineBoundingBox: PropTypes.object,
-  mapTileLayerConfigs: PropTypes.array,
+  mapLayerConfigs: PropTypes.array,
   hasAdminAbilities: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
@@ -267,7 +267,7 @@ const mapStateToProps = state => ({
   currentUser: userSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   offlineBoundingBox: offlineConfigSelector(state),
-  mapTileLayerConfigs: mapTileLayersSelector(state),
+  mapLayerConfigs: mapLayersSelector(state),
 });
 
 export default connect(mapStateToProps)(translate("UserMenu")(UserMenu));
