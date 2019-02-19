@@ -95,7 +95,7 @@ const MapLayerSelector = props => {
         <LayerGroupsStatusContainer>
           {props.isLayerGroupVisible &&
             props.loadStatus === "loading" && (
-              <SpinnerContainer>
+              <SpinnerContainer className="map-layer-status-spinner">
                 <Spinner />
               </SpinnerContainer>
             )}

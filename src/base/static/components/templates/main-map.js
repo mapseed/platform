@@ -138,7 +138,7 @@ class MainMap extends Component {
     this.map = this.mapRef.current.getMap();
     this.map.on("error", evt => {
       if (
-        this.props.sourcesMetadata[evt.sourceId].isActive &&
+        evt.sourceId &&
         this.props.sourcesMetadata[evt.sourceId].loadStatus !== "error"
       ) {
         this.props.updateSourceLoadStatus(evt.sourceId, "error");
@@ -146,10 +146,6 @@ class MainMap extends Component {
     });
 
     this.map.on("sourcedata", evt => {
-      if (!this.props.sourcesMetadata[evt.sourceId].isActive) {
-        return;
-      }
-
       const loadStatus = this.map.isSourceLoaded(evt.sourceId)
         ? "loaded"
         : "loading";
@@ -178,6 +174,7 @@ class MainMap extends Component {
 
   onMouseUp = () => {
     if (
+      !this.props.isMapDragging &&
       this.features.length &&
       this.features[0].properties &&
       this.features[0].properties._clientSlug

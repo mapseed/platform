@@ -184,6 +184,10 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
             // will only render geometry if the focused source has been
             // populated with features to focus.
             source: "__mapseed-focused-source__",
+            layout: {
+              ...mbl.layout,
+              visibility: "visible",
+            },
           })),
       ),
   };
@@ -210,21 +214,11 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     {},
   );
 
-  const defaultVisibleLayerGroups = mapConfig.layerGroups.filter(
-    lg => !!lg.visibleDefault,
-  );
   const sourcesMetadata = Object.keys(style.sources).reduce(
     (memo, sourceId) => ({
       ...memo,
       [sourceId]: {
         loadStatus: "unloaded",
-        // An "active" source is a source that is consumed by at least one
-        // visible layer. On map load, only sources consumed by default visible
-        // layers will be active, so indicate that here.
-        isActive: defaultVisibleLayerGroups.some(lg =>
-          lg.mapboxLayers.some(mbl => mbl.source === sourceId),
-        ),
-        // Layer group ids containing layers which consume this source:
         layerGroupIds: mapConfig.layerGroups
           .filter(lg =>
             lg.mapboxLayers
@@ -449,45 +443,6 @@ export default function reducer(state = INITIAL_STATE, action) {
                   typeof newVisibilityStatus === "undefined"
                     ? metadata.isVisible
                     : newVisibilityStatus,
-              },
-            };
-          },
-          {},
-        ),
-        // Update active status of sources consumed by this layer group.
-        sourcesMetadata: Object.entries(state.sourcesMetadata).reduce(
-          (memo, [sourceId, sourceMetadata]) => {
-            let newActiveStatus;
-            if (
-              action.payload.isVisible &&
-              state.layerGroupsMetadata[
-                action.payload.layerGroupId
-              ].sourceIds.includes(sourceId)
-            ) {
-              // If we're switching a layer group on and this sourceId is
-              // consumed by a layer in this layer group, set the source to be
-              // active.
-              newActiveStatus = true;
-            } else if (
-              !action.payload.isVisible &&
-              !state.sourcesMetadata[sourceId].layerGroupIds.some(
-                id => state.layerGroupsMetadata[id].isVisible,
-              )
-            ) {
-              // Otherwise, if we're switching a layer group off and all other
-              // layer groups with layers that consume this source are not
-              // visible, we can set this source to be inactive.
-              newActiveStatus = false;
-            }
-
-            return {
-              ...memo,
-              [sourceId]: {
-                ...sourceMetadata,
-                isActive:
-                  typeof newActiveStatus !== "undefined"
-                    ? newActiveStatus
-                    : sourceMetadata.isActive,
               },
             };
           },

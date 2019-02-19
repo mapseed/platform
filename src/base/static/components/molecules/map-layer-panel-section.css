@@ -1,4 +1,6 @@
-.react-spinner {
-  width: 20px;
-  height: 20px;
+.map-layer-status-spinner {
+  .react-spinner {
+    width: 20px;
+    height: 20px;
+  }
 }

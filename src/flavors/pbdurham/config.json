@@ -438,6 +438,7 @@
           {
             "id": "pbdurham-projects-focused",
             "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "projects"],
             "source": "pbdurham-projects",
             "layout": {
               "icon-allow-overlap": true,
@@ -470,6 +471,15 @@
           {
             "id": "pbdurham-focused",
             "type": "symbol",
+            "filter": [
+              "any",
+              ["==", ["get", "location_type"], "culture"],
+              ["==", ["get", "location_type"], "safety"],
+              ["==", ["get", "location_type"], "parks"],
+              ["==", ["get", "location_type"], "health"],
+              ["==", ["get", "location_type"], "streets"],
+              ["==", ["get", "location_type"], "other"]
+            ],
             "source": "pbdurham",
             "layout": {
               "icon-allow-overlap": true,
