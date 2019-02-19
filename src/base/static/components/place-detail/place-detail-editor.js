@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import emitter from "../../utils/emitter";
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { Map, OrderedMap, fromJS } from "immutable";
@@ -30,6 +29,7 @@ import {
   removePlaceAttachment,
   placePropType,
 } from "../../state/ducks/places";
+import { removeGeoJSONFeature } from "../../state/ducks/map";
 import { updateEditModeToggled } from "../../state/ducks/ui";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -160,15 +160,7 @@ class PlaceDetailEditor extends Component {
           );
         }
 
-        emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
-
         this.props.updatePlace(placeResponse);
-
-        emitter.emit(
-          constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-          this.props.place._datasetSlug,
-        );
-
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
 
@@ -207,9 +199,9 @@ class PlaceDetailEditor extends Component {
     if (response) {
       this.props.router.navigate("/", { trigger: true });
       this.props.removePlace(this.props.place.id);
-      emitter.emit(
-        constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
+      this.props.removeGeoJSONFeature(
         this.props.place._datasetSlug,
+        this.props.place.id,
       );
 
       Util.log("USER", "place", "successfully-remove-place");
@@ -373,6 +365,7 @@ PlaceDetailEditor.propTypes = {
   place: placePropType.isRequired,
   placeRequestType: PropTypes.string,
   removePlace: PropTypes.func.isRequired,
+  removeGeoJSONFeature: PropTypes.func.isRequired,
   removePlaceAttachment: PropTypes.func.isRequired,
   router: PropTypes.object,
   setPlaceRequestType: PropTypes.func.isRequired,
@@ -391,6 +384,8 @@ const mapDispatchToProps = dispatch => ({
   updateEditModeToggled: isToggled =>
     dispatch(updateEditModeToggled(isToggled)),
   updatePlace: place => dispatch(updatePlace(place)),
+  removeGeoJSONFeature: (sourceId, featureId) =>
+    dispatch(removeGeoJSONFeature(sourceId, featureId)),
   removePlace: placeId => dispatch(removePlace(placeId)),
   removePlaceAttachment: (placeId, attachmentId) =>
     dispatch(removePlaceAttachment(placeId, attachmentId)),

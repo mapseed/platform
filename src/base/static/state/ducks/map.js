@@ -31,6 +31,7 @@ const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
 const UPDATE_MAP_DRAGGED = "map/UPDATE_MAP_DRAGGED";
 const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
+const REMOVE_GEOJSON_FEATURE = "map/REMOVE_GEOJSON_FEATURE";
 
 // Layer group load status terminology:
 // ------------------------------------
@@ -126,6 +127,13 @@ export function updateGeoJSONFeatures({
       sourceId,
       newFeatures,
     },
+  };
+}
+
+export function removeGeoJSONFeature(sourceId, featureId) {
+  return {
+    type: REMOVE_GEOJSON_FEATURE,
+    payload: { sourceId, featureId },
   };
 }
 
@@ -337,6 +345,28 @@ export default function reducer(state = INITIAL_STATE, action) {
           },
         },
       };
+    case REMOVE_GEOJSON_FEATURE:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.sourceId]: {
+              ...state.style.sources[action.payload.sourceId],
+              data: {
+                ...state.style.sources[action.payload.sourceId].data,
+                features: state.style.sources[
+                  action.payload.sourceId
+                ].data.features.filter(
+                  feature => feature.id !== action.payload.featureId,
+                ),
+              },
+            },
+          },
+        },
+      };
+
     case REMOVE_FOCUSED_GEOJSON_FEATURES:
       return {
         ...state,
