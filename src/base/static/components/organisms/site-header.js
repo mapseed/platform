@@ -261,9 +261,9 @@ class SiteHeader extends Component {
     return (
       <SiteHeaderWrapper>
         <LogoTitleWrapper
-          zoom={this.props.mapConfig.options.map.zoom.toFixed(2)}
-          lat={this.props.mapConfig.options.map.latitude.toFixed(5)}
-          lng={this.props.mapConfig.options.map.longitude.toFixed(5)}
+          zoom={this.props.mapConfig.options.mapViewport.zoom.toFixed(2)}
+          lat={this.props.mapConfig.options.mapViewport.latitude.toFixed(5)}
+          lng={this.props.mapConfig.options.mapViewport.longitude.toFixed(5)}
         >
           <NavBarHamburger
             onClick={() => {
@@ -363,7 +363,7 @@ SiteHeader.propTypes = {
   languageCode: PropTypes.string.isRequired,
   mapConfig: PropTypes.shape({
     options: PropTypes.shape({
-      map: PropTypes.shape({
+      mapViewport: PropTypes.shape({
         latitude: PropTypes.number.isRequired,
         longitude: PropTypes.number.isRequired,
         zoom: PropTypes.number.isRequired,

@@ -157,8 +157,10 @@ export default Backbone.View.extend({
     if (this.options.dashboardConfig) {
       store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
     }
-    // Set default map position.
-    store.dispatch(updateMapViewport(this.options.mapConfig.options.map));
+    // Set initial map viewport from values supplied in the config.
+    store.dispatch(
+      updateMapViewport(this.options.mapConfig.options.mapViewport),
+    );
 
     const storeState = store.getState();
     this.flavorTheme = storeState.appConfig.theme;

@@ -61,7 +61,7 @@
     "geocoding_bar_enabled": false,
     "geocode_hint": [-121.9859019, 48.0381909],
     "options": {
-      "map": {
+      "mapViewport": {
         "latitude": 48.01287153396305,
         "longitude": -121.9524299235677,
         "zoom": 9,
