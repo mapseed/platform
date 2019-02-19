@@ -31,10 +31,11 @@ import {
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 import {
-  mapPositionSelector,
-  showLayers,
-  hideLayers,
-  setBasemap,
+  mapCenterpointSelector,
+  updateMapGeoJSONSourceData,
+  //  showLayers,
+  //  hideLayers,
+  //  setBasemap,
 } from "../../state/ducks/map";
 import { hasAdminAbilities } from "../../state/ducks/user";
 import emitter from "../../utils/emitter";
@@ -286,10 +287,10 @@ class InputForm extends Component {
           ? { "marker-symbol": this.props.activeMarker }
           : this.props.geometryStyle;
     } else {
-      const center = this.props.mapPosition.center;
+      const { longitude, latitude } = this.props.mapCenterpoint;
       attrs.geometry = {
         type: "Point",
-        coordinates: [center.lng, center.lat],
+        coordinates: [longitude, latitude],
       };
     }
 
@@ -326,12 +327,12 @@ class InputForm extends Component {
         await Promise.all(
           this.attachments.map(async attachment => {
             const attachmentResponse = await mapseedApiClient.attachments.create(
-              placeResponse.url,
+              placeResponse.place.url,
               attachment,
             );
 
             if (attachmentResponse) {
-              placeResponse.attachments.push(attachmentResponse);
+              placeResponse.place.attachments.push(attachmentResponse);
               Util.log("USER", "dataset", "successfully-add-attachment");
             } else {
               alert("Oh dear. It looks like an attachment didn't save.");
@@ -342,14 +343,14 @@ class InputForm extends Component {
       }
 
       // Only add this place to the places duck if it isn't private.
-      !placeResponse.private && this.props.createPlace(placeResponse);
+      !placeResponse.private && this.props.createPlace(placeResponse.place);
+      !placeResponse.private &&
+        this.props.updateMapGeoJSONSourceData(
+          this.props.datasetSlug,
+          placeResponse.placeGeoJSON,
+        );
 
       this.setState({ isFormSubmitting: false, showValidityStatus: false });
-
-      emitter.emit(
-        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        this.selectedCategoryConfig.datasetSlug,
-      );
 
       // Save autofill values as necessary.
       // TODO: This logic is better suited for the FormField component,
@@ -375,7 +376,7 @@ class InputForm extends Component {
           this.defaultPostSave.bind(this),
         );
       } else {
-        this.defaultPostSave(placeResponse);
+        this.defaultPostSave(placeResponse.place);
       }
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");
@@ -565,7 +566,7 @@ InputForm.propTypes = {
       type: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  mapPosition: PropTypes.object,
+  mapCenterpoint: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
@@ -576,6 +577,7 @@ InputForm.propTypes = {
   showLayers: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateMapGeoJSONSourceData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -586,11 +588,13 @@ const mapStateToProps = state => ({
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   mapConfig: mapConfigSelector(state),
   mapLayers: mapLayersSelector(state),
-  mapPosition: mapPositionSelector(state),
+  mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateMapGeoJSONSourceData: (sourceId, sourceData) =>
+    dispatch(updateMapGeoJSONSourceData(sourceId, sourceData)),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),

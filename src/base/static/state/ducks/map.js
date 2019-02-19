@@ -12,8 +12,12 @@ export const layerGroupsMetadataSelector = state =>
 export const interactiveLayerIdsSelector = state =>
   state.map.interactiveLayerIds;
 export const setMapSizeValiditySelector = state => state.map.isMapSizeValid;
-export const mapDraggingSelector = state => false; // TODO
-export const mapDraggedSelector = state => false; // TODO
+export const mapDraggingSelector = state => state.map.isMapDragging;
+export const mapDraggedSelector = state => state.map.isMapDragged;
+export const mapCenterpointSelector = state => ({
+  latitude: state.map.viewport.latitude,
+  longitude: state.map.viewport.longitude,
+});
 
 // Actions:
 const UPDATE_VIEWPORT = "map/UPDATE_VIEWPORT";
@@ -23,13 +27,16 @@ const UPDATE_MAP_GEOJSON_SOURCE = "map/UPDATE_MAP_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
-const FOCUS_GEOJSON_FEATURES = "map/FOCUS_GEOJSON_FEATURES";
+const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
+const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
+const UPDATE_MAP_DRAGGED = "map/UPDATE_MAP_DRAGGED";
+const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
 
 // Layer group load status terminology:
 // ------------------------------------
 // "unloaded": The map has not yet begun to fetch data for any source consumed
-//     by this layer group.
 // "loading": The map has begun fetching data for one or more sources consumed
+//     by this layer group.
 //     by this layer group, but has not finished.
 // "loaded": All data for all sources consumed by this layer group have been
 //     fetched. Rendering may or may not be in progress.
@@ -45,9 +52,16 @@ export function updateLayerGroupLoadStatus(groupId, loadStatus) {
   };
 }
 
-export function focusGeoJSONFeatures(features) {
+export function removeFocusedGeoJSONFeatures() {
   return {
-    type: FOCUS_GEOJSON_FEATURES,
+    type: REMOVE_FOCUSED_GEOJSON_FEATURES,
+    payload: null,
+  };
+}
+
+export function updateFocusedGeoJSONFeatures(features) {
+  return {
+    type: UPDATE_FOCUSED_GEOJSON_FEATURES,
     payload: features,
   };
 }
@@ -92,6 +106,14 @@ export function updateMapStyle(style) {
   return { type: UPDATE_STYLE, payload: style };
 }
 
+export function updateMapDragged(isDragged) {
+  return { type: UPDATE_MAP_DRAGGED, payload: isDragged };
+}
+
+export function updateMapDragging(isDragging) {
+  return { type: UPDATE_MAP_DRAGGING, payload: isDragging };
+}
+
 export function updateMapGeoJSONSourceData(sourceId, sourceData) {
   return {
     type: UPDATE_MAP_GEOJSON_SOURCE,
@@ -101,19 +123,6 @@ export function updateMapGeoJSONSourceData(sourceId, sourceData) {
     },
   };
 }
-
-//const appendFilters = (existingFilters, ...filtersToAdd) => {
-//  const newFilters = filtersToAdd.reduce(
-//    (newFilters, filterToAdd) => [...newFilters, filterToAdd],
-//    existingFilters ? [existingFilters] : [],
-//  );
-//
-//  // If an existing filter does not already start with the logical AND
-//  // operator "all", we need to prepend it.
-//  newFilters[0] !== "all" && newFilters.unshift("all");
-//
-//  return newFilters;
-//};
 
 export function loadMapStyle(mapConfig, datasetsConfig) {
   const style = {
@@ -171,8 +180,8 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
           .reduce((memo, lg) => memo.concat(lg.mapboxFocusedLayers || []), [])
           .map(mbl => ({
             ...mbl,
-            // All focused layers will have the same source. Focused layers 
-            // will only render geometry if the focused source has been 
+            // All focused layers will have the same source. Focused layers
+            // will only render geometry if the focused source has been
             // populated with features to focus.
             source: "__mapseed-focused-source__",
           })),
@@ -301,6 +310,8 @@ const INITIAL_STATE = {
   basemapLayerIds: [],
   interactiveLayerIds: [],
   isMapSizeValid: false,
+  isMapDragged: false,
+  isMapDragging: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -324,7 +335,24 @@ export default function reducer(state = INITIAL_STATE, action) {
           },
         },
       };
-    case FOCUS_GEOJSON_FEATURES:
+    case REMOVE_FOCUSED_GEOJSON_FEATURES:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            "__mapseed-focused-source__": {
+              type: "geojson",
+              data: {
+                type: "FeatureCollection",
+                features: [],
+              },
+            },
+          },
+        },
+      };
+    case UPDATE_FOCUSED_GEOJSON_FEATURES:
       return {
         ...state,
         style: {
@@ -493,7 +521,6 @@ export default function reducer(state = INITIAL_STATE, action) {
             ) {
               // If this layer group is a basemap, check to see if this layer
               // belongs to another basemap. If so, switch it off.
-              // TODO: keep layerMetadataStatus in sync with this
               newVisibilityStatus = "none";
             }
 
@@ -509,6 +536,16 @@ export default function reducer(state = INITIAL_STATE, action) {
             };
           }),
         },
+      };
+    case UPDATE_MAP_DRAGGED:
+      return {
+        ...state,
+        isMapDragged: action.payload,
+      };
+    case UPDATE_MAP_DRAGGING:
+      return {
+        ...state,
+        isMapDragging: action.payload,
       };
     default:
       return state;

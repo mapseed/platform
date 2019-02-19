@@ -7,6 +7,7 @@ import styled from "react-emotion";
 import {
   interactiveLayerIdsSelector,
   setMapSizeValiditySelector,
+  mapDraggingSelector,
   mapStyleSelector,
   mapViewportSelector,
   mapViewportPropType,
@@ -16,6 +17,8 @@ import {
   updateSourceLoadStatus,
   sourcesMetadataSelector,
   updateMapSizeValidity,
+  updateMapDragged,
+  updateMapDragging,
 } from "../../state/ducks/map";
 import {
   leftSidebarConfigSelector,
@@ -164,11 +167,11 @@ class MainMap extends Component {
   onMouseDown = evt => {
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
     // lag when clicking around Places on the map. It's not clear why, but we
-    // get better performance by querying rendered features as soon as the 
+    // get better performance by querying rendered features as soon as the
     // onMouseDown event fires, and using the onMouseUp handler to test if the
     // most recent queried feature is one we shoud route to (i.e. is a Place).
     //
-    // Note that if no features are found in the query, an empty array is 
+    // Note that if no features are found in the query, an empty array is
     // returned.
     this.features = this.map.queryRenderedFeatures(evt.point);
   };
@@ -189,6 +192,13 @@ class MainMap extends Component {
     }
   };
 
+  onInteractionStateChange = evt => {
+    if (evt.isDragging !== this.props.isMapDragging) {
+      this.props.updateMapDragging(evt.isDragging);
+      evt.isDragging && this.props.updateMapDragged(true);
+    }
+  };
+
   onMapLoad = () => {
     this.setState({
       isMapLoaded: true,
@@ -199,7 +209,6 @@ class MainMap extends Component {
     return (
       <MapGL
         ref={this.mapRef}
-        reuseMaps={true}
         width={this.props.mapViewport.width}
         height={this.props.mapViewport.height}
         latitude={this.props.mapViewport.latitude}
@@ -220,6 +229,7 @@ class MainMap extends Component {
         }
         interactiveLayerIds={this.props.interactiveLayerIds}
         mapStyle={this.props.mapStyle}
+        onInteractionStateChange={this.onInteractionStateChange}
         onLoad={this.onMapLoad}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
@@ -254,6 +264,7 @@ class MainMap extends Component {
 MainMap.propTypes = {
   container: PropTypes.instanceOf(Element).isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isMapDragging: PropTypes.bool.isRequired,
   isMapSizeValid: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
@@ -273,12 +284,15 @@ MainMap.propTypes = {
   setLeftSidebarComponent: PropTypes.func.isRequired,
   updateMapSizeValidity: PropTypes.func.isRequired,
   sourcesMetadata: PropTypes.object.isRequired,
+  updateMapDragged: PropTypes.func.isRequired,
+  updateMapDragging: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updateMapViewportFromReactMapGL: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  isMapDragging: mapDraggingSelector(state),
   isMapSizeValid: setMapSizeValiditySelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
@@ -292,6 +306,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLeftSidebarComponent: component =>
     dispatch(setLeftSidebarComponent(component)),
+  updateMapDragged: isDragged => dispatch(updateMapDragged(isDragged)),
+  updateMapDragging: isDragging => dispatch(updateMapDragging(isDragging)),
   updateMapSizeValidity: isValid => dispatch(updateMapSizeValidity(isValid)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
   updateMapViewportFromReactMapGL: viewport =>

@@ -92,7 +92,17 @@ const createPlace = async ({
 
   const feature = await response.json();
 
-  return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
+  return {
+    place: fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
+    placeGeoJSON: {
+      ...feature,
+      properties: {
+        ...feature.properties,
+        _clientSlug: clientSlug,
+        _datasetSlug: datasetSlug,
+      },
+    },
+  };
 };
 
 const finalizePlaceData = ({ featureCollection, datasetSlug, clientSlug }) => ({

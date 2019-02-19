@@ -50,7 +50,8 @@ import {
   setBasemap,
   setMapDragging,
   updateMapViewport,
-  focusGeoJSONFeatures,
+  updateFocusedGeoJSONFeatures,
+  removeFocusedGeoJSONFeatures,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -598,6 +599,7 @@ export default Backbone.View.extend({
         await this.fetchAndLoadDatasets();
       }
 
+      store.dispatch(removeFocusedGeoJSONFeatures());
       recordGoogleAnalyticsHit("/new");
       this.renderRightSidebar();
       this.renderMain();
@@ -779,7 +781,7 @@ export default Backbone.View.extend({
     // Focus this Place's feature on the map.
     const { geometry, ...rest } = place;
     store.dispatch(
-      focusGeoJSONFeatures([
+      updateFocusedGeoJSONFeatures([
         {
           type: "Feature",
           geometry: {
@@ -869,6 +871,7 @@ export default Backbone.View.extend({
     });
 
     if (page) {
+      store.dispatch(removeFocusedGeoJSONFeatures());
       ReactDOM.render(
         <CustomPage pageContent={page.content} />,
         document.querySelector("#content article"),
@@ -934,6 +937,7 @@ export default Backbone.View.extend({
         width: this.getMapWidth(),
       }),
     );
+    store.dispatch(removeFocusedGeoJSONFeatures());
   },
   showSpotlightMask: function() {
     $("#spotlight-mask").show();
