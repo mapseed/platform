@@ -1464,37 +1464,37 @@
     "places": [
       {
         "id": "culture",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Art & Culture)",
         "icon": "/static/css/images/markers/fountain.png"
       },
       {
         "id": "parks",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Parks & Recreation)",
         "icon": "/static/css/images/markers/tree.png"
       },
       {
         "id": "streets",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Streets & Sidewalks)",
         "icon": "/static/css/images/markers/street-sidewalk.png"
       },
       {
         "id": "health",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Health & Wellness)",
         "icon": "/static/css/images/markers/health.png"
       },
       {
         "id": "safety",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Safety & Environment)",
         "icon": "/static/css/images/markers/safety.png"
       },
       {
         "id": "other",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Other)",
         "icon": "/static/css/images/markers/idea.png"
       }

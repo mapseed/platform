@@ -32,7 +32,7 @@ import {
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   mapCenterpointSelector,
-  updateMapGeoJSONSourceData,
+  updateGeoJSONFeatures,
   //  showLayers,
   //  hideLayers,
   //  setBasemap,
@@ -345,10 +345,11 @@ class InputForm extends Component {
       // Only add this place to the places duck if it isn't private.
       !placeResponse.private && this.props.createPlace(placeResponse.place);
       !placeResponse.private &&
-        this.props.updateMapGeoJSONSourceData(
-          this.props.datasetSlug,
-          placeResponse.placeGeoJSON,
-        );
+        this.props.updateGeoJSONFeatures({
+          // "sourceId" and a place's datasetSlug are the same thing.
+          sourceId: this.props.datasetSlug,
+          newFeatures: placeResponse.placeGeoJSON,
+        });
 
       this.setState({ isFormSubmitting: false, showValidityStatus: false });
 
@@ -593,8 +594,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapGeoJSONSourceData: (sourceId, sourceData) =>
-    dispatch(updateMapGeoJSONSourceData(sourceId, sourceData)),
+  updateGeoJSONFeatures: ({ sourceId, sourceData }) =>
+    dispatch(updateGeoJSONFeatures({ sourceId, sourceData })),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),

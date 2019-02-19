@@ -52,6 +52,8 @@ import {
   updateMapViewport,
   updateFocusedGeoJSONFeatures,
   removeFocusedGeoJSONFeatures,
+  loadMapStyle,
+  updateGeoJSONFeatures,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -85,10 +87,6 @@ import {
   updateDatasetsLoadStatus,
 } from "../../state/ducks/datasets";
 import { recordGoogleAnalyticsHit } from "../../utils/analytics";
-import {
-  loadMapStyle,
-  updateMapGeoJSONSourceData,
-} from "../../state/ducks/map";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
@@ -426,10 +424,11 @@ export default Backbone.View.extend({
 
             // Update the map.
             store.dispatch(
-              updateMapGeoJSONSourceData(
-                config.slug,
-                pageData.placesGeoJSONFeatures,
-              ),
+              updateGeoJSONFeatures({
+                // "sourceId" and a dataset's slug are the same thing.
+                sourceId: config.slug,
+                newFeatures: pageData.placesGeoJSONFeatures,
+              }),
             );
           });
         } else {
@@ -439,13 +438,6 @@ export default Backbone.View.extend({
     );
 
     store.dispatch(updatePlacesLoadStatus("loaded"));
-
-    //   // Mark visible layers as "loading" so the map will load and render them.
-    //   datasetConfigs.forEach(config => {
-    //     if (layerStatuses[config.slug].isVisible) {
-    //       store.dispatch(setLayerLoading(config.slug));
-    //     }
-    //   });
   },
 
   getListRoutes: function() {

@@ -17,6 +17,7 @@ import {
   sourcesMetadataSelector,
   updateMapDragged,
   updateMapDragging,
+  updateGeoJSONFeatures,
 } from "../../state/ducks/map";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
@@ -24,6 +25,12 @@ import {
   setLeftSidebarExpanded,
   setLeftSidebarComponent,
 } from "../../state/ducks/left-sidebar";
+import {
+  filteredPlacesSelector,
+  placePropType,
+} from "../../state/ducks/places";
+import { filtersSelector } from "../../state/ducks/filters";
+import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 
 const MapControlsContainer = styled("div")({
   position: "absolute",
@@ -158,6 +165,26 @@ class MainMap extends Component {
     window.removeEventListener("resize", this.onWindowResize);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.placeFilters.length !== prevProps.placeFilters.length) {
+      // Filters have been applied or unapplied.
+
+      // "sourceId" and "datasetSlug" are the same for Place sources. We assume
+      // that all filters will be filtering the same source, so it's safe to
+      // pull the datasetSlug/sourceId from the first filter in the filters
+      // array.
+      const sourceId = this.props.placeFilters.length
+        ? this.props.placeFilters[0].datasetSlug
+        : prevProps.placeFilters[0].datasetSlug;
+      this.props.updateGeoJSONFeatures({
+        sourceId,
+        newFeatures: createGeoJSONFromPlaces(this.props.filteredPlaces)
+          .features,
+        mode: "replace",
+      });
+    }
+  }
+
   onMouseDown = evt => {
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
     // lag when clicking around Places on the map. It's not clear why, but we
@@ -256,6 +283,7 @@ class MainMap extends Component {
 
 MainMap.propTypes = {
   container: PropTypes.instanceOf(Element).isRequired,
+  filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   isMapDragging: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
@@ -272,24 +300,28 @@ MainMap.propTypes = {
   mapConfig: PropTypes.object,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
+  placeFilters: PropTypes.array.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   sourcesMetadata: PropTypes.object.isRequired,
   updateMapDragged: PropTypes.func.isRequired,
   updateMapDragging: PropTypes.func.isRequired,
+  updateGeoJSONFeatures: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updateMapViewportFromReactMapGL: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  filteredPlaces: filteredPlacesSelector(state),
   isMapDragging: mapDraggingSelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapViewport: mapViewportSelector(state),
   mapStyle: mapStyleSelector(state),
+  placeFilters: filtersSelector(state),
   sourcesMetadata: sourcesMetadataSelector(state),
 });
 
@@ -300,6 +332,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(component)),
   updateMapDragged: isDragged => dispatch(updateMapDragged(isDragged)),
   updateMapDragging: isDragging => dispatch(updateMapDragging(isDragging)),
+  updateGeoJSONFeatures: ({ sourceId, newFeatures, mode }) =>
+    dispatch(updateGeoJSONFeatures({ sourceId, newFeatures, mode })),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
   updateMapViewportFromReactMapGL: viewport =>
     dispatch(updateMapViewportFromReactMapGL(viewport)),

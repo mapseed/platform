@@ -23,7 +23,7 @@ export const mapCenterpointSelector = state => ({
 const UPDATE_VIEWPORT = "map/UPDATE_VIEWPORT";
 const UPDATE_STYLE = "map/UPDATE_STYLE";
 const UPDATE_LAYER_GROUP_LOAD_STATUS = "map/UPDATE_LAYER_GROUP_LOAD_STATUS";
-const UPDATE_MAP_GEOJSON_SOURCE = "map/UPDATE_MAP_GEOJSON_SOURCE";
+const UPDATE_GEOJSON_FEATURES = "map/UPDATE_GEOJSON_FEATURES";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
@@ -114,12 +114,17 @@ export function updateMapDragging(isDragging) {
   return { type: UPDATE_MAP_DRAGGING, payload: isDragging };
 }
 
-export function updateMapGeoJSONSourceData(sourceId, sourceData) {
+export function updateGeoJSONFeatures({
+  sourceId,
+  newFeatures,
+  mode = "append",
+}) {
   return {
-    type: UPDATE_MAP_GEOJSON_SOURCE,
+    type: UPDATE_GEOJSON_FEATURES,
     payload: {
+      mode,
       sourceId,
-      sourceData,
+      newFeatures,
     },
   };
 }
@@ -310,7 +315,7 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case UPDATE_MAP_GEOJSON_SOURCE:
+    case UPDATE_GEOJSON_FEATURES:
       return {
         ...state,
         style: {
@@ -321,9 +326,12 @@ export default function reducer(state = INITIAL_STATE, action) {
               ...state.style.sources[action.payload.sourceId],
               data: {
                 ...state.style.sources[action.payload.sourceId].data,
-                features: state.style.sources[
-                  action.payload.sourceId
-                ].data.features.concat(action.payload.sourceData),
+                features:
+                  action.payload.mode === "replace"
+                    ? action.payload.newFeatures
+                    : state.style.sources[
+                        action.payload.sourceId
+                      ].data.features.concat(action.payload.newFeatures),
               },
             },
           },

@@ -118,7 +118,7 @@ class FilterMenu extends Component {
                 ...this.props.filters,
                 {
                   formId: placeForm.id,
-                  datasetId: placeForm.datasetId,
+                  datasetSlug: placeForm.datasetSlug,
                 },
               ]);
         }}
