@@ -118,6 +118,7 @@ class MainMap extends Component {
 
   mapRef = createRef();
   features = [];
+  isMapTransitioning = false;
 
   onWindowResize = () => {
     const container = this.props.container.getBoundingClientRect();
@@ -248,8 +249,15 @@ class MainMap extends Component {
         onMouseUp={this.onMouseUp}
         onMouseDown={this.onMouseDown}
         onViewportChange={viewport =>
-          this.props.updateMapViewportFromReactMapGL(viewport)
+          this.props.updateMapViewportFromReactMapGL(
+            viewport,
+            this.isMapTransitioning
+              ? false
+              : this.props.mapConfig.options.scrollZoomAroundCenter,
+          )
         }
+        onTransitionStart={() => (this.isMapTransitioning = true)}
+        onTransitionEnd={() => (this.isMapTransitioning = false)}
         interactiveLayerIds={this.props.interactiveLayerIds}
         mapStyle={this.props.mapStyle}
         onInteractionStateChange={this.onInteractionStateChange}
@@ -335,8 +343,8 @@ const mapDispatchToProps = dispatch => ({
   updateGeoJSONFeatures: ({ sourceId, newFeatures, mode }) =>
     dispatch(updateGeoJSONFeatures({ sourceId, newFeatures, mode })),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
-  updateMapViewportFromReactMapGL: viewport =>
-    dispatch(updateMapViewportFromReactMapGL(viewport)),
+  updateMapViewportFromReactMapGL: (viewport, scrollZoomAroundCenter) =>
+    dispatch(updateMapViewportFromReactMapGL(viewport, scrollZoomAroundCenter)),
   updateSourceLoadStatus: (sourceId, loadStatus) =>
     dispatch(updateSourceLoadStatus(sourceId, loadStatus)),
 });

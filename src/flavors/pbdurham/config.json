@@ -92,10 +92,6 @@
         "minZoom": 1,
         "maxZoom": 18
       },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
-      },
       "drawing_enabled": false
     },
     "mapboxSources": {
@@ -480,7 +476,6 @@
               ["==", ["get", "location_type"], "streets"],
               ["==", ["get", "location_type"], "other"]
             ],
-            "source": "pbdurham",
             "layout": {
               "icon-allow-overlap": true,
               "icon-size": 0.7,

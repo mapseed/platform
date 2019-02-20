@@ -82,10 +82,16 @@ export function updateSourceLoadStatus(sourceId, loadStatus) {
 }
 
 export function updateMapViewport(viewport) {
-  return { type: UPDATE_VIEWPORT, payload: viewport };
+  return {
+    type: UPDATE_VIEWPORT,
+    payload: { viewport, scrollZoomAroundCenter: false },
+  };
 }
 
-export function updateMapViewportFromReactMapGL(viewport) {
+export function updateMapViewportFromReactMapGL(
+  viewport,
+  scrollZoomAroundCenter = false,
+) {
   // We have a special action creator for viewport updates that originate from
   // react-map-gl. The reason for this is that react-map-gl seems to cache
   // the width and height of the map container at the beginning of a
@@ -100,7 +106,10 @@ export function updateMapViewportFromReactMapGL(viewport) {
   // react-map-gl should be setting the width or height of the map container.
   const { width, height, ...rest } = viewport;
 
-  return { type: UPDATE_VIEWPORT, payload: rest };
+  return {
+    type: UPDATE_VIEWPORT,
+    payload: { viewport: rest, scrollZoomAroundCenter },
+  };
 }
 
 export function updateMapStyle(style) {
@@ -406,12 +415,32 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         viewport: {
           ...state.viewport,
-          ...action.payload,
+          ...action.payload.viewport,
           // NOTE: This is a fix for an apparent bug in react-map-gl.
           // See: https://github.com/uber/react-map-gl/issues/630
-          bearing: isNaN(action.payload.bearing)
+          bearing: isNaN(action.payload.viewport.bearing)
             ? state.viewport.bearing
-            : action.payload.bearing,
+            : action.payload.viewport.bearing,
+          // These checks support a "scroll zoom around center" feature (in
+          // which a zoom of the map will not change the centerpoint) that is
+          // not exposed by react-map-gl. These checks are pretty convoluted,
+          // though, so it would be great if react-map-gl could just
+          // incorporate the scroll zoom around center option natively.
+          // See: https://github.com/uber/react-map-gl/issues/515
+          latitude:
+            action.payload.scrollZoomAroundCenter &&
+            action.payload.viewport.zoom !== state.viewport.zoom
+              ? state.viewport.latitude
+              : action.payload.viewport.latitude
+                ? action.payload.viewport.latitude
+                : state.viewport.latitude,
+          longitude:
+            action.payload.scrollZoomAroundCenter &&
+            action.payload.viewport.zoom !== state.viewport.zoom
+              ? state.viewport.longitude
+              : action.payload.viewport.longitude
+                ? action.payload.viewport.longitude
+                : state.viewport.longitude,
         },
       };
     case LOAD_STYLE_AND_METADATA:
