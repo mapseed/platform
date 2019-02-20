@@ -117,7 +117,7 @@ class MainMap extends Component {
   };
 
   mapRef = createRef();
-  features = [];
+  queriedFeatures = [];
   isMapTransitioning = false;
 
   onWindowResize = () => {
@@ -194,30 +194,31 @@ class MainMap extends Component {
     }
   }
 
-  onMouseDown = evt => {
+  beginFeatureQuery = evt => {
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
     // lag when clicking around Places on the map. It's not clear why, but we
     // get better performance by querying rendered features as soon as the
-    // onMouseDown event fires, and using the onMouseUp handler to test if the
-    // most recent queried feature is one we shoud route to (i.e. is a Place).
+    // onMouseDown or onTouchStart events fire, and using the onMouseUp and  
+    // onTouchEnd handler to test if the most recent queried feature is one we 
+    // shoud route to (i.e. is a Place).
     //
     // Note that if no features are found in the query, an empty array is
     // returned.
-    this.features = this.map.queryRenderedFeatures(evt.point);
+    this.queriedFeatures = this.map.queryRenderedFeatures(evt.point);
   };
 
-  onMouseUp = () => {
+  endFeatureQuery = () => {
     if (
       !this.props.isMapDragging &&
-      this.features.length &&
-      this.features[0].properties &&
-      this.features[0].properties._clientSlug
+      this.queriedFeatures.length &&
+      this.queriedFeatures[0].properties &&
+      this.queriedFeatures[0].properties._clientSlug
     ) {
       // If the topmost clicked-on feature has a _clientSlug property, there's
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
       this.props.router.navigate(
-        `/${this.features[0].properties._clientSlug}/${this.features[0].id}`,
+        `/${this.queriedFeatures[0].properties._clientSlug}/${this.queriedFeatures[0].id}`,
         { trigger: true },
       );
     }
@@ -257,6 +258,8 @@ class MainMap extends Component {
         maxZoom={this.props.mapViewport.maxZoom}
         onMouseUp={this.onMouseUp}
         onMouseDown={this.onMouseDown}
+        onTouchEnd={this.onMouseUp}
+        onTouchStart={this.onMouseDown}
         onViewportChange={viewport => {
           this.props.updateMapViewportFromReactMapGL(
             viewport,
