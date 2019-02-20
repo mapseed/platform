@@ -444,11 +444,11 @@
         "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "osm-hot",
                 "title": "_(Outdoors)"
@@ -470,7 +470,7 @@
           {
             "id": "grp-community",
             "title": "_(Data Layers)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "snohomish-input",
                 "title": "_(Community Reports)"
@@ -2291,8 +2291,11 @@
       "header": "Local stories",
       "description": "To inspire us",
       "default_zoom": 15,
-      "default_basemap": "satellite",
-      "default_visible_layers": ["snohomish-featured", "snohomish-input"],
+      "visibleLayerGroupIds": [
+        "satellite",
+        "snohomish-featured",
+        "snohomish-input"
+      ],
       "order": [
         {
           "placeId": 4310,

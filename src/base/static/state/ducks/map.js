@@ -490,6 +490,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           (memo, [layerGroupId, metadata]) => {
             let newVisibilityStatus;
             if (
+              action.payload.isVisible &&
               state.layerGroupsMetadata[action.payload.layerGroupId]
                 .isBasemap &&
               metadata.isBasemap &&
@@ -534,6 +535,13 @@ export default function reducer(state = INITIAL_STATE, action) {
                 : "none";
             }
             if (
+              // If the payload layer is a basemap and the layer we're checking
+              // against is also a basemap, turn that layer off. Only do this
+              // if the incoming request is to turn a layer on; otherwise, a
+              // request to turn a basemap off (for example from the code that
+              // sets layer visibility for a form stage) will turn off all other
+              // basemaps as well.
+              action.payload.isVisible &&
               state.layerGroupsMetadata[action.payload.layerGroupId]
                 .isBasemap &&
               state.basemapLayerIds.includes(layer.id) &&

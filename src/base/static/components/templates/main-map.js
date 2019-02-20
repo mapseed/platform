@@ -138,7 +138,7 @@ class MainMap extends Component {
     window.addEventListener("resize", this.onWindowResize);
 
     // MapboxGL fires many redundant events, so we only update load or error
-    // status state if a new type of event is fired It's necessary to attach
+    // status state if a new type of event is fired. It's necessary to attach
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
     this.map = this.mapRef.current.getMap();

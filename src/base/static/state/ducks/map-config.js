@@ -2,8 +2,8 @@
 export const mapConfigSelector = state => {
   return state.mapConfig;
 };
-export const mapLayersSelector = state => {
-  return state.mapConfig.layers;
+export const mapLayerGroupsSelector = state => {
+  return state.mapConfig.layerGroups;
 };
 export const mapPlaceLayersSelector = state => {
   return state.mapConfig.layers.filter(

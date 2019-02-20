@@ -17,10 +17,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
-import {
-  mapConfigSelector,
-  mapLayersSelector,
-} from "../../state/ducks/map-config";
+import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
 import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
@@ -33,9 +30,7 @@ import {
 import {
   mapCenterpointSelector,
   updateGeoJSONFeatures,
-  //  showLayers,
-  //  hideLayers,
-  //  setBasemap,
+  updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 import { hasAdminAbilities } from "../../state/ducks/user";
 import emitter from "../../utils/emitter";
@@ -108,17 +103,21 @@ class InputForm extends Component {
   }
 
   setStageLayers(stageConfig) {
-    stageConfig.visible_layer_ids &&
-      this.props.showLayers(stageConfig.visible_layer_ids);
-    stageConfig.visible_layer_ids &&
-      this.props.hideLayers(
-        this.props.mapLayers
-          .filter(layer => !layer.is_basemap)
-          .filter(layer => !stageConfig.visible_layer_ids.includes(layer.id))
-          .map(layer => layer.id),
+    if (stageConfig.visibleLayerGroupIds) {
+      // Set layers for this stage.
+      stageConfig.visibleLayerGroupIds.forEach(layerGroupId =>
+        this.props.updateLayerGroupVisibility(layerGroupId, true),
       );
-    stageConfig.visible_basemap_id &&
-      this.props.setBasemap(stageConfig.visible_basemap_id);
+      // Hide all other layers.
+      this.props.mapConfig.layerGroups
+        .filter(
+          layerGroup =>
+            !stageConfig.visibleLayerGroupIds.includes(layerGroup.id),
+        )
+        .forEach(layerGroup =>
+          this.props.updateLayerGroupVisibility(layerGroup.id, false),
+        );
+    }
   }
 
   getNewFields(prevFields) {
@@ -552,7 +551,6 @@ InputForm.propTypes = {
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
-  hideLayers: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
@@ -561,12 +559,6 @@ InputForm.propTypes = {
   isMapDragged: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   mapConfig: PropTypes.object.isRequired,
-  mapLayers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
   mapCenterpoint: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
@@ -574,11 +566,10 @@ InputForm.propTypes = {
   router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
-  setBasemap: PropTypes.func.isRequired,
-  showLayers: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  updateMapGeoJSONSourceData: PropTypes.func.isRequired,
+  updateGeoJSONFeatures: PropTypes.func.isRequired,
+  updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -588,7 +579,6 @@ const mapStateToProps = state => ({
   geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   mapConfig: mapConfigSelector(state),
-  mapLayers: mapLayersSelector(state),
   mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
 });
@@ -599,9 +589,8 @@ const mapDispatchToProps = dispatch => ({
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
-  showLayers: layerIds => dispatch(showLayers(layerIds)),
-  hideLayers: layerIds => dispatch(hideLayers(layerIds)),
-  setBasemap: basemapId => dispatch(setBasemap(basemapId)),
+  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
+    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
 
 // Export undecorated component for testing purposes.

@@ -20,7 +20,7 @@ import theme from "../../../../theme";
 // This only needs to be done once; probably during your application's bootstrapping process.
 import "react-virtualized/styles.css";
 
-import { setMapConfig } from "../../state/ducks/map-config";
+import { setMapConfig, mapConfigSelector } from "../../state/ducks/map-config";
 import {
   loadPlaces,
   placeSelector,
@@ -45,13 +45,11 @@ import { setAppConfig } from "../../state/ducks/app-config";
 import { loadDashboardConfig } from "../../state/ducks/dashboard-config";
 import {
   mapPositionSelector,
-  showLayers,
-  hideLayers,
-  setBasemap,
   setMapDragging,
   updateMapViewport,
   updateFocusedGeoJSONFeatures,
   removeFocusedGeoJSONFeatures,
+  updateLayerGroupVisibility,
   loadMapStyle,
   updateGeoJSONFeatures,
 } from "../../state/ducks/map";
@@ -699,20 +697,18 @@ export default Backbone.View.extend({
     if (story) {
       this.isStoryActive = true;
 
-      //    TODO: story layer visibility.
-      //    story.basemap &&
-      //      //mapBasemapSelector(store.getState()) !== story.basemap && // TODO
-      //      store.dispatch(setBasemap(story.basemap));
-      //    store.dispatch(showLayers(story.visibleLayers));
-      //    // Hide all other layers.
-      //    store.dispatch(
-      //      hideLayers(
-      //        mapLayersSelector(store.getState())
-      //          .filter(layer => !layer.is_basemap)
-      //          .filter(layer => !story.visibleLayers.includes(layer.id))
-      //          .map(layer => layer.id),
-      //      ),
-      //    );
+      // Set layers for this story chapter.
+      story.visibleLayerGroupIds.forEach(layerGroupId =>
+        store.dispatch(updateLayerGroupVisibility(layerGroupId, true)),
+      );
+      // Hide all other layers.
+      mapConfigSelector(store.getState())
+        .layerGroups.filter(
+          layerGroup => !story.visibleLayerGroupIds.includes(layerGroup.id),
+        )
+        .forEach(layerGroup =>
+          store.dispatch(updateLayerGroupVisibility(layerGroup.id, false)),
+        );
 
       if (story.spotlight) {
         this.hideSpotlightMask();
