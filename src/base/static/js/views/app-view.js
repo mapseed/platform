@@ -5,6 +5,7 @@ import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
 import WebMercatorViewport from "viewport-mercator-project";
 import getExtentFromGeometry from "turf-extent";
+import { throttle } from "throttle-debounce";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
@@ -354,7 +355,9 @@ export default Backbone.View.extend({
     this.setBodyClass();
   },
 
-  setSlippyRoute: function() {
+  // This function gets called a lot from the MainMap component, so we throttle
+  // it here to avoid lagginess.
+  setSlippyRoute: throttle(500, function() {
     if (!this.hasBodyClass("content-visible")) {
       const { zoom, latitude, longitude } = mapViewportSelector(
         store.getState(),
@@ -366,7 +369,7 @@ export default Backbone.View.extend({
         },
       );
     }
-  },
+  }),
 
   fetchAndLoadDatasets: async function() {
     store.dispatch(updateDatasetsLoadStatus("loading"));

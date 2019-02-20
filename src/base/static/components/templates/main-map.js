@@ -6,6 +6,7 @@ import styled from "react-emotion";
 
 import {
   interactiveLayerIdsSelector,
+  isMapZooming,
   mapDraggingSelector,
   mapStyleSelector,
   mapViewportSelector,
@@ -184,6 +185,14 @@ class MainMap extends Component {
         mode: "replace",
       });
     }
+
+    if (
+      this.props.mapViewport.latitude !== prevProps.mapViewport.latitude ||
+      this.props.mapViewport.longitude !== prevProps.mapViewport.longitude ||
+      this.props.mapViewport.zoom !== prevProps.mapViewport.zoom
+    ) {
+      this.props.setSlippyRoute();
+    }
   }
 
   onMouseDown = evt => {
@@ -217,10 +226,9 @@ class MainMap extends Component {
 
   onInteractionStateChange = evt => {
     if (evt.isDragging && !this.props.isMapDragging) {
-      this.props.updateMapDragging(evt.isDragging);
+      this.props.updateMapDragging(true);
     } else if (!evt.isDragging && this.props.isMapDragging) {
-      this.props.updateMapDragged(true);
-      //this.props.setSlippyRoute();
+      this.props.updateMapDragging(false);
     }
   };
 
@@ -257,7 +265,6 @@ class MainMap extends Component {
               ? false
               : this.props.mapConfig.options.scrollZoomAroundCenter,
           );
-          this.props.setSlippyRoute();
         }}
         onTransitionStart={() => (this.isMapTransitioning = true)}
         onTransitionEnd={() => (this.isMapTransitioning = false)}
