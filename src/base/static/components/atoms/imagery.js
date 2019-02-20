@@ -35,7 +35,7 @@ FontAwesomeIcon.propTypes = {
 FontAwesomeIcon.defaultProps = {
   fontSize: "1rem",
   content: "fa fa-globe",
-  color: "#000"
+  color: "#000",
 };
 
 const SiteLogo = styled(props => {
