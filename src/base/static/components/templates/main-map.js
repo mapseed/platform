@@ -216,9 +216,11 @@ class MainMap extends Component {
   };
 
   onInteractionStateChange = evt => {
-    if (evt.isDragging !== this.props.isMapDragging) {
+    if (evt.isDragging && !this.props.isMapDragging) {
       this.props.updateMapDragging(evt.isDragging);
-      evt.isDragging && this.props.updateMapDragged(true);
+    } else if (!evt.isDragging && this.props.isMapDragging) {
+      this.props.updateMapDragged(true);
+      //this.props.setSlippyRoute();
     }
   };
 
@@ -248,14 +250,15 @@ class MainMap extends Component {
         maxZoom={this.props.mapViewport.maxZoom}
         onMouseUp={this.onMouseUp}
         onMouseDown={this.onMouseDown}
-        onViewportChange={viewport =>
+        onViewportChange={viewport => {
           this.props.updateMapViewportFromReactMapGL(
             viewport,
             this.isMapTransitioning
               ? false
               : this.props.mapConfig.options.scrollZoomAroundCenter,
-          )
-        }
+          );
+          this.props.setSlippyRoute();
+        }}
         onTransitionStart={() => (this.isMapTransitioning = true)}
         onTransitionEnd={() => (this.isMapTransitioning = false)}
         interactiveLayerIds={this.props.interactiveLayerIds}
@@ -312,6 +315,7 @@ MainMap.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
+  setSlippyRoute: PropTypes.func.isRequired,
   sourcesMetadata: PropTypes.object.isRequired,
   updateMapDragged: PropTypes.func.isRequired,
   updateMapDragging: PropTypes.func.isRequired,

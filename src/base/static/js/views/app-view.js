@@ -52,6 +52,7 @@ import {
   updateLayerGroupVisibility,
   loadMapStyle,
   updateGeoJSONFeatures,
+  mapViewportSelector,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -336,22 +337,6 @@ export default Backbone.View.extend({
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
-    // When the map center moves, the map view will fire a mapmoveend event
-    // on the namespace. If the move was the result of the user dragging, a
-    // mapdragend event will be fired.
-    //
-    // If the user is adding a place, we want to take the opportunity to
-    // reverse geocode the center of the map, if geocoding is enabled. If
-    // the user is doing anything else, we just want to clear out any text
-    // that's currently set in the address search bar.
-    $(Shareabouts).on("mapdragend", function(evt) {
-      if (self.isAddingPlace()) {
-        // no-op
-      } else if (self.geocodeAddressView) {
-        self.geocodeAddressView.setAddress("");
-      }
-    });
-
     if (this.options.mapConfig.geocoding_bar_enabled) {
       store.dispatch(setGeocodeAddressBarVisibility(true));
     }
@@ -367,6 +352,20 @@ export default Backbone.View.extend({
 
     // Show tools for adding data
     this.setBodyClass();
+  },
+
+  setSlippyRoute: function() {
+    if (!this.hasBodyClass("content-visible")) {
+      const { zoom, latitude, longitude } = mapViewportSelector(
+        store.getState(),
+      );
+      this.options.router.navigate(
+        `/${zoom.toFixed(2)}/${latitude.toFixed(5)}/${longitude.toFixed(5)}`,
+        {
+          trigger: false,
+        },
+      );
+    }
   },
 
   fetchAndLoadDatasets: async function() {
@@ -520,13 +519,13 @@ export default Backbone.View.extend({
     let mapPosition;
 
     if (zoom && lat && lng) {
-      mapPosition = {
-        coordinates: {
-          lat: lat,
-          lng: lng,
-        },
-        zoom: zoom,
-      };
+      store.dispatch(
+        updateMapViewport({
+          latitude: lat,
+          longitude: lng,
+          zoom: zoom,
+        }),
+      );
     }
 
     this.hidePanel();
@@ -977,14 +976,9 @@ export default Backbone.View.extend({
         <ThemeProvider theme={theme}>
           <ThemeProvider theme={this.adjustedTheme}>
             <MainMap
-              addPlaceButtonLabel={this.options.placeConfig.add_button_label}
               container={document.getElementById("map-container")}
               router={this.options.router}
-              onZoomend={this.onMapZoomEnd.bind(this)}
-              onMovestart={this.onMapMoveStart.bind(this)}
-              onMoveend={this.onMapMoveEnd.bind(this)}
-              onDragend={this.onMapDragEnd.bind(this)}
-              store={store}
+              setSlippyRoute={this.setSlippyRoute.bind(this)}
             />
           </ThemeProvider>
         </ThemeProvider>
