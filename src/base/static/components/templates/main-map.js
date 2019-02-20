@@ -6,7 +6,6 @@ import styled from "react-emotion";
 
 import {
   interactiveLayerIdsSelector,
-  isMapZooming,
   mapDraggingSelector,
   mapStyleSelector,
   mapViewportSelector,
