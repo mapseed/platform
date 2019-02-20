@@ -399,7 +399,7 @@ export default Backbone.View.extend({
     }
 
     const datasetConfigs = datasetConfigsSelector(store.getState());
-    //const layerStatuses = mapLayerStatusesSelector(store.getState());
+    const allPlacePagePromises = [];
     await Promise.all(
       datasetConfigs.map(async config => {
         // Note that the response here is an array of page Promises.
@@ -414,6 +414,7 @@ export default Backbone.View.extend({
         if (response) {
           response.forEach(async placePagePromise => {
             // Load places into the places duck.
+            allPlacePagePromises.push(placePagePromise);
             const pageData = await placePagePromise;
             store.dispatch(
               loadPlaces(
@@ -437,6 +438,7 @@ export default Backbone.View.extend({
       }),
     );
 
+    await Promise.all(allPlacePagePromises);
     store.dispatch(updatePlacesLoadStatus("loaded"));
   },
 
