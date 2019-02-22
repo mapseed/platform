@@ -423,8 +423,8 @@ class MainMap extends Component {
           mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
           minZoom={this.props.mapViewport.minZoom}
           maxZoom={this.props.mapViewport.maxZoom}
-          onMouseUp={this.onMouseUp}
-          onMouseDown={this.onMouseDown}
+          onMouseUp={this.endFeatureQuery}
+          onMouseDown={this.beginFeatureQuery}
           onTouchEnd={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onViewportChange={viewport => {
