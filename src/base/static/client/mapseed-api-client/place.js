@@ -92,6 +92,28 @@ const createPlace = async ({
 
   const feature = await response.json();
 
+  if (feature.isOfflineResponse) {
+    // create a place model to serve as a dummy place until we get back online:
+    // TODO: find a better way to ensure this schema is in sync with the response from our server:
+    return {
+      updated_datetime: "2019-02-21T19:16:33.481363+00:00",
+      created_datetime: "2019-02-21T19:16:33.481363+00:00",
+      url: "https://offline.mapseed.org/",
+      submitter_name: "offline",
+      datasetSlug,
+      datasetId: datasetSlug,
+      submitter: null,
+      visible: true,
+      submission_sets: {},
+      attachments: [],
+      tags: [],
+      id: 99999,
+      type: "place",
+      ...fromGeoJSONFeature({ feature: placeData, datasetSlug, clientSlug }),
+      isOfflineResponse: true,
+    };
+  }
+
   return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
 };
 

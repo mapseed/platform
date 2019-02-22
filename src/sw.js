@@ -7,7 +7,7 @@
  */
 
 importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js",
+  "https://storage.googleapis.com/workbox-cdn/releases/4.0.0-rc.3/workbox-sw.js",
 );
 
 // TODO: send an alert to the user when this data is about to expire
@@ -16,10 +16,9 @@ importScripts(
 const TILE_CACHE_EXPIRATION = 24 * 60 * 60 * 90; // 90 days
 const TILE_CACHE_NAME = "tiles-cache";
 
-workbox.skipWaiting();
-workbox.clientsClaim();
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
 
-workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
@@ -27,7 +26,6 @@ workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
  * See https://goo.gl/S9QRab
  */
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.loadModule("workbox-strategies");
@@ -42,7 +40,7 @@ workbox.loadModule("workbox-routing");
 // check server logs as well.
 // double check the cookies!
 const bgSyncPlugin = new workbox.backgroundSync.Plugin("mapseedBgQueue", {
-  maxRetentionTime: 24 * 60, // Retry for max of 24 Hours
+  maxRetentionTime: 72 * 60, // Retry for max of 72 Hours
 });
 
 const flavor = new URL(location).searchParams.get("flavor");
@@ -57,7 +55,7 @@ const apiRoot = new URL(location).searchParams.get("apiRoot");
 // runtime cache for all calls to the local, prod, and dev api's explicitely:
 workbox.routing.registerRoute(
   new RegExp(apiRoot),
-  workbox.strategies.networkFirst({
+  new workbox.strategies.NetworkFirst({
     plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
   }),
   "GET",
@@ -65,15 +63,47 @@ workbox.routing.registerRoute(
 
 // We still need to respond to the request when the app is offline...
 // ...and update the map legend when a request "fails", but is in the cache
-workbox.routing.registerRoute(
-  new RegExp(apiRoot),
-  workbox.strategies.networkOnly({
-    plugins: [bgSyncPlugin],
-  }),
-  "POST",
-);
 
-
+self.addEventListener("fetch", event => {
+  if (event.request.method !== "POST") {
+    return;
+  }
+  const url = new URL(event.request.url, location);
+  const placesRegExp = new RegExp(
+    `${apiRoot}[a-zA-Z-]+/datasets/[a-zA-Z-]+/places$`,
+  );
+  if (placesRegExp.exec(url.href.split("?")[0])) {
+    const networkOnly = new workbox.strategies.NetworkOnly({
+      plugins: [bgSyncPlugin],
+    });
+    const getResponse = async () => {
+      let response;
+      try {
+        response = await networkOnly.handle({ event });
+      } catch (err) {
+        // the offline request was successfully cached in indexDB
+        // HACK: we are using the workbox error message here to detect
+        // whether our bgsync plugin performed a FETCH_DID_FAIL
+        // TODO: ideally, we'd query index db here...
+        // https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+        // https://github.com/GoogleChrome/samples/blob/gh-pages/service-worker/offline-analytics/service-worker.js
+        if (err.name === "no-response") {
+          // Our api client should check for this, and hydrate a Place
+          // model from the request body:
+          const blob = new Blob(
+            [JSON.stringify({ isOfflineResponse: true }, null, 2)],
+            { type: "application/json" },
+          );
+          return new Response(blob);
+        } else {
+          throw err;
+        }
+      }
+      return response;
+    };
+    event.respondWith(getResponse());
+  }
+});
 
 self.addEventListener("install", function(event) {
   event.waitUntil(async () => {
@@ -86,7 +116,7 @@ self.addEventListener("install", function(event) {
 // ideally, these should be pre-cached
 workbox.routing.registerRoute(
   /^\/legacy-libs\//,
-  workbox.strategies.networkFirst({
+  new workbox.strategies.NetworkFirst({
     plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
   }),
   "GET",
@@ -94,19 +124,19 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/cdnjs.cloudflare.com\/ajax\/libs\//,
-  workbox.strategies.staleWhileRevalidate(),
+  new workbox.strategies.StaleWhileRevalidate(),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/ajax.googleapis.com\/ajax\/libs\//,
-  workbox.strategies.staleWhileRevalidate(),
+  new workbox.strategies.StaleWhileRevalidate(),
   "GET",
 );
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/maxcdn.bootstrapcdn.com\/font-awesome\//,
-  workbox.strategies.staleWhileRevalidate(),
+  new workbox.strategies.StaleWhileRevalidate(),
   "GET",
 );
 
@@ -114,7 +144,7 @@ workbox.routing.registerRoute(
 // TODO: dynamically register these routes based on their values in the config:
 workbox.routing.registerRoute(
   /^https:\/\/dev-api.heyduwamish.org\/api\/v2\//,
-  workbox.strategies.networkFirst({
+  new workbox.strategies.NetworkFirst({
     plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
   }),
   "GET",
@@ -122,7 +152,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/tile3.f4map.com\/tiles\/f4_2d\//,
-  workbox.strategies.staleWhileRevalidate({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: TILE_CACHE_NAME,
     plugins: [
       new workbox.expiration.Plugin({
@@ -135,7 +165,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/api.tiles.mapbox.com\/v4\/smartercleanup.pe3o4gdn\//,
-  workbox.strategies.staleWhileRevalidate({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: TILE_CACHE_NAME,
     plugins: [
       new workbox.expiration.Plugin({
@@ -148,7 +178,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/api.mapbox.com\/fonts\//,
-  workbox.strategies.staleWhileRevalidate({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: TILE_CACHE_NAME,
     plugins: [
       new workbox.expiration.Plugin({
@@ -161,7 +191,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^https:\/\/assets.mapseed.org\/geo\//,
-  workbox.strategies.staleWhileRevalidate({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: TILE_CACHE_NAME,
     plugins: [
       new workbox.expiration.Plugin({
@@ -174,7 +204,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^https:\/\/vector-tiles.mapseed.org\//,
-  workbox.strategies.staleWhileRevalidate({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: TILE_CACHE_NAME,
     plugins: [
       new workbox.expiration.Plugin({

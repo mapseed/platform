@@ -146,16 +146,6 @@ const Button = styled(props => {
     styles.border = `3px solid ${props.theme.brand.primary}`;
   }
 
-  // TODO: Review use of theming here.
-  if (props.color2 === "primary") {
-    console.warn("oh wow");
-    styles.backgroundColor = props.theme.brand.primary;
-    styles.color = props.theme.text.secondary;
-    styles["&:hover"].textDecoration = "none";
-    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
-    styles["&:hover"].color = props.theme.text.secondary;
-  }
-
   if (props.color === "primary") {
     styles.backgroundColor = props.theme.brand.primary;
     styles.color = props.theme.text.secondary;
