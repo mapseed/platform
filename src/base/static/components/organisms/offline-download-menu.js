@@ -27,6 +27,7 @@ const modalStyles = {
     wordWrap: "break-word",
     maxWidth: "95%",
     maxHeight: "95%",
+    height: "160px",
     width: "360px",
   },
   overlay: {
@@ -106,10 +107,10 @@ const fetchOfflineData = (
   let fetchedRequests = 0;
   let totalRequests = urlsToFetch.length;
   urlsToFetch.forEach(url => {
-    fetch(url).then(() => {
+    fetch(url).finally(() => {
       fetchedRequests++;
       setPercentDownloaded(parseInt((fetchedRequests / totalRequests) * 100));
-      if (fetchedRequests === totalRequests) {
+      if (fetchedRequests >= totalRequests) {
         setPhase("downloaded");
       }
     });
@@ -180,7 +181,7 @@ const OfflineDownloadMenu = props => {
             {phase === "downloaded" && (
               <Fragment>
                 <ModalBody>
-                  <RegularText textAlign="center">{`Mapseed has been downloaded!`}</RegularText>
+                  <RegularText textAlign="center">{`Mapseed has been downloaded! Click 'ok' below to restart Mapseed and have the offline mode take effect.`}</RegularText>
                 </ModalBody>
                 <ModalFooter>
                   <Button
@@ -189,6 +190,7 @@ const OfflineDownloadMenu = props => {
                     onClick={() => {
                       setPhase("prompt");
                       setIsModalOpen(() => false);
+                      window.location.reload();
                     }}
                   >
                     {"OK"}
