@@ -1,10 +1,14 @@
-import React, { Component, createRef } from "react";
+import React, { Component, createRef, Fragment } from "react";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
 import styled from "react-emotion";
+import { Global } from "@emotion/core";
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
+import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 import {
+  drawModeActiveSelector,
   interactiveLayerIdsSelector,
   mapDraggingSelector,
   mapStyleSelector,
@@ -18,11 +22,20 @@ import {
   updateMapDragging,
   updateGeoJSONFeatures,
   sourcesMetadataPropType,
+  updateSources,
+  updateLayers,
 } from "../../state/ducks/map";
 import {
   mapConfigSelector,
   mapConfigPropType,
 } from "../../state/ducks/map-config";
+import {
+  activeDrawingToolSelector,
+  activeMarkerSelector,
+  setActiveDrawGeometryId,
+  activeDrawGeometryIdSelector,
+  geometryStyleSelector,
+} from "../../state/ducks/map-drawing-toolbar";
 import {
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
@@ -34,6 +47,10 @@ import {
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
+
+import emitter from "../../utils/emitter";
+
+import drawingLayers from "../../state/misc/drawing-layers";
 
 const MapControlsContainer = styled("div")({
   position: "absolute",
@@ -155,6 +172,10 @@ class MainMap extends Component {
     });
 
     this.map.on("sourcedata", evt => {
+      if (evt.sourceId.startsWith("mapbox-gl-draw")) {
+        return;
+      }
+
       const loadStatus = this.map.isSourceLoaded(evt.sourceId)
         ? "loaded"
         : "loading";
@@ -163,6 +184,71 @@ class MainMap extends Component {
         this.props.updateSourceLoadStatus(evt.sourceId, loadStatus);
       }
     });
+
+    if (!this.props.mapConfig.options.disableDrawing) {
+      this.draw = new MapboxDraw({
+        displayControlsDefault: false,
+        userProperties: true,
+        styles: drawingLayers,
+      });
+
+      this.map.addControl(this.draw);
+
+      // We monkey-patch the native Mapbox methods below to prevent the draw
+      // plugin from manipulating map state directly. Where needed, we reroute
+      // data to our Redux store. Note that "setSourceData" is a custom method
+      // that only exists on our fork of mapbox-gl-draw.
+      // TODO: See PR where this change was made on the fork...
+      this.map.addSource = (newSourceId, newSource) => {
+        this.props.updateSources(newSourceId, newSource);
+      };
+      this.map.addLayer = newLayer => {
+        this.props.updateLayers(newLayer);
+      };
+      this.map.removeLayer = () => {
+        // no-op
+      };
+      this.map.removeSource = () => {
+        // no-op
+      };
+      this.map.getSource = () => {
+        return true;
+      };
+      this.map.setSourceData = (sourceId, newFeatures) => {
+        this.props.updateGeoJSONFeatures({
+          sourceId,
+          newFeatures,
+          mode: "replace",
+        });
+      };
+
+      this.map.on("draw.update", evt => {
+        emitter.emit("draw:update-geometry", evt.features[0].geometry);
+      });
+
+      this.map.on("draw.create", evt => {
+        this.props.setActiveDrawGeometryId(evt.features[0].id);
+        emitter.emit("draw:update-geometry", evt.features[0].geometry);
+        if (evt.features[0].geometry.type === "Point") {
+          this.draw.get(evt.features[0].id) &&
+            this.draw.setFeatureProperty(
+              evt.features[0].id,
+              "marker-symbol",
+              this.props.activeMarker,
+            );
+          this.draw.set(this.draw.getAll());
+        }
+      });
+
+      // TODO: unbind this when leaving draw mode
+      this.map.on("dragend", () => {
+        const { lng, lat } = this.map.getCenter();
+        this.props.updateMapViewport({
+          latitude: lat,
+          longitude: lng,
+        });
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -170,6 +256,21 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (this.props.isDrawModeActive !== prevProps.isDrawModeActive) {
+      // Drawing mode has been entered or left.
+      if (!this.props.isDrawModeActive) {
+        // Remove any drawn geometry.
+        ["mapbox-gl-draw-cold", "mapbox-gl-draw-hot"].forEach(sourceId =>
+          this.props.updateGeoJSONFeatures({
+            sourceId,
+            newFeatures: [],
+            mode: "replace",
+          }),
+        );
+        this.draw.deleteAll();
+      }
+    }
+
     if (this.props.placeFilters.length !== prevProps.placeFilters.length) {
       // Filters have been applied or unapplied.
 
@@ -194,6 +295,55 @@ class MainMap extends Component {
       this.props.mapViewport.zoom !== prevProps.mapViewport.zoom
     ) {
       this.props.setSlippyRoute();
+    }
+
+    if (!this.props.mapConfig.options.disableDrawing) {
+      if (this.props.activeDrawingTool !== prevProps.activeDrawingTool) {
+        // A new drawing tool has been selected.
+        switch (this.props.activeDrawingTool) {
+          case "create-polygon":
+            this.draw.changeMode(this.draw.modes.DRAW_POLYGON);
+            break;
+          case "create-polyline":
+            this.draw.changeMode(this.draw.modes.DRAW_LINE_STRING);
+            break;
+          case "create-marker":
+            this.draw.changeMode(this.draw.modes.DRAW_POINT);
+            break;
+          default:
+            // If we get here it's likely because the user deleted in-progress
+            // draw geometry.
+            this.props.setActiveDrawGeometryId(null);
+            break;
+        }
+      }
+
+      if (this.props.activeMarker !== prevProps.activeMarker) {
+        this.draw.get(this.props.activeDrawGeometryId) &&
+          this.draw.setFeatureProperty(
+            this.props.activeDrawGeometryId,
+            "marker-symbol",
+            this.props.activeMarker,
+          );
+        this.draw.set(this.draw.getAll());
+      }
+
+      if (this.props.activeDrawGeometryId && this.props.isDrawModeActive) {
+        Object.entries(this.props.geometryStyle).forEach(
+          ([styleProperty, value]) => {
+            this.draw.setFeatureProperty(
+              this.props.activeDrawGeometryId,
+              styleProperty,
+              value,
+            );
+          },
+        );
+        this.draw.set(this.draw.getAll());
+      }
+
+      if (prevProps.activeDrawGeometryId && !this.props.activeDrawGeometryId) {
+        this.draw.deleteAll();
+      }
     }
   }
 
@@ -244,86 +394,102 @@ class MainMap extends Component {
     });
   };
 
+  // TODO: draw and non-draw modes
   render() {
     return (
-      <MapGL
-        ref={this.mapRef}
-        mapOptions={this.props.mapConfig.options.mapOptions}
-        width={this.props.mapViewport.width}
-        height={this.props.mapViewport.height}
-        latitude={this.props.mapViewport.latitude}
-        longitude={this.props.mapViewport.longitude}
-        pitch={this.props.mapViewport.pitch}
-        bearing={this.props.mapViewport.bearing}
-        zoom={this.props.mapViewport.zoom}
-        transitionDuration={this.props.mapViewport.transitionDuration}
-        transitionInterpolator={this.props.mapViewport.transitionInterpolator}
-        transitionEasing={this.props.mapViewport.transitionEasing}
-        mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
-        minZoom={this.props.mapViewport.minZoom}
-        maxZoom={this.props.mapViewport.maxZoom}
-        onMouseUp={this.endFeatureQuery}
-        onMouseDown={this.beginFeatureQuery}
-        onTouchEnd={this.onMouseUp}
-        onTouchStart={this.onMouseDown}
-        onViewportChange={viewport => {
-          // NOTE: react-map-gl seems to cache the width and height of the map
-          // container at the beginning of a transition. If the viewport change
-          // that initiated the transition also changed the width and/or height
-          // (for example when a Place is clicked and the map resizes to make
-          // way for the content panel), then react-map-gl will immediately
-          // undo the width and height change. The result of this is yet
-          // another version of the off-center bug.
-          //
-          // So, we strip out the height and width from any viewport changes
-          // originating from react-map-gl. There should never be a situation
-          // where react-map-gl needs to set the width or height of the map
-          // container.
-          const { width, height, ...rest } = viewport;
-          this.props.updateMapViewport(
-            rest,
-            this.isMapTransitioning
-              ? false
-              : this.props.mapConfig.options.scrollZoomAroundCenter,
-          );
-        }}
-        onTransitionStart={() => (this.isMapTransitioning = true)}
-        onTransitionEnd={() => (this.isMapTransitioning = false)}
-        interactiveLayerIds={this.props.interactiveLayerIds}
-        mapStyle={this.props.mapStyle}
-        onInteractionStateChange={this.onInteractionStateChange}
-        onLoad={this.onMapLoad}
-      >
-        {this.state.isMapLoaded && (
-          <MapControlsContainer>
-            <NavigationControl
-              onViewportChange={viewport =>
-                this.props.updateMapViewport(viewport)
-              }
-            />
-            <GeolocateControl
-              updateMapViewport={this.props.updateMapViewport}
-            />
-            {this.props.leftSidebarConfig.panels.map(panel => (
-              <CustomControl
-                key={panel.id}
-                icon={panel.icon}
-                component={panel.component}
-                setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
-                setLeftSidebarComponent={this.props.setLeftSidebarComponent}
+      <Fragment>
+        <Global
+          styles={{
+            ".overlays": {
+              pointerEvents: this.props.isDrawModeActive ? "none" : "initial",
+            },
+          }}
+        />
+        <MapGL
+          ref={this.mapRef}
+          width={this.props.mapViewport.width}
+          height={this.props.mapViewport.height}
+          latitude={this.props.mapViewport.latitude}
+          longitude={this.props.mapViewport.longitude}
+          pitch={this.props.mapViewport.pitch}
+          bearing={this.props.mapViewport.bearing}
+          zoom={this.props.mapViewport.zoom}
+          dragPan={!this.props.isDrawModeActive}
+          doubleClickZoom={!this.props.isDrawModeActive}
+          dragRotate={!this.props.isDrawModeActive}
+          transitionDuration={this.props.mapViewport.transitionDuration}
+          transitionInterpolator={this.props.mapViewport.transitionInterpolator}
+          transitionEasing={this.props.mapViewport.transitionEasing}
+          mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
+          minZoom={this.props.mapViewport.minZoom}
+          maxZoom={this.props.mapViewport.maxZoom}
+          onMouseUp={this.onMouseUp}
+          onMouseDown={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onViewportChange={viewport => {
+            // NOTE: react-map-gl seems to cache the width and height of the map
+            // container at the beginning of a transition. If the viewport change
+            // that initiated the transition also changed the width and/or height
+            // (for example when a Place is clicked and the map resizes to make
+            // way for the content panel), then react-map-gl will immediately
+            // undo the width and height change. The result of this is yet
+            // another version of the off-center bug.
+            //
+            // So, we strip out the height and width from any viewport changes
+            // originating from react-map-gl. There should never be a situation
+            // where react-map-gl needs to set the width or height of the map
+            // container.
+            const { width, height, ...rest } = viewport;
+            this.props.updateMapViewport(
+              rest,
+              this.isMapTransitioning
+                ? false
+                : this.props.mapConfig.options.scrollZoomAroundCenter,
+            );
+          }}
+          onTransitionStart={() => (this.isMapTransitioning = true)}
+          onTransitionEnd={() => (this.isMapTransitioning = false)}
+          interactiveLayerIds={this.props.interactiveLayerIds}
+          mapStyle={this.props.mapStyle}
+          onInteractionStateChange={this.onInteractionStateChange}
+          onLoad={this.onMapLoad}
+        >
+          {this.state.isMapLoaded && (
+            <MapControlsContainer>
+              <NavigationControl
+                onViewportChange={viewport =>
+                  this.props.updateMapViewport(viewport)
+                }
               />
-            ))}
-          </MapControlsContainer>
-        )}
-      </MapGL>
+              <GeolocateControl
+                updateMapViewport={this.props.updateMapViewport}
+              />
+              {this.props.leftSidebarConfig.panels.map(panel => (
+                <CustomControl
+                  key={panel.id}
+                  icon={panel.icon}
+                  component={panel.component}
+                  setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
+                  setLeftSidebarComponent={this.props.setLeftSidebarComponent}
+                />
+              ))}
+            </MapControlsContainer>
+          )}
+        </MapGL>
+      </Fragment>
     );
   }
 }
 
 MainMap.propTypes = {
+  activeDrawGeometryId: PropTypes.string,
+  activeDrawingTool: PropTypes.string,
+  activeMarker: PropTypes.number,
   container: PropTypes.instanceOf(Element).isRequired,
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isDrawModeActive: PropTypes.bool.isRequired,
   isMapDragging: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
@@ -341,6 +507,7 @@ MainMap.propTypes = {
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
+  setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setSlippyRoute: PropTypes.func.isRequired,
@@ -348,12 +515,19 @@ MainMap.propTypes = {
   updateMapDragged: PropTypes.func.isRequired,
   updateMapDragging: PropTypes.func.isRequired,
   updateGeoJSONFeatures: PropTypes.func.isRequired,
+  updateLayers: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
+  updateSources: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  activeDrawGeometryId: activeDrawGeometryIdSelector(state),
+  activeDrawingTool: activeDrawingToolSelector(state),
+  activeMarker: activeMarkerSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
+  geometryStyle: geometryStyleSelector(state),
+  isDrawModeActive: drawModeActiveSelector(state),
   isMapDragging: mapDraggingSelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
@@ -365,6 +539,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLeftSidebarComponent: component =>
@@ -376,6 +551,9 @@ const mapDispatchToProps = dispatch => ({
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
   updateSourceLoadStatus: (sourceId, loadStatus) =>
     dispatch(updateSourceLoadStatus(sourceId, loadStatus)),
+  updateSources: (newSourceId, newSource) =>
+    dispatch(updateSources(newSourceId, newSource)),
+  updateLayers: newLayer => dispatch(updateLayers(newLayer)),
 });
 
 export default connect(

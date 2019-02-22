@@ -19,7 +19,9 @@ import {
   geometryStyleSelector,
   setGeometryStyle,
   resetDrawingToolbarState,
+  setActiveDrawGeometryId,
 } from "../../../state/ducks/map-drawing-toolbar";
+import { updateDrawModeActive } from "../../../state/ducks/map";
 
 import { ToolbarButton } from "../../atoms/buttons";
 import { Paragraph } from "../../atoms/typography";
@@ -37,10 +39,11 @@ const deleteToolLabels = {
 
 class MapDrawingToolbar extends Component {
   componentDidMount() {
+    this.props.updateDrawModeActive(true);
     this.props.resetDrawingToolbarState();
     this.props.setMarkers(this.props.markers);
     this.drawUpdateListener = emitter.addListener(
-      constants.DRAW_UPDATE_GEOMETRY_EVENT,
+      "draw:update-geometry",
       geometry => {
         this.props.onChange(this.props.name, geometry);
       },
@@ -72,8 +75,8 @@ class MapDrawingToolbar extends Component {
           this.props.setGeometryStyle(this.props.existingGeometryStyle);
           break;
       }
-
       emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
+
       emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
         datasetSlug: this.props.datasetSlug,
         placeId: this.props.existingPlaceId,
@@ -83,6 +86,8 @@ class MapDrawingToolbar extends Component {
 
   componentWillUnmount() {
     this.drawUpdateListener.remove();
+    this.props.updateDrawModeActive(false);
+    this.props.setActiveDrawGeometryId(null);
   }
 
   render() {
@@ -126,7 +131,6 @@ class MapDrawingToolbar extends Component {
                 this.props.setActiveDrawingTool(
                   constants.DRAW_CREATE_MARKER_TOOL,
                 );
-                emitter.emit(constants.DRAW_START_MARKER_EVENT);
               }}
             />
             <ToolbarButton
@@ -152,7 +156,6 @@ class MapDrawingToolbar extends Component {
                 this.props.setActiveDrawingTool(
                   constants.DRAW_CREATE_POLYLINE_TOOL,
                 );
-                emitter.emit(constants.DRAW_START_POLYLINE_EVENT);
               }}
             />
             <ToolbarButton
@@ -178,7 +181,6 @@ class MapDrawingToolbar extends Component {
                 this.props.setActiveDrawingTool(
                   constants.DRAW_CREATE_POLYGON_TOOL,
                 );
-                emitter.emit(constants.DRAW_START_POLYGON_EVENT);
               }}
             />
           </div>
@@ -325,7 +327,6 @@ class MapDrawingToolbar extends Component {
                     constants.DRAW_DEFAULT_LINE_OPACITY,
                 });
                 this.props.setActiveDrawingTool(null);
-                emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
               }}
             />
           </div>
@@ -378,11 +379,13 @@ MapDrawingToolbar.propTypes = {
   onChange: PropTypes.func.isRequired,
   resetDrawingToolbarState: PropTypes.func.isRequired,
   setActiveColorpicker: PropTypes.func.isRequired,
+  setActiveDrawGeometryId: PropTypes.func.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveMarkerIndex: PropTypes.func.isRequired,
   setGeometryStyle: PropTypes.func.isRequired,
   setMarkers: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateDrawModeActive: PropTypes.func.isRequired,
   visibleDrawingTools: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
@@ -399,12 +402,14 @@ const mapDispatchToProps = dispatch => ({
   resetDrawingToolbarState: () => dispatch(resetDrawingToolbarState()),
   setActiveColorpicker: activeColorpicker =>
     dispatch(setActiveColorpicker(activeColorpicker)),
+  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
   setActiveMarkerIndex: activeMarkerIndex =>
     dispatch(setActiveMarkerIndex(activeMarkerIndex)),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   setGeometryStyle: geometryStyle => dispatch(setGeometryStyle(geometryStyle)),
   setMarkers: markers => dispatch(setMarkers(markers)),
+  updateDrawModeActive: isActive => dispatch(updateDrawModeActive(isActive)),
 });
 
 export default connect(

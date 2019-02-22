@@ -18,6 +18,7 @@ export const mapCenterpointSelector = state => ({
   latitude: state.map.viewport.latitude,
   longitude: state.map.viewport.longitude,
 });
+export const drawModeActiveSelector = state => state.map.isDrawModeActive;
 
 // Actions:
 const LOAD_VIEWPORT = "map/LOAD_VIEWPORT";
@@ -35,12 +36,15 @@ const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
 const UPDATE_MAP_DRAGGED = "map/UPDATE_MAP_DRAGGED";
 const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
 const REMOVE_GEOJSON_FEATURE = "map/REMOVE_GEOJSON_FEATURE";
+const UPDATE_SOURCES = "map/UPDATE_SOURCES";
+const UPDATE_LAYERS = "map/UPDATE_LAYERS";
+const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE"
 
 // Layer group load status terminology:
 // ------------------------------------
 // "unloaded": The map has not yet begun to fetch data for any source consumed
-// "loading": The map has begun fetching data for one or more sources consumed
 //     by this layer group.
+// "loading": The map has begun fetching data for one or more sources consumed
 //     by this layer group, but has not finished.
 // "loaded": All data for all sources consumed by this layer group have been
 //     fetched. Rendering may or may not be in progress.
@@ -60,6 +64,27 @@ export function removeFocusedGeoJSONFeatures() {
   return {
     type: REMOVE_FOCUSED_GEOJSON_FEATURES,
     payload: null,
+  };
+}
+
+export function updateDrawModeActive(isActive) {
+  return {
+    type: UPDATE_DRAW_MODE_ACTIVE,
+    payload: isActive
+  }
+}
+
+export function updateSources(newSourceId, newSource) {
+  return {
+    type: UPDATE_SOURCES,
+    payload: { newSourceId, newSource },
+  };
+}
+
+export function updateLayers(newLayer) {
+  return {
+    type: UPDATE_LAYERS,
+    payload: newLayer,
   };
 }
 
@@ -336,6 +361,7 @@ const INITIAL_STATE = {
   isMapSizeValid: false,
   isMapDragged: false,
   isMapDragging: false,
+  isDrawModeActive: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -607,6 +633,30 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         isMapDragging: action.payload,
       };
+    case UPDATE_SOURCES:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.newSourceId]: action.payload.newSource,
+          },
+        },
+      };
+    case UPDATE_LAYERS:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          layers: state.style.layers.concat(action.payload),
+        },
+      };
+    case UPDATE_DRAW_MODE_ACTIVE:
+      return {
+        ...state,
+        isDrawModeActive: action.payload
+      }
     default:
       return state;
   }

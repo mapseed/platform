@@ -107,6 +107,9 @@ module.exports = {
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
     ],
   },
+  node: {
+    fs: "empty",
+  },
   plugins: [
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": isProd
