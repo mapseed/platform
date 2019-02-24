@@ -321,69 +321,81 @@ class InputForm extends Component {
       includePrivate: this.props.hasAdminAbilities(this.props.datasetSlug),
     });
 
-    if (placeResponse) {
-      Util.log("USER", "new-place", "successfully-add-place");
-
-      // Save attachments.
-      if (this.attachments.length) {
-        await Promise.all(
-          this.attachments.map(async attachment => {
-            const attachmentResponse = await mapseedApiClient.attachments.create(
-              placeResponse.url,
-              attachment,
-            );
-
-            if (attachmentResponse) {
-              placeResponse.attachments.push(attachmentResponse);
-              Util.log("USER", "dataset", "successfully-add-attachment");
-            } else {
-              alert("Oh dear. It looks like an attachment didn't save.");
-              Util.log("USER", "place", "fail-to-add-attachment");
-            }
-          }),
-        );
-      }
-
-      // Only add this place to the places duck if it isn't private.
-      !placeResponse.private && this.props.createPlace(placeResponse);
-      !placeResponse.private &&
-        this.props.createFeaturesInGeoJSONSource(
-          // "sourceId" and a place's datasetSlug are the same thing.
-          this.props.datasetSlug,
-          toClientGeoJSONFeature(placeResponse),
-        );
-
-      this.setState({ isFormSubmitting: false, showValidityStatus: false });
-
-      // Save autofill values as necessary.
-      // TODO: This logic is better suited for the FormField component,
-      // perhaps in an onSave hook.
-      this.selectedCategoryConfig.fields.forEach(fieldConfig => {
-        if (fieldConfig.autocomplete) {
-          Util.saveAutocompleteValue(
-            fieldConfig.name,
-            this.state.fields.getIn([fieldConfig.name, "value"]),
-            30, // 30 days
-          );
-        }
-      });
-
-      this.props.setActiveDrawGeometryId(null);
-
-      // Fire post-save hook.
-      // The post-save hook allows flavors to hijack the default
-      // route-to-detail-view behavior.
-      if (this.props.customHooks && this.props.customHooks.postSave) {
-        this.props.customHooks.postSave(
-          placeResponse,
-          this.defaultPostSave.bind(this),
-        );
-      } else {
-        this.defaultPostSave(placeResponse);
-      }
-    } else {
+    if (!placeResponse) {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place", "fail-to-create-place");
+      return;
+    }
+    if (placeResponse.isOffline) {
+      alert(
+        "No internet connection detected. Your submission may not be successful until you are back online.",
+      );
+      Util.log("USER", "place", "submitted-offline-place");
+      return;
+    }
+    Util.log("USER", "new-place", "successfully-add-place");
+
+    // Save attachments.
+    if (this.attachments.length) {
+      await Promise.all(
+        this.attachments.map(async attachment => {
+          await mapseedApiClient.attachments.create(
+            placeResponse.url,
+            attachment,
+          );
+        }),
+      );
+    }
+
+    // Only add this place to the places duck if it isn't private.
+    !placeResponse.private && this.props.createPlace(placeResponse);
+    !placeResponse.private &&
+      this.props.createFeaturesInGeoJSONSource(
+        // "sourceId" and a place's datasetSlug are the same thing.
+        this.props.datasetSlug,
+        toClientGeoJSONFeature(placeResponse),
+      );
+
+    // Only add this place to the places duck if it isn't private.
+    // TODO: Is this correct? What if we're an admin?
+    !placeResponse.private && this.props.createPlace(placeResponse);
+
+    // Save autofill values as necessary.
+    // TODO: This logic is better suited for the FormField component,
+    // perhaps in an onSave hook.
+    this.selectedCategoryConfig.fields.forEach(fieldConfig => {
+      if (fieldConfig.autocomplete) {
+        Util.saveAutocompleteValue(
+          fieldConfig.name,
+          this.state.fields.getIn([fieldConfig.name, "value"]),
+          30, // 30 days
+        );
+      }
+    });
+
+    this.props.setActiveDrawGeometryId(null);
+
+    // Fire post-save hook.
+    // The post-save hook allows flavors to hijack the default
+    // route-to-detail-view behavior.
+    if (this.props.customHooks && this.props.customHooks.postSave) {
+      this.props.customHooks.postSave(
+        placeResponse,
+        this.defaultPostSave.bind(this),
+      );
+    }
+
+    // Fire post-save hook.
+    // The post-save hook allows flavors to hijack the default
+    // route-to-detail-view behavior.
+    // TODO: are we still using these? Is it ok to delete this?
+    if (this.props.customHooks && this.props.customHooks.postSave) {
+      this.props.customHooks.postSave(
+        placeResponse,
+        this.defaultPostSave.bind(this),
+      );
+    } else {
+      this.defaultPostSave(placeResponse);
     }
   };
 

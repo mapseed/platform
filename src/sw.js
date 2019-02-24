@@ -19,7 +19,6 @@ const TILE_CACHE_NAME = "tiles-cache";
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 
-
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
  * requests for URLs in the manifest.
@@ -87,9 +86,11 @@ self.addEventListener("fetch", event => {
         // TODO: ideally, we'd query index db here...
         // https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
         // https://github.com/GoogleChrome/samples/blob/gh-pages/service-worker/offline-analytics/service-worker.js
+        // TODO: query indexdb for cached responses when the app first
+        // loads, allowing us to persist offline responses
         if (err.name === "no-response") {
-          // Our api client should check for this, and hydrate a Place
-          // model from the request body:
+          // Our api client will check for this type of body, and
+          // hydrate a Place model from it:
           const blob = new Blob(
             [JSON.stringify({ isOfflineResponse: true }, null, 2)],
             { type: "application/json" },
