@@ -119,13 +119,11 @@ module.exports = {
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,
-    new CompressionPlugin({
-      filename: "[path].gz[query]",
-    }),
     new WorkboxPlugin.InjectManifest({
       swSrc: path.join("src", "sw.js"),
       swDest: path.join(outputPath, "service-worker.js"),
     }),
+    new CompressionPlugin(),
   ],
   devtool: isProd ? false : "cheap-eval-souce-map",
   devServer: {

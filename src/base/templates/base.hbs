@@ -81,12 +81,14 @@
   </div><!-- end #site-wrap -->
 
   <script>
+    var serviceWorkerPath = "{{ serviceWorkerPath }}";
+
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         var apiRoot = encodeURIComponent("{{config.app.api_root}}");
         var flavor = encodeURIComponent("{{flavor}}");
         navigator.serviceWorker
-          .register("/service-worker.js?apiRoot=" + apiRoot + "&flavor=" + flavor)
+          .register(serviceWorkerPath + "?apiRoot=" + apiRoot + "&flavor=" + flavor)
           .then(registration => {
             console.log("SW registered: ", registration);
           })

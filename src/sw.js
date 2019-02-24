@@ -31,13 +31,6 @@ workbox.loadModule("workbox-strategies");
 workbox.loadModule("workbox-routing");
 
 // background sync for POST requests:
-// TODO: load page, examine the queue
-// go offline on PC and server, POST some new places
-// close the page, open a blank page, examine the queue
-// with the page still closed, turn on the server, examine the queue
-// if no sync event fired, turn PC online, examine the queue
-// check server logs as well.
-// double check the cookies!
 const bgSyncPlugin = new workbox.backgroundSync.Plugin("mapseedBgQueue", {
   maxRetentionTime: 72 * 60, // Retry for max of 72 Hours
 });

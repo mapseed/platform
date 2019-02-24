@@ -105,6 +105,12 @@ function updateMetadata() {
         params = {
           ContentEncoding: "gzip",
         };
+        if (filepath.includes("service-worker.js")) {
+          params = {
+            ContentEncoding: "gzip",
+            CacheControl: "max-age=0",
+          };
+        }
         return copyObjectPromise(buildParams(filepath, params));
       }),
     )
