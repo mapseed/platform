@@ -639,12 +639,12 @@
           {
             "name": "location_why",
             "type": "informational_html",
-            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p><p><strong>If you own multiple properties, please report on all your properties as long as they all lie in the same Watershed Analysis Unit (Rock, Palouse, or Snake), as shown on the map.</strong></p>"
+            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p><p>If you own multiple properties within one of the Watershed Analysis Unit we only need <strong>one report</strong> from you, since we will be reporting Stewardship Actions by Watershed Analysis Units. If you have additional properties in another Watershed Analysis Unit <strong>please submit a second report</strong> so that we can capture Stewardship Actions by the correct Watershed Analysis Unit.</p>"
           },
           {
             "name": "drag_map_info",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the map on your property. If you own multiple properties in a Watershed Analysis Unit (Rock, Palouse, or Snake), please ensure your location is set somewhere inside the Analysis Unit.</p></div>"
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>If you own multiple properties within one of the Watershed Analysis Unit we only need one report from you, since we will be reporting Stewardship Actions by Watershed Analysis Units. If you have additional properties in another Watershed Analysis Unit please submit a second report so that we can captured Stewardship Actions by the correct Watershed Analysis Unit.</p></div>"
           },
           {
             "name": "address",
