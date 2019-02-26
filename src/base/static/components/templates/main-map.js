@@ -35,6 +35,7 @@ import {
   setActiveDrawGeometryId,
   activeDrawGeometryIdSelector,
   geometryStyleSelector,
+  geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   leftSidebarConfigSelector,
@@ -42,8 +43,10 @@ import {
   setLeftSidebarComponent,
 } from "../../state/ducks/left-sidebar";
 import {
+  activePlaceIdSelector,
   filteredPlacesSelector,
   placePropType,
+  placeSelector,
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
@@ -255,20 +258,36 @@ class MainMap extends Component {
     window.removeEventListener("resize", this.onWindowResize);
   }
 
+  removeDrawGeometry() {
+    // Remove any drawn geometry.
+    this.props.setActiveDrawGeometryId(null);
+    ["mapbox-gl-draw-cold", "mapbox-gl-draw-hot"].forEach(sourceId =>
+      this.props.updateGeoJSONFeatures({
+        sourceId,
+        newFeatures: [],
+        mode: "replace",
+      }),
+    );
+    this.draw.deleteAll();
+  }
+
+  updateDrawGeometryStyle(activeDrawGeometryId) {
+    Object.entries(this.props.geometryStyle).forEach(
+      ([styleProperty, value]) => {
+        this.draw.setFeatureProperty(
+          activeDrawGeometryId,
+          styleProperty,
+          value,
+        );
+      },
+    );
+    this.draw.set(this.draw.getAll());
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.isDrawModeActive !== prevProps.isDrawModeActive) {
       // Drawing mode has been entered or left.
-      if (!this.props.isDrawModeActive) {
-        // Remove any drawn geometry.
-        ["mapbox-gl-draw-cold", "mapbox-gl-draw-hot"].forEach(sourceId =>
-          this.props.updateGeoJSONFeatures({
-            sourceId,
-            newFeatures: [],
-            mode: "replace",
-          }),
-        );
-        this.draw.deleteAll();
-      }
+      !this.props.isDrawModeActive && this.removeDrawGeometry();
     }
 
     if (this.props.placeFilters.length !== prevProps.placeFilters.length) {
@@ -311,34 +330,40 @@ class MainMap extends Component {
             this.draw.changeMode(this.draw.modes.DRAW_POINT);
             break;
           default:
-            // If we get here it's likely because the user deleted in-progress
-            // draw geometry.
-            this.props.setActiveDrawGeometryId(null);
+            this.removeDrawGeometry();
             break;
         }
       }
 
-      if (this.props.activeMarker !== prevProps.activeMarker) {
-        this.draw.get(this.props.activeDrawGeometryId) &&
-          this.draw.setFeatureProperty(
-            this.props.activeDrawGeometryId,
-            "marker-symbol",
-            this.props.activeMarker,
-          );
+      if (!prevProps.activePlaceId && this.props.activePlaceId) {
+        // The user has entered Edit mode with pre-existing drawn geometry.
+        const activeDrawGeometryId = this.draw.add(
+          this.props.placeSelector(this.props.activePlaceId).geometry,
+        )[0];
+        this.props.setActiveDrawGeometryId(activeDrawGeometryId);
+        this.draw.changeMode(this.draw.modes.SIMPLE_SELECT);
+        this.updateDrawGeometryStyle(activeDrawGeometryId);
+      }
+
+      if (
+        this.props.activeMarker !== prevProps.activeMarker &&
+        this.draw.get(this.props.activeDrawGeometryId)
+      ) {
+        this.draw.setFeatureProperty(
+          this.props.activeDrawGeometryId,
+          "marker-symbol",
+          this.props.activeMarker,
+        );
         this.draw.set(this.draw.getAll());
       }
 
-      if (this.props.activeDrawGeometryId && this.props.isDrawModeActive) {
-        Object.entries(this.props.geometryStyle).forEach(
-          ([styleProperty, value]) => {
-            this.draw.setFeatureProperty(
-              this.props.activeDrawGeometryId,
-              styleProperty,
-              value,
-            );
-          },
-        );
-        this.draw.set(this.draw.getAll());
+      if (
+        this.props.geometryStyle !== prevProps.geometryStyle &&
+        this.props.activeDrawGeometryId &&
+        this.props.activeDrawingTool &&
+        this.props.isDrawModeActive
+      ) {
+        this.updateDrawGeometryStyle(this.props.activeDrawGeometryId);
       }
 
       if (prevProps.activeDrawGeometryId && !this.props.activeDrawGeometryId) {
@@ -394,7 +419,6 @@ class MainMap extends Component {
     });
   };
 
-  // TODO: draw and non-draw modes
   render() {
     return (
       <Fragment>
@@ -485,9 +509,11 @@ class MainMap extends Component {
 MainMap.propTypes = {
   activeDrawGeometryId: PropTypes.string,
   activeDrawingTool: PropTypes.string,
-  activeMarker: PropTypes.number,
+  activeMarker: PropTypes.string,
+  activePlaceId: PropTypes.number,
   container: PropTypes.instanceOf(Element).isRequired,
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
+  geometryStyle: geometryStyleProps,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   isDrawModeActive: PropTypes.bool.isRequired,
   isMapDragging: PropTypes.bool.isRequired,
@@ -506,6 +532,7 @@ MainMap.propTypes = {
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
+  placeSelector: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
@@ -525,6 +552,7 @@ const mapStateToProps = state => ({
   activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeDrawingTool: activeDrawingToolSelector(state),
   activeMarker: activeMarkerSelector(state),
+  activePlaceId: activePlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   geometryStyle: geometryStyleSelector(state),
   isDrawModeActive: drawModeActiveSelector(state),
@@ -535,6 +563,7 @@ const mapStateToProps = state => ({
   mapViewport: mapViewportSelector(state),
   mapStyle: mapStyleSelector(state),
   placeFilters: filtersSelector(state),
+  placeSelector: placeId => placeSelector(state, placeId),
   sourcesMetadata: sourcesMetadataSelector(state),
 });
 

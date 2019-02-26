@@ -21,7 +21,12 @@ import {
   resetDrawingToolbarState,
   setActiveDrawGeometryId,
 } from "../../../state/ducks/map-drawing-toolbar";
-import { updateDrawModeActive } from "../../../state/ducks/map";
+import {
+  updateDrawModeActive,
+  updateGeoJSONSourceRemoveFeature,
+  updateGeoJSONSourceAddFeature,
+} from "../../../state/ducks/map";
+import { placeSelector } from "../../../state/ducks/places";
 
 import { ToolbarButton } from "../../atoms/buttons";
 import { Paragraph } from "../../atoms/typography";
@@ -37,6 +42,63 @@ const deleteToolLabels = {
   "create-polygon": "deletePolygonToolLabel",
 };
 
+// NOTE: The ColorPicker component, which consumes these two ToolbarButton
+// components, tries to attach a ref to its children, so these components
+// need to be classes.
+class StrokeColorpickerToolbarButton extends Component {
+  render() {
+    return (
+      <ToolbarButton
+        classes={classNames(
+          "map-drawing-toolbar__tool-icon",
+          "map-drawing-toolbar__tool-icon--colorpicker",
+          {
+            "map-drawing-toolbar__tool-icon--colorpicker--active":
+              this.props.activeColorpicker ===
+              constants.DRAW_STROKE_COLORPICKER_NAME,
+          },
+        )}
+        label={this.props.label}
+        icon="/static/css/images/colorpicker-icon.svg"
+        onClick={this.props.onClick}
+      />
+    );
+  }
+}
+
+StrokeColorpickerToolbarButton.propTypes = {
+  activeColorpicker: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+class FillColorpickerToolbarButton extends Component {
+  render() {
+    return (
+      <ToolbarButton
+        classes={classNames(
+          "map-drawing-toolbar__tool-icon",
+          "map-drawing-toolbar__tool-icon--colorpicker",
+          {
+            "map-drawing-toolbar__tool-icon--colorpicker--active":
+              this.props.activeColorpicker ===
+              constants.DRAW_FILL_COLORPICKER_NAME,
+          },
+        )}
+        label={this.props.label}
+        icon="/static/css/images/colorpicker-icon.svg"
+        onClick={this.props.onClick}
+      />
+    );
+  }
+}
+
+FillColorpickerToolbarButton.propTypes = {
+  activeColorpicker: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
 class MapDrawingToolbar extends Component {
   componentDidMount() {
     this.props.updateDrawModeActive(true);
@@ -50,10 +112,19 @@ class MapDrawingToolbar extends Component {
     );
 
     if (this.props.existingGeometry) {
-      emitter.emit(
-        constants.DRAW_INIT_GEOMETRY_EVENT,
-        this.props.existingGeometry,
+      //emitter.emit(
+      //  constants.DRAW_INIT_GEOMETRY_EVENT,
+      //  this.props.existingGeometry,
+      //);
+
+      // If we are editing existing geometry on the map, remove the underlying
+      // feature from its source and relocate it to mapbox-gl-draw so it can
+      // be manipulated.
+      this.props.updateGeoJSONSourceRemoveFeature(
+        this.props.datasetSlug,
+        this.props.existingPlaceId,
       );
+
       switch (this.props.existingGeometry.type) {
         case "Point":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_MARKER_TOOL);
@@ -75,12 +146,12 @@ class MapDrawingToolbar extends Component {
           this.props.setGeometryStyle(this.props.existingGeometryStyle);
           break;
       }
-      emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
+      //      emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
 
-      emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
-        datasetSlug: this.props.datasetSlug,
-        placeId: this.props.existingPlaceId,
-      });
+      //     emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
+      //       datasetSlug: this.props.datasetSlug,
+      //       placeId: this.props.existingPlaceId,
+      //     });
     }
   }
 
@@ -88,6 +159,12 @@ class MapDrawingToolbar extends Component {
     this.drawUpdateListener.remove();
     this.props.updateDrawModeActive(false);
     this.props.setActiveDrawGeometryId(null);
+    // Restore the original geometry removed on mount to make way for the
+    // editable geometry.
+    this.props.updateGeoJSONSourceAddFeature(
+      this.props.datasetSlug,
+      this.props.placeSelector(this.props.existingPlaceId),
+    );
   }
 
   render() {
@@ -225,18 +302,9 @@ class MapDrawingToolbar extends Component {
                 }}
                 placement="topRight"
               >
-                <ToolbarButton
-                  classes={classNames(
-                    "map-drawing-toolbar__tool-icon",
-                    "map-drawing-toolbar__tool-icon--colorpicker",
-                    {
-                      "map-drawing-toolbar__tool-icon--colorpicker--active":
-                        this.props.activeColorpicker ===
-                        constants.DRAW_STROKE_COLORPICKER_NAME,
-                    },
-                  )}
+                <StrokeColorpickerToolbarButton
+                  activeColorpicker={this.props.activeColorpicker}
                   label={this.props.t("colorpickerStrokeToolLabel")}
-                  icon="/static/css/images/colorpicker-icon.svg"
                 />
               </ColorPicker>
             ) : (
@@ -280,18 +348,9 @@ class MapDrawingToolbar extends Component {
                 }}
                 placement="topRight"
               >
-                <ToolbarButton
-                  classes={classNames(
-                    "map-drawing-toolbar__tool-icon",
-                    "map-drawing-toolbar__tool-icon--colorpicker",
-                    {
-                      "map-drawing-toolbar__tool-icon--colorpicker--active":
-                        this.props.activeColorpicker ===
-                        constants.DRAW_FILL_COLORPICKER_NAME,
-                    },
-                  )}
+                <FillColorpickerToolbarButton
                   label={this.props.t("colorpickerFillToolLabel")}
-                  icon="/static/css/images/colorpicker-icon.svg"
+                  activeColorpicker={this.props.activeColorpicker}
                 />
               </ColorPicker>
             ) : (
@@ -377,6 +436,7 @@ MapDrawingToolbar.propTypes = {
   markers: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  placeSelector: PropTypes.func.isRequired,
   resetDrawingToolbarState: PropTypes.func.isRequired,
   setActiveColorpicker: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
@@ -386,6 +446,8 @@ MapDrawingToolbar.propTypes = {
   setMarkers: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   updateDrawModeActive: PropTypes.func.isRequired,
+  updateGeoJSONSourceAddFeature: PropTypes.func.isRequired,
+  updateGeoJSONSourceRemoveFeature: PropTypes.func.isRequired,
   visibleDrawingTools: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
@@ -395,6 +457,7 @@ const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   isMarkerPanelVisible: markerPanelVisibilitySelector(state),
   geometryStyle: geometryStyleSelector(state),
+  placeSelector: placeId => placeSelector(state, placeId),
   visibleDrawingTools: visibleDrawingToolsSelector(state),
 });
 
@@ -410,6 +473,10 @@ const mapDispatchToProps = dispatch => ({
   setGeometryStyle: geometryStyle => dispatch(setGeometryStyle(geometryStyle)),
   setMarkers: markers => dispatch(setMarkers(markers)),
   updateDrawModeActive: isActive => dispatch(updateDrawModeActive(isActive)),
+  updateGeoJSONSourceAddFeature: (sourceId, place) =>
+    dispatch(updateGeoJSONSourceAddFeature(sourceId, place)),
+  updateGeoJSONSourceRemoveFeature: (sourceId, featureId) =>
+    dispatch(updateGeoJSONSourceRemoveFeature(sourceId, featureId)),
 });
 
 export default connect(

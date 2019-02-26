@@ -38,7 +38,11 @@ const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
 const REMOVE_GEOJSON_FEATURE = "map/REMOVE_GEOJSON_FEATURE";
 const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
-const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE"
+const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
+const UPDATE_GEOJSON_SOURCE_REMOVE_FEATURE =
+  "map/UPDATE_GEOJSON_SOURCE_REMOVE_FEATURE";
+const UPDATE_GEOJSON_SOURCE_ADD_FEATURE =
+  "map/UPDATE_GEOJSON_SOURCE_ADD_FEATURE";
 
 // Layer group load status terminology:
 // ------------------------------------
@@ -60,6 +64,30 @@ export function updateLayerGroupLoadStatus(groupId, loadStatus) {
   };
 }
 
+export function updateGeoJSONSourceAddFeature(sourceId, place) {
+  const { geometry, ...rest } = place;
+
+  return {
+    // sourceId is equivalent to a datasetSlug.
+    type: UPDATE_GEOJSON_SOURCE_ADD_FEATURE,
+    payload: {
+      sourceId,
+      feature: {
+        type: "Feature",
+        geometry,
+        properties: rest,
+      },
+    },
+  };
+}
+
+export function updateGeoJSONSourceRemoveFeature(sourceId, featureId) {
+  return {
+    type: UPDATE_GEOJSON_SOURCE_REMOVE_FEATURE,
+    payload: { sourceId, featureId },
+  };
+}
+
 export function removeFocusedGeoJSONFeatures() {
   return {
     type: REMOVE_FOCUSED_GEOJSON_FEATURES,
@@ -70,8 +98,8 @@ export function removeFocusedGeoJSONFeatures() {
 export function updateDrawModeActive(isActive) {
   return {
     type: UPDATE_DRAW_MODE_ACTIVE,
-    payload: isActive
-  }
+    payload: isActive,
+  };
 }
 
 export function updateSources(newSourceId, newSource) {
@@ -655,8 +683,48 @@ export default function reducer(state = INITIAL_STATE, action) {
     case UPDATE_DRAW_MODE_ACTIVE:
       return {
         ...state,
-        isDrawModeActive: action.payload
-      }
+        isDrawModeActive: action.payload,
+      };
+    case UPDATE_GEOJSON_SOURCE_REMOVE_FEATURE:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.sourceId]: {
+              ...state.style.sources[action.payload.sourceId],
+              data: {
+                ...state.style.sources[action.payload.sourceId].data,
+                features: state.style.sources[
+                  action.payload.sourceId
+                ].data.features.filter(
+                  feature => feature.properties.id !== action.payload.featureId,
+                ),
+              },
+            },
+          },
+        },
+      };
+    case UPDATE_GEOJSON_SOURCE_ADD_FEATURE:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.sourceId]: {
+              ...state.style.sources[action.payload.sourceId],
+              data: {
+                ...state.style.sources[action.payload.sourceId].data,
+                features: state.style.sources[
+                  action.payload.sourceId
+                ].data.features.concat(action.payload.feature),
+              },
+            },
+          },
+        },
+      };
     default:
       return state;
   }

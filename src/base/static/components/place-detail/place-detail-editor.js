@@ -28,6 +28,7 @@ import {
   removePlace,
   removePlaceAttachment,
   placePropType,
+  updateActivePlaceId,
 } from "../../state/ducks/places";
 import { removeGeoJSONFeature } from "../../state/ducks/map";
 import { updateEditModeToggled } from "../../state/ducks/ui";
@@ -80,6 +81,14 @@ class PlaceDetailEditor extends Component {
       showValidityStatus: false,
       isNetworkRequestInFlight: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.updateActivePlaceId(this.props.place.id);
+  }
+
+  componentWillUnmount() {
+    this.props.updateActivePlaceId(null);
   }
 
   async updatePlace() {
@@ -389,6 +398,7 @@ const mapDispatchToProps = dispatch => ({
   removePlace: placeId => dispatch(removePlace(placeId)),
   removePlaceAttachment: (placeId, attachmentId) =>
     dispatch(removePlaceAttachment(placeId, attachmentId)),
+  updateActivePlaceId: placeId => dispatch(updateActivePlaceId(placeId)),
 });
 
 export default connect(
