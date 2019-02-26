@@ -87,7 +87,7 @@ class GeocodingField extends Component {
           placeholder={this.props.placeholder}
           value={this.props.value}
           onBlur={this.doGeocode.bind(this)}
-          onKeyDown={e => this.props.onKeyDown(e)}
+          onKeyDown={e => this.props.onKeyDown && this.props.onKeyDown(e)}
           onChange={e => this.props.onChange(e.target.name, e.target.value)}
         />
         <div

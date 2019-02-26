@@ -24,8 +24,17 @@ import {
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import {
+  updatePlace,
+  removePlace,
+  removePlaceAttachment,
+  placePropType,
+} from "../../state/ducks/places";
+import { updateEditModeToggled } from "../../state/ducks/ui";
 
 import { getCategoryConfig } from "../../utils/config-utils";
+
+import mapseedApiClient from "../../client/mapseed-api-client";
 
 import "./place-detail-editor.scss";
 
@@ -35,22 +44,21 @@ class PlaceDetailEditor extends Component {
 
     this.categoryConfig = getCategoryConfig(
       this.props.placeConfig,
-      this.props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME),
+      this.props.place.location_type,
     );
 
+    this.attachments = [];
     let fields = OrderedMap();
     this.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
       .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
+      .filter(field => field.isVisible)
       .forEach(field => {
         fields = fields.set(
           field.name,
           Map()
-            .set(
-              constants.FIELD_VALUE_KEY,
-              this.props.placeModel.get(field.name),
-            )
+            .set(constants.FIELD_VALUE_KEY, this.props.place[field.name])
             .set(
               constants.FIELD_VISIBILITY_KEY,
               field.hidden_default ? false : true,
@@ -70,117 +78,185 @@ class PlaceDetailEditor extends Component {
       fields: fields,
       formValidationErrors: new Set(),
       showValidityStatus: false,
+      isNetworkRequestInFlight: false,
     };
   }
 
-  componentDidMount() {
-    emitter.addListener(constants.PLACE_MODEL_UPDATE_EVENT, () => {
-      // Validate the form.
-      const newValidationErrors = this.state.fields
-        .filter(field => field.get(constants.FIELD_VISIBILITY_KEY))
-        .filter(field => !field.get(constants.FIELD_VALIDITY_KEY))
-        .reduce((newValidationErrors, invalidField) => {
-          return newValidationErrors.add(
-            invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
+  async updatePlace() {
+    // Validate the form.
+    const newValidationErrors = this.state.fields
+      .filter(field => field.get(constants.FIELD_VISIBILITY_KEY))
+      .filter(field => !field.get(constants.FIELD_VALIDITY_KEY))
+      .reduce((newValidationErrors, invalidField) => {
+        return newValidationErrors.add(
+          invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
+        );
+      }, new Set());
+
+    if (newValidationErrors.size === 0) {
+      const attrs = this.state.fields
+        .filter(state => state.get(constants.FIELD_VALUE_KEY) !== null)
+        .map(state => state.get(constants.FIELD_VALUE_KEY))
+        .toJS();
+
+      // A form field with name "private" should use the value "yes" to indicate
+      // that a place should be private.
+      // TODO: Make a special form field to encapsulate this.
+      attrs.private = attrs.private === "yes" ? true : false;
+
+      if (this.state.fields.get("geometry")) {
+        attrs.style =
+          this.state.fields.getIn(["geometry", "value"]).type === "Point"
+            ? {
+                "marker-symbol": this.props.activeMarker,
+              }
+            : this.props.geometryStyle;
+      }
+
+      // Replace image data in rich text fields with placeholders built from each
+      // image's name.
+      // TODO: This logic is better suited for the FormField component,
+      // perhaps in an onSave hook.
+      this.categoryConfig.fields
+        .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
+        .forEach(field => {
+          attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
+        });
+
+      const placeResponse = await mapseedApiClient.place.update({
+        placeUrl: this.props.place.url,
+        placeData: {
+          ...this.props.place,
+          ...attrs,
+        },
+        datasetSlug: this.props.place._datasetSlug,
+        clientSlug: this.props.place._clientSlug,
+      });
+
+      this.setState({
+        isNetworkRequestInFlight: false,
+      });
+
+      if (placeResponse) {
+        Util.log("USER", "place", "successfully-update-place");
+
+        // Save attachments.
+        if (this.attachments.length) {
+          await Promise.all(
+            this.attachments.map(async attachment => {
+              const attachmentResponse = await mapseedApiClient.attachments.create(
+                placeResponse.url,
+                attachment,
+              );
+
+              if (attachmentResponse) {
+                placeResponse.attachments.push(attachmentResponse);
+                Util.log("USER", "dataset", "successfully-add-attachment");
+              } else {
+                alert("Oh dear. It looks like an attachment didn't save.");
+                Util.log("USER", "place", "fail-to-add-attachment");
+              }
+            }),
           );
-        }, new Set());
-
-      if (newValidationErrors.size === 0) {
-        this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
-
-        const attrs = this.state.fields
-          .filter(state => state.get(constants.FIELD_VALUE_KEY) !== null)
-          .map(state => state.get(constants.FIELD_VALUE_KEY))
-          .toJS();
-
-        if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-          attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
-            this.state.fields
-              .get(constants.GEOMETRY_PROPERTY_NAME)
-              .get(constants.FIELD_VALUE_KEY)[
-              constants.GEOMETRY_TYPE_PROPERTY_NAME
-            ] === "Point"
-              ? {
-                  [constants.MARKER_ICON_PROPERTY_NAME]: this.props
-                    .activeMarker,
-                }
-              : this.props.geometryStyle;
         }
 
-        // Replace image data in rich text fields with placeholders built from each
-        // image's name.
-        // TODO: This logic is better suited for the FormField component,
-        // perhaps in an onSave hook.
-        this.categoryConfig.fields
-          .filter(
-            field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME,
-          )
-          .forEach(field => {
-            attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
-          });
+        emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
 
-        this.props.onPlaceModelSave(attrs, {
-          success: this.onPlaceModelSaveSuccess.bind(this),
-          error: this.onPlaceModelSaveError.bind(this),
-        });
-      } else {
-        this.setState({
-          formValidationErrors: newValidationErrors,
-          showValidityStatus: true,
-        });
-        scrollTo(this.props.container, 0, 300);
-      }
-    });
+        this.props.updatePlace(placeResponse);
 
-    emitter.addListener(constants.PLACE_MODEL_REMOVE_EVENT, () => {
-      // TODO: Replace this confirm, as it won't respond to client-side i18n
-      // changes, plus it's a bad UX pattern.
-      if (confirm(this.props.t("confirmRemove"))) {
-        this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
-        this.props.onPlaceModelSave(
-          {
-            visible: false,
-          },
-          {
-            success: this.onPlaceModelRemoveSuccess.bind(this),
-            error: this.onPlaceModelRemoveError.bind(this),
-          },
+        emitter.emit(
+          constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+          this.props.place._datasetSlug,
         );
+
+        this.props.updateEditModeToggled(false);
+        this.props.onRequestEnd();
+
+        scrollTo(this.props.container, 0, 100);
+      } else {
+        alert("Oh dear. It looks like that didn't save. Please try again.");
+        Util.log("USER", "place", "fail-to-update-place");
+        this.props.onRequestEnd();
       }
+    } else {
+      this.setState({
+        formValidationErrors: newValidationErrors,
+        showValidityStatus: true,
+      });
+      scrollTo(this.props.container, 0, 300);
+    }
+  }
+
+  async removePlace() {
+    const response = await mapseedApiClient.place.update({
+      placeUrl: this.props.place.url,
+      placeData: {
+        ...this.props.place,
+        visible: false,
+      },
+      datasetSlug: this.props.place._datasetSlug,
+      clientSlug: this.props.place._clientSlug,
     });
+
+    this.setState({
+      isNetworkRequestInFlight: false,
+    });
+
+    if (response) {
+      this.props.router.navigate("/", { trigger: true });
+      this.props.removePlace(this.props.place.id);
+      emitter.emit(
+        constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
+        this.props.place._datasetSlug,
+      );
+
+      Util.log("USER", "place", "successfully-remove-place");
+      this.props.updateEditModeToggled(false);
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place", "fail-to-remove-place");
+      this.props.onRequestEnd();
+    }
   }
 
-  componentWillUnmount() {
-    emitter.removeAllListeners(constants.PLACE_MODEL_UPDATE_EVENT);
-    emitter.removeAllListeners(constants.PLACE_MODEL_REMOVE_EVENT);
-  }
-
-  onPlaceModelSaveSuccess(model) {
-    emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
-    emitter.emit(
-      constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-      this.props.collectionId,
+  onClickRemoveAttachment = async attachmentId => {
+    const response = mapseedApiClient.attachments.delete(
+      this.props.place.url,
+      attachmentId,
     );
-    this.props.onModelIO(constants.PLACE_MODEL_IO_END_SUCCESS_ACTION, model);
-  }
 
-  onPlaceModelSaveError() {
-    this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
-    Util.log("USER", "place-editor", "fail-to-edit-place");
-  }
+    if (response) {
+      this.props.removePlaceAttachment(this.props.place.id, attachmentId);
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place", "fail-to-remove-attachment");
+    }
+  };
 
-  onPlaceModelRemoveSuccess(model) {
-    model.collection.remove(model.id);
-    emitter.emit(
-      constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
-      this.props.collectionId,
-    );
-    this.props.router.navigate("/", { trigger: true });
-  }
+  onAddAttachment = attachment => {
+    this.attachments.push(attachment);
+  };
 
-  onPlaceModelRemoveError() {
-    this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
-    Util.log("USER", "place-editor", "fail-to-remove-place");
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.placeRequestType !== this.props.placeRequestType &&
+      this.props.placeRequestType !== null
+    ) {
+      // A network request has been initiated from the EditorBar.
+      this.setState({
+        isNetworkRequestInFlight: true,
+      });
+      switch (this.props.placeRequestType) {
+        case "update":
+          this.updatePlace();
+          break;
+        case "remove":
+          this.removePlace();
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   triggerFieldVisibility(targets, isVisible) {
@@ -225,24 +301,15 @@ class PlaceDetailEditor extends Component {
           errors={Array.from(this.state.formValidationErrors)}
           headerMsg={this.props.t("validationErrorHeaderMsg")}
         />
-        {this.props.attachmentModels
-          .filter(
-            attachment =>
-              attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-              constants.COVER_IMAGE_CODE,
-          )
-          .map((attachmentModel, i) => (
+        {this.props.place.attachments
+          .filter(attachment => attachment.type === "CO")
+          .map((attachment, i) => (
             <CoverImage
               key={i}
-              isShowingDeleteButton={true}
-              imageUrl={attachmentModel.get(
-                constants.ATTACHMENT_FILE_PROPERTY_NAME,
-              )}
-              onClickRemove={() =>
-                this.props.onAttachmentModelRemove(
-                  attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME),
-                )
-              }
+              isEditable={true}
+              imageUrl={attachment.file}
+              attachmentId={attachment.id}
+              onClickRemove={this.onClickRemoveAttachment}
             />
           ))}
         <form className="place-detail-editor__form">
@@ -262,35 +329,30 @@ class PlaceDetailEditor extends Component {
               );
 
               return (
-                <FormField
-                  existingGeometry={this.props.placeModel.get(
-                    constants.GEOMETRY_PROPERTY_NAME,
-                  )}
-                  existingGeometryStyle={this.props.placeModel.get(
-                    constants.GEOMETRY_STYLE_PROPERTY_NAME,
-                  )}
-                  existingModelId={this.props.placeModel.get(
-                    constants.MODEL_ID_PROPERTY_NAME,
-                  )}
-                  existingCollectionId={this.props.collectionId}
-                  fieldConfig={fieldConfig}
-                  attachmentModels={this.props.attachmentModels}
-                  categoryConfig={this.categoryConfig}
-                  disabled={this.state.isSubmitting}
-                  fieldState={fieldState}
-                  onAddAttachment={this.props.onAddAttachment}
-                  isInitializing={this.state.isInitializing}
-                  key={fieldName}
-                  onFieldChange={this.onFieldChange.bind(this)}
-                  places={this.props.places}
-                  router={this.props.router}
-                  showValidityStatus={this.state.showValidityStatus}
-                  updatingField={this.state.updatingField}
-                />
+                fieldConfig.isVisible && (
+                  <FormField
+                    existingGeometry={this.props.place.geometry}
+                    existingGeometryStyle={this.props.place.style}
+                    existingPlaceId={this.props.place.id}
+                    datasetSlug={this.props.place._datasetSlug}
+                    fieldConfig={fieldConfig}
+                    attachments={this.props.place.attachments}
+                    categoryConfig={this.categoryConfig}
+                    disabled={this.state.isSubmitting}
+                    fieldState={fieldState}
+                    onAddAttachment={this.onAddAttachment}
+                    isInitializing={this.state.isInitializing}
+                    key={fieldName}
+                    onFieldChange={this.onFieldChange.bind(this)}
+                    router={this.props.router}
+                    showValidityStatus={this.state.showValidityStatus}
+                    updatingField={this.state.updatingField}
+                  />
+                )
               );
             })
             .toArray()}
-          {this.props.isSubmitting && <Spinner />}
+          {this.state.isNetworkRequestInFlight && <Spinner />}
         </form>
       </div>
     );
@@ -299,20 +361,21 @@ class PlaceDetailEditor extends Component {
 
 PlaceDetailEditor.propTypes = {
   activeMarker: PropTypes.string,
-  attachmentModels: PropTypes.object,
-  collectionId: PropTypes.string.isRequired,
+  attachments: PropTypes.array,
   container: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool,
   onAddAttachment: PropTypes.func,
-  onAttachmentModelRemove: PropTypes.func.isRequired,
-  onModelIO: PropTypes.func.isRequired,
-  onPlaceModelSave: PropTypes.func.isRequired,
+  onRequestEnd: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  placeModel: PropTypes.object.isRequired,
-  places: PropTypes.object,
+  place: placePropType.isRequired,
+  placeRequestType: PropTypes.string,
+  removePlace: PropTypes.func.isRequired,
+  removePlaceAttachment: PropTypes.func.isRequired,
   router: PropTypes.object,
   t: PropTypes.func.isRequired,
+  updateEditModeToggled: PropTypes.func.isRequired,
+  updatePlace: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -321,6 +384,16 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(
-  translate("PlaceDetailEditor")(PlaceDetailEditor),
-);
+const mapDispatchToProps = dispatch => ({
+  updateEditModeToggled: isToggled =>
+    dispatch(updateEditModeToggled(isToggled)),
+  updatePlace: place => dispatch(updatePlace(place)),
+  removePlace: placeId => dispatch(removePlace(placeId)),
+  removePlaceAttachment: (placeId, attachmentId) =>
+    dispatch(removePlaceAttachment(placeId, attachmentId)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate("PlaceDetailEditor")(PlaceDetailEditor));

@@ -17,6 +17,10 @@ const isProd = process.env.NODE_ENV === "production";
 
 const outputPath = path.resolve(__dirname, "www");
 
+const gitSha = require("child_process")
+  .execSync("git rev-parse HEAD")
+  .toString();
+
 var entryPoints = [
   "babel-polyfill",
   "whatwg-fetch",
@@ -109,6 +113,7 @@ module.exports = {
         ? JSON.stringify("production")
         : JSON.stringify("dev"),
       MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
+      GIT_SHA: JSON.stringify(gitSha),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,

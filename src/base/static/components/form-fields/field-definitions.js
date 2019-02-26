@@ -35,7 +35,7 @@ import {
   NumberFieldResponse,
   GeolocateField,
 } from "./types";
-import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
+import { isWithAnyValue, isNotEmpty } from "./validators";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
@@ -86,7 +86,11 @@ export default {
   [constants.NUMBER_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
     getComponent: (fieldConfig, context) => (
-      <NumberField {...getSharedFieldProps(fieldConfig, context)} />
+      <NumberField
+        {...getSharedFieldProps(fieldConfig, context)}
+        min={fieldConfig.min}
+        max={fieldConfig.max}
+      />
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => NumberFieldResponse,
@@ -109,8 +113,8 @@ export default {
         bounds="#content"
       />
     ),
-    getInitialValue: ({ value, attachmentModels }) =>
-      insertEmbeddedImages(value, attachmentModels),
+    getInitialValue: ({ value, attachments }) =>
+      insertEmbeddedImages(value, attachments),
     getResponseComponent: () => RichTextareaFieldResponse,
   },
   [constants.BIG_CHECKBOX_FIELD_TYPENAME]: {
@@ -202,8 +206,8 @@ export default {
         markers={fieldConfig.content.map(item => item.marker)}
         existingGeometry={context.props.existingGeometry}
         existingGeometryStyle={context.props.existingGeometryStyle}
-        existingCollectionId={context.props.existingCollectionId}
-        existingModelId={context.props.existingModelId}
+        existingPlaceId={context.props.existingPlaceId}
+        datasetSlug={context.props.datasetSlug}
       />
     ),
     getInitialValue: ({ value }) => value,

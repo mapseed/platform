@@ -23,4 +23,54 @@ const createGeoJSONFromPlaces = places => {
   };
 };
 
-export { createGeoJSONFromPlaces };
+const fromGeoJSONFeature = ({ feature, datasetSlug, clientSlug }) => ({
+  geometry: feature.geometry,
+  _datasetSlug: datasetSlug,
+  _clientSlug: clientSlug,
+  ...feature.properties,
+});
+
+// Turn GeoJSON FeatureCollections into plain objects of Place data.
+const fromGeoJSONFeatureCollection = ({
+  featureCollection,
+  datasetSlug,
+  clientSlug,
+}) =>
+  featureCollection.features.map(feature => ({
+    geometry: feature.geometry,
+    // Add a private field for the slug each Place belongs to, so we can
+    // filter by dataset when we need to.
+    _datasetSlug: datasetSlug,
+    _clientSlug: clientSlug,
+    ...feature.properties,
+  }));
+
+const toGeoJSONFeature = placeData => {
+  // We intentionally strip out some keys from the placeData object which
+  // should not be sent in the request payload.
+  /* eslint-disable no-unused-vars */
+  const {
+    geometry,
+    submitter,
+    tags,
+    submission_sets,
+    attachments,
+    _datasetSlug,
+    _clientSlug,
+    ...rest
+  } = placeData;
+  /* eslint-enable no-unused-vars */
+
+  return {
+    type: "Feature",
+    geometry,
+    properties: rest,
+  };
+};
+
+export {
+  createGeoJSONFromPlaces,
+  fromGeoJSONFeature,
+  fromGeoJSONFeatureCollection,
+  toGeoJSONFeature,
+};

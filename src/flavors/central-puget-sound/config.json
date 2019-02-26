@@ -1,4 +1,39 @@
 {
+  "datasets": [
+    {
+      "slug": "mw",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "mwfeatured",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured",
+      "clientSlug": "featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
+    },
+    {
+      "slug": "mw-featured-projects",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw-featured-projects",
+      "clientSlug": "project",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "My Watershed - Central Puget Sound",
     "name": "My Watershed",
@@ -168,7 +203,7 @@
       {
         "id": "mw",
         "is_visible_default": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw",
+        "datasetSlug": "mw",
         "type": "place",
         "slug": "report",
         "focus_rules": [
@@ -191,11 +226,44 @@
         ]
       },
       {
+        "id": "mw-featured-projects",
+        "datasetSlug": "mw-featured-projects",
+        "type": "place",
+        "is_visible_default": true,
+        "feature_types": ["Point"],
+        "focus_rules": [
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "featured_project"]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-dot-commute-low-carbon.png",
+              "icon-size": 0.5,
+              "icon-anchor": "center"
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "featured_project"]
+            ],
+            "symbol-layout": {
+              "icon-image": "marker-dot-commute-low-carbon.png",
+              "icon-size": 0.15,
+              "icon-anchor": "center"
+            }
+          }
+        ]
+      },
+      {
         "id": "mwfeatured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured",
+        "datasetSlug": "mwfeatured",
+        "is_visible_default": true,
         "type": "place",
         "feature_types": ["Point"],
-        "slug": "featured",
         "focus_rules": [
           {
             "filter": [
@@ -204,17 +272,6 @@
             ],
             "symbol-layout": {
               "icon-image": "marker-dot-conserve-water.png",
-              "icon-size": 0.5,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "featured_school"]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-dot-commute-low-carbon.png",
               "icon-size": 0.5,
               "icon-anchor": "center"
             }
@@ -228,17 +285,6 @@
             ],
             "symbol-layout": {
               "icon-image": "marker-dot-conserve-water.png",
-              "icon-size": 0.15,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "featured_school"]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-dot-commute-low-carbon.png",
               "icon-size": 0.15,
               "icon-anchor": "center"
             }
@@ -405,6 +451,10 @@
                   "title": "_(Featured Sites)",
                   "body": "_(This is an example of an info window. Layer info will be added soon.)"
                 }
+              },
+              {
+                "id": "mw-featured-projects",
+                "title": "_(Featured Projects)"
               },
               {
                 "id": "mw",
@@ -633,67 +683,162 @@
     "default_basemap": "satellite",
     "place_detail": [
       {
-        "formId": "featured_school",
-        "category": "featured_school",
-        "admin_only": true,
+        "formId": "featured_project",
+        "category": "featured_project",
         "includeOnForm": true,
         "includeOnList": true,
-        "showMetadata": false,
-        "suppressAttachments": true,
-        "horizontal_rule": true,
+        "datasetSlug": "mw-featured-projects",
         "name": "location_type",
-        "dataset": "mwfeatured",
         "icon_url": "/static/css/images/markers/marker-dot-commute-low-carbon.png",
-        "value": "featured_school",
-        "label": "_(Featured School)",
+        "value": "featured_project",
+        "label": "_(Featured Project)",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(School name:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter school name...)",
+            "includeOnListItem": true,
+            "prompt": "_(Project Name (It helps to incorporate your school name along with a descriptive title of your impact project. If you had multiple projects generated by individuals or teams of students you might name the collection “Student Impact Projects from Grade 9 Biology, Greenworld High School.”))",
             "optional": false
           },
           {
-            "name": "embedded-chart",
-            "type": "rich_textarea",
-            "prompt": "_(Embedded actions chart:)",
+            "name": "cover-image",
+            "type": "file",
+            "prompt": "_(Cover Image)",
+            "label": "_(Add a cover image)",
             "optional": true
           },
           {
-            "name": "school-year",
+            "name": "school-name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "grade-level",
             "type": "dropdown",
-            "prompt": "_(School year reporting period:)",
-            "display_prompt": "_(School year reporting period)",
+            "prompt": "_(Grade level)",
+            "display_prompt": "_(Grade level:)",
             "content": [
               {
-                "label": "_(2018/2019)",
-                "value": "2018-2019"
+                "label": "_(4)",
+                "value": "4"
+              },
+              {
+                "label": "_(5)",
+                "value": "5"
+              },
+              {
+                "label": "_(6)",
+                "value": "6"
+              },
+              {
+                "label": "_(7)",
+                "value": "7"
+              },
+              {
+                "label": "_(8)",
+                "value": "8"
+              },
+              {
+                "label": "_(9)",
+                "value": "9"
+              },
+              {
+                "label": "_(10)",
+                "value": "10"
+              },
+              {
+                "label": "_(11)",
+                "value": "11"
+              },
+              {
+                "label": "_(12)",
+                "value": "12"
+              },
+              {
+                "label": "_(College)",
+                "value": "college"
               }
-            ],
-            "optional": false
+            ]
           },
           {
-            "name": "conserve-water-actions",
+            "name": "subject",
+            "type": "dropdown",
+            "prompt": "_(Academic subject)",
+            "display_prompt": "_(Academic subject:)",
+            "content": [
+              {
+                "label": "_(Arts)",
+                "value": "arts"
+              },
+              {
+                "label": "_(CTE - Career and Technical Education)",
+                "value": "cte"
+              },
+              {
+                "label": "_(Health)",
+                "value": "health"
+              },
+              {
+                "label": "_(Language Arts)",
+                "value": "language-arts"
+              },
+              {
+                "label": "_(Math)",
+                "value": "math"
+              },
+              {
+                "label": "_(Science)",
+                "value": "science"
+              },
+              {
+                "label": "_(Social Studies)",
+                "value": "social-studies"
+              },
+              {
+                "label": "_(STEM)",
+                "value": "stem"
+              }
+            ]
+          },
+          {
+            "name": "leaders",
             "type": "text",
-            "includeOnListItem": true,
-            "autocomplete": false,
-            "prompt": "_(Number of water conservation actions:)",
-            "display_prompt": "_(Number of water conservation actions)",
-            "placeholder": "_(Enter number of actions...)",
-            "optional": true
+            "placeholder": "_(Teacher’s name, team of colleagues, or student names)",
+            "prompt": "_(Project leaders)",
+            "display_prompt": "_(Project leaders:)"
           },
           {
-            "name": "classroom-learning",
+            "name": "num-students",
+            "type": "number",
+            "prompt": "_(Number of students directly involved)",
+            "display_prompt": "_(Number of students directly involved:)"
+          },
+          {
+            "name": "goal",
             "type": "textarea",
-            "includeOnListItem": true,
-            "prompt": "_(Description of classroom learning:)",
-            "display_prompt": "_(Description of classroom learning:)"
+            "prompt": "_(Goal)",
+            "display_prompt": "_(Goal:)",
+            "placeholder": "_(One clear sentence. Best to identify the intended impact in the goal statement.)"
           },
           {
-            "name": "my_image",
-            "type": "common_form_element"
+            "name": "background",
+            "type": "textarea",
+            "prompt": "_(Background)",
+            "display_prompt": "_(Background:)",
+            "placeholder": "_(One concise paragraph on why this issue is a problem or a community priority. What's been done? What’s needed?)"
+          },
+          {
+            "name": "partners-stakeholders",
+            "type": "textarea",
+            "prompt": "_(Partners / Stakeholders)",
+            "placeholder": "_(Who are the stakeholders and what is their relationship to this problem/solution?)",
+            "display_prompt": "_(Partners / Stakeholders:)"
+          },
+          {
+            "name": "action",
+            "type": "rich_textarea",
+            "prompt": "_(Actions Taken, Photos, and Next Steps)",
+            "placeholder": "_(Concise outline of steps taken that show how the solution was designed, how data were collected, and how stakeholders were identified, consulted, or informed. Insert photos to help tell your story. If possible, be sure to describe the actual impact of your project in relation to community sustainability goals and performance measures. Consider embedding links to community goals or metrics. What are your next steps or recommendations for future classes?)",
+            "display_prompt": "_(Actions Taken, Photos, and Next Steps:)"
           },
           {
             "name": "submit",
@@ -711,7 +856,7 @@
         "suppressAttachments": true,
         "horizontal_rule": true,
         "name": "location_type",
-        "dataset": "mwfeatured",
+        "datasetSlug": "mwfeatured",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
         "label": "_(Featured Site)",
@@ -863,7 +1008,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
         "label": "_(Conserve Water)",
@@ -977,7 +1122,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
         "label": "_(Prevent Stormwater Pollution)",
@@ -1090,7 +1235,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-only-flush-this.png",
         "value": "only-flush",
         "label": "_(Think - Toilet, Shower, Sink)",
@@ -1195,7 +1340,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-energy.png",
         "value": "conserve-energy",
         "label": "_(Conserve Energy)",
@@ -1293,7 +1438,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
         "label": "_(Waste Less)",
@@ -1387,7 +1532,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
         "label": "_(Commute Low Carbon)",
@@ -1473,7 +1618,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
         "label": "_(Eat Local Organic)",
@@ -1551,7 +1696,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "mw",
+        "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
         "label": "_(Restore Salmon Habitat)",
@@ -1645,8 +1790,9 @@
         "placeholder": "_(Type or select a school name...)",
         "type": "dropdown_autocomplete",
         "includeOnListItem": true,
-        "label": "_(Your school:)",
-        "prompt": "_(Your school:)",
+        "label": "_(School:)",
+        "prompt": "_(School:)",
+        "display_prompt": "_(School:)",
         "content": [
           {
             "label": "_(Alcott Elementary School)",
@@ -3570,12 +3716,6 @@
     },
     "places": [
       {
-        "id": "featured_school",
-        "datasetId": "mwfeatured",
-        "label": "_(Featured School)",
-        "icon": "/static/css/images/markers/marker-dot-commute-low-carbon.png"
-      },
-      {
         "id": "featured_place",
         "datasetId": "mwfeatured",
         "label": "_(Featured Site)",
@@ -3645,9 +3785,9 @@
       "url": "/featured/3737"
     },
     {
-      "title": "_(Classroom)",
+      "title": "_(Classroom Project)",
       "type": "internal_link",
-      "url": "/page/classroom"
+      "url": "/page/about"
     }
   ],
   "pages": [
@@ -3729,43 +3869,11 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<h1>Welcome</h1>",
-        "<p>We are here to educate and inspire action for our Central Puget Sound watersheds</p>",
-        "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/3333' rel='internal'>",
-        "<img src='/static/css/images/watershed-cedar-sq.jpg'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Cedar River / Lake Washington Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<figure class='flow-layout flow-vert flow-vert-right'>",
-        "<a href='/featured/3334' rel='internal'>",
-        "<img src='/static/css/images/watershed-green-duwamish-vert-b.jpg'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Green / Duwamish Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/3332' rel='internal'>",
-        "<img src='/static/css/images/watershed-sammamish-alt-sq.jpg'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Lake Sammamish Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<div class='clearfix'></div>",
-        "<figure class='flow-layout'>",
-        "<a href='/featured/3335' rel='internal'>",
-        "<img src='/static/css/images/watershed-puyallup-alt-horiz.png'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Puyallup / White Watershed</h3>",
-        "</figcaption>",
-        "</a>",
-        "</figure>",
-        "<br />",
-        "<p>This project made possible by our generous <a href='/page/sponsors' rel='internal'>sponsors</a>."
+        "<h3 style='font-family:Palanquin, sans-serif'>Classroom Impact Reporting Protocol</h3>",
+        "<img style='margin-top:16px;margin-bottom:16px' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
+        "<p>Add your classroom reports to the map! Let your students and stakeholders track and visualize the positive impact of their classroom and community projects. Need admin support to get started? <a href='mailto:hello@mapseed.org' target='_blank'>Just ask.</a></p>",
+        "<p>Click the button below, then choose the <strong>Featured Project</strong> cateory to add your report.</p>",
+        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-large'>REPORT IT!</a>"
       ]
     }
   ],
@@ -3775,64 +3883,64 @@
       "default_visible_layers": ["mwfeatured"],
       "order": [
         {
-          "url": "featured/3737",
+          "placeId": 3737,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3363",
+          "placeId": 3363,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3360",
+          "placeId": 3360,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3362",
+          "placeId": 3362,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3328",
+          "placeId": 3328,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3329",
+          "placeId": 3329,
           "zoom": 18,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3330",
+          "placeId": 3330,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3331",
+          "placeId": 3331,
           "zoom": 14,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3747",
+          "placeId": 3747,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3748",
+          "placeId": 3748,
           "zoom": 18,
           "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3332",
+          "placeId": 3332,
           "zoom": 8,
           "pan_to": {
             "lat": 47.631653886906804,
@@ -3844,7 +3952,7 @@
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3333",
+          "placeId": 3333,
           "zoom": 8,
           "pan_to": {
             "lat": 47.64123180739975,
@@ -3856,7 +3964,7 @@
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3334",
+          "placeId": 3334,
           "zoom": 8,
           "pan_to": {
             "lat": 47.32023597632835,
@@ -3868,7 +3976,7 @@
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
-          "url": "featured/3335",
+          "placeId": 3335,
           "zoom": 8,
           "pan_to": {
             "lat": 47.08293753263453,

@@ -9,11 +9,11 @@ exports[`InputForm renders input form 1`] = `
     id="mapseed-input-form"
     onSubmit={[Function]}
   >
-    <FormField
-      attachmentModels={Immutable.List []}
+    <Connect(FormField)
       disabled={false}
       fieldConfig={
         Object {
+          "isVisible": true,
           "name": "test1",
           "type": "text",
         }
@@ -33,21 +33,19 @@ exports[`InputForm renders input form 1`] = `
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      places={Object {}}
       router={
         Object {
           "on": [Function],
         }
       }
       showValidityStatus={false}
-      t={[Function]}
       updatingField={null}
     />
-    <FormField
-      attachmentModels={Immutable.List []}
+    <Connect(FormField)
       disabled={false}
       fieldConfig={
         Object {
+          "isVisible": true,
           "name": "test2",
           "type": "text",
         }
@@ -67,21 +65,19 @@ exports[`InputForm renders input form 1`] = `
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      places={Object {}}
       router={
         Object {
           "on": [Function],
         }
       }
       showValidityStatus={false}
-      t={[Function]}
       updatingField={null}
     />
-    <FormField
-      attachmentModels={Immutable.List []}
+    <Connect(FormField)
       disabled={false}
       fieldConfig={
         Object {
+          "isVisible": true,
           "name": "test3",
           "type": "text",
         }
@@ -101,14 +97,12 @@ exports[`InputForm renders input form 1`] = `
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      places={Object {}}
       router={
         Object {
           "on": [Function],
         }
       }
       showValidityStatus={false}
-      t={[Function]}
       updatingField={null}
     />
   </form>

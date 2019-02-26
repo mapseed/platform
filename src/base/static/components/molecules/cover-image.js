@@ -9,11 +9,15 @@ import "./cover-image.scss";
 const CoverImage = props => {
   return (
     <div className="cover-image">
-      {props.isShowingDeleteButton && (
+      {props.isEditable && (
         <EditorButton
           className="cover-image__delete-button"
           type="remove"
-          onClick={props.onClickRemove}
+          onClick={() => {
+            if (confirm(props.t("confirmAttachmentRemove"))) {
+              props.onClickRemove(props.attachmentId);
+            }
+          }}
         />
       )}
       <img
@@ -26,12 +30,13 @@ const CoverImage = props => {
 };
 
 CoverImage.defaultProps = {
-  isShowingDeleteButton: false,
+  isEditable: false,
 };
 
 CoverImage.propTypes = {
+  attachmentId: PropTypes.number,
   imageUrl: PropTypes.string.isRequired,
-  isShowingDeleteButton: PropTypes.bool.isRequired,
+  isEditable: PropTypes.bool.isRequired,
   onClickRemove: PropTypes.func,
   t: PropTypes.func.isRequired,
 };

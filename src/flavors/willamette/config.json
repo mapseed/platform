@@ -1,7 +1,21 @@
 {
+  "datasets": [
+    {
+      "slug": "willamette",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/willamette",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Hey Willamette!",
     "name": "Hey Willamette!",
+    "logo": "/static/css/images/site-title_hey-willamette.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
     "meta_author": "smartercleanup.org",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/"
@@ -219,9 +233,8 @@
       },
       {
         "id": "willamette",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/willamette",
         "type": "place",
-        "slug": "report",
+        "datasetSlug": "willamette",
         "is_visible_default": true,
         "feature_types": ["Point"],
         "focus_rules": [
@@ -414,7 +427,7 @@
         "category": "observation",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "datasetSlug": "willamette",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observation)",
@@ -457,7 +470,7 @@
         "category": "question",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "datasetSlug": "willamette",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "_(Question)",
@@ -499,7 +512,7 @@
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "datasetSlug": "willamette",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -542,7 +555,7 @@
         "category": "complaint",
         "includeOnForm": true,
         "name": "location_type",
-        "dataset": "willamette",
+        "datasetSlug": "willamette",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "_(Complaint)",

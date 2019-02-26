@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { List } from "immutable";
 
 import fieldDefinitions from "./field-definitions";
 
@@ -12,9 +11,7 @@ import "./response-field.scss";
 const getCheckboxLabels = (fieldValue, fieldConfig) => {
   if (!fieldConfig.content) return null;
 
-  if (List.isList(fieldValue)) {
-    fieldValue = fieldValue.toArray();
-  } else {
+  if (!Array.isArray(fieldValue)) {
     fieldValue = [fieldValue];
   }
 
@@ -45,7 +42,7 @@ const ResponseField = props => {
         <FieldResponseComponent
           label={getLabel(props.fieldValue, props.fieldConfig)}
           value={props.fieldValue}
-          attachmentModels={props.attachmentModels}
+          attachments={props.attachments}
           labels={getCheckboxLabels(props.fieldValue, props.fieldConfig)}
           fieldConfig={props.fieldConfig}
         />
@@ -62,7 +59,7 @@ ResponseField.propTypes = {
     PropTypes.object,
     PropTypes.number,
   ]).isRequired,
-  attachmentModels: PropTypes.object,
+  attachments: PropTypes.array,
 };
 
 export default ResponseField;

@@ -23,6 +23,7 @@ import {
 } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
+import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
 import {
   activeMarkerSelector,
   geometryStyleSelector,
@@ -37,6 +38,8 @@ import {
 } from "../../state/ducks/map";
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
+
+import mapseedApiClient from "../../client/mapseed-api-client";
 
 // TEMPORARY: We define flavor hooks here for the time being.
 const MYWATER_SCHOOL_DISTRICTS = require("../../../../flavors/central-puget-sound/static/school-districts.json");
@@ -117,27 +120,31 @@ class InputForm extends Component {
   }
 
   getNewFields(prevFields) {
-    return this.selectedCategoryConfig.fields.reduce((memo, field) => {
-      return memo.set(
-        field.name,
-        Map({
-          [constants.FIELD_VALUE_KEY]: "",
-          [constants.FIELD_TRIGGER_VALUE_KEY]:
-            field.trigger && field.trigger.trigger_value,
-          [constants.FIELD_TRIGGER_TARGETS_KEY]:
-            field.trigger && fromJS(field.trigger.targets),
-          [constants.FIELD_VISIBILITY_KEY]: field.hidden_default ? false : true,
-          [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-            ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
-            : this.selectedCategoryConfig.category + field.name,
-          [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
-            constants.FIELD_AUTO_FOCUS_KEY,
-          ),
-          [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
-            field.advance_stage_on_value,
-        }),
-      );
-    }, OrderedMap());
+    return this.selectedCategoryConfig.fields
+      .filter(field => field.isVisible)
+      .reduce((memo, field) => {
+        return memo.set(
+          field.name,
+          Map({
+            [constants.FIELD_VALUE_KEY]: "",
+            [constants.FIELD_TRIGGER_VALUE_KEY]:
+              field.trigger && field.trigger.trigger_value,
+            [constants.FIELD_TRIGGER_TARGETS_KEY]:
+              field.trigger && fromJS(field.trigger.targets),
+            [constants.FIELD_VISIBILITY_KEY]: field.hidden_default
+              ? false
+              : true,
+            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
+              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+              : this.selectedCategoryConfig.category + field.name,
+            [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
+              constants.FIELD_AUTO_FOCUS_KEY,
+            ),
+            [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
+              field.advance_stage_on_value,
+          }),
+        );
+      }, OrderedMap());
   }
 
   initializeForm(selectedCategory) {
@@ -150,6 +157,12 @@ class InputForm extends Component {
         field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
       ) >= 0;
     this.attachments = [];
+    if (this.isWithCustomGeometry) {
+      this.props.hideSpotlightMask();
+      this.props.hideNewPin();
+    } else {
+      this.props.showNewPin();
+    }
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -245,39 +258,31 @@ class InputForm extends Component {
   onSubmit() {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
-    this.validateForm(this.saveModel.bind(this));
+    this.validateForm(this.createPlace);
   }
 
-  saveModel() {
-    // TODO: this state should disable individual fields as well (?), not just
-    //       the submit button.
+  createPlace = async () => {
     this.setState({
       isFormSubmitting: true,
     });
-    const collection = this.props.places[this.selectedCategoryConfig.dataset];
-    collection.add(
-      {
-        location_type: this.selectedCategoryConfig.category,
-        datasetSlug: this.props.mapConfig.layers.find(
-          layer => this.selectedCategoryConfig.dataset === layer.id,
-        ).slug,
-        datasetId: this.selectedCategoryConfig.dataset,
-        showMetadata: this.selectedCategoryConfig.showMetadata,
-      },
-      { wait: true },
-    );
-    const model = collection.at(collection.length - 1);
-    let attrs = this.state.fields
-      .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
-      .map(state => state.get(constants.FIELD_VALUE_KEY))
-      .toJS();
 
-    if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-      attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
-        this.state.fields
-          .get(constants.GEOMETRY_PROPERTY_NAME)
-          .get(constants.FIELD_VALUE_KEY).type === "Point"
-          ? { [constants.MARKER_ICON_PROPERTY_NAME]: this.props.activeMarker }
+    let attrs = {
+      ...this.state.fields
+        .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
+        .map(state => state.get(constants.FIELD_VALUE_KEY))
+        .toJS(),
+      location_type: this.selectedCategoryConfig.category,
+    };
+
+    // A form field with name "private" should use the value "yes" to indicate
+    // that a place should be private.
+    // TODO: Make a special form field to encapsulate this.
+    attrs.private = attrs.private === "yes" ? true : false;
+
+    if (this.state.fields.get("geometry")) {
+      attrs["style"] =
+        this.state.fields.getIn(["geometry", "value"]).type === "Point"
+          ? { "marker-symbol": this.props.activeMarker }
           : this.props.geometryStyle;
     } else {
       const center = this.props.mapPosition.center;
@@ -297,10 +302,6 @@ class InputForm extends Component {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
 
-    this.attachments.forEach(attachment => {
-      model.attachmentCollection.add(attachment);
-    });
-
     // Fire pre-save hook.
     // The pre-save hook allows flavors to attach arbitrary data to the attrs
     // object before submission to the database.
@@ -308,55 +309,95 @@ class InputForm extends Component {
       attrs = hooks[this.props.customHooks.preSave](attrs);
     }
 
-    model.save(attrs, {
-      success: response => {
-        Util.log("USER", "new-place", "successfully-add-place");
-
-        emitter.emit(
-          constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-          this.selectedCategoryConfig.dataset,
-        );
-        this.props.createPlace(response.toJSON());
-
-        // Save autofill values as necessary.
-        // TODO: This logic is better suited for the FormField component,
-        // perhaps in an onSave hook.
-        this.selectedCategoryConfig.fields.forEach(fieldConfig => {
-          if (fieldConfig.autocomplete) {
-            Util.saveAutocompleteValue(
-              fieldConfig.name,
-              this.state.fields
-                .get(fieldConfig.name)
-                .get(constants.FIELD_VALUE_KEY),
-              constants.AUTOFILL_DURATION_DAYS,
-            );
-          }
-        });
-
-        this.setState({ isFormSubmitting: false, showValidityStatus: false });
-
-        // Fire post-save hook.
-        // The post-save hook allows flavors to hijack the default
-        // route-to-detail-view behavior.
-        if (this.props.customHooks && this.props.customHooks.postSave) {
-          this.props.customHooks.postSave(
-            response,
-            model,
-            this.defaultPostSave.bind(this),
-          );
-        } else {
-          this.defaultPostSave(model);
-        }
-      },
-      error: () => {
-        Util.log("USER", "new-place", "fail-to-add-place");
-      },
-      wait: true,
+    const placeResponse = await mapseedApiClient.place.create({
+      datasetUrl: this.props.datasetUrl,
+      placeData: attrs,
+      datasetSlug: this.props.datasetSlug,
+      clientSlug: this.props.datasetClientSlugSelector(this.props.datasetSlug),
     });
-  }
 
-  defaultPostSave(model) {
-    this.props.router.navigate(Util.getUrl(model), { trigger: true });
+    if (placeResponse) {
+      Util.log("USER", "new-place", "successfully-add-place");
+
+      // Save attachments.
+      if (this.attachments.length) {
+        await Promise.all(
+          this.attachments.map(async attachment => {
+            const attachmentResponse = await mapseedApiClient.attachments.create(
+              placeResponse.url,
+              attachment,
+            );
+
+            if (attachmentResponse) {
+              placeResponse.attachments.push(attachmentResponse);
+              Util.log("USER", "dataset", "successfully-add-attachment");
+            } else {
+              alert("Oh dear. It looks like an attachment didn't save.");
+              Util.log("USER", "place", "fail-to-add-attachment");
+            }
+          }),
+        );
+      }
+
+      // Only add this place to the places duck if it isn't private.
+      !placeResponse.private && this.props.createPlace(placeResponse);
+
+      this.setState({ isFormSubmitting: false, showValidityStatus: false });
+
+      emitter.emit(
+        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+        this.selectedCategoryConfig.datasetSlug,
+      );
+
+      // Save autofill values as necessary.
+      // TODO: This logic is better suited for the FormField component,
+      // perhaps in an onSave hook.
+      this.selectedCategoryConfig.fields.forEach(fieldConfig => {
+        if (fieldConfig.autocomplete) {
+          Util.saveAutocompleteValue(
+            fieldConfig.name,
+            this.state.fields
+              .get(fieldConfig.name)
+              .get(constants.FIELD_VALUE_KEY),
+            constants.AUTOFILL_DURATION_DAYS,
+          );
+        }
+      });
+
+      // Fire post-save hook.
+      // The post-save hook allows flavors to hijack the default
+      // route-to-detail-view behavior.
+      if (this.props.customHooks && this.props.customHooks.postSave) {
+        this.props.customHooks.postSave(
+          placeResponse,
+          this.defaultPostSave.bind(this),
+        );
+      } else {
+        this.defaultPostSave(placeResponse);
+      }
+    } else {
+      alert("Oh dear. It looks like that didn't save. Please try again.");
+      Util.log("USER", "place", "fail-to-create-place");
+    }
+  };
+
+  defaultPostSave(place) {
+    if (place.private) {
+      this.props.router.navigate("/", { trigger: true });
+      emitter.emit("info-modal:open", {
+        header: this.props.t("privateSubmissionModalHeader"),
+        body: [this.props.t("privateSubmissionModalBody")],
+      });
+    } else {
+      this.props.router.navigate(
+        `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+          place.id
+        }`,
+        {
+          trigger: true,
+        },
+      );
+    }
   }
 
   getStageStartField() {
@@ -392,13 +433,6 @@ class InputForm extends Component {
   }
 
   render() {
-    if (this.isWithCustomGeometry) {
-      this.props.hideSpotlightMask();
-      this.props.hideNewPin();
-    } else if (!this.props.selectedCategory) {
-      this.props.showNewPin();
-    }
-
     const cn = {
       form: classNames("input-form__form", this.props.className, {
         "input-form__form--inactive": this.state.isFormSubmitting,
@@ -437,23 +471,25 @@ class InputForm extends Component {
         >
           {this.getFields()
             .map((fieldState, fieldName) => {
+              const fieldConfig = this.selectedCategoryConfig.fields.find(
+                field => field.name === fieldName,
+              );
               return (
-                <FormField
-                  fieldConfig={this.selectedCategoryConfig.fields.find(
-                    field => field.name === fieldName,
-                  )}
-                  disabled={this.state.isFormSubmitting}
-                  fieldState={fieldState}
-                  isInitializing={this.state.isInitializing}
-                  key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                  onAddAttachment={this.onAddAttachment.bind(this)}
-                  onFieldChange={this.onFieldChange.bind(this)}
-                  places={this.props.places}
-                  router={this.props.router}
-                  showValidityStatus={this.state.showValidityStatus}
-                  updatingField={this.state.updatingField}
-                  onClickSubmit={this.onSubmit.bind(this)}
-                />
+                fieldConfig.isVisible && (
+                  <FormField
+                    fieldConfig={fieldConfig}
+                    disabled={this.state.isFormSubmitting}
+                    fieldState={fieldState}
+                    isInitializing={this.state.isInitializing}
+                    key={fieldState.get(constants.FIELD_RENDER_KEY)}
+                    onAddAttachment={this.onAddAttachment.bind(this)}
+                    onFieldChange={this.onFieldChange.bind(this)}
+                    router={this.props.router}
+                    showValidityStatus={this.state.showValidityStatus}
+                    updatingField={this.state.updatingField}
+                    onClickSubmit={this.onSubmit.bind(this)}
+                  />
+                )
               );
             })
             .toArray()}
@@ -506,6 +542,9 @@ InputForm.propTypes = {
   ]),
   container: PropTypes.instanceOf(HTMLElement),
   createPlace: PropTypes.func.isRequired,
+  datasetClientSlugSelector: PropTypes.func.isRequired,
+  datasetUrl: PropTypes.string.isRequired,
+  datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
   hideNewPin: PropTypes.func.isRequired,
   hideLayers: PropTypes.func.isRequired,
@@ -526,7 +565,6 @@ InputForm.propTypes = {
   mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
-  places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
@@ -539,6 +577,8 @@ InputForm.propTypes = {
 
 const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
+  datasetClientSlugSelector: datasetSlug =>
+    datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   mapConfig: mapConfigSelector(state),
   mapLayers: mapLayersSelector(state),

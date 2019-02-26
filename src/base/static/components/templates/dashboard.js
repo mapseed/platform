@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import LegacyUtil from "../../js/utils.js";
 import moment from "moment";
 import "moment-timezone";
 import {
@@ -21,6 +20,7 @@ import {
   formFieldsConfigSelector,
   formFieldsConfigPropType,
 } from "../../state/ducks/forms-config";
+import { hasAdminAbilities } from "../../state/ducks/user";
 import { HorizontalRule } from "../atoms/layout";
 import {
   Link,
@@ -170,7 +170,7 @@ const getDaysArray = (start, end) => {
 
 class Dashboard extends Component {
   componentDidMount() {
-    if (!LegacyUtil.getAdminStatus(this.props.dashboardConfig.datasetId)) {
+    if (!this.props.hasAdminAbilities(this.props.dashboardConfig.datasetId)) {
       this.props.router.navigate("/", { trigger: true });
     }
   }
@@ -248,7 +248,7 @@ class Dashboard extends Component {
               this.props.dashboardConfig.datasetOwner
             }/datasets/${
               this.props.dashboardConfig.datasetId
-            }/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
+            }/mapseed-places.csv?format=csv&include_private_places&include_private_fields&page_size=10000`}
           >
             {`Download Survey Data`}
           </DownloadDataLink>
@@ -329,6 +329,7 @@ Dashboard.propTypes = {
   dashboardConfig: dashboardConfigPropType.isRequired,
   appConfig: appConfigPropType.isRequired,
   apiRoot: PropTypes.string,
+  hasAdminAbilities: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   places: placesPropType,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
@@ -337,6 +338,7 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
+  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   places: dashboardPlacesSelector(state),
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),

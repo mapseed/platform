@@ -1,4 +1,17 @@
 {
+  "datasets": [
+    {
+      "slug": "deeptimechicago-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/deeptimechicago-input",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": "create",
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "bioregional art",
     "name": "CREATING CASCADIA",
@@ -33,7 +46,11 @@
       "map": {
         "center": {
           "lat": 47.25457,
+<<<<<<< HEAD
           "lng": -122.44420
+=======
+          "lng": -122.4442
+>>>>>>> upstream/master
         },
         "zoom": 5.62,
         "pitch": 0,
@@ -67,13 +84,16 @@
         "is_basemap": true,
         "is_visible_default": true,
         "type": "raster-tile",
+<<<<<<< HEAD
         "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
+=======
+        "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
+>>>>>>> upstream/master
       },
       {
         "id": "deeptimechicago-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/deeptimechicago-input",
         "type": "place",
-        "slug": "report",
+        "datasetSlug": "deeptimechicago-input",
         "is_visible_default": true,
         "feature_types": ["Point"],
         "focus_rules": [
@@ -259,7 +279,11 @@
         "category": "sensation",
         "includeOnForm": true,
         "name": "location_type",
+<<<<<<< HEAD
         "dataset": "deeptimechicago-input",
+=======
+        "datasetSlug": "deeptimechicago-input",
+>>>>>>> upstream/master
         "icon_url": "/static/css/images/markers/sensation.png",
         "value": "sensation",
         "label": "_(Sensation)",
@@ -299,7 +323,11 @@
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
+<<<<<<< HEAD
         "dataset": "deeptimechicago-input",
+=======
+        "datasetSlug": "deeptimechicago-input",
+>>>>>>> upstream/master
         "icon_url": "/static/css/images/markers/idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -338,7 +366,11 @@
         "category": "artwork",
         "includeOnForm": true,
         "name": "location_type",
+<<<<<<< HEAD
         "dataset": "deeptimechicago-input",
+=======
+        "datasetSlug": "deeptimechicago-input",
+>>>>>>> upstream/master
         "icon_url": "/static/css/images/markers/artwork.png",
         "value": "artwork",
         "label": "_(Artwork)",
@@ -378,7 +410,11 @@
         "category": "event",
         "includeOnForm": true,
         "name": "location_type",
+<<<<<<< HEAD
         "dataset": "deeptimechicago-input",
+=======
+        "datasetSlug": "deeptimechicago-input",
+>>>>>>> upstream/master
         "icon_url": "/static/css/images/markers/event.png",
         "value": "event",
         "label": "_(Event)",
@@ -635,7 +671,11 @@
       "lang": "en_US",
       "content": [
         "<p><h2>Make it new</h2></p>",
+<<<<<<< HEAD
         "<p><strong>Preety soon there's going to be some great instructions here about how to use this map.</strong></p>"
+=======
+        "<p><strong>Pretty soon there's going to be some great instructions here about how to use this map.</strong></p>"
+>>>>>>> upstream/master
       ]
     }
   ]

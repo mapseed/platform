@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import emitter from "../../utils/emitter";
 import classNames from "classnames";
 
 import { EditorButton } from "../atoms/buttons";
@@ -18,30 +17,33 @@ const EditorBar = props => {
     >
       <EditorButton
         className="place-detail-editor-bar__toggle-button"
-        isSubmitting={props.isSubmitting}
         label={props.t("toggleBtn")}
         type="toggle"
         isEditModeToggled={props.isEditModeToggled}
         onClick={props.onToggleEditMode}
       />
-      {props.isEditModeToggled && (
-        <EditorButton
-          className="place-detail-editor-bar__remove-button"
-          isSubmitting={props.isSubmitting}
-          label={props.t("removeBtn")}
-          type="remove"
-          onClick={() => emitter.emit("place-model:remove")}
-        />
-      )}
-      {props.isEditModeToggled && (
-        <EditorButton
-          className="place-detail-editor-bar__save-button"
-          isSubmitting={props.isSubmitting}
-          label={props.t("saveBtn")}
-          type="save"
-          onClick={() => emitter.emit("place-model:update")}
-        />
-      )}
+      {props.isEditModeToggled &&
+        props.isPlaceDetailEditable && (
+          <EditorButton
+            className="place-detail-editor-bar__remove-button"
+            label={props.t("removeBtn")}
+            type="remove"
+            onClick={() => {
+              if (confirm(props.t("confirmRemove"))) {
+                props.onClickRemovePlace();
+              }
+            }}
+          />
+        )}
+      {props.isEditModeToggled &&
+        props.isPlaceDetailEditable && (
+          <EditorButton
+            className="place-detail-editor-bar__save-button"
+            label={props.t("saveBtn")}
+            type="save"
+            onClick={props.onClickUpdatePlace}
+          />
+        )}
       <div className="place-detail-editor-bar__clearfix" />
     </div>
   );
@@ -49,8 +51,11 @@ const EditorBar = props => {
 
 EditorBar.propTypes = {
   isGeocodingBarEnabled: PropTypes.bool,
-  isSubmitting: PropTypes.bool.isRequired,
+  isPlaceDetailEditable: PropTypes.bool.isRequired,
+  isTagBarEditable: PropTypes.bool.isRequired,
   onToggleEditMode: PropTypes.func.isRequired,
+  onClickUpdatePlace: PropTypes.func.isRequired,
+  onClickRemovePlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };

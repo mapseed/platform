@@ -31,31 +31,24 @@ const RightSidebar = props => {
         }}
         className="right-sidebar__collapse-btn"
       />
-      {props.rightSidebarConfig.component === "StoryNavigator" &&
-        props.places && (
-          <StoryNavigator
-            storyConfig={props.storyConfig}
-            placeConfig={props.placeConfig}
-            places={props.places}
-            router={props.router}
-          />
-        )}
+      {props.rightSidebarConfig.component === "StoryNavigator" && (
+        <StoryNavigator
+          storyConfig={props.storyConfig}
+          placeConfig={props.placeConfig}
+          places={props.places}
+          router={props.router}
+        />
+      )}
       {props.rightSidebarConfig.component === "MapLegendPanel" && (
         <MapLegendPanel config={props.rightSidebarConfig} />
       )}
       {props.rightSidebarConfig.component === "ActivityStream" && (
-        <ActivityStream
-          config={props.rightSidebarConfig}
-          places={props.legacyPlaces}
-        />
+        <ActivityStream config={props.rightSidebarConfig} />
       )}
       {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
         <Fragment>
           <MapLegendPanel isThemed={true} />
-          <ActivityStream
-            config={props.rightSidebarConfig}
-            places={props.legacyPlaces}
-          />
+          <ActivityStream config={props.rightSidebarConfig} />
         </Fragment>
       )}
     </div>
@@ -63,7 +56,6 @@ const RightSidebar = props => {
 };
 
 RightSidebar.propTypes = {
-  legacyPlaces: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   places: placesPropType,
   rightSidebarConfig: rightSidebarConfigPropType.isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,

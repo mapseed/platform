@@ -1,4 +1,28 @@
 {
+  "datasets": [
+    {
+      "slug": "demo",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
+      "clientSlug": "demo",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "demo2",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
+      "clientSlug": "demo2",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
   "app": {
     "title": "Mapseed Demo",
     "name": "Mapseed Demo",
@@ -42,7 +66,7 @@
     "layers": [
       {
         "id": "demo2",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
+        "datasetSlug": "demo2",
         "type": "place",
         "slug": "demo2",
         "focus_rules": [
@@ -97,8 +121,9 @@
       },
       {
         "id": "demo",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
+        "datasetSlug": "demo",
         "type": "place",
+        "is_visible_default": true,
         "slug": "demo",
         "feature_types": ["Point"],
         "focus_rules": [
@@ -599,7 +624,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "demo",
         "multi_stage": [
@@ -945,8 +970,9 @@
         "category": "observation",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "_(Observation)",
@@ -963,6 +989,7 @@
             "name": "big_checkbox_field",
             "type": "big_checkbox",
             "prompt": "_(Types of pollution seen:)",
+            "restrict_to_groups": ["officials"],
             "display_prompt": "_( )",
             "content": [
               {
@@ -1019,8 +1046,9 @@
         "category": "question",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "_(Question)",
@@ -1074,8 +1102,9 @@
         "category": "idea",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -1173,8 +1202,9 @@
         "category": "complaint",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo",
+        "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "_(Complaint)",
@@ -1218,8 +1248,9 @@
         "category": "observation2",
         "includeOnForm": true,
         "includeOnList": true,
+        "submitter_editing_supported": true,
         "name": "location_type",
-        "dataset": "demo2",
+        "datasetSlug": "demo2",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation2",
         "label": "_(Observation 2)",
@@ -1441,7 +1472,7 @@
       "default_visible_layers": ["demo", "sample-vector"],
       "order": [
         {
-          "url": "demo/21",
+          "placeId": 21,
           "pan_to": [-122.57256740778439, 47.44334015969261],
           "zoom": 10
         }

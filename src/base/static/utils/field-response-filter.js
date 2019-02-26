@@ -1,7 +1,11 @@
 import constants from "../constants";
 
-export default (fieldList, backboneModelAttributes) =>
-  fieldList
+export default (fieldConfigs, place) => {
+  if (!fieldConfigs) {
+    return [];
+  }
+
+  return fieldConfigs
     .filter(
       fieldConfig =>
         ![
@@ -20,4 +24,5 @@ export default (fieldList, backboneModelAttributes) =>
         ].includes(fieldConfig.name),
     )
     .filter(fieldConfig => fieldConfig.name.indexOf("private-") !== 0)
-    .filter(fieldConfig => !!backboneModelAttributes.get(fieldConfig.name));
+    .filter(fieldConfig => !!place[fieldConfig.name]);
+};

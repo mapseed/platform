@@ -1,19 +1,19 @@
 /*globals Backbone jQuery _ */
-
-import PlaceModel from "./models/place-model.js";
 import Util from "./utils.js";
-import PlaceCollection from "./models/place-collection.js";
 import AppView from "./views/app-view.js";
+
+import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
 
-(function(S, $, console) {
+(function(S, $) {
   S.App = Backbone.Router.extend({
     routes: {
       "": "viewMap",
       "page/:slug": "viewPage",
       dashboard: "viewDashboard",
+      sha: "viewSha",
       ":dataset/:id": "viewPlace",
       new: "newPlace",
       ":dataset/:id/response/:response_id": "viewPlace",
@@ -23,9 +23,7 @@ Shareabouts.Util = Util;
     },
 
     initialize: function(options) {
-      var self = this,
-        // store config details for places
-        configArrays = {};
+      var self = this;
 
       fetch(`${options.appConfig.api_root}utils/session-key?format=json`, {
         credentials: "include",
@@ -37,52 +35,17 @@ Shareabouts.Util = Util;
         );
       });
 
-      // store individual place collections for each place type
-      this.places = {};
-      // store individual activity collections for each place type
-      this.activities = {};
-
-      this.isAddingSupported = !!options.placeConfig.adding_supported;
-
-      PlaceModel.prototype.getLoggingDetails = function() {
-        return this.id;
-      };
-
-      // Reject a place that does not have a supported place_detail configuration.
-      // This will prevent invalid places from being added or saved to the collection.
-      PlaceModel.prototype.validate = function(attrs) {
-        if (
-          !S.Config.place.place_detail.find(
-            placeDetail => placeDetail.category === attrs.location_type,
-          )
-        ) {
-          console.warn(attrs.location_type + " is not supported.");
-          return attrs.location_type + " is not supported.";
-        }
-      };
-
       // Global route changes
-      this.bind("route", function(route, router) {
+      this.bind("route", function() {
         Util.log("ROUTE", self.getCurrentPath());
       });
 
       this.loading = true;
 
-      // set up place configs and instantiate place collections
-      configArrays.places = options.mapConfig.layers.filter(function(layer) {
-        return layer.type && layer.type === "place";
-      });
-      _.each(configArrays.places, function(config) {
-        var collection = new PlaceCollection([], {
-          url: config.url + "/places",
-        });
-        self.places[config.id] = collection;
-      });
-
       this.appView = new AppView({
         el: "body",
         places: this.places,
-        datasetConfigs: configArrays,
+        datasetConfigs: options.datasetsConfig,
         apiRoot: options.appConfig.api_root,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,
@@ -106,6 +69,7 @@ Shareabouts.Util = Util;
         languageCode: options.languageCode,
         customHooks: options.customHooks,
         customComponents: options.customComponents,
+        datasetsConfig: options.datasetsConfig,
       });
 
       // Start tracking the history
@@ -142,40 +106,40 @@ Shareabouts.Util = Util;
     },
 
     viewMap: function(zoom, lat, lng) {
-      this.recordGoogleAnalyticsHit("/");
+      recordGoogleAnalyticsHit("/");
       this.appView.viewMap(zoom, lat, lng);
     },
 
     viewDashboard: function() {
-      this.recordGoogleAnalyticsHit("/dashboard");
+      recordGoogleAnalyticsHit("/dashboard");
       this.appView.viewDashboard();
     },
 
     newPlace: function() {
-      if (this.isAddingSupported) {
-        this.recordGoogleAnalyticsHit("/new");
-        this.appView.newPlace();
-      } else {
-        this.navigate("/", { trigger: true });
-      }
+      this.appView.newPlace();
     },
 
-    viewPlace: function(datasetSlug, modelId, responseId) {
-      this.recordGoogleAnalyticsHit(`/${datasetSlug}/${modelId}`);
+    viewPlace: function(placeSlug, placeId, responseId) {
+      recordGoogleAnalyticsHit(`/${placeSlug}/${placeId}`);
       this.appView.viewPlace({
-        datasetSlug: datasetSlug,
-        modelId: modelId,
-        responseId: responseId,
+        placeSlug: placeSlug,
+        placeId: parseInt(placeId),
+        responseId: parseInt(responseId),
       });
     },
 
     viewPage: function(slug) {
-      this.recordGoogleAnalyticsHit("/page/" + slug);
+      recordGoogleAnalyticsHit("/page/" + slug);
       this.appView.viewPage(slug);
     },
 
+    viewSha: function() {
+      recordGoogleAnalyticsHit("/sha");
+      this.appView.viewSha();
+    },
+
     viewList: function() {
-      this.recordGoogleAnalyticsHit("/list");
+      recordGoogleAnalyticsHit("/list");
       this.appView.viewList();
     },
 
@@ -190,13 +154,6 @@ Shareabouts.Util = Util;
           fragment.indexOf("page") === -1 &&
           fragment.indexOf("list") === -1)
       );
-    },
-
-    recordGoogleAnalyticsHit(route) {
-      if (typeof ga !== "undefined") {
-        ga("set", "page", route);
-        ga("send", "pageview");
-      }
     },
   });
 })(Shareabouts, jQuery, Util.console);

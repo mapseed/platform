@@ -29,6 +29,60 @@ const TextInput = styled(props => {
   return styles;
 });
 
+const TextareaInput = styled(props => {
+  return (
+    <textarea
+      className={props.className}
+      placeholder={props.placeholder}
+      onChange={props.onChange}
+      onKeyPress={props.onKeyPress}
+      onClick={props.onClick}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+      value={props.value}
+    />
+  );
+})(props => ({
+  "&::-webkit-input-placeholder": {
+    color: "#ddd",
+  },
+  "&:-moz-placeholder": {
+    color: "#ddd",
+  },
+  "&:-ms-input-placeholder": {
+    color: "#ddd",
+  },
+  padding: props.padding,
+  fontWeight: props.fontWeight,
+  fontStyle: props.fontStyle,
+  color: props.textColor,
+  height: props.height,
+  fontSize: props.fontSize,
+  background: props.background,
+}));
+
+TextareaInput.propTypes = {
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func,
+  onClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  value: PropTypes.string,
+};
+
+TextareaInput.defaultProps = {
+  padding: "8px",
+  fontWeight: "normal",
+  fontStyle: "normal",
+  textColor: "#000",
+  height: "200px",
+  fontSize: "1rem",
+  background: "#fff",
+  lineHeight: "1.5rem",
+};
+
 const CheckboxInput = props => {
   return (
     <input
@@ -59,6 +113,8 @@ const NumberInput = props => {
       value={props.value}
       placeholder={props.placeholder}
       onChange={e => props.onChange(e.target.name, e.target.value)}
+      min={props.min}
+      max={props.max}
     />
   );
 };
@@ -70,6 +126,8 @@ NumberInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
 };
 
 const DatetimeInput = props => {
@@ -93,4 +151,4 @@ DatetimeInput.propTypes = {
   value: PropTypes.string,
 };
 
-export { CheckboxInput, DatetimeInput, NumberInput, TextInput };
+export { CheckboxInput, DatetimeInput, NumberInput, TextInput, TextareaInput };

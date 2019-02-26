@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { connect } from "react-redux";
 
 import styled from "react-emotion";
 import SupportButton from "../ui-elements/support-button";
-import constants from "../../constants";
 import { IconButton } from "../atoms/buttons";
+
+import {
+  createPlaceSupport,
+  removePlaceSupport,
+} from "../../state/ducks/places";
+
+import mapseedApiClient from "../../client/mapseed-api-client";
 
 import "./promotion-bar.scss";
 
@@ -20,73 +27,42 @@ const SocialMediaButton = styled(IconButton)({
 });
 
 class PromotionBar extends Component {
-  onClickSupport() {
-    if (this.props.userSupportModel) {
+  onClickSupport = async () => {
+    if (this.props.userSupport) {
       // If we already have user support for the current user token, we should
       // unsupport.
-      this.props.userSupportModel.destroy({
-        wait: true,
-        success: () => {
-          Util.log(
-            "USER",
-            "place",
-            "successfully-unsupport",
-            this.props.getLoggingDetails(),
-          );
-          this.props.onModelIO(constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION);
-        },
-        error: model => {
-          this.props.onModelIO(
-            constants.SUPPORT_MODEL_IO_END_ERROR_ACTION,
-            model.collection,
-          );
-          alert("Oh dear. It looks like that didn't save.");
-          Util.log(
-            "USER",
-            "place",
-            "fail-to-unsupport",
-            this.props.getLoggingDetails(),
-          );
-        },
-      });
+      const supportId = this.props.userSupport.id;
+      const response = await mapseedApiClient.support.delete(
+        this.props.placeUrl,
+        supportId,
+      );
+
+      if (response) {
+        this.props.removePlaceSupport(this.props.placeId, supportId);
+        Util.log("USER", "place", "successfully-unsupport");
+      } else {
+        alert("Oh dear. It looks like that didn't save.");
+        Util.log("USER", "place", "fail-to-unsupport");
+      }
     } else {
       // Otherwise, we're supporting.
-      this.props.supportModelCreate(
-        { user_token: this.props.userToken, visible: true },
+      const response = await mapseedApiClient.support.create(
+        this.props.placeUrl,
         {
-          wait: true,
-          beforeSend: xhr => {
-            // Do not generate activity for anonymous supports
-            if (!Shareabouts.bootstrapped.currentUser) {
-              xhr.setRequestHeader("X-Shareabouts-Silent", "true");
-            }
-          },
-          success: model => {
-            this.props.onModelIO(
-              constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION,
-              model.collection,
-            );
-            Util.log(
-              "USER",
-              "place",
-              "successfully-support",
-              this.props.getLoggingDetails(),
-            );
-          },
-          error: () => {
-            this.props.userSupportModel.destroy();
-            alert("Oh dear. It looks like that didn't save.");
-            Util.log(
-              "USER",
-              "place",
-              "fail-to-support",
-              this.props.getLoggingDetails(),
-            );
-          },
+          user_token: this.props.userToken,
+          visible: true,
         },
       );
+
+      if (response) {
+        this.props.createPlaceSupport(this.props.placeId, response);
+        Util.log("USER", "place", "successfully-support");
+      } else {
+        alert("Oh dear. It looks like that didn't save.");
+        Util.log("USER", "place", "fail-to-support");
+      }
     }
-  }
+  };
 
   render() {
     return (
@@ -98,9 +74,9 @@ class PromotionBar extends Component {
       >
         <SupportButton
           className="place-detail-promotion-bar__support-button"
-          isSupported={this.props.isSupported}
+          isSupported={!!this.props.userSupport}
           numSupports={this.props.numSupports}
-          onClickSupport={this.onClickSupport.bind(this)}
+          onClickSupport={this.onClickSupport}
         />
         <div
           className={classNames("place-detail-promotion-bar__social-buttons", {
@@ -125,19 +101,29 @@ class PromotionBar extends Component {
 }
 
 PromotionBar.propTypes = {
-  getLoggingDetails: PropTypes.func.isRequired,
+  createPlaceSupport: PropTypes.func.isRequired,
+  removePlaceSupport: PropTypes.func.isRequired,
   isHorizontalLayout: PropTypes.bool.isRequired,
-  isSupported: PropTypes.bool.isRequired,
   numSupports: PropTypes.number,
-  onModelIO: PropTypes.func.isRequired,
   onSocialShare: PropTypes.func.isRequired,
-  supportModelCreate: PropTypes.func.isRequired,
-  userSupportModel: PropTypes.instanceOf(Backbone.Model),
+  userSupport: PropTypes.object,
   userToken: PropTypes.string,
+  placeId: PropTypes.number.isRequired,
+  placeUrl: PropTypes.string.isRequired,
 };
 
 PromotionBar.defaultProps = {
   isHorizontalLayout: false,
 };
 
-export default PromotionBar;
+const mapDispatchToProps = dispatch => ({
+  createPlaceSupport: (placeId, supportData) =>
+    dispatch(createPlaceSupport(placeId, supportData)),
+  removePlaceSupport: (placeId, supportId) =>
+    dispatch(removePlaceSupport(placeId, supportId)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(PromotionBar);

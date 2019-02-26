@@ -39,10 +39,10 @@ module.exports = function(source) {
 
   // If we have dataset urls defined in the .env file, overwrite the default
   // urls found in the config here.
-  config.map.layers.forEach((layer, i) => {
-    if (datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"]) {
-      config.map.layers[i].url =
-        datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"];
+  config.datasets.forEach((dataset, i) => {
+    if (datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"]) {
+      config.datasets[i].url =
+        datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"];
     }
   });
 

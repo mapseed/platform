@@ -30,50 +30,6 @@ var self = (module.exports = {
     }
   },
 
-  // Determine whether or not the current logged-in user has admin rights
-  // for the passed datasetId. Returns true or false.
-  getAdminStatus: function(
-    datasetId,
-    adminGroups = [],
-    isSubmitterEditingEnabled = false,
-    submitter = null,
-  ) {
-    // First, check if the current user is the submitter of the place.
-    if (
-      Shareabouts.bootstrapped.currentUser &&
-      submitter &&
-      isSubmitterEditingEnabled &&
-      Shareabouts.bootstrapped.currentUser.username === submitter.username &&
-      Shareabouts.bootstrapped.currentUser.provider_id === submitter.provider_id
-    ) {
-      return true;
-    }
-
-    // Next, check if the current user is a member of an approved admin group.
-    if (
-      Shareabouts.bootstrapped.currentUser &&
-      Shareabouts.bootstrapped.currentUser.groups
-    ) {
-      return !!Shareabouts.bootstrapped.currentUser.groups.find(group => {
-        // Get the name of the datasetId from the end of the full url
-        // provided in Shareabouts.bootstrapped.currentUser.groups
-        const url = group.dataset.split("/");
-        const match = url[url.length - 1];
-
-        if (
-          match &&
-          match === datasetId &&
-          (group.name === "administrators" ||
-            adminGroups.indexOf(group.name) > -1)
-        ) {
-          return true;
-        }
-      });
-    }
-
-    return false;
-  },
-
   buildSharingQuerystring: function(components) {
     return [
       "?url=",
@@ -91,15 +47,15 @@ var self = (module.exports = {
     ].join("");
   },
 
-  getSocialUrl: function(model, service) {
+  getSocialUrl: function(place) {
     var appConfig = Shareabouts.Config.app,
       shareUrl = "http://social.mapseed.org",
       components = {
-        title: model.get("title") || model.get("name") || appConfig.title,
-        desc: model.get("description") || appConfig.meta_description,
+        title: place.title || place.name || appConfig.title,
+        desc: place.description || appConfig.meta_description,
         img:
-          model.attachmentCollection.models.length > 0
-            ? model.attachmentCollection.models[0].get("file")
+          place.attachments.length > 0
+            ? place.attachments[0].file
             : [
                 window.location.protocol,
                 "//",
@@ -111,7 +67,7 @@ var self = (module.exports = {
           "//",
           window.location.host,
           "/",
-          model.get("datasetSlug") + "/" + model.get("id"),
+          place._datasetSlug + "/" + place.id,
         ].join(""),
       },
       $img = $("img[src='" + components.img + "']");
@@ -119,29 +75,13 @@ var self = (module.exports = {
     components["height"] = $img.height() || 630;
     components["width"] = $img.width() || 1200;
 
-    if (components.img.startsWith("data:")) {
-      // If the image was just created and has a data url, fetch the attachment
-      // collection to obtain the S3 url before contacting the sharing microservice.
-      return new Promise((resolve, reject) => {
-        model.attachmentCollection.fetch({
-          reset: true,
-          success: collection => {
-            components.img = collection.first().get("file");
-            const queryString = this.buildSharingQuerystring(components);
-            resolve(encodeURIComponent(`${shareUrl}${queryString}`));
-          },
-          error: _ => reject(_),
-        });
-      });
-    } else {
-      // return a promise that immediately resolves to our share url:
-      const queryString = this.buildSharingQuerystring(components);
-      return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`));
-    }
+    // return a promise that immediately resolves to our share url:
+    const queryString = this.buildSharingQuerystring(components);
+    return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`));
   },
 
-  onSocialShare: function(model, service) {
-    this.getSocialUrl(model).then(shareUrl => {
+  onSocialShare: function(place, service) {
+    this.getSocialUrl(place).then(shareUrl => {
       let url =
         service === "facebook"
           ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`

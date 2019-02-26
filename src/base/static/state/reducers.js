@@ -16,6 +16,10 @@ import supportConfigReducer from "./ducks/support-config";
 import navBarConfigReducer from "./ducks/nav-bar-config";
 import pagesConfigReducer from "./ducks/pages-config";
 import dashboardConfigReducer from "./ducks/dashboard-config";
+import userReducer from "./ducks/user";
+import datasetsConfigReducer from "./ducks/datasets-config";
+import datasetsReducer from "./ducks/datasets";
+import activityReducer from "./ducks/activity";
 
 const reducers = combineReducers({
   map: mapReducer,
@@ -24,7 +28,6 @@ const reducers = combineReducers({
   leftSidebar: leftSidebarReducer,
   mapDrawingToolbar: mapDrawingToolbarReducer,
   filters,
-
   appConfig: appConfigReducer,
   mapConfig: mapConfigReducer,
   placeConfig: placeConfigReducer,
@@ -35,6 +38,10 @@ const reducers = combineReducers({
   navBarConfig: navBarConfigReducer,
   pagesConfig: pagesConfigReducer,
   dashboardConfig: dashboardConfigReducer,
+  user: userReducer,
+  datasetsConfig: datasetsConfigReducer,
+  datasets: datasetsReducer,
+  activity: activityReducer,
 });
 
 export default reducers;

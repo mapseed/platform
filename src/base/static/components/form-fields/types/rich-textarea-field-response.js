@@ -8,14 +8,14 @@ const RichTextareaFieldResponse = props => {
     <div
       className="rich-textarea-field-response"
       dangerouslySetInnerHTML={{
-        __html: insertEmbeddedImages(props.value, props.attachmentModels),
+        __html: insertEmbeddedImages(props.value, props.attachments),
       }}
     />
   );
 };
 
 RichTextareaFieldResponse.propTypes = {
-  attachmentModels: PropTypes.object,
+  attachments: PropTypes.array,
   value: PropTypes.string.isRequired,
 };
 

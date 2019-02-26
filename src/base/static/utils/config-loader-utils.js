@@ -12,7 +12,7 @@ const transformStoryContent = storyConfig => {
         description: storyContent.description,
         chapters: storyContent.order.map((chapter, i) => {
           return {
-            url: chapter.url,
+            placeId: chapter.placeId,
             zoom: chapter.zoom || storyContent.default_zoom,
             hasCustomZoom: !!chapter.zoom,
             panTo: chapter.pan_to || null,

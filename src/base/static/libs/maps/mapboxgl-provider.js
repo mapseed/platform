@@ -6,6 +6,8 @@ import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 import VectorTileClient from "../../client/vector-tile-client";
 
+import { isTouchDevice } from "../../utils/misc-utils";
+
 import constants from "../../constants";
 
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
@@ -657,7 +659,7 @@ export default (container, options) => {
   let draw;
   // Unless drawing_enabled is explicitly set to false, we assume we should
   // instantiate the draw plugin.
-  if (options.drawing_enabled !== false) {
+  if (options.drawing_enabled !== false && !isTouchDevice) {
     draw = new MapboxDraw({
       displayControlsDefault: false,
       userProperties: true,
@@ -803,6 +805,7 @@ export default (container, options) => {
               `user_${constants.MARKER_ICON_PROPERTY_NAME}`,
             ],
             "icon-allow-overlap": true,
+            "icon-anchor": "bottom",
           },
         },
         // Points: unselected.
@@ -821,6 +824,7 @@ export default (container, options) => {
               `user_${constants.MARKER_ICON_PROPERTY_NAME}`,
             ],
             "icon-allow-overlap": true,
+            "icon-anchor": "bottom",
           },
         },
 

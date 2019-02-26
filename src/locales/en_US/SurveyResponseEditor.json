@@ -1,4 +1,5 @@
 {
   "saved": "Saved",
-  "notSaved": "Not saved"
+  "notSaved": "Not saved",
+  "confirmCommentRemove": "Are you sure you want to remove this comment?"
 }

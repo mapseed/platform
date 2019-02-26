@@ -8,9 +8,11 @@ import InputFormCategorySelector from "./input-form-category-selector";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { updateMapDragged, mapDraggedSelector } from "../../state/ducks/map";
+import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
+import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 
-const Util = require("../../js/utils.js");
+import { datasetUrlSelector } from "../../state/ducks/datasets";
 
 const DragMapAlert = styled("div")({
   backgroundColor: "#ffc107",
@@ -25,22 +27,43 @@ const DragMapAlert = styled("div")({
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
     super(props);
-    this.visibleCategoryConfigs = this.props.placeConfig.place_detail
-      .filter(config => config.includeOnForm)
-      .filter(config => {
-        return !(
-          config.admin_only &&
-          !Util.getAdminStatus(config.dataset, config.admin_groups)
-        );
-      });
-    this.state = {
-      selectedCategory:
-        this.visibleCategoryConfigs.length === 1
-          ? this.visibleCategoryConfigs[0].category
-          : null,
-      isShowingCategorySelector: this.visibleCategoryConfigs.length !== 1,
-      isSingleCategory: this.visibleCategoryConfigs.length === 1,
-    };
+    this.visibleCategoryConfigs = this.props.placeConfig.place_detail.filter(
+      config =>
+        config.includeOnForm &&
+        (this.props.hasAnonAbilitiesInDataset({
+          abilities: ["create"],
+          submissionSet: "places",
+          datasetSlug: config.datasetSlug,
+        }) ||
+          this.props.hasGroupAbilitiesInDatasets({
+            abilities: ["create"],
+            submissionSet: "places",
+            datasetSlugs: [config.datasetSlug],
+          })),
+    );
+
+    if (this.visibleCategoryConfigs.length === 1) {
+      const selectedCategoryConfig = getCategoryConfig(
+        this.props.placeConfig,
+        this.visibleCategoryConfigs[0].category,
+      );
+
+      this.state = {
+        selectedCategory: this.visibleCategoryConfigs[0].category,
+        isShowingCategorySelector: false,
+        isSingleCategory: true,
+        datasetUrl: this.props.datasetUrlSelector(
+          selectedCategoryConfig.datasetSlug,
+        ),
+        datasetSlug: selectedCategoryConfig.datasetSlug,
+      };
+    } else {
+      this.state = {
+        selectedCategory: null,
+        isShowingCategorySelector: true,
+        isSingleCategory: false,
+      };
+    }
   }
 
   componentDidMount() {
@@ -49,12 +72,16 @@ class FormCategoryMenuWrapper extends Component {
   }
 
   onCategoryChange(selectedCategory) {
+    const categoryConfig = getCategoryConfig(
+      this.props.placeConfig,
+      selectedCategory,
+    );
+
     this.setState({
       selectedCategory: selectedCategory,
-      isShowingCategorySelector: !getCategoryConfig(
-        this.props.placeConfig,
-        selectedCategory,
-      ).multi_stage,
+      isShowingCategorySelector: !categoryConfig.multi_stage,
+      datasetUrl: this.props.datasetUrlSelector(categoryConfig.datasetSlug),
+      datasetSlug: categoryConfig.datasetSlug,
     });
   }
 
@@ -86,6 +113,9 @@ class FormCategoryMenuWrapper extends Component {
 }
 
 FormCategoryMenuWrapper.propTypes = {
+  datasetUrlSelector: PropTypes.func.isRequired,
+  hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
@@ -106,6 +136,16 @@ FormCategoryMenuWrapper.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  datasetUrlSelector: datasetSlug => datasetUrlSelector(state, datasetSlug),
+  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      submissionSet,
+      datasetSlugs,
+    }),
+  hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
+    hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
   isMapDragged: mapDraggedSelector(state),
   placeConfig: placeConfigSelector(state),
 });

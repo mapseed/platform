@@ -37,7 +37,7 @@ FontAwesomeIcon.defaultProps = {
 
 const SiteLogo = styled(props => {
   return <img src={props.src} alt={props.alt} className={props.className} />;
-})(props => ({
+})(() => ({
   [mq[0]]: {
     height: "35px", // 35 === header height (43px) - 2x micro spacing (8px)
     marginLeft: "16px",
