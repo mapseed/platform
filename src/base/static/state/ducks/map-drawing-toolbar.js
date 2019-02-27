@@ -139,10 +139,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         geometryStyle: action.payload,
-        //  geometryStyle: {
-        //    ...state.geometryStyle,
-        //    ...action.payload,
-        //  },
       };
     case RESET_DRAWING_TOOLBAR_STATE:
       return INITIAL_STATE;

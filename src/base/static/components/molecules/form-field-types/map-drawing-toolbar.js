@@ -288,9 +288,9 @@ class MapDrawingToolbar extends Component {
                 }}
                 onChange={colorInfo => {
                   this.props.setGeometryStyle({
-                    [constants.LINE_COLOR_PROPERTY_NAME]: colorInfo.color,
-                    [constants.LINE_OPACITY_PROPERTY_NAME]:
-                      colorInfo.alpha / 100,
+                    ...this.props.geometryStyle,
+                    stroke: colorInfo.color,
+                    "stroke-opacity": colorInfo.alpha / 100,
                   });
                 }}
                 placement="topRight"
@@ -334,9 +334,9 @@ class MapDrawingToolbar extends Component {
                 }}
                 onChange={colorInfo => {
                   this.props.setGeometryStyle({
-                    [constants.FILL_COLOR_PROPERTY_NAME]: colorInfo.color,
-                    [constants.FILL_OPACITY_PROPERTY_NAME]:
-                      colorInfo.alpha / 100,
+                    ...this.props.geometryStyle,
+                    fill: colorInfo.color,
+                    "fill-opacity": colorInfo.alpha / 100,
                   });
                 }}
                 placement="topRight"
