@@ -379,6 +379,7 @@ class MapDrawingToolbar extends Component {
                     constants.DRAW_DEFAULT_LINE_OPACITY,
                 });
                 this.props.setActiveDrawingTool(null);
+                this.props.setActiveDrawGeometryId(null);
               }}
             />
           </div>

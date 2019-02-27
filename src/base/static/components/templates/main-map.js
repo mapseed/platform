@@ -357,6 +357,7 @@ class MainMap extends Component {
 
       if (prevProps.activeDrawGeometryId && !this.props.activeDrawGeometryId) {
         this.draw.deleteAll();
+        emitter.emit("draw:update-geometry", null);
       }
     }
   }

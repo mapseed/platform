@@ -180,6 +180,7 @@ class PlaceDetailEditor extends Component {
         this.props.onRequestEnd();
       }
     } else {
+      this.props.onRequestEnd();
       this.setState({
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,

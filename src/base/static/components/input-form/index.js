@@ -243,9 +243,8 @@ class InputForm extends Component {
     );
 
     if (!this.props.isMapDragged) {
-      //// TODO: ignore this validation check if the form is in drawing mode.
-      //newValidationErrors.add("mapNotDragged");
-      //isValid = false;
+      newValidationErrors.add("mapNotDragged");
+      isValid = false;
     }
 
     if (isValid) {
