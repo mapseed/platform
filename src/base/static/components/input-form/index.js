@@ -36,6 +36,7 @@ import {
   hideLayers,
   setBasemap,
 } from "../../state/ducks/map";
+import { hasAdminAbilities } from "../../state/ducks/user";
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
 
@@ -314,6 +315,7 @@ class InputForm extends Component {
       placeData: attrs,
       datasetSlug: this.props.datasetSlug,
       clientSlug: this.props.datasetClientSlugSelector(this.props.datasetSlug),
+      includePrivate: this.props.hasAdminAbilities(this.props.datasetSlug),
     });
 
     if (placeResponse) {
@@ -546,6 +548,7 @@ InputForm.propTypes = {
   datasetUrl: PropTypes.string.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
+  hasAdminAbilities: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
   hideLayers: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
@@ -580,6 +583,7 @@ const mapStateToProps = state => ({
   datasetClientSlugSelector: datasetSlug =>
     datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
+  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   mapConfig: mapConfigSelector(state),
   mapLayers: mapLayersSelector(state),
   mapPosition: mapPositionSelector(state),

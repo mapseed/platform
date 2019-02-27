@@ -6,7 +6,15 @@ import {
   toGeoJSONFeature,
 } from "../../utils/place-utils";
 
-// TODO: include_private_places and include_private_fields ??
+const setPrivateParams = (placeParams, includePrivate) =>
+  includePrivate
+    ? {
+        ...placeParams,
+        include_private_places: true,
+        include_private_fields: true,
+      }
+    : placeParams;
+
 const updatePlace = async ({
   placeUrl,
   placeData,
@@ -14,25 +22,26 @@ const updatePlace = async ({
   clientSlug,
 }) => {
   placeData = toGeoJSONFeature(placeData);
-  const response = await fetch(
-    `${placeUrl}?${qs.stringify({
-      include_tags: true,
-      include_submissions: true,
-    })}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shareabouts-Silent": true, // To prevent new Actions on update.
-      },
-      // Note that we do *not* include credentials with PUT requests to a
-      // place endpoint. Sending credentials will cause the submitter of
-      // the Place to be updated to the submitter of the PUT request, even if
-      // the submitter object is stripped out of the request payload.
-      // See: https://github.com/jalMogo/mgmt/issues/227
-      method: "PUT",
-      body: JSON.stringify(placeData),
+  // TODO: Private query params.
+  // See: https://github.com/jalMogo/mgmt/issues/241
+  const placeParams = {
+    include_tags: true,
+    include_submissions: true,
+  };
+
+  const response = await fetch(`${placeUrl}?${qs.stringify(placeParams)}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "X-Shareabouts-Silent": true, // To prevent new Actions on update.
     },
-  );
+    // Note that we do *not* include credentials with PUT requests to a
+    // place endpoint. Sending credentials will cause the submitter of
+    // the Place to be updated to the submitter of the PUT request, even if
+    // the submitter object is stripped out of the request payload.
+    // See: https://github.com/jalMogo/mgmt/issues/227
+    method: "PUT",
+    body: JSON.stringify(placeData),
+  });
 
   if (response.status < 200 || response.status >= 300) {
     // eslint-disable-next-line no-console
@@ -51,17 +60,28 @@ const createPlace = async ({
   placeData,
   datasetSlug,
   clientSlug,
+  includePrivate = false,
 }) => {
   placeData = toGeoJSONFeature(placeData);
 
-  const response = await fetch(`${datasetUrl}/places?include_tags`, {
-    headers: {
-      "Content-Type": "application/json",
+  const placeParams = setPrivateParams(
+    {
+      include_tags: true,
+      include_submissions: true,
     },
-    credentials: "include",
-    method: "POST",
-    body: JSON.stringify(placeData),
-  });
+    includePrivate,
+  );
+  const response = await fetch(
+    `${datasetUrl}/places?${qs.stringify(placeParams)}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify(placeData),
+    },
+  );
 
   if (response.status < 200 || response.status >= 300) {
     // eslint-disable-next-line no-console
@@ -82,13 +102,7 @@ const getPlaces = async ({
   datasetSlug,
   clientSlug,
 }) => {
-  placeParams = includePrivate
-    ? {
-        ...placeParams,
-        include_private_places: true,
-        include_private_fields: true,
-      }
-    : placeParams;
+  placeParams = setPrivateParams(placeParams, includePrivate);
 
   const response = await fetch(`${url}?${qs.stringify(placeParams)}`, {
     credentials: "include",
