@@ -4,6 +4,10 @@ export const appConfigSelector = state => {
   return state.appConfig;
 };
 
+export const themeSelector = state => {
+  return state.appConfig.theme;
+};
+
 export const appConfigPropType = PropTypes.shape({
   title: PropTypes.string.isRequired,
   meta_description: PropTypes.string.isRequired,
@@ -12,6 +16,7 @@ export const appConfigPropType = PropTypes.shape({
   dataset_download: PropTypes.object,
   name: PropTypes.string,
   time_zone: PropTypes.string.isRequired,
+  theme: themePropType,
   isShowingMobileUserMenu: PropTypes.bool,
   languages: PropTypes.arrayOf(
     PropTypes.shape({
@@ -21,6 +26,35 @@ export const appConfigPropType = PropTypes.shape({
   ),
   logo: PropTypes.string,
   show_name_in_header: PropTypes.bool,
+});
+
+export const themePropType = PropTypes.shape({
+  brand: PropTypes.shape({
+    primary: PropTypes.string,
+    secondary: PropTypes.string,
+    tertiary: PropTypes.string,
+    accent: PropTypes.string,
+  }),
+  bg: PropTypes.shape({
+    default: PropTypes.string,
+    light: PropTypes.string,
+    highlighted: PropTypes.string,
+  }),
+  text: PropTypes.shape({
+    primary: PropTypes.string,
+    secondary: PropTypes.string,
+    highlighted: PropTypes.string,
+    headerFontFamily: PropTypes.string,
+    bodyFontFamily: PropTypes.string,
+    textTransform: PropTypes.string,
+    titleColor: PropTypes.string,
+    titleFontFamily: PropTypes.string,
+  }),
+  map: PropTypes.shape({
+    addPlaceButtonHoverBackgroundColor: PropTypes.string,
+    addPlaceButtonBackgroundColor: PropTypes.string,
+  }),
+  boxShadow: PropTypes.string,
 });
 
 // Actions:
