@@ -335,6 +335,7 @@ class MainMap extends Component {
         }
       }
 
+      // TODO: activePlaceId is a poor name
       if (!prevProps.activePlaceId && this.props.activePlaceId) {
         // The user has entered Edit mode with pre-existing drawn geometry.
         const activeDrawGeometryId = this.draw.add(
@@ -343,18 +344,6 @@ class MainMap extends Component {
         this.props.setActiveDrawGeometryId(activeDrawGeometryId);
         this.draw.changeMode(this.draw.modes.SIMPLE_SELECT);
         this.updateDrawGeometryStyle(activeDrawGeometryId);
-      }
-
-      if (
-        this.props.activeMarker !== prevProps.activeMarker &&
-        this.draw.get(this.props.activeDrawGeometryId)
-      ) {
-        this.draw.setFeatureProperty(
-          this.props.activeDrawGeometryId,
-          "marker-symbol",
-          this.props.activeMarker,
-        );
-        this.draw.set(this.draw.getAll());
       }
 
       if (

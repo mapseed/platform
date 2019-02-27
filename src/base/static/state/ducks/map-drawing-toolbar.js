@@ -17,6 +17,9 @@ export const activeMarkerSelector = state => {
     state.mapDrawingToolbar.activeMarkerIndex
   ];
 };
+export const markerSelector = (state, markerIndex) => {
+  return state.mapDrawingToolbar.markers[markerIndex];
+};
 export const activeDrawGeometryIdSelector = state => {
   return state.mapDrawingToolbar.activeDrawGeometryId;
 };
@@ -27,10 +30,11 @@ export const geometryStyleSelector = state => {
   return state.mapDrawingToolbar.geometryStyle;
 };
 export const geometryStyleProps = PropTypes.shape({
-  [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-  [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
-  [constants.FILL_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-  [constants.FILL_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
+  stroke: PropTypes.string,
+  "stroke-opacity": PropTypes.number,
+  fill: PropTypes.string,
+  "fill-opacity": PropTypes.number,
+  "marker-symbol": PropTypes.string,
 });
 
 // Actions:
@@ -134,10 +138,11 @@ export default function reducer(state = INITIAL_STATE, action) {
     case SET_GEOMETRY_STYLE:
       return {
         ...state,
-        geometryStyle: {
-          ...state.geometryStyle,
-          ...action.payload,
-        },
+        geometryStyle: action.payload,
+        //  geometryStyle: {
+        //    ...state.geometryStyle,
+        //    ...action.payload,
+        //  },
       };
     case RESET_DRAWING_TOOLBAR_STATE:
       return INITIAL_STATE;

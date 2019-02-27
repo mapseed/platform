@@ -20,6 +20,8 @@ import {
   setGeometryStyle,
   resetDrawingToolbarState,
   setActiveDrawGeometryId,
+  markerSelector,
+  geometryStyleProps,
 } from "../../../state/ducks/map-drawing-toolbar";
 import {
   updateDrawModeActive,
@@ -69,7 +71,7 @@ class StrokeColorpickerToolbarButton extends Component {
 StrokeColorpickerToolbarButton.propTypes = {
   activeColorpicker: PropTypes.string,
   label: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 class FillColorpickerToolbarButton extends Component {
@@ -96,7 +98,7 @@ class FillColorpickerToolbarButton extends Component {
 FillColorpickerToolbarButton.propTypes = {
   activeColorpicker: PropTypes.string,
   label: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 class MapDrawingToolbar extends Component {
@@ -112,11 +114,6 @@ class MapDrawingToolbar extends Component {
     );
 
     if (this.props.existingGeometry) {
-      //emitter.emit(
-      //  constants.DRAW_INIT_GEOMETRY_EVENT,
-      //  this.props.existingGeometry,
-      //);
-
       // If we are editing existing geometry on the map, remove the underlying
       // feature from its source and relocate it to mapbox-gl-draw so it can
       // be manipulated.
@@ -129,6 +126,7 @@ class MapDrawingToolbar extends Component {
         case "Point":
           this.props.setActiveDrawingTool(constants.DRAW_CREATE_MARKER_TOOL);
           this.props.setMarkers(this.props.markers);
+          this.props.setGeometryStyle(this.props.existingGeometryStyle);
           this.props.setActiveMarkerIndex(
             this.props.markers.indexOf(
               this.props.existingGeometryStyle[
@@ -146,12 +144,6 @@ class MapDrawingToolbar extends Component {
           this.props.setGeometryStyle(this.props.existingGeometryStyle);
           break;
       }
-      //      emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
-
-      //     emitter.emit(constants.PLACE_COLLECTION_HIDE_PLACE_EVENT, {
-      //       datasetSlug: this.props.datasetSlug,
-      //       placeId: this.props.existingPlaceId,
-      //     });
     }
   }
 
@@ -159,12 +151,13 @@ class MapDrawingToolbar extends Component {
     this.drawUpdateListener.remove();
     this.props.updateDrawModeActive(false);
     this.props.setActiveDrawGeometryId(null);
-    // Restore the original geometry removed on mount to make way for the
-    // editable geometry.
-    this.props.updateGeoJSONSourceAddFeature(
-      this.props.datasetSlug,
-      this.props.placeSelector(this.props.existingPlaceId),
-    );
+    // In edit mode, restore the original geometry removed on mount to make way
+    // for the editable geometry.
+    this.props.existingPlaceId &&
+      this.props.updateGeoJSONSourceAddFeature(
+        this.props.datasetSlug,
+        this.props.placeSelector(this.props.existingPlaceId),
+      );
   }
 
   render() {
@@ -407,6 +400,9 @@ class MapDrawingToolbar extends Component {
                   prefix="/static/css/images/markers/"
                   onClick={() => {
                     this.props.setActiveMarkerIndex(i);
+                    this.props.setGeometryStyle({
+                      "marker-symbol": this.props.markerSelector(i),
+                    });
                   }}
                 />
               ))}
@@ -426,14 +422,10 @@ MapDrawingToolbar.propTypes = {
   existingPlaceId: PropTypes.number,
   existingGeometryStyle: PropTypes.object,
   datasetSlug: PropTypes.string,
-  geometryStyle: PropTypes.shape({
-    [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-    [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
-    [constants.FILL_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-    [constants.FILL_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
-  }).isRequired,
+  geometryStyle: geometryStyleProps,
   isMarkerPanelVisible: PropTypes.bool.isRequired,
   markers: PropTypes.arrayOf(PropTypes.string),
+  markerSelector: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeSelector: PropTypes.func.isRequired,
@@ -457,6 +449,7 @@ const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   isMarkerPanelVisible: markerPanelVisibilitySelector(state),
   geometryStyle: geometryStyleSelector(state),
+  markerSelector: markerIndex => markerSelector(state, markerIndex),
   placeSelector: placeId => placeSelector(state, placeId),
   visibleDrawingTools: visibleDrawingToolsSelector(state),
 });
