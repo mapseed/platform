@@ -43,7 +43,7 @@ import {
   setLeftSidebarComponent,
 } from "../../state/ducks/left-sidebar";
 import {
-  activePlaceIdSelector,
+  activeEditPlaceIdSelector,
   filteredPlacesSelector,
   placePropType,
   placeSelector,
@@ -335,11 +335,10 @@ class MainMap extends Component {
         }
       }
 
-      // TODO: activePlaceId is a poor name
-      if (!prevProps.activePlaceId && this.props.activePlaceId) {
+      if (!prevProps.activeEditPlaceId && this.props.activeEditPlaceId) {
         // The user has entered Edit mode with pre-existing drawn geometry.
         const activeDrawGeometryId = this.draw.add(
-          this.props.placeSelector(this.props.activePlaceId).geometry,
+          this.props.placeSelector(this.props.activeEditPlaceId).geometry,
         )[0];
         this.props.setActiveDrawGeometryId(activeDrawGeometryId);
         this.draw.changeMode(this.draw.modes.SIMPLE_SELECT);
@@ -500,7 +499,7 @@ MainMap.propTypes = {
   activeDrawGeometryId: PropTypes.string,
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
-  activePlaceId: PropTypes.number,
+  activeEditPlaceId: PropTypes.number,
   container: PropTypes.instanceOf(Element).isRequired,
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   geometryStyle: geometryStyleProps,
@@ -542,7 +541,7 @@ const mapStateToProps = state => ({
   activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeDrawingTool: activeDrawingToolSelector(state),
   activeMarker: activeMarkerSelector(state),
-  activePlaceId: activePlaceIdSelector(state),
+  activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   geometryStyle: geometryStyleSelector(state),
   isDrawModeActive: drawModeActiveSelector(state),
