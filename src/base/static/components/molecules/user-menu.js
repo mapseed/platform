@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
-import { Link, SmallText } from "../atoms/typography";
+import { Link, SmallText, RegularText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "react-emotion";
@@ -20,17 +20,19 @@ import {
 
 import mq from "../../../../media-queries";
 
-const MenuContainer = styled("nav")({
+const MenuContainer = styled("nav")(props => ({
   marginLeft: "auto",
   marginRight: "10px",
 
   [mq[0]]: {
-    display: "none",
+    display: props.isMobileEnabled ? "block" : "none",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   [mq[1]]: {
     display: "block",
   },
-});
+}));
 
 const AvatarImg = styled("img")({
   float: "right",
@@ -43,7 +45,11 @@ const AvatarImg = styled("img")({
   padding: "0",
   outline: "0",
 
-  "@media only screen and (min-width: 60em)": {
+  [mq[0]]: {
+    display: "none",
+  },
+
+  [mq[1]]: {
     zIndex: "1",
   },
 });
@@ -65,7 +71,11 @@ const MenuButton = styled(props => {
   height: "100%",
   cursor: "pointer",
 
-  "@media only screen and (min-width: 60em)": {
+  [mq[0]]: {
+    display: "none",
+  },
+
+  [mq[1]]: {
     fontSize: "1em",
     textDecoration: "none",
     lineHeight: "1.5",
@@ -92,7 +102,7 @@ const Menu = styled("ul")(props => ({
   display: props.isMenuOpen ? "grid" : "none",
   gridRowGap: "16px",
 
-  "@media only screen and (min-width: 60em)": {
+  [mq[1]]: {
     background: "url(/static/css/images/lightpaperfibers.png)",
     borderRadius: "3px",
     boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.2)",
@@ -124,6 +134,12 @@ const MenuItem = styled("li")(({ theme }) => ({
   fontFamily: theme.text.fontFamily,
 }));
 
+const MobileSigninLabelWrapper = styled("div")({
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+});
+
 const SocialMediaMenuItem = styled(MenuItem)({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
@@ -154,30 +170,22 @@ const SocialLoginButton = styled(Link)(props => {
 });
 
 class UserMenu extends React.Component {
-  state = {
-    isMenuOpen: false,
-  };
-
-  toggleMenu = () => {
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        isMenuOpen: !prevState.isMenuOpen,
-      };
-    });
-  };
-
   render() {
     if (this.props.currentUser.isAuthenticated) {
       // If user is logged in
       const isDashboard = this.props.currentTemplate === "dashboard";
       return (
-        <MenuContainer role="article">
-          <AvatarImg
-            onClick={this.toggleMenu}
-            src={this.props.currentUser.avatar_url}
-          />
-          <Menu isMenuOpen={this.state.isMenuOpen} isLoggedIn={true}>
+        <MenuContainer
+          role="article"
+          isMobileEnabled={this.props.isMobileEnabled}
+        >
+          {!this.props.isInMobileMode && (
+            <AvatarImg
+              onClick={this.props.toggleMenu}
+              src={this.props.currentUser.avatar_url}
+            />
+          )}
+          <Menu isMenuOpen={this.props.isMenuOpen} isLoggedIn={true}>
             <MenuItem>
               {this.props.dashboardConfig &&
                 this.props.hasAdminAbilities(
@@ -191,7 +199,7 @@ class UserMenu extends React.Component {
                           trigger: true,
                         },
                       );
-                      this.setState({ isMenuOpen: false });
+                      this.props.toggleMenu();
                     }}
                   >
                     {isDashboard ? "back to map" : `go to dashboard`}
@@ -219,11 +227,25 @@ class UserMenu extends React.Component {
     } else {
       // If no user is logged in
       return (
-        <MenuContainer role="article">
-          <MenuButton onClick={this.toggleMenu}>
-            {this.props.t("signIn")}
-          </MenuButton>
-          <Menu isMenuOpen={this.state.isMenuOpen}>
+        <MenuContainer
+          role="article"
+          isMobileEnabled={this.props.isMobileEnabled}
+        >
+          {this.props.isInMobileMode ? (
+            <MobileSigninLabelWrapper>
+              <RegularText
+                color="tertiary"
+                height="24px"
+                weight="bold"
+                textTransform="uppercase"
+              >{`Sign In:`}</RegularText>
+            </MobileSigninLabelWrapper>
+          ) : (
+            <MenuButton onClick={this.props.toggleMenu}>
+              {this.props.t("signIn")}
+            </MenuButton>
+          )}
+          <Menu isMenuOpen={this.props.isMenuOpen}>
             <SocialMediaMenuItem>
               <SocialLoginButton
                 service={"google"}
@@ -261,6 +283,10 @@ UserMenu.propTypes = {
   apiRoot: PropTypes.string.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   t: PropTypes.func.isRequired,
+  isMobileEnabled: PropTypes.bool.isRequired,
+  isInMobileMode: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  isMenuOpen: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

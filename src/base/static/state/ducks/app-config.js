@@ -12,6 +12,7 @@ export const appConfigPropType = PropTypes.shape({
   dataset_download: PropTypes.object,
   name: PropTypes.string,
   time_zone: PropTypes.string.isRequired,
+  isShowingMobileUserMenu: PropTypes.bool,
   languages: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string.isRequired,

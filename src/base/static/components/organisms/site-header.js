@@ -255,6 +255,16 @@ class SiteHeader extends Component {
   state = {
     isLanguageMenuVisible: false, // relevant on desktop layouts
     isHeaderExpanded: false, // relevant on mobile layouts
+    isUserMenuOpen: false, // we should remove this and if header is expanded, then so is this...
+  };
+
+  toggleUserMenu = () => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        isUserMenuOpen: !prevState.isUserMenuOpen,
+      };
+    });
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -351,6 +361,12 @@ class SiteHeader extends Component {
           <UserMenu
             router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
+            isInMobileMode={this.state.isHeaderExpanded}
+            isMobileEnabled={this.props.appConfig.isShowingMobileUserMenu}
+            toggleMenu={this.toggleUserMenu}
+            isMenuOpen={
+              this.state.isUserMenuOpen || this.state.isHeaderExpanded
+            }
             currentTemplate={this.props.currentTemplate}
             dashboardConfig={this.props.dashboardConfig}
           />

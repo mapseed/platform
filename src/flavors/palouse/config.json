@@ -19,6 +19,7 @@
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {
         "primary": "#e57c04",

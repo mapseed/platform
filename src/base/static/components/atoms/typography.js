@@ -178,6 +178,10 @@ const textHandler = (props, styles) => {
     styles.textTransform = "uppercase";
   }
 
+  if (props.color === "tertiary") {
+    styles.color = props.theme.text.tertiary;
+  }
+
   return styles;
 };
 const LargeText = styled("span")(props => {
