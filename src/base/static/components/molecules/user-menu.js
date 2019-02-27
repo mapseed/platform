@@ -9,6 +9,7 @@ import styled from "react-emotion";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
 import {
   offlineConfigSelector,
+  offlineConfigPropType,
   mapLayersSelector,
 } from "../../state/ducks/map-config";
 
@@ -276,7 +277,7 @@ class UserMenu extends React.Component {
 UserMenu.propTypes = {
   currentUser: userPropType,
   dashboardConfig: dashboardConfigPropType,
-  offlineBoundingBox: PropTypes.object,
+  offlineBoundingBox: offlineConfigPropType,
   mapLayerConfigs: PropTypes.array,
   hasAdminAbilities: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,

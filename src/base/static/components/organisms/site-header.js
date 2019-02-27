@@ -255,7 +255,7 @@ class SiteHeader extends Component {
   state = {
     isLanguageMenuVisible: false, // relevant on desktop layouts
     isHeaderExpanded: false, // relevant on mobile layouts
-    isUserMenuOpen: false, // we should remove this and if header is expanded, then so is this...
+    isUserMenuOpen: false,
   };
 
   toggleUserMenu = () => {

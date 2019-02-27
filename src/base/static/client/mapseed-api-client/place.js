@@ -93,7 +93,7 @@ const createPlace = async ({
   const feature = await response.json();
 
   if (feature.isOfflineResponse) {
-    // create a place model to serve as a dummy place until we get back online:
+    // Let the caller know that an offline place was submitted:
     return {
       isOffline: true,
     };
