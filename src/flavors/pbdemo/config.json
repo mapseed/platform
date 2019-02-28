@@ -1,12 +1,23 @@
 {
   "datasets": [
     {
-      "slug": "pbdurham",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
+      "slug": "pbdemo",
+      "url": "https://api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdemo",
       "clientSlug": "idea",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "pbdurham",
+      "url": "https://api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
+      "clientSlug": "idea",
+      "anonymous_permissions": [
+        {
+          "abilities": ["retrieve"],
           "submission_set": "*"
         }
       ]
@@ -248,6 +259,262 @@
               "line-color": "#ffffff",
               "line-width": 2,
               "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "pbdemo",
+        "type": "place",
+        "datasetSlug": "pbdemo",
+        "feature_types": ["Point"],
+        "is_visible_default": true,
+        "focus_rules": [
+          {
+            "symbol-layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "culture",
+                "fountain.png",
+                "safety",
+                "safety.png",
+                "parks",
+                "tree.png",
+                "health",
+                "health.png",
+                "streets",
+                "street-sidewalk.png",
+                "other",
+                "idea.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "culture"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-b75ab8.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "culture"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "fountain-small.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "culture"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "fountain.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "safety"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-fc9229.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "safety"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "safety-small.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "safety"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "safety.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "parks"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-55a504.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "parks"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "tree-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "parks"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "tree.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "health"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-ff78be.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "health"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "health-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "health"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "health.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "streets"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-8ea4b8.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "streets"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "street-sidewalk-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "streets"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "street-sidewalk.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "other"],
+              ["<", ["zoom"], 10]
+            ],
+            "symbol-layout": {
+              "icon-image": "dot-ffd614.png",
+              "icon-size": 0.3,
+              "icon-anchor": "center"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "other"],
+              [">=", ["zoom"], 10],
+              ["<", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-size": 0.4,
+              "icon-image": "idea-small.png",
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "other"],
+              [">=", ["zoom"], 13]
+            ],
+            "symbol-layout": {
+              "icon-image": "idea.png",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom"
             }
           }
         ]
@@ -545,7 +812,11 @@
             "layers": [
               {
                 "id": "pbdurham",
-                "title": "_(Your Ideas)"
+                "title": "_(Original PB Durham Ideas)"
+              },
+              {
+                "id": "pbdemo",
+                "title": "_(Demo ideas)"
               }
             ]
           },
@@ -619,7 +890,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "datasetSlug": "pbdurham",
+        "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/fountain.png",
         "value": "culture",
         "label": "_(Art & Culture)",
@@ -694,7 +965,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "datasetSlug": "pbdurham",
+        "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/tree.png",
         "value": "parks",
         "label": "_(Parks & Recreation)",
@@ -769,7 +1040,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "datasetSlug": "pbdurham",
+        "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/street-sidewalk.png",
         "value": "streets",
         "label": "_(Streets & Sidewalks)",
@@ -844,7 +1115,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "datasetSlug": "pbdurham",
+        "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/health.png",
         "value": "health",
         "label": "_(Health & Wellness)",
@@ -919,7 +1190,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "datasetSlug": "pbdurham",
+        "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/safety.png",
         "value": "safety",
         "label": "_(Safety & Environment)",
@@ -994,7 +1265,7 @@
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "datasetSlug": "pbdurham",
+        "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/idea.png",
         "value": "other",
         "label": "_(Other)",

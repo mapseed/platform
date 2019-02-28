@@ -182,8 +182,10 @@ class PlaceDetailEditor extends Component {
       this.setState({
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
+        isNetworkRequestInFlight: false,
       });
       scrollTo(this.props.container, 0, 300);
+      this.props.setPlaceRequestType(null);
     }
   }
 
@@ -373,6 +375,7 @@ PlaceDetailEditor.propTypes = {
   removePlace: PropTypes.func.isRequired,
   removePlaceAttachment: PropTypes.func.isRequired,
   router: PropTypes.object,
+  setPlaceRequestType: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
   updatePlace: PropTypes.func.isRequired,

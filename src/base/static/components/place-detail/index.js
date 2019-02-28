@@ -225,6 +225,7 @@ class PlaceDetail extends Component {
             place={place}
             onRequestEnd={() => this.setState({ placeRequestType: null })}
             placeRequestType={this.state.placeRequestType}
+            setPlaceRequestType={this.setPlaceRequestType}
             container={this.props.container}
             router={this.props.router}
           />
