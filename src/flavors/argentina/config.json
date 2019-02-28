@@ -402,7 +402,7 @@
             "name": "title",
             "type": "text",
             "prompt": "_(¿De qué se trata?)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
@@ -410,7 +410,7 @@
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)",
             "optional": false
           },
@@ -442,7 +442,7 @@
             "name": "title",
             "type": "text",
             "prompt": "_(¿Qué pasa?)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
@@ -450,7 +450,7 @@
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(¿Cuáles son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansión de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)"
           },
           {
@@ -482,14 +482,14 @@
             "type": "text",
             "prompt": "_(¿Qué se hace?)",
             "placeholder": "_(Introducir título)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_( ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)",
             "optional": false
           },
@@ -522,14 +522,14 @@
             "type": "text",
             "prompt": "_(¿Qué se ve en el futuro?)",
             "placeholder": "_(Introducir título)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?)",
-            "display_prompt": "_()",
+            "display_prompt": "_( )",
             "placeholder": "_(Descripción...)",
             "optional": false
           },
