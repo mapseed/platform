@@ -3,7 +3,7 @@ import qs from "qs";
 import {
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
-  toGeoJSONFeature,
+  toServerGeoJSONFeature,
 } from "../../utils/place-utils";
 
 const setPrivateParams = (placeParams, includePrivate) =>
@@ -21,7 +21,7 @@ const updatePlace = async ({
   datasetSlug,
   clientSlug,
 }) => {
-  placeData = toGeoJSONFeature(placeData);
+  placeData = toServerGeoJSONFeature(placeData);
   // TODO: Private query params.
   // See: https://github.com/jalMogo/mgmt/issues/241
   const placeParams = {
@@ -62,7 +62,7 @@ const createPlace = async ({
   clientSlug,
   includePrivate = false,
 }) => {
-  placeData = toGeoJSONFeature(placeData);
+  placeData = toServerGeoJSONFeature(placeData);
 
   const placeParams = setPrivateParams(
     {
@@ -92,34 +92,8 @@ const createPlace = async ({
 
   const feature = await response.json();
 
-  return {
-    place: fromGeoJSONFeature({ feature, datasetSlug, clientSlug }),
-    placeGeoJSON: {
-      ...feature,
-      properties: {
-        ...feature.properties,
-        _clientSlug: clientSlug,
-        _datasetSlug: datasetSlug,
-      },
-    },
-  };
+  return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
 };
-
-const finalizePlaceData = ({ featureCollection, datasetSlug, clientSlug }) => ({
-  places: fromGeoJSONFeatureCollection({
-    featureCollection,
-    datasetSlug,
-    clientSlug,
-  }),
-  placesGeoJSONFeatures: featureCollection.features.map(feature => ({
-    ...feature,
-    properties: {
-      ...feature.properties,
-      _datasetSlug: datasetSlug,
-      _clientSlug: clientSlug,
-    },
-  })),
-});
 
 const getPlaces = async ({
   url,
@@ -165,7 +139,11 @@ const getPlaces = async ({
           })
           .then(data => data.json())
           .then(featureCollection =>
-            finalizePlaceData({ featureCollection, datasetSlug, clientSlug }),
+            fromGeoJSONFeatureCollection({
+              featureCollection,
+              datasetSlug,
+              clientSlug,
+            }),
           )
           .catch(err => {
             // eslint-disable-next-line no-console
@@ -178,7 +156,7 @@ const getPlaces = async ({
   // Promisfy the first page and add it to the array of returned Promises.
   placePagePromises.push(
     Promise.resolve(
-      finalizePlaceData({
+      fromGeoJSONFeatureCollection({
         featureCollection: firstPage,
         datasetSlug,
         clientSlug,

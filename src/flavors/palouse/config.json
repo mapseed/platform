@@ -67,22 +67,22 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
         "tileSize": 256,
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
       },
       "columbia-river": {
         "type": "geojson",
-        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/columbia-river.geojson"
+        "data": "https://assets.mapseed.org/geo/columbia-river.geojson"
       },
       "snake-river": {
         "type": "geojson",
-        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/snake-river.geojson"
+        "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
       "palouse-basin": {
         "type": "geojson",
-        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin.geojson"
+        "data": "https://assets.mapseed.org/geo/palouse/palouse-basin.geojson"
       },
       "palouse-critical-aquifer": {
         "type": "vector",

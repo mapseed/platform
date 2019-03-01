@@ -14,9 +14,8 @@ import {
   sourcesMetadataSelector,
   layerGroupsMetadataSelector,
   updateLayerGroupVisibility,
+  sourcesMetadataPropType,
 } from "../../state/ducks/map";
-
-import "./map-layer-panel-section.css";
 
 const MapLayerSelectorContainer = styled("div")({
   display: "flex",
@@ -96,7 +95,7 @@ const MapLayerSelector = props => {
           {props.isLayerGroupVisible &&
             props.loadStatus === "loading" && (
               <SpinnerContainer className="map-layer-status-spinner">
-                <Spinner />
+                <Spinner style={{ width: "20px", height: "20px" }} />
               </SpinnerContainer>
             )}
           {props.isLayerGroupVisible &&
@@ -216,7 +215,7 @@ MapLayerPanelSection.propTypes = {
     }),
   ),
   layerGroupsMetadata: PropTypes.object.isRequired,
-  sourcesMetadata: PropTypes.object.isRequired,
+  sourcesMetadata: sourcesMetadataPropType.isRequired,
   title: PropTypes.string,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };

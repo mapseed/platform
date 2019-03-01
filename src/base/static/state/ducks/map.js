@@ -20,10 +20,13 @@ export const mapCenterpointSelector = state => ({
 });
 
 // Actions:
+const LOAD_VIEWPORT = "map/LOAD_VIEWPORT";
 const UPDATE_VIEWPORT = "map/UPDATE_VIEWPORT";
 const UPDATE_STYLE = "map/UPDATE_STYLE";
 const UPDATE_LAYER_GROUP_LOAD_STATUS = "map/UPDATE_LAYER_GROUP_LOAD_STATUS";
-const UPDATE_GEOJSON_FEATURES = "map/UPDATE_GEOJSON_FEATURES";
+const UPDATE_GEOJSON_SOURCE = "map/UPDATE_GEOJSON_SOURCE";
+const CREATE_FEATURES_IN_GEOJSON_SOURCE =
+  "map/CREATE_FEATURES_IN_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
@@ -81,34 +84,17 @@ export function updateSourceLoadStatus(sourceId, loadStatus) {
   };
 }
 
+export function loadMapViewport(viewport) {
+  return {
+    type: LOAD_VIEWPORT,
+    payload: viewport,
+  };
+}
+
 export function updateMapViewport(viewport) {
   return {
     type: UPDATE_VIEWPORT,
     payload: { viewport, scrollZoomAroundCenter: false },
-  };
-}
-
-export function updateMapViewportFromReactMapGL(
-  viewport,
-  scrollZoomAroundCenter = false,
-) {
-  // We have a special action creator for viewport updates that originate from
-  // react-map-gl. The reason for this is that react-map-gl seems to cache
-  // the width and height of the map container at the beginning of a
-  // transition. If the viewport change that initiated the transition also
-  // changed the width and/or height (for example when a Place is clicked and
-  // the map resizes to make way for the content panel), then react-map-gl will
-  // immediately undo the width and height change. The result of this is yet
-  // another version of the off-center bug.
-  //
-  // So, we strip out the height and width from any viewport changes
-  // originating from react-map-gl. There should never be a situation where
-  // react-map-gl should be setting the width or height of the map container.
-  const { width, height, ...rest } = viewport;
-
-  return {
-    type: UPDATE_VIEWPORT,
-    payload: { viewport: rest, scrollZoomAroundCenter },
   };
 }
 
@@ -124,18 +110,20 @@ export function updateMapDragging(isDragging) {
   return { type: UPDATE_MAP_DRAGGING, payload: isDragging };
 }
 
-export function updateGeoJSONFeatures({
-  sourceId,
-  newFeatures,
-  mode = "append",
-}) {
+export function updateGeoJSONSource(sourceId, newFeatures) {
   return {
-    type: UPDATE_GEOJSON_FEATURES,
+    type: UPDATE_GEOJSON_SOURCE,
     payload: {
-      mode,
       sourceId,
       newFeatures,
     },
+  };
+}
+
+export function createFeaturesInGeoJSONSource(sourceId, newFeatures) {
+  return {
+    type: CREATE_FEATURES_IN_GEOJSON_SOURCE,
+    payload: { sourceId, newFeatures },
   };
 }
 
@@ -296,12 +284,32 @@ export const mapViewportPropType = PropTypes.shape({
 export const mapStylePropType = PropTypes.shape({
   version: PropTypes.number,
   name: PropTypes.string,
-  sources: PropTypes.object,
-  layers: PropTypes.arrayOf(PropTypes.object),
+  sources: PropTypes.objectOf(
+    PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      tiles: PropTypes.array,
+      data: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    }),
+  ),
+  layers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      source: PropTypes.string.isRequired,
+      "source-layer": PropTypes.string,
+      paint: PropTypes.object,
+      layout: PropTypes.object,
+    }),
+  ),
 });
 
-// Reducers:
-// TODO(luke): refactor our current implementation in AppView to use
+export const sourcesMetadataPropType = PropTypes.objectOf(
+  PropTypes.shape({
+    loadStatus: PropTypes.string.isRequired,
+    layerGroupIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
+);
+
 const INITIAL_STATE = {
   viewport: {
     width: 0,
@@ -332,7 +340,7 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case UPDATE_GEOJSON_FEATURES:
+    case UPDATE_GEOJSON_SOURCE:
       return {
         ...state,
         style: {
@@ -343,12 +351,26 @@ export default function reducer(state = INITIAL_STATE, action) {
               ...state.style.sources[action.payload.sourceId],
               data: {
                 ...state.style.sources[action.payload.sourceId].data,
-                features:
-                  action.payload.mode === "replace"
-                    ? action.payload.newFeatures
-                    : state.style.sources[
-                        action.payload.sourceId
-                      ].data.features.concat(action.payload.newFeatures),
+                features: action.payload.newFeatures,
+              },
+            },
+          },
+        },
+      };
+    case CREATE_FEATURES_IN_GEOJSON_SOURCE:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.sourceId]: {
+              ...state.style.sources[action.payload.sourceId],
+              data: {
+                ...state.style.sources[action.payload.sourceId].data,
+                features: state.style.sources[
+                  action.payload.sourceId
+                ].data.features.concat(action.payload.newFeatures),
               },
             },
           },
@@ -408,6 +430,14 @@ export default function reducer(state = INITIAL_STATE, action) {
               },
             },
           },
+        },
+      };
+    case LOAD_VIEWPORT:
+      return {
+        ...state,
+        viewport: {
+          ...state.viewport,
+          ...action.payload,
         },
       };
     case UPDATE_VIEWPORT:

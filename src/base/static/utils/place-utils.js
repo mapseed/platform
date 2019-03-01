@@ -45,9 +45,19 @@ const fromGeoJSONFeatureCollection = ({
     ...feature.properties,
   }));
 
-const toGeoJSONFeature = placeData => {
+const toClientGeoJSONFeature = placeData => {
+  const { geometry, ...rest } = placeData;
+
+  return {
+    type: "Feature",
+    geometry,
+    properties: rest,
+  };
+};
+
+const toServerGeoJSONFeature = placeData => {
   // We intentionally strip out some keys from the placeData object which
-  // should not be sent in the request payload.
+  // should not be sent to the server in the request payload.
   /* eslint-disable no-unused-vars */
   const {
     geometry,
@@ -72,5 +82,6 @@ export {
   createGeoJSONFromPlaces,
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
-  toGeoJSONFeature,
+  toServerGeoJSONFeature,
+  toClientGeoJSONFeature,
 };

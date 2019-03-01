@@ -48,11 +48,12 @@ import {
   mapPositionSelector,
   setMapDragging,
   updateMapViewport,
+  loadMapViewport,
   updateFocusedGeoJSONFeatures,
   removeFocusedGeoJSONFeatures,
   updateLayerGroupVisibility,
   loadMapStyle,
-  updateGeoJSONFeatures,
+  createFeaturesInGeoJSONSource,
   mapViewportSelector,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
@@ -156,9 +157,7 @@ export default Backbone.View.extend({
       store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
     }
     // Set initial map viewport from values supplied in the config.
-    store.dispatch(
-      updateMapViewport(this.options.mapConfig.options.mapViewport),
-    );
+    store.dispatch(loadMapViewport(this.options.mapConfig.options.mapViewport));
 
     const storeState = store.getState();
     this.flavorTheme = storeState.appConfig.theme;
@@ -417,19 +416,24 @@ export default Backbone.View.extend({
             allPlacePagePromises.push(placePagePromise);
             const pageData = await placePagePromise;
             store.dispatch(
-              loadPlaces(
-                pageData.places,
-                storyConfigSelector(store.getState()),
-              ),
+              loadPlaces(pageData, storyConfigSelector(store.getState())),
             );
 
             // Update the map.
             store.dispatch(
-              updateGeoJSONFeatures({
+              createFeaturesInGeoJSONSource(
                 // "sourceId" and a dataset's slug are the same thing.
-                sourceId: config.slug,
-                newFeatures: pageData.placesGeoJSONFeatures,
-              }),
+                config.slug,
+                pageData.map(place => {
+                  const { geometry, ...rest } = place;
+
+                  return {
+                    type: "Feature",
+                    geometry,
+                    properties: rest,
+                  };
+                }),
+              ),
             );
           });
         } else {

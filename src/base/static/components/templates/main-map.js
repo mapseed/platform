@@ -12,14 +12,17 @@ import {
   mapViewportPropType,
   mapStylePropType,
   updateMapViewport,
-  updateMapViewportFromReactMapGL,
   updateSourceLoadStatus,
   sourcesMetadataSelector,
   updateMapDragged,
   updateMapDragging,
   updateGeoJSONFeatures,
+  sourcesMetadataPropType,
 } from "../../state/ducks/map";
-import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapConfigPropType,
+} from "../../state/ducks/map-config";
 import {
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
@@ -198,8 +201,8 @@ class MainMap extends Component {
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
     // lag when clicking around Places on the map. It's not clear why, but we
     // get better performance by querying rendered features as soon as the
-    // onMouseDown or onTouchStart events fire, and using the onMouseUp and  
-    // onTouchEnd handler to test if the most recent queried feature is one we 
+    // onMouseDown or onTouchStart events fire, and using the onMouseUp and
+    // onTouchEnd handler to test if the most recent queried feature is one we
     // shoud route to (i.e. is a Place).
     //
     // Note that if no features are found in the query, an empty array is
@@ -218,7 +221,9 @@ class MainMap extends Component {
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
       this.props.router.navigate(
-        `/${this.queriedFeatures[0].properties._clientSlug}/${this.queriedFeatures[0].id}`,
+        `/${this.queriedFeatures[0].properties._clientSlug}/${
+          this.queriedFeatures[0].id
+        }`,
         { trigger: true },
       );
     }
@@ -229,6 +234,7 @@ class MainMap extends Component {
       this.props.updateMapDragging(true);
     } else if (!evt.isDragging && this.props.isMapDragging) {
       this.props.updateMapDragging(false);
+      this.props.updateMapDragged(true);
     }
   };
 
@@ -261,8 +267,21 @@ class MainMap extends Component {
         onTouchEnd={this.onMouseUp}
         onTouchStart={this.onMouseDown}
         onViewportChange={viewport => {
-          this.props.updateMapViewportFromReactMapGL(
-            viewport,
+          // NOTE: react-map-gl seems to cache the width and height of the map
+          // container at the beginning of a transition. If the viewport change
+          // that initiated the transition also changed the width and/or height
+          // (for example when a Place is clicked and the map resizes to make
+          // way for the content panel), then react-map-gl will immediately
+          // undo the width and height change. The result of this is yet
+          // another version of the off-center bug.
+          //
+          // So, we strip out the height and width from any viewport changes
+          // originating from react-map-gl. There should never be a situation
+          // where react-map-gl needs to set the width or height of the map
+          // container.
+          const { width, height, ...rest } = viewport;
+          this.props.updateMapViewport(
+            rest,
             this.isMapTransitioning
               ? false
               : this.props.mapConfig.options.scrollZoomAroundCenter,
@@ -317,7 +336,7 @@ MainMap.propTypes = {
       }),
     ),
   }).isRequired,
-  mapConfig: PropTypes.object,
+  mapConfig: mapConfigPropType.isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
@@ -325,12 +344,11 @@ MainMap.propTypes = {
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setSlippyRoute: PropTypes.func.isRequired,
-  sourcesMetadata: PropTypes.object.isRequired,
+  sourcesMetadata: sourcesMetadataPropType.isRequired,
   updateMapDragged: PropTypes.func.isRequired,
   updateMapDragging: PropTypes.func.isRequired,
   updateGeoJSONFeatures: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
-  updateMapViewportFromReactMapGL: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
 };
 
@@ -356,8 +374,6 @@ const mapDispatchToProps = dispatch => ({
   updateGeoJSONFeatures: ({ sourceId, newFeatures, mode }) =>
     dispatch(updateGeoJSONFeatures({ sourceId, newFeatures, mode })),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
-  updateMapViewportFromReactMapGL: (viewport, scrollZoomAroundCenter) =>
-    dispatch(updateMapViewportFromReactMapGL(viewport, scrollZoomAroundCenter)),
   updateSourceLoadStatus: (sourceId, loadStatus) =>
     dispatch(updateSourceLoadStatus(sourceId, loadStatus)),
 });

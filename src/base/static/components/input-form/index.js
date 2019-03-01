@@ -17,6 +17,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
+import { toClientGeoJSONFeature } from "../../utils/place-utils";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
@@ -29,7 +30,7 @@ import {
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   mapCenterpointSelector,
-  updateGeoJSONFeatures,
+  createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 import { hasAdminAbilities } from "../../state/ducks/user";
@@ -326,12 +327,12 @@ class InputForm extends Component {
         await Promise.all(
           this.attachments.map(async attachment => {
             const attachmentResponse = await mapseedApiClient.attachments.create(
-              placeResponse.place.url,
+              placeResponse.url,
               attachment,
             );
 
             if (attachmentResponse) {
-              placeResponse.place.attachments.push(attachmentResponse);
+              placeResponse.attachments.push(attachmentResponse);
               Util.log("USER", "dataset", "successfully-add-attachment");
             } else {
               alert("Oh dear. It looks like an attachment didn't save.");
@@ -342,13 +343,13 @@ class InputForm extends Component {
       }
 
       // Only add this place to the places duck if it isn't private.
-      !placeResponse.private && this.props.createPlace(placeResponse.place);
+      !placeResponse.private && this.props.createPlace(placeResponse);
       !placeResponse.private &&
-        this.props.updateGeoJSONFeatures({
+        this.props.createFeaturesInGeoJSONSource(
           // "sourceId" and a place's datasetSlug are the same thing.
-          sourceId: this.props.datasetSlug,
-          newFeatures: placeResponse.placeGeoJSON,
-        });
+          this.props.datasetSlug,
+          toClientGeoJSONFeature(placeResponse),
+        );
 
       this.setState({ isFormSubmitting: false, showValidityStatus: false });
 
@@ -376,7 +377,7 @@ class InputForm extends Component {
           this.defaultPostSave.bind(this),
         );
       } else {
-        this.defaultPostSave(placeResponse.place);
+        this.defaultPostSave(placeResponse);
       }
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");
@@ -568,7 +569,7 @@ InputForm.propTypes = {
   setActiveDrawingTool: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  updateGeoJSONFeatures: PropTypes.func.isRequired,
+  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
 
@@ -584,8 +585,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateGeoJSONFeatures: ({ sourceId, sourceData }) =>
-    dispatch(updateGeoJSONFeatures({ sourceId, sourceData })),
+  createFeaturesInGeoJSONSource: (sourceId, sourceData) =>
+    dispatch(createFeaturesInGeoJSONSource(sourceId, sourceData)),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
