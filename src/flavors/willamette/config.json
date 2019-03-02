@@ -28,39 +28,70 @@
     "geocode_field_label": "_(Enter an address...)",
     "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
-      "map": {
-        "center": {
-          "lat": 45.58665,
-          "lng": -122.7566
-        },
+      "mapViewport": {
+        "latitude": 45.58665,
+        "longitude": -122.7566,
         "zoom": 13,
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
       },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
-      },
       "drawing_enabled": false
     },
-    "layers": [
+    "mapboxSources": {
+      "osm": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w"
+        ],
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
+        "tileSize": 256
+      },
+      "source-control": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/willamette-source-control/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "alt-i": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/willamette-alt-i/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "alt-g": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/willamette-alt-g/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "alt-h": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/willamette-alt-h/{z}/{x}/{y}.pbf"
+        ]
+      }
+    },
+    "layerGroups": [
       {
         "id": "osm",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "is_visible_default": true,
-        "url": "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w",
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
       },
       {
         "id": "source-control",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-source-control/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-source-control",
-        "mapbox_layers": [
+        "mapboxLayers": [
           {
             "id": "source-control-outline",
+            "source": "source-control",
+            "source-layer": "willamette-source-control",
             "type": "line",
             "paint": {
               "line-width": 1,
@@ -70,6 +101,8 @@
           },
           {
             "id": "source-control-priorities",
+            "source": "source-control",
+            "source-layer": "willamette-source-control",
             "type": "fill",
             "paint": {
               "fill-opacity": 0.5,
@@ -93,12 +126,12 @@
       {
         "id": "alt-i",
         "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-alt-i/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-alt-i",
-        "mapbox_layers": [
+        "mapboxLayers": [
           {
             "id": "alt-i-outline",
             "type": "line",
+            "source": "alt-i",
+            "source-layer": "willamette-alt-i",
             "paint": {
               "line-width": 1,
               "line-color": "#fff",
@@ -108,6 +141,8 @@
           {
             "id": "alt-i-techassign",
             "type": "fill",
+            "source": "alt-i",
+            "source-layer": "willamette-alt-i",
             "paint": {
               "fill-opacity": 0.7,
               "fill-color": [
@@ -139,13 +174,12 @@
       },
       {
         "id": "alt-g",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-alt-g/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-alt-g",
-        "mapbox_layers": [
+        "mapboxLayers": [
           {
             "id": "alt-g-outline",
             "type": "line",
+            "source": "alt-g",
+            "source-layer": "willamette-alt-g",
             "paint": {
               "line-width": 1,
               "line-color": "#fff",
@@ -155,6 +189,8 @@
           {
             "id": "alt-g-techassign",
             "type": "fill",
+            "source": "alt-g",
+            "source-layer": "willamette-alt-g",
             "paint": {
               "fill-opacity": 0.7,
               "fill-color": [
@@ -186,13 +222,12 @@
       },
       {
         "id": "alt-h",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/willamette-alt-h/{z}/{x}/{y}.pbf",
-        "source_layer": "willamette-alt-h",
-        "mapbox_layers": [
+        "mapboxLayers": [
           {
             "id": "alt-h-outline",
             "type": "line",
+            "source": "alt-h",
+            "source-layer": "willamette-alt-h",
             "paint": {
               "line-width": 1,
               "line-color": "#fff",
@@ -200,8 +235,10 @@
             }
           },
           {
-            "id": "alt-g-techassign",
+            "id": "alt-h-techassign",
             "type": "fill",
+            "source": "alt-h",
+            "source-layer": "willamette-alt-h",
             "paint": {
               "fill-opacity": 0.7,
               "fill-color": [
@@ -233,13 +270,14 @@
       },
       {
         "id": "willamette",
-        "type": "place",
         "datasetSlug": "willamette",
-        "is_visible_default": true,
-        "feature_types": ["Point"],
-        "focus_rules": [
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "symbol-layout": {
+            "id": "willamette-focused",
+            "type": "symbol",
+            "source": "willamette",
+            "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
               "icon-image": [
@@ -258,101 +296,46 @@
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-0d85e9.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-f95016.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-idea.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "question"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-dbcf2c.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "question"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-question.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "complaint"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-e1264d.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "complaint"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-complaint.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
+            "id": "willamette",
+            "type": "symbol",
+            "source": "willamette",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
+              "icon-size": ["step", ["zoom"], 1, 10, 0.5],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "observation",
+                  "dot-0d85e9.png",
+                  "idea",
+                  "dot-f95016.png",
+                  "complaint",
+                  "dot-e1264d.png",
+                  "question",
+                  "dot-dbcf2c.png",
+                  "__no-icon-image__"
+                ],
+                10,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "observation",
+                  "marker-observation.png",
+                  "idea",
+                  "marker-idea.png",
+                  "complaint",
+                  "marker-complaint.png",
+                  "question",
+                  "marker-question.png",
+                  "__no-icon-image__"
+                ]
+              ]
             }
           }
         ]
@@ -365,14 +348,14 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "osm",
                 "title": "_(OpenStreetMap)"
@@ -382,7 +365,7 @@
           {
             "id": "grp-community",
             "title": "_(Data layers)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "willamette",
                 "title": "_(Community Reports)"

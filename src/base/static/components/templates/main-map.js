@@ -222,7 +222,7 @@ class MainMap extends Component {
       // Place's detail view.
       this.props.router.navigate(
         `/${this.queriedFeatures[0].properties._clientSlug}/${
-          this.queriedFeatures[0].id
+          this.queriedFeatures[0].properties.id
         }`,
         { trigger: true },
       );
@@ -262,8 +262,8 @@ class MainMap extends Component {
         mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
         minZoom={this.props.mapViewport.minZoom}
         maxZoom={this.props.mapViewport.maxZoom}
-        onMouseUp={this.onMouseUp}
-        onMouseDown={this.onMouseDown}
+        onMouseUp={this.endFeatureQuery}
+        onMouseDown={this.beginFeatureQuery}
         onTouchEnd={this.onMouseUp}
         onTouchStart={this.onMouseDown}
         onViewportChange={viewport => {

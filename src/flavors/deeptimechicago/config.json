@@ -43,56 +43,74 @@
     "geocode_field_label": "_(Enter an address...)",
     "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
-      "map": {
-        "center": {
-          "lat": 47.25457,
-          "lng": -122.4442
-        },
+      "mapViewport": {
+        "latitude": 47.25457,
+        "longitude": -122.4442,
         "zoom": 5.62,
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 19
       },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
-      },
       "drawing_enabled": true
     },
-    "layers": [
-      {
-        "id": "streets",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "is_visible_default": true,
-        "url": "https://api.mapbox.com/styles/v1/bkholmes/cjr6z7svt00n82rqm1y3igze4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+    "mapboxSources": {
+      "streets": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjr6z7svt00n82rqm1y3igze4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
       },
-      {
-        "id": "landscape",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "is_visible_default": true,
-        "url": "https://ecotopia.today/cascadia/Tiles/Cascadia-new/{z}/{x}/{y}.png",
-        "attribution": "Hello World"
+      "landscape": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/cascadia/Tiles/Cascadia-new/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
       },
+      "topography": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      }
+    },
+    "layerGroups": [
       {
-        "id": "topography",
-        "is_basemap": true,
-        "is_visible_default": true,
-        "type": "raster-tile",
-        "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
+        "id": "topography-landscape-streets",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "topography-basemap",
+            "type": "raster",
+            "source": "topography"
+          },
+          {
+            "id": "streets-basemap",
+            "type": "raster",
+            "source": "streets"
+          },
+          {
+            "id": "landscape-basemap",
+            "type": "raster",
+            "source": "landscape"
+          }
+        ]
       },
       {
         "id": "deeptimechicago-input",
-        "type": "place",
         "datasetSlug": "deeptimechicago-input",
-        "is_visible_default": true,
-        "feature_types": ["Point"],
-        "focus_rules": [
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "symbol-layout": {
+            "id": "deeptimechicago-input-focused",
+            "type": "symbol",
+            "source": "deeptimechicago-input",
+            "layout": {
               "icon-size": 0.7,
-              "icon-anchor": "bottom",
+              "icon-anchor": "center",
               "icon-image": [
                 "match",
                 ["get", "location_type"],
@@ -109,101 +127,46 @@
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "sensation"],
-              ["<", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-0d85e9.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "sensation"],
-              [">=", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "sensation.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              ["<", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-f95016.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              [">=", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "idea.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "event"],
-              ["<", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-e1264d.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "event"],
-              [">=", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "artwork.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "artwork"],
-              ["<", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-dbcf2c.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "artwork"],
-              [">=", ["zoom"], 8]
-            ],
-            "symbol-layout": {
-              "icon-image": "event.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
+            "id": "deeptimechicago-input",
+            "type": "symbol",
+            "source": "deeptimechicago-input",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": "center",
+              "icon-size": ["step", ["zoom"], 0.3, 10, 0.4],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "sensation",
+                  "sensation.png",
+                  "idea",
+                  "idea.png",
+                  "event",
+                  "event.png",
+                  "artwork",
+                  "artwork.png",
+                  "__no-icon-image__"
+                ],
+                10,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "sensation",
+                  "dot-0d85e9.png",
+                  "idea",
+                  "dot-f95016.png",
+                  "event",
+                  "dot-e1264d.png",
+                  "artwork",
+                  "dot-dbcf2c.png",
+                  "__no-icon-image__"
+                ]
+              ]
             }
           }
         ]
@@ -220,28 +183,24 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Layers:)",
-        "groupings": [
+        "content": [
           {
-            "id": "streets",
+            "id": "topography-landscape-streets",
             "title": "_(Streets)",
-            "layers": [
+            "layerGroups": [
               {
-                "id": "landscape",
-                "title": "_(Landscape)"
-              },
-              {
-                "id": "topography",
-                "title": "_(Topography)"
+                "id": "topography-landscape-streets",
+                "title": "_(Basemap)"
               }
             ]
           },
           {
             "id": "grp-community",
             "title": "_(Contributions)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "deeptimechicago-input",
                 "title": "_(Comments)"
