@@ -34,9 +34,7 @@ const AddPlaceButton = styled(
     },
 
     [mq[0]]: {
-      position: "fixed",
       width: "100%",
-      bottom: 0,
       borderRadius: 0,
     },
     [mq[1]]: {

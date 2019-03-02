@@ -455,26 +455,6 @@ export default Backbone.View.extend({
   isAddingPlace: function(model) {
     return this.$panel.is(":visible") && this.$panel.hasClass("place-form");
   },
-  onMapZoomEnd: function(isUserZoom = true) {
-    if (this.hasBodyClass("content-visible") === true && isUserZoom) {
-      this.hideSpotlightMask();
-    }
-  },
-  onMapMoveStart: function(evt) {
-    store.dispatch(setMapDragging(true));
-  },
-  onMapMoveEnd: function(isUserMove = true) {
-    store.dispatch(setMapDragging(false));
-    if (this.hasBodyClass("content-visible") === false && isUserMove) {
-      const { zoom, center } = mapPositionSelector(store.getState());
-      this.setLocationRoute(zoom, center.lat, center.lng);
-    }
-  },
-  onMapDragEnd: function(evt) {
-    if (this.hasBodyClass("content-visible") === true) {
-      this.hideSpotlightMask();
-    }
-  },
   onClickClosePanelBtn: function(evt) {
     evt.preventDefault();
 
@@ -486,8 +466,6 @@ export default Backbone.View.extend({
     if (this.isStoryActive) {
       this.isStoryActive = false;
     }
-
-    emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
   },
   setBodyClass: function(/* newBodyClasses */) {
     var bodyClasses = ["content-visible", "place-form-visible", "page-visible"],
@@ -513,17 +491,6 @@ export default Backbone.View.extend({
   hasBodyClass: function(className) {
     return $("body").hasClass(className);
   },
-  setLocationRoute: function(zoom, lat, lng) {
-    this.options.router.navigate(
-      "/" +
-        parseFloat(zoom).toFixed(2) +
-        "/" +
-        parseFloat(lat).toFixed(5) +
-        "/" +
-        parseFloat(lng).toFixed(5),
-    );
-  },
-
   viewMap: async function(zoom, lat, lng) {
     let mapPosition;
 
@@ -559,8 +526,11 @@ export default Backbone.View.extend({
       if (this.options.rightSidebarConfig.is_visible_default) {
         $("body").addClass("right-sidebar-visible");
         store.dispatch(setRightSidebar(true));
+
+        const dimensions = this.getMapDimensions();
         updateMapViewport({
-          width: this.getMapWidth(),
+          width: dimensions.width,
+          height: dimensions.height,
         });
       }
 
@@ -571,7 +541,7 @@ export default Backbone.View.extend({
             <ThemeProvider theme={this.adjustedTheme}>
               <RightSidebar
                 router={this.options.router}
-                getMapWidth={this.getMapWidth.bind(this)}
+                getMapDimensions={this.getMapDimensions.bind(this)}
               />
             </ThemeProvider>
           </ThemeProvider>
@@ -623,7 +593,6 @@ export default Backbone.View.extend({
                 // TODO: Improve this when we move overall app layout management to
                 // Redux.
                 container={document.querySelector(
-                  Util.getPageLayout() === '"desktop"' ||
                   Util.getPageLayout() === "desktop"
                     ? "#content article"
                     : "body",
@@ -825,18 +794,33 @@ export default Backbone.View.extend({
     this.showSpotlightMask();
   },
 
-  getMapWidth() {
+  getMapDimensions() {
     // To avoid a race condition between CSS resizing elements and the map
-    // initiating a viewport change, we manually calculate what the width of
+    // initiating a viewport change, we manually calculate what the dimensions of
     // the map *should* be given the current state of the UI. The race
     // condition that this code avoids was the cause of the old off-center bug.
-    return (
-      window.innerWidth -
-      (contentPanelOpenSelector(store.getState()) ? this.$panel.width() : 0) -
-      (rightSidebarExpandedSelector(store.getState())
-        ? this.$rightSidebar.width()
-        : 0)
-    );
+    return {
+      width:
+        Util.getPageLayout() === "desktop"
+          ? document.body.clientWidth -
+            (contentPanelOpenSelector(store.getState())
+              ? this.$panel.width()
+              : 0) -
+            (rightSidebarExpandedSelector(store.getState())
+              ? this.$rightSidebar.width()
+              : 0)
+          : document.body.clientWidth,
+      height:
+        Util.getPageLayout() === "desktop"
+          ? document.body.clientHeight - $("#site-header").height()
+          : document.body.clientHeight -
+            $("#site-header").height() -
+            (contentPanelOpenSelector(store.getState())
+              ? // 0.4 corresponds to 100% - the 60% of the available height
+                // that the map occupies on mobile.
+                document.body.clientHeight * 0.4
+              : $("#add-place-button").height()),
+    };
   },
 
   getWebMercatorViewport: function() {
@@ -908,9 +892,12 @@ export default Backbone.View.extend({
     Util.log("APP", "panel-state", "open");
     store.dispatch(setContentPanel(true));
 
+    const dimensions = this.getMapDimensions();
+    console.log("!!!", dimensions);
     store.dispatch(
       updateMapViewport({
-        width: this.getMapWidth(),
+        width: dimensions.width,
+        height: dimensions.height,
       }),
     );
   },
@@ -930,9 +917,13 @@ export default Backbone.View.extend({
     this.hideSpotlightMask();
 
     store.dispatch(setContentPanel(false));
+
+    const dimensions = this.getMapDimensions();
+    console.log("!!!", dimensions);
     store.dispatch(
       updateMapViewport({
-        width: this.getMapWidth(),
+        width: dimensions.width,
+        height: dimensions.height,
       }),
     );
     store.dispatch(removeFocusedGeoJSONFeatures());
@@ -1028,9 +1019,7 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
 
     const contentNode = document.querySelector(
-      Util.getPageLayout() === '"desktop"' || Util.getPageLayout() === "desktop"
-        ? "#content article"
-        : "body",
+      Util.getPageLayout() === "desktop" ? "#content article" : "body",
     );
     ReactDOM.unmountComponentAtNode(contentNode);
 

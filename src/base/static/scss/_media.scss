@@ -10,6 +10,13 @@
     height: 100%;
   }
 
+  #add-place-button {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 10;
+  }
+
   #main {
     // calculated as 100% of viewport height, minus the height of the header
     height: calc(
