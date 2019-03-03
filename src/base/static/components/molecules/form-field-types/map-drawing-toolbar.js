@@ -25,10 +25,11 @@ import {
 } from "../../../state/ducks/map-drawing-toolbar";
 import {
   updateDrawModeActive,
-  updateGeoJSONSourceRemoveFeature,
-  updateGeoJSONSourceAddFeature,
+  removeFeatureInGeoJSONSource,
+  createFeaturesInGeoJSONSource,
 } from "../../../state/ducks/map";
 import { placeSelector } from "../../../state/ducks/places";
+import { toClientGeoJSONFeature } from "../../../utils/place-utils";
 
 import { ToolbarButton } from "../../atoms/buttons";
 import { Paragraph } from "../../atoms/typography";
@@ -117,7 +118,7 @@ class MapDrawingToolbar extends Component {
       // If we are editing existing geometry on the map, remove the underlying
       // feature from its source and relocate it to mapbox-gl-draw so it can
       // be manipulated.
-      this.props.updateGeoJSONSourceRemoveFeature(
+      this.props.removeFeatureInGeoJSONSource(
         this.props.datasetSlug,
         this.props.existingPlaceId,
       );
@@ -154,9 +155,11 @@ class MapDrawingToolbar extends Component {
     // In edit mode, restore the original geometry removed on mount to make way
     // for the editable geometry.
     this.props.existingPlaceId &&
-      this.props.updateGeoJSONSourceAddFeature(
+      this.props.createFeaturesInGeoJSONSource(
         this.props.datasetSlug,
-        this.props.placeSelector(this.props.existingPlaceId),
+        toClientGeoJSONFeature(
+          this.props.placeSelector(this.props.existingPlaceId),
+        ),
       );
   }
 
@@ -439,8 +442,8 @@ MapDrawingToolbar.propTypes = {
   setMarkers: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   updateDrawModeActive: PropTypes.func.isRequired,
-  updateGeoJSONSourceAddFeature: PropTypes.func.isRequired,
-  updateGeoJSONSourceRemoveFeature: PropTypes.func.isRequired,
+  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
+  removeFeatureInGeoJSONSource: PropTypes.func.isRequired,
   visibleDrawingTools: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
@@ -467,10 +470,10 @@ const mapDispatchToProps = dispatch => ({
   setGeometryStyle: geometryStyle => dispatch(setGeometryStyle(geometryStyle)),
   setMarkers: markers => dispatch(setMarkers(markers)),
   updateDrawModeActive: isActive => dispatch(updateDrawModeActive(isActive)),
-  updateGeoJSONSourceAddFeature: (sourceId, place) =>
-    dispatch(updateGeoJSONSourceAddFeature(sourceId, place)),
-  updateGeoJSONSourceRemoveFeature: (sourceId, featureId) =>
-    dispatch(updateGeoJSONSourceRemoveFeature(sourceId, featureId)),
+  createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
+    dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
+  removeFeatureInGeoJSONSource: (sourceId, featureId) =>
+    dispatch(removeFeatureInGeoJSONSource(sourceId, featureId)),
 });
 
 export default connect(

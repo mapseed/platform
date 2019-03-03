@@ -417,14 +417,13 @@ export default function reducer(state = INITIAL_STATE, action) {
                 features: state.style.sources[
                   action.payload.sourceId
                 ].data.features.filter(
-                  feature => feature.id !== action.payload.featureId,
+                  feature => feature.properties.id !== action.payload.featureId,
                 ),
               },
             },
           },
         },
       };
-
     case REMOVE_FOCUSED_GEOJSON_FEATURES:
       return {
         ...state,
