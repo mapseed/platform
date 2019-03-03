@@ -331,6 +331,7 @@ class InputForm extends Component {
         "No internet connection detected. Your submission may not be successful until you are back online.",
       );
       Util.log("USER", "place", "submitted-offline-place");
+      this.props.router.navigate("/", { trigger: true });
       return;
     }
     Util.log("USER", "new-place", "successfully-add-place");
