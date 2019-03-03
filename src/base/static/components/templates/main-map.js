@@ -20,7 +20,7 @@ import {
   sourcesMetadataSelector,
   updateMapDragged,
   updateMapDragging,
-  updateGeoJSONFeatures,
+  updateFeaturesInGeoJSONSource,
   sourcesMetadataPropType,
   updateSources,
   updateLayers,
@@ -218,11 +218,7 @@ class MainMap extends Component {
         return true;
       };
       this.map.setSourceData = (sourceId, newFeatures) => {
-        this.props.updateGeoJSONFeatures({
-          sourceId,
-          newFeatures,
-          mode: "replace",
-        });
+        this.props.updateFeaturesInGeoJSONSource(sourceId, newFeatures);
       };
 
       this.map.on("draw.update", evt => {
@@ -262,11 +258,7 @@ class MainMap extends Component {
     // Remove any drawn geometry.
     this.props.setActiveDrawGeometryId(null);
     ["mapbox-gl-draw-cold", "mapbox-gl-draw-hot"].forEach(sourceId =>
-      this.props.updateGeoJSONFeatures({
-        sourceId,
-        newFeatures: [],
-        mode: "replace",
-      }),
+      this.props.updateFeaturesInGeoJSONSource(sourceId, []),
     );
     this.draw.deleteAll();
   }
@@ -300,12 +292,10 @@ class MainMap extends Component {
       const sourceId = this.props.placeFilters.length
         ? this.props.placeFilters[0].datasetSlug
         : prevProps.placeFilters[0].datasetSlug;
-      this.props.updateGeoJSONFeatures({
+      this.props.updateFeaturesInGeoJSONSource(
         sourceId,
-        newFeatures: createGeoJSONFromPlaces(this.props.filteredPlaces)
-          .features,
-        mode: "replace",
-      });
+        createGeoJSONFromPlaces(this.props.filteredPlaces).features,
+      );
     }
 
     if (
@@ -530,7 +520,7 @@ MainMap.propTypes = {
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   updateMapDragged: PropTypes.func.isRequired,
   updateMapDragging: PropTypes.func.isRequired,
-  updateGeoJSONFeatures: PropTypes.func.isRequired,
+  updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayers: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updateSources: PropTypes.func.isRequired,
@@ -564,8 +554,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(component)),
   updateMapDragged: isDragged => dispatch(updateMapDragged(isDragged)),
   updateMapDragging: isDragging => dispatch(updateMapDragging(isDragging)),
-  updateGeoJSONFeatures: ({ sourceId, newFeatures, mode }) =>
-    dispatch(updateGeoJSONFeatures({ sourceId, newFeatures, mode })),
+  updateFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
+    dispatch(updateFeaturesInGeoJSONSource(sourceId, newFeatures)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
   updateSourceLoadStatus: (sourceId, loadStatus) =>
     dispatch(updateSourceLoadStatus(sourceId, loadStatus)),

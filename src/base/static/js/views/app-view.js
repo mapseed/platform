@@ -45,8 +45,6 @@ import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../state/ducks/app-config";
 import { loadDashboardConfig } from "../../state/ducks/dashboard-config";
 import {
-  mapPositionSelector,
-  setMapDragging,
   updateMapViewport,
   loadMapViewport,
   updateFocusedGeoJSONFeatures,
@@ -893,7 +891,6 @@ export default Backbone.View.extend({
     store.dispatch(setContentPanel(true));
 
     const dimensions = this.getMapDimensions();
-    console.log("!!!", dimensions);
     store.dispatch(
       updateMapViewport({
         width: dimensions.width,
@@ -919,7 +916,6 @@ export default Backbone.View.extend({
     store.dispatch(setContentPanel(false));
 
     const dimensions = this.getMapDimensions();
-    console.log("!!!", dimensions);
     store.dispatch(
       updateMapViewport({
         width: dimensions.width,
