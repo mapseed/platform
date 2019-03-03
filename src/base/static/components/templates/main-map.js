@@ -201,7 +201,7 @@ class MainMap extends Component {
       // plugin from manipulating map state directly. Where needed, we reroute
       // data to our Redux store. Note that "setSourceData" is a custom method
       // that only exists on our fork of mapbox-gl-draw.
-      // TODO: See PR where this change was made on the fork...
+      // See: https://github.com/mapseed/mapbox-gl-draw/pull/1
       this.map.addSource = (newSourceId, newSource) => {
         this.props.updateSources(newSourceId, newSource);
       };
@@ -238,15 +238,6 @@ class MainMap extends Component {
           this.draw.set(this.draw.getAll());
         }
       });
-
-      // TODO: unbind this when leaving draw mode
-      this.map.on("dragend", () => {
-        const { lng, lat } = this.map.getCenter();
-        this.props.updateMapViewport({
-          latitude: lat,
-          longitude: lng,
-        });
-      });
     }
   }
 
@@ -277,9 +268,19 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.isDrawModeActive !== prevProps.isDrawModeActive) {
-      // Drawing mode has been entered or left.
-      !this.props.isDrawModeActive && this.removeDrawGeometry();
+    if (this.props.isDrawModeActive && !prevProps.isDrawModeActive) {
+      // Drawing mode has been entered.
+      this.map.on("dragend", () => {
+        const { lng, lat } = this.map.getCenter();
+        this.props.updateMapViewport({
+          latitude: lat,
+          longitude: lng,
+        });
+      });
+    } else if (!this.props.isDrawModeActive && prevProps.isDrawModeActive) {
+      // Drawing mode has been left.
+      this.map.off("dragend");
+      this.removeDrawGeometry();
     }
 
     if (this.props.placeFilters.length !== prevProps.placeFilters.length) {
