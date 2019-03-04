@@ -117,6 +117,14 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
+  /^\/static\//,
+  new workbox.strategies.NetworkFirst({
+    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
+  }),
+  "GET",
+);
+
+workbox.routing.registerRoute(
   /^http[s]?:\/\/cdnjs.cloudflare.com\/ajax\/libs\//,
   new workbox.strategies.StaleWhileRevalidate(),
   "GET",
