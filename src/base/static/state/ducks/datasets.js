@@ -25,22 +25,37 @@ export function updateDatasetsLoadStatus(loadStatus) {
 }
 
 export function loadDatasets(datasets) {
-  const getTagParents = (dataset, node) => {
+  const getTagDisplayName = (dataset, tag) => {
     const parentNodes = [];
 
-    const traverse = node => {
-      if (node.parent) {
-        const parentNode = dataset.tags.find(tag => tag.id === node.parent);
-        parentNodes.push(parentNode);
-
-        traverse(parentNode);
-      }
-    };
-    traverse(node);
-
+    let node = tag;
+    while (node.parent) {
+      const parentNode = dataset.tags.find(tag => tag.id === node.parent);
+      parentNodes.push(parentNode);
+      node = node.parent;
+    }
     // Traversing the tag tree produces an array in backward order, so
     // return the reversed array.
-    return parentNodes.reverse();
+    return parentNodes
+      .reverse()
+      .map(parent => parent.name)
+      .concat([tag.name]);
+  };
+
+  const getBFSForTag = (tag, tags) => {
+    const childTags = [];
+    const queue = [tag];
+    let currTag;
+    while (queue.length > 0) {
+      currTag = queue.shift();
+      childTags.push(currTag);
+      // Add all of the children to our list
+      const newChildTags = currTag.children
+        .map(id => tags.find(tag => tag.id === id))
+        .sort((a, b) => a.name < b.name);
+      newChildTags.forEach(childTag => queue.push(childTag));
+    }
+    return childTags;
   };
 
   datasets = datasets.map(dataset => {
@@ -49,22 +64,23 @@ export function loadDatasets(datasets) {
         isEnabled,
         ...rest,
       }))
-      .map(tag => {
-        const parents = getTagParents(dataset, tag);
+      .map(tag => ({
+        ...tag,
+        displayName: getTagDisplayName(dataset, tag),
+      }));
 
-        const displayName = parents
-          .map(parent => parent.name)
-          .concat([tag.name]);
-
-        return {
-          ...tag,
-          displayName,
-        };
-      });
+    // Re-order our tags so that they are grouped by BFS
+    const rootTags = tags
+      .filter(tag => !tag.parent)
+      .sort((a, b) => a.name < b.name);
+    const tagsGroupedByBFS = rootTags.reduce(
+      (acc, rootTag) => acc.concat(getBFSForTag(rootTag, tags)),
+      [],
+    );
 
     return {
       ...dataset,
-      tags,
+      tags: tagsGroupedByBFS,
     };
   });
 
