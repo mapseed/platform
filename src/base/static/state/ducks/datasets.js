@@ -25,21 +25,20 @@ export function updateDatasetsLoadStatus(loadStatus) {
 }
 
 export function loadDatasets(datasets) {
-  const getTagDisplayName = (dataset, tag) => {
-    const parentNodes = [];
+  const getTagDisplayName = (tag, tags) => {
+    const nodes = [];
 
     let node = tag;
     while (node.parent) {
-      const parentNode = dataset.tags.find(tag => tag.id === node.parent);
-      parentNodes.push(parentNode);
-      node = node.parent;
+      nodes.push(node);
+      const parentNode = tags.find(tag => tag.id === node.parent);
+      node = parentNode;
     }
+    nodes.push(node);
+
     // Traversing the tag tree produces an array in backward order, so
     // return the reversed array.
-    return parentNodes
-      .reverse()
-      .map(parent => parent.name)
-      .concat([tag.name]);
+    return nodes.reverse().map(node => node.name);
   };
 
   const getBFSForTag = (tag, tags) => {
@@ -66,7 +65,7 @@ export function loadDatasets(datasets) {
       }))
       .map(tag => ({
         ...tag,
-        displayName: getTagDisplayName(dataset, tag),
+        displayName: getTagDisplayName(tag, dataset.tags),
       }));
 
     // Re-order our tags so that they are grouped by BFS
