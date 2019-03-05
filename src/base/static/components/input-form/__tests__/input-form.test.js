@@ -2,7 +2,6 @@ import React from "react";
 import { shallow } from "enzyme";
 import { InputForm } from "../index.js";
 import FormField from "../../form-fields/form-field";
-import constants from "../../../constants";
 import WarningMessagesContainer from "../../ui-elements/warning-messages-container";
 import { OrderedMap, Map } from "immutable";
 
@@ -66,19 +65,22 @@ describe("InputForm", () => {
     wrapper.setState({
       fields: OrderedMap({
         [fieldName1]: Map({
-          [constants.FIELD_VISIBILITY_KEY]: true,
-          [constants.FIELD_VALIDITY_KEY]: true,
-          [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorMessage1,
+          isVisible: true,
+          isValid: true,
+          message: errorMessage1,
+          config: Map(),
         }),
         [fieldName2]: Map({
-          [constants.FIELD_VISIBILITY_KEY]: true,
-          [constants.FIELD_VALIDITY_KEY]: true,
-          [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorMessage2,
+          isVisible: true,
+          isValid: true,
+          message: errorMessage2,
+          config: Map(),
         }),
         [fieldName3]: Map({
-          [constants.FIELD_VISIBILITY_KEY]: true,
-          [constants.FIELD_VALIDITY_KEY]: false,
-          [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorMessage3,
+          isVisible: true,
+          isValid: false,
+          message: errorMessage3,
+          config: Map(),
         }),
       }),
     });
@@ -104,24 +106,28 @@ describe("InputForm", () => {
     wrapper.setState({
       fields: OrderedMap({
         [fieldName1]: Map({
-          [constants.FIELD_VISIBILITY_KEY]: true,
-          [constants.FIELD_VALUE_KEY]: "",
-          [constants.FIELD_VALIDITY_KEY]: true,
+          isVisible: true,
+          value: "",
+          isValid: true,
+          config: Map(),
         }),
         [fieldName2]: Map({
-          [constants.FIELD_VISIBILITY_KEY]: true,
-          [constants.FIELD_VALUE_KEY]: "",
-          [constants.FIELD_VALIDITY_KEY]: true,
+          isVisible: true,
+          value: "",
+          isValid: true,
+          config: Map(),
         }),
         [fieldName3]: Map({
-          [constants.FIELD_VISIBILITY_KEY]: true,
-          [constants.FIELD_VALUE_KEY]: "",
-          [constants.FIELD_VALIDITY_KEY]: true,
+          isVisible: true,
+          value: "",
+          isValid: true,
+          config: Map(),
         }),
         [fieldName4]: Map({
-          [constants.FIELD_VISIBILITY_KEY]: true,
-          [constants.FIELD_VALUE_KEY]: "",
-          [constants.FIELD_VALIDITY_KEY]: true,
+          isVisible: true,
+          value: "",
+          isValid: true,
+          config: Map(),
         }),
       }),
     });
