@@ -133,6 +133,10 @@ class InputForm extends Component {
             config: fieldConfig,
             trigger: field.trigger && field.trigger.trigger_value,
             triggerTargets: field.trigger && fromJS(field.trigger.targets),
+            // A field will be hidden if it is explicitly declared as
+            // hidden_default in the config, or if it is restricted to a
+            // group and the current user is not in that group or is not in
+            // the administrators group.
             isVisible: field.hidden_default
               ? false
               : fieldConfig.has("restrictToGroup")
@@ -355,7 +359,7 @@ class InputForm extends Component {
         if (fieldConfig.autocomplete) {
           Util.saveAutocompleteValue(
             fieldConfig.name,
-            this.state.fields.get(fieldConfig.name).get("value"),
+            this.state.fields.getIn([fieldConfig.name, "value"]),
             30, // 30 days
           );
         }

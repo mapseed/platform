@@ -64,6 +64,10 @@ class PlaceDetailEditor extends Component {
             .set("value", this.props.place[field.name])
             .set("config", fieldConfig)
             .set(
+              // A field will be hidden if it is explicitly declared as 
+              // hidden_default in the config, or if it is restricted to a
+              // group and the current user is not in that group or is not in
+              // the administrators group.
               "isVisible",
               field.hidden_default
                 ? false
