@@ -25,42 +25,47 @@ export function updateDatasetsLoadStatus(loadStatus) {
 }
 
 export function loadDatasets(datasets) {
-  const getTagChildren = (dataset, node) => {
-    const childNodes = [];
+  const getTagParents = (dataset, node) => {
+    const parentNodes = [];
 
-    const traverse = (dataset, node) => {
+    const traverse = node => {
       if (node.parent) {
-        const newNode = dataset.tags.find(
-          childTag => childTag.id === node.parent,
-        );
-        childNodes.push(newNode);
+        const parentNode = dataset.tags.find(tag => tag.id === node.parent);
+        parentNodes.push(parentNode);
 
-        traverse(dataset, newNode);
+        traverse(parentNode);
       }
     };
-    traverse(dataset, node);
+    traverse(node);
 
     // Traversing the tag tree produces an array in backward order, so
     // return the reversed array.
-    return childNodes.reverse();
+    return parentNodes.reverse();
   };
 
   datasets = datasets.map(dataset => {
-    dataset.tags = dataset.tags
+    const tags = dataset.tags
       .map(({ is_enabled: isEnabled, ...rest }) => ({
         isEnabled,
         ...rest,
       }))
       .map(tag => {
-        const children = getTagChildren(dataset, tag);
+        const parents = getTagParents(dataset, tag);
 
-        tag.children = children;
-        tag.displayName = children.map(child => child.name).concat([tag.name]);
+        const displayName = parents
+          .map(parent => parent.name)
+          .concat([tag.name]);
 
-        return tag;
+        return {
+          ...tag,
+          displayName,
+        };
       });
 
-    return dataset;
+    return {
+      ...dataset,
+      tags,
+    };
   });
 
   return { type: LOAD, payload: datasets };
