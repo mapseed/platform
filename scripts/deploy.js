@@ -101,7 +101,6 @@ function updateMetadata() {
     .concat(
       glob.sync("./www/service-worker.js").map(filepath => {
         const relativePath = path.relative("./www", filepath);
-        console.log("deploy: service worker file path:", relativePath);
         // NOTE: cache headers may not be needed anymore:
         // https://developers.google.com/web/updates/2018/06/fresher-sw
         params = {
