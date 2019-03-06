@@ -7,7 +7,7 @@
  */
 
 importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/4.0.0-rc.3/workbox-sw.js",
+  "https://storage.googleapis.com/workbox-cdn/releases/4.0.0/workbox-sw.js",
 );
 
 // TODO: send an alert to the user when this data is about to expire
