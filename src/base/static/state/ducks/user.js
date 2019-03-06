@@ -38,11 +38,11 @@ export const hasAdminAbilities = (state, datasetSlug) =>
     group =>
       group.dataset_slug === datasetSlug && group.name === "administrators",
   );
-export const isInGroup = (state, groupName, datasetSlug) =>
+export const isInAtLeastOneGroup = (state, groupNames, datasetSlug) =>
   state.user.groups
     .filter(group => group.dataset_slug === datasetSlug)
     .map(group => group.name)
-    .includes(groupName);
+    .some(groupName => groupNames.includes(groupName));
 
 // Actions:
 const LOAD = "user/LOAD";

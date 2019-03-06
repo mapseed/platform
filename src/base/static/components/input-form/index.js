@@ -35,7 +35,7 @@ import {
   hideLayers,
   setBasemap,
 } from "../../state/ducks/map";
-import { hasAdminAbilities, isInGroup } from "../../state/ducks/user";
+import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
 
@@ -139,9 +139,9 @@ class InputForm extends Component {
             // the administrators group.
             isVisible: field.hidden_default
               ? false
-              : fieldConfig.has("restrictToGroup")
-                ? this.props.isInGroup(
-                    fieldConfig.get("restrictToGroup"),
+              : fieldConfig.has("restrictToGroups")
+                ? this.props.isInAtLeastOneGroup(
+                    fieldConfig.get("restrictToGroups"),
                     this.props.datasetSlug,
                   ) || this.props.hasAdminAbilities(this.props.datasetSlug)
                 : true,
@@ -545,7 +545,7 @@ InputForm.propTypes = {
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
-  isInGroup: PropTypes.func.isRequired,
+  isInAtLeastOneGroup: PropTypes.func.isRequired,
   isLeavingForm: PropTypes.bool,
   isMapDragged: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
@@ -575,8 +575,8 @@ const mapStateToProps = state => ({
     datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
-  isInGroup: (groupName, datasetSlug) =>
-    isInGroup(state, groupName, datasetSlug),
+  isInAtLeastOneGroup: (groupNames, datasetSlug) =>
+    isInAtLeastOneGroup(state, groupNames, datasetSlug),
   mapConfig: mapConfigSelector(state),
   mapLayers: mapLayersSelector(state),
   mapPosition: mapPositionSelector(state),

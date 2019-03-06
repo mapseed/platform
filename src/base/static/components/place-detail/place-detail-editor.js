@@ -30,7 +30,7 @@ import {
   placePropType,
 } from "../../state/ducks/places";
 import { updateEditModeToggled } from "../../state/ducks/ui";
-import { isInGroup, hasAdminAbilities } from "../../state/ducks/user";
+import { isInAtLeastOneGroup, hasAdminAbilities } from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 
@@ -71,9 +71,9 @@ class PlaceDetailEditor extends Component {
               "isVisible",
               field.hidden_default
                 ? false
-                : fieldConfig.has("restrictToGroup")
-                  ? this.props.isInGroup(
-                      fieldConfig.get("restrictToGroup"),
+                : fieldConfig.has("restrictToGroups")
+                  ? this.props.isInAtLeastOneGroup(
+                      fieldConfig.get("restrictToGroups"),
                       this.props.place._datasetSlug,
                     ) ||
                     this.props.hasAdminAbilities(this.props.place._datasetSlug)
@@ -357,7 +357,7 @@ PlaceDetailEditor.propTypes = {
   container: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
-  isInGroup: PropTypes.func.isRequired,
+  isInAtLeastOneGroup: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
   onAddAttachment: PropTypes.func,
   onRequestEnd: PropTypes.func.isRequired,
@@ -376,8 +376,8 @@ PlaceDetailEditor.propTypes = {
 const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
-  isInGroup: (groupName, datasetSlug) =>
-    isInGroup(state, groupName, datasetSlug),
+  isInAtLeastOneGroup: (groupNames, datasetSlug) =>
+    isInAtLeastOneGroup(state, groupNames, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   placeConfig: placeConfigSelector(state),
 });
