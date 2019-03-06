@@ -1,0 +1,16 @@
+{
+  "scoreSummaryHeader": "Project scores:",
+  "feasibility": "Feasibility:",
+  "equity": "Equity:",
+  "impact": "Impact:",
+  "highlyFeasibleMsg": "Citizen and City of Durham reviwers have determined this project would be highly feasible",
+  "moderatelyFeasibleMsg": "Citizen and City of Durham reviewers have determined this project would be moderately feasible",
+  "notFeasibleMsg": "Citizen and City of Durham reviewers have determined this project may not be feasible",
+  "highlyEquitableMsg": "Citizen and City of Durham reviewers have determined this project would be highly equitable",
+  "moderatelyEquitableMsg": "Citizen and City of Durham reviewers have determined this project would be moderately equitable",
+  "notEquitableMsg": "Citizen and City of Durham reviewers have determined this project may not be equitable",
+  "highlyImpactfulMsg": "Citizen and City of Durham reviewers have determined this project would be highly impactful",
+  "moderatelyImpactfulMsg": "Citizen and City of Durham reviewers have determined this projet would be moderately impactful",
+  "notImpactfulMsg": "Citize and City of Durham reviewers have determined this project may not be impactful",
+  "relatedIdeasHeader": "Related ideas:"
+}

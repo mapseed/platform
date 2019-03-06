@@ -18,6 +18,7 @@ import FieldSummary from "./field-summary";
 import SnohomishFieldSummary from "./snohomish-field-summary";
 import VVFieldSummary from "./vv-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
+import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
 
 import { placeSelector } from "../../state/ducks/places";
 
@@ -158,6 +159,17 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <PalouseFieldSummary fields={categoryConfig.fields} place={place} />
+      );
+    } else if (
+      customComponents &&
+      customComponents.FieldSummary === "PBDurhamProjectProposalFieldSummary" &&
+      place.location_type === "projects"
+    ) {
+      fieldSummary = (
+        <PBDurhamProjectProposalFieldSummary
+          fields={categoryConfig.fields}
+          place={place}
+        />
       );
     } else {
       fieldSummary = (

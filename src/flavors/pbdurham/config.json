@@ -725,7 +725,7 @@
           },
           {
             "prompt": "_(Brief Description: (1-2 sentences describing what the project involves))",
-            "display_prompt": "_(Description:)",
+            "display_prompt": "_(Description of this project proposal:)",
             "type": "textarea",
             "placeholder": "_(Briefly describe the project)",
             "name": "project_description",
@@ -908,6 +908,10 @@
             "placeholder": "...",
             "name": "staff_cost_estimation",
             "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
           },
           {
             "name": "submit",
@@ -1474,8 +1478,8 @@
       "submission_type": "comments",
       "adding_enabled": false,
       "show_responses": true,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
+      "response_name": "_(Comment)",
+      "response_plural_name": "_(Comments:)",
       "action_text": "_(commented on)",
       "anonymous_name": "_(Someone)",
       "title": "_(Leave a Comment)",
@@ -1730,5 +1734,8 @@
   "notifications": {
     "on_new_place": false,
     "submitter_email_field": "private-email"
+  },
+  "custom_components": {
+    "FieldSummary": "PBDurhamProjectProposalFieldSummary"
   }
 }
