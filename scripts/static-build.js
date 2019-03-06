@@ -237,7 +237,7 @@ activeLanguages.forEach((language, langNum) => {
   // Build the index-xx.html file for this language
   const outputIndexFile = indexTemplate({
     production: isProd,
-    serviceWorkerPath: isProd ? "/service-worker.js" : "/service-worker.js",
+    serviceWorkerPath: "/service-worker.js",
     jsHashedBundleName: jsHashedBundleName,
     cssHashedBundleName: cssHashedBundleName,
     config: thisConfig,
