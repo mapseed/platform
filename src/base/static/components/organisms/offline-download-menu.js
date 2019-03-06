@@ -102,7 +102,15 @@ const fetchOfflineData = (
       mapLayerConfigs
         .filter(layer => layer.type && layer.type === "json")
         .map(mapLayerConfig => mapLayerConfig.source),
-    );
+    )
+    .concat([
+      "/static/css/images/marker-arrow-overlay.png",
+      "/static/css/images/marker-plus.png",
+      "/static/css/images/marker-shadow.png",
+      "/static/css/images/markers/spritesheet.json",
+      "/static/css/images/markers/spritesheet.png",
+      "/static/css/images/rolling-hills-cropped.jpg",
+    ]);
 
   let fetchedRequests = 0;
   let totalRequests = urlsToFetch.length;
