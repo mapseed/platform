@@ -106,10 +106,10 @@ self.addEventListener("install", function(event) {
   });
 });
 
-// base.hbs routes:
-// ideally, these should be pre-cached
+// ideally, these should be in our pre-cached bundles:
+const origin = location.origin;
 workbox.routing.registerRoute(
-  /^\/legacy-libs\//,
+  new RegExp(`${origin}/legacy-libs/`),
   new workbox.strategies.NetworkFirst({
     plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
   }),
@@ -117,7 +117,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-  /^\/static\//,
+  new RegExp(`${origin}/static/`),
   new workbox.strategies.NetworkFirst({
     plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
   }),
