@@ -23,7 +23,8 @@ const EditorBar = props => {
         onClick={props.onToggleEditMode}
       />
       {props.isEditModeToggled &&
-        props.isPlaceDetailEditable && (
+        props.isPlaceDetailEditable &&
+        props.isAdmin && (
           <EditorButton
             className="place-detail-editor-bar__remove-button"
             label={props.t("removeBtn")}
@@ -50,6 +51,7 @@ const EditorBar = props => {
 };
 
 EditorBar.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
   isPlaceDetailEditable: PropTypes.bool.isRequired,
   isTagBarEditable: PropTypes.bool.isRequired,
