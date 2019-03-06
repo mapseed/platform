@@ -27,6 +27,7 @@ import {
   geometryStyleSelector,
   setActiveDrawingTool,
   geometryStyleProps,
+  setActiveDrawGeometryId,
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   mapCenterpointSelector,
@@ -368,6 +369,8 @@ class InputForm extends Component {
         }
       });
 
+      this.props.setActiveDrawGeometryId(null);
+
       // Fire post-save hook.
       // The post-save hook allows flavors to hijack the default
       // route-to-detail-view behavior.
@@ -567,6 +570,7 @@ InputForm.propTypes = {
   router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
+  setActiveDrawGeometryId: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
@@ -587,6 +591,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createFeaturesInGeoJSONSource: (sourceId, sourceData) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, sourceData)),
+  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),

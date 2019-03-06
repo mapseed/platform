@@ -28,6 +28,7 @@ import {
   removePlace,
   removePlaceAttachment,
   placePropType,
+  updateActiveEditPlaceId,
 } from "../../state/ducks/places";
 import { removeGeoJSONFeature } from "../../state/ducks/map";
 import { updateEditModeToggled } from "../../state/ducks/ui";
@@ -80,6 +81,14 @@ class PlaceDetailEditor extends Component {
       showValidityStatus: false,
       isNetworkRequestInFlight: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.updateActiveEditPlaceId(this.props.place.id);
+  }
+
+  componentWillUnmount() {
+    this.props.updateActiveEditPlaceId(null);
   }
 
   async updatePlace() {
@@ -171,6 +180,7 @@ class PlaceDetailEditor extends Component {
         this.props.onRequestEnd();
       }
     } else {
+      this.props.onRequestEnd();
       this.setState({
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
@@ -370,6 +380,7 @@ PlaceDetailEditor.propTypes = {
   router: PropTypes.object,
   setPlaceRequestType: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateActiveEditPlaceId: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
   updatePlace: PropTypes.func.isRequired,
 };
@@ -389,6 +400,8 @@ const mapDispatchToProps = dispatch => ({
   removePlace: placeId => dispatch(removePlace(placeId)),
   removePlaceAttachment: (placeId, attachmentId) =>
     dispatch(removePlaceAttachment(placeId, attachmentId)),
+  updateActiveEditPlaceId: placeId =>
+    dispatch(updateActiveEditPlaceId(placeId)),
 });
 
 export default connect(

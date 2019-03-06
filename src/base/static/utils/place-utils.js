@@ -58,7 +58,6 @@ const toClientGeoJSONFeature = placeData => {
 const toServerGeoJSONFeature = placeData => {
   // We intentionally strip out some keys from the placeData object which
   // should not be sent to the server in the request payload.
-  /* eslint-disable no-unused-vars */
   const {
     geometry,
     submitter,
@@ -69,7 +68,6 @@ const toServerGeoJSONFeature = placeData => {
     _clientSlug,
     ...rest
   } = placeData;
-  /* eslint-enable no-unused-vars */
 
   return {
     type: "Feature",

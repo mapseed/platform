@@ -18,15 +18,18 @@ export const mapCenterpointSelector = state => ({
   latitude: state.map.viewport.latitude,
   longitude: state.map.viewport.longitude,
 });
+export const drawModeActiveSelector = state => state.map.isDrawModeActive;
 
 // Actions:
 const LOAD_VIEWPORT = "map/LOAD_VIEWPORT";
 const UPDATE_VIEWPORT = "map/UPDATE_VIEWPORT";
 const UPDATE_STYLE = "map/UPDATE_STYLE";
 const UPDATE_LAYER_GROUP_LOAD_STATUS = "map/UPDATE_LAYER_GROUP_LOAD_STATUS";
-const UPDATE_GEOJSON_SOURCE = "map/UPDATE_GEOJSON_SOURCE";
+const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
+  "map/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
 const CREATE_FEATURES_IN_GEOJSON_SOURCE =
   "map/CREATE_FEATURES_IN_GEOJSON_SOURCE";
+const REMOVE_FEATURE_IN_GEOJSON_SOURCE = "map/REMOVE_FEATURE_IN_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
@@ -34,13 +37,15 @@ const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
 const UPDATE_MAP_DRAGGED = "map/UPDATE_MAP_DRAGGED";
 const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
-const REMOVE_GEOJSON_FEATURE = "map/REMOVE_GEOJSON_FEATURE";
+const UPDATE_SOURCES = "map/UPDATE_SOURCES";
+const UPDATE_LAYERS = "map/UPDATE_LAYERS";
+const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
 
 // Layer group load status terminology:
 // ------------------------------------
 // "unloaded": The map has not yet begun to fetch data for any source consumed
-// "loading": The map has begun fetching data for one or more sources consumed
 //     by this layer group.
+// "loading": The map has begun fetching data for one or more sources consumed
 //     by this layer group, but has not finished.
 // "loaded": All data for all sources consumed by this layer group have been
 //     fetched. Rendering may or may not be in progress.
@@ -60,6 +65,27 @@ export function removeFocusedGeoJSONFeatures() {
   return {
     type: REMOVE_FOCUSED_GEOJSON_FEATURES,
     payload: null,
+  };
+}
+
+export function updateDrawModeActive(isActive) {
+  return {
+    type: UPDATE_DRAW_MODE_ACTIVE,
+    payload: isActive,
+  };
+}
+
+export function updateSources(newSourceId, newSource) {
+  return {
+    type: UPDATE_SOURCES,
+    payload: { newSourceId, newSource },
+  };
+}
+
+export function updateLayers(newLayer) {
+  return {
+    type: UPDATE_LAYERS,
+    payload: newLayer,
   };
 }
 
@@ -110,9 +136,9 @@ export function updateMapDragging(isDragging) {
   return { type: UPDATE_MAP_DRAGGING, payload: isDragging };
 }
 
-export function updateGeoJSONSource(sourceId, newFeatures) {
+export function updateFeaturesInGeoJSONSource(sourceId, newFeatures) {
   return {
-    type: UPDATE_GEOJSON_SOURCE,
+    type: UPDATE_FEATURES_IN_GEOJSON_SOURCE,
     payload: {
       sourceId,
       newFeatures,
@@ -127,9 +153,9 @@ export function createFeaturesInGeoJSONSource(sourceId, newFeatures) {
   };
 }
 
-export function removeGeoJSONFeature(sourceId, featureId) {
+export function removeFeatureInGeoJSONSource(sourceId, featureId) {
   return {
-    type: REMOVE_GEOJSON_FEATURE,
+    type: REMOVE_FEATURE_IN_GEOJSON_SOURCE,
     payload: { sourceId, featureId },
   };
 }
@@ -336,11 +362,12 @@ const INITIAL_STATE = {
   isMapSizeValid: false,
   isMapDragged: false,
   isMapDragging: false,
+  isDrawModeActive: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case UPDATE_GEOJSON_SOURCE:
+    case UPDATE_FEATURES_IN_GEOJSON_SOURCE:
       return {
         ...state,
         style: {
@@ -376,7 +403,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           },
         },
       };
-    case REMOVE_GEOJSON_FEATURE:
+    case REMOVE_FEATURE_IN_GEOJSON_SOURCE:
       return {
         ...state,
         style: {
@@ -390,14 +417,13 @@ export default function reducer(state = INITIAL_STATE, action) {
                 features: state.style.sources[
                   action.payload.sourceId
                 ].data.features.filter(
-                  feature => feature.id !== action.payload.featureId,
+                  feature => feature.properties.id !== action.payload.featureId,
                 ),
               },
             },
           },
         },
       };
-
     case REMOVE_FOCUSED_GEOJSON_FEATURES:
       return {
         ...state,
@@ -606,6 +632,30 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isMapDragging: action.payload,
+      };
+    case UPDATE_SOURCES:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.newSourceId]: action.payload.newSource,
+          },
+        },
+      };
+    case UPDATE_LAYERS:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          layers: state.style.layers.concat(action.payload),
+        },
+      };
+    case UPDATE_DRAW_MODE_ACTIVE:
+      return {
+        ...state,
+        isDrawModeActive: action.payload,
       };
     default:
       return state;
