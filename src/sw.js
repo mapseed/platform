@@ -142,16 +142,6 @@ workbox.routing.registerRoute(
   "GET",
 );
 
-// flavor-specific routes:
-// TODO: dynamically register these routes based on their values in the config:
-workbox.routing.registerRoute(
-  /^https:\/\/dev-api.heyduwamish.org\/api\/v2\//,
-  new workbox.strategies.NetworkFirst({
-    plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })],
-  }),
-  "GET",
-);
-
 workbox.routing.registerRoute(
   /^http[s]?:\/\/tile3.f4map.com\/tiles\/f4_2d\//,
   new workbox.strategies.StaleWhileRevalidate({
