@@ -92,13 +92,6 @@ Object.keys(process.env).forEach(function(key) {
 // (2) Register Handlebars helpers
 // -----------------------------------------------------------------------------
 
-// Helper for serializing config objects and injecting them into the index.html
-// file
-Handlebars.registerHelper("serialize", function(json) {
-  if (!json) return false;
-  return JSON.stringify(json);
-});
-
 // (3) Parse the config json file
 // -----------------------------------------------------------------------------
 
@@ -179,6 +172,7 @@ activeLanguages.forEach((language, langNum) => {
     log("Finished merging .po file for " + language.code);
   } catch (e) {
     logError("Error merging .po file for " + language.code);
+    throw e;
   }
 
   gt.addTranslations(
@@ -292,6 +286,7 @@ try {
   fs.copySync(baseImageAssetsPath, outputImageAssetsPath);
 } catch (e) {
   logError("Error copying base image assets: " + e);
+  throw e;
 }
 
 // Copy flavor static image assets to www/images, replacing base assets as
@@ -302,6 +297,7 @@ try {
   fs.copySync(flavorImageAssetsPath, outputImageAssetsPath);
 } catch (e) {
   logError("Error copying flavor image assets: " + e);
+  throw e;
 }
 
 // Copy font files
@@ -320,6 +316,7 @@ fontPaths.forEach(fontPath => {
     );
   } catch (e) {
     logError("Error copying font file: " + e);
+    throw e;
   }
 });
 
@@ -330,6 +327,7 @@ try {
   );
 } catch (e) {
   logError("Error copying flavor libs files: " + e);
+  throw e;
 }
 
 // (6) Build the symbol spritesheet for mapbox.
