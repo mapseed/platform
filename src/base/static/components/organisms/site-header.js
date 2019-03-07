@@ -257,6 +257,12 @@ class SiteHeader extends Component {
     isHeaderExpanded: false, // relevant on mobile layouts
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isHeaderExpanded !== this.state.isHeaderExpanded) {
+      this.props.setMapDimensions();
+    }
+  }
+
   render() {
     return (
       <SiteHeaderWrapper>
@@ -375,6 +381,7 @@ SiteHeader.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
+  setMapDimensions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

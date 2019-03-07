@@ -251,6 +251,7 @@ export default Backbone.View.extend({
                     trigger: true,
                   });
                 }}
+                setMapDimensions={this.setMapDimensions.bind(this)}
               >
                 {this.options.placeConfig.add_button_label}
               </AddPlaceButton>
@@ -280,6 +281,7 @@ export default Backbone.View.extend({
               router={this.options.router}
               currentUser={Shareabouts.bootstrapped.currentUser}
               languageCode={this.options.languageCode}
+              setMapDimensions={this.setMapDimensions.bind(this)}
             />
           </ThemeProvider>
         </ThemeProvider>
@@ -524,12 +526,7 @@ export default Backbone.View.extend({
       if (this.options.rightSidebarConfig.is_visible_default) {
         $("body").addClass("right-sidebar-visible");
         store.dispatch(setRightSidebar(true));
-
-        const dimensions = this.getMapDimensions();
-        updateMapViewport({
-          width: dimensions.width,
-          height: dimensions.height,
-        });
+        this.setMapDimensions();
       }
 
       // REACT PORT SECTION ///////////////////////////////////////////////////
@@ -539,7 +536,7 @@ export default Backbone.View.extend({
             <ThemeProvider theme={this.adjustedTheme}>
               <RightSidebar
                 router={this.options.router}
-                getMapDimensions={this.getMapDimensions.bind(this)}
+                setMapDimensions={this.setMapDimensions.bind(this)}
               />
             </ThemeProvider>
           </ThemeProvider>
@@ -792,33 +789,51 @@ export default Backbone.View.extend({
     this.showSpotlightMask();
   },
 
-  getMapDimensions() {
+  setMapDimensions: function() {
+    // TODO: Remove these layout hacks when we port AppView.
+    if (Util.getPageLayout() === "mobile") {
+      $("#main").height(
+        document.body.clientHeight -
+          ($("#site-header").height() + $("#add-place-button").height()),
+      );
+    } else {
+      $("#main").height(
+        document.body.clientHeight - $("#site-header").height(),
+      );
+    }
+
     // To avoid a race condition between CSS resizing elements and the map
     // initiating a viewport change, we manually calculate what the dimensions of
     // the map *should* be given the current state of the UI. The race
     // condition that this code avoids was the cause of the old off-center bug.
-    return {
-      width:
-        Util.getPageLayout() === "desktop"
-          ? document.body.clientWidth -
-            (contentPanelOpenSelector(store.getState())
-              ? this.$panel.width()
-              : 0) -
-            (rightSidebarExpandedSelector(store.getState())
-              ? this.$rightSidebar.width()
-              : 0)
-          : document.body.clientWidth,
-      height:
-        Util.getPageLayout() === "desktop"
-          ? document.body.clientHeight - $("#site-header").height()
-          : document.body.clientHeight -
-            $("#site-header").height() -
-            (contentPanelOpenSelector(store.getState())
-              ? // 0.4 corresponds to 100% - the 60% of the available height
-                // that the map occupies on mobile.
-                document.body.clientHeight * 0.4
-              : $("#add-place-button").height()),
-    };
+    store.dispatch(
+      updateMapViewport({
+        width:
+          Util.getPageLayout() === "desktop"
+            ? document.body.clientWidth -
+              (contentPanelOpenSelector(store.getState())
+                ? this.$panel.width()
+                : 0) -
+              (rightSidebarExpandedSelector(store.getState())
+                ? this.$rightSidebar.width()
+                : 0)
+            : document.body.clientWidth,
+        height:
+          Util.getPageLayout() === "desktop"
+            ? document.body.clientHeight - $("#site-header").height()
+            : document.body.clientHeight -
+              $("#site-header").height() -
+              $("#geocode-address-bar").height() -
+              (contentPanelOpenSelector(store.getState())
+                ? // 0.4 corresponds to 100% - the 60% of the available height
+                  // that the map occupies on mobile.
+                  (document.body.clientHeight -
+                    $("#geocode-address-bar").height() -
+                    $("#site-header").height()) *
+                  0.4
+                : $("#add-place-button").height()),
+      }),
+    );
   },
 
   getWebMercatorViewport: function() {
@@ -889,14 +904,7 @@ export default Backbone.View.extend({
     this.$panel.show();
     Util.log("APP", "panel-state", "open");
     store.dispatch(setContentPanel(true));
-
-    const dimensions = this.getMapDimensions();
-    store.dispatch(
-      updateMapViewport({
-        width: dimensions.width,
-        height: dimensions.height,
-      }),
-    );
+    this.setMapDimensions();
   },
   hidePanel: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
@@ -912,16 +920,8 @@ export default Backbone.View.extend({
 
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();
-
     store.dispatch(setContentPanel(false));
-
-    const dimensions = this.getMapDimensions();
-    store.dispatch(
-      updateMapViewport({
-        width: dimensions.width,
-        height: dimensions.height,
-      }),
-    );
+    this.setMapDimensions();
     store.dispatch(removeFocusedGeoJSONFeatures());
   },
   showSpotlightMask: function() {

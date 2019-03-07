@@ -28,14 +28,8 @@ const RightSidebar = props => {
       <ToggleSidebarButton
         onClick={() => {
           $("body").toggleClass("right-sidebar-visible");
-
           props.setRightSidebar($("body").hasClass("right-sidebar-visible"));
-
-          const dimensions = props.getMapDimensions();
-          props.updateMapViewport({
-            width: dimensions.width,
-            height: dimensions.height,
-          });
+          props.setMapDimensions();
         }}
         className="right-sidebar__collapse-btn"
       />
@@ -64,7 +58,7 @@ const RightSidebar = props => {
 };
 
 RightSidebar.propTypes = {
-  getMapDimensions: PropTypes.func.isRequired,
+  setMapDimensions: PropTypes.func.isRequired,
   places: placesPropType,
   rightSidebarConfig: rightSidebarConfigPropType.isRequired,
   storyConfig: PropTypes.object,
