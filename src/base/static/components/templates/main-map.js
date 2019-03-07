@@ -7,7 +7,6 @@ import { Global } from "@emotion/core";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
-import { isTouchDevice } from "../../utils/misc-utils"
 import {
   drawModeActiveSelector,
   interactiveLayerIdsSelector,
@@ -189,7 +188,7 @@ class MainMap extends Component {
       }
     });
 
-    if (!this.props.mapConfig.options.disableDrawing && !isTouchDevice) {
+    if (!this.props.mapConfig.options.disableDrawing) {
       this.draw = new MapboxDraw({
         displayControlsDefault: false,
         userProperties: true,
@@ -430,8 +429,8 @@ class MainMap extends Component {
           maxZoom={this.props.mapViewport.maxZoom}
           onMouseUp={this.endFeatureQuery}
           onMouseDown={this.beginFeatureQuery}
-          onTouchEnd={this.onMouseUp}
-          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.endFeatureQuery}
+          onTouchStart={this.beginFeatureQuery}
           onViewportChange={viewport => {
             // NOTE: react-map-gl seems to cache the width and height of the map
             // container at the beginning of a transition. If the viewport change
