@@ -27,7 +27,6 @@ var entryPoints = [
   "./src/base/static/js/routes.js",
   "./src/base/static/scss/default.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
-  "./src/flavors/" + process.env.FLAVOR + "/config.json",
 ];
 
 let alias = {};
@@ -55,7 +54,7 @@ module.exports = {
     filename: isProd ? "[chunkhash].main.bundle.js" : "main.bundle.js",
   },
   resolve: {
-    alias: alias,
+    alias,
   },
   resolveLoader: {
     modules: ["node_modules", path.resolve(__dirname, "scripts")],
