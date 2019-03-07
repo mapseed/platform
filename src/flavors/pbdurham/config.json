@@ -674,7 +674,7 @@
         "label": "_(Project Proposal)",
         "fields": [
           {
-            "prompt": "_(Project Name)",
+            "prompt": "_(Proposal Name)",
             "type": "text",
             "placeholder": "...",
             "name": "title",
@@ -686,7 +686,7 @@
             "type": "text",
             "placeholder": "...",
             "name": "related_ideas",
-            "optional": false
+            "optional": true
           },
           {
             "prompt": "_(Location(s): (address, intersection, or landmark name))",
@@ -705,7 +705,14 @@
             "optional": true
           },
           {
+            "name": "delegates_header",
+            "restrictToGroups": ["delegates"],
+            "type": "informational_html",
+            "content": "<h1>Budget Delegates section</h1><p>This section is intended to be completed by Budget Delegates.</p>"
+          },
+          {
             "prompt": "_(Equity Assessment Score)",
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Equity Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_equity_score",
@@ -727,6 +734,7 @@
           },
           {
             "prompt": "_(Impact Assessment Score)",
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Impact Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_impact_score",
@@ -748,6 +756,7 @@
           },
           {
             "prompt": "_(Feasibility Assessment Score)",
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Feasibility Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_feasibility_score",
@@ -769,6 +778,7 @@
           },
           {
             "prompt": "_(Project Budget)",
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Project Budget:)",
             "type": "text",
             "placeholder": "...",
@@ -777,6 +787,7 @@
           },
           {
             "prompt": "_(Cost Estimation)",
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Project Cost Estimation:)",
             "type": "text",
             "placeholder": "...",
@@ -785,11 +796,13 @@
           },
           {
             "name": "staff_review_header",
+            "restrictToGroups": ["tech-reviewers"],
             "type": "informational_html",
             "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
           },
           {
             "prompt": "_(Equity Assessment Score)",
+            "restrictToGroups": ["tech-reviewers"],
             "display_prompt": "_(Equity Assessment Score)",
             "type": "big_radio",
             "name": "staff_equity_score",
@@ -811,6 +824,7 @@
           },
           {
             "prompt": "_(Impact Assessment Score)",
+            "restrictToGroups": ["tech-reviewers"],
             "display_prompt": "_(Impact Assessment Score)",
             "type": "big_radio",
             "name": "staff_impact_score",
@@ -832,6 +846,7 @@
           },
           {
             "prompt": "_(Feasibility Assessment Score)",
+            "restrictToGroups": ["tech-reviewers"],
             "display_prompt": "_(Feasibility Assessment Score)",
             "type": "big_radio",
             "name": "staff_feasibility_score",
@@ -853,6 +868,7 @@
           },
           {
             "prompt": "_(Project Budget)",
+            "restrictToGroups": ["tech-reviewers"],
             "type": "textarea",
             "placeholder": "...",
             "name": "staff_project_budget",
@@ -860,6 +876,7 @@
           },
           {
             "prompt": "_(Cost Estimation)",
+            "restrictToGroups": ["tech-reviewers"],
             "type": "text",
             "placeholder": "...",
             "name": "staff_cost_estimation",

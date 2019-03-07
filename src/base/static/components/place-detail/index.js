@@ -38,6 +38,7 @@ import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   hasUserAbilitiesInPlace,
   hasGroupAbilitiesInDatasets,
+  hasAdminAbilities,
 } from "../../state/ducks/user";
 import { isEditModeToggled, updateEditModeToggled } from "../../state/ducks/ui";
 
@@ -170,6 +171,7 @@ class PlaceDetail extends Component {
       >
         {(isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar
+            isAdmin={this.props.hasAdminAbilities(this.props.datasetSlug)}
             isEditModeToggled={this.props.isEditModeToggled}
             isPlaceDetailEditable={isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
@@ -268,6 +270,7 @@ PlaceDetail.propTypes = {
     username: PropTypes.string,
   }),
   datasetSlug: PropTypes.string.isRequired,
+  hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
@@ -293,6 +296,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
     hasGroupAbilitiesInDatasets({
       state,

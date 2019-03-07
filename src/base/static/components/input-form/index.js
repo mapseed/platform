@@ -11,7 +11,6 @@ import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 
 import { translate } from "react-i18next";
-import constants from "../../constants";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
@@ -34,7 +33,7 @@ import {
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
-import { hasAdminAbilities } from "../../state/ducks/user";
+import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
 
@@ -126,25 +125,33 @@ class InputForm extends Component {
     return this.selectedCategoryConfig.fields
       .filter(field => field.isVisible)
       .reduce((memo, field) => {
+        const fieldConfig = fromJS(
+          this.selectedCategoryConfig.fields.find(f => f.name === field.name),
+        );
         return memo.set(
           field.name,
           Map({
-            [constants.FIELD_VALUE_KEY]: "",
-            [constants.FIELD_TRIGGER_VALUE_KEY]:
-              field.trigger && field.trigger.trigger_value,
-            [constants.FIELD_TRIGGER_TARGETS_KEY]:
-              field.trigger && fromJS(field.trigger.targets),
-            [constants.FIELD_VISIBILITY_KEY]: field.hidden_default
+            value: "",
+            config: fieldConfig,
+            trigger: field.trigger && field.trigger.trigger_value,
+            triggerTargets: field.trigger && fromJS(field.trigger.targets),
+            // A field will be hidden if it is explicitly declared as
+            // hidden_default in the config, or if it is restricted to a
+            // group and the current user is not in that group or is not in
+            // the administrators group.
+            isVisible: field.hidden_default
               ? false
-              : true,
-            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+              : fieldConfig.has("restrictToGroups")
+                ? this.props.isInAtLeastOneGroup(
+                    fieldConfig.get("restrictToGroups"),
+                    this.props.datasetSlug,
+                  ) || this.props.hasAdminAbilities(this.props.datasetSlug)
+                : true,
+            renderKey: prevFields.has(field.name)
+              ? prevFields.getIn([field.name, "renderKey"]) + "_"
               : this.selectedCategoryConfig.category + field.name,
-            [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
-              constants.FIELD_AUTO_FOCUS_KEY,
-            ),
-            [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
-              field.advance_stage_on_value,
+            isAutoFocusing: prevFields.get("isAutoFocusing"),
+            advanceStage: field.advance_stage_on_value,
           }),
         );
       }, OrderedMap());
@@ -157,7 +164,7 @@ class InputForm extends Component {
     );
     this.isWithCustomGeometry =
       this.selectedCategoryConfig.fields.findIndex(
-        field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
+        field => field.type === "map_drawing_toolbar",
       ) >= 0;
     this.attachments = [];
     if (this.isWithCustomGeometry) {
@@ -170,19 +177,14 @@ class InputForm extends Component {
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     fieldStatus = fieldStatus.set(
-      constants.FIELD_RENDER_KEY,
-      this.state.fields.get(fieldName).get(constants.FIELD_RENDER_KEY),
+      "renderKey",
+      this.state.fields.getIn([fieldName, "renderKey"]),
     );
 
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) && !isInitializing) {
-      const isVisible =
-        fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) ===
-        fieldStatus.get(constants.FIELD_VALUE_KEY);
-      this.triggerFieldVisibility(
-        fieldStatus.get(constants.FIELD_TRIGGER_TARGETS_KEY),
-        isVisible,
-      );
+    if (fieldStatus.get("trigger") && !isInitializing) {
+      const isVisible = fieldStatus.get("trigger") === fieldStatus.get("value");
+      this.triggerFieldVisibility(fieldStatus.get("triggerTargets"), isVisible);
     }
 
     this.setState(({ fields }) => ({
@@ -193,8 +195,7 @@ class InputForm extends Component {
 
     // Check if this field should advance the current stage.
     if (
-      fieldStatus.get(constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY) ===
-        fieldStatus.get(constants.FIELD_VALUE_KEY) &&
+      fieldStatus.get("advanceStage") === fieldStatus.get("value") &&
       !isInitializing
     ) {
       this.validateForm(() => {
@@ -213,7 +214,7 @@ class InputForm extends Component {
       fields: this.state.fields.map((field, fieldName) => {
         return targets.includes(fieldName)
           ? field
-              .set(constants.FIELD_VISIBILITY_KEY, isVisible)
+              .set("isVisible", isVisible)
               .set(
                 "isAutoFocusing",
                 targets.indexOf(fieldName) === 0 && isVisible,
@@ -233,8 +234,8 @@ class InputForm extends Component {
       isValid,
     } = this.getFields().reduce(
       ({ validationErrors, isValid }, field) => {
-        if (!field.get(constants.FIELD_VALIDITY_KEY)) {
-          validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
+        if (!field.get("isValid")) {
+          validationErrors.add(field.get("message"));
           isValid = false;
         }
         return { validationErrors, isValid };
@@ -271,8 +272,8 @@ class InputForm extends Component {
 
     let attrs = {
       ...this.state.fields
-        .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
-        .map(state => state.get(constants.FIELD_VALUE_KEY))
+        .filter(state => !!state.get("value"))
+        .map(state => state.get("value"))
         .toJS(),
       location_type: this.selectedCategoryConfig.category,
     };
@@ -300,7 +301,7 @@ class InputForm extends Component {
     // TODO: This logic is better suited for the FormField component,
     // perhaps in an onSave hook.
     this.selectedCategoryConfig.fields
-      .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
+      .filter(field => field.type === "rich_textarea")
       .forEach(field => {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
@@ -361,10 +362,8 @@ class InputForm extends Component {
         if (fieldConfig.autocomplete) {
           Util.saveAutocompleteValue(
             fieldConfig.name,
-            this.state.fields
-              .get(fieldConfig.name)
-              .get(constants.FIELD_VALUE_KEY),
-            constants.AUTOFILL_DURATION_DAYS,
+            this.state.fields.getIn([fieldConfig.name, "value"]),
+            30, // 30 days
           );
         }
       });
@@ -430,9 +429,7 @@ class InputForm extends Component {
           ],
         })
       : this.state.fields
-    ).filter(field => {
-      return field.get(constants.FIELD_VISIBILITY_KEY);
-    });
+    ).filter(field => field.get("isVisible"));
   }
 
   getFieldsFromStage({ fields, stage }) {
@@ -477,28 +474,21 @@ class InputForm extends Component {
           onSubmit={evt => evt.preventDefault()}
         >
           {this.getFields()
-            .map((fieldState, fieldName) => {
-              const fieldConfig = this.selectedCategoryConfig.fields.find(
-                field => field.name === fieldName,
-              );
-              return (
-                fieldConfig.isVisible && (
-                  <FormField
-                    fieldConfig={fieldConfig}
-                    disabled={this.state.isFormSubmitting}
-                    fieldState={fieldState}
-                    isInitializing={this.state.isInitializing}
-                    key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                    onAddAttachment={this.onAddAttachment.bind(this)}
-                    onFieldChange={this.onFieldChange.bind(this)}
-                    router={this.props.router}
-                    showValidityStatus={this.state.showValidityStatus}
-                    updatingField={this.state.updatingField}
-                    onClickSubmit={this.onSubmit.bind(this)}
-                  />
-                )
-              );
-            })
+            .map(field => (
+              <FormField
+                fieldConfig={field.get("config").toJS()}
+                disabled={this.state.isFormSubmitting}
+                fieldState={field}
+                isInitializing={this.state.isInitializing}
+                key={field.get("renderKey")}
+                onAddAttachment={this.onAddAttachment.bind(this)}
+                onFieldChange={this.onFieldChange.bind(this)}
+                router={this.props.router}
+                showValidityStatus={this.state.showValidityStatus}
+                updatingField={this.state.updatingField}
+                onClickSubmit={this.onSubmit.bind(this)}
+              />
+            ))
             .toArray()}
         </form>
         {this.state.isFormSubmitting && <Spinner />}
@@ -559,6 +549,7 @@ InputForm.propTypes = {
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
+  isInAtLeastOneGroup: PropTypes.func.isRequired,
   isLeavingForm: PropTypes.bool,
   isMapDragged: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
@@ -583,6 +574,8 @@ const mapStateToProps = state => ({
     datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  isInAtLeastOneGroup: (groupNames, datasetSlug) =>
+    isInAtLeastOneGroup(state, groupNames, datasetSlug),
   mapConfig: mapConfigSelector(state),
   mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),

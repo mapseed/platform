@@ -15,7 +15,6 @@ import { extractEmbeddedImages } from "../../utils/embedded-images";
 const Util = require("../../js/utils.js");
 
 import { translate } from "react-i18next";
-import constants from "../../constants";
 
 import {
   activeMarkerSelector,
@@ -32,6 +31,7 @@ import {
 } from "../../state/ducks/places";
 import { removeGeoJSONFeature } from "../../state/ducks/map";
 import { updateEditModeToggled } from "../../state/ducks/ui";
+import { isInAtLeastOneGroup, hasAdminAbilities } from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 
@@ -53,23 +53,36 @@ class PlaceDetailEditor extends Component {
     this.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
-      .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
+      .filter(field => field.type !== "submit")
       .filter(field => field.isVisible)
       .forEach(field => {
+        const fieldConfig = fromJS(
+          this.categoryConfig.fields.find(f => f.name === field.name),
+        );
         fields = fields.set(
           field.name,
           Map()
-            .set(constants.FIELD_VALUE_KEY, this.props.place[field.name])
+            .set("value", this.props.place[field.name])
+            .set("config", fieldConfig)
             .set(
-              constants.FIELD_VISIBILITY_KEY,
-              field.hidden_default ? false : true,
+              // A field will be hidden if it is explicitly declared as
+              // hidden_default in the config, or if it is restricted to a
+              // group and the current user is not in that group or is not in
+              // the administrators group.
+              "isVisible",
+              field.hidden_default
+                ? false
+                : fieldConfig.has("restrictToGroups")
+                  ? this.props.isInAtLeastOneGroup(
+                      fieldConfig.get("restrictToGroups"),
+                      this.props.place._datasetSlug,
+                    ) ||
+                    this.props.hasAdminAbilities(this.props.place._datasetSlug)
+                  : true,
             )
+            .set("trigger", field.trigger && field.trigger.trigger_value)
             .set(
-              constants.FIELD_TRIGGER_VALUE_KEY,
-              field.trigger && field.trigger.trigger_value,
-            )
-            .set(
-              constants.FIELD_TRIGGER_TARGETS_KEY,
+              "triggerTargets",
               field.trigger && fromJS(field.trigger.targets),
             ),
         );
@@ -94,18 +107,16 @@ class PlaceDetailEditor extends Component {
   async updatePlace() {
     // Validate the form.
     const newValidationErrors = this.state.fields
-      .filter(field => field.get(constants.FIELD_VISIBILITY_KEY))
-      .filter(field => !field.get(constants.FIELD_VALIDITY_KEY))
+      .filter(field => field.get("isVisible"))
+      .filter(field => !field.get("isValid"))
       .reduce((newValidationErrors, invalidField) => {
-        return newValidationErrors.add(
-          invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
-        );
+        return newValidationErrors.add(invalidField.get("message"));
       }, new Set());
 
     if (newValidationErrors.size === 0) {
       const attrs = this.state.fields
-        .filter(state => state.get(constants.FIELD_VALUE_KEY) !== null)
-        .map(state => state.get(constants.FIELD_VALUE_KEY))
+        .filter(state => state.get("value") !== null)
+        .map(state => state.get("value"))
         .toJS();
 
       // A form field with name "private" should use the value "yes" to indicate
@@ -127,7 +138,7 @@ class PlaceDetailEditor extends Component {
       // TODO: This logic is better suited for the FormField component,
       // perhaps in an onSave hook.
       this.categoryConfig.fields
-        .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
+        .filter(field => field.type === "rich_textarea")
         .forEach(field => {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
@@ -172,7 +183,6 @@ class PlaceDetailEditor extends Component {
         this.props.updatePlace(placeResponse);
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
-
         scrollTo(this.props.container, 0, 100);
       } else {
         alert("Oh dear. It looks like that didn't save. Please try again.");
@@ -265,9 +275,10 @@ class PlaceDetailEditor extends Component {
 
   triggerFieldVisibility(targets, isVisible) {
     targets.forEach(target => {
-      const fieldStatus = this.state.fields
-        .get(target)
-        .set(constants.FIELD_VISIBILITY_KEY, isVisible);
+      const fieldStatus = this.state.fields.setIn(
+        [target, "isVisible"],
+        isVisible,
+      );
 
       this.setState(({ fields }) => ({
         fields: fields.set(target, fieldStatus),
@@ -277,14 +288,9 @@ class PlaceDetailEditor extends Component {
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY)) {
-      const isVisible =
-        fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) ===
-        fieldStatus.get(constants.FIELD_VALUE_KEY);
-      this.triggerFieldVisibility(
-        fieldStatus.get(constants.FIELD_TRIGGER_TARGETS_KEY),
-        isVisible,
-      );
+    if (fieldStatus.get("trigger")) {
+      const isVisible = fieldStatus.get("trigger") === fieldStatus.get("value");
+      this.triggerFieldVisibility(fieldStatus.get("triggerTargets"), isVisible);
     }
 
     this.setState(({ fields }) => ({
@@ -318,43 +324,27 @@ class PlaceDetailEditor extends Component {
           ))}
         <form className="place-detail-editor__form">
           {this.state.fields
-            .filter(
-              (fieldState, fieldName) =>
-                this.categoryConfig.fields.find(
-                  field => field.name === fieldName,
-                ).type !== constants.SUBMIT_FIELD_TYPENAME,
-            )
-            .filter(field => {
-              return field.get(constants.FIELD_VISIBILITY_KEY);
-            })
-            .map((fieldState, fieldName) => {
-              const fieldConfig = this.categoryConfig.fields.find(
-                field => field.name === fieldName,
-              );
-
-              return (
-                fieldConfig.isVisible && (
-                  <FormField
-                    existingGeometry={this.props.place.geometry}
-                    existingGeometryStyle={this.props.place.style}
-                    existingPlaceId={this.props.place.id}
-                    datasetSlug={this.props.place._datasetSlug}
-                    fieldConfig={fieldConfig}
-                    attachments={this.props.place.attachments}
-                    categoryConfig={this.categoryConfig}
-                    disabled={this.state.isSubmitting}
-                    fieldState={fieldState}
-                    onAddAttachment={this.onAddAttachment}
-                    isInitializing={this.state.isInitializing}
-                    key={fieldName}
-                    onFieldChange={this.onFieldChange.bind(this)}
-                    router={this.props.router}
-                    showValidityStatus={this.state.showValidityStatus}
-                    updatingField={this.state.updatingField}
-                  />
-                )
-              );
-            })
+            .filter(field => field.get("isVisible"))
+            .map((field, fieldName) => (
+              <FormField
+                existingGeometry={this.props.place.geometry}
+                existingGeometryStyle={this.props.place.style}
+                existingPlaceId={this.props.place.id}
+                datasetSlug={this.props.place._datasetSlug}
+                fieldConfig={field.get("config").toJS()}
+                attachments={this.props.place.attachments}
+                categoryConfig={this.categoryConfig}
+                disabled={this.state.isSubmitting}
+                fieldState={field}
+                onAddAttachment={this.onAddAttachment}
+                isInitializing={this.state.isInitializing}
+                key={fieldName}
+                onFieldChange={this.onFieldChange.bind(this)}
+                router={this.props.router}
+                showValidityStatus={this.state.showValidityStatus}
+                updatingField={this.state.updatingField}
+              />
+            ))
             .toArray()}
           {this.state.isNetworkRequestInFlight && <Spinner />}
         </form>
@@ -368,6 +358,8 @@ PlaceDetailEditor.propTypes = {
   attachments: PropTypes.array,
   container: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
+  hasAdminAbilities: PropTypes.func.isRequired,
+  isInAtLeastOneGroup: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
   onAddAttachment: PropTypes.func,
   onRequestEnd: PropTypes.func.isRequired,
@@ -387,6 +379,9 @@ PlaceDetailEditor.propTypes = {
 
 const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
+  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  isInAtLeastOneGroup: (groupNames, datasetSlug) =>
+    isInAtLeastOneGroup(state, groupNames, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   placeConfig: placeConfigSelector(state),
 });

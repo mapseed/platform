@@ -21,6 +21,11 @@ exports[`InputForm renders input form 1`] = `
       fieldState={
         Immutable.Map {
           "value": "",
+          "config": Immutable.Map {
+            "name": "test1",
+            "type": "text",
+            "isVisible": true,
+          },
           "trigger": undefined,
           "triggerTargets": undefined,
           "isVisible": true,
@@ -53,6 +58,11 @@ exports[`InputForm renders input form 1`] = `
       fieldState={
         Immutable.Map {
           "value": "",
+          "config": Immutable.Map {
+            "name": "test2",
+            "type": "text",
+            "isVisible": true,
+          },
           "trigger": undefined,
           "triggerTargets": undefined,
           "isVisible": true,
@@ -85,6 +95,11 @@ exports[`InputForm renders input form 1`] = `
       fieldState={
         Immutable.Map {
           "value": "",
+          "config": Immutable.Map {
+            "name": "test3",
+            "type": "text",
+            "isVisible": true,
+          },
           "trigger": undefined,
           "triggerTargets": undefined,
           "isVisible": true,
