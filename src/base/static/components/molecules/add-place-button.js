@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { connect } from "react-redux";
@@ -11,7 +11,7 @@ import {
   geocodeAddressBarVisibilitySelector,
 } from "../../state/ducks/ui";
 
-const AddPlaceButton = styled(
+const AddPlaceButtonContainer = styled(
   props =>
     props.isAddPlaceButtonVisible && (
       <Button
@@ -34,9 +34,7 @@ const AddPlaceButton = styled(
     },
 
     [mq[0]]: {
-      position: "fixed",
       width: "100%",
-      bottom: 0,
       borderRadius: 0,
     },
     [mq[1]]: {
@@ -47,10 +45,38 @@ const AddPlaceButton = styled(
   };
 });
 
+class AddPlaceButton extends Component {
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.isAddPlaceButtonVisible !== this.props.isAddPlaceButtonVisible
+    ) {
+      this.props.setMapDimensions();
+    }
+  }
+
+  render() {
+    return (
+      this.props.isAddPlaceButtonVisible && (
+        <AddPlaceButtonContainer
+          className={this.props.className}
+          onClick={this.props.onClick}
+          isGeocodeAddressBarVisible={this.props.isGeocodeAddressBarVisible}
+          isAddPlaceButtonVisible={this.props.isAddPlaceButtonVisible}
+        >
+          {this.props.children}
+        </AddPlaceButtonContainer>
+      )
+    );
+  }
+}
+
 AddPlaceButton.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isGeocodeAddressBarVisible: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  setMapDimensions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

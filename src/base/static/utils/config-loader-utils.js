@@ -16,12 +16,11 @@ const transformStoryContent = storyConfig => {
             zoom: chapter.zoom || storyContent.default_zoom,
             hasCustomZoom: !!chapter.zoom,
             panTo: chapter.pan_to || null,
-            visibleLayers:
-              chapter.visible_layers || storyContent.default_visible_layers,
+            visibleLayerGroupIds:
+              chapter.visibleLayerGroupIds || storyContent.visibleLayerGroupIds,
             previous:
               storyContent.order[(i - 1 + numChapters) % numChapters].url,
             next: storyContent.order[(i + 1) % numChapters].url,
-            basemap: chapter.basemap || storyContent.default_basemap,
             spotlight: chapter.spotlight === false ? false : true,
             sidebarIconUrl: chapter.sidebar_icon_url,
           };

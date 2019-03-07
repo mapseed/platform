@@ -107,7 +107,7 @@ Shareabouts.Util = Util;
 
     viewMap: function(zoom, lat, lng) {
       recordGoogleAnalyticsHit("/");
-      this.appView.viewMap(zoom, lat, lng);
+      this.appView.viewMap(parseInt(zoom), parseFloat(lat), parseFloat(lng));
     },
 
     viewDashboard: function() {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import emitter from "../../utils/emitter";
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { Map, OrderedMap, fromJS } from "immutable";
@@ -28,7 +27,9 @@ import {
   removePlace,
   removePlaceAttachment,
   placePropType,
+  updateActiveEditPlaceId,
 } from "../../state/ducks/places";
+import { removeGeoJSONFeature } from "../../state/ducks/map";
 import { updateEditModeToggled } from "../../state/ducks/ui";
 import { isInAtLeastOneGroup, hasAdminAbilities } from "../../state/ducks/user";
 
@@ -93,6 +94,14 @@ class PlaceDetailEditor extends Component {
       showValidityStatus: false,
       isNetworkRequestInFlight: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.updateActiveEditPlaceId(this.props.place.id);
+  }
+
+  componentWillUnmount() {
+    this.props.updateActiveEditPlaceId(null);
   }
 
   async updatePlace() {
@@ -171,15 +180,7 @@ class PlaceDetailEditor extends Component {
           );
         }
 
-        emitter.emit("draw:delete");
-
         this.props.updatePlace(placeResponse);
-
-        emitter.emit(
-          "place-collection:add-place",
-          this.props.place._datasetSlug,
-        );
-
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
         scrollTo(this.props.container, 0, 100);
@@ -189,6 +190,7 @@ class PlaceDetailEditor extends Component {
         this.props.onRequestEnd();
       }
     } else {
+      this.props.onRequestEnd();
       this.setState({
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
@@ -217,9 +219,9 @@ class PlaceDetailEditor extends Component {
     if (response) {
       this.props.router.navigate("/", { trigger: true });
       this.props.removePlace(this.props.place.id);
-      emitter.emit(
-        "place-collection:remove-place",
+      this.props.removeGeoJSONFeature(
         this.props.place._datasetSlug,
+        this.props.place.id,
       );
 
       Util.log("USER", "place", "successfully-remove-place");
@@ -365,10 +367,12 @@ PlaceDetailEditor.propTypes = {
   place: placePropType.isRequired,
   placeRequestType: PropTypes.string,
   removePlace: PropTypes.func.isRequired,
+  removeGeoJSONFeature: PropTypes.func.isRequired,
   removePlaceAttachment: PropTypes.func.isRequired,
   router: PropTypes.object,
   setPlaceRequestType: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateActiveEditPlaceId: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
   updatePlace: PropTypes.func.isRequired,
 };
@@ -386,9 +390,13 @@ const mapDispatchToProps = dispatch => ({
   updateEditModeToggled: isToggled =>
     dispatch(updateEditModeToggled(isToggled)),
   updatePlace: place => dispatch(updatePlace(place)),
+  removeGeoJSONFeature: (sourceId, featureId) =>
+    dispatch(removeGeoJSONFeature(sourceId, featureId)),
   removePlace: placeId => dispatch(removePlace(placeId)),
   removePlaceAttachment: (placeId, attachmentId) =>
     dispatch(removePlaceAttachment(placeId, attachmentId)),
+  updateActiveEditPlaceId: placeId =>
+    dispatch(updateActiveEditPlaceId(placeId)),
 });
 
 export default connect(

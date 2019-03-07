@@ -46,7 +46,7 @@ export const commentFormConfigPropType = PropTypes.shape({
 export const placeFormsConfigPropType = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.string.isRequired,
-    datasetId: PropTypes.string.isRequired,
+    datasetSlug: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
   }),

@@ -8,9 +8,8 @@
   z-index: 10;
 }
 
-#map {
-  background: $button-background-lightblue;
-  height: 150px;
+#map-component {
+  height: 100%;
 }
 
 .add-edit-cursor {

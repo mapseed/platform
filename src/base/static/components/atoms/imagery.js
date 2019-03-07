@@ -20,12 +20,14 @@ const FontAwesomeIcon = styled(props => (
   const styles = {
     fontFamily: "FontAwesome",
     fontSize: props.fontSize,
+    color: props.color,
   };
 
   return styles;
 });
 
 FontAwesomeIcon.propTypes = {
+  color: PropTypes.string.isRequired,
   fontSize: PropTypes.string.isRequired,
   faClassname: PropTypes.string.isRequired,
 };
@@ -33,6 +35,7 @@ FontAwesomeIcon.propTypes = {
 FontAwesomeIcon.defaultProps = {
   fontSize: "1rem",
   content: "fa fa-globe",
+  color: "#000",
 };
 
 const SiteLogo = styled(props => {

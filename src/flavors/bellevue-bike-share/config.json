@@ -38,47 +38,67 @@
     "cartodb_enabled": true,
     "geocoding_enabled": false,
     "options": {
-      "map": {
-        "center": {
-          "lat": 47.61306,
-          "lng": -122.19538
-        },
+      "mapViewport": {
+        "latitude": 47.61306,
+        "longitude": -122.19538,
         "zoom": 13.5,
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
       },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
-      },
       "drawing_enabled": false
     },
-    "layers": [
+    "mapboxSources": {
+      "f4": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tileSize": 256,
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w"
+        ],
+        "tileSize": 256,
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      }
+    },
+    "layerGroups": [
       {
         "id": "f4",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png",
-        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "f4-basemap",
+            "type": "raster",
+            "source": "f4"
+          }
+        ]
       },
       {
         "id": "satellite",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "is_visible_default": true,
-        "url": "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w",
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
       },
       {
         "id": "bellevue-bike-share",
-        "type": "place",
         "datasetSlug": "bellevue-bike-share",
-        "is_visible_default": true,
-        "feature_types": ["Point"],
-        "focus_rules": [
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "symbol-layout": {
+            "id": "bellevue-bike-share-focused",
+            "type": "symbol",
+            "source": "bellevue-bike-share",
+            "layout": {
+              "icon-allow-overlap": true,
               "icon-size": 0.7,
               "icon-anchor": "bottom",
               "icon-image": [
@@ -91,29 +111,22 @@
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-4bad92.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "bike-share"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "bike-marker.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
+            "id": "bellevue-bike-share",
+            "type": "symbol",
+            "source": "bellevue-bike-share",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 1, 10, 0.4],
+              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                "dot-4bad92.png",
+                10,
+                "bike-marker.png"
+              ]
             }
           }
         ]
@@ -126,14 +139,14 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "satellite",
                 "title": "_(Satellite)"
@@ -147,7 +160,7 @@
           {
             "id": "grp-community",
             "title": "_(Data layers)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "bellevue-bike-share",
                 "title": "_(Suggested Bike Share Locations)"

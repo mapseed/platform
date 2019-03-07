@@ -22,7 +22,6 @@ import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
 
 const reducers = combineReducers({
-  map: mapReducer,
   places: placesReducer,
   ui: uiReducer,
   leftSidebar: leftSidebarReducer,
@@ -42,6 +41,7 @@ const reducers = combineReducers({
   datasetsConfig: datasetsConfigReducer,
   datasets: datasetsReducer,
   activity: activityReducer,
+  map: mapReducer,
 });
 
 export default reducers;

@@ -36,7 +36,8 @@
     "prettier": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-draw": "^1.0.9",
+    "@emotion/core": "^10.0.7",
+    "@mapbox/mapbox-gl-draw": "github:mapseed/mapbox-gl-draw#a790a7804786dac196d1a2304dd56223c115aa26",
     "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "babel-plugin-emotion": "^9.2.11",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -57,7 +58,6 @@
     "i18next": "^10.2.2",
     "immutable": "^3.8.2",
     "lodash.groupby": "^4.6.0",
-    "mapbox-gl": "^0.51.0",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.23",
     "node-env-file": "^0.1.7",
@@ -70,6 +70,7 @@
     "react-dom": "~16.7.0",
     "react-emotion": "~9.2.6",
     "react-i18next": "~7.5.1",
+    "react-map-gl": "^4.0.10",
     "react-modal": "~3.4.4",
     "react-quill": "~1.1.0",
     "react-redux": "~5.0.7",
@@ -79,6 +80,8 @@
     "redux": "^4.0.0",
     "s3-website": "^3.2.2",
     "shelljs": "^0.5.3",
+    "throttle-debounce": "^2.1.0",
+    "turf-extent": "^1.0.4",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {

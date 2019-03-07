@@ -60,164 +60,802 @@
   "map": {
     "geolocation_enabled": true,
     "options": {
-      "map": {
-        "center": {
-          "lat": 47.66909,
-          "lng": -122.39593
-        },
+      "mapViewport": {
+        "latitude": 47.66909,
+        "longitude": -122.39593,
         "zoom": 8,
         "minZoom": 1,
         "maxZoom": 18,
         "pitch": 30
-      },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
       }
     },
-    "layers": [
+    "mapboxSources": {
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
+        "tileSize": 256
+      },
+      "light-nolabels": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "tileSize": 256
+      },
+      "hydrography": {
+        "type": "raster",
+        "tiles": [
+          "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
+        ]
+      },
+      "sub-basins": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/heyduwamishcore/cj539xhft04y82sqzh7hsehkg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g"
+        ],
+        "tileSize": 256
+      },
+      "topo": {
+        "type": "raster",
+        "tiles": [
+          "https://stamen-tiles-b.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256,
+        "maxzoom": 16
+      },
+      "1936aerial": {
+        "type": "raster",
+        "tiles": [
+          "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?service=wmts&request=gettile&layers=BaseMaps_KingCo_Aerial_1936&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+        ]
+      },
+      "bath": {
+        "type": "raster",
+        "tiles": [
+          "https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+        ]
+      },
+      "hillshade": {
+        "type": "raster",
+        "tiles": [
+          "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+        ]
+      },
+      "contour": {
+        "type": "raster",
+        "tiles": [
+          "https://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS?service=wmts&request=gettile&layers=5&version=1.0.0&tilematrixset=default028mm&format=image/png&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+        ]
+      },
+      "impervious": {
+        "type": "raster",
+        "tiles": [
+          "https://assets.mapseed.org/geo/seattle-impervious-surfaces/{z}/{x}/{y}.png"
+        ],
+        "scheme": "tms",
+        "tileSize": 256
+      },
+      "sewer": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/king-county-sewer-lines/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "cities": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/king-county-city-boundaries/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "commfood": {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson"
+      },
+      "school-boundaries": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/king-county-school-districts/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "school-sites": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/king-county-schools/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "wria-7-8-9": {
+        "type": "vector",
+        "tiles": ["https://vector-tiles.mapseed.org/wria-7-8-9/{z}/{x}/{y}.pbf"]
+      },
+      "wria-7": {
+        "type": "vector",
+        "tiles": ["https://vector-tiles.mapseed.org/wria-7/{z}/{x}/{y}.pbf"]
+      },
+      "watershed-cedar-sammamish": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/watershed-cedar-sammamish/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "watershed-green": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/watershed-green/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "watershed-sammamish": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/watershed-sammamish/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "watershed-puyallup": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/watershed-puyallup/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "landuse": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "duwamish-original": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf"
+        ]
+      }
+    },
+    "layerGroups": [
       {
         "id": "satellite",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
       },
       {
         "id": "light-nolabels",
-        "is_basemap": true,
-        "type": "raster-tile",
-        "url": "https://api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
-        "attribution": "Hello World"
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "light-nolabels-basemap",
+            "type": "raster",
+            "source": "light-nolabels"
+          }
+        ]
       },
       {
         "id": "hydrography",
-        "type": "wms",
-        "is_visible_default": true,
-        "is_basemap": true,
-        "url": "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer",
-        "layers": "0",
-        "version": "1.3.0",
-        "transparent": false,
-        "format": "image/png"
-      },
-      {
-        "id": "sub-basins",
-        "type": "raster-tile",
-        "url": "https://api.mapbox.com/styles/v1/heyduwamishcore/cj539xhft04y82sqzh7hsehkg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g",
-        "attribution": "Hello World"
+        "visibleDefault": true,
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "hydrography-basemap",
+            "type": "raster",
+            "source": "hydrography"
+          }
+        ]
       },
       {
         "id": "topo",
-        "type": "raster-tile",
-        "is_visible_default": false,
-        "is_basemap": true,
-        "url": "https://stamen-tiles-b.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png",
-        "max_zoom": 16
+        "visibleDefault": false,
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "topo-basemap",
+            "type": "raster",
+            "source": "topo"
+          }
+        ]
       },
       {
         "id": "1936aerial",
-        "is_basemap": true,
-        "type": "wmts",
-        "url": "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS",
-        "layers": "BaseMaps_KingCo_Aerial_1936",
-        "tilematrix_set": "default028mm",
-        "version": "1.0.0",
-        "transparent": false,
-        "format": "image/jpg",
-        "style": "default"
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "1936aerial-basemap",
+            "type": "raster",
+            "source": "1936aerial"
+          }
+        ]
       },
       {
         "id": "bath",
-        "is_basemap": true,
-        "type": "wmts",
-        "url": "https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS",
-        "layers": 0,
-        "tilematrix_set": "default028mm",
-        "version": "1.0.0",
-        "transparent": false,
-        "format": "image/jpg",
-        "style": "default"
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "bath-basemap",
+            "type": "raster",
+            "source": "bath"
+          }
+        ]
       },
       {
         "id": "hillshade",
-        "is_basemap": true,
-        "type": "wmts",
-        "url": "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS",
-        "layers": 0,
-        "tilematrix_set": "default028mm",
-        "version": "1.0.0",
-        "transparent": false,
-        "format": "image/jpg",
-        "style": "default"
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "hillshade-basemap",
+            "type": "raster",
+            "source": "hillshade"
+          }
+        ]
+      },
+      {
+        "id": "sub-basins",
+        "mapboxLayers": [
+          {
+            "id": "sub-basins",
+            "type": "raster",
+            "source": "sub-basins"
+          }
+        ]
       },
       {
         "id": "contour",
-        "type": "wmts",
-        "url": "https://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS",
-        "layers": 5,
-        "tilematrix_set": "default028mm",
-        "version": "1.0.0",
-        "transparent": false,
-        "format": "image/png",
-        "style": "default"
+        "mapboxLayers": [
+          {
+            "id": "contour",
+            "type": "raster",
+            "source": "contour"
+          }
+        ]
       },
       {
         "id": "impervious",
-        "type": "raster-tile",
-        "url": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/seattle-impervious-surfaces/{z}/{x}/{y}.png",
-        "scheme": "tms"
+        "mapboxLayers": [
+          {
+            "id": "impervious",
+            "type": "raster",
+            "source": "impervious"
+          }
+        ]
       },
       {
         "id": "sewer",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/king-county-sewer-lines/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/king-county-sewer-lines/style.json",
-        "source_layer": "king-county-sewer-lines"
+        "mapboxLayers": [
+          {
+            "id": "sewer",
+            "type": "line",
+            "source": "sewer",
+            "source-layer": "king-county-sewer-lines",
+            "paint": {
+              "line-color": "#aa371d",
+              "line-width": 2
+            }
+          }
+        ]
       },
       {
         "id": "cities",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/king-county-city-boundaries/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/king-county-city-boundaries/style.json",
-        "source_layer": "king-county-city-boundaries"
+        "mapboxLayers": [
+          {
+            "id": "cities",
+            "type": "line",
+            "source": "cities",
+            "source-layer": "king-county-city-boundaries",
+            "paint": {
+              "line-color": "#0066ff",
+              "line-width": 1
+            }
+          }
+        ]
       },
       {
         "id": "commfood",
-        "type": "json",
-        "source": "https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson",
-        "popup_content": "{{MarketName}}",
-        "rules": [
+        "mapboxLayers": [
           {
-            "symbol-layout": {
+            "id": "commfood",
+            "type": "symbol",
+            "source": "commfood",
+            "layout": {
               "icon-image": "marker-dot-conserve-water.png",
               "icon-size": 0.5,
               "icon-anchor": "center"
             },
-            "symbol-paint": {
+            "paint": {
               "icon-opacity": 0.9
             }
           }
         ]
       },
       {
-        "id": "mw",
-        "is_visible_default": true,
-        "datasetSlug": "mw",
-        "type": "place",
-        "slug": "report",
-        "focus_rules": [
+        "id": "school-boundaries",
+        "mapboxLayers": [
           {
-            "symbol-layout": {
+            "id": "school-boundaries",
+            "type": "line",
+            "source": "school-boundaries",
+            "source-layer": "king-county-school-districts",
+            "paint": {
+              "line-color": "#7b00b4",
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "school-sites",
+        "mapboxLayers": [
+          {
+            "id": "king-county-school-sites",
+            "type": "circle",
+            "source": "school-sites",
+            "source-layer": "king-county-schools",
+            "paint": {
+              "circle-color": "#ff6600",
+              "circle-radius": 5,
+              "circle-stroke-color": "#fff",
+              "circle-stroke-width": 1,
+              "circle-opacity": 0.9
+            }
+          },
+          {
+            "id": "king-county-school-sites-labels",
+            "type": "symbol",
+            "source": "school-sites",
+            "source-layer": "king-county-schools",
+            "filter": [">=", ["zoom"], 12],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "name"],
+              "text-size": 14,
+              "text-allow-overlap": false,
+              "text-offset": [0, 1]
+            }
+          }
+        ]
+      },
+      {
+        "id": "wria-7-8-9",
+        "mapboxLayers": [
+          {
+            "id": "wria-7-8-9-polygons",
+            "type": "fill",
+            "source": "wria-7-8-9",
+            "source-layer": "wria-7-8-9",
+            "paint": {
+              "fill-color": "#ffa350",
+              "fill-opacity": 0.4
+            }
+          },
+          {
+            "id": "wria-7-8-9-outlines",
+            "type": "line",
+            "source": "wria-7-8-9",
+            "source-layer": "wria-7-8-9",
+            "paint": {
+              "line-color": "#081b47",
+              "line-width": 0.5
+            }
+          },
+          {
+            "id": "wria-7-8-9-labels",
+            "type": "symbol",
+            "source": "wria-7-8-9",
+            "source-layer": "wria-7-8-9",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "wria_nm"],
+              "text-size": 12,
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "wria-7",
+        "mapboxLayers": [
+          {
+            "id": "wria-7",
+            "source": "wria-7",
+            "source-layer": "wria-7",
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-cedar-sammamish",
+        "mapboxLayers": [
+          {
+            "id": "cedar-watershed_streams",
+            "source": "watershed-cedar-sammamish",
+            "source-layer": "watershed-cedar-sammamish",
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "cedar-watershed_cedar-river",
+            "source": "watershed-cedar-sammamish",
+            "source-layer": "watershed-cedar-sammamish",
+            "type": "line",
+            "filter": ["==", "wtr_name", "Cedar River"],
+            "paint": {
+              "line-color": "#058dad",
+              "line-width": 3
+            }
+          },
+          {
+            "id": "sammamish-watershed_labels-a",
+            "source": "watershed-cedar-sammamish",
+            "source-layer": "watershed-cedar-sammamish",
+            "type": "symbol",
+            "filter": [">=", ["zoom"], 12],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "wtr_name"],
+              "text-size": 10,
+              "text-allow-overlap": false
+            }
+          },
+          {
+            "id": "sammamish-watershed_streams-a",
+            "source": "watershed-cedar-sammamish",
+            "source-layer": "watershed-cedar-sammamish",
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "sammamish-watershed_white-river-a",
+            "source": "watershed-cedar-sammamish",
+            "source-layer": "watershed-cedar-sammamish",
+            "type": "line",
+            "filter": ["==", "wtr_name", "Sammamish River"],
+            "paint": {
+              "line-color": "#058dad",
+              "line-width": 3
+            }
+          },
+          {
+            "id": "sammamish-watershed_labels-b",
+            "source": "watershed-cedar-sammamish",
+            "source-layer": "watershed-cedar-sammamish",
+            "type": "symbol",
+            "filter": [">=", ["zoom"], 12],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "wtr_name"],
+              "text-size": 10,
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-green",
+        "mapboxLayers": [
+          {
+            "id": "green-duwamish-watershed_streams",
+            "source": "watershed-green",
+            "source-layer": "watershed-green",
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "green-duwamish-watershed_green-river",
+            "source": "watershed-green",
+            "source-layer": "watershed-green",
+            "type": "line",
+            "filter": ["==", "wtr_name", "Green River"],
+            "paint": {
+              "line-color": "#058dad",
+              "line-width": 3
+            }
+          },
+          {
+            "id": "green-duwamish-watershed_duwamish-river",
+            "source": "watershed-green",
+            "source-layer": "watershed-green",
+            "type": "line",
+            "filter": ["==", "wtr_name", "Duwamish River"],
+            "paint": {
+              "line-color": "#058dad",
+              "line-width": 3
+            }
+          },
+          {
+            "id": "green-duwamish-watershed_labels",
+            "source": "watershed-green",
+            "source-layer": "watershed-green",
+            "type": "symbol",
+            "filter": [">=", ["zoom"], 12],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "wtr_name"],
+              "text-size": 10,
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-sammamish",
+        "mapboxLayers": [
+          {
+            "id": "sammamish-watershed_streams-b",
+            "source": "watershed-sammamish",
+            "source-layer": "watershed-sammamish",
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "sammamish-watershed_white-river-b",
+            "source": "watershed-sammamish",
+            "source-layer": "watershed-sammamish",
+            "type": "line",
+            "filter": ["==", "wtr_name", "Sammamish River"],
+            "paint": {
+              "line-color": "#058dad",
+              "line-width": 3
+            }
+          },
+          {
+            "id": "sammamish-watershed_labels",
+            "source": "watershed-sammamish",
+            "source-layer": "watershed-sammamish",
+            "type": "symbol",
+            "filter": [">=", ["zoom"], 12],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "wtr_name"],
+              "text-size": 10,
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-puyallup",
+        "mapboxLayers": [
+          {
+            "id": "puyallup-watershed_streams",
+            "source": "watershed-puyallup",
+            "source-layer": "watershed-puyallup",
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "puyallup-watershed_white-river",
+            "source": "watershed-puyallup",
+            "source-layer": "watershed-puyallup",
+            "type": "line",
+            "filter": ["==", "feature_na", "White River"],
+            "paint": {
+              "line-color": "#058dad",
+              "line-width": 3
+            }
+          },
+          {
+            "id": "puyallup-watershed_puyallup-river",
+            "source": "watershed-puyallup",
+            "source-layer": "watershed-puyallup",
+            "type": "line",
+            "filter": ["==", "feature_na", "Puyallup River"],
+            "paint": {
+              "line-color": "#058dad",
+              "line-width": 3
+            }
+          },
+          {
+            "id": "puyallup-watershed_labels",
+            "source": "watershed-puyallup",
+            "source-layer": "watershed-puyallup",
+            "type": "symbol",
+            "filter": [">=", ["zoom"], 12],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "feature_na"],
+              "text-size": 10,
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "landuse",
+        "mapboxLayers": [
+          {
+            "id": "king-county-land-use",
+            "source": "landuse",
+            "source-layer": "landuse-king-county-2010-truncated",
+            "type": "fill",
+            "paint": {
+              "fill-color": [
+                "match",
+                ["get", "descript"],
+                "Open space land (classified)",
+                "#1f78b4",
+                "Residential Household, single family",
+                "#FB9A99",
+                "Residential Household, 2-4 units",
+                "#B2DF8A",
+                "Residential Household, multiunits (5+)",
+                "#33A02C",
+                "Residential condominiums",
+                "#E31A1C",
+                "Retail trade (other)",
+                "#FDBF6F",
+                "Services (misc)",
+                "#FF7F00",
+                "Wholesale trade",
+                "#6A3D9A",
+                "Business services",
+                "#A6CEE3",
+                "Undeveloped land",
+                "#CAB2D6",
+                "#DDDDDD"
+              ],
+              "fill-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "duwamish-original",
+        "mapboxLayers": [
+          {
+            "id": "channel",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "channel"],
+            "paint": {
+              "fill-color": "#3366ff"
+            }
+          },
+          {
+            "id": "tideflat",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "tideflat"],
+            "paint": {
+              "fill-color": "#000099"
+            }
+          },
+          {
+            "id": "barrier-beach",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "barrier beach"],
+            "paint": {
+              "fill-color": "#ffcc00"
+            }
+          },
+          {
+            "id": "barrier-beach-spitt",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "barrier beach spitt/grass"],
+            "paint": {
+              "fill-color": "#00cc00"
+            }
+          },
+          {
+            "id": "barrier-beach-grass",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "barrier beach/grass"],
+            "paint": {
+              "fill-color": "#339933"
+            }
+          },
+          {
+            "id": "marsh",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "estuarine emergent marsh"],
+            "paint": {
+              "fill-color": "#99cc00"
+            }
+          },
+          {
+            "id": "pond",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "pond"],
+            "paint": {
+              "fill-color": "#66ccff"
+            }
+          },
+          {
+            "id": "salt-pond",
+            "source": "duwamish-original",
+            "source-layer": "historical_river_pathgeojson",
+            "type": "fill",
+            "filter": ["==", "landcover", "salt pond"],
+            "paint": {
+              "fill-color": "#9999ff"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mw",
+        "visibleDefault": true,
+        "datasetSlug": "mw",
+        "interactive": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "mw-focused",
+            "type": "symbol",
+            "source": "mw",
+            "layout": {
+              "icon-allow-overlap": true,
               "icon-image": "marker-dot-conserve-water.png",
               "icon-size": 0.5,
               "icon-anchor": "center"
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "symbol-layout": {
+            "id": "mw",
+            "type": "symbol",
+            "source": "mw",
+            "layout": {
+              "icon-allow-overlap": true,
               "icon-image": "marker-dot-conserve-water.png",
               "icon-size": 0.15,
               "icon-anchor": "center"
@@ -228,29 +866,34 @@
       {
         "id": "mw-featured-projects",
         "datasetSlug": "mw-featured-projects",
-        "type": "place",
-        "is_visible_default": true,
-        "feature_types": ["Point"],
-        "focus_rules": [
+        "visibleDefault": true,
+        "interactive": true,
+        "mapboxFocusedLayers": [
           {
+            "id": "mw-featured-projects-focused",
+            "source": "mw-featured-projects",
+            "type": "symbol",
             "filter": [
               "all",
               ["==", ["get", "location_type"], "featured_project"]
             ],
-            "symbol-layout": {
+            "layout": {
               "icon-image": "marker-dot-commute-low-carbon.png",
               "icon-size": 0.5,
               "icon-anchor": "center"
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
+            "id": "mw-featured-projects",
+            "source": "mw-featured-projects",
+            "type": "symbol",
             "filter": [
               "all",
               ["==", ["get", "location_type"], "featured_project"]
             ],
-            "symbol-layout": {
+            "layout": {
               "icon-image": "marker-dot-commute-low-carbon.png",
               "icon-size": 0.15,
               "icon-anchor": "center"
@@ -261,105 +904,100 @@
       {
         "id": "mwfeatured",
         "datasetSlug": "mwfeatured",
-        "is_visible_default": true,
-        "type": "place",
-        "feature_types": ["Point"],
-        "focus_rules": [
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "featured_place"]
-            ],
-            "symbol-layout": {
+            "id": "mwfeatured-focused-points",
+            "type": "symbol",
+            "source": "mwfeatured",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "layout": {
               "icon-image": "marker-dot-conserve-water.png",
               "icon-size": 0.5,
               "icon-anchor": "center"
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "featured_place"]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-dot-conserve-water.png",
-              "icon-size": 0.15,
-              "icon-anchor": "center"
+            "id": "mwfeatured-points",
+            "type": "symbol",
+            "source": "mwfeatured",
+            "filter": ["==", ["geometry-type"], "Point"],
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 0.5,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "case",
+                ["has", "marker-symbol", ["get", "style"]],
+                ["get", "marker-symbol", ["get", "style"]],
+                "marker-dot-conserve-water.png"
+              ]
+            }
+          },
+          {
+            "id": "mwfeatured-lines",
+            "type": "line",
+            "source": "mwfeatured",
+            "filter": ["==", ["geometry-type"], "LineString"],
+            "paint": {
+              "line-color": [
+                "case",
+                ["has", "stroke", ["get", "style"]],
+                ["get", "stroke", ["get", "style"]],
+                "#f86767"
+              ],
+              "line-opacity": [
+                "case",
+                ["has", "stroke-opacity", ["get", "style"]],
+                ["get", "stroke-opacity", ["get", "style"]],
+                0.7
+              ]
+            }
+          },
+          {
+            "id": "mwfeatured-polygons",
+            "type": "fill",
+            "source": "mwfeatured",
+            "filter": ["==", ["geometry-type"], "Polygon"],
+            "paint": {
+              "fill-color": [
+                "case",
+                ["has", "fill", ["get", "style"]],
+                ["get", "fill", ["get", "style"]],
+                "#f86767"
+              ],
+              "fill-opacity": [
+                "case",
+                ["has", "fill-opacity", ["get", "style"]],
+                ["get", "fill-opacity", ["get", "style"]],
+                0.7
+              ]
+            }
+          },
+          {
+            "id": "mwfeatured-polygon-outlines",
+            "type": "line",
+            "source": "mwfeatured",
+            "filter": ["==", ["geometry-type"], "Polygon"],
+            "paint": {
+              "line-color": [
+                "case",
+                ["has", "stroke", ["get", "style"]],
+                ["get", "stroke", ["get", "style"]],
+                "#f86767"
+              ],
+              "line-opacity": [
+                "case",
+                ["has", "stroke-opacity", ["get", "style"]],
+                ["get", "stroke-opacity", ["get", "style"]],
+                0.7
+              ]
             }
           }
         ]
-      },
-      {
-        "id": "school-boundaries",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/king-county-school-districts/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/king-county-school-districts/style.json",
-        "source_layer": "king-county-school-districts"
-      },
-      {
-        "id": "school-sites",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/king-county-schools/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/king-county-schools/style.json",
-        "source_layer": "king-county-schools"
-      },
-      {
-        "id": "wria-7-8-9",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/wria-7-8-9/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/wria-7-8-9/style.json",
-        "source_layer": "wria-7-8-9"
-      },
-      {
-        "id": "watershed-7",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/wria-7/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/wria-7/style.json",
-        "source_layer": "wria-7"
-      },
-      {
-        "id": "watershed-cedar-sammamish",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/watershed-cedar-sammamish/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/watershed-cedar-sammamish/style.json",
-        "source_layer": "watershed-cedar-sammamish"
-      },
-      {
-        "id": "watershed-green",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/watershed-green/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/watershed-green/style.json",
-        "source_layer": "watershed-green"
-      },
-      {
-        "id": "watershed-sammamish",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/watershed-sammamish/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/watershed-sammamish/style.json",
-        "source_layer": "watershed-sammamish"
-      },
-      {
-        "id": "watershed-puyallup",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/watershed-puyallup/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/watershed-puyallup/style.json",
-        "source_layer": "watershed-puyallup"
-      },
-      {
-        "id": "landuse",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/style.json",
-        "source_layer": "landuse-king-county-2010-truncated"
-      },
-      {
-        "id": "duwamish-original",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/historical-duwamish/style.json",
-        "source_layer": "historical_river_pathgeojson"
       }
     ]
   },
@@ -374,14 +1012,14 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "topo",
                 "title": "_(Topography)",
@@ -443,7 +1081,7 @@
           {
             "id": "grp-map-layers",
             "title": "_(Map Layers)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "mwfeatured",
                 "title": "_(Featured Sites)",
@@ -465,7 +1103,7 @@
                 }
               },
               {
-                "id": "watershed-7",
+                "id": "wria-7",
                 "title": "_(WRIA 7 Streams)",
                 "info": {
                   "title": "_(WRIA 7 Streams)",
@@ -583,78 +1221,6 @@
                   "title": "_(Historical Duwamish River)",
                   "body": "_(This is an example of an info window. Layer info will be added soon.)"
                 }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "filters",
-        "title": "_(Map Filters:)",
-        "component": "MapFilterPanel",
-        "icon": "fa-filter",
-        "groupings": [
-          {
-            "id": "report-filters",
-            "title": "_(Report Filters)",
-            "reset_label": "_(Reset Report Filters)",
-            "target_layer": "mw",
-            "filters": [
-              {
-                "id": "conserve-water",
-                "filter_attribute": "location_type",
-                "filter_value": "conserve-water",
-                "icon": "/static/css/images/markers/marker-conserve-water.png",
-                "label": "_(Conserve Water)"
-              },
-              {
-                "id": "prevent-stormwater",
-                "filter_attribute": "location_type",
-                "filter_value": "prevent-stormwater",
-                "icon": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
-                "label": "_(Prevent Stormwater Pollution)"
-              },
-              {
-                "id": "only-flush",
-                "filter_attribute": "location_type",
-                "filter_value": "only-flush",
-                "icon": "/static/css/images/markers/marker-only-flush-this.png",
-                "label": "_(Only Flush This)"
-              },
-              {
-                "id": "conserve-energy",
-                "filter_attribute": "location_type",
-                "filter_value": "conserve-energy",
-                "icon": "/static/css/images/markers/marker-conserve-energy.png",
-                "label": "_(Conserve Energy)"
-              },
-              {
-                "id": "waste-less",
-                "filter_attribute": "location_type",
-                "filter_value": "waste-less",
-                "icon": "/static/css/images/markers/marker-waste-less.png",
-                "label": "_(Waste Less)"
-              },
-              {
-                "id": "commute-low-carbon",
-                "filter_attribute": "location_type",
-                "filter_value": "commute-low-carbon",
-                "icon": "/static/css/images/markers/marker-commute-low-carbon.png",
-                "label": "_(Commute Low Carbon)"
-              },
-              {
-                "id": "eat-local-organic",
-                "filter_attribute": "location_type",
-                "filter_value": "eat-local-organic",
-                "icon": "/static/css/images/markers/marker-eat-local-organic.png",
-                "label": "_(Eat Local Organic)"
-              },
-              {
-                "id": "restore-salmon-habitat",
-                "filter_attribute": "location_type",
-                "filter_value": "restore-salmon-habitat",
-                "icon": "/static/css/images/markers/marker-restore-salmon-habitat.png",
-                "label": "_(Restore Salmon Habitat)"
               }
             ]
           }

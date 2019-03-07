@@ -84,91 +84,230 @@
     "geocode_hint": [-78.906412, 35.9954801],
     "geocode_bounding_box": [-79.09479, 35.865179, -78.78392, 36.119792],
     "options": {
-      "map": {
-        "center": {
-          "lat": 35.976899833978976,
-          "lng": -78.88370073534878
-        },
+      "mapViewport": {
+        "latitude": 35.976899833978976,
+        "longitude": -78.88370073534878,
         "zoom": 10.2,
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
       },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
-      },
       "drawing_enabled": false
     },
-    "layers": [
+    "mapboxSources": {
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "tileSize": 256,
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      "osm": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tileSize": 256,
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+      },
+      "durham-bike-trails": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/durham-bike-trails/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "durham-bus-routes": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/durham-bus-routes/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "durham-bus-stops": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/durham-bus-stops/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "durham-libraries": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/durham-libraries/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "durham-schools": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/durham-schools/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "durham-city-boundary": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/ebc766f44138423ebe2edfe25ad9f133_0.geojson"
+      },
+      "durham-council-wards": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson"
+      },
+      "durham-existing-trails": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson"
+      },
+      "durham-proposed-trails": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson"
+      },
+      "durham-parks": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson"
+      }
+    },
+    "layerGroups": [
       {
         "id": "osm",
-        "type": "raster-tile",
-        "is_visible_default": true,
-        "is_basemap": true,
-        "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png",
-        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+        "visibleDefault": true,
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
       },
       {
         "id": "satellite",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "visibleDefault": false,
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
       },
       {
         "id": "durham-bike-trails",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/durham-bike-trails/{z}/{x}/{y}.pbf",
-        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bike-trails/style.json",
-        "source_layer": "durham-bike-trails"
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "durham-bike-trails",
+            "type": "line",
+            "source": "durham-bike-trails",
+            "source-layer": "durham-bike-trails",
+            "paint": {
+              "line-width": 2,
+              "line-color": "#2e6d20"
+            },
+            "layout": {
+              "line-cap": "square",
+              "line-join": "bevel"
+            }
+          }
+        ]
       },
       {
         "id": "durham-bus-routes",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/durham-bus-routes/{z}/{x}/{y}.pbf",
-        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-routes/style.json",
-        "source_layer": "durham-bus-routes"
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "durham-bus-routes",
+            "type": "line",
+            "source": "durham-bus-routes",
+            "source-layer": "durham-bus-routes",
+            "paint": {
+              "line-width": 2,
+              "line-color": "#192adc"
+            },
+            "layout": {
+              "line-cap": "square",
+              "line-join": "bevel"
+            }
+          }
+        ]
       },
       {
         "id": "durham-bus-stops",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/durham-bus-stops/{z}/{x}/{y}.pbf",
-        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-stops/style.json",
-        "source_layer": "durham-bus-stops"
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "durham-bus-stops",
+            "type": "circle",
+            "source": "durham-bus-stops",
+            "source-layer": "durham-bus-stops",
+            "paint": {
+              "circle-radius": 3,
+              "circle-color": "#192adc"
+            }
+          }
+        ]
       },
       {
         "id": "durham-libraries",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/durham-libraries/{z}/{x}/{y}.pbf",
-        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-libraries/style.json",
-        "source_layer": "durham-libraries"
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "durham-libraries",
+            "type": "circle",
+            "source": "durham-libraries",
+            "source-layer": "durham-libraries",
+            "paint": {
+              "circle-radius": 5,
+              "circle-color": "#ff9933"
+            }
+          }
+        ]
       },
       {
         "id": "durham-schools",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/durham-schools/{z}/{x}/{y}.pbf",
-        "style_url": "https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-schools/style.json",
-        "source_layer": "durham-schools"
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "durham-schools",
+            "type": "circle",
+            "source": "durham-schools",
+            "source-layer": "durham-schools",
+            "paint": {
+              "circle-color": "#ff6600",
+              "circle-radius": 5,
+              "circle-stroke-color": "#fff",
+              "circle-stroke-width": 1,
+              "circle-opacity": 0.9
+            }
+          },
+          {
+            "id": "durham-schools-labels",
+            "type": "symbol",
+            "source": "durham-schools",
+            "source-layer": "durham-schools",
+            "filter": [">=", ["zoom"], 12],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "SchoolName"],
+              "text-size": 14,
+              "text-allow-overlap": false,
+              "text-offset": [0, 2]
+            }
+          }
+        ]
       },
       {
         "id": "durham-city-boundary",
-        "type": "json",
-        "is_visible_default": true,
-        "feature_types": ["Polygon"],
-        "source": "https://opendata.arcgis.com/datasets/ebc766f44138423ebe2edfe25ad9f133_0.geojson",
-        "rules": [
+        "visibleDefault": true,
+        "mapboxLayers": [
           {
-            "fill-layout": {
-              "visibility": "none"
-            },
-            "outline-paint": {
+            "id": "durham-city-boundary",
+            "type": "line",
+            "source": "durham-city-boundary",
+            "paint": {
               "line-color": "#ffff66",
               "line-opacity": 0.8,
               "line-width": 3,
               "line-offset": -1
             },
-            "outline-layout": {
+            "layout": {
               "line-join": "round",
               "line-cap": "round"
             }
@@ -177,24 +316,13 @@
       },
       {
         "id": "durham-council-wards",
-        "type": "json",
-        "is_visible_default": true,
-        "feature_types": ["Polygon", "Label"],
-        "source": "https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson",
-        "rules": [
+        "visibleDefault": true,
+        "mapboxLayers": [
           {
-            "label-paint": {
-              "text-halo-color": "#ffff66",
-              "text-halo-width": 1
-            },
-            "label-layout": {
-              "text-padding": 50,
-              "text-field": ["get", "DisField"],
-              "text-size": 17,
-              "text-allow-overlap": false,
-              "text-offset": [0, 2]
-            },
-            "fill-paint": {
+            "id": "durham-council-wards-fill",
+            "type": "fill",
+            "source": "durham-council-wards",
+            "paint": {
               "fill-color": "#cccccc",
               "fill-opacity": [
                 "interpolate",
@@ -205,12 +333,33 @@
                 14,
                 0
               ]
+            }
+          },
+          {
+            "id": "durham-council-wards-label",
+            "type": "symbol",
+            "source": "durham-council-wards",
+            "paint": {
+              "text-halo-color": "#ffff66",
+              "text-halo-width": 1
             },
-            "outline-layout": {
+            "layout": {
+              "text-padding": 50,
+              "text-field": ["get", "DisField"],
+              "text-size": 17,
+              "text-allow-overlap": false,
+              "text-offset": [0, 2]
+            }
+          },
+          {
+            "id": "durham-council-wards-outline",
+            "type": "line",
+            "source": "durham-council-wards",
+            "layout": {
               "line-join": "round",
               "line-cap": "round"
             },
-            "outline-paint": {
+            "paint": {
               "line-color": "#444",
               "line-width": 2
             }
@@ -219,12 +368,13 @@
       },
       {
         "id": "durham-existing-trails",
-        "type": "json",
-        "feature_types": ["LineString"],
-        "source": "https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson",
-        "rules": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
-            "line-paint": {
+            "id": "durham-existing-trails",
+            "type": "line",
+            "source": "durham-existing-trails",
+            "paint": {
               "line-color": "#ed101b",
               "line-width": 2,
               "line-opacity": 1
@@ -234,13 +384,14 @@
       },
       {
         "id": "durham-proposed-trails",
-        "type": "json",
-        "feature_types": ["LineString"],
-        "source": "https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson",
-        "rules": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
+            "id": "durham-proposed-trails",
+            "type": "line",
+            "source": "durham-proposed-trails",
             "filter": ["==", ["get", "CityCounty"], "City"],
-            "line-paint": {
+            "paint": {
               "line-color": "#ed101b",
               "line-width": 2,
               "line-opacity": 1,
@@ -251,15 +402,22 @@
       },
       {
         "id": "durham-parks",
-        "type": "json",
-        "source": "https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson",
-        "rules": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
-            "fill-paint": {
+            "id": "durham-parks",
+            "type": "fill",
+            "source": "durham-parks",
+            "paint": {
               "fill-color": "#7cd411",
               "fill-opacity": 0.7
-            },
-            "outline-paint": {
+            }
+          },
+          {
+            "id": "durham-parks-outline",
+            "type": "line",
+            "source": "durham-parks",
+            "paint": {
               "line-color": "#ffffff",
               "line-width": 2,
               "line-opacity": 0.7
@@ -269,70 +427,58 @@
       },
       {
         "id": "pbdurham-projects",
-        "type": "place",
         "datasetSlug": "pbdurham-projects",
-        "feature_types": ["Point", "LineString", "Polygon"],
-        "is_topmost_layer": true,
-        "is_visible_default": true,
-        "focus_rules": [
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
+            "id": "pbdurham-projects-focused",
+            "type": "symbol",
             "filter": ["==", ["get", "location_type"], "projects"],
-            "symbol-layout": {
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
               "icon-image": "money.png",
               "icon-size": 0.3,
               "icon-anchor": "bottom"
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "projects"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
+            "id": "pbdurham-projects",
+            "type": "symbol",
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": "bottom",
               "icon-image": "money.png",
-              "icon-size": 0.1,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "projects"],
-              [">=", ["zoom"], 10],
-              ["<", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "money.png",
-              "icon-size": 0.2,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "projects"],
-              [">=", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "money.png",
-              "icon-size": 0.2,
-              "icon-anchor": "bottom"
+              "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
             }
           }
         ]
       },
       {
         "id": "pbdurham",
-        "type": "place",
         "datasetSlug": "pbdurham",
-        "feature_types": ["Point"],
-        "is_visible_default": true,
-        "focus_rules": [
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "symbol-layout": {
+            "id": "pbdurham-focused",
+            "type": "symbol",
+            "source": "pbdurham",
+            "filter": [
+              "any",
+              ["==", ["get", "location_type"], "culture"],
+              ["==", ["get", "location_type"], "safety"],
+              ["==", ["get", "location_type"], "parks"],
+              ["==", ["get", "location_type"], "health"],
+              ["==", ["get", "location_type"], "streets"],
+              ["==", ["get", "location_type"], "other"]
+            ],
+            "layout": {
+              "icon-allow-overlap": true,
               "icon-size": 0.7,
               "icon-anchor": "bottom",
               "icon-image": [
@@ -355,227 +501,54 @@
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "culture"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-b75ab8.png",
-              "icon-size": 0.3,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "culture"],
-              [">=", ["zoom"], 10],
-              ["<", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "fountain-small.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "culture"],
-              [">=", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "fountain.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "safety"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-fc9229.png",
-              "icon-size": 0.3,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "safety"],
-              [">=", ["zoom"], 10],
-              ["<", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "safety-small.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "safety"],
-              [">=", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "safety.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "parks"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-55a504.png",
-              "icon-size": 0.3,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "parks"],
-              [">=", ["zoom"], 10],
-              ["<", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-size": 0.4,
-              "icon-image": "tree-small.png",
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "parks"],
-              [">=", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "tree.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "health"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-ff78be.png",
-              "icon-size": 0.3,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "health"],
-              [">=", ["zoom"], 10],
-              ["<", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-size": 0.4,
-              "icon-image": "health-small.png",
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "health"],
-              [">=", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "health.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "streets"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-8ea4b8.png",
-              "icon-size": 0.3,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "streets"],
-              [">=", ["zoom"], 10],
-              ["<", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-size": 0.4,
-              "icon-image": "street-sidewalk-small.png",
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "streets"],
-              [">=", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "street-sidewalk.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "other"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-ffd614.png",
-              "icon-size": 0.3,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "other"],
-              [">=", ["zoom"], 10],
-              ["<", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-size": 0.4,
-              "icon-image": "idea-small.png",
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "other"],
-              [">=", ["zoom"], 13]
-            ],
-            "symbol-layout": {
-              "icon-image": "idea.png",
-              "icon-size": 0.4,
-              "icon-anchor": "bottom"
+            "id": "pbdurham",
+            "type": "symbol",
+            "source": "pbdurham",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
+              "icon-size": ["step", ["zoom"], 0.3, 10, 0.4],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "culture",
+                  "dot-b75ab8.png",
+                  "safety",
+                  "dot-fc9229.png",
+                  "parks",
+                  "dot-55a504.png",
+                  "health",
+                  "dot-ff78be.png",
+                  "streets",
+                  "dot-8ea4b8.png",
+                  "other",
+                  "dot-ffd614.png",
+                  "__no-icon-image__"
+                ],
+                10,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "culture",
+                  "fountain.png",
+                  "safety",
+                  "safety.png",
+                  "parks",
+                  "tree.png",
+                  "health",
+                  "health.png",
+                  "streets",
+                  "street-sidewalk.png",
+                  "other",
+                  "idea.png",
+                  "__no-icon-image__"
+                ]
+              ]
             }
           }
         ]
@@ -593,14 +566,14 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "osm",
                 "title": "_(Neighborhood Style)"
@@ -614,7 +587,7 @@
           {
             "id": "grp-community",
             "title": "_(Community Data)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "pbdurham",
                 "title": "_(Your Ideas)"
@@ -628,7 +601,7 @@
           {
             "id": "grp-city",
             "title": "_(City Data)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "durham-bike-trails",
                 "title": "_(Bike Lanes)"
@@ -1504,37 +1477,37 @@
     "places": [
       {
         "id": "culture",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Art & Culture)",
         "icon": "/static/css/images/markers/fountain.png"
       },
       {
         "id": "parks",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Parks & Recreation)",
         "icon": "/static/css/images/markers/tree.png"
       },
       {
         "id": "streets",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Streets & Sidewalks)",
         "icon": "/static/css/images/markers/street-sidewalk.png"
       },
       {
         "id": "health",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Health & Wellness)",
         "icon": "/static/css/images/markers/health.png"
       },
       {
         "id": "safety",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Safety & Environment)",
         "icon": "/static/css/images/markers/safety.png"
       },
       {
         "id": "other",
-        "datasetId": "pbdurham",
+        "datasetSlug": "pbdurham",
         "label": "_(Other)",
         "icon": "/static/css/images/markers/idea.png"
       }

@@ -10,19 +10,21 @@
     height: 100%;
   }
 
-  #main {
-    // calculated as 100% of viewport height, minus the height of the header
-    height: calc(
-      100% - #{$header-height-smallscreen + $footer-height-smallscreen}
-    );
+  #add-place-button {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 10;
   }
 
   #map-container {
     height: 100%;
   }
 
-  .content-visible #map-container {
-    height: 60%;
+  #list-container,
+  #dashboard-container,
+  #sha-container {
+    display: none;
   }
 
   #right-sidebar-container {
@@ -38,6 +40,18 @@
       // NOTE: 44px represents the height of the geocode address bar on mobile screens
       height: calc(100% - #{$header-height-smallscreen} - 44px);
     }
+
+    #map-container {
+      height: calc(100% - 44px);
+    }
+  }
+
+  .content-visible #map-container {
+    height: 60%;
+  }
+
+  .content-visible.geocoding-bar-enabled #map-container {
+    height: calc(60% - 44px);
   }
 
   .content-visible.place-form-visible {
@@ -97,12 +111,9 @@
   }
 
   // right sidebar
-  #right-sidebar-container,
-  #left-sidebar-container {
+  #right-sidebar-container {
     top: 0;
-    height: calc(
-      100% - #{$header-height-fullscreen} - #{$footer-height-fullscreen}
-    );
+    height: 100%;
   }
 
   // Map
@@ -216,7 +227,7 @@
     padding-left: 1em;
     padding-bottom: 2em;
     width: 100%;
-    height: calc(100% - 72px);
+    height: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;

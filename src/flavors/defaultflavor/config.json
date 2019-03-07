@@ -12,9 +12,9 @@
       ]
     },
     {
-      "slug": "demo2",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo2",
-      "clientSlug": "demo2",
+      "slug": "demo-featured",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo-featured",
+      "clientSlug": "demo-featured",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
@@ -48,320 +48,202 @@
   "map": {
     "geolocation_enabled": true,
     "options": {
-      "map": {
-        "center": {
-          "lat": 47.53722,
-          "lng": -122.32573
-        },
+      "mapViewport": {
+        "latitude": 47.53722,
+        "longitude": -122.32573,
         "zoom": 16,
         "minZoom": 1,
-        "maxZoom": 18,
-        "failIfMajorPerformanceCaveat": true
-      },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
+        "maxZoom": 18
       }
     },
-    "layers": [
-      {
-        "id": "demo2",
-        "datasetSlug": "demo2",
-        "type": "place",
-        "slug": "demo2",
-        "focus_rules": [
-          {
-            "filter": ["==", ["get", "location_type"], "observation2"],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 1.2,
-              "icon-anchor": "bottom"
-            }
-          }
+    "mapboxSources": {
+      "sample-json-a": {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson"
+      },
+      "sample-json-b": {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
+      },
+      "sample-vector-a": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "sample-vector-b": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "sample-wmts": {
+        "type": "raster",
+        "tiles": [
+          "https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/jpg&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+        ]
+      },
+      "sample-wms": {
+        "type": "raster",
+        "tiles": [
+          "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
+        ]
+      },
+      "sample-raster-tile": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
-        "rules": [
+        "tileSize": 256
+      }
+    },
+    "layerGroups": [
+      {
+        "id": "sample-wmts",
+        "basemap": true,
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation2"],
-              ["<", ["zoom"], 11]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
+            "id": "sample-wmts-basemap",
+            "type": "raster",
+            "source": "sample-wmts"
+          }
+        ]
+      },
+      {
+        "id": "sample-wms",
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "sample-wms-basemap",
+            "type": "raster",
+            "source": "sample-wms"
+          }
+        ]
+      },
+      {
+        "id": "sample-raster-tile",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "sample-raster-tile-basemap",
+            "type": "raster",
+            "source": "sample-raster-tile"
+          }
+        ]
+      },
+      {
+        "id": "sample-json-b",
+        "mapboxLayers": [
+          {
+            "id": "sample-json-b-labels",
+            "type": "symbol",
+            "source": "sample-json-b",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "CITYNAME"],
+              "text-size": 14,
+              "text-allow-overlap": false,
+              "text-offset": [0, 2]
             }
           },
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation2"],
-              [">=", ["zoom"], 11],
-              ["<", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.75,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation2"],
-              [">=", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.9,
-              "icon-anchor": "bottom"
+            "id": "sample-json-b-fill",
+            "type": "fill",
+            "source": "sample-json-b",
+            "paint": {
+              "fill-opacity": 0.6,
+              "fill-outline-color": "#000000",
+              "fill-color": [
+                "match",
+                ["to-number", ["get", "LID_Checklist_Master_score"]],
+                5,
+                "#fef0d9",
+                4,
+                "#fdcc8a",
+                3,
+                "#fc8d59",
+                2,
+                "#e34a33",
+                1,
+                "#b30000",
+                "#000"
+              ]
             }
           }
         ]
       },
       {
-        "id": "demo",
-        "datasetSlug": "demo",
-        "type": "place",
-        "is_visible_default": true,
-        "slug": "demo",
-        "feature_types": ["Point"],
-        "focus_rules": [
+        "id": "sample-vector-a",
+        "mapboxLayers": [
           {
-            "filter": ["all", ["==", ["get", "location_type"], "demo"]],
-            "symbol-layout": {
-              "icon-size": 1.2,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": ["all", ["==", ["get", "location_type"], "complaint"]],
-            "symbol-layout": {
-              "icon-image": "marker-complaint.png",
-              "icon-size": 1.2,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": ["all", ["==", ["get", "location_type"], "question"]],
-            "symbol-layout": {
-              "icon-image": "marker-question.png",
-              "icon-size": 1.2,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": ["all", ["==", ["get", "location_type"], "idea"]],
-            "symbol-layout": {
-              "icon-image": "marker-idea.png",
-              "icon-size": 1.2,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": ["all", ["==", ["get", "location_type"], "observation"]],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 1.2,
-              "icon-anchor": "bottom"
+            "id": "sample-vector-a",
+            "type": "fill",
+            "source": "sample-vector-a",
+            "source-layer": "historical_river_pathgeojson",
+            "paint": {
+              "fill-color": [
+                "match",
+                ["get", "landcover"],
+                "channel",
+                "#3366ff",
+                "tideflat",
+                "#000099",
+                "barrier beach",
+                "#ffcc00",
+                "barrier beach spitt/grass",
+                "#00cc00",
+                "barrier beach/grass",
+                "#339933",
+                "estuarine emergent marsh",
+                "#99cc00",
+                "pond",
+                "#66ccff",
+                "salt pond",
+                "#9999ff",
+                "#000"
+              ]
             }
           }
-        ],
-        "rules": [
+        ]
+      },
+      {
+        "id": "sample-vector-b",
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "demo"],
-              ["<", ["zoom"], 11]
-            ],
-            "symbol-layout": {
-              "icon-size": 0.5,
-              "icon-anchor": "center"
+            "id": "sample-vector-b-fill",
+            "type": "fill",
+            "source": "sample-vector-b",
+            "source-layer": "palouse-critical-aquifer",
+            "paint": {
+              "fill-color": "#0066ff",
+              "fill-opacity": 0.6
             }
           },
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "demo"],
-              [">=", ["zoom"], 11],
-              ["<", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-size": 0.75,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "demo"],
-              [">=", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-size": 0.9,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "complaint"],
-              ["<", ["zoom"], 11]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-complaint.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "complaint"],
-              [">=", ["zoom"], 11],
-              ["<", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-complaint.png",
-              "icon-size": 0.75,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "complaint"],
-              [">=", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-complaint.png",
-              "icon-size": 0.9,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "question"],
-              ["<", ["zoom"], 11]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-question.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "question"],
-              [">=", ["zoom"], 11],
-              ["<", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-question.png",
-              "icon-size": 0.75,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "question"],
-              [">=", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-question.png",
-              "icon-size": 0.9,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              ["<", ["zoom"], 11]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-idea.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              [">=", ["zoom"], 11],
-              ["<", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-idea.png",
-              "icon-size": 0.75,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              [">=", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-idea.png",
-              "icon-size": 0.9,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              ["<", ["zoom"], 11]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              [">=", ["zoom"], 11],
-              ["<", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.75,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              [">=", ["zoom"], 14]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.9,
-              "icon-anchor": "bottom"
+            "id": "sample-vector-b-outline",
+            "type": "line",
+            "source": "sample-vector-b",
+            "source-layer": "palouse-critical-aquifer",
+            "paint": {
+              "line-color": "#0066ff",
+              "line-opacity": 0.8
             }
           }
         ]
       },
       {
         "id": "sample-json-a",
-        "type": "json",
-        "is_visible_default": true,
-        "source": "https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson",
-        "feature_types": ["Point"],
-        "rules": [
+        "visibleDefault": true,
+        "mapboxLayers": [
           {
-            "filter": [">=", ["zoom"], 1],
-            "symbol-layout": {
+            "id": "sample-json-a",
+            "type": "symbol",
+            "source": "sample-json-a",
+            "layout": {
               "icon-image": "marker-conserve-water.png",
               "icon-size": 0.5,
               "icon-anchor": "center",
@@ -371,148 +253,156 @@
         ]
       },
       {
-        "id": "sample-json-b",
-        "type": "json",
-        "source": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
-        "feature_types": ["Label", "Polygon"],
-        "rules": [
+        "id": "demo",
+        "datasetSlug": "demo",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "filter": ["==", ["get", "LID_Checklist_Master_score"], 5],
-            "label-paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "label-layout": {
-              "text-field": ["get", "CITYNAME"],
-              "text-size": 14,
-              "text-allow-overlap": false,
-              "text-offset": [0, 2]
-            },
-            "fill-paint": {
-              "fill-color": "#fef0d9",
-              "fill-opacity": 0.6,
-              "fill-outline-color": "#000000"
+            "id": "demo-focused",
+            "source": "demo",
+            "type": "symbol",
+            "layout": {
+              "icon-size": 1.2,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "complaint",
+                "marker-complaint.png",
+                "question",
+                "marker-question.png",
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "__no-icon-image__"
+              ]
             }
-          },
+          }
+        ],
+        "mapboxLayers": [
           {
-            "filter": ["==", ["get", "LID_Checklist_Master_score"], 4],
-            "fill-paint": {
-              "fill-color": "#fdcc8a",
-              "fill-opacity": 0.6,
-              "fill-outline-color": "#000000"
-            }
-          },
-          {
-            "filter": ["==", ["get", "LID_Checklist_Master_score"], 3],
-            "fill-paint": {
-              "fill-color": "#fc8d59",
-              "fill-opacity": 0.6,
-              "fill-outline-color": "#000000"
-            }
-          },
-          {
-            "filter": ["==", ["get", "LID_Checklist_Master_score"], 2],
-            "fill-paint": {
-              "fill-color": "#e34a33",
-              "fill-opacity": 0.6,
-              "fill-outline-color": "#000000"
-            }
-          },
-          {
-            "filter": ["==", ["get", "LID_Checklist_Master_score"], 1],
-            "fill-paint": {
-              "fill-color": "#b30000",
-              "fill-opacity": 0.6,
-              "fill-outline-color": "#000000"
-            }
-          },
-          {
-            "filter": ["==", ["get", "LID_Checklist_Master_score"], 0],
-            "fill-paint": {
-              "fill-color": "#b30000",
-              "fill-opacity": 0.6,
-              "fill-outline-color": "#000000"
+            "id": "demo",
+            "source": "demo",
+            "type": "symbol",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.75, 14, 0.9],
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "complaint",
+                "marker-complaint.png",
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "question",
+                "marker-question.png",
+                "__no-icon-image__"
+              ]
             }
           }
         ]
       },
       {
-        "id": "sample-vector-a",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/historical-duwamish/style.json",
-        "source_layer": "historical_river_pathgeojson"
-      },
-      {
-        "id": "sample-vector-b",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf",
-        "source_layer": "palouse-critical-aquifer",
-        "mapbox_layers": [
+        "id": "demo-featured",
+        "datasetSlug": "demo-featured",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "id": "palouse-critical-aquifers",
-            "type": "fill",
-            "paint": {
-              "fill-color": "#0066ff",
-              "fill-opacity": 0.6
+            "id": "demo-featured-focused-points",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "demo-featured"],
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 1.2,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "demo-featured-points",
+            "type": "symbol",
+            "source": "demo-featured",
+            "filter": ["==", ["geometry-type"], "Point"],
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 0.5,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "case",
+                ["has", "marker-symbol", ["get", "style"]],
+                ["get", "marker-symbol", ["get", "style"]],
+                "map-pin-star-marker.png"
+              ]
             }
           },
           {
-            "id": "palouse-critical-aquifers-outline",
+            "id": "demo-featured-lines",
             "type": "line",
+            "source": "demo-featured",
+            "filter": ["==", ["geometry-type"], "LineString"],
             "paint": {
-              "line-color": "#0066ff",
-              "line-opacity": 0.8
+              "line-color": [
+                "case",
+                ["has", "stroke", ["get", "style"]],
+                ["get", "stroke", ["get", "style"]],
+                "#f86767"
+              ],
+              "line-opacity": [
+                "case",
+                ["has", "stroke-opacity", ["get", "style"]],
+                ["get", "stroke-opacity", ["get", "style"]],
+                0.7
+              ]
+            }
+          },
+          {
+            "id": "demo-featured-polygons",
+            "type": "fill",
+            "source": "demo-featured",
+            "filter": ["==", ["geometry-type"], "Polygon"],
+            "paint": {
+              "fill-color": [
+                "case",
+                ["has", "fill", ["get", "style"]],
+                ["get", "fill", ["get", "style"]],
+                "#f86767"
+              ],
+              "fill-opacity": [
+                "case",
+                ["has", "fill-opacity", ["get", "style"]],
+                ["get", "fill-opacity", ["get", "style"]],
+                0.7
+              ]
+            }
+          },
+          {
+            "id": "demo-featured-polygon-outlines",
+            "type": "line",
+            "source": "demo-featured",
+            "filter": ["==", ["geometry-type"], "Polygon"],
+            "paint": {
+              "line-color": [
+                "case",
+                ["has", "stroke", ["get", "style"]],
+                ["get", "stroke", ["get", "style"]],
+                "#f86767"
+              ],
+              "line-opacity": [
+                "case",
+                ["has", "stroke-opacity", ["get", "style"]],
+                ["get", "stroke-opacity", ["get", "style"]],
+                0.7
+              ]
             }
           }
         ]
-      },
-      {
-        "id": "sample-wmts-a",
-        "type": "wmts",
-        "is_basemap": true,
-        "url": "https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS",
-        "layers": 0,
-        "tilematrix_set": "default028mm",
-        "version": "1.0.0",
-        "transparent": false,
-        "format": "image/jpg"
-      },
-      {
-        "id": "sample-wmts-b",
-        "type": "wmts",
-        "is_basemap": true,
-        "url": "http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS",
-        "layers": 0,
-        "tilematrix_set": "default028mm",
-        "version": "1.0.0",
-        "transparent": false,
-        "format": "image/jpg"
-      },
-      {
-        "id": "sample-wms",
-        "type": "wms",
-        "is_basemap": true,
-        "url": "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer",
-        "layers": "0",
-        "version": "1.3.0",
-        "transparent": false,
-        "format": "image/png"
-      },
-      {
-        "id": "sample-raster-tile",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "is_visible_default": true,
-        "url": "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
-        "attribution": "Hello"
-      },
-      {
-        "id": "sample-mapbox-style",
-        "type": "mapbox-style",
-        "is_basemap": true,
-        "url": "mapbox://styles/tcroxson/cji2ji0mw0qip2rmsnlhtdjyb",
-        "attribution": "Hello"
       }
     ]
   },
@@ -527,14 +417,14 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers with an Extra Long Title)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "sample-raster-tile",
                 "title": "_(Sample Raster Tiles with an Extra Long Layer Title)",
@@ -544,27 +434,19 @@
                 }
               },
               {
-                "id": "sample-wmts-a",
+                "id": "sample-wmts",
                 "title": "_(Sample WMTS A)"
-              },
-              {
-                "id": "sample-wmts-b",
-                "title": "_(Sample WMTS B)"
               },
               {
                 "id": "sample-wms",
                 "title": "_(Sample WMS)"
-              },
-              {
-                "id": "sample-mapbox-style",
-                "title": "_(Sample Mapbox Style)"
               }
             ]
           },
           {
             "id": "group-a",
             "title": "_(Group A)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "sample-vector-a",
                 "title": "_(Sample vector tile A)",
@@ -586,7 +468,7 @@
           {
             "id": "group-b",
             "title": "_(Group B)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "sample-json-a",
                 "title": "_(Sample point GeoJSON)"
@@ -594,10 +476,6 @@
               {
                 "id": "demo",
                 "title": "_(Sample Mapseed place layer A)"
-              },
-              {
-                "id": "demo2",
-                "title": "_(Sample Mapseed place layer B)"
               }
             ]
           }
@@ -619,13 +497,13 @@
     "location_item_name": "location",
     "place_detail": [
       {
-        "category": "demo",
+        "category": "demo-featured",
         "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
-        "datasetSlug": "demo",
-        "icon_url": "/static/css/images/markers/marker-observation.png",
+        "datasetSlug": "demo-featured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "demo",
         "multi_stage": [
           {
@@ -650,7 +528,7 @@
             "end_field_index": 10,
             "icon_url": "",
             "header": "_(Stage 3)",
-            "visible_basemap_id": "sample-wmts-a",
+            "visible_basemap_id": "sample-wmts",
             "visible_layer_ids": ["sample-json-b"]
           },
           {
@@ -1243,81 +1121,6 @@
             "type": "common_form_element"
           }
         ]
-      },
-      {
-        "category": "observation2",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "submitter_editing_supported": true,
-        "name": "location_type",
-        "datasetSlug": "demo2",
-        "icon_url": "/static/css/images/markers/marker-observation.png",
-        "value": "observation2",
-        "label": "_(Observation 2)",
-        "fields": [
-          {
-            "name": "title",
-            "type": "text",
-            "prompt": "_(Title of your observation:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
-            "optional": false
-          },
-          {
-            "name": "big_checkbox_field",
-            "type": "big_checkbox",
-            "prompt": "_(Types of pollution seen:)",
-            "display_prompt": "_( )",
-            "content": [
-              {
-                "label": "_(Sewage)",
-                "value": "sewage"
-              },
-              {
-                "label": "_(Tires)",
-                "value": "tires"
-              },
-              {
-                "label": "_(Illegal dumpsite)",
-                "value": "dumpsite"
-              },
-              {
-                "label": "_(Litter)",
-                "value": "litter"
-              },
-              {
-                "label": "_(Other)",
-                "value": "other"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "name": "description",
-            "type": "textarea",
-            "includeOnListItem": true,
-            "prompt": "_(Description:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter description...)",
-            "optional": false
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
       }
     ],
     "common_form_elements": {
@@ -1468,7 +1271,7 @@
       "header": "_(Story Number One)",
       "description": "_(This is the first of two stories. I hope you like it!)",
       "default_zoom": 18,
-      "default_basemap": "sample-wmts-a",
+      "default_basemap": "sample-wmts",
       "default_visible_layers": ["demo", "sample-vector"],
       "order": [
         {
