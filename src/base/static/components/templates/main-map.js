@@ -7,6 +7,7 @@ import { Global } from "@emotion/core";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
+import { isTouchDevice } from "../../utils/misc-utils"
 import {
   drawModeActiveSelector,
   interactiveLayerIdsSelector,
@@ -188,7 +189,7 @@ class MainMap extends Component {
       }
     });
 
-    if (!this.props.mapConfig.options.disableDrawing) {
+    if (!this.props.mapConfig.options.disableDrawing && !isTouchDevice) {
       this.draw = new MapboxDraw({
         displayControlsDefault: false,
         userProperties: true,
