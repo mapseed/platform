@@ -873,7 +873,6 @@ export default Backbone.View.extend({
       );
 
       this.$panel.removeClass().addClass("page page-" + slug);
-      this.showPanel();
       this.hideNewPin();
       this.setBodyClass("content-visible");
       this.renderRightSidebar();
@@ -889,6 +888,7 @@ export default Backbone.View.extend({
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
+      this.showPanel();
     } else {
       this.options.router.navigate("/", { trigger: true });
     }
