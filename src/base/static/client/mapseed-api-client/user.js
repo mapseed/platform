@@ -1,5 +1,4 @@
 const getUser = async apiRoot => {
-  console.log("fetching url:", `${apiRoot}users/current?format=json`);
   const response = await fetch(`${apiRoot}users/current?format=json`, {
     credentials: "include",
   });

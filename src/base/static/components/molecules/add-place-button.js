@@ -9,7 +9,13 @@ import mq from "../../../../media-queries";
 import {
   addPlaceButtonVisibilitySelector,
   geocodeAddressBarVisibilitySelector,
+  setAddPlaceButtonVisibility,
 } from "../../state/ducks/ui";
+import {
+  hasAnonAbilitiesInAnyDataset,
+  datasetSlugsSelector,
+} from "../../state/ducks/datasets-config";
+import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 
 const AddPlaceButtonContainer = styled(
   props =>
@@ -46,11 +52,21 @@ const AddPlaceButtonContainer = styled(
 });
 
 class AddPlaceButton extends Component {
+  componentDidMount() {
+    if (this.props.hasPermission) {
+      // isAddPlaceButtonVisible is false by default
+      this.props.setVisibility(true);
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (
       prevProps.isAddPlaceButtonVisible !== this.props.isAddPlaceButtonVisible
     ) {
       this.props.setMapDimensions();
+    }
+    if (prevProps.hasPermission !== this.props.hasPermission) {
+      this.props.setVisibility(this.props.hasPermission);
     }
   }
 
@@ -77,11 +93,32 @@ AddPlaceButton.propTypes = {
   isGeocodeAddressBarVisible: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   setMapDimensions: PropTypes.func.isRequired,
+  setVisibility: PropTypes.func.isRequired,
+  hasPermission: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   isAddPlaceButtonVisible: addPlaceButtonVisibilitySelector(state),
   isGeocodeAddressBarVisible: geocodeAddressBarVisibilitySelector(state),
+  hasPermission:
+    hasAnonAbilitiesInAnyDataset({
+      state: state,
+      submissionSet: "places",
+      abilities: ["create"],
+    }) ||
+    hasGroupAbilitiesInDatasets({
+      state: state,
+      submissionSet: "places",
+      abilities: ["create"],
+      datasetSlugs: datasetSlugsSelector(state),
+    }),
 });
 
-export default connect(mapStateToProps)(AddPlaceButton);
+const mapDispatchToProps = dispatch => ({
+  setVisibility: isVisible => dispatch(setAddPlaceButtonVisibility(isVisible)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddPlaceButton);

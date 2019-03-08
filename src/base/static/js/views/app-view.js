@@ -249,41 +249,27 @@ export default Backbone.View.extend({
       }
     });
 
-    if (
-      hasAnonAbilitiesInAnyDataset({
-        state: store.getState(),
-        submissionSet: "places",
-        abilities: ["create"],
-      }) ||
-      hasGroupAbilitiesInDatasets({
-        state: store.getState(),
-        submissionSet: "places",
-        abilities: ["create"],
-        datasetSlugs: datasetSlugsSelector(store.getState()),
-      })
-    ) {
-      store.dispatch(setAddPlaceButtonVisibility(true));
-      ReactDOM.render(
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <AddPlaceButton
-                onClick={() => {
-                  Util.log("USER", "map", "new-place-btn-click");
-                  this.options.router.navigate("/new", {
-                    trigger: true,
-                  });
-                }}
-                setMapDimensions={this.setMapDimensions.bind(this)}
-              >
-                {this.options.placeConfig.add_button_label}
-              </AddPlaceButton>
-            </ThemeProvider>
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <AddPlaceButton
+              onClick={() => {
+                Util.log("USER", "map", "new-place-btn-click");
+                this.options.router.navigate("/new", {
+                  trigger: true,
+                });
+              }}
+              setMapDimensions={this.setMapDimensions.bind(this)}
+            >
+              {this.options.placeConfig.add_button_label}
+            </AddPlaceButton>
           </ThemeProvider>
-        </Provider>,
-        document.getElementById("add-place-button"),
-      );
-    }
+        </ThemeProvider>
+      </Provider>,
+      document.getElementById("add-place-button"),
+    );
+
     ReactDOM.render(
       <Provider store={store}>
         <ThemeProvider theme={theme}>
@@ -1011,7 +997,6 @@ export default Backbone.View.extend({
       });
     }
 
-    store.dispatch(setAddPlaceButtonVisibility(true));
   },
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
