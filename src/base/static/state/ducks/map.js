@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import { FlyToInterpolator } from "react-map-gl";
 
-import { easeInOutCubic } from "../../utils/scroll-helpers";
-
 // Selectors:
 export const mapViewportSelector = state => state.map.viewport;
 export const mapStyleSelector = state => state.map.style;
@@ -343,7 +341,6 @@ const INITIAL_STATE = {
     minZoom: 1,
     maxZoom: 18,
     transitionInterpolator: new FlyToInterpolator(),
-    transitionEasing: easeInOutCubic,
   },
   style: {
     version: 8,
