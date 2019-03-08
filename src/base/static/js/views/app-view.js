@@ -134,14 +134,30 @@ export default Backbone.View.extend({
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
 
-    mapseedApiClient.user.get(this.options.appConfig.api_root).then(user => {
-      if (user && !user.avatar_url)
-        user.avatar_url = "/static/css/images/user-50.png";
-      if (user && !user.name) user.name = user.username;
-      if (user) {
+    mapseedApiClient.user
+      .get(this.options.appConfig.api_root)
+      .then(authedUser => {
+        const user = authedUser
+          ? {
+              token: `user:${authedUser.id}`,
+              // avatar_url and `name` are backup values that can get overidden:
+              avatar_url: "/static/css/images/user-50.png",
+              name: authedUser.username,
+              ...authedUser,
+              isAuthenticated: true,
+            }
+          : {
+              // anonymous user:
+              avatar_url: "/static/css/images/user-50.png",
+              token: `session:${Shareabouts.Util.cookies.get(
+                "sa-api-sessionid",
+              )}`,
+              groups: [],
+              isAuthenticated: false,
+            };
+
         store.dispatch(loadUser(user));
-      }
-    });
+      });
     store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
@@ -776,7 +792,6 @@ export default Backbone.View.extend({
               }
               scrollToResponseId={args.responseId}
               router={this.options.router}
-              userToken={this.options.userToken}
             />
           </ThemeProvider>
         </ThemeProvider>

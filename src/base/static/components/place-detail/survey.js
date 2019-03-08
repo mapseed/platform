@@ -182,7 +182,7 @@ class Survey extends Component {
               .toArray()}
           </form>
         )}
-        {this.props.currentUser && this.state.canComment ? (
+        {this.props.currentUser.isAuthenticated && this.state.canComment ? (
           <span className="place-detail-survey__submit-user-info">
             <Avatar size="small" src={this.props.currentUser.avatar_url} />
             <span className="place-detail-survey__username">

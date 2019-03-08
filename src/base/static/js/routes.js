@@ -63,7 +63,6 @@ Shareabouts.Util = Util;
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
         dashboardConfig: options.dashboardConfig,
-        userToken: options.userToken,
         router: this,
         filters: options.filters,
         languageCode: options.languageCode,
@@ -155,9 +154,6 @@ Shareabouts.Util = Util;
   });
   new Router({
     activity: [],
-    userToken: Shareabouts.bootstrapped.currentUser
-      ? `user:${Shareabouts.bootstrapped.currentUser.id}`
-      : `session:${Shareabouts.Util.cookies.get("sa-api-sessionid")}`,
     appConfig: config.app,
     placeConfig: config.place,
     placeTypes: config.place_types,
