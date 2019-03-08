@@ -996,7 +996,6 @@ export default Backbone.View.extend({
         zoom: mapPosition.zoom,
       });
     }
-
   },
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
