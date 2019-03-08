@@ -1,3 +1,25 @@
+import PropTypes from "prop-types";
+
+export const userPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  provider_id: PropTypes.string.isRequired,
+  provider_type: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  avatar_url: PropTypes.string.isRequired,
+  groups: PropTypes.arrayOf(
+    PropTypes.shape({
+      dataset: PropTypes.string.isRequired,
+      dataset_slug: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      permissions: PropTypes.arrayOf({
+        abilities: PropTypes.arrayOf(PropTypes.string).isRequired,
+        submission_set: PropTypes.string.isRequired,
+      }),
+    }),
+  ),
+});
+
 // Selectors:
 export const userSelector = state => {
   return state.user;

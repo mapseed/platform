@@ -133,8 +133,15 @@ export default Backbone.View.extend({
   initialize: async function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    Shareabouts.bootstrapped.currentUser &&
-      store.dispatch(loadUser(Shareabouts.bootstrapped.currentUser));
+
+    mapseedApiClient.user.get(this.options.appConfig.api_root).then(user => {
+      if (user && !user.avatar_url)
+        user.avatar_url = "/static/css/images/user-50.png";
+      if (user && !user.name) user.name = user.username;
+      if (user) {
+        store.dispatch(loadUser(user));
+      }
+    });
     store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
@@ -279,7 +286,6 @@ export default Backbone.View.extend({
           <ThemeProvider theme={this.adjustedTheme}>
             <SiteHeader
               router={this.options.router}
-              currentUser={Shareabouts.bootstrapped.currentUser}
               languageCode={this.options.languageCode}
               setMapDimensions={this.setMapDimensions.bind(this)}
             />
@@ -765,7 +771,6 @@ export default Backbone.View.extend({
               placeId={args.placeId}
               datasetSlug={place._datasetSlug}
               container={document.querySelector("#content article")}
-              currentUser={Shareabouts.bootstrapped.currentUser}
               isGeocodingBarEnabled={
                 this.options.mapConfig.geocoding_bar_enabled
               }

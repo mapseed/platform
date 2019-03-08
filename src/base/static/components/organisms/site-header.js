@@ -26,6 +26,7 @@ import {
   dashboardConfigPropType,
 } from "../../state/ducks/dashboard-config";
 import { currentTemplateSelector } from "../../state/ducks/ui";
+import { userPropType, userSelector } from "../../state/ducks/user";
 import {
   isLeftSidebarExpandedSelector,
   setLeftSidebarComponent,
@@ -364,7 +365,7 @@ class SiteHeader extends Component {
 SiteHeader.propTypes = {
   appConfig: appConfigPropType.isRequired,
   currentTemplate: PropTypes.string.isRequired,
-  currentUser: PropTypes.object,
+  currentUser: userPropType,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   mapConfig: PropTypes.shape({
@@ -391,6 +392,7 @@ const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
   dashboardConfig: dashboardConfigSelector(state),
+  currentUser: userSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

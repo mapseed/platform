@@ -37,6 +37,8 @@ import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
+  userPropType,
+  userSelector,
   hasUserAbilitiesInPlace,
   hasGroupAbilitiesInDatasets,
   hasAdminAbilities,
@@ -267,20 +269,7 @@ class PlaceDetail extends Component {
 
 PlaceDetail.propTypes = {
   container: PropTypes.instanceOf(HTMLElement),
-  currentUser: PropTypes.shape({
-    avatar_url: PropTypes.string,
-    groups: PropTypes.arrayOf(
-      PropTypes.shape({
-        dataset: PropTypes.string,
-        name: PropTypes.string,
-      }),
-    ),
-    id: PropTypes.number,
-    name: PropTypes.string,
-    provider_id: PropTypes.string,
-    provider_type: PropTypes.string,
-    username: PropTypes.string,
-  }),
+  currentUser: userPropType,
   datasetSlug: PropTypes.string.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
@@ -308,6 +297,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+  currentUser: userSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
     hasGroupAbilitiesInDatasets({
