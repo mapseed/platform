@@ -19,6 +19,13 @@ const TILE_CACHE_NAME = "tiles-cache";
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 
+// This sets the logs level to mimic production level logging
+// Ideally, we should be able to filter out workbox logs in chrome by
+// using group, but there is a bug in chrome that prevents this:
+// https://bugs.chromium.org/p/chromium/issues/detail?id=363796
+// https://github.com/GoogleChrome/workbox/issues/1920
+workbox.setConfig({ debug: false });
+
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
  * requests for URLs in the manifest.
