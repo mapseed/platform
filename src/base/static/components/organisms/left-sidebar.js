@@ -9,7 +9,6 @@ import {
   leftSidebarPanelConfigSelector,
   setLeftSidebarExpanded,
 } from "../../state/ducks/left-sidebar";
-import MapFilterPanel from "./map-filter-panel";
 import MapLayerPanel from "./map-layer-panel";
 
 import "./left-sidebar.scss";
@@ -22,7 +21,6 @@ const LeftSidebar = props => {
         onClick={() => props.setLeftSidebarExpanded(false)}
       />
       {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
-      {props.leftSidebarComponent === "MapFilterPanel" && <MapFilterPanel />}
     </div>
   ) : null;
 };
