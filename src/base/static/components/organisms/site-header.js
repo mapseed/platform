@@ -351,7 +351,6 @@ class SiteHeader extends Component {
           <UserMenu
             router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
-            currentUser={this.props.currentUser}
             currentTemplate={this.props.currentTemplate}
             dashboardConfig={this.props.dashboardConfig}
           />
@@ -364,7 +363,6 @@ class SiteHeader extends Component {
 SiteHeader.propTypes = {
   appConfig: appConfigPropType.isRequired,
   currentTemplate: PropTypes.string.isRequired,
-  currentUser: PropTypes.object,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   mapConfig: PropTypes.shape({

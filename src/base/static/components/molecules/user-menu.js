@@ -7,7 +7,11 @@ import { Button } from "../atoms/buttons";
 import styled from "react-emotion";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
 
-import { hasAdminAbilities } from "../../state/ducks/user";
+import {
+  userSelector,
+  userPropType,
+  hasAdminAbilities,
+} from "../../state/ducks/user";
 
 import mq from "../../../../media-queries";
 
@@ -159,7 +163,7 @@ class UserMenu extends React.Component {
   };
 
   render() {
-    if (this.props.currentUser) {
+    if (this.props.currentUser.isAuthenticated) {
       // If user is logged in
       const isDashboard = this.props.currentTemplate === "dashboard";
       return (
@@ -237,7 +241,7 @@ class UserMenu extends React.Component {
 }
 
 UserMenu.propTypes = {
-  currentUser: PropTypes.object,
+  currentUser: userPropType,
   dashboardConfig: dashboardConfigPropType,
   hasAdminAbilities: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
@@ -247,6 +251,7 @@ UserMenu.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  currentUser: userSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
 });
 

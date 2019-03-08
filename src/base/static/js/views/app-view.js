@@ -133,8 +133,31 @@ export default Backbone.View.extend({
   initialize: async function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    Shareabouts.bootstrapped.currentUser &&
-      store.dispatch(loadUser(Shareabouts.bootstrapped.currentUser));
+
+    mapseedApiClient.user
+      .get(this.options.appConfig.api_root)
+      .then(authedUser => {
+        const user = authedUser
+          ? {
+              token: `user:${authedUser.id}`,
+              // avatar_url and `name` are backup values that can get overidden:
+              avatar_url: "/static/css/images/user-50.png",
+              name: authedUser.username,
+              ...authedUser,
+              isAuthenticated: true,
+            }
+          : {
+              // anonymous user:
+              avatar_url: "/static/css/images/user-50.png",
+              token: `session:${Shareabouts.Util.cookies.get(
+                "sa-api-sessionid",
+              )}`,
+              groups: [],
+              isAuthenticated: false,
+            };
+
+        store.dispatch(loadUser(user));
+      });
     store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
@@ -279,7 +302,6 @@ export default Backbone.View.extend({
           <ThemeProvider theme={this.adjustedTheme}>
             <SiteHeader
               router={this.options.router}
-              currentUser={Shareabouts.bootstrapped.currentUser}
               languageCode={this.options.languageCode}
               setMapDimensions={this.setMapDimensions.bind(this)}
             />
@@ -765,13 +787,11 @@ export default Backbone.View.extend({
               placeId={args.placeId}
               datasetSlug={place._datasetSlug}
               container={document.querySelector("#content article")}
-              currentUser={Shareabouts.bootstrapped.currentUser}
               isGeocodingBarEnabled={
                 this.options.mapConfig.geocoding_bar_enabled
               }
               scrollToResponseId={args.responseId}
               router={this.options.router}
-              userToken={this.options.userToken}
             />
           </ThemeProvider>
         </ThemeProvider>

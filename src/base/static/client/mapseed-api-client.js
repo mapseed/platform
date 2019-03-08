@@ -5,6 +5,7 @@ import datasetsClient from "./mapseed-api-client/datasets";
 import placeClient from "./mapseed-api-client/place";
 import placeTagsClient from "./mapseed-api-client/place-tags";
 import supportClient from "./mapseed-api-client/support";
+import userClient from "./mapseed-api-client/user";
 
 export default {
   activity: activityClient,
@@ -14,4 +15,5 @@ export default {
   place: placeClient,
   placeTags: placeTagsClient,
   support: supportClient,
+  user: userClient,
 };
