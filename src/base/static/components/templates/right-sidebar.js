@@ -29,6 +29,9 @@ const RightSidebar = props => {
         onClick={() => {
           $("body").toggleClass("right-sidebar-visible");
           props.setRightSidebar($("body").hasClass("right-sidebar-visible"));
+          $("body").hasClass("right-sidebar-visible")
+            ? $("#right-sidebar-container").css("width", "15%")
+            : $("#right-sidebar-container").css("width", 0);
           props.setMapDimensions();
         }}
         className="right-sidebar__collapse-btn"
