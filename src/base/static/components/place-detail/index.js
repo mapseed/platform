@@ -18,6 +18,7 @@ import FieldSummary from "./field-summary";
 import SnohomishFieldSummary from "./snohomish-field-summary";
 import VVFieldSummary from "./vv-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
+import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
 
 import { placeSelector } from "../../state/ducks/places";
 
@@ -36,8 +37,11 @@ import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
+  userPropType,
+  userSelector,
   hasUserAbilitiesInPlace,
   hasGroupAbilitiesInDatasets,
+  hasAdminAbilities,
 } from "../../state/ducks/user";
 import { isEditModeToggled, updateEditModeToggled } from "../../state/ducks/ui";
 
@@ -158,6 +162,17 @@ class PlaceDetail extends Component {
       fieldSummary = (
         <PalouseFieldSummary fields={categoryConfig.fields} place={place} />
       );
+    } else if (
+      customComponents &&
+      customComponents.FieldSummary === "PBDurhamProjectProposalFieldSummary" &&
+      place.location_type === "projects"
+    ) {
+      fieldSummary = (
+        <PBDurhamProjectProposalFieldSummary
+          fields={categoryConfig.fields}
+          place={place}
+        />
+      );
     } else {
       fieldSummary = (
         <FieldSummary fields={categoryConfig.fields} place={place} />
@@ -170,6 +185,7 @@ class PlaceDetail extends Component {
       >
         {(isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar
+            isAdmin={this.props.hasAdminAbilities(this.props.datasetSlug)}
             isEditModeToggled={this.props.isEditModeToggled}
             isPlaceDetailEditable={isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
@@ -212,11 +228,11 @@ class PlaceDetail extends Component {
             numSupports={supports.length}
             onSocialShare={service => Util.onSocialShare(place, service)}
             userSupport={supports.find(
-              support => support.user_token === this.props.userToken,
+              support => support.user_token === this.props.currentUser.token,
             )}
             placeUrl={place.url}
             placeId={place.id}
-            userToken={this.props.userToken}
+            userToken={this.props.currentUser.token}
           />
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
@@ -244,7 +260,7 @@ class PlaceDetail extends Component {
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
           scrollToResponseId={this.props.scrollToResponseId}
           submitter={place.submitter}
-          userToken={this.props.userToken}
+          userToken={this.props.currentUser.token}
         />
       </PlaceDetailContainer>
     );
@@ -253,21 +269,9 @@ class PlaceDetail extends Component {
 
 PlaceDetail.propTypes = {
   container: PropTypes.instanceOf(HTMLElement),
-  currentUser: PropTypes.shape({
-    avatar_url: PropTypes.string,
-    groups: PropTypes.arrayOf(
-      PropTypes.shape({
-        dataset: PropTypes.string,
-        name: PropTypes.string,
-      }),
-    ),
-    id: PropTypes.number,
-    name: PropTypes.string,
-    provider_id: PropTypes.string,
-    provider_type: PropTypes.string,
-    username: PropTypes.string,
-  }),
+  currentUser: userPropType,
   datasetSlug: PropTypes.string.isRequired,
+  hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
@@ -284,7 +288,6 @@ PlaceDetail.propTypes = {
   commentFormConfig: commentFormConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
-  userToken: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -293,6 +296,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+  currentUser: userSelector(state),
+  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
     hasGroupAbilitiesInDatasets({
       state,

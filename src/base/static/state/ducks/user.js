@@ -1,7 +1,34 @@
+import PropTypes from "prop-types";
+
+export const userPropType = PropTypes.shape({
+  id: PropTypes.number,
+  name: PropTypes.string,
+  provider_id: PropTypes.string,
+  provider_type: PropTypes.string,
+  username: PropTypes.string,
+  avatar_url: PropTypes.string,
+  groups: PropTypes.arrayOf(
+    PropTypes.shape({
+      dataset: PropTypes.string.isRequired,
+      dataset_slug: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      permissions: PropTypes.arrayOf(
+        PropTypes.shape({
+          abilities: PropTypes.arrayOf(PropTypes.string).isRequired,
+          submission_set: PropTypes.string.isRequired,
+        }),
+      ),
+    }),
+  ),
+  token: PropTypes.string,
+  isAuthenticated: PropTypes.bool,
+});
+
 // Selectors:
 export const userSelector = state => {
   return state.user;
 };
+
 export const hasGroupAbilitiesInDatasets = ({
   state,
   abilities,
@@ -38,6 +65,11 @@ export const hasAdminAbilities = (state, datasetSlug) =>
     group =>
       group.dataset_slug === datasetSlug && group.name === "administrators",
   );
+export const isInAtLeastOneGroup = (state, groupNames, datasetSlug) =>
+  state.user.groups
+    .filter(group => group.dataset_slug === datasetSlug)
+    .map(group => group.name)
+    .some(groupName => groupNames.includes(groupName));
 
 // Actions:
 const LOAD = "user/LOAD";

@@ -3,22 +3,18 @@ import emitter from "../../utils/emitter";
 import ReactDOM from "react-dom";
 import languageModule from "../../language-module";
 import browserUpdate from "browser-update";
+import WebMercatorViewport from "viewport-mercator-project";
+import getExtentFromGeometry from "turf-extent";
+import { throttle } from "throttle-debounce";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
-import { ThemeProvider } from "emotion-theming";
-import theme from "../../../../theme";
+import ThemeProvider from "../../components/theme-provider";
 
-// Most of react-virtualized's styles are functional (eg position, size).
-// Functional styles are applied directly to DOM elements.
-// The Table component ships with a few presentational styles as well.
-// They are optional, but if you want them you will need to also import the CSS file.
-// This only needs to be done once; probably during your application's bootstrapping process.
-import "react-virtualized/styles.css";
+import { setMapConfig, mapConfigSelector } from "../../state/ducks/map-config";
 
-import { setMapConfig, mapLayersSelector } from "../../state/ducks/map-config";
 import {
   loadPlaces,
   placeSelector,
@@ -42,17 +38,14 @@ import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../state/ducks/app-config";
 import { loadDashboardConfig } from "../../state/ducks/dashboard-config";
 import {
-  setMapSizeValidity,
-  mapLayerStatusesSelector,
-  mapPositionSelector,
-  mapBasemapSelector,
-  setMapPosition,
-  initLayers,
-  showLayers,
-  hideLayers,
-  setBasemap,
-  setMapDragging,
-  setLayerLoading,
+  updateMapViewport,
+  loadMapViewport,
+  updateFocusedGeoJSONFeatures,
+  removeFocusedGeoJSONFeatures,
+  updateLayerGroupVisibility,
+  loadMapStyle,
+  createFeaturesInGeoJSONSource,
+  mapViewportSelector,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
@@ -63,6 +56,10 @@ import {
   setGeocodeAddressBarVisibility,
   geocodeAddressBarVisibilitySelector,
   updateEditModeToggled,
+  setContentPanel,
+  setRightSidebar,
+  rightSidebarExpandedSelector,
+  contentPanelOpenSelector,
 } from "../../state/ducks/ui";
 import {
   loadUser,
@@ -85,7 +82,7 @@ import { recordGoogleAnalyticsHit } from "../../utils/analytics";
 
 const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
-import MainMap from "../../components/organisms/main-map";
+import MainMap from "../../components/templates/main-map";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -129,8 +126,31 @@ export default Backbone.View.extend({
   initialize: async function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    Shareabouts.bootstrapped.currentUser &&
-      store.dispatch(loadUser(Shareabouts.bootstrapped.currentUser));
+
+    mapseedApiClient.user
+      .get(this.options.appConfig.api_root)
+      .then(authedUser => {
+        const user = authedUser
+          ? {
+              token: `user:${authedUser.id}`,
+              // avatar_url and `name` are backup values that can get overidden:
+              avatar_url: "/static/css/images/user-50.png",
+              name: authedUser.username,
+              ...authedUser,
+              isAuthenticated: true,
+            }
+          : {
+              // anonymous user:
+              avatar_url: "/static/css/images/user-50.png",
+              token: `session:${Shareabouts.Util.cookies.get(
+                "sa-api-sessionid",
+              )}`,
+              groups: [],
+              isAuthenticated: false,
+            };
+
+        store.dispatch(loadUser(user));
+      });
     store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
@@ -144,39 +164,14 @@ export default Backbone.View.extend({
     store.dispatch(setSupportConfig(this.options.supportConfig));
     store.dispatch(setPagesConfig(this.options.pagesConfig));
     store.dispatch(setNavBarConfig(this.options.navBarConfig));
+    store.dispatch(
+      loadMapStyle(this.options.mapConfig, this.options.datasetsConfig),
+    );
     if (this.options.dashboardConfig) {
       store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
     }
-    store.dispatch(initLayers(this.options.mapConfig.layers));
-    store.dispatch(
-      setBasemap(
-        this.options.mapConfig.layers.find(
-          layer => layer.is_basemap && layer.is_visible_default,
-        ).id,
-      ),
-    );
-    store.dispatch(
-      setMapPosition({
-        center: this.options.mapConfig.options.map.center,
-        zoom: this.options.mapConfig.options.map.zoom,
-      }),
-    );
-
-    const storeState = store.getState();
-    this.flavorTheme = storeState.appConfig.theme;
-    this.adjustedTheme = this.flavorTheme
-      ? // ? ancestorTheme => ({ ...ancestorTheme, ...this.flavorTheme,  })
-        ancestorTheme => ({
-          ...ancestorTheme,
-          ...this.flavorTheme,
-          brand: { ...ancestorTheme.brand, ...this.flavorTheme.brand },
-          bg: {
-            ...ancestorTheme.bg,
-            ...this.flavorTheme.bg,
-          },
-          text: { ...ancestorTheme.text, ...this.flavorTheme.text },
-        })
-      : {};
+    // Set initial map viewport from values supplied in the config.
+    store.dispatch(loadMapViewport(this.options.mapConfig.options.mapViewport));
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -231,46 +226,29 @@ export default Backbone.View.extend({
       }
     });
 
-    if (
-      hasAnonAbilitiesInAnyDataset({
-        state: store.getState(),
-        submissionSet: "places",
-        abilities: ["create"],
-      }) ||
-      hasGroupAbilitiesInDatasets({
-        state: store.getState(),
-        submissionSet: "places",
-        abilities: ["create"],
-        datasetSlugs: datasetSlugsSelector(store.getState()),
-      })
-    ) {
-      store.dispatch(setAddPlaceButtonVisibility(true));
-      ReactDOM.render(
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <AddPlaceButton
-                onClick={() => {
-                  Util.log("USER", "map", "new-place-btn-click");
-                  this.options.router.navigate("/new", {
-                    trigger: true,
-                  });
-                }}
-              >
-                {this.options.placeConfig.add_button_label}
-              </AddPlaceButton>
-            </ThemeProvider>
-          </ThemeProvider>
-        </Provider>,
-        document.getElementById("add-place-button"),
-      );
-    }
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <MapCenterpoint />
-          </ThemeProvider>
+        <ThemeProvider>
+          <AddPlaceButton
+            onClick={() => {
+              Util.log("USER", "map", "new-place-btn-click");
+              this.options.router.navigate("/new", {
+                trigger: true,
+              });
+            }}
+            setMapDimensions={this.setMapDimensions.bind(this)}
+          >
+            {this.options.placeConfig.add_button_label}
+          </AddPlaceButton>
+        </ThemeProvider>
+      </Provider>,
+      document.getElementById("add-place-button"),
+    );
+
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <MapCenterpoint />
         </ThemeProvider>
       </Provider>,
       document.getElementById("map-centerpoint"),
@@ -279,14 +257,12 @@ export default Backbone.View.extend({
     // Site header
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <SiteHeader
-              router={this.options.router}
-              currentUser={Shareabouts.bootstrapped.currentUser}
-              languageCode={this.options.languageCode}
-            />
-          </ThemeProvider>
+        <ThemeProvider>
+          <SiteHeader
+            router={this.options.router}
+            languageCode={this.options.languageCode}
+            setMapDimensions={this.setMapDimensions.bind(this)}
+          />
         </ThemeProvider>
       </Provider>,
       document.getElementById("site-header"),
@@ -325,14 +301,12 @@ export default Backbone.View.extend({
 
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <InfoModal
-                parentId="info-modal-container"
-                isModalOpen={true}
-                {...modalContent}
-              />
-            </ThemeProvider>
+          <ThemeProvider>
+            <InfoModal
+              parentId="info-modal-container"
+              isModalOpen={true}
+              {...modalContent}
+            />
           </ThemeProvider>
         </Provider>,
         document.getElementById("info-modal-container"),
@@ -340,28 +314,13 @@ export default Backbone.View.extend({
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
-    // When the map center moves, the map view will fire a mapmoveend event
-    // on the namespace. If the move was the result of the user dragging, a
-    // mapdragend event will be fired.
-    //
-    // If the user is adding a place, we want to take the opportunity to
-    // reverse geocode the center of the map, if geocoding is enabled. If
-    // the user is doing anything else, we just want to clear out any text
-    // that's currently set in the address search bar.
-    $(Shareabouts).on("mapdragend", function(evt) {
-      if (self.isAddingPlace()) {
-        // no-op
-      } else if (self.geocodeAddressView) {
-        self.geocodeAddressView.setAddress("");
-      }
-    });
-
     if (this.options.mapConfig.geocoding_bar_enabled) {
       store.dispatch(setGeocodeAddressBarVisibility(true));
     }
 
     // Cache panel elements that we use a lot
     this.$panel = $("#content");
+    this.$rightSidebar = $("#right-sidebar-container");
     this.$panelContent = $("#content article");
     this.$panelCloseBtn = $(".close-btn");
 
@@ -371,6 +330,22 @@ export default Backbone.View.extend({
     // Show tools for adding data
     this.setBodyClass();
   },
+
+  // This function gets called a lot from the MainMap component, so we throttle
+  // it here to avoid lagginess.
+  setSlippyRoute: throttle(500, function() {
+    if (!this.hasBodyClass("content-visible")) {
+      const { zoom, latitude, longitude } = mapViewportSelector(
+        store.getState(),
+      );
+      this.options.router.navigate(
+        `/${zoom.toFixed(2)}/${latitude.toFixed(5)}/${longitude.toFixed(5)}`,
+        {
+          trigger: false,
+        },
+      );
+    }
+  }),
 
   fetchAndLoadDatasets: async function() {
     store.dispatch(updateDatasetsLoadStatus("loading"));
@@ -400,7 +375,7 @@ export default Backbone.View.extend({
     }
 
     const datasetConfigs = datasetConfigsSelector(store.getState());
-    const layerStatuses = mapLayerStatusesSelector(store.getState());
+    const allPlacePagePromises = [];
     await Promise.all(
       datasetConfigs.map(async config => {
         // Note that the response here is an array of page Promises.
@@ -413,32 +388,39 @@ export default Backbone.View.extend({
         });
 
         if (response) {
-          // TODO: This Promise.all() should eventually be replaced with a loop
-          // that updates the Places duck when each Promise in placePagePromises
-          // resolves. We are punting this (briefly) for now, since the map
-          // abstraction will not yet detect changes in the length of the Places
-          // duck. We will address this deficiency very soon in an upcoming PR.
-          const placeData = await Promise.all(response);
-          store.dispatch(
-            loadPlaces(
-              placeData.reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-              storyConfigSelector(store.getState()),
-            ),
-          );
+          response.forEach(async placePagePromise => {
+            // Load places into the places duck.
+            allPlacePagePromises.push(placePagePromise);
+            const pageData = await placePagePromise;
+            store.dispatch(
+              loadPlaces(pageData, storyConfigSelector(store.getState())),
+            );
+
+            // Update the map.
+            store.dispatch(
+              createFeaturesInGeoJSONSource(
+                // "sourceId" and a dataset's slug are the same thing.
+                config.slug,
+                pageData.map(place => {
+                  const { geometry, ...rest } = place;
+
+                  return {
+                    type: "Feature",
+                    geometry,
+                    properties: rest,
+                  };
+                }),
+              ),
+            );
+          });
         } else {
           Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
         }
       }),
     );
 
+    await Promise.all(allPlacePagePromises);
     store.dispatch(updatePlacesLoadStatus("loaded"));
-
-    // Mark visible layers as "loading" so the map will load and render them.
-    datasetConfigs.forEach(config => {
-      if (layerStatuses[config.slug].isVisible) {
-        store.dispatch(setLayerLoading(config.slug));
-      }
-    });
   },
 
   getListRoutes: function() {
@@ -449,26 +431,6 @@ export default Backbone.View.extend({
 
   isAddingPlace: function(model) {
     return this.$panel.is(":visible") && this.$panel.hasClass("place-form");
-  },
-  onMapZoomEnd: function(isUserZoom = true) {
-    if (this.hasBodyClass("content-visible") === true && isUserZoom) {
-      this.hideSpotlightMask();
-    }
-  },
-  onMapMoveStart: function(evt) {
-    store.dispatch(setMapDragging(true));
-  },
-  onMapMoveEnd: function(isUserMove = true) {
-    store.dispatch(setMapDragging(false));
-    if (this.hasBodyClass("content-visible") === false && isUserMove) {
-      const { zoom, center } = mapPositionSelector(store.getState());
-      this.setLocationRoute(zoom, center.lat, center.lng);
-    }
-  },
-  onMapDragEnd: function(evt) {
-    if (this.hasBodyClass("content-visible") === true) {
-      this.hideSpotlightMask();
-    }
   },
   onClickClosePanelBtn: function(evt) {
     evt.preventDefault();
@@ -481,8 +443,6 @@ export default Backbone.View.extend({
     if (this.isStoryActive) {
       this.isStoryActive = false;
     }
-
-    emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
   },
   setBodyClass: function(/* newBodyClasses */) {
     var bodyClasses = ["content-visible", "place-form-visible", "page-visible"],
@@ -508,28 +468,17 @@ export default Backbone.View.extend({
   hasBodyClass: function(className) {
     return $("body").hasClass(className);
   },
-  setLocationRoute: function(zoom, lat, lng) {
-    this.options.router.navigate(
-      "/" +
-        parseFloat(zoom).toFixed(2) +
-        "/" +
-        parseFloat(lat).toFixed(5) +
-        "/" +
-        parseFloat(lng).toFixed(5),
-    );
-  },
-
   viewMap: async function(zoom, lat, lng) {
     let mapPosition;
 
     if (zoom && lat && lng) {
-      mapPosition = {
-        coordinates: {
-          lat: lat,
-          lng: lng,
-        },
-        zoom: zoom,
-      };
+      store.dispatch(
+        updateMapViewport({
+          latitude: lat,
+          longitude: lng,
+          zoom: zoom,
+        }),
+      );
     }
 
     this.hidePanel();
@@ -553,15 +502,18 @@ export default Backbone.View.extend({
       $("body").addClass("right-sidebar-active");
       if (this.options.rightSidebarConfig.is_visible_default) {
         $("body").addClass("right-sidebar-visible");
+        store.dispatch(setRightSidebar(true));
+        this.setMapDimensions();
       }
 
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <RightSidebar router={this.options.router} />
-            </ThemeProvider>
+          <ThemeProvider>
+            <RightSidebar
+              router={this.options.router}
+              setMapDimensions={this.setMapDimensions.bind(this)}
+            />
           </ThemeProvider>
         </Provider>,
         document.getElementById("right-sidebar-container"),
@@ -587,6 +539,7 @@ export default Backbone.View.extend({
         await this.fetchAndLoadDatasets();
       }
 
+      store.dispatch(removeFocusedGeoJSONFeatures());
       recordGoogleAnalyticsHit("/new");
       this.renderRightSidebar();
       this.renderMain();
@@ -595,66 +548,62 @@ export default Backbone.View.extend({
       // when the AppView is ported.
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <FormCategoryMenuWrapper
-                hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-                showNewPin={this.showNewPin.bind(this)}
-                hideNewPin={this.hideNewPin.bind(this)}
-                hidePanel={this.hidePanel.bind(this)}
-                router={this.options.router}
-                customHooks={this.options.customHooks}
-                // '#content article' and 'body' represent the two containers into
-                // which panel content is rendered (one at desktop size and one at
-                // mobile size).
-                // TODO: Improve this when we move overall app layout management to
-                // Redux.
-                container={document.querySelector(
-                  Util.getPageLayout() === '"desktop"' ||
-                  Util.getPageLayout() === "desktop"
-                    ? "#content article"
-                    : "body",
-                )}
-                render={(state, props, onCategoryChange) => {
-                  if (
-                    props.customComponents &&
-                    props.customComponents.InputForm === "VVInputForm"
-                  ) {
-                    return (
-                      <VVInputForm
-                        {...props}
-                        selectedCategory={state.selectedCategory}
-                        datasetUrl={state.datasetUrl}
-                        datasetSlug={state.datasetSlug}
-                        isSingleCategory={state.isSingleCategory}
-                        onCategoryChange={onCategoryChange}
-                      />
-                    );
-                  } else {
-                    return (
-                      <InputForm
-                        {...props}
-                        selectedCategory={state.selectedCategory}
-                        datasetUrl={state.datasetUrl}
-                        datasetSlug={state.datasetSlug}
-                        isSingleCategory={state.isSingleCategory}
-                        onCategoryChange={onCategoryChange}
-                      />
-                    );
-                  }
-                }}
-                customComponents={this.options.customComponents}
-              />
-            </ThemeProvider>
+          <ThemeProvider>
+            <FormCategoryMenuWrapper
+              hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+              showNewPin={this.showNewPin.bind(this)}
+              hideNewPin={this.hideNewPin.bind(this)}
+              hidePanel={this.hidePanel.bind(this)}
+              router={this.options.router}
+              customHooks={this.options.customHooks}
+              // '#content article' and 'body' represent the two containers into
+              // which panel content is rendered (one at desktop size and one at
+              // mobile size).
+              // TODO: Improve this when we move overall app layout management to
+              // Redux.
+              container={document.querySelector(
+                Util.getPageLayout() === "desktop"
+                  ? "#content article"
+                  : "body",
+              )}
+              render={(state, props, onCategoryChange) => {
+                if (
+                  props.customComponents &&
+                  props.customComponents.InputForm === "VVInputForm"
+                ) {
+                  return (
+                    <VVInputForm
+                      {...props}
+                      selectedCategory={state.selectedCategory}
+                      datasetUrl={state.datasetUrl}
+                      datasetSlug={state.datasetSlug}
+                      isSingleCategory={state.isSingleCategory}
+                      onCategoryChange={onCategoryChange}
+                    />
+                  );
+                } else {
+                  return (
+                    <InputForm
+                      {...props}
+                      selectedCategory={state.selectedCategory}
+                      datasetUrl={state.datasetUrl}
+                      datasetSlug={state.datasetSlug}
+                      isSingleCategory={state.isSingleCategory}
+                      onCategoryChange={onCategoryChange}
+                    />
+                  );
+                }
+              }}
+              customComponents={this.options.customComponents}
+            />
           </ThemeProvider>
         </Provider>,
         document.querySelector("#content article"),
       );
 
       this.$panel.removeClass().addClass("place-form");
-      this.$panel.show();
+      this.showPanel();
       this.setBodyClass("content-visible", "place-form-visible");
-      store.dispatch(setMapSizeValidity(false));
       store.dispatch(setAddPlaceButtonVisibility(false));
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
@@ -685,62 +634,26 @@ export default Backbone.View.extend({
       return;
     }
 
+    this.setBodyClass("content-visible");
+
     store.dispatch(updateEditModeToggled(false));
 
-    // REACT PORT SECTION //////////////////////////////////////////////////
-    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
-
-    ReactDOM.render(
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <PlaceDetail
-              placeId={args.placeId}
-              datasetSlug={place._datasetSlug}
-              container={document.querySelector("#content article")}
-              currentUser={Shareabouts.bootstrapped.currentUser}
-              isGeocodingBarEnabled={
-                this.options.mapConfig.geocoding_bar_enabled
-              }
-              scrollToResponseId={args.responseId}
-              router={this.options.router}
-              userToken={this.options.userToken}
-            />
-          </ThemeProvider>
-        </ThemeProvider>
-      </Provider>,
-      document.querySelector("#content article"),
-    );
-
-    this.$panel.show();
-    this.setBodyClass("content-visible");
-
-    $("#main-btns-container").addClass(
-      this.options.placeConfig.add_button_location || "pos-top-left",
-    );
-    // END REACT PORT SECTION //////////////////////////////////////////////
-
-    this.hideNewPin();
-    this.setBodyClass("content-visible");
-    this.showSpotlightMask();
     const story = place.story;
-
     if (story) {
       this.isStoryActive = true;
 
-      story.basemap &&
-        mapBasemapSelector(store.getState()) !== story.basemap &&
-        store.dispatch(setBasemap(story.basemap));
-      store.dispatch(showLayers(story.visibleLayers));
-      // Hide all other layers.
-      store.dispatch(
-        hideLayers(
-          mapLayersSelector(store.getState())
-            .filter(layer => !layer.is_basemap)
-            .filter(layer => !story.visibleLayers.includes(layer.id))
-            .map(layer => layer.id),
-        ),
+      // Set layers for this story chapter.
+      story.visibleLayerGroupIds.forEach(layerGroupId =>
+        store.dispatch(updateLayerGroupVisibility(layerGroupId, true)),
       );
+      // Hide all other layers.
+      mapConfigSelector(store.getState())
+        .layerGroups.filter(
+          layerGroup => !story.visibleLayerGroupIds.includes(layerGroup.id),
+        )
+        .forEach(layerGroup =>
+          store.dispatch(updateLayerGroupVisibility(layerGroup.id, false)),
+        );
 
       if (story.spotlight) {
         this.hideSpotlightMask();
@@ -751,44 +664,154 @@ export default Backbone.View.extend({
       }
     }
 
-    // Fire an event to set map position, reconciling with custom story
-    // settings if this model is part of a story.
+    // Set the new map viewport, reconciling with custom story settings if this
+    // model is part of a story.
     if (story && story.panTo) {
-      // If a story chapter declares a custom centerpoint, regardless of the
-      // geometry type, assume that we want to fly to a point.
-      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-        coordinates:
-          story.panTo || mapPositionSelector(store.getState()).center,
-        zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
-      });
-    } else if (place.geometry.type === "LineString") {
-      emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
-        coordinates:
-          story && story.panTo ? [story.panTo] : place.geometry.coordinates,
-      });
-    } else if (place.geometry.type === "Polygon") {
-      emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
-        coordinates:
-          story && story.panTo ? [[story.panTo]] : place.geometry.coordinates,
-      });
-    } else if (place.geometry.type === "Point") {
-      emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
-        coordinates: place.geometry.coordinates,
-        zoom:
-          (story && story.zoom) || mapPositionSelector(store.getState()).zoom,
-      });
-    }
+      const newViewport = {
+        latitude: story.panTo[1],
+        longitude: story.panTo[0],
+        transitionDuration: 3000,
+      };
+      if (story.zoom) {
+        newViewport.zoom = story.zoom;
+      }
 
-    emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
-      datasetSlug: place._datasetSlug,
-      placeId: place.id,
-    });
+      store.dispatch(updateMapViewport(newViewport));
+    } else if (
+      place.geometry.type === "LineString" ||
+      place.geometry.type === "Polygon"
+    ) {
+      const extent = getExtentFromGeometry(place.geometry);
+      const newViewport = this.getWebMercatorViewport().fitBounds(
+        // WebMercatorViewport wants bounds in [[lng, lat], [lng lat]] form.
+        [[extent[0], extent[1]], [extent[2], extent[3]]],
+        { padding: 50 },
+      );
+
+      store.dispatch(
+        updateMapViewport({
+          latitude: newViewport.latitude,
+          longitude: newViewport.longitude,
+          transitionDuration: story ? 3000 : 200,
+          zoom: newViewport.zoom,
+        }),
+      );
+    } else if (place.geometry.type === "Point") {
+      const newViewport = {
+        latitude: place.geometry.coordinates[1],
+        longitude: place.geometry.coordinates[0],
+        transitionDuration: story ? 3000 : 200,
+      };
+      if (story && story.zoom) {
+        newViewport.zoom = story.zoom;
+      }
+
+      store.dispatch(updateMapViewport(newViewport));
+    }
 
     if (!place.story && this.isStoryActive) {
       this.isStoryActive = false;
     }
 
-    store.dispatch(setMapSizeValidity(false));
+    // Focus this Place's feature on the map.
+    const { geometry, ...rest } = place;
+    store.dispatch(
+      updateFocusedGeoJSONFeatures([
+        {
+          type: "Feature",
+          geometry: {
+            type: geometry.type,
+            coordinates: geometry.coordinates,
+          },
+          properties: rest,
+        },
+      ]),
+    );
+
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
+
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <PlaceDetail
+            placeId={args.placeId}
+            datasetSlug={place._datasetSlug}
+            container={document.querySelector("#content article")}
+            isGeocodingBarEnabled={this.options.mapConfig.geocoding_bar_enabled}
+            scrollToResponseId={args.responseId}
+            router={this.options.router}
+          />
+        </ThemeProvider>
+      </Provider>,
+      document.querySelector("#content article"),
+    );
+
+    $("#main-btns-container").addClass(
+      this.options.placeConfig.add_button_location || "pos-top-left",
+    );
+
+    this.showPanel();
+    this.hideNewPin();
+    this.setBodyClass("content-visible");
+    this.showSpotlightMask();
+  },
+
+  setMapDimensions: function() {
+    // TODO: Remove these layout hacks when we port AppView.
+    if (Util.getPageLayout() === "mobile") {
+      $("#main").height(
+        document.body.clientHeight -
+          ($("#site-header").height() + $("#add-place-button").height()),
+      );
+    } else {
+      $("#main").height(
+        document.body.clientHeight - $("#site-header").height(),
+      );
+    }
+
+    // To avoid a race condition between CSS resizing elements and the map
+    // initiating a viewport change, we manually calculate what the dimensions of
+    // the map *should* be given the current state of the UI. The race
+    // condition that this code avoids was the cause of the old off-center bug.
+    store.dispatch(
+      updateMapViewport({
+        width:
+          Util.getPageLayout() === "desktop"
+            ? document.body.clientWidth -
+              (contentPanelOpenSelector(store.getState())
+                ? this.$panel.width()
+                : 0) -
+              (rightSidebarExpandedSelector(store.getState())
+                ? this.$rightSidebar.width()
+                : 0)
+            : document.body.clientWidth,
+        height:
+          Util.getPageLayout() === "desktop"
+            ? document.body.clientHeight - $("#site-header").height()
+            : document.body.clientHeight -
+              $("#site-header").height() -
+              $("#geocode-address-bar").height() -
+              (contentPanelOpenSelector(store.getState())
+                ? // 0.4 corresponds to 100% - the 60% of the available height
+                  // that the map occupies on mobile.
+                  (document.body.clientHeight -
+                    $("#geocode-address-bar").height() -
+                    $("#site-header").height()) *
+                  0.4
+                : $("#add-place-button").height()),
+      }),
+    );
+  },
+
+  getWebMercatorViewport: function() {
+    const container = document
+      .getElementById("map-container")
+      .getBoundingClientRect();
+
+    return new WebMercatorViewport({
+      width: container.width,
+      height: container.height,
+    });
   },
 
   viewSha: function() {
@@ -810,21 +833,15 @@ export default Backbone.View.extend({
     });
 
     if (page) {
+      store.dispatch(removeFocusedGeoJSONFeatures());
       ReactDOM.render(
         <CustomPage pageContent={page.content} />,
         document.querySelector("#content article"),
       );
 
       this.$panel.removeClass().addClass("page page-" + slug);
-      this.$panel.show();
       this.hideNewPin();
-      $(Shareabouts).trigger("panelshow", [
-        this.options.router,
-        Backbone.history.getFragment(),
-      ]);
-      Util.log("APP", "panel-state", "open");
       this.setBodyClass("content-visible");
-      store.dispatch(setMapSizeValidity(false));
       this.renderRightSidebar();
       this.renderMain();
       $("#main-btns-container").addClass(
@@ -838,6 +855,7 @@ export default Backbone.View.extend({
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
+      this.showPanel();
     } else {
       this.options.router.navigate("/", { trigger: true });
     }
@@ -849,6 +867,12 @@ export default Backbone.View.extend({
   hideNewPin: function() {
     store.dispatch(setMapCenterpointVisibility(false));
   },
+  showPanel: function() {
+    this.$panel.show();
+    Util.log("APP", "panel-state", "open");
+    store.dispatch(setContentPanel(true));
+    this.setMapDimensions();
+  },
   hidePanel: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
@@ -856,7 +880,6 @@ export default Backbone.View.extend({
 
     this.$panel.hide();
     this.setBodyClass();
-    store.dispatch(setMapSizeValidity(false));
 
     $("#main-btns-container").addClass(
       this.options.placeConfig.add_button_location || "pos-top-left",
@@ -864,6 +887,9 @@ export default Backbone.View.extend({
 
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();
+    store.dispatch(setContentPanel(false));
+    this.setMapDimensions();
+    store.dispatch(removeFocusedGeoJSONFeatures());
   },
   showSpotlightMask: function() {
     $("#spotlight-mask").show();
@@ -889,10 +915,8 @@ export default Backbone.View.extend({
       $("#geocode-address-bar").removeClass("is-visuallyhidden");
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <GeocodeAddressBar mapConfig={this.options.mapConfig} />
-            </ThemeProvider>
+          <ThemeProvider>
+            <GeocodeAddressBar mapConfig={this.options.mapConfig} />
           </ThemeProvider>
         </Provider>,
         document.getElementById("geocode-address-bar"),
@@ -910,19 +934,12 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <MainMap
-              addPlaceButtonLabel={this.options.placeConfig.add_button_label}
-              container="map"
-              router={this.options.router}
-              onZoomend={this.onMapZoomEnd.bind(this)}
-              onMovestart={this.onMapMoveStart.bind(this)}
-              onMoveend={this.onMapMoveEnd.bind(this)}
-              onDragend={this.onMapDragEnd.bind(this)}
-              store={store}
-            />
-          </ThemeProvider>
+        <ThemeProvider>
+          <MainMap
+            container={document.getElementById("map-container")}
+            router={this.options.router}
+            setSlippyRoute={this.setSlippyRoute.bind(this)}
+          />
         </ThemeProvider>
       </Provider>,
       document.getElementById("map-component"),
@@ -936,8 +953,6 @@ export default Backbone.View.extend({
         zoom: mapPosition.zoom,
       });
     }
-
-    store.dispatch(setAddPlaceButtonVisibility(true));
   },
   viewList: async function() {
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
@@ -961,9 +976,7 @@ export default Backbone.View.extend({
     ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
 
     const contentNode = document.querySelector(
-      Util.getPageLayout() === '"desktop"' || Util.getPageLayout() === "desktop"
-        ? "#content article"
-        : "body",
+      Util.getPageLayout() === "desktop" ? "#content article" : "body",
     );
     ReactDOM.unmountComponentAtNode(contentNode);
 
@@ -972,10 +985,8 @@ export default Backbone.View.extend({
     this.hidePanel();
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <PlaceList router={this.options.router} />
-          </ThemeProvider>
+        <ThemeProvider>
+          <PlaceList router={this.options.router} />
         </ThemeProvider>
       </Provider>,
       document.getElementById("list-container"),
@@ -1005,14 +1016,12 @@ export default Backbone.View.extend({
     ReactDOM.render(
       <Suspense fallback={<div>Loading...</div>}>
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <Dashboard
-                router={this.options.router}
-                datasetDownloadConfig={this.options.appConfig.dataset_download}
-                apiRoot={this.options.appConfig.api_root}
-              />
-            </ThemeProvider>
+          <ThemeProvider>
+            <Dashboard
+              router={this.options.router}
+              datasetDownloadConfig={this.options.appConfig.dataset_download}
+              apiRoot={this.options.appConfig.api_root}
+            />
           </ThemeProvider>
         </Provider>
       </Suspense>,

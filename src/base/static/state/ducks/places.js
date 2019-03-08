@@ -43,6 +43,10 @@ export const placeExists = (state, placeId) => {
   return !!state.places.placeModels.find(place => place.id === placeId);
 };
 
+export const activeEditPlaceIdSelector = state => {
+  return state.places.activeEditPlaceId;
+};
+
 export const placePropType = PropTypes.shape({
   attachments: PropTypes.array.isRequired,
   updated_datetime: PropTypes.string.isRequired,
@@ -77,6 +81,7 @@ const UPDATE_PLACE_TAG = "places/UPDATE_PLACE_TAG";
 const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
 const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
 const UPDATE_LOAD_STATUS = "places/UPDATE_LOAD_STATUS";
+const UPDATE_ACTIVE_EDIT_PLACE_ID = "places/UPDATE_ACTIVE_EDIT_PLACE_ID";
 
 // Action creators:
 export function loadPlaces(places, storyConfig = {}) {
@@ -94,6 +99,10 @@ export function loadPlaces(places, storyConfig = {}) {
   });
 
   return { type: LOAD_PLACES, payload: places };
+}
+
+export function updateActiveEditPlaceId(placeId) {
+  return { type: UPDATE_ACTIVE_EDIT_PLACE_ID, payload: placeId };
 }
 
 export function updatePlace(place) {
@@ -185,6 +194,7 @@ const normalizeSubmissionSets = place => {
 const INITIAL_STATE = {
   placeModels: [],
   loadStatus: "unloaded",
+  activeEditPlaceId: null,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -368,6 +378,11 @@ export default function reducer(state = INITIAL_STATE, action) {
 
           return place;
         }),
+      };
+    case UPDATE_ACTIVE_EDIT_PLACE_ID:
+      return {
+        ...state,
+        activeEditPlaceId: action.payload,
       };
     default:
       return state;

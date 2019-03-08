@@ -60,56 +60,108 @@
     "geocode_field_label": "_(Enter an address...)",
     "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
-      "map": {
-        "center": {
-          "lat": -33.41863,
-          "lng": -59.50497
-        },
+      "mapViewport": {
+        "latitude": -33.41863,
+        "longitude": -59.50497,
         "zoom": 7,
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 19
       },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
-      },
       "drawing_enabled": true
     },
-    "layers": [
-      {
-        "id": "osm",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "is_visible_default": true,
-        "url": "https://api.mapbox.com/styles/v1/bkholmes/cjpnap2zz2ln12rqonivzcpx0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw",
+    "mapboxSources": {
+      "osm": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjpnap2zz2ln12rqonivzcpx0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256,
         "attribution": "Hello World"
       },
-      {
-        "id": "rios-vivos",
-        "type": "raster-tile",
-        "url": "https://ecotopia.today/riosvivos/mosaicos/riosvivos/{z}/{x}/{y}.png"
+      "presencia-agua": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Territorios/PresenciaAgua/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
       },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://a.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng",
+          "https://b.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng",
+          "https://c.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
+        ],
+        "tileSize": 256
+      },
+      "argentina-campanas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/argentina-campanas/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "topografico": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      }
+    },
+    "layerGroups": [
       {
-        "id": "presencia-agua",
-        "type": "raster-tile",
-        "url": "https://ecotopia.today/Territorios/PresenciaAgua2/{z}/{x}/{y}.png"
+        "id": "osm",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
       },
       {
         "id": "satellite",
-        "is_basemap": true,
-        "type": "raster-tile",
-        "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng"
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "topografico",
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "topografico-basemap",
+            "type": "raster",
+            "source": "topografico"
+          }
+        ]
+      },
+      {
+        "id": "presencia-agua",
+        "mapboxLayers": [
+          {
+            "id": "presencia-agua",
+            "type": "raster",
+            "source": "presencia-agua"
+          }
+        ]
       },
       {
         "id": "argentina-campanas",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/argentina-campanas/{z}/{x}/{y}.pbf",
-        "source_layer": "argentina-campanas",
-        "mapbox_layers": [
+        "mapboxLayers": [
           {
             "id": "argentina-campanas-outline",
             "type": "line",
+            "source": "argentina-campanas",
+            "source-layer": "argentina-campanas",
             "paint": {
               "line-color": "#ddd",
               "line-width": 3,
@@ -119,29 +171,28 @@
         ]
       },
       {
-        "id": "topografico",
-        "is_basemap": true,
-        "type": "raster-tile",
-        "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-      },
-      {
         "id": "argentina-featured",
         "datasetSlug": "argentina-featured",
-        "type": "place",
-        "slug": "featured",
-        "focus_rules": [
+        "interactive": true,
+        "mapboxFocusedLayers": [
           {
+            "id": "argentina-featured-focused",
+            "type": "symbol",
             "filter": ["==", ["get", "location_type"], "featured_place"],
-            "symbol-layout": {
+            "source": "argentina-featured",
+            "layout": {
               "icon-size": 1.1,
               "icon-anchor": "bottom"
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
+            "id": "argentina-featured",
+            "type": "symbol",
             "filter": ["==", ["get", "location_type"], "featured_place"],
-            "symbol-layout": {
+            "source": "argentina-featured",
+            "layout": {
               "icon-size": 0.9,
               "icon-anchor": "bottom"
             }
@@ -150,14 +201,16 @@
       },
       {
         "id": "argentina-input",
+        "interactive": true,
         "datasetSlug": "argentina-input",
-        "type": "place",
-        "slug": "report",
-        "is_visible_default": true,
-        "feature_types": ["Point"],
-        "focus_rules": [
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
           {
-            "symbol-layout": {
+            "id": "argnetina-input-focused",
+            "type": "symbol",
+            "source": "argentina-input",
+            "layout": {
+              "icon-allow-overlap": true,
               "icon-size": 0.7,
               "icon-anchor": "bottom",
               "icon-image": [
@@ -168,109 +221,54 @@
                 "idea",
                 "marker-idea.png",
                 "complaint",
-                "marker-complaint.png",
-                "question",
                 "marker-question.png",
+                "question",
+                "marker-complaint.png",
                 "__no-icon-image__"
               ]
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-0d85e9.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "observation"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-observation.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-f95016.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "idea"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-idea.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "question"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-e1264d.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "question"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-complaint.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "complaint"],
-              ["<", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "dot-dbcf2c.png",
-              "icon-size": 1,
-              "icon-anchor": "center"
-            }
-          },
-          {
-            "filter": [
-              "all",
-              ["==", ["get", "location_type"], "complaint"],
-              [">=", ["zoom"], 10]
-            ],
-            "symbol-layout": {
-              "icon-image": "marker-question.png",
-              "icon-size": 0.5,
-              "icon-anchor": "bottom"
+            "id": "argentina-input",
+            "type": "symbol",
+            "source": "argentina-input",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
+              "icon-size": ["step", ["zoom"], 1, 10, 0.5],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "observation",
+                  "dot-0d85e9.png",
+                  "idea",
+                  "dot-f95016.png",
+                  "question",
+                  "dot-e1264d.png",
+                  "complaint",
+                  "dot-dbcf2c.png",
+                  "__no-icon-image__"
+                ],
+                10,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "observation",
+                  "marker-observation.png",
+                  "idea",
+                  "marker-idea.png",
+                  "question",
+                  "marker-complaint.png",
+                  "complaint",
+                  "marker-question.png",
+                  "__no-icon-image__"
+                ]
+              ]
             }
           }
         ]
@@ -288,14 +286,14 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Capas:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Geografía)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "osm",
                 "title": "_(Mapa base)"
@@ -309,7 +307,7 @@
           {
             "id": "grp-community",
             "title": "_(Contribuciones)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "argentina-input",
                 "title": "_(Puntos)"
@@ -323,8 +321,8 @@
                 "title": "_(Campañas)"
               },
               {
-                "id": "rios-vivos",
-                "title": "_(Cuenca del Plata)"
+                "id": "presencia-agua",
+                "title": "_(Desecamiento)"
               }
             ]
           }
@@ -407,7 +405,7 @@
             "name": "title",
             "type": "text",
             "prompt": "_(¿De qué se trata?)",
-            "display_prompt": "_(Título:)",
+            "display_prompt": "_( )",
             "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
@@ -415,7 +413,7 @@
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?)",
-            "display_prompt": "_(Notar la observación:)",
+            "display_prompt": "_( )",
             "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)",
             "optional": false
           },
@@ -447,7 +445,7 @@
             "name": "title",
             "type": "text",
             "prompt": "_(¿Qué pasa?)",
-            "display_prompt": "_(Título:)",
+            "display_prompt": "_( )",
             "placeholder": "_(Introducir títuló...)",
             "optional": false
           },
@@ -455,7 +453,7 @@
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(¿Cuáles son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansión de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
-            "display_prompt": "_(Describir la situación)",
+            "display_prompt": "_( )",
             "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)"
           },
           {
@@ -487,7 +485,7 @@
             "type": "text",
             "prompt": "_(¿Qué se hace?)",
             "placeholder": "_(Introducir título)",
-            "display_prompt": "_(Título:)",
+            "display_prompt": "_( )",
             "optional": false
           },
           {
@@ -527,14 +525,14 @@
             "type": "text",
             "prompt": "_(¿Qué se ve en el futuro?)",
             "placeholder": "_(Introducir título)",
-            "display_prompt": "_(Título)",
+            "display_prompt": "_( )",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?)",
-            "display_prompt": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)",
+            "display_prompt": "_( )",
             "placeholder": "_(Descripción...)",
             "optional": false
           },
@@ -717,7 +715,7 @@
         "id": "question",
         "datasetId": "argentina-input",
         "label": "_(Amenazas / conflictos)",
-        "icon": "/static/css/images/markers/marker-question.png"
+        "icon": "/static/css/images/markers/marker-complaint.png"
       },
       {
         "id": "idea",
@@ -729,7 +727,7 @@
         "id": "complaint",
         "datasetId": "argentina-input",
         "label": "_(Horizontes / potencialidades)",
-        "icon": "/static/css/images/markers/marker-complaint.png"
+        "icon": "/static/css/images/markers/marker-question.png"
       }
     ]
   },

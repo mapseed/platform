@@ -13,7 +13,7 @@ export const leftSidebarComponentSelector = state => {
   return state.ui.leftSidebarComponent;
 };
 export const contentPanelOpenSelector = state => {
-  return state.ui.isConentPanelOpen;
+  return state.ui.isContentPanelOpen;
 };
 export const currentTemplateSelector = state => {
   return state.ui.currentTemplate;
@@ -72,8 +72,8 @@ export function updateEditModeToggled(isToggled) {
 
 // Reducers:
 const INITIAL_STATE = {
-  isContentPanelOpen: undefined,
-  isSidebarExpanded: undefined,
+  isContentPanelOpen: false,
+  isRightSidebarExpanded: false,
   isLeftSidebarExpanded: false,
   leftSidebarComponent: undefined,
   currentTemplate: "map",

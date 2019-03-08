@@ -19,6 +19,7 @@
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {
         "primary": "#e57c04",
@@ -46,53 +47,151 @@
     "geolocation_onload": false,
     "geocoding_engine": "Mapbox",
     "geocode_hint": [-117.1889785, 46.7298657],
+    "offlineBoundingBox": {
+      "southWest": {
+        "lat": 46.375191,
+        "lng": -117.022911
+      },
+      "northEast": {
+        "lat": 47.593241,
+        "lng": -118.79526
+      }
+    },
     "options": {
-      "map": {
-        "center": {
-          "lat": 46.855999488224484,
-          "lng": -117.51842014278026
-        },
+      "scrollZoomAroundCenter": true,
+      "mapViewport": {
+        "latitude": 46.855999488224484,
+        "longitude": -117.51842014278026,
         "zoom": 8,
         "pitch": 15,
         "minZoom": 1,
-        "maxZoom": 18,
-        "scrollZoom": {
-          "around": "center"
-        }
-      },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
+        "maxZoom": 18
       },
       "drawing_enabled": false
     },
-    "layers": [
+    "mapboxSources": {
+      "osm": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tilseSize": 256
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "tileSize": 256,
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      "columbia-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/columbia-river.geojson"
+      },
+      "snake-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/snake-river.geojson"
+      },
+      "palouse-basin": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/palouse/palouse-basin.geojson"
+      },
+      "palouse-critical-aquifer": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "palouse-analysis-units": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "palouse-basin-streams": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson"
+      },
+      "palouse-critical-conservation-areas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "palouse-frequently-flooded": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "palouse-huc-12": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-huc-12/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "palouse-wetlands": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "palouse-geologic-hazard": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/palouse-geologic-hazard/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "whitman-county-outline": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/whitman-county/{z}/{x}/{y}.pbf"
+        ]
+      }
+    },
+
+    "layerGroups": [
       {
         "id": "osm",
-        "type": "raster-tile",
-        "is_basemap": true,
-        "url": "https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"
+        "basemap": true,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
       },
       {
         "id": "satellite",
-        "type": "raster-tile",
-        "is_visible_default": true,
-        "is_basemap": true,
-        "url": "//api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw",
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
       },
       {
         "id": "columbia-river",
-        "type": "json",
-        "is_visible_default": true,
-        "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/columbia-river.geojson",
-        "feature_types": ["Polygon"],
-        "rules": [
+        "visibleDefault": true,
+        "mapboxLayers": [
           {
-            "fill-paint": {
-              "fill-color": "#34518f"
-            },
-            "outline-paint": {
+            "id": "columbia-river-fill",
+            "type": "fill",
+            "source": "columbia-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "columbia-river-outline",
+            "type": "line",
+            "source": "columbia-river",
+            "paint": {
               "line-color": "#34518f",
               "line-opacity": 0.7,
               "line-width": 2
@@ -102,16 +201,22 @@
       },
       {
         "id": "snake-river",
-        "type": "json",
-        "is_visible_default": true,
-        "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/snake-river.geojson",
-        "feature_types": ["Polygon"],
-        "rules": [
+        "visibleDefault": true,
+        "mapboxLayers": [
           {
-            "fill-paint": {
-              "fill-color": "#34518f"
-            },
-            "outline-paint": {
+            "id": "snake-river-fill",
+            "type": "fill",
+            "source": "snake-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "snake-river-outline",
+            "type": "line",
+            "source": "snake-river",
+            "paint": {
               "line-color": "#34518f",
               "line-opacity": 0.7,
               "line-width": 2
@@ -121,15 +226,22 @@
       },
       {
         "id": "palouse-basin",
-        "type": "json",
-        "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin.geojson",
-        "feature_types": ["Polygon"],
-        "rules": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
-            "fill-paint": {
-              "fill-color": "#34518f"
-            },
-            "outline-paint": {
+            "id": "palouse-basin-fill",
+            "type": "fill",
+            "source": "palouse-basin",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.3
+            }
+          },
+          {
+            "id": "palouse-basin-outline",
+            "type": "line",
+            "source": "palouse-basin",
+            "paint": {
               "line-color": "#34518f",
               "line-opacity": 0.7,
               "line-width": 2
@@ -139,13 +251,13 @@
       },
       {
         "id": "palouse-critical-aquifer",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf",
-        "source_layer": "palouse-critical-aquifer",
-        "mapbox_layers": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
             "id": "palouse-critical-aquifer",
             "type": "fill",
+            "source": "palouse-critical-aquifer",
+            "source-layer": "palouse-critical-aquifer",
             "paint": {
               "fill-pattern": "aquifer-fill.png"
             }
@@ -153,6 +265,8 @@
           {
             "id": "palouse-critical-aquifer-outline",
             "type": "line",
+            "source": "palouse-critical-aquifer",
+            "source-layer": "palouse-critical-aquifer",
             "paint": {
               "line-color": "#e57339",
               "line-width": 2,
@@ -163,14 +277,13 @@
       },
       {
         "id": "palouse-analysis-units",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf",
-        "is_visible_default": true,
-        "source_layer": "palouse-analysis-units",
-        "mapbox_layers": [
+        "visibleDefault": true,
+        "mapboxLayers": [
           {
             "id": "palouse-analysis-units",
             "type": "fill",
+            "source-layer": "palouse-analysis-units",
+            "source": "palouse-analysis-units",
             "paint": {
               "fill-opacity": 0.7,
               "fill-color": [
@@ -189,6 +302,8 @@
           {
             "id": "palouse-analysis-units-labels",
             "type": "symbol",
+            "source-layer": "palouse-analysis-units",
+            "source": "palouse-analysis-units",
             "paint": {
               "text-halo-color": "#fff",
               "text-halo-width": 1
@@ -204,12 +319,13 @@
       },
       {
         "id": "palouse-basin-streams",
-        "type": "json",
-        "is_topmost_layer": true,
-        "source": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson",
-        "rules": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
-            "line-paint": {
+            "id": "palouse-basin-streams",
+            "type": "line",
+            "source": "palouse-basin-streams",
+            "paint": {
               "line-color": "#1a1aff",
               "line-width": 1.5
             }
@@ -218,13 +334,13 @@
       },
       {
         "id": "palouse-critical-conservation-areas",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf",
-        "source_layer": "palouse-critical-conservation-areas",
-        "mapbox_layers": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
             "id": "palouse-critical-convervation-areas",
             "type": "fill",
+            "source": "palouse-critical-conservation-areas",
+            "source-layer": "palouse-critical-conservation-areas",
             "paint": {
               "fill-pattern": "conservation-fill.png"
             }
@@ -232,6 +348,8 @@
           {
             "id": "palouse-critical-conservation-areas-outline",
             "type": "line",
+            "source": "palouse-critical-conservation-areas",
+            "source-layer": "palouse-critical-conservation-areas",
             "paint": {
               "line-color": "#10e53d",
               "line-width": 2,
@@ -242,13 +360,13 @@
       },
       {
         "id": "palouse-frequently-flooded",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf",
-        "source_layer": "palouse-frequently-flooded",
-        "mapbox_layers": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
             "id": "palouse-frequently-flooded",
             "type": "fill",
+            "source": "palouse-frequently-flooded",
+            "source-layer": "palouse-frequently-flooded",
             "paint": {
               "fill-pattern": "frequently-flooded-fill.png"
             }
@@ -256,6 +374,8 @@
           {
             "id": "palouse-frequently-flooded-outline",
             "type": "line",
+            "source": "palouse-frequently-flooded",
+            "source-layer": "palouse-frequently-flooded",
             "paint": {
               "line-color": "#3366ff",
               "line-opacity": 0.7,
@@ -266,20 +386,44 @@
       },
       {
         "id": "palouse-huc-12",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-huc-12/{z}/{x}/{y}.pbf",
-        "style_url": "https://vector-tiles.mapseed.org/palouse-huc-12/style.json",
-        "source_layer": "palouse-huc-12"
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "palouse-huc-12",
+            "type": "line",
+            "source": "palouse-huc-12",
+            "source-layer": "palouse-huc-12",
+            "paint": {
+              "line-color": "#888",
+              "line-opacity": 0.7,
+              "line-width": 3
+            }
+          },
+          {
+            "id": "palouse-huc-12-labels",
+            "type": "symbol",
+            "source": "palouse-huc-12",
+            "source-layer": "palouse-huc-12",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1,
+              "text-color": "#222"
+            },
+            "layout": {
+              "text-field": ["get", "Name"]
+            }
+          }
+        ]
       },
       {
         "id": "palouse-wetlands",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf",
-        "source_layer": "palouse-wetlands",
-        "mapbox_layers": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
             "id": "palouse-wetlands",
             "type": "fill",
+            "source": "palouse-wetlands",
+            "source-layer": "palouse-wetlands",
             "paint": {
               "fill-pattern": "wetlands-fill.png"
             }
@@ -287,6 +431,8 @@
           {
             "id": "palouse-wetlands-outline",
             "type": "line",
+            "source": "palouse-wetlands",
+            "source-layer": "palouse-wetlands",
             "paint": {
               "line-color": "#10e53d",
               "line-opacity": 0.7,
@@ -297,13 +443,13 @@
       },
       {
         "id": "palouse-geologic-hazard",
-        "type": "vector-tile",
-        "url": "https://vector-tiles.mapseed.org/palouse-geologic-hazard/{z}/{x}/{y}.pbf",
-        "source_layer": "palouse-geologic-hazard",
-        "mapbox_layers": [
+        "visibleDefault": false,
+        "mapboxLayers": [
           {
             "id": "palouse-geologic-hazard",
             "type": "fill",
+            "source": "palouse-geologic-hazard",
+            "source-layer": "palouse-geologic-hazard",
             "filter": ["==", ["get", "erosion_of"], "Severe"],
             "paint": {
               "fill-pattern": "hazard-fill.png"
@@ -312,6 +458,8 @@
           {
             "id": "palouse-geologic-hazard-outline",
             "type": "line",
+            "source": "palouse-geologic-hazard",
+            "source-layer": "palouse-geologic-hazard",
             "filter": ["==", ["get", "erosion_of"], "Severe"],
             "paint": {
               "line-color": "#e80f0f",
@@ -323,14 +471,13 @@
       },
       {
         "id": "whitman-county-outline",
-        "type": "vector-tile",
-        "is_visible_default": true,
-        "url": "https://vector-tiles.mapseed.org/whitman-county/{z}/{x}/{y}.pbf",
-        "source_layer": "whitman-county",
-        "mapbox_layers": [
+        "visibleDefault": true,
+        "mapboxLayers": [
           {
             "id": "whitman-county-outline",
             "type": "line",
+            "source": "whitman-county-outline",
+            "source-layer": "whitman-county",
             "paint": {
               "line-color": "#fff",
               "line-width": 3,
@@ -341,12 +488,14 @@
       },
       {
         "id": "palouse-input",
-        "is_visible_default": true,
+        "visibleDefault": true,
+        "interactive": true,
         "datasetSlug": "palouse-input",
-        "type": "place",
-        "focus_rules": [
+        "mapboxFocusedLayers": [
           {
-            "symbol-layout": {
+            "id": "palouse-input-focused",
+            "type": "symbol",
+            "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
               "icon-image": [
@@ -355,33 +504,21 @@
                 "reports",
                 "map-pin-marker-red.png",
                 "__no-icon-image__"
-              ]
+              ],
+              "icon-allow-overlap": true
             }
           }
         ],
-        "rules": [
+        "mapboxLayers": [
           {
-            "filter": ["<", ["zoom"], 11],
-            "symbol-layout": {
+            "id": "palouse-input",
+            "type": "symbol",
+            "source": "palouse-input",
+            "layout": {
               "icon-anchor": "bottom",
               "icon-image": "map-pin-marker-red.png",
-              "icon-size": 0.5
-            }
-          },
-          {
-            "filter": ["all", [">=", ["zoom"], 11], ["<", ["zoom"], 16]],
-            "symbol-layout": {
-              "icon-anchor": "bottom",
-              "icon-image": "map-pin-marker-red.png",
-              "icon-size": 0.6
-            }
-          },
-          {
-            "filter": [">=", ["zoom"], 16],
-            "symbol-layout": {
-              "icon-anchor": "bottom",
-              "icon-image": "map-pin-marker-red.png",
-              "icon-size": 0.7
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
+              "icon-allow-overlap": true
             }
           }
         ]
@@ -397,14 +534,14 @@
     "panels": [
       {
         "id": "gis-layers",
-        "icon": "fa-bars",
+        "icon": "fa fa-bars",
         "component": "MapLayerPanel",
         "title": "_(Map Layers:)",
-        "groupings": [
+        "content": [
           {
             "id": "basemaps",
             "title": "_(Basemaps)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "osm",
                 "title": "_(OpenStreetMap)"
@@ -418,7 +555,7 @@
           {
             "id": "grp-water",
             "title": "_(Water Features)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "columbia-river",
                 "title": "_(Columbia River)"
@@ -468,7 +605,7 @@
           {
             "id": "grp-community",
             "title": "_(Community Data)",
-            "layers": [
+            "layerGroups": [
               {
                 "id": "whitman-county-outline",
                 "title": "_(Whitman County border)"
@@ -508,8 +645,8 @@
             "end_field_index": 4,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_basemap_id": "satellite",
-            "visible_layer_ids": [
+            "visibleLayerGroupIds": [
+              "satellite",
               "palouse-analysis-units",
               "palouse-input",
               "whitman-county-outline"
@@ -520,8 +657,8 @@
             "end_field_index": 6,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_basemap_id": "satellite",
-            "visible_layer_ids": [
+            "visibleLayerGroupIds": [
+              "satellite",
               "palouse-analysis-units",
               "palouse-basin-streams",
               "whitman-county-outline"
@@ -532,16 +669,19 @@
             "end_field_index": 9,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_basemap_id": "satellite",
-            "visible_layer_ids": ["palouse-wetlands", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-wetlands",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 10,
             "end_field_index": 12,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_basemap_id": "satellite",
-            "visible_layer_ids": [
+            "visibleLayerGroupIds": [
+              "satellite",
               "palouse-frequently-flooded",
               "whitman-county-outline"
             ]
@@ -551,8 +691,8 @@
             "end_field_index": 15,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_basemap_id": "satellite",
-            "visible_layer_ids": [
+            "visibleLayerGroupIds": [
+              "satellite",
               "palouse-geologic-hazard",
               "whitman-county-outline"
             ]
@@ -562,8 +702,8 @@
             "end_field_index": 18,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_basemap_id": "satellite",
-            "visible_layer_ids": [
+            "visibleLayerGroupIds": [
+              "satellite",
               "palouse-critical-aquifer",
               "whitman-county-outline"
             ]
@@ -573,8 +713,8 @@
             "end_field_index": 21,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_basemap_id": "satellite",
-            "visible_layer_ids": [
+            "visibleLayerGroupIds": [
+              "satellite",
               "palouse-critical-conservation-areas",
               "whitman-county-outline"
             ]
@@ -584,49 +724,77 @@
             "end_field_index": 30,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 31,
             "end_field_index": 36,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 37,
             "end_field_index": 42,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 43,
             "end_field_index": 57,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 58,
             "end_field_index": 66,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 67,
             "end_field_index": 96,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           },
           {
             "start_field_index": 97,
             "end_field_index": 106,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visible_layer_ids": ["palouse-input", "whitman-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "palouse-input",
+              "whitman-county-outline"
+            ]
           }
         ],
         "label": "_(Actions)",

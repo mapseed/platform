@@ -3,7 +3,7 @@ import qs from "qs";
 import {
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
-  toGeoJSONFeature,
+  toServerGeoJSONFeature,
 } from "../../utils/place-utils";
 
 const setPrivateParams = (placeParams, includePrivate) =>
@@ -21,7 +21,7 @@ const updatePlace = async ({
   datasetSlug,
   clientSlug,
 }) => {
-  placeData = toGeoJSONFeature(placeData);
+  placeData = toServerGeoJSONFeature(placeData);
   // TODO: Private query params.
   // See: https://github.com/jalMogo/mgmt/issues/241
   const placeParams = {
@@ -62,7 +62,7 @@ const createPlace = async ({
   clientSlug,
   includePrivate = false,
 }) => {
-  placeData = toGeoJSONFeature(placeData);
+  placeData = toServerGeoJSONFeature(placeData);
 
   const placeParams = setPrivateParams(
     {
@@ -91,6 +91,13 @@ const createPlace = async ({
   }
 
   const feature = await response.json();
+
+  if (feature.isOfflineResponse) {
+    // Let the caller know that an offline place was submitted:
+    return {
+      isOffline: true,
+    };
+  }
 
   return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
 };

@@ -1,7 +1,4 @@
 const walk = require("object-walk");
-const Handlebars = require("handlebars");
-const fs = require("fs-extra");
-const path = require("path");
 
 const {
   setConfigDefaults,
@@ -17,11 +14,6 @@ const {
 //   npm run build
 
 const configGettextRegex = /^_\(/;
-
-Handlebars.registerHelper("serialize", function(json) {
-  if (!json) return false;
-  return JSON.stringify(json);
-});
 
 module.exports = function(source) {
   source = source.substring(17);
@@ -73,23 +65,6 @@ module.exports = function(source) {
 
   // Build the story data structure used by the app.
   config.story = transformStoryContent(config.story);
-
-  const templateSource = fs.readFileSync(
-    path.resolve(__dirname, "../build-utils/config-template.hbs"),
-    "utf8",
-  );
-  const template = Handlebars.compile(templateSource);
-  const outputFile = template({
-    config: config,
-    languageCode: config.app.languages ? config.app.languages[0].code : "en_US",
-  });
-
-  const outputPath = path.resolve(__dirname, "../www/config.js");
-  try {
-    fs.writeFileSync(outputPath, outputFile);
-  } catch (e) {
-    // ignore exceptions
-  }
 
   return JSON.stringify(config);
 };

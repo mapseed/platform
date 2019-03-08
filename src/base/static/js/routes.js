@@ -1,14 +1,15 @@
 /*globals Backbone jQuery _ */
 import Util from "./utils.js";
 import AppView from "./views/app-view.js";
+import config from "config";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
 
-(function(S, $) {
-  S.App = Backbone.Router.extend({
+(function($) {
+  const Router = Backbone.Router.extend({
     routes: {
       "": "viewMap",
       "page/:slug": "viewPage",
@@ -48,7 +49,6 @@ Shareabouts.Util = Util;
         datasetConfigs: options.datasetsConfig,
         apiRoot: options.appConfig.api_root,
         config: options.config,
-        defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
         cluster: options.cluster,
         appConfig: options.appConfig,
@@ -63,7 +63,6 @@ Shareabouts.Util = Util;
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
         dashboardConfig: options.dashboardConfig,
-        userToken: options.userToken,
         router: this,
         filters: options.filters,
         languageCode: options.languageCode,
@@ -74,9 +73,6 @@ Shareabouts.Util = Util;
 
       // Start tracking the history
       var historyOptions = { pushState: true };
-      if (options.defaultPlaceTypeName) {
-        historyOptions.root = "/" + options.defaultPlaceTypeName + "/";
-      }
 
       Backbone.history.start(historyOptions);
 
@@ -107,7 +103,7 @@ Shareabouts.Util = Util;
 
     viewMap: function(zoom, lat, lng) {
       recordGoogleAnalyticsHit("/");
-      this.appView.viewMap(zoom, lat, lng);
+      this.appView.viewMap(parseInt(zoom), parseFloat(lat), parseFloat(lng));
     },
 
     viewDashboard: function() {
@@ -156,7 +152,30 @@ Shareabouts.Util = Util;
       );
     },
   });
-})(Shareabouts, jQuery, Util.console);
+  new Router({
+    activity: [],
+    appConfig: config.app,
+    placeConfig: config.place,
+    placeTypes: config.place_types,
+    cluster: config.cluster,
+    leftSidebarConfig: config.left_sidebar,
+    rightSidebarConfig: config.right_sidebar,
+    formsConfig: config.forms,
+    supportConfig: config.support,
+    mapConfig: config.map,
+    storyConfig: config.story,
+    activityConfig: config.activity,
+    navBarConfig: config.nav_bar,
+    pagesConfig: config.pages,
+    filters: config.filters,
+    datasets: config.datasets,
+    dashboardConfig: config.dashboard,
+    customHooks: config.custom_hooks,
+    customComponents: config.custom_components,
+    datasetsConfig: config.datasets,
+    languageCode: Shareabouts.languageCode,
+  });
+})(jQuery);
 
 /*****************************************************************************
 

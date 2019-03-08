@@ -11,16 +11,13 @@ import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 
 import { translate } from "react-i18next";
-import constants from "../../constants";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
-import {
-  mapConfigSelector,
-  mapLayersSelector,
-} from "../../state/ducks/map-config";
+import { toClientGeoJSONFeature } from "../../utils/place-utils";
+import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
 import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
@@ -29,14 +26,14 @@ import {
   geometryStyleSelector,
   setActiveDrawingTool,
   geometryStyleProps,
+  setActiveDrawGeometryId,
 } from "../../state/ducks/map-drawing-toolbar";
 import {
-  mapPositionSelector,
-  showLayers,
-  hideLayers,
-  setBasemap,
+  mapCenterpointSelector,
+  createFeaturesInGeoJSONSource,
+  updateLayerGroupVisibility,
 } from "../../state/ducks/map";
-import { hasAdminAbilities } from "../../state/ducks/user";
+import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
 
@@ -107,42 +104,54 @@ class InputForm extends Component {
   }
 
   setStageLayers(stageConfig) {
-    stageConfig.visible_layer_ids &&
-      this.props.showLayers(stageConfig.visible_layer_ids);
-    stageConfig.visible_layer_ids &&
-      this.props.hideLayers(
-        this.props.mapLayers
-          .filter(layer => !layer.is_basemap)
-          .filter(layer => !stageConfig.visible_layer_ids.includes(layer.id))
-          .map(layer => layer.id),
+    if (stageConfig.visibleLayerGroupIds) {
+      // Set layers for this stage.
+      stageConfig.visibleLayerGroupIds.forEach(layerGroupId =>
+        this.props.updateLayerGroupVisibility(layerGroupId, true),
       );
-    stageConfig.visible_basemap_id &&
-      this.props.setBasemap(stageConfig.visible_basemap_id);
+      // Hide all other layers.
+      this.props.mapConfig.layerGroups
+        .filter(
+          layerGroup =>
+            !stageConfig.visibleLayerGroupIds.includes(layerGroup.id),
+        )
+        .forEach(layerGroup =>
+          this.props.updateLayerGroupVisibility(layerGroup.id, false),
+        );
+    }
   }
 
   getNewFields(prevFields) {
     return this.selectedCategoryConfig.fields
       .filter(field => field.isVisible)
       .reduce((memo, field) => {
+        const fieldConfig = fromJS(
+          this.selectedCategoryConfig.fields.find(f => f.name === field.name),
+        );
         return memo.set(
           field.name,
           Map({
-            [constants.FIELD_VALUE_KEY]: "",
-            [constants.FIELD_TRIGGER_VALUE_KEY]:
-              field.trigger && field.trigger.trigger_value,
-            [constants.FIELD_TRIGGER_TARGETS_KEY]:
-              field.trigger && fromJS(field.trigger.targets),
-            [constants.FIELD_VISIBILITY_KEY]: field.hidden_default
+            value: "",
+            config: fieldConfig,
+            trigger: field.trigger && field.trigger.trigger_value,
+            triggerTargets: field.trigger && fromJS(field.trigger.targets),
+            // A field will be hidden if it is explicitly declared as
+            // hidden_default in the config, or if it is restricted to a
+            // group and the current user is not in that group or is not in
+            // the administrators group.
+            isVisible: field.hidden_default
               ? false
-              : true,
-            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+              : fieldConfig.has("restrictToGroups")
+                ? this.props.isInAtLeastOneGroup(
+                    fieldConfig.get("restrictToGroups"),
+                    this.props.datasetSlug,
+                  ) || this.props.hasAdminAbilities(this.props.datasetSlug)
+                : true,
+            renderKey: prevFields.has(field.name)
+              ? prevFields.getIn([field.name, "renderKey"]) + "_"
               : this.selectedCategoryConfig.category + field.name,
-            [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
-              constants.FIELD_AUTO_FOCUS_KEY,
-            ),
-            [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
-              field.advance_stage_on_value,
+            isAutoFocusing: prevFields.get("isAutoFocusing"),
+            advanceStage: field.advance_stage_on_value,
           }),
         );
       }, OrderedMap());
@@ -155,7 +164,7 @@ class InputForm extends Component {
     );
     this.isWithCustomGeometry =
       this.selectedCategoryConfig.fields.findIndex(
-        field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
+        field => field.type === "map_drawing_toolbar",
       ) >= 0;
     this.attachments = [];
     if (this.isWithCustomGeometry) {
@@ -168,19 +177,14 @@ class InputForm extends Component {
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     fieldStatus = fieldStatus.set(
-      constants.FIELD_RENDER_KEY,
-      this.state.fields.get(fieldName).get(constants.FIELD_RENDER_KEY),
+      "renderKey",
+      this.state.fields.getIn([fieldName, "renderKey"]),
     );
 
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) && !isInitializing) {
-      const isVisible =
-        fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) ===
-        fieldStatus.get(constants.FIELD_VALUE_KEY);
-      this.triggerFieldVisibility(
-        fieldStatus.get(constants.FIELD_TRIGGER_TARGETS_KEY),
-        isVisible,
-      );
+    if (fieldStatus.get("trigger") && !isInitializing) {
+      const isVisible = fieldStatus.get("trigger") === fieldStatus.get("value");
+      this.triggerFieldVisibility(fieldStatus.get("triggerTargets"), isVisible);
     }
 
     this.setState(({ fields }) => ({
@@ -191,8 +195,7 @@ class InputForm extends Component {
 
     // Check if this field should advance the current stage.
     if (
-      fieldStatus.get(constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY) ===
-        fieldStatus.get(constants.FIELD_VALUE_KEY) &&
+      fieldStatus.get("advanceStage") === fieldStatus.get("value") &&
       !isInitializing
     ) {
       this.validateForm(() => {
@@ -211,7 +214,7 @@ class InputForm extends Component {
       fields: this.state.fields.map((field, fieldName) => {
         return targets.includes(fieldName)
           ? field
-              .set(constants.FIELD_VISIBILITY_KEY, isVisible)
+              .set("isVisible", isVisible)
               .set(
                 "isAutoFocusing",
                 targets.indexOf(fieldName) === 0 && isVisible,
@@ -231,8 +234,8 @@ class InputForm extends Component {
       isValid,
     } = this.getFields().reduce(
       ({ validationErrors, isValid }, field) => {
-        if (!field.get(constants.FIELD_VALIDITY_KEY)) {
-          validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
+        if (!field.get("isValid")) {
+          validationErrors.add(field.get("message"));
           isValid = false;
         }
         return { validationErrors, isValid };
@@ -269,8 +272,8 @@ class InputForm extends Component {
 
     let attrs = {
       ...this.state.fields
-        .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
-        .map(state => state.get(constants.FIELD_VALUE_KEY))
+        .filter(state => !!state.get("value"))
+        .map(state => state.get("value"))
         .toJS(),
       location_type: this.selectedCategoryConfig.category,
     };
@@ -286,10 +289,10 @@ class InputForm extends Component {
           ? { "marker-symbol": this.props.activeMarker }
           : this.props.geometryStyle;
     } else {
-      const center = this.props.mapPosition.center;
+      const { longitude, latitude } = this.props.mapCenterpoint;
       attrs.geometry = {
         type: "Point",
-        coordinates: [center.lng, center.lat],
+        coordinates: [longitude, latitude],
       };
     }
 
@@ -298,7 +301,7 @@ class InputForm extends Component {
     // TODO: This logic is better suited for the FormField component,
     // perhaps in an onSave hook.
     this.selectedCategoryConfig.fields
-      .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
+      .filter(field => field.type === "rich_textarea")
       .forEach(field => {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
@@ -318,68 +321,77 @@ class InputForm extends Component {
       includePrivate: this.props.hasAdminAbilities(this.props.datasetSlug),
     });
 
-    if (placeResponse) {
-      Util.log("USER", "new-place", "successfully-add-place");
-
-      // Save attachments.
-      if (this.attachments.length) {
-        await Promise.all(
-          this.attachments.map(async attachment => {
-            const attachmentResponse = await mapseedApiClient.attachments.create(
-              placeResponse.url,
-              attachment,
-            );
-
-            if (attachmentResponse) {
-              placeResponse.attachments.push(attachmentResponse);
-              Util.log("USER", "dataset", "successfully-add-attachment");
-            } else {
-              alert("Oh dear. It looks like an attachment didn't save.");
-              Util.log("USER", "place", "fail-to-add-attachment");
-            }
-          }),
-        );
-      }
-
-      // Only add this place to the places duck if it isn't private.
-      !placeResponse.private && this.props.createPlace(placeResponse);
-
-      this.setState({ isFormSubmitting: false, showValidityStatus: false });
-
-      emitter.emit(
-        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        this.selectedCategoryConfig.datasetSlug,
-      );
-
-      // Save autofill values as necessary.
-      // TODO: This logic is better suited for the FormField component,
-      // perhaps in an onSave hook.
-      this.selectedCategoryConfig.fields.forEach(fieldConfig => {
-        if (fieldConfig.autocomplete) {
-          Util.saveAutocompleteValue(
-            fieldConfig.name,
-            this.state.fields
-              .get(fieldConfig.name)
-              .get(constants.FIELD_VALUE_KEY),
-            constants.AUTOFILL_DURATION_DAYS,
-          );
-        }
-      });
-
-      // Fire post-save hook.
-      // The post-save hook allows flavors to hijack the default
-      // route-to-detail-view behavior.
-      if (this.props.customHooks && this.props.customHooks.postSave) {
-        this.props.customHooks.postSave(
-          placeResponse,
-          this.defaultPostSave.bind(this),
-        );
-      } else {
-        this.defaultPostSave(placeResponse);
-      }
-    } else {
+    if (!placeResponse) {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place", "fail-to-create-place");
+      return;
+    }
+    if (placeResponse.isOffline) {
+      alert(
+        "No internet connection detected. Your submission may not be successful until you are back online.",
+      );
+      Util.log("USER", "place", "submitted-offline-place");
+      this.props.router.navigate("/", { trigger: true });
+      return;
+    }
+    Util.log("USER", "new-place", "successfully-add-place");
+
+    // Save attachments.
+    if (this.attachments.length) {
+      await Promise.all(
+        this.attachments.map(async attachment => {
+          const attachmentResponse = await mapseedApiClient.attachments.create(
+            placeResponse.url,
+            attachment,
+          );
+          if (attachmentResponse) {
+            placeResponse.attachments.push(attachmentResponse);
+            Util.log("USER", "dataset", "successfully-add-attachment");
+          } else {
+            alert("Oh dear. It looks like an attachment didn't save.");
+            Util.log("USER", "place", "fail-to-add-attachment");
+          }
+        }),
+      );
+    }
+
+    // Only add this place to the places duck if it isn't private.
+    !placeResponse.private && this.props.createPlace(placeResponse);
+    !placeResponse.private &&
+      this.props.createFeaturesInGeoJSONSource(
+        // "sourceId" and a place's datasetSlug are the same thing.
+        this.props.datasetSlug,
+        toClientGeoJSONFeature(placeResponse),
+      );
+
+    this.setState({ isFormSubmitting: false, showValidityStatus: false });
+
+    // Save autofill values as necessary.
+    // TODO: This logic is better suited for the FormField component,
+    // perhaps in an onSave hook.
+    this.selectedCategoryConfig.fields.forEach(fieldConfig => {
+      if (fieldConfig.autocomplete) {
+        Util.saveAutocompleteValue(
+          fieldConfig.name,
+          this.state.fields.getIn([fieldConfig.name, "value"]),
+          30, // 30 days
+        );
+      }
+    });
+
+    this.props.setActiveDrawGeometryId(null);
+
+    // Fire post-save hook.
+    // The post-save hook allows flavors to hijack the default
+    // route-to-detail-view behavior.
+    // TODO: are we still using these? Is it ok to delete this?
+    if (this.props.customHooks && this.props.customHooks.postSave) {
+      this.props.customHooks.postSave(
+        placeResponse,
+        this.defaultPostSave.bind(this),
+      );
+    } else {
+      this.defaultPostSave(placeResponse);
     }
   };
 
@@ -425,9 +437,7 @@ class InputForm extends Component {
           ],
         })
       : this.state.fields
-    ).filter(field => {
-      return field.get(constants.FIELD_VISIBILITY_KEY);
-    });
+    ).filter(field => field.get("isVisible"));
   }
 
   getFieldsFromStage({ fields, stage }) {
@@ -472,28 +482,21 @@ class InputForm extends Component {
           onSubmit={evt => evt.preventDefault()}
         >
           {this.getFields()
-            .map((fieldState, fieldName) => {
-              const fieldConfig = this.selectedCategoryConfig.fields.find(
-                field => field.name === fieldName,
-              );
-              return (
-                fieldConfig.isVisible && (
-                  <FormField
-                    fieldConfig={fieldConfig}
-                    disabled={this.state.isFormSubmitting}
-                    fieldState={fieldState}
-                    isInitializing={this.state.isInitializing}
-                    key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                    onAddAttachment={this.onAddAttachment.bind(this)}
-                    onFieldChange={this.onFieldChange.bind(this)}
-                    router={this.props.router}
-                    showValidityStatus={this.state.showValidityStatus}
-                    updatingField={this.state.updatingField}
-                    onClickSubmit={this.onSubmit.bind(this)}
-                  />
-                )
-              );
-            })
+            .map(field => (
+              <FormField
+                fieldConfig={field.get("config").toJS()}
+                disabled={this.state.isFormSubmitting}
+                fieldState={field}
+                isInitializing={this.state.isInitializing}
+                key={field.get("renderKey")}
+                onAddAttachment={this.onAddAttachment.bind(this)}
+                onFieldChange={this.onFieldChange.bind(this)}
+                router={this.props.router}
+                showValidityStatus={this.state.showValidityStatus}
+                updatingField={this.state.updatingField}
+                onClickSubmit={this.onSubmit.bind(this)}
+              />
+            ))
             .toArray()}
         </form>
         {this.state.isFormSubmitting && <Spinner />}
@@ -550,32 +553,27 @@ InputForm.propTypes = {
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
-  hideLayers: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
+  isInAtLeastOneGroup: PropTypes.func.isRequired,
   isLeavingForm: PropTypes.bool,
   isMapDragged: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   mapConfig: PropTypes.object.isRequired,
-  mapLayers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  mapPosition: PropTypes.object,
+  mapCenterpoint: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
-  setBasemap: PropTypes.func.isRequired,
-  showLayers: PropTypes.func.isRequired,
+  setActiveDrawGeometryId: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
+  updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -584,19 +582,22 @@ const mapStateToProps = state => ({
     datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  isInAtLeastOneGroup: (groupNames, datasetSlug) =>
+    isInAtLeastOneGroup(state, groupNames, datasetSlug),
   mapConfig: mapConfigSelector(state),
-  mapLayers: mapLayersSelector(state),
-  mapPosition: mapPositionSelector(state),
+  mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+  createFeaturesInGeoJSONSource: (sourceId, sourceData) =>
+    dispatch(createFeaturesInGeoJSONSource(sourceId, sourceData)),
+  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
-  showLayers: layerIds => dispatch(showLayers(layerIds)),
-  hideLayers: layerIds => dispatch(hideLayers(layerIds)),
-  setBasemap: basemapId => dispatch(setBasemap(basemapId)),
+  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
+    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
 
 // Export undecorated component for testing purposes.

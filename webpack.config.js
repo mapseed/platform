@@ -1,9 +1,10 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");
 
 require("dotenv").config({ path: "src/.env" });
-require("babel-polyfill");
+require("@babel/polyfill");
 var path = require("path");
 
 const PORT = 8000;
@@ -22,12 +23,10 @@ const gitSha = require("child_process")
   .toString();
 
 var entryPoints = [
-  "babel-polyfill",
   "whatwg-fetch",
   "./src/base/static/js/routes.js",
   "./src/base/static/scss/default.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
-  "./src/flavors/" + process.env.FLAVOR + "/config.json",
 ];
 
 let alias = {};
@@ -55,7 +54,7 @@ module.exports = {
     filename: isProd ? "[chunkhash].main.bundle.js" : "main.bundle.js",
   },
   resolve: {
-    alias: alias,
+    alias,
   },
   resolveLoader: {
     modules: ["node_modules", path.resolve(__dirname, "scripts")],
@@ -107,6 +106,9 @@ module.exports = {
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
     ],
   },
+  node: {
+    fs: "empty",
+  },
   plugins: [
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": isProd
@@ -117,8 +119,10 @@ module.exports = {
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,
-    new CompressionPlugin({
-      filename: "[path].gz[query]",
+    new CompressionPlugin(),
+    new WorkboxPlugin.InjectManifest({
+      swSrc: path.join("src", "sw.js"),
+      swDest: path.join(outputPath, "service-worker.js"),
     }),
   ],
   devtool: isProd ? false : "cheap-eval-souce-map",

@@ -255,15 +255,31 @@ class SiteHeader extends Component {
   state = {
     isLanguageMenuVisible: false, // relevant on desktop layouts
     isHeaderExpanded: false, // relevant on mobile layouts
+    isUserMenuOpen: false,
   };
+
+  toggleUserMenu = () => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        isUserMenuOpen: !prevState.isUserMenuOpen,
+      };
+    });
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isHeaderExpanded !== this.state.isHeaderExpanded) {
+      this.props.setMapDimensions();
+    }
+  }
 
   render() {
     return (
       <SiteHeaderWrapper>
         <LogoTitleWrapper
-          zoom={this.props.mapConfig.options.map.zoom.toFixed(2)}
-          lat={this.props.mapConfig.options.map.center.lat.toFixed(5)}
-          lng={this.props.mapConfig.options.map.center.lng.toFixed(5)}
+          zoom={this.props.mapConfig.options.mapViewport.zoom.toFixed(2)}
+          lat={this.props.mapConfig.options.mapViewport.latitude.toFixed(5)}
+          lng={this.props.mapConfig.options.mapViewport.longitude.toFixed(5)}
         >
           <NavBarHamburger
             onClick={() => {
@@ -345,7 +361,12 @@ class SiteHeader extends Component {
           <UserMenu
             router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
-            currentUser={this.props.currentUser}
+            isInMobileMode={this.state.isHeaderExpanded}
+            isMobileEnabled={!!this.props.appConfig.isShowingMobileUserMenu}
+            toggleMenu={this.toggleUserMenu}
+            isMenuOpen={
+              this.state.isUserMenuOpen || this.state.isHeaderExpanded
+            }
             currentTemplate={this.props.currentTemplate}
             dashboardConfig={this.props.dashboardConfig}
           />
@@ -358,16 +379,13 @@ class SiteHeader extends Component {
 SiteHeader.propTypes = {
   appConfig: appConfigPropType.isRequired,
   currentTemplate: PropTypes.string.isRequired,
-  currentUser: PropTypes.object,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   mapConfig: PropTypes.shape({
     options: PropTypes.shape({
-      map: PropTypes.shape({
-        center: PropTypes.shape({
-          lat: PropTypes.number.isRequired,
-          lng: PropTypes.number.isRequired,
-        }).isRequired,
+      mapViewport: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
         zoom: PropTypes.number.isRequired,
       }).isRequired,
     }).isRequired,
@@ -377,6 +395,7 @@ SiteHeader.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
+  setMapDimensions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

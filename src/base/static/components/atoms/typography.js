@@ -159,6 +159,7 @@ const textHandler = (props, styles) => {
   styles.fontFamily = props.theme.text.bodyFontFamily;
   styles.fontWeight = 200;
   styles.display = props.display || "inline";
+  styles.textAlign = props.textAlign || "left";
 
   switch (props.weight) {
     case "bold":
@@ -175,6 +176,10 @@ const textHandler = (props, styles) => {
 
   if (props.textTransform === "uppercase") {
     styles.textTransform = "uppercase";
+  }
+
+  if (props.color === "tertiary") {
+    styles.color = props.theme.text.tertiary;
   }
 
   return styles;

@@ -296,18 +296,9 @@ var self = (module.exports = {
     return model.get("datasetSlug") + "/" + model.id;
   },
 
-  // NOTE this is not in Shareabouts.js
-  // this will be "mobile" or "desktop", as defined in default.css
   getPageLayout: function() {
-    // not IE8
-    if (window.getComputedStyle) {
-      return window
-        .getComputedStyle(document.body, ":after")
-        .getPropertyValue("content");
-    }
-
-    // IE8
-    return "desktop";
+    // TODO: Better layout management.
+    return window.innerWidth <= 960 ? "mobile" : "desktop";
   },
 
   // ====================================================

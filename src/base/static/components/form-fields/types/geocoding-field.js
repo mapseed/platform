@@ -4,9 +4,10 @@ import classNames from "classnames";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
 
-import emitter from "../../../utils/emitter";
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
+
+import { updateMapViewport } from "../../../state/ducks/map";
 
 import { mapConfigSelector } from "../../../state/ducks/map-config";
 
@@ -48,7 +49,17 @@ class GeocodingField extends Component {
               isGeocoding: false,
               isWithGeocodingError: false,
             });
-            emitter.emit("geocode", locationsData[0]);
+
+            // TODO: Is this location data format specific to the Mapbox
+            // geocoder? We should probably just remove Mapquest as a geocoding
+            // option and assume the Mapbox format is the one we'll always be
+            // dealing with.
+            this.props.updateMapViewport({
+              latitude: locationsData[0].latLng.lat,
+              longitude: locationsData[0].latLng.lng,
+              zoom: 14,
+              transitionDuration: 1000,
+            });
           } else {
             this.setState({
               isGeocoding: false,
@@ -109,6 +120,7 @@ GeocodingField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
   placeholder: PropTypes.string,
+  updateMapViewport: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   isTriggeringGeocode: PropTypes.bool,
   value: PropTypes.string,
@@ -118,6 +130,11 @@ const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(
-  translate("GeocodingField")(GeocodingField),
-);
+const mapDispatchToProps = dispatch => ({
+  updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate("GeocodingField")(GeocodingField));

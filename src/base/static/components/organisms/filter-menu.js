@@ -16,9 +16,6 @@ import {
   placeFormsConfigSelector,
 } from "../../state/ducks/forms-config";
 
-import Modal from "react-modal";
-Modal.setAppElement("#main");
-
 const FilterNavButton = styled(linkProps => (
   <NavButton color={"tertiary"} onClick={linkProps.onClick}>
     {linkProps.children}
@@ -86,15 +83,6 @@ const stateReducer = (state, changes) => {
 };
 
 class FilterMenu extends Component {
-  state = {
-    isModalOpen: false,
-  };
-  openModal = () => {
-    this.setState({ isModalOpen: true });
-  };
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
-  };
   render() {
     const isFiltering = this.props.filters.length > 0;
 
@@ -118,7 +106,7 @@ class FilterMenu extends Component {
                 ...this.props.filters,
                 {
                   formId: placeForm.id,
-                  datasetId: placeForm.datasetId,
+                  datasetSlug: placeForm.datasetSlug,
                 },
               ]);
         }}

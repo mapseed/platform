@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { connect } from "react-redux";
@@ -9,9 +9,15 @@ import mq from "../../../../media-queries";
 import {
   addPlaceButtonVisibilitySelector,
   geocodeAddressBarVisibilitySelector,
+  setAddPlaceButtonVisibility,
 } from "../../state/ducks/ui";
+import {
+  hasAnonAbilitiesInAnyDataset,
+  datasetSlugsSelector,
+} from "../../state/ducks/datasets-config";
+import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 
-const AddPlaceButton = styled(
+const AddPlaceButtonContainer = styled(
   props =>
     props.isAddPlaceButtonVisible && (
       <Button
@@ -34,9 +40,7 @@ const AddPlaceButton = styled(
     },
 
     [mq[0]]: {
-      position: "fixed",
       width: "100%",
-      bottom: 0,
       borderRadius: 0,
     },
     [mq[1]]: {
@@ -47,15 +51,74 @@ const AddPlaceButton = styled(
   };
 });
 
+class AddPlaceButton extends Component {
+  componentDidMount() {
+    if (this.props.hasPermission) {
+      // isAddPlaceButtonVisible is false by default
+      this.props.setVisibility(true);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.isAddPlaceButtonVisible !== this.props.isAddPlaceButtonVisible
+    ) {
+      this.props.setMapDimensions();
+    }
+    if (prevProps.hasPermission !== this.props.hasPermission) {
+      this.props.setVisibility(this.props.hasPermission);
+    }
+  }
+
+  render() {
+    return (
+      this.props.isAddPlaceButtonVisible && (
+        <AddPlaceButtonContainer
+          className={this.props.className}
+          onClick={this.props.onClick}
+          isGeocodeAddressBarVisible={this.props.isGeocodeAddressBarVisible}
+          isAddPlaceButtonVisible={this.props.isAddPlaceButtonVisible}
+        >
+          {this.props.children}
+        </AddPlaceButtonContainer>
+      )
+    );
+  }
+}
+
 AddPlaceButton.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isGeocodeAddressBarVisible: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  setMapDimensions: PropTypes.func.isRequired,
+  setVisibility: PropTypes.func.isRequired,
+  hasPermission: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   isAddPlaceButtonVisible: addPlaceButtonVisibilitySelector(state),
   isGeocodeAddressBarVisible: geocodeAddressBarVisibilitySelector(state),
+  hasPermission:
+    hasAnonAbilitiesInAnyDataset({
+      state: state,
+      submissionSet: "places",
+      abilities: ["create"],
+    }) ||
+    hasGroupAbilitiesInDatasets({
+      state: state,
+      submissionSet: "places",
+      abilities: ["create"],
+      datasetSlugs: datasetSlugsSelector(state),
+    }),
 });
 
-export default connect(mapStateToProps)(AddPlaceButton);
+const mapDispatchToProps = dispatch => ({
+  setVisibility: isVisible => dispatch(setAddPlaceButtonVisibility(isVisible)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddPlaceButton);
