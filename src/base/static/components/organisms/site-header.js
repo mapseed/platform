@@ -362,7 +362,7 @@ class SiteHeader extends Component {
             router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
             isInMobileMode={this.state.isHeaderExpanded}
-            isMobileEnabled={this.props.appConfig.isShowingMobileUserMenu}
+            isMobileEnabled={!!this.props.appConfig.isShowingMobileUserMenu}
             toggleMenu={this.toggleUserMenu}
             isMenuOpen={
               this.state.isUserMenuOpen || this.state.isHeaderExpanded

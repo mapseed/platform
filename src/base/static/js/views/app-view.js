@@ -11,19 +11,10 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
-import { ThemeProvider } from "emotion-theming";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
-import theme from "../../../../theme";
-
-// Most of react-virtualized's styles are functional (eg position, size).
-// Functional styles are applied directly to DOM elements.
-// The Table component ships with a few presentational styles as well.
-// They are optional, but if you want them you will need to also import the CSS file.
-// This only needs to be done once; probably during your application's bootstrapping process.
-import "react-virtualized/styles.css";
+import ThemeProvider from "../../components/theme-provider";
 
 import { setMapConfig, mapConfigSelector } from "../../state/ducks/map-config";
+
 import {
   loadPlaces,
   placeSelector,
@@ -182,54 +173,6 @@ export default Backbone.View.extend({
     // Set initial map viewport from values supplied in the config.
     store.dispatch(loadMapViewport(this.options.mapConfig.options.mapViewport));
 
-    const storeState = store.getState();
-    // TODO: refactor and clean up this logic into a separate theme provider
-    this.flavorTheme = storeState.appConfig.theme;
-    this.adjustedTheme = this.flavorTheme
-      ? // ? ancestorTheme => ({ ...ancestorTheme, ...this.flavorTheme,  })
-        ancestorTheme => ({
-          ...ancestorTheme,
-          ...this.flavorTheme,
-          brand: { ...ancestorTheme.brand, ...this.flavorTheme.brand },
-          bg: {
-            ...ancestorTheme.bg,
-            ...this.flavorTheme.bg,
-          },
-          text: { ...ancestorTheme.text, ...this.flavorTheme.text },
-        })
-      : {};
-    // This is our theme, with overrides from our flavor:
-    this.theme = {
-      ...theme,
-      ...this.flavorTheme,
-      brand: { ...theme.brand, ...this.flavorTheme.brand },
-      bg: {
-        ...theme.bg,
-        ...this.flavorTheme.bg,
-      },
-      text: { ...theme.text, ...this.flavorTheme.text },
-    };
-    this.muiTheme = createMuiTheme({
-      palette: {
-        primary: {
-          // light: will be calculated from palette.primary.main,
-          main: this.theme.brand.primary,
-          // dark: will be calculated from palette.primary.main,
-          // contrastText: will be calculated to contrast with palette.primary.main
-        },
-        secondary: {
-          light: this.theme.text.highlighted,
-          main: this.theme.brand.secondary,
-          // dark: will be calculated from palette.secondary.main,
-          contrastText: this.theme.text.primary,
-        },
-        // error: will use the default color
-      },
-      typography: {
-        useNextVariants: true,
-      },
-    });
-
     languageModule.changeLanguage(this.options.languageCode);
 
     const self = this;
@@ -285,20 +228,18 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <AddPlaceButton
-              onClick={() => {
-                Util.log("USER", "map", "new-place-btn-click");
-                this.options.router.navigate("/new", {
-                  trigger: true,
-                });
-              }}
-              setMapDimensions={this.setMapDimensions.bind(this)}
-            >
-              {this.options.placeConfig.add_button_label}
-            </AddPlaceButton>
-          </ThemeProvider>
+        <ThemeProvider>
+          <AddPlaceButton
+            onClick={() => {
+              Util.log("USER", "map", "new-place-btn-click");
+              this.options.router.navigate("/new", {
+                trigger: true,
+              });
+            }}
+            setMapDimensions={this.setMapDimensions.bind(this)}
+          >
+            {this.options.placeConfig.add_button_label}
+          </AddPlaceButton>
         </ThemeProvider>
       </Provider>,
       document.getElementById("add-place-button"),
@@ -306,10 +247,8 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <MapCenterpoint />
-          </ThemeProvider>
+        <ThemeProvider>
+          <MapCenterpoint />
         </ThemeProvider>
       </Provider>,
       document.getElementById("map-centerpoint"),
@@ -318,14 +257,12 @@ export default Backbone.View.extend({
     // Site header
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <SiteHeader
-              router={this.options.router}
-              languageCode={this.options.languageCode}
-              setMapDimensions={this.setMapDimensions.bind(this)}
-            />
-          </ThemeProvider>
+        <ThemeProvider>
+          <SiteHeader
+            router={this.options.router}
+            languageCode={this.options.languageCode}
+            setMapDimensions={this.setMapDimensions.bind(this)}
+          />
         </ThemeProvider>
       </Provider>,
       document.getElementById("site-header"),
@@ -364,14 +301,12 @@ export default Backbone.View.extend({
 
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <InfoModal
-                parentId="info-modal-container"
-                isModalOpen={true}
-                {...modalContent}
-              />
-            </ThemeProvider>
+          <ThemeProvider>
+            <InfoModal
+              parentId="info-modal-container"
+              isModalOpen={true}
+              {...modalContent}
+            />
           </ThemeProvider>
         </Provider>,
         document.getElementById("info-modal-container"),
@@ -574,13 +509,11 @@ export default Backbone.View.extend({
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <RightSidebar
-                router={this.options.router}
-                setMapDimensions={this.setMapDimensions.bind(this)}
-              />
-            </ThemeProvider>
+          <ThemeProvider>
+            <RightSidebar
+              router={this.options.router}
+              setMapDimensions={this.setMapDimensions.bind(this)}
+            />
           </ThemeProvider>
         </Provider>,
         document.getElementById("right-sidebar-container"),
@@ -615,56 +548,54 @@ export default Backbone.View.extend({
       // when the AppView is ported.
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <FormCategoryMenuWrapper
-                hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-                showNewPin={this.showNewPin.bind(this)}
-                hideNewPin={this.hideNewPin.bind(this)}
-                hidePanel={this.hidePanel.bind(this)}
-                router={this.options.router}
-                customHooks={this.options.customHooks}
-                // '#content article' and 'body' represent the two containers into
-                // which panel content is rendered (one at desktop size and one at
-                // mobile size).
-                // TODO: Improve this when we move overall app layout management to
-                // Redux.
-                container={document.querySelector(
-                  Util.getPageLayout() === "desktop"
-                    ? "#content article"
-                    : "body",
-                )}
-                render={(state, props, onCategoryChange) => {
-                  if (
-                    props.customComponents &&
-                    props.customComponents.InputForm === "VVInputForm"
-                  ) {
-                    return (
-                      <VVInputForm
-                        {...props}
-                        selectedCategory={state.selectedCategory}
-                        datasetUrl={state.datasetUrl}
-                        datasetSlug={state.datasetSlug}
-                        isSingleCategory={state.isSingleCategory}
-                        onCategoryChange={onCategoryChange}
-                      />
-                    );
-                  } else {
-                    return (
-                      <InputForm
-                        {...props}
-                        selectedCategory={state.selectedCategory}
-                        datasetUrl={state.datasetUrl}
-                        datasetSlug={state.datasetSlug}
-                        isSingleCategory={state.isSingleCategory}
-                        onCategoryChange={onCategoryChange}
-                      />
-                    );
-                  }
-                }}
-                customComponents={this.options.customComponents}
-              />
-            </ThemeProvider>
+          <ThemeProvider>
+            <FormCategoryMenuWrapper
+              hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+              showNewPin={this.showNewPin.bind(this)}
+              hideNewPin={this.hideNewPin.bind(this)}
+              hidePanel={this.hidePanel.bind(this)}
+              router={this.options.router}
+              customHooks={this.options.customHooks}
+              // '#content article' and 'body' represent the two containers into
+              // which panel content is rendered (one at desktop size and one at
+              // mobile size).
+              // TODO: Improve this when we move overall app layout management to
+              // Redux.
+              container={document.querySelector(
+                Util.getPageLayout() === "desktop"
+                  ? "#content article"
+                  : "body",
+              )}
+              render={(state, props, onCategoryChange) => {
+                if (
+                  props.customComponents &&
+                  props.customComponents.InputForm === "VVInputForm"
+                ) {
+                  return (
+                    <VVInputForm
+                      {...props}
+                      selectedCategory={state.selectedCategory}
+                      datasetUrl={state.datasetUrl}
+                      datasetSlug={state.datasetSlug}
+                      isSingleCategory={state.isSingleCategory}
+                      onCategoryChange={onCategoryChange}
+                    />
+                  );
+                } else {
+                  return (
+                    <InputForm
+                      {...props}
+                      selectedCategory={state.selectedCategory}
+                      datasetUrl={state.datasetUrl}
+                      datasetSlug={state.datasetSlug}
+                      isSingleCategory={state.isSingleCategory}
+                      onCategoryChange={onCategoryChange}
+                    />
+                  );
+                }
+              }}
+              customComponents={this.options.customComponents}
+            />
           </ThemeProvider>
         </Provider>,
         document.querySelector("#content article"),
@@ -801,21 +732,15 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <MuiThemeProvider theme={this.muiTheme}>
-              <PlaceDetail
-                placeId={args.placeId}
-                datasetSlug={place._datasetSlug}
-                container={document.querySelector("#content article")}
-                isGeocodingBarEnabled={
-                  this.options.mapConfig.geocoding_bar_enabled
-                }
-                scrollToResponseId={args.responseId}
-                router={this.options.router}
-              />
-            </MuiThemeProvider>
-          </ThemeProvider>
+        <ThemeProvider>
+          <PlaceDetail
+            placeId={args.placeId}
+            datasetSlug={place._datasetSlug}
+            container={document.querySelector("#content article")}
+            isGeocodingBarEnabled={this.options.mapConfig.geocoding_bar_enabled}
+            scrollToResponseId={args.responseId}
+            router={this.options.router}
+          />
         </ThemeProvider>
       </Provider>,
       document.querySelector("#content article"),
@@ -990,10 +915,8 @@ export default Backbone.View.extend({
       $("#geocode-address-bar").removeClass("is-visuallyhidden");
       ReactDOM.render(
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <GeocodeAddressBar mapConfig={this.options.mapConfig} />
-            </ThemeProvider>
+          <ThemeProvider>
+            <GeocodeAddressBar mapConfig={this.options.mapConfig} />
           </ThemeProvider>
         </Provider>,
         document.getElementById("geocode-address-bar"),
@@ -1011,14 +934,12 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <MainMap
-              container={document.getElementById("map-container")}
-              router={this.options.router}
-              setSlippyRoute={this.setSlippyRoute.bind(this)}
-            />
-          </ThemeProvider>
+        <ThemeProvider>
+          <MainMap
+            container={document.getElementById("map-container")}
+            router={this.options.router}
+            setSlippyRoute={this.setSlippyRoute.bind(this)}
+          />
         </ThemeProvider>
       </Provider>,
       document.getElementById("map-component"),
@@ -1064,10 +985,8 @@ export default Backbone.View.extend({
     this.hidePanel();
     ReactDOM.render(
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={this.adjustedTheme}>
-            <PlaceList router={this.options.router} />
-          </ThemeProvider>
+        <ThemeProvider>
+          <PlaceList router={this.options.router} />
         </ThemeProvider>
       </Provider>,
       document.getElementById("list-container"),
@@ -1097,14 +1016,12 @@ export default Backbone.View.extend({
     ReactDOM.render(
       <Suspense fallback={<div>Loading...</div>}>
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <Dashboard
-                router={this.options.router}
-                datasetDownloadConfig={this.options.appConfig.dataset_download}
-                apiRoot={this.options.appConfig.api_root}
-              />
-            </ThemeProvider>
+          <ThemeProvider>
+            <Dashboard
+              router={this.options.router}
+              datasetDownloadConfig={this.options.appConfig.dataset_download}
+              apiRoot={this.options.appConfig.api_root}
+            />
           </ThemeProvider>
         </Provider>
       </Suspense>,
