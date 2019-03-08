@@ -706,13 +706,13 @@
           },
           {
             "name": "delegates_header",
-            "restrictToGroups": ["delegates", "tech-reviewers"],
+            "restrictToGroups": ["delegates"],
             "type": "informational_html",
             "content": "<h1>Budget Delegates section</h1><p>This section is intended to be completed by Budget Delegates.</p>"
           },
           {
             "prompt": "_(Equity Assessment Score)",
-            "restrictToGroups": ["delegates", "tech-reviewers"],
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Equity Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_equity_score",
@@ -734,7 +734,7 @@
           },
           {
             "prompt": "_(Impact Assessment Score)",
-            "restrictToGroups": ["delegates", "tech-reviewers"],
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Impact Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_impact_score",
@@ -756,7 +756,7 @@
           },
           {
             "prompt": "_(Feasibility Assessment Score)",
-            "restrictToGroups": ["tech-reviewers"],
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Feasibility Assessment Score:)",
             "type": "big_radio",
             "name": "delegate_feasibility_score",
@@ -778,7 +778,7 @@
           },
           {
             "prompt": "_(Project Budget)",
-            "restrictToGroups": ["tech-reviewers"],
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Project Budget:)",
             "type": "text",
             "placeholder": "...",
@@ -787,7 +787,7 @@
           },
           {
             "prompt": "_(Cost Estimation)",
-            "restrictToGroups": ["tech-reviewers"],
+            "restrictToGroups": ["delegates"],
             "display_prompt": "_(Project Cost Estimation:)",
             "type": "text",
             "placeholder": "...",
@@ -802,7 +802,7 @@
           },
           {
             "prompt": "_(Equity Assessment Score)",
-            "restrictToGroups": ["tech-reviewers", "delegates"],
+            "restrictToGroups": ["tech-reviewers"],
             "display_prompt": "_(Equity Assessment Score)",
             "type": "big_radio",
             "name": "staff_equity_score",
@@ -824,7 +824,7 @@
           },
           {
             "prompt": "_(Impact Assessment Score)",
-            "restrictToGroups": ["tech-reviewers", "delegates"],
+            "restrictToGroups": ["tech-reviewers"],
             "display_prompt": "_(Impact Assessment Score)",
             "type": "big_radio",
             "name": "staff_impact_score",
