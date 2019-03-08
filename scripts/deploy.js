@@ -99,6 +99,17 @@ function updateMetadata() {
       return copyObjectPromise(buildParams(filepath, params));
     })
     .concat(
+      glob.sync("./www/service-worker.js").map(filepath => {
+        const relativePath = path.relative("./www", filepath);
+        // NOTE: cache headers may not be needed anymore:
+        // https://developers.google.com/web/updates/2018/06/fresher-sw
+        params = {
+          CacheControl: "max-age=0",
+        };
+        return copyObjectPromise(buildParams(relativePath, params));
+      }),
+    )
+    .concat(
       glob.sync("./www/**/*.gz").map(filepath => {
         // Ensure gzipped files have "Content-Encoding" set
         filepath = path.relative("./www", filepath);

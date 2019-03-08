@@ -44,6 +44,7 @@
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.7",
     "@mapbox/mapbox-gl-draw": "github:mapseed/mapbox-gl-draw#a790a7804786dac196d1a2304dd56223c115aa26",
+    "@material-ui/core": "^3.9.2",
     "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "babel-plugin-emotion": "^9.2.11",
     "browser-update": "^3.1.13",
@@ -66,13 +67,13 @@
     "npm": "^6.4.1",
     "qs": "^6.6.0",
     "rc-color-picker": "^1.2.3",
-    "react": "^16.8.1",
+    "react": "^16.8.2",
     "react-datetime": "~2.14.0",
-    "react-dom": "~16.7.0",
+    "react-dom": "~16.8.2",
     "react-emotion": "~9.2.6",
     "react-i18next": "~7.5.1",
     "react-map-gl": "^4.0.10",
-    "react-modal": "~3.4.4",
+    "react-modal": "~3.8.1",
     "react-quill": "~1.1.0",
     "react-redux": "~5.0.7",
     "react-spinner": "~0.2.7",
@@ -133,6 +134,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14",
     "webpack-modernizr-loader": "^4.0.1",
+    "workbox-webpack-plugin": "^4.0.0",
     "yaml-loader": "^0.5.0"
   }
 }

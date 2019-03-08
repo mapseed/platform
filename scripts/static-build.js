@@ -237,9 +237,11 @@ activeLanguages.forEach((language, langNum) => {
   // Build the index-xx.html file for this language
   const outputIndexFile = indexTemplate({
     production: isProd,
+    serviceWorkerPath: "/service-worker.js",
     jsHashedBundleName: jsHashedBundleName,
     cssHashedBundleName: cssHashedBundleName,
     config: thisConfig,
+    flavor: flavor,
     settings: {
       mapboxToken: process.env.MAPBOX_TOKEN || "",
       clickyAnalyticsId: process.env.CLICKY_ANALYTICS_ID || "",

@@ -92,6 +92,13 @@ const createPlace = async ({
 
   const feature = await response.json();
 
+  if (feature.isOfflineResponse) {
+    // Let the caller know that an offline place was submitted:
+    return {
+      isOffline: true,
+    };
+  }
+
   return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
 };
 
