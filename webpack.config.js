@@ -3,7 +3,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
 
 require("dotenv").config({ path: "src/.env" });
-require("babel-polyfill");
+require("@babel/polyfill");
 var path = require("path");
 
 const PORT = 8000;
@@ -22,7 +22,6 @@ const gitSha = require("child_process")
   .toString();
 
 var entryPoints = [
-  "babel-polyfill",
   "whatwg-fetch",
   "./src/base/static/js/routes.js",
   "./src/base/static/scss/default.scss",

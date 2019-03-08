@@ -1,32 +1,58 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
+        "useBuiltIns": "entry",
         "targets": {
-          "browsers": ["last 2 versions"]
+          "browsers": [
+            "last 2 versions"
+          ]
         }
       }
     ],
-    "react"
+    "@babel/preset-react"
   ],
   "plugins": [
-    "transform-runtime",
-    "transform-object-rest-spread",
-    "transform-async-to-generator",
-    "transform-async-generator-functions",
-    "transform-class-properties",
-    "syntax-dynamic-import"
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-async-to-generator",
+    "@babel/plugin-proposal-async-generator-functions",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-syntax-dynamic-import"
   ],
   "env": {
     "production": {
-      "plugins": [["emotion", { "hoist": true }]]
+      "plugins": [
+        [
+          "emotion",
+          {
+            "hoist": true
+          }
+        ]
+      ]
     },
     "development": {
-      "plugins": [["emotion", { "sourceMap": true, "autoLabel": true }]]
+      "plugins": [
+        [
+          "emotion",
+          {
+            "sourceMap": true,
+            "autoLabel": true
+          }
+        ]
+      ]
     },
     "test": {
-      "plugins": [["emotion", { "sourceMap": true, "autoLabel": true }]]
+      "plugins": [
+        [
+          "emotion",
+          {
+            "sourceMap": true,
+            "autoLabel": true
+          }
+        ]
+      ]
     }
   }
 }
