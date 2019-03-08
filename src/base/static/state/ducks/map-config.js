@@ -24,6 +24,9 @@ export const offlineConfigPropType = PropTypes.shape({
 export const mapConfigSelector = state => {
   return state.mapConfig;
 };
+export const mapLayersSelector = state => {
+  return state.layers;
+};
 export const mapLayerGroupsSelector = state => {
   return state.mapConfig.layerGroups;
 };
