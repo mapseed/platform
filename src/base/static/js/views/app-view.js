@@ -320,7 +320,10 @@ export default Backbone.View.extend({
 
     // Cache panel elements that we use a lot
     this.$panel = $("#content");
+    // HACK! These are (very) temporary layout hacks until we port AppView.
+    Util.getPageLayout() === "desktop" && this.$panel.width("40%");
     this.$rightSidebar = $("#right-sidebar-container");
+    this.$rightSidebar.width("15%");
     this.$panelContent = $("#content article");
     this.$panelCloseBtn = $(".close-btn");
 
@@ -760,13 +763,11 @@ export default Backbone.View.extend({
     // TODO: Remove these layout hacks when we port AppView.
     if (Util.getPageLayout() === "mobile") {
       $("#main").height(
-        document.body.clientHeight -
+        window.innerHeight -
           ($("#site-header").height() + $("#add-place-button").height()),
       );
     } else {
-      $("#main").height(
-        document.body.clientHeight - $("#site-header").height(),
-      );
+      $("#main").height(window.innerHeight - $("#site-header").height());
     }
 
     // To avoid a race condition between CSS resizing elements and the map
@@ -777,24 +778,24 @@ export default Backbone.View.extend({
       updateMapViewport({
         width:
           Util.getPageLayout() === "desktop"
-            ? document.body.clientWidth -
+            ? window.innerWidth -
               (contentPanelOpenSelector(store.getState())
                 ? this.$panel.width()
                 : 0) -
               (rightSidebarExpandedSelector(store.getState())
                 ? this.$rightSidebar.width()
                 : 0)
-            : document.body.clientWidth,
+            : window.innerWidth,
         height:
           Util.getPageLayout() === "desktop"
-            ? document.body.clientHeight - $("#site-header").height()
-            : document.body.clientHeight -
+            ? window.innerHeight - $("#site-header").height()
+            : window.innerHeight -
               $("#site-header").height() -
               $("#geocode-address-bar").height() -
               (contentPanelOpenSelector(store.getState())
                 ? // 0.4 corresponds to 100% - the 60% of the available height
                   // that the map occupies on mobile.
-                  (document.body.clientHeight -
+                  (window.innerHeight -
                     $("#geocode-address-bar").height() -
                     $("#site-header").height()) *
                   0.4
@@ -849,13 +850,13 @@ export default Backbone.View.extend({
       );
       this.hideSpotlightMask();
 
+      this.showPanel();
       if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadDatasets();
       }
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
-      this.showPanel();
     } else {
       this.options.router.navigate("/", { trigger: true });
     }
@@ -869,6 +870,7 @@ export default Backbone.View.extend({
   },
   showPanel: function() {
     this.$panel.show();
+    this.$panel.css("display", "block");
     Util.log("APP", "panel-state", "open");
     store.dispatch(setContentPanel(true));
     this.setMapDimensions();
@@ -897,7 +899,7 @@ export default Backbone.View.extend({
   hideSpotlightMask: function() {
     $("#spotlight-mask").hide();
   },
-  renderMain: function(mapPosition) {
+  renderMain: function() {
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
     $("#dashboard-container").addClass("is-visuallyhidden");
@@ -946,16 +948,10 @@ export default Backbone.View.extend({
     );
 
     store.dispatch(setCurrentTemplate("map"));
-
-    if (mapPosition) {
-      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
-        coordinates: mapPosition.coordinates,
-        zoom: mapPosition.zoom,
-      });
-    }
+    store.dispatch(setAddPlaceButtonVisibility(true));
+    this.setMapDimensions();
   },
   viewList: async function() {
-    emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     this.renderRightSidebar();
     if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadDatasets();

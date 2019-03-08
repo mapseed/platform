@@ -67,7 +67,7 @@
         "minZoom": 1,
         "maxZoom": 18
       },
-      "drawing_enabled": false
+      "disableDrawing": true
     },
     "mapboxSources": {
       "osm": {
