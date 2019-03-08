@@ -8,7 +8,6 @@ import TagEditor from "../molecules/tag-editor";
 
 import {
   getAllTagsForDataset,
-  getTagDisplayName,
   getColorForTag,
   getTagFromUrl,
   placeTagPropType,
@@ -64,7 +63,6 @@ const TagBar = props => {
 TagBar.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
   getAllTagsForDataset: PropTypes.func.isRequired,
-  getTagDisplayName: PropTypes.func.isRequired,
   getColorForTag: PropTypes.func.isRequired,
   getTagFromUrl: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
@@ -75,8 +73,6 @@ TagBar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  getTagDisplayName: (datasetSlug, tagId) =>
-    getTagDisplayName({ state, datasetSlug, tagId }),
   getAllTagsForDataset: datasetSlug => getAllTagsForDataset(state, datasetSlug),
   getColorForTag: (datasetSlug, tagUrl) =>
     getColorForTag({ state, datasetSlug, tagUrl }),

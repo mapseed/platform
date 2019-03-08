@@ -29,7 +29,7 @@ import {
   placePropType,
   updateActiveEditPlaceId,
 } from "../../state/ducks/places";
-import { removeGeoJSONFeature } from "../../state/ducks/map";
+import { removeFeatureInGeoJSONSource } from "../../state/ducks/map";
 import { updateEditModeToggled } from "../../state/ducks/ui";
 import { isInAtLeastOneGroup, hasAdminAbilities } from "../../state/ducks/user";
 
@@ -219,7 +219,7 @@ class PlaceDetailEditor extends Component {
     if (response) {
       this.props.router.navigate("/", { trigger: true });
       this.props.removePlace(this.props.place.id);
-      this.props.removeGeoJSONFeature(
+      this.props.removeFeatureInGeoJSONSource(
         this.props.place._datasetSlug,
         this.props.place.id,
       );
@@ -367,7 +367,7 @@ PlaceDetailEditor.propTypes = {
   place: placePropType.isRequired,
   placeRequestType: PropTypes.string,
   removePlace: PropTypes.func.isRequired,
-  removeGeoJSONFeature: PropTypes.func.isRequired,
+  removeFeatureInGeoJSONSource: PropTypes.func.isRequired,
   removePlaceAttachment: PropTypes.func.isRequired,
   router: PropTypes.object,
   setPlaceRequestType: PropTypes.func.isRequired,
@@ -390,8 +390,8 @@ const mapDispatchToProps = dispatch => ({
   updateEditModeToggled: isToggled =>
     dispatch(updateEditModeToggled(isToggled)),
   updatePlace: place => dispatch(updatePlace(place)),
-  removeGeoJSONFeature: (sourceId, featureId) =>
-    dispatch(removeGeoJSONFeature(sourceId, featureId)),
+  removeFeatureInGeoJSONSource: (sourceId, featureId) =>
+    dispatch(removeFeatureInGeoJSONSource(sourceId, featureId)),
   removePlace: placeId => dispatch(removePlace(placeId)),
   removePlaceAttachment: (placeId, attachmentId) =>
     dispatch(removePlaceAttachment(placeId, attachmentId)),

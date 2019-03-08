@@ -84,7 +84,6 @@ const Dashboard = lazy(() => import("../../components/templates/dashboard"));
 
 import MainMap from "../../components/templates/main-map";
 import InputForm from "../../components/input-form";
-import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
@@ -570,32 +569,16 @@ export default Backbone.View.extend({
                   : "body",
               )}
               render={(state, props, onCategoryChange) => {
-                if (
-                  props.customComponents &&
-                  props.customComponents.InputForm === "VVInputForm"
-                ) {
-                  return (
-                    <VVInputForm
-                      {...props}
-                      selectedCategory={state.selectedCategory}
-                      datasetUrl={state.datasetUrl}
-                      datasetSlug={state.datasetSlug}
-                      isSingleCategory={state.isSingleCategory}
-                      onCategoryChange={onCategoryChange}
-                    />
-                  );
-                } else {
-                  return (
-                    <InputForm
-                      {...props}
-                      selectedCategory={state.selectedCategory}
-                      datasetUrl={state.datasetUrl}
-                      datasetSlug={state.datasetSlug}
-                      isSingleCategory={state.isSingleCategory}
-                      onCategoryChange={onCategoryChange}
-                    />
-                  );
-                }
+                return (
+                  <InputForm
+                    {...props}
+                    selectedCategory={state.selectedCategory}
+                    datasetUrl={state.datasetUrl}
+                    datasetSlug={state.datasetSlug}
+                    isSingleCategory={state.isSingleCategory}
+                    onCategoryChange={onCategoryChange}
+                  />
+                );
               }}
               customComponents={this.options.customComponents}
             />
