@@ -1,4 +1,5 @@
 import React, { Component, createRef, Fragment } from "react";
+import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
@@ -144,21 +145,24 @@ class MainMap extends Component {
   isMapTransitioning = false;
 
   onWindowResize = () => {
-    const container = this.props.container.getBoundingClientRect();
-    this.props.updateMapViewport({
-      height: container.height,
-      width: container.width,
-    });
+    //   TODO
+    //   const container = this.props.container.getBoundingClientRect();
+    //   this.props.updateMapViewport({
+    //     height: container.height,
+    //     width: container.width,
+    //   });
   };
 
   componentDidMount() {
-    const container = this.props.container.getBoundingClientRect();
-    this.props.updateMapViewport({
-      height: container.height,
-      width: container.width,
-    });
+    //  const container = this.props.container.getBoundingClientRect();
+    //  this.props.updateMapViewport({
+    //    height: container.height,
+    //    width: container.width,
+    //  });
+    //this.props.setMapDimensions()
 
-    window.addEventListener("resize", this.onWindowResize);
+    //  window.addEventListener("resize", this.onWindowResize);
+
 
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
@@ -491,7 +495,6 @@ MainMap.propTypes = {
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
   activeEditPlaceId: PropTypes.number,
-  container: PropTypes.instanceOf(Element).isRequired,
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   geometryStyle: geometryStyleProps,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -517,7 +520,6 @@ MainMap.propTypes = {
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
-  setSlippyRoute: PropTypes.func.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   updateMapDragged: PropTypes.func.isRequired,
   updateMapDragging: PropTypes.func.isRequired,

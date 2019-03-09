@@ -98,108 +98,58 @@ import MapCenterpoint from "../../components/molecules/map-centerpoint";
 import constants from "../../constants";
 import PlaceList from "../../components/organisms/place-list";
 
-// TODO(luke): move this into index.js (currently routes.js)
-const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
-
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
-
-browserUpdate({
-  required: {
-    e: -2, // Edge, last 2 versions
-    i: 11, // IE >= 11.0
-    f: -2, // Firefox, last 2 versions
-    s: -2, // Safari, last 2 versions
-    c: -2, // Chrome, last 2 versions
-  },
-});
 
 export default Backbone.View.extend({
   events: {
     "click .close-btn": "onClickClosePanelBtn",
   },
   initialize: async function() {
-    // TODO(luke): move this into "componentDidMount" when App becomes a
-    // component:
-
-    store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
-    store.dispatch(setMapConfig(this.options.mapConfig));
-    store.dispatch(
-      loadPlaceConfig(this.options.placeConfig, userSelector(store.getState())),
-    );
-    store.dispatch(setLeftSidebarConfig(this.options.leftSidebarConfig));
-    store.dispatch(setRightSidebarConfig(this.options.rightSidebarConfig));
-    store.dispatch(setStoryConfig(this.options.storyConfig));
-    store.dispatch(setAppConfig(this.options.appConfig));
-    store.dispatch(loadFormsConfig(this.options.formsConfig));
-    store.dispatch(setSupportConfig(this.options.supportConfig));
-    store.dispatch(setPagesConfig(this.options.pagesConfig));
-    store.dispatch(setNavBarConfig(this.options.navBarConfig));
-    store.dispatch(
-      loadMapStyle(this.options.mapConfig, this.options.datasetsConfig),
-    );
-    if (this.options.dashboardConfig) {
-      store.dispatch(loadDashboardConfig(this.options.dashboardConfig));
-    }
-    // Set initial map viewport from values supplied in the config.
-    store.dispatch(loadMapViewport(this.options.mapConfig.options.mapViewport));
-
-    languageModule.changeLanguage(this.options.languageCode);
-
     const self = this;
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
     this.isStoryActive = false;
 
-    $("body").ajaxError(function(evt, request, settings) {
-      $("#ajax-error-msg").show();
-    });
+    //  TODO: internal links
+  //  // Globally capture clicks. If they are internal and not in the pass
+  //  // through list, route them through Backbone's navigate method.
+  //  $(document).on("click", 'a[href^="/"]', function(evt) {
+  //    var $link = $(evt.currentTarget),
+  //      href = $link.attr("href"),
+  //      url,
+  //      isLinkToPlace = false;
 
-    $("body").ajaxSuccess(function(evt, request, settings) {
-      $("#ajax-error-msg").hide();
-    });
+  //    _.each(self.options.datasetConfigs.places, function(dataset) {
+  //      if (href.indexOf("/" + dataset.slug) === 0) isLinkToPlace = true;
+  //    });
 
-    // Globally capture clicks. If they are internal and not in the pass
-    // through list, route them through Backbone's navigate method.
-    $(document).on("click", 'a[href^="/"]', function(evt) {
-      var $link = $(evt.currentTarget),
-        href = $link.attr("href"),
-        url,
-        isLinkToPlace = false;
+  //    // Allow shift+click for new tabs, etc.
+  //    if (
+  //      ($link.attr("rel") === "internal" ||
+  //        href === "/" ||
+  //        isLinkToPlace ||
+  //        href.indexOf("/filter") === 0) &&
+  //      !evt.altKey &&
+  //      !evt.ctrlKey &&
+  //      !evt.metaKey &&
+  //      !evt.shiftKey
+  //    ) {
+  //      evt.preventDefault();
 
-      _.each(self.options.datasetConfigs.places, function(dataset) {
-        if (href.indexOf("/" + dataset.slug) === 0) isLinkToPlace = true;
-      });
+  //      // Remove leading slashes and hash bangs (backward compatablility)
+  //      url = href.replace(/^\//, "").replace("#!/", "");
 
-      // Allow shift+click for new tabs, etc.
-      if (
-        ($link.attr("rel") === "internal" ||
-          href === "/" ||
-          isLinkToPlace ||
-          href.indexOf("/filter") === 0) &&
-        !evt.altKey &&
-        !evt.ctrlKey &&
-        !evt.metaKey &&
-        !evt.shiftKey
-      ) {
-        evt.preventDefault();
+  //      // # Instruct Backbone to trigger routing events
+  //      self.options.router.navigate(url, {
+  //        trigger: true,
+  //      });
 
-        // Remove leading slashes and hash bangs (backward compatablility)
-        url = href.replace(/^\//, "").replace("#!/", "");
-
-        // # Instruct Backbone to trigger routing events
-        self.options.router.navigate(url, {
-          trigger: true,
-        });
-
-        return false;
-      }
-    });
+  //      return false;
+  //    }
+  //  });
 
     ReactDOM.render(
       <Provider store={store}>
@@ -229,33 +179,6 @@ export default Backbone.View.extend({
       document.getElementById("map-centerpoint"),
     );
 
-    // Site header
-    ReactDOM.render(
-      <Provider store={store}>
-        <ThemeProvider>
-          <SiteHeader
-            router={this.options.router}
-            languageCode={this.options.languageCode}
-            setMapDimensions={this.setMapDimensions.bind(this)}
-          />
-        </ThemeProvider>
-      </Provider>,
-      document.getElementById("site-header"),
-    );
-
-    // When the user chooses a geocoded address, the address view will fire
-    // a geocode event on the namespace. At that point we center the map on
-    // the geocoded location.
-
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    emitter.addListener("geocode", locationData => {
-      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
-        coordinates: locationData.latLng,
-        // TODO: Make this configurable?
-        zoom: 16,
-      });
-    });
-    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("nav-layer-btn:toggle", () => {

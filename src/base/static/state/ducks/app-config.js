@@ -67,7 +67,7 @@ export function setAppConfig(config) {
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = {};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

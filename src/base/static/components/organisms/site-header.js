@@ -33,13 +33,14 @@ import {
 } from "../../state/ducks/left-sidebar";
 import mq from "../../../../media-queries";
 
-// TODO: Make the outermost div a header element when we dissolve base.hbs.
-// Right now the header element lives in base.hbs.
-const SiteHeaderWrapper = styled("div")(props => ({
+const SiteHeaderWrapper = styled("header")(props => ({
+  position: "relative",
+  zIndex: 10,
   backgroundColor: props.theme.bg.default,
   display: "flex",
-  height: "100%",
+  height: "56px",
   alignItems: "center",
+  boxShadow: "0 0.125em 0 rgba(0,0,0,0.2)",
 
   [mq[0]]: {
     flexDirection: "column",
@@ -267,12 +268,6 @@ class SiteHeader extends Component {
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.isHeaderExpanded !== this.state.isHeaderExpanded) {
-      this.props.setMapDimensions();
-    }
-  }
-
   render() {
     return (
       <SiteHeaderWrapper>
@@ -395,7 +390,6 @@ SiteHeader.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
-  setMapDimensions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

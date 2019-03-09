@@ -1,98 +1,151 @@
 /*globals Backbone jQuery _ */
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "../components/app";
+import { createStore } from "redux";
+import reducer from "../state/reducers";
+
 import Util from "./utils.js";
-import AppView from "./views/app-view.js";
 import config from "config";
 
+import { updateCurrentTemplate } from "../state/ducks/ui";
+
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
+
+import mapseedApiClient from "../client/mapseed-api-client";
+import { setAppConfig } from "../state/ducks/app-config";
+import { loadDatasetsConfig } from "../state/ducks/datasets-config";
+import { setMapConfig } from "../state/ducks/map-config";
+import { loadPlaceConfig } from "../state/ducks/place-config";
+// TODO: configs always in their own ducks?
+import { setLeftSidebarConfig } from "../state/ducks/left-sidebar";
+import { setRightSidebarConfig } from "../state/ducks/right-sidebar-config";
+import { setStoryConfig } from "../state/ducks/story-config";
+import { loadFormsConfig } from "../state/ducks/forms-config";
+import { setSupportConfig } from "../state/ducks/support-config";
+import { setPagesConfig } from "../state/ducks/pages-config";
+import { setNavBarConfig } from "../state/ducks/nav-bar-config";
+import { loadMapStyle, loadMapViewport } from "../state/ducks/map";
+import { loadDashboardConfig } from "../state/ducks/dashboard-config";
+import { loadUser } from "../state/ducks/user";
+import languageModule from "../language-module";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
 
-(function($) {
+(function() {
   const Router = Backbone.Router.extend({
-    routes: {
-      "": "viewMap",
-      "page/:slug": "viewPage",
-      dashboard: "viewDashboard",
-      sha: "viewSha",
-      ":dataset/:id": "viewPlace",
-      new: "newPlace",
-      ":dataset/:id/response/:response_id": "viewPlace",
-      list: "viewList",
-      ":zoom/:lat/:lng": "viewMap",
-      ":custom": "viewMap", // workaround to handle routes like "/es.html" or "/en_US.html"
-    },
-
     initialize: function(options) {
-      var self = this;
-
-      fetch(`${options.appConfig.api_root}utils/session-key?format=json`, {
-        credentials: "include",
-      }).then(async session => {
-        const sessionJson = await session.json();
-        Shareabouts.Util.cookies.save(
-          "sa-api-sessionid",
-          sessionJson.sessionid,
-        );
-      });
+      //     fetch(`${options.config.app.api_root}utils/session-key?format=json`, {
+      //       credentials: "include",
+      //     }).then(async session => {
+      //       const sessionJson = await session.json();
+      //       Shareabouts.Util.cookies.save(
+      //         "sa-api-sessionid",
+      //         sessionJson.sessionid,
+      //       );
+      //     });
 
       // Global route changes
-      this.bind("route", function() {
-        Util.log("ROUTE", self.getCurrentPath());
-      });
-
-      this.loading = true;
-
-      this.appView = new AppView({
-        el: "body",
-        places: this.places,
-        datasetConfigs: options.datasetsConfig,
-        apiRoot: options.appConfig.api_root,
-        config: options.config,
-        placeTypes: options.placeTypes,
-        cluster: options.cluster,
-        appConfig: options.appConfig,
-        formsConfig: options.formsConfig,
-        supportConfig: options.supportConfig,
-        navBarConfig: options.navBarConfig,
-        pagesConfig: options.pagesConfig,
-        mapConfig: options.mapConfig,
-        storyConfig: options.storyConfig,
-        placeConfig: options.placeConfig,
-        leftSidebarConfig: options.leftSidebarConfig,
-        rightSidebarConfig: options.rightSidebarConfig,
-        activityConfig: options.activityConfig,
-        dashboardConfig: options.dashboardConfig,
-        router: this,
-        filters: options.filters,
-        languageCode: options.languageCode,
-        customHooks: options.customHooks,
-        customComponents: options.customComponents,
-        datasetsConfig: options.datasetsConfig,
-      });
+      //this.bind("route", function() {
+      //  Util.log("ROUTE", self.getCurrentPath());
+      //});
 
       // Start tracking the history
       var historyOptions = { pushState: true };
-
       Backbone.history.start(historyOptions);
 
-      // Load the default page when there is no page already in the url
-      if (Backbone.history.getFragment() === "") {
-        const startPageConfig = _.findWhere(options.navBarConfig, {
-          start_page: true,
+      this.store = createStore(
+        reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+          window.__REDUX_DEVTOOLS_EXTENSION__(),
+      );
+
+      let user;
+      mapseedApiClient.user
+        .get(options.config.app.api_root)
+        .then(authedUser => {
+          user = authedUser
+            ? {
+                token: `user:${authedUser.id}`,
+                // avatar_url and `name` are backup values that can get overidden:
+                avatar_url: "/static/css/images/user-50.png",
+                name: authedUser.username,
+                ...authedUser,
+                isAuthenticated: true,
+              }
+            : {
+                // anonymous user:
+                avatar_url: "/static/css/images/user-50.png",
+                token: `session:${Shareabouts.Util.cookies.get(
+                  "sa-api-sessionid",
+                )}`,
+                groups: [],
+                isAuthenticated: false,
+              };
+
+          this.store.dispatch(loadUser(user));
         });
-
-        if (
-          startPageConfig &&
-          startPageConfig.url &&
-          // don't route to the start page on small screens
-          $(window).width() > (startPageConfig.show_above_width || 960)
-        ) {
-          this.navigate(startPageConfig.url, { trigger: true });
-        }
+      // TODO: Consistent "load" terminology
+      this.store.dispatch(loadDatasetsConfig(options.config.datasets));
+      this.store.dispatch(setMapConfig(options.config.map));
+      this.store.dispatch(loadPlaceConfig(options.config.place, user));
+      this.store.dispatch(setLeftSidebarConfig(options.config.left_sidebar));
+      this.store.dispatch(setRightSidebarConfig(options.config.right_sidebar));
+      this.store.dispatch(setStoryConfig(options.config.story));
+      this.store.dispatch(setAppConfig(options.config.app));
+      this.store.dispatch(loadFormsConfig(options.config.forms));
+      this.store.dispatch(setSupportConfig(options.config.support));
+      this.store.dispatch(setPagesConfig(options.config.pages));
+      this.store.dispatch(setNavBarConfig(options.config.nav_bar));
+      this.store.dispatch(
+        loadMapStyle(options.config.map, options.config.datasets),
+      );
+      if (options.config.dashboard) {
+        this.store.dispatch(loadDashboardConfig(options.config.dashboard));
       }
+      this.store.dispatch(
+        loadMapViewport(options.config.map.options.mapViewport),
+      );
 
-      this.loading = false;
+      languageModule.changeLanguage(options.languageCode);
+
+      ReactDOM.render(
+        <App
+          store={this.store}
+          router={this}
+          config={options.config}
+          languageCode={options.languageCode}
+        />,
+        document.getElementById("site-wrap"),
+      );
+
+      //      // Load the default page when there is no page already in the url
+      //      if (Backbone.history.getFragment() === "") {
+      //        const startPageConfig = _.findWhere(options.navBarConfig, {
+      //          start_page: true,
+      //        });
+      //
+      //        if (
+      //          startPageConfig &&
+      //          startPageConfig.url &&
+      //          // don't route to the start page on small screens
+      //          $(window).width() > (startPageConfig.show_above_width || 960)
+      //        ) {
+      //          this.navigate(startPageConfig.url, { trigger: true });
+      //        }
+      //      }
+
+      this.route("", "viewMap");
+      this.route("page/:slug", "viewPage");
+      this.route("dashboard", "viewDashboard");
+      this.route("sha", "viewSha");
+      this.route(":dataset/:id", "viewPlace");
+      this.route("new", "newPlace");
+      this.route(":dataset/:id/response/:response_id", "viewPlace");
+      this.route("list", "viewList");
+      this.route(":zoom/:lat/:lng", "viewMap");
+      this.route(":custom", "viewMap"); // workaround to handle routes like "/es.html" or "/en_US.html"
     },
 
     getCurrentPath: function() {
@@ -103,7 +156,8 @@ Shareabouts.Util = Util;
 
     viewMap: function(zoom, lat, lng) {
       recordGoogleAnalyticsHit("/");
-      this.appView.viewMap(parseInt(zoom), parseFloat(lat), parseFloat(lng));
+      this.store.dispatch(updateCurrentTemplate("map"));
+      //  this.appView.viewMap(parseInt(zoom), parseFloat(lat), parseFloat(lng));
     },
 
     viewDashboard: function() {
@@ -152,30 +206,12 @@ Shareabouts.Util = Util;
       );
     },
   });
+
   new Router({
-    activity: [],
-    appConfig: config.app,
-    placeConfig: config.place,
-    placeTypes: config.place_types,
-    cluster: config.cluster,
-    leftSidebarConfig: config.left_sidebar,
-    rightSidebarConfig: config.right_sidebar,
-    formsConfig: config.forms,
-    supportConfig: config.support,
-    mapConfig: config.map,
-    storyConfig: config.story,
-    activityConfig: config.activity,
-    navBarConfig: config.nav_bar,
-    pagesConfig: config.pages,
-    filters: config.filters,
-    datasets: config.datasets,
-    dashboardConfig: config.dashboard,
-    customHooks: config.custom_hooks,
-    customComponents: config.custom_components,
-    datasetsConfig: config.datasets,
+    config: config,
     languageCode: Shareabouts.languageCode,
   });
-})(jQuery);
+})();
 
 /*****************************************************************************
 

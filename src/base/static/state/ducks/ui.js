@@ -35,7 +35,7 @@ export const isEditModeToggled = state => {
 const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
 const SET_UI_LEFT_SIDEBAR = "ui/SET_UI_LEFT_SIDEBAR";
 const SET_UI_CONTENT_PANEL = "ui/SET_UI_CONTENT_PANEL";
-const SET_CURRENT_TEMPLATE = "ui/SET_CURRENT_TEMPLATE";
+const UPDATE_CURRENT_TEMPLATE = "ui/UPDATE_CURRENT_TEMPLATE";
 const UPDATE_ADD_PLACE_BUTTON_VISIBILITY =
   "ui/UPDATE_ADD_PLACE_BUTTON_VISIBILITY";
 const UPDATE_MAP_CENTERPOINT_VISIBILITY =
@@ -54,8 +54,8 @@ export function setRightSidebar(isExpanded) {
 export function setLeftSidebar(status) {
   return { type: SET_UI_LEFT_SIDEBAR, payload: status };
 }
-export function setCurrentTemplate(templateName) {
-  return { type: SET_CURRENT_TEMPLATE, payload: templateName };
+export function updateCurrentTemplate(templateName) {
+  return { type: UPDATE_CURRENT_TEMPLATE, payload: templateName };
 }
 export function setAddPlaceButtonVisibility(isVisible) {
   return { type: UPDATE_ADD_PLACE_BUTTON_VISIBILITY, payload: isVisible };
@@ -101,7 +101,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         isLeftSidebarExpanded: action.payload.isExpanded,
         leftSidebarComponent: action.payload.component,
       };
-    case SET_CURRENT_TEMPLATE:
+    case UPDATE_CURRENT_TEMPLATE:
       return {
         ...state,
         currentTemplate: action.payload,

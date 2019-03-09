@@ -39,7 +39,7 @@ export function loadPlaceConfig(config, user) {
       } else {
         // Otherwise, determine if the field should be shown for the current
         // user. If the user groups array and the field admin_groups array share
-        // a common element, this field shoud be visible for the current user.
+        // a common element, this field should be visible for the current user.
         field.isVisible = user.groups
           .filter(group => group.dataset_slug === category.datasetSlug)
           .some(group => field.restrict_to_groups.includes(group.name));

@@ -24,8 +24,8 @@ const gitSha = require("child_process")
 
 var entryPoints = [
   "whatwg-fetch",
+  "normalize.css",
   "./src/base/static/js/routes.js",
-  "./src/base/static/scss/default.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 
