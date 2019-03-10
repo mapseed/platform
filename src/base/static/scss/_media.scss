@@ -201,7 +201,7 @@
 
     #left-sidebar-container {
       // NOTE: 72px represents the height of the geocode address bar on desktop screens
-      height: calc(100% - 72px - #{$header-height-fullscreen});
+      height: calc(100% - 72px);
       top: 72px;
     }
   }
