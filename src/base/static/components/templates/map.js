@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "react-emotion";
 
 import MainMap from "../organisms/main-map";
 
-import { datasetsLoadStatusSelector } from "../../state/ducks/datasets";
-import { placesLoadStatusSelector } from "../../state/ducks/places";
+import { uiVisibilitySelector } from "../../state/ducks/ui";
 
 class MapTemplate extends Component {
+  componentDidUpdate(prevProps) {
+  }
+
   render() {
     return (
       <MainMap
@@ -22,12 +23,11 @@ class MapTemplate extends Component {
 MapTemplate.propTypes = {
   datasetsLoadStatus: PropTypes.string.isRequired,
   placesLoadStatus: PropTypes.string.isRequired,
+  router: PropTypes.instanceOf(Backbone.Router),
 };
 
 const mapStateToProps = state => ({
-  datasetsLoadStatus: datasetsLoadStatusSelector(state),
-  placesLoadStatus: placesLoadStatusSelector(state),
-  router: PropTypes.instanceOf(Backbone.Router),
+  isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
 });
 
 export default connect(mapStateToProps)(MapTemplate);

@@ -30,6 +30,12 @@ export const geocodeAddressBarVisibilitySelector = state => {
 export const isEditModeToggled = state => {
   return state.ui.isEditModeToggled;
 };
+export const uiVisibilitySelector = (uiComponentName, state) => {
+  return state.ui.uiVisibility[uiComponentName];
+};
+export const contentPanelComponentSelector = state =>
+  state.ui.contentPanelComponent;
+export const pageSlugSelector = state => state.ui.activePageSlug;
 
 // Actions:
 const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
@@ -43,6 +49,9 @@ const UPDATE_MAP_CENTERPOINT_VISIBILITY =
 const UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY =
   "ui/UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY";
 const UPDATE_EDIT_MODE_TOGGLED = "ui/UPDATE_EDIT_MODE_TOGGLED";
+const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
+const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
+const UPDATE_CONTENT_PANEL_COMPONENT = "ui/UPDATE_CONTENT_PANEL_COMPONENT";
 
 // Action creators:
 export function setContentPanel(isOpen) {
@@ -69,10 +78,33 @@ export function setGeocodeAddressBarVisibility(isVisible) {
 export function updateEditModeToggled(isToggled) {
   return { type: UPDATE_EDIT_MODE_TOGGLED, payload: isToggled };
 }
+export function updateUIVisibility(uiComponentName, isVisible) {
+  return {
+    type: UPDATE_UI_VISIBILITY,
+    payload: { uiComponentName, isVisible },
+  };
+}
+export function updateActivePage(pageSlug) {
+  return {
+    type: UPDATE_ACTIVE_PAGE,
+    payload: pageSlug,
+  };
+}
+export function updateContentPanelComponent(componentName) {
+  return {
+    type: UPDATE_CONTENT_PANEL_COMPONENT,
+    payload: componentName,
+  };
+}
 
 // Reducers:
 const INITIAL_STATE = {
-  isContentPanelOpen: false,
+  activePageSlug: null,
+  uiVisibility: {
+    contentPanel: false,
+  },
+  contentPanelComponent: null,
+  isContentPanelVisible: false,
   isRightSidebarExpanded: false,
   isLeftSidebarExpanded: false,
   leftSidebarComponent: undefined,
@@ -85,6 +117,24 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case UPDATE_UI_VISIBILITY:
+      return {
+        ...state,
+        uiVisibility: {
+          ...state.uiVisibility,
+          [action.payload.uiComponentName]: action.payload.isVisible,
+        },
+      };
+    case UPDATE_ACTIVE_PAGE:
+      return {
+        ...state,
+        activePageSlug: action.payload,
+      };
+    case UPDATE_CONTENT_PANEL_COMPONENT:
+      return {
+        ...state,
+        contentPanelComponent: action.payload,
+      };
     case SET_UI_CONTENT_PANEL:
       return {
         ...state,

@@ -1,5 +1,4 @@
 import React, { Component, createRef, Fragment } from "react";
-import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
@@ -7,6 +6,7 @@ import styled from "react-emotion";
 import { Global } from "@emotion/core";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+import { throttle } from "throttle-debounce";
 
 import {
   drawModeActiveSelector,
@@ -163,7 +163,6 @@ class MainMap extends Component {
 
     //  window.addEventListener("resize", this.onWindowResize);
 
-
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
     // these events to a ref of the map because react-map-gl does not expose
@@ -249,6 +248,18 @@ class MainMap extends Component {
     window.removeEventListener("resize", this.onWindowResize);
   }
 
+  // This function gets called a lot, so we throttle it.
+  setSlippyRoute = throttle(500, () => {
+    // TODO: don't update if non-map route is visible
+    const { zoom, latitude, longitude } = this.props.mapViewport;
+    this.props.router.navigate(
+      `/${zoom.toFixed(2)}/${latitude.toFixed(5)}/${longitude.toFixed(5)}`,
+      {
+        trigger: false,
+      },
+    );
+  });
+
   removeDrawGeometry() {
     // Remove any drawn geometry.
     this.props.setActiveDrawGeometryId(null);
@@ -308,7 +319,7 @@ class MainMap extends Component {
       this.props.mapViewport.longitude !== prevProps.mapViewport.longitude ||
       this.props.mapViewport.zoom !== prevProps.mapViewport.zoom
     ) {
-      this.props.setSlippyRoute();
+      this.setSlippyRoute();
     }
 
     if (!this.props.mapConfig.options.disableDrawing) {
