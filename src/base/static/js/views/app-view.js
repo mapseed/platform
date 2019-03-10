@@ -641,10 +641,6 @@ export default Backbone.View.extend({
           store.dispatch(updateLayerGroupVisibility(layerGroup.id, false)),
         );
 
-      if (story.spotlight) {
-        this.hideSpotlightMask();
-      }
-
       if (!this.hasBodyClass("right-sidebar-visible")) {
         $("body").addClass("right-sidebar-visible");
       }
@@ -739,7 +735,12 @@ export default Backbone.View.extend({
     this.showPanel();
     this.hideNewPin();
     this.setBodyClass("content-visible");
-    this.showSpotlightMask();
+
+    if (story && !story.spotlight) {
+      this.hideSpotlightMask();
+    } else {
+      this.showSpotlightMask();
+    }
   },
 
   setMapDimensions: function() {

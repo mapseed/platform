@@ -781,8 +781,8 @@
   "story": {
     "campanas": {
       "header": "_(Campañas)",
-      "default_basemap": "osm",
-      "default_visible_layers": [
+      "visibleLayerGroupIds": [
+        "osm",
         "argentina-campanas",
         "argentina-input",
         "argentina-featured"
@@ -814,12 +814,11 @@
           "zoom": 10
         },
         {
-          "placeId": 5347,
+          "placeId": 6990,
           "zoom": 8,
-          "pan_to": [-60.45222, -33.16636],
-          "visible_layers": ["presencia-agua"],
-          "spotlight": false,
-          "basemap": "osm"
+          "pan_to": [-60.1, -32.97],
+          "visibleLayerGroupIds": ["osm", "presencia-agua"],
+          "spotlight": false
         }
       ]
     }
