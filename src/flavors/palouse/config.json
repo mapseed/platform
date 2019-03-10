@@ -1098,89 +1098,10 @@
             "hidden_default": true
           },
           {
-            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
-            "name": "nutrient_management_header",
-            "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Nutrient Management</h4>"
-          },
-          {
-            "name": "nutrient_management_information",
-            "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
-          },
-          {
-            "name": "nutrient-management_no-nutrient-management",
-            "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
-            "advance_stage_on_value": "no-nutrient-management",
-            "content": [
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "no-nutrient-management"
-              },
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "nutrient-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== NUTRIENT MGMT ====================",
-            "name": "nutrient_management",
-            "type": "big_radio",
-            "prompt": "_(Nutrient management practices: soil and/or plant tissue tests)",
-            "label": "_(Nutrient management)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "nutrient_management_quantity",
-                "nutrient_management_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "nutrient_management_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "_(How many acres?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "nutrient_management_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start using nutrient management practices?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Pest Management</h4>"
+            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Pest Management</h4>"
           },
           {
             "name": "pest_management_information",
@@ -1251,6 +1172,85 @@
             "date_format": "YYYY",
             "display_format": "YYYY",
             "prompt": "_(Approximately when did you start using pest management practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
+            "name": "nutrient_management_header",
+            "type": "informational_html",
+            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Nutrient Management</h4>"
+          },
+          {
+            "name": "nutrient_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+          },
+          {
+            "name": "nutrient-management_no-nutrient-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-nutrient-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-nutrient-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "nutrient-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== NUTRIENT MGMT ====================",
+            "name": "nutrient_management",
+            "type": "big_radio",
+            "prompt": "_(Nutrient management practices: soil and/or plant tissue tests)",
+            "label": "_(Nutrient management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "nutrient_management_quantity",
+                "nutrient_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "nutrient_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using nutrient management practices?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1634,7 +1634,7 @@
             "//": "=============== CONSERVATION COVER ==========================",
             "name": "conservation_cover",
             "type": "big_radio",
-            "prompt": "_(Conservation cover: consists of establishment of permanent vegetative cover)",
+            "prompt": "_(Conservation cover: consists of establishment of permanent vegetative cover including CRP)",
             "label": "_(Conservation cover)",
             "optional": true,
             "trigger": {
@@ -1784,7 +1784,7 @@
             "//": "=============== WEED CONTROL ================================",
             "name": "weed_control",
             "type": "big_radio",
-            "prompt": "_(Weed control: can include chemical, mechanical, cultural or biological)",
+            "prompt": "_(Weed control on rangeland: can include chemical, mechanical, cultural or biological)",
             "label": "_(Weed control)",
             "optional": true,
             "trigger": {
@@ -1925,7 +1925,7 @@
             "//": "=============== HEDGEROW PLANTING ==================",
             "name": "hedgerow_planting",
             "type": "big_radio",
-            "prompt": "_(Hedgerow planting: establishment of dense vegetation in a linear design to achieve conservation purposes   )",
+            "prompt": "_(Hedgerow planting: establishment of dense vegetation in a linear design to achieve conservation purposes)",
             "label": "_(Hedgerow planting)",
             "optional": true,
             "trigger": {
