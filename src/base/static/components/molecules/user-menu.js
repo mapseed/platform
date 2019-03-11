@@ -208,10 +208,12 @@ class UserMenu extends React.Component {
                 )}
             </MenuItem>
             <MenuItem>
-              <OfflineDownloadMenu
-                offlineBoundingBox={this.props.offlineBoundingBox}
-                mapLayerConfigs={this.props.mapLayerConfigs}
-              />
+              {this.props.offlineBoundingBox && (
+                <OfflineDownloadMenu
+                  offlineBoundingBox={this.props.offlineBoundingBox}
+                  mapLayerConfigs={this.props.mapLayerConfigs}
+                />
+              )}
             </MenuItem>
             <MenuItem>
               <div>
