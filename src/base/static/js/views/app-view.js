@@ -126,30 +126,6 @@ export default Backbone.View.extend({
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
 
-    mapseedApiClient.user
-      .get(this.options.appConfig.api_root)
-      .then(authedUser => {
-        const user = authedUser
-          ? {
-              token: `user:${authedUser.id}`,
-              // avatar_url and `name` are backup values that can get overidden:
-              avatar_url: "/static/css/images/user-50.png",
-              name: authedUser.username,
-              ...authedUser,
-              isAuthenticated: true,
-            }
-          : {
-              // anonymous user:
-              avatar_url: "/static/css/images/user-50.png",
-              token: `session:${Shareabouts.Util.cookies.get(
-                "sa-api-sessionid",
-              )}`,
-              groups: [],
-              isAuthenticated: false,
-            };
-
-        store.dispatch(loadUser(user));
-      });
     store.dispatch(loadDatasetsConfig(this.options.datasetsConfig));
     store.dispatch(setMapConfig(this.options.mapConfig));
     store.dispatch(
@@ -349,6 +325,30 @@ export default Backbone.View.extend({
     }
   }),
 
+  fetchAndLoadUser: async function() {
+    const authedUser = await mapseedApiClient.user.get(
+      this.options.appConfig.api_root,
+    );
+    const user = authedUser
+      ? {
+          token: `user:${authedUser.id}`,
+          ...authedUser,
+          // avatar_url and `name` are backup values that can get overidden:
+          avatar_url: authedUser.avatar_url || "/static/css/images/user-50.png",
+          name: authedUser.name || authedUser.username,
+          isAuthenticated: true,
+        }
+      : {
+          // anonymous user:
+          avatar_url: "/static/css/images/user-50.png",
+          token: `session:${Shareabouts.Util.cookies.get("sa-api-sessionid")}`,
+          groups: [],
+          isAuthenticated: false,
+        };
+
+    store.dispatch(loadUser(user));
+  },
+
   fetchAndLoadDatasets: async function() {
     store.dispatch(updateDatasetsLoadStatus("loading"));
 
@@ -491,6 +491,9 @@ export default Backbone.View.extend({
     if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadDatasets();
     }
+    if (!userSelector(store.getState()).token) {
+      await this.fetchAndLoadUser();
+    }
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
@@ -591,6 +594,9 @@ export default Backbone.View.extend({
       this.showPanel();
       this.setBodyClass("content-visible", "place-form-visible");
       store.dispatch(setAddPlaceButtonVisibility(false));
+      if (!userSelector(store.getState()).token) {
+        await this.fetchAndLoadUser();
+      }
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
@@ -607,6 +613,9 @@ export default Backbone.View.extend({
 
     if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadDatasets();
+    }
+    if (!userSelector(store.getState()).token) {
+      await this.fetchAndLoadUser();
     }
     // TODO: Restore the ability to fetch a single place's data on a direct
     // route to that place and render immediately.
@@ -838,6 +847,9 @@ export default Backbone.View.extend({
       if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadDatasets();
       }
+      if (!userSelector(store.getState()).token) {
+        await this.fetchAndLoadUser();
+      }
       if (placesLoadStatusSelector(store.getState()) === "unloaded") {
         await this.fetchAndLoadPlaces();
       }
@@ -939,6 +951,9 @@ export default Backbone.View.extend({
     if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadDatasets();
     }
+    if (!userSelector(store.getState()).token) {
+      await this.fetchAndLoadUser();
+    }
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadPlaces();
     }
@@ -973,7 +988,7 @@ export default Backbone.View.extend({
 
     store.dispatch(setCurrentTemplate("list"));
   },
-  viewDashboard: function() {
+  viewDashboard: async function() {
     $("#geocode-address-bar").addClass("is-visuallyhidden");
     const geocodeAddressBar = document.getElementById("geocode-address-bar");
     if (geocodeAddressBar) {
@@ -984,6 +999,9 @@ export default Backbone.View.extend({
     $("#dashboard-container").removeClass("is-visuallyhidden");
     if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
       this.fetchAndLoadDatasets();
+    }
+    if (!userSelector(store.getState()).token) {
+      await this.fetchAndLoadUser();
     }
     if (placesLoadStatusSelector(store.getState()) === "unloaded") {
       this.fetchAndLoadPlaces();
