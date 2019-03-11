@@ -932,7 +932,6 @@ export default Backbone.View.extend({
     );
 
     store.dispatch(setCurrentTemplate("map"));
-    store.dispatch(setAddPlaceButtonVisibility(true));
     this.setMapDimensions();
   },
   viewList: async function() {
