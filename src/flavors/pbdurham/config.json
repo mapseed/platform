@@ -1601,7 +1601,7 @@
       "lang": "en_US",
       "content": [
         "<h1>Get Involved</h1>",
-        "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
+        "<a href='http://durhamnc.gov/' target='_blank'><img style='width:100%' id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
         "<p>Already submitted an idea? There are many more ways to get involved in participatory budgeting:</p>",
         "<p><strong>Become a Budget Delegate</strong></p>",
         "<p>Volunteers will be recruited to serve as Budget Delegates. During the Proposal Development phase of the process, these volunteer Budget Delegates will work the community and staff of relevant city of Durham departments to develop ideas into budget proposals. They will receive training and support from Durham PB Implementation Staff to do so.  In addition to supporting the Budget Delegates, Durham PB Implementation staff will also serve to facilitate communication so that projects can be developed in a timely manner.</p>",
@@ -1625,7 +1625,7 @@
       "lang": "es",
       "content": [
         "<h1>Involucrarse</h1>",
-        "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
+        "<a href='http://durhamnc.gov/' target='_blank'><img style='width:100%' id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
         "<p>¿Ya has enviado una idea? Hay muchas más formas de involucrarse en el presupuesto participativo:</p>",
         "<p><strong>Conviértete en un delegado de presupuesto</strong></p>",
         "<p>Los voluntarios serán reclutados para servir como los Delegados del Presupuesto. Durante el desarrollo de propuestas, estos Delegados del Presupuesto trabajarán con la comunidad y los empleados de la Ciudad de Durham para desarrollar ideas en propuestas presupuestarias. Recibirán formación y apoyo del Personal de implementación. El personal de implementación también facilitarán la comunicación para que los proyectos pueden ser desarrollado en manera oportuna.</p>",
@@ -1680,7 +1680,7 @@
       "content": [
         "<h3>Durham Participatory Budgeting:</h3>",
         "<h4>Put your money where your ideas are!</h4>",
-        "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
+        "<img id='about-img' style='width:100%' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
         "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
         "<p>\"One-time projects\" are projects with one-time expenditures that address a community need. Projects can be built on City, Durham Housing Authority, and private land, upon donation. \"One-time projects\" may include physical infrastructure, technological improvements, and community enhancements. Examples of \"one-time projects\" include park improvements, computers for a community center, bus shelters, and bike-lanes. \"One-time projects\" may have some sort of associated operating cost. However, they do not require the City to hire additional staff.</p>",
@@ -1694,7 +1694,7 @@
       "content": [
         "<h3>Presupuesto participativo de Durham:</h3>",
         "<h4>¡Pon tu dinero donde están tus ideas!</h4>",
-        "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
+        "<img id='about-img' style='width:100%' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Envíe su idea</a>",
         "<p>El presupuesto participativo de Durham es un proceso democrático en el que los miembros de la comunidad de los tres distritos municipales deciden directamente cómo gastar $ 2.4 millones ($ 800,000 por distrito).</p>",
         "<p>De Noviembre del 2018 a Marzo del 2019, los delegados voluntarios del presupuesto trabajarán para desarrollar estas ideas iniciales en propuestas de proyectos completos. Los residentes de Durham podrán votar en Mayo del 2019 para determinar los proyectos ganadores.</p>",

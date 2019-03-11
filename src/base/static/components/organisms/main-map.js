@@ -1,4 +1,5 @@
 import React, { Component, createRef, Fragment } from "react";
+import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
@@ -50,6 +51,7 @@ import {
   placeSelector,
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
+import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 
 import emitter from "../../utils/emitter";
@@ -144,24 +146,8 @@ class MainMap extends Component {
   queriedFeatures = [];
   isMapTransitioning = false;
 
-  onWindowResize = () => {
-    //   TODO
-    //   const container = this.props.container.getBoundingClientRect();
-    //   this.props.updateMapViewport({
-    //     height: container.height,
-    //     width: container.width,
-    //   });
-  };
-
   componentDidMount() {
-    //  const container = this.props.container.getBoundingClientRect();
-    //  this.props.updateMapViewport({
-    //    height: container.height,
-    //    width: container.width,
-    //  });
-    //this.props.setMapDimensions()
-
-    //  window.addEventListener("resize", this.onWindowResize);
+    window.addEventListener("resize", this.resizeMap);
 
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
@@ -245,7 +231,7 @@ class MainMap extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.onWindowResize);
+    window.removeEventListener("resize", this.resizeMap);
   }
 
   // This function gets called a lot, so we throttle it.
@@ -259,6 +245,17 @@ class MainMap extends Component {
       },
     );
   });
+
+  resizeMap = () => {
+    const containerDims = findDOMNode(
+      this.props.mapContainerRef.current,
+    ).getBoundingClientRect();
+
+    this.props.updateMapViewport({
+      height: containerDims.height,
+      width: containerDims.width,
+    });
+  };
 
   removeDrawGeometry() {
     // Remove any drawn geometry.
@@ -283,6 +280,10 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (this.props.isContentPanelVisible !== prevProps.isContentPanelVisible) {
+      this.resizeMap();
+    }
+
     if (this.props.isDrawModeActive && !prevProps.isDrawModeActive) {
       // Drawing mode has been entered.
       this.map.on("dragend", () => {
@@ -425,6 +426,7 @@ class MainMap extends Component {
           }}
         />
         <MapGL
+          attributionControl={false}
           ref={this.mapRef}
           width={this.props.mapViewport.width}
           height={this.props.mapViewport.height}
@@ -509,6 +511,7 @@ MainMap.propTypes = {
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   geometryStyle: geometryStyleProps,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isContentPanelVisible: PropTypes.bool.isRequired,
   isDrawModeActive: PropTypes.bool.isRequired,
   isMapDragging: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
@@ -523,6 +526,7 @@ MainMap.propTypes = {
     ),
   }).isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  mapContainerRef: PropTypes.object.isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
@@ -548,6 +552,7 @@ const mapStateToProps = state => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   geometryStyle: geometryStyleSelector(state),
+  isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isDrawModeActive: drawModeActiveSelector(state),
   isMapDragging: mapDraggingSelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),

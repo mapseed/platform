@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { SiteLogo } from "../atoms/imagery";
 import { Link } from "../atoms/navigation";
 import { NavButton } from "../molecules/buttons";
-import { NavLink } from "../molecules/typography";
 import UserMenu from "../molecules/user-menu";
 import { RegularTitle, RegularLabel } from "../atoms/typography";
 
@@ -64,6 +63,26 @@ const NavContainer = styled("nav")(props => ({
     flexDirection: "row",
     alignItems: "center",
     marginLeft: "50px",
+  },
+}));
+
+const NavLink = styled(props => (
+  <Link
+    href={props.href}
+    rel="internal"
+    className={props.className}
+  >
+    {props.children}
+  </Link>
+))(props => ({
+  display: "flex",
+  alignItems: "center",
+  textDecoration: "none",
+
+  [mq[1]]: {
+    height: props.height,
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
 }));
 
@@ -210,9 +229,7 @@ const navItemMappings = {
       position={linkProps.position}
       href={linkProps.navBarItem.url}
     >
-      <NavButton color={"tertiary"} onClick={linkProps.onClick}>
-        {linkProps.children}
-      </NavButton>
+      {linkProps.children}
     </NavLink>
   ),
   left_sidebar_toggle: linkProps => (
@@ -235,11 +252,9 @@ const navItemMappings = {
       height="42px"
       href={linkProps.currentTemplate === "map" ? "/list" : "/"}
     >
-      <NavButton variant="raised" color="primary">
-        {linkProps.currentTemplate === "map"
-          ? linkProps.navBarItem.show_list_button_label
-          : linkProps.navBarItem.show_map_button_label}
-      </NavButton>
+      {linkProps.currentTemplate === "map"
+        ? linkProps.navBarItem.show_list_button_label
+        : linkProps.navBarItem.show_map_button_label}
     </NavLink>
   ))(() => ({
     [mq[0]]: {

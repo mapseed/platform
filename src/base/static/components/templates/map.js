@@ -1,28 +1,51 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import styled from "react-emotion";
 
 import MainMap from "../organisms/main-map";
+import ContentPanel from "../organisms/content-panel";
 
 import { uiVisibilitySelector } from "../../state/ducks/ui";
 
+import mq from "../../../../media-queries";
+
+const MapContainer = styled("div")(props => ({
+  [mq[1]]: {
+    height: "100%",
+    width: props.isContentPanelVisible ? "60%" : "100%",
+  },
+}));
+
 class MapTemplate extends Component {
-  componentDidUpdate(prevProps) {
-  }
+  mapContainerRef = createRef();
 
   render() {
     return (
-      <MainMap
-        setMapDimensions={this.props.setMapDimensions}
-        router={this.props.router}
-      />
+      <>
+        <MapContainer
+          ref={this.mapContainerRef}
+          isContentPanelVisible={this.props.isContentPanelVisible}
+        >
+          <MainMap
+            mapContainerRef={this.mapContainerRef}
+            router={this.props.router}
+          />
+        </MapContainer>
+        {this.props.isContentPanelVisible && (
+          <ContentPanel
+            router={this.props.router}
+            languageCode={this.props.languageCode}
+          />
+        )}
+      </>
     );
   }
 }
 
 MapTemplate.propTypes = {
-  datasetsLoadStatus: PropTypes.string.isRequired,
-  placesLoadStatus: PropTypes.string.isRequired,
+  isContentPanelVisible: PropTypes.bool.isRequired,
+  languageCode: PropTypes.string.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
 };
 

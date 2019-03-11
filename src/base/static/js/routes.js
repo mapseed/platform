@@ -141,15 +141,15 @@ Shareabouts.Util = Util;
       //      }
 
       this.route("", "viewMap");
-      this.route("page/:slug", "viewPage");
+      this.route(":dataset/:id", "viewPlace");
+      this.route(":dataset/:id/response/:response_id", "viewPlace");
       this.route("dashboard", "viewDashboard");
       this.route("sha", "viewSha");
-      this.route(":dataset/:id", "viewPlace");
       this.route("new", "newPlace");
-      this.route(":dataset/:id/response/:response_id", "viewPlace");
       this.route("list", "viewList");
       this.route(":zoom/:lat/:lng", "viewMap");
       this.route(":custom", "viewMap"); // workaround to handle routes like "/es.html" or "/en_US.html"
+      this.route("page/:slug", "viewPage");
     },
 
     getCurrentPath: function() {
@@ -161,6 +161,9 @@ Shareabouts.Util = Util;
     viewMap: function(zoom, lat, lng) {
       recordGoogleAnalyticsHit("/");
       this.store.dispatch(updateCurrentTemplate("map"));
+      this.store.dispatch(updateUIVisibility("contentPanel", false));
+      this.store.dispatch(updateActivePage(null));
+      this.store.dispatch(updateContentPanelComponent(null));
       //  this.appView.viewMap(parseInt(zoom), parseFloat(lat), parseFloat(lng));
     },
 
@@ -183,7 +186,7 @@ Shareabouts.Util = Util;
     },
 
     viewPage: function(pageSlug) {
-      recordGoogleAnalyticsHit("/page/" + pageSlug);
+      recordGoogleAnalyticsHit(`/page/${pageSlug}`);
       this.store.dispatch(updateCurrentTemplate("map"));
       this.store.dispatch(updateUIVisibility("contentPanel", true));
       this.store.dispatch(updateActivePage(pageSlug));

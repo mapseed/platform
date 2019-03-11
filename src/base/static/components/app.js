@@ -40,6 +40,7 @@ browserUpdate({
 });
 
 const TemplateContainer = styled("div")({
+  position: "relative",
   width: "100%",
   height: `calc(100% - 56px)`,
 });
@@ -48,6 +49,22 @@ class App extends Component {
   templateContainerRef = createRef();
 
   async componentDidMount() {
+    // Globally capture all clicks so we can enable client-side routing.
+    // TODO: Ideally this listener would be moved to our Link atom and the
+    // internal check would happen there. But because we have internal links
+    // in custom page content, we need to listen globally. Down the road our
+    // custom page content could be configured to render Link atoms though.
+    document.addEventListener("click", evt => {
+      const rel = evt.target.attributes.getNamedItem("rel");
+      if (rel && rel.value === "internal") {
+        evt.preventDefault();
+        this.props.router.navigate(
+          evt.target.attributes.getNamedItem("href").value,
+          { trigger: true },
+        );
+      }
+    });
+
     const templateDims = findDOMNode(
       this.templateContainerRef.current,
     ).getBoundingClientRect();
@@ -131,6 +148,7 @@ class App extends Component {
                 <MapTemplate
                   setMapDimensions={this.setMapDimensions}
                   router={this.props.router}
+                  languageCode={this.props.languageCode}
                 />
               )}
               {this.props.currentTemplate === "list" && <ListTemplate />}
