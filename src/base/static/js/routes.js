@@ -12,7 +12,10 @@ import {
   updateUIVisibility,
   updateActivePage,
   updateContentPanelComponent,
+  updateAddPlaceButtonVisibility,
 } from "../state/ducks/ui";
+import { updateMapViewport } from "../state/ducks/map";
+import { updateFocusedPlaceId } from "../state/ducks/places";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
@@ -111,6 +114,7 @@ Shareabouts.Util = Util;
       this.store.dispatch(
         loadMapViewport(options.config.map.options.mapViewport),
       );
+      this.store.dispatch(updateAddPlaceButtonVisibility(true));
 
       languageModule.changeLanguage(options.languageCode);
 
@@ -141,6 +145,7 @@ Shareabouts.Util = Util;
       //      }
 
       this.route("", "viewMap");
+      this.route(":custom", "viewMap"); // workaround to handle routes like "/es.html" or "/en_US.html"
       this.route(":dataset/:id", "viewPlace");
       this.route(":dataset/:id/response/:response_id", "viewPlace");
       this.route("dashboard", "viewDashboard");
@@ -148,7 +153,6 @@ Shareabouts.Util = Util;
       this.route("new", "newPlace");
       this.route("list", "viewList");
       this.route(":zoom/:lat/:lng", "viewMap");
-      this.route(":custom", "viewMap"); // workaround to handle routes like "/es.html" or "/en_US.html"
       this.route("page/:slug", "viewPage");
     },
 
@@ -162,9 +166,21 @@ Shareabouts.Util = Util;
       recordGoogleAnalyticsHit("/");
       this.store.dispatch(updateCurrentTemplate("map"));
       this.store.dispatch(updateUIVisibility("contentPanel", false));
+      this.store.dispatch(updateUIVisibility("spotlightMask", false));
+      this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
       this.store.dispatch(updateActivePage(null));
       this.store.dispatch(updateContentPanelComponent(null));
-      //  this.appView.viewMap(parseInt(zoom), parseFloat(lat), parseFloat(lng));
+      this.store.dispatch(updateAddPlaceButtonVisibility(true));
+      zoom &&
+        lat &&
+        lng &&
+        this.store.dispatch(
+          updateMapViewport({
+            zoom: parseFloat(zoom),
+            lat: parseFloat(lat),
+            lng: parseFloat(lng),
+          }),
+        );
     },
 
     viewDashboard: function() {
@@ -173,24 +189,30 @@ Shareabouts.Util = Util;
     },
 
     newPlace: function() {
-      this.appView.newPlace();
+      recordGoogleAnalyticsHit("/new");
+      this.store.dispatch(updateContentPanelComponent("InputForm"));
+      this.store.dispatch(updateAddPlaceButtonVisibility(false));
+      this.store.dispatch(updateUIVisibility("contentPanel", true));
     },
 
     viewPlace: function(placeSlug, placeId, responseId) {
       recordGoogleAnalyticsHit(`/${placeSlug}/${placeId}`);
-      this.appView.viewPlace({
-        placeSlug: placeSlug,
-        placeId: parseInt(placeId),
-        responseId: parseInt(responseId),
-      });
+      this.store.dispatch(updateFocusedPlaceId(parseInt(placeId)));
+      this.store.dispatch(updateUIVisibility("contentPanel", true));
+      this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
+      this.store.dispatch(updateAddPlaceButtonVisibility(true));
+      this.store.dispatch(updateContentPanelComponent("PlaceDetail"));
     },
 
     viewPage: function(pageSlug) {
       recordGoogleAnalyticsHit(`/page/${pageSlug}`);
       this.store.dispatch(updateCurrentTemplate("map"));
       this.store.dispatch(updateUIVisibility("contentPanel", true));
+      this.store.dispatch(updateUIVisibility("spotlightMask", false));
+      this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
       this.store.dispatch(updateActivePage(pageSlug));
       this.store.dispatch(updateContentPanelComponent("CustomPage"));
+      this.store.dispatch(updateAddPlaceButtonVisibility(true));
     },
 
     viewSha: function() {

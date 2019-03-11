@@ -113,44 +113,6 @@ export default Backbone.View.extend({
     // zooms initiated by a leaflet method
     this.isStoryActive = false;
 
-    //  TODO: internal links
-  //  // Globally capture clicks. If they are internal and not in the pass
-  //  // through list, route them through Backbone's navigate method.
-  //  $(document).on("click", 'a[href^="/"]', function(evt) {
-  //    var $link = $(evt.currentTarget),
-  //      href = $link.attr("href"),
-  //      url,
-  //      isLinkToPlace = false;
-
-  //    _.each(self.options.datasetConfigs.places, function(dataset) {
-  //      if (href.indexOf("/" + dataset.slug) === 0) isLinkToPlace = true;
-  //    });
-
-  //    // Allow shift+click for new tabs, etc.
-  //    if (
-  //      ($link.attr("rel") === "internal" ||
-  //        href === "/" ||
-  //        isLinkToPlace ||
-  //        href.indexOf("/filter") === 0) &&
-  //      !evt.altKey &&
-  //      !evt.ctrlKey &&
-  //      !evt.metaKey &&
-  //      !evt.shiftKey
-  //    ) {
-  //      evt.preventDefault();
-
-  //      // Remove leading slashes and hash bangs (backward compatablility)
-  //      url = href.replace(/^\//, "").replace("#!/", "");
-
-  //      // # Instruct Backbone to trigger routing events
-  //      self.options.router.navigate(url, {
-  //        trigger: true,
-  //      });
-
-  //      return false;
-  //    }
-  //  });
-
     ReactDOM.render(
       <Provider store={store}>
         <ThemeProvider>

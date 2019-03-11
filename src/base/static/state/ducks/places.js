@@ -39,6 +39,11 @@ export const placeSelector = (state, placeId) => {
   return state.places.placeModels.find(place => place.id === parseInt(placeId));
 };
 
+export const focusedPlaceSelector = state =>
+  state.places.placeModels.find(
+    place => place.id === state.places.focusedPlaceId,
+  );
+
 export const placeExists = (state, placeId) => {
   return !!state.places.placeModels.find(place => place.id === placeId);
 };
@@ -82,8 +87,16 @@ const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
 const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
 const UPDATE_LOAD_STATUS = "places/UPDATE_LOAD_STATUS";
 const UPDATE_ACTIVE_EDIT_PLACE_ID = "places/UPDATE_ACTIVE_EDIT_PLACE_ID";
+const UPDATE_FOCUSED_PLACE_ID = "places/UPDATE_FOCUSED_PLACE_ID";
 
 // Action creators:
+export function updateFocusedPlaceId(placeId) {
+  return {
+    type: UPDATE_FOCUSED_PLACE_ID,
+    payload: placeId,
+  };
+}
+
 export function loadPlaces(places, storyConfig = {}) {
   const storyChapters = Object.values(storyConfig).reduce((flat, toFlatten) => {
     return flat.concat(toFlatten.chapters);
@@ -195,6 +208,7 @@ const INITIAL_STATE = {
   placeModels: [],
   loadStatus: "unloaded",
   activeEditPlaceId: null,
+  focusedPlaceId: null,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -377,6 +391,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         activeEditPlaceId: action.payload,
+      };
+    case UPDATE_FOCUSED_PLACE_ID:
+      return {
+        ...state,
+        focusedPlaceId: action.payload,
       };
     default:
       return state;

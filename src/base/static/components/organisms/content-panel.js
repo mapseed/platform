@@ -4,12 +4,18 @@ import styled from "react-emotion";
 import { connect } from "react-redux";
 
 import CustomPage from "./custom-page";
+import InputForm from "../input-form";
+import FormCategoryMenuWrapper from "../input-form/form-category-menu-wrapper";
+import PlaceDetail from "../place-detail";
+
+const Util = require("../../js/utils.js");
 
 import {
   contentPanelComponentSelector,
   pageSlugSelector,
 } from "../../state/ducks/ui";
 import { pageSelector } from "../../state/ducks/pages-config";
+import { placePropType, focusedPlaceSelector } from "../../state/ducks/places";
 
 const ContentPanelOuterContainer = styled("section")({
   position: "absolute",
@@ -20,13 +26,14 @@ const ContentPanelOuterContainer = styled("section")({
   backgroundColor: "#fff",
   boxSizing: "border-box",
   boxShadow: "-4px 0 3px rgba(0,0,0,0.1)",
+  zIndex: 9,
 });
 
 const ContentPanelInnerContainer = styled("div")({
   width: "100%",
   height: "100%",
   overflow: "auto",
-  padding: "8px",
+  padding: "10px",
   boxSizing: "border-box",
 });
 
@@ -50,6 +57,7 @@ const CloseButton = styled("button")({
   },
 });
 
+// TODO: scrollToResponseId
 const ContentPanel = props => {
   return (
     <ContentPanelOuterContainer>
@@ -69,6 +77,40 @@ const ContentPanel = props => {
             }
           />
         )}
+        {props.contentPanelComponent === "PlaceDetail" && (
+          <PlaceDetail
+            mapContainerRef={props.mapContainerRef}
+            scrollToResponseId={null}
+            router={props.router}
+          />
+        )}
+        {props.contentPanelComponent === "InputForm" && (
+          <FormCategoryMenuWrapper
+            router={props.router}
+            // // TODO scroll to top
+            // '#content article' and 'body' represent the two containers into
+            // which panel content is rendered (one at desktop size and one at
+            // mobile size).
+            // TODO: Improve this when we move overall app layout management to
+            // Redux.
+            container={document.querySelector(
+              Util.getPageLayout() === "desktop" ? "#content article" : "body",
+            )}
+            render={(state, props, onCategoryChange) => {
+              return (
+                <InputForm
+                  {...props}
+                  selectedCategory={state.selectedCategory}
+                  datasetUrl={state.datasetUrl}
+                  datasetSlug={state.datasetSlug}
+                  isSingleCategory={state.isSingleCategory}
+                  onCategoryChange={onCategoryChange}
+                />
+              );
+            }}
+            customComponents={props.customComponents}
+          />
+        )}
       </ContentPanelInnerContainer>
     </ContentPanelOuterContainer>
   );
@@ -77,6 +119,7 @@ const ContentPanel = props => {
 ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
   languageCode: PropTypes.string.isRequired,
+  mapContainerRef: PropTypes.object.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,

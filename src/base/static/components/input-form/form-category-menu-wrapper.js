@@ -11,6 +11,7 @@ import { updateMapDragged, mapDraggedSelector } from "../../state/ducks/map";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
+import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
 
@@ -68,7 +69,8 @@ class FormCategoryMenuWrapper extends Component {
 
   componentDidMount() {
     this.props.updateMapDragged(false);
-    this.props.showNewPin();
+    this.props.updateMapCenterpointVisibility(true);
+    this.props.updateSpotlightMaskVisibility(true);
   }
 
   onCategoryChange(selectedCategory) {
@@ -116,10 +118,6 @@ FormCategoryMenuWrapper.propTypes = {
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  hideSpotlightMask: PropTypes.func.isRequired,
-  showNewPin: PropTypes.func.isRequired,
-  hideNewPin: PropTypes.func.isRequired,
-  hidePanel: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),
@@ -130,7 +128,9 @@ FormCategoryMenuWrapper.propTypes = {
   containers: PropTypes.instanceOf(NodeList),
   isMapDragged: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
+  updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateMapDragged: PropTypes.func.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
@@ -151,7 +151,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateMapCenterpointVisibility: isVisible =>
+    dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
   updateMapDragged: isMapDragged => dispatch(updateMapDragged(isMapDragged)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });
 
 export default connect(

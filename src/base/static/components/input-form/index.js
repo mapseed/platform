@@ -34,7 +34,9 @@ import {
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
+import { updateUIVisibility } from "../../state/ducks/ui";
 import emitter from "../../utils/emitter";
+
 const Util = require("../../js/utils.js");
 
 import mapseedApiClient from "../../client/mapseed-api-client";
@@ -168,10 +170,10 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     if (this.isWithCustomGeometry) {
-      this.props.hideSpotlightMask();
-      this.props.hideNewPin();
+      this.props.updateSpotlightMaskVisibility(false);
+      this.props.updateMapCenterpointVisibility(false);
     } else {
-      this.props.showNewPin();
+      this.props.updateMapCenterpointVisibility(true);
     }
   }
 
@@ -552,8 +554,6 @@ InputForm.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
-  hideNewPin: PropTypes.func.isRequired,
-  hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
@@ -570,8 +570,9 @@ InputForm.propTypes = {
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
-  showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateMapCenterpointVisibility: PropTypes.func.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
@@ -598,6 +599,10 @@ const mapDispatchToProps = dispatch => ({
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
+  updateMapCenterpointVisibility: isVisible =>
+    dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
 });
 
 // Export undecorated component for testing purposes.

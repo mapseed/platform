@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
 import styled from "react-emotion";
+import getExtentFromGeometry from "turf-extent";
+import WebMercatorViewport from "viewport-mercator-project";
 
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
@@ -19,8 +22,6 @@ import SnohomishFieldSummary from "./snohomish-field-summary";
 import VVFieldSummary from "./vv-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
 import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
-
-import { placeSelector } from "../../state/ducks/places";
 
 import constants from "../../constants";
 
@@ -43,7 +44,17 @@ import {
   hasGroupAbilitiesInDatasets,
   hasAdminAbilities,
 } from "../../state/ducks/user";
-import { isEditModeToggled, updateEditModeToggled } from "../../state/ducks/ui";
+import {
+  isEditModeToggled,
+  updateEditModeToggled,
+  updateUIVisibility,
+} from "../../state/ducks/ui";
+import { placePropType, focusedPlaceSelector } from "../../state/ducks/places";
+import {
+  removeFocusedGeoJSONFeatures,
+  updateMapViewport,
+  updateFocusedGeoJSONFeatures,
+} from "../../state/ducks/map";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
@@ -71,7 +82,8 @@ class PlaceDetail extends Component {
   topOffset = 80 + (this.props.mapConfig.geocoding_bar_enabled ? 72 : 0);
 
   componentDidMount() {
-    this.props.container.scrollTop = 0;
+    //this.props.container.scrollTop = 0;
+    this.updateMapViewport();
   }
 
   componentDidUpdate(prevProps) {
@@ -82,9 +94,102 @@ class PlaceDetail extends Component {
       emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
       emitter.emit(
         constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        this.props.datasetSlug,
+        this.props.focusedPlace._datasetSlug,
       );
     }
+
+    if (this.props.focusedPlace.id !== prevProps.focusedPlace.id) {
+      this.updateMapViewport();
+    }
+  }
+
+  updateMapViewport() {
+    const story = this.props.focusedPlace.story;
+    if (story) {
+      // Set layers for this story chapter.
+      story.visibleLayerGroupIds.forEach(layerGroupId =>
+        this.props.updateLayerGroupVisibility(layerGroupId, true),
+      );
+      // Hide all other layers.
+      this.props.mapConfig.layerGroups
+        .filter(
+          layerGroup => !story.visibleLayerGroupIds.includes(layerGroup.id),
+        )
+        .forEach(layerGroup =>
+          this.props.updateLayerGroupVisibility(layerGroup.id, false),
+        );
+    }
+
+    if (story && story.panTo) {
+      const newViewport = {
+        latitude: story.panTo[1],
+        longitude: story.panTo[0],
+        transitionDuration: 3000,
+      };
+      if (story.zoom) {
+        newViewport.zoom = story.zoom;
+      }
+
+      this.props.updateMapViewport(newViewport);
+    } else if (
+      this.props.focusedPlace.geometry.type === "LineString" ||
+      this.props.focusedPlace.geometry.type === "Polygon"
+    ) {
+      const extent = getExtentFromGeometry(this.props.focusedPlace.geometry);
+      const newViewport = this.getWebMercatorViewport().fitBounds(
+        // WebMercatorViewport wants bounds in [[lng, lat], [lng lat]] form.
+        [[extent[0], extent[1]], [extent[2], extent[3]]],
+        { padding: 50 },
+      );
+
+      this.props.updateMapViewport({
+        latitude: newViewport.latitude,
+        longitude: newViewport.longitude,
+        transitionDuration: story ? 3000 : 200,
+        zoom: newViewport.zoom,
+      });
+    } else if (this.props.focusedPlace.geometry.type === "Point") {
+      const newViewport = {
+        latitude: this.props.focusedPlace.geometry.coordinates[1],
+        longitude: this.props.focusedPlace.geometry.coordinates[0],
+        transitionDuration: story ? 3000 : 200,
+      };
+      if (story && story.zoom) {
+        newViewport.zoom = story.zoom;
+      }
+
+      this.props.updateMapViewport(newViewport);
+    }
+
+    if (story && !story.spotlight) {
+      this.props.updateSpotlightMaskVisibility(false);
+    } else {
+      this.props.updateSpotlightMaskVisibility(true);
+    }
+
+    // Focus this Place's feature on the map.
+    const { geometry, ...rest } = this.props.focusedPlace;
+    this.props.updateFocusedGeoJSONFeatures([
+      {
+        type: "Feature",
+        geometry: {
+          type: geometry.type,
+          coordinates: geometry.coordinates,
+        },
+        properties: rest,
+      },
+    ]);
+  }
+
+  getWebMercatorViewport() {
+    const containerDims = findDOMNode(
+      this.props.mapContainerRef.current,
+    ).getBoundingClientRect();
+
+    return new WebMercatorViewport({
+      width: containerDims.width,
+      height: containerDims.height,
+    });
   }
 
   onMountTargetResponse(responseRef) {
@@ -105,35 +210,36 @@ class PlaceDetail extends Component {
     });
   };
 
+  componentWillUnmount() {
+    this.props.removeFocusedGeoJSONFeatures();
+  }
+
   render() {
-    // TODO: Selecting the Place on each render will not be necessary when
-    // AppView is ported to a component. Also, we'll be able to set many of
-    // these consts once on component mount.
-    const place = this.props.placeSelector(this.props.placeId);
-    const isStoryChapter = !!place.story;
-    const supports = place.submission_sets.support;
-    const comments = place.submission_sets.comments;
+    const isStoryChapter = !!this.props.focusedPlace.story;
+    const supports = this.props.focusedPlace.submission_sets.support;
+    const comments = this.props.focusedPlace.submission_sets.comments;
     const categoryConfig = getCategoryConfig(
       this.props.placeConfig,
-      place.location_type,
+      this.props.focusedPlace.location_type,
     );
-    const submitterName = place.submitter
-      ? place.submitter.name
-      : place.submitter_name || this.props.placeConfig.anonymous_name;
+    const submitterName = this.props.focusedPlace.submitter
+      ? this.props.focusedPlace.submitter.name
+      : this.props.focusedPlace.submitter_name ||
+        this.props.placeConfig.anonymous_name;
     const isTagBarEditable = this.props.hasGroupAbilitiesInDatasets({
       abilities: ["update", "destroy", "create"],
       submissionSet: "tags",
-      datasetSlugs: [this.props.datasetSlug],
+      datasetSlugs: [this.props.focusedPlace._datasetSlug],
     });
     const isPlaceDetailEditable =
       this.props.hasUserAbilitiesInPlace({
-        submitter: place.submitter,
+        submitter: this.props.focusedPlace.submitter,
         isSubmitterEditingSupported: categoryConfig.submitter_editing_supported,
       }) ||
       this.props.hasGroupAbilitiesInDatasets({
         abilities: ["update"],
         submissionSet: "places",
-        datasetSlugs: [this.props.datasetSlug],
+        datasetSlugs: [this.props.focusedPlace._datasetSlug],
       });
 
     // TODO: dissolve when flavor abstraction is ready
@@ -141,41 +247,53 @@ class PlaceDetail extends Component {
     if (
       customComponents &&
       customComponents.FieldSummary === "SnohomishFieldSummary" &&
-      place.location_type === "conservation-actions"
+      this.props.focusedPlace.location_type === "conservation-actions"
     ) {
       fieldSummary = (
-        <SnohomishFieldSummary fields={categoryConfig.fields} place={place} />
+        <SnohomishFieldSummary
+          fields={categoryConfig.fields}
+          place={this.props.focusedPlace}
+        />
       );
     } else if (
       customComponents &&
       customComponents.FieldSummary === "VVFieldSummary" &&
-      place.location_type === "community_input"
+      this.props.focusedPlace.location_type === "community_input"
     ) {
       fieldSummary = (
-        <VVFieldSummary fields={categoryConfig.fields} place={place} />
+        <VVFieldSummary
+          fields={categoryConfig.fields}
+          place={this.props.focusedPlace}
+        />
       );
     } else if (
       customComponents &&
       customComponents.FieldSummary === "PalouseFieldSummary" &&
-      place.location_type === "reports"
+      this.props.focusedPlace.location_type === "reports"
     ) {
       fieldSummary = (
-        <PalouseFieldSummary fields={categoryConfig.fields} place={place} />
+        <PalouseFieldSummary
+          fields={categoryConfig.fields}
+          place={this.props.focusedPlace}
+        />
       );
     } else if (
       customComponents &&
       customComponents.FieldSummary === "PBDurhamProjectProposalFieldSummary" &&
-      place.location_type === "projects"
+      this.props.focusedPlace.location_type === "projects"
     ) {
       fieldSummary = (
         <PBDurhamProjectProposalFieldSummary
           fields={categoryConfig.fields}
-          place={place}
+          place={this.props.focusedPlace}
         />
       );
     } else {
       fieldSummary = (
-        <FieldSummary fields={categoryConfig.fields} place={place} />
+        <FieldSummary
+          fields={categoryConfig.fields}
+          place={this.props.focusedPlace}
+        />
       );
     }
 
@@ -185,7 +303,9 @@ class PlaceDetail extends Component {
       >
         {(isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar
-            isAdmin={this.props.hasAdminAbilities(this.props.datasetSlug)}
+            isAdmin={this.props.hasAdminAbilities(
+              this.props.focusedPlace._datasetSlug,
+            )}
             isEditModeToggled={this.props.isEditModeToggled}
             isPlaceDetailEditable={isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
@@ -201,24 +321,26 @@ class PlaceDetail extends Component {
         <TagBar
           isEditModeToggled={this.props.isEditModeToggled}
           isEditable={isTagBarEditable}
-          placeTags={place.tags}
-          datasetSlug={this.props.datasetSlug}
-          placeUrl={place.url}
-          placeId={place.id}
+          placeTags={this.props.focusedPlace.tags}
+          datasetSlug={this.props.focusedPlace._datasetSlug}
+          placeUrl={this.props.focusedPlace.url}
+          placeId={this.props.focusedPlace.id}
         />
         <h1
           className={classNames("place-detail-view__header", {
             "place-detail-view__header--centered": isStoryChapter,
           })}
         >
-          {place.title}
+          {this.props.focusedPlace.title}
         </h1>
         <PromotionMetadataContainer>
           <MetadataBar
-            createdDatetime={place.created_datetime}
+            createdDatetime={this.props.focusedPlace.created_datetime}
             submitterName={submitterName}
             submitterAvatarUrl={
-              place.submitter ? place.submitter.avatar_url : undefined
+              this.props.focusedPlace.submitter
+                ? this.props.focusedPlace.submitter.avatar_url
+                : undefined
             }
             numComments={comments.length}
             actionText={this.props.placeConfig.action_text}
@@ -226,19 +348,21 @@ class PlaceDetail extends Component {
           <PromotionBar
             isHorizontalLayout={isStoryChapter}
             numSupports={supports.length}
-            onSocialShare={service => Util.onSocialShare(place, service)}
+            onSocialShare={service =>
+              Util.onSocialShare(this.props.focusedPlace, service)
+            }
             userSupport={supports.find(
               support => support.user_token === this.props.currentUser.token,
             )}
-            placeUrl={place.url}
-            placeId={place.id}
+            placeUrl={this.props.focusedPlace.url}
+            placeId={this.props.focusedPlace.id}
             userToken={this.props.currentUser.token}
           />
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
         {this.props.isEditModeToggled && isPlaceDetailEditable ? (
           <PlaceDetailEditor
-            place={place}
+            place={this.props.focusedPlace}
             onRequestEnd={() => this.setState({ placeRequestType: null })}
             placeRequestType={this.state.placeRequestType}
             setPlaceRequestType={this.setPlaceRequestType}
@@ -249,9 +373,9 @@ class PlaceDetail extends Component {
           fieldSummary
         )}
         <Survey
-          placeUrl={place.url}
-          placeId={place.id}
-          datasetSlug={this.props.datasetSlug}
+          placeUrl={this.props.focusedPlace.url}
+          placeId={this.props.focusedPlace.id}
+          datasetSlug={this.props.focusedPlace._datasetSlug}
           currentUser={this.props.currentUser}
           isEditModeToggled={this.props.isEditModeToggled}
           isEditable={isPlaceDetailEditable}
@@ -259,7 +383,7 @@ class PlaceDetail extends Component {
           comments={comments}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
           scrollToResponseId={this.props.scrollToResponseId}
-          submitter={place.submitter}
+          submitter={this.props.focusedPlace.submitter}
           userToken={this.props.currentUser.token}
         />
       </PlaceDetailContainer>
@@ -270,7 +394,7 @@ class PlaceDetail extends Component {
 PlaceDetail.propTypes = {
   container: PropTypes.instanceOf(HTMLElement),
   currentUser: userPropType,
-  datasetSlug: PropTypes.string.isRequired,
+  focusedPlace: placePropType,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
@@ -279,24 +403,34 @@ PlaceDetail.propTypes = {
   mapConfig: PropTypes.shape({
     geocoding_bar_enabled: PropTypes.bool,
   }).isRequired,
-  placeId: PropTypes.number.isRequired,
-  placeSelector: PropTypes.func.isRequired,
+  mapContainerRef: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
+  removeFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.number,
   supportConfig: PropTypes.object.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
+  updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
+  updateMapViewport: PropTypes.func.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
+  removeFocusedGeoJSONFeatures: () => dispatch(removeFocusedGeoJSONFeatures()),
   updateEditModeToggled: isToggled =>
     dispatch(updateEditModeToggled(isToggled)),
+  updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
+  updateFocusedGeoJSONFeatures: newFeatures =>
+    dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
 });
 
 const mapStateToProps = state => ({
   currentUser: userSelector(state),
+  focusedPlace: focusedPlaceSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
     hasGroupAbilitiesInDatasets({
@@ -309,7 +443,6 @@ const mapStateToProps = state => ({
     hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
   isEditModeToggled: isEditModeToggled(state),
   mapConfig: mapConfigSelector(state),
-  placeSelector: placeId => placeSelector(state, placeId),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),
   placeConfig: placeConfigSelector(state),

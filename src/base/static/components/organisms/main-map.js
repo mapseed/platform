@@ -12,7 +12,7 @@ import { throttle } from "throttle-debounce";
 import {
   drawModeActiveSelector,
   interactiveLayerIdsSelector,
-  mapDraggingSelector,
+  mapDraggingOrZoomingSelector,
   mapStyleSelector,
   mapViewportSelector,
   mapViewportPropType,
@@ -20,8 +20,8 @@ import {
   updateMapViewport,
   updateSourceLoadStatus,
   sourcesMetadataSelector,
-  updateMapDragged,
-  updateMapDragging,
+  updateMapDraggedOrZoomed,
+  updateMapDraggingOrZooming,
   updateFeaturesInGeoJSONSource,
   sourcesMetadataPropType,
   updateSources,
@@ -53,6 +53,7 @@ import {
 import { filtersSelector } from "../../state/ducks/filters";
 import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
+import { updateUIVisibility } from "../../state/ducks/ui";
 
 import emitter from "../../utils/emitter";
 
@@ -236,7 +237,11 @@ class MainMap extends Component {
 
   // This function gets called a lot, so we throttle it.
   setSlippyRoute = throttle(500, () => {
-    // TODO: don't update if non-map route is visible
+    if (this.props.isContentPanelVisible) {
+      // Don't set the slippy route when we're at a url like /new or /page/xyz.
+      return;
+    }
+
     const { zoom, latitude, longitude } = this.props.mapViewport;
     this.props.router.navigate(
       `/${zoom.toFixed(2)}/${latitude.toFixed(5)}/${longitude.toFixed(5)}`,
@@ -383,7 +388,7 @@ class MainMap extends Component {
 
   endFeatureQuery = () => {
     if (
-      !this.props.isMapDragging &&
+      !this.props.isMapDraggingOrZooming &&
       this.queriedFeatures.length &&
       this.queriedFeatures[0].properties &&
       this.queriedFeatures[0].properties._clientSlug
@@ -401,11 +406,19 @@ class MainMap extends Component {
   };
 
   onInteractionStateChange = evt => {
-    if (evt.isDragging && !this.props.isMapDragging) {
-      this.props.updateMapDragging(true);
-    } else if (!evt.isDragging && this.props.isMapDragging) {
-      this.props.updateMapDragging(false);
-      this.props.updateMapDragged(true);
+    if (
+      (evt.isDragging || evt.isZooming) &&
+      !this.props.isMapDraggingOrZooming
+    ) {
+      this.props.updateMapDraggingOrZooming(true);
+    } else if (
+      !evt.isDragging &&
+      !evt.isZooming &&
+      this.props.isMapDraggingOrZooming
+    ) {
+      this.props.updateMapDraggingOrZooming(false);
+      this.props.updateMapDraggedOrZoomed(true);
+      this.props.updateSpotlightMaskVisibility(false);
     }
   };
 
@@ -513,7 +526,7 @@ MainMap.propTypes = {
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isDrawModeActive: PropTypes.bool.isRequired,
-  isMapDragging: PropTypes.bool.isRequired,
+  isMapDraggingOrZooming: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
     is_visible_default: PropTypes.bool,
@@ -536,13 +549,14 @@ MainMap.propTypes = {
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
-  updateMapDragged: PropTypes.func.isRequired,
-  updateMapDragging: PropTypes.func.isRequired,
+  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
+  updateMapDraggingOrZooming: PropTypes.func.isRequired,
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayers: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updateSources: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -554,7 +568,7 @@ const mapStateToProps = state => ({
   geometryStyle: geometryStyleSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isDrawModeActive: drawModeActiveSelector(state),
-  isMapDragging: mapDraggingSelector(state),
+  isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
@@ -571,8 +585,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLeftSidebarComponent: component =>
     dispatch(setLeftSidebarComponent(component)),
-  updateMapDragged: isDragged => dispatch(updateMapDragged(isDragged)),
-  updateMapDragging: isDragging => dispatch(updateMapDragging(isDragging)),
+  updateMapDraggedOrZoomed: isDraggedOrZoomed =>
+    dispatch(updateMapDraggedOrZoomed(isDraggedOrZoomed)),
+  updateMapDraggingOrZooming: isDraggingOrZooming =>
+    dispatch(updateMapDraggingOrZooming(isDraggingOrZooming)),
   updateFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(updateFeaturesInGeoJSONSource(sourceId, newFeatures)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
@@ -581,6 +597,8 @@ const mapDispatchToProps = dispatch => ({
   updateSources: (newSourceId, newSource) =>
     dispatch(updateSources(newSourceId, newSource)),
   updateLayers: newLayer => dispatch(updateLayers(newLayer)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });
 
 export default connect(
