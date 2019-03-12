@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
+import styled from "react-emotion";
 
 import { CloseButton } from "../atoms/navigation";
 import {
@@ -11,19 +12,31 @@ import {
 } from "../../state/ducks/left-sidebar";
 import MapLayerPanel from "./map-layer-panel";
 
-import "./left-sidebar.scss";
+const LeftSidebarContainer = styled("section")({
+  position: "absolute",
+  zIndex: 11,
+  width: "250px",
+  height: "100%",
+  overflow: "auto",
+  boxSizing: "border-box",
+  backgroundColor: "#fff",
+  padding: "1em 1em 4em 1em",
+  lineHeight: "1rem",
+});
 
-const LeftSidebar = props => {
-  return props.isLeftSidebarExpanded ? (
-    <div className="left-sidebar">
-      <CloseButton
-        classes="left-sidebar__close-button"
-        onClick={() => props.setLeftSidebarExpanded(false)}
-      />
-      {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
-    </div>
-  ) : null;
-};
+const LeftSidebarCloseButton = styled(CloseButton)({
+  fontSize: "1.3rem",
+  float: "right",
+});
+
+const LeftSidebar = props => (
+  <LeftSidebarContainer>
+    <LeftSidebarCloseButton
+      onClick={() => props.setLeftSidebarExpanded(false)}
+    />
+    {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
+  </LeftSidebarContainer>
+);
 
 LeftSidebar.propTypes = {
   isLeftSidebarExpanded: PropTypes.bool.isRequired,

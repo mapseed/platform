@@ -4,7 +4,10 @@ import styled from "react-emotion";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
 
-import { mapDraggingSelector, mapDraggedSelector } from "../../state/ducks/map";
+import {
+  mapDraggingOrZoomingSelector,
+  mapDraggedOrZoomedSelector,
+} from "../../state/ducks/map";
 
 const MapCenterpointX = styled("span")({
   display: "block",
@@ -25,10 +28,10 @@ const MapCenterpointShadow = styled("span")(props => ({
   position: "absolute",
   top: "0",
   left: "0",
-  opacity: props.isMapDragging ? "0.5" : "1",
+  opacity: props.isMapDraggingOrZooming ? "0.5" : "1",
   background:
     "transparent url(/static/css/images/marker-shadow.png) 0 3px no-repeat scroll",
-  backgroundPosition: props.isMapDragging ? "6px -9px" : "0 0",
+  backgroundPosition: props.isMapDraggingOrZooming ? "6px -9px" : "0 0",
   transition: "opacity 0s, background-position 0.3s ease",
 }));
 
@@ -39,7 +42,7 @@ const MapCenterpointMarker = styled("span")(props => ({
   background:
     "transparent url(/static/css/images/marker-plus.png) 0 0 no-repeat scroll",
   position: "relative",
-  top: props.isMapDragging ? "-20px" : "3px",
+  top: props.isMapDraggingOrZooming ? "-20px" : "3px",
   transition: "top 0.4s ease",
 }));
 
@@ -70,10 +73,14 @@ const MapCenterpointOverlay = styled("span")(props => ({
 
 const MapCenterpoint = styled(props => (
   <span className={props.className}>
-    <MapCenterpointShadow isMapDragging={props.isMapDragging} />
+    <MapCenterpointShadow
+      isMapDraggingOrZooming={props.isMapDraggingOrZooming}
+    />
     {props.isMapDragging && <MapCenterpointX />}
-    <MapCenterpointMarker isMapDragging={props.isMapDragging} />
-    {!props.isMapDragged && (
+    <MapCenterpointMarker
+      isMapDraggingOrZooming={props.isMapDraggingOrZooming}
+    />
+    {!props.isMapDraggedOrZoomed && (
       <MapCenterpointOverlay overlayMsg={props.t("overlayMsg")} />
     )}
   </span>
@@ -96,8 +103,8 @@ MapCenterpoint.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isMapDragged: mapDraggedSelector(state),
-  isMapDragging: mapDraggingSelector(state),
+  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
+  isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
 });
 
 export default connect(mapStateToProps)(
