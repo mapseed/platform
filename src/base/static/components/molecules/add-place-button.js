@@ -52,27 +52,18 @@ const AddPlaceButtonContainer = styled(
 });
 
 class AddPlaceButton extends Component {
-  componentDidMount() {
-    if (this.props.hasPermission) {
-      // isAddPlaceButtonVisible is false by default
-      this.props.setVisibility(true);
-    }
-  }
-
   componentDidUpdate(prevProps) {
     if (
       prevProps.isAddPlaceButtonVisible !== this.props.isAddPlaceButtonVisible
     ) {
       this.props.setMapDimensions();
     }
-    if (prevProps.hasPermission !== this.props.hasPermission) {
-      this.props.setVisibility(this.props.hasPermission);
-    }
   }
 
   render() {
     return (
-      this.props.isAddPlaceButtonVisible && (
+      this.props.isAddPlaceButtonVisible &&
+      this.props.hasPermission && (
         <AddPlaceButtonContainer
           className={this.props.className}
           onClick={this.props.onClick}
