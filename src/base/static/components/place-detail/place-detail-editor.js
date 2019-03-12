@@ -275,10 +275,9 @@ class PlaceDetailEditor extends Component {
 
   triggerFieldVisibility(targets, isVisible) {
     targets.forEach(target => {
-      const fieldStatus = this.state.fields.setIn(
-        [target, "isVisible"],
-        isVisible,
-      );
+      const fieldStatus = this.state.fields
+        .get(target)
+        .set("isVisible", isVisible);
 
       this.setState(({ fields }) => ({
         fields: fields.set(target, fieldStatus),
