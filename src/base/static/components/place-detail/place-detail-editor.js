@@ -151,6 +151,9 @@ class PlaceDetailEditor extends Component {
         },
         datasetSlug: this.props.place._datasetSlug,
         clientSlug: this.props.place._clientSlug,
+        hasAdminAbilities: this.props.hasAdminAbilities(
+          this.props.place._datasetSlug,
+        ),
       });
 
       this.setState({

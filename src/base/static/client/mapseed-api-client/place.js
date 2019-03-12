@@ -20,26 +20,24 @@ const updatePlace = async ({
   placeData,
   datasetSlug,
   clientSlug,
+  hasAdminAbilities = false,
 }) => {
   placeData = toServerGeoJSONFeature(placeData);
-  // TODO: Private query params.
-  // See: https://github.com/jalMogo/mgmt/issues/241
-  const placeParams = {
-    include_tags: true,
-    include_submissions: true,
-  };
+  const placeParams = setPrivateParams(
+    {
+      include_tags: true,
+      include_submissions: true,
+    },
+    hasAdminAbilities,
+  );
 
   const response = await fetch(`${placeUrl}?${qs.stringify(placeParams)}`, {
     headers: {
       "Content-Type": "application/json",
       "X-Shareabouts-Silent": true, // To prevent new Actions on update.
     },
-    // Note that we do *not* include credentials with PUT requests to a
-    // place endpoint. Sending credentials will cause the submitter of
-    // the Place to be updated to the submitter of the PUT request, even if
-    // the submitter object is stripped out of the request payload.
-    // See: https://github.com/jalMogo/mgmt/issues/227
     method: "PUT",
+    credentials: "include",
     body: JSON.stringify(placeData),
   });
 
