@@ -943,6 +943,7 @@ export default Backbone.View.extend({
       document.getElementById("map-component"),
     );
 
+    store.dispatch(setAddPlaceButtonVisibility(true));
     store.dispatch(setCurrentTemplate("map"));
     this.setMapDimensions();
   },
