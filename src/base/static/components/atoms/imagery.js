@@ -21,6 +21,10 @@ const FontAwesomeIcon = styled(props => (
     fontFamily: "FontAwesome",
     fontSize: props.fontSize,
     color: props.color,
+
+    "&:hover": {
+      color: props.hoverColor,
+    },
   };
 
   return styles;
@@ -30,12 +34,14 @@ FontAwesomeIcon.propTypes = {
   color: PropTypes.string.isRequired,
   fontSize: PropTypes.string.isRequired,
   faClassname: PropTypes.string.isRequired,
+  hoverColor: PropTypes.string.isRequired,
 };
 
 FontAwesomeIcon.defaultProps = {
   fontSize: "1rem",
   content: "fa fa-globe",
   color: "#000",
+  hoverColor: "#555",
 };
 
 const SiteLogo = styled(props => {

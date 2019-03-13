@@ -13,27 +13,27 @@ const Util = require("../../js/utils.js");
 import {
   contentPanelComponentSelector,
   pageSlugSelector,
+  uiVisibilitySelector,
 } from "../../state/ducks/ui";
 import { pageSelector } from "../../state/ducks/pages-config";
-import { placePropType, focusedPlaceSelector } from "../../state/ducks/places";
 
-const ContentPanelOuterContainer = styled("section")({
+const ContentPanelOuterContainer = styled("section")(props => ({
   position: "absolute",
   top: 0,
-  right: 0,
+  left: props.isRightSidebarVisible ? "45%" : "60%",
   width: "40%",
   height: "100%",
   backgroundColor: "#fff",
   boxSizing: "border-box",
   boxShadow: "-4px 0 3px rgba(0,0,0,0.1)",
   zIndex: 9,
-});
+}));
 
 const ContentPanelInnerContainer = styled("div")({
   width: "100%",
   height: "100%",
   overflow: "auto",
-  padding: "10px",
+  padding: "20px 15px 15px 15px",
   boxSizing: "border-box",
 });
 
@@ -60,7 +60,9 @@ const CloseButton = styled("button")({
 // TODO: scrollToResponseId
 const ContentPanel = props => {
   return (
-    <ContentPanelOuterContainer>
+    <ContentPanelOuterContainer
+      isRightSidebarVisible={props.isRightSidebarVisible}
+    >
       <CloseButton
         onClick={evt => {
           evt.preventDefault();
@@ -118,6 +120,7 @@ const ContentPanel = props => {
 
 ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
   pageSelector: PropTypes.func.isRequired,
@@ -127,6 +130,7 @@ ContentPanel.propTypes = {
 
 const mapStateToProps = state => ({
   contentPanelComponent: contentPanelComponentSelector(state),
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   pageSelector: (slug, lang) => pageSelector({ state, slug, lang }),
   pageSlug: pageSlugSelector(state),
 });

@@ -3,41 +3,19 @@
 // this reducer
 
 // Selectors:
-export const rightSidebarExpandedSelector = state => {
-  return state.ui.isRightSidebarExpanded;
-};
-export const isLeftSidebarExpandedSelector = state => {
-  return state.ui.isLeftSidebarExpanded;
-};
-export const leftSidebarComponentSelector = state => {
-  return state.ui.leftSidebarComponent;
-};
-export const contentPanelOpenSelector = state => {
-  return state.ui.isContentPanelOpen;
-};
-export const currentTemplateSelector = state => {
-  return state.ui.currentTemplate;
-};
-export const addPlaceButtonVisibilitySelector = state => {
-  return state.ui.isAddPlaceButtonVisible;
-};
-export const geocodeAddressBarVisibilitySelector = state => {
-  return state.ui.isGeocodeAddressBarVisible;
-};
-export const isEditModeToggled = state => {
-  return state.ui.isEditModeToggled;
-};
-export const uiVisibilitySelector = (uiComponentName, state) => {
-  return state.ui.uiVisibility[uiComponentName];
-};
+export const currentTemplateSelector = state => state.ui.currentTemplate;
+export const addPlaceButtonVisibilitySelector = state =>
+  state.ui.isAddPlaceButtonVisible;
+export const geocodeAddressBarVisibilitySelector = state =>
+  state.ui.isGeocodeAddressBarVisible;
+export const isEditModeToggled = state => state.ui.isEditModeToggled;
+export const uiVisibilitySelector = (uiComponentName, state) =>
+  state.ui.uiVisibility[uiComponentName];
 export const contentPanelComponentSelector = state =>
   state.ui.contentPanelComponent;
 export const pageSlugSelector = state => state.ui.activePageSlug;
 
 // Actions:
-const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
-const SET_UI_LEFT_SIDEBAR = "ui/SET_UI_LEFT_SIDEBAR";
-const SET_UI_CONTENT_PANEL = "ui/SET_UI_CONTENT_PANEL";
 const UPDATE_CURRENT_TEMPLATE = "ui/UPDATE_CURRENT_TEMPLATE";
 const UPDATE_ADD_PLACE_BUTTON_VISIBILITY =
   "ui/UPDATE_ADD_PLACE_BUTTON_VISIBILITY";
@@ -49,15 +27,6 @@ const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
 const UPDATE_CONTENT_PANEL_COMPONENT = "ui/UPDATE_CONTENT_PANEL_COMPONENT";
 
 // Action creators:
-export function setContentPanel(isOpen) {
-  return { type: SET_UI_CONTENT_PANEL, payload: isOpen };
-}
-export function setRightSidebar(isExpanded) {
-  return { type: SET_UI_RIGHT_SIDEBAR, payload: isExpanded };
-}
-export function setLeftSidebar(status) {
-  return { type: SET_UI_LEFT_SIDEBAR, payload: status };
-}
 export function updateCurrentTemplate(templateName) {
   return { type: UPDATE_CURRENT_TEMPLATE, payload: templateName };
 }
@@ -96,6 +65,7 @@ const INITIAL_STATE = {
     contentPanel: false,
     mapCenterpoint: false,
     spotlightMask: false,
+    rightSidebar: false,
   },
   contentPanelComponent: null,
   isContentPanelVisible: false,
@@ -127,22 +97,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         contentPanelComponent: action.payload,
-      };
-    case SET_UI_CONTENT_PANEL:
-      return {
-        ...state,
-        isContentPanelOpen: action.payload,
-      };
-    case SET_UI_RIGHT_SIDEBAR:
-      return {
-        ...state,
-        isRightSidebarExpanded: action.payload,
-      };
-    case SET_UI_LEFT_SIDEBAR:
-      return {
-        ...state,
-        isLeftSidebarExpanded: action.payload.isExpanded,
-        leftSidebarComponent: action.payload.component,
       };
     case UPDATE_CURRENT_TEMPLATE:
       return {

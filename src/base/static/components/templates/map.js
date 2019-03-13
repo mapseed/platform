@@ -8,6 +8,7 @@ import ContentPanel from "../organisms/content-panel";
 import AddPlaceButton from "../molecules/add-place-button";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import LeftSidebar from "../organisms/left-sidebar";
+import RightSidebar from "../organisms/right-sidebar";
 
 import {
   addPlaceButtonVisibilitySelector,
@@ -23,15 +24,34 @@ import {
 } from "../../state/ducks/place-config";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { isLeftSidebarExpandedSelector } from "../../state/ducks/left-sidebar";
+import { isRightSidebarEnabledSelector } from "../../state/ducks/right-sidebar-config";
 
 import mq from "../../../../media-queries";
+
+const getMapContainerWidth = (isContentPanelVisible, isRightSidebarVisible) => {
+  // Map-resizing UI widths:
+  //  - ContentPanel: 40%
+  //  - RightSidebar: 15%
+  if (!isContentPanelVisible && !isRightSidebarVisible) {
+    return "100%";
+  } else if (isContentPanelVisible && !isRightSidebarVisible) {
+    return "60%";
+  } else if (!isContentPanelVisible && isRightSidebarVisible) {
+    return "85%";
+  } else if (isContentPanelVisible && isRightSidebarVisible) {
+    return "45%";
+  }
+};
 
 const MapContainer = styled("div")(props => ({
   position: "relative",
 
   [mq[1]]: {
     height: "100%",
-    width: props.isContentPanelVisible ? "60%" : "100%",
+    width: getMapContainerWidth(
+      props.isContentPanelVisible,
+      props.isRightSidebarVisible,
+    ),
   },
 }));
 
@@ -57,6 +77,7 @@ class MapTemplate extends Component {
         <MapContainer
           ref={this.mapContainerRef}
           isContentPanelVisible={this.props.isContentPanelVisible}
+          isRightSidebarVisible={this.props.isRightSidebarVisible}
         >
           {this.props.isLeftSidebarExpanded && <LeftSidebar />}
           {this.props.isAddPlaceButtonVisible &&
@@ -85,6 +106,9 @@ class MapTemplate extends Component {
             mapContainerRef={this.mapContainerRef}
           />
         )}
+        {this.props.isRightSidebarEnabled && (
+          <RightSidebar router={this.props.router} />
+        )}
       </>
     );
   }
@@ -96,6 +120,8 @@ MapTemplate.propTypes = {
   isContentPanelVisible: PropTypes.bool.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
+  isRightSidebarEnabled: PropTypes.bool.isRequired,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   placeConfig: placeConfigPropType.isRequired,
@@ -119,6 +145,8 @@ const mapStateToProps = state => ({
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
+  isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),
   placeConfig: placeConfigSelector(state),
 });

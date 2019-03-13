@@ -285,7 +285,10 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.isContentPanelVisible !== prevProps.isContentPanelVisible) {
+    if (
+      this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
+      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
+    ) {
       this.resizeMap();
     }
 
@@ -527,6 +530,7 @@ MainMap.propTypes = {
   isContentPanelVisible: PropTypes.bool.isRequired,
   isDrawModeActive: PropTypes.bool.isRequired,
   isMapDraggingOrZooming: PropTypes.bool.isRequired,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
     is_visible_default: PropTypes.bool,
@@ -569,6 +573,7 @@ const mapStateToProps = state => ({
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isDrawModeActive: drawModeActiveSelector(state),
   isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),

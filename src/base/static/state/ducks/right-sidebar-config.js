@@ -5,6 +5,10 @@ export const rightSidebarConfigSelector = state => {
   return state.rightSidebarConfig;
 };
 
+export const isRightSidebarEnabledSelector = state => {
+  return !!state.rightSidebarConfig.is_enabled;
+};
+
 export const rightSidebarConfigPropType = PropTypes.shape({
   config: PropTypes.shape({
     description: PropTypes.string,
