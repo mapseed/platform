@@ -1,23 +1,32 @@
 // Selectors:
 export const storyConfigSelector = state => {
-  return state.storyConfig;
+  return state.storyConfig.config;
 };
 
+export const storyChaptersSelector = state => state.storyConfig.chapters;
+
 // Actions:
-const SET_CONFIG = "story/SET_CONFIG";
+const LOAD = "story-config/LOAD";
 
 // Action creators:
-export function setStoryConfig(config) {
-  return { type: SET_CONFIG, payload: config };
+export function loadStoryConfig(config = {}) {
+  const chapters = Object.values(config).reduce((flat, toFlatten) => {
+    return flat.concat(toFlatten.chapters);
+  }, []);
+
+  return { type: LOAD, payload: { config, chapters } };
 }
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = {
+  config: null,
+  chapters: [],
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_CONFIG:
+    case LOAD:
       return {
         ...state,
         ...action.payload,

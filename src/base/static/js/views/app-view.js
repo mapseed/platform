@@ -247,6 +247,7 @@ export default Backbone.View.extend({
   },
 
   fetchAndLoadPlaces: async function() {
+    console.log("FETCH AND LOAD PLACES")
     store.dispatch(updatePlacesLoadStatus("loading"));
 
     const placeParams = {

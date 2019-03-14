@@ -14,20 +14,31 @@ import {
   updateContentPanelComponent,
   updateAddPlaceButtonVisibility,
 } from "../state/ducks/ui";
-import { updateMapViewport } from "../state/ducks/map";
-import { updateFocusedPlaceId } from "../state/ducks/places";
+import {
+  updateMapViewport,
+  createFeaturesInGeoJSONSource,
+} from "../state/ducks/map";
+import {
+  updateFocusedPlaceId,
+  loadPlaceAndSetIgnoreFlag,
+  placeExists,
+} from "../state/ducks/places";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
 import mapseedApiClient from "../client/mapseed-api-client";
 import { setAppConfig } from "../state/ducks/app-config";
-import { loadDatasetsConfig } from "../state/ducks/datasets-config";
+import {
+  loadDatasetsConfig,
+  datasetConfigsSelector,
+} from "../state/ducks/datasets-config";
+import { loadDatasets } from "../state/ducks/datasets";
 import { setMapConfig } from "../state/ducks/map-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
 // TODO: configs always in their own duck
 import { setLeftSidebarConfig } from "../state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../state/ducks/right-sidebar-config";
-import { setStoryConfig } from "../state/ducks/story-config";
+import { loadStoryConfig } from "../state/ducks/story-config";
 import { loadFormsConfig } from "../state/ducks/forms-config";
 import { setSupportConfig } from "../state/ducks/support-config";
 import { setPagesConfig } from "../state/ducks/pages-config";
@@ -71,6 +82,7 @@ Shareabouts.Util = Util;
           window.__REDUX_DEVTOOLS_EXTENSION__(),
       );
 
+      // Fetch and load user information.
       const authedUser = await mapseedApiClient.user.get(
         options.config.app.api_root,
       );
@@ -92,15 +104,21 @@ Shareabouts.Util = Util;
             groups: [],
             isAuthenticated: false,
           };
-
       this.store.dispatch(loadUser(user));
+
+      // Fetch and load datasets.
+      const datasetUrls = options.config.datasets.map(config => config.url);
+      const datasets = await mapseedApiClient.datasets.get(datasetUrls);
+      this.store.dispatch(loadDatasets(datasets));
+
+      // Load all other ducks.
       // TODO: Consistent "load" terminology
       this.store.dispatch(loadDatasetsConfig(options.config.datasets));
       this.store.dispatch(setMapConfig(options.config.map));
       this.store.dispatch(loadPlaceConfig(options.config.place, user));
       this.store.dispatch(setLeftSidebarConfig(options.config.left_sidebar));
       this.store.dispatch(setRightSidebarConfig(options.config.right_sidebar));
-      this.store.dispatch(setStoryConfig(options.config.story));
+      this.store.dispatch(loadStoryConfig(options.config.story));
       this.store.dispatch(setAppConfig(options.config.app));
       this.store.dispatch(loadFormsConfig(options.config.forms));
       this.store.dispatch(setSupportConfig(options.config.support));
@@ -189,8 +207,46 @@ Shareabouts.Util = Util;
     },
 
     // TODO: responseId
-    viewPlace: function(placeSlug, placeId, responseId) {
-      recordGoogleAnalyticsHit(`/${placeSlug}/${placeId}`);
+    viewPlace: async function(clientSlug, placeId, responseId) {
+      if (!placeExists(this.store.getState(), placeId)) {
+        const datasetConfig = datasetConfigsSelector(
+          this.store.getState(),
+        ).find(config => config.clientSlug === clientSlug);
+
+        const response = await mapseedApiClient.place.getPlace({
+          datasetUrl: datasetConfig.url,
+          clientSlug,
+          datasetSlug: datasetConfig.slug,
+          placeId: parseInt(placeId),
+          placeParams: {
+            include_submissions: true,
+            include_tags: true,
+          },
+        });
+
+        if (response) {
+          // Add this Place to the places duck and update the map.
+          this.store.dispatch(loadPlaceAndSetIgnoreFlag(response));
+
+          const { geometry, ...rest } = response;
+
+          this.store.dispatch(
+            createFeaturesInGeoJSONSource(datasetConfig.slug, [
+              {
+                type: "Feature",
+                geometry,
+                properties: rest,
+              },
+            ]),
+          );
+        } else {
+          // The Place doesn't exist, so route back to the map.
+          this.navigate("/", { trigger: true });
+          return;
+        }
+      }
+
+      recordGoogleAnalyticsHit(`/${clientSlug}/${placeId}`);
       this.store.dispatch(updateFocusedPlaceId(parseInt(placeId)));
       this.store.dispatch(updateUIVisibility("contentPanel", true));
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));

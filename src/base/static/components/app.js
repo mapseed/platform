@@ -25,7 +25,10 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../state/ducks/app-config";
-import { storyConfigSelector } from "../state/ducks/story-config";
+import {
+  storyConfigSelector,
+  storyChaptersSelector,
+} from "../state/ducks/story-config";
 import {
   createFeaturesInGeoJSONSource,
   updateMapViewport,
@@ -79,32 +82,20 @@ class App extends Component {
       height: templateDims.height,
     });
 
-    // Fetch and load datasets.
-    this.props.updateDatasetsLoadStatus("loading");
-
-    const datasetUrls = this.props.datasetConfigs.map(config => config.url);
-    const datasets = await mapseedApiClient.datasets.get(datasetUrls);
-
-    this.props.loadDatasets(datasets);
-    this.props.updateDatasetsLoadStatus("loaded");
-
     // Fetch and load Places.
-    this.props.updatePlacesLoadStatus("loading");
-    const placeParams = {
-      // NOTE: this is to include comments/supports while fetching our place models
-      include_submissions: true,
-      include_tags: true,
-    };
-
     const allPlacePagePromises = [];
     await Promise.all(
       this.props.datasetConfigs.map(async config => {
         // Note that the response here is an array of page Promises.
         const response = await mapseedApiClient.place.get({
-          url: `${config.url}/places`,
+          datasetUrl: config.url,
           datasetSlug: config.slug,
           clientSlug: config.clientSlug,
-          placeParams: placeParams,
+          placeParams: {
+            // NOTE: this is to include comments/supports while fetching our place models
+            include_submissions: true,
+            include_tags: true,
+          },
           includePrivate: this.props.hasAdminAbilities(config.slug),
         });
 
@@ -112,7 +103,7 @@ class App extends Component {
           response.forEach(async placePagePromise => {
             allPlacePagePromises.push(placePagePromise);
             const pageData = await placePagePromise;
-            this.props.loadPlaces(pageData, this.props.storyConfig);
+            this.props.loadPlaces(pageData, this.props.storyChapters);
 
             // Update the map.
             this.props.createFeaturesInGeoJSONSource(
@@ -136,7 +127,6 @@ class App extends Component {
     );
 
     await Promise.all(allPlacePagePromises);
-    this.props.updatePlacesLoadStatus("loaded");
   }
 
   render() {
@@ -186,6 +176,8 @@ App.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   store: PropTypes.object.isRequired,
   // TODO: shape of this:
+  storyChapters: PropTypes.array.isRequired,
+  // TODO: shape of this:
   storyConfig: PropTypes.object.isRequired,
   updateDatasetsLoadStatus: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
@@ -198,6 +190,7 @@ const mapStateToProps = state => ({
   datasetConfigs: datasetConfigsSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   storyConfig: storyConfigSelector(state),
+  storyChapters: storyChaptersSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

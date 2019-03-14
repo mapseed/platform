@@ -45,7 +45,9 @@ export const focusedPlaceSelector = state =>
   );
 
 export const placeExists = (state, placeId) => {
-  return !!state.places.placeModels.find(place => place.id === placeId);
+  return !!state.places.placeModels.find(
+    place => place.id === parseInt(placeId),
+  );
 };
 
 export const activeEditPlaceIdSelector = state => {
@@ -72,6 +74,7 @@ export const placesPropType = PropTypes.arrayOf(placePropType);
 
 // Actions:
 const LOAD_PLACES = "places/LOAD";
+const LOAD_PLACE_AND_SET_IGNORE_FLAG = "places/LOAD_PLACE_AND_SET_IGNORE_FLAG";
 const UPDATE_PLACE = "places/UPDATE";
 const CREATE_PLACE = "places/CREATE";
 const REMOVE_PLACE = "places/REMOVE";
@@ -97,21 +100,29 @@ export function updateFocusedPlaceId(placeId) {
   };
 }
 
-export function loadPlaces(places, storyConfig = {}) {
-  const storyChapters = Object.values(storyConfig).reduce((flat, toFlatten) => {
-    return flat.concat(toFlatten.chapters);
-  }, []);
+const ensureSubmissionSetsAndStory = (place, storyChapters = []) => ({
+  ...place,
+  submission_sets: {
+    ...place.submission_sets,
+    support: place.submission_sets.support || [],
+    comments: place.submission_sets.comments || [],
+  },
+  story: storyChapters.find(chapter => chapter.placeId === place.id) || null,
+});
 
-  places = places.map(place => {
-    place.submission_sets.support = place.submission_sets.support || [];
-    place.submission_sets.comments = place.submission_sets.comments || [];
-    place.story =
-      storyChapters.find(chapter => chapter.placeId === place.id) || null;
-
-    return place;
-  });
+export function loadPlaces(places, storyChapters) {
+  places = places.map(place =>
+    ensureSubmissionSetsAndStory(place, storyChapters),
+  );
 
   return { type: LOAD_PLACES, payload: places };
+}
+
+export function loadPlaceAndSetIgnoreFlag(placeModel) {
+  return {
+    type: LOAD_PLACE_AND_SET_IGNORE_FLAG,
+    payload: ensureSubmissionSetsAndStory(placeModel),
+  };
 }
 
 export function updateActiveEditPlaceId(placeId) {
@@ -209,6 +220,7 @@ const INITIAL_STATE = {
   loadStatus: "unloaded",
   activeEditPlaceId: null,
   focusedPlaceId: null,
+  ignorePlaceId: null,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -218,10 +230,27 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         loadStatus: action.payload,
       };
+    case LOAD_PLACE_AND_SET_IGNORE_FLAG:
+      return {
+        ...state,
+        ignorePlaceId: action.payload.id,
+        // In case a page of Place data has arrived after the individual Place
+        // request was sent, perform a check here to make sure we don't add a
+        // duplicate copy of the Place.
+        placeModels: state.placeModels.find(
+          place => place.id === action.payload,
+        )
+          ? state.placeModels
+          : state.placeModels.concat(action.payload),
+      };
     case LOAD_PLACES:
       return {
         ...state,
-        placeModels: state.placeModels.concat(action.payload),
+        placeModels: state.placeModels.concat(
+          // Filter out a Place model which matches ignorePlaceId, so a page
+          // fetch doesn't add a duplicate of the individually fetched Place.
+          action.payload.filter(place => place.id !== state.ignorePlaceId),
+        ),
       };
     case UPDATE_PLACE:
       return {
