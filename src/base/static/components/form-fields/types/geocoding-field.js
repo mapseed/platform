@@ -24,10 +24,18 @@ class GeocodingField extends Component {
     this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     this.props.isTriggeringGeocode &&
       !prevProps.isTriggeringGeocode &&
       this.doGeocode();
+
+    if (this.state.isWithGeocodingError && !prevState.isWithGeocodingError) {
+      setTimeout(() => {
+        this.setState({
+          isWithGeocodingError: false,
+        });
+      }, 5000);
+    }
   }
 
   doGeocode() {

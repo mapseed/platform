@@ -19,8 +19,6 @@ export const pageSlugSelector = state => state.ui.activePageSlug;
 const UPDATE_CURRENT_TEMPLATE = "ui/UPDATE_CURRENT_TEMPLATE";
 const UPDATE_ADD_PLACE_BUTTON_VISIBILITY =
   "ui/UPDATE_ADD_PLACE_BUTTON_VISIBILITY";
-const UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY =
-  "ui/UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY";
 const UPDATE_EDIT_MODE_TOGGLED = "ui/UPDATE_EDIT_MODE_TOGGLED";
 const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
 const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
@@ -32,9 +30,6 @@ export function updateCurrentTemplate(templateName) {
 }
 export function updateAddPlaceButtonVisibility(isVisible) {
   return { type: UPDATE_ADD_PLACE_BUTTON_VISIBILITY, payload: isVisible };
-}
-export function setGeocodeAddressBarVisibility(isVisible) {
-  return { type: UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY, payload: isVisible };
 }
 export function updateEditModeToggled(isToggled) {
   return { type: UPDATE_EDIT_MODE_TOGGLED, payload: isToggled };
@@ -68,13 +63,9 @@ const INITIAL_STATE = {
     rightSidebar: false,
   },
   contentPanelComponent: null,
-  isContentPanelVisible: false,
-  isRightSidebarExpanded: false,
-  isLeftSidebarExpanded: false,
   leftSidebarComponent: undefined,
   currentTemplate: "map",
   isAddPlaceButtonVisible: false,
-  isGeocodeAddressBarVisible: false,
   isEditModeToggled: false,
 };
 
@@ -102,16 +93,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         currentTemplate: action.payload,
-      };
-    case UPDATE_ADD_PLACE_BUTTON_VISIBILITY:
-      return {
-        ...state,
-        isAddPlaceButtonVisible: action.payload,
-      };
-    case UPDATE_GEOCODE_ADDRESS_BAR_VISIBILITY:
-      return {
-        ...state,
-        isGeocodeAddressBarVisible: action.payload,
       };
     case UPDATE_EDIT_MODE_TOGGLED:
       return {

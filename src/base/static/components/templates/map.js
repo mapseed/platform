@@ -9,6 +9,7 @@ import AddPlaceButton from "../molecules/add-place-button";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
+import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
 import {
   addPlaceButtonVisibilitySelector,
@@ -25,6 +26,11 @@ import {
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { isLeftSidebarExpandedSelector } from "../../state/ducks/left-sidebar";
 import { isRightSidebarEnabledSelector } from "../../state/ducks/right-sidebar-config";
+import {
+  geocodeAddressBarEnabledSelector,
+  mapConfigSelector,
+  mapConfigPropType,
+} from "../../state/ducks/map-config";
 
 import mq from "../../../../media-queries";
 
@@ -47,7 +53,8 @@ const MapContainer = styled("div")(props => ({
   position: "relative",
 
   [mq[1]]: {
-    height: "100%",
+    // 42px === fixed height of geocode address bar
+    height: props.isGecodeAddressBarEnabled ? "calc(100% - 42px)" : "100%",
     width: getMapContainerWidth(
       props.isContentPanelVisible,
       props.isRightSidebarVisible,
@@ -74,10 +81,14 @@ class MapTemplate extends Component {
   render() {
     return (
       <>
+        {this.props.isGeocodeAddressBarEnabled && (
+          <GeocodeAddressBar mapConfig={this.props.mapConfig} />
+        )}
         <MapContainer
           ref={this.mapContainerRef}
           isContentPanelVisible={this.props.isContentPanelVisible}
           isRightSidebarVisible={this.props.isRightSidebarVisible}
+          isGeocodeAddressBarEnabled={this.props.isGeocodeAddressBarEnabled}
         >
           {this.props.isLeftSidebarExpanded && <LeftSidebar />}
           {this.props.isAddPlaceButtonVisible &&
@@ -118,12 +129,14 @@ MapTemplate.propTypes = {
   hasAddPlacePermission: PropTypes.bool.isRequired,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
+  isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
   isRightSidebarEnabled: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
+  mapConfig: mapConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
 };
@@ -143,11 +156,13 @@ const mapStateToProps = state => ({
     }),
   isAddPlaceButtonVisible: addPlaceButtonVisibilitySelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
+  isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),
+  mapConfig: mapConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 

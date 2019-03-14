@@ -38,6 +38,8 @@ export const mapPlaceLayersSelector = state => {
 export const offlineConfigSelector = state => {
   return state.mapConfig.offlineBoundingBox;
 };
+export const geocodeAddressBarEnabledSelector = state =>
+  state.mapConfig.geocoding_bar_enabled;
 
 // Actions:
 const SET_CONFIG = "map-config/SET";
