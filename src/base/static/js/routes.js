@@ -24,7 +24,7 @@ import { setAppConfig } from "../state/ducks/app-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { setMapConfig } from "../state/ducks/map-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
-// TODO: configs always in their own ducks?
+// TODO: configs always in their own duck
 import { setLeftSidebarConfig } from "../state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../state/ducks/right-sidebar-config";
 import { setStoryConfig } from "../state/ducks/story-config";
@@ -42,25 +42,28 @@ Shareabouts.Util = Util;
 
 (function() {
   const Router = Backbone.Router.extend({
-    initialize: function(options) {
-      //     fetch(`${options.config.app.api_root}utils/session-key?format=json`, {
-      //       credentials: "include",
-      //     }).then(async session => {
-      //       const sessionJson = await session.json();
-      //       Shareabouts.Util.cookies.save(
-      //         "sa-api-sessionid",
-      //         sessionJson.sessionid,
-      //       );
-      //     });
-
-      // Global route changes
-      //this.bind("route", function() {
-      //  Util.log("ROUTE", self.getCurrentPath());
-      //});
-
-      // Start tracking the history
-      var historyOptions = { pushState: true };
-      Backbone.history.start(historyOptions);
+    routes: {
+      "": "viewMap",
+      "page/:slug": "viewPage",
+      dashboard: "viewDashboard",
+      sha: "viewSha",
+      new: "newPlace",
+      list: "viewList",
+      ":dataset/:id": "viewPlace",
+      ":dataset/:id/response/:response_id": "viewPlace",
+      ":zoom/:lat/:lng": "viewMap",
+      ":custom": "viewMap", // workaround to handle routes like "/es.html" or "/en_US.html"
+    },
+    initialize: async function(options) {
+      fetch(`${options.config.app.api_root}utils/session-key?format=json`, {
+        credentials: "include",
+      }).then(async session => {
+        const sessionJson = await session.json();
+        Shareabouts.Util.cookies.save(
+          "sa-api-sessionid",
+          sessionJson.sessionid,
+        );
+      });
 
       this.store = createStore(
         reducer,
@@ -68,31 +71,29 @@ Shareabouts.Util = Util;
           window.__REDUX_DEVTOOLS_EXTENSION__(),
       );
 
-      let user;
-      mapseedApiClient.user
-        .get(options.config.app.api_root)
-        .then(authedUser => {
-          user = authedUser
-            ? {
-                token: `user:${authedUser.id}`,
-                // avatar_url and `name` are backup values that can get overidden:
-                avatar_url: "/static/css/images/user-50.png",
-                name: authedUser.username,
-                ...authedUser,
-                isAuthenticated: true,
-              }
-            : {
-                // anonymous user:
-                avatar_url: "/static/css/images/user-50.png",
-                token: `session:${Shareabouts.Util.cookies.get(
-                  "sa-api-sessionid",
-                )}`,
-                groups: [],
-                isAuthenticated: false,
-              };
+      const authedUser = await mapseedApiClient.user.get(
+        options.config.app.api_root,
+      );
+      const user = authedUser
+        ? {
+            token: `user:${authedUser.id}`,
+            // avatar_url and `name` are backup values that can get overidden:
+            avatar_url: "/static/css/images/user-50.png",
+            name: authedUser.username,
+            ...authedUser,
+            isAuthenticated: true,
+          }
+        : {
+            // anonymous user:
+            avatar_url: "/static/css/images/user-50.png",
+            token: `session:${Shareabouts.Util.cookies.get(
+              "sa-api-sessionid",
+            )}`,
+            groups: [],
+            isAuthenticated: false,
+          };
 
-          this.store.dispatch(loadUser(user));
-        });
+      this.store.dispatch(loadUser(user));
       // TODO: Consistent "load" terminology
       this.store.dispatch(loadDatasetsConfig(options.config.datasets));
       this.store.dispatch(setMapConfig(options.config.map));
@@ -144,23 +145,15 @@ Shareabouts.Util = Util;
       //        }
       //      }
 
-      this.route("", "viewMap");
-      this.route(":custom", "viewMap"); // workaround to handle routes like "/es.html" or "/en_US.html"
-      this.route(":dataset/:id", "viewPlace");
-      this.route(":dataset/:id/response/:response_id", "viewPlace");
-      this.route("dashboard", "viewDashboard");
-      this.route("sha", "viewSha");
-      this.route("new", "newPlace");
-      this.route("list", "viewList");
-      this.route(":zoom/:lat/:lng", "viewMap");
-      this.route("page/:slug", "viewPage");
+      // Start tracking routing history.
+      Backbone.history.start({ pushState: true });
     },
 
-    getCurrentPath: function() {
-      var root = Backbone.history.root,
-        fragment = Backbone.history.fragment;
-      return root + fragment;
-    },
+    //  getCurrentPath: function() {
+    //    var root = Backbone.history.root,
+    //      fragment = Backbone.history.fragment;
+    //    return root + fragment;
+    //  },
 
     viewMap: function(zoom, lat, lng) {
       recordGoogleAnalyticsHit("/");
@@ -185,7 +178,7 @@ Shareabouts.Util = Util;
 
     viewDashboard: function() {
       recordGoogleAnalyticsHit("/dashboard");
-      this.appView.viewDashboard();
+      this.store.dispatch(updateCurrentTemplate("dashboard"));
     },
 
     newPlace: function() {
@@ -195,6 +188,7 @@ Shareabouts.Util = Util;
       this.store.dispatch(updateUIVisibility("contentPanel", true));
     },
 
+    // TODO: responseId
     viewPlace: function(placeSlug, placeId, responseId) {
       recordGoogleAnalyticsHit(`/${placeSlug}/${placeId}`);
       this.store.dispatch(updateFocusedPlaceId(parseInt(placeId)));
@@ -222,7 +216,7 @@ Shareabouts.Util = Util;
 
     viewList: function() {
       recordGoogleAnalyticsHit("/list");
-      this.appView.viewList();
+      this.store.dispatch(updateCurrentTemplate("list"));
     },
 
     isMapRoute: function(fragment) {

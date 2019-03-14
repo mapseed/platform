@@ -34,7 +34,7 @@ import mq from "../../../../media-queries";
 
 const SiteHeaderWrapper = styled("header")(props => ({
   position: "relative",
-  zIndex: 10,
+  zIndex: 12,
   backgroundColor: props.theme.bg.default,
   display: "flex",
   height: "56px",

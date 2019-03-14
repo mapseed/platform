@@ -192,17 +192,7 @@ class UserMenu extends React.Component {
                 this.props.hasAdminAbilities(
                   this.props.dashboardConfig.datasetId,
                 ) && (
-                  <Link
-                    onClick={() => {
-                      this.props.router.navigate(
-                        isDashboard ? "/" : "/dashboard",
-                        {
-                          trigger: true,
-                        },
-                      );
-                      this.props.toggleMenu();
-                    }}
-                  >
+                  <Link rel="internal" href={isDashboard ? "/" : "/dashboard"}>
                     {isDashboard ? "back to map" : `go to dashboard`}
                   </Link>
                 )}

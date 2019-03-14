@@ -30,6 +30,7 @@ import {
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   mapCenterpointSelector,
+  mapDraggedOrZoomedSelector,
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
@@ -245,7 +246,7 @@ class InputForm extends Component {
       { validationErrors: new Set(), isValid: true },
     );
 
-    if (!this.props.isMapDragged) {
+    if (!this.props.isMapDraggedOrZoomed) {
       newValidationErrors.add("mapNotDragged");
       isValid = false;
     }
@@ -559,7 +560,7 @@ InputForm.propTypes = {
   isFormSubmitting: PropTypes.bool,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isLeavingForm: PropTypes.bool,
-  isMapDragged: PropTypes.bool.isRequired,
+  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   mapConfig: PropTypes.object.isRequired,
   mapCenterpoint: PropTypes.object,
@@ -585,6 +586,7 @@ const mapStateToProps = state => ({
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
+  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   mapConfig: mapConfigSelector(state),
   mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),

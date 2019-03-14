@@ -33,7 +33,7 @@ const ContentPanelInnerContainer = styled("div")({
   width: "100%",
   height: "100%",
   overflow: "auto",
-  padding: "20px 15px 15px 15px",
+  padding: "15px 15px 15px 15px",
   boxSizing: "border-box",
 });
 

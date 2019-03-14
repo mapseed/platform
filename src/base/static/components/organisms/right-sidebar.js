@@ -102,7 +102,6 @@ const RightSidebar = props => {
 
 RightSidebar.propTypes = {
   isRightSidebarVisible: PropTypes.bool.isRequired,
-  setMapDimensions: PropTypes.func.isRequired,
   places: placesPropType,
   rightSidebarConfig: rightSidebarConfigPropType.isRequired,
   storyConfig: PropTypes.object,

@@ -21,6 +21,10 @@ import {
   updateDatasetsLoadStatus,
 } from "../state/ducks/datasets";
 import { hasAdminAbilities } from "../state/ducks/user";
+import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../state/ducks/app-config";
 import { storyConfigSelector } from "../state/ducks/story-config";
 import {
   createFeaturesInGeoJSONSource,
@@ -152,9 +156,15 @@ class App extends Component {
                   languageCode={this.props.languageCode}
                 />
               )}
-              {this.props.currentTemplate === "list" && <ListTemplate />}
+              {this.props.currentTemplate === "list" && (
+                <ListTemplate router={this.props.router} />
+              )}
               {this.props.currentTemplate === "dashboard" && (
-                <DashboardTemplate />
+                <DashboardTemplate
+                  router={this.props.router}
+                  datasetDownloadConfig={this.props.appConfig.dataset_download}
+                  apiRoot={this.props.appConfig.api_root}
+                />
               )}
             </TemplateContainer>
           </ThemeProvider>
@@ -165,8 +175,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  // TODO: shape of this
-  config: PropTypes.object.isRequired,
+  appConfig: appConfigPropType.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   datasetConfigs: datasetConfigPropType,
@@ -179,10 +188,12 @@ App.propTypes = {
   // TODO: shape of this:
   storyConfig: PropTypes.object.isRequired,
   updateDatasetsLoadStatus: PropTypes.func.isRequired,
+  updateMapViewport: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
   datasetConfigs: datasetConfigsSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),

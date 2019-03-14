@@ -97,8 +97,8 @@ const MapCenterpoint = styled(props => (
 }));
 
 MapCenterpoint.propTypes = {
-  isMapDragged: PropTypes.bool.isRequired,
-  isMapDragging: PropTypes.bool.isRequired,
+  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
+  isMapDraggingOrZooming: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
 
