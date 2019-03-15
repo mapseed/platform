@@ -337,6 +337,7 @@ export default Backbone.View.extend({
           avatar_url: authedUser.avatar_url || "/static/css/images/user-50.png",
           name: authedUser.name || authedUser.username,
           isAuthenticated: true,
+          isLoaded: true,
         }
       : {
           // anonymous user:
@@ -344,6 +345,7 @@ export default Backbone.View.extend({
           token: `session:${Shareabouts.Util.cookies.get("sa-api-sessionid")}`,
           groups: [],
           isAuthenticated: false,
+          isLoaded: true,
         };
 
     store.dispatch(loadUser(user));
@@ -470,9 +472,7 @@ export default Backbone.View.extend({
   hasBodyClass: function(className) {
     return $("body").hasClass(className);
   },
-  viewMap: async function(zoom, lat, lng) {
-    let mapPosition;
-
+  viewMap: async function({ zoom, lat, lng, isInviteModalOpen = false } = {}) {
     if (zoom && lat && lng) {
       store.dispatch(
         updateMapViewport({
@@ -487,7 +487,7 @@ export default Backbone.View.extend({
     this.renderRightSidebar();
     this.hideNewPin();
     this.setBodyClass();
-    this.renderMain(mapPosition);
+    this.renderMain({ isInviteModalOpen });
     if (datasetsLoadStatusSelector(store.getState()) === "unloaded") {
       await this.fetchAndLoadDatasets();
     }
@@ -895,7 +895,7 @@ export default Backbone.View.extend({
   hideSpotlightMask: function() {
     $("#spotlight-mask").hide();
   },
-  renderMain: function() {
+  renderMain: function({ isInviteModalOpen = false } = {}) {
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
     $("#dashboard-container").addClass("is-visuallyhidden");
@@ -937,6 +937,7 @@ export default Backbone.View.extend({
             container={document.getElementById("map-container")}
             router={this.options.router}
             setSlippyRoute={this.setSlippyRoute.bind(this)}
+            isInviteModalOpen={isInviteModalOpen}
           />
         </ThemeProvider>
       </Provider>,
