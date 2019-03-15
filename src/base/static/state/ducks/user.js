@@ -83,6 +83,7 @@ export function loadUser(user) {
 // TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
   groups: [],
+  isLoaded: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

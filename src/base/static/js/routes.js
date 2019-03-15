@@ -106,7 +106,11 @@ mixpanel.init(MIXPANEL_TOKEN);
 
     viewMap: function(zoom, lat, lng) {
       recordGoogleAnalyticsHit("/");
-      this.appView.viewMap(parseInt(zoom), parseFloat(lat), parseFloat(lng));
+      this.appView.viewMap({
+        zoom: parseInt(zoom),
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+      });
     },
 
     viewDashboard: function() {
@@ -120,12 +124,7 @@ mixpanel.init(MIXPANEL_TOKEN);
 
     addInvite: function() {
       console.log("tracking user, mixpanel:", mixpanel);
-      mixpanel.track("user invited", {
-        name: "john",
-        id: 123,
-        provider_id: "asdfqwer",
-      });
-      this.viewMap();
+      this.appView.viewMap({ isInviteModalOpen: true });
     },
 
     viewPlace: function(placeSlug, placeId, responseId) {
