@@ -123,7 +123,6 @@ mixpanel.init(MIXPANEL_TOKEN);
     },
 
     addInvite: function() {
-      console.log("tracking user, mixpanel:", mixpanel);
       this.appView.viewMap({ isInviteModalOpen: true });
     },
 
