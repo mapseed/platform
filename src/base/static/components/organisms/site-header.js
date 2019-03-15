@@ -105,7 +105,7 @@ const NavLink = styled(props => (
       href={props.href}
       rel="internal"
       className={props.className}
-      style={{ padding: "2px 4px 2px 4px" }}
+      style={{ padding: "4px 4px 4px 4px" }}
     >
       {props.children}
     </Link>

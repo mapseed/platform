@@ -1,4 +1,8 @@
-export { default as MapTemplate } from "./map";
-export { default as DashboardTemplate } from "./dashboard";
-export { default as ListTemplate } from "./place-list";
-export { default as ShaTemplate } from "./sha";
+import { lazy } from "react";
+
+import ShaTemplate from "./sha";
+const DashboardTemplate = lazy(() => import("./dashboard"));
+const ListTemplate = lazy(() => import("./place-list"));
+const MapTemplate = lazy(() => import("./map"));
+
+export { DashboardTemplate, ListTemplate, MapTemplate, ShaTemplate };

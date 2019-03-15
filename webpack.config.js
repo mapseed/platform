@@ -53,6 +53,9 @@ module.exports = {
     // use this for our dynamic imports, like "1.bundle.js"
     chunkFilename: "[chunkhash].bundle.js",
     filename: isProd ? "[chunkhash].main.bundle.js" : "main.bundle.js",
+    // Support dynamic imports from nested routes.
+    // See: https://github.com/webpack/webpack/issues/7417
+    publicPath: "/",
   },
   resolve: {
     alias,

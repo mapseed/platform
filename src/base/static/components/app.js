@@ -8,11 +8,12 @@ import styled from "react-emotion";
 import SiteHeader from "./organisms/site-header";
 import { currentTemplateSelector } from "../state/ducks/ui";
 import {
+  ShaTemplate,
+  DashboardTemplate,
   MapTemplate,
   ListTemplate,
-  DashboardTemplate,
-  ShaTemplate,
 } from "./templates";
+
 import ThemeProvider from "./theme-provider";
 
 import mapseedApiClient from "../client/mapseed-api-client";
@@ -136,36 +137,40 @@ class App extends Component {
 
   render() {
     return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Provider store={this.props.store}>
-          <ThemeProvider>
-            <SiteHeader
-              router={this.props.router}
-              languageCode={this.props.languageCode}
-            />
-            <TemplateContainer ref={this.templateContainerRef}>
-              {this.props.currentTemplate === "sha" && <ShaTemplate />}
-              {this.props.currentTemplate === "map" && (
+      <Provider store={this.props.store}>
+        <ThemeProvider>
+          <SiteHeader
+            router={this.props.router}
+            languageCode={this.props.languageCode}
+          />
+          <TemplateContainer ref={this.templateContainerRef}>
+            {this.props.currentTemplate === "sha" && <ShaTemplate />}
+            {this.props.currentTemplate === "map" && (
+              <Suspense fallback={<div>Loading...</div>}>
                 <MapTemplate
                   setMapDimensions={this.setMapDimensions}
                   router={this.props.router}
                   languageCode={this.props.languageCode}
                 />
-              )}
-              {this.props.currentTemplate === "list" && (
+              </Suspense>
+            )}
+            {this.props.currentTemplate === "list" && (
+              <Suspense fallback={<div>Loading...</div>}>
                 <ListTemplate router={this.props.router} />
-              )}
-              {this.props.currentTemplate === "dashboard" && (
+              </Suspense>
+            )}
+            {this.props.currentTemplate === "dashboard" && (
+              <Suspense fallback={<div>Loading...</div>}>
                 <DashboardTemplate
                   router={this.props.router}
                   datasetDownloadConfig={this.props.appConfig.dataset_download}
                   apiRoot={this.props.appConfig.api_root}
                 />
-              )}
-            </TemplateContainer>
-          </ThemeProvider>
-        </Provider>
-      </Suspense>
+              </Suspense>
+            )}
+          </TemplateContainer>
+        </ThemeProvider>
+      </Provider>
     );
   }
 }
