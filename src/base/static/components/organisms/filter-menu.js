@@ -34,6 +34,9 @@ const CategoryFilterDropdown = styled("ul")(props => ({
   position: "absolute",
   maxWidth: "180px",
   border: `4px solid ${props.theme.brand.accent}`,
+  padding: 0,
+  top: "30px",
+  marginLeft: "10px",
 }));
 
 const CategoryFilterOption = styled("li")(props => ({

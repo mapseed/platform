@@ -37,6 +37,7 @@ const ContentPanelInnerContainer = styled("div")({
   boxSizing: "border-box",
 });
 
+// TODO: Abstract this out into a molecule.
 const CloseButton = styled("button")({
   position: "absolute",
   top: "10px",

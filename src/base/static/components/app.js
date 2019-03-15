@@ -59,11 +59,11 @@ class App extends Component {
 
   async componentDidMount() {
     // Globally capture all clicks so we can enable client-side routing.
-    // TODO: Ideally this listener would be moved to our Link atom and the
+    // TODO: Ideally this listener would only live in our Link atom and the
     // internal check would happen there. But because we have internal links
-    // in custom page content, we need to listen globally. Down the road our
-    // custom page content could be configured to render Link atoms though.
+    // in custom page content, we need to listen globally.
     document.addEventListener("click", evt => {
+      evt.preventDefault();
       const rel = evt.target.attributes.getNamedItem("rel");
       if (rel && rel.value === "internal") {
         evt.preventDefault();

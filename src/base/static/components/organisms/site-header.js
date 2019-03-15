@@ -8,7 +8,7 @@ import { SiteLogo } from "../atoms/imagery";
 import { Link } from "../atoms/navigation";
 import { NavButton } from "../molecules/buttons";
 import UserMenu from "../molecules/user-menu";
-import { RegularTitle, RegularLabel } from "../atoms/typography";
+import { RegularTitle } from "../atoms/typography";
 
 import {
   navBarConfigPropType,
@@ -39,7 +39,7 @@ const SiteHeaderWrapper = styled("header")(props => ({
   display: "flex",
   height: "56px",
   alignItems: "center",
-  boxShadow: "0 0.125em 0 rgba(0,0,0,0.2)",
+  boxShadow: "0 2px 0 rgba(0,0,0,0.2)",
 
   [mq[0]]: {
     flexDirection: "column",
@@ -66,23 +66,70 @@ const NavContainer = styled("nav")(props => ({
   },
 }));
 
-const NavLink = styled(props => (
-  <Link
-    href={props.href}
-    rel="internal"
-    className={props.className}
-  >
+const NavLinkWrapper = styled("div")(props => ({
+  borderLeft:
+    props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
+}));
+
+const ListToggleLink = styled(props => (
+  <Link href={props.href} rel="internal" className={props.className}>
     {props.children}
   </Link>
 ))(props => ({
+  // TODO: Many of these style rules should eventually be moved to the Link atom.
+  fontFamily: props.theme.text.navBarFontFamily,
+  fontWeight: 600,
+  textTransform: "uppercase",
+  textDecoration: "none",
+  color: props.theme.text.secondary,
+  padding: "0.5rem",
+  backgroundColor: props.theme.brand.primary,
+  borderRadius: "3px",
+  border: "3px solid rgba(0, 0, 0, 0.05)",
+  boxShadow: "rgba(0, 0, 0, 0.1) -0.25em 0.25em 2px",
+
+  "&:hover": {
+    backgroundColor: props.theme.brand.accent,
+  },
+
+  "&:active": {
+    boxShadow: "none",
+    transform: "translate(-0.1em, 0.1em)",
+  },
+}));
+
+const NavLink = styled(props => (
+  <NavLinkWrapper position={props.position}>
+    <Link
+      href={props.href}
+      rel="internal"
+      className={props.className}
+      style={{ padding: "4px 8px 4px 8px" }}
+    >
+      {props.children}
+    </Link>
+  </NavLinkWrapper>
+))(props => ({
+  // TODO: Many of these style rules should eventually be moved to the Link atom.
   display: "flex",
   alignItems: "center",
   textDecoration: "none",
+  textTransform: "uppercase",
+  fontSize: "1rem",
+  fontFamily: props.theme.brand.navBarFontFamily,
+  fontWeight: 600,
+  color: props.theme.bg.light,
+  marginRight: "4px",
+  marginLeft: "4px",
+  borderRadius: "3px",
 
   [mq[1]]: {
     height: props.height,
-    borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
+
+    "&:hover": {
+      color: props.theme.text.secondary,
+      backgroundColor: props.theme.brand.accent,
+    },
   },
 }));
 
@@ -111,6 +158,9 @@ const NavButtonWrapper = styled("span")(props => ({
 
 const LanguagePickerMenu = styled("ul")(props => ({
   backgroundColor: props.theme.bg.default,
+  listStyle: "none",
+  padding: 0,
+  margin: 0,
 
   [mq[0]]: {
     display: "flex",
@@ -126,21 +176,15 @@ const LanguagePickerMenu = styled("ul")(props => ({
   },
 }));
 
-const LanguagePickerMenuItem = styled("li")(props => ({
-  fontFamily: props.theme.text.navBarFontFamily,
-  textTransform: "uppercase",
-  fontSize: "0.75rem",
-  padding: "8px",
-  "&:hover": {
-    color: props.theme.text.highlighted,
-    backgroundColor: props.theme.bg.highlighted,
-    cursor: "pointer",
-  },
-
+const LanguagePickerMenuItem = styled("li")({
   [mq[0]]: {
     width: "100%",
   },
-}));
+
+  [mq[1]]: {
+    margin: "4px 0",
+  },
+});
 
 const LanguagePicker = styled("nav")(props => ({
   textTransform: "uppercase",
@@ -162,15 +206,26 @@ const LanguagePicker = styled("nav")(props => ({
   },
 }));
 
-const LanguageLink = styled(Link)({
+const LanguageLink = styled("a")(props => ({
+  fontFamily: props.theme.text.headerBarFontFamily,
+  fontSize: "1rem",
   textDecoration: "none",
+  padding: "8px",
+  display: "block",
+  textAlign: "center",
+
+  "&:hover": {
+    color: props.theme.text.secondary,
+    backgroundColor: props.theme.bg.highlighted,
+    cursor: "pointer",
+  },
 
   [mq[0]]: {
     display: "flex",
     width: "100%",
     textAlign: "center",
   },
-});
+}));
 
 const RightAlignedContainer = styled("div")(props => ({
   alignItems: "center",
@@ -206,7 +261,6 @@ const NavBarHamburger = styled("i")({
 const LogoTitleWrapper = styled(props => (
   <Link
     className={props.className}
-    variant="unstyled"
     href={`/${props.zoom}/${props.lat}/${props.lng}`}
     rel="internal"
   >
@@ -247,15 +301,14 @@ const navItemMappings = {
     </NavButtonWrapper>
   ),
   list_toggle: styled(linkProps => (
-    <NavLink
+    <ListToggleLink
       className={linkProps.className}
-      height="42px"
       href={linkProps.currentTemplate === "map" ? "/list" : "/"}
     >
       {linkProps.currentTemplate === "map"
         ? linkProps.navBarItem.show_list_button_label
         : linkProps.navBarItem.show_map_button_label}
-    </NavLink>
+    </ListToggleLink>
   ))(() => ({
     [mq[0]]: {
       display: "none",
@@ -356,14 +409,11 @@ class SiteHeader extends Component {
                   isLanguageMenuVisible={this.state.isLanguageMenuVisible}
                 >
                   {this.props.appConfig.languages.map(language => (
-                    <LanguageLink
-                      key={language.code}
-                      href={`/${language.code}.html`}
-                    >
-                      <LanguagePickerMenuItem>
-                        <RegularLabel>{language.label}</RegularLabel>
-                      </LanguagePickerMenuItem>
-                    </LanguageLink>
+                    <LanguagePickerMenuItem key={language.code}>
+                      <LanguageLink href={`/${language.code}.html`}>
+                        {language.label}
+                      </LanguageLink>
+                    </LanguagePickerMenuItem>
                   ))}
                 </LanguagePickerMenu>
               </LanguagePicker>

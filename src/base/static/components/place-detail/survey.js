@@ -119,7 +119,7 @@ class Survey extends Component {
   }
 
   render() {
-    const numComments = this.props.comments.size;
+    const numComments = this.props.comments.length;
 
     return (
       <div className="place-detail-survey">

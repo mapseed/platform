@@ -58,7 +58,9 @@ const RightSidebarInnerContainer = styled("div")({
 const RightSidebar = props => {
   // TODO: Support multiple simultaneous right sidebar components.
   return (
-    <RightSidebarOuterContainer isRightSidebarVisible={props.isRightSidebarVisible}>
+    <RightSidebarOuterContainer
+      isRightSidebarVisible={props.isRightSidebarVisible}
+    >
       <RightSidebarInnerContainer>
         <ToggleSidebarButton
           onClick={() => {
@@ -87,12 +89,18 @@ const RightSidebar = props => {
           <MapLegendPanel config={props.rightSidebarConfig} />
         )}
         {props.rightSidebarConfig.component === "ActivityStream" && (
-          <ActivityStream config={props.rightSidebarConfig} />
+          <ActivityStream
+            config={props.rightSidebarConfig}
+            router={props.router}
+          />
         )}
         {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
           <Fragment>
             <MapLegendPanel isThemed={true} />
-            <ActivityStream config={props.rightSidebarConfig} />
+            <ActivityStream
+              config={props.rightSidebarConfig}
+              router={props.router}
+            />
           </Fragment>
         )}
       </RightSidebarInnerContainer>

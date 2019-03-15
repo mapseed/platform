@@ -7,7 +7,7 @@ import styled from "react-emotion";
 import { InfoModalTrigger } from "../atoms/feedback";
 import { FontAwesomeIcon } from "../atoms/imagery";
 import { HorizontalRule } from "../atoms/layout";
-import { Header5 } from "../atoms/typography";
+import { TinyTitle } from "../atoms/typography";
 
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
@@ -154,7 +154,7 @@ class MapLayerPanelSection extends Component {
     return (
       <div>
         <HorizontalRule spacing="tiny" />
-        <Header5>{this.props.title}</Header5>
+        <TinyTitle>{this.props.title}</TinyTitle>
         {this.props.layerGroups.map(lg => {
           // Assume at first that all sources consumed by layers in this
           // layerGroup have loaded.

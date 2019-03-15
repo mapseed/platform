@@ -9,18 +9,24 @@ import GeocodingField from "../form-fields/types/geocoding-field";
 
 import { uiVisibilitySelector } from "../../state/ducks/ui";
 
+import { getMainContentAreaWidth } from "../../utils/layout-utils";
+
 const GeocodeAddressBarWrapper = styled(props => (
   <form onSubmit={props.onSubmit} className={props.className}>
     {props.children}
   </form>
 ))(props => ({
   display: "block",
+  position: "relative",
   height: "42px",
   backgroundColor: props.theme.brand.secondary,
-  boxShadow: "0 0.125em 0 rgba(0,0,0,0.2)",
+  boxShadow: "0 2px 0 rgba(0,0,0,0.2)",
   boxSizing: "border-box",
-  zIndex: 12,
-  width: props.isRightSidebarVisible ? "85%" : "100%",
+  zIndex: 9,
+  width: getMainContentAreaWidth(
+    props.isContentPanelVisible,
+    props.isRightSidebarVisible,
+  ),
 }));
 
 class GeocodeAddressBar extends Component {
@@ -58,6 +64,7 @@ class GeocodeAddressBar extends Component {
     return (
       <GeocodeAddressBarWrapper
         onSubmit={this.onSubmit}
+        isContentPanelVisible={this.props.isContentPanelVisible}
         isRightSidebarVisible={this.props.isRightSidebarVisible}
       >
         <GeocodingField
@@ -75,12 +82,14 @@ class GeocodeAddressBar extends Component {
 }
 
 GeocodeAddressBar.propTypes = {
+  isContentPanelVisible: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   mapConfig: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
 });
 

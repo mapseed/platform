@@ -33,21 +33,7 @@ import {
 } from "../../state/ducks/map-config";
 
 import mq from "../../../../media-queries";
-
-const getMapContainerWidth = (isContentPanelVisible, isRightSidebarVisible) => {
-  // Map-resizing UI widths:
-  //  - ContentPanel: 40%
-  //  - RightSidebar: 15%
-  if (!isContentPanelVisible && !isRightSidebarVisible) {
-    return "100%";
-  } else if (isContentPanelVisible && !isRightSidebarVisible) {
-    return "60%";
-  } else if (!isContentPanelVisible && isRightSidebarVisible) {
-    return "85%";
-  } else if (isContentPanelVisible && isRightSidebarVisible) {
-    return "45%";
-  }
-};
+import { getMainContentAreaWidth } from "../../utils/layout-utils";
 
 const MapContainer = styled("div")(props => ({
   position: "relative",
@@ -55,7 +41,7 @@ const MapContainer = styled("div")(props => ({
   [mq[1]]: {
     // 42px === fixed height of geocode address bar
     height: props.isGecodeAddressBarEnabled ? "calc(100% - 42px)" : "100%",
-    width: getMapContainerWidth(
+    width: getMainContentAreaWidth(
       props.isContentPanelVisible,
       props.isRightSidebarVisible,
     ),

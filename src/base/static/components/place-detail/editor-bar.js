@@ -9,12 +9,7 @@ import "./editor-bar.scss";
 
 const EditorBar = props => {
   return (
-    <div
-      className={classNames("place-detail-editor-bar", {
-        "place-detail-editor-bar--geocoding-bar-enabled":
-          props.isGeocodingBarEnabled,
-      })}
-    >
+    <div className={classNames("place-detail-editor-bar")}>
       <EditorButton
         className="place-detail-editor-bar__toggle-button"
         label={props.t("toggleBtn")}
