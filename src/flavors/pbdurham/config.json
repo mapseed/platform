@@ -681,7 +681,7 @@
             "optional": false
           },
           {
-            "prompt": "_(Idea(s) it comes from: (List idea tracker number(s)))",
+            "prompt": "_(Idea(s) it comes from: (List idea tracker number(s), separated by a space))",
             "display_prompt": "_(Related ideas:)",
             "type": "text",
             "placeholder": "...",
@@ -689,19 +689,19 @@
             "optional": true
           },
           {
-            "prompt": "_(Location(s): (address, intersection, or landmark name))",
-            "display_prompt": "_(Locations:)",
-            "type": "text",
-            "placeholder": "...",
-            "name": "project_locations",
-            "optional": true
-          },
-          {
-            "prompt": "_(Brief Description: (1-2 sentences describing what the project involves))",
+            "prompt": "_(Brief Project Description: (less than 100 words))",
             "display_prompt": "_(Description of this project proposal:)",
             "type": "textarea",
             "placeholder": "_(Briefly describe the project)",
             "name": "project_description",
+            "optional": true
+          },
+          {
+            "prompt": "_(Impact Statement: (less than 200 words))",
+            "display_prompt": "_(Impact Statement:)",
+            "type": "textarea",
+            "placeholder": "_(Briefly describe the project)",
+            "name": "impact_statement",
             "optional": true
           },
           {
@@ -711,7 +711,7 @@
             "content": "<h1>Budget Delegates section</h1><p>This section is intended to be completed by Budget Delegates.</p>"
           },
           {
-            "prompt": "_(Equity Assessment Score)",
+            "prompt": "_(Equity Score)",
             "restrictToGroups": ["delegates"],
             "display_prompt": "_(Equity Assessment Score:)",
             "type": "big_radio",
@@ -733,7 +733,7 @@
             ]
           },
           {
-            "prompt": "_(Impact Assessment Score)",
+            "prompt": "_(Impact Score)",
             "restrictToGroups": ["delegates"],
             "display_prompt": "_(Impact Assessment Score:)",
             "type": "big_radio",
@@ -755,97 +755,13 @@
             ]
           },
           {
-            "prompt": "_(Feasibility Assessment Score)",
-            "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Feasibility Assessment Score:)",
-            "type": "big_radio",
-            "name": "delegate_feasibility_score",
-            "optional": true,
-            "content": [
-              {
-                "label": "_(1 - Project is not feasible)",
-                "value": "1"
-              },
-              {
-                "label": "_(2 - Project may or may not be feasible)",
-                "value": "2"
-              },
-              {
-                "label": "_(3 - Project is highly likely to be feasible)",
-                "value": "3"
-              }
-            ]
-          },
-          {
-            "prompt": "_(Project Budget)",
-            "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Project Budget:)",
-            "type": "text",
-            "placeholder": "...",
-            "name": "delegate_project_budget",
-            "optional": true
-          },
-          {
-            "prompt": "_(Cost Estimation)",
-            "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Project Cost Estimation:)",
-            "type": "text",
-            "placeholder": "...",
-            "name": "delegate_cost_estimation",
-            "optional": true
-          },
-          {
             "name": "staff_review_header",
             "restrictToGroups": ["tech-reviewers"],
             "type": "informational_html",
             "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
           },
           {
-            "prompt": "_(Equity Assessment Score)",
-            "restrictToGroups": ["tech-reviewers"],
-            "display_prompt": "_(Equity Assessment Score)",
-            "type": "big_radio",
-            "name": "staff_equity_score",
-            "optional": true,
-            "content": [
-              {
-                "label": "_(1 - Low contribution to advancing equity)",
-                "value": "1"
-              },
-              {
-                "label": "_(2 - Medium contribution to advancing equity)",
-                "value": "2"
-              },
-              {
-                "label": "_(3 - High contribution to advancing equity)",
-                "value": "3"
-              }
-            ]
-          },
-          {
-            "prompt": "_(Impact Assessment Score)",
-            "restrictToGroups": ["tech-reviewers"],
-            "display_prompt": "_(Impact Assessment Score)",
-            "type": "big_radio",
-            "name": "staff_impact_score",
-            "optional": true,
-            "content": [
-              {
-                "label": "_(1 - Low impact)",
-                "value": "1"
-              },
-              {
-                "label": "_(2 - Medium impact)",
-                "value": "2"
-              },
-              {
-                "label": "_(3 - High impact)",
-                "value": "3"
-              }
-            ]
-          },
-          {
-            "prompt": "_(Feasibility Assessment Score)",
+            "prompt": "_(Feasibility Score)",
             "restrictToGroups": ["tech-reviewers"],
             "display_prompt": "_(Feasibility Assessment Score)",
             "type": "big_radio",
@@ -868,14 +784,16 @@
           },
           {
             "prompt": "_(Project Budget)",
+            "display_prompt": "_(Project Budget:)",
             "restrictToGroups": ["tech-reviewers"],
-            "type": "textarea",
+            "type": "text",
             "placeholder": "...",
             "name": "staff_project_budget",
             "optional": true
           },
           {
-            "prompt": "_(Cost Estimation)",
+            "prompt": "_(Ongoing Maintenance Cost)",
+            "display_prompt": "_(Ongoing Maintenance Cost:)",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
             "placeholder": "...",
