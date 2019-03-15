@@ -60,6 +60,7 @@
     "i18next": "^10.2.2",
     "immutable": "^3.8.2",
     "lodash.groupby": "^4.6.0",
+    "mixpanel-browser": "^2.27.1",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.23",
     "node-env-file": "^0.1.7",

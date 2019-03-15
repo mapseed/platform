@@ -2,16 +2,19 @@
 import Util from "./utils.js";
 import AppView from "./views/app-view.js";
 import config from "config";
+import mixpanel from "mixpanel-browser";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
+mixpanel.init(MIXPANEL_TOKEN);
 
 (function($) {
   const Router = Backbone.Router.extend({
     routes: {
       "": "viewMap",
+      invite: "addInvite",
       "page/:slug": "viewPage",
       dashboard: "viewDashboard",
       sha: "viewSha",
@@ -113,6 +116,16 @@ Shareabouts.Util = Util;
 
     newPlace: function() {
       this.appView.newPlace();
+    },
+
+    addInvite: function() {
+      console.log("tracking user, mixpanel:", mixpanel);
+      mixpanel.track("user invited", {
+        name: "john",
+        id: 123,
+        provider_id: "asdfqwer",
+      });
+      this.viewMap();
     },
 
     viewPlace: function(placeSlug, placeId, responseId) {
