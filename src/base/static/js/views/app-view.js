@@ -472,7 +472,7 @@ export default Backbone.View.extend({
   hasBodyClass: function(className) {
     return $("body").hasClass(className);
   },
-  viewMap: async function({ zoom, lat, lng, isInviteModalOpen = false }) {
+  viewMap: async function({ zoom, lat, lng, isInviteModalOpen = false } = {}) {
     if (zoom && lat && lng) {
       store.dispatch(
         updateMapViewport({
@@ -895,7 +895,7 @@ export default Backbone.View.extend({
   hideSpotlightMask: function() {
     $("#spotlight-mask").hide();
   },
-  renderMain: function({ isInviteModalOpen = false }) {
+  renderMain: function({ isInviteModalOpen = false } = {}) {
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
     $("#dashboard-container").addClass("is-visuallyhidden");
