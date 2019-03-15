@@ -54,6 +54,10 @@ export const activeEditPlaceIdSelector = state => {
   return state.places.activeEditPlaceId;
 };
 
+export const scrollToResponseIdSelector = state => {
+  return state.places.scrollToResponseId;
+};
+
 export const placePropType = PropTypes.shape({
   attachments: PropTypes.array.isRequired,
   updated_datetime: PropTypes.string.isRequired,
@@ -91,8 +95,16 @@ const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
 const UPDATE_LOAD_STATUS = "places/UPDATE_LOAD_STATUS";
 const UPDATE_ACTIVE_EDIT_PLACE_ID = "places/UPDATE_ACTIVE_EDIT_PLACE_ID";
 const UPDATE_FOCUSED_PLACE_ID = "places/UPDATE_FOCUSED_PLACE_ID";
+const UPDATE_SCROLL_TO_RESPONSE_ID = "places/UPDATE_SCROLL_TO_RESPONSE_ID";
 
 // Action creators:
+export function updateScrollToResponseId(responseId) {
+  return {
+    type: UPDATE_SCROLL_TO_RESPONSE_ID,
+    payload: responseId,
+  };
+}
+
 export function updateFocusedPlaceId(placeId) {
   return {
     type: UPDATE_FOCUSED_PLACE_ID,
@@ -221,6 +233,7 @@ const INITIAL_STATE = {
   activeEditPlaceId: null,
   focusedPlaceId: null,
   ignorePlaceId: null,
+  scrollToResponseId: null,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -425,6 +438,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         focusedPlaceId: action.payload,
+      };
+    case UPDATE_SCROLL_TO_RESPONSE_ID:
+      return {
+        ...state,
+        scrollToResponseId: action.payload,
       };
     default:
       return state;

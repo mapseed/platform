@@ -20,6 +20,7 @@ import {
 } from "../state/ducks/map";
 import {
   updateFocusedPlaceId,
+  updateScrollToResponseId,
   loadPlaceAndSetIgnoreFlag,
   placeExists,
 } from "../state/ducks/places";
@@ -147,31 +148,25 @@ Shareabouts.Util = Util;
         document.getElementById("site-wrap"),
       );
 
-      //      // Load the default page when there is no page already in the url
-      //      if (Backbone.history.getFragment() === "") {
-      //        const startPageConfig = _.findWhere(options.navBarConfig, {
-      //          start_page: true,
-      //        });
-      //
-      //        if (
-      //          startPageConfig &&
-      //          startPageConfig.url &&
-      //          // don't route to the start page on small screens
-      //          $(window).width() > (startPageConfig.show_above_width || 960)
-      //        ) {
-      //          this.navigate(startPageConfig.url, { trigger: true });
-      //        }
-      //      }
-
       // Start tracking routing history.
       Backbone.history.start({ pushState: true });
-    },
 
-    //  getCurrentPath: function() {
-    //    var root = Backbone.history.root,
-    //      fragment = Backbone.history.fragment;
-    //    return root + fragment;
-    //  },
+      // Load the default page when there is no page already in the url
+      if (Backbone.history.getFragment() === "") {
+        const startPageConfig = options.config.nav_bar.find(
+          navItem => navItem.start_page,
+        );
+
+        if (
+          startPageConfig &&
+          startPageConfig.url &&
+          // Don't route to the start page on small screens.
+          window.innerWidth > 960
+        ) {
+          this.navigate(startPageConfig.url, { trigger: true });
+        }
+      }
+    },
 
     viewMap: function(zoom, lat, lng) {
       recordGoogleAnalyticsHit("/");
@@ -206,7 +201,6 @@ Shareabouts.Util = Util;
       this.store.dispatch(updateUIVisibility("contentPanel", true));
     },
 
-    // TODO: responseId
     viewPlace: async function(clientSlug, placeId, responseId) {
       if (!placeExists(this.store.getState(), placeId)) {
         const datasetConfig = datasetConfigsSelector(
@@ -247,6 +241,7 @@ Shareabouts.Util = Util;
       }
 
       recordGoogleAnalyticsHit(`/${clientSlug}/${placeId}`);
+      this.store.dispatch(updateScrollToResponseId(parseInt(responseId)));
       this.store.dispatch(updateFocusedPlaceId(parseInt(placeId)));
       this.store.dispatch(updateUIVisibility("contentPanel", true));
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
@@ -273,19 +268,6 @@ Shareabouts.Util = Util;
     viewList: function() {
       recordGoogleAnalyticsHit("/list");
       this.store.dispatch(updateCurrentTemplate("list"));
-    },
-
-    isMapRoute: function(fragment) {
-      // This is a little hacky. I attempted to use Backbone.history.handlers,
-      // but there is currently no way to map the route, at this point
-      // transformed into a regex, back to the route name. This may change
-      // in the future.
-      return (
-        fragment === "" ||
-        (fragment.indexOf("place") === -1 &&
-          fragment.indexOf("page") === -1 &&
-          fragment.indexOf("list") === -1)
-      );
     },
   });
 

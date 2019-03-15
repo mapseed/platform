@@ -75,15 +75,13 @@ const PlaceDetailContainer = styled("div")(props => ({
 class PlaceDetail extends Component {
   state = {
     isSurveyEditFormSubmitting: false,
+    isPlaceDetailEditable: false,
     placeRequestType: null,
   };
 
-  // topOffset = header bar height + padding + geocoding bar height (if enabled).
-  topOffset = 80 + (this.props.mapConfig.geocoding_bar_enabled ? 72 : 0);
-
   componentDidMount() {
-    //this.props.container.scrollTop = 0;
     this.updateMapViewport();
+    this.updateEditability();
   }
 
   componentDidUpdate(prevProps) {
@@ -99,8 +97,31 @@ class PlaceDetail extends Component {
     }
 
     if (this.props.focusedPlace.id !== prevProps.focusedPlace.id) {
+      findDOMNode(this.props.contentPanelInnerContainerRef.current).scrollTo(
+        0,
+        0,
+      );
       this.updateMapViewport();
+      this.updateEditability();
     }
+  }
+
+  updateEditability() {
+    this.setState({
+      isPlaceDetailEditable:
+        this.props.hasUserAbilitiesInPlace({
+          submitter: this.props.focusedPlace.submitter,
+          isSubmitterEditingSupported: getCategoryConfig(
+            this.props.placeConfig,
+            this.props.focusedPlace.location_type,
+          ).submitter_editing_supported,
+        }) ||
+        this.props.hasGroupAbilitiesInDatasets({
+          abilities: ["update"],
+          submissionSet: "places",
+          datasetSlugs: [this.props.focusedPlace._datasetSlug],
+        }),
+    });
   }
 
   updateMapViewport() {
@@ -193,14 +214,12 @@ class PlaceDetail extends Component {
   }
 
   onMountTargetResponse(responseRef) {
-    // NOTE: We use requestAnimationFrame() here to avoid a situation where
-    // getBoundingClientRect() is called prematurely and returns zeroed values.
-    // The exact reason is not clear, but evidently we need to give the browser
-    // another tick to set the bounding rectangle offsets before calling
-    // getBoundingClientRect() in this use case.
     requestAnimationFrame(() => {
-      this.props.container.scrollTop =
-        responseRef.getBoundingClientRect().top - this.topOffset;
+      findDOMNode(this.props.contentPanelInnerContainerRef.current).scrollTo(
+        0,
+        // TODO: Remove the magic number here.
+        findDOMNode(responseRef.current).getBoundingClientRect().top - 120,
+      );
     });
   }
 
@@ -231,16 +250,6 @@ class PlaceDetail extends Component {
       submissionSet: "tags",
       datasetSlugs: [this.props.focusedPlace._datasetSlug],
     });
-    const isPlaceDetailEditable =
-      this.props.hasUserAbilitiesInPlace({
-        submitter: this.props.focusedPlace.submitter,
-        isSubmitterEditingSupported: categoryConfig.submitter_editing_supported,
-      }) ||
-      this.props.hasGroupAbilitiesInDatasets({
-        abilities: ["update"],
-        submissionSet: "places",
-        datasetSlugs: [this.props.focusedPlace._datasetSlug],
-      });
 
     // TODO: dissolve when flavor abstraction is ready
     let fieldSummary;
@@ -299,15 +308,15 @@ class PlaceDetail extends Component {
 
     return (
       <PlaceDetailContainer
-        isEditable={isPlaceDetailEditable || isTagBarEditable}
+        isEditable={this.state.isPlaceDetailEditable || isTagBarEditable}
       >
-        {(isPlaceDetailEditable || isTagBarEditable) && (
+        {(this.state.isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar
             isAdmin={this.props.hasAdminAbilities(
               this.props.focusedPlace._datasetSlug,
             )}
             isEditModeToggled={this.props.isEditModeToggled}
-            isPlaceDetailEditable={isPlaceDetailEditable}
+            isPlaceDetailEditable={this.state.isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
             isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
             isSubmitting={this.state.isEditFormSubmitting}
@@ -360,7 +369,7 @@ class PlaceDetail extends Component {
           />
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
-        {this.props.isEditModeToggled && isPlaceDetailEditable ? (
+        {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
           <PlaceDetailEditor
             place={this.props.focusedPlace}
             onRequestEnd={() => this.setState({ placeRequestType: null })}
@@ -378,11 +387,10 @@ class PlaceDetail extends Component {
           datasetSlug={this.props.focusedPlace._datasetSlug}
           currentUser={this.props.currentUser}
           isEditModeToggled={this.props.isEditModeToggled}
-          isEditable={isPlaceDetailEditable}
+          isEditable={this.state.isPlaceDetailEditable}
           isSubmitting={this.state.isSurveyEditFormSubmitting}
           comments={comments}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
-          scrollToResponseId={this.props.scrollToResponseId}
           submitter={this.props.focusedPlace.submitter}
           userToken={this.props.currentUser.token}
         />
@@ -393,6 +401,7 @@ class PlaceDetail extends Component {
 
 PlaceDetail.propTypes = {
   container: PropTypes.instanceOf(HTMLElement),
+  contentPanelInnerContainerRef: PropTypes.object.isRequired,
   currentUser: userPropType,
   focusedPlace: placePropType,
   hasAdminAbilities: PropTypes.func.isRequired,
@@ -407,7 +416,6 @@ PlaceDetail.propTypes = {
   placeConfig: PropTypes.object.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   removeFocusedGeoJSONFeatures: PropTypes.func.isRequired,
-  scrollToResponseId: PropTypes.number,
   supportConfig: PropTypes.object.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
