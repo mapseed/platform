@@ -36,7 +36,10 @@ import {
 } from "../../state/ducks/forms-config";
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapConfigPropType,
+} from "../../state/ducks/map-config";
 import {
   userPropType,
   userSelector,
@@ -54,6 +57,7 @@ import {
   removeFocusedGeoJSONFeatures,
   updateMapViewport,
   updateFocusedGeoJSONFeatures,
+  updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -409,9 +413,7 @@ PlaceDetail.propTypes = {
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
-  mapConfig: PropTypes.shape({
-    geocoding_bar_enabled: PropTypes.bool,
-  }).isRequired,
+  mapConfig: mapConfigPropType,
   mapContainerRef: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
@@ -421,6 +423,7 @@ PlaceDetail.propTypes = {
   t: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
   updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
+  updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
 };
@@ -434,6 +437,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateFocusedGeoJSONFeatures: newFeatures =>
     dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
+  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
+    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
 
 const mapStateToProps = state => ({
