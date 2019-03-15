@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 import { Paragraph } from "../../atoms/typography";
 
-const NumberFieldResponse = props => <Paragraph>{props.value}</Paragraph>;
+const Number = props => <Paragraph>{props.value}</Paragraph>;
 
-NumberFieldResponse.propTypes = {
+Number.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default NumberFieldResponse;
+export default Number;
