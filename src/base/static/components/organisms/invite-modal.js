@@ -41,6 +41,7 @@ class InviteModal extends Component {
       username: this.props.currentUser.username,
       provider_id: this.props.currentUser.provider_id,
       provider_type: this.props.currentUser.provider_type,
+      email: new URLSearchParams(window.location.search).get("email"),
     });
   }
 
