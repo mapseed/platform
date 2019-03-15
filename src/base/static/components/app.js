@@ -7,7 +7,12 @@ import styled from "react-emotion";
 
 import SiteHeader from "./organisms/site-header";
 import { currentTemplateSelector } from "../state/ducks/ui";
-import { MapTemplate, ListTemplate, DashboardTemplate } from "./templates";
+import {
+  MapTemplate,
+  ListTemplate,
+  DashboardTemplate,
+  ShaTemplate,
+} from "./templates";
 import ThemeProvider from "./theme-provider";
 
 import mapseedApiClient from "../client/mapseed-api-client";
@@ -139,6 +144,7 @@ class App extends Component {
               languageCode={this.props.languageCode}
             />
             <TemplateContainer ref={this.templateContainerRef}>
+              {this.props.currentTemplate === "sha" && <ShaTemplate />}
               {this.props.currentTemplate === "map" && (
                 <MapTemplate
                   setMapDimensions={this.setMapDimensions}

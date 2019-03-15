@@ -67,6 +67,7 @@ Shareabouts.Util = Util;
       ":custom": "viewMap", // workaround to handle routes like "/es.html" or "/en_US.html"
     },
     initialize: async function(options) {
+      // TODO: Move to API client.
       fetch(`${options.config.app.api_root}utils/session-key?format=json`, {
         credentials: "include",
       }).then(async session => {
@@ -135,6 +136,8 @@ Shareabouts.Util = Util;
         loadMapViewport(options.config.map.options.mapViewport),
       );
       this.store.dispatch(updateAddPlaceButtonVisibility(true));
+      options.config.right_sidebar.is_visible_default &&
+        this.store.dispatch(updateUIVisibility("rightSidebar", true));
 
       languageModule.changeLanguage(options.languageCode);
 
@@ -262,7 +265,7 @@ Shareabouts.Util = Util;
 
     viewSha: function() {
       recordGoogleAnalyticsHit("/sha");
-      this.appView.viewSha();
+      this.store.dispatch(updateCurrentTemplate("sha"));
     },
 
     viewList: function() {
