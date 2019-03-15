@@ -62,7 +62,7 @@ const NavContainer = styled("nav")(props => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: "50px",
+    marginLeft: "25px",
   },
 }));
 
@@ -79,6 +79,7 @@ const ListToggleLink = styled(props => (
   // TODO: Many of these style rules should eventually be moved to the Link atom.
   fontFamily: props.theme.text.navBarFontFamily,
   fontWeight: 600,
+  fontSize: "0.9rem",
   textTransform: "uppercase",
   textDecoration: "none",
   color: props.theme.text.secondary,
@@ -104,7 +105,7 @@ const NavLink = styled(props => (
       href={props.href}
       rel="internal"
       className={props.className}
-      style={{ padding: "4px 8px 4px 8px" }}
+      style={{ padding: "2px 4px 2px 4px" }}
     >
       {props.children}
     </Link>
@@ -115,7 +116,7 @@ const NavLink = styled(props => (
   alignItems: "center",
   textDecoration: "none",
   textTransform: "uppercase",
-  fontSize: "1rem",
+  fontSize: "0.9rem",
   fontFamily: props.theme.brand.navBarFontFamily,
   fontWeight: 600,
   color: props.theme.bg.light,
@@ -188,6 +189,7 @@ const LanguagePickerMenuItem = styled("li")({
 
 const LanguagePicker = styled("nav")(props => ({
   textTransform: "uppercase",
+  fontSize: "0.9rem",
   fontFamily: props.theme.text.navBarFontFamily,
   "&:hover": {
     cursor: "pointer",

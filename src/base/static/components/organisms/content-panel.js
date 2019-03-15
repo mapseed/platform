@@ -39,7 +39,7 @@ const ContentPanelInnerContainer = styled("div")({
 const CloseButton = styled("button")({
   position: "absolute",
   top: "10px",
-  left: "-35px",
+  left: "-33px",
   borderTopLeftRadius: "8px",
   borderBottomLeftRadius: "8px",
   backgroundColor: "#fff",

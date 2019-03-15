@@ -17,10 +17,16 @@ import {
 } from "../../state/ducks/forms-config";
 
 const FilterNavButton = styled(linkProps => (
-  <NavButton color={"tertiary"} onClick={linkProps.onClick}>
+  <NavButton
+    color={"tertiary"}
+    onClick={linkProps.onClick}
+    className={linkProps.className}
+  >
     {linkProps.children}
   </NavButton>
 ))(() => ({
+  fontSize: "0.9rem",
+
   [mq[0]]: {
     display: "none",
   },

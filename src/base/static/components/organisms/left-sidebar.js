@@ -38,7 +38,7 @@ const LeftSidebarInnerContainer = styled("div")({
 const CloseButton = styled("button")({
   position: "absolute",
   top: "10px",
-  right: "-35px",
+  right: "-33px",
   borderTopRightRadius: "8px",
   borderBottomRightRadius: "8px",
   backgroundColor: "#fff",

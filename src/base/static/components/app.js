@@ -63,7 +63,6 @@ class App extends Component {
     // internal check would happen there. But because we have internal links
     // in custom page content, we need to listen globally.
     document.addEventListener("click", evt => {
-      evt.preventDefault();
       const rel = evt.target.attributes.getNamedItem("rel");
       if (rel && rel.value === "internal") {
         evt.preventDefault();
