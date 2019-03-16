@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Button } from "../atoms/buttons";
 import mq from "../../../../media-queries";
 
-import { geocodeAddressBarVisibilitySelector } from "../../state/ducks/ui";
+import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map-config";
 
 const AddPlaceButtonContainer = styled(props => (
   <Button
@@ -33,7 +33,7 @@ const AddPlaceButtonContainer = styled(props => (
     },
     [mq[1]]: {
       position: "absolute",
-      top: props.isGeocodeAddressBarVisible ? "92px" : "20px",
+      top: props.isGeocodeAddressBarEnabled ? "92px" : "20px",
       left: "80px",
     },
   };
@@ -43,7 +43,7 @@ const AddPlaceButton = props => (
   <AddPlaceButtonContainer
     className={props.className}
     onClick={props.onClick}
-    isGeocodeAddressBarVisible={props.isGeocodeAddressBarVisible}
+    isGeocodeAddressBarEnabled={props.isGeocodeAddressBarEnabled}
   >
     {props.children}
   </AddPlaceButtonContainer>
@@ -52,12 +52,12 @@ const AddPlaceButton = props => (
 AddPlaceButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  isGeocodeAddressBarVisible: PropTypes.bool.isRequired,
+  isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isGeocodeAddressBarVisible: geocodeAddressBarVisibilitySelector(state),
+  isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
 });
 
 export default connect(mapStateToProps)(AddPlaceButton);

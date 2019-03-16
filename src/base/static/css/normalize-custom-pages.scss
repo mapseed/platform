@@ -30,11 +30,23 @@
     max-width: 100%;
     margin: 0 0 10px 0;
   }
-  a {
-    text-decoration: none;
-  }
 }
 
 p {
   margin: 0 0 16px 0;
+}
+
+.rich-textarea-field-response {
+  img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  font-family: Roboto, sans-serif;
 }

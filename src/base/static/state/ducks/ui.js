@@ -2,8 +2,6 @@ import { getLayout } from "../../utils/layout-utils";
 
 // Selectors:
 export const currentTemplateSelector = state => state.ui.currentTemplate;
-export const geocodeAddressBarVisibilitySelector = state =>
-  state.ui.isGeocodeAddressBarVisible;
 export const isEditModeToggled = state => state.ui.isEditModeToggled;
 export const uiVisibilitySelector = (uiComponentName, state) =>
   state.ui.uiVisibility[uiComponentName];

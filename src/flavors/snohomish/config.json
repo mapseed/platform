@@ -313,6 +313,7 @@
           {
             "id": "snohomish-input-focused",
             "type": "symbol",
+            "source": "snohomish-inut",
             "filter": ["==", ["get", "location_type"], "conservation-actions"],
             "layout": {
               "icon-allow-overlap": true,
@@ -345,6 +346,7 @@
           {
             "id": "snohomish-featured-focused-points",
             "type": "symbol",
+            "source": "snohomish-featured",
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "layout": {
               "icon-allow-overlap": true,
@@ -632,7 +634,7 @@
             "name": "location-information",
             "type": "informational_html",
             "prompt": "_( )",
-            "content": "<h5 class=\"map-drag-header\">You may drag the map to set your location.</h5><h5 class=\"map-drag-header\">Or, you may enter your address:</h5>"
+            "content": "<h3 class=\"map-drag-header\">You may drag the map to set your location.</h3><h3 class=\"map-drag-header\">Or, you may enter your address:</h3>"
           },
           {
             "name": "private-address",
