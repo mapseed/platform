@@ -5,7 +5,7 @@ import styled from "react-emotion";
 import { connect } from "react-redux";
 
 import { SiteLogo } from "../atoms/imagery";
-import { Link } from "../atoms/navigation";
+import { Link } from "../atoms/typography";
 import { NavButton } from "../molecules/buttons";
 import UserMenu from "../molecules/user-menu";
 import { RegularTitle } from "../atoms/typography";
@@ -37,7 +37,7 @@ const SiteHeaderWrapper = styled("header")(props => ({
   zIndex: 12,
   backgroundColor: props.theme.bg.default,
   display: "flex",
-  height: "56px",
+  height: props.isHeaderExpanded ? "auto" : "56px",
   alignItems: "center",
   boxShadow: "0 2px 0 rgba(0,0,0,0.2)",
   boxSizing: "border-box",
@@ -50,6 +50,15 @@ const SiteHeaderWrapper = styled("header")(props => ({
     flexDirection: "row",
   },
 }));
+
+const HamburgerTitleWrapper = styled("div")({
+  display: "flex",
+  alignItems: "center",
+
+  [mq[0]]: {
+    width: "100%",
+  },
+});
 
 const NavContainer = styled("nav")(props => ({
   [mq[0]]: {
@@ -68,8 +77,13 @@ const NavContainer = styled("nav")(props => ({
 }));
 
 const NavLinkWrapper = styled("div")(props => ({
-  borderLeft:
-    props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
+  [mq[0]]: {
+    textAlign: "center",
+  },
+  [mq[1]]: {
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
+  },
 }));
 
 const ListToggleLink = styled(props => (
@@ -115,6 +129,7 @@ const NavLink = styled(props => (
   // TODO: Many of these style rules should eventually be moved to the Link atom.
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   textDecoration: "none",
   textTransform: "uppercase",
   fontSize: "0.9rem",
@@ -124,14 +139,11 @@ const NavLink = styled(props => (
   marginRight: "4px",
   marginLeft: "4px",
   borderRadius: "3px",
+  height: props.height,
 
-  [mq[1]]: {
-    height: props.height,
-
-    "&:hover": {
-      color: props.theme.text.secondary,
-      backgroundColor: props.theme.brand.accent,
-    },
+  "&:hover": {
+    color: props.theme.text.secondary,
+    backgroundColor: props.theme.brand.accent,
   },
 }));
 
@@ -148,15 +160,13 @@ const SiteTitle = styled(RegularTitle)(props => ({
   },
 }));
 
-const NavButtonWrapper = styled("span")(props => ({
+const NavButtonWrapper = styled("span")({
   [mq[1]]: {
     display: "flex",
     alignItems: "center",
     height: "24px",
-    borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
-}));
+});
 
 const LanguagePickerMenu = styled("ul")(props => ({
   backgroundColor: props.theme.bg.default,
@@ -180,6 +190,7 @@ const LanguagePickerMenu = styled("ul")(props => ({
 
 const LanguagePickerMenuItem = styled("li")({
   [mq[0]]: {
+    display: "flex",
     width: "100%",
   },
 
@@ -210,11 +221,12 @@ const LanguagePicker = styled("nav")(props => ({
 }));
 
 const LanguageLink = styled("a")(props => ({
+  display: "flex",
+  justifyContent: "center",
   fontFamily: props.theme.text.headerBarFontFamily,
   fontSize: "1rem",
   textDecoration: "none",
   padding: "8px",
-  display: "block",
   textAlign: "center",
 
   "&:hover": {
@@ -224,9 +236,7 @@ const LanguageLink = styled("a")(props => ({
   },
 
   [mq[0]]: {
-    display: "flex",
     width: "100%",
-    textAlign: "center",
   },
 }));
 
@@ -341,12 +351,8 @@ class SiteHeader extends Component {
 
   render() {
     return (
-      <SiteHeaderWrapper>
-        <LogoTitleWrapper
-          zoom={this.props.mapConfig.options.mapViewport.zoom.toFixed(2)}
-          lat={this.props.mapConfig.options.mapViewport.latitude.toFixed(5)}
-          lng={this.props.mapConfig.options.mapViewport.longitude.toFixed(5)}
-        >
+      <SiteHeaderWrapper isHeaderExpanded={this.state.isHeaderExpanded}>
+        <HamburgerTitleWrapper>
           <NavBarHamburger
             onClick={() => {
               this.setState({
@@ -354,16 +360,22 @@ class SiteHeader extends Component {
               });
             }}
           />
-          {this.props.appConfig.logo && (
-            <SiteLogo
-              src={this.props.appConfig.logo}
-              alt={this.props.appConfig.name}
-            />
-          )}
-          {this.props.appConfig.show_name_in_header && (
-            <SiteTitle>{this.props.appConfig.name}</SiteTitle>
-          )}
-        </LogoTitleWrapper>
+          <LogoTitleWrapper
+            zoom={this.props.mapConfig.options.mapViewport.zoom.toFixed(2)}
+            lat={this.props.mapConfig.options.mapViewport.latitude.toFixed(5)}
+            lng={this.props.mapConfig.options.mapViewport.longitude.toFixed(5)}
+          >
+            {this.props.appConfig.logo && (
+              <SiteLogo
+                src={this.props.appConfig.logo}
+                alt={this.props.appConfig.name}
+              />
+            )}
+            {this.props.appConfig.show_name_in_header && (
+              <SiteTitle>{this.props.appConfig.name}</SiteTitle>
+            )}
+          </LogoTitleWrapper>
+        </HamburgerTitleWrapper>
         <NavContainer isHeaderExpanded={this.state.isHeaderExpanded}>
           {this.props.navBarConfig.map((navBarItem, i) => {
             const NavItemComponent = navItemMappings[navBarItem.type];
