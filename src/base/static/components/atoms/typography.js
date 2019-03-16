@@ -240,6 +240,7 @@ const Link = styled(props => {
           );
         }
       }}
+      {...props}
     >
       {props.children}
     </a>

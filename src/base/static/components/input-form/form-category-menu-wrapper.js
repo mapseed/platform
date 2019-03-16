@@ -135,7 +135,6 @@ FormCategoryMenuWrapper.propTypes = {
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 const mapStateToProps = state => ({

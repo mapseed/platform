@@ -119,12 +119,6 @@ class ContentPanel extends Component {
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
               router={this.props.router}
-              // // TODO scroll to top
-              // '#content article' and 'body' represent the two containers into
-              // which panel content is rendered (one at desktop size and one at
-              // mobile size).
-              // TODO: Improve this when we move overall app layout management to
-              // Redux.
               render={(state, props, onCategoryChange) => {
                 return (
                   <InputForm
@@ -137,7 +131,6 @@ class ContentPanel extends Component {
                   />
                 );
               }}
-              customComponents={this.props.customComponents}
             />
           )}
         </ContentPanelInnerContainer>

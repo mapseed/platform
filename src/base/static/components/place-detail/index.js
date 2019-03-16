@@ -74,7 +74,7 @@ const PromotionMetadataContainer = styled("div")({
 });
 
 const PlaceDetailContainer = styled("div")(props => ({
-  paddingTop: props.isEditable && props.layout === "desktop" ? "60px" : 0,
+  marginTop: props.isEditable && props.layout === "desktop" ? "58px" : 0,
 }));
 
 class PlaceDetail extends Component {
@@ -314,6 +314,7 @@ class PlaceDetail extends Component {
     return (
       <PlaceDetailContainer
         isEditable={this.state.isPlaceDetailEditable || isTagBarEditable}
+        layout={this.props.layout}
       >
         {(this.state.isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar

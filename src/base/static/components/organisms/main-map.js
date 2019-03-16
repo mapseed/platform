@@ -146,6 +146,7 @@ class MainMap extends Component {
   mapRef = createRef();
   queriedFeatures = [];
   isMapTransitioning = false;
+  hasUpdated = false;
 
   componentDidMount() {
     window.addEventListener("resize", this.resizeMap);
@@ -286,6 +287,11 @@ class MainMap extends Component {
 
   componentDidUpdate(prevProps) {
     if (
+      // NOTE: We have an extra check here which will be true only on the very
+      // first update of the map. This is to make sure the map sizes correctly
+      // on initial load to routes which may display map-resizing UI
+      // components.
+      !this.hasUpdated ||
       this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
       this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
     ) {
@@ -374,6 +380,8 @@ class MainMap extends Component {
         emitter.emit("draw:update-geometry", null);
       }
     }
+
+    this.hasUpdated = true;
   }
 
   beginFeatureQuery = evt => {
