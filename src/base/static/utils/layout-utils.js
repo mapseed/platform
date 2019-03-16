@@ -25,8 +25,8 @@ const getMainContentAreaWidth = ({
 
 const getMainContentAreaHeight = ({
   isContentPanelVisible,
-  layout,
   isGeocodeAddressBarEnabled,
+  layout,
 }) => {
   switch (layout) {
     case "desktop":

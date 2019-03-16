@@ -40,6 +40,7 @@ import {
 
 const MapContainer = styled("div")(props => ({
   position: "relative",
+  overflow: "hidden",
   height: getMainContentAreaHeight({
     isContentPanelVisible: props.isContentPanelVisible,
     isGeocodeAddressBarEnabled: props.isGeocodeAddressBarEnabled,
