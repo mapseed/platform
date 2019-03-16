@@ -34,6 +34,7 @@
     "meta_description": "_(Participatory Budgeting for City of Durham)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "time_zone": "America/New_York",
+    "isShowingMobileUserMenu": true,
     "theme": {
       "bg": {
         "default": "#d6d5d9",

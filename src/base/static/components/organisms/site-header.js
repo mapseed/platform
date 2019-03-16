@@ -159,6 +159,7 @@ const RightAlignedContainer = styled("div")(props => ({
     display: props.isHeaderExpanded ? "flex" : "none",
     marginLeft: 0,
     width: "100%",
+    flexDirection: "column",
   },
   [mq[1]]: {
     display: "flex",
