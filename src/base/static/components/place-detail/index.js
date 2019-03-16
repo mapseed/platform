@@ -381,7 +381,9 @@ class PlaceDetail extends Component {
             onRequestEnd={() => this.setState({ placeRequestType: null })}
             placeRequestType={this.state.placeRequestType}
             setPlaceRequestType={this.setPlaceRequestType}
-            container={this.props.container}
+            contentPanelInnerContainerRef={
+              this.props.contentPanelInnerContainerRef
+            }
             router={this.props.router}
           />
         ) : (

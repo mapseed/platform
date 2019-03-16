@@ -47,7 +47,7 @@ const CloseButton = styled("button")({
   fontSize: "24px",
   color: "#ff5e99",
   boxShadow: "4px 4px 3px rgba(0,0,0,0.1)",
-  padding: "12px 10px 8px 10px",
+  padding: "9px 10px 8px 10px",
 
   "&:hover": {
     color: "#cd2c67",

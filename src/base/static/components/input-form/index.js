@@ -12,7 +12,6 @@ import FormStageControlBar from "../molecules/form-stage-control-bar";
 
 import { translate } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
-import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -37,6 +36,7 @@ import {
 import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
 import { updateUIVisibility } from "../../state/ducks/ui";
 import emitter from "../../utils/emitter";
+import { jumpTo } from "../../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
 
@@ -202,7 +202,7 @@ class InputForm extends Component {
       !isInitializing
     ) {
       this.validateForm(() => {
-        scrollTo(this.props.container, 0);
+        jumpTo(this.props.contentPanelInnerContainerRef, 0);
         this.setState({
           currentStage: this.state.currentStage + 1,
           showValidityStatus: false,
@@ -258,7 +258,7 @@ class InputForm extends Component {
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
       });
-      scrollTo(this.props.container, 0);
+      jumpTo(this.props.contentPanelInnerContainerRef, 0);
     }
   }
 
@@ -508,7 +508,7 @@ class InputForm extends Component {
           <FormStageControlBar
             onClickAdvanceStage={() => {
               this.validateForm(() => {
-                scrollTo(this.props.container, 0);
+                jumpTo(this.props.contentPanelInnerContainerRef, 0);
                 this.setState({
                   currentStage: this.state.currentStage + 1,
                   showValidityStatus: false,
@@ -523,7 +523,7 @@ class InputForm extends Component {
               ) {
                 this.props.onCategoryChange(null);
               } else {
-                scrollTo(this.props.container, 0);
+                jumpTo(this.props.contentPanelInnerContainerRef, 0);
                 this.setState({
                   currentStage: this.state.currentStage - 1,
                   showValidityStatus: false,
@@ -549,6 +549,7 @@ InputForm.propTypes = {
     PropTypes.bool,
   ]),
   container: PropTypes.instanceOf(HTMLElement),
+  contentPanelInnerContainerRef: PropTypes.object.isRequired,
   createPlace: PropTypes.func.isRequired,
   datasetClientSlugSelector: PropTypes.func.isRequired,
   datasetUrl: PropTypes.string.isRequired,

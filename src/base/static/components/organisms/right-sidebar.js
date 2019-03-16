@@ -27,7 +27,7 @@ const ToggleSidebarButton = styled("button")({
   border: "none",
   fontSize: "24px",
   boxShadow: "-4px 4px 3px rgba(0,0,0,0.1)",
-  padding: "10px 10px 10px 10px",
+  padding: "8px 10px 10px 10px",
 
   "&:hover": {
     cursor: "pointer",

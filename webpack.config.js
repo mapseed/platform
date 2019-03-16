@@ -26,8 +26,8 @@ var entryPoints = [
   "whatwg-fetch",
   "normalize.css",
   "./src/base/static/js/routes.js",
-  "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
   "./src/base/static/css/normalize-custom-pages.scss",
+  "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 
 let alias = {};

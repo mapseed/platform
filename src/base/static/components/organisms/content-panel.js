@@ -66,7 +66,7 @@ const CloseButton = styled("button")(props => ({
       ? "-4px 4px 3px rgba(0,0,0,0.1)"
       : "4px -4px 3px rgba(0,0,0,0.1)",
   padding:
-    props.layout === "desktop" ? "12px 10px 8px 10px" : "10px 16px 10px 16px",
+    props.layout === "desktop" ? "9px 10px 8px 10px" : "10px 16px 10px 16px",
 
   "&:hover": {
     color: "#cd2c67",
@@ -123,6 +123,9 @@ class ContentPanel extends Component {
                 return (
                   <InputForm
                     {...props}
+                    contentPanelInnerContainerRef={
+                      this.contentPanelInnerContainerRef
+                    }
                     selectedCategory={state.selectedCategory}
                     datasetUrl={state.datasetUrl}
                     datasetSlug={state.datasetSlug}
