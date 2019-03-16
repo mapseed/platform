@@ -12,7 +12,6 @@ import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
 import {
-  addPlaceButtonVisibilitySelector,
   layoutSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
@@ -148,7 +147,7 @@ const mapStateToProps = state => ({
       abilities: ["create"],
       datasetSlugs: datasetSlugsSelector(state),
     }),
-  isAddPlaceButtonVisible: addPlaceButtonVisibilitySelector(state),
+  isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),

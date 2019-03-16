@@ -76,7 +76,7 @@ const MapCenterpoint = styled(props => (
     <MapCenterpointShadow
       isMapDraggingOrZooming={props.isMapDraggingOrZooming}
     />
-    {props.isMapDragging && <MapCenterpointX />}
+    {props.isMapDraggingOrZooming && <MapCenterpointX />}
     <MapCenterpointMarker
       isMapDraggingOrZooming={props.isMapDraggingOrZooming}
     />

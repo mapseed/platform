@@ -12,7 +12,6 @@ import {
   updateUIVisibility,
   updateActivePage,
   updateContentPanelComponent,
-  updateAddPlaceButtonVisibility,
 } from "../state/ducks/ui";
 import {
   updateMapViewport,
@@ -135,7 +134,6 @@ Shareabouts.Util = Util;
       this.store.dispatch(
         loadMapViewport(options.config.map.options.mapViewport),
       );
-      this.store.dispatch(updateAddPlaceButtonVisibility(true));
       options.config.right_sidebar.is_visible_default &&
         this.store.dispatch(updateUIVisibility("rightSidebar", true));
 
@@ -177,9 +175,9 @@ Shareabouts.Util = Util;
       this.store.dispatch(updateUIVisibility("contentPanel", false));
       this.store.dispatch(updateUIVisibility("spotlightMask", false));
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
+      this.store.dispatch(updateUIVisibility("addPlaceButton", true));
       this.store.dispatch(updateActivePage(null));
       this.store.dispatch(updateContentPanelComponent(null));
-      this.store.dispatch(updateAddPlaceButtonVisibility(true));
       zoom &&
         lat &&
         lng &&
@@ -200,7 +198,7 @@ Shareabouts.Util = Util;
     newPlace: function() {
       recordGoogleAnalyticsHit("/new");
       this.store.dispatch(updateContentPanelComponent("InputForm"));
-      this.store.dispatch(updateAddPlaceButtonVisibility(false));
+      this.store.dispatch(updateUIVisibility("addPlaceButton", false));
       this.store.dispatch(updateUIVisibility("contentPanel", true));
     },
 
@@ -248,7 +246,7 @@ Shareabouts.Util = Util;
       this.store.dispatch(updateFocusedPlaceId(parseInt(placeId)));
       this.store.dispatch(updateUIVisibility("contentPanel", true));
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
-      this.store.dispatch(updateAddPlaceButtonVisibility(true));
+      this.store.dispatch(updateUIVisibility("addPlaceButton", true));
       this.store.dispatch(updateContentPanelComponent("PlaceDetail"));
     },
 
@@ -260,7 +258,6 @@ Shareabouts.Util = Util;
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
       this.store.dispatch(updateActivePage(pageSlug));
       this.store.dispatch(updateContentPanelComponent("CustomPage"));
-      this.store.dispatch(updateAddPlaceButtonVisibility(true));
     },
 
     viewSha: function() {

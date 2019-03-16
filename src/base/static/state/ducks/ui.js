@@ -2,8 +2,6 @@ import { getLayout } from "../../utils/layout-utils";
 
 // Selectors:
 export const currentTemplateSelector = state => state.ui.currentTemplate;
-export const addPlaceButtonVisibilitySelector = state =>
-  state.ui.isAddPlaceButtonVisible;
 export const geocodeAddressBarVisibilitySelector = state =>
   state.ui.isGeocodeAddressBarVisible;
 export const isEditModeToggled = state => state.ui.isEditModeToggled;
@@ -16,8 +14,6 @@ export const layoutSelector = state => state.ui.layout;
 
 // Actions:
 const UPDATE_CURRENT_TEMPLATE = "ui/UPDATE_CURRENT_TEMPLATE";
-const UPDATE_ADD_PLACE_BUTTON_VISIBILITY =
-  "ui/UPDATE_ADD_PLACE_BUTTON_VISIBILITY";
 const UPDATE_EDIT_MODE_TOGGLED = "ui/UPDATE_EDIT_MODE_TOGGLED";
 const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
 const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
@@ -27,9 +23,6 @@ const UPDATE_LAYOUT = "ui/UPDATE_LAYOUT";
 // Action creators:
 export function updateCurrentTemplate(templateName) {
   return { type: UPDATE_CURRENT_TEMPLATE, payload: templateName };
-}
-export function updateAddPlaceButtonVisibility(isVisible) {
-  return { type: UPDATE_ADD_PLACE_BUTTON_VISIBILITY, payload: isVisible };
 }
 export function updateEditModeToggled(isToggled) {
   return { type: UPDATE_EDIT_MODE_TOGGLED, payload: isToggled };
@@ -63,15 +56,15 @@ export function updateLayout() {
 const INITIAL_STATE = {
   activePageSlug: null,
   uiVisibility: {
+    addPlaceButton: false,
     contentPanel: false,
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,
   },
   contentPanelComponent: null,
-  leftSidebarComponent: undefined,
+  leftSidebarComponent: null,
   currentTemplate: "map",
-  isAddPlaceButtonVisible: false,
   isEditModeToggled: false,
   // Currently either "desktop" or "mobile"
   layout: getLayout(),
