@@ -10,51 +10,69 @@ import PlaceDetail from "../place-detail";
 
 import {
   contentPanelComponentSelector,
+  layoutSelector,
   pageSlugSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
 import { pageSelector } from "../../state/ducks/pages-config";
 
+const getLeftOffset = (isRightSidebarVisible, layout) => {
+  switch (layout) {
+    case "desktop":
+      return isRightSidebarVisible ? "45%" : "60%";
+    case "mobile":
+      return 0;
+  }
+};
+
 const ContentPanelOuterContainer = styled("section")(props => ({
   position: "absolute",
-  top: 0,
-  width: "40%",
-  left: props.isRightSidebarVisible ? "45%" : "60%",
-  height: "100%",
+  top: props.layout === "desktop" ? 0 : "60%",
+  width: props.layout === "desktop" ? "40%" : "100%",
+  left: getLeftOffset(props.isRightSidebarVisible, props.layout),
+  height: props.layout === "desktop" ? "100%" : "unset",
   backgroundColor: "#fff",
   boxSizing: "border-box",
-  boxShadow: "-4px 0 3px rgba(0,0,0,0.1)",
+  boxShadow:
+    props.layout === "desktop"
+      ? "-4px 0 3px rgba(0,0,0,0.1)"
+      : "0 -4px 3px rgba(0,0,0,0.1)",
   zIndex: 9,
 }));
 
-const ContentPanelInnerContainer = styled("div")({
+const ContentPanelInnerContainer = styled("div")(props => ({
   width: "100%",
   height: "100%",
-  overflow: "auto",
+  overflow: props.layout === "desktop" ? "auto" : "visible",
   padding: "15px 15px 15px 15px",
   boxSizing: "border-box",
-});
+}));
 
 // TODO: Abstract this out into a molecule.
-const CloseButton = styled("button")({
+const CloseButton = styled("button")(props => ({
   position: "absolute",
-  top: "10px",
-  left: "-33px",
+  top: props.layout === "desktop" ? "10px" : "-33px",
+  left: props.layout === "desktop" ? "-33px" : "10px",
   borderTopLeftRadius: "8px",
-  borderBottomLeftRadius: "8px",
+  borderTopRightRadius: props.layout === "desktop" ? 0 : "8px",
+  borderBottomLeftRadius: props.layout === "desktop" ? "8px" : 0,
   backgroundColor: "#fff",
   outline: "none",
   border: "none",
-  fontSize: "24px",
+  fontSize: props.layout === "desktop" ? "24px" : "16px",
   color: "#ff5e99",
-  boxShadow: "-4px 4px 3px rgba(0,0,0,0.1)",
-  padding: "12px 10px 8px 10px",
+  boxShadow:
+    props.layout === "desktop"
+      ? "-4px 4px 3px rgba(0,0,0,0.1)"
+      : "4px -4px 3px rgba(0,0,0,0.1)",
+  padding:
+    props.layout === "desktop" ? "12px 10px 8px 10px" : "10px 16px 10px 16px",
 
   "&:hover": {
     color: "#cd2c67",
     cursor: "pointer",
   },
-});
+}));
 
 class ContentPanel extends Component {
   contentPanelOuterContainerRef = createRef();
@@ -63,10 +81,12 @@ class ContentPanel extends Component {
   render() {
     return (
       <ContentPanelOuterContainer
+        layout={this.props.layout}
         ref={this.contentPanelOuterContainerRef}
         isRightSidebarVisible={this.props.isRightSidebarVisible}
       >
         <CloseButton
+          layout={this.props.layout}
           onClick={evt => {
             evt.preventDefault();
             this.props.router.navigate("/", { trigger: true });
@@ -74,7 +94,10 @@ class ContentPanel extends Component {
         >
           &#10005;
         </CloseButton>
-        <ContentPanelInnerContainer ref={this.contentPanelInnerContainerRef}>
+        <ContentPanelInnerContainer
+          ref={this.contentPanelInnerContainerRef}
+          layout={this.props.layout}
+        >
           {this.props.contentPanelComponent === "CustomPage" && (
             <CustomPage
               pageContent={
@@ -127,6 +150,7 @@ ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
@@ -136,6 +160,7 @@ ContentPanel.propTypes = {
 const mapStateToProps = state => ({
   contentPanelComponent: contentPanelComponentSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
+  layout: layoutSelector(state),
   pageSelector: (slug, lang) => pageSelector({ state, slug, lang }),
   pageSlug: pageSlugSelector(state),
 });

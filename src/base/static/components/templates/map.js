@@ -13,6 +13,7 @@ import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
 import {
   addPlaceButtonVisibilitySelector,
+  layoutSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
 import {
@@ -32,20 +33,23 @@ import {
   mapConfigPropType,
 } from "../../state/ducks/map-config";
 
-import mq from "../../../../media-queries";
-import { getMainContentAreaWidth } from "../../utils/layout-utils";
+import {
+  getMainContentAreaWidth,
+  getMainContentAreaHeight,
+} from "../../utils/layout-utils";
 
 const MapContainer = styled("div")(props => ({
   position: "relative",
-
-  [mq[1]]: {
-    // 42px === fixed height of geocode address bar
-    height: props.isGecodeAddressBarEnabled ? "calc(100% - 42px)" : "100%",
-    width: getMainContentAreaWidth(
-      props.isContentPanelVisible,
-      props.isRightSidebarVisible,
-    ),
-  },
+  height: getMainContentAreaHeight({
+    isContentPanelVisible: props.isContentPanelVisible,
+    isGeocodeAddressBarEnabled: props.isGeocodeAddressBarEnabled,
+    layout: props.layout,
+  }),
+  width: getMainContentAreaWidth({
+    isContentPanelVisible: props.isContentPanelVisible,
+    isRightSidebarVisible: props.isRightSidebarVisible,
+    layout: props.layout,
+  }),
 }));
 
 const SpotlightMask = styled("div")({
@@ -75,6 +79,7 @@ class MapTemplate extends Component {
           isContentPanelVisible={this.props.isContentPanelVisible}
           isRightSidebarVisible={this.props.isRightSidebarVisible}
           isGeocodeAddressBarEnabled={this.props.isGeocodeAddressBarEnabled}
+          layout={this.props.layout}
         >
           {this.props.isLeftSidebarExpanded && <LeftSidebar />}
           {this.props.isAddPlaceButtonVisible &&
@@ -103,9 +108,10 @@ class MapTemplate extends Component {
             mapContainerRef={this.mapContainerRef}
           />
         )}
-        {this.props.isRightSidebarEnabled && (
-          <RightSidebar router={this.props.router} />
-        )}
+        {this.props.layout === "desktop" &&
+          this.props.isRightSidebarEnabled && (
+            <RightSidebar router={this.props.router} />
+          )}
       </>
     );
   }
@@ -122,6 +128,7 @@ MapTemplate.propTypes = {
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
   mapConfig: mapConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
@@ -148,6 +155,7 @@ const mapStateToProps = state => ({
   isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),
+  layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });

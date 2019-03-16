@@ -6,7 +6,11 @@ import browserUpdate from "browser-update";
 import styled from "react-emotion";
 
 import SiteHeader from "./organisms/site-header";
-import { currentTemplateSelector } from "../state/ducks/ui";
+import {
+  currentTemplateSelector,
+  updateLayout,
+  layoutSelector,
+} from "../state/ducks/ui";
 import {
   ShaTemplate,
   DashboardTemplate,
@@ -52,18 +56,22 @@ browserUpdate({
   },
 });
 
-const TemplateContainer = styled("div")({
+const TemplateContainer = styled("div")(props => ({
   position: "relative",
-  overflow: "hidden",
+  overflow: props.layout === "desktop" ? "hidden" : "visible",
   width: "100%",
   // 56px === fixed height of header bar
   height: "calc(100% - 56px)",
-});
+}));
 
 class App extends Component {
   templateContainerRef = createRef();
 
   async componentDidMount() {
+    window.addEventListener("resize", () => {
+      this.props.updateLayout();
+    });
+
     // Globally capture all clicks so we can enable client-side routing.
     // TODO: Ideally this listener would only live in our Link atom and the
     // internal check would happen there. But because we have internal links
@@ -143,7 +151,10 @@ class App extends Component {
             router={this.props.router}
             languageCode={this.props.languageCode}
           />
-          <TemplateContainer ref={this.templateContainerRef}>
+          <TemplateContainer
+            ref={this.templateContainerRef}
+            layout={this.props.layout}
+          >
             {this.props.currentTemplate === "sha" && <ShaTemplate />}
             {this.props.currentTemplate === "map" && (
               <Suspense fallback={<div>Loading...</div>}>
@@ -182,6 +193,7 @@ App.propTypes = {
   datasetConfigs: datasetConfigPropType,
   hasAdminAbilities: PropTypes.func.isRequired,
   languageCode: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
   loadDatasets: PropTypes.func.isRequired,
   loadPlaces: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
@@ -191,6 +203,7 @@ App.propTypes = {
   // TODO: shape of this:
   storyConfig: PropTypes.object.isRequired,
   updateDatasetsLoadStatus: PropTypes.func.isRequired,
+  updateLayout: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
 };
@@ -200,6 +213,7 @@ const mapStateToProps = state => ({
   currentTemplate: currentTemplateSelector(state),
   datasetConfigs: datasetConfigsSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  layout: layoutSelector(state),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),
 });
@@ -212,6 +226,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadPlaces(places, storyConfig)),
   updateDatasetsLoadStatus: loadStatus =>
     dispatch(updateDatasetsLoadStatus(loadStatus)),
+  updateLayout: () => dispatch(updateLayout()),
   updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),

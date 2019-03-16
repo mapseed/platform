@@ -40,6 +40,7 @@ const SiteHeaderWrapper = styled("header")(props => ({
   height: "56px",
   alignItems: "center",
   boxShadow: "0 2px 0 rgba(0,0,0,0.2)",
+  boxSizing: "border-box",
 
   [mq[0]]: {
     flexDirection: "column",
@@ -105,7 +106,7 @@ const NavLink = styled(props => (
       href={props.href}
       rel="internal"
       className={props.className}
-      style={{ padding: "4px 4px 4px 4px" }}
+      style={{ padding: "4px 8px 4px 8px" }}
     >
       {props.children}
     </Link>

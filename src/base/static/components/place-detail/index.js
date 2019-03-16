@@ -49,6 +49,7 @@ import {
 } from "../../state/ducks/user";
 import {
   isEditModeToggled,
+  layoutSelector,
   updateEditModeToggled,
   updateUIVisibility,
 } from "../../state/ducks/ui";
@@ -73,7 +74,7 @@ const PromotionMetadataContainer = styled("div")({
 });
 
 const PlaceDetailContainer = styled("div")(props => ({
-  paddingTop: props.isEditable ? "60px" : 0,
+  paddingTop: props.isEditable && props.layout === "desktop" ? "60px" : 0,
 }));
 
 class PlaceDetail extends Component {
@@ -413,6 +414,7 @@ PlaceDetail.propTypes = {
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
+  layout: PropTypes.string.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerRef: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
@@ -455,6 +457,7 @@ const mapStateToProps = state => ({
   hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
     hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
   isEditModeToggled: isEditModeToggled(state),
+  layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),

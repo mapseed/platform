@@ -1,6 +1,4 @@
-// This is skeleton code only!
-// TODO(luke): refactor our current implementation in AppView to use
-// this reducer
+import { getLayout } from "../../utils/layout-utils";
 
 // Selectors:
 export const currentTemplateSelector = state => state.ui.currentTemplate;
@@ -14,6 +12,7 @@ export const uiVisibilitySelector = (uiComponentName, state) =>
 export const contentPanelComponentSelector = state =>
   state.ui.contentPanelComponent;
 export const pageSlugSelector = state => state.ui.activePageSlug;
+export const layoutSelector = state => state.ui.layout;
 
 // Actions:
 const UPDATE_CURRENT_TEMPLATE = "ui/UPDATE_CURRENT_TEMPLATE";
@@ -23,6 +22,7 @@ const UPDATE_EDIT_MODE_TOGGLED = "ui/UPDATE_EDIT_MODE_TOGGLED";
 const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
 const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
 const UPDATE_CONTENT_PANEL_COMPONENT = "ui/UPDATE_CONTENT_PANEL_COMPONENT";
+const UPDATE_LAYOUT = "ui/UPDATE_LAYOUT";
 
 // Action creators:
 export function updateCurrentTemplate(templateName) {
@@ -52,6 +52,12 @@ export function updateContentPanelComponent(componentName) {
     payload: componentName,
   };
 }
+export function updateLayout() {
+  return {
+    type: UPDATE_LAYOUT,
+    payload: getLayout(),
+  };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -67,6 +73,8 @@ const INITIAL_STATE = {
   currentTemplate: "map",
   isAddPlaceButtonVisible: false,
   isEditModeToggled: false,
+  // Currently either "desktop" or "mobile"
+  layout: getLayout(),
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -98,6 +106,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isEditModeToggled: action.payload,
+      };
+    case UPDATE_LAYOUT:
+      return {
+        ...state,
+        layout: action.payload,
       };
     default:
       return state;
