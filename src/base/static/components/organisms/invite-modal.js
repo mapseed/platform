@@ -46,6 +46,9 @@ class InviteModal extends Component {
   }
 
   componentDidMount() {
+    if (!this.state.isModalOpen) {
+      return;
+    }
     if (this.props.currentUser.isLoaded) {
       if (this.props.currentUser.isAuthenticated) {
         this.inviteUser();
@@ -58,6 +61,9 @@ class InviteModal extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (!this.state.isModalOpen) {
+      return;
+    }
     if (!prevProps.currentUser.isLoaded && this.props.currentUser.isLoaded) {
       if (
         !prevProps.currentUser.isAuthenticated &&
