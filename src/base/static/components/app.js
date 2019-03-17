@@ -26,10 +26,7 @@ import {
   datasetConfigsSelector,
   datasetConfigPropType,
 } from "../state/ducks/datasets-config";
-import {
-  loadDatasets,
-  updateDatasetsLoadStatus,
-} from "../state/ducks/datasets";
+import { loadDatasets } from "../state/ducks/datasets";
 import { hasAdminAbilities } from "../state/ducks/user";
 import {
   appConfigSelector,
@@ -97,6 +94,7 @@ class App extends Component {
     });
 
     // Fetch and load Places.
+    this.props.updatePlacesLoadStatus("loading");
     const allPlacePagePromises = [];
     await Promise.all(
       this.props.datasetConfigs.map(async config => {
@@ -141,6 +139,7 @@ class App extends Component {
     );
 
     await Promise.all(allPlacePagePromises);
+    this.props.updatePlacesLoadStatus("loaded");
   }
 
   render() {
@@ -202,7 +201,6 @@ App.propTypes = {
   storyChapters: PropTypes.array.isRequired,
   // TODO: shape of this:
   storyConfig: PropTypes.object.isRequired,
-  updateDatasetsLoadStatus: PropTypes.func.isRequired,
   updateLayout: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
@@ -224,12 +222,10 @@ const mapDispatchToProps = dispatch => ({
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
   loadPlaces: (places, storyConfig) =>
     dispatch(loadPlaces(places, storyConfig)),
-  updateDatasetsLoadStatus: loadStatus =>
-    dispatch(updateDatasetsLoadStatus(loadStatus)),
-  updateLayout: () => dispatch(updateLayout()),
-  updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
+  updateLayout: () => dispatch(updateLayout()),
+  updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
 });
 
 export default connect(

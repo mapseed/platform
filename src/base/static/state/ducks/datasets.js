@@ -10,20 +10,10 @@ export const datasetUrlSelector = (state, datasetSlug) => {
   ).url;
 };
 
-export const datasetsLoadStatusSelector = state => state.datasets.loadStatus;
-
 // Actions:
 const LOAD = "datasets/LOAD";
-const UPDATE_LOAD_STATUS = "datasets/UPDATE_LOAD_STATUS";
 
 // Action creators:
-export function updateDatasetsLoadStatus(loadStatus) {
-  return {
-    type: UPDATE_LOAD_STATUS,
-    payload: loadStatus,
-  };
-}
-
 export function loadDatasets(datasets) {
   const getTagDisplayName = (tag, tags) => {
     const nodes = [];
@@ -129,11 +119,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         datasetModels: action.payload,
-      };
-    case UPDATE_LOAD_STATUS:
-      return {
-        ...state,
-        loadStatus: action.payload,
       };
     default:
       return state;

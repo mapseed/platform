@@ -11,10 +11,7 @@ import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
-import {
-  layoutSelector,
-  uiVisibilitySelector,
-} from "../../state/ducks/ui";
+import { layoutSelector, uiVisibilitySelector } from "../../state/ducks/ui";
 import {
   hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,

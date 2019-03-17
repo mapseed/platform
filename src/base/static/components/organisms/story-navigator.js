@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import styled from "react-emotion";
 
 import { storyConfigSelector } from "../../state/ducks/story-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
@@ -15,12 +16,17 @@ import Immutable from "immutable";
 import Spinner from "react-spinner";
 
 import StoryChapter from "../molecules/story-chapter";
-import { Header5, Paragraph } from "../atoms/typography";
+import { TinyTitle, Paragraph } from "../atoms/typography";
 import constants from "../../constants";
 
 import { translate } from "react-i18next";
 
 import "./story-navigator.scss";
+
+const StoryTitle = styled(TinyTitle)({
+  margin: "0 0 8px 0",
+  paddingLeft: "10px",
+});
 
 class StoryNavigator extends Component {
   constructor(props) {
@@ -133,9 +139,7 @@ class StoryNavigator extends Component {
     return (
       <div className="story-navigator">
         {this.state.currentStory.get("header") && (
-          <Header5 className="story-navigator__header">
-            {this.state.currentStory.get("header")}
-          </Header5>
+          <StoryTitle>{this.state.currentStory.get("header")}</StoryTitle>
         )}
         {this.state.currentStory.get("description") && (
           <Paragraph className="story-navigator__description">
@@ -156,6 +160,7 @@ class StoryNavigator extends Component {
                   placeUrl={`${chapter.get("_clientSlug")}/${chapter.get(
                     "id",
                   )}`}
+                  router={this.props.router}
                 />
               );
             })
