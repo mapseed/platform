@@ -20,6 +20,7 @@ import userReducer from "./ducks/user";
 import datasetsConfigReducer from "./ducks/datasets-config";
 import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
+import customComponentsConfigReducer from "./ducks/custom-components-config";
 
 const reducers = combineReducers({
   places: placesReducer,
@@ -42,6 +43,7 @@ const reducers = combineReducers({
   datasets: datasetsReducer,
   activity: activityReducer,
   map: mapReducer,
+  customComponentsConfig: customComponentsConfigReducer,
 });
 
 export default reducers;

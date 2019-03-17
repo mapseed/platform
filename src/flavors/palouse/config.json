@@ -496,6 +496,7 @@
           {
             "id": "palouse-input-focused",
             "type": "symbol",
+            "source": "palouse-input",
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",

@@ -45,6 +45,7 @@ import { setPagesConfig } from "../state/ducks/pages-config";
 import { setNavBarConfig } from "../state/ducks/nav-bar-config";
 import { loadMapStyle, loadMapViewport } from "../state/ducks/map";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
+import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
 import languageModule from "../language-module";
 
@@ -125,6 +126,9 @@ Shareabouts.Util = Util;
       this.store.dispatch(setSupportConfig(options.config.support));
       this.store.dispatch(setPagesConfig(options.config.pages));
       this.store.dispatch(setNavBarConfig(options.config.nav_bar));
+      this.store.dispatch(
+        loadCustomComponentsConfig(options.config.custom_components),
+      );
       this.store.dispatch(
         loadMapStyle(options.config.map, options.config.datasets),
       );

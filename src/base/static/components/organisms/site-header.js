@@ -150,7 +150,7 @@ const NavLink = styled(props => (
 const SiteTitle = styled(RegularTitle)(props => ({
   color: props.theme.text.titleColor,
   fontFamily: props.theme.text.titleFontFamily,
-  marginBottom: 0,
+  margin: 0,
   marginLeft: "15px",
   letterSpacing: "1px",
 

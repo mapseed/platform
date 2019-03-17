@@ -13,47 +13,49 @@
   overflow: hidden;
 }
 
-#left-sidebar-container {
-  position: absolute;
+section[class*="LeftSidebarOuterContainer"] {
   width: auto;
-  overflow: auto;
-  left: 0;
-  z-index: 15;
   background-color: #eaddc6;
   opacity: 0.95;
-  box-shadow: 0.325em 0 0 rgba(0, 0, 0, 0.1);
 }
- .btn-primary, .btn-primary:visited, .btn-primary:link {
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
   background-color: rgba(242, 82, 24, 0.89);
   color: #fff;
 }
-.btn-primary:hover {
-  background-color: #68BDCF;
-}
- .map-layer-selector__layer-title--selected {
-  background-color: #F8F4EC;
-   &:hover {
-    background-color: #dac39a;
-  }
-}
-.map-layer-selector__status-icon--green {
-  color: #BD9462;
+
+section[class*="LeftSidebarOuterContainer"] button[class*="CloseButton"] {
+  color: #bd9462;
+  background-color: #eaddc6;
+  opacity: 0.95;
 }
 
-.map-layer-selector__status-icon--red {
+section[class*="LeftSidebarOuterContainer"] button[class*="CloseButton"]:hover {
+  color: #cd2c67;
+}
+
+section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-check"] {
+  color: #bd9462;
+}
+
+section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-times"] {
   color: black;
 }
 
-.mapseed__close-button {
-    border: none;
-    background-color: transparent;
-    color: #BD9462;
+.btn-primary:hover {
+  background-color: #68bdcf;
 }
+
+.map-layer-selector__layer-title--selected {
+  background-color: #f8f4ec;
+  &:hover {
+    background-color: #dac39a;
+  }
+}
+
 /* =Header
 -------------------------------------------------------------- */
-
-
-
 
 /* =Media Queries
 -------------------------------------------------------------- */

@@ -4446,36 +4446,31 @@
   "story": {
     "watersheds": {
       "default_zoom": 18,
-      "default_visible_layers": ["mwfeatured"],
+      "visibleLayerGroupIds": ["satellite", "mwfeatured"],
       "order": [
         {
           "placeId": 3737,
           "zoom": 18,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3363,
           "zoom": 18,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3360,
           "zoom": 18,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3362,
           "zoom": 18,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3328,
           "zoom": 18,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
@@ -4490,66 +4485,63 @@
         {
           "placeId": 3331,
           "zoom": 14,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3747,
           "zoom": 18,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3748,
           "zoom": 18,
-          "basemap": "satellite",
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3332,
           "zoom": 8,
-          "pan_to": {
-            "lat": 47.631653886906804,
-            "lng": -122.06291037540797
-          },
-          "basemap": "light-nolabels",
-          "visible_layers": ["wria-7-8-9", "watershed-sammamish"],
+          "pan_to": [-122.06291037540797, 47.631653886906804],
+          "visibleLayerGroupIds": [
+            "light-nolabels",
+            "wria-7-8-9",
+            "watershed-sammamish"
+          ],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3333,
           "zoom": 8,
-          "pan_to": {
-            "lat": 47.64123180739975,
-            "lng": -121.75112573040786
-          },
-          "basemap": "hillshade",
-          "visible_layers": ["wria-7-8-9", "watershed-cedar-sammamish"],
+          "pan_to": [-121.75112573040786, 47.64123180739975],
+          "visibleLayerGroupIds": [
+            "light-nolabels",
+            "wria-7-8-9",
+            "watershed-cedar-sammamish"
+          ],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3334,
           "zoom": 8,
-          "pan_to": {
-            "lat": 47.32023597632835,
-            "lng": -121.89064979555963
-          },
-          "basemap": "hillshade",
-          "visible_layers": ["wria-7-8-9", "watershed-green"],
+          "pan_to": [-121.89064979555963, 47.32023597632835],
+          "visibleLayerGroupIds": [
+            "light-nolabels",
+            "wria-7-8-9",
+            "watershed-green"
+          ],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         },
         {
           "placeId": 3335,
           "zoom": 8,
-          "pan_to": {
-            "lat": 47.08293753263453,
-            "lng": -121.92300796523165
-          },
-          "basemap": "hillshade",
-          "visible_layers": ["wria-7-8-9", "watershed-puyallup"],
+          "pan_to": [-121.92300796523165, 47.08293753263453],
+          "visibleLayerGroupIds": [
+            "light-nolabels",
+            "wria-7-8-9",
+            "watershed-puyallup"
+          ],
           "spotlight": false,
           "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
         }

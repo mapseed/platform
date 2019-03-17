@@ -133,6 +133,9 @@
       }
     ]
   },
+  "right_sidebar": {
+    "is_enabled": false
+  },
   "left_sidebar": {
     "is_enabled": true,
     "is_visible_default": false,

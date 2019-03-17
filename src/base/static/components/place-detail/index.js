@@ -19,16 +19,10 @@ import FieldSummary from "./field-summary";
 
 // Flavor custom code
 import SnohomishFieldSummary from "./snohomish-field-summary";
-import VVFieldSummary from "./vv-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
 import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
 
 import constants from "../../constants";
-
-// NOTE: These pieces of the config are imported directly here because they
-// don't require translation, which is ok for now.
-// TODO: Eventually dissolve these imports.
-import { custom_components as customComponents } from "config";
 
 import {
   commentFormConfigPropType,
@@ -60,6 +54,7 @@ import {
   updateFocusedGeoJSONFeatures,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
+import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
@@ -259,8 +254,7 @@ class PlaceDetail extends Component {
     // TODO: dissolve when flavor abstraction is ready
     let fieldSummary;
     if (
-      customComponents &&
-      customComponents.FieldSummary === "SnohomishFieldSummary" &&
+      this.props.customComponents.FieldSummary === "SnohomishFieldSummary" &&
       this.props.focusedPlace.location_type === "conservation-actions"
     ) {
       fieldSummary = (
@@ -270,19 +264,7 @@ class PlaceDetail extends Component {
         />
       );
     } else if (
-      customComponents &&
-      customComponents.FieldSummary === "VVFieldSummary" &&
-      this.props.focusedPlace.location_type === "community_input"
-    ) {
-      fieldSummary = (
-        <VVFieldSummary
-          fields={categoryConfig.fields}
-          place={this.props.focusedPlace}
-        />
-      );
-    } else if (
-      customComponents &&
-      customComponents.FieldSummary === "PalouseFieldSummary" &&
+      this.props.customComponents.FieldSummary === "PalouseFieldSummary" &&
       this.props.focusedPlace.location_type === "reports"
     ) {
       fieldSummary = (
@@ -292,8 +274,8 @@ class PlaceDetail extends Component {
         />
       );
     } else if (
-      customComponents &&
-      customComponents.FieldSummary === "PBDurhamProjectProposalFieldSummary" &&
+      this.props.customComponents.FieldSummary ===
+        "PBDurhamProjectProposalFieldSummary" &&
       this.props.focusedPlace.location_type === "projects"
     ) {
       fieldSummary = (
@@ -411,6 +393,7 @@ PlaceDetail.propTypes = {
   container: PropTypes.instanceOf(HTMLElement),
   contentPanelInnerContainerRef: PropTypes.object.isRequired,
   currentUser: userPropType,
+  customComponents: PropTypes.object.isRequired,
   focusedPlace: placePropType,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
@@ -448,6 +431,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   currentUser: userSelector(state),
+  customComponents: customComponentsConfigSelector(state),
   focusedPlace: focusedPlaceSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>

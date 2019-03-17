@@ -47,14 +47,8 @@ FontAwesomeIcon.defaultProps = {
 const SiteLogo = styled(props => {
   return <img src={props.src} alt={props.alt} className={props.className} />;
 })(() => ({
-  [mq[0]]: {
-    height: "35px", // 35 === header height (43px) - 2x micro spacing (8px)
-    marginLeft: "16px",
-  },
-  [mq[1]]: {
-    height: "56px", // 56 === header height (64px) - 2x micro spacing (8px)
-    marginLeft: "8px",
-  },
+  height: "48px", // 48 === header height (56px) - 2x micro spacing (8px)
+  marginLeft: "8px",
 }));
 
 SiteLogo.propTypes = {
