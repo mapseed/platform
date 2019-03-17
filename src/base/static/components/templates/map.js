@@ -37,16 +37,8 @@ import {
 const MapContainer = styled("div")(props => ({
   position: "relative",
   overflow: "hidden",
-  height: getMainContentAreaHeight({
-    isContentPanelVisible: props.isContentPanelVisible,
-    isGeocodeAddressBarEnabled: props.isGeocodeAddressBarEnabled,
-    layout: props.layout,
-  }),
-  width: getMainContentAreaWidth({
-    isContentPanelVisible: props.isContentPanelVisible,
-    isRightSidebarVisible: props.isRightSidebarVisible,
-    layout: props.layout,
-  }),
+  width: props.width,
+  height: props.height,
 }));
 
 const SpotlightMask = styled("div")({
@@ -64,6 +56,47 @@ const SpotlightMask = styled("div")({
 
 class MapTemplate extends Component {
   mapContainerRef = createRef();
+  addPlaceButtonRef = createRef();
+
+  state = {
+    // NOTE: These dimension "declarations" will be CSS strings, as set by the
+    // utility methods getMainContentAreaHeight() and
+    // getMainContentAreaWidth().
+    mapContainerHeightDeclaration: "",
+    mapContainerWidthDeclaration: "",
+  };
+
+  componentDidMount() {
+    this.recaculateContainerSize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.layout !== prevProps.layout ||
+      this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
+      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
+    ) {
+      this.recaculateContainerSize();
+    }
+  }
+
+  recaculateContainerSize() {
+    this.setState({
+      mapContainerHeightDeclaration: getMainContentAreaHeight({
+        isContentPanelVisible: this.props.isContentPanelVisible,
+        isGeocodeAddressBarEnabled: this.props.isGeocodeAddressBarEnabled,
+        layout: this.props.layout,
+        isAddPlaceButtonVisible:
+          this.props.isAddPlaceButtonVisible && this.hasAddPlacePermission,
+        addPlaceButtonRef: this.addPlaceButtonRef,
+      }),
+      mapContainerWidthDeclaration: getMainContentAreaWidth({
+        isContentPanelVisible: this.props.isContentPanelVisible,
+        isRightSidebarVisible: this.props.isRightSidebarVisible,
+        layout: this.props.layout,
+      }),
+    });
+  }
 
   render() {
     return (
@@ -73,26 +106,18 @@ class MapTemplate extends Component {
         )}
         <MapContainer
           ref={this.mapContainerRef}
-          isContentPanelVisible={this.props.isContentPanelVisible}
-          isRightSidebarVisible={this.props.isRightSidebarVisible}
-          isGeocodeAddressBarEnabled={this.props.isGeocodeAddressBarEnabled}
-          layout={this.props.layout}
+          width={this.state.mapContainerWidthDeclaration}
+          height={this.state.mapContainerHeightDeclaration}
         >
           {this.props.isLeftSidebarExpanded && <LeftSidebar />}
-          {this.props.isAddPlaceButtonVisible &&
-            this.props.hasAddPlacePermission && (
-              <AddPlaceButton
-                onClick={() => {
-                  this.props.router.navigate("/new", {
-                    trigger: true,
-                  });
-                }}
-              >
-                {this.props.placeConfig.add_button_label}
-              </AddPlaceButton>
-            )}
           <MainMap
             mapContainerRef={this.mapContainerRef}
+            mapContainerWidthDeclaration={
+              this.state.mapContainerWidthDeclaration
+            }
+            mapContainerHeightDeclaration={
+              this.state.mapContainerHeightDeclaration
+            }
             router={this.props.router}
           />
           {this.props.isMapCenterpointVisible && <MapCenterpoint />}
@@ -105,6 +130,19 @@ class MapTemplate extends Component {
             mapContainerRef={this.mapContainerRef}
           />
         )}
+        {this.props.isAddPlaceButtonVisible &&
+          this.props.hasAddPlacePermission && (
+            <AddPlaceButton
+              ref={this.addPlaceButtonRef}
+              onClick={() => {
+                this.props.router.navigate("/new", {
+                  trigger: true,
+                });
+              }}
+            >
+              {this.props.placeConfig.add_button_label}
+            </AddPlaceButton>
+          )}
         {this.props.layout === "desktop" &&
           this.props.isRightSidebarEnabled && (
             <RightSidebar router={this.props.router} />

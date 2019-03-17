@@ -146,7 +146,6 @@ class MainMap extends Component {
   mapRef = createRef();
   queriedFeatures = [];
   isMapTransitioning = false;
-  hasUpdated = false;
 
   componentDidMount() {
     window.addEventListener("resize", this.resizeMap);
@@ -286,14 +285,13 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // NOTE: These checks are not comparing numerical dimensions; rather they 
+    // are comparing CSS width and height declarations in string form.
     if (
-      // NOTE: We have an extra check here which will be true only on the very
-      // first update of the map. This is to make sure the map sizes correctly
-      // on initial load to routes which may display map-resizing UI
-      // components.
-      !this.hasUpdated ||
-      this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
-      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
+      this.props.mapContainerHeightDeclaration !==
+        prevProps.mapContainerHeightDeclaration ||
+      this.props.mapContainerWidthDeclaration !==
+        prevProps.mapContainerWidthDeclaration
     ) {
       this.resizeMap();
     }
@@ -380,8 +378,6 @@ class MainMap extends Component {
         emitter.emit("draw:update-geometry", null);
       }
     }
-
-    this.hasUpdated = true;
   }
 
   beginFeatureQuery = evt => {
@@ -551,6 +547,8 @@ MainMap.propTypes = {
     ),
   }).isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  mapContainerWidthDeclaration: PropTypes.string.isRequired,
+  mapContainerHeightDeclaration: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,

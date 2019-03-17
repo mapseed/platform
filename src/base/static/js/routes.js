@@ -23,6 +23,11 @@ import {
   loadPlaceAndSetIgnoreFlag,
   placeExists,
 } from "../state/ducks/places";
+import {
+  hasAnonAbilitiesInAnyDataset,
+  datasetSlugsSelector,
+} from "../state/ducks/datasets-config";
+import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
@@ -200,10 +205,26 @@ Shareabouts.Util = Util;
     },
 
     newPlace: function() {
-      recordGoogleAnalyticsHit("/new");
-      this.store.dispatch(updateContentPanelComponent("InputForm"));
-      this.store.dispatch(updateUIVisibility("addPlaceButton", false));
-      this.store.dispatch(updateUIVisibility("contentPanel", true));
+      if (
+        hasAnonAbilitiesInAnyDataset({
+          state: this.store.getState(),
+          submissionSet: "places",
+          abilities: ["create"],
+        }) ||
+        hasGroupAbilitiesInDatasets({
+          state: this.store.getState(),
+          submissionSet: "places",
+          abilities: ["create"],
+          datasetSlugs: datasetSlugsSelector(this.store.getState()),
+        })
+      ) {
+        recordGoogleAnalyticsHit("/new");
+        this.store.dispatch(updateContentPanelComponent("InputForm"));
+        this.store.dispatch(updateUIVisibility("addPlaceButton", false));
+        this.store.dispatch(updateUIVisibility("contentPanel", true));
+      } else {
+        this.navigate("/", { trigger: true });
+      }
     },
 
     viewPlace: async function(clientSlug, placeId, responseId) {

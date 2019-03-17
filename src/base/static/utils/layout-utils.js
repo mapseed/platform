@@ -1,3 +1,5 @@
+import { findDOMNode } from "react-dom";
+
 const getMainContentAreaWidth = ({
   isContentPanelVisible,
   isRightSidebarVisible,
@@ -27,6 +29,8 @@ const getMainContentAreaHeight = ({
   isContentPanelVisible,
   isGeocodeAddressBarEnabled,
   layout,
+  isAddPlaceButtonVisible,
+  addPlaceButtonRef,
 }) => {
   switch (layout) {
     case "desktop":
@@ -39,10 +43,34 @@ const getMainContentAreaHeight = ({
         return "calc(60% - 42px)";
       } else if (isContentPanelVisible && !isGeocodeAddressBarEnabled) {
         return "60%";
-      } else if (!isContentPanelVisible && isGeocodeAddressBarEnabled) {
+      } else if (
+        !isContentPanelVisible &&
+        isGeocodeAddressBarEnabled &&
+        !isAddPlaceButtonVisible
+      ) {
         return "calc(100% - 42px)";
       } else if (isContentPanelVisible && !isGeocodeAddressBarEnabled) {
         return "100%";
+      } else if (
+        !isContentPanelVisible &&
+        !isGeocodeAddressBarEnabled &&
+        isAddPlaceButtonVisible
+      ) {
+        const addPlaceButtonDims = findDOMNode(
+          addPlaceButtonRef.current,
+        ).getBoundingClientRect();
+
+        return `calc(100% - ${addPlaceButtonDims.height}px)`;
+      } else if (
+        !isContentPanelVisible &&
+        isGeocodeAddressBarEnabled &&
+        isAddPlaceButtonVisible
+      ) {
+        const addPlaceButtonDims = findDOMNode(
+          addPlaceButtonRef.current,
+        ).getBoundingClientRect();
+
+        return `calc(100% - 42px - ${addPlaceButtonDims.height}px)`;
       }
   }
 };

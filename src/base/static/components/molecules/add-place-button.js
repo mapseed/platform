@@ -20,6 +20,7 @@ const AddPlaceButtonContainer = styled(props => (
   </Button>
 ))(props => {
   return {
+    position: "absolute",
     zIndex: 1,
     backgroundColor: props.theme.map.addPlaceButtonBackgroundColor,
 
@@ -30,9 +31,10 @@ const AddPlaceButtonContainer = styled(props => (
     [mq[0]]: {
       width: "100%",
       borderRadius: 0,
+      bottom: 0,
+      left: 0,
     },
     [mq[1]]: {
-      position: "absolute",
       top: props.isGeocodeAddressBarEnabled ? "92px" : "20px",
       left: "80px",
     },
