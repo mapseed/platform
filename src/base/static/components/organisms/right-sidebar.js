@@ -14,7 +14,6 @@ import {
 } from "../../state/ducks/right-sidebar-config";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
 import { updateUIVisibility, uiVisibilitySelector } from "../../state/ducks/ui";
-import { updateMapViewport } from "../../state/ducks/map";
 
 const ToggleSidebarButton = styled("button")({
   position: "absolute",
@@ -117,7 +116,6 @@ RightSidebar.propTypes = {
     place_detail: PropTypes.array.isRequired,
   }),
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
-  updateMapViewport: PropTypes.func.isRequired,
   updateRightSidebarVisibility: PropTypes.func.isRequired,
 };
 
@@ -130,7 +128,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateRightSidebarVisibility: isVisible =>
     dispatch(updateUIVisibility("rightSidebar", isVisible)),
-  updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
 });
 
 export default connect(

@@ -65,14 +65,14 @@ class App extends Component {
   templateContainerRef = createRef();
 
   async componentDidMount() {
-    window.addEventListener("resize", () => {
-      this.props.updateLayout();
-    });
+    window.addEventListener("resize", this.props.updateLayout);
 
     // Globally capture all clicks so we can enable client-side routing.
     // TODO: Ideally this listener would only live in our Link atom and the
     // internal check would happen there. But because we have internal links
-    // in custom page content, we need to listen globally.
+    // in custom page content, we need to listen globally. Note that this means
+    // the route event will fire twice from internal links rendered by the
+    // Link atom.
     document.addEventListener("click", evt => {
       const rel = evt.target.attributes.getNamedItem("rel");
       if (rel && rel.value === "internal") {
@@ -140,6 +140,10 @@ class App extends Component {
 
     await Promise.all(allPlacePagePromises);
     this.props.updatePlacesLoadStatus("loaded");
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.props.updateLayout);
   }
 
   render() {
