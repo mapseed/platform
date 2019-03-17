@@ -285,7 +285,7 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // NOTE: These checks are not comparing numerical dimensions; rather they 
+    // NOTE: These checks are not comparing numerical dimensions; rather they
     // are comparing CSS width and height declarations in string form.
     if (
       this.props.mapContainerHeightDeclaration !==
