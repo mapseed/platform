@@ -68,6 +68,12 @@ const DashboardWrapper = styled("div")({
   gridTemplateColumns: "auto",
   maxWidth: MAX_DASHBOARD_WIDTH,
   margin: "8px auto 24px auto",
+  overflow: "scroll",
+  height: "100%",
+
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
 });
 
 const DashboardTitle = styled(LargeTitle)({
@@ -88,14 +94,14 @@ const OverviewWrapper = styled("div")({
   marginBottom: "24px",
 });
 
-const CardsWrapper = styled("div")(props => ({
+const CardsWrapper = styled("div")({
   gridArea: "cardsWrapper",
   display: "grid",
   gridTemplateAreas: `
     'card1 card2 card3'
   `,
   justifyItems: "center",
-}));
+});
 
 const CardWrapper = styled("div")(props => ({
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -273,7 +279,7 @@ class Dashboard extends Component {
         <EngagementWrapper>
           <RegularTitle>Engagement</RegularTitle>
           <LineChart
-            width={1200}
+            width={1120}
             height={350}
             data={this.getLineChartData()}
             margin={{ top: 5, right: 30, left: 20, bottom: 24 }}

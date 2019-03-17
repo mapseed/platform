@@ -7,233 +7,173 @@
 /* =Header
 -------------------------------------------------------------- */
 
+* {
+  font-family: Roboto, sans-serif;
+}
+
 .menu {
-  font-family: "Lithos", sans-serif;
-  letter-spacing: 1.5px;
+  font-family: "Lithos", sans-serif !important;
+  letter-spacing: 1.5px !important;
 
   .btn-secondary {
-    color: #02440c;
+    color: #02440c !important;
 
     &:hover {
-      background-color: #40becd;
+      background-color: #40becd !important;
     }
   }
 }
 
 .list-toggle-nav {
-  display: none;
-  /*margin-left: 7px;
-  margin-top: -1.125em;*/
+  display: none !important;
 }
 
 .list-toggle-btn {
-  font-family: "Lithos", sans-serif;
-  letter-spacing: 1.5px;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  color: #02440c;
-  padding: 0.5em 0.75em;
+  font-family: "Lithos", sans-serif !important;
+  letter-spacing: 1.5px !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #02440c !important;
+  padding: 0.5em 0.75em !important;
 
   &:hover {
-    background-color: #40becd;
-  }
-}
-
-/* =Map
--------------------------------------------------------------- */
-#centerpoint.newpin .overlay {
-  &:before {
-    text-align: center;
-    letter-spacing: 1px;
-    font-weight: 800;
-    font-size: 1.1em;
-    content: "Drag the map";
-    background-image: url(/static/css/images/marker-arrow-overlay.png);
-    background-size: cover;
-    width: 139px;
-    height: 162px;
-    left: -58px;
-    top: -75px;
-    position: absolute;
-    text-transform: uppercase;
-    color: yellow;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-      1px 1px 0 #000;
+    background-color: #40becd !important;
   }
 }
 
 /* =Geocode Address Bar
 -------------------------------------------------------------- */
 #geocode-address-bar {
-  background-color: #d0d2c4;
+  background-color: #d0d2c4 !important;
 }
 
 .geocoding-field__input {
-  border-color: #789400;
-  background-color: #f3f5e7;
+  border-color: #789400 !important;
+  background-color: #f3f5e7 !important;
 }
 
 .geocoding-field__do-geocode-icon:before {
-  color: #789400;
+  color: #789400 !important;
 }
 
 .geocoding-field__geocoding-spinner {
-  background-color: #789400;
+  background-color: #789400 !important;
 }
 
 /* =Input Form
 -------------------------------------------------------------- */
-//.input-form-category-button {
-//  margin-bottom: 30px;
-//}
-//
-//.input-form-category-button--hidden {
-//  margin-bottom: 0;
-//}
-//
-//.input-form-category-button__label {
-//  -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.59);
-//  -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.59);
-//  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.59);
-//  border-radius: 4px;
-//
-//  &:hover {
-//    -webkit-box-shadow: 0px 0px 11px 0px #40becd;
-//    -moz-box-shadow: 0px 0px 11px 0px #40becd;
-//    box-shadow: 0px 0px 11px 0px #40becd;
-//    border-color: transparent;
-//    transition: all 0.5s;
-//    transition-timing-function: ease;
-//  }
-//}
-//
-//.input-form-category-button__label-text {
-//  font-family: "Bowlby", sans-serif;
-//  letter-spacing: 1.3px;
-//  padding-left: 0px;
-//}
-//
-//.input-form-category-button__image {
-//  width: 70px;
-//}
-
-.input-form__field-prompt {
-  font-weight: 900;
-  font-size: 1.1em;
-}
-
 .input-form__field-container[data-field-type="datetime"],
 .input-form__field-container[data-field-type="big_toggle"] {
-  background-color: #efefef;
-  margin-bottom: 15px;
+  background-color: #efefef !important;
+  margin-bottom: 15px !important;
 }
 
 .input-form__field-container[data-field-type="datetime"] {
-  margin-top: -15px;
+  margin-top: -15px !important;
 }
 
 .big-toggle-field__label {
-  margin-top: 0;
-  border: none;
-  color: #36454f;
-  line-height: 1.2em;
-  min-height: 30px;
+  margin-top: 0 !important;
+  border: none !important;
+  color: #36454f !important;
+  line-height: 1.2em !important;
+  min-height: 30px !important;
 }
 
 .textarea-field,
 .text-field,
 .datetime-field__input {
-  border-color: #779300;
-  border-width: 4px;
+  border-color: #779300 !important;
+  border-width: 4px !important;
 }
 
 .geocoding-field__input {
-  background-color: #fff;
-  border: 4px solid #779300;
+  background-color: #fff !important;
+  border: 4px solid #779300 !important;
 }
 
 .big-toggle-field__label--hoverable:hover:before {
-  text-indent: 0.5em;
-  color: #779300;
+  text-indent: 0.5em !important;
+  color: #779300 !important;
 }
 
 .big-toggle-field__label:before {
-  max-height: 2em;
-  top: 50%;
-  transform: translate(0, -50%);
-  height: 2.5em;
-  background-color: #efefef;
-  border: 4px solid #779300;
-  width: 2em;
-  text-indent: 0.5em;
+  max-height: 2em !important;
+  top: 50% !important;
+  transform: translate(0, -50%) !important;
+  height: 2.5em !important;
+  background-color: #efefef !important;
+  border: 4px solid #779300 !important;
+  width: 2em !important;
+  text-indent: 0.5em !important;
 }
 
 .datetime-field__label-ongoing:before {
-  background-color: #efefef;
-  border: 4px solid #779300;
+  background-color: #efefef !important;
+  border: 4px solid #779300 !important;
 }
 
 .datetime-field__label-ongoing--toggled:before {
-  background-color: #779300;
-  color: #fff;
+  background-color: #779300 !important;
+  color: #fff !important;
 }
 
 .datetime-field__label-ongoing--hoverable:hover:before {
-  color: #779300;
+  color: #779300 !important;
 }
 
 .big-toggle-field__label--toggled.big-toggle-field__label--hoverable:hover:before,
 .datetime-field__label-ongoing--toggled.datetime-field__label-ongoing--hoverable:hover:before {
-  color: #fff;
+  color: #fff !important;
 }
 
 .big-toggle-field__label--toggled:before {
-  background-color: #779300;
+  background-color: #779300 !important;
 }
 
 .input-form__field-container[data-field-name="farm_no-farm"],
 .input-form__field-container[data-field-name="forest_no-forest"],
 .input-form__field-container[data-field-name="shoreline_no-shoreline"],
 .input-form__field-container[data-field-name="urban-suburban_no-urban-suburban"] {
-  background-color: #fff;
-  font-style: italic;
-  font-weight: bold;
-  padding-left: 20px;
+  background-color: #fff !important;
+  font-style: italic !important;
+  font-weight: bold !important;
+  padding-left: 20px !important;
 
   .big-toggle-field__label:before {
-    font-style: normal;
-    background-color: #fff;
+    font-style: normal !important;
+    background-color: #fff !important;
   }
 
   .big-toggle-field__label--toggled:before {
-    background-color: #779300;
+    background-color: #779300 !important;
   }
 }
 
 .datetime-field {
-  border-color: #779300;
+  border-color: #779300 !important;
 }
 
 .input-form__optional-msg {
-  display: none;
+  display: none !important;
 }
 
 .form-stage-control-bar {
   background: url("data:image/x-ms-bmp;base64,Qk1AAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABAAAAAAAAoAAAASCwAAEgsAAAAAAAAAAAAA/3//f8pO/38AAA==")
-    repeat;
+    repeat !important;
 }
 
 .mapseed__progress-bar {
-  background-color: #fff;
+  background-color: #fff !important;
 }
 
 .mapseed__progress-bar-inner {
-  background-color: #40becd;
+  background-color: #40becd !important;
 }
 
 .mapseed__link--color-primary {
-  background-color: #02440b;
+  background-color: #02440b !important;
 }
 
 .mapseed__link--color-primary:hover {
@@ -245,92 +185,92 @@
 }
 
 #drag-map-graphic {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 30%;
-  margin-bottom: 5px;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 30% !important;
+  margin-bottom: 5px !important;
 }
 
 .map-drag-header {
-  text-align: center;
+  text-align: center !important;
 }
 
 .input-form__field-container[data-field-name="location-information"] {
-  margin-bottom: 0;
-  padding-bottom: 0;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .form-stage-header-bar {
-  position: relative;
-  padding-left: 0;
+  position: relative !important;
+  padding-left: 0 !important;
 }
 
 .form-stage-header-bar__icon {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 50px;
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  left: 50px !important;
 }
 
 .form-stage-header-bar__header {
-  font-size: 2em;
-  line-height: 1em;
-  text-align: center;
-  font-family: "Lithos", sans-serif;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #02440b;
+  font-size: 2em !important;
+  line-height: 1em !important;
+  text-align: center !important;
+  font-family: "Lithos", sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  color: #02440b !important;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
 }
 
 .form-stage-header-bar__description {
-  padding-left: 15%;
-  padding-right: 50px;
-  font-size: 1.3em;
-  font-weight: 200;
-  margin-bottom: 55px;
+  padding-left: 15% !important;
+  padding-right: 50px !important;
+  font-size: 1.3em !important;
+  font-weight: 200 !important;
+  margin-bottom: 55px !important;
 }
 
 .datetime-field__open-button {
-  background-image: linear-gradient(#769300, #5e7306);
+  background-image: linear-gradient(#769300, #5e7306) !important;
 }
 
 /* =Info modal
 -------------------------------------------------------------- */
 .mapseed-info-modal__header-bar,
 .mapseed-info-modal__close-btn {
-  background-color: #f3f5e7;
+  background-color: #f3f5e7 !important;
 }
 
 .mapseed-info-modal__header-content {
-  color: #02440b;
-  font-weight: 800;
-  font-family: "Lithos", sans-serif;
-  letter-spacing: 1px;
+  color: #02440b !important;
+  font-weight: 800 !important;
+  font-family: "Lithos", sans-serif !important;
+  letter-spacing: 1px !important;
 }
 
 /* =Custom pages
 -------------------------------------------------------------- */
 .dotted-background-container {
-  overflow: hidden;
-  padding: 20px 10px 20px 10px;
+  overflow: hidden !important;
+  padding: 20px 10px 20px 10px !important;
   background: url("data:image/x-ms-bmp;base64,Qk1AAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABAAAAAAAAoAAAASCwAAEgsAAAAAAAAAAAAA/3//f8pO/38AAA==")
-    repeat;
-  /*background: url("data:image/bmp;base64,Qk1IAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABgAAAAAABIAAAASCwAAEgsAAAAAAAAAAAAA/v7+//7+AIDayKT//v4AAAAA")
-    repeat;*/
-  margin-top: 30px;
+    repeat !important;
+  margin-top: 30px !important;
 }
 
 .next-btn {
   background-color: #02440b !important;
-  float: right;
-  background: none;
-  outline: none;
-  border: none;
-  text-transform: uppercase;
+  float: right !important;
+  background: none !important;
+  outline: none !important;
+  border: none !important;
+  text-transform: uppercase !important;
   color: #fff !important;
-  padding: 0.5em;
-  margin-left: 10px;
+  padding: 0.5em !important;
+  margin-left: 10px !important;
 
   &:hover {
     color: #779300 !important;
@@ -338,89 +278,85 @@
 }
 
 .page-sign-in-btn {
-  width: 50%;
-  text-align: center;
-  list-style: none;
+  width: 50% !important;
+  text-align: center !important;
+  list-style: none !important;
 }
 
 .guest-btn {
-  background-color: #888;
+  background-color: #888 !important;
   color: #fff !important;
 }
 
 .custom-page-header {
-  color: #02440b;
-  font-weight: 800;
-  font-size: 2em;
-  font-family: "Lithos", sans-serif;
-  letter-spacing: 1px;
-  text-align: center;
+  color: #02440b !important;
+  font-weight: 800 !important;
+  font-size: 2em !important;
+  font-family: "Lithos", sans-serif !important;
+  letter-spacing: 1px !important;
+  text-align: center !important;
 }
 
 .custom-page-img {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5em !important;
 }
 
 .page-sign-in-container {
-  display: flex;
-  justify-content: center;
-  padding-left: 0;
+  display: flex !important;
+  justify-content: center !important;
+  padding-left: 0 !important;
 }
 
 /* =Custom detail view
 -------------------------------------------------------------- */
 .snohomish-field-summary {
-  margin-bottom: 50px;
+  margin-bottom: 50px !important;
 }
 
 .snohomish-num-actions {
-  font-family: Bowlby, sans-serif;
+  font-family: Bowlby, sans-serif !important;
   line-height: 2.1em !important;
-  font-weight: 200;
-  border: 5px solid #779300;
-  width: 60px;
-  height: 60px;
-  display: inline-block;
-  text-align: center;
-  line-height: 1.3em;
-  border-radius: 50%;
+  font-weight: 200 !important;
+  border: 5px solid #779300 !important;
+  width: 60px !important;
+  height: 60px !important;
+  display: inline-block !important;
+  text-align: center !important;
+  border-radius: 50% !important;
 }
 
 .snohomish-total-actions {
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 
 .snohomish-stage-action-summary {
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}
-
-.snohomish-stage-summary {
+  text-transform: uppercase !important;
+  margin-bottom: 15px !important;
 }
 
 .snohomish-completed-action {
-  color: #555;
-  position: relative;
-  font-style: italic;
-  font-size: 1.2em;
-  margin-left: 15px;
-  padding-left: 40px;
+  color: #555 !important;
+  position: relative !important;
+  font-style: italic !important;
+  font-size: 1.2em !important;
+  margin-left: 15px !important;
+  padding-left: 40px !important;
   margin-bottom: 25px !important;
 
   &:before {
-    content: "✔";
-    font-style: normal;
-    color: #fff;
-    max-height: 2em;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    height: 1.5em;
-    background-color: #779300;
-    width: 1.5em;
-    position: absolute;
-    text-align: center;
-    padding-top: 4px;
+    content: "✔" !important;
+    font-style: normal !important;
+    color: #fff !important;
+    max-height: 2em !important;
+    top: 50% !important;
+    left: 0 !important;
+    transform: translateY(-50%) !important;
+    height: 1.5em !important;
+    background-color: #779300 !important;
+    width: 1.5em !important;
+    position: absolute !important;
+    text-align: center !important;
+    padding-top: 4px !important;
   }
 }
 
@@ -430,42 +366,33 @@
 // Screen sizes below 60em width
 @media only screen and (max-width: 60em) {
   #site-header {
-    background: url("/static/css/images/scdHorizontal.png");
-    //background: url("/static/css/images/header-banner-small.png");
-    background-size: auto 30px;
-    background-color: #f3f5e7;
-    background-repeat: no-repeat;
-    background-position: 30px 15px;
+    background: url("/static/css/images/scdHorizontal.png") !important;
+    background-size: auto 30px !important;
+    background-color: #f3f5e7 !important;
+    background-repeat: no-repeat !important;
+    background-position: 30px 15px !important;
   }
 
   .place-form-visible {
     #main-btns-container {
-      display: none;
+      display: none !important;
     }
     #content {
-      margin-bottom: 0;
+      margin-bottom: 0 !important;
     }
   }
 
   .place-detail-view__header {
-    font-size: 1.5em;
+    font-size: 1.5em !important;
   }
 }
-
-//@media only screen and (max-width: 30em) {
-//  .form-stage-header-bar__description {
-//    padding-left: 40px;
-//    padding-right: 50px;
-//    margin-bottom: 40px;
-//  }
-//}
 
 // Screen sizes above 60em width
 @media only screen and (min-width: 60em) {
   .menu {
     .menu-item {
-      border-right: 1px solid #789400;
-      padding-right: 7px;
+      border-right: 1px solid #789400 !important;
+      padding-right: 7px !important;
     }
 
     /* TODO: update this if we add more page header links */
@@ -475,13 +402,13 @@
   }
 
   #pages-nav-container {
-    margin-left: 450px;
+    margin-left: 450px !important;
   }
 
   #site-header {
-    background: url("/static/css/images/scdHorizontal.png");
-    background-size: auto 64px;
-    background-color: #f3f5e7;
-    background-repeat: no-repeat;
+    background: url("/static/css/images/scdHorizontal.png") !important;
+    background-size: auto 64px !important;
+    background-color: #f3f5e7 !important;
+    background-repeat: no-repeat !important;
   }
 }

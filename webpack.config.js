@@ -24,8 +24,9 @@ const gitSha = require("child_process")
 
 var entryPoints = [
   "whatwg-fetch",
+  "normalize.css",
   "./src/base/static/js/routes.js",
-  "./src/base/static/scss/default.scss",
+  "./src/base/static/css/normalize.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 
@@ -52,6 +53,9 @@ module.exports = {
     // use this for our dynamic imports, like "1.bundle.js"
     chunkFilename: "[chunkhash].bundle.js",
     filename: isProd ? "[chunkhash].main.bundle.js" : "main.bundle.js",
+    // Support dynamic imports from nested routes.
+    // See: https://github.com/webpack/webpack/issues/7417
+    publicPath: "/",
   },
   resolve: {
     alias,

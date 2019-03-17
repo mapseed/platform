@@ -1,4 +1,5 @@
-import React, { Component, createRef, Fragment } from "react";
+import React, { Component, createRef } from "react";
+import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
@@ -7,11 +8,12 @@ import InviteModal from "../organisms/invite-modal";
 import { Global } from "@emotion/core";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+import { throttle } from "throttle-debounce";
 
 import {
   drawModeActiveSelector,
   interactiveLayerIdsSelector,
-  mapDraggingSelector,
+  mapDraggingOrZoomingSelector,
   mapStyleSelector,
   mapViewportSelector,
   mapViewportPropType,
@@ -19,8 +21,8 @@ import {
   updateMapViewport,
   updateSourceLoadStatus,
   sourcesMetadataSelector,
-  updateMapDragged,
-  updateMapDragging,
+  updateMapDraggedOrZoomed,
+  updateMapDraggingOrZooming,
   updateFeaturesInGeoJSONSource,
   sourcesMetadataPropType,
   updateSources,
@@ -50,7 +52,9 @@ import {
   placeSelector,
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
+import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
+import { updateUIVisibility } from "../../state/ducks/ui";
 
 import emitter from "../../utils/emitter";
 
@@ -144,22 +148,8 @@ class MainMap extends Component {
   queriedFeatures = [];
   isMapTransitioning = false;
 
-  onWindowResize = () => {
-    const container = this.props.container.getBoundingClientRect();
-    this.props.updateMapViewport({
-      height: container.height,
-      width: container.width,
-    });
-  };
-
   componentDidMount() {
-    const container = this.props.container.getBoundingClientRect();
-    this.props.updateMapViewport({
-      height: container.height,
-      width: container.width,
-    });
-
-    window.addEventListener("resize", this.onWindowResize);
+    window.addEventListener("resize", this.resizeMap);
 
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
@@ -243,8 +233,35 @@ class MainMap extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.onWindowResize);
+    window.removeEventListener("resize", this.resizeMap);
   }
+
+  // This function gets called a lot, so we throttle it.
+  setSlippyRoute = throttle(500, () => {
+    if (this.props.isContentPanelVisible) {
+      // Don't set the slippy route when we're at a url like /new or /page/xyz.
+      return;
+    }
+
+    const { zoom, latitude, longitude } = this.props.mapViewport;
+    this.props.router.navigate(
+      `/${zoom.toFixed(2)}/${latitude.toFixed(5)}/${longitude.toFixed(5)}`,
+      {
+        trigger: false,
+      },
+    );
+  });
+
+  resizeMap = () => {
+    const containerDims = findDOMNode(
+      this.props.mapContainerRef.current,
+    ).getBoundingClientRect();
+
+    this.props.updateMapViewport({
+      height: containerDims.height,
+      width: containerDims.width,
+    });
+  };
 
   removeDrawGeometry() {
     // Remove any drawn geometry.
@@ -269,6 +286,17 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // NOTE: These checks are not comparing numerical dimensions; rather they
+    // are comparing CSS width and height declarations in string form.
+    if (
+      this.props.mapContainerHeightDeclaration !==
+        prevProps.mapContainerHeightDeclaration ||
+      this.props.mapContainerWidthDeclaration !==
+        prevProps.mapContainerWidthDeclaration
+    ) {
+      this.resizeMap();
+    }
+
     if (this.props.isDrawModeActive && !prevProps.isDrawModeActive) {
       // Drawing mode has been entered.
       this.map.on("dragend", () => {
@@ -305,7 +333,7 @@ class MainMap extends Component {
       this.props.mapViewport.longitude !== prevProps.mapViewport.longitude ||
       this.props.mapViewport.zoom !== prevProps.mapViewport.zoom
     ) {
-      this.props.setSlippyRoute();
+      this.setSlippyRoute();
     }
 
     if (!this.props.mapConfig.options.disableDrawing) {
@@ -368,7 +396,7 @@ class MainMap extends Component {
 
   endFeatureQuery = () => {
     if (
-      !this.props.isMapDragging &&
+      !this.props.isMapDraggingOrZooming &&
       this.queriedFeatures.length &&
       this.queriedFeatures[0].properties &&
       this.queriedFeatures[0].properties._clientSlug
@@ -386,11 +414,19 @@ class MainMap extends Component {
   };
 
   onInteractionStateChange = evt => {
-    if (evt.isDragging && !this.props.isMapDragging) {
-      this.props.updateMapDragging(true);
-    } else if (!evt.isDragging && this.props.isMapDragging) {
-      this.props.updateMapDragging(false);
-      this.props.updateMapDragged(true);
+    if (
+      (evt.isDragging || evt.isZooming) &&
+      !this.props.isMapDraggingOrZooming
+    ) {
+      this.props.updateMapDraggingOrZooming(true);
+    } else if (
+      !evt.isDragging &&
+      !evt.isZooming &&
+      this.props.isMapDraggingOrZooming
+    ) {
+      this.props.updateMapDraggingOrZooming(false);
+      this.props.updateMapDraggedOrZoomed(true);
+      this.props.updateSpotlightMaskVisibility(false);
     }
   };
 
@@ -415,6 +451,7 @@ class MainMap extends Component {
           }}
         />
         <MapGL
+          attributionControl={false}
           ref={this.mapRef}
           width={this.props.mapViewport.width}
           height={this.props.mapViewport.height}
@@ -496,12 +533,13 @@ MainMap.propTypes = {
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
   activeEditPlaceId: PropTypes.number,
-  container: PropTypes.instanceOf(Element).isRequired,
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   geometryStyle: geometryStyleProps,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isContentPanelVisible: PropTypes.bool.isRequired,
   isDrawModeActive: PropTypes.bool.isRequired,
-  isMapDragging: PropTypes.bool.isRequired,
+  isMapDraggingOrZooming: PropTypes.bool.isRequired,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   isInviteModalOpen: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
@@ -515,6 +553,9 @@ MainMap.propTypes = {
     ),
   }).isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  mapContainerWidthDeclaration: PropTypes.string.isRequired,
+  mapContainerHeightDeclaration: PropTypes.string.isRequired,
+  mapContainerRef: PropTypes.object.isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
@@ -523,15 +564,15 @@ MainMap.propTypes = {
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
-  setSlippyRoute: PropTypes.func.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
-  updateMapDragged: PropTypes.func.isRequired,
-  updateMapDragging: PropTypes.func.isRequired,
+  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
+  updateMapDraggingOrZooming: PropTypes.func.isRequired,
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayers: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updateSources: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -541,8 +582,11 @@ const mapStateToProps = state => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   geometryStyle: geometryStyleSelector(state),
+  isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isDrawModeActive: drawModeActiveSelector(state),
-  isMapDragging: mapDraggingSelector(state),
+  isInviteModalOpen: uiVisibilitySelector("inviteModal", state),
+  isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
@@ -559,8 +603,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLeftSidebarComponent: component =>
     dispatch(setLeftSidebarComponent(component)),
-  updateMapDragged: isDragged => dispatch(updateMapDragged(isDragged)),
-  updateMapDragging: isDragging => dispatch(updateMapDragging(isDragging)),
+  updateMapDraggedOrZoomed: isDraggedOrZoomed =>
+    dispatch(updateMapDraggedOrZoomed(isDraggedOrZoomed)),
+  updateMapDraggingOrZooming: isDraggingOrZooming =>
+    dispatch(updateMapDraggingOrZooming(isDraggingOrZooming)),
   updateFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(updateFeaturesInGeoJSONSource(sourceId, newFeatures)),
   updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
@@ -569,6 +615,8 @@ const mapDispatchToProps = dispatch => ({
   updateSources: (newSourceId, newSource) =>
     dispatch(updateSources(newSourceId, newSource)),
   updateLayers: newLayer => dispatch(updateLayers(newLayer)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });
 
 export default connect(

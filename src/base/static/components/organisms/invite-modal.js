@@ -17,7 +17,7 @@ import mixpanel from "mixpanel-browser";
 import { userSelector, userPropType } from "../../state/ducks/user";
 
 import Modal from "react-modal";
-Modal.setAppElement("#main");
+Modal.setAppElement("#site-wrap");
 
 class InviteModal extends Component {
   state = {
@@ -64,6 +64,7 @@ class InviteModal extends Component {
     if (!this.state.isModalOpen) {
       return;
     }
+
     if (!prevProps.currentUser.isLoaded && this.props.currentUser.isLoaded) {
       if (
         !prevProps.currentUser.isAuthenticated &&

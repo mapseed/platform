@@ -20,6 +20,7 @@ const NavButton = styled(props => {
   fontWeight: 600,
   marginLeft: "4px",
   marginRight: "4px",
+  fontSize: "0.9rem",
 
   [mq[0]]: {
     width: "100%",

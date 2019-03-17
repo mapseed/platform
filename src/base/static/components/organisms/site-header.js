@@ -5,11 +5,10 @@ import styled from "react-emotion";
 import { connect } from "react-redux";
 
 import { SiteLogo } from "../atoms/imagery";
-import { Link } from "../atoms/navigation";
+import { Link } from "../atoms/typography";
 import { NavButton } from "../molecules/buttons";
-import { NavLink } from "../molecules/typography";
 import UserMenu from "../molecules/user-menu";
-import { RegularTitle, RegularLabel } from "../atoms/typography";
+import { RegularTitle } from "../atoms/typography";
 
 import {
   navBarConfigPropType,
@@ -33,13 +32,15 @@ import {
 } from "../../state/ducks/left-sidebar";
 import mq from "../../../../media-queries";
 
-// TODO: Make the outermost div a header element when we dissolve base.hbs.
-// Right now the header element lives in base.hbs.
-const SiteHeaderWrapper = styled("div")(props => ({
+const SiteHeaderWrapper = styled("header")(props => ({
+  position: "relative",
+  zIndex: 12,
   backgroundColor: props.theme.bg.default,
   display: "flex",
-  height: "100%",
+  height: props.isHeaderExpanded ? "auto" : "56px",
   alignItems: "center",
+  boxShadow: "0 2px 0 rgba(0,0,0,0.2)",
+  boxSizing: "border-box",
 
   [mq[0]]: {
     flexDirection: "column",
@@ -49,6 +50,15 @@ const SiteHeaderWrapper = styled("div")(props => ({
     flexDirection: "row",
   },
 }));
+
+const HamburgerTitleWrapper = styled("div")({
+  display: "flex",
+  alignItems: "center",
+
+  [mq[0]]: {
+    width: "100%",
+  },
+});
 
 const NavContainer = styled("nav")(props => ({
   [mq[0]]: {
@@ -62,14 +72,85 @@ const NavContainer = styled("nav")(props => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: "50px",
+    marginLeft: "25px",
+  },
+}));
+
+const NavLinkWrapper = styled("div")(props => ({
+  [mq[0]]: {
+    textAlign: "center",
+  },
+  [mq[1]]: {
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
+  },
+}));
+
+const ListToggleLink = styled(props => (
+  <Link href={props.href} rel="internal" className={props.className}>
+    {props.children}
+  </Link>
+))(props => ({
+  // TODO: Many of these style rules should eventually be moved to the Link atom.
+  fontFamily: props.theme.text.navBarFontFamily,
+  fontWeight: 600,
+  fontSize: "0.9rem",
+  textTransform: "uppercase",
+  textDecoration: "none",
+  color: props.theme.text.secondary,
+  padding: "0.5rem",
+  backgroundColor: props.theme.brand.primary,
+  borderRadius: "3px",
+  border: "3px solid rgba(0, 0, 0, 0.05)",
+  boxShadow: "rgba(0, 0, 0, 0.1) -0.25em 0.25em 2px",
+
+  "&:hover": {
+    backgroundColor: props.theme.brand.accent,
+  },
+
+  "&:active": {
+    boxShadow: "none",
+    transform: "translate(-0.1em, 0.1em)",
+  },
+}));
+
+const NavLink = styled(props => (
+  <NavLinkWrapper position={props.position}>
+    <Link
+      href={props.href}
+      rel="internal"
+      className={props.className}
+      style={{ padding: "4px 8px 4px 8px" }}
+    >
+      {props.children}
+    </Link>
+  </NavLinkWrapper>
+))(props => ({
+  // TODO: Many of these style rules should eventually be moved to the Link atom.
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  textDecoration: "none",
+  textTransform: "uppercase",
+  fontSize: "0.9rem",
+  fontFamily: props.theme.text.navBarFontFamily,
+  fontWeight: 600,
+  color: props.theme.bg.light,
+  marginRight: "4px",
+  marginLeft: "4px",
+  borderRadius: "3px",
+  height: props.height,
+
+  "&:hover": {
+    color: props.theme.text.secondary,
+    backgroundColor: props.theme.brand.accent,
   },
 }));
 
 const SiteTitle = styled(RegularTitle)(props => ({
   color: props.theme.text.titleColor,
   fontFamily: props.theme.text.titleFontFamily,
-  marginBottom: 0,
+  margin: 0,
   marginLeft: "15px",
   letterSpacing: "1px",
 
@@ -79,11 +160,9 @@ const SiteTitle = styled(RegularTitle)(props => ({
   },
 }));
 
-const NavButtonWrapper = styled("span")(props => ({
+const NavButtonWrapper = styled("div")(props => ({
   [mq[1]]: {
-    display: "flex",
     alignItems: "center",
-    height: "24px",
     borderLeft:
       props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
@@ -91,6 +170,9 @@ const NavButtonWrapper = styled("span")(props => ({
 
 const LanguagePickerMenu = styled("ul")(props => ({
   backgroundColor: props.theme.bg.default,
+  listStyle: "none",
+  padding: 0,
+  margin: 0,
 
   [mq[0]]: {
     display: "flex",
@@ -106,24 +188,20 @@ const LanguagePickerMenu = styled("ul")(props => ({
   },
 }));
 
-const LanguagePickerMenuItem = styled("li")(props => ({
-  fontFamily: props.theme.text.navBarFontFamily,
-  textTransform: "uppercase",
-  fontSize: "0.75rem",
-  padding: "8px",
-  "&:hover": {
-    color: props.theme.text.highlighted,
-    backgroundColor: props.theme.bg.highlighted,
-    cursor: "pointer",
-  },
-
+const LanguagePickerMenuItem = styled("li")({
   [mq[0]]: {
+    display: "flex",
     width: "100%",
   },
-}));
+
+  [mq[1]]: {
+    margin: "4px 0",
+  },
+});
 
 const LanguagePicker = styled("nav")(props => ({
   textTransform: "uppercase",
+  fontSize: "0.9rem",
   fontFamily: props.theme.text.navBarFontFamily,
   "&:hover": {
     cursor: "pointer",
@@ -142,15 +220,25 @@ const LanguagePicker = styled("nav")(props => ({
   },
 }));
 
-const LanguageLink = styled(Link)({
+const LanguageLink = styled("a")(props => ({
+  display: "flex",
+  justifyContent: "center",
+  fontFamily: props.theme.text.headerBarFontFamily,
+  fontSize: "1rem",
   textDecoration: "none",
+  padding: "8px",
+  textAlign: "center",
+
+  "&:hover": {
+    color: props.theme.text.secondary,
+    backgroundColor: props.theme.bg.highlighted,
+    cursor: "pointer",
+  },
 
   [mq[0]]: {
-    display: "flex",
     width: "100%",
-    textAlign: "center",
   },
-});
+}));
 
 const RightAlignedContainer = styled("div")(props => ({
   alignItems: "center",
@@ -187,7 +275,6 @@ const NavBarHamburger = styled("i")({
 const LogoTitleWrapper = styled(props => (
   <Link
     className={props.className}
-    variant="unstyled"
     href={`/${props.zoom}/${props.lat}/${props.lng}`}
     rel="internal"
   >
@@ -210,9 +297,7 @@ const navItemMappings = {
       position={linkProps.position}
       href={linkProps.navBarItem.url}
     >
-      <NavButton color={"tertiary"} onClick={linkProps.onClick}>
-        {linkProps.children}
-      </NavButton>
+      {linkProps.children}
     </NavLink>
   ),
   left_sidebar_toggle: linkProps => (
@@ -230,17 +315,14 @@ const navItemMappings = {
     </NavButtonWrapper>
   ),
   list_toggle: styled(linkProps => (
-    <NavLink
+    <ListToggleLink
       className={linkProps.className}
-      height="42px"
       href={linkProps.currentTemplate === "map" ? "/list" : "/"}
     >
-      <NavButton variant="raised" color="primary">
-        {linkProps.currentTemplate === "map"
-          ? linkProps.navBarItem.show_list_button_label
-          : linkProps.navBarItem.show_map_button_label}
-      </NavButton>
-    </NavLink>
+      {linkProps.currentTemplate === "map"
+        ? linkProps.navBarItem.show_list_button_label
+        : linkProps.navBarItem.show_map_button_label}
+    </ListToggleLink>
   ))(() => ({
     [mq[0]]: {
       display: "none",
@@ -268,20 +350,10 @@ class SiteHeader extends Component {
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.isHeaderExpanded !== this.state.isHeaderExpanded) {
-      this.props.setMapDimensions();
-    }
-  }
-
   render() {
     return (
-      <SiteHeaderWrapper>
-        <LogoTitleWrapper
-          zoom={this.props.mapConfig.options.mapViewport.zoom.toFixed(2)}
-          lat={this.props.mapConfig.options.mapViewport.latitude.toFixed(5)}
-          lng={this.props.mapConfig.options.mapViewport.longitude.toFixed(5)}
-        >
+      <SiteHeaderWrapper isHeaderExpanded={this.state.isHeaderExpanded}>
+        <HamburgerTitleWrapper>
           <NavBarHamburger
             onClick={() => {
               this.setState({
@@ -289,16 +361,22 @@ class SiteHeader extends Component {
               });
             }}
           />
-          {this.props.appConfig.logo && (
-            <SiteLogo
-              src={this.props.appConfig.logo}
-              alt={this.props.appConfig.name}
-            />
-          )}
-          {this.props.appConfig.show_name_in_header && (
-            <SiteTitle>{this.props.appConfig.name}</SiteTitle>
-          )}
-        </LogoTitleWrapper>
+          <LogoTitleWrapper
+            zoom={this.props.mapConfig.options.mapViewport.zoom.toFixed(2)}
+            lat={this.props.mapConfig.options.mapViewport.latitude.toFixed(5)}
+            lng={this.props.mapConfig.options.mapViewport.longitude.toFixed(5)}
+          >
+            {this.props.appConfig.logo && (
+              <SiteLogo
+                src={this.props.appConfig.logo}
+                alt={this.props.appConfig.name}
+              />
+            )}
+            {this.props.appConfig.show_name_in_header && (
+              <SiteTitle>{this.props.appConfig.name}</SiteTitle>
+            )}
+          </LogoTitleWrapper>
+        </HamburgerTitleWrapper>
         <NavContainer isHeaderExpanded={this.state.isHeaderExpanded}>
           {this.props.navBarConfig.map((navBarItem, i) => {
             const NavItemComponent = navItemMappings[navBarItem.type];
@@ -347,14 +425,11 @@ class SiteHeader extends Component {
                   isLanguageMenuVisible={this.state.isLanguageMenuVisible}
                 >
                   {this.props.appConfig.languages.map(language => (
-                    <LanguageLink
-                      key={language.code}
-                      href={`/${language.code}.html`}
-                    >
-                      <LanguagePickerMenuItem>
-                        <RegularLabel>{language.label}</RegularLabel>
-                      </LanguagePickerMenuItem>
-                    </LanguageLink>
+                    <LanguagePickerMenuItem key={language.code}>
+                      <LanguageLink href={`/${language.code}.html`}>
+                        {language.label}
+                      </LanguageLink>
+                    </LanguagePickerMenuItem>
                   ))}
                 </LanguagePickerMenu>
               </LanguagePicker>
@@ -396,7 +471,6 @@ SiteHeader.propTypes = {
   router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
-  setMapDimensions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

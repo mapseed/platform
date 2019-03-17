@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar";
-import { Header4 } from "../atoms/typography";
+import { SmallTitle } from "../atoms/typography";
 import MapLayerPanelSection from "../molecules/map-layer-panel-section";
 
 import "./map-layer-panel.scss";
 
 const MapLayerPanel = props => (
   <div className="map-layer-panel">
-    <Header4>{props.mapLayerPanelConfig.title}</Header4>
+    <SmallTitle>{props.mapLayerPanelConfig.title}</SmallTitle>
     {props.mapLayerPanelConfig.content &&
       props.mapLayerPanelConfig.content.map(section => (
         <MapLayerPanelSection

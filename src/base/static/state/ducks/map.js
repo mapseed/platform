@@ -10,8 +10,10 @@ export const layerGroupsMetadataSelector = state =>
 export const interactiveLayerIdsSelector = state =>
   state.map.interactiveLayerIds;
 export const setMapSizeValiditySelector = state => state.map.isMapSizeValid;
-export const mapDraggingSelector = state => state.map.isMapDragging;
-export const mapDraggedSelector = state => state.map.isMapDragged;
+export const mapDraggingOrZoomingSelector = state =>
+  state.map.isMapDraggingOrZooming;
+export const mapDraggedOrZoomedSelector = state =>
+  state.map.isMapDraggedOrZoomed;
 export const mapCenterpointSelector = state => ({
   latitude: state.map.viewport.latitude,
   longitude: state.map.viewport.longitude,
@@ -33,8 +35,8 @@ const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
 const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
-const UPDATE_MAP_DRAGGED = "map/UPDATE_MAP_DRAGGED";
-const UPDATE_MAP_DRAGGING = "map/UPDATE_MAP_DRAGGING";
+const UPDATE_MAP_DRAGGED_OR_ZOOMED = "map/UPDATE_MAP_DRAGGED_OR_ZOOMED";
+const UPDATE_MAP_DRAGGING_OR_ZOOMING = "map/UPDATE_MAP_DRAGGING_OR_ZOOMING";
 const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
 const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
@@ -126,12 +128,12 @@ export function updateMapStyle(style) {
   return { type: UPDATE_STYLE, payload: style };
 }
 
-export function updateMapDragged(isDragged) {
-  return { type: UPDATE_MAP_DRAGGED, payload: isDragged };
+export function updateMapDraggedOrZoomed(isDraggedOrZoomed) {
+  return { type: UPDATE_MAP_DRAGGED_OR_ZOOMED, payload: isDraggedOrZoomed };
 }
 
-export function updateMapDragging(isDragging) {
-  return { type: UPDATE_MAP_DRAGGING, payload: isDragging };
+export function updateMapDraggingOrZooming(isDraggingOrZooming) {
+  return { type: UPDATE_MAP_DRAGGING_OR_ZOOMING, payload: isDraggingOrZooming };
 }
 
 export function updateFeaturesInGeoJSONSource(sourceId, newFeatures) {
@@ -357,8 +359,8 @@ const INITIAL_STATE = {
   basemapLayerIds: [],
   interactiveLayerIds: [],
   isMapSizeValid: false,
-  isMapDragged: false,
-  isMapDragging: false,
+  isMapDraggedOrZoomed: false,
+  isMapDraggingOrZooming: false,
   isDrawModeActive: false,
 };
 
@@ -620,15 +622,15 @@ export default function reducer(state = INITIAL_STATE, action) {
           }),
         },
       };
-    case UPDATE_MAP_DRAGGED:
+    case UPDATE_MAP_DRAGGED_OR_ZOOMED:
       return {
         ...state,
-        isMapDragged: action.payload,
+        isMapDraggedOrZoomed: action.payload,
       };
-    case UPDATE_MAP_DRAGGING:
+    case UPDATE_MAP_DRAGGING_OR_ZOOMING:
       return {
         ...state,
-        isMapDragging: action.payload,
+        isMapDraggingOrZooming: action.payload,
       };
     case UPDATE_SOURCES:
       return {

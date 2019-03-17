@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { connect } from "react-redux";
@@ -6,33 +6,22 @@ import { connect } from "react-redux";
 import { Button } from "../atoms/buttons";
 import mq from "../../../../media-queries";
 
-import {
-  addPlaceButtonVisibilitySelector,
-  geocodeAddressBarVisibilitySelector,
-  setAddPlaceButtonVisibility,
-} from "../../state/ducks/ui";
-import {
-  hasAnonAbilitiesInAnyDataset,
-  datasetSlugsSelector,
-} from "../../state/ducks/datasets-config";
-import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
+import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map-config";
 
-const AddPlaceButtonContainer = styled(
-  props =>
-    props.isAddPlaceButtonVisible && (
-      <Button
-        size="extra-large"
-        variant="raised"
-        color="primary"
-        className={props.className}
-        onClick={props.onClick}
-      >
-        {props.children}
-      </Button>
-    ),
-)(props => {
+const AddPlaceButtonContainer = styled(props => (
+  <Button
+    size="extra-large"
+    variant="raised"
+    color="primary"
+    className={props.className}
+    onClick={props.onClick}
+  >
+    {props.children}
+  </Button>
+))(props => {
   return {
-    zIndex: 10,
+    position: "absolute",
+    zIndex: 1,
     backgroundColor: props.theme.map.addPlaceButtonBackgroundColor,
 
     "&:hover": {
@@ -42,74 +31,35 @@ const AddPlaceButtonContainer = styled(
     [mq[0]]: {
       width: "100%",
       borderRadius: 0,
+      bottom: 0,
+      left: 0,
     },
     [mq[1]]: {
-      position: "absolute",
-      top: props.isGeocodeAddressBarVisible ? "92px" : "20px",
+      top: props.isGeocodeAddressBarEnabled ? "92px" : "20px",
       left: "80px",
     },
   };
 });
 
-class AddPlaceButton extends Component {
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.isAddPlaceButtonVisible !== this.props.isAddPlaceButtonVisible
-    ) {
-      this.props.setMapDimensions();
-    }
-  }
-
-  render() {
-    return (
-      this.props.isAddPlaceButtonVisible &&
-      this.props.hasPermission && (
-        <AddPlaceButtonContainer
-          className={this.props.className}
-          onClick={this.props.onClick}
-          isGeocodeAddressBarVisible={this.props.isGeocodeAddressBarVisible}
-          isAddPlaceButtonVisible={this.props.isAddPlaceButtonVisible}
-        >
-          {this.props.children}
-        </AddPlaceButtonContainer>
-      )
-    );
-  }
-}
+const AddPlaceButton = props => (
+  <AddPlaceButtonContainer
+    className={props.className}
+    onClick={props.onClick}
+    isGeocodeAddressBarEnabled={props.isGeocodeAddressBarEnabled}
+  >
+    {props.children}
+  </AddPlaceButtonContainer>
+);
 
 AddPlaceButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  isAddPlaceButtonVisible: PropTypes.bool.isRequired,
-  isGeocodeAddressBarVisible: PropTypes.bool.isRequired,
+  isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  setMapDimensions: PropTypes.func.isRequired,
-  setVisibility: PropTypes.func.isRequired,
-  hasPermission: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isAddPlaceButtonVisible: addPlaceButtonVisibilitySelector(state),
-  isGeocodeAddressBarVisible: geocodeAddressBarVisibilitySelector(state),
-  hasPermission:
-    hasAnonAbilitiesInAnyDataset({
-      state: state,
-      submissionSet: "places",
-      abilities: ["create"],
-    }) ||
-    hasGroupAbilitiesInDatasets({
-      state: state,
-      submissionSet: "places",
-      abilities: ["create"],
-      datasetSlugs: datasetSlugsSelector(state),
-    }),
+  isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  setVisibility: isVisible => dispatch(setAddPlaceButtonVisibility(isVisible)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddPlaceButton);
+export default connect(mapStateToProps)(AddPlaceButton);

@@ -12,7 +12,6 @@ import FormStageControlBar from "../molecules/form-stage-control-bar";
 
 import { translate } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
-import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -30,11 +29,15 @@ import {
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   mapCenterpointSelector,
+  mapDraggedOrZoomedSelector,
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
+import { updateUIVisibility } from "../../state/ducks/ui";
 import emitter from "../../utils/emitter";
+import { jumpTo } from "../../utils/scroll-helpers";
+
 const Util = require("../../js/utils.js");
 
 import mapseedApiClient from "../../client/mapseed-api-client";
@@ -168,10 +171,10 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     if (this.isWithCustomGeometry) {
-      this.props.hideSpotlightMask();
-      this.props.hideNewPin();
+      this.props.updateSpotlightMaskVisibility(false);
+      this.props.updateMapCenterpointVisibility(false);
     } else {
-      this.props.showNewPin();
+      this.props.updateMapCenterpointVisibility(true);
     }
   }
 
@@ -199,7 +202,7 @@ class InputForm extends Component {
       !isInitializing
     ) {
       this.validateForm(() => {
-        scrollTo(this.props.container, 0);
+        jumpTo(this.props.contentPanelInnerContainerRef, 0);
         this.setState({
           currentStage: this.state.currentStage + 1,
           showValidityStatus: false,
@@ -243,7 +246,7 @@ class InputForm extends Component {
       { validationErrors: new Set(), isValid: true },
     );
 
-    if (!this.props.isMapDragged) {
+    if (!this.props.isMapDraggedOrZoomed) {
       newValidationErrors.add("mapNotDragged");
       isValid = false;
     }
@@ -255,7 +258,7 @@ class InputForm extends Component {
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
       });
-      scrollTo(this.props.container, 0);
+      jumpTo(this.props.contentPanelInnerContainerRef, 0);
     }
   }
 
@@ -505,7 +508,7 @@ class InputForm extends Component {
           <FormStageControlBar
             onClickAdvanceStage={() => {
               this.validateForm(() => {
-                scrollTo(this.props.container, 0);
+                jumpTo(this.props.contentPanelInnerContainerRef, 0);
                 this.setState({
                   currentStage: this.state.currentStage + 1,
                   showValidityStatus: false,
@@ -520,7 +523,7 @@ class InputForm extends Component {
               ) {
                 this.props.onCategoryChange(null);
               } else {
-                scrollTo(this.props.container, 0);
+                jumpTo(this.props.contentPanelInnerContainerRef, 0);
                 this.setState({
                   currentStage: this.state.currentStage - 1,
                   showValidityStatus: false,
@@ -546,20 +549,19 @@ InputForm.propTypes = {
     PropTypes.bool,
   ]),
   container: PropTypes.instanceOf(HTMLElement),
+  contentPanelInnerContainerRef: PropTypes.object.isRequired,
   createPlace: PropTypes.func.isRequired,
   datasetClientSlugSelector: PropTypes.func.isRequired,
   datasetUrl: PropTypes.string.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
-  hideNewPin: PropTypes.func.isRequired,
-  hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isLeavingForm: PropTypes.bool,
-  isMapDragged: PropTypes.bool.isRequired,
+  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   mapConfig: PropTypes.object.isRequired,
   mapCenterpoint: PropTypes.object,
@@ -570,8 +572,9 @@ InputForm.propTypes = {
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
-  showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateMapCenterpointVisibility: PropTypes.func.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
@@ -584,6 +587,7 @@ const mapStateToProps = state => ({
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
+  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   mapConfig: mapConfigSelector(state),
   mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
@@ -598,6 +602,10 @@ const mapDispatchToProps = dispatch => ({
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
+  updateMapCenterpointVisibility: isVisible =>
+    dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
 });
 
 // Export undecorated component for testing purposes.

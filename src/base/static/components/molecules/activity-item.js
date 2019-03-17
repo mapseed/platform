@@ -5,15 +5,20 @@ import styled from "react-emotion";
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, Link } from "../atoms/typography";
 
-const ActivityItemContainer = styled("div")(() => ({
+const ActivityItemContainer = styled("div")({
   position: "relative",
   listStyle: "none",
   borderBottom: "1px solid #888",
-}));
+});
 
 const ActivityLink = styled(props => {
   return (
-    <Link className={props.className} href={props.href} rel="internal">
+    <Link
+      className={props.className}
+      href={props.href}
+      rel="internal"
+      router={props.router}
+    >
       {props.children}
     </Link>
   );
@@ -26,20 +31,19 @@ const ActivityLink = styled(props => {
   },
 }));
 
-const UserAvatarContainer = styled("div")(() => ({
+const UserAvatarContainer = styled("div")({
   position: "absolute",
   top: "13px",
   left: "10px",
-}));
+});
 
-const ActionTextContainer = styled("div")(() => ({
-  paddingLeft: "40px",
-  paddingTop: "10px",
-}));
+const ActionTextContainer = styled("div")({
+  padding: "10px 8px 10px 40px",
+});
 
 const ActivityItem = props => (
   <ActivityItemContainer>
-    <ActivityLink href={props.url}>
+    <ActivityLink href={props.url} router={props.router}>
       <li className={props.className}>
         <UserAvatarContainer>
           <UserAvatar />
@@ -57,6 +61,7 @@ const ActivityItem = props => (
 ActivityItem.propTypes = {
   actionText: PropTypes.string.isRequired,
   className: PropTypes.string,
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   submitterName: PropTypes.string.isRequired,
   title: PropTypes.string,
   url: PropTypes.string.isRequired,

@@ -18,7 +18,7 @@ import {
 } from "../../state/ducks/map-config";
 
 import Modal from "react-modal";
-Modal.setAppElement("#main");
+Modal.setAppElement("#site-wrap");
 
 const fetchOfflineData = (
   offlineBoundingBox,

@@ -102,6 +102,7 @@ const Menu = styled("ul")(props => ({
   padding: "0",
   display: props.isMenuOpen ? "grid" : "none",
   gridRowGap: "16px",
+  listStyle: "none",
 
   [mq[1]]: {
     background: "url(/static/css/images/lightpaperfibers.png)",
@@ -187,22 +188,12 @@ class UserMenu extends React.Component {
             />
           )}
           <Menu isMenuOpen={this.props.isMenuOpen} isLoggedIn={true}>
-            <MenuItem>
+            <MenuItem onClick={this.props.toggleMenu}>
               {this.props.dashboardConfig &&
                 this.props.hasAdminAbilities(
                   this.props.dashboardConfig.datasetId,
                 ) && (
-                  <Link
-                    onClick={() => {
-                      this.props.router.navigate(
-                        isDashboard ? "/" : "/dashboard",
-                        {
-                          trigger: true,
-                        },
-                      );
-                      this.props.toggleMenu();
-                    }}
-                  >
+                  <Link rel="internal" href={isDashboard ? "/" : "/dashboard"}>
                     {isDashboard ? "back to map" : `go to dashboard`}
                   </Link>
                 )}

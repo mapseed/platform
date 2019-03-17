@@ -119,7 +119,7 @@ class Survey extends Component {
   }
 
   render() {
-    const numComments = this.props.comments.size;
+    const numComments = this.props.comments.length;
 
     return (
       <div className="place-detail-survey">
@@ -148,7 +148,6 @@ class Survey extends Component {
                   key={comment.id}
                   comment={comment}
                   onMountTargetResponse={this.props.onMountTargetResponse}
-                  scrollToResponseId={this.props.scrollToResponseId}
                 />
               );
             }
@@ -213,7 +212,6 @@ Survey.propTypes = {
   onMountTargetResponse: PropTypes.func.isRequired,
   placeId: PropTypes.number.isRequired,
   placeUrl: PropTypes.string.isRequired,
-  scrollToResponseId: PropTypes.number,
   commentFormConfig: commentFormConfigPropType.isRequired,
   currentUser: PropTypes.object,
   submitter: PropTypes.object,

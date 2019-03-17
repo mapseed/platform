@@ -5,7 +5,7 @@
 }
 
 .geocoding-field__geocoding-error {
-  display: none;
+  opacity: 0;
   position: absolute;
   top: 3em;
   right: 0.5em;
@@ -16,10 +16,14 @@
   margin: 0;
   padding: $geocoding-field-error-padding;
   box-shadow: $geocoding-field-error-box-shadow;
+  z-index: 14;
+  transition: opacity 0.5s ease;
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
 .geocoding-field__geocoding-error--visible {
-  display: block;
+  opacity: 1;
 }
 
 .geocoding-field__input {

@@ -2,11 +2,6 @@
   margin-bottom: 25px;
 }
 
-.place-detail-editor-bar--geocoding-bar-enabled {
-  // TODO: Obtain this value from a variable that determines overall layout.
-  margin-top: 70px;
-}
-
 // Screen widths above 60em
 @media only screen and (min-width: 60em) {
   .place-detail-editor-bar {
@@ -19,7 +14,7 @@
     // TODO: Obtain this percentage from a variable that determines overall layout.
     width: calc(40% - 2em);
     // TODO: Obtain this value from a variable that sets the height of the header.
-    top: 64px;
+    top: 56px;
   }
 }
 

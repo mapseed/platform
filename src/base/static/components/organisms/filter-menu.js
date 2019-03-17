@@ -17,10 +17,16 @@ import {
 } from "../../state/ducks/forms-config";
 
 const FilterNavButton = styled(linkProps => (
-  <NavButton color={"tertiary"} onClick={linkProps.onClick}>
+  <NavButton
+    color={"tertiary"}
+    onClick={linkProps.onClick}
+    className={linkProps.className}
+  >
     {linkProps.children}
   </NavButton>
 ))(() => ({
+  fontSize: "0.9rem",
+
   [mq[0]]: {
     display: "none",
   },
@@ -34,6 +40,9 @@ const CategoryFilterDropdown = styled("ul")(props => ({
   position: "absolute",
   maxWidth: "180px",
   border: `4px solid ${props.theme.brand.accent}`,
+  padding: 0,
+  top: "30px",
+  marginLeft: "10px",
 }));
 
 const CategoryFilterOption = styled("li")(props => ({

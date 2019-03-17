@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-
-<head>
+<html>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
 
@@ -30,55 +29,16 @@
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
+  <style>
+    html, body, #site-wrap {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
 </head>
-  <body class="{{#if config.map.geocoding_bar_enabled}} geocoding-bar-enabled{{/if}}">
-  <div id="site-wrap">
-
-  <header id="site-header"></header>
-
-  <div role="main" id="main">
-    <noscript>
-      <div class="noscript">
-      <h3>
-        {{#_}}
-        Oops, {{config.app.name}} needs JavaScript to work properly.
-        {{/_}}
-      </h3>
-      <p>
-        {{#_}}
-        {{ config.app.name }} is great but it needs something called JavaScript to work
-        properly. But fear not, it's really easy to turn on. Click
-        <a href="//enable-javascript.com/" target="_blank">here</a> for simple instructions!
-        {{/_}}
-      </p>
-      </div>
-    </noscript>
-
-    <div id="info-modal-container"></div>
-
-    {{#if config.map.geocoding_bar_enabled}}
-    <div id="geocode-address-bar" class="clearfix"></div>
-    {{/if}}
-
-    <div id="left-sidebar-container"></div>
-    <div id="map-container">
-      <div id="map-component"></div>
-      <div id="ajax-error-msg">{{#_}}We can't connect to the server at the moment. Hang tight while we re-establish communication.{{/_}}</div>
-      <div id="spotlight-mask"></div>
-      <span id="map-centerpoint"></span>
-    </div>
-    <div id="content">
-      <a href="#" class="close-btn">&#10005;<span>{{#_}}Close{{/_}}</span></a>
-      <article></article>
-    </div>
-    <div id="add-place-button"></div>
-    <div id="right-sidebar-container"></div>
-  </div><!-- end #main -->
-
-  <div id="list-container"></div>
-  <div id="sha-container"></div>
-  <div id="dashboard-container"></div>
-  </div><!-- end #site-wrap -->
+  <body>
+    <div role="main" id="site-wrap"></div>
 
   <script>
     var serviceWorkerPath = "{{ serviceWorkerPath }}";
@@ -142,35 +102,15 @@
   {{/if}}
 
   {{#if settings.googleAnalyticsId}}
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', '{{ settings.googleAnalyticsId }}', '{{ settings.googleAnalyticsDomain }}');
-    // Set the language-code
-    ga('set', 'dimension2', '{{ languageCode }}');
-  </script>
-  {{/if}}
-
-  {{#if settings.clickyAnalyticsId}}
-  <a title="Google Analytics Alternative" href="https://clicky.com/{{ settings.clickyAnalyticsId }}"><img alt="Google Analytics Alternative" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
-  <script type="text/javascript">
-   var clicky_site_ids = clicky_site_ids || [];
-   clicky_site_ids.push({{ settings.clickyAnalyticsId }});
-   (function() {
-     var s = document.createElement('script');
-     s.type = 'text/javascript';
-     s.async = true;
-     s.src = '//static.getclicky.com/js';
-     ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
-   })();
-  </script>
-
-  <noscript>
-    <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/{{ settings.clickyAnalyticsId }}ns.gif" />
-    </p>
-  </noscript>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', '{{ settings.googleAnalyticsId }}', '{{ settings.googleAnalyticsDomain }}');
+      // Set the language-code
+      ga('set', 'dimension2', '{{ languageCode }}');
+    </script>
   {{/if}}
 
 </body>

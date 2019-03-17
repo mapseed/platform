@@ -10,7 +10,7 @@ import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
 
-import { scrollTo } from "../../utils/scroll-helpers";
+import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 const Util = require("../../js/utils.js");
 
@@ -186,7 +186,7 @@ class PlaceDetailEditor extends Component {
         this.props.updatePlace(placeResponse);
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
-        scrollTo(this.props.container, 0, 100);
+        jumpTo(this.props.contentPanelInnerContainerRef, 0);
       } else {
         alert("Oh dear. It looks like that didn't save. Please try again.");
         Util.log("USER", "place", "fail-to-update-place");
@@ -199,7 +199,7 @@ class PlaceDetailEditor extends Component {
         showValidityStatus: true,
         isNetworkRequestInFlight: false,
       });
-      scrollTo(this.props.container, 0, 300);
+      jumpTo(this.props.contentPanelInnerContainerRef, 0);
       this.props.setPlaceRequestType(null);
     }
   }
@@ -358,7 +358,7 @@ class PlaceDetailEditor extends Component {
 PlaceDetailEditor.propTypes = {
   activeMarker: PropTypes.string,
   attachments: PropTypes.array,
-  container: PropTypes.object.isRequired,
+  contentPanelInnerContainerRef: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
   isInAtLeastOneGroup: PropTypes.func.isRequired,

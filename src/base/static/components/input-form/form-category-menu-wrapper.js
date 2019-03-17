@@ -7,10 +7,14 @@ import { translate } from "react-i18next";
 import InputFormCategorySelector from "./input-form-category-selector";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { updateMapDragged, mapDraggedSelector } from "../../state/ducks/map";
+import {
+  updateMapDraggedOrZoomed,
+  mapDraggedOrZoomedSelector,
+} from "../../state/ducks/map";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
+import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
 
@@ -67,8 +71,9 @@ class FormCategoryMenuWrapper extends Component {
   }
 
   componentDidMount() {
-    this.props.updateMapDragged(false);
-    this.props.showNewPin();
+    this.props.updateMapDraggedOrZoomed(false);
+    this.props.updateMapCenterpointVisibility(true);
+    this.props.updateSpotlightMaskVisibility(true);
   }
 
   onCategoryChange(selectedCategory) {
@@ -90,7 +95,7 @@ class FormCategoryMenuWrapper extends Component {
       <div className="input-form-category-menu-container">
         {this.state.isShowingCategorySelector && (
           <Fragment>
-            {!this.props.isMapDragged && (
+            {!this.props.isMapDraggedOrZoomed && (
               <DragMapAlert>{this.props.t("dragMapAlert")}</DragMapAlert>
             )}
             <InputFormCategorySelector
@@ -116,10 +121,6 @@ FormCategoryMenuWrapper.propTypes = {
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  hideSpotlightMask: PropTypes.func.isRequired,
-  showNewPin: PropTypes.func.isRequired,
-  hideNewPin: PropTypes.func.isRequired,
-  hidePanel: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),
@@ -128,11 +129,12 @@ FormCategoryMenuWrapper.propTypes = {
     PropTypes.objectOf(PropTypes.func),
   ]),
   containers: PropTypes.instanceOf(NodeList),
-  isMapDragged: PropTypes.bool.isRequired,
+  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
-  updateMapDragged: PropTypes.func.isRequired,
+  updateMapCenterpointVisibility: PropTypes.func.isRequired,
+  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 const mapStateToProps = state => ({
@@ -146,12 +148,17 @@ const mapStateToProps = state => ({
     }),
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
-  isMapDragged: mapDraggedSelector(state),
+  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapDragged: isMapDragged => dispatch(updateMapDragged(isMapDragged)),
+  updateMapCenterpointVisibility: isVisible =>
+    dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
+  updateMapDraggedOrZoomed: isMapDraggedOrZoomed =>
+    dispatch(updateMapDraggedOrZoomed(isMapDraggedOrZoomed)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });
 
 export default connect(

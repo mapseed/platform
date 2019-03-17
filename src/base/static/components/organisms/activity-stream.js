@@ -97,6 +97,7 @@ class ActivityStream extends Component {
               title={title}
               actionText={actionText}
               submitterName={submitterName || anonymousName}
+              router={this.props.router}
               url={url}
             />
           );
@@ -116,6 +117,7 @@ ActivityStream.propTypes = {
   }).isRequired,
   placeSelector: PropTypes.func.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({

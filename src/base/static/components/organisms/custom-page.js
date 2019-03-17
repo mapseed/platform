@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const CustomPage = props => (
-  <div dangerouslySetInnerHTML={{ __html: props.pageContent }} />
+  <div
+    id="mapseed-custom-page-container"
+    dangerouslySetInnerHTML={{ __html: props.pageContent }}
+  />
 );
 
 CustomPage.propTypes = {
