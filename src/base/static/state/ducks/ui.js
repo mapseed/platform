@@ -56,6 +56,7 @@ const INITIAL_STATE = {
   uiVisibility: {
     addPlaceButton: false,
     contentPanel: false,
+    inviteModal: false,
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,

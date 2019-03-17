@@ -120,6 +120,7 @@ module.exports = {
         : JSON.stringify("dev"),
       MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
       GIT_SHA: JSON.stringify(gitSha),
+      MIXPANEL_TOKEN: JSON.stringify(process.env.MIXPANEL_TOKEN),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,

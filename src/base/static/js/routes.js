@@ -6,6 +6,7 @@ import reducer from "../state/reducers";
 
 import Util from "./utils.js";
 import config from "config";
+import mixpanel from "mixpanel-browser";
 
 import {
   updateCurrentTemplate,
@@ -56,11 +57,13 @@ import languageModule from "../language-module";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
+mixpanel.init(MIXPANEL_TOKEN);
 
 (function() {
   const Router = Backbone.Router.extend({
     routes: {
       "": "viewMap",
+      invite: "addInvite",
       "page/:slug": "viewPage",
       dashboard: "viewDashboard",
       sha: "viewSha",
@@ -101,6 +104,7 @@ Shareabouts.Util = Util;
             name: authedUser.username,
             ...authedUser,
             isAuthenticated: true,
+            isLoaded: true,
           }
         : {
             // anonymous user:
@@ -110,6 +114,7 @@ Shareabouts.Util = Util;
             )}`,
             groups: [],
             isAuthenticated: false,
+            isLoaded: true,
           };
       this.store.dispatch(loadUser(user));
 
@@ -273,6 +278,12 @@ Shareabouts.Util = Util;
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
       this.store.dispatch(updateUIVisibility("addPlaceButton", true));
       this.store.dispatch(updateContentPanelComponent("PlaceDetail"));
+    },
+
+    addInvite: function() {
+      recordGoogleAnalyticsHit("/invite");
+      this.store.dispatch(updateCurrentTemplate("map"));
+      this.store.dispatch(updateUIVisibility("inviteModal", true));
     },
 
     viewPage: function(pageSlug) {

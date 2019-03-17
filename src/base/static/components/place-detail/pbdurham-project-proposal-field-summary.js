@@ -13,11 +13,10 @@ import {
 import { Link } from "../atoms/navigation";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
+import TextArea from "../molecules/place-detail-fields/textarea";
 import { placeSelector } from "../../state/ducks/places";
 
 import { placePropType } from "../../state/ducks/places";
-
-const getScore = (place, propName) => parseInt(place[propName] || 0);
 
 const lowScoreMsgKeys = {
   feasibility: "notFeasibleMsg",
@@ -93,7 +92,7 @@ const RelatedIdeas = styled("div")({
   marginBottom: "16px",
 });
 
-const RelatedIdeasLinks = styled("ul")({
+const RelatedIdeasList = styled("ul")({
   padding: 0,
   listStyle: "none",
   marginTop: "8px",
@@ -101,28 +100,17 @@ const RelatedIdeasLinks = styled("ul")({
 });
 
 const PBDurhamProjectProposalFieldSummary = props => {
-  const avgEquityScore = (
-    (getScore(props.place, "delegate_equity_score") +
-      getScore(props.place, "staff_equity_score")) /
-    2
-  ).toFixed(1);
-  const avgFeasibilityScore = (
-    (getScore(props.place, "delegate_feasibility_score") +
-      getScore(props.place, "staff_feasibility_score")) /
-    2
-  ).toFixed(1);
-  const avgImpactScore = (
-    (getScore(props.place, "delegate_impact_score") +
-      getScore(props.place, "staff_impact_score")) /
-    2
-  ).toFixed(1);
+  const equityScore = parseFloat(props.place["delegate_equity_score"]) || 0;
+  const impactScore = parseFloat(props.place["delegate_impact_score"]) || 0;
+  const feasibilityScore =
+    parseFloat(props.place["staff_feasibility_score"]) || 0;
 
   return (
     <div>
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
-        .map(attachment => (
-          <CoverImage key={attachment.name} imageUrl={attachment.file} />
+        .map((attachment, i) => (
+          <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       <ProjectScores>
         <SmallTitle>{props.t("scoreSummaryHeader")}</SmallTitle>
@@ -132,41 +120,61 @@ const PBDurhamProjectProposalFieldSummary = props => {
             {props.t("feasibility")}
           </ScoreLabel>
           <Score>
-            <BigNumber>{avgFeasibilityScore}</BigNumber>
+            <BigNumber>{feasibilityScore}</BigNumber>
             <LargeText>/3</LargeText>
           </Score>
           <ScoreMsg>
-            {props.t(getScoreMsg(avgFeasibilityScore, "feasibility"))}
+            {props.t(getScoreMsg(feasibilityScore, "feasibility"))}
           </ScoreMsg>
           <ScoreLabel textTransform="uppercase">{props.t("equity")}</ScoreLabel>
           <Score>
-            <BigNumber>{avgEquityScore}</BigNumber>
+            <BigNumber>{equityScore}</BigNumber>
             <LargeText>/3</LargeText>
           </Score>
           <ScoreMsg>
-            {props.t(getScoreMsg(avgEquityScore, "equitability"))}
+            {props.t(getScoreMsg(equityScore, "equitability"))}
           </ScoreMsg>
           <ScoreLabel textTransform="uppercase">{props.t("impact")}</ScoreLabel>
           <Score>
-            <BigNumber>{avgImpactScore}</BigNumber>
+            <BigNumber>{impactScore}</BigNumber>
             <LargeText>/3</LargeText>
           </Score>
-          <ScoreMsg>{props.t(getScoreMsg(avgImpactScore, "impact"))}</ScoreMsg>
+          <ScoreMsg>{props.t(getScoreMsg(impactScore, "impact"))}</ScoreMsg>
         </ScoreSummary>
       </ProjectScores>
-      <SmallTitle>
-        {
+      <TextArea
+        title={
           props.fields.find(field => field.name === "project_description")
             .display_prompt
         }
-      </SmallTitle>
-      <HorizontalRule spacing="tiny" color="light" />
-      <RegularText>{props.place.project_description}</RegularText>
+        description={props.place.project_description}
+      />
+      <TextArea
+        title={
+          props.fields.find(field => field.name === "impact_statement")
+            .display_prompt
+        }
+        description={props.place.impact_statement}
+      />
+      <TextArea
+        title={
+          props.fields.find(field => field.name === "staff_project_budget")
+            .display_prompt
+        }
+        description={props.place.staff_project_budget}
+      />
+      <TextArea
+        title={
+          props.fields.find(field => field.name === "staff_cost_estimation")
+            .display_prompt
+        }
+        description={props.place.staff_project_budget}
+      />
       <RelatedIdeas>
         <SmallTitle>{props.t("relatedIdeasHeader")}</SmallTitle>
         <HorizontalRule spacing="tiny" color="light" />
-        <RelatedIdeasLinks>
-          {props.place.related_ideas.split(" ").map(placeId => {
+        <RelatedIdeasList>
+          {props.place.related_ideas.split(/\s+/).map(placeId => {
             const relatedIdea = props.placeSelector(placeId);
             return relatedIdea ? (
               <li key={placeId}>
@@ -179,7 +187,7 @@ const PBDurhamProjectProposalFieldSummary = props => {
               </li>
             ) : null;
           })}
-        </RelatedIdeasLinks>
+        </RelatedIdeasList>
       </RelatedIdeas>
     </div>
   );

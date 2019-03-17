@@ -1,9 +1,10 @@
-import React, { Component, createRef, Fragment } from "react";
+import React, { Component, createRef } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
 import styled from "react-emotion";
+import InviteModal from "../organisms/invite-modal";
 import { Global } from "@emotion/core";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
@@ -437,7 +438,11 @@ class MainMap extends Component {
 
   render() {
     return (
-      <Fragment>
+      <>
+        <InviteModal
+          router={this.props.router}
+          isOpen={this.props.isInviteModalOpen}
+        />
         <Global
           styles={{
             ".overlays": {
@@ -518,7 +523,7 @@ class MainMap extends Component {
             </MapControlsContainer>
           )}
         </MapGL>
-      </Fragment>
+      </>
     );
   }
 }
@@ -535,6 +540,7 @@ MainMap.propTypes = {
   isDrawModeActive: PropTypes.bool.isRequired,
   isMapDraggingOrZooming: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
+  isInviteModalOpen: PropTypes.bool.isRequired,
   leftSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool,
     is_visible_default: PropTypes.bool,
@@ -578,6 +584,7 @@ const mapStateToProps = state => ({
   geometryStyle: geometryStyleSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isDrawModeActive: drawModeActiveSelector(state),
+  isInviteModalOpen: uiVisibilitySelector("inviteModal", state),
   isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   leftSidebarConfig: leftSidebarConfigSelector(state),
