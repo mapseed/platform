@@ -133,7 +133,7 @@ const NavLink = styled(props => (
   textDecoration: "none",
   textTransform: "uppercase",
   fontSize: "0.9rem",
-  fontFamily: props.theme.brand.navBarFontFamily,
+  fontFamily: props.theme.text.navBarFontFamily,
   fontWeight: 600,
   color: props.theme.bg.light,
   marginRight: "4px",
@@ -160,13 +160,13 @@ const SiteTitle = styled(RegularTitle)(props => ({
   },
 }));
 
-const NavButtonWrapper = styled("span")({
+const NavButtonWrapper = styled("div")(props => ({
   [mq[1]]: {
-    display: "flex",
     alignItems: "center",
-    height: "24px",
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
-});
+}));
 
 const LanguagePickerMenu = styled("ul")(props => ({
   backgroundColor: props.theme.bg.default,

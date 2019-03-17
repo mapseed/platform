@@ -26,7 +26,7 @@ var entryPoints = [
   "whatwg-fetch",
   "normalize.css",
   "./src/base/static/js/routes.js",
-  "./src/base/static/css/normalize-custom-pages.scss",
+  "./src/base/static/css/normalize.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 

@@ -42,11 +42,12 @@
         "secondary": "#fff",
         "tertiary": "#02440c",
         "navBarFontFamily": "lithos,sans-serif",
+        "bodyFontFamily": "Roboto, sans-serif",
         "textTransform": "uppercase"
       },
       "bg": {
         "default": "#f3f5e7",
-        "light": "#fff"
+        "light": "#02440c"
       }
     }
   },

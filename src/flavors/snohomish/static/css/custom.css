@@ -7,6 +7,10 @@
 /* =Header
 -------------------------------------------------------------- */
 
+* {
+  font-family: Roboto, sans-serif;
+}
+
 .menu {
   font-family: "Lithos", sans-serif !important;
   letter-spacing: 1.5px !important;
