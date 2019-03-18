@@ -138,30 +138,46 @@ const PBDurhamProjectProposalFieldSummary = props => {
         <Title>{props.t("scoreSummaryHeader")}</Title>
         <HorizontalRule spacing="tiny" color="light" />
         <ScoreSummary>
-          <ScoreLabel textTransform="uppercase">
-            {props.t("feasibility")}
-          </ScoreLabel>
-          <Score>
-            <BigNumber>{feasibilityScore}</BigNumber>
-            <LargeText>/3</LargeText>
-          </Score>
-          <ScoreMsg>
-            {props.t(getScoreMsg(feasibilityScore, "feasibility"))}
-          </ScoreMsg>
-          <ScoreLabel textTransform="uppercase">{props.t("equity")}</ScoreLabel>
-          <Score>
-            <BigNumber>{equityScore}</BigNumber>
-            <LargeText>/3</LargeText>
-          </Score>
-          <ScoreMsg>
-            {props.t(getScoreMsg(equityScore, "equitability"))}
-          </ScoreMsg>
-          <ScoreLabel textTransform="uppercase">{props.t("impact")}</ScoreLabel>
-          <Score>
-            <BigNumber>{impactScore}</BigNumber>
-            <LargeText>/3</LargeText>
-          </Score>
-          <ScoreMsg>{props.t(getScoreMsg(impactScore, "impact"))}</ScoreMsg>
+          {feasibilityScore > 0 && (
+            <>
+              <ScoreLabel textTransform="uppercase">
+                {props.t("feasibility")}
+              </ScoreLabel>
+              <Score>
+                <BigNumber>{feasibilityScore}</BigNumber>
+                <LargeText>/3</LargeText>
+              </Score>
+              <ScoreMsg>
+                {props.t(getScoreMsg(feasibilityScore, "feasibility"))}
+              </ScoreMsg>
+            </>
+          )}
+          {equityScore > 0 && (
+            <>
+              <ScoreLabel textTransform="uppercase">
+                {props.t("equity")}
+              </ScoreLabel>
+              <Score>
+                <BigNumber>{equityScore}</BigNumber>
+                <LargeText>/3</LargeText>
+              </Score>
+              <ScoreMsg>
+                {props.t(getScoreMsg(equityScore, "equitability"))}
+              </ScoreMsg>
+            </>
+          )}
+          {impactScore > 0 && (
+            <>
+              <ScoreLabel textTransform="uppercase">
+                {props.t("impact")}
+              </ScoreLabel>
+              <Score>
+                <BigNumber>{impactScore}</BigNumber>
+                <LargeText>/3</LargeText>
+              </Score>
+              <ScoreMsg>{props.t(getScoreMsg(impactScore, "impact"))}</ScoreMsg>
+            </>
+          )}
         </ScoreSummary>
       </ProjectScores>
       <TextArea
