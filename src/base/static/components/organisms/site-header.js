@@ -297,7 +297,7 @@ const navItemMappings = {
       height="24px"
       position={linkProps.position}
       href={linkProps.navBarItem.url}
-    onClick={linkProps.onClick}
+      onClick={linkProps.onClick}
     >
       {linkProps.children}
     </NavLink>
