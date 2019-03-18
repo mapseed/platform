@@ -87,7 +87,8 @@ class MapTemplate extends Component {
         isGeocodeAddressBarEnabled: this.props.isGeocodeAddressBarEnabled,
         layout: this.props.layout,
         isAddPlaceButtonVisible:
-          this.props.isAddPlaceButtonVisible && this.hasAddPlacePermission,
+          this.props.isAddPlaceButtonVisible &&
+          this.props.hasAddPlacePermission,
         addPlaceButtonRef: this.addPlaceButtonRef,
       }),
       mapContainerWidthDeclaration: getMainContentAreaWidth({

@@ -120,6 +120,7 @@ const NavLink = styled(props => (
       href={props.href}
       rel="internal"
       className={props.className}
+      onClick={props.onClick}
       style={{ padding: "4px 8px 4px 8px" }}
     >
       {props.children}
@@ -296,6 +297,7 @@ const navItemMappings = {
       height="24px"
       position={linkProps.position}
       href={linkProps.navBarItem.url}
+      onClick={linkProps.onClick}
     >
       {linkProps.children}
     </NavLink>

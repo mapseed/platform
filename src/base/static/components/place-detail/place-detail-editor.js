@@ -30,7 +30,7 @@ import {
   updateActiveEditPlaceId,
 } from "../../state/ducks/places";
 import { removeFeatureInGeoJSONSource } from "../../state/ducks/map";
-import { updateEditModeToggled } from "../../state/ducks/ui";
+import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
 import { isInAtLeastOneGroup, hasAdminAbilities } from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -186,7 +186,12 @@ class PlaceDetailEditor extends Component {
         this.props.updatePlace(placeResponse);
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
-        jumpTo(this.props.contentPanelInnerContainerRef, 0);
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          scrollPositon: 0,
+          layout: this.props.layout,
+        });
       } else {
         alert("Oh dear. It looks like that didn't save. Please try again.");
         Util.log("USER", "place", "fail-to-update-place");
@@ -199,7 +204,11 @@ class PlaceDetailEditor extends Component {
         showValidityStatus: true,
         isNetworkRequestInFlight: false,
       });
-      jumpTo(this.props.contentPanelInnerContainerRef, 0);
+      jumpTo({
+        contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
+        scrollPositon: 0,
+        layout: this.props.layout,
+      });
       this.props.setPlaceRequestType(null);
     }
   }
@@ -363,6 +372,7 @@ PlaceDetailEditor.propTypes = {
   hasAdminAbilities: PropTypes.func.isRequired,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
+  layout: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func,
   onRequestEnd: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
@@ -384,6 +394,7 @@ const mapStateToProps = state => ({
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
+  layout: layoutSelector(state),
   geometryStyle: geometryStyleSelector(state),
   placeConfig: placeConfigSelector(state),
 });

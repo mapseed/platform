@@ -238,6 +238,8 @@ const Link = styled(props => {
             { trigger: true },
           );
         }
+
+        props.onClick && props.onClick();
       }}
       {...props}
     >

@@ -39,9 +39,17 @@ const getMainContentAreaHeight = ({
     case "mobile":
       // UI heights which resize the main content area:
       //  - ContentPanel: 40%
-      if (isContentPanelVisible && isGeocodeAddressBarEnabled) {
+      if (
+        isContentPanelVisible &&
+        isGeocodeAddressBarEnabled &&
+        !isAddPlaceButtonVisible
+      ) {
         return "calc(60% - 42px)";
-      } else if (isContentPanelVisible && !isGeocodeAddressBarEnabled) {
+      } else if (
+        isContentPanelVisible &&
+        !isGeocodeAddressBarEnabled &&
+        !isAddPlaceButtonVisible
+      ) {
         return "60%";
       } else if (
         !isContentPanelVisible &&
@@ -49,7 +57,11 @@ const getMainContentAreaHeight = ({
         !isAddPlaceButtonVisible
       ) {
         return "calc(100% - 42px)";
-      } else if (isContentPanelVisible && !isGeocodeAddressBarEnabled) {
+      } else if (
+        !isContentPanelVisible &&
+        !isGeocodeAddressBarEnabled &&
+        !isAddPlaceButtonVisible
+      ) {
         return "100%";
       } else if (
         !isContentPanelVisible &&
