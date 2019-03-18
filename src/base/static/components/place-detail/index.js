@@ -58,6 +58,7 @@ import { customComponentsConfigSelector } from "../../state/ducks/custom-compone
 
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
+import { jumpTo } from "../../utils/scroll-helpers";
 
 import { translate } from "react-i18next";
 import "./index.scss";
@@ -97,10 +98,11 @@ class PlaceDetail extends Component {
     }
 
     if (this.props.focusedPlace.id !== prevProps.focusedPlace.id) {
-      findDOMNode(this.props.contentPanelInnerContainerRef.current).scrollTo(
-        0,
-        0,
-      );
+      jumpTo({
+        contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
+        scrollPositon: 0,
+        layout: this.props.layout,
+      });
       this.updateMapViewport();
       this.updateEditability();
     }
@@ -215,11 +217,13 @@ class PlaceDetail extends Component {
 
   onMountTargetResponse(responseRef) {
     requestAnimationFrame(() => {
-      findDOMNode(this.props.contentPanelInnerContainerRef.current).scrollTo(
-        0,
+      jumpTo({
+        contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
         // TODO: Remove the magic number here.
-        findDOMNode(responseRef.current).getBoundingClientRect().top - 120,
-      );
+        scrollPosition:
+          findDOMNode(responseRef.current).getBoundingClientRect().top - 120,
+        layout: this.props.layout,
+      });
     });
   }
 

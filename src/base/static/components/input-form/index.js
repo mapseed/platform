@@ -34,7 +34,7 @@ import {
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
-import { updateUIVisibility } from "../../state/ducks/ui";
+import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
 import emitter from "../../utils/emitter";
 import { jumpTo } from "../../utils/scroll-helpers";
 
@@ -202,7 +202,12 @@ class InputForm extends Component {
       !isInitializing
     ) {
       this.validateForm(() => {
-        jumpTo(this.props.contentPanelInnerContainerRef, 0);
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          scrollPosition: 0,
+          layout: this.props.layout,
+        });
         this.setState({
           currentStage: this.state.currentStage + 1,
           showValidityStatus: false,
@@ -258,7 +263,11 @@ class InputForm extends Component {
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
       });
-      jumpTo(this.props.contentPanelInnerContainerRef, 0);
+      jumpTo({
+        contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
+        scrollPosition: 0,
+        layout: this.props.layout,
+      });
     }
   }
 
@@ -508,7 +517,12 @@ class InputForm extends Component {
           <FormStageControlBar
             onClickAdvanceStage={() => {
               this.validateForm(() => {
-                jumpTo(this.props.contentPanelInnerContainerRef, 0);
+                jumpTo({
+                  contentPanelInnerContainerRef: this.props
+                    .contentPanelInnerContainerRef,
+                  scrollPosition: 0,
+                  layout: this.props.layout,
+                });
                 this.setState({
                   currentStage: this.state.currentStage + 1,
                   showValidityStatus: false,
@@ -523,7 +537,12 @@ class InputForm extends Component {
               ) {
                 this.props.onCategoryChange(null);
               } else {
-                jumpTo(this.props.contentPanelInnerContainerRef, 0);
+                jumpTo({
+                  contentPanelInnerContainerRef: this.props
+                    .contentPanelInnerContainerRef,
+                  scrollPosition: 0,
+                  layout: this.props.layout,
+                });
                 this.setState({
                   currentStage: this.state.currentStage - 1,
                   showValidityStatus: false,
@@ -563,6 +582,7 @@ InputForm.propTypes = {
   isLeavingForm: PropTypes.bool,
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
+  layout: PropTypes.string.isRequired,
   mapConfig: PropTypes.object.isRequired,
   mapCenterpoint: PropTypes.object,
   onCategoryChange: PropTypes.func,
@@ -588,6 +608,7 @@ const mapStateToProps = state => ({
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
   isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
+  layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
