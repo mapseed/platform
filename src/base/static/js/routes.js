@@ -274,6 +274,7 @@ mixpanel.init(MIXPANEL_TOKEN);
       recordGoogleAnalyticsHit(`/${clientSlug}/${placeId}`);
       this.store.dispatch(updateScrollToResponseId(parseInt(responseId)));
       this.store.dispatch(updateFocusedPlaceId(parseInt(placeId)));
+      this.store.dispatch(updateCurrentTemplate("map"));
       this.store.dispatch(updateUIVisibility("contentPanel", true));
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
       this.store.dispatch(updateUIVisibility("addPlaceButton", true));

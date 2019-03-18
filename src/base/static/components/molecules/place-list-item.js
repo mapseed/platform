@@ -195,7 +195,7 @@ const PlaceListItem = props => {
                 <PlaceInfoButton
                   onClick={() => {
                     props.router.navigate(
-                      `/${props.place.datasetSlug}/${props.place.id}`,
+                      `/${props.place._clientSlug}/${props.place.id}`,
                       { trigger: true },
                     );
                   }}
