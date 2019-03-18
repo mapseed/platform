@@ -9,11 +9,16 @@ const TextAreaWrapper = styled("div")({
   marginTop: "16px",
 });
 
+const Title = styled(SmallTitle)({
+  marginTop: "32px",
+  marginBottom: "8px",
+});
+
 const TextArea = props => {
   return (
     <TextAreaWrapper>
-      <SmallTitle>{props.title}</SmallTitle>
-      <HorizontalRule spacing="tiny" color="light" />
+      <Title>{props.title}</Title>
+      <HorizontalRule spacing="small" color="light" />
       <RegularText>{props.description}</RegularText>
     </TextAreaWrapper>
   );

@@ -286,6 +286,7 @@ class PlaceDetail extends Component {
         <PBDurhamProjectProposalFieldSummary
           fields={categoryConfig.fields}
           place={this.props.focusedPlace}
+          router={this.props.router}
         />
       );
     } else {
