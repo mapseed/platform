@@ -292,6 +292,7 @@ mixpanel.init(MIXPANEL_TOKEN);
       this.store.dispatch(updateUIVisibility("contentPanel", true));
       this.store.dispatch(updateUIVisibility("spotlightMask", false));
       this.store.dispatch(updateUIVisibility("mapCenterpoint", false));
+      this.store.dispatch(updateUIVisibility("addPlaceButton", true));
       this.store.dispatch(updateActivePage(pageSlug));
       this.store.dispatch(updateContentPanelComponent("CustomPage"));
     },
