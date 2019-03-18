@@ -10,7 +10,7 @@ import {
   RegularText,
   LargeText,
 } from "../atoms/typography";
-import { Link } from "../atoms/navigation";
+import { Link } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 import TextArea from "../molecules/place-detail-fields/textarea";
@@ -99,6 +99,28 @@ const RelatedIdeasList = styled("ul")({
   marginLeft: "16px",
 });
 
+const RelatedIdeaLink = styled(props => (
+  <Link
+    rel="internal"
+    href={props.href}
+    router={props.router}
+    className={props.className}
+  >
+    {props.children}
+  </Link>
+))(() => ({
+  textTransform: "none",
+}));
+
+const RealatedIdeaListItem = styled("li")({
+  marginBottom: "8px",
+});
+
+const Title = styled(SmallTitle)({
+  marginTop: "32px",
+  marginBottom: "8px",
+});
+
 const PBDurhamProjectProposalFieldSummary = props => {
   const equityScore = parseFloat(props.place["delegate_equity_score"]) || 0;
   const impactScore = parseFloat(props.place["delegate_impact_score"]) || 0;
@@ -113,7 +135,7 @@ const PBDurhamProjectProposalFieldSummary = props => {
           <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       <ProjectScores>
-        <SmallTitle>{props.t("scoreSummaryHeader")}</SmallTitle>
+        <Title>{props.t("scoreSummaryHeader")}</Title>
         <HorizontalRule spacing="tiny" color="light" />
         <ScoreSummary>
           <ScoreLabel textTransform="uppercase">
@@ -171,20 +193,20 @@ const PBDurhamProjectProposalFieldSummary = props => {
         description={props.place.staff_project_budget}
       />
       <RelatedIdeas>
-        <SmallTitle>{props.t("relatedIdeasHeader")}</SmallTitle>
+        <Title>{props.t("relatedIdeasHeader")}</Title>
         <HorizontalRule spacing="tiny" color="light" />
         <RelatedIdeasList>
           {props.place.related_ideas.split(/\s+/).map(placeId => {
             const relatedIdea = props.placeSelector(placeId);
             return relatedIdea ? (
-              <li key={placeId}>
-                <Link
-                  rel="internal"
+              <RealatedIdeaListItem key={placeId}>
+                <RelatedIdeaLink
                   href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
+                  router={props.router}
                 >
                   <RegularText>{relatedIdea.title}</RegularText>
-                </Link>
-              </li>
+                </RelatedIdeaLink>
+              </RealatedIdeaListItem>
             ) : null;
           })}
         </RelatedIdeasList>
@@ -197,6 +219,7 @@ PBDurhamProjectProposalFieldSummary.propTypes = {
   fields: PropTypes.array.isRequired,
   place: placePropType.isRequired,
   placeSelector: PropTypes.func.isRequired,
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
 
