@@ -98,6 +98,7 @@ class FilterMenu extends Component {
     return (
       <Downshift
         stateReducer={stateReducer}
+        itemToString={i => (i == null ? "" : String(i))}
         onSelect={placeForm => {
           if (!placeForm.id) {
             return this.props.updateFilters([]);

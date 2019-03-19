@@ -1433,6 +1433,12 @@
         "datasetSlug": "pbdurham",
         "label": "_(Other)",
         "icon": "/static/css/images/markers/idea.png"
+      },
+      {
+        "id": "projects",
+        "datasetSlug": "pbdurham-projects",
+        "label": "_(Proposals)",
+        "icon": "/static/css/images/markers/money.png"
       }
     ],
     "fields": [

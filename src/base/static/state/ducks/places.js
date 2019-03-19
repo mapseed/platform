@@ -22,13 +22,13 @@ export const filteredPlacesSelector = state => {
     return state.places.placeModels;
   }
   // a formId and a location_type are currenty equivalent
-  const filteredFormIds = filters.reduce((memo, filter) => {
-    memo.push(filter.formId);
-    return memo;
-  }, []);
-  return state.places.placeModels.filter(place =>
-    filteredFormIds.includes(place.location_type),
-  );
+  return state.places.placeModels.filter(place => {
+    return !!filters.some(
+      filter =>
+        filter.formId === place.location_type &&
+        filter.datasetSlug === place._datasetSlug,
+    );
+  });
 };
 
 export const datasetLengthSelector = (state, datasetSlug) =>

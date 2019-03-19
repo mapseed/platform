@@ -28,6 +28,7 @@ import {
   updateSources,
   updateLayers,
 } from "../../state/ducks/map";
+import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
   mapConfigSelector,
   mapConfigPropType,
@@ -313,19 +314,18 @@ class MainMap extends Component {
     }
 
     if (this.props.placeFilters.length !== prevProps.placeFilters.length) {
-      // Filters have been applied or unapplied.
+      // Filters have been added or removed.
 
-      // "sourceId" and "datasetSlug" are the same for Place sources. We assume
-      // that all filters will be filtering the same source, so it's safe to
-      // pull the datasetSlug/sourceId from the first filter in the filters
-      // array.
-      const sourceId = this.props.placeFilters.length
-        ? this.props.placeFilters[0].datasetSlug
-        : prevProps.placeFilters[0].datasetSlug;
-      this.props.updateFeaturesInGeoJSONSource(
-        sourceId,
-        createGeoJSONFromPlaces(this.props.filteredPlaces).features,
-      );
+      this.props.datasets.map(dataset => dataset.slug).forEach(sourceId => {
+        this.props.updateFeaturesInGeoJSONSource(
+          sourceId,
+          createGeoJSONFromPlaces(
+            this.props.filteredPlaces.filter(
+              place => place._datasetSlug === sourceId,
+            ),
+          ).features,
+        );
+      });
     }
 
     if (
@@ -573,6 +573,7 @@ MainMap.propTypes = {
   updateSources: PropTypes.func.isRequired,
   updateSourceLoadStatus: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
+  datasets: datasetsPropType,
 };
 
 const mapStateToProps = state => ({
@@ -595,6 +596,7 @@ const mapStateToProps = state => ({
   placeFilters: filtersSelector(state),
   placeSelector: placeId => placeSelector(state, placeId),
   sourcesMetadata: sourcesMetadataSelector(state),
+  datasets: datasetsSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
