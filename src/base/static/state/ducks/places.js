@@ -1,5 +1,28 @@
 import PropTypes from "prop-types";
 
+// prop types:
+export const placePropType = PropTypes.shape({
+  attachments: PropTypes.array.isRequired,
+  updated_datetime: PropTypes.string.isRequired,
+  created_datetime: PropTypes.string.isRequired,
+  dataset: PropTypes.string.isRequired,
+  visible: PropTypes.bool.isRequired,
+  // NOTE: the _ prefix indicates that the attribute won't be sent to the
+  // server after serializaation
+  // TODO: remove the _ prefix from _datasetSlug, because it is causing
+  // confusion
+  _datasetSlug: PropTypes.string.isRequired,
+  submitter_name: PropTypes.string,
+  submission_sets: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  location_type: PropTypes.string.isRequired,
+  submitter: PropTypes.object,
+});
+
+export const placesPropType = PropTypes.arrayOf(placePropType);
+
 // Selectors:
 export const placesLoadStatusSelector = state => {
   return state.places.loadStatus;
@@ -22,13 +45,13 @@ export const filteredPlacesSelector = state => {
     return state.places.placeModels;
   }
   // a formId and a location_type are currenty equivalent
-  const filteredFormIds = filters.reduce((memo, filter) => {
-    memo.push(filter.formId);
-    return memo;
-  }, []);
-  return state.places.placeModels.filter(place =>
-    filteredFormIds.includes(place.location_type),
-  );
+  return state.places.placeModels.filter(place => {
+    return !!filters.some(
+      filter =>
+        filter.formId === place.location_type &&
+        filter.datasetSlug === place._datasetSlug,
+    );
+  });
 };
 
 export const datasetLengthSelector = (state, datasetSlug) =>
@@ -57,24 +80,6 @@ export const activeEditPlaceIdSelector = state => {
 export const scrollToResponseIdSelector = state => {
   return state.places.scrollToResponseId;
 };
-
-export const placePropType = PropTypes.shape({
-  attachments: PropTypes.array.isRequired,
-  updated_datetime: PropTypes.string.isRequired,
-  created_datetime: PropTypes.string.isRequired,
-  dataset: PropTypes.string.isRequired,
-  visible: PropTypes.bool.isRequired,
-  _datasetSlug: PropTypes.string.isRequired,
-  submitter_name: PropTypes.string,
-  submission_sets: PropTypes.object.isRequired,
-  id: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  location_type: PropTypes.string.isRequired,
-  submitter: PropTypes.object,
-});
-
-export const placesPropType = PropTypes.arrayOf(placePropType);
 
 // Actions:
 const LOAD_PLACES = "places/LOAD";
