@@ -29,9 +29,7 @@ import {
   datasetConfigPropType,
 } from "../state/ducks/datasets-config";
 import { loadDatasets } from "../state/ducks/datasets";
-import {
-  hasGroupAbilitiesInDatasets,
-} from "../state/ducks/user";
+import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import {
   appConfigSelector,
   appConfigPropType,

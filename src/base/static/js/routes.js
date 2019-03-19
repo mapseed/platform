@@ -28,9 +28,7 @@ import {
   hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,
 } from "../state/ducks/datasets-config";
-import {
-  hasGroupAbilitiesInDatasets,
-} from "../state/ducks/user";
+import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
