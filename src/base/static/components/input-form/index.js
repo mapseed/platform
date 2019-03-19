@@ -33,9 +33,16 @@ import {
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
-import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
-import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
-import emitter from "../../utils/emitter";
+import {
+  hasAdminAbilities,
+  hasGroupAbilitiesInDatasets,
+  isInAtLeastOneGroup,
+} from "../../state/ducks/user";
+import {
+  updateUIVisibility,
+  layoutSelector,
+  updateIndoModalContent,
+} from "../../state/ducks/ui";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
@@ -134,7 +141,10 @@ class InputForm extends Component {
         return memo.set(
           field.name,
           Map({
-            value: "",
+            // If this fields has a "forced_default_value", then its default
+            // value will be set and sent on submission even if the field
+            // remains invisible and is never rendered.
+            value: fieldConfig.get("forced_default_value") || "",
             config: fieldConfig,
             trigger: field.trigger && field.trigger.trigger_value,
             triggerTargets: field.trigger && fromJS(field.trigger.targets),
@@ -367,16 +377,52 @@ class InputForm extends Component {
       );
     }
 
-    // Only add this place to the places duck if it isn't private.
-    !placeResponse.private && this.props.createPlace(placeResponse);
-    !placeResponse.private &&
-      this.props.createFeaturesInGeoJSONSource(
-        // "sourceId" and a place's datasetSlug are the same thing.
-        this.props.datasetSlug,
-        toClientGeoJSONFeature(placeResponse),
-      );
+    if (
+      placeResponse.private &&
+      this.props.hasGroupAbilitiesInDatasets({
+        abilities: ["can_access_protected"],
+        submissionSet: "places",
+        datasetSlugs: [this.props.datasetSlug],
+      })
+    ) {
+      // If this is a private Place and the current user has
+      // can_access_protected privileges, add the Place to the places duck and
+      // route the user to the Place's detail view, explaining that the Place
+      // is not visible to the general public.
+      this.setState({ isFormSubmitting: false, showValidityStatus: false });
+      this.defaultPostSave(placeResponse);
+      this.props.updateInfoModalVisibility(true);
+      this.props.updateInfoModalContent({
+        header: this.props.t("privateSubmissionModalHeader"),
+        body: [this.props.t("privateSubmissionModalBodyAdmin")],
+      });
+    } else if (placeResponse.private) {
+      // If this is a private Place and the current user does not have
+      // can_access_protected privileges, confirm the Place's submission but do
+      // not add the Place to the places duck, and route to the root.
+      this.setState({ isFormSubmitting: false, showValidityStatus: false });
+      this.props.router.navigate("/", { trigger: true });
+      this.props.updateInfoModalVisibility(true);
+      this.props.updateInfoModalContent({
+        header: this.props.t("privateSubmissionModalHeader"),
+        body: [this.props.t("privateSubmissionModalBodyNonAdmin")],
+      });
+    } else {
+      // If the Place is note private, follow the default route-to-detail-view
+      // behavior.
+      this.defaultPostSave(placeResponse);
+    }
 
-    this.setState({ isFormSubmitting: false, showValidityStatus: false });
+    this.props.setActiveDrawGeometryId(null);
+  };
+
+  defaultPostSave(placeResponse) {
+    this.props.createPlace(placeResponse);
+    this.props.createFeaturesInGeoJSONSource(
+      // "sourceId" and a place's datasetSlug are the same thing.
+      this.props.datasetSlug,
+      toClientGeoJSONFeature(placeResponse),
+    );
 
     // Save autofill values as necessary.
     // TODO: This logic is better suited for the FormField component,
@@ -391,39 +437,16 @@ class InputForm extends Component {
       }
     });
 
-    this.props.setActiveDrawGeometryId(null);
+    this.setState({ isFormSubmitting: false, showValidityStatus: false });
 
-    // Fire post-save hook.
-    // The post-save hook allows flavors to hijack the default
-    // route-to-detail-view behavior.
-    // TODO: are we still using these? Is it ok to delete this?
-    if (this.props.customHooks && this.props.customHooks.postSave) {
-      this.props.customHooks.postSave(
-        placeResponse,
-        this.defaultPostSave.bind(this),
-      );
-    } else {
-      this.defaultPostSave(placeResponse);
-    }
-  };
-
-  defaultPostSave(place) {
-    if (place.private) {
-      this.props.router.navigate("/", { trigger: true });
-      emitter.emit("info-modal:open", {
-        header: this.props.t("privateSubmissionModalHeader"),
-        body: [this.props.t("privateSubmissionModalBody")],
-      });
-    } else {
-      this.props.router.navigate(
-        `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
-          place.id
-        }`,
-        {
-          trigger: true,
-        },
-      );
-    }
+    this.props.router.navigate(
+      `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+        placeResponse.id
+      }`,
+      {
+        trigger: true,
+      },
+    );
   }
 
   getStageStartField() {
@@ -575,6 +598,7 @@ InputForm.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
@@ -593,6 +617,8 @@ InputForm.propTypes = {
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateInfoModalContent: PropTypes.func.isRequired,
+  updateInfoModalVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
@@ -605,6 +631,13 @@ const mapStateToProps = state => ({
     datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      datasetSlugs,
+      submissionSet,
+    }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
   isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
@@ -621,6 +654,9 @@ const mapDispatchToProps = dispatch => ({
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
+  updateInfoModalContent: content => dispatch(updateIndoModalContent(content)),
+  updateInfoModalVisibility: isVisible =>
+    dispatch(updateUIVisibility("infoModal", isVisible)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
   updateSpotlightMaskVisibility: isVisible =>

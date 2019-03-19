@@ -62,7 +62,18 @@ class PlaceDetailEditor extends Component {
         fields = fields.set(
           field.name,
           Map()
-            .set("value", this.props.place[field.name])
+            .set(
+              "value",
+              field.name === "private"
+                // Private fields will be returned with a true or false value, 
+                // which should be mapped to the "yes"/"no" values of the field
+                // which manipulates the private setting.
+                // TODO: This should be better encapsulated.
+                ? this.props.place["private"]
+                  ? "yes"
+                  : "no"
+                : this.props.place[field.name],
+            )
             .set("config", fieldConfig)
             .set(
               // A field will be hidden if it is explicitly declared as

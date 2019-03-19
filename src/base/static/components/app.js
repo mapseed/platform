@@ -6,10 +6,12 @@ import browserUpdate from "browser-update";
 import styled from "react-emotion";
 
 import SiteHeader from "./organisms/site-header";
+import InfoModal from "./organisms/info-modal";
 import {
   currentTemplateSelector,
   updateLayout,
   layoutSelector,
+  uiVisibilitySelector,
 } from "../state/ducks/ui";
 import {
   ShaTemplate,
@@ -27,7 +29,9 @@ import {
   datasetConfigPropType,
 } from "../state/ducks/datasets-config";
 import { loadDatasets } from "../state/ducks/datasets";
-import { hasAdminAbilities } from "../state/ducks/user";
+import {
+  hasGroupAbilitiesInDatasets,
+} from "../state/ducks/user";
 import {
   appConfigSelector,
   appConfigPropType,
@@ -108,7 +112,11 @@ class App extends Component {
             include_submissions: true,
             include_tags: true,
           },
-          includePrivate: this.props.hasAdminAbilities(config.slug),
+          includePrivate: this.props.hasGroupAbilitiesInDatasets({
+            abilities: ["can_access_protected"],
+            datasetSlugs: [config.slug],
+            submissionSet: "places",
+          }),
         });
 
         if (response) {
@@ -158,6 +166,7 @@ class App extends Component {
             ref={this.templateContainerRef}
             layout={this.props.layout}
           >
+            {this.props.isInfoModalOpen && <InfoModal />}
             {this.props.currentTemplate === "sha" && <ShaTemplate />}
             {this.props.currentTemplate === "map" && (
               <Suspense fallback={<div>Loading...</div>}>
@@ -194,7 +203,8 @@ App.propTypes = {
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   datasetConfigs: datasetConfigPropType,
-  hasAdminAbilities: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  isInfoModalOpen: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   loadDatasets: PropTypes.func.isRequired,
@@ -214,7 +224,14 @@ const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
   datasetConfigs: datasetConfigsSelector(state),
-  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      datasetSlugs,
+      submissionSet,
+    }),
+  isInfoModalOpen: uiVisibilitySelector("infoModal", state),
   layout: layoutSelector(state),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),

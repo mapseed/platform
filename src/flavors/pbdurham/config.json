@@ -675,6 +675,24 @@
         "label": "_(Project Proposal)",
         "fields": [
           {
+            "name": "private",
+            "type": "big_radio",
+            "restrictToGroups": ["administrators"],
+            "prompt": "_(Publish or unpublish this project. Published projects will be visible to all users. Unpublished projects will be visible to administrators, delegates, and technical reviewers.)",
+            "forced_default_value": "yes",
+            "content": [
+              {
+                "label": "_(Published)",
+                "value": "no"
+              },
+              {
+                "label": "_(Unpublished)",
+                "value": "yes"
+              }
+            ],
+            "optional": false
+          },
+          {
             "prompt": "_(Proposal Name)",
             "type": "text",
             "placeholder": "...",

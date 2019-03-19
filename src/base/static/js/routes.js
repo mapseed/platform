@@ -28,7 +28,9 @@ import {
   hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,
 } from "../state/ducks/datasets-config";
-import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
+import {
+  hasGroupAbilitiesInDatasets,
+} from "../state/ducks/user";
 
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
@@ -247,6 +249,12 @@ mixpanel.init(MIXPANEL_TOKEN);
             include_submissions: true,
             include_tags: true,
           },
+          includePrivate: hasGroupAbilitiesInDatasets({
+            state: this.store.getState(),
+            abilities: ["can_access_protected"],
+            datasetSlugs: [datasetConfig.slug],
+            submissionSet: "places",
+          }),
         });
 
         if (response) {

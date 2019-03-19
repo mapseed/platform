@@ -1,55 +1,39 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Modal from "react-modal";
+import { connect } from "react-redux";
+
+import {
+  infoModalContentSelector,
+  updateUIVisibility,
+  uiVisibilitySelector,
+} from "../../state/ducks/ui";
 
 import "./info-modal.scss";
 
-Modal.setAppElement("#main");
+Modal.setAppElement("#site-wrap");
 
 class InfoModal extends Component {
-  constructor(props) {
-    super(props);
-
-    // TODO: This state should be pushed higher once we port the AppView,
-    // and we'll make this a stateless component.
-    this.state = {
-      isModalOpen: true,
-    };
-  }
-
-  onClickCloseBtn(evt) {
-    this.setState({
-      isModalOpen: false,
-    });
-  }
-
   render() {
     return (
       <Modal
         className="mapseed-info-modal"
         overlayClassName="mapseed-info-modal__overlay"
-        isOpen={this.state.isModalOpen}
-        parentSelector={() => document.getElementById(this.props.parentId)}
+        isOpen={this.props.isInfoModalVisible}
       >
         <div className="mapseed-info-modal__header-bar">
           <h3 className="mapseed-info-modal__header-content">
-            {this.props.headerImgSrc && (
-              <img
-                className="mapseed-info-modal__header-img"
-                src={this.props.headerImgSrc}
-              />
-            )}
-            {this.props.header}
+            {this.props.infoModalContent.header}
           </h3>
           <button
             className="mapseed-info-modal__close-btn"
-            onClick={this.onClickCloseBtn.bind(this)}
+            onClick={() => this.props.updateInfoModalVisibility(false)}
           >
             &#10005;
           </button>
         </div>
         <div className="mapseed-info-modal__body">
-          {this.props.body.map((paragraph, i) => {
+          {this.props.infoModalContent.body.map((paragraph, i) => {
             return (
               <p className="mapseed-info-modal__paragraph" key={i}>
                 {paragraph}
@@ -63,10 +47,22 @@ class InfoModal extends Component {
 }
 
 InfoModal.propTypes = {
-  header: PropTypes.string,
-  body: PropTypes.arrayOf(PropTypes.string),
-  headerImgSrc: PropTypes.string,
-  parentId: PropTypes.string.isRequired,
+  infoModalContent: PropTypes.object.isRequired,
+  isInfoModalVisible: PropTypes.bool.isRequired,
+  updateInfoModalVisibility: PropTypes.func.isRequired,
 };
 
-export default InfoModal;
+const mapStateToProps = state => ({
+  infoModalContent: infoModalContentSelector(state),
+  isInfoModalVisible: uiVisibilitySelector("infoModal", state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateInfoModalVisibility: isVisible =>
+    dispatch(updateUIVisibility("infoModal", isVisible)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InfoModal);
