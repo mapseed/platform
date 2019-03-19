@@ -9,7 +9,6 @@ export const contentPanelComponentSelector = state =>
   state.ui.contentPanelComponent;
 export const pageSlugSelector = state => state.ui.activePageSlug;
 export const layoutSelector = state => state.ui.layout;
-export const infoModalContentSelector = state => state.ui.infoModalContent;
 
 // Actions:
 const UPDATE_CURRENT_TEMPLATE = "ui/UPDATE_CURRENT_TEMPLATE";
@@ -18,7 +17,6 @@ const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
 const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
 const UPDATE_CONTENT_PANEL_COMPONENT = "ui/UPDATE_CONTENT_PANEL_COMPONENT";
 const UPDATE_LAYOUT = "ui/UPDATE_LAYOUT";
-const UPDATE_INFO_MODAL_CONTENT = "ui/UPDATE_INFO_MODAL_CONTENT";
 
 // Action creators:
 export function updateCurrentTemplate(templateName) {
@@ -51,12 +49,6 @@ export function updateLayout() {
     payload: getLayout(),
   };
 }
-export function updateIndoModalContent(content) {
-  return {
-    type: UPDATE_INFO_MODAL_CONTENT,
-    payload: content,
-  };
-}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -64,17 +56,12 @@ const INITIAL_STATE = {
   uiVisibility: {
     addPlaceButton: false,
     contentPanel: false,
-    infoModal: false,
     inviteModal: false,
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,
   },
   contentPanelComponent: null,
-  infoModalContent: {
-    header: "",
-    body: [],
-  },
   leftSidebarComponent: null,
   currentTemplate: "map",
   isEditModeToggled: false,
@@ -116,11 +103,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         layout: action.payload,
-      };
-    case UPDATE_INFO_MODAL_CONTENT:
-      return {
-        ...state,
-        infoModalContent: action.payload,
       };
     default:
       return state;

@@ -6,12 +6,10 @@ import browserUpdate from "browser-update";
 import styled from "react-emotion";
 
 import SiteHeader from "./organisms/site-header";
-import InfoModal from "./organisms/info-modal";
 import {
   currentTemplateSelector,
   updateLayout,
   layoutSelector,
-  uiVisibilitySelector,
 } from "../state/ducks/ui";
 import {
   ShaTemplate,
@@ -164,7 +162,6 @@ class App extends Component {
             ref={this.templateContainerRef}
             layout={this.props.layout}
           >
-            {this.props.isInfoModalOpen && <InfoModal />}
             {this.props.currentTemplate === "sha" && <ShaTemplate />}
             {this.props.currentTemplate === "map" && (
               <Suspense fallback={<div>Loading...</div>}>
@@ -202,7 +199,6 @@ App.propTypes = {
   currentTemplate: PropTypes.string.isRequired,
   datasetConfigs: datasetConfigPropType,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  isInfoModalOpen: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   loadDatasets: PropTypes.func.isRequired,
@@ -229,7 +225,6 @@ const mapStateToProps = state => ({
       datasetSlugs,
       submissionSet,
     }),
-  isInfoModalOpen: uiVisibilitySelector("infoModal", state),
   layout: layoutSelector(state),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),

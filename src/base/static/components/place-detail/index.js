@@ -83,6 +83,11 @@ class PlaceDetail extends Component {
   componentDidMount() {
     this.updateMapViewport();
     this.updateEditability();
+    jumpTo({
+      contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
+      scrollPositon: 0,
+      layout: this.props.layout,
+    });
   }
 
   componentDidUpdate(prevProps) {
