@@ -71,7 +71,7 @@ class InputForm extends Component {
       currentStage: 1,
       isInfoModalOpen: false,
       infoModalHeader: "",
-      infoModalContent: [],
+      infoModalBody: [],
       routeOnClose: null,
     };
   }
