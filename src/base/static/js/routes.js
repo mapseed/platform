@@ -247,6 +247,12 @@ mixpanel.init(MIXPANEL_TOKEN);
             include_submissions: true,
             include_tags: true,
           },
+          includePrivate: hasGroupAbilitiesInDatasets({
+            state: this.store.getState(),
+            abilities: ["can_access_protected"],
+            datasetSlugs: [datasetConfig.slug],
+            submissionSet: "places",
+          }),
         });
 
         if (response) {

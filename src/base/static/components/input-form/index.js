@@ -9,6 +9,7 @@ import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
+import InfoModal from "../organisms/info-modal";
 
 import { translate } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
@@ -33,9 +34,12 @@ import {
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
-import { hasAdminAbilities, isInAtLeastOneGroup } from "../../state/ducks/user";
+import {
+  hasAdminAbilities,
+  hasGroupAbilitiesInDatasets,
+  isInAtLeastOneGroup,
+} from "../../state/ducks/user";
 import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
-import emitter from "../../utils/emitter";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
@@ -65,6 +69,10 @@ class InputForm extends Component {
       showValidityStatus: false,
       isMapPositioned: false,
       currentStage: 1,
+      isInfoModalOpen: false,
+      infoModalHeader: "",
+      infoModalBody: [],
+      routeOnClose: null,
     };
   }
 
@@ -134,7 +142,10 @@ class InputForm extends Component {
         return memo.set(
           field.name,
           Map({
-            value: "",
+            // If this fields has a "forced_default_value", then its default
+            // value will be set and sent on submission even if the field
+            // remains invisible and is never rendered.
+            value: fieldConfig.get("forced_default_value") || "",
             config: fieldConfig,
             trigger: field.trigger && field.trigger.trigger_value,
             triggerTargets: field.trigger && fromJS(field.trigger.targets),
@@ -367,16 +378,62 @@ class InputForm extends Component {
       );
     }
 
-    // Only add this place to the places duck if it isn't private.
-    !placeResponse.private && this.props.createPlace(placeResponse);
-    !placeResponse.private &&
-      this.props.createFeaturesInGeoJSONSource(
-        // "sourceId" and a place's datasetSlug are the same thing.
-        this.props.datasetSlug,
-        toClientGeoJSONFeature(placeResponse),
+    if (
+      placeResponse.private &&
+      this.props.hasGroupAbilitiesInDatasets({
+        abilities: ["can_access_protected"],
+        submissionSet: "places",
+        datasetSlugs: [this.props.datasetSlug],
+      })
+    ) {
+      // If this is a private Place and the current user has
+      // can_access_protected privileges, add the Place to the places duck and
+      // route the user to the Place's detail view, explaining that the Place
+      // is not visible to the general public.
+      this.setState({
+        isInfoModalOpen: true,
+        infoModalHeader: this.props.t("privateSubmissionModalHeader"),
+        infoModalBody: [this.props.t("privateSubmissionModalBodyAdmin")],
+        routeOnClose: `${this.props.datasetClientSlugSelector(
+          this.props.datasetSlug,
+        )}/${placeResponse.id}`,
+      });
+      this.defaultPostSave(placeResponse);
+    } else if (placeResponse.private) {
+      // If this is a private Place and the current user does not have
+      // can_access_protected privileges, confirm the Place's submission but do
+      // not add the Place to the places duck, and route to the root.
+      this.setState({ isFormSubmitting: false, showValidityStatus: false });
+      this.setState({
+        isInfoModalOpen: true,
+        infoModalHeader: this.props.t("privateSubmissionModalHeader"),
+        infoModalBody: [this.props.t("privateSubmissionModalBodyNonAdmin")],
+        routeOnClose: "/",
+      });
+    } else {
+      // If the Place is note private, follow the default route-to-detail-view
+      // behavior.
+      this.defaultPostSave(placeResponse);
+      this.props.router.navigate(
+        `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+          placeResponse.id
+        }`,
+        {
+          trigger: true,
+        },
       );
+    }
 
-    this.setState({ isFormSubmitting: false, showValidityStatus: false });
+    this.props.setActiveDrawGeometryId(null);
+  };
+
+  defaultPostSave(placeResponse) {
+    this.props.createPlace(placeResponse);
+    this.props.createFeaturesInGeoJSONSource(
+      // "sourceId" and a place's datasetSlug are the same thing.
+      this.props.datasetSlug,
+      toClientGeoJSONFeature(placeResponse),
+    );
 
     // Save autofill values as necessary.
     // TODO: This logic is better suited for the FormField component,
@@ -391,39 +448,7 @@ class InputForm extends Component {
       }
     });
 
-    this.props.setActiveDrawGeometryId(null);
-
-    // Fire post-save hook.
-    // The post-save hook allows flavors to hijack the default
-    // route-to-detail-view behavior.
-    // TODO: are we still using these? Is it ok to delete this?
-    if (this.props.customHooks && this.props.customHooks.postSave) {
-      this.props.customHooks.postSave(
-        placeResponse,
-        this.defaultPostSave.bind(this),
-      );
-    } else {
-      this.defaultPostSave(placeResponse);
-    }
-  };
-
-  defaultPostSave(place) {
-    if (place.private) {
-      this.props.router.navigate("/", { trigger: true });
-      emitter.emit("info-modal:open", {
-        header: this.props.t("privateSubmissionModalHeader"),
-        body: [this.props.t("privateSubmissionModalBody")],
-      });
-    } else {
-      this.props.router.navigate(
-        `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
-          place.id
-        }`,
-        {
-          trigger: true,
-        },
-      );
-    }
+    this.setState({ isFormSubmitting: false, showValidityStatus: false });
   }
 
   getStageStartField() {
@@ -472,90 +497,104 @@ class InputForm extends Component {
     };
 
     return (
-      <div className="input-form">
-        {this.selectedCategoryConfig.multi_stage && (
-          <FormStageHeaderBar
-            stageConfig={
-              this.selectedCategoryConfig.multi_stage[
-                this.state.currentStage - 1
-              ]
-            }
-          />
-        )}
-        {this.state.formValidationErrors.size > 0 && (
-          <WarningMessagesContainer
-            errors={[...this.state.formValidationErrors]}
-            headerMsg={this.props.t("validationHeader")}
-          />
-        )}
-        <form
-          id="mapseed-input-form"
-          className={cn.form}
-          onSubmit={evt => evt.preventDefault()}
-        >
-          {this.getFields()
-            .map(field => (
-              <FormField
-                fieldConfig={field.get("config").toJS()}
-                disabled={this.state.isFormSubmitting}
-                fieldState={field}
-                isInitializing={this.state.isInitializing}
-                key={field.get("renderKey")}
-                onAddAttachment={this.onAddAttachment.bind(this)}
-                onFieldChange={this.onFieldChange.bind(this)}
-                router={this.props.router}
-                showValidityStatus={this.state.showValidityStatus}
-                updatingField={this.state.updatingField}
-                onClickSubmit={this.onSubmit.bind(this)}
-              />
-            ))
-            .toArray()}
-        </form>
-        {this.state.isFormSubmitting && <Spinner />}
-
-        {this.selectedCategoryConfig.multi_stage && (
-          <FormStageControlBar
-            onClickAdvanceStage={() => {
-              this.validateForm(() => {
-                jumpTo({
-                  contentPanelInnerContainerRef: this.props
-                    .contentPanelInnerContainerRef,
-                  scrollPosition: 0,
-                  layout: this.props.layout,
-                });
-                this.setState({
-                  currentStage: this.state.currentStage + 1,
-                  showValidityStatus: false,
-                  formValidationErrors: new Set(),
-                });
+      <>
+        <InfoModal
+          isModalOpen={this.state.isInfoModalOpen}
+          header={this.state.infoModalHeader}
+          body={this.state.infoModalBody}
+          onClose={() => {
+            this.setState({ isInfoModalOpen: false });
+            this.state.routeOnClose &&
+              this.props.router.navigate(this.state.routeOnClose, {
+                trigger: true,
               });
-            }}
-            onClickRetreatStage={() => {
-              if (
-                this.state.currentStage === 1 &&
-                !this.props.isSingleCategory
-              ) {
-                this.props.onCategoryChange(null);
-              } else {
-                jumpTo({
-                  contentPanelInnerContainerRef: this.props
-                    .contentPanelInnerContainerRef,
-                  scrollPosition: 0,
-                  layout: this.props.layout,
-                });
-                this.setState({
-                  currentStage: this.state.currentStage - 1,
-                  showValidityStatus: false,
-                  formValidationErrors: new Set(),
-                });
+          }}
+        />
+        <div className="input-form">
+          {this.selectedCategoryConfig.multi_stage && (
+            <FormStageHeaderBar
+              stageConfig={
+                this.selectedCategoryConfig.multi_stage[
+                  this.state.currentStage - 1
+                ]
               }
-            }}
-            currentStage={this.state.currentStage}
-            numStages={this.selectedCategoryConfig.multi_stage.length}
-            isSingleCategory={this.props.isSingleCategory}
-          />
-        )}
-      </div>
+            />
+          )}
+          {this.state.formValidationErrors.size > 0 && (
+            <WarningMessagesContainer
+              errors={[...this.state.formValidationErrors]}
+              headerMsg={this.props.t("validationHeader")}
+            />
+          )}
+          <form
+            id="mapseed-input-form"
+            className={cn.form}
+            onSubmit={evt => evt.preventDefault()}
+          >
+            {this.getFields()
+              .map(field => (
+                <FormField
+                  fieldConfig={field.get("config").toJS()}
+                  disabled={this.state.isFormSubmitting}
+                  fieldState={field}
+                  isInitializing={this.state.isInitializing}
+                  key={field.get("renderKey")}
+                  onAddAttachment={this.onAddAttachment.bind(this)}
+                  onFieldChange={this.onFieldChange.bind(this)}
+                  router={this.props.router}
+                  showValidityStatus={this.state.showValidityStatus}
+                  updatingField={this.state.updatingField}
+                  onClickSubmit={this.onSubmit.bind(this)}
+                />
+              ))
+              .toArray()}
+          </form>
+          {this.state.isFormSubmitting && <Spinner />}
+
+          {this.selectedCategoryConfig.multi_stage && (
+            <FormStageControlBar
+              onClickAdvanceStage={() => {
+                this.validateForm(() => {
+                  jumpTo({
+                    contentPanelInnerContainerRef: this.props
+                      .contentPanelInnerContainerRef,
+                    scrollPosition: 0,
+                    layout: this.props.layout,
+                  });
+                  this.setState({
+                    currentStage: this.state.currentStage + 1,
+                    showValidityStatus: false,
+                    formValidationErrors: new Set(),
+                  });
+                });
+              }}
+              onClickRetreatStage={() => {
+                if (
+                  this.state.currentStage === 1 &&
+                  !this.props.isSingleCategory
+                ) {
+                  this.props.onCategoryChange(null);
+                } else {
+                  jumpTo({
+                    contentPanelInnerContainerRef: this.props
+                      .contentPanelInnerContainerRef,
+                    scrollPosition: 0,
+                    layout: this.props.layout,
+                  });
+                  this.setState({
+                    currentStage: this.state.currentStage - 1,
+                    showValidityStatus: false,
+                    formValidationErrors: new Set(),
+                  });
+                }
+              }}
+              currentStage={this.state.currentStage}
+              numStages={this.selectedCategoryConfig.multi_stage.length}
+              isSingleCategory={this.props.isSingleCategory}
+            />
+          )}
+        </div>
+      </>
     );
   }
 }
@@ -575,6 +614,7 @@ InputForm.propTypes = {
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
@@ -605,6 +645,13 @@ const mapStateToProps = state => ({
     datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      datasetSlugs,
+      submissionSet,
+    }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
   isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),

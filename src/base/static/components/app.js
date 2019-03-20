@@ -27,7 +27,7 @@ import {
   datasetConfigPropType,
 } from "../state/ducks/datasets-config";
 import { loadDatasets } from "../state/ducks/datasets";
-import { hasAdminAbilities } from "../state/ducks/user";
+import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import {
   appConfigSelector,
   appConfigPropType,
@@ -108,7 +108,11 @@ class App extends Component {
             include_submissions: true,
             include_tags: true,
           },
-          includePrivate: this.props.hasAdminAbilities(config.slug),
+          includePrivate: this.props.hasGroupAbilitiesInDatasets({
+            abilities: ["can_access_protected"],
+            datasetSlugs: [config.slug],
+            submissionSet: "places",
+          }),
         });
 
         if (response) {
@@ -194,7 +198,7 @@ App.propTypes = {
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   datasetConfigs: datasetConfigPropType,
-  hasAdminAbilities: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   loadDatasets: PropTypes.func.isRequired,
@@ -214,7 +218,13 @@ const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
   datasetConfigs: datasetConfigsSelector(state),
-  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      datasetSlugs,
+      submissionSet,
+    }),
   layout: layoutSelector(state),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),

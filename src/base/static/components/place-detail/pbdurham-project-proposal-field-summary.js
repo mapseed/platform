@@ -121,6 +121,13 @@ const Title = styled(SmallTitle)({
   marginBottom: "8px",
 });
 
+const UnpublishedWarning = styled("div")({
+  backgroundColor: "#ffc107",
+  color: "#6b5001",
+  borderRadius: "8px",
+  padding: "8px",
+});
+
 const PBDurhamProjectProposalFieldSummary = props => {
   const equityScore = parseFloat(props.place["delegate_equity_score"]) || 0;
   const impactScore = parseFloat(props.place["delegate_impact_score"]) || 0;
@@ -129,6 +136,11 @@ const PBDurhamProjectProposalFieldSummary = props => {
 
   return (
     <div>
+      {props.place.private && (
+        <UnpublishedWarning>
+          {props.t("unpublishedWarningMsg")}
+        </UnpublishedWarning>
+      )}
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
         .map((attachment, i) => (
