@@ -1,19 +1,11 @@
 import qs from "qs";
+import { setPrivateParams } from "../../utils/place-utils";
 
 import {
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
   toServerGeoJSONFeature,
 } from "../../utils/place-utils";
-
-const setPrivateParams = (placeParams, includePrivate) =>
-  includePrivate
-    ? {
-        ...placeParams,
-        include_private_places: true,
-        include_private_fields: true,
-      }
-    : placeParams;
 
 const updatePlace = async ({
   placeUrl,

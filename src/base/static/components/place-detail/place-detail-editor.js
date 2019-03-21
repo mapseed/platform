@@ -31,7 +31,11 @@ import {
 } from "../../state/ducks/places";
 import { removeFeatureInGeoJSONSource } from "../../state/ducks/map";
 import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
-import { isInAtLeastOneGroup, hasAdminAbilities } from "../../state/ducks/user";
+import {
+  isInAtLeastOneGroup,
+  hasAdminAbilities,
+  hasGroupAbilitiesInDatasets,
+} from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 
@@ -179,8 +183,15 @@ class PlaceDetailEditor extends Component {
           await Promise.all(
             this.attachments.map(async attachment => {
               const attachmentResponse = await mapseedApiClient.attachments.create(
-                placeResponse.url,
-                attachment,
+                {
+                  placeUrl: placeResponse.url,
+                  attachment,
+                  includePrivate: this.props.hasGroupAbilitiesInDatasets({
+                    abilities: ["can_access_protected"],
+                    datasetSlugs: [this.props.place._datasetSlug],
+                    submissionSet: "places",
+                  }),
+                },
               );
 
               if (attachmentResponse) {
@@ -381,6 +392,7 @@ PlaceDetailEditor.propTypes = {
   contentPanelInnerContainerRef: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
   layout: PropTypes.string.isRequired,
@@ -408,6 +420,13 @@ const mapStateToProps = state => ({
   layout: layoutSelector(state),
   geometryStyle: geometryStyleSelector(state),
   placeConfig: placeConfigSelector(state),
+  hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      datasetSlugs,
+      submissionSet,
+    }),
 });
 
 const mapDispatchToProps = dispatch => ({
