@@ -231,7 +231,7 @@ const Link = styled(props => {
       className={props.className}
       onClick={evt => {
         // For internal routing.
-        if (props.rel === "internal") {
+        if (props.rel === "internal" && props.router) {
           evt.preventDefault();
           props.router.navigate(
             evt.currentTarget.attributes.getNamedItem("href").value,

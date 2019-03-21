@@ -667,7 +667,7 @@
         "formId": "projects",
         "category": "projects",
         "includeOnForm": true,
-        "includeOnList": false,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "pbdurham-projects",
         "icon_url": "/static/css/images/markers/money.png",
@@ -711,6 +711,7 @@
             "prompt": "_(Brief Project Description: (less than 100 words))",
             "display_prompt": "_(Description of this project proposal:)",
             "type": "textarea",
+            "includeOnListItem": true,
             "placeholder": "_(Briefly describe the project)",
             "name": "project_description",
             "optional": true
@@ -718,6 +719,7 @@
           {
             "prompt": "_(Impact Statement: (less than 200 words))",
             "display_prompt": "_(Impact Statement:)",
+            "includeOnListItem": true,
             "type": "textarea",
             "placeholder": "_(Briefly describe the project)",
             "name": "impact_statement",
@@ -806,6 +808,7 @@
             "display_prompt": "_(Project Budget:)",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
+            "includeOnListItem": true,
             "placeholder": "...",
             "name": "staff_project_budget",
             "optional": true
@@ -815,6 +818,7 @@
             "display_prompt": "_(Ongoing Maintenance Cost:)",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
+            "includeOnListItem": true,
             "placeholder": "...",
             "name": "staff_cost_estimation",
             "optional": true

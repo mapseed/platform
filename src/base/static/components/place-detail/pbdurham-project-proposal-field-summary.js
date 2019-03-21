@@ -133,6 +133,7 @@ const PBDurhamProjectProposalFieldSummary = props => {
   const impactScore = parseFloat(props.place["delegate_impact_score"]) || 0;
   const feasibilityScore =
     parseFloat(props.place["staff_feasibility_score"]) || 0;
+  const relatedIdeas = props.place.related_ideas.split(/\s+/);
 
   return (
     <div>
@@ -218,27 +219,29 @@ const PBDurhamProjectProposalFieldSummary = props => {
           props.fields.find(field => field.name === "staff_cost_estimation")
             .display_prompt
         }
-        description={props.place.staff_project_budget}
+        description={props.place.staff_cost_estimation}
       />
-      <RelatedIdeas>
-        <Title>{props.t("relatedIdeasHeader")}</Title>
-        <HorizontalRule spacing="tiny" color="light" />
-        <RelatedIdeasList>
-          {props.place.related_ideas.split(/\s+/).map(placeId => {
-            const relatedIdea = props.placeSelector(placeId);
-            return relatedIdea ? (
-              <RealatedIdeaListItem key={placeId}>
-                <RelatedIdeaLink
-                  href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
-                  router={props.router}
-                >
-                  <RegularText>{relatedIdea.title}</RegularText>
-                </RelatedIdeaLink>
-              </RealatedIdeaListItem>
-            ) : null;
-          })}
-        </RelatedIdeasList>
-      </RelatedIdeas>
+      {relatedIdeas.length > 0 && (
+        <RelatedIdeas>
+          <Title>{props.t("relatedIdeasHeader")}</Title>
+          <HorizontalRule spacing="tiny" color="light" />
+          <RelatedIdeasList>
+            {relatedIdeas.map(placeId => {
+              const relatedIdea = props.placeSelector(placeId);
+              return relatedIdea ? (
+                <RealatedIdeaListItem key={placeId}>
+                  <RelatedIdeaLink
+                    href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
+                    router={props.router}
+                  >
+                    <RegularText>{relatedIdea.title}</RegularText>
+                  </RelatedIdeaLink>
+                </RealatedIdeaListItem>
+              ) : null;
+            })}
+          </RelatedIdeasList>
+        </RelatedIdeas>
+      )}
     </div>
   );
 };
