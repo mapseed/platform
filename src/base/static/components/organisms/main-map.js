@@ -235,6 +235,10 @@ class MainMap extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeMap);
+    this.map.off("error");
+    this.map.off("sourcedata");
+    this.map.off("draw.update");
+    this.map.off("draw.create");
   }
 
   // This function gets called a lot, so we throttle it.

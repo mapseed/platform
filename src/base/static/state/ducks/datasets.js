@@ -9,7 +9,7 @@ export const tagPropType = PropTypes.shape({
   displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
   isEnabled: PropTypes.bool.isRequired,
   color: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.tagPropType).isRequired,
+  children: PropTypes.arrayOf(PropTypes.number).isRequired,
 }).isRequired;
 
 export const placeTagPropType = PropTypes.shape({
@@ -23,14 +23,12 @@ export const datasetsPropType = PropTypes.arrayOf(
   PropTypes.shape({
     url: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
-    places: PropTypes.arrayOf(
-      PropTypes.shape({
-        length: PropTypes.number.isRequired,
-        url: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    places: PropTypes.shape({
+      length: PropTypes.number.isRequired,
+      url: PropTypes.string.isRequired,
+    }).isRequired,
     tags: PropTypes.arrayOf(tagPropType),
-    submission_sets: PropTypes.arrayOf(PropTypes.object), // TODO
+    submission_sets: PropTypes.object, // TODO
     display_name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
   }),
