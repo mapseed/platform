@@ -341,7 +341,11 @@ class InputForm extends Component {
       placeData: attrs,
       datasetSlug: this.props.datasetSlug,
       clientSlug: this.props.datasetClientSlugSelector(this.props.datasetSlug),
-      includePrivate: this.props.hasAdminAbilities(this.props.datasetSlug),
+      includePrivate: this.props.hasGroupAbilitiesInDatasets({
+        abilities: ["can_access_protected"],
+        datasetSlugs: [this.props.datasetSlug],
+        submissionSet: "places",
+      }),
     });
 
     if (!placeResponse) {
@@ -363,10 +367,15 @@ class InputForm extends Component {
     if (this.attachments.length) {
       await Promise.all(
         this.attachments.map(async attachment => {
-          const attachmentResponse = await mapseedApiClient.attachments.create(
-            placeResponse.url,
+          const attachmentResponse = await mapseedApiClient.attachments.create({
+            placeUrl: placeResponse.url,
             attachment,
-          );
+            includePrivate: this.props.hasGroupAbilitiesInDatasets({
+              abilities: ["can_access_protected"],
+              datasetSlugs: [this.props.datasetSlug],
+              submissionSet: "places",
+            }),
+          });
           if (attachmentResponse) {
             placeResponse.attachments.push(attachmentResponse);
             Util.log("USER", "dataset", "successfully-add-attachment");
