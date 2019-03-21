@@ -808,6 +808,7 @@
             "display_prompt": "_(Project Budget:)",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
+            "includeOnListItem": true,
             "placeholder": "...",
             "name": "staff_project_budget",
             "optional": true
@@ -817,6 +818,7 @@
             "display_prompt": "_(Ongoing Maintenance Cost:)",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
+            "includeOnListItem": true,
             "placeholder": "...",
             "name": "staff_cost_estimation",
             "optional": true
