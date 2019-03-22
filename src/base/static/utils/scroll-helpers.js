@@ -1,12 +1,17 @@
 import { findDOMNode } from "react-dom";
 
 const jumpTo = ({ contentPanelInnerContainerRef, scrollPosition, layout }) => {
+  let node;
   if (layout === "desktop") {
-    findDOMNode(
-      contentPanelInnerContainerRef.current,
-    ).scrollTop = scrollPosition;
+    node = findDOMNode(contentPanelInnerContainerRef.current);
   } else if (layout === "mobile") {
-    document.getElementsByTagName("html")[0].scrollTop = scrollPosition;
+    node = document.getElementsByTagName("html")[0];
+  }
+  if (node) {
+    node.scrollTop = scrollPosition;
+  } else {
+    // eslint-disable-next-line
+    console.warn("scroll helpers: no node!");
   }
 };
 
