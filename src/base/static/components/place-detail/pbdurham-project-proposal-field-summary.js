@@ -133,7 +133,8 @@ const PBDurhamProjectProposalFieldSummary = props => {
   const impactScore = parseFloat(props.place["delegate_impact_score"]) || 0;
   const feasibilityScore =
     parseFloat(props.place["staff_feasibility_score"]) || 0;
-  const relatedIdeas = props.place.related_ideas.split(/\s+/);
+  const relatedIdeas =
+    props.place.related_ideas && props.place.related_ideas.split(/\s+/);
 
   return (
     <div>
@@ -221,7 +222,7 @@ const PBDurhamProjectProposalFieldSummary = props => {
         }
         description={props.place.staff_cost_estimation}
       />
-      {relatedIdeas.length > 0 && (
+      {relatedIdeas && (
         <RelatedIdeas>
           <Title>{props.t("relatedIdeasHeader")}</Title>
           <HorizontalRule spacing="tiny" color="light" />
