@@ -74,16 +74,15 @@ class ActivityStream extends Component {
               // To derive the title for comment activity, we look up the
               // corresponding place model and assume there is a field on
               // that model called "title".
-              place =
-                this.props.placeSelector(
-                  target.place.split("/").slice(-1)[0],
-                ) || {};
+              place = this.props.placeSelector(
+                target.place.split("/").slice(-1)[0],
+              );
               title = place && place.title;
               anonymousName = this.props.commentFormConfig.anonymous_name;
               actionText = this.props.commentFormConfig.action_text;
-              url = `/${activity._clientSlug}/${place.id}/response/${
-                target.id
-              }`;
+              url =
+                place &&
+                `/${activity._clientSlug}/${place.id}/response/${target.id}`;
               break;
             default:
               // If there are other action types in the collection (like
@@ -91,7 +90,14 @@ class ActivityStream extends Component {
               return null;
           }
 
-          return (
+          // Only return an ActivityItem if we've found a Place for it.
+          // Activity is returned for private Places even for users who lack
+          // can_access_protected permissions, but rendering such activity
+          // results in a dead link to a Place that doesn't exist. Ideally the
+          // API shouldn't return activity for private Places without the
+          // proper permissions.
+          // See: https://github.com/jalMogo/mgmt/issues/253
+          return place ? (
             <ActivityItem
               key={i}
               title={title}
@@ -100,7 +106,7 @@ class ActivityStream extends Component {
               router={this.props.router}
               url={url}
             />
-          );
+          ) : null;
         })}
       </ul>
     );
