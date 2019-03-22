@@ -75,7 +75,7 @@ mixpanel.init(MIXPANEL_TOKEN);
       ":custom": "viewMap", // workaround to handle routes like "/es.html" or "/en_US.html"
     },
     initialize: async function(options) {
-      // In production, use the asyncronously fetched config file so we can
+      // In production, use the asynchronously fetched config file so we can
       // support localized config content. In development, use the imported
       // module so we can support incremental rebuilds.
       if (process.env.NODE_ENV === "production") {
