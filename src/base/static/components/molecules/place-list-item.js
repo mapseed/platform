@@ -152,8 +152,9 @@ const PlaceListItem = props => {
   const numberOfSupports = props.place.submission_sets.support
     ? props.place.submission_sets.support.length
     : 0;
-  const submitterName =
-    props.place.submitter_name || props.placeConfig.anonymous_name;
+  const submitterName = props.place.submitter
+    ? props.place.submitter.name
+    : props.place.submitter_name || props.placeConfig.anonymous_name;
   const onSocialShare = service => {
     sharePlace({
       place: props.place,
@@ -191,7 +192,14 @@ const PlaceListItem = props => {
         <PlaceBodyContainer>
           <PlaceInfo>
             <AvatarContainer>
-              <UserAvatar size="large" />
+              <UserAvatar
+                size="large"
+                src={
+                  props.place.submitter
+                    ? props.place.submitter.avatar_url
+                    : null
+                }
+              />
             </AvatarContainer>
             <PlaceInfoContainer>
               <RegularText>
@@ -202,16 +210,10 @@ const PlaceListItem = props => {
               <CommentsText>{`${numberOfComments} ${props.t("comment")}${
                 numberOfComments === 1 ? "" : "s"
               }`}</CommentsText>
-              {/* TODO: Once AppView and the listeners in MainMap are cleaned up, we should be able to use relative links for PlaceInfoButton instead of backbone router, like so: */}
-              {/* href={`/${props.place.datasetSlug}/${props.place.id}`} */}
-              {/* rel="internal" */}
               <PlaceInfoButton
-                onClick={() => {
-                  props.router.navigate(
-                    `/${props.place._clientSlug}/${props.place.id}`,
-                    { trigger: true },
-                  );
-                }}
+                router={props.router}
+                rel="internal"
+                href={`/${props.place._clientSlug}/${props.place.id}`}
               >
                 <Button color="secondary" size="small" variant="raised">
                   <SmallText>{props.t("viewOnMap")}</SmallText>

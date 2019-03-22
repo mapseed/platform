@@ -74,6 +74,7 @@ const IconButton = styled(props => {
     border: 0,
     width: "40px",
     height: "40px",
+    cursor: "pointer",
     backgroundColor: "transparent",
   };
   if (props.size === "small") {
