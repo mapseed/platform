@@ -72,7 +72,7 @@ const PlaceInfoButton = styled(Link)({
 
 const PlaceContent = styled("div")({
   flex: "1 70%",
-  display: "flex",
+  display: "block",
 });
 
 const PlaceSocialContainer = styled("div")({
@@ -100,13 +100,12 @@ const SocialMediaButton = styled(IconButton)({
 
 // Place Content components:
 const PlaceImage = styled("div")({
-  flex: "0 1 25%",
-  marginRight: "16px",
+  maxWidth: "30%",
+  float: "left",
+  marginRight: "8px",
 });
 const PlaceFieldsContainer = styled("div")({
-  flex: "1 75%",
-  display: "flex",
-  flexDirection: "column",
+  textAlign: "justify",
 });
 const PlaceFieldTitle = styled(props => (
   <RegularText className={props.className} weight="bold">
@@ -224,6 +223,7 @@ const PlaceListItem = props => {
             {!!props.place.attachments.length && (
               <PlaceImage>
                 <img
+                  style={{ width: "100%" }}
                   src={props.place.attachments[0].file}
                   onLoad={props.onLoad}
                 />
