@@ -197,7 +197,7 @@ const PlaceListItem = props => {
                 src={
                   props.place.submitter
                     ? props.place.submitter.avatar_url
-                    : null
+                    : undefined
                 }
               />
             </AvatarContainer>
