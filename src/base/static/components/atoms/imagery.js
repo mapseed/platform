@@ -88,7 +88,7 @@ const UserAvatar = styled(Image)(props => {
 
 UserAvatar.propTypes = {
   size: PropTypes.string,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
 };
 
 UserAvatar.defaultProps = {
