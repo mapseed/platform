@@ -75,8 +75,20 @@ mixpanel.init(MIXPANEL_TOKEN);
       ":custom": "viewMap", // workaround to handle routes like "/es.html" or "/en_US.html"
     },
     initialize: async function(options) {
+      // In production, use the asynchronously fetched config file so we can
+      // support localized config content. In development, use the imported
+      // module so we can support incremental rebuilds.
+      if (process.env.NODE_ENV === "production") {
+        const configResponse = await fetch(
+          `/config-${options.languageCode}.js`,
+        );
+        this.config = await configResponse.json();
+      } else {
+        this.config = config;
+      }
+
       // TODO: Move to API client.
-      fetch(`${options.config.app.api_root}utils/session-key?format=json`, {
+      fetch(`${this.config.app.api_root}utils/session-key?format=json`, {
         credentials: "include",
       }).then(async session => {
         const sessionJson = await session.json();
@@ -94,7 +106,7 @@ mixpanel.init(MIXPANEL_TOKEN);
 
       // Fetch and load user information.
       const authedUser = await mapseedApiClient.user.get(
-        options.config.app.api_root,
+        this.config.app.api_root,
       );
       const user = authedUser
         ? {
@@ -119,36 +131,32 @@ mixpanel.init(MIXPANEL_TOKEN);
       this.store.dispatch(loadUser(user));
 
       // Fetch and load datasets.
-      const datasetUrls = options.config.datasets.map(config => config.url);
+      const datasetUrls = this.config.datasets.map(config => config.url);
       const datasets = await mapseedApiClient.datasets.get(datasetUrls);
       this.store.dispatch(loadDatasets(datasets));
 
       // Load all other ducks.
       // TODO: Consistent "load" terminology
-      this.store.dispatch(loadDatasetsConfig(options.config.datasets));
-      this.store.dispatch(setMapConfig(options.config.map));
-      this.store.dispatch(loadPlaceConfig(options.config.place, user));
-      this.store.dispatch(setLeftSidebarConfig(options.config.left_sidebar));
-      this.store.dispatch(setRightSidebarConfig(options.config.right_sidebar));
-      this.store.dispatch(loadStoryConfig(options.config.story));
-      this.store.dispatch(setAppConfig(options.config.app));
-      this.store.dispatch(loadFormsConfig(options.config.forms));
-      this.store.dispatch(setSupportConfig(options.config.support));
-      this.store.dispatch(setPagesConfig(options.config.pages));
-      this.store.dispatch(setNavBarConfig(options.config.nav_bar));
+      this.store.dispatch(loadDatasetsConfig(this.config.datasets));
+      this.store.dispatch(setMapConfig(this.config.map));
+      this.store.dispatch(loadPlaceConfig(this.config.place, user));
+      this.store.dispatch(setLeftSidebarConfig(this.config.left_sidebar));
+      this.store.dispatch(setRightSidebarConfig(this.config.right_sidebar));
+      this.store.dispatch(loadStoryConfig(this.config.story));
+      this.store.dispatch(setAppConfig(this.config.app));
+      this.store.dispatch(loadFormsConfig(this.config.forms));
+      this.store.dispatch(setSupportConfig(this.config.support));
+      this.store.dispatch(setPagesConfig(this.config.pages));
+      this.store.dispatch(setNavBarConfig(this.config.nav_bar));
       this.store.dispatch(
-        loadCustomComponentsConfig(options.config.custom_components),
+        loadCustomComponentsConfig(this.config.custom_components),
       );
-      this.store.dispatch(
-        loadMapStyle(options.config.map, options.config.datasets),
-      );
-      if (options.config.dashboard) {
-        this.store.dispatch(loadDashboardConfig(options.config.dashboard));
+      this.store.dispatch(loadMapStyle(this.config.map, this.config.datasets));
+      if (this.config.dashboard) {
+        this.store.dispatch(loadDashboardConfig(this.config.dashboard));
       }
-      this.store.dispatch(
-        loadMapViewport(options.config.map.options.mapViewport),
-      );
-      options.config.right_sidebar.is_visible_default &&
+      this.store.dispatch(loadMapViewport(this.config.map.options.mapViewport));
+      this.config.right_sidebar.is_visible_default &&
         this.store.dispatch(updateUIVisibility("rightSidebar", true));
 
       languageModule.changeLanguage(options.languageCode);
@@ -157,7 +165,7 @@ mixpanel.init(MIXPANEL_TOKEN);
         <App
           store={this.store}
           router={this}
-          config={options.config}
+          config={this.config}
           languageCode={options.languageCode}
         />,
         document.getElementById("site-wrap"),
@@ -168,7 +176,7 @@ mixpanel.init(MIXPANEL_TOKEN);
 
       // Load the default page when there is no page already in the url
       if (Backbone.history.getFragment() === "") {
-        const startPageConfig = options.config.nav_bar.find(
+        const startPageConfig = this.config.nav_bar.find(
           navItem => navItem.start_page,
         );
 
@@ -316,7 +324,6 @@ mixpanel.init(MIXPANEL_TOKEN);
   });
 
   new Router({
-    config: config,
     languageCode: Shareabouts.languageCode,
   });
 })();
