@@ -26,22 +26,20 @@ const PlaceContainer = styled("div")({
   overflow: "hidden",
   margin: "0px 16px 16px 16px",
   padding: "8px 0px",
-});
-
-const PlaceLeftContainer = styled("div")({
-  display: "flex",
-  flex: "1 75%",
   flexDirection: "column",
 });
 
-const PlaceRightContainer = styled("div")({
+const PlaceHeaderContainer = styled("div")({
   display: "flex",
-  flex: "0 1",
-  flexDirection: "column",
+  width: "100%",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
 });
 
-const Body = styled("div")({
+const PlaceBodyContainer = styled("div")({
   display: "flex",
+  width: "100%",
 });
 
 const PlaceInfo = styled("div")({
@@ -80,8 +78,7 @@ const PlaceContent = styled("div")({
 const PlaceSocialContainer = styled("div")({
   display: "flex",
   justifyContent: "flex-end",
-  alignItems: "center",
-  marginBottom: "16px",
+  flex: "0 1 40%",
 });
 
 const SupportText = styled(props => (
@@ -91,13 +88,13 @@ const SupportText = styled(props => (
 ))({
   display: "flex",
   alignItems: "center",
-  marginBottom: "16px",
+  marginTop: "auto",
+  marginBottom: "auto",
 });
 const SupportHeartIcon = styled(HeartIcon)({
   marginRight: "4px",
 });
 const SocialMediaButton = styled(IconButton)({
-  flex: "1",
   marginLeft: "16px",
 });
 
@@ -171,72 +168,15 @@ const PlaceListItem = props => {
     detailConfig => detailConfig.category === props.place.location_type,
   );
   return (
-    <React.Fragment>
+    <>
       <PlaceContainer>
-        <PlaceLeftContainer>
+        <PlaceHeaderContainer>
           <SmallTitle>{props.place.title}</SmallTitle>
-          <Body>
-            <PlaceInfo>
-              <AvatarContainer>
-                <UserAvatar size="large" />
-              </AvatarContainer>
-              <PlaceInfoContainer>
-                <RegularText>
-                  <b>{submitterName}</b>
-                  {` ${props.placeConfig.action_text} ${props.t("this")} `}
-                  <b>{placeDetailConfig.label}</b>
-                </RegularText>
-                <CommentsText>{`${numberOfComments} ${props.t("comment")}${
-                  numberOfComments === 1 ? "" : "s"
-                }`}</CommentsText>
-                {/* TODO: Once AppView and the listeners in MainMap are cleaned up, we should be able to use relative links for PlaceInfoButton instead of backbone router, like so: */}
-                {/* href={`/${props.place.datasetSlug}/${props.place.id}`} */}
-                {/* rel="internal" */}
-                <PlaceInfoButton
-                  onClick={() => {
-                    props.router.navigate(
-                      `/${props.place._clientSlug}/${props.place.id}`,
-                      { trigger: true },
-                    );
-                  }}
-                >
-                  <Button color="secondary" size="small" variant="raised">
-                    <SmallText>{props.t("viewOnMap")}</SmallText>
-                  </Button>
-                </PlaceInfoButton>
-              </PlaceInfoContainer>
-            </PlaceInfo>
-            <PlaceContent>
-              {!!props.place.attachments.length && (
-                <PlaceImage>
-                  <img
-                    src={props.place.attachments[0].file}
-                    onLoad={props.onLoad}
-                  />
-                </PlaceImage>
-              )}
-              <PlaceFieldsContainer>
-                {props.placeConfig.place_detail
-                  .find(survey => survey.category === props.place.location_type)
-                  .fields.filter(field => field.includeOnListItem)
-                  .filter(field => props.place[field.name])
-                  .map(field => (
-                    <PlaceField
-                      key={field.name}
-                      field={field}
-                      place={props.place}
-                    />
-                  ))}
-              </PlaceFieldsContainer>
-            </PlaceContent>
-          </Body>
-        </PlaceLeftContainer>
-        <PlaceRightContainer>
-          <SupportText noWrap={true} textTransform="uppercase">
-            <SupportHeartIcon />
-            {`${numberOfSupports} ${props.t("supportThis")}`}
-          </SupportText>
           <PlaceSocialContainer>
+            <SupportText noWrap={true} textTransform="uppercase">
+              <SupportHeartIcon />
+              {`${numberOfSupports} ${props.t("supportThis")}`}
+            </SupportText>
             <SocialMediaButton
               icon="facebook"
               size="small"
@@ -248,10 +188,65 @@ const PlaceListItem = props => {
               onClick={() => onSocialShare("twitter")}
             />
           </PlaceSocialContainer>
-        </PlaceRightContainer>
+        </PlaceHeaderContainer>
+        <PlaceBodyContainer>
+          <PlaceInfo>
+            <AvatarContainer>
+              <UserAvatar size="large" />
+            </AvatarContainer>
+            <PlaceInfoContainer>
+              <RegularText>
+                <b>{submitterName}</b>
+                {` ${props.placeConfig.action_text} ${props.t("this")} `}
+                <b>{placeDetailConfig.label}</b>
+              </RegularText>
+              <CommentsText>{`${numberOfComments} ${props.t("comment")}${
+                numberOfComments === 1 ? "" : "s"
+              }`}</CommentsText>
+              {/* TODO: Once AppView and the listeners in MainMap are cleaned up, we should be able to use relative links for PlaceInfoButton instead of backbone router, like so: */}
+              {/* href={`/${props.place.datasetSlug}/${props.place.id}`} */}
+              {/* rel="internal" */}
+              <PlaceInfoButton
+                onClick={() => {
+                  props.router.navigate(
+                    `/${props.place._clientSlug}/${props.place.id}`,
+                    { trigger: true },
+                  );
+                }}
+              >
+                <Button color="secondary" size="small" variant="raised">
+                  <SmallText>{props.t("viewOnMap")}</SmallText>
+                </Button>
+              </PlaceInfoButton>
+            </PlaceInfoContainer>
+          </PlaceInfo>
+          <PlaceContent>
+            {!!props.place.attachments.length && (
+              <PlaceImage>
+                <img
+                  src={props.place.attachments[0].file}
+                  onLoad={props.onLoad}
+                />
+              </PlaceImage>
+            )}
+            <PlaceFieldsContainer>
+              {props.placeConfig.place_detail
+                .find(survey => survey.category === props.place.location_type)
+                .fields.filter(field => field.includeOnListItem)
+                .filter(field => props.place[field.name])
+                .map(field => (
+                  <PlaceField
+                    key={field.name}
+                    field={field}
+                    place={props.place}
+                  />
+                ))}
+            </PlaceFieldsContainer>
+          </PlaceContent>
+        </PlaceBodyContainer>
       </PlaceContainer>
       <HorizontalRule color="light" />
-    </React.Fragment>
+    </>
   );
 };
 
