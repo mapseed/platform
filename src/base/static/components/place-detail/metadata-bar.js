@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 
 import { UserAvatar } from "../atoms/imagery";
 import { Time, SmallText, RegularText } from "../atoms/typography";

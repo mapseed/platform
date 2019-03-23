@@ -3,7 +3,7 @@ import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { connect, Provider } from "react-redux";
 import browserUpdate from "browser-update";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 
 import SiteHeader from "./organisms/site-header";
 import {

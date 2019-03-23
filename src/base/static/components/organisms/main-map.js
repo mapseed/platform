@@ -3,7 +3,7 @@ import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import MapGL, { NavigationControl } from "react-map-gl";
 import { connect } from "react-redux";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import InviteModal from "../organisms/invite-modal";
 import { Global } from "@emotion/core";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";

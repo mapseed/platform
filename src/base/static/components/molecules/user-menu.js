@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link, SmallText, RegularText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
 import {
   offlineConfigSelector,

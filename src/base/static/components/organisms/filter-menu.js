@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { NavButton } from "../molecules/buttons";
 import { RegularLabel } from "../atoms/typography";
 import Downshift from "downshift";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
 import { connect } from "react-redux";
 import {

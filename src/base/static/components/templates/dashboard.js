@@ -33,7 +33,7 @@ import {
 import CategoriesPieChart from "../molecules/categories-pie-chart";
 import DemographicsBarChart from "../molecules/demographics-bar-chart";
 import { connect } from "react-redux";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 
 import groupBy from "lodash.groupby";
 import {

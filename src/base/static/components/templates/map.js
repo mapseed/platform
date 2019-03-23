@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
