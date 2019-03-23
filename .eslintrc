@@ -2,6 +2,11 @@
   "parser": "babel-eslint",
   "plugins": ["react"],
   "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "settings": {
+    "react": {
+      "version": "detect",
+    },
+  },
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
