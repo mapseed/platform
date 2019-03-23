@@ -1,7 +1,12 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react"],
+  "plugins": ["emotion", "react"],
   "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "settings": {
+    "react": {
+      "version": "detect",
+    },
+  },
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
@@ -12,6 +17,11 @@
   "globals": {
     "Backbone": false,
     "module": false,
+    "moment": false,
+    "EXIF": false,
+    "BinaryFile": false,
+    "loadImage": false,
+    "prefix": false,
     "_": false,
     "$": false,
     "Handlebars": false,
@@ -32,6 +42,10 @@
   },
   "rules": {
     "no-unused-vars": 1,
-    "react/no-find-dom-node": 0
+    "react/no-find-dom-node": 0,
+    "emotion/jsx-import": 2,
+    "emotion/no-vanilla": 2,
+    "emotion/import-from-emotion": 2,
+    "emotion/styled-import": 2
   }
 }

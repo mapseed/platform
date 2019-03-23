@@ -11,19 +11,6 @@ module.exports = {
       ],
     },
     {
-      displayName: "jest-eslint",
-      runner: "jest-runner-eslint",
-      testMatch: [
-        "<rootDir>/src/base/static/components/**/*.js",
-        "<rootDir>/src/base/static/utils/**/*.js",
-        "<rootDir>/scripts/**/*.js",
-      ],
-      testPathIgnorePatterns: [
-        "<rootDir>/src/base/static/libs/",
-        "<rootDir>/node_modules/",
-      ],
-    },
-    {
       displayName: "mapseed-platform-test",
       testURL: "http://localhost/",
       moduleNameMapper: {

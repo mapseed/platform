@@ -3,7 +3,7 @@ import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import getExtentFromGeometry from "turf-extent";
 import WebMercatorViewport from "viewport-mercator-project";
 

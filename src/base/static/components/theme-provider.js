@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { themePropType, themeSelector } from "../state/ducks/app-config";
+import { Global } from "@emotion/core";
 
-import baseTheme from "../../../theme";
+import baseTheme, { globalStyles } from "../../../theme";
 
 const ThemeProvider = ({ flavorTheme, children }) => {
   const theme = {
@@ -42,7 +43,10 @@ const ThemeProvider = ({ flavorTheme, children }) => {
 
   return (
     <EmotionThemeProvider theme={theme}>
-      <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
+      <MuiThemeProvider theme={muiTheme}>
+        <Global styles={globalStyles} />
+        {children}
+      </MuiThemeProvider>
     </EmotionThemeProvider>
   );
 };

@@ -333,9 +333,9 @@ var self = (module.exports = {
   // Thanks ppk! http://www.quirksmode.org/js/cookies.html
   cookies: {
     save: function(name, value, days, prefix) {
-      var expires,
-        prefix = prefix || "",
-        name = prefix + name;
+      let expires;
+      prefix = prefix || "";
+      name = prefix + name;
       if (days) {
         var date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
@@ -346,10 +346,9 @@ var self = (module.exports = {
       document.cookie = name + "=" + value + expires + "; path=/";
     },
     get: function(name, prefix) {
-      var prefix = prefix || "",
-        nameEQ = prefix + name + "=",
-        ca = document.cookie.split(";");
-      var ca = document.cookie.split(";");
+      prefix = prefix || "";
+      const nameEQ = prefix + name + "=";
+      const ca = document.cookie.split(";");
       for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) === " ") {
@@ -384,8 +383,8 @@ var self = (module.exports = {
       }
     },
     get: function(name) {
-      var now = new Date().getTime(),
-        name = this.LOCALSTORAGE_PREFIX + name,
+      name = this.LOCALSTORAGE_PREFIX + name;
+      let now = new Date().getTime(),
         item = {};
       try {
         item = JSON.parse(localStorage.getItem(name)) || {};

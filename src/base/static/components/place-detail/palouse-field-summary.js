@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 
 import fieldResponseFilter from "../../utils/field-response-filter";
 import { RegularTitle, RegularText } from "../atoms/typography";

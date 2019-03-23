@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import { Button } from "../atoms/buttons";
 import { Link } from "../atoms/typography";
 import mq from "../../../../media-queries";
