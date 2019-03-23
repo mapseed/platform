@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import { injectGlobal } from "emotion";
+import { css } from "@emotion/core";
 
 // Add font faces:
-injectGlobal`
+export const globalStyles = css`
   @font-face {
     font-family: "Lithos";
     src: url("/static/css/lithos.ttf");
@@ -13,17 +13,18 @@ injectGlobal`
   }
   @font-face {
     font-family: "Josefin Sans";
-    src: url("/static/css/JosefinSans-Regular.ttf")
+    src: url("/static/css/JosefinSans-Regular.ttf");
   }
   @font-face {
     font-family: "Montserrat";
-    src: url("/static/css/Montserrat-Regular.ttf")
+    src: url("/static/css/Montserrat-Regular.ttf");
   }
   @font-face {
     font-family: "AlfaSlabOne-Regular";
     src: url("/static/css/AlfaSlabOne-Regular.ttf");
   }
-  @font-face { font-family: "Quicksand Regular";
+  @font-face {
+    font-family: "Quicksand Regular";
     src: url("/static/css/Quicksand-Regular.otf");
   }
   @font-face {
