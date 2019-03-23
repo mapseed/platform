@@ -14,12 +14,12 @@ module.exports = {
       displayName: "jest-eslint",
       runner: "jest-runner-eslint",
       testMatch: [
-        "<rootDir>/src/base/static/components/**/*.js",
-        "<rootDir>/src/base/static/utils/**/*.js",
+        "<rootDir>/src/base/static/**/*.js",
         "<rootDir>/scripts/**/*.js",
       ],
       testPathIgnorePatterns: [
-        "<rootDir>/src/base/static/libs/",
+        "<rootDir>/src/base/static/legacy-libs/",
+        "<rootDir>/src/base/static/dist/",
         "<rootDir>/node_modules/",
       ],
     },

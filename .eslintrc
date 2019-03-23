@@ -12,6 +12,11 @@
   "globals": {
     "Backbone": false,
     "module": false,
+    "moment": false,
+    "EXIF": false,
+    "BinaryFile": false,
+    "loadImage": false,
+    "prefix": false,
     "_": false,
     "$": false,
     "Handlebars": false,
