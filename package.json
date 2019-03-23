@@ -26,7 +26,7 @@
     "start": "rm -rf www/* && node scripts/static-build.js && webpack-dev-server --progress",
     "deploy": "node scripts/deploy.js",
     "build-deploy": "npm run build && npm run deploy",
-    "test": "jest --verbose --config ./jest.config.js & npm run eslint",
+    "test": "npm run eslint && jest --verbose --config ./jest.config.js",
     "eslint": "eslint src scripts",
     "eslint-fix": "eslint --fix-dry-run src scripts",
     "test:watch": "jest --watch --verbose --config ./jest.watch.config.js",
