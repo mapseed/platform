@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "slug": "deeptimechicago-input",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/deeptimechicago-input",
+      "slug": "creatingcascadia-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/creatingcascadia-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -31,7 +31,9 @@
       "text": {
         "tertiary": "#000000",
         "titleFontFamily": "Roboto, sans-serif",
-        "titleColor": "#ffffff"
+        "titleColor": "#ffffff",
+        "headerFontFamily": "Roboto,sans-serif",
+        "bodyFontFamily": "Roboto,sans-serif"
       }
     }
   },
@@ -88,26 +90,26 @@
             "source": "topography"
           },
           {
-            "id": "streets-basemap",
-            "type": "raster",
-            "source": "streets"
-          },
-          {
             "id": "landscape-basemap",
             "type": "raster",
             "source": "landscape"
+          },
+          {
+            "id": "streets-basemap",
+            "type": "raster",
+            "source": "streets"
           }
         ]
       },
       {
-        "id": "deeptimechicago-input",
-        "datasetSlug": "deeptimechicago-input",
+        "id": "creatingcascadia-input",
+        "datasetSlug": "creatingcascadia-input",
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
-            "id": "deeptimechicago-input-focused",
+            "id": "creating-input-focused",
             "type": "symbol",
-            "source": "deeptimechicago-input",
+            "source": "creatingcascadia-input",
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "center",
@@ -129,9 +131,9 @@
         ],
         "mapboxLayers": [
           {
-            "id": "deeptimechicago-input",
+            "id": "creatingcascadia-input",
             "type": "symbol",
-            "source": "deeptimechicago-input",
+            "source": "creatingcascadia-input",
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": "center",
@@ -202,7 +204,7 @@
             "title": "_(Contributions)",
             "layerGroups": [
               {
-                "id": "deeptimechicago-input",
+                "id": "creatingcascadia-input",
                 "title": "_(Comments)"
               }
             ]
@@ -230,7 +232,7 @@
         "category": "sensation",
         "includeOnForm": true,
         "name": "location_type",
-        "datasetSlug": "deeptimechicago-input",
+        "datasetSlug": "creatingcascadia-input",
         "icon_url": "/static/css/images/markers/sensation.png",
         "value": "sensation",
         "label": "_(Sensation)",
@@ -270,7 +272,7 @@
         "category": "idea",
         "includeOnForm": true,
         "name": "location_type",
-        "datasetSlug": "deeptimechicago-input",
+        "datasetSlug": "creatingcascadia-input",
         "icon_url": "/static/css/images/markers/idea.png",
         "value": "idea",
         "label": "_(Idea)",
@@ -309,7 +311,7 @@
         "category": "artwork",
         "includeOnForm": true,
         "name": "location_type",
-        "datasetSlug": "deeptimechicago-input",
+        "datasetSlug": "creatingcascadia-input",
         "icon_url": "/static/css/images/markers/artwork.png",
         "value": "artwork",
         "label": "_(Artwork)",
@@ -349,7 +351,7 @@
         "category": "event",
         "includeOnForm": true,
         "name": "location_type",
-        "datasetSlug": "deeptimechicago-input",
+        "datasetSlug": "creatingcascadia-input",
         "icon_url": "/static/css/images/markers/event.png",
         "value": "event",
         "label": "_(Event)",
@@ -548,25 +550,25 @@
     "places": [
       {
         "id": "sensation",
-        "datasetId": "deeptimechicago-input",
+        "datasetId": "creatingcascadia-input",
         "label": "_(Observation)",
         "icon": "/static/css/images/markers/sensation.png"
       },
       {
         "id": "event",
-        "datasetId": "deeptimechicago-input",
+        "datasetId": "creatingcascadia-input",
         "label": "_(Question)",
         "icon": "/static/css/images/markers/event.png"
       },
       {
         "id": "idea",
-        "datasetId": "deeptimechicago-input",
+        "datasetId": "creatingcascadia-input",
         "label": "_(Idea)",
         "icon": "/static/css/images/markers/idea.png"
       },
       {
         "id": "artwork",
-        "datasetId": "deeptimechicago-input",
+        "datasetId": "creatingcascadia-input",
         "label": "_(Complaint)",
         "icon": "/static/css/images/markers/artwork.png"
       }
