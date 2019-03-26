@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Link, RegularText } from "../atoms/typography";
-import { CloseButton } from "../molecules/buttons";
+import { CloseButton } from "../atoms/buttons";
 import { Button } from "../atoms/buttons";
 import { getTilePaths } from "../../utils/geo";
 import LinearProgress from "@material-ui/core/LinearProgress";

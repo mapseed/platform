@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RegularText } from "../atoms/typography";
-import { CloseButton } from "../molecules/buttons";
+import { CloseButton } from "../atoms/buttons";
 import { Button } from "../atoms/buttons";
 import {
   ModalWrapper,

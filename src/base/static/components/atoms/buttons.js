@@ -231,4 +231,13 @@ ToolbarButton.propTypes = {
   prefix: PropTypes.string,
 };
 
-export { Button, EditorButton, ToolbarButton, IconButton };
+const CloseButton = styled(props => (
+  <button className={props.className} onClick={props.onClick}>
+    {"✕"}
+  </button>
+))({
+  color: "red",
+  fontSize: "1.5em",
+});
+
+export { Button, EditorButton, ToolbarButton, IconButton, CloseButton };
