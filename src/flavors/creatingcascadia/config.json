@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "slug": "deeptimechicago-input",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/deeptimechicago-input",
+      "slug": "creatingcascadia-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/creatingcascadia-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -31,7 +31,9 @@
       "text": {
         "tertiary": "#000000",
         "titleFontFamily": "Roboto, sans-serif",
-        "titleColor": "#ffffff"
+        "titleColor": "#ffffff",
+        "headerFontFamily": "Roboto,sans-serif",
+        "bodyFontFamily": "Roboto,sans-serif"
       }
     }
   },
