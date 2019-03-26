@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input",
-      "slug": "palouse-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/garfield-input",
+      "slug": "garfield-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -13,11 +13,11 @@
     }
   ],
   "app": {
-    "title": "Whitman County Voluntary Stewardship Program",
-    "name": "Whitman County Voluntary Stewardship Program",
-    "logo": "/static/css/images/whitman-vsp-logo-large.png",
+    "title": "Garfield County Voluntary Stewardship Program",
+    "name": "Garfield County Voluntary Stewardship Program",
+    "logo": "/static/css/images/logo.png",
     "meta_description": "_(Welcome!)",
-    "meta_author": "HaxGeo.com",
+    "meta_author": "mapseed.org",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "isShowingMobileUserMenu": true,
     "theme": {
@@ -61,9 +61,9 @@
     "options": {
       "scrollZoomAroundCenter": true,
       "mapViewport": {
-        "latitude": 46.855999488224484,
-        "longitude": -117.51842014278026,
-        "zoom": 8,
+        "latitude": 46.38856,
+        "longitude": -117.55455,
+        "zoom": 8.3,
         "pitch": 15,
         "minZoom": 1,
         "maxZoom": 18
@@ -92,36 +92,28 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
-      "palouse-basin": {
-        "type": "geojson",
-        "data": "https://assets.mapseed.org/geo/palouse/palouse-basin.geojson"
-      },
-      "palouse-critical-aquifer": {
+      "garfield-critical-aquifer": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/garfield-critical-aquifer/{z}/{x}/{y}.pbf"
         ]
       },
-      "palouse-analysis-units": {
+      "garfield-wildlife": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/garfield-wildlife/{z}/{x}/{y}.pbf"
         ]
       },
-      "palouse-basin-streams": {
-        "type": "geojson",
-        "data": "https://assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson"
-      },
-      "palouse-critical-conservation-areas": {
+      "garfield-watersheds": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/garfield-watersheds/{z}/{x}/{y}.pbf"
         ]
       },
-      "palouse-frequently-flooded": {
+      "garfield-frequently-flooded": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/garfield-frequently-flooded/{z}/{x}/{y}.pbf"
         ]
       },
       "palouse-huc-12": {
@@ -130,22 +122,28 @@
           "https://vector-tiles.mapseed.org/palouse-huc-12/{z}/{x}/{y}.pbf"
         ]
       },
-      "palouse-wetlands": {
+      "garfield-wetlands": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/garfield-wetlands/{z}/{x}/{y}.pbf"
         ]
       },
-      "palouse-geologic-hazard": {
+      "garfield-geologic-hazard": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/palouse-geologic-hazard/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/garfield-geologic-hazard/{z}/{x}/{y}.pbf"
         ]
       },
-      "whitman-county-outline": {
+      "garfield-salmon-steelhead-habitat": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/whitman-county/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/garfield-salmon-steelhead-habitat/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "garfield-county-outline": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/garfield-county-outline/{z}/{x}/{y}.pbf"
         ]
       }
     },
@@ -226,259 +224,14 @@
         ]
       },
       {
-        "id": "palouse-basin",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-basin-fill",
-            "type": "fill",
-            "source": "palouse-basin",
-            "paint": {
-              "fill-color": "#34518f",
-              "fill-opacity": 0.3
-            }
-          },
-          {
-            "id": "palouse-basin-outline",
-            "type": "line",
-            "source": "palouse-basin",
-            "paint": {
-              "line-color": "#34518f",
-              "line-opacity": 0.7,
-              "line-width": 2
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-critical-aquifer",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-critical-aquifer",
-            "type": "fill",
-            "source": "palouse-critical-aquifer",
-            "source-layer": "palouse-critical-aquifer",
-            "paint": {
-              "fill-pattern": "aquifer-fill.png"
-            }
-          },
-          {
-            "id": "palouse-critical-aquifer-outline",
-            "type": "line",
-            "source": "palouse-critical-aquifer",
-            "source-layer": "palouse-critical-aquifer",
-            "paint": {
-              "line-color": "#e57339",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-analysis-units",
+        "id": "garfield-county-outline",
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "palouse-analysis-units",
-            "type": "fill",
-            "source-layer": "palouse-analysis-units",
-            "source": "palouse-analysis-units",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "match",
-                ["get", "Unit"],
-                "Rock",
-                "#ba4763",
-                "Snake",
-                "#0d2f5e",
-                "Palouse",
-                "#c5a00b",
-                "#fff"
-              ]
-            }
-          },
-          {
-            "id": "palouse-analysis-units-labels",
-            "type": "symbol",
-            "source-layer": "palouse-analysis-units",
-            "source": "palouse-analysis-units",
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "layout": {
-              "text-field": ["get", "Unit"],
-              "text-size": 17,
-              "text-allow-overlap": true,
-              "text-padding": 0
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-basin-streams",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-basin-streams",
+            "id": "garfield-county-outline",
             "type": "line",
-            "source": "palouse-basin-streams",
-            "paint": {
-              "line-color": "#1a1aff",
-              "line-width": 1.5
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-critical-conservation-areas",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-critical-convervation-areas",
-            "type": "fill",
-            "source": "palouse-critical-conservation-areas",
-            "source-layer": "palouse-critical-conservation-areas",
-            "paint": {
-              "fill-pattern": "conservation-fill.png"
-            }
-          },
-          {
-            "id": "palouse-critical-conservation-areas-outline",
-            "type": "line",
-            "source": "palouse-critical-conservation-areas",
-            "source-layer": "palouse-critical-conservation-areas",
-            "paint": {
-              "line-color": "#10e53d",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-frequently-flooded",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-frequently-flooded",
-            "type": "fill",
-            "source": "palouse-frequently-flooded",
-            "source-layer": "palouse-frequently-flooded",
-            "paint": {
-              "fill-pattern": "frequently-flooded-fill.png"
-            }
-          },
-          {
-            "id": "palouse-frequently-flooded-outline",
-            "type": "line",
-            "source": "palouse-frequently-flooded",
-            "source-layer": "palouse-frequently-flooded",
-            "paint": {
-              "line-color": "#3366ff",
-              "line-opacity": 0.7,
-              "line-width": 2
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-huc-12",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-huc-12",
-            "type": "line",
-            "source": "palouse-huc-12",
-            "source-layer": "palouse-huc-12",
-            "paint": {
-              "line-color": "#888",
-              "line-opacity": 0.7,
-              "line-width": 3
-            }
-          },
-          {
-            "id": "palouse-huc-12-labels",
-            "type": "symbol",
-            "source": "palouse-huc-12",
-            "source-layer": "palouse-huc-12",
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1,
-              "text-color": "#222"
-            },
-            "layout": {
-              "text-field": ["get", "Name"]
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-wetlands",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-wetlands",
-            "type": "fill",
-            "source": "palouse-wetlands",
-            "source-layer": "palouse-wetlands",
-            "paint": {
-              "fill-pattern": "wetlands-fill.png"
-            }
-          },
-          {
-            "id": "palouse-wetlands-outline",
-            "type": "line",
-            "source": "palouse-wetlands",
-            "source-layer": "palouse-wetlands",
-            "paint": {
-              "line-color": "#10e53d",
-              "line-opacity": 0.7,
-              "line-width": 2
-            }
-          }
-        ]
-      },
-      {
-        "id": "palouse-geologic-hazard",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "palouse-geologic-hazard",
-            "type": "fill",
-            "source": "palouse-geologic-hazard",
-            "source-layer": "palouse-geologic-hazard",
-            "filter": ["==", ["get", "erosion_of"], "Severe"],
-            "paint": {
-              "fill-pattern": "hazard-fill.png"
-            }
-          },
-          {
-            "id": "palouse-geologic-hazard-outline",
-            "type": "line",
-            "source": "palouse-geologic-hazard",
-            "source-layer": "palouse-geologic-hazard",
-            "filter": ["==", ["get", "erosion_of"], "Severe"],
-            "paint": {
-              "line-color": "#e80f0f",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "whitman-county-outline",
-        "visibleDefault": true,
-        "mapboxLayers": [
-          {
-            "id": "whitman-county-outline",
-            "type": "line",
-            "source": "whitman-county-outline",
-            "source-layer": "whitman-county",
+            "source": "garfield-county-outline",
+            "source-layer": "garfield-county-outline",
             "paint": {
               "line-color": "#fff",
               "line-width": 3,
@@ -488,15 +241,228 @@
         ]
       },
       {
-        "id": "palouse-input",
+        "id": "garfield-critical-aquifer",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "garfield-critical-aquifer",
+            "type": "fill",
+            "source": "garfield-critical-aquifer",
+            "source-layer": "garfield-critical-aquifer",
+            "paint": {
+              "fill-pattern": "aquifer-fill.png"
+            }
+          },
+          {
+            "id": "garfield-critical-aquifer-outline",
+            "type": "line",
+            "source": "garfield-critical-aquifer",
+            "source-layer": "garfield-critical-aquifer",
+            "paint": {
+              "line-color": "#e57339",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "garfield-salmon-steelhead-habitat",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "garfield-salmon-steelhead-habitat",
+            "type": "line",
+            "source": "garfield-salmon-steelhead-habitat",
+            "source-layer": "garfield-salmon-steelhead-habitat",
+            "paint": {
+              "line-color": "#00ccff",
+              "line-width": 3
+            },
+            "layout": {
+              "line-join": "round"
+            }
+          }
+        ]
+      },
+      {
+        "id": "garfield-wildlife",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "garfield-wildlife",
+            "type": "fill",
+            "source": "garfield-wildlife",
+            "source-layer": "garfield-wildlife",
+            "paint": {
+              "fill-pattern": "conservation-fill.png"
+            }
+          },
+          {
+            "id": "garfield-wildlife-outline",
+            "type": "line",
+            "source": "garfield-wildlife",
+            "source-layer": "garfield-wildlife",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "garfield-frequently-flooded",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "garfield-frequently-flooded",
+            "type": "fill",
+            "source": "garfield-frequently-flooded",
+            "source-layer": "garfield-frequently-flooded",
+            "paint": {
+              "fill-pattern": "frequently-flooded-fill.png"
+            }
+          },
+          {
+            "id": "garfield-frequently-flooded-outline",
+            "type": "line",
+            "source": "garfield-frequently-flooded",
+            "source-layer": "garfield-frequently-flooded",
+            "paint": {
+              "line-color": "#3366ff",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "garfield-watersheds",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "garfield-watersheds",
+            "type": "fill",
+            "source": "garfield-watersheds",
+            "source-layer": "garfield-watersheds",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "Name"],
+                "Pataha Watershed",
+                "#fcb4ae",
+                "Tumalum Watershed",
+                "#b3cde3",
+                "Alpowa Watershed",
+                "#ccecc5",
+                "Dry Gulch",
+                "#decce4",
+                "New York Gulch",
+                "#fed9a6",
+                "Snake River Drainage",
+                "#fddaec",
+                "Deadman Watershed",
+                "#ffffcc",
+                "Meadow Creek",
+                "#e6d9bd",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "garfield-watersheds-outline",
+            "type": "line",
+            "source": "garfield-watersheds",
+            "source-layer": "garfield-watersheds",
+            "paint": {
+              "line-color": "#999",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "garfield-watersheds-labels",
+            "type": "symbol",
+            "source": "garfield-watersheds",
+            "source-layer": "garfield-watersheds",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1,
+              "text-color": "#222"
+            },
+            "layout": {
+              "text-field": ["get", "Name"],
+              "text-size": 12,
+              "text-max-width": 6
+            }
+          }
+        ]
+      },
+      {
+        "id": "garfield-wetlands",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "garfield-wetlands",
+            "type": "fill",
+            "source": "garfield-wetlands",
+            "source-layer": "garfield-wetlands",
+            "paint": {
+              "fill-pattern": "wetlands-fill.png"
+            }
+          },
+          {
+            "id": "garfield-wetlands-outline",
+            "type": "line",
+            "source": "garfield-wetlands",
+            "source-layer": "garfield-wetlands",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "garfield-geologic-hazard",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "garfield-geologic-hazard",
+            "type": "fill",
+            "source": "garfield-geologic-hazard",
+            "source-layer": "garfield-geologic-hazard",
+            "filter": ["==", ["get", "forpehrtdc"], "Severe"],
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "garfield-geologic-hazard-outline",
+            "type": "line",
+            "source": "garfield-geologic-hazard",
+            "source-layer": "garfield-geologic-hazard",
+            "filter": ["==", ["get", "forpehrtdc"], "Severe"],
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "garfield-input",
         "visibleDefault": true,
         "interactive": true,
-        "datasetSlug": "palouse-input",
+        "datasetSlug": "garfield-input",
         "mapboxFocusedLayers": [
           {
-            "id": "palouse-input-focused",
+            "id": "garfield-input-focused",
             "type": "symbol",
-            "source": "palouse-input",
+            "source": "garfield-input",
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
@@ -513,9 +479,9 @@
         ],
         "mapboxLayers": [
           {
-            "id": "palouse-input",
+            "id": "garfield-input",
             "type": "symbol",
-            "source": "palouse-input",
+            "source": "garfield-input",
             "layout": {
               "icon-anchor": "bottom",
               "icon-image": "map-pin-marker-red.png",
@@ -567,40 +533,32 @@
                 "title": "_(Snake River)"
               },
               {
-                "id": "palouse-basin",
-                "title": "_(Palouse Watershed Basin)"
-              },
-              {
-                "id": "palouse-basin-streams",
-                "title": "_(Palouse Watershed Basin Streams)"
-              },
-              {
-                "id": "palouse-critical-aquifer",
+                "id": "garfield-critical-aquifer",
                 "title": "_(Critical Aquifers)"
               },
               {
-                "id": "palouse-critical-conservation-areas",
-                "title": "_(Fish & Wildlife Conservation Areas)"
+                "id": "garfield-wildlife",
+                "title": "_(Fish & Wildlife Habitat (PHS))"
               },
               {
-                "id": "palouse-frequently-flooded",
+                "id": "garfield-frequently-flooded",
                 "title": "_(Frequently Flooded Areas)"
               },
               {
-                "id": "palouse-huc-12",
-                "title": "_(Subbasins)"
-              },
-              {
-                "id": "palouse-analysis-units",
-                "title": "_(Watershed Analysis Units)"
-              },
-              {
-                "id": "palouse-wetlands",
+                "id": "garfield-wetlands",
                 "title": "_(Wetlands)"
               },
               {
-                "id": "palouse-geologic-hazard",
+                "id": "garfield-geologic-hazard",
                 "title": "_(Geologic Hazards)"
+              },
+              {
+                "id": "garfield-salmon-steelhead-habitat",
+                "title": "_(Salmon/Steelhead Habitat)"
+              },
+              {
+                "id": "garfield-watersheds",
+                "title": "_(Watersheds)"
               }
             ]
           },
@@ -609,11 +567,11 @@
             "title": "_(Community Data)",
             "layerGroups": [
               {
-                "id": "whitman-county-outline",
-                "title": "_(Whitman County border)"
+                "id": "garfield-county-outline",
+                "title": "_(Garfield County border)"
               },
               {
-                "id": "palouse-input",
+                "id": "garfield-input",
                 "title": "_(Community Reports)"
               }
             ]
@@ -638,7 +596,7 @@
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "datasetSlug": "palouse-input",
+        "datasetSlug": "garfield-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "value": "demo",
         "multi_stage": [
@@ -649,9 +607,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-analysis-units",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-input",
+              "garfield-county-outline"
             ]
           },
           {
@@ -661,9 +618,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-analysis-units",
-              "palouse-basin-streams",
-              "whitman-county-outline"
+              "garfield-county-outline",
+              "garfield-watersheds"
             ]
           },
           {
@@ -673,8 +629,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-wetlands",
-              "whitman-county-outline"
+              "garfield-wetlands",
+              "garfield-county-outline"
             ]
           },
           {
@@ -684,8 +640,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-frequently-flooded",
-              "whitman-county-outline"
+              "garfield-salmon-steelhead-habitat",
+              "garfield-county-outline"
             ]
           },
           {
@@ -695,8 +651,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-geologic-hazard",
-              "whitman-county-outline"
+              "garfield-wildlife",
+              "garfield-county-outline"
             ]
           },
           {
@@ -706,8 +662,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-critical-aquifer",
-              "whitman-county-outline"
+              "garfield-critical-aquifer",
+              "garfield-county-outline"
             ]
           },
           {
@@ -717,85 +673,96 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-critical-conservation-areas",
-              "whitman-county-outline"
+              "garfield-geologic-hazard",
+              "garfield-county-outline"
             ]
           },
           {
             "start_field_index": 22,
-            "end_field_index": 30,
+            "end_field_index": 24,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-frequently-flooded",
+              "garfield-county-outline"
             ]
           },
           {
-            "start_field_index": 31,
-            "end_field_index": 36,
+            "start_field_index": 25,
+            "end_field_index": 33,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-input",
+              "garfield-county-outline"
             ]
           },
           {
-            "start_field_index": 37,
-            "end_field_index": 42,
+            "start_field_index": 34,
+            "end_field_index": 39,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-input",
+              "garfield-county-outline"
             ]
           },
           {
-            "start_field_index": 43,
-            "end_field_index": 57,
+            "start_field_index": 40,
+            "end_field_index": 45,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-input",
+              "garfield-county-outline"
             ]
           },
           {
-            "start_field_index": 58,
-            "end_field_index": 66,
+            "start_field_index": 46,
+            "end_field_index": 51,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-input",
+              "garfield-county-outline"
             ]
           },
           {
-            "start_field_index": 67,
-            "end_field_index": 96,
+            "start_field_index": 52,
+            "end_field_index": 69,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-input",
+              "garfield-county-outline"
             ]
           },
           {
-            "start_field_index": 97,
-            "end_field_index": 106,
+            "start_field_index": 70,
+            "end_field_index": 102,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-input",
-              "whitman-county-outline"
+              "garfield-input",
+              "garfield-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 103,
+            "end_field_index": 113,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "garfield-input",
+              "garfield-county-outline"
             ]
           }
         ],
@@ -809,12 +776,12 @@
           {
             "name": "location_why",
             "type": "informational_html",
-            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p><p>If you own multiple properties within one of the Watershed Analysis Unit we only need <strong>one report</strong> from you, since we will be reporting Stewardship Actions by Watershed Analysis Units. If you have additional properties in another Watershed Analysis Unit <strong>please submit a second report</strong> so that we can capture Stewardship Actions by the correct Watershed Analysis Unit.</p>"
+            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p><p>If you own multiple properties, please report on all your properties by watershed. If they are all within the same watershed, we would only need one pin. If you have property in multiple watersheds please complete this survey by watershed and place a pin in each watershed.</p>"
           },
           {
             "name": "drag_map_info",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>If you own multiple properties within one of the Watershed Analysis Unit we only need one report from you, since we will be reporting Stewardship Actions by Watershed Analysis Units. If you have additional properties in another Watershed Analysis Unit please submit a second report so that we can captured Stewardship Actions by the correct Watershed Analysis Unit.</p></div>"
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#e57c04;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center pin on your property.  If you own/lease multiple properties you'll only need to place one pin, but if you have other properties in other watersheds we would request a separate survey in each watershed and report acres by watershed.</p></div>"
           },
           {
             "name": "address",
@@ -831,32 +798,52 @@
           {
             "name": "analysis_unit",
             "type": "big_radio",
-            "prompt": "_(Of the three VSP watershed analysis units on map (Rock, Palouse, or Snake), which unit primarily represents your farm or ranch?  All reporting for VSP will be at the watershed analysis unit scale level. Complete multiple surveys for areas that are distinctly different.)",
+            "prompt": "_(Of the eight watersheds on the map, which unit primarily represents your farm or ranch?  All reporting for VSP will be at the watershed scale level. Complete multiple surveys for areas that are distinctly different.)",
             "optional": false,
             "content": [
               {
-                "label": "_(Rock Analysis Unit)",
-                "value": "rock"
+                "label": "_(Alpowa Watershed)",
+                "value": "alpowa"
               },
               {
-                "label": "_(Palouse Analysis Unit)",
-                "value": "palouse"
+                "label": "_(Pataha Watershed)",
+                "value": "pataha"
               },
               {
-                "label": "_(Snake Analysis Unit)",
-                "value": "snake"
+                "label": "_(Deadman Watershed)",
+                "value": "deadman"
+              },
+              {
+                "label": "_(Meadow Watershed)",
+                "value": "meadow"
+              },
+              {
+                "label": "_(Snake River Watershed)",
+                "value": "snake-river"
+              },
+              {
+                "label": "_(Tumalum Watershed)",
+                "value": "tumalum"
+              },
+              {
+                "label": "_(New York Gulch Watershed)",
+                "value": "new-york-gulch"
+              },
+              {
+                "label": "_(Dry Gulch Watershed)",
+                "value": "dry-gulch"
               }
             ]
           },
           {
             "name": "wetlands_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland areas</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland Areas</h2>"
           },
           {
             "name": "wetlands_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/wetlands-alt-cropped.jpg' alt='Wetlands' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/wetlands.jpg' alt='Wetlands' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
@@ -875,19 +862,19 @@
             ]
           },
           {
-            "name": "frequently_flooded_header",
+            "name": "salmon_steelhead_habitat_header",
             "type": "informational_html",
-            "content": "<h1 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Salmon & Steelhead Habitat</h2>"
           },
           {
-            "name": "frequently_flooded_information",
+            "name": "salmon_steelhead_habitat_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/frequently-flooded-cropped.jpg' alt='Frequently flooded areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/fish-habitat.jpg' alt='Fish habitat' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Salmon & Steelhead Habitat</strong> are managed to maintain populations of salmon and steelhead.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/fish-habitat-legend.png' /></div></div></div>"
           },
           {
-            "name": "private-property_on_frequently_flooded",
+            "name": "private-property_on_salmon_steelhead_habitat",
             "type": "big_radio",
-            "prompt": "_(Are there any frequently flooded areas? Please note locations are approximate.)",
+            "prompt": "_(Are there any fish bearing streams? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -901,19 +888,19 @@
             ]
           },
           {
-            "name": "geologic_hazard_header",
+            "name": "fish_wildlife_habitat_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Severe geologic hazard areas</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Fish & Wildlife Habitat (PHS)</h2>"
           },
           {
-            "name": "geologic_hazard_information",
+            "name": "fish_wildlife_habitat_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/geologic-hazard-cropped.jpg' alt='Geologic hazard areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildife conservation areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
-            "name": "private-property_on_geologic_hazard",
+            "name": "private-property_on_fish_wildlife_habitat",
             "type": "big_radio",
-            "prompt": "_(Are there any severe geologic hazard areas? Please note locations are approximate.)",
+            "prompt": "_(Are there any fish & wildlife conservation areas? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -929,12 +916,12 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical aquifer recharge areas</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical Aquifer Recharge Areas</h2>"
           },
           {
             "name": "critical_aquifer_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/aquifer-recharge-cropped.jpg' alt='Critical aquifer recharge areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/critical-aquifer-recharge.jpg' alt='Critical aquifer recharge areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_critical_aquifer",
@@ -953,19 +940,19 @@
             ]
           },
           {
-            "name": "wildlife_conservation_header",
+            "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & wildlife conservation areas</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Severe Geologic Hazard Areas</h2>"
           },
           {
-            "name": "wildlife_conservation_information",
+            "name": "geologic_hazard_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/wildlife-habitat-cropped.jpg' alt='Fish and wildife conservation areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife conservation areas</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/geologic-hazard-area.jpg' alt='Geologic hazard areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
-            "name": "private-property_on_wildlife_conservation",
+            "name": "private-property_on_geologic_hazard",
             "type": "big_radio",
-            "prompt": "_(Are there any fish & wildlife conservation areas? Please note locations are approximate.)",
+            "prompt": "_(Are there any severe geologic hazard areas? Please note locations are approximate.)",
             "optional": false,
             "content": [
               {
@@ -979,9 +966,36 @@
             ]
           },
           {
+            "name": "frequently_flooded_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Frequently Flooded Areas</h2>"
+          },
+          {
+            "name": "frequently_flooded_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_frequently_flooded",
+            "type": "big_radio",
+            "prompt": "_(Are there any frequently flooded areas? Please note locations are approximate.)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "//": "---------------------RESIDUE & TILLAGE MGMT-------------------------",
             "name": "residue_tillage_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Residue and Tillage Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Residue and Tillage Management</h2>"
           },
           {
             "name": "residue_tillage_information",
@@ -1103,7 +1117,7 @@
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Pest Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Pest Management</h2>"
           },
           {
             "name": "pest_management_information",
@@ -1182,7 +1196,7 @@
             "//": "-------------SECTION: NUTRIENT MGMT-----------------",
             "name": "nutrient_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Nutrient Management</h2>"
           },
           {
             "name": "nutrient_management_information",
@@ -1258,18 +1272,94 @@
             "hidden_default": true
           },
           {
-            "//": "--------------SECTION: RANGE MGMT---------------------------",
-            "name": "range_management",
+            "//": "-------------SECTION: WATER MGMT-----------------",
+            "name": "water_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Range Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Water Management</h2>"
           },
           {
-            "name": "range_management_information",
+            "name": "water_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your range management practices.</p></div></div>"
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your water management practices.</p></div></div>"
           },
           {
-            "name": "range-management_no-range-management",
+            "name": "water-management_no-water-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-water-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-water-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "water-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== IRRIGATION ====================",
+            "name": "irrigation",
+            "type": "big_radio",
+            "prompt": "_(Irrigation practices:)",
+            "label": "_(Irrigation)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["irrigation_quantity", "irrigation_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "irrigation_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "irrigation_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start irrigating?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "--------------SECTION: LIVESTOCK MGMT---------------------------",
+            "name": "livestock_management",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Livestock Management</h2>"
+          },
+          {
+            "name": "livestock_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your livestock management practices.</p></div></div>"
+          },
+          {
+            "name": "livestock-management_no-range-management",
             "type": "big_toggle",
             "prompt": "_( )",
             "display_prompt": "_( )",
@@ -1277,27 +1367,27 @@
             "content": [
               {
                 "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "no-range-management"
+                "value": "no-livestock-management"
               },
               {
                 "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "range-management"
+                "value": "livestock-management"
               }
             ],
             "optional": true
           },
           {
-            "//": "=============== MANAGED GRAZING ========================",
-            "name": "managed_grazing",
+            "//": "=============== PRESCRIBED GRAZING ========================",
+            "name": "prescribed_grazing",
             "type": "big_radio",
-            "prompt": "_(Managed grazing: managing the harvest of vegetation with rotation of grazing and/or browsing animals)",
-            "label": "_(Managed grazing)",
+            "prompt": "_(Prescribed grazing: managing the harvest of vegetation with rotation of grazing and/or browsing animals)",
+            "label": "_(Prescribed grazing)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "managed_grazing_quantity",
-                "managed_grazing_datetime"
+                "prescribed_grazing_quantity",
+                "prescribed_grazing_datetime"
               ]
             },
             "content": [
@@ -1316,7 +1406,7 @@
             ]
           },
           {
-            "name": "managed_grazing_quantity",
+            "name": "prescribed_grazing_quantity",
             "type": "number",
             "prompt": "_(How many acres?)",
             "min": 0,
@@ -1327,11 +1417,11 @@
             }
           },
           {
-            "name": "managed_grazing_datetime",
+            "name": "prescribed_grazing_datetime",
             "type": "datetime",
             "date_format": "YYYY",
             "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start using managed grazing practices?)",
+            "prompt": "_(Approximately when did you start using prescribed grazing practices?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1481,10 +1571,57 @@
             "hidden_default": true
           },
           {
+            "//": "=============== FENCING ================================",
+            "name": "fencing",
+            "type": "big_radio",
+            "prompt": "_(Fencing: control movement of animals and/or people, including vehicles)",
+            "label": "_(Fencing)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["fencing_quantity", "fencing_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "fencing_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many feet?)",
+            "placeholder": "_(Approximate footage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(feet)"
+            }
+          },
+          {
+            "name": "fencing_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start establishing fencing?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
             "//": "--------------SECTION: SOIL MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Soil & Erosion Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Soil & Erosion Management</h2>"
           },
           {
             "name": "soil_management_information",
@@ -1508,6 +1645,56 @@
               }
             ],
             "optional": true
+          },
+          {
+            "//": "=============== PASTURE & HAYLAND PLANTING  =================================",
+            "name": "pasture_hayland_planting",
+            "type": "big_radio",
+            "prompt": "_(Pasture and hayland planting:)",
+            "label": "_(Pasture and hayland planting)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "pasture_hayland_planting_quantity",
+                "pasture_hayland_planting_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pasture_hayland_planting_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "pasture_hayland_planting_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start pasture and hayland planting?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
           },
           {
             "//": "=============== COVER CROP =================================",
@@ -1557,57 +1744,10 @@
             "hidden_default": true
           },
           {
-            "//": "=============== MULCHING =================================",
-            "name": "mulching",
-            "type": "big_radio",
-            "prompt": "_(Mulching: applying plant residues or other suitable materials to land surface to improve moisture management )",
-            "label": "_(Mulching)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["mulching_quantity", "mulching_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "mulching_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "_(How many acres?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "mulching_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start using mulching?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
             "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
             "name": "fish_wildlife_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Fish & Wildlife Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Fish & Wildlife Management</h2>"
           },
           {
             "name": "fish_wildlife_management_information",
@@ -1728,56 +1868,6 @@
             "date_format": "YYYY",
             "display_format": "YYYY",
             "prompt": "_(Approximately when did you start critical area planting?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== GRASSED WATERWAYS ==================================",
-            "name": "grassed_waterways",
-            "type": "big_radio",
-            "prompt": "_(Grassed waterways: shaped or graded channel with suitable vegetation to carry surface water at non-erosive velocity to a stable outlet)",
-            "label": "_(Grassed waterways)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "grassed_waterways_quantity",
-                "grassed_waterways_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "grassed_waterways_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "_(How many feet?)",
-            "placeholder": "_(Approximate footage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(feet)"
-            }
-          },
-          {
-            "name": "grassed_waterways_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start establishing grassed waterways?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1924,17 +2014,17 @@
             "hidden_default": true
           },
           {
-            "//": "=============== HEDGEROW PLANTING ==================",
-            "name": "hedgerow_planting",
+            "//": "=============== STREAM HABITAT IMPROVEMENTS ==================================",
+            "name": "stream_habitat_improvements",
             "type": "big_radio",
-            "prompt": "_(Hedgerow planting: establishment of dense vegetation in a linear design to achieve conservation purposes)",
-            "label": "_(Hedgerow planting)",
+            "prompt": "_(Stream habitat improvements: structures placed instream for adult and juvenile salmonoids, such as post-assisted log structures and beaver dam analogs)",
+            "label": "_(Stream habitat improvements)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "hedgerow_planting_quantity",
-                "hedgerow_planting_datetime"
+                "stream_habitat_improvements_quantity",
+                "stream_habitat_improvements_datetime"
               ]
             },
             "content": [
@@ -1953,36 +2043,39 @@
             ]
           },
           {
-            "name": "hedgerow_planting_quantity",
+            "name": "stream_habitat_improvements_quantity",
             "type": "number",
             "min": 0,
-            "prompt": "_(How many feet?)",
-            "placeholder": "_(Approximate footage)",
+            "prompt": "_(How many improvements?)",
+            "placeholder": "_(Approximate number)",
             "hidden_default": true,
             "metadata": {
-              "units": "_(feet)"
+              "units": "_(improvements)"
             }
           },
           {
-            "name": "hedgerow_planting_datetime",
+            "name": "stream_habitat_improvements_datetime",
             "type": "datetime",
             "date_format": "YYYY",
             "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start planting hedgerows?)",
+            "prompt": "_(Approximately when did you start establishing stream habitat improvements?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
           },
           {
-            "//": "=============== OPEN CHANNEL ================================",
-            "name": "open_channel",
+            "//": "=============== STREAMBANK PROTECTIONS ==================================",
+            "name": "streambank_protections",
             "type": "big_radio",
-            "prompt": "_(Open channel: construct, improve or restore to convey water required for flood prevention, drainage,  or wildlife habitat protection or enhancement)",
-            "label": "_(Open channel)",
+            "prompt": "_(Streambank protections: soft streambank bioengineering to protect eroding banks)",
+            "label": "_(Stream habitat improvements)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["open_channel_quantity", "open_channel_datetime"]
+              "targets": [
+                "streambank_protetions_quantity",
+                "streambank_protections_datetime"
+              ]
             },
             "content": [
               {
@@ -2000,69 +2093,22 @@
             ]
           },
           {
-            "name": "open_channel_quantity",
+            "name": "streambank_protections_quantity",
             "type": "number",
             "min": 0,
             "prompt": "_(How many feet?)",
-            "placeholder": "_(Approximate footage)",
+            "placeholder": "_(Approximate number)",
             "hidden_default": true,
             "metadata": {
               "units": "_(feet)"
             }
           },
           {
-            "name": "open_channel_datetime",
+            "name": "streambank_protections_datetime",
             "type": "datetime",
             "date_format": "YYYY",
             "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start maintaining open channels?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== FENCING ================================",
-            "name": "fencing",
-            "type": "big_radio",
-            "prompt": "_(Fencing: control movement of animals and/or people, including vehicles)",
-            "label": "_(Fencing)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["fencing_quantity", "fencing_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "fencing_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "_(How many feet?)",
-            "placeholder": "_(Approximate footage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(feet)"
-            }
-          },
-          {
-            "name": "fencing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start establishing fencing?)",
+            "prompt": "_(Approximately when did you start making streambank improvements?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -2071,12 +2117,12 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>15. Almost completed!</h2>"
           },
           {
             "name": "additional_info",
             "type": "informational_html",
-            "content": "<p><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><p>This page will determine how your information is shared.  We will report all practices at the watershed analysis unit scale, but if you are interested in having your project showcased you can give us permission below.  Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
+            "content": "<p><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><p>This page will determine how your information is shared.  We will report all practices at the watershed scale, but if you are interested in having your project showcased you can give us permission below.  Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
           },
           {
             "name": "my_image",
@@ -2102,7 +2148,7 @@
           {
             "name": "private-use_photos",
             "type": "big_radio",
-            "prompt": "_(Can Whitman County VSP highlight your photos on our website?)",
+            "prompt": "_(Can Garfield County VSP highlight your photos on our website?)",
             "default_value": "no",
             "content": [
               {
@@ -2191,7 +2237,7 @@
     "places": [
       {
         "id": "reports",
-        "datasetId": "palouse-input",
+        "datasetId": "garfield-input",
         "label": "_(Actions)",
         "icon": "/static/css/images/markers/map-pin-marker-red.png"
       }
@@ -2224,8 +2270,8 @@
       "lang": "en_US",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
-        "<p style='margin-bottom:16px'>Your Whitman County VSP Coordinators or Whitman County Cattlemen’s, Wheat Growers or Farm Bureau are here to help meet your stewardship goals.</p>",
-        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator and/or Grower Group or for more information visit: <a href='https://whitmancountyvsp.com/' target='_blank'>www.whitmancountyvsp.com</a>.</p>",
+        "<p style='margin-bottom:16px'>Your Garfield County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator or for more information visit: <a href='https://www.garfieldcountyvsp.com/' target='_blank'>www.garfieldcountyvsp.com</a>.</p>",
         "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
         "<div style='margin-bottom: 8px'>",
@@ -2237,27 +2283,19 @@
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>James Schierman</strong>",
-        "<p style='margin:0'><em>District Coordinator</em></p>",
+        "<strong style='margin-bottom:0'>Duane Bartels</strong>",
+        "<p style='margin:0'><em>District Manager</em></p>",
         "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-648-3680</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>Jschierman.prlcd@gmail.com</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-843-5008</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcdistrict@qwestoffice.net</span></div>",
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Brian Bell</strong>",
-        "<p style='margin:0'><em>District Manager</em></p>",
+        "<strong style='margin-bottom:0'>Lance Frederick</strong>",
+        "<p style='margin:0'><em>CREP Coordinator</em></p>",
         "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-288-4644</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>brianwhitmancd@gmail.com</span></div>",
-        "</li>",
-        "<li style='margin-top:16px'>",
-        "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Raymond Brown</strong>",
-        "<p style='margin:0'><em>District Manager</em></p>",
-        "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-285-5122</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pinecreekcd@frontier.com</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>508-843-5008</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>lancepcdistrict@qwestoffice.net</span></div>",
         "</li>",
         "</ul>"
       ]
@@ -2266,13 +2304,13 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Whitman County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
-        "<img src='/static/css/images/rolling-hills-cropped.jpg' alt='Rolling hills, Whitman County' style='margin:8px 0 16px 0' />",
-        "<p>Whitman County Voluntary Stewardship Program (VSP) provides an innovative approach for reporting the protection of critical areas on agriculture lands that enhance our environment through voluntary measures, while promoting agriculture viability. VSP voluntarily collects previous and on-going stewardship data from all interested landowners, which helps document VSP participation and the importance of agriculture viability.</p>",
-        "<p>Visit <a href='http://www.whitmancountyvsp.com' target='_blank'>www.whitmancountyvsp.com</a> for more information",
-        "<p><strong>Help promote Whitman County agriculture by sharing stewardship strategies!</strong></p>",
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Garfield County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<img src='/static/css/images/garfield-county-2.jpg' alt='Rolling hills, Garfield County' style='margin:8px 0 16px 0' />",
+        "<p>Garfield County Voluntary Stewardship Program (VSP) provides an innovative approach for reporting the protection of critical areas on agriculture lands that enhance our environment through voluntary measures, while promoting agriculture viability. VSP voluntarily collects previous and on-going stewardship data from all interested landowners, which helps document VSP participation and the importance of agriculture viability.</p>",
+        "<p>Visit <a href='http://www.garfieldcountyvsp.com' target='_blank'>www.garfieldcountyvsp.com</a> for more information",
+        "<p><strong>Help promote Garfield County agriculture by sharing stewardship strategies!</strong></p>",
         "<p><strong>VSP success relies on voluntary participation by landowners!</strong></p>",
-        "<p style='margin-bottom:16px'><strong>Whitman County VSP appreciates your time sharing stewardship practices!</strong></p>",
+        "<p style='margin-bottom:16px'><strong>Garfield County VSP appreciates your time sharing stewardship practices!</strong></p>",
         "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
