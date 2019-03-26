@@ -2073,7 +2073,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "streambank_protetions_quantity",
+                "streambank_protections_quantity",
                 "streambank_protections_datetime"
               ]
             },
