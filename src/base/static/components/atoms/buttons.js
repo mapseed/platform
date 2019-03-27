@@ -232,7 +232,11 @@ ToolbarButton.propTypes = {
 };
 
 const CloseButton = styled(props => (
-  <button className={props.className} onClick={props.onClick}>
+  <button
+    aria-label="close"
+    className={props.className}
+    onClick={props.onClick}
+  >
     {"✕"}
   </button>
 ))({

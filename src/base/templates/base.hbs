@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
 
-  <title>{{ config.app.title }}</title>
-  <meta name="description" content="{{ config.app.meta_description }}">
-  <meta name="author" content="{{ config.app.meta_author }}">
+    <title>{{ config.app.title }}</title>
+    <meta name="description" content="{{ config.app.meta_description }}">
+    <meta name="author" content="{{ config.app.meta_author }}">
 
-  <!-- Mobile Viewport Fix -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+    <!-- Mobile Viewport Fix -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 
-  <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
-  <link rel="icon" href="/static/css/images/favicon.ico?v=2">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/css/images/apple-touch-icon-144x144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/css/images/apple-touch-icon-114x114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/css/images/apple-touch-icon-72x72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="/static/css/images/apple-touch-icon-precomposed.png">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- mui-jss-insertion-point -->
 
-  <!-- Google WebFonts -->
-  <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
+    <link rel="icon" href="/static/css/images/favicon.ico?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/css/images/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/css/images/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/css/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/css/images/apple-touch-icon-precomposed.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-  {{#if production}}
+    <!-- Google WebFonts -->
+    <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+    {{#if production}}
     <link rel="stylesheet" href="/{{cssHashedBundleName}}">
-  {{else}}
+    {{else}}
     <link rel="stylesheet" href="/bundle.css">
-  {{/if}}
+    {{/if}}
 
-  <link rel="profile" href="//gmpg.org/xfn/11" />
+    <link rel="profile" href="//gmpg.org/xfn/11" />
 
-  <style>
-    html, body, #site-wrap {
-      width: 100%;
-      height: 100%;
-    }
-  </style>
+    <style>
+      html, body, #site-wrap {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
 
-</head>
+  </head>
   <body>
     <div role="main" id="site-wrap"></div>
 
