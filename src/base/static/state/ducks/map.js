@@ -27,6 +27,7 @@ const UPDATE_STYLE = "map/UPDATE_STYLE";
 const UPDATE_LAYER_GROUP_LOAD_STATUS = "map/UPDATE_LAYER_GROUP_LOAD_STATUS";
 const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
   "map/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
+const UPDATE_FEATURE_IN_GEOJSON_SOURCE = "map/UPDATE_FEATURE_IN_GEOJSON_SOURCE";
 const CREATE_FEATURES_IN_GEOJSON_SOURCE =
   "map/CREATE_FEATURES_IN_GEOJSON_SOURCE";
 const REMOVE_FEATURE_IN_GEOJSON_SOURCE = "map/REMOVE_FEATURE_IN_GEOJSON_SOURCE";
@@ -142,6 +143,17 @@ export function updateFeaturesInGeoJSONSource(sourceId, newFeatures) {
     payload: {
       sourceId,
       newFeatures,
+    },
+  };
+}
+
+export function updateFeatureInGeoJSONSource({ sourceId, featureId, feature }) {
+  return {
+    type: UPDATE_FEATURE_IN_GEOJSON_SOURCE,
+    payload: {
+      sourceId,
+      featureId,
+      feature,
     },
   };
 }
@@ -366,6 +378,29 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case UPDATE_FEATURE_IN_GEOJSON_SOURCE:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          sources: {
+            ...state.style.sources,
+            [action.payload.sourceId]: {
+              ...state.style.sources[action.payload.sourceId],
+              data: {
+                ...state.style.sources[action.payload.sourceId].data,
+                features: state.style.sources[
+                  action.payload.sourceId
+                ].data.features.map(feature => {
+                  return action.payload.featureId === feature.properties.id
+                    ? action.payload.feature
+                    : feature;
+                }),
+              },
+            },
+          },
+        },
+      };
     case UPDATE_FEATURES_IN_GEOJSON_SOURCE:
       return {
         ...state,

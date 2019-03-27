@@ -29,7 +29,11 @@ import {
   placePropType,
   updateActiveEditPlaceId,
 } from "../../state/ducks/places";
-import { removeFeatureInGeoJSONSource } from "../../state/ducks/map";
+import {
+  removeFeatureInGeoJSONSource,
+  updateFeatureInGeoJSONSource,
+  updateFocusedGeoJSONFeatures,
+} from "../../state/ducks/map";
 import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
 import {
   isInAtLeastOneGroup,
@@ -38,6 +42,7 @@ import {
 } from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
+import { toClientGeoJSONFeature } from "../../utils/place-utils";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -206,6 +211,24 @@ class PlaceDetailEditor extends Component {
         }
 
         this.props.updatePlace(placeResponse);
+        this.props.updateFeatureInGeoJSONSource({
+          sourceId: this.props.place._datasetSlug,
+          featureId: placeResponse.id,
+          feature: toClientGeoJSONFeature(placeResponse),
+        });
+
+        const { geometry, ...rest } = placeResponse;
+        // Update the focused feature.
+        this.props.updateFocusedGeoJSONFeatures([
+          {
+            type: "Feature",
+            geometry: {
+              type: geometry.type,
+              coordinates: geometry.coordinates,
+            },
+            properties: rest,
+          },
+        ]);
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
         jumpTo({
@@ -409,6 +432,8 @@ PlaceDetailEditor.propTypes = {
   t: PropTypes.func.isRequired,
   updateActiveEditPlaceId: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
+  updateFeatureInGeoJSONSource: PropTypes.func.isRequired,
+  updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   updatePlace: PropTypes.func.isRequired,
 };
 
@@ -440,6 +465,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removePlaceAttachment(placeId, attachmentId)),
   updateActiveEditPlaceId: placeId =>
     dispatch(updateActiveEditPlaceId(placeId)),
+  updateFeatureInGeoJSONSource: ({ sourceId, featureId, feature }) =>
+    dispatch(updateFeatureInGeoJSONSource({ sourceId, featureId, feature })),
+  updateFocusedGeoJSONFeatures: newFeatures =>
+    dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
 });
 
 export default connect(
