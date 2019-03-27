@@ -19,6 +19,7 @@ import {
 const FilterNavButton = styled(linkProps => (
   <NavButton
     color={"tertiary"}
+    aria-label="Filter Menu"
     onClick={linkProps.onClick}
     className={linkProps.className}
   >

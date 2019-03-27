@@ -103,6 +103,7 @@ class GeocodingField extends Component {
           className="geocoding-field__input"
           name={this.props.name}
           type="text"
+          aria-label="Search by address"
           placeholder={this.props.placeholder}
           value={this.props.value}
           onBlur={this.doGeocode.bind(this)}
