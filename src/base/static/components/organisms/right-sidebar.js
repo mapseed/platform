@@ -1,12 +1,15 @@
-import React, { Fragment } from "react";
+/** @jsx jsx */
+import { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
+import { jsx } from "@emotion/core";
+import { ChevronRight, ChevronLeft } from "@material-ui/icons";
 
 import StoryNavigator from "../organisms/story-navigator";
 import MapLegendPanel from "../organisms/map-legend-panel";
 import ActivityStream from "../organisms/activity-stream";
-import { FontAwesomeIcon } from "../atoms/imagery";
+import Button from "@material-ui/core/Button";
 
 import {
   rightSidebarConfigPropType,
@@ -15,25 +18,31 @@ import {
 import { placesSelector, placesPropType } from "../../state/ducks/places";
 import { updateUIVisibility, uiVisibilitySelector } from "../../state/ducks/ui";
 
-const ToggleSidebarButton = styled("button")({
+const toggleSidebarStyles = {
   position: "absolute",
   top: "50%",
-  left: "-30px",
+  left: "-32px",
+  width: "32px",
   borderTopLeftRadius: "8px",
   borderBottomLeftRadius: "8px",
   backgroundColor: "#fff",
   outline: "none",
   border: "none",
-  fontSize: "24px",
   boxShadow: "-4px 4px 3px rgba(0,0,0,0.1)",
-  padding: "8px 10px 10px 10px",
+  color: "#ff5e99",
+
+  // MUI overrides
+  minWidth: "unset",
+  borderTopRightRadius: "0",
+  borderBottomRightRadius: "0",
 
   "&:hover": {
-    cursor: "pointer",
+    color: "#cd2c67",
+    backgroundColor: "#fff",
   },
 
   "&:before": {},
-});
+};
 
 const RightSidebarOuterContainer = styled("aside")(props => ({
   zIndex: 10,
@@ -61,21 +70,19 @@ const RightSidebar = props => {
       isRightSidebarVisible={props.isRightSidebarVisible}
     >
       <RightSidebarInnerContainer>
-        <ToggleSidebarButton
+        <Button
+          aria-label="toggle sidebar open"
+          css={toggleSidebarStyles}
           onClick={() => {
             props.updateRightSidebarVisibility(!props.isRightSidebarVisible);
           }}
         >
-          <FontAwesomeIcon
-            color="#ff5e99"
-            hoverColor="#cd2c67"
-            faClassname={
-              props.isRightSidebarVisible
-                ? "fa fa-chevron-right"
-                : "fa fa-chevron-left"
-            }
-          />
-        </ToggleSidebarButton>
+          {props.isRightSidebarVisible ? (
+            <ChevronRight css={{ fontSize: "32px" }} />
+          ) : (
+            <ChevronLeft css={{ fontSize: "32px" }} />
+          )}
+        </Button>
         {props.rightSidebarConfig.component === "StoryNavigator" && (
           <StoryNavigator
             storyConfig={props.storyConfig}

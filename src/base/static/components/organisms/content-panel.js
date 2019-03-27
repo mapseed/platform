@@ -1,6 +1,7 @@
 import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
+import { CloseButton as InnerCloseButton } from "../atoms/buttons";
 import { connect } from "react-redux";
 
 import CustomPage from "./custom-page";
@@ -48,8 +49,7 @@ const ContentPanelInnerContainer = styled("div")(props => ({
   boxSizing: "border-box",
 }));
 
-// TODO: Abstract this out into a molecule.
-const CloseButton = styled("button")(props => ({
+const CloseButton = styled(InnerCloseButton)(props => ({
   position: "absolute",
   top: props.layout === "desktop" ? "10px" : "-33px",
   left: props.layout === "desktop" ? "-33px" : "10px",
@@ -91,9 +91,7 @@ class ContentPanel extends Component {
             evt.preventDefault();
             this.props.router.navigate("/", { trigger: true });
           }}
-        >
-          &#10005;
-        </CloseButton>
+        />
         <ContentPanelInnerContainer
           ref={this.contentPanelInnerContainerRef}
           layout={this.props.layout}
