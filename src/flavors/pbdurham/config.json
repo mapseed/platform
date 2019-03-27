@@ -439,7 +439,19 @@
             "source": "pbdurham-projects",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "money.png",
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1-focused.png",
+                "ward_2",
+                "project-ward-2-focused.png",
+                "ward_3",
+                "project-ward-3-focused.png",
+                "citywide",
+                "project-citywide-focused.png",
+                "money.png"
+              ], 
               "icon-size": 0.3,
               "icon-anchor": "bottom"
             }
@@ -453,7 +465,19 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": "bottom",
-              "icon-image": "money.png",
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1.png",
+                "ward_2",
+                "project-ward-2.png",
+                "ward_3",
+                "project-ward-3.png",
+                "citywide",
+                "project-citywide.png",
+                "money.png"
+              ], 
               "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
             }
           }
@@ -723,6 +747,30 @@
             "type": "textarea",
             "placeholder": "_(Briefly describe the project)",
             "name": "impact_statement",
+            "optional": true
+          },
+          {
+            "name": "ward",
+            "type": "big_radio",
+            "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
+            "content": [
+              {
+                "label": "_(Ward 1)",
+                "value": "ward_1"
+              },
+              {
+                "label": "_(Ward 2)",
+                "value": "ward_2"
+              },
+              {
+                "label": "_(Ward 3)",
+                "value": "ward_3"
+              },
+              {
+                "label": "_(Citywide)",
+                "value": "citywide"
+              }
+            ],
             "optional": true
           },
           {
