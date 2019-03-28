@@ -1,5 +1,7 @@
-import React from "react";
+/** @jsx jsx */
+import * as React from "react";
 import PropTypes from "prop-types";
+import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
@@ -12,7 +14,7 @@ import {
   placeConfigPropType,
 } from "../../state/ducks/place-config";
 import PlaceListItem from "../molecules/place-list-item";
-import { Button } from "../atoms/buttons";
+import Button from "@material-ui/core/Button";
 import { TextInput } from "../atoms/input";
 
 import {
@@ -67,18 +69,19 @@ const SearchContainer = styled("div")({
   display: "flex",
   alignItems: "center",
 });
-const SearchButton = styled(Button)({ marginLeft: "16px" });
-const SortButton = styled(props => (
+
+const SortButton = buttonProps => (
   <Button
-    size="small"
-    onClick={props.onClick}
-    color={props.isActive ? "grey" : "black"}
+    css={theme => ({
+      marginRight: "16px",
+      fontFamily: theme.text.headerFontFamily,
+    })}
+    color={buttonProps.isActive ? "primary" : "default"}
+    onClick={buttonProps.onClick}
   >
-    {props.children}
+    {buttonProps.children}
   </Button>
-))({
-  marginRight: "16px",
-});
+);
 
 const ButtonContainer = styled("div")({});
 
@@ -190,6 +193,7 @@ class PlaceList extends React.Component {
               <TextInput
                 placeholder={`${this.props.t("search")}...`}
                 color="accent"
+                ariaLabel="search list by text"
                 onKeyPress={evt => {
                   if (evt.key === "Enter") {
                     this._setSortAndFilterPlaces();
@@ -199,13 +203,17 @@ class PlaceList extends React.Component {
                   this.setState({ query: evt.target.value });
                 }}
               />
-              <SearchButton
+              <Button
+                css={theme => ({
+                  marginLeft: "16px",
+                  fontFamily: theme.text.headerFontFamily,
+                })}
                 color="secondary"
                 onClick={this._setSortAndFilterPlaces}
-                variant="raised"
+                variant="contained"
               >
                 {this.props.t("search")}
-              </SearchButton>
+              </Button>
             </SearchContainer>
             <ButtonContainer>
               <SortButton

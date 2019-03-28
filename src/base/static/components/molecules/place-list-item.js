@@ -102,7 +102,7 @@ const SocialMediaButton = styled(IconButton)({
 const PlaceImage = styled("div")({
   maxWidth: "30%",
   float: "left",
-  marginRight: "8px",
+  marginRight: "16px",
 });
 const PlaceFieldsContainer = styled("div")({
   textAlign: "justify",

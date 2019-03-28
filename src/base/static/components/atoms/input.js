@@ -7,6 +7,7 @@ const TextInput = styled(props => {
   return (
     <input
       type="text"
+      aria-label={props.ariaLabel}
       className={props.className}
       placeholder={props.placeholder ? props.placeholder : ""}
       onChange={props.onChange ? props.onChange : null}
@@ -28,6 +29,13 @@ const TextInput = styled(props => {
 
   return styles;
 });
+
+TextInput.propTypes = {
+  placeHolder: PropTypes.string,
+  onChange: PropTypes.func,
+  onKeyPress: PropTypes.func,
+  ariaLabel: PropTypes.string.isRequired,
+};
 
 const TextareaInput = styled(props => {
   return (
