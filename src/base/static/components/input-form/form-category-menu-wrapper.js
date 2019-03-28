@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { translate } from "react-i18next";
+import { darken } from "@material-ui/core/styles/colorManipulator";
 
 import InputFormCategorySelector from "./input-form-category-selector";
 
@@ -18,9 +19,10 @@ import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
 
+const alertBackground = "#ffc107"; // bright yellow-orange
 const DragMapAlert = styled("div")({
-  backgroundColor: "#ffc107",
-  color: "#fff",
+  backgroundColor: alertBackground,
+  color: darken(alertBackground, 0.8),
   border: "2px dotted #ffffff",
   borderRadius: "8px",
   padding: "8px",
@@ -92,9 +94,9 @@ class FormCategoryMenuWrapper extends Component {
 
   render() {
     return (
-      <div className="input-form-category-menu-container">
+      <>
         {this.state.isShowingCategorySelector && (
-          <Fragment>
+          <>
             {!this.props.isMapDraggedOrZoomed && (
               <DragMapAlert>{this.props.t("dragMapAlert")}</DragMapAlert>
             )}
@@ -103,7 +105,7 @@ class FormCategoryMenuWrapper extends Component {
               selectedCategory={this.state.selectedCategory}
               visibleCategoryConfigs={this.visibleCategoryConfigs}
             />
-          </Fragment>
+          </>
         )}
         {this.state.selectedCategory
           ? this.props.render(
@@ -112,7 +114,7 @@ class FormCategoryMenuWrapper extends Component {
               this.onCategoryChange.bind(this),
             )
           : null}
-      </div>
+      </>
     );
   }
 }

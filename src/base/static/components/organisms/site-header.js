@@ -1,8 +1,9 @@
-/* eslint react/display-name: 0 */
-import React, { Component } from "react";
+/** @jsx jsx */
+import * as React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
+import { jsx } from "@emotion/core";
 
 import { SiteLogo } from "../atoms/imagery";
 import { Link } from "../atoms/typography";
@@ -32,7 +33,7 @@ import {
 } from "../../state/ducks/left-sidebar";
 import mq from "../../../../media-queries";
 
-const SiteHeaderWrapper = styled("header")(props => ({
+const SiteHeaderWrapper = styled("div")(props => ({
   position: "relative",
   zIndex: 12,
   backgroundColor: props.theme.bg.default,
@@ -60,7 +61,7 @@ const HamburgerTitleWrapper = styled("div")({
   },
 });
 
-const NavContainer = styled("nav")(props => ({
+const navContainerStyles = props => ({
   [mq[0]]: {
     display: props.isHeaderExpanded ? "flex" : "none",
     flexDirection: "column",
@@ -74,20 +75,15 @@ const NavContainer = styled("nav")(props => ({
     alignItems: "center",
     marginLeft: "25px",
   },
-}));
-
-const NavLinkWrapper = styled("div")(props => ({
-  [mq[0]]: {
-    textAlign: "center",
-  },
-  [mq[1]]: {
-    borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
-  },
-}));
+});
 
 const ListToggleLink = styled(props => (
-  <Link href={props.href} rel="internal" className={props.className}>
+  <Link
+    href={props.href}
+    rel="internal"
+    className={props.className}
+    aria-label={props.ariaLabel}
+  >
     {props.children}
   </Link>
 ))(props => ({
@@ -115,17 +111,16 @@ const ListToggleLink = styled(props => (
 }));
 
 const NavLink = styled(props => (
-  <NavLinkWrapper position={props.position}>
-    <Link
-      href={props.href}
-      rel="internal"
-      className={props.className}
-      onClick={props.onClick}
-      style={{ padding: "4px 8px 4px 8px" }}
-    >
-      {props.children}
-    </Link>
-  </NavLinkWrapper>
+  <Link
+    href={props.href}
+    rel="internal"
+    aria-label={props.ariaLabel}
+    className={props.className}
+    onClick={props.onClick}
+    style={{ padding: "4px 8px 4px 8px" }}
+  >
+    {props.children}
+  </Link>
 ))(props => ({
   // TODO: Many of these style rules should eventually be moved to the Link atom.
   display: "flex",
@@ -145,6 +140,13 @@ const NavLink = styled(props => (
   "&:hover": {
     color: props.theme.text.secondary,
     backgroundColor: props.theme.brand.accent,
+  },
+  [mq[0]]: {
+    textAlign: "center",
+  },
+  [mq[1]]: {
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
 }));
 
@@ -292,33 +294,47 @@ const LogoTitleWrapper = styled(props => (
 }));
 
 const navItemMappings = {
+  // eslint-disable-next-line react/display-name
   internal_link: linkProps => (
     <NavLink
       height="24px"
       position={linkProps.position}
       href={linkProps.navBarItem.url}
+      ariaLabel={`navigate to: ${linkProps.navBarItem.title}`}
       onClick={linkProps.onClick}
     >
       {linkProps.children}
     </NavLink>
   ),
+  // eslint-disable-next-line react/display-name
   left_sidebar_toggle: linkProps => (
-    <NavButtonWrapper position={linkProps.position}>
-      <NavButton
-        color={"tertiary"}
-        onClick={() => {
-          linkProps.onClick();
-          linkProps.setLeftSidebarComponent(linkProps.navBarItem.component);
-          linkProps.setLeftSidebarExpanded(!linkProps.isLeftSidebarExpanded);
-        }}
-      >
-        {linkProps.children}
-      </NavButton>
-    </NavButtonWrapper>
+    <NavButton
+      css={theme => ({
+        [mq[1]]: {
+          alignItems: "center",
+          borderLeft:
+            linkProps.position > 0
+              ? `solid 1px ${theme.text.tertiary}`
+              : "none",
+        },
+      })}
+      color={"tertiary"}
+      ariaLabel={`open the ${linkProps.navBarItem.title} menu`}
+      onClick={() => {
+        linkProps.onClick();
+        linkProps.setLeftSidebarComponent(linkProps.navBarItem.component);
+        linkProps.setLeftSidebarExpanded(!linkProps.isLeftSidebarExpanded);
+      }}
+    >
+      {linkProps.children}
+    </NavButton>
   ),
   list_toggle: styled(linkProps => (
     <ListToggleLink
       className={linkProps.className}
+      ariaLabel={
+        linkProps.currentTemplate === "map" ? "view as a list" : "view as a map"
+      }
       href={linkProps.currentTemplate === "map" ? "/list" : "/"}
     >
       {linkProps.currentTemplate === "map"
@@ -336,7 +352,7 @@ const navItemMappings = {
   filter: FilterMenu,
 };
 
-class SiteHeader extends Component {
+class SiteHeader extends React.Component {
   state = {
     isLanguageMenuVisible: false, // relevant on desktop layouts
     isHeaderExpanded: false, // relevant on mobile layouts
@@ -379,7 +395,12 @@ class SiteHeader extends Component {
             )}
           </LogoTitleWrapper>
         </HamburgerTitleWrapper>
-        <NavContainer isHeaderExpanded={this.state.isHeaderExpanded}>
+        <nav
+          aria-label="navigation header"
+          css={navContainerStyles({
+            isHeaderExpanded: this.state.isHeaderExpanded,
+          })}
+        >
           {this.props.navBarConfig.map((navBarItem, i) => {
             const NavItemComponent = navItemMappings[navBarItem.type];
             return (
@@ -401,7 +422,7 @@ class SiteHeader extends Component {
               </NavItemComponent>
             );
           })}
-        </NavContainer>
+        </nav>
         <RightAlignedContainer isHeaderExpanded={this.state.isHeaderExpanded}>
           {this.props.appConfig.languages &&
             this.props.appConfig.languages.length > 1 && (

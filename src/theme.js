@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { css } from "@emotion/core";
 
 // Add font faces:
@@ -40,13 +39,6 @@ export const globalStyles = css`
     src: url("/static/css/Raleway-Regular.ttf");
   }
 `;
-
-export const themePropTypes = PropTypes.shape({
-  brand: PropTypes.shape({
-    primary: PropTypes.string.isRequired,
-    secondary: PropTypes.string.isRequired,
-  }).isRequired,
-}).isRequired;
 
 // This `theme` module should not be imported directly. Instead, it
 // should be imported and used with emotion-theming's ThemeProvider:

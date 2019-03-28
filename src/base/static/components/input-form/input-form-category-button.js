@@ -48,6 +48,7 @@ const InputFormCategoryButton = props => {
           <img
             className="input-form-category-button__image"
             src={categoryConfig.icon_url}
+            alt={`image for ${categoryConfig.label}`}
           />
         </span>
         <span className={cn.labelContainer}>{categoryConfig.label}</span>

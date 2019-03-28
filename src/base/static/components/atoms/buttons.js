@@ -61,6 +61,7 @@ const IconButton = styled(props => {
   return (
     <button
       style={props.style}
+      aria-label={`${props.icon} button`}
       className={props.className}
       type="button"
       onClick={props.onClick}
@@ -93,6 +94,7 @@ const Button = styled(props => {
   return (
     <button
       style={props.style}
+      aria-label={props.ariaLabel}
       className={props.className}
       type="button"
       onClick={props.onClick}
@@ -192,6 +194,7 @@ const Button = styled(props => {
 Button.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.string,
+  ariaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   variant: PropTypes.string,
   color: PropTypes.string,

@@ -8,6 +8,7 @@ const NavButton = styled(props => {
     <Button
       className={props.className}
       color={props.color}
+      ariaLabel={props.ariaLabel}
       variant={props.variant}
       onClick={props.onClick}
     >

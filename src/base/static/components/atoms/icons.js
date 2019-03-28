@@ -27,7 +27,7 @@ const FacebookIcon = props => (
 const HeartIcon = props => (
   <svg viewBox="0 0 133.8 133.8" width="1em" height="1em" {...props}>
     <style>{`.st0{fill:#dd2424}`}</style>
-    <g id="Layer_1">
+    <g>
       <path
         className="st0"
         d="M41.9 100.7L11.8 70.6C-2 56.8-2 34.3 11.8 20.5c13.8-13.8 36.3-13.8 50.1 0L92 50.6c13.8 13.8 13.8 36.3 0 50.1-13.8 13.8-36.4 13.8-50.1 0z"
