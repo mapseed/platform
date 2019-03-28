@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+/** @jsx jsx */
+import * as React from "react";
 import PropTypes from "prop-types";
-import { NavButton } from "../molecules/buttons";
+import { jsx } from "@emotion/core";
+import Button from "@material-ui/core/Button";
 import { RegularLabel } from "../atoms/typography";
 import Downshift from "downshift";
 import styled from "@emotion/styled";
@@ -15,36 +17,6 @@ import {
   placeFormsConfigPropType,
   placeFormsConfigSelector,
 } from "../../state/ducks/forms-config";
-
-const FilterNavButton = styled(linkProps => (
-  <NavButton
-    color={"tertiary"}
-    aria-label="Filter Menu"
-    onClick={linkProps.onClick}
-    className={linkProps.className}
-  >
-    {linkProps.children}
-  </NavButton>
-))(() => ({
-  fontSize: "0.9rem",
-
-  [mq[0]]: {
-    display: "none",
-  },
-  [mq[1]]: {
-    display: "block",
-  },
-}));
-
-const CategoryFilterDropdown = styled("ul")(props => ({
-  backgroundColor: props.theme.bg.default,
-  position: "absolute",
-  maxWidth: "180px",
-  border: `4px solid ${props.theme.brand.accent}`,
-  padding: 0,
-  top: "30px",
-  marginLeft: "10px",
-}));
 
 const CategoryFilterOption = styled("li")(props => ({
   display: "flex",
@@ -92,7 +64,7 @@ const stateReducer = (state, changes) => {
   }
 };
 
-class FilterMenu extends Component {
+class FilterMenu extends React.Component {
   render() {
     const isFiltering = this.props.filters.length > 0;
 
@@ -123,14 +95,47 @@ class FilterMenu extends Component {
         }}
       >
         {({ getItemProps, getToggleButtonProps, getMenuProps, isOpen }) => (
-          <div>
-            <FilterNavButton {...getToggleButtonProps()}>
+          <div
+            role="listbox"
+            aria-label="filter menu"
+            aria-labelledby="header_filter-button"
+          >
+            <Button
+              id="header_filter-button"
+              css={theme => ({
+                fontFamily: theme.text.navBarFontFamily,
+                fontWeight: 600,
+                marginLeft: "4px",
+                marginRight: "4px",
+                fontSize: "0.9rem",
+
+                [mq[0]]: {
+                  display: "none",
+                },
+                [mq[1]]: {
+                  display: "block",
+                },
+              })}
+              onClick={this.props.onClick}
+              {...getToggleButtonProps()}
+            >
               {`${this.props.navBarItem.title}${
                 isFiltering ? " (on) ⌄" : " ⌄"
               }`}
-            </FilterNavButton>
+            </Button>
             {isOpen && (
-              <CategoryFilterDropdown {...getMenuProps()}>
+              <ul
+                css={theme => ({
+                  backgroundColor: theme.bg.default,
+                  position: "absolute",
+                  maxWidth: "180px",
+                  border: `4px solid ${theme.brand.accent}`,
+                  padding: 0,
+                  top: "30px",
+                  marginLeft: "10px",
+                })}
+                {...getMenuProps()}
+              >
                 <CategoryFilterOption
                   {...getItemProps({
                     item: {},
@@ -162,7 +167,7 @@ class FilterMenu extends Component {
                     </CategoryFilterOption>
                   );
                 })}
-              </CategoryFilterDropdown>
+              </ul>
             )}
           </div>
         )}
