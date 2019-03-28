@@ -2024,7 +2024,7 @@
             "//": "=============== FENCING ================================",
             "name": "fencing",
             "type": "big_radio",
-            "prompt": "_(Fencing: control movement of animals and/or people, including vehicles)",
+            "prompt": "_(Fencing: of springs, wetlands, or frequently flooded areas to control movement of livestock/vehicles or people)",
             "label": "_(Fencing)",
             "optional": true,
             "trigger": {

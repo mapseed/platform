@@ -50,12 +50,12 @@
     "geocode_hint": [-117.598210, 46.472103],
     "offlineBoundingBox": {
       "southWest": {
-        "lat": 46.375191,
-        "lng": -117.022911
+        "lat": 45.971808,
+        "lng": -117.882710
       },
       "northEast": {
-        "lat": 47.593241,
-        "lng": -118.79526
+        "lat": 46.714002,
+        "lng": -117.207024
       }
     },
     "options": {
@@ -1359,11 +1359,11 @@
             "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your livestock management practices.</p></div></div>"
           },
           {
-            "name": "livestock-management_no-range-management",
+            "name": "livestock-management_no-livestock-management",
             "type": "big_toggle",
             "prompt": "_( )",
             "display_prompt": "_( )",
-            "advance_stage_on_value": "no-range-management",
+            "advance_stage_on_value": "no-livestock-management",
             "content": [
               {
                 "label": "_(This section is not relevant to me. Proceed to next section.)",
@@ -1574,7 +1574,7 @@
             "//": "=============== FENCING ================================",
             "name": "fencing",
             "type": "big_radio",
-            "prompt": "_(Fencing: control movement of animals and/or people, including vehicles)",
+            "prompt": "_(Fencing: of springs, wetlands, or frequently flooded areas to control movement of livestock/vehicles or people)",
             "label": "_(Fencing)",
             "optional": true,
             "trigger": {
@@ -2018,7 +2018,7 @@
             "name": "stream_habitat_improvements",
             "type": "big_radio",
             "prompt": "_(Stream habitat improvements: structures placed instream for adult and juvenile salmonoids, such as post-assisted log structures and beaver dam analogs)",
-            "label": "_(Stream habitat improvements)",
+            "label": "_(Instream habitat projects)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
@@ -2050,7 +2050,7 @@
             "placeholder": "_(Approximate number)",
             "hidden_default": true,
             "metadata": {
-              "units": "_(improvements)"
+              "units": "_(structures)"
             }
           },
           {
@@ -2068,7 +2068,7 @@
             "name": "streambank_protections",
             "type": "big_radio",
             "prompt": "_(Streambank protections: soft streambank bioengineering to protect eroding banks)",
-            "label": "_(Stream habitat improvements)",
+            "label": "_(Streambank habitat projects)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
