@@ -2068,7 +2068,7 @@
             "name": "streambank_protections",
             "type": "big_radio",
             "prompt": "_(Streambank protections: soft streambank bioengineering to protect eroding banks)",
-            "label": "_(Streambank habitat project)",
+            "label": "_(Streambank habitat projects)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
