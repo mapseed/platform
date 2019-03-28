@@ -61,6 +61,7 @@ const IconButton = styled(props => {
   return (
     <button
       style={props.style}
+      aria-label={`${props.icon} button`}
       className={props.className}
       type="button"
       onClick={props.onClick}

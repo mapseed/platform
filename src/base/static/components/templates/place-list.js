@@ -172,7 +172,7 @@ class PlaceList extends React.Component {
       >
         {/* measures the row height when the PlaceListItem's image has finished loading: */}
         {({ measure }) => (
-          <div style={style} key={place.id}>
+          <div role="row" style={style} key={place.id}>
             <PlaceListItem
               place={place}
               onLoad={measure}

@@ -1,6 +1,8 @@
-import React from "react";
+/** @jsx jsx */
+import * as React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
+import { jsx } from "@emotion/core";
 import { Button, IconButton } from "../atoms/buttons";
 import { HeartIcon } from "../atoms/icons";
 import { SmallTitle } from "../atoms/typography";
@@ -20,22 +22,6 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import { HorizontalRule } from "../atoms/layout";
 import sharePlace from "../../utils/share-place";
-
-const PlaceContainer = styled("div")({
-  display: "flex",
-  overflow: "hidden",
-  margin: "0px 16px 16px 16px",
-  padding: "8px 0px",
-  flexDirection: "column",
-});
-
-const PlaceHeaderContainer = styled("div")({
-  display: "flex",
-  width: "100%",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-});
 
 const PlaceBodyContainer = styled("div")({
   display: "flex",
@@ -169,8 +155,26 @@ const PlaceListItem = props => {
   );
   return (
     <>
-      <PlaceContainer>
-        <PlaceHeaderContainer>
+      <div
+        role="cell"
+        css={{
+          display: "flex",
+          overflow: "hidden",
+          margin: "0px 16px 16px 16px",
+          padding: "8px 0px",
+          flexDirection: "column",
+        }}
+      >
+        <div
+          role="rowheader"
+          css={{
+            display: "flex",
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <SmallTitle>{props.place.title}</SmallTitle>
           <PlaceSocialContainer>
             <SupportText noWrap={true} textTransform="uppercase">
@@ -188,7 +192,7 @@ const PlaceListItem = props => {
               onClick={() => onSocialShare("twitter")}
             />
           </PlaceSocialContainer>
-        </PlaceHeaderContainer>
+        </div>
         <PlaceBodyContainer>
           <PlaceInfo>
             <AvatarContainer>
@@ -246,7 +250,7 @@ const PlaceListItem = props => {
             </PlaceFieldsContainer>
           </PlaceContent>
         </PlaceBodyContainer>
-      </PlaceContainer>
+      </div>
       <HorizontalRule color="light" />
     </>
   );
