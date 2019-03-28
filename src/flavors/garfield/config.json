@@ -50,12 +50,12 @@
     "geocode_hint": [-117.598210, 46.472103],
     "offlineBoundingBox": {
       "southWest": {
-        "lat": 46.375191,
-        "lng": -117.022911
+        "lat": 45.971808,
+        "lng": -117.882710
       },
       "northEast": {
-        "lat": 47.593241,
-        "lng": -118.79526
+        "lat": 46.714002,
+        "lng": -117.207024
       }
     },
     "options": {
@@ -1359,11 +1359,11 @@
             "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your livestock management practices.</p></div></div>"
           },
           {
-            "name": "livestock-management_no-range-management",
+            "name": "livestock-management_no-livestock-management",
             "type": "big_toggle",
             "prompt": "_( )",
             "display_prompt": "_( )",
-            "advance_stage_on_value": "no-range-management",
+            "advance_stage_on_value": "no-livestock-management",
             "content": [
               {
                 "label": "_(This section is not relevant to me. Proceed to next section.)",
