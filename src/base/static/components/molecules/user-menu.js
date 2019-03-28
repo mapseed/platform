@@ -1,5 +1,7 @@
-import React from "react";
+/** @jsx jsx */
+import * as React from "react";
 import PropTypes from "prop-types";
+import { jsx } from "@emotion/core";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { Link, SmallText, RegularText } from "../atoms/typography";
@@ -35,7 +37,7 @@ const MenuContainer = styled("nav")(props => ({
   },
 }));
 
-const AvatarImg = styled("img")({
+const avatarImgStyles = {
   float: "right",
   width: "2.7em",
   height: "2.6em",
@@ -53,7 +55,7 @@ const AvatarImg = styled("img")({
   [mq[1]]: {
     zIndex: "1",
   },
-});
+};
 
 const MenuButton = styled(props => {
   return (
@@ -182,7 +184,9 @@ class UserMenu extends React.Component {
           isMobileEnabled={this.props.isMobileEnabled}
         >
           {!this.props.isInMobileMode && (
-            <AvatarImg
+            <img
+              css={avatarImgStyles}
+              alt="user profile picture"
               onClick={this.props.toggleMenu}
               src={this.props.currentUser.avatar_url}
             />
