@@ -33,7 +33,7 @@ import {
 } from "../../state/ducks/left-sidebar";
 import mq from "../../../../media-queries";
 
-const SiteHeaderWrapper = styled("header")(props => ({
+const SiteHeaderWrapper = styled("div")(props => ({
   position: "relative",
   zIndex: 12,
   backgroundColor: props.theme.bg.default,
@@ -76,16 +76,6 @@ const navContainerStyles = props => ({
     marginLeft: "25px",
   },
 });
-
-const NavLinkWrapper = styled("div")(props => ({
-  [mq[0]]: {
-    textAlign: "center",
-  },
-  [mq[1]]: {
-    borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
-  },
-}));
 
 const ListToggleLink = styled(props => (
   <Link
