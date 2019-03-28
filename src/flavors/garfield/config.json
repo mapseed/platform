@@ -1574,7 +1574,7 @@
             "//": "=============== FENCING ================================",
             "name": "fencing",
             "type": "big_radio",
-            "prompt": "_(Fencing: control movement of animals and/or people, including vehicles)",
+            "prompt": "_(Fencing: of springs, wetlands, or frequently flooded areas to control movement of livestock/vehicles or people)",
             "label": "_(Fencing)",
             "optional": true,
             "trigger": {
@@ -2018,7 +2018,7 @@
             "name": "stream_habitat_improvements",
             "type": "big_radio",
             "prompt": "_(Stream habitat improvements: structures placed instream for adult and juvenile salmonoids, such as post-assisted log structures and beaver dam analogs)",
-            "label": "_(Stream habitat improvements)",
+            "label": "_(Instream habitat projects)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
@@ -2050,7 +2050,7 @@
             "placeholder": "_(Approximate number)",
             "hidden_default": true,
             "metadata": {
-              "units": "_(improvements)"
+              "units": "_(structures)"
             }
           },
           {
@@ -2068,7 +2068,7 @@
             "name": "streambank_protections",
             "type": "big_radio",
             "prompt": "_(Streambank protections: soft streambank bioengineering to protect eroding banks)",
-            "label": "_(Stream habitat improvements)",
+            "label": "_(Streambank habitat project)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
