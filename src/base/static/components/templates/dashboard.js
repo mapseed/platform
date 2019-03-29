@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+/** @jsx jsx */
+import * as React from "react";
+import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import moment from "moment";
 import "moment-timezone";
-import {
-  dashboardPlacesSelector,
-  placesPropType,
-} from "../../state/ducks/places";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { placesSelector, placesPropType } from "../../state/ducks/places";
 import {
   datasetConfigPropType,
   datasetConfigsSelector,
@@ -80,24 +82,6 @@ const DashboardWrapper = styled("div")({
   },
 });
 
-const DashboardTitle = styled(LargeTitle)({
-  marginBottom: 0,
-});
-
-const DashboardHorizontalRule = styled(HorizontalRule)({
-  marginTop: 0,
-});
-
-const OverviewWrapper = styled("div")({
-  display: "grid",
-  gridTemplateAreas: `
-    'title'
-    'link'
-    'cardsWrapper'
-  `,
-  marginBottom: "24px",
-});
-
 const CardsWrapper = styled("div")({
   gridArea: "cardsWrapper",
   display: "grid",
@@ -136,12 +120,6 @@ const Card = cardProps => {
     </CardWrapper>
   );
 };
-
-const DownloadDataLink = styled(Link)({
-  textDecoration: "none",
-  gridArea: "link",
-  marginBottom: "16px",
-});
 
 const EngagementWrapper = styled("div")({
   display: "grid",
@@ -183,14 +161,28 @@ const getDaysArray = (start, end) => {
   return arr;
 };
 
-class Dashboard extends Component {
+class Dashboard extends React.Component {
   state = {
     dashboard: this.props.dashboardConfig[0],
+    anchorEl: null,
+    places: this.props.allPlaces.filter(
+      place => place._datasetSlug === this.props.dashboardConfig[0].datasetSlug,
+    ),
   };
 
   componentDidMount() {
     if (!this.props.hasAdminAbilities(this.state.dashboard.datasetSlug)) {
       this.props.router.navigate("/", { trigger: true });
+    }
+  }
+
+  componentDidUpdate(nextProps) {
+    if (nextProps.allPlaces.length !== this.props.allPlaces.length) {
+      this.setState({
+        places: this.props.allPlaces.filter(
+          place => place._datasetSlug === this.state.dashboard.datasetSlug,
+        ),
+      });
     }
   }
 
@@ -200,8 +192,8 @@ class Dashboard extends Component {
     let minDate = moment(8640000000000000); // Sep 13, 275760
     let maxDate = moment(0); // Jan 1, 1970
     const timeZone = this.props.appConfig.time_zone;
-    const grouped = this.props.places
-      ? groupBy(this.props.places, place => {
+    const grouped = this.state.places
+      ? groupBy(this.state.places, place => {
           const date = moment(place.created_datetime);
           if (minDate > date) {
             minDate = date;
@@ -237,18 +229,36 @@ class Dashboard extends Component {
     return lineChartData;
   };
 
+  toggleDashboardDropdown = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  closeDashboardDropdown = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  selectAndCloseDashboardDropdown = newDashboardConfig => {
+    this.setState({
+      anchorEl: null,
+      dashboard: newDashboardConfig,
+      places: this.props.allPlaces.filter(
+        place => place._datasetSlug === newDashboardConfig.datasetSlug,
+      ),
+    });
+  };
+
   render() {
     const commentsCount =
-      this.props.places &&
-      this.props.places.reduce((count, place) => {
+      this.state.places &&
+      this.state.places.reduce((count, place) => {
         if (place.submission_sets.comments) {
           count += place.submission_sets.comments.length;
         }
         return count;
       }, 0);
     const supportsCount =
-      this.props.places &&
-      this.props.places.reduce((count, place) => {
+      this.state.places &&
+      this.state.places.reduce((count, place) => {
         if (place.submission_sets.support) {
           count += place.submission_sets.support.length;
         }
@@ -260,22 +270,82 @@ class Dashboard extends Component {
 
     return (
       <DashboardWrapper>
-        <DashboardTitle>{"Analytics Dashboard"}</DashboardTitle>
-        <DashboardHorizontalRule />
-        <OverviewWrapper>
-          <RegularTitle style={{ gridArea: "title" }}>Overview</RegularTitle>
-          <DownloadDataLink
+        <HorizontalRule
+          css={{
+            marginTop: 0,
+          }}
+        />
+        <div
+          css={{
+            display: "grid",
+            gridTemplateAreas: `
+              "title dashboard-dropdown"
+              "link ."
+              "cardsWrapper cardsWrapper"
+          `,
+            marginBottom: "24px",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <RegularTitle css={{ gridArea: "title" }}>Overview</RegularTitle>
+          {this.props.dashboardConfig.length > 1 && (
+            <div css={{ gridArea: "dashboard-dropdown" }}>
+              <Button
+                aria-owns={this.state.anchorEl ? "simple-menu" : undefined}
+                aria-haspopup="true"
+                onClick={this.toggleDashboardDropdown}
+                css={theme => ({
+                  fontFamily: theme.text.headerFontFamily,
+                  marginRight: "16px",
+                })}
+              >
+                View Another Dataset
+              </Button>
+              <Menu
+                id="simple-menu"
+                anchorEl={this.state.anchorEl}
+                open={Boolean(this.state.anchorEl)}
+                onClose={this.closeDashboardDropdown}
+              >
+                {this.props.dashboardConfig.map(dashboardConfig => {
+                  const dataset = this.props.datasetConfigs.find(
+                    config => config.slug === dashboardConfig.datasetSlug,
+                  );
+                  return (
+                    <MenuItem
+                      selected={
+                        dashboardConfig.datasetSlug ===
+                        this.state.dashboard.datasetSlug
+                      }
+                      key={dashboardConfig.datasetSlug}
+                      onClick={() => {
+                        this.selectAndCloseDashboardDropdown(dashboardConfig);
+                      }}
+                    >{`${dataset.clientSlug}s`}</MenuItem>
+                  );
+                })}
+              </Menu>
+            </div>
+          )}
+          <Link
+            css={theme => ({
+              textDecoration: "none",
+              gridArea: "link",
+              marginBottom: "16px",
+              fontFamily: theme.text.headerFontFamily,
+            })}
             href={`${this.props.apiRoot}${dataset.owner}/datasets/${
               dataset.slug
             }/mapseed-places.csv?format=csv&include_private_places&include_private_fields&page_size=10000`}
           >
             {`Download Submissions`}
-          </DownloadDataLink>
+          </Link>
           <CardsWrapper>
             <Card
               gridArea="card1"
               label={`${dataset.clientSlug}s`}
-              number={this.props.places ? this.props.places.length : "..."}
+              number={this.state.places ? this.state.places.length : "..."}
             />
             <Card
               gridArea="card2"
@@ -288,7 +358,7 @@ class Dashboard extends Component {
               number={supportsCount ? supportsCount : "..."}
             />
           </CardsWrapper>
-        </OverviewWrapper>
+        </div>
         <EngagementWrapper>
           <RegularTitle>Engagement</RegularTitle>
           <LineChart
@@ -325,7 +395,7 @@ class Dashboard extends Component {
                 the label from our form field display using a more
                 sensible form datastructure */}
                 <PieChart
-                  places={this.props.places}
+                  places={this.state.places}
                   category="ward"
                   getLabelFromCategory={category => {
                     const firstLetter = category.charAt(0).toUpperCase();
@@ -341,7 +411,7 @@ class Dashboard extends Component {
               <CategoriesWrapper>
                 <ChartTitle>Categories</ChartTitle>
                 <PieChart
-                  places={this.props.places}
+                  places={this.state.places}
                   category="location_type"
                   getLabelFromCategory={category =>
                     this.props.placeFormsConfig.find(
@@ -358,7 +428,7 @@ class Dashboard extends Component {
                 <DemographicsBarChart
                   barFillColor={BLUE}
                   formFieldsConfig={this.props.formFieldsConfig}
-                  places={this.props.places}
+                  places={this.state.places}
                 />
               </DemographicsWrapper>
             )}
@@ -375,7 +445,7 @@ Dashboard.propTypes = {
   apiRoot: PropTypes.string,
   hasAdminAbilities: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
-  places: placesPropType,
+  allPlaces: placesPropType,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   formFieldsConfig: formFieldsConfigPropType,
   datasetConfigs: datasetConfigPropType,
@@ -384,7 +454,7 @@ Dashboard.propTypes = {
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
-  places: dashboardPlacesSelector(state),
+  allPlaces: placesSelector(state),
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),
   formFieldsConfig: formFieldsConfigSelector(state),
