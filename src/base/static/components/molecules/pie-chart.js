@@ -2,24 +2,19 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import groupBy from "lodash.groupby";
 import { placesPropType } from "../../state/ducks/places";
-import { placeFormsConfigPropType } from "../../state/ducks/forms-config";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 
 class CategoriesPieChart extends Component {
   getPieChartData = () => {
     const grouped = this.props.places
-      ? groupBy(this.props.places, place => place.location_type)
+      ? groupBy(this.props.places, place => place[this.props.category])
       : {};
     // NOTE: location_type and form id are the same thing,
     // also category and form label are also the same thing
-    const pieChartData = Object.entries(grouped).map(
-      ([locationType, places]) => ({
-        category: this.props.placeFormsConfig.find(
-          form => form.id === locationType,
-        ).label,
-        count: places.length,
-      }),
-    );
+    const pieChartData = Object.entries(grouped).map(([category, places]) => ({
+      category: this.props.getLabelFromCategory(category),
+      count: places.length,
+    }));
     return pieChartData;
   };
 
@@ -59,8 +54,9 @@ class CategoriesPieChart extends Component {
 
 CategoriesPieChart.propTypes = {
   places: placesPropType,
-  placeFormsConfig: placeFormsConfigPropType.isRequired,
+  getLabelFromCategory: PropTypes.func.isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default CategoriesPieChart;

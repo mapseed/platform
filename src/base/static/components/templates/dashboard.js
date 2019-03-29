@@ -7,6 +7,10 @@ import {
   placesPropType,
 } from "../../state/ducks/places";
 import {
+  datasetConfigPropType,
+  datasetConfigsSelector,
+} from "../../state/ducks/datasets-config";
+import {
   dashboardConfigSelector,
   dashboardConfigPropType,
 } from "../../state/ducks/dashboard-config";
@@ -30,7 +34,7 @@ import {
   LargeLabel,
   ExtraLargeLabel,
 } from "../atoms/typography";
-import CategoriesPieChart from "../molecules/categories-pie-chart";
+import PieChart from "../molecules/pie-chart";
 import DemographicsBarChart from "../molecules/demographics-bar-chart";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
@@ -149,6 +153,7 @@ const SurveyWrapper = styled("div")({
   gridTemplateRows: "max-content",
   gridTemplateAreas: `
                     'title'
+                    'wards'
                     'categories'
                     'demographics'
                 `,
@@ -157,6 +162,10 @@ const ChartTitle = styled(SmallTitle)({
   margin: "0 auto 0 auto",
   textAlign: "center",
 });
+const WardsWrapper = styled("div")({
+  gridArea: "wards",
+});
+
 const CategoriesWrapper = styled("div")({
   gridArea: "categories",
 });
@@ -175,8 +184,12 @@ const getDaysArray = (start, end) => {
 };
 
 class Dashboard extends Component {
+  state = {
+    dashboard: this.props.dashboardConfig[0],
+  };
+
   componentDidMount() {
-    if (!this.props.hasAdminAbilities(this.props.dashboardConfig.datasetId)) {
+    if (!this.props.hasAdminAbilities(this.state.dashboard.datasetSlug)) {
       this.props.router.navigate("/", { trigger: true });
     }
   }
@@ -241,7 +254,9 @@ class Dashboard extends Component {
         }
         return count;
       }, 0);
-    const datasetLabel = this.props.dashboardConfig.datasetLabel;
+    const dataset = this.props.datasetConfigs.find(
+      config => config.slug === this.state.dashboard.datasetSlug,
+    );
 
     return (
       <DashboardWrapper>
@@ -250,18 +265,16 @@ class Dashboard extends Component {
         <OverviewWrapper>
           <RegularTitle style={{ gridArea: "title" }}>Overview</RegularTitle>
           <DownloadDataLink
-            href={`${this.props.apiRoot}${
-              this.props.dashboardConfig.datasetOwner
-            }/datasets/${
-              this.props.dashboardConfig.datasetId
+            href={`${this.props.apiRoot}${dataset.owner}/datasets/${
+              dataset.slug
             }/mapseed-places.csv?format=csv&include_private_places&include_private_fields&page_size=10000`}
           >
-            {`Download Survey Data`}
+            {`Download Submissions`}
           </DownloadDataLink>
           <CardsWrapper>
             <Card
               gridArea="card1"
-              label={`${datasetLabel}s`}
+              label={`${dataset.clientSlug}s`}
               number={this.props.places ? this.props.places.length : "..."}
             />
             <Card
@@ -288,7 +301,7 @@ class Dashboard extends Component {
               <Label value="Date" position="bottom" />
             </XAxis>
             <YAxis>
-              <Label value={`Number of ${datasetLabel}s`} angle={-90} />
+              <Label value={`Number of ${dataset.clientSlug}s`} angle={-90} />
             </YAxis>
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
@@ -300,21 +313,46 @@ class Dashboard extends Component {
             />
           </LineChart>
         </EngagementWrapper>
-        {this.props.dashboardConfig.surveyMetrics && (
+        {this.state.dashboard.surveyMetrics && (
           <SurveyWrapper>
             <RegularTitle style={{ gridArea: "title" }}>Survey</RegularTitle>
             {/* TODO: Make these charts more data-driven. Right now, they are hard coded for durham */}
-            {this.props.dashboardConfig.surveyMetrics.categories && (
+            {this.state.dashboard.surveyMetrics.wards && (
+              <WardsWrapper>
+                <ChartTitle>Wards</ChartTitle>
+
+                {/* getLabelFromCategory is hacked until we can get
+                the label from our form field display using a more
+                sensible form datastructure */}
+                <PieChart
+                  places={this.props.places}
+                  category="ward"
+                  getLabelFromCategory={category => {
+                    const firstLetter = category.charAt(0).toUpperCase();
+                    return `${firstLetter}${category
+                      .replace("_", " ")
+                      .slice(1)}`;
+                  }}
+                  colors={COLORS}
+                />
+              </WardsWrapper>
+            )}
+            {this.state.dashboard.surveyMetrics.categories && (
               <CategoriesWrapper>
                 <ChartTitle>Categories</ChartTitle>
-                <CategoriesPieChart
+                <PieChart
                   places={this.props.places}
-                  placeFormsConfig={this.props.placeFormsConfig}
+                  category="location_type"
+                  getLabelFromCategory={category =>
+                    this.props.placeFormsConfig.find(
+                      form => form.id === category,
+                    ).label
+                  }
                   colors={COLORS}
                 />
               </CategoriesWrapper>
             )}
-            {this.props.dashboardConfig.surveyMetrics.demographics && (
+            {this.state.dashboard.surveyMetrics.demographics && (
               <DemographicsWrapper>
                 <ChartTitle>Demographics</ChartTitle>
                 <DemographicsBarChart
@@ -340,6 +378,7 @@ Dashboard.propTypes = {
   places: placesPropType,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   formFieldsConfig: formFieldsConfigPropType,
+  datasetConfigs: datasetConfigPropType,
 };
 
 const mapStateToProps = state => ({
@@ -349,6 +388,7 @@ const mapStateToProps = state => ({
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),
   formFieldsConfig: formFieldsConfigSelector(state),
+  datasetConfigs: datasetConfigsSelector(state),
 });
 
 export default connect(mapStateToProps)(Dashboard);
