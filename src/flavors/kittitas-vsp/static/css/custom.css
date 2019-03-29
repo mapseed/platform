@@ -8,6 +8,10 @@ body {
   font-family: Raleway, sans-serif !important;
 }
 
+header {
+  border-top: 3px solid #ef5f46;
+}
+
 /* =Input Form
 -------------------------------------------------------------- */
 .input-form__field-container {
@@ -191,7 +195,7 @@ input[type="number"],
 -------------------------------------------------------------- */
 
 .next-btn {
-  background-color: #e57c04 !important;
+  background-color: #115588 !important;
   border-radius: 3px !important;
   float: right !important;
   outline: none !important;
@@ -202,6 +206,6 @@ input[type="number"],
   margin-left: 10px !important;
 
   &:hover {
-    background-color: #ff6201 !important;
+    background-color: #9fbbcf !important;
   }
 }

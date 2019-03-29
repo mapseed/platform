@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/garfield-input",
-      "slug": "garfield-input",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/kittitas-vsp-input",
+      "slug": "kittitas-vsp-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -13,8 +13,8 @@
     }
   ],
   "app": {
-    "title": "Garfield County Voluntary Stewardship Program",
-    "name": "Garfield County Voluntary Stewardship Program",
+    "title": "Kittitas County Voluntary Stewardship Program",
+    "name": "Kittitas County Voluntary Stewardship Program",
     "logo": "/static/css/images/logo.png",
     "meta_description": "_(Welcome!)",
     "meta_author": "mapseed.org",
@@ -22,14 +22,14 @@
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {
-        "primary": "#e57c04",
+        "primary": "#115588",
         "secondary": "#d46c4c",
         "tertiary": "#999",
-        "accent": "#ff6201"
+        "accent": "#ef5f46"
       },
       "bg": {
-        "default": "#fff8ea",
-        "light": "#ff6201"
+        "default": "#fff",
+        "light": "#115588"
       },
       "text": {
         "secondary": "#fff",
@@ -38,8 +38,8 @@
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
-        "addPlaceButtonBackgroundColor": "#e57c04",
-        "addPlaceButtonHoverBackgroundColor": "#ff6201"
+        "addPlaceButtonBackgroundColor": "#115588",
+        "addPlaceButtonHoverBackgroundColor": "#9ecaeb"
       }
     }
   },
@@ -47,23 +47,23 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "geocoding_engine": "Mapbox",
-    "geocode_hint": [-117.598210, 46.472103],
+    "geocode_hint": [-117.59821, 46.472103],
     "offlineBoundingBox": {
       "southWest": {
-        "lat": 45.971808,
-        "lng": -117.882710
+        "lat": 46.709206,
+        "lng": -121.476997
       },
       "northEast": {
-        "lat": 46.714002,
-        "lng": -117.207024
+        "lat": 47.633585,
+        "lng": -119.891353
       }
     },
     "options": {
       "scrollZoomAroundCenter": true,
       "mapViewport": {
-        "latitude": 46.38856,
-        "longitude": -117.55455,
-        "zoom": 8.3,
+        "latitude": 47.18554,
+        "longitude": -120.72226,
+        "zoom": 7.95,
         "pitch": 15,
         "minZoom": 1,
         "maxZoom": 18
@@ -92,59 +92,15 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
-      "garfield-critical-aquifer": {
+      "kittitas-landcover": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-critical-aquifer/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-landcover/{z}/{x}/{y}.pbf"
         ]
       },
-      "garfield-wildlife": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-wildlife/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "garfield-watersheds": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-watersheds/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "garfield-frequently-flooded": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-frequently-flooded/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "palouse-huc-12": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/palouse-huc-12/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "garfield-wetlands": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-wetlands/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "garfield-geologic-hazard": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-geologic-hazard/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "garfield-salmon-steelhead-habitat": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-salmon-steelhead-habitat/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "garfield-county-outline": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/garfield-county-outline/{z}/{x}/{y}.pbf"
-        ]
+      "kittitas-county-outline": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/bf2498852e614bc1a918ec562150a06b_0.geojson"
       }
     },
 
@@ -224,227 +180,42 @@
         ]
       },
       {
-        "id": "garfield-county-outline",
+        "id": "kittitas-county-outline",
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "garfield-county-outline",
+            "id": "kittitas-county-outline",
             "type": "line",
-            "source": "garfield-county-outline",
-            "source-layer": "garfield-county-outline",
+            "source": "kittitas-county-outline",
+            "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
             "paint": {
               "line-color": "#fff",
               "line-width": 3,
-              "line-dasharray": [4, 2]
+              "line-dasharray": [2, 2]
             }
           }
         ]
       },
       {
-        "id": "garfield-critical-aquifer",
+        "id": "kittitas-geologic-hazard",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "garfield-critical-aquifer",
+            "id": "kittitas-geologic-hazard",
             "type": "fill",
-            "source": "garfield-critical-aquifer",
-            "source-layer": "garfield-critical-aquifer",
-            "paint": {
-              "fill-pattern": "aquifer-fill.png"
-            }
-          },
-          {
-            "id": "garfield-critical-aquifer-outline",
-            "type": "line",
-            "source": "garfield-critical-aquifer",
-            "source-layer": "garfield-critical-aquifer",
-            "paint": {
-              "line-color": "#e57339",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "garfield-salmon-steelhead-habitat",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "garfield-salmon-steelhead-habitat",
-            "type": "line",
-            "source": "garfield-salmon-steelhead-habitat",
-            "source-layer": "garfield-salmon-steelhead-habitat",
-            "paint": {
-              "line-color": "#00ccff",
-              "line-width": 3
-            },
-            "layout": {
-              "line-join": "round"
-            }
-          }
-        ]
-      },
-      {
-        "id": "garfield-wildlife",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "garfield-wildlife",
-            "type": "fill",
-            "source": "garfield-wildlife",
-            "source-layer": "garfield-wildlife",
-            "paint": {
-              "fill-pattern": "conservation-fill.png"
-            }
-          },
-          {
-            "id": "garfield-wildlife-outline",
-            "type": "line",
-            "source": "garfield-wildlife",
-            "source-layer": "garfield-wildlife",
-            "paint": {
-              "line-color": "#10e53d",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "garfield-frequently-flooded",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "garfield-frequently-flooded",
-            "type": "fill",
-            "source": "garfield-frequently-flooded",
-            "source-layer": "garfield-frequently-flooded",
-            "paint": {
-              "fill-pattern": "frequently-flooded-fill.png"
-            }
-          },
-          {
-            "id": "garfield-frequently-flooded-outline",
-            "type": "line",
-            "source": "garfield-frequently-flooded",
-            "source-layer": "garfield-frequently-flooded",
-            "paint": {
-              "line-color": "#3366ff",
-              "line-opacity": 0.7,
-              "line-width": 2
-            }
-          }
-        ]
-      },
-      {
-        "id": "garfield-watersheds",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "garfield-watersheds",
-            "type": "fill",
-            "source": "garfield-watersheds",
-            "source-layer": "garfield-watersheds",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "match",
-                ["get", "Name"],
-                "Pataha Watershed",
-                "#fcb4ae",
-                "Tumalum Watershed",
-                "#b3cde3",
-                "Alpowa Watershed",
-                "#ccecc5",
-                "Dry Gulch",
-                "#decce4",
-                "New York Gulch",
-                "#fed9a6",
-                "Snake River Drainage",
-                "#fddaec",
-                "Deadman Watershed",
-                "#ffffcc",
-                "Meadow Creek",
-                "#e6d9bd",
-                "#fff"
-              ]
-            }
-          },
-          {
-            "id": "garfield-watersheds-outline",
-            "type": "line",
-            "source": "garfield-watersheds",
-            "source-layer": "garfield-watersheds",
-            "paint": {
-              "line-color": "#999",
-              "line-width": 2
-            }
-          },
-          {
-            "id": "garfield-watersheds-labels",
-            "type": "symbol",
-            "source": "garfield-watersheds",
-            "source-layer": "garfield-watersheds",
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1,
-              "text-color": "#222"
-            },
-            "layout": {
-              "text-field": ["get", "Name"],
-              "text-size": 12,
-              "text-max-width": 6
-            }
-          }
-        ]
-      },
-      {
-        "id": "garfield-wetlands",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "garfield-wetlands",
-            "type": "fill",
-            "source": "garfield-wetlands",
-            "source-layer": "garfield-wetlands",
-            "paint": {
-              "fill-pattern": "wetlands-fill.png"
-            }
-          },
-          {
-            "id": "garfield-wetlands-outline",
-            "type": "line",
-            "source": "garfield-wetlands",
-            "source-layer": "garfield-wetlands",
-            "paint": {
-              "line-color": "#10e53d",
-              "line-opacity": 0.7,
-              "line-width": 2
-            }
-          }
-        ]
-      },
-      {
-        "id": "garfield-geologic-hazard",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "garfield-geologic-hazard",
-            "type": "fill",
-            "source": "garfield-geologic-hazard",
-            "source-layer": "garfield-geologic-hazard",
-            "filter": ["==", ["get", "forpehrtdc"], "Severe"],
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
             "paint": {
               "fill-pattern": "hazard-fill.png"
             }
           },
           {
-            "id": "garfield-geologic-hazard-outline",
+            "id": "kittitas-geologic-hazard-outline",
             "type": "line",
-            "source": "garfield-geologic-hazard",
-            "source-layer": "garfield-geologic-hazard",
-            "filter": ["==", ["get", "forpehrtdc"], "Severe"],
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
             "paint": {
               "line-color": "#e80f0f",
               "line-width": 2,
@@ -454,15 +225,115 @@
         ]
       },
       {
-        "id": "garfield-input",
+        "id": "kittitas-wetlands",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-wetlands",
+            "type": "fill",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": ["==", ["to-number", ["get", "RIPR_WET"]], 1],
+            "paint": {
+              "fill-pattern": "wetlands-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-wetlands-outline",
+            "type": "line",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": ["==", ["to-number", ["get", "RIPR_WET"]], 1],
+            "paint": {
+              "line-color": "#10e53d",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-frequently-flooded",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-frequently-flooded",
+            "type": "fill",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": ["==", ["to-number", ["get", "CT"]], 39],
+            "paint": {
+              "fill-pattern": "frequently-flooded-fill.png"
+            }
+          },
+          {
+            "id": "garfield-frequently-flooded-outline",
+            "type": "line",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": ["==", ["to-number", ["get", "CT"]], 39],
+            "paint": {
+              "line-color": "#3366ff",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-wildlife",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-wildlife",
+            "type": "fill",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [
+              "any",
+              ["==", ["to-number", ["get", "AM_HAB"]], 1],
+              ["==", ["to-number", ["get", "NG_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
+            ],
+            "paint": {
+              "fill-pattern": "conservation-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-wildlife-outline",
+            "type": "line",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [
+              "any",
+              ["==", ["to-number", ["get", "AM_HAB"]], 1],
+              ["==", ["to-number", ["get", "NG_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
+            ],
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-vsp-input",
         "visibleDefault": true,
         "interactive": true,
-        "datasetSlug": "garfield-input",
+        "datasetSlug": "kittitas-vsp-input",
         "mapboxFocusedLayers": [
           {
-            "id": "garfield-input-focused",
+            "id": "kittitas-vsp-input-focused",
             "type": "symbol",
-            "source": "garfield-input",
+            "source": "kittitas-vsp-input",
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
@@ -479,9 +350,9 @@
         ],
         "mapboxLayers": [
           {
-            "id": "garfield-input",
+            "id": "kittitas-vsp-input",
             "type": "symbol",
-            "source": "garfield-input",
+            "source": "kittitas-vsp-input",
             "layout": {
               "icon-anchor": "bottom",
               "icon-image": "map-pin-marker-red.png",
@@ -533,32 +404,20 @@
                 "title": "_(Snake River)"
               },
               {
-                "id": "garfield-critical-aquifer",
-                "title": "_(Critical Aquifers)"
-              },
-              {
-                "id": "garfield-wildlife",
-                "title": "_(Fish & Wildlife Habitat (PHS))"
-              },
-              {
-                "id": "garfield-frequently-flooded",
-                "title": "_(Frequently Flooded Areas)"
-              },
-              {
-                "id": "garfield-wetlands",
-                "title": "_(Wetlands)"
-              },
-              {
-                "id": "garfield-geologic-hazard",
+                "id": "kittitas-geologic-hazard",
                 "title": "_(Geologic Hazards)"
               },
               {
-                "id": "garfield-salmon-steelhead-habitat",
-                "title": "_(Salmon & Steelhead Habitat)"
+                "id": "kittitas-wetlands",
+                "title": "_(Wetlands)"
               },
               {
-                "id": "garfield-watersheds",
-                "title": "_(Watersheds)"
+                "id": "kittitas-frequently-flooded",
+                "title": "_(Frequently Flooded Areas)"
+              },
+              {
+                "id": "kittitas-wildlife",
+                "title": "_(Wildlife Habitat)"
               }
             ]
           },
@@ -567,11 +426,11 @@
             "title": "_(Community Data)",
             "layerGroups": [
               {
-                "id": "garfield-county-outline",
-                "title": "_(Garfield County border)"
+                "id": "kittitas-county-outline",
+                "title": "_(Kittitas County border)"
               },
               {
-                "id": "garfield-input",
+                "id": "kittitas-vsp-input",
                 "title": "_(Community Reports)"
               }
             ]
@@ -596,7 +455,7 @@
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "datasetSlug": "garfield-input",
+        "datasetSlug": "kittitas-vsp-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "value": "demo",
         "multi_stage": [
@@ -607,8 +466,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           },
           {
@@ -618,7 +477,7 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-county-outline",
+              "kittitas-county-outline",
               "garfield-watersheds"
             ]
           },
@@ -630,7 +489,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "garfield-wetlands",
-              "garfield-county-outline"
+              "kittitas-county-outline"
             ]
           },
           {
@@ -641,7 +500,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "garfield-salmon-steelhead-habitat",
-              "garfield-county-outline"
+              "kittitas-county-outline"
             ]
           },
           {
@@ -652,7 +511,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "garfield-wildlife",
-              "garfield-county-outline"
+              "kittitas-county-outline"
             ]
           },
           {
@@ -663,7 +522,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "garfield-critical-aquifer",
-              "garfield-county-outline"
+              "kittitas-county-outline"
             ]
           },
           {
@@ -674,7 +533,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "garfield-geologic-hazard",
-              "garfield-county-outline"
+              "kittitas-county-outline"
             ]
           },
           {
@@ -685,7 +544,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "garfield-frequently-flooded",
-              "garfield-county-outline"
+              "kittitas-county-outline"
             ]
           },
           {
@@ -695,8 +554,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           },
           {
@@ -706,8 +565,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           },
           {
@@ -717,8 +576,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           },
           {
@@ -728,8 +587,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           },
           {
@@ -739,8 +598,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           },
           {
@@ -750,8 +609,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           },
           {
@@ -761,8 +620,8 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "garfield-input",
-              "garfield-county-outline"
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
             ]
           }
         ],
@@ -2237,7 +2096,7 @@
     "places": [
       {
         "id": "reports",
-        "datasetId": "garfield-input",
+        "datasetId": "kittitas-vsp-input",
         "label": "_(Actions)",
         "icon": "/static/css/images/markers/map-pin-marker-red.png"
       }
@@ -2257,11 +2116,6 @@
       "type": "internal_link",
       "url": "/page/about",
       "start_page": true
-    },
-    {
-      "title": "_(VSP Assistance)",
-      "type": "internal_link",
-      "url": "/page/assistance"
     }
   ],
   "pages": [
@@ -2304,13 +2158,9 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Garfield County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
-        "<img src='/static/css/images/garfield-county-2.jpg' alt='Rolling hills, Garfield County' style='margin:8px 0 16px 0' />",
-        "<p>Garfield County Voluntary Stewardship Program (VSP) provides an innovative approach for reporting the protection of critical areas on agriculture lands that enhance our environment through voluntary measures, while promoting agriculture viability. VSP voluntarily collects previous and on-going stewardship data from all interested landowners, which helps document VSP participation and the importance of agriculture viability.</p>",
-        "<p>Visit <a href='http://www.garfieldcountyvsp.com' target='_blank'>www.garfieldcountyvsp.com</a> for more information",
-        "<p><strong>Help promote Garfield County agriculture by sharing stewardship strategies!</strong></p>",
-        "<p><strong>VSP success relies on voluntary participation by landowners!</strong></p>",
-        "<p style='margin-bottom:16px'><strong>Garfield County VSP appreciates your time sharing stewardship practices!</strong></p>",
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<img src='/static/css/images/kccd-group.jpg' alt='KCCD' style='margin:8px 0 16px 0' />",
+        "<p>The Kittitas County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
         "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
