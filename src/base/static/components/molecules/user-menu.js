@@ -193,9 +193,9 @@ class UserMenu extends React.Component {
           )}
           <Menu isMenuOpen={this.props.isMenuOpen} isLoggedIn={true}>
             <MenuItem onClick={this.props.toggleMenu}>
-              {this.props.dashboardConfig &&
+              {this.props.dashboardConfig.length &&
                 this.props.hasAdminAbilities(
-                  this.props.dashboardConfig.datasetId,
+                  this.props.dashboardConfig[0].datasetSlug,
                 ) && (
                   <Link rel="internal" href={isDashboard ? "/" : "/dashboard"}>
                     {isDashboard ? "back to map" : `go to dashboard`}

@@ -3,6 +3,7 @@
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
       "slug": "pbdurham",
+      "owner": "smartercleanup",
       "clientSlug": "idea",
       "anonymous_permissions": [
         {
@@ -18,6 +19,7 @@
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
+      "owner": "smartercleanup",
       "clientSlug": "project",
       "anonymous_permissions": [
         {
@@ -68,15 +70,21 @@
       }
     ]
   },
-  "dashboard": {
-    "datasetId": "pbdurham",
-    "datasetOwner": "smartercleanup",
-    "datasetLabel": "idea",
-    "surveyMetrics": {
-      "categories": true,
-      "demographics": true
+  "dashboard": [
+    {
+      "datasetSlug": "pbdurham-projects",
+      "surveyMetrics": {
+        "wards": true
+      }
+    },
+    {
+      "datasetSlug": "pbdurham",
+      "surveyMetrics": {
+        "categories": true,
+        "demographics": true
+      }
     }
-  },
+  ],
   "map": {
     "geolocation_enabled": true,
     "geocoding_bar_enabled": true,

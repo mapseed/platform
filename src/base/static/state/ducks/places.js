@@ -30,14 +30,6 @@ export const placesLoadStatusSelector = state => {
 export const placesSelector = state => {
   return state.places.placeModels;
 };
-export const dashboardPlacesSelector = state => {
-  if (!state.places.placeModels) {
-    return state.places.placeModels;
-  }
-  return state.places.placeModels.filter(
-    place => place.datasetId === state.dashboardConfig.datasetId,
-  );
-};
 
 export const filteredPlacesSelector = state => {
   const filters = state.filters;

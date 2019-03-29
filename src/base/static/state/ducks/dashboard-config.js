@@ -4,10 +4,17 @@ export const dashboardConfigSelector = state => {
   return state.dashboardConfig;
 };
 
-export const dashboardConfigPropType = PropTypes.shape({
-  dastasetId: PropTypes.string,
-  datasetOwner: PropTypes.string,
-});
+export const dashboardConfigPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    dastasetId: PropTypes.string,
+    datasetOwner: PropTypes.string,
+    surveyMetrics: PropTypes.shape({
+      categories: PropTypes.bool,
+      demographics: PropTypes.bool,
+      wards: PropTypes.bool,
+    }),
+  }),
+);
 
 // Actions:
 const LOAD = "dashboard-config/LOAD";
@@ -17,7 +24,7 @@ export function loadDashboardConfig(dashboardConfig) {
   return { type: LOAD, payload: dashboardConfig };
 }
 
-const INITIAL_STATE = null;
+const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

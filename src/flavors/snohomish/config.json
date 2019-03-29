@@ -51,11 +51,11 @@
       }
     }
   },
-  "dashboard": {
-    "datasetId": "snohomish-input",
-    "datasetLabel": "project",
-    "datasetOwner": "smartercleanup"
-  },
+  "dashboard": [
+    {
+      "datasetSlug": "snohomish-input"
+    }
+  ],
   "map": {
     "geolocation_enabled": true,
     "geocoding_engine": "Mapbox",
@@ -2231,13 +2231,13 @@
     "places": [
       {
         "id": "featured_place",
-        "datasetId": "snohomish-featured",
+        "datasetSlug": "snohomish-featured",
         "label": "_(Featured Site)",
         "icon": "/static/css/images/markers/map-pin-star-marker.png"
       },
       {
         "id": "conservation-actions",
-        "datasetId": "snohomish-input",
+        "datasetSlug": "snohomish-input",
         "label": "_(Conservation Actions)",
         "icon": "/static/css/images/markers/map-pin-marker.png"
       }
