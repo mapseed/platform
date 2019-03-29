@@ -51,11 +51,11 @@
       }
     }
   },
-  "dashboard": {
-    "datasetId": "snohomish-input",
-    "datasetLabel": "project",
-    "datasetOwner": "smartercleanup"
-  },
+  "dashboard": [
+    {
+      "datasetSlug": "snohomish-input"
+    }
+  ],
   "map": {
     "geolocation_enabled": true,
     "geocoding_engine": "Mapbox",
