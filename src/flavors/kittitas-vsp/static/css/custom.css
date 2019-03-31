@@ -1,0 +1,207 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+body {
+  font-family: Raleway, sans-serif !important;
+}
+
+header {
+  border-top: 3px solid #ef5f46;
+}
+
+/* =Input Form
+-------------------------------------------------------------- */
+.input-form__field-container {
+  padding: 16px !important;
+}
+
+.input-form__field-container[data-field-type="datetime"],
+.input-form__field-container[data-field-name="my_image"],
+.input-form__field-container[data-field-type="big_toggle"],
+.input-form__field-container[data-field-type="big_radio"] {
+  background-color: #efefef !important;
+  margin-top: 15px !important;
+  margin-bottom: 0 !important;
+  box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75) !important;
+}
+
+.input-form__field-container[data-field-type="geocoding"],
+.input-form__field-container[data-field-type="textarea"],
+.input-form__field-container[data-field-name="drag_map_info"],
+.input-form__field-container[data-field-type="geolocate"] {
+  background-color: #efefef !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75) !important;
+}
+
+.input-form__field-container[data-field-name="private-landowner_email"],
+.input-form__field-container[data-field-name="private-landowner_name"],
+.input-form__field-container[data-field-name="private-landowner_phone"] {
+  margin-top: 15px !important;
+}
+
+.input-form__field-container[data-field-type="geolocate"] {
+  button {
+    background-color: #efefef !important;
+  }
+}
+
+.geocoding-field__do-geocode-icon:before {
+  color: #ef5f46 !important;
+}
+
+.input-form__field-container[data-field-type="informational_html"] {
+  padding: 0 !important;
+}
+
+.input-form__field-prompt {
+  color: #444 !important;
+  font-size: 1.15em !important;
+  font-weight: 900 !important;
+}
+
+.form-stage-header-bar {
+  display: none !important;
+}
+
+.input-form__field-container[data-field-type="number"],
+.input-form__field-container[data-field-type="text"] {
+  background-color: #efefef !important;
+  box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75) !important;
+}
+
+.input-form__field-container[data-field-type="datetime"] {
+  margin-top: -15px !important;
+}
+
+.big-toggle-field__label,
+.big-radio-field__label {
+  margin-top: 0 !important;
+  border: none !important;
+  color: #36454f !important;
+  line-height: 1.4em !important;
+  min-height: 30px !important;
+  background-color: #efefef !important;
+  overflow: hidden !important;
+}
+
+.textarea-field,
+.text-field,
+input[type="number"],
+.datetime-field__input {
+  border-color: #999999 !important;
+  border-width: 4px !important;
+}
+
+.geocoding-field__input {
+  background-color: #fff !important;
+  border: 4px solid #999999 !important;
+}
+
+.big-toggle-field__label--hoverable:hover:before,
+.big-radio-field__label--hoverable:hover:before {
+  text-indent: 0.5em !important;
+  color: #999999 !important;
+}
+
+.big-toggle-field,
+.big-radio-field {
+  margin-right: 24px !important;
+  margin-top: 8px !important;
+}
+
+.big-toggle-field__label:before,
+.big-radio-field__label:before {
+  max-height: 2em !important;
+  top: 50% !important;
+  transform: translate(0, -50%) !important;
+  height: 2.5em !important;
+  background-color: #efefef !important;
+  border: 4px solid #999999 !important;
+  width: 2em !important;
+  text-indent: 0.5em !important;
+}
+
+.datetime-field__label-ongoing:before {
+  background-color: #efefef !important;
+  border: 4px solid #999999 !important;
+}
+
+.datetime-field__label-ongoing--toggled:before {
+  background-color: #999999 !important;
+  color: #fff !important;
+}
+
+.datetime-field__label-ongoing--hoverable:hover:before {
+  color: #999999 !important;
+}
+
+.big-radio-field__label--toggled.big-radio-field__label--hoverable:hover:before,
+.big-toggle-field__label--toggled.big-toggle-field__label--hoverable:hover:before,
+.datetime-field__label-ongoing--toggled.datetime-field__label-ongoing--hoverable:hover:before {
+  color: #fff !important;
+}
+
+.big-toggle-field__label--toggled:before,
+.big-radio-field__label--toggled:before {
+  background-color: #999999 !important;
+}
+
+.datetime-field {
+  border-color: #999999 !important;
+}
+
+.input-form__optional-msg {
+  display: none !important;
+}
+
+.form-stage-control-bar {
+  background: none !important;
+}
+
+.mapseed__progress-bar {
+  background-color: #fff !important;
+}
+
+.mapseed__progress-bar-inner {
+  background-color: #ef5f46 !important;
+}
+
+.mapseed__link--color-primary {
+  background-color: #02440b !important;
+}
+
+.mapseed__link--color-primary:hover {
+  color: #999999 !important;
+}
+
+.mapseed__link--disabled:hover {
+  color: #ccc !important;
+}
+
+.mapseed__progress-bar {
+  background-color: #efefef !important;
+}
+
+/* =Custom Pages
+-------------------------------------------------------------- */
+
+.next-btn {
+  background-color: #115588 !important;
+  border-radius: 3px !important;
+  float: right !important;
+  outline: none !important;
+  border: none !important;
+  text-transform: uppercase !important;
+  color: #fff !important;
+  padding: 0.5em !important;
+  margin-left: 10px !important;
+
+  &:hover {
+    background-color: #9fbbcf !important;
+  }
+}
