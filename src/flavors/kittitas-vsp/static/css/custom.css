@@ -51,7 +51,7 @@ header {
 }
 
 .geocoding-field__do-geocode-icon:before {
-  color: #e57c04 !important;
+  color: #ef5f46 !important;
 }
 
 .input-form__field-container[data-field-type="informational_html"] {
@@ -168,7 +168,7 @@ input[type="number"],
 }
 
 .mapseed__progress-bar-inner {
-  background-color: #40becd !important;
+  background-color: #ef5f46 !important;
 }
 
 .mapseed__link--color-primary {
@@ -185,10 +185,6 @@ input[type="number"],
 
 .mapseed__progress-bar {
   background-color: #efefef !important;
-}
-
-.mapseed__progress-bar-inner {
-  background-color: #ff6201 !important;
 }
 
 /* =Custom Pages
