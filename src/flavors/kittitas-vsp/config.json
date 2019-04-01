@@ -104,6 +104,12 @@
           "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
         ]
       },
+      "kittitas-wetlands": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-wetlands/{z}/{x}/{y}.pbf"
+        ]
+      },
       "kittitas-floodplain": {
         "type": "geojson",
         "data": "https://opendata.arcgis.com/datasets/42e5edd4c38d4559b7bb4caa10cdd8d2_2.geojson"
@@ -267,9 +273,8 @@
           {
             "id": "kittitas-wetlands",
             "type": "fill",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": ["==", ["to-number", ["get", "RIPR_WET"]], 1],
+            "source": "kittitas-wetlands",
+            "source-layer": "kittitas-wetlands",
             "paint": {
               "fill-pattern": "wetlands-fill.png"
             }
@@ -277,9 +282,8 @@
           {
             "id": "kittitas-wetlands-outline",
             "type": "line",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": ["==", ["to-number", ["get", "RIPR_WET"]], 1],
+            "source": "kittitas-wetlands",
+            "source-layer": "kittitas-wetlands",
             "paint": {
               "line-color": "#10e53d",
               "line-opacity": 0.7,
