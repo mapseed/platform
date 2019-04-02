@@ -56,8 +56,8 @@ class BarChart extends Component {
           return memo;
         }, {})
       : [];
-    const barChartData = Object.entries(grouped).map(
-      ([fieldLabel, places]) => ({
+    const barChartData = Object.entries(grouped)
+      .map(([fieldLabel, places]) => ({
         fieldLabel,
         count: places.length,
         percent: `${((places.length * 100) / totalPlaces).toFixed(0)}%`,
@@ -69,8 +69,8 @@ class BarChart extends Component {
               0,
             )
           : null,
-      }),
-    );
+      }))
+      .sort((a, b) => a.fieldLabel.localeCompare(b.fieldLabel));
     return barChartData;
   };
 

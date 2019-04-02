@@ -435,7 +435,10 @@ class Dashboard extends React.Component {
                   formFieldConfig={this.props.formFieldsConfig.find(
                     fieldConfig => fieldConfig.id === "ward",
                   )}
-                  places={this.state.places}
+                  places={this.state.places.filter(place => {
+                    // TODO: make 'place filter' operations data-driven
+                    return !place.private;
+                  })}
                   xLabel={"Wards"}
                   yAxisTickFormatter={moneyFormatter.format}
                   tooltipFormatter={(value, name, props) =>
