@@ -13,8 +13,8 @@
     }
   ],
   "app": {
-    "title": "Kittitas County Voluntary Firewise Program",
-    "name": "Kittitas County Voluntary Firewise Program",
+    "title": "Kittitas County Firewise Program",
+    "name": "Kittitas County Firewise Program",
     "logo": "/static/css/images/logo.png",
     "meta_description": "_(Welcome!)",
     "meta_author": "mapseed.org",
@@ -22,24 +22,24 @@
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {
-        "primary": "#115588",
+        "primary": "#e57c04",
         "secondary": "#d46c4c",
         "tertiary": "#999",
-        "accent": "#ef5f46"
+        "accent": "#ff6201"
       },
       "bg": {
-        "default": "rgba(226, 232, 236, 0.4)",
-        "light": "#115588"
+        "default": "rgba(229, 207, 207, 0.4)",
+        "light": "#e57c04"
       },
       "text": {
         "secondary": "#fff",
-        "tertiary": "#ef5f46",
-        "headerFontFamily": "Raleway,sans-serif",
-        "bodyFontFamily": "Raleway,sans-serif"
+        "tertiary": "#e57c04",
+        "headerFontFamily": "PTSans,sans-serif",
+        "bodyFontFamily": "PTSans,sans-serif"
       },
       "map": {
-        "addPlaceButtonBackgroundColor": "#115588",
-        "addPlaceButtonHoverBackgroundColor": "#9ecaeb"
+        "addPlaceButtonBackgroundColor": "#e57c04",
+        "addPlaceButtonHoverBackgroundColor": "#ff6201"
       }
     }
   },
@@ -102,27 +102,11 @@
           "https://vector-tiles.mapseed.org/wa-state-wildfire-start-sites-2008/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-landcover": {
+      "kittitas-land-ownership": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-landcover/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-land-ownership/{z}/{x}/{y}.pbf"
         ]
-      },
-      "kittitas-critical-aquifer": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "kittitas-wetlands": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-wetlands/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "kittitas-floodplain": {
-        "type": "geojson",
-        "data": "https://opendata.arcgis.com/datasets/42e5edd4c38d4559b7bb4caa10cdd8d2_2.geojson"
       },
       "kittitas-county-outline": {
         "type": "geojson",
@@ -3847,154 +3831,6 @@
         ]
       },
       {
-        "id": "kittitas-critical-aquifer",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-critical-aquifer",
-            "type": "fill",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
-            "paint": {
-              "fill-pattern": "aquifer-fill.png"
-            }
-          },
-          {
-            "id": "kittitas-critical-aquifer-outline",
-            "type": "line",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
-            "paint": {
-              "line-color": "#e57339",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "kittitas-geologic-hazard",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-geologic-hazard",
-            "type": "fill",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
-            "paint": {
-              "fill-pattern": "hazard-fill.png"
-            }
-          },
-          {
-            "id": "kittitas-geologic-hazard-outline",
-            "type": "line",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
-            "paint": {
-              "line-color": "#e80f0f",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "kittitas-wetlands",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-wetlands",
-            "type": "fill",
-            "source": "kittitas-wetlands",
-            "source-layer": "kittitas-wetlands",
-            "paint": {
-              "fill-pattern": "wetlands-fill.png"
-            }
-          },
-          {
-            "id": "kittitas-wetlands-outline",
-            "type": "line",
-            "source": "kittitas-wetlands",
-            "source-layer": "kittitas-wetlands",
-            "paint": {
-              "line-color": "#10e53d",
-              "line-opacity": 0.7,
-              "line-width": 2
-            }
-          }
-        ]
-      },
-      {
-        "id": "kittitas-frequently-flooded",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-frequently-flooded",
-            "type": "fill",
-            "source": "kittitas-floodplain",
-            "paint": {
-              "fill-pattern": "frequently-flooded-fill.png"
-            }
-          },
-          {
-            "id": "garfield-frequently-flooded-outline",
-            "type": "line",
-            "source": "kittitas-floodplain",
-            "paint": {
-              "line-color": "#3366ff",
-              "line-opacity": 0.7,
-              "line-width": 2
-            }
-          }
-        ]
-      },
-      {
-        "id": "kittitas-wildlife",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-wildlife",
-            "type": "fill",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [
-              "any",
-              ["==", ["to-number", ["get", "AM_HAB"]], 1],
-              ["==", ["to-number", ["get", "NG_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
-            ],
-            "paint": {
-              "fill-pattern": "conservation-fill.png"
-            }
-          },
-          {
-            "id": "kittitas-wildlife-outline",
-            "type": "line",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [
-              "any",
-              ["==", ["to-number", ["get", "AM_HAB"]], 1],
-              ["==", ["to-number", ["get", "NG_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
-            ],
-            "paint": {
-              "line-color": "#10e53d",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
         "id": "kittitas-firewise-input",
         "visibleDefault": true,
         "interactive": true,
@@ -4028,6 +3864,47 @@
               "icon-image": "map-pin-marker-red.png",
               "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
               "icon-allow-overlap": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-land-ownership",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-land-ownership",
+            "type": "fill",
+            "source": "kittitas-land-ownership",
+            "source-layer": "kittitas-land-ownership",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "layer"],
+                "USFS",
+                "#8dd3c7",
+                "Federal",
+                "#ffffb3",
+                "Private",
+                "#bebada",
+                "State",
+                "#fb8072",
+                "TNC",
+                "#80b1d3",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "kittitas-land-ownership-outline",
+            "type": "line",
+            "source": "kittitas-land-ownership",
+            "source-layer": "kittitas-land-ownership",
+            "paint": {
+              "line-width": 0.5,
+              "line-color": "#555",
+              "line-opacity": ["interpolate", ["linear"], ["zoom"], 7, 0, 12, 1]
             }
           }
         ]
@@ -4078,20 +3955,8 @@
                 "title": "_(Snake River)"
               },
               {
-                "id": "kittitas-geologic-hazard",
-                "title": "_(Geologic Hazards)"
-              },
-              {
-                "id": "kittitas-wetlands",
-                "title": "_(Wetlands)"
-              },
-              {
-                "id": "kittitas-frequently-flooded",
-                "title": "_(Frequently Flooded Areas)"
-              },
-              {
-                "id": "kittitas-wildlife",
-                "title": "_(Wildlife Habitat)"
+                "id": "kittitas-land-ownership",
+                "title": "_(Land Ownership)"
               },
               {
                 "id": "wildfire-start-sites",
@@ -4127,15 +3992,14 @@
     "location_item_name": "location",
     "place_detail": [
       {
-        "formId": "reports",
-        "category": "reports",
-        "submitter_editing_supported": true,
+        "formId": "small-landowner-reports",
+        "category": "small-landowner-reports",
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "datasetSlug": "kittitas-vsp-input",
+        "datasetSlug": "kittitas-firewise-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
-        "value": "demo",
+        "value": "small-landowner",
         "multi_stage": [
           {
             "start_field_index": 1,
@@ -4144,7 +4008,7 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-vsp-input",
+              "kittitas-firewise-input",
               "kittitas-county-outline"
             ]
           },
@@ -4155,7 +4019,58 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-wetlands",
+              "kittitas-county-outline"
+            ]
+          }
+        ],
+        "label": "_(Small Landowners)",
+        "fields": [
+          {
+            "name": "fire_environment_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Why is Kittitas County a Fire Environment?</h2>"
+          },
+          {
+            "name": "fire_environment_info",
+            "type": "informational_html",
+            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge Wildfire' /><p></p>"
+          },
+          {
+            "name": "drag_map_info",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#ef5f46;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
+          }
+        ]
+      },
+      {
+        "formId": "reports",
+        "category": "reports",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "submitter_editing_supported": true,
+        "name": "location_type",
+        "datasetSlug": "kittitas-firewise-input",
+        "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "value": "demo",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 4,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-firewise-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 7,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
               "kittitas-county-outline"
             ]
           },
@@ -4166,7 +4081,6 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-frequently-flooded",
               "kittitas-county-outline"
             ]
           },
@@ -4177,7 +4091,6 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-geologic-hazard",
               "kittitas-county-outline"
             ]
           },
@@ -4188,7 +4101,6 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-critical-aquifer",
               "kittitas-county-outline"
             ]
           },
@@ -4199,7 +4111,6 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-wildlife",
               "kittitas-county-outline"
             ]
           },
@@ -4210,7 +4121,7 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-vsp-input",
+              "kittitas-firewise-input",
               "kittitas-county-outline"
             ]
           },
@@ -4221,7 +4132,7 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-vsp-input",
+              "kittitas-firewise-input",
               "kittitas-county-outline"
             ]
           },
@@ -4232,51 +4143,7 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-vsp-input",
-              "kittitas-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 62,
-            "end_field_index": 76,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-vsp-input",
-              "kittitas-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 77,
-            "end_field_index": 82,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-vsp-input",
-              "kittitas-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 83,
-            "end_field_index": 111,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-vsp-input",
-              "kittitas-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 112,
-            "end_field_index": 123,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-vsp-input",
+              "kittitas-firewise-input",
               "kittitas-county-outline"
             ]
           }
@@ -6081,9 +5948,9 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
-        "<img src='/static/css/images/kccd-group.jpg' alt='KCCD' style='margin:8px 0 16px 0' />",
-        "<p>The Kittitas County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Landowners!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<div style='margin: 8px 0 16px 0; position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;'><iframe style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' src='https://www.youtube.com/embed/3EbuRaOdxoM' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p>The Kittitas County Firewise Program is designed to educate</p>",
         "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
