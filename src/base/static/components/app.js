@@ -56,7 +56,7 @@ browserUpdate({
 
 const TemplateContainer = styled("div")(props => ({
   position: "relative",
-  overflow: props.layout === "desktop" ? "hidden" : "visible",
+  overflow: props.layout === "desktop" ? "auto" : "visible",
   width: "100%",
   // 56px === fixed height of header bar
   height: "calc(100% - 56px)",
