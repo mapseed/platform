@@ -13,6 +13,7 @@ import {
   updateUIVisibility,
   updateActivePage,
   updateContentPanelComponent,
+  updateEditModeToggled,
 } from "../state/ducks/ui";
 import {
   updateMapViewport,
@@ -286,6 +287,7 @@ mixpanel.init(MIXPANEL_TOKEN);
       }
 
       recordGoogleAnalyticsHit(`/${clientSlug}/${placeId}`);
+      this.store.dispatch(updateEditModeToggled(false));
       this.store.dispatch(updateScrollToResponseId(parseInt(responseId)));
       this.store.dispatch(updateFocusedPlaceId(parseInt(placeId)));
       this.store.dispatch(updateCurrentTemplate("map"));
