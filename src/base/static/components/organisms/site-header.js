@@ -33,7 +33,7 @@ import {
 } from "../../state/ducks/left-sidebar";
 import mq from "../../../../media-queries";
 
-const SiteHeaderWrapper = styled("div")(props => ({
+const SiteHeaderWrapper = styled("header")(props => ({
   position: "relative",
   zIndex: 12,
   backgroundColor: props.theme.bg.default,
@@ -110,17 +110,27 @@ const ListToggleLink = styled(props => (
   },
 }));
 
+const NavButtonWrapper = styled("div")(props => ({
+  [mq[1]]: {
+    alignItems: "center",
+    borderLeft:
+      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
+  },
+}));
+
 const NavLink = styled(props => (
-  <Link
-    href={props.href}
-    rel="internal"
-    aria-label={props.ariaLabel}
-    className={props.className}
-    onClick={props.onClick}
-    style={{ padding: "4px 8px 4px 8px" }}
-  >
-    {props.children}
-  </Link>
+  <NavButtonWrapper position={props.position}>
+    <Link
+      href={props.href}
+      rel="internal"
+      aria-label={props.ariaLabel}
+      className={props.className}
+      onClick={props.onClick}
+      style={{ padding: "4px 8px 4px 8px" }}
+    >
+      {props.children}
+    </Link>
+  </NavButtonWrapper>
 ))(props => ({
   // TODO: Many of these style rules should eventually be moved to the Link atom.
   display: "flex",
@@ -144,10 +154,6 @@ const NavLink = styled(props => (
   [mq[0]]: {
     textAlign: "center",
   },
-  [mq[1]]: {
-    borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
-  },
 }));
 
 const SiteTitle = styled(RegularTitle)(props => ({
@@ -160,14 +166,6 @@ const SiteTitle = styled(RegularTitle)(props => ({
   [mq[0]]: {
     // NOTE: This is an override of our RegularTitle font size.
     fontSize: "1rem",
-  },
-}));
-
-const NavButtonWrapper = styled("div")(props => ({
-  [mq[1]]: {
-    alignItems: "center",
-    borderLeft:
-      props.position > 0 ? `solid 1px ${props.theme.text.tertiary}` : "none",
   },
 }));
 
@@ -308,26 +306,19 @@ const navItemMappings = {
   ),
   // eslint-disable-next-line react/display-name
   left_sidebar_toggle: linkProps => (
-    <NavButton
-      css={theme => ({
-        [mq[1]]: {
-          alignItems: "center",
-          borderLeft:
-            linkProps.position > 0
-              ? `solid 1px ${theme.text.tertiary}`
-              : "none",
-        },
-      })}
-      color={"tertiary"}
-      ariaLabel={`open the ${linkProps.navBarItem.title} menu`}
-      onClick={() => {
-        linkProps.onClick();
-        linkProps.setLeftSidebarComponent(linkProps.navBarItem.component);
-        linkProps.setLeftSidebarExpanded(!linkProps.isLeftSidebarExpanded);
-      }}
-    >
-      {linkProps.children}
-    </NavButton>
+    <NavButtonWrapper position={linkProps.position}>
+      <NavButton
+        color={"tertiary"}
+        ariaLabel={`open the ${linkProps.navBarItem.title} menu`}
+        onClick={() => {
+          linkProps.onClick();
+          linkProps.setLeftSidebarComponent(linkProps.navBarItem.component);
+          linkProps.setLeftSidebarExpanded(!linkProps.isLeftSidebarExpanded);
+        }}
+      >
+        {linkProps.children}
+      </NavButton>
+    </NavButtonWrapper>
   ),
   list_toggle: styled(linkProps => (
     <ListToggleLink
