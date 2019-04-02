@@ -36,7 +36,7 @@ import {
   ExtraLargeLabel,
 } from "../atoms/typography";
 import PieChart from "../molecules/pie-chart";
-import BarChart from "../molecules/demographics-bar-chart";
+import BarChart from "../molecules/bar-chart";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 
