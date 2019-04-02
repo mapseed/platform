@@ -74,7 +74,8 @@
     {
       "datasetSlug": "pbdurham-projects",
       "surveyMetrics": {
-        "wards": true
+        "wards": true,
+        "budget": true
       }
     },
     {
@@ -1521,9 +1522,35 @@
     ],
     "fields": [
       {
+        "id": "ward",
+        "type": "radio",
+        "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
+        "display_prompt": "_(Ward:)",
+        "label": "_(Ward:)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Ward 1)",
+            "value": "ward_1"
+          },
+          {
+            "label": "_(Ward 2)",
+            "value": "ward_2"
+          },
+          {
+            "label": "_(Ward 3)",
+            "value": "ward_3"
+          },
+          {
+            "label": "_(Citywide)",
+            "value": "citywide"
+          }
+        ]
+      },
+      {
         "id": "private-ethnicity",
         "autocomplete": false,
-        "type": "big_checkbox",
+        "type": "checkbox",
         "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
         "display_prompt": "_(Ethnicity:)",
         "label": "_(Ethnicity:)",

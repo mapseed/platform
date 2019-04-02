@@ -31,13 +31,12 @@ import { HorizontalRule } from "../atoms/layout";
 import {
   Link,
   RegularTitle,
-  LargeTitle,
   SmallTitle,
   LargeLabel,
   ExtraLargeLabel,
 } from "../atoms/typography";
 import PieChart from "../molecules/pie-chart";
-import DemographicsBarChart from "../molecules/demographics-bar-chart";
+import BarChart from "../molecules/bar-chart";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 
@@ -68,13 +67,19 @@ const COLORS = [
   "#F15854",
 ];
 
+const moneyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+});
+
 const DashboardWrapper = styled("div")({
   display: "grid",
   gridTemplateRows: "auto",
   gridTemplateColumns: "auto",
   maxWidth: MAX_DASHBOARD_WIDTH,
   margin: "8px auto 24px auto",
-  overflow: "scroll",
   height: "100%",
 
   "&::-webkit-scrollbar": {
@@ -422,13 +427,62 @@ class Dashboard extends React.Component {
                 />
               </CategoriesWrapper>
             )}
+            {this.state.dashboard.surveyMetrics.budget && (
+              <DemographicsWrapper>
+                <ChartTitle>{`Budget (published proposals)`}</ChartTitle>
+                <BarChart
+                  barFillColor={BLUE}
+                  formFieldConfig={this.props.formFieldsConfig.find(
+                    fieldConfig => fieldConfig.id === "ward",
+                  )}
+                  places={this.state.places.filter(place => {
+                    // TODO: make 'place filter' operations data-driven
+                    return !place.private;
+                  })}
+                  xLabel={"Wards"}
+                  yAxisTickFormatter={moneyFormatter.format}
+                  tooltipFormatter={(value, name, props) =>
+                    moneyFormatter.format(props.payload.sum)
+                  }
+                  category={"ward"}
+                  sumOverCategory={"staff_project_budget"}
+                  valueAccessor={value => {
+                    // TODO: avoid this function by normalizing our
+                    // form field values into a number
+                    if (!value) {
+                      // TODO: set constraints/default on fields to avoid
+                      // having to filter these null values
+                      return 0;
+                    }
+                    const match = /\$?([0-9,]+).*/.exec(value.trim());
+                    if (!match) {
+                      return 0;
+                    } else {
+                      return Number(match[1].replace(",", ""));
+                    }
+                  }}
+                />
+              </DemographicsWrapper>
+            )}
             {this.state.dashboard.surveyMetrics.demographics && (
               <DemographicsWrapper>
                 <ChartTitle>Demographics</ChartTitle>
-                <DemographicsBarChart
+                <BarChart
                   barFillColor={BLUE}
-                  formFieldsConfig={this.props.formFieldsConfig}
+                  formFieldConfig={this.props.formFieldsConfig.find(
+                    fieldConfig => fieldConfig.id === "private-ethnicity",
+                  )}
                   places={this.state.places}
+                  footer={
+                    "*race/ethinicity may not add up to 100% because of multiple choices"
+                  }
+                  xLabel={"Ethnicity"}
+                  yLabel={"Count"}
+                  tooltipFormatter={(value, name, props) =>
+                    `${props.payload.count} (${props.payload.percent})`
+                  }
+                  category={"private-ethnicity"}
+                  nullCategoryLabel={"(No response)"}
                 />
               </DemographicsWrapper>
             )}
