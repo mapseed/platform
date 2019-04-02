@@ -761,7 +761,9 @@
           {
             "name": "ward",
             "type": "big_radio",
+            "includeOnListItem": true,
             "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
+            "label": "_(Ward:)",
             "content": [
               {
                 "label": "_(Ward 1)",

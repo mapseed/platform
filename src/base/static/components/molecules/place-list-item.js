@@ -106,25 +106,36 @@ const PlaceFieldText = styled(RegularText)({
 
 const PlaceField = ({ field, place }) => {
   const prompt = field.label || field.display_prompt || null;
+  const fieldValue = place[field.name];
   if (field.type === "textarea" || field.type === "text") {
     return (
-      <React.Fragment>
+      <>
         {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
         <p>
-          <PlaceFieldText>{place[field.name]}</PlaceFieldText>
+          <PlaceFieldText>{fieldValue}</PlaceFieldText>
         </p>
-      </React.Fragment>
+      </>
     );
   } else if (field.type === "rich_textarea") {
     return <div dangerouslySetInnerHTML={{ __html: place[field.name] }} />;
-  } else if (field.type === "dropdown_autocomplete") {
+  } else if (field.type === "big_radio") {
+    const label = field.content.find(item => item.value === fieldValue).label;
     return (
-      <React.Fragment>
+      <>
         {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
         <p>
-          <PlaceFieldText>{place[field.name]}</PlaceFieldText>
+          <PlaceFieldText>{label}</PlaceFieldText>
         </p>
-      </React.Fragment>
+      </>
+    );
+  } else if (field.type === "dropdown_autocomplete") {
+    return (
+      <>
+        {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
+        <p>
+          <PlaceFieldText>{fieldValue}</PlaceFieldText>
+        </p>
+      </>
     );
   } else {
     throw new Error(`field type is not supported: ${field.type}`);
