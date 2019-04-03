@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import InviteModal from "../organisms/invite-modal";
 import { Global } from "@emotion/core";
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
-import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+import MapboxDraw from "mapseed-mapbox-gl-draw/dist/mapbox-gl-draw";
+import "mapseed-mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { throttle } from "throttle-debounce";
 
 import {

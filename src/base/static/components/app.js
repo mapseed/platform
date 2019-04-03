@@ -56,11 +56,21 @@ browserUpdate({
 
 const TemplateContainer = styled("div")(props => ({
   position: "relative",
-  overflow: props.layout === "desktop" ? "auto" : "visible",
+  overflow:
+    props.layout === "desktop"
+      ? props.currentTemplate === "list"
+        ? "hidden"
+        : "auto"
+      : "visible",
   width: "100%",
   // 56px === fixed height of header bar
   height: "calc(100% - 56px)",
 }));
+
+const Fallback = () => {
+  // TODO: render a spinner here...
+  return <div />;
+};
 
 class App extends Component {
   templateContainerRef = createRef();
@@ -163,10 +173,11 @@ class App extends Component {
             <TemplateContainer
               ref={this.templateContainerRef}
               layout={this.props.layout}
+              currentTemplate={this.props.currentTemplate}
             >
               {this.props.currentTemplate === "sha" && <ShaTemplate />}
               {this.props.currentTemplate === "map" && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Fallback />}>
                   <MapTemplate
                     setMapDimensions={this.setMapDimensions}
                     router={this.props.router}
@@ -175,12 +186,12 @@ class App extends Component {
                 </Suspense>
               )}
               {this.props.currentTemplate === "list" && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Fallback />}>
                   <ListTemplate router={this.props.router} />
                 </Suspense>
               )}
               {this.props.currentTemplate === "dashboard" && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Fallback />}>
                   <DashboardTemplate
                     router={this.props.router}
                     datasetDownloadConfig={
