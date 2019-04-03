@@ -108,6 +108,12 @@
           "https://vector-tiles.mapseed.org/kittitas-land-ownership/{z}/{x}/{y}.pbf"
         ]
       },
+      "wa-state-large-fires": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wa-state-large-fires-1973-2018/{z}/{x}/{y}.pbf"
+        ]
+      },
       "kittitas-county-outline": {
         "type": "geojson",
         "data": "https://opendata.arcgis.com/datasets/bf2498852e614bc1a918ec562150a06b_0.geojson"
@@ -3772,31 +3778,31 @@
                 0,
                 1,
                 9,
-                3
+                4
               ],
               "heatmap-color": [
                 "interpolate",
                 ["linear"],
                 ["heatmap-density"],
                 0,
-                "rgba(33,102,172,0)",
-                0.2,
-                "rgb(103,169,207)",
-                0.4,
-                "rgb(209,229,240)",
+                "rgba(0,0,0,0)",
                 0.6,
-                "rgb(253,219,199)",
+                "#ffffb2",
+                0.7,
+                "#fed976",
                 0.8,
-                "rgb(239,138,98)",
+                "#feb24c",
+                0.9,
+                "#fd8d3c",
                 1,
-                "rgb(178,24,43)"
+                "#fc4e2a"
               ],
               "heatmap-radius": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
                 0,
-                2,
+                1,
                 9,
                 5
               ],
@@ -3826,6 +3832,49 @@
               "line-color": "#fff",
               "line-width": 3,
               "line-dasharray": [2, 2]
+            }
+          }
+        ]
+      },
+      {
+        "id": "wa-state-large-fires",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "wa-state-large-fires",
+            "type": "fill",
+            "source": "wa-state-large-fires",
+            "source-layer": "wa-state-large-fires-1973-2018",
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "wa-state-large-fires-outline",
+            "type": "line",
+            "source": "wa-state-large-fires",
+            "source-layer": "wa-state-large-fires-1973-2018",
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "wa-state-large-fires-labels",
+            "type": "symbol",
+            "source": "wa-state-large-fires",
+            "source-layer": "wa-state-large-fires-1973-2018",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 0.5,
+              "text-color": "#222",
+              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
+            },
+            "layout": {
+              "text-field": ["get", "FIRENAME"],
+              "text-size": 12,
+              "text-max-width": 6
             }
           }
         ]
@@ -3961,6 +4010,10 @@
               {
                 "id": "wildfire-start-sites",
                 "title": "_(Wildfire Start Sites)"
+              },
+              {
+                "id": "wa-state-large-fires",
+                "title": "_(Large Wildfires)"
               }
             ]
           },
@@ -3984,7 +4037,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Share Your Stewardship)",
+    "add_button_label": "_(Get My Personal Fire Plan)",
     "action_text": "_(added)",
     "title": "_(Tell us more...)",
     "anonymous_name": "_(Someone)",
@@ -4008,19 +4061,25 @@
             "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
+              "wildfire-start-sites",
               "kittitas-firewise-input",
               "kittitas-county-outline"
-            ]
+            ],
+            "viewport": {
+              "zoom": 5.8,
+              "latitude": 47.12295,
+              "longitude": -120.29676,
+              "transitionDuration": 1500,
+              "bearing": 0,
+              "pitch": 40
+            }
           },
           {
             "start_field_index": 5,
             "end_field_index": 7,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "kittitas-county-outline"]
           }
         ],
         "label": "_(Small Landowners)",
@@ -4028,12 +4087,12 @@
           {
             "name": "fire_environment_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Why is Kittitas County a Fire Environment?</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Kittitas County: a Fire Environment</h2>"
           },
           {
             "name": "fire_environment_info",
             "type": "informational_html",
-            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge Wildfire' /><p></p>"
+            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge Wildfire' style='width: 100%;' /><p></p>"
           },
           {
             "name": "drag_map_info",
@@ -4069,50 +4128,35 @@
             "end_field_index": 7,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "kittitas-county-outline"]
           },
           {
             "start_field_index": 8,
             "end_field_index": 10,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "kittitas-county-outline"]
           },
           {
             "start_field_index": 11,
             "end_field_index": 13,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "kittitas-county-outline"]
           },
           {
             "start_field_index": 14,
             "end_field_index": 16,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "kittitas-county-outline"]
           },
           {
             "start_field_index": 17,
             "end_field_index": 19,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": [
-              "satellite",
-              "kittitas-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "kittitas-county-outline"]
           },
           {
             "start_field_index": 20,

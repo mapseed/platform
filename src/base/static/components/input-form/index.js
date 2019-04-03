@@ -83,6 +83,8 @@ class InputForm extends Component {
       ];
 
       this.setStageLayers(stageConfig);
+      stageConfig.viewport &&
+        this.props.updateMapViewport(stageConfig.viewport);
     }
   }
 
@@ -102,15 +104,17 @@ class InputForm extends Component {
     }
 
     if (
-      this.state.currentStage !== prevState.currentStage &&
-      this.selectedCategoryConfig.multi_stage
+      this.selectedCategoryConfig.multi_stage &&
+      this.state.currentStage !== prevState.currentStage
     ) {
-      // Configure layer visibility for this form stage.
+      // Configure layer visibility and set the viewport for this form stage.
       const stageConfig = this.selectedCategoryConfig.multi_stage[
         this.state.currentStage - 1
       ];
 
       this.setStageLayers(stageConfig);
+      stageConfig.viewport &&
+        this.props.updateMapViewport(stageConfig.viewport);
     }
   }
 
@@ -679,6 +683,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
+  updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
 });
 
 // Export undecorated component for testing purposes.
