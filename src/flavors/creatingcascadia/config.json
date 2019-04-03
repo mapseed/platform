@@ -16,7 +16,7 @@
     "title": "bioregional art",
     "name": "CREATING CASCADIA",
     "show_name_in_header": true,
-    "logo": "/static/css/images/Logo.png",
+    "logo": "/static/css/images/Logo2.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
@@ -46,8 +46,8 @@
     "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
       "mapViewport": {
-        "latitude": 47.25457,
-        "longitude": -122.4442,
+        "latitude": 47.654,
+        "longitude": -119.456,
         "zoom": 5.62,
         "pitch": 0,
         "minZoom": 1,
@@ -111,7 +111,7 @@
             "type": "symbol",
             "source": "creatingcascadia-input",
             "layout": {
-              "icon-size": 0.7,
+              "icon-size": 1,
               "icon-anchor": "center",
               "icon-image": [
                 "match",
@@ -137,7 +137,7 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": "center",
-              "icon-size": ["step", ["zoom"], 0.3, 10, 0.4],
+              "icon-size": ["step", ["zoom"], 0.4, 10, 0.9],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -159,13 +159,13 @@
                   "match",
                   ["get", "location_type"],
                   "sensation",
-                  "dot-0d85e9.png",
+                  "sensation.png",
                   "idea",
-                  "dot-f95016.png",
+                  "idea.png",
                   "event",
-                  "dot-e1264d.png",
+                  "event.png",
                   "artwork",
-                  "dot-dbcf2c.png",
+                  "artwork.png",
                   "__no-icon-image__"
                 ]
               ]
@@ -218,7 +218,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(MAKE IT NEW)",
+    "add_button_label": "_(MAKE IT NOW)",
     "show_list_button_label": "_(See all comments)",
     "show_map_button_label": "_(Show the Map)",
     "title": "_(Tell us more...)",
@@ -599,15 +599,18 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
+        "<p><h2>CALLING ALL BIOREGIONALISTS</h2></p>",
+        "<p><strong>What is Cascadia? Where is Cascadia? Why is Cascadia? Here you can make your intimate sensations of the region public, and write your ideas directly into a common landscape. Tell everyone who cares why particular places matter to <em>you</em>.</strong></p><br><br>",
         "<p><h2>CALLING ALL ARTISTS</h2></p>",
-        "<p><strong>You can make Cascadia more real, more fictional, more beautiful, more terrifying, more natural, more artifical, more conventional, more controversial, by contributing your sensations, ideas and artworks, plus the events that matter to you.</strong></p>"
+        "<p><strong>You can make Cascadia more real, more fictional, more beautiful, more terrifying, more natural, more artifical, more conventional, more controversial, by contributing your sensations, ideas and artworks, plus the events that matter to you.</strong></p><br><br>",
+        "<p><img src='/static/css/images/HoRiverValley.jpg'></p>"
       ]
     },
     {
       "slug": "getinvolved",
       "lang": "en_US",
       "content": [
-        "<p><h2>Make it new</h2></p>",
+        "<p><h2>Make it now</h2></p>",
         "<p><strong>Pretty soon there's going to be some great instructions here about how to use this map.</strong></p>"
       ]
     }
