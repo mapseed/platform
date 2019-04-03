@@ -2,7 +2,6 @@
 <html lang="en-US">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
 
     <title>{{ config.app.title }}</title>
     <meta name="description" content="{{ config.app.meta_description }}">
@@ -22,7 +21,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- Google WebFonts -->
-    <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 
     {{#if production}}
     <link rel="stylesheet" href="/{{cssHashedBundleName}}">
@@ -47,15 +46,15 @@
     var serviceWorkerPath = "{{ serviceWorkerPath }}";
 
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
+      window.addEventListener("load", function() {
         var apiRoot = encodeURIComponent("{{config.app.api_root}}");
         var flavor = encodeURIComponent("{{flavor}}");
         navigator.serviceWorker
           .register(serviceWorkerPath + "?apiRoot=" + apiRoot + "&flavor=" + flavor)
-          .then(registration => {
+          .then(function(registration) {
             console.log("SW registered: ", registration);
           })
-          .catch(registrationError => {
+          .catch(function(registrationError) {
             console.log("SW registration failed: ", registrationError);
           });
       });

@@ -4,7 +4,7 @@ const WorkboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");
 
 require("dotenv").config({ path: "src/.env" });
-require("@babel/polyfill");
+
 var path = require("path");
 
 const PORT = 8000;
@@ -23,6 +23,7 @@ const gitSha = require("child_process")
   .toString();
 
 var entryPoints = [
+  "@babel/polyfill",
   "whatwg-fetch",
   "normalize.css",
   "./src/base/static/js/routes.js",
@@ -30,13 +31,14 @@ var entryPoints = [
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 
-let alias = {};
-alias.config = path.resolve(
-  __dirname,
-  "src/flavors",
-  process.env.FLAVOR,
-  "config.json",
-);
+const alias = {
+  config: path.resolve(
+    __dirname,
+    "src/flavors",
+    process.env.FLAVOR,
+    "config.json",
+  ),
+};
 
 const extractSCSS = new MiniCssExtractPlugin({
   // Options similar to the same options in webpackOptions.output
