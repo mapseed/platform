@@ -90,178 +90,6 @@ var self = (module.exports = {
     });
   },
 
-  getAttrs: function($form) {
-    var attrs = {},
-      multivalues = [];
-
-    // Get values from the form. Make the item into an array if there are
-    // multiple values in the form, as in the case of a set of check boxes or
-    // a multiselect list.
-    _.each($form.serializeArray(), function(item) {
-      if (!_.isUndefined(attrs[item.name])) {
-        if (!_.contains(multivalues, item.name)) {
-          multivalues.push(item.name);
-          attrs[item.name] = [attrs[item.name]];
-        }
-        attrs[item.name].push(item.value);
-      } else {
-        attrs[item.name] = item.value;
-      }
-    });
-
-    return attrs;
-  },
-
-  // Given a fieldConfig and an existingValue (which might be derived from an
-  // autocomplete value stored in localstorage or from a rendered place detail
-  // view value in editor mode), construct a content object for this field
-  // suitable for consumption by the form field types template.
-  buildFieldContent: function(fieldConfig, existingValue) {
-    var content,
-      hasValue = false;
-
-    if (
-      fieldConfig.type === "text" ||
-      fieldConfig.type === "textarea" ||
-      fieldConfig.type === "datetime" ||
-      fieldConfig.type === "rich_textarea" ||
-      fieldConfig.type === "custom_url_toolbar"
-    ) {
-      // Plain text
-      content = existingValue || "";
-
-      if (content !== "") {
-        hasValue = true;
-      }
-    } else if (
-      fieldConfig.type === "big_checkbox" ||
-      fieldConfig.type === "big_radio" ||
-      fieldConfig.type === "dropdown" ||
-      fieldConfig.type === "dropdown_autocomplete"
-    ) {
-      // Checkboxes, radio buttons, and dropdowns
-      if (!_.isArray(existingValue)) {
-        // If input is not an array, convert to an array of length 1
-        existingValue = [existingValue];
-      }
-
-      content = [];
-
-      _.each(fieldConfig.content, function(option) {
-        var selected = false;
-        if (_.contains(existingValue, option.value)) {
-          selected = true;
-          hasValue = true;
-        }
-        content.push({
-          value: option.value,
-          label: option.label,
-          selected: selected,
-        });
-      });
-    } else if (fieldConfig.type === "map_drawing_toolbar") {
-      // Geometry toolbar
-      content = [];
-
-      _.each(fieldConfig.content, function(option) {
-        var selected = false;
-        if (existingValue === option.url) {
-          selected = true;
-          hasValue = true;
-        }
-        content.push({
-          url: option.url,
-          selected: selected,
-        });
-        if (!hasValue) {
-          content[0].selected = true;
-        }
-      });
-    } else if (fieldConfig.type === "publish_control_toolbar") {
-      // Published/Not published radio control
-      content = {
-        selected: existingValue || "isPublished",
-      };
-      hasValue = true;
-    } else if (fieldConfig.type === "range") {
-      content = {
-        value: existingValue || null,
-      };
-      if (existingValue) {
-        hasValue = true;
-      }
-    } else if (fieldConfig.type === "big_toggle") {
-      // Binary toggle buttons
-      // NOTE: We assume that the first option listed under content
-      // corresponds to the "on" value of the toggle input
-      content = {
-        selectedValue: fieldConfig.content[0].value,
-        selectedLabel: fieldConfig.content[0].label,
-        unselectedValue: fieldConfig.content[1].value,
-        unselectedLabel: fieldConfig.content[1].label,
-        selected: existingValue === fieldConfig.content[0].value ? true : false,
-      };
-
-      hasValue = true;
-    }
-
-    return {
-      name: fieldConfig.name,
-      type: fieldConfig.type,
-      content: content,
-      prompt: fieldConfig.prompt,
-      hasValue: hasValue,
-    };
-  },
-
-  buildFieldListForRender: function(args) {
-    var self = this,
-      fields = [],
-      fieldIsValid = function(fieldData) {
-        return (
-          _.contains(args.exclusions, fieldData.name) === false &&
-          (fieldData.name && fieldData.name.indexOf("private-") !== 0) &&
-          fieldData.hasValue &&
-          fieldData.form_only !== true &&
-          fieldData.name !== "custom_url_toolbar" &&
-          fieldData.type !== "submit"
-        );
-      },
-      fieldIsValidForEditor = function(fieldData) {
-        return (
-          _.contains(args.exclusions, fieldData.name) === false &&
-          fieldData.type !== "submit"
-        );
-      };
-
-    _.each(
-      args.fields,
-      function(field, i) {
-        if (field.type === "common_form_element") {
-          Object.assign(
-            args.fields[i],
-            args.commonFormElements[args.fields[i].name],
-          );
-        }
-
-        var fieldData = _.extend(
-          {},
-          args.fields[i],
-          self.buildFieldContent(field, args.model.get(field.name)),
-        );
-
-        if (args.isEditingToggled && fieldIsValidForEditor(fieldData)) {
-          fields.push(fieldData);
-        } else if (fieldIsValid(fieldData)) {
-          fields.push(fieldData);
-        }
-      },
-      this,
-    );
-
-    return fields;
-  },
-
   // attempt to save form autocomplete values in localStorage;
   // fall back to cookies
   saveAutocompleteValue: function(name, value, days) {
@@ -290,15 +118,6 @@ var self = (module.exports = {
 
   prepareCustomUrl: function(url) {
     return url.replace(/[^A-Za-z0-9-_]/g, "-").toLowerCase();
-  },
-
-  getUrl: function(model) {
-    return model.get("datasetSlug") + "/" + model.id;
-  },
-
-  getPageLayout: function() {
-    // TODO: Better layout management.
-    return window.innerWidth <= 960 ? "mobile" : "desktop";
   },
 
   // ====================================================
@@ -514,9 +333,9 @@ var self = (module.exports = {
   // Thanks ppk! http://www.quirksmode.org/js/cookies.html
   cookies: {
     save: function(name, value, days, prefix) {
-      var expires,
-        prefix = prefix || "",
-        name = prefix + name;
+      let expires;
+      prefix = prefix || "";
+      name = prefix + name;
       if (days) {
         var date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
@@ -527,10 +346,9 @@ var self = (module.exports = {
       document.cookie = name + "=" + value + expires + "; path=/";
     },
     get: function(name, prefix) {
-      var prefix = prefix || "",
-        nameEQ = prefix + name + "=",
-        ca = document.cookie.split(";");
-      var ca = document.cookie.split(";");
+      prefix = prefix || "";
+      const nameEQ = prefix + name + "=";
+      const ca = document.cookie.split(";");
       for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) === " ") {
@@ -565,8 +383,8 @@ var self = (module.exports = {
       }
     },
     get: function(name) {
-      var now = new Date().getTime(),
-        name = this.LOCALSTORAGE_PREFIX + name,
+      name = this.LOCALSTORAGE_PREFIX + name;
+      let now = new Date().getTime(),
         item = {};
       try {
         item = JSON.parse(localStorage.getItem(name)) || {};

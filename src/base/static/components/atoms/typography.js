@@ -1,7 +1,7 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import classNames from "classnames";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import moment from "moment";
 
 import "./typography.scss";
@@ -114,18 +114,25 @@ Header6.propTypes = {
 
 // Title atoms:
 const LargeTitle = styled("h1")(props => ({
-  fontSize: "2.5rem",
+  fontSize: "2rem",
   fontFamily: props.theme.text.headerFontFamily,
+  margin: "16px 0",
 }));
 
 const RegularTitle = styled("h2")(props => ({
-  fontSize: "2rem",
-  lineHeight: "2rem",
+  fontSize: "1.8rem",
   fontFamily: props.theme.text.headerFontFamily,
+  margin: "16px 0",
 }));
 const SmallTitle = styled("h3")(props => ({
   fontSize: "1.5rem",
   fontFamily: props.theme.text.headerFontFamily,
+  margin: "16px 0",
+}));
+const TinyTitle = styled("h4")(props => ({
+  fontSize: "1.1rem",
+  fontFamily: props.theme.text.headerFontFamily,
+  margin: "16px 0",
 }));
 
 // TODO: Other label types.
@@ -156,7 +163,7 @@ RegularLabel.propTypes = {
 
 // Text atoms:
 const textHandler = (props, styles) => {
-  styles.fontFamily = props.theme.text.bodyFontFamily;
+  styles.fontFamily = props.fontFamily || props.theme.text.bodyFontFamily;
   styles.fontWeight = 200;
   styles.display = props.display || "inline";
   styles.textAlign = props.textAlign || "left";
@@ -216,7 +223,30 @@ const MicroText = styled("span")(props => {
   return textHandler(props, styles);
 });
 
-const Link = styled("a")(props => ({
+const Link = styled(props => {
+  return (
+    <a
+      href={props.href}
+      rel={props.rel}
+      className={props.className}
+      onClick={evt => {
+        // For internal routing.
+        if (props.rel === "internal" && props.router) {
+          evt.preventDefault();
+          props.router.navigate(
+            evt.currentTarget.attributes.getNamedItem("href").value,
+            { trigger: true },
+          );
+        }
+
+        props.onClick && props.onClick();
+      }}
+      {...props}
+    >
+      {props.children}
+    </a>
+  );
+})(props => ({
   cursor: "pointer",
   textDecoration: "none",
   color: props.theme.brand.primary,
@@ -230,7 +260,9 @@ const Link = styled("a")(props => ({
 }));
 
 Link.propTypes = {
-  href: PropTypes.string,
+  href: PropTypes.string.isRequired,
+  router: PropTypes.instanceOf(Backbone.Router),
+  rel: PropTypes.string,
 };
 
 const Time = props => <time>{moment(props.time).fromNow()}</time>;
@@ -256,6 +288,7 @@ export {
   LargeTitle,
   RegularTitle,
   SmallTitle,
+  TinyTitle,
   LargeText,
   RegularText,
   SmallText,

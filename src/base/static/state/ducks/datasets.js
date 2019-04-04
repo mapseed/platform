@@ -1,8 +1,41 @@
 import PropTypes from "prop-types";
 
+// Prop Types:
+export const tagPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  parent: PropTypes.number,
+  url: PropTypes.string.isRequired,
+  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isEnabled: PropTypes.bool.isRequired,
+  color: PropTypes.string,
+  children: PropTypes.arrayOf(PropTypes.number).isRequired,
+}).isRequired;
+
+export const placeTagPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  note: PropTypes.string,
+  tag: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+});
+
+export const datasetsPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    owner: PropTypes.string.isRequired,
+    places: PropTypes.shape({
+      length: PropTypes.number.isRequired,
+      url: PropTypes.string.isRequired,
+    }).isRequired,
+    tags: PropTypes.arrayOf(tagPropType),
+    submission_sets: PropTypes.object, // TODO
+    display_name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  }),
+).isRequired;
+
 // Selectors:
-export const datasetSelector = (state, datasetSlug) =>
-  state.datasets.datasetModels.find(dataset => dataset.slug === datasetSlug);
+export const datasetsSelector = state => state.datasets.datasetModels;
 
 export const datasetUrlSelector = (state, datasetSlug) => {
   return state.datasets.datasetModels.find(
@@ -10,20 +43,10 @@ export const datasetUrlSelector = (state, datasetSlug) => {
   ).url;
 };
 
-export const datasetsLoadStatusSelector = state => state.datasets.loadStatus;
-
 // Actions:
 const LOAD = "datasets/LOAD";
-const UPDATE_LOAD_STATUS = "datasets/UPDATE_LOAD_STATUS";
 
 // Action creators:
-export function updateDatasetsLoadStatus(loadStatus) {
-  return {
-    type: UPDATE_LOAD_STATUS,
-    payload: loadStatus,
-  };
-}
-
 export function loadDatasets(datasets) {
   const getTagDisplayName = (tag, tags) => {
     const nodes = [];
@@ -101,21 +124,6 @@ export const getColorForTag = ({ state, datasetSlug, tagUrl }) =>
     .find(dataset => dataset.slug === datasetSlug)
     .tags.find(tag => tag.url === tagUrl).color;
 
-export const tagPropType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  parent: PropTypes.number,
-  url: PropTypes.string.isRequired,
-  displayName: PropTypes.arrayOf(PropTypes.string).isRequired,
-}).isRequired;
-
-export const placeTagPropType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  note: PropTypes.string,
-  tag: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-});
-
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
@@ -129,11 +137,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         datasetModels: action.payload,
-      };
-    case UPDATE_LOAD_STATUS:
-      return {
-        ...state,
-        loadStatus: action.payload,
       };
     default:
       return state;

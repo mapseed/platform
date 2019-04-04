@@ -24,10 +24,18 @@ class GeocodingField extends Component {
     this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     this.props.isTriggeringGeocode &&
       !prevProps.isTriggeringGeocode &&
       this.doGeocode();
+
+    if (this.state.isWithGeocodingError && !prevState.isWithGeocodingError) {
+      setTimeout(() => {
+        this.setState({
+          isWithGeocodingError: false,
+        });
+      }, 5000);
+    }
   }
 
   doGeocode() {
@@ -95,6 +103,7 @@ class GeocodingField extends Component {
           className="geocoding-field__input"
           name={this.props.name}
           type="text"
+          aria-label="Search by address"
           placeholder={this.props.placeholder}
           value={this.props.value}
           onBlur={this.doGeocode.bind(this)}

@@ -87,9 +87,10 @@ function updateMetadata() {
   // NOTE: We need to update the Cache-Control header for the index.html object,
   // as well as any localized index objects (such as es.html, for example),
   // so CloudFront won't cache these objects and they can fetch updated hashed
-  // CSS and JS bundles consistently.
+  // CSS and JS bundles consistently. We also need to update localized config
+  // files, since these are no longer embedded in the index files directly.
   let updatePromises = glob
-    .sync("./www/*.html")
+    .sync("{./www/*.html,./www/config*.js}")
     .map(filepath => {
       filepath = path.relative("./www", filepath);
       params = {

@@ -1,6 +1,6 @@
 {
-  "validationHeader":
-    "Your post is looking good, but we need some more information before we can proceed.",
+  "validationHeader": "Your post is looking good, but we need some more information before we can proceed.",
   "privateSubmissionModalHeader": "Thank you!",
-  "privateSubmissionModalBody": "Your information was submitted successfully, and will remain private."
+  "privateSubmissionModalBodyNonAdmin": "Your information was submitted successfully, and will remain private.",
+  "privateSubmissionModalBodyAdmin": "Your information was submitted successfully as a validated administrator of this site. It will be visible to you and other administrators, but will remain hidden for other users."
 }

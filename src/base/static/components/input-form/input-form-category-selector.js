@@ -21,7 +21,7 @@ class InputFormCategorySelector extends Component {
 
   render() {
     return (
-      <div className="input-form__category-selector">
+      <>
         {this.props.visibleCategoryConfigs.map(config => {
           const isSelected = this.props.selectedCategory === config.category;
 
@@ -55,7 +55,7 @@ class InputFormCategorySelector extends Component {
             )
           );
         })}
-      </div>
+      </>
     );
   }
 }

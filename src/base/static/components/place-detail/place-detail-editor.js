@@ -10,7 +10,7 @@ import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
 
-import { scrollTo } from "../../utils/scroll-helpers";
+import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 const Util = require("../../js/utils.js");
 
@@ -29,11 +29,20 @@ import {
   placePropType,
   updateActiveEditPlaceId,
 } from "../../state/ducks/places";
-import { removeFeatureInGeoJSONSource } from "../../state/ducks/map";
-import { updateEditModeToggled } from "../../state/ducks/ui";
-import { isInAtLeastOneGroup, hasAdminAbilities } from "../../state/ducks/user";
+import {
+  removeFeatureInGeoJSONSource,
+  updateFeatureInGeoJSONSource,
+  updateFocusedGeoJSONFeatures,
+} from "../../state/ducks/map";
+import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
+import {
+  isInAtLeastOneGroup,
+  hasAdminAbilities,
+  hasGroupAbilitiesInDatasets,
+} from "../../state/ducks/user";
 
 import { getCategoryConfig } from "../../utils/config-utils";
+import { toClientGeoJSONFeature } from "../../utils/place-utils";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -62,7 +71,18 @@ class PlaceDetailEditor extends Component {
         fields = fields.set(
           field.name,
           Map()
-            .set("value", this.props.place[field.name])
+            .set(
+              "value",
+              field.name === "private"
+                ? // Private fields will be returned with a true or false value,
+                  // which should be mapped to the "yes"/"no" values of the field
+                  // which manipulates the private setting.
+                  // TODO: This should be better encapsulated.
+                  this.props.place["private"]
+                  ? "yes"
+                  : "no"
+                : this.props.place[field.name],
+            )
             .set("config", fieldConfig)
             .set(
               // A field will be hidden if it is explicitly declared as
@@ -151,6 +171,9 @@ class PlaceDetailEditor extends Component {
         },
         datasetSlug: this.props.place._datasetSlug,
         clientSlug: this.props.place._clientSlug,
+        hasAdminAbilities: this.props.hasAdminAbilities(
+          this.props.place._datasetSlug,
+        ),
       });
 
       this.setState({
@@ -165,8 +188,15 @@ class PlaceDetailEditor extends Component {
           await Promise.all(
             this.attachments.map(async attachment => {
               const attachmentResponse = await mapseedApiClient.attachments.create(
-                placeResponse.url,
-                attachment,
+                {
+                  placeUrl: placeResponse.url,
+                  attachment,
+                  includePrivate: this.props.hasGroupAbilitiesInDatasets({
+                    abilities: ["can_access_protected"],
+                    datasetSlugs: [this.props.place._datasetSlug],
+                    submissionSet: "places",
+                  }),
+                },
               );
 
               if (attachmentResponse) {
@@ -181,9 +211,32 @@ class PlaceDetailEditor extends Component {
         }
 
         this.props.updatePlace(placeResponse);
+        this.props.updateFeatureInGeoJSONSource({
+          sourceId: this.props.place._datasetSlug,
+          featureId: placeResponse.id,
+          feature: toClientGeoJSONFeature(placeResponse),
+        });
+
+        const { geometry, ...rest } = placeResponse;
+        // Update the focused feature.
+        this.props.updateFocusedGeoJSONFeatures([
+          {
+            type: "Feature",
+            geometry: {
+              type: geometry.type,
+              coordinates: geometry.coordinates,
+            },
+            properties: rest,
+          },
+        ]);
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
-        scrollTo(this.props.container, 0, 100);
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          scrollPositon: 0,
+          layout: this.props.layout,
+        });
       } else {
         alert("Oh dear. It looks like that didn't save. Please try again.");
         Util.log("USER", "place", "fail-to-update-place");
@@ -196,7 +249,11 @@ class PlaceDetailEditor extends Component {
         showValidityStatus: true,
         isNetworkRequestInFlight: false,
       });
-      scrollTo(this.props.container, 0, 300);
+      jumpTo({
+        contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
+        scrollPositon: 0,
+        layout: this.props.layout,
+      });
       this.props.setPlaceRequestType(null);
     }
   }
@@ -275,10 +332,9 @@ class PlaceDetailEditor extends Component {
 
   triggerFieldVisibility(targets, isVisible) {
     targets.forEach(target => {
-      const fieldStatus = this.state.fields.setIn(
-        [target, "isVisible"],
-        isVisible,
-      );
+      const fieldStatus = this.state.fields
+        .get(target)
+        .set("isVisible", isVisible);
 
       this.setState(({ fields }) => ({
         fields: fields.set(target, fieldStatus),
@@ -356,11 +412,13 @@ class PlaceDetailEditor extends Component {
 PlaceDetailEditor.propTypes = {
   activeMarker: PropTypes.string,
   attachments: PropTypes.array,
-  container: PropTypes.object.isRequired,
+  contentPanelInnerContainerRef: PropTypes.object.isRequired,
   geometryStyle: geometryStyleProps.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
+  layout: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func,
   onRequestEnd: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
@@ -374,6 +432,8 @@ PlaceDetailEditor.propTypes = {
   t: PropTypes.func.isRequired,
   updateActiveEditPlaceId: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
+  updateFeatureInGeoJSONSource: PropTypes.func.isRequired,
+  updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   updatePlace: PropTypes.func.isRequired,
 };
 
@@ -382,8 +442,16 @@ const mapStateToProps = state => ({
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
+  layout: layoutSelector(state),
   geometryStyle: geometryStyleSelector(state),
   placeConfig: placeConfigSelector(state),
+  hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      datasetSlugs,
+      submissionSet,
+    }),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -397,6 +465,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removePlaceAttachment(placeId, attachmentId)),
   updateActiveEditPlaceId: placeId =>
     dispatch(updateActiveEditPlaceId(placeId)),
+  updateFeatureInGeoJSONSource: ({ sourceId, featureId, feature }) =>
+    dispatch(updateFeatureInGeoJSONSource({ sourceId, featureId, feature })),
+  updateFocusedGeoJSONFeatures: newFeatures =>
+    dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
 });
 
 export default connect(

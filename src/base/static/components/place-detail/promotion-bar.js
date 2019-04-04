@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
 
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import SupportButton from "../ui-elements/support-button";
 import { IconButton } from "../atoms/buttons";
 

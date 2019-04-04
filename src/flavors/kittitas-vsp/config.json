@@ -1,0 +1,2450 @@
+{
+  "datasets": [
+    {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/kittitas-vsp-input",
+      "slug": "kittitas-vsp-input",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "Kittitas County Voluntary Stewardship Program",
+    "name": "Kittitas County Voluntary Stewardship Program",
+    "logo": "/static/css/images/logo.png",
+    "meta_description": "_(Welcome!)",
+    "meta_author": "mapseed.org",
+    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "isShowingMobileUserMenu": true,
+    "theme": {
+      "brand": {
+        "primary": "#115588",
+        "secondary": "#d46c4c",
+        "tertiary": "#999",
+        "accent": "#ef5f46"
+      },
+      "bg": {
+        "default": "rgba(226, 232, 236, 0.4)",
+        "light": "#115588"
+      },
+      "text": {
+        "secondary": "#fff",
+        "tertiary": "#ef5f46",
+        "headerFontFamily": "Raleway,sans-serif",
+        "bodyFontFamily": "Raleway,sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#115588",
+        "addPlaceButtonHoverBackgroundColor": "#9ecaeb"
+      }
+    }
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "geocoding_engine": "Mapbox",
+    "geocode_hint": [-117.59821, 46.472103],
+    "offlineBoundingBox": {
+      "southWest": {
+        "lat": 46.709206,
+        "lng": -121.476997
+      },
+      "northEast": {
+        "lat": 47.633585,
+        "lng": -119.891353
+      }
+    },
+    "options": {
+      "scrollZoomAroundCenter": true,
+      "mapViewport": {
+        "latitude": 47.18554,
+        "longitude": -120.72226,
+        "zoom": 7.95,
+        "pitch": 15,
+        "minZoom": 1,
+        "maxZoom": 18
+      },
+      "disableDrawing": true
+    },
+    "mapboxSources": {
+      "osm": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tilseSize": 256
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "tileSize": 256,
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      "columbia-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/columbia-river.geojson"
+      },
+      "snake-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/snake-river.geojson"
+      },
+      "kittitas-landcover": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-landcover/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-critical-aquifer": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-wetlands": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-wetlands/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-floodplain": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/42e5edd4c38d4559b7bb4caa10cdd8d2_2.geojson"
+      },
+      "kittitas-county-outline": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/bf2498852e614bc1a918ec562150a06b_0.geojson"
+      }
+    },
+
+    "layerGroups": [
+      {
+        "id": "osm",
+        "basemap": true,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
+      },
+      {
+        "id": "satellite",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "columbia-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "columbia-river-fill",
+            "type": "fill",
+            "source": "columbia-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "columbia-river-outline",
+            "type": "line",
+            "source": "columbia-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "snake-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "snake-river-fill",
+            "type": "fill",
+            "source": "snake-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "snake-river-outline",
+            "type": "line",
+            "source": "snake-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-county-outline",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-county-outline",
+            "type": "line",
+            "source": "kittitas-county-outline",
+            "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 3,
+              "line-dasharray": [2, 2]
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-critical-aquifer",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-critical-aquifer",
+            "type": "fill",
+            "source": "kittitas-critical-aquifer",
+            "source-layer": "kittitas-critical-aquifer",
+            "paint": {
+              "fill-pattern": "aquifer-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-critical-aquifer-outline",
+            "type": "line",
+            "source": "kittitas-critical-aquifer",
+            "source-layer": "kittitas-critical-aquifer",
+            "paint": {
+              "line-color": "#e57339",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-geologic-hazard",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-geologic-hazard",
+            "type": "fill",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-geologic-hazard-outline",
+            "type": "line",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-wetlands",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-wetlands",
+            "type": "fill",
+            "source": "kittitas-wetlands",
+            "source-layer": "kittitas-wetlands",
+            "paint": {
+              "fill-pattern": "wetlands-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-wetlands-outline",
+            "type": "line",
+            "source": "kittitas-wetlands",
+            "source-layer": "kittitas-wetlands",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-frequently-flooded",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-frequently-flooded",
+            "type": "fill",
+            "source": "kittitas-floodplain",
+            "paint": {
+              "fill-pattern": "frequently-flooded-fill.png"
+            }
+          },
+          {
+            "id": "garfield-frequently-flooded-outline",
+            "type": "line",
+            "source": "kittitas-floodplain",
+            "paint": {
+              "line-color": "#3366ff",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-wildlife",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-wildlife",
+            "type": "fill",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [
+              "any",
+              ["==", ["to-number", ["get", "AM_HAB"]], 1],
+              ["==", ["to-number", ["get", "NG_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
+            ],
+            "paint": {
+              "fill-pattern": "conservation-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-wildlife-outline",
+            "type": "line",
+            "source": "kittitas-landcover",
+            "source-layer": "kittitas-landcover",
+            "filter": [
+              "any",
+              ["==", ["to-number", ["get", "AM_HAB"]], 1],
+              ["==", ["to-number", ["get", "NG_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP_HAB"]], 1],
+              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH_HAB"]], 1],
+              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
+            ],
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-vsp-input",
+        "visibleDefault": true,
+        "interactive": true,
+        "datasetSlug": "kittitas-vsp-input",
+        "mapboxFocusedLayers": [
+          {
+            "id": "kittitas-vsp-input-focused",
+            "type": "symbol",
+            "source": "kittitas-vsp-input",
+            "layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "reports",
+                "map-pin-marker-red.png",
+                "__no-icon-image__"
+              ],
+              "icon-allow-overlap": true
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "kittitas-vsp-input",
+            "type": "symbol",
+            "source": "kittitas-vsp-input",
+            "layout": {
+              "icon-anchor": "bottom",
+              "icon-image": "map-pin-marker-red.png",
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
+              "icon-allow-overlap": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": false
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa fa-bars",
+        "component": "MapLayerPanel",
+        "title": "_(Map Layers:)",
+        "content": [
+          {
+            "id": "basemaps",
+            "title": "_(Basemaps)",
+            "layerGroups": [
+              {
+                "id": "osm",
+                "title": "_(OpenStreetMap)"
+              },
+              {
+                "id": "satellite",
+                "title": "_(Satellite View)"
+              }
+            ]
+          },
+          {
+            "id": "grp-water",
+            "title": "_(Water Features)",
+            "layerGroups": [
+              {
+                "id": "columbia-river",
+                "title": "_(Columbia River)"
+              },
+              {
+                "id": "snake-river",
+                "title": "_(Snake River)"
+              },
+              {
+                "id": "kittitas-geologic-hazard",
+                "title": "_(Geologic Hazards)"
+              },
+              {
+                "id": "kittitas-wetlands",
+                "title": "_(Wetlands)"
+              },
+              {
+                "id": "kittitas-frequently-flooded",
+                "title": "_(Frequently Flooded Areas)"
+              },
+              {
+                "id": "kittitas-wildlife",
+                "title": "_(Wildlife Habitat)"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "_(Community Data)",
+            "layerGroups": [
+              {
+                "id": "kittitas-county-outline",
+                "title": "_(Kittitas County border)"
+              },
+              {
+                "id": "kittitas-vsp-input",
+                "title": "_(Community Reports)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "_(Share Your Stewardship)",
+    "action_text": "_(added)",
+    "title": "_(Tell us more...)",
+    "anonymous_name": "_(Someone)",
+    "submit_button_label": "_(Put it on the map!)",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "reports",
+        "category": "reports",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "submitter_editing_supported": true,
+        "name": "location_type",
+        "datasetSlug": "kittitas-vsp-input",
+        "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "value": "demo",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 4,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 7,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-wetlands",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 8,
+            "end_field_index": 10,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-frequently-flooded",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 11,
+            "end_field_index": 13,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-geologic-hazard",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 14,
+            "end_field_index": 16,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-critical-aquifer",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 17,
+            "end_field_index": 19,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-wildlife",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 20,
+            "end_field_index": 37,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 38,
+            "end_field_index": 55,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 56,
+            "end_field_index": 61,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 62,
+            "end_field_index": 76,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 77,
+            "end_field_index": 82,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 83,
+            "end_field_index": 111,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 112,
+            "end_field_index": 123,
+            "header": "_(Whitman County)",
+            "description": "_(Voluntary Stewardship Program)",
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          }
+        ],
+        "label": "_(Actions)",
+        "fields": [
+          {
+            "name": "location_information_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
+          },
+          {
+            "name": "location_why",
+            "type": "informational_html",
+            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p>"
+          },
+          {
+            "name": "drag_map_info",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#ef5f46;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
+          },
+          {
+            "name": "address",
+            "type": "geocoding",
+            "prompt": "_(Search by address)",
+            "placeholder": "_(Your address will never be shared)",
+            "optional": true
+          },
+          {
+            "name": "wetlands_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland Areas</h2>"
+          },
+          {
+            "name": "wetlands_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/wetlands.jpg' alt='Wetlands' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_wetlands",
+            "type": "big_radio",
+            "prompt": "_(Are there any wetlands?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "frequently_flooded_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently Flooded Areas</h2>"
+          },
+          {
+            "name": "frequently_flooded_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_frequently_flooded",
+            "type": "big_radio",
+            "prompt": "_(Are there any frequently flooded areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "geologic_hazard_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Severe Geologic Hazard Areas</h2>"
+          },
+          {
+            "name": "geologic_hazard_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/geologic-hazard-area.jpg' alt='Geologic hazard areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_geologic_hazard",
+            "type": "big_radio",
+            "prompt": "_(Are there any severe geologic hazard areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "critical_aquifer_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Aquifer Recharge Areas</h2>"
+          },
+          {
+            "name": "critical_aquifer_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/critical-aquifer-recharge.jpg' alt='Critical aquifer recharge areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_critical_aquifer",
+            "type": "big_radio",
+            "prompt": "_(Are there any critical aquifer recharge areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "fish_wildlife_habitat_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & Wildlife Habitat (PHS)</h2>"
+          },
+          {
+            "name": "fish_wildlife_habitat_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildife conservation areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_fish_wildlife_habitat",
+            "type": "big_radio",
+            "prompt": "_(Are there any fish & wildlife conservation areas?)",
+            "optional": false,
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "//": "---------------------WATER USE EFFICIENCY-------------------------",
+            "name": "water_use_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Water Use Efficiency</h2>"
+          },
+          {
+            "name": "water_user_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your water use practices.</p></div></div>"
+          },
+          {
+            "name": "water-use_no-water-use",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-water-use",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-water-use"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "water-use"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== GATED PIPE ================================",
+            "name": "gated_pipe",
+            "type": "big_radio",
+            "prompt": "_(Gated pipe irrigation system)",
+            "label": "_(Gated pipe)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["gated_pipe_quantity", "gated_pipe_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "gated_pipe_quantity",
+            "type": "number",
+            "prompt": "_(How many feet?)",
+            "min": 0,
+            "placeholder": "_(Approximate footage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(feet)"
+            }
+          },
+          {
+            "name": "gated_pipe_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using gated pipe irrigation?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== HANDLINE/WHEEL LINE SPRINKLERS ========================",
+            "name": "line_sprinklers",
+            "type": "big_radio",
+            "prompt": "_(Handline or wheel line sprinklers)",
+            "label": "_(Handline/wheel line sprinklers)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "line_sprinklers_quantity",
+                "line_sprinklers_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "line_sprinklers_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres of land do you use handline or wheel line sprinklers?)",
+            "min": 0,
+            "hidden_default": true,
+            "placeholder": "_(Approximate acreage)",
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "line_sprinklers_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using handline or wheel line sprinklers?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== CENTER PIVOT/LINEAR SPRINKLERS ========================",
+            "name": "pivot_sprinklers",
+            "type": "big_radio",
+            "prompt": "_(Center pivot or linear sprinklers)",
+            "label": "_(Center pivot/linear sprinklers)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "pivot_sprinklers_quantity",
+                "pivot_sprinklers_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pivot_sprinklers_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres of land do you use center pivot or linear sprinklers?)",
+            "min": 0,
+            "hidden_default": true,
+            "placeholder": "_(Approximate acreage)",
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "pivot_sprinklers_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using center pivot or linear sprinklers?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== MICRO (DRIP) IRRIGATION ========================",
+            "name": "micro_irrigation",
+            "type": "big_radio",
+            "prompt": "_(Micro (drip) irrigation)",
+            "label": "_(Micro (drip) irrigation)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "micro_irrigation_quantity",
+                "micro_irrigation_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "micro_irrigation_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres of land do you use micro irrigation?)",
+            "min": 0,
+            "hidden_default": true,
+            "placeholder": "_(Approximate acreage)",
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "micro_irrigation_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using micro irrigation?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== PIPELINE IRRIGATION ========================",
+            "name": "pipeline_irrigation",
+            "type": "big_radio",
+            "prompt": "_(Pipeline irrigation)",
+            "label": "_(Pipeline irrigation)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "pipeline_irrigation_quantity",
+                "pipeline_irrigation_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pipeline_irrigation_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres of land do you use pipeline irrigation?)",
+            "min": 0,
+            "hidden_default": true,
+            "placeholder": "_(Approximate acreage)",
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "pipeline_irrigation_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using pipeline irrigation?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "--------------SECTION: SOIL HEALTH & EROSION MGMT---------------------------",
+            "name": "soil_management",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Soil Health & Erosion Management</h2>"
+          },
+          {
+            "name": "soil_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your soil health and erosion management practices.</p></div></div>"
+          },
+          {
+            "name": "soil-management_no-soil-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-soil-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-soil-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "soil-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== COVER CROP =================================",
+            "name": "cover_crop",
+            "type": "big_radio",
+            "prompt": "_(Cover crops planting)",
+            "label": "_(Cover crops)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["cover_crop_quantity", "cover_crop_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "cover_crop_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "cover_crop_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start planting cover crops?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== MULCHING =================================",
+            "name": "mulching",
+            "type": "big_radio",
+            "prompt": "_(Mulching)",
+            "label": "_(Cover crops)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["mulching_quantity", "mulching_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "mulching_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(On how many acres do you use mulching?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "mulching_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start mulching?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== NO TILL =================================",
+            "name": "no_till",
+            "type": "big_radio",
+            "prompt": "_(No-till)",
+            "label": "_(No-till)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["no_till_quantity", "no_till_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "no_till_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(On how many acres do you use no-till?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "no_till_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using no-till?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== REDUCED TILL =================================",
+            "name": "reduced_till",
+            "type": "big_radio",
+            "prompt": "_(Reduced till)",
+            "label": "_(Reduced till)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["reduced_till_quantity", "reduced_till_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "reduced_till_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(On how many acres do you use reduced till?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "reduced_till_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using reduced till?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== POLYACRYLAMIDE =================================",
+            "name": "polyacrylamide",
+            "type": "big_radio",
+            "prompt": "_(Polyacrylamide)",
+            "label": "_(Polyacrylamide)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["polyacrylamide_quantity", "polyacrylamide_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "polyacrylamide_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(On how many acres do you use polyacrylamide?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "polyacrylamide_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using polyacrylamide?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
+            "name": "nutrient_management_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Nutrient Management</h2>"
+          },
+          {
+            "name": "nutrient_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+          },
+          {
+            "name": "nutrient-management_no-nutrient-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-nutrient-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-nutrient-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "nutrient-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== SOIL/PLANT TISSUE TESTS ====================",
+            "name": "nutrient_management",
+            "type": "big_radio",
+            "prompt": "_(Nutrient management practices: soil and/or plant tissue tests)",
+            "label": "_(Nutrient management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "nutrient_management_quantity",
+                "nutrient_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "nutrient_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using nutrient management practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
+            "name": "nutrient_management_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Nutrient Management</h2>"
+          },
+          {
+            "name": "nutrient_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+          },
+          {
+            "name": "nutrient-management_no-nutrient-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-nutrient-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-nutrient-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "nutrient-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== NUTRIENT MGMT ====================",
+            "name": "nutrient_management",
+            "type": "big_radio",
+            "prompt": "_(Nutrient management practices: soil and/or plant tissue tests)",
+            "label": "_(Nutrient management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "nutrient_management_quantity",
+                "nutrient_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "nutrient_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using nutrient management practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "--------------SECTION: RANGE MGMT---------------------------",
+            "name": "range_management",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Range Management</h2>"
+          },
+          {
+            "name": "range_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your range management practices.</p></div></div>"
+          },
+          {
+            "name": "range-management_no-range-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-range-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-range-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "range-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== MANAGED GRAZING ========================",
+            "name": "managed_grazing",
+            "type": "big_radio",
+            "prompt": "_(Managed grazing)",
+            "label": "_(Managed grazing)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "managed_grazing_quantity",
+                "managed_grazing_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "managed_grazing_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres do you practice managed grazing?)",
+            "min": 0,
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "managed_grazing_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using managed grazing?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== RANGE PLANTINGS ==========================",
+            "name": "range_plantings",
+            "type": "big_radio",
+            "prompt": "_(Range plantings: establishment of adapted perennial or self-sustaining vegetation)",
+            "label": "_(Range plantings)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "range_plantings_quantity",
+                "range_plantings_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "range_plantings_quantity",
+            "type": "number",
+            "min": 0,
+            "metadata": {
+              "units": "_(acres)"
+            },
+            "prompt": "_(How many acres?)",
+            "hidden_default": true
+          },
+          {
+            "name": "range_plantings_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start range plantings?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== WATERING FACILITIES ==========================",
+            "name": "watering_facility",
+            "type": "big_radio",
+            "prompt": "_(Watering facilities: means of providing drinking water to livestock or wildlife)",
+            "label": "_(Watering facilities)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "watering_facility_quantity",
+                "watering_facility_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "watering_facility_quantity",
+            "type": "number",
+            "min": 0,
+            "metadata": {
+              "units": "_(stock tanks)"
+            },
+            "prompt": "_(How many stock tanks?)",
+            "hidden_default": true
+          },
+          {
+            "name": "watering_facility_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using watering facilities?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== WATER WELLS ==========================",
+            "name": "water_wells",
+            "type": "big_radio",
+            "prompt": "_(Water wells: for domestic animals, wildlife or fire control)",
+            "label": "_(Water wells)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["water_wells_quantity", "water_wells_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "water_wells_quantity",
+            "type": "number",
+            "min": 0,
+            "metadata": {
+              "units": "_(wells)"
+            },
+            "prompt": "_(How many wells?)",
+            "hidden_default": true
+          },
+          {
+            "name": "water_wells_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start operating water wells?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "------------SECTION: PEST MGMT--------------------",
+            "name": "pest_management_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Pest Management</h2>"
+          },
+          {
+            "name": "pest_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your pest management practices.</p></div></div>"
+          },
+          {
+            "name": "pest-management_no-pest-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-pest-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-pest-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "pest-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== WEED & PEST PREVENTION ========================",
+            "name": "pest_management",
+            "type": "big_radio",
+            "prompt": "_(Weed and pest prevention, monitoring, and suppression)",
+            "label": "_(Weed and pest management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "pest_management_quantity",
+                "pest_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pest_management_quantity",
+            "type": "number",
+            "prompt": "_(How many acres do you practive weed and prest prevention, monitoring, or suppression?)",
+            "min": 0,
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "pest_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using weed and pest prevention?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
+            "name": "fish_wildlife_management",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Fish & Wildlife Management</h2>"
+          },
+          {
+            "name": "fish_wildlife_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your fish & wildlife management practices.</p></div></div>"
+          },
+          {
+            "name": "fish-wildlife-management_no-fish-wildlife-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-fish-wildlife-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-fish-wildlife-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "fish-wildlife-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== CONSERVATION COVER ==========================",
+            "name": "conservation_cover",
+            "type": "big_radio",
+            "prompt": "_(Conservation cover: consists of establishment of permanent vegetative cover including CRP)",
+            "label": "_(Conservation cover)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "conservation_cover_quantity",
+                "conservation_cover_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "conservation_cover_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "conservation_cover_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start planting conservation cover?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== CRITICAL AREA PLANTING ===============================",
+            "name": "critical_area_planting",
+            "type": "big_radio",
+            "prompt": "_(Critical area planting: planting vegetation to stabilize critically eroding land)",
+            "label": "_(Critical area planting)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "critical_area_planting_quantity",
+                "critical_area_planting_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "critical_area_planting_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "critical_area_planting_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start critical area planting?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== TREE/SHRUB ==================================",
+            "name": "tree_shrub",
+            "type": "big_radio",
+            "prompt": "_(Tree and shrub establishment: establishing woody plants by planting seedlings or cuttings)",
+            "label": "_(Tree/shrub establishment)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["tree_shrub_quantity", "tree_shrub_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "tree_shrub_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "tree_shrub_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start establishing new trees and shrubs?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== UPLAND HABITAT MANAGEMENT ==================",
+            "name": "upland_habitat",
+            "type": "big_radio",
+            "prompt": "_(Upland wildlife habitats management: creating, maintain, or enhancing areas to provide food, cover and habitat connectivity)",
+            "label": "_(Upland habitat management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["upland_habitat_quantity", "upland_habitat_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "upland_habitat_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "upland_habitat_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start managing upland wildlife habitats?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FENCING ==================",
+            "name": "fencing",
+            "type": "big_radio",
+            "prompt": "_(Fencing establishment)",
+            "label": "_(Fencing)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["fencing_quantity", "fencing_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "fencing_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many feet of fencing have you established?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "upland_habitat_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start establishing fencing?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FISH SCREENS ==================",
+            "name": "fish_screens",
+            "type": "big_radio",
+            "prompt": "_(Fish screens)",
+            "label": "_(Fish screens)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["fish_screens_quantity", "fish_screens_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "fish_screens_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many fish screens have you established?)",
+            "placeholder": "_(Approximate number)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(fish screens)"
+            }
+          },
+          {
+            "name": "fish_screens_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start establishing fish screens?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FISHWAYS ==================",
+            "name": "fishways",
+            "type": "big_radio",
+            "prompt": "_(Fishways)",
+            "label": "_(Fishways)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["fishways_quantity", "fishways_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "fishways_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many fishways have you established?)",
+            "placeholder": "_(Approximate number)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(fishways)"
+            }
+          },
+          {
+            "name": "fishways_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start establishing fishways?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STREAM RESTORATION ==================",
+            "name": "stream_restoration",
+            "type": "big_radio",
+            "prompt": "_(Stream restoration)",
+            "label": "_(Stream restoration)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["stream_restoration_quantity", "stream_restoration_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "stream_restoration_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many feet of stream have you restored?)",
+            "placeholder": "_(Approximate footage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(feet)"
+            }
+          },
+          {
+            "name": "stream_restoration_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start restoring streams?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STREAMBANK STABILIZATION ==================================",
+            "name": "streambank_stabilization",
+            "type": "big_radio",
+            "prompt": "_(Streambank stabilization)",
+            "label": "_(Streambank stabilization)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "streambank_stabilization_quantity",
+                "streambank_stabilization_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "streambank_stabilization_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many feet of streambank stabilization?)",
+            "placeholder": "_(Approximate number)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(feet)"
+            }
+          },
+          {
+            "name": "streambank_stabilization_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start making streambank stabilization improvements?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "---------------SECTION: ADDITIONAL INFO-------------------",
+            "name": "additional_info_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost completed!</h2>"
+          },
+          {
+            "name": "additional_info",
+            "type": "informational_html",
+            "content": "<p><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><p>This page will determine how your information is shared.  We will report all practices at the watershed scale, but if you are interested in having your project showcased you can give us permission below.  Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "_(Show your stewardship practices! Upload photos before, during, or after you implemented your stewardship practices:)",
+            "label": "_(Upload photos)",
+            "optional": true
+          },
+          {
+            "name": "practices_description",
+            "type": "textarea",
+            "prompt": "_(Add a description of your stewardship practices!)",
+            "display_prompt": "_(Description:)",
+            "optional": true
+          },
+          {
+            "name": "private-landowner_name",
+            "type": "text",
+            "placeholder": "_(Your name will only be shared if you are logged in)",
+            "prompt": "_(What is your name?)",
+            "optional": false
+          },
+          {
+            "name": "private-use_photos",
+            "type": "big_radio",
+            "prompt": "_(Can Garfield County VSP highlight your photos on our website?)",
+            "default_value": "no",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "private",
+            "type": "big_radio",
+            "prompt": "_(Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.)",
+            "default_value": "yes",
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "no"
+              },
+              {
+                "label": "_(No)",
+                "value": "yes"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "private-landowner_email",
+            "type": "text",
+            "optional": true,
+            "placeholder": "_(Your email address will never be shared)",
+            "prompt": "_(What is your email address?)"
+          },
+          {
+            "name": "private-landowner_phone",
+            "type": "text",
+            "prompt": "_(What is your phone number?)",
+            "placeholder": "_(Your phone number will never be shared)",
+            "optional": false
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "label": "_(Submit!)"
+          }
+        ]
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "_(comment)",
+      "response_plural_name": "_(comments)",
+      "action_text": "_(commented on)",
+      "anonymous_name": "_(Someone)",
+      "title": "_(Leave a Comment)",
+      "form_link_text": "_(Leave a Comment)",
+      "submit_btn_text": "_(Comment)",
+      "items": [
+        {
+          "prompt": "_(Comment)",
+          "label": "_(Comment)",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "_(Your Name)",
+          "type": "text",
+          "name": "submitter_name",
+          "placeholder": "_(Name is optional)",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "_(Comment)"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "reports",
+        "datasetId": "kittitas-vsp-input",
+        "label": "_(Actions)",
+        "icon": "/static/css/images/markers/map-pin-marker-red.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "_(Support)",
+    "response_name": "_(support)",
+    "response_plural_name": "_(supports)",
+    "action_text": "supported",
+    "anonymous_name": "_(Someone)"
+  },
+  "nav_bar": [
+    {
+      "title": "_(About)",
+      "type": "internal_link",
+      "url": "/page/about",
+      "start_page": true
+    }
+  ],
+  "pages": [
+    {
+      "slug": "assistance",
+      "lang": "en_US",
+      "content": [
+        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
+        "<p style='margin-bottom:16px'>Your Garfield County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator or for more information visit: <a href='https://www.garfieldcountyvsp.com/' target='_blank'>www.garfieldcountyvsp.com</a>.</p>",
+        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
+        "<li>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Bradley Johnson</strong>",
+        "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>bradleyj@palousecd.org</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Duane Bartels</strong>",
+        "<p style='margin:0'><em>District Manager</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-843-5008</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcdistrict@qwestoffice.net</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Lance Frederick</strong>",
+        "<p style='margin:0'><em>CREP Coordinator</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>508-843-5008</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>lancepcdistrict@qwestoffice.net</span></div>",
+        "</li>",
+        "</ul>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en_US",
+      "content": [
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<img src='/static/css/images/kccd-group.jpg' alt='KCCD' style='margin:8px 0 16px 0' />",
+        "<p>The Kittitas County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
+        "<p>Click Get Started to begin!</p>",
+        "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
+      ]
+    }
+  ],
+  "custom_components": {
+    "FieldSummary": "PalouseFieldSummary"
+  }
+}

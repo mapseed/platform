@@ -42,19 +42,20 @@
         "secondary": "#fff",
         "tertiary": "#02440c",
         "navBarFontFamily": "lithos,sans-serif",
+        "bodyFontFamily": "Roboto, sans-serif",
         "textTransform": "uppercase"
       },
       "bg": {
         "default": "#f3f5e7",
-        "light": "#fff"
+        "light": "#02440c"
       }
     }
   },
-  "dashboard": {
-    "datasetId": "snohomish-input",
-    "datasetLabel": "project",
-    "datasetOwner": "smartercleanup"
-  },
+  "dashboard": [
+    {
+      "datasetSlug": "snohomish-input"
+    }
+  ],
   "map": {
     "geolocation_enabled": true,
     "geocoding_engine": "Mapbox",
@@ -313,6 +314,7 @@
           {
             "id": "snohomish-input-focused",
             "type": "symbol",
+            "source": "snohomish-inut",
             "filter": ["==", ["get", "location_type"], "conservation-actions"],
             "layout": {
               "icon-allow-overlap": true,
@@ -345,6 +347,7 @@
           {
             "id": "snohomish-featured-focused-points",
             "type": "symbol",
+            "source": "snohomish-featured",
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "layout": {
               "icon-allow-overlap": true,
@@ -632,7 +635,7 @@
             "name": "location-information",
             "type": "informational_html",
             "prompt": "_( )",
-            "content": "<h5 class=\"map-drag-header\">You may drag the map to set your location.</h5><h5 class=\"map-drag-header\">Or, you may enter your address:</h5>"
+            "content": "<h3 class=\"map-drag-header\">You may drag the map to set your location.</h3><h3 class=\"map-drag-header\">Or, you may enter your address:</h3>"
           },
           {
             "name": "private-address",
@@ -2228,13 +2231,13 @@
     "places": [
       {
         "id": "featured_place",
-        "datasetId": "snohomish-featured",
+        "datasetSlug": "snohomish-featured",
         "label": "_(Featured Site)",
         "icon": "/static/css/images/markers/map-pin-star-marker.png"
       },
       {
         "id": "conservation-actions",
-        "datasetId": "snohomish-input",
+        "datasetSlug": "snohomish-input",
         "label": "_(Conservation Actions)",
         "icon": "/static/css/images/markers/map-pin-marker.png"
       }

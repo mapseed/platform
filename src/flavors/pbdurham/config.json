@@ -3,6 +3,7 @@
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
       "slug": "pbdurham",
+      "owner": "smartercleanup",
       "clientSlug": "idea",
       "anonymous_permissions": [
         {
@@ -18,6 +19,7 @@
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
+      "owner": "smartercleanup",
       "clientSlug": "project",
       "anonymous_permissions": [
         {
@@ -34,6 +36,7 @@
     "meta_description": "_(Participatory Budgeting for City of Durham)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "time_zone": "America/New_York",
+    "isShowingMobileUserMenu": true,
     "theme": {
       "bg": {
         "default": "#d6d5d9",
@@ -67,15 +70,22 @@
       }
     ]
   },
-  "dashboard": {
-    "datasetId": "pbdurham",
-    "datasetOwner": "smartercleanup",
-    "datasetLabel": "idea",
-    "surveyMetrics": {
-      "categories": true,
-      "demographics": true
+  "dashboard": [
+    {
+      "datasetSlug": "pbdurham-projects",
+      "surveyMetrics": {
+        "wards": true,
+        "budget": true
+      }
+    },
+    {
+      "datasetSlug": "pbdurham",
+      "surveyMetrics": {
+        "categories": true,
+        "demographics": true
+      }
     }
-  },
+  ],
   "map": {
     "geolocation_enabled": true,
     "geocoding_bar_enabled": true,
@@ -438,7 +448,19 @@
             "source": "pbdurham-projects",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "money.png",
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1-focused.png",
+                "ward_2",
+                "project-ward-2-focused.png",
+                "ward_3",
+                "project-ward-3-focused.png",
+                "citywide",
+                "project-citywide-focused.png",
+                "money.png"
+              ], 
               "icon-size": 0.3,
               "icon-anchor": "bottom"
             }
@@ -452,7 +474,19 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": "bottom",
-              "icon-image": "money.png",
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1.png",
+                "ward_2",
+                "project-ward-2.png",
+                "ward_3",
+                "project-ward-3.png",
+                "citywide",
+                "project-citywide.png",
+                "money.png"
+              ], 
               "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
             }
           }
@@ -666,13 +700,31 @@
         "formId": "projects",
         "category": "projects",
         "includeOnForm": true,
-        "includeOnList": false,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "pbdurham-projects",
         "icon_url": "/static/css/images/markers/money.png",
         "value": "project",
         "label": "_(Project Proposal)",
         "fields": [
+          {
+            "name": "private",
+            "type": "big_radio",
+            "restrictToGroups": ["administrators"],
+            "prompt": "_(Publish or unpublish this project. Published projects will be visible to all users. Unpublished projects will be visible to administrators, delegates, and technical reviewers.)",
+            "forced_default_value": "yes",
+            "content": [
+              {
+                "label": "_(Published)",
+                "value": "no"
+              },
+              {
+                "label": "_(Unpublished)",
+                "value": "yes"
+              }
+            ],
+            "optional": false
+          },
           {
             "prompt": "_(Proposal Name)",
             "type": "text",
@@ -681,7 +733,7 @@
             "optional": false
           },
           {
-            "prompt": "_(Idea(s) it comes from: (List idea tracker number(s)))",
+            "prompt": "_(Idea(s) it comes from: (List idea tracker number(s), separated by a space))",
             "display_prompt": "_(Related ideas:)",
             "type": "text",
             "placeholder": "...",
@@ -689,19 +741,47 @@
             "optional": true
           },
           {
-            "prompt": "_(Location(s): (address, intersection, or landmark name))",
-            "display_prompt": "_(Locations:)",
-            "type": "text",
-            "placeholder": "...",
-            "name": "project_locations",
+            "prompt": "_(Brief Project Description: (less than 100 words))",
+            "display_prompt": "_(Description of this project proposal:)",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "placeholder": "_(Briefly describe the project)",
+            "name": "project_description",
             "optional": true
           },
           {
-            "prompt": "_(Brief Description: (1-2 sentences describing what the project involves))",
-            "display_prompt": "_(Description of this project proposal:)",
+            "prompt": "_(Impact Statement: (less than 200 words))",
+            "display_prompt": "_(Impact Statement:)",
+            "includeOnListItem": true,
             "type": "textarea",
             "placeholder": "_(Briefly describe the project)",
-            "name": "project_description",
+            "name": "impact_statement",
+            "optional": true
+          },
+          {
+            "name": "ward",
+            "type": "big_radio",
+            "includeOnListItem": true,
+            "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
+            "label": "_(Ward:)",
+            "content": [
+              {
+                "label": "_(Ward 1)",
+                "value": "ward_1"
+              },
+              {
+                "label": "_(Ward 2)",
+                "value": "ward_2"
+              },
+              {
+                "label": "_(Ward 3)",
+                "value": "ward_3"
+              },
+              {
+                "label": "_(Citywide)",
+                "value": "citywide"
+              }
+            ],
             "optional": true
           },
           {
@@ -711,7 +791,7 @@
             "content": "<h1>Budget Delegates section</h1><p>This section is intended to be completed by Budget Delegates.</p>"
           },
           {
-            "prompt": "_(Equity Assessment Score)",
+            "prompt": "_(Equity Score)",
             "restrictToGroups": ["delegates"],
             "display_prompt": "_(Equity Assessment Score:)",
             "type": "big_radio",
@@ -733,7 +813,7 @@
             ]
           },
           {
-            "prompt": "_(Impact Assessment Score)",
+            "prompt": "_(Impact Score)",
             "restrictToGroups": ["delegates"],
             "display_prompt": "_(Impact Assessment Score:)",
             "type": "big_radio",
@@ -755,97 +835,13 @@
             ]
           },
           {
-            "prompt": "_(Feasibility Assessment Score)",
-            "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Feasibility Assessment Score:)",
-            "type": "big_radio",
-            "name": "delegate_feasibility_score",
-            "optional": true,
-            "content": [
-              {
-                "label": "_(1 - Project is not feasible)",
-                "value": "1"
-              },
-              {
-                "label": "_(2 - Project may or may not be feasible)",
-                "value": "2"
-              },
-              {
-                "label": "_(3 - Project is highly likely to be feasible)",
-                "value": "3"
-              }
-            ]
-          },
-          {
-            "prompt": "_(Project Budget)",
-            "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Project Budget:)",
-            "type": "text",
-            "placeholder": "...",
-            "name": "delegate_project_budget",
-            "optional": true
-          },
-          {
-            "prompt": "_(Cost Estimation)",
-            "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Project Cost Estimation:)",
-            "type": "text",
-            "placeholder": "...",
-            "name": "delegate_cost_estimation",
-            "optional": true
-          },
-          {
             "name": "staff_review_header",
             "restrictToGroups": ["tech-reviewers"],
             "type": "informational_html",
             "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
           },
           {
-            "prompt": "_(Equity Assessment Score)",
-            "restrictToGroups": ["tech-reviewers"],
-            "display_prompt": "_(Equity Assessment Score)",
-            "type": "big_radio",
-            "name": "staff_equity_score",
-            "optional": true,
-            "content": [
-              {
-                "label": "_(1 - Low contribution to advancing equity)",
-                "value": "1"
-              },
-              {
-                "label": "_(2 - Medium contribution to advancing equity)",
-                "value": "2"
-              },
-              {
-                "label": "_(3 - High contribution to advancing equity)",
-                "value": "3"
-              }
-            ]
-          },
-          {
-            "prompt": "_(Impact Assessment Score)",
-            "restrictToGroups": ["tech-reviewers"],
-            "display_prompt": "_(Impact Assessment Score)",
-            "type": "big_radio",
-            "name": "staff_impact_score",
-            "optional": true,
-            "content": [
-              {
-                "label": "_(1 - Low impact)",
-                "value": "1"
-              },
-              {
-                "label": "_(2 - Medium impact)",
-                "value": "2"
-              },
-              {
-                "label": "_(3 - High impact)",
-                "value": "3"
-              }
-            ]
-          },
-          {
-            "prompt": "_(Feasibility Assessment Score)",
+            "prompt": "_(Feasibility Score)",
             "restrictToGroups": ["tech-reviewers"],
             "display_prompt": "_(Feasibility Assessment Score)",
             "type": "big_radio",
@@ -868,16 +864,20 @@
           },
           {
             "prompt": "_(Project Budget)",
+            "display_prompt": "_(Project Budget:)",
             "restrictToGroups": ["tech-reviewers"],
-            "type": "textarea",
+            "type": "text",
+            "includeOnListItem": true,
             "placeholder": "...",
             "name": "staff_project_budget",
             "optional": true
           },
           {
-            "prompt": "_(Cost Estimation)",
+            "prompt": "_(Ongoing Maintenance Cost)",
+            "display_prompt": "_(Ongoing Maintenance Cost:)",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
+            "includeOnListItem": true,
             "placeholder": "...",
             "name": "staff_cost_estimation",
             "optional": true
@@ -1514,13 +1514,45 @@
         "datasetSlug": "pbdurham",
         "label": "_(Other)",
         "icon": "/static/css/images/markers/idea.png"
+      },
+      {
+        "id": "projects",
+        "datasetSlug": "pbdurham-projects",
+        "label": "_(Proposals)",
+        "icon": "/static/css/images/markers/money.png"
       }
     ],
     "fields": [
       {
+        "id": "ward",
+        "type": "radio",
+        "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
+        "display_prompt": "_(Ward:)",
+        "label": "_(Ward:)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Ward 1)",
+            "value": "ward_1"
+          },
+          {
+            "label": "_(Ward 2)",
+            "value": "ward_2"
+          },
+          {
+            "label": "_(Ward 3)",
+            "value": "ward_3"
+          },
+          {
+            "label": "_(Citywide)",
+            "value": "citywide"
+          }
+        ]
+      },
+      {
         "id": "private-ethnicity",
         "autocomplete": false,
-        "type": "big_checkbox",
+        "type": "checkbox",
         "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
         "display_prompt": "_(Ethnicity:)",
         "label": "_(Ethnicity:)",
@@ -1609,10 +1641,10 @@
         "<p>Each ward will have a neighborhood assembly and other, informal idea collection events, to encourage widespread participation. Visit <a href='http://www.pbdurham.org' target='_blank'>www.pbdurham.org</a> for upcoming assembly dates, times, and locations.</p>",
         "<p><strong>Connect with Us</strong></p>",
         "<a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>",
-        "<img src='/static/css/images/facebook-32.png' alt='Facebook icon' />",
+        "<img src='/static/css/images/facebook-32.png' style='width:32px' alt='Facebook icon' />",
         "</a>",
         "<a href='https://twitter.com/PBDurhamNC' target='_blank'>",
-        "<img src='/static/css/images/twitter-32.png' alt='Twitter icon' />",
+        "<img src='/static/css/images/twitter-32.png' style='width:32px' alt='Twitter icon' />",
         "</a>",
         "<p>Find us on <a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>Facebook</a> and follow us on <a href='https://twitter.com/PBDurhamNC' target='_blank'>Twitter!</a></p>",
         "<p><strong>Contact Us</strong></p>",
@@ -1633,10 +1665,10 @@
         "<p>Cada barrio tendrá una asamblea de barrio y otros eventos informales de recopilación de ideas para fomentar la participación generalizada. <a href='http://www.pbdurham.org' target='_blank'>Aún se está desarrollando la página web</a> para las próximas fechas, horarios y ubicaciones de la asamblea.</p>",
         "<p><strong>Conéctate con nosotros</strong></p>",
         "<a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>",
-        "<img src='/static/css/images/facebook-32.png' alt='Facebook icon' />",
+        "<img src='/static/css/images/facebook-32.png' style='width:32px' alt='Facebook icon' />",
         "</a>",
         "<a href='https://twitter.com/PBDurhamNC' target='_blank'>",
-        "<img src='/static/css/images/twitter-32.png' alt='Twitter icon' />",
+        "<img src='/static/css/images/twitter-32.png' style='width:32px' alt='Twitter icon' />",
         "</a>",
         "<p>¡Encuéntrenos en <a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>Facebook</a> y síganos en <a href='https://twitter.com/PBDurhamNC' target='_blank'>Twitter!</a></p>",
         "<p><strong>Comunícate con nosotros</strong></p>",
@@ -1678,8 +1710,8 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<h3>Durham Participatory Budgeting:</h3>",
-        "<h4>Put your money where your ideas are!</h4>",
+        "<h1>Durham Participatory Budgeting:</h1>",
+        "<h2>Put your money where your ideas are!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
         "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
@@ -1692,8 +1724,8 @@
       "slug": "about",
       "lang": "es",
       "content": [
-        "<h3>Presupuesto participativo de Durham:</h3>",
-        "<h4>¡Pon tu dinero donde están tus ideas!</h4>",
+        "<h1>Presupuesto participativo de Durham:</h1>",
+        "<h2>¡Pon tu dinero donde están tus ideas!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Envíe su idea</a>",
         "<p>El presupuesto participativo de Durham es un proceso democrático en el que los miembros de la comunidad de los tres distritos municipales deciden directamente cómo gastar $ 2.4 millones ($ 800,000 por distrito).</p>",

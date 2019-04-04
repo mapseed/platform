@@ -1,5 +1,14 @@
 import constants from "../constants";
 
+const setPrivateParams = (placeParams, includePrivate) =>
+  includePrivate
+    ? {
+        ...placeParams,
+        include_private_places: true,
+        include_private_fields: true,
+      }
+    : placeParams;
+
 const createGeoJSONFromPlaces = places => {
   const features = places.map(place => {
     const properties = Object.keys(place).reduce(
@@ -80,6 +89,7 @@ export {
   createGeoJSONFromPlaces,
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
+  setPrivateParams,
   toServerGeoJSONFeature,
   toClientGeoJSONFeature,
 };

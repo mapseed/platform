@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
@@ -61,6 +61,7 @@ const IconButton = styled(props => {
   return (
     <button
       style={props.style}
+      aria-label={`${props.icon} button`}
       className={props.className}
       type="button"
       onClick={props.onClick}
@@ -74,6 +75,7 @@ const IconButton = styled(props => {
     border: 0,
     width: "40px",
     height: "40px",
+    cursor: "pointer",
     backgroundColor: "transparent",
   };
   if (props.size === "small") {
@@ -92,6 +94,7 @@ const Button = styled(props => {
   return (
     <button
       style={props.style}
+      aria-label={props.ariaLabel}
       className={props.className}
       type="button"
       onClick={props.onClick}
@@ -191,6 +194,7 @@ const Button = styled(props => {
 Button.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.string,
+  ariaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   variant: PropTypes.string,
   color: PropTypes.string,
@@ -230,4 +234,17 @@ ToolbarButton.propTypes = {
   prefix: PropTypes.string,
 };
 
-export { Button, EditorButton, ToolbarButton, IconButton };
+const CloseButton = styled(props => (
+  <button
+    aria-label="close"
+    className={props.className}
+    onClick={props.onClick}
+  >
+    {"✕"}
+  </button>
+))({
+  color: "red",
+  fontSize: "1.5em",
+});
+
+export { Button, EditorButton, ToolbarButton, IconButton, CloseButton };

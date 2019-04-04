@@ -63,15 +63,15 @@
       }
     ]
   },
-  "dashboard": {
-    "datasetId": "pbdurham",
-    "datasetOwner": "smartercleanup",
-    "datasetLabel": "idea",
-    "surveyMetrics": {
-      "categories": true,
-      "demographics": true
+  "dashboard": [
+    {
+      "datasetSlug": "pbdurham",
+      "surveyMetrics": {
+        "categories": true,
+        "demographics": true
+      }
     }
-  },
+  ],
   "map": {
     "geolocation_enabled": true,
     "geocoding_bar_enabled": true,

@@ -1,24 +1,32 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import styled from "@emotion/styled";
+
 import { storyConfigSelector } from "../../state/ducks/story-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
   placesPropType,
   placesLoadStatusSelector,
 } from "../../state/ducks/places";
+import { uiVisibilitySelector } from "../../state/ducks/ui";
 
 import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 import Immutable from "immutable";
 import Spinner from "react-spinner";
 
 import StoryChapter from "../molecules/story-chapter";
-import { Header5, Paragraph } from "../atoms/typography";
+import { TinyTitle, Paragraph } from "../atoms/typography";
 import constants from "../../constants";
 
 import { translate } from "react-i18next";
 
 import "./story-navigator.scss";
+
+const StoryTitle = styled(TinyTitle)({
+  margin: "0 0 8px 0",
+  paddingLeft: "10px",
+});
 
 class StoryNavigator extends Component {
   constructor(props) {
@@ -131,9 +139,7 @@ class StoryNavigator extends Component {
     return (
       <div className="story-navigator">
         {this.state.currentStory.get("header") && (
-          <Header5 className="story-navigator__header">
-            {this.state.currentStory.get("header")}
-          </Header5>
+          <StoryTitle>{this.state.currentStory.get("header")}</StoryTitle>
         )}
         {this.state.currentStory.get("description") && (
           <Paragraph className="story-navigator__description">
@@ -154,11 +160,14 @@ class StoryNavigator extends Component {
                   placeUrl={`${chapter.get("_clientSlug")}/${chapter.get(
                     "id",
                   )}`}
+                  router={this.props.router}
                 />
               );
             })
             .toArray()}
-        {!this.state.isStoryDataReady && !this.state.isWithError && <Spinner />}
+        {!this.state.isStoryDataReady &&
+          !this.state.isWithError &&
+          this.props.isRightSidebarVisible && <Spinner />}
         {this.state.isWithError && (
           <Paragraph className="story-navigator__error-msg">
             {this.props.t("errorMsg")}
@@ -170,6 +179,7 @@ class StoryNavigator extends Component {
 }
 
 StoryNavigator.propTypes = {
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   storyConfig: PropTypes.object.isRequired,
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
@@ -181,6 +191,7 @@ StoryNavigator.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   placesLoadStatus: placesLoadStatusSelector(state),
   storyConfig: storyConfigSelector(state),
   placeConfig: placeConfigSelector(state),

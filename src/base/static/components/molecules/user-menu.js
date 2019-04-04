@@ -1,11 +1,13 @@
-import React from "react";
+/** @jsx jsx */
+import * as React from "react";
 import PropTypes from "prop-types";
+import { jsx } from "@emotion/core";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { Link, SmallText, RegularText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
 import {
   offlineConfigSelector,
@@ -35,7 +37,7 @@ const MenuContainer = styled("nav")(props => ({
   },
 }));
 
-const AvatarImg = styled("img")({
+const avatarImgStyles = {
   float: "right",
   width: "2.7em",
   height: "2.6em",
@@ -53,7 +55,7 @@ const AvatarImg = styled("img")({
   [mq[1]]: {
     zIndex: "1",
   },
-});
+};
 
 const MenuButton = styled(props => {
   return (
@@ -102,6 +104,7 @@ const Menu = styled("ul")(props => ({
   padding: "0",
   display: props.isMenuOpen ? "grid" : "none",
   gridRowGap: "16px",
+  listStyle: "none",
 
   [mq[1]]: {
     background: "url(/static/css/images/lightpaperfibers.png)",
@@ -181,37 +184,31 @@ class UserMenu extends React.Component {
           isMobileEnabled={this.props.isMobileEnabled}
         >
           {!this.props.isInMobileMode && (
-            <AvatarImg
+            <img
+              css={avatarImgStyles}
+              alt="user profile picture"
               onClick={this.props.toggleMenu}
               src={this.props.currentUser.avatar_url}
             />
           )}
           <Menu isMenuOpen={this.props.isMenuOpen} isLoggedIn={true}>
-            <MenuItem>
-              {this.props.dashboardConfig &&
+            <MenuItem onClick={this.props.toggleMenu}>
+              {this.props.dashboardConfig.length &&
                 this.props.hasAdminAbilities(
-                  this.props.dashboardConfig.datasetId,
+                  this.props.dashboardConfig[0].datasetSlug,
                 ) && (
-                  <Link
-                    onClick={() => {
-                      this.props.router.navigate(
-                        isDashboard ? "/" : "/dashboard",
-                        {
-                          trigger: true,
-                        },
-                      );
-                      this.props.toggleMenu();
-                    }}
-                  >
+                  <Link rel="internal" href={isDashboard ? "/" : "/dashboard"}>
                     {isDashboard ? "back to map" : `go to dashboard`}
                   </Link>
                 )}
             </MenuItem>
             <MenuItem>
-              <OfflineDownloadMenu
-                offlineBoundingBox={this.props.offlineBoundingBox}
-                mapLayerConfigs={this.props.mapLayerConfigs}
-              />
+              {this.props.offlineBoundingBox && (
+                <OfflineDownloadMenu
+                  offlineBoundingBox={this.props.offlineBoundingBox}
+                  mapLayerConfigs={this.props.mapLayerConfigs}
+                />
+              )}
             </MenuItem>
             <MenuItem>
               <div>

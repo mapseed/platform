@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
 
@@ -10,14 +10,13 @@ import {
   RegularText,
   LargeText,
 } from "../atoms/typography";
-import { Link } from "../atoms/navigation";
+import { Link } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
+import TextArea from "../molecules/place-detail-fields/textarea";
 import { placeSelector } from "../../state/ducks/places";
 
 import { placePropType } from "../../state/ducks/places";
-
-const getScore = (place, propName) => parseInt(place[propName] || 0);
 
 const lowScoreMsgKeys = {
   feasibility: "notFeasibleMsg",
@@ -93,94 +92,157 @@ const RelatedIdeas = styled("div")({
   marginBottom: "16px",
 });
 
-const RelatedIdeasLinks = styled("ul")({
+const RelatedIdeasList = styled("ul")({
   padding: 0,
   listStyle: "none",
   marginTop: "8px",
   marginLeft: "16px",
 });
 
+const RelatedIdeaLink = styled(props => (
+  <Link
+    rel="internal"
+    href={props.href}
+    router={props.router}
+    className={props.className}
+  >
+    {props.children}
+  </Link>
+))(() => ({
+  textTransform: "none",
+}));
+
+const RealatedIdeaListItem = styled("li")({
+  marginBottom: "8px",
+});
+
+const Title = styled(SmallTitle)({
+  marginTop: "32px",
+  marginBottom: "8px",
+});
+
+const UnpublishedWarning = styled("div")({
+  backgroundColor: "#ffc107",
+  color: "#6b5001",
+  borderRadius: "8px",
+  padding: "8px",
+});
+
 const PBDurhamProjectProposalFieldSummary = props => {
-  const avgEquityScore = (
-    (getScore(props.place, "delegate_equity_score") +
-      getScore(props.place, "staff_equity_score")) /
-    2
-  ).toFixed(1);
-  const avgFeasibilityScore = (
-    (getScore(props.place, "delegate_feasibility_score") +
-      getScore(props.place, "staff_feasibility_score")) /
-    2
-  ).toFixed(1);
-  const avgImpactScore = (
-    (getScore(props.place, "delegate_impact_score") +
-      getScore(props.place, "staff_impact_score")) /
-    2
-  ).toFixed(1);
+  const equityScore = parseFloat(props.place["delegate_equity_score"]) || 0;
+  const impactScore = parseFloat(props.place["delegate_impact_score"]) || 0;
+  const feasibilityScore =
+    parseFloat(props.place["staff_feasibility_score"]) || 0;
+  const relatedIdeas =
+    props.place.related_ideas && props.place.related_ideas.split(/\s+/);
 
   return (
     <div>
+      {props.place.private && (
+        <UnpublishedWarning>
+          {props.t("unpublishedWarningMsg")}
+        </UnpublishedWarning>
+      )}
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
-        .map(attachment => (
-          <CoverImage key={attachment.name} imageUrl={attachment.file} />
+        .map((attachment, i) => (
+          <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       <ProjectScores>
-        <SmallTitle>{props.t("scoreSummaryHeader")}</SmallTitle>
+        <Title>{props.t("scoreSummaryHeader")}</Title>
         <HorizontalRule spacing="tiny" color="light" />
         <ScoreSummary>
-          <ScoreLabel textTransform="uppercase">
-            {props.t("feasibility")}
-          </ScoreLabel>
-          <Score>
-            <BigNumber>{avgFeasibilityScore}</BigNumber>
-            <LargeText>/3</LargeText>
-          </Score>
-          <ScoreMsg>
-            {props.t(getScoreMsg(avgFeasibilityScore, "feasibility"))}
-          </ScoreMsg>
-          <ScoreLabel textTransform="uppercase">{props.t("equity")}</ScoreLabel>
-          <Score>
-            <BigNumber>{avgEquityScore}</BigNumber>
-            <LargeText>/3</LargeText>
-          </Score>
-          <ScoreMsg>
-            {props.t(getScoreMsg(avgEquityScore, "equitability"))}
-          </ScoreMsg>
-          <ScoreLabel textTransform="uppercase">{props.t("impact")}</ScoreLabel>
-          <Score>
-            <BigNumber>{avgImpactScore}</BigNumber>
-            <LargeText>/3</LargeText>
-          </Score>
-          <ScoreMsg>{props.t(getScoreMsg(avgImpactScore, "impact"))}</ScoreMsg>
+          {feasibilityScore > 0 && (
+            <>
+              <ScoreLabel textTransform="uppercase">
+                {props.t("feasibility")}
+              </ScoreLabel>
+              <Score>
+                <BigNumber>{feasibilityScore}</BigNumber>
+                <LargeText>/3</LargeText>
+              </Score>
+              <ScoreMsg>
+                {props.t(getScoreMsg(feasibilityScore, "feasibility"))}
+              </ScoreMsg>
+            </>
+          )}
+          {equityScore > 0 && (
+            <>
+              <ScoreLabel textTransform="uppercase">
+                {props.t("equity")}
+              </ScoreLabel>
+              <Score>
+                <BigNumber>{equityScore}</BigNumber>
+                <LargeText>/3</LargeText>
+              </Score>
+              <ScoreMsg>
+                {props.t(getScoreMsg(equityScore, "equitability"))}
+              </ScoreMsg>
+            </>
+          )}
+          {impactScore > 0 && (
+            <>
+              <ScoreLabel textTransform="uppercase">
+                {props.t("impact")}
+              </ScoreLabel>
+              <Score>
+                <BigNumber>{impactScore}</BigNumber>
+                <LargeText>/3</LargeText>
+              </Score>
+              <ScoreMsg>{props.t(getScoreMsg(impactScore, "impact"))}</ScoreMsg>
+            </>
+          )}
         </ScoreSummary>
       </ProjectScores>
-      <SmallTitle>
-        {
+      <TextArea
+        title={
           props.fields.find(field => field.name === "project_description")
             .display_prompt
         }
-      </SmallTitle>
-      <HorizontalRule spacing="tiny" color="light" />
-      <RegularText>{props.place.project_description}</RegularText>
-      <RelatedIdeas>
-        <SmallTitle>{props.t("relatedIdeasHeader")}</SmallTitle>
-        <HorizontalRule spacing="tiny" color="light" />
-        <RelatedIdeasLinks>
-          {props.place.related_ideas.split(" ").map(placeId => {
-            const relatedIdea = props.placeSelector(placeId);
-            return relatedIdea ? (
-              <li key={placeId}>
-                <Link
-                  rel="internal"
-                  href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
-                >
-                  <RegularText>{relatedIdea.title}</RegularText>
-                </Link>
-              </li>
-            ) : null;
-          })}
-        </RelatedIdeasLinks>
-      </RelatedIdeas>
+        description={props.place.project_description}
+      />
+      <TextArea
+        title={
+          props.fields.find(field => field.name === "impact_statement")
+            .display_prompt
+        }
+        description={props.place.impact_statement}
+      />
+      <TextArea
+        title={
+          props.fields.find(field => field.name === "staff_project_budget")
+            .display_prompt
+        }
+        description={props.place.staff_project_budget}
+      />
+      <TextArea
+        title={
+          props.fields.find(field => field.name === "staff_cost_estimation")
+            .display_prompt
+        }
+        description={props.place.staff_cost_estimation}
+      />
+      {relatedIdeas && (
+        <RelatedIdeas>
+          <Title>{props.t("relatedIdeasHeader")}</Title>
+          <HorizontalRule spacing="tiny" color="light" />
+          <RelatedIdeasList>
+            {relatedIdeas.map(placeId => {
+              const relatedIdea = props.placeSelector(placeId);
+              return relatedIdea ? (
+                <RealatedIdeaListItem key={placeId}>
+                  <RelatedIdeaLink
+                    href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
+                    router={props.router}
+                  >
+                    <RegularText>{relatedIdea.title}</RegularText>
+                  </RelatedIdeaLink>
+                </RealatedIdeaListItem>
+              ) : null;
+            })}
+          </RelatedIdeasList>
+        </RelatedIdeas>
+      )}
     </div>
   );
 };
@@ -189,6 +251,7 @@ PBDurhamProjectProposalFieldSummary.propTypes = {
   fields: PropTypes.array.isRequired,
   place: placePropType.isRequired,
   placeSelector: PropTypes.func.isRequired,
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
 

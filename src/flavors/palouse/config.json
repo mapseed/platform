@@ -28,7 +28,8 @@
         "accent": "#ff6201"
       },
       "bg": {
-        "default": "#fff8ea"
+        "default": "#fff8ea",
+        "light": "#ff6201"
       },
       "text": {
         "secondary": "#fff",
@@ -495,6 +496,7 @@
           {
             "id": "palouse-input-focused",
             "type": "symbol",
+            "source": "palouse-input",
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
@@ -802,7 +804,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
           },
           {
             "name": "location_why",
@@ -824,7 +826,7 @@
           {
             "name": "analysis_units_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watershed analysis unit</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watershed analysis unit</h2>"
           },
           {
             "name": "analysis_unit",
@@ -849,7 +851,7 @@
           {
             "name": "wetlands_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland areas</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland areas</h2>"
           },
           {
             "name": "wetlands_information",
@@ -875,7 +877,7 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h4>"
+            "content": "<h1 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h2>"
           },
           {
             "name": "frequently_flooded_information",
@@ -901,7 +903,7 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Severe geologic hazard areas</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Severe geologic hazard areas</h2>"
           },
           {
             "name": "geologic_hazard_information",
@@ -927,7 +929,7 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical aquifer recharge areas</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical aquifer recharge areas</h2>"
           },
           {
             "name": "critical_aquifer_information",
@@ -953,7 +955,7 @@
           {
             "name": "wildlife_conservation_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & wildlife conservation areas</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & wildlife conservation areas</h2>"
           },
           {
             "name": "wildlife_conservation_information",
@@ -979,7 +981,7 @@
           {
             "name": "residue_tillage_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Residue and Tillage Management</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Residue and Tillage Management</h2>"
           },
           {
             "name": "residue_tillage_information",
@@ -1098,89 +1100,10 @@
             "hidden_default": true
           },
           {
-            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
-            "name": "nutrient_management_header",
-            "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>9. Nutrient Management</h4>"
-          },
-          {
-            "name": "nutrient_management_information",
-            "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
-          },
-          {
-            "name": "nutrient-management_no-nutrient-management",
-            "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
-            "advance_stage_on_value": "no-nutrient-management",
-            "content": [
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "no-nutrient-management"
-              },
-              {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
-                "value": "nutrient-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== NUTRIENT MGMT ====================",
-            "name": "nutrient_management",
-            "type": "big_radio",
-            "prompt": "_(Nutrient management practices: soil and/or plant tissue tests)",
-            "label": "_(Nutrient management)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "nutrient_management_quantity",
-                "nutrient_management_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No, but I'm interested)",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "nutrient_management_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "_(How many acres?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "nutrient_management_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start using nutrient management practices?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>10. Pest Management</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Pest Management</h2>"
           },
           {
             "name": "pest_management_information",
@@ -1256,10 +1179,89 @@
             "hidden_default": true
           },
           {
+            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
+            "name": "nutrient_management_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management</h2>"
+          },
+          {
+            "name": "nutrient_management_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+          },
+          {
+            "name": "nutrient-management_no-nutrient-management",
+            "type": "big_toggle",
+            "prompt": "_( )",
+            "display_prompt": "_( )",
+            "advance_stage_on_value": "no-nutrient-management",
+            "content": [
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "no-nutrient-management"
+              },
+              {
+                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "value": "nutrient-management"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "//": "=============== NUTRIENT MGMT ====================",
+            "name": "nutrient_management",
+            "type": "big_radio",
+            "prompt": "_(Nutrient management practices: soil and/or plant tissue tests)",
+            "label": "_(Nutrient management)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "nutrient_management_quantity",
+                "nutrient_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No, but I'm interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "nutrient_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using nutrient management practices?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
             "//": "--------------SECTION: RANGE MGMT---------------------------",
             "name": "range_management",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>11. Range Management</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Range Management</h2>"
           },
           {
             "name": "range_management_information",
@@ -1482,7 +1484,7 @@
             "//": "--------------SECTION: SOIL MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>12. Soil & Erosion Management</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Soil & Erosion Management</h2>"
           },
           {
             "name": "soil_management_information",
@@ -1605,7 +1607,7 @@
             "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
             "name": "fish_wildlife_management",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc'>13. Fish & Wildlife Management</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Fish & Wildlife Management</h2>"
           },
           {
             "name": "fish_wildlife_management_information",
@@ -1634,7 +1636,7 @@
             "//": "=============== CONSERVATION COVER ==========================",
             "name": "conservation_cover",
             "type": "big_radio",
-            "prompt": "_(Conservation cover: consists of establishment of permanent vegetative cover)",
+            "prompt": "_(Conservation cover: consists of establishment of permanent vegetative cover including CRP)",
             "label": "_(Conservation cover)",
             "optional": true,
             "trigger": {
@@ -1784,7 +1786,7 @@
             "//": "=============== WEED CONTROL ================================",
             "name": "weed_control",
             "type": "big_radio",
-            "prompt": "_(Weed control: can include chemical, mechanical, cultural or biological)",
+            "prompt": "_(Weed control on rangeland: can include chemical, mechanical, cultural or biological)",
             "label": "_(Weed control)",
             "optional": true,
             "trigger": {
@@ -1925,7 +1927,7 @@
             "//": "=============== HEDGEROW PLANTING ==================",
             "name": "hedgerow_planting",
             "type": "big_radio",
-            "prompt": "_(Hedgerow planting: establishment of dense vegetation in a linear design to achieve conservation purposes   )",
+            "prompt": "_(Hedgerow planting: establishment of dense vegetation in a linear design to achieve conservation purposes)",
             "label": "_(Hedgerow planting)",
             "optional": true,
             "trigger": {
@@ -2022,7 +2024,7 @@
             "//": "=============== FENCING ================================",
             "name": "fencing",
             "type": "big_radio",
-            "prompt": "_(Fencing: control movement of animals and/or people, including vehicles)",
+            "prompt": "_(Fencing: of springs, wetlands, or frequently flooded areas to control movement of livestock/vehicles or people)",
             "label": "_(Fencing)",
             "optional": true,
             "trigger": {
@@ -2069,7 +2071,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h4>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2>"
           },
           {
             "name": "additional_info",
@@ -2227,7 +2229,7 @@
         "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
         "<div style='margin-bottom: 8px'>",
-        "<h5 style='margin-bottom:0'>Bradley Johnson</h5>",
+        "<strong style='margin-bottom:0'>Bradley Johnson</strong>",
         "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
@@ -2235,7 +2237,7 @@
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
-        "<h5 style='margin-bottom:0'>James Schierman</h5>",
+        "<strong style='margin-bottom:0'>James Schierman</strong>",
         "<p style='margin:0'><em>District Coordinator</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-648-3680</span></div>",
@@ -2243,7 +2245,7 @@
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
-        "<h5 style='margin-bottom:0'>Brian Bell</h5>",
+        "<strong style='margin-bottom:0'>Brian Bell</strong>",
         "<p style='margin:0'><em>District Manager</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-288-4644</span></div>",
@@ -2251,7 +2253,7 @@
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
-        "<h5 style='margin-bottom:0'>Raymond Brown</h5>",
+        "<strong style='margin-bottom:0'>Raymond Brown</strong>",
         "<p style='margin:0'><em>District Manager</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-285-5122</span></div>",

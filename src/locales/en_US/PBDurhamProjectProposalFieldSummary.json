@@ -12,5 +12,6 @@
   "highlyImpactfulMsg": "Citizen and City of Durham reviewers have determined this project would be highly impactful",
   "moderatelyImpactfulMsg": "Citizen and City of Durham reviewers have determined this projet would be moderately impactful",
   "notImpactfulMsg": "Citize and City of Durham reviewers have determined this project may not be impactful",
-  "relatedIdeasHeader": "Related ideas:"
+  "relatedIdeasHeader": "Related ideas:",
+  "unpublishedWarningMsg": "This Project is currently unpublished. It will be visible to administrators, delegates, and technical reviewers. Please log in as an administrator to publish this Project for the general public."
 }

@@ -4,7 +4,7 @@ const WorkboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");
 
 require("dotenv").config({ path: "src/.env" });
-require("@babel/polyfill");
+
 var path = require("path");
 
 const PORT = 8000;
@@ -23,19 +23,22 @@ const gitSha = require("child_process")
   .toString();
 
 var entryPoints = [
+  "@babel/polyfill",
   "whatwg-fetch",
+  "normalize.css",
   "./src/base/static/js/routes.js",
-  "./src/base/static/scss/default.scss",
+  "./src/base/static/css/normalize.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 
-let alias = {};
-alias.config = path.resolve(
-  __dirname,
-  "src/flavors",
-  process.env.FLAVOR,
-  "config.json",
-);
+const alias = {
+  config: path.resolve(
+    __dirname,
+    "src/flavors",
+    process.env.FLAVOR,
+    "config.json",
+  ),
+};
 
 const extractSCSS = new MiniCssExtractPlugin({
   // Options similar to the same options in webpackOptions.output
@@ -52,6 +55,9 @@ module.exports = {
     // use this for our dynamic imports, like "1.bundle.js"
     chunkFilename: "[chunkhash].bundle.js",
     filename: isProd ? "[chunkhash].main.bundle.js" : "main.bundle.js",
+    // Support dynamic imports from nested routes.
+    // See: https://github.com/webpack/webpack/issues/7417
+    publicPath: "/",
   },
   resolve: {
     alias,
@@ -116,6 +122,7 @@ module.exports = {
         : JSON.stringify("dev"),
       MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
       GIT_SHA: JSON.stringify(gitSha),
+      MIXPANEL_TOKEN: JSON.stringify(process.env.MIXPANEL_TOKEN),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,

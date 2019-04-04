@@ -1,4 +1,5 @@
 import qs from "qs";
+import { setPrivateParams } from "../../utils/place-utils";
 
 import {
   fromGeoJSONFeature,
@@ -6,40 +7,29 @@ import {
   toServerGeoJSONFeature,
 } from "../../utils/place-utils";
 
-const setPrivateParams = (placeParams, includePrivate) =>
-  includePrivate
-    ? {
-        ...placeParams,
-        include_private_places: true,
-        include_private_fields: true,
-      }
-    : placeParams;
-
 const updatePlace = async ({
   placeUrl,
   placeData,
   datasetSlug,
   clientSlug,
+  hasAdminAbilities = false,
 }) => {
   placeData = toServerGeoJSONFeature(placeData);
-  // TODO: Private query params.
-  // See: https://github.com/jalMogo/mgmt/issues/241
-  const placeParams = {
-    include_tags: true,
-    include_submissions: true,
-  };
+  const placeParams = setPrivateParams(
+    {
+      include_tags: true,
+      include_submissions: true,
+    },
+    hasAdminAbilities,
+  );
 
   const response = await fetch(`${placeUrl}?${qs.stringify(placeParams)}`, {
     headers: {
       "Content-Type": "application/json",
       "X-Shareabouts-Silent": true, // To prevent new Actions on update.
     },
-    // Note that we do *not* include credentials with PUT requests to a
-    // place endpoint. Sending credentials will cause the submitter of
-    // the Place to be updated to the submitter of the PUT request, even if
-    // the submitter object is stripped out of the request payload.
-    // See: https://github.com/jalMogo/mgmt/issues/227
     method: "PUT",
+    credentials: "include",
     body: JSON.stringify(placeData),
   });
 
@@ -102,18 +92,52 @@ const createPlace = async ({
   return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
 };
 
-const getPlaces = async ({
-  url,
+const getPlace = async ({
+  datasetUrl,
   placeParams,
-  includePrivate,
+  includePrivate = false,
+  placeId,
   datasetSlug,
   clientSlug,
 }) => {
   placeParams = setPrivateParams(placeParams, includePrivate);
 
-  const response = await fetch(`${url}?${qs.stringify(placeParams)}`, {
-    credentials: "include",
+  const response = await fetch(
+    `${datasetUrl}/places/${placeId}?${qs.stringify(placeParams)}`,
+    { credentials: "include" },
+  );
+
+  if (response.status < 200 || response.status >= 300) {
+    // eslint-disable-next-line no-console
+    console.error("Error: Failed to fetch place.", response.statusText);
+
+    return null;
+  }
+
+  const feature = await response.json();
+
+  return fromGeoJSONFeature({
+    feature,
+    datasetSlug,
+    clientSlug,
   });
+};
+
+const getAllPlaces = async ({
+  datasetUrl,
+  placeParams,
+  includePrivate = false,
+  datasetSlug,
+  clientSlug,
+}) => {
+  placeParams = setPrivateParams(placeParams, includePrivate);
+
+  const response = await fetch(
+    `${datasetUrl}/places?${qs.stringify(placeParams)}`,
+    {
+      credentials: "include",
+    },
+  );
 
   if (response.status < 200 || response.status >= 300) {
     // eslint-disable-next-line no-console
@@ -134,7 +158,7 @@ const getPlaces = async ({
     for (let i = 2; i <= totalPages; i++) {
       placeParams = { ...placeParams, page: i };
       placePagePromises.push(
-        fetch(`${url}?${qs.stringify(placeParams)}`, {
+        fetch(`${datasetUrl}/places?${qs.stringify(placeParams)}`, {
           credentials: "include",
         })
           .then(response => {
@@ -179,7 +203,8 @@ const getPlaces = async ({
 };
 
 export default {
-  get: getPlaces,
+  get: getAllPlaces,
+  getPlace: getPlace,
   create: createPlace,
   update: updatePlace,
 };

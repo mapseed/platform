@@ -1,34 +1,18 @@
-// Due to https://github.com/danro/jquery-easing/blob/master/jquery.easing.js
-const easeInOutCubic = (t, b, c, d) => {
-  if ((t /= d / 2) < 1) return (c / 2) * t * t * t + b;
-  return (c / 2) * ((t -= 2) * t * t + 2) + b;
-};
+import { findDOMNode } from "react-dom";
 
-// TODO: I think these scrolling functions could probably be improved. They
-// feel a little hacky...
-const scrollDownTo = (elt, beginning, diff, time, step, to) => {
-  requestAnimationFrame(() => {
-    elt.scrollTop = Math.ceil(easeInOutCubic(time, beginning, diff, 300));
-    if (elt.scrollTop + elt.clientHeight === elt.scrollHeight) return;
-    if (elt.scrollTop >= to) return;
-    scrollDownTo(elt, beginning, diff, time + step, step, to);
-  });
-};
-
-const scrollUpTo = (elt, beginning, diff, time, step, to) => {
-  requestAnimationFrame(() => {
-    elt.scrollTop = Math.ceil(easeInOutCubic(time, beginning, diff, 300));
-    if (elt.scrollTop <= to) return;
-    scrollUpTo(elt, beginning, diff, time + step, step, to);
-  });
-};
-
-const scrollTo = (elt, to) => {
-  if (elt.scrollTop < to) {
-    scrollDownTo(elt, elt.scrollTop, to - elt.scrollTop, 1, 5, to);
+const jumpTo = ({ contentPanelInnerContainerRef, scrollPosition, layout }) => {
+  let node;
+  if (layout === "desktop") {
+    node = findDOMNode(contentPanelInnerContainerRef.current);
+  } else if (layout === "mobile") {
+    node = document.getElementsByTagName("html")[0];
+  }
+  if (node) {
+    node.scrollTop = scrollPosition;
   } else {
-    scrollUpTo(elt, elt.scrollTop, to - elt.scrollTop, 1, 5, to);
+    // eslint-disable-next-line
+    console.warn("scroll helpers: no node!");
   }
 };
 
-export { scrollTo };
+export { jumpTo };

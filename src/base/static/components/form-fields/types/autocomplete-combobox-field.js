@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Autocomplete from "accessible-autocomplete/react";
+import "accessible-autocomplete/dist/accessible-autocomplete.min.css";
 
 import "./autocomplete-combobox-field.scss";
 

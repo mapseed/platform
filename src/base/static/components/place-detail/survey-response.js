@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -16,10 +16,13 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
+import { scrollToResponseIdSelector } from "../../state/ducks/places";
 
 import "./survey-response.scss";
 
 class SurveyResponse extends Component {
+  responseRef = createRef();
+
   componentDidMount() {
     if (this.props.comment.id === this.props.scrollToResponseId) {
       this.props.onMountTargetResponse(this.responseRef);
@@ -28,10 +31,7 @@ class SurveyResponse extends Component {
 
   render() {
     return (
-      <article
-        className="place-detail-survey-response"
-        ref={response => (this.responseRef = response)}
-      >
+      <article className="place-detail-survey-response" ref={this.responseRef}>
         <div className="place-detail-survey-response__body">
           {this.props.commentFormConfig.items
             .filter(
@@ -91,6 +91,7 @@ const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   placeConfig: placeConfigSelector(state),
+  scrollToResponseId: scrollToResponseIdSelector(state),
 });
 
 export default connect(mapStateToProps)(SurveyResponse);

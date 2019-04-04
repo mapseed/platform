@@ -255,6 +255,14 @@ activeLanguages.forEach((language, langNum) => {
     userTokenJson: "",
   });
 
+  // Write out the localized config file.
+  fs.writeFileSync(
+    path.resolve(outputPath, `config-${language.code}.js`),
+    process.env.NODE_ENV === "production"
+      ? zlib.gzipSync(JSON.stringify(thisConfig))
+      : JSON.stringify(thisConfig),
+  );
+
   // Write out final xx.html file
   outputIndexFilename = path.resolve(
     outputPath,

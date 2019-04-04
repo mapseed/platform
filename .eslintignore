@@ -1,0 +1,4 @@
+src/base/static/dist/*
+src/base/static/legacy-libs/*
+src/flavors/*
+
