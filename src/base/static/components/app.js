@@ -1,38 +1,67 @@
 import React, { Component, Suspense, createRef } from "react";
+// TODO: is withRouter needed still?
+import { Route, withRouter } from "react-router-dom";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import { connect, Provider } from "react-redux";
+import { connect } from "react-redux";
 import browserUpdate from "browser-update";
 import styled from "@emotion/styled";
+import { Provider } from "react-redux";
 
 import SiteHeader from "./organisms/site-header";
 import {
   currentTemplateSelector,
   updateLayout,
   layoutSelector,
+  updateUIVisibility,
+  updateActivePage,
+  updateEditModeToggled,
+  updateContentPanelComponent,
 } from "../state/ducks/ui";
+import ShaTemplate from "./templates/sha";
+import DashboardTemplate from "./templates/dashboard";
+import ListTemplate from "./templates/place-list";
+import MapTemplate from "./templates/map";
+
+import config from "config";
+
+import mapseedApiClient from "../client/mapseed-api-client";
 import {
-  ShaTemplate,
-  DashboardTemplate,
-  MapTemplate,
-  ListTemplate,
-} from "./templates";
+  loadPlaces,
+  loadPlaceAndSetIgnoreFlag,
+  updatePlacesLoadStatus,
+  updateFocusedPlaceId,
+  placeExists,
+  updateScrollToResponseId,
+} from "../state/ducks/places";
+import {
+  datasetsConfigSelector,
+  datasetsConfigPropType,
+} from "../state/ducks/datasets-config";
+import { loadDatasets } from "../state/ducks/datasets";
+import { loadDashboardConfig } from "../state/ducks/dashboard-config";
+import { loadAppConfig } from "../state/ducks/app-config";
+import { loadMapConfig } from "../state/ducks/map-config";
+import { loadDatasetsConfig } from "../state/ducks/datasets-config";
+import { loadPlaceConfig } from "../state/ducks/place-config";
+// TODO: configs always in their own duck
+import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
+import { loadRightSidebarConfig } from "../state/ducks/right-sidebar-config";
+import { loadStoryConfig } from "../state/ducks/story-config";
+import { loadFormsConfig } from "../state/ducks/forms-config";
+import { loadSupportConfig } from "../state/ducks/support-config";
+import { loadPagesConfig } from "../state/ducks/pages-config";
+import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
+import { loadMapStyle, loadMapViewport } from "../state/ducks/map";
+import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
+import { loadUser } from "../state/ducks/user";
+import languageModule from "../language-module";
 
 import ThemeProvider from "./theme-provider";
 import JSSProvider from "./jss-provider";
 
-import mapseedApiClient from "../client/mapseed-api-client";
-import { loadPlaces, updatePlacesLoadStatus } from "../state/ducks/places";
-import {
-  datasetConfigsSelector,
-  datasetConfigPropType,
-} from "../state/ducks/datasets-config";
-import { loadDatasets } from "../state/ducks/datasets";
 import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
-import {
-  appConfigSelector,
-  appConfigPropType,
-} from "../state/ducks/app-config";
+import { appConfigSelector } from "../state/ducks/app-config";
 import {
   storyConfigSelector,
   storyChaptersSelector,
@@ -41,6 +70,7 @@ import {
   createFeaturesInGeoJSONSource,
   updateMapViewport,
 } from "../state/ducks/map";
+import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
 const Util = require("../js/utils.js");
 
@@ -72,10 +102,100 @@ const Fallback = () => {
   return <div />;
 };
 
+const fetchIndividualPlace = async ({ datasetConfig, clientSlug, placeId }) =>
+  await mapseedApiClient.place.getPlace({
+    datasetUrl: datasetConfig.url,
+    clientSlug,
+    datasetSlug: datasetConfig.slug,
+    placeId: parseInt(placeId),
+    placeParams: {
+      include_submissions: true,
+      include_tags: true,
+    },
+    includePrivate: hasGroupAbilitiesInDatasets({
+      state: this.store.getState(),
+      abilities: ["can_access_protected"],
+      datasetSlugs: [datasetConfig.slug],
+      submissionSet: "places",
+    }),
+  });
+
 class App extends Component {
   templateContainerRef = createRef();
 
   async componentDidMount() {
+    console.log("this.props", this.props);
+    // In production, use the asynchronously fetched config file so we can
+    // support localized config content. In development, use the imported
+    // module so we can support incremental rebuilds.
+    let resolvedConfig;
+    if (process.env.NODE_ENV === "production") {
+      const configResponse = await fetch(`/config-${Mapseed.languageCode}.js`);
+      resolvedConfig = await configResponse.json();
+    } else {
+      resolvedConfig = config;
+    }
+
+    // TODO: Move to API client.
+    fetch(`${resolvedConfig.app.api_root}utils/session-key?format=json`, {
+      credentials: "include",
+    }).then(async session => {
+      const sessionJson = await session.json();
+      Util.cookies.save("sa-api-sessionid", sessionJson.sessionid);
+    });
+
+    // Fetch and load user information.
+    const authedUser = await mapseedApiClient.user.get(
+      resolvedConfig.app.api_root,
+    );
+    const user = authedUser
+      ? {
+          token: `user:${authedUser.id}`,
+          // avatar_url and `name` are backup values that can get overidden:
+          avatar_url: "/static/css/images/user-50.png",
+          name: authedUser.username,
+          ...authedUser,
+          isAuthenticated: true,
+          isLoaded: true,
+        }
+      : {
+          // anonymous user:
+          avatar_url: "/static/css/images/user-50.png",
+          token: `session:${Util.cookies.get("sa-api-sessionid")}`,
+          groups: [],
+          isAuthenticated: false,
+          isLoaded: true,
+        };
+    this.props.loadUser(user);
+
+    // Fetch and load datasets.
+    const datasetUrls = resolvedConfig.datasets.map(c => c.url);
+    const datasets = await mapseedApiClient.datasets.get(datasetUrls);
+    this.props.loadDatasets(datasets);
+
+    // Load all other ducks.
+    this.props.loadAppConfig(resolvedConfig.app);
+    this.props.loadDatasetsConfig(resolvedConfig.datasets);
+    this.props.loadMapConfig(resolvedConfig.map);
+    this.props.loadPlaceConfig(resolvedConfig.place, user);
+    this.props.loadLeftSidebarConfig(resolvedConfig.left_sidebar);
+    this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
+    this.props.loadStoryConfig(resolvedConfig.story);
+    this.props.loadFormsConfig(resolvedConfig.forms);
+    this.props.loadSupportConfig(resolvedConfig.support);
+    this.props.loadPagesConfig(resolvedConfig.pages);
+    this.props.loadNavBarConfig(resolvedConfig.nav_bar);
+    this.props.loadCustomComponentsConfig(resolvedConfig.custom_components);
+    this.props.loadMapStyle(resolvedConfig.map, resolvedConfig.datasets);
+    resolvedConfig.dashboard &&
+      this.props.loadDashboardConfig(resolvedConfig.dashboard);
+
+    this.props.loadMapViewport(resolvedConfig.map.options.mapViewport);
+    resolvedConfig.right_sidebar.is_visible_default &&
+      this.props.updateUIVisibility("rightSidebar", true);
+
+    languageModule.changeLanguage(Mapseed.languageCode);
+
     window.addEventListener("resize", this.props.updateLayout);
 
     // Globally capture all clicks so we can enable client-side routing.
@@ -84,16 +204,18 @@ class App extends Component {
     // in custom page content, we need to listen globally. Note that this means
     // the route event will fire twice from internal links rendered by the
     // Link atom.
-    document.addEventListener("click", evt => {
-      const rel = evt.target.attributes.getNamedItem("rel");
-      if (rel && rel.value === "internal") {
-        evt.preventDefault();
-        this.props.router.navigate(
-          evt.target.attributes.getNamedItem("href").value,
-          { trigger: true },
-        );
-      }
-    });
+    //
+    //  TODO
+    //  document.addEventListener("click", evt => {
+    //    const rel = evt.target.attributes.getNamedItem("rel");
+    //    if (rel && rel.value === "internal") {
+    //      evt.preventDefault();
+    //      this.props.router.navigate(
+    //        evt.target.attributes.getNamedItem("href").value,
+    //        { trigger: true },
+    //      );
+    //    }
+    //  });
 
     const templateDims = findDOMNode(
       this.templateContainerRef.current,
@@ -104,16 +226,19 @@ class App extends Component {
       height: templateDims.height,
     });
 
+    // Handle the initial route.
+    this.handleRouteChange(this.props.match);
+
     // Fetch and load Places.
     this.props.updatePlacesLoadStatus("loading");
     const allPlacePagePromises = [];
     await Promise.all(
-      this.props.datasetConfigs.map(async config => {
+      this.props.datasetsConfig.map(async c => {
         // Note that the response here is an array of page Promises.
         const response = await mapseedApiClient.place.get({
-          datasetUrl: config.url,
-          datasetSlug: config.slug,
-          clientSlug: config.clientSlug,
+          datasetUrl: c.url,
+          datasetSlug: c.slug,
+          clientSlug: c.clientSlug,
           placeParams: {
             // NOTE: this is to include comments/supports while fetching our place models
             include_submissions: true,
@@ -121,7 +246,7 @@ class App extends Component {
           },
           includePrivate: this.props.hasGroupAbilitiesInDatasets({
             abilities: ["can_access_protected"],
-            datasetSlugs: [config.slug],
+            datasetSlugs: [c.slug],
             submissionSet: "places",
           }),
         });
@@ -135,7 +260,7 @@ class App extends Component {
             // Update the map.
             this.props.createFeaturesInGeoJSONSource(
               // "sourceId" and a dataset's slug are the same thing.
-              config.slug,
+              c.slug,
               pageData.map(place => {
                 const { geometry, ...rest } = place;
 
@@ -157,8 +282,82 @@ class App extends Component {
     this.props.updatePlacesLoadStatus("loaded");
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("componentDidUpdate")
+    if (this.props.match.path !== prevProps.match.path) {
+      this.handleRouteChange(this.props.match);
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
+  }
+
+  handleRouteChange(match) {
+    console.log("ROUTE CHANGE");
+    if (match.params.pageSlug) {
+      recordGoogleAnalyticsHit(`/page/${match.params.pageSlug}`);
+      this.props.updateUIVisibility("contentPanel", true);
+      this.props.updateUIVisibility("spotlightMask", false);
+      this.props.updateUIVisibility("mapCenterpoint", false);
+      this.props.updateUIVisibility("addPlaceButton", true);
+      this.props.updateActivePage(match.params.pageSlug);
+      this.props.updateContentPanelComponent("CustomPage");
+    } else if (match.path === "/new") {
+      recordGoogleAnalyticsHit("/new");
+      this.props.updateContentPanelComponent("InputForm");
+      this.props.updateUIVisibility("addPlaceButton", false);
+      this.props.updateUIVisibility("contentPanel", true);
+    } else if (match.params.zoom && match.params.lat && match.params.lng) {
+      recordGoogleAnalyticsHit("/");
+      this.props.updateUIVisibility("contentPanel", false);
+      this.props.updateUIVisibility("spotlightMask", false);
+      this.props.updateUIVisibility("mapCenterpoint", false);
+      this.props.updateUIVisibility("addPlaceButton", true);
+      this.props.updateActivePage(null);
+      this.props.updateContentPanelComponent(null);
+    } else if (match.params.datasetClientSlug) {
+      const { datasetClientSlug, placeId } = match.params;
+
+      if (!this.props.placeExists(placeId)) {
+        const datasetConfig = this.props.datasetsConfig.find(
+          c => c.clientSlug === datasetClientSlug,
+        );
+        const response = fetchIndividualPlace({
+          datasetConfig,
+          datasetClientSlug,
+          placeId,
+        });
+
+        if (response) {
+          // Add this Place to the places duck and update the map.
+          this.props.loadPlaceAndSetIgnoreFlag(response);
+
+          const { geometry, ...rest } = response;
+          this.props.createFeaturesInGeoJSONSource(datasetConfig.slug, [
+            {
+              type: "Feature",
+              geometry,
+              properties: rest,
+            },
+          ]);
+        } else {
+          // The Place doesn't exist, so route back to the map.
+          this.props.history.push("/");
+          return;
+        }
+      }
+
+      // TODO: updateEditModeToggled
+      recordGoogleAnalyticsHit(`/${datasetClientSlug}/${placeId}`);
+      this.props.updateEditModeToggled(false);
+      //this.props.updateScrollToResponseId(parseInt(responseId));
+      this.props.updateFocusedPlaceId(parseInt(placeId));
+      this.props.updateUIVisibility("contentPanel", true);
+      this.props.updateUIVisibility("mapCenterpoint", false);
+      this.props.updateUIVisibility("addPlaceButton", true);
+      this.props.updateContentPanelComponent("PlaceDetail");
+    }
   }
 
   render() {
@@ -166,41 +365,62 @@ class App extends Component {
       <Provider store={this.props.store}>
         <JSSProvider>
           <ThemeProvider>
-            <SiteHeader
-              router={this.props.router}
-              languageCode={this.props.languageCode}
-            />
+            <SiteHeader languageCode={Mapseed.languageCode} />
             <TemplateContainer
               ref={this.templateContainerRef}
               layout={this.props.layout}
               currentTemplate={this.props.currentTemplate}
             >
-              {this.props.currentTemplate === "sha" && <ShaTemplate />}
-              {this.props.currentTemplate === "map" && (
-                <Suspense fallback={<Fallback />}>
-                  <MapTemplate
-                    setMapDimensions={this.setMapDimensions}
-                    router={this.props.router}
-                    languageCode={this.props.languageCode}
-                  />
-                </Suspense>
-              )}
-              {this.props.currentTemplate === "list" && (
-                <Suspense fallback={<Fallback />}>
-                  <ListTemplate router={this.props.router} />
-                </Suspense>
-              )}
-              {this.props.currentTemplate === "dashboard" && (
-                <Suspense fallback={<Fallback />}>
-                  <DashboardTemplate
-                    router={this.props.router}
-                    datasetDownloadConfig={
-                      this.props.appConfig.dataset_download
-                    }
-                    apiRoot={this.props.appConfig.api_root}
-                  />
-                </Suspense>
-              )}
+              <Route exact path="/sha" component={ShaTemplate} />
+              <Route
+                exact
+                path="/:datasetClientSlug/:placeId"
+                component={MapTemplate}
+              />
+              <Route
+                exact
+                path="/:zoom?/:lat?/:lng?"
+                render={props => {
+                  recordGoogleAnalyticsHit("/");
+                  const { zoom, lat, lng } = props.match.params;
+
+                  return (
+                    <MapTemplate
+                      initialZoom={parseFloat(zoom)}
+                      initialLat={parseFloat(lat)}
+                      initialLng={parseFloat(lng)}
+                      languageCode={Mapseed.languageCode}
+                      contentPanelComponent={null}
+                      activePageSlug={null}
+                    />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/list"
+                render={() => {
+                  recordGoogleAnalyticsHit("/list");
+
+                  return <ListTemplate />;
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard"
+                render={() => {
+                  recordGoogleAnalyticsHit("/dashboard");
+
+                  return (
+                    <DashboardTemplate
+                      datasetDownloadConfig={
+                        this.props.appConfig.dataset_download
+                      }
+                      apiRoot={this.props.appConfig.api_root}
+                    />
+                  );
+                }}
+              />
             </TemplateContainer>
           </ThemeProvider>
         </JSSProvider>
@@ -210,30 +430,51 @@ class App extends Component {
 }
 
 App.propTypes = {
-  appConfig: appConfigPropType.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
-  datasetConfigs: datasetConfigPropType,
+  datasetsConfig: datasetsConfigPropType,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  languageCode: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
   layout: PropTypes.string.isRequired,
   loadDatasets: PropTypes.func.isRequired,
   loadPlaces: PropTypes.func.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
-  store: PropTypes.object.isRequired,
+  loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   // TODO: shape of this:
   storyChapters: PropTypes.array.isRequired,
   // TODO: shape of this:
-  storyConfig: PropTypes.object.isRequired,
   updateLayout: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
+  updateUIVisibility: PropTypes.func.isRequired,
+  loadDatasetsConfig: PropTypes.func.isRequired,
+  loadMapConfig: PropTypes.func.isRequired,
+  loadPlaceConfig: PropTypes.func.isRequired,
+  loadLeftSidebarConfig: PropTypes.func.isRequired,
+  loadRightSidebarConfig: PropTypes.func.isRequired,
+  loadStoryConfig: PropTypes.func.isRequired,
+  loadAppConfig: PropTypes.func.isRequired,
+  loadFormsConfig: PropTypes.func.isRequired,
+  loadSupportConfig: PropTypes.func.isRequired,
+  loadPagesConfig: PropTypes.func.isRequired,
+  loadNavBarConfig: PropTypes.func.isRequired,
+  loadCustomComponentsConfig: PropTypes.func.isRequired,
+  loadMapStyle: PropTypes.func.isRequired,
+  loadMapViewport: PropTypes.func.isRequired,
+  loadDashboardConfig: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
+  placeExists: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired,
+  updateEditModeToggled: PropTypes.func.isRequired,
+  updateScrollToResponseId: PropTypes.func.isRequired,
+  updateFocusedPlaceId: PropTypes.func.isRequired,
+  updateContentPanelComponent: PropTypes.func.isRequired,
+  updateActivePage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
-  datasetConfigs: datasetConfigsSelector(state),
+  datasetsConfig: datasetsConfigSelector(state),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
       state,
@@ -242,6 +483,7 @@ const mapStateToProps = state => ({
       submissionSet,
     }),
   layout: layoutSelector(state),
+  placeExists: placeId => placeExists(state, placeId),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),
 });
@@ -250,15 +492,48 @@ const mapDispatchToProps = dispatch => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
+  loadPlaceAndSetIgnoreFlag: placeModel =>
+    dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
   loadPlaces: (places, storyConfig) =>
     dispatch(loadPlaces(places, storyConfig)),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
   updateLayout: () => dispatch(updateLayout()),
   updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
+  updateUIVisibility: (componentName, isVisible) =>
+    dispatch(updateUIVisibility(componentName, isVisible)),
+  loadDatasetsConfig: config => dispatch(loadDatasetsConfig(config)),
+  loadDashboardConfig: config => dispatch(loadDashboardConfig(config)),
+  loadMapConfig: config => dispatch(loadMapConfig(config)),
+  loadPlaceConfig: config => dispatch(loadPlaceConfig(config)),
+  loadLeftSidebarConfig: config => dispatch(loadLeftSidebarConfig(config)),
+  loadRightSidebarConfig: config => dispatch(loadRightSidebarConfig(config)),
+  loadStoryConfig: config => dispatch(loadStoryConfig(config)),
+  loadAppConfig: config => dispatch(loadAppConfig(config)),
+  loadFormsConfig: config => dispatch(loadFormsConfig(config)),
+  loadSupportConfig: config => dispatch(loadSupportConfig(config)),
+  loadPagesConfig: config => dispatch(loadPagesConfig(config)),
+  loadNavBarConfig: config => dispatch(loadNavBarConfig(config)),
+  loadCustomComponentsConfig: config =>
+    dispatch(loadCustomComponentsConfig(config)),
+  loadMapStyle: (mapConfig, datasetsConfig) =>
+    dispatch(loadMapStyle(mapConfig, datasetsConfig)),
+  loadMapViewport: mapViewport => dispatch(loadMapViewport(mapViewport)),
+  loadUser: user => dispatch(loadUser(user)),
+  updateEditModeToggled: isToggled =>
+    dispatch(updateEditModeToggled(isToggled)),
+  updateScrollToResponseId: responseId =>
+    dispatch(updateScrollToResponseId(responseId)),
+  updateFocusedPlaceId: focusedPlaceId =>
+    dispatch(updateFocusedPlaceId(focusedPlaceId)),
+  updateContentPanelComponent: componentName =>
+    dispatch(updateContentPanelComponent(componentName)),
+  updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(App),
+);

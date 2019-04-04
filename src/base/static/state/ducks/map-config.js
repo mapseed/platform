@@ -42,13 +42,13 @@ export const geocodeAddressBarEnabledSelector = state =>
   state.mapConfig.geocoding_bar_enabled;
 
 // Actions:
-const SET_CONFIG = "map-config/SET";
+const LOAD = "map-config/LOAD";
 
 // Action creators:
-export function setMapConfig(config) {
+export function loadMapConfig(config) {
   config.geocoding_bar_enabled = !!config.geocoding_bar_enabled;
 
-  return { type: SET_CONFIG, payload: config };
+  return { type: LOAD, payload: config };
 }
 
 export const mapConfigPropType = PropTypes.shape({
@@ -116,11 +116,22 @@ export const mapConfigPropType = PropTypes.shape({
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = {
+  geocoding_bar_enabled: false,
+  options: {
+    mapViewport: {
+      zoom: 10,
+      latitude: 0,
+      longitude: 0,
+    }
+  },
+  mapboxSources: {},
+  layerGroups: []
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_CONFIG:
+    case LOAD:
       return {
         ...state,
         ...action.payload,

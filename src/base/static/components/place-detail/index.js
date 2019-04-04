@@ -423,7 +423,6 @@ PlaceDetail.propTypes = {
   mapConfig: mapConfigPropType,
   mapContainerRef: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
   removeFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   supportConfig: PropTypes.object.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,

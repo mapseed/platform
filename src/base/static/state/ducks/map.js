@@ -354,6 +354,9 @@ const INITIAL_STATE = {
     height: 0,
     minZoom: 1,
     maxZoom: 18,
+    zoom: 10,
+    latitude: 0,
+    longitude: 0,
     transitionInterpolator: new FlyToInterpolator(),
   },
   style: {

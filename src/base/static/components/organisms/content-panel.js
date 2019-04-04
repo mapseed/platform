@@ -111,12 +111,10 @@ class ContentPanel extends Component {
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               mapContainerRef={this.props.mapContainerRef}
               scrollToResponseId={null}
-              router={this.props.router}
             />
           )}
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
-              router={this.props.router}
               render={(state, props, onCategoryChange) => {
                 return (
                   <InputForm
@@ -148,7 +146,6 @@ ContentPanel.propTypes = {
   mapContainerRef: PropTypes.object.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({

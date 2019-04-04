@@ -13,15 +13,15 @@ import {
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { loadActivity, activitySelector } from "../../state/ducks/activity";
 import {
-  datasetConfigsSelector,
-  datasetConfigPropType,
+  datasetsConfigSelector,
+  datasetsConfigPropType,
 } from "../../state/ducks/datasets-config";
 import { placeSelector } from "../../state/ducks/places";
 
 class ActivityStream extends Component {
   fetchActivity = async () => {
     const activityPromises = await Promise.all(
-      this.props.datasetConfigs.map(config =>
+      this.props.datasetsConfig.map(config =>
         mapseedApiClient.activity.get(config.url, config.clientSlug),
       ),
     );
@@ -103,7 +103,6 @@ class ActivityStream extends Component {
               title={title}
               actionText={actionText}
               submitterName={submitterName || anonymousName}
-              router={this.props.router}
               url={url}
             />
           ) : null;
@@ -115,7 +114,7 @@ class ActivityStream extends Component {
 
 ActivityStream.propTypes = {
   activity: PropTypes.array.isRequired, // TODO
-  datasetConfigs: datasetConfigPropType,
+  datasetsConfig: datasetsConfigPropType,
   loadActivity: PropTypes.func.isRequired,
   placeConfig: PropTypes.shape({
     action_text: PropTypes.string.isRequired,
@@ -123,12 +122,11 @@ ActivityStream.propTypes = {
   }).isRequired,
   placeSelector: PropTypes.func.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({
   activity: activitySelector(state),
-  datasetConfigs: datasetConfigsSelector(state),
+  datasetsConfig: datasetsConfigSelector(state),
   placeConfig: placeConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   placeSelector: placeId => placeSelector(state, placeId),

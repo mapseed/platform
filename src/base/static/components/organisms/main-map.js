@@ -9,6 +9,7 @@ import { Global } from "@emotion/core";
 import MapboxDraw from "mapseed-mapbox-gl-draw/dist/mapbox-gl-draw";
 import "mapseed-mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { throttle } from "throttle-debounce";
+import { withRouter } from "react-router";
 
 import {
   drawModeActiveSelector,
@@ -249,11 +250,8 @@ class MainMap extends Component {
     }
 
     const { zoom, latitude, longitude } = this.props.mapViewport;
-    this.props.router.navigate(
+    this.props.history.push(
       `/${zoom.toFixed(2)}/${latitude.toFixed(5)}/${longitude.toFixed(5)}`,
-      {
-        trigger: false,
-      },
     );
   });
 
@@ -408,11 +406,10 @@ class MainMap extends Component {
       // If the topmost clicked-on feature has a _clientSlug property, there's
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
-      this.props.router.navigate(
+      this.props.history.push(
         `/${this.queriedFeatures[0].properties._clientSlug}/${
           this.queriedFeatures[0].properties.id
         }`,
-        { trigger: true },
       );
     }
   };
@@ -443,10 +440,7 @@ class MainMap extends Component {
   render() {
     return (
       <>
-        <InviteModal
-          router={this.props.router}
-          isOpen={this.props.isInviteModalOpen}
-        />
+        <InviteModal isOpen={this.props.isInviteModalOpen} />
         <Global
           styles={{
             ".overlays": {
@@ -539,6 +533,7 @@ MainMap.propTypes = {
   activeEditPlaceId: PropTypes.number,
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   geometryStyle: geometryStyleProps,
+  history: PropTypes.object.isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isDrawModeActive: PropTypes.bool.isRequired,
@@ -564,7 +559,6 @@ MainMap.propTypes = {
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
   placeSelector: PropTypes.func.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
@@ -625,7 +619,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MainMap);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(MainMap),
+);

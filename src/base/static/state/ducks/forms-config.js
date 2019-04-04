@@ -61,7 +61,14 @@ export function loadFormsConfig(config) {
 }
 
 // Reducers:
-const INITIAL_STATE = null;
+const INITIAL_STATE = {
+  comments: {
+    items: [],
+    response_name: "",
+    response_plural_name: "",
+  },
+  places: [],
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

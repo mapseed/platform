@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import styled from "@emotion/styled";
 import moment from "moment";
+import { withRouter } from "react-router";
 
 import "./typography.scss";
 
@@ -223,7 +224,7 @@ const MicroText = styled("span")(props => {
   return textHandler(props, styles);
 });
 
-const Link = styled(props => {
+const Link = withRouter(styled(props => {
   return (
     <a
       href={props.href}
@@ -231,11 +232,10 @@ const Link = styled(props => {
       className={props.className}
       onClick={evt => {
         // For internal routing.
-        if (props.rel === "internal" && props.router) {
+        if (props.rel === "internal") {
           evt.preventDefault();
-          props.router.navigate(
+          props.history.push(
             evt.currentTarget.attributes.getNamedItem("href").value,
-            { trigger: true },
           );
         }
 
@@ -257,11 +257,10 @@ const Link = styled(props => {
     textDecoration: "none",
     color: props.theme.bg.light,
   },
-}));
+})));
 
 Link.propTypes = {
   href: PropTypes.string.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
   rel: PropTypes.string,
 };
 

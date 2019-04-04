@@ -15,13 +15,13 @@ export const leftSidebarComponentSelector = state => {
 };
 
 // Actions:
-const SET_CONFIG = "left-sidebar/SET_CONFIG";
+const LOAD = "left-sidebar/LOAD";
 const SET_EXPANDED = "left-sidebar/SET_EXPANDED";
 const SET_COMPONENT = "left-sidebar/SET_COMPONENT";
 
 // Action creators:
-export function setLeftSidebarConfig(config) {
-  return { type: SET_CONFIG, payload: config };
+export function loadLeftSidebarConfig(config) {
+  return { type: LOAD, payload: config };
 }
 export function setLeftSidebarExpanded(isExpanded) {
   return { type: SET_EXPANDED, payload: isExpanded };
@@ -34,13 +34,15 @@ export function setLeftSidebarComponent(componentName) {
 // TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
   activeComponentName: undefined,
-  config: undefined,
+  config: {
+    panels: [],
+  },
   isExpanded: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_CONFIG:
+    case LOAD:
       return {
         ...state,
         config: action.payload,

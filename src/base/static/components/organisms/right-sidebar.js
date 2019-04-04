@@ -122,7 +122,6 @@ RightSidebar.propTypes = {
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }),
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   updateRightSidebarVisibility: PropTypes.func.isRequired,
 };
 

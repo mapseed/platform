@@ -67,7 +67,6 @@ mixpanel.init(MIXPANEL_TOKEN);
       invite: "addInvite",
       "page/:slug": "viewPage",
       dashboard: "viewDashboard",
-      sha: "viewSha",
       new: "newPlace",
       list: "viewList",
       ":dataset/:id": "viewPlace",
@@ -173,23 +172,23 @@ mixpanel.init(MIXPANEL_TOKEN);
       );
 
       // Start tracking routing history.
-      Backbone.history.start({ pushState: true });
+      //Backbone.history.start({ pushState: true });
 
-      // Load the default page when there is no page already in the url
-      if (Backbone.history.getFragment() === "") {
-        const startPageConfig = this.config.nav_bar.find(
-          navItem => navItem.start_page,
-        );
-
-        if (
-          startPageConfig &&
-          startPageConfig.url &&
-          // Don't route to the start page on small screens.
-          window.innerWidth > 960
-        ) {
-          this.navigate(startPageConfig.url, { trigger: true });
-        }
-      }
+//      // Load the default page when there is no page already in the url
+//      if (Backbone.history.getFragment() === "") {
+//        const startPageConfig = this.config.nav_bar.find(
+//          navItem => navItem.start_page,
+//        );
+//
+//        if (
+//          startPageConfig &&
+//          startPageConfig.url &&
+//          // Don't route to the start page on small screens.
+//          window.innerWidth > 960
+//        ) {
+//          this.navigate(startPageConfig.url, { trigger: true });
+//        }
+//      }
     },
 
     viewMap: function(zoom, lat, lng) {
@@ -314,10 +313,10 @@ mixpanel.init(MIXPANEL_TOKEN);
       this.store.dispatch(updateContentPanelComponent("CustomPage"));
     },
 
-    viewSha: function() {
-      recordGoogleAnalyticsHit("/sha");
-      this.store.dispatch(updateCurrentTemplate("sha"));
-    },
+    //viewSha: function() {
+    //  recordGoogleAnalyticsHit("/sha");
+    //  this.store.dispatch(updateCurrentTemplate("sha"));
+    //},
 
     viewList: function() {
       recordGoogleAnalyticsHit("/list");

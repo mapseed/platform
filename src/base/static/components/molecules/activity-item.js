@@ -36,7 +36,6 @@ const ActivityItem = props => (
       })}
       href={props.url}
       rel="internal"
-      router={props.router}
     >
       <UserAvatarContainer>
         <UserAvatar />
@@ -52,7 +51,7 @@ const ActivityItem = props => (
 
 ActivityItem.propTypes = {
   actionText: PropTypes.string.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  //router: PropTypes.instanceOf(Backbone.Router).isRequired,
   submitterName: PropTypes.string.isRequired,
   title: PropTypes.string,
   url: PropTypes.string.isRequired,

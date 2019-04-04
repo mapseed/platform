@@ -11,7 +11,14 @@ import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
-import { layoutSelector, uiVisibilitySelector } from "../../state/ducks/ui";
+import {
+  layoutSelector,
+  uiVisibilitySelector,
+  updateUIVisibility,
+  updateActivePage,
+  updateContentPanelComponent,
+  updateEditModeToggled,
+} from "../../state/ducks/ui";
 import {
   hasAnonAbilitiesInAnyDataset,
   datasetSlugsSelector,
@@ -28,6 +35,8 @@ import {
   mapConfigSelector,
   mapConfigPropType,
 } from "../../state/ducks/map-config";
+import { updateMapViewport } from "../../state/ducks/map";
+import { updateFocusedPlaceId } from "../../state/ducks/places";
 
 import {
   getMainContentAreaWidth,
@@ -68,6 +77,34 @@ class MapTemplate extends Component {
 
   componentDidMount() {
     this.recaculateContainerSize();
+
+ //   // URL parameters passed through by the router.
+ //   const { params } = this.props.match;
+
+ //   params.zoom &&
+ //     params.lat &&
+ //     params.lng &&
+ //     this.props.updateMapViewport({
+ //       zoom: params.zoom,
+ //       lat: params.lat,
+ //       lng: params.lng,
+ //     });
+
+ //   this.props.updateUIVisibility(
+ //     "contentPanel",
+ //     !!(params.pageSlug || params.datasetClientSlug),
+ //   );
+
+ //   this.props.updateUIVisibility(
+ //     "mapCenterpoint",
+ //     this.props.location.pathname === "/new",
+ //   );
+ //   this.props.updateUIVisibility("spotlightMask", (params.datasetClientSlug));
+ //   this.props.updateUIVisibility("addPlaceButton", true);
+ //   this.props.focusedPlaceId &&
+ //     this.props.updateFocusedPlaceId(this.props.focusedPlaceId);
+ //   this.props.contentPanelComponent &&
+ //     this.props.updateContentPanelComponent(this.props.contentPanelComponent);
   }
 
   componentDidUpdate(prevProps) {
@@ -119,14 +156,12 @@ class MapTemplate extends Component {
             mapContainerHeightDeclaration={
               this.state.mapContainerHeightDeclaration
             }
-            router={this.props.router}
           />
           {this.props.isMapCenterpointVisible && <MapCenterpoint />}
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
         </MapContainer>
         {this.props.isContentPanelVisible && (
           <ContentPanel
-            router={this.props.router}
             languageCode={this.props.languageCode}
             mapContainerRef={this.mapContainerRef}
           />
@@ -136,24 +171,26 @@ class MapTemplate extends Component {
             <AddPlaceButton
               ref={this.addPlaceButtonRef}
               onClick={() => {
-                this.props.router.navigate("/new", {
-                  trigger: true,
-                });
+                //this.props.router.navigate("/new", {
+                //  trigger: true,
+                //});
               }}
             >
               {this.props.placeConfig.add_button_label}
             </AddPlaceButton>
           )}
         {this.props.layout === "desktop" &&
-          this.props.isRightSidebarEnabled && (
-            <RightSidebar router={this.props.router} />
-          )}
+          this.props.isRightSidebarEnabled && <RightSidebar />}
       </>
     );
   }
 }
 
 MapTemplate.propTypes = {
+  activePageSlug: PropTypes.string,
+  contentPanelComponent: PropTypes.string,
+  editModeToggled: PropTypes.bool,
+  focusedPlaceId: PropTypes.number,
   hasAddPlacePermission: PropTypes.bool.isRequired,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
@@ -167,7 +204,16 @@ MapTemplate.propTypes = {
   layout: PropTypes.string.isRequired,
   mapConfig: mapConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
+  updateMapViewport: PropTypes.func.isRequired,
+  initialZoom: PropTypes.number,
+  initialLat: PropTypes.number,
+  initialLng: PropTypes.number,
+  uiVisibilities: PropTypes.object,
+  updateUIVisibility: PropTypes.func.isRequired,
+  updateActivePage: PropTypes.func.isRequired,
+  updateContentPanelComponent: PropTypes.func.isRequired,
+  updateEditModeToggled: PropTypes.func.isRequired,
+  updateFocusedPlaceId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -196,4 +242,20 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(MapTemplate);
+const mapDispatchToProps = dispatch => ({
+  updateMapViewport: mapViewport => dispatch(updateMapViewport(mapViewport)),
+  updateUIVisibility: (componentName, isVisible) =>
+    dispatch(updateUIVisibility(componentName, isVisible)),
+  updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),
+  updateContentPanelComponent: componentName =>
+    dispatch(updateContentPanelComponent(componentName)),
+  updateFocusedPlaceId: focusedPlaceId =>
+    dispatch(updateFocusedPlaceId(focusedPlaceId)),
+  updateEditModeToggled: isToggled =>
+    dispatch(updateEditModeToggled(isToggled)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MapTemplate);

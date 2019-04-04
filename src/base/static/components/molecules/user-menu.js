@@ -279,7 +279,6 @@ UserMenu.propTypes = {
   hasAdminAbilities: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
   t: PropTypes.func.isRequired,
   isMobileEnabled: PropTypes.bool.isRequired,
   isInMobileMode: PropTypes.bool.isRequired,

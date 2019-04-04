@@ -449,7 +449,6 @@ class SiteHeader extends React.Component {
               </LanguagePicker>
             )}
           <UserMenu
-            router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
             isInMobileMode={this.state.isHeaderExpanded}
             isMobileEnabled={!!this.props.appConfig.isShowingMobileUserMenu}
@@ -482,7 +481,6 @@ SiteHeader.propTypes = {
   }).isRequired,
   navBarConfig: navBarConfigPropType,
   dashboardConfig: dashboardConfigPropType,
-  router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
 };

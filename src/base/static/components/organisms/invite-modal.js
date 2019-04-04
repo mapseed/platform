@@ -138,7 +138,6 @@ class InviteModal extends Component {
 InviteModal.propTypes = {
   currentUser: userPropType,
   isOpen: PropTypes.bool.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({

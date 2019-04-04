@@ -26,8 +26,7 @@ var entryPoints = [
   "@babel/polyfill",
   "whatwg-fetch",
   "normalize.css",
-  "./src/base/static/js/routes.js",
-  "./src/base/static/css/normalize.scss",
+  "./src/base/static/index.js",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 
@@ -127,10 +126,10 @@ module.exports = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,
     new CompressionPlugin(),
-    new WorkboxPlugin.InjectManifest({
-      swSrc: path.join("src", "sw.js"),
-      swDest: path.join(outputPath, "service-worker.js"),
-    }),
+    //    new WorkboxPlugin.InjectManifest({
+    //      swSrc: path.join("src", "sw.js"),
+    //      swDest: path.join(outputPath, "service-worker.js"),
+    //    }),
   ],
   devtool: isProd ? false : "cheap-eval-souce-map",
   devServer: {

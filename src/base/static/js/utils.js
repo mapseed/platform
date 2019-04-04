@@ -414,7 +414,7 @@ var self = (module.exports = {
 
   MapQuest: {
     geocode: function(location, bounds, options) {
-      var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
+      var mapQuestKey = Mapseed.bootstrapped.mapQuestKey;
 
       if (!mapQuestKey) {
         // REACT PORT SECTION //////////////////////////////////////////////////
@@ -439,7 +439,7 @@ var self = (module.exports = {
       $.ajax(options);
     },
     reverseGeocode: function(latLng, options) {
-      var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey,
+      var mapQuestKey = Mapseed.bootstrapped.mapQuestKey,
         lat,
         lng;
 
@@ -465,7 +465,7 @@ var self = (module.exports = {
   Mapbox: {
     /* ========================================
        * Because of an accident of history, geocoding with the MapQuest API was
-       * implemented first in Shareabouts. Thus, in order for geocoder results
+       * implemented first in Mapseed. Thus, in order for geocoder results
        * from anywhere else to be useful, they have to look like mapquest
        * results.
        *
@@ -476,8 +476,8 @@ var self = (module.exports = {
        */
 
     // L.mapbox.accessToken = 'pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImNpZjVjdWxpMDBhMnVzcG0zYjZzaXcyczMifQ.lY5dtGpiFt2BvlywF1n59Q';
-    // Shareabouts.geocoderControl = L.mapbox.geocoderControl('mapbox.places', {autocomplete: true});
-    // window.app.appView.mapView.map.addControl(Shareabouts.geocoderControl);
+    // Mapseed.geocoderControl = L.mapbox.geocoderControl('mapbox.places', {autocomplete: true});
+    // window.app.appView.mapView.map.addControl(Mapseed.geocoderControl);
 
     toMapQuestResult: function(result) {
       result.latLng = { lat: result.center[1], lng: result.center[0] };
@@ -507,7 +507,7 @@ var self = (module.exports = {
     },
 
     geocode: function({ location, hint, bbox, options }) {
-      var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
+      var mapboxToken = Mapseed.bootstrapped.mapboxToken,
         originalSuccess = options && options.success,
         transformedResultsSuccess = function(data) {
           if (originalSuccess) {
@@ -517,7 +517,7 @@ var self = (module.exports = {
 
       if (!mapboxToken)
         throw "You must provide a Mapbox access token " +
-          "(Shareabouts.bootstrapped.mapboxToken) for geocoding to work.";
+          "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
 
       options = options || {};
       options.dataType = "json";
@@ -537,13 +537,13 @@ var self = (module.exports = {
       $.ajax(options);
     },
     reverseGeocode: function(latLng, options) {
-      var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
+      var mapboxToken = Mapseed.bootstrapped.mapboxToken,
         lat,
         lng;
 
       if (!mapboxToken)
         throw "You must provide a Mapbox access token " +
-          "(Shareabouts.bootstrapped.mapboxToken) for geocoding to work.";
+          "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
 
       lat = latLng.lat || latLng[0];
       lng = latLng.lng || latLng[1];
