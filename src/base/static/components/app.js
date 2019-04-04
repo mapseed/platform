@@ -1,5 +1,6 @@
 import React, { Component, Suspense, createRef, lazy } from "react";
 import { Route, withRouter, Switch } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -23,7 +24,6 @@ const MapTemplate = lazy(() => import("./templates/map"));
 import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
-import { loadPlaces, updatePlacesLoadStatus } from "../state/ducks/places";
 import {
   datasetsConfigSelector,
   datasetsConfigPropType,
@@ -95,6 +95,24 @@ const TemplateContainer = styled("div")(props => ({
 const Fallback = () => {
   return <Spinner />;
 };
+
+const fetchIndividualPlace = async ({ datasetConfig, clientSlug, placeId }) =>
+  await mapseedApiClient.place.getPlace({
+    datasetUrl: datasetConfig.url,
+    clientSlug,
+    datasetSlug: datasetConfig.slug,
+    placeId: parseInt(placeId),
+    placeParams: {
+      include_submissions: true,
+      include_tags: true,
+    },
+    includePrivate: hasGroupAbilitiesInDatasets({
+      state: this.store.getState(),
+      abilities: ["can_access_protected"],
+      datasetSlugs: [datasetConfig.slug],
+      submissionSet: "places",
+    }),
+  });
 
 class App extends Component {
   templateContainerRef = createRef();
@@ -274,6 +292,73 @@ class App extends Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
     this.routeListener && this.routeListener.unlisten();
+  }
+
+  handleRouteChange(match) {
+    console.log("ROUTE CHANGE");
+    if (match.params.pageSlug) {
+      recordGoogleAnalyticsHit(`/page/${match.params.pageSlug}`);
+      this.props.updateUIVisibility("contentPanel", true);
+      this.props.updateUIVisibility("spotlightMask", false);
+      this.props.updateUIVisibility("mapCenterpoint", false);
+      this.props.updateUIVisibility("addPlaceButton", true);
+      this.props.updateActivePage(match.params.pageSlug);
+      this.props.updateContentPanelComponent("CustomPage");
+    } else if (match.path === "/new") {
+      recordGoogleAnalyticsHit("/new");
+      this.props.updateContentPanelComponent("InputForm");
+      this.props.updateUIVisibility("addPlaceButton", false);
+      this.props.updateUIVisibility("contentPanel", true);
+    } else if (match.params.zoom && match.params.lat && match.params.lng) {
+      recordGoogleAnalyticsHit("/");
+      this.props.updateUIVisibility("contentPanel", false);
+      this.props.updateUIVisibility("spotlightMask", false);
+      this.props.updateUIVisibility("mapCenterpoint", false);
+      this.props.updateUIVisibility("addPlaceButton", true);
+      this.props.updateActivePage(null);
+      this.props.updateContentPanelComponent(null);
+    } else if (match.params.datasetClientSlug) {
+      const { datasetClientSlug, placeId } = match.params;
+
+      if (!this.props.placeExists(placeId)) {
+        const datasetConfig = this.props.datasetsConfig.find(
+          c => c.clientSlug === datasetClientSlug,
+        );
+        const response = fetchIndividualPlace({
+          datasetConfig,
+          datasetClientSlug,
+          placeId,
+        });
+
+        if (response) {
+          // Add this Place to the places duck and update the map.
+          this.props.loadPlaceAndSetIgnoreFlag(response);
+
+          const { geometry, ...rest } = response;
+          this.props.createFeaturesInGeoJSONSource(datasetConfig.slug, [
+            {
+              type: "Feature",
+              geometry,
+              properties: rest,
+            },
+          ]);
+        } else {
+          // The Place doesn't exist, so route back to the map.
+          this.props.history.push("/");
+          return;
+        }
+      }
+
+      // TODO: updateEditModeToggled
+      recordGoogleAnalyticsHit(`/${datasetClientSlug}/${placeId}`);
+      this.props.updateEditModeToggled(false);
+      //this.props.updateScrollToResponseId(parseInt(responseId));
+      this.props.updateFocusedPlaceId(parseInt(placeId));
+      this.props.updateUIVisibility("contentPanel", true);
+      this.props.updateUIVisibility("mapCenterpoint", false);
+      this.props.updateUIVisibility("addPlaceButton", true);
+      this.props.updateContentPanelComponent("PlaceDetail");
+    }
   }
 
   render() {
@@ -492,6 +577,7 @@ App.propTypes = {
   layout: PropTypes.string.isRequired,
   loadDatasets: PropTypes.func.isRequired,
   loadPlaces: PropTypes.func.isRequired,
+  loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   // TODO: shape of this:
   storyChapters: PropTypes.array.isRequired,
   // TODO: shape of this:
@@ -516,7 +602,13 @@ App.propTypes = {
   loadDashboardConfig: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
   pageExists: PropTypes.func.isRequired,
+  placeExists: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
+  updateEditModeToggled: PropTypes.func.isRequired,
+  updateScrollToResponseId: PropTypes.func.isRequired,
+  updateFocusedPlaceId: PropTypes.func.isRequired,
+  updateContentPanelComponent: PropTypes.func.isRequired,
+  updateActivePage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -535,6 +627,7 @@ const mapStateToProps = state => ({
     }),
   layout: layoutSelector(state),
   pageExists: (slug, lang) => pageExistsSelector({ state, slug, lang }),
+  placeExists: placeId => placeExists(state, placeId),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),
 });
@@ -543,6 +636,8 @@ const mapDispatchToProps = dispatch => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
+  loadPlaceAndSetIgnoreFlag: placeModel =>
+    dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
   loadPlaces: (places, storyConfig) =>
     dispatch(loadPlaces(places, storyConfig)),
   updatePlacesLoadStatus: loadStatus =>
@@ -569,6 +664,15 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadMapStyle(mapConfig, datasetsConfig)),
   loadMapViewport: mapViewport => dispatch(loadMapViewport(mapViewport)),
   loadUser: user => dispatch(loadUser(user)),
+  updateEditModeToggled: isToggled =>
+    dispatch(updateEditModeToggled(isToggled)),
+  updateScrollToResponseId: responseId =>
+    dispatch(updateScrollToResponseId(responseId)),
+  updateFocusedPlaceId: focusedPlaceId =>
+    dispatch(updateFocusedPlaceId(focusedPlaceId)),
+  updateContentPanelComponent: componentName =>
+    dispatch(updateContentPanelComponent(componentName)),
+  updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),
 });
 
 export default withRouter(

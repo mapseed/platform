@@ -180,6 +180,34 @@ class MapTemplate extends Component {
     }
 
     this.recaculateContainerSize();
+
+ //   // URL parameters passed through by the router.
+ //   const { params } = this.props.match;
+
+ //   params.zoom &&
+ //     params.lat &&
+ //     params.lng &&
+ //     this.props.updateMapViewport({
+ //       zoom: params.zoom,
+ //       lat: params.lat,
+ //       lng: params.lng,
+ //     });
+
+ //   this.props.updateUIVisibility(
+ //     "contentPanel",
+ //     !!(params.pageSlug || params.datasetClientSlug),
+ //   );
+
+ //   this.props.updateUIVisibility(
+ //     "mapCenterpoint",
+ //     this.props.location.pathname === "/new",
+ //   );
+ //   this.props.updateUIVisibility("spotlightMask", (params.datasetClientSlug));
+ //   this.props.updateUIVisibility("addPlaceButton", true);
+ //   this.props.focusedPlaceId &&
+ //     this.props.updateFocusedPlaceId(this.props.focusedPlaceId);
+ //   this.props.contentPanelComponent &&
+ //     this.props.updateContentPanelComponent(this.props.contentPanelComponent);
   }
 
   componentDidUpdate(prevProps) {
