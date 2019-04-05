@@ -17,7 +17,7 @@
     "name": "CREATING CASCADIA",
     "show_name_in_header": true,
     "logo": "/static/css/images/Logo2.png",
-    "meta_description": "_(We are gathering public input on important issues in the community)",
+    "meta_description": "_(This map is dedicated to all the imhabitants of Cascadia, of every race and species)",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
       "brand": {
@@ -46,9 +46,9 @@
     "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
       "mapViewport": {
-        "latitude": 47.654,
-        "longitude": -119.456,
-        "zoom": 5.62,
+        "latitude": 47.671,
+        "longitude": -122.594,
+        "zoom": 5.31,
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 19
@@ -611,7 +611,13 @@
       "lang": "en_US",
       "content": [
         "<p><h2>Make it now</h2></p>",
-        "<p><strong>Pretty soon there's going to be some great instructions here about how to use this map.</strong></p>"
+        "<p><h4>Thanks to the brilliant folks at <a href='mapseed.org'>Mapseed</a>, this map is very easy to use, either on a computer or a mobile phone.</p>",
+        "<p>Just hit the button, \"Make it now.\" Then drag the map around until the marker is exactly where you would like it. You can zoom in a long way to find the exact spot. When you have found it, then choose one of the categories: Sensation, Idea, Artwork, Event.</p>",
+        "<p>You can give a title describing the feeling of a place, or its importance to the bioregion. You can also give the name of the artwork or event you are locating. You can use the categories in unexpected ways.</p>",
+        "<p>The idea can be yours or someone else's (let us know whose it is) and the sensation can be agreeable or disagreeable (if there is some problem there).</p>",
+        "<p>The artwork can be made specifically for this map, it can be documented here, or the image of an existing work can be placed in the landscape. The concept of event speaks for itself&mdash;whether it's artistic or otherwise.</p>",
+        "<p>You can write a short or long text, a poem, a dialogue etc. You can add an image with the editor (click the second to last icon on the right) or you can put in the web address of a Vimeo or Youtube video.",
+        "<p>Anyone can use this map. The idea is express the beauty, the importance and the challenge of creating the Cascadian bioregion. This unfinished process has been going on for decades. Cascadia represents a pathway forward, through and beyond ecological damage, through and beyond climate change. Make it now!</p>"
       ]
     }
   ]
