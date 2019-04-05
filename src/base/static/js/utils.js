@@ -66,7 +66,7 @@ var self = (module.exports = {
           "//",
           window.location.host,
           "/",
-          place._datasetSlug + "/" + place.id,
+          place._clientSlug + "/" + place.id,
         ].join(""),
       },
       $img = $("img[src='" + components.img + "']");
