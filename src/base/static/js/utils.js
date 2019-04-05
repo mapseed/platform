@@ -47,9 +47,8 @@ var self = (module.exports = {
     ].join("");
   },
 
-  getSocialUrl: function(place) {
-    var appConfig = Shareabouts.Config.app,
-      shareUrl = "http://social.mapseed.org",
+  getSocialUrl: function(place, appConfig) {
+    var shareUrl = "http://social.mapseed.org",
       components = {
         title: place.title || place.name || appConfig.title,
         desc: place.description || appConfig.meta_description,
@@ -80,8 +79,8 @@ var self = (module.exports = {
     return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`));
   },
 
-  onSocialShare: function(place, service) {
-    this.getSocialUrl(place).then(shareUrl => {
+  onSocialShare: function({ place, service, appConfig }) {
+    this.getSocialUrl(place, appConfig).then(shareUrl => {
       let url =
         service === "facebook"
           ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`

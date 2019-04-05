@@ -25,6 +25,10 @@ import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-fie
 import constants from "../../constants";
 
 import {
+  appConfigSelector,
+  appConfigPropType,
+} from "../../state/ducks/app-config";
+import {
   commentFormConfigPropType,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
@@ -356,7 +360,11 @@ class PlaceDetail extends Component {
             isHorizontalLayout={isStoryChapter}
             numSupports={supports.length}
             onSocialShare={service =>
-              Util.onSocialShare(this.props.focusedPlace, service)
+              Util.onSocialShare({
+                place: this.props.focusedPlace,
+                service,
+                appConfig: this.props.appConfig,
+              })
             }
             userSupport={supports.find(
               support => support.user_token === this.props.currentUser.token,
@@ -400,6 +408,7 @@ class PlaceDetail extends Component {
 }
 
 PlaceDetail.propTypes = {
+  appConfig: appConfigPropType,
   container: PropTypes.instanceOf(HTMLElement),
   contentPanelInnerContainerRef: PropTypes.object.isRequired,
   currentUser: userPropType,
@@ -440,6 +449,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+  appConfig: appConfigSelector(state),
   currentUser: userSelector(state),
   customComponents: customComponentsConfigSelector(state),
   focusedPlace: focusedPlaceSelector(state),
