@@ -76,35 +76,36 @@ class MapTemplate extends Component {
   };
 
   componentDidMount() {
+    console.log("MAP TEMPLATED MOUNTED", this.props);
     this.recaculateContainerSize();
+    this.updateUIConfiguration(this.props.uiConfiguration);
+    //   // URL parameters passed through by the router.
+    //   const { params } = this.props.match;
 
- //   // URL parameters passed through by the router.
- //   const { params } = this.props.match;
+    //   params.zoom &&
+    //     params.lat &&
+    //     params.lng &&
+    //     this.props.updateMapViewport({
+    //       zoom: params.zoom,
+    //       lat: params.lat,
+    //       lng: params.lng,
+    //     });
 
- //   params.zoom &&
- //     params.lat &&
- //     params.lng &&
- //     this.props.updateMapViewport({
- //       zoom: params.zoom,
- //       lat: params.lat,
- //       lng: params.lng,
- //     });
+    //   this.props.updateUIVisibility(
+    //     "contentPanel",
+    //     !!(params.pageSlug || params.datasetClientSlug),
+    //   );
 
- //   this.props.updateUIVisibility(
- //     "contentPanel",
- //     !!(params.pageSlug || params.datasetClientSlug),
- //   );
-
- //   this.props.updateUIVisibility(
- //     "mapCenterpoint",
- //     this.props.location.pathname === "/new",
- //   );
- //   this.props.updateUIVisibility("spotlightMask", (params.datasetClientSlug));
- //   this.props.updateUIVisibility("addPlaceButton", true);
- //   this.props.focusedPlaceId &&
- //     this.props.updateFocusedPlaceId(this.props.focusedPlaceId);
- //   this.props.contentPanelComponent &&
- //     this.props.updateContentPanelComponent(this.props.contentPanelComponent);
+    //   this.props.updateUIVisibility(
+    //     "mapCenterpoint",
+    //     this.props.location.pathname === "/new",
+    //   );
+    //   this.props.updateUIVisibility("spotlightMask", (params.datasetClientSlug));
+    //   this.props.updateUIVisibility("addPlaceButton", true);
+    //   this.props.focusedPlaceId &&
+    //     this.props.updateFocusedPlaceId(this.props.focusedPlaceId);
+    //   this.props.contentPanelComponent &&
+    //     this.props.updateContentPanelComponent(this.props.contentPanelComponent);
   }
 
   componentDidUpdate(prevProps) {
@@ -114,6 +115,14 @@ class MapTemplate extends Component {
       this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
     ) {
       this.recaculateContainerSize();
+    }
+
+    if (this.props.params.placeId !== prevProps.params.placeId) {
+      this.props.updateFocusedPlaceId(parseInt(this.props.params.placeId));
+    }
+
+    if (this.props.uiConfiguration !== prevProps.uiConfiguration) {
+      this.updateUIConfiguration(this.props.uiConfiguration);
     }
   }
 
@@ -134,6 +143,41 @@ class MapTemplate extends Component {
         layout: this.props.layout,
       }),
     });
+  }
+
+  updateUIConfiguration(uiConfiguration) {
+    switch (uiConfiguration) {
+      case "map":
+        this.props.updateUIVisibility("contentPanel", false);
+        this.props.updateUIVisibility("spotlightMask", false);
+        this.props.updateUIVisibility("mapCenterpoint", false);
+        this.props.updateUIVisibility("addPlaceButton", true);
+        //this.store.dispatch(updateActivePage(null));
+        //this.store.dispatch(updateContentPanelComponent(null));
+        break;
+      case "placeDetail":
+        // TODO: put inital place fetch here?
+        this.props.updateEditModeToggled(false);
+        //this.props.updateScrollToResponseId(parseInt(responseId));
+        this.props.updateUIVisibility("contentPanel", true);
+        this.props.updateUIVisibility("mapCenterpoint", false);
+        this.props.updateUIVisibility("addPlaceButton", true);
+        this.props.updateContentPanelComponent("PlaceDetail");
+        break;
+      case "inputForm":
+        this.props.updateUIVisibility("addPlaceButton", false);
+        this.props.updateUIVisibility("contentPanel", true);
+        this.props.updateContentPanelComponent("InputForm");
+        break;
+      case "customPage":
+        this.props.updateUIVisibility("contentPanel", true);
+        this.props.updateUIVisibility("spotlightMask", false);
+        this.props.updateUIVisibility("mapCenterpoint", false);
+        this.props.updateUIVisibility("addPlaceButton", true);
+        this.props.updateActivePage(this.props.pageSlug);
+        this.props.updateContentPanelComponent("CustomPage");
+        break;
+    }
   }
 
   render() {

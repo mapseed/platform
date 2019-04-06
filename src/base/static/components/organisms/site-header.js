@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { jsx } from "@emotion/core";
+import { Link } from "react-router-dom"
 
 import { SiteLogo } from "../atoms/imagery";
-import { Link } from "../atoms/typography";
 import { NavButton } from "../molecules/buttons";
 import UserMenu from "../molecules/user-menu";
 import { RegularTitle } from "../atoms/typography";
@@ -121,11 +121,11 @@ const NavButtonWrapper = styled("div")(props => ({
 const NavLink = styled(props => (
   <NavButtonWrapper position={props.position}>
     <Link
-      href={props.href}
-      rel="internal"
-      aria-label={props.ariaLabel}
-      className={props.className}
-      onClick={props.onClick}
+      to={props.href}
+      handleClick={() => {
+        console.log("handleClick")
+        debugger;
+      }}
       style={{ padding: "4px 8px 4px 8px" }}
     >
       {props.children}

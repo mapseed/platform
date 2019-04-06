@@ -224,22 +224,25 @@ const MicroText = styled("span")(props => {
   return textHandler(props, styles);
 });
 
-const Link = withRouter(styled(props => {
+const Link = styled(props => {
   return (
     <a
       href={props.href}
       rel={props.rel}
       className={props.className}
       onClick={evt => {
+        debugger;
+        evt.preventDefault();
         // For internal routing.
         if (props.rel === "internal") {
+          console.log("INTERNAL ROUTE")
           evt.preventDefault();
           props.history.push(
             evt.currentTarget.attributes.getNamedItem("href").value,
           );
         }
 
-        props.onClick && props.onClick();
+        //props.onClick && props.onClick();
       }}
       {...props}
     >
@@ -257,7 +260,7 @@ const Link = withRouter(styled(props => {
     textDecoration: "none",
     color: props.theme.bg.light,
   },
-})));
+}));
 
 Link.propTypes = {
   href: PropTypes.string.isRequired,
