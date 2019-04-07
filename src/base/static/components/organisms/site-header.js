@@ -4,12 +4,11 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { jsx } from "@emotion/core";
-import { Link } from "react-router-dom"
 
 import { SiteLogo } from "../atoms/imagery";
 import { NavButton } from "../molecules/buttons";
 import UserMenu from "../molecules/user-menu";
-import { RegularTitle } from "../atoms/typography";
+import { RegularTitle, InternalLink } from "../atoms/typography";
 
 import {
   navBarConfigPropType,
@@ -78,14 +77,14 @@ const navContainerStyles = props => ({
 });
 
 const ListToggleLink = styled(props => (
-  <Link
+  <InternalLink
     href={props.href}
     rel="internal"
     className={props.className}
     aria-label={props.ariaLabel}
   >
     {props.children}
-  </Link>
+  </InternalLink>
 ))(props => ({
   // TODO: Many of these style rules should eventually be moved to the Link atom.
   fontFamily: props.theme.text.navBarFontFamily,
@@ -120,16 +119,13 @@ const NavButtonWrapper = styled("div")(props => ({
 
 const NavLink = styled(props => (
   <NavButtonWrapper position={props.position}>
-    <Link
-      to={props.href}
-      handleClick={() => {
-        console.log("handleClick")
-        debugger;
-      }}
+    <InternalLink
+      className={props.className}
+      href={props.href}
       style={{ padding: "4px 8px 4px 8px" }}
     >
       {props.children}
-    </Link>
+    </InternalLink>
   </NavButtonWrapper>
 ))(props => ({
   // TODO: Many of these style rules should eventually be moved to the Link atom.
@@ -274,13 +270,13 @@ const NavBarHamburger = styled("i")({
 });
 
 const LogoTitleWrapper = styled(props => (
-  <Link
+  <InternalLink
     className={props.className}
     href={`/${props.zoom}/${props.lat}/${props.lng}`}
     rel="internal"
   >
     {props.children}
-  </Link>
+  </InternalLink>
 ))(() => ({
   display: "flex",
   alignItems: "center",
@@ -299,7 +295,6 @@ const navItemMappings = {
       position={linkProps.position}
       href={linkProps.navBarItem.url}
       ariaLabel={`navigate to: ${linkProps.navBarItem.title}`}
-      onClick={linkProps.onClick}
     >
       {linkProps.children}
     </NavLink>

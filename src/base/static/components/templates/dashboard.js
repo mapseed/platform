@@ -29,7 +29,7 @@ import {
 import { hasAdminAbilities } from "../../state/ducks/user";
 import { HorizontalRule } from "../atoms/layout";
 import {
-  Link,
+  ExternalLink,
   RegularTitle,
   SmallTitle,
   LargeLabel,
@@ -333,7 +333,7 @@ class Dashboard extends React.Component {
               </Menu>
             </div>
           )}
-          <Link
+          <ExternalLink
             css={theme => ({
               textDecoration: "none",
               gridArea: "link",
@@ -345,7 +345,7 @@ class Dashboard extends React.Component {
             }/mapseed-places.csv?format=csv&include_private_places&include_private_fields&page_size=10000`}
           >
             {`Download Submissions`}
-          </Link>
+          </ExternalLink>
           <CardsWrapper>
             <Card
               gridArea="card1"

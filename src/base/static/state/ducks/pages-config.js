@@ -3,6 +3,10 @@ export const pagesConfigSelector = state => state.pagesConfig;
 export const pageSelector = ({ state, slug, lang }) =>
   state.pagesConfig.find(
     pageConfig => pageConfig.slug === slug && pageConfig.lang === lang,
+  ) || {};
+export const pageExistsSelector = ({ state, slug, lang }) =>
+  !!state.pagesConfig.find(
+    pageConfig => pageConfig.slug === slug && pageConfig.lang === lang,
   );
 
 // Actions:

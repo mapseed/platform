@@ -2,6 +2,7 @@ import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
+import { withRouter } from "react-router-dom";
 
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
@@ -11,6 +12,7 @@ import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
+import mapseedApiClient from "../../client/mapseed-api-client";
 import {
   layoutSelector,
   uiVisibilitySelector,
@@ -27,6 +29,10 @@ import {
   placeConfigPropType,
   placeConfigSelector,
 } from "../../state/ducks/place-config";
+import {
+  datasetsConfigSelector,
+  datasetsConfigPropType,
+} from "../../state/ducks/datasets-config";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { isLeftSidebarExpandedSelector } from "../../state/ducks/left-sidebar";
 import { isRightSidebarEnabledSelector } from "../../state/ducks/right-sidebar-config";
@@ -35,8 +41,15 @@ import {
   mapConfigSelector,
   mapConfigPropType,
 } from "../../state/ducks/map-config";
-import { updateMapViewport } from "../../state/ducks/map";
-import { updateFocusedPlaceId } from "../../state/ducks/places";
+import {
+  updateMapViewport,
+  createFeaturesInGeoJSONSource,
+} from "../../state/ducks/map";
+import {
+  updateFocusedPlaceId,
+  placeExists,
+  loadPlaceAndSetIgnoreFlag,
+} from "../../state/ducks/places";
 
 import {
   getMainContentAreaWidth,
@@ -75,8 +88,7 @@ class MapTemplate extends Component {
     mapContainerWidthDeclaration: "",
   };
 
-  componentDidMount() {
-    console.log("MAP TEMPLATED MOUNTED", this.props);
+  async componentDidMount() {
     this.recaculateContainerSize();
     this.updateUIConfiguration(this.props.uiConfiguration);
     //   // URL parameters passed through by the router.
@@ -91,21 +103,48 @@ class MapTemplate extends Component {
     //       lng: params.lng,
     //     });
 
-    //   this.props.updateUIVisibility(
-    //     "contentPanel",
-    //     !!(params.pageSlug || params.datasetClientSlug),
-    //   );
+    // Handle a direct route to a Place on load.
+    const { datasetClientSlug, placeId } = this.props.params;
+    if (placeId && !this.props.placeExists(placeId)) {
+      const datasetConfig = this.props.datasetsConfig.find(
+        c => c.clientSlug === datasetClientSlug,
+      );
 
-    //   this.props.updateUIVisibility(
-    //     "mapCenterpoint",
-    //     this.props.location.pathname === "/new",
-    //   );
-    //   this.props.updateUIVisibility("spotlightMask", (params.datasetClientSlug));
-    //   this.props.updateUIVisibility("addPlaceButton", true);
-    //   this.props.focusedPlaceId &&
-    //     this.props.updateFocusedPlaceId(this.props.focusedPlaceId);
-    //   this.props.contentPanelComponent &&
-    //     this.props.updateContentPanelComponent(this.props.contentPanelComponent);
+      const response = await mapseedApiClient.place.getPlace({
+        datasetUrl: datasetConfig.url,
+        datasetClientSlug,
+        datasetSlug: datasetConfig.slug,
+        placeId: parseInt(placeId),
+        placeParams: {
+          include_submissions: true,
+          include_tags: true,
+        },
+        includePrivate: this.props.hasGroupAbilitiesInDatasets({
+          abilities: ["can_access_protected"],
+          datasetSlugs: [datasetConfig.slug],
+          submissionSet: "places",
+        }),
+      });
+      if (response) {
+        // Add this Place to the places duck and update the map.
+        this.props.loadPlaceAndSetIgnoreFlag(response);
+        const { geometry, ...rest } = response;
+        this.props.createFeaturesInGeoJSONSource(datasetConfig.slug, [
+          {
+            type: "Feature",
+            geometry,
+            properties: rest,
+          },
+        ]);
+
+        this.props.updateEditModeToggled(false);
+        //this.store.dispatch(updateScrollToResponseId(parseInt(responseId));
+        this.props.updateFocusedPlaceId(parseInt(placeId));
+      } else {
+        // The Place doesn't exist, so route back to the map.
+        this.props.history.push("/");
+      }
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -123,6 +162,10 @@ class MapTemplate extends Component {
 
     if (this.props.uiConfiguration !== prevProps.uiConfiguration) {
       this.updateUIConfiguration(this.props.uiConfiguration);
+    }
+
+    if (this.props.params.pageSlug !== prevProps.params.pageSlug) {
+      this.props.updateActivePage(this.props.params.pageSlug);
     }
   }
 
@@ -174,7 +217,7 @@ class MapTemplate extends Component {
         this.props.updateUIVisibility("spotlightMask", false);
         this.props.updateUIVisibility("mapCenterpoint", false);
         this.props.updateUIVisibility("addPlaceButton", true);
-        this.props.updateActivePage(this.props.pageSlug);
+        this.props.updateActivePage(this.props.params.pageSlug);
         this.props.updateContentPanelComponent("CustomPage");
         break;
     }
@@ -215,9 +258,7 @@ class MapTemplate extends Component {
             <AddPlaceButton
               ref={this.addPlaceButtonRef}
               onClick={() => {
-                //this.props.router.navigate("/new", {
-                //  trigger: true,
-                //});
+                this.props.history.push("/new");
               }}
             >
               {this.props.placeConfig.add_button_label}
@@ -233,9 +274,13 @@ class MapTemplate extends Component {
 MapTemplate.propTypes = {
   activePageSlug: PropTypes.string,
   contentPanelComponent: PropTypes.string,
+  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
+  datasetsConfig: datasetsConfigPropType,
   editModeToggled: PropTypes.bool,
   focusedPlaceId: PropTypes.number,
   hasAddPlacePermission: PropTypes.bool.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
@@ -246,12 +291,21 @@ MapTemplate.propTypes = {
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
+  loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  params: PropTypes.shape({
+    pageSlug: PropTypes.string,
+    placeId: PropTypes.string,
+    datasetClientSlug: PropTypes.string,
+    responseId: PropTypes.string,
+  }).isRequired,
   placeConfig: placeConfigPropType.isRequired,
+  placeExists: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   initialZoom: PropTypes.number,
   initialLat: PropTypes.number,
   initialLng: PropTypes.number,
+  uiConfiguration: PropTypes.string.isRequired,
   uiVisibilities: PropTypes.object,
   updateUIVisibility: PropTypes.func.isRequired,
   updateActivePage: PropTypes.func.isRequired,
@@ -261,6 +315,7 @@ MapTemplate.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
     hasAnonAbilitiesInAnyDataset({
       state: state,
@@ -273,6 +328,13 @@ const mapStateToProps = state => ({
       abilities: ["create"],
       datasetSlugs: datasetSlugsSelector(state),
     }),
+  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
+    hasGroupAbilitiesInDatasets({
+      state,
+      abilities,
+      submissionSet,
+      datasetSlugs,
+    }),
   isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
@@ -284,9 +346,14 @@ const mapStateToProps = state => ({
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   placeConfig: placeConfigSelector(state),
+  placeExists: placeId => placeExists(state, placeId),
 });
 
 const mapDispatchToProps = dispatch => ({
+  createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
+    dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
+  loadPlaceAndSetIgnoreFlag: placeModel =>
+    dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
   updateMapViewport: mapViewport => dispatch(updateMapViewport(mapViewport)),
   updateUIVisibility: (componentName, isVisible) =>
     dispatch(updateUIVisibility(componentName, isVisible)),
@@ -299,7 +366,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateEditModeToggled(isToggled)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MapTemplate);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(MapTemplate),
+);

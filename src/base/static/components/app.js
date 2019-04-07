@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import browserUpdate from "browser-update";
 import styled from "@emotion/styled";
 import { Provider } from "react-redux";
+import Spinner from "react-spinner";
 
 import SiteHeader from "./organisms/site-header";
 import {
@@ -50,7 +51,10 @@ import { loadRightSidebarConfig } from "../state/ducks/right-sidebar-config";
 import { loadStoryConfig } from "../state/ducks/story-config";
 import { loadFormsConfig } from "../state/ducks/forms-config";
 import { loadSupportConfig } from "../state/ducks/support-config";
-import { loadPagesConfig } from "../state/ducks/pages-config";
+import {
+  loadPagesConfig,
+  pageExistsSelector,
+} from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
 import { loadMapStyle, loadMapViewport } from "../state/ducks/map";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
@@ -102,29 +106,14 @@ const Fallback = () => {
   return <div />;
 };
 
-const fetchIndividualPlace = async ({ datasetConfig, clientSlug, placeId }) =>
-  await mapseedApiClient.place.getPlace({
-    datasetUrl: datasetConfig.url,
-    clientSlug,
-    datasetSlug: datasetConfig.slug,
-    placeId: parseInt(placeId),
-    placeParams: {
-      include_submissions: true,
-      include_tags: true,
-    },
-    includePrivate: hasGroupAbilitiesInDatasets({
-      state: this.store.getState(),
-      abilities: ["can_access_protected"],
-      datasetSlugs: [datasetConfig.slug],
-      submissionSet: "places",
-    }),
-  });
-
 class App extends Component {
   templateContainerRef = createRef();
 
+  state = {
+    isInitialDataLoaded: false,
+  };
+
   async componentDidMount() {
-    console.log("this.props", this.props);
     // In production, use the asynchronously fetched config file so we can
     // support localized config content. In development, use the imported
     // module so we can support incremental rebuilds.
@@ -196,6 +185,11 @@ class App extends Component {
 
     languageModule.changeLanguage(Mapseed.languageCode);
 
+    // Config and user data are now fetched and loaded.
+    this.setState({
+      isInitialDataLoaded: true,
+    });
+
     window.addEventListener("resize", this.props.updateLayout);
 
     // Globally capture all clicks so we can enable client-side routing.
@@ -226,12 +220,8 @@ class App extends Component {
       height: templateDims.height,
     });
 
-    // Set up router listening and handle the initial route.
-    //this.handleRouteChange(this.props.match);
-    this.props.history.listen(location => {
+    this.routeListener = this.props.history.listen(location => {
       // TODO: add GA calls here
-      console.log("NEW ROUTE", location);
-      console.log("this.props.match", this.props.match);
     });
 
     // Fetch and load Places.
@@ -289,70 +279,7 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
-    // TODO: unlisten route change handler
-  }
-
-  handleRouteChange(match) {
-    //  console.log("ROUTE CHANGE");
-    //  if (match.params.pageSlug) {
-    //    recordGoogleAnalyticsHit(`/page/${match.params.pageSlug}`);
-    //    this.props.updateUIVisibility("contentPanel", true);
-    //    this.props.updateUIVisibility("spotlightMask", false);
-    //    this.props.updateUIVisibility("mapCenterpoint", false);
-    //    this.props.updateUIVisibility("addPlaceButton", true);
-    //    this.props.updateActivePage(match.params.pageSlug);
-    //    this.props.updateContentPanelComponent("CustomPage");
-    //  } else if (match.path === "/new") {
-    //    recordGoogleAnalyticsHit("/new");
-    //    this.props.updateContentPanelComponent("InputForm");
-    //    this.props.updateUIVisibility("addPlaceButton", false);
-    //    this.props.updateUIVisibility("contentPanel", true);
-    //  } else if (match.params.zoom && match.params.lat && match.params.lng) {
-    //    recordGoogleAnalyticsHit("/");
-    //    this.props.updateUIVisibility("contentPanel", false);
-    //    this.props.updateUIVisibility("spotlightMask", false);
-    //    this.props.updateUIVisibility("mapCenterpoint", false);
-    //    this.props.updateUIVisibility("addPlaceButton", true);
-    //    this.props.updateActivePage(null);
-    //    this.props.updateContentPanelComponent(null);
-    //  } else if (match.params.datasetClientSlug) {
-    //    const { datasetClientSlug, placeId } = match.params;
-    //    if (!this.props.placeExists(placeId)) {
-    //      const datasetConfig = this.props.datasetsConfig.find(
-    //        c => c.clientSlug === datasetClientSlug,
-    //      );
-    //      const response = fetchIndividualPlace({
-    //        datasetConfig,
-    //        datasetClientSlug,
-    //        placeId,
-    //      });
-    //      if (response) {
-    //        // Add this Place to the places duck and update the map.
-    //        this.props.loadPlaceAndSetIgnoreFlag(response);
-    //        const { geometry, ...rest } = response;
-    //        this.props.createFeaturesInGeoJSONSource(datasetConfig.slug, [
-    //          {
-    //            type: "Feature",
-    //            geometry,
-    //            properties: rest,
-    //          },
-    //        ]);
-    //      } else {
-    //        // The Place doesn't exist, so route back to the map.
-    //        this.props.history.push("/");
-    //        return;
-    //      }
-    //    }
-    //    // TODO: updateEditModeToggled
-    //    recordGoogleAnalyticsHit(`/${datasetClientSlug}/${placeId}`);
-    //    this.props.updateEditModeToggled(false);
-    //    //this.props.updateScrollToResponseId(parseInt(responseId));
-    //    this.props.updateFocusedPlaceId(parseInt(placeId));
-    //    this.props.updateUIVisibility("contentPanel", true);
-    //    this.props.updateUIVisibility("mapCenterpoint", false);
-    //    this.props.updateUIVisibility("addPlaceButton", true);
-    //    this.props.updateContentPanelComponent("PlaceDetail");
-    //  }
+    this.routeListener.unlisten();
   }
 
   render() {
@@ -360,76 +287,92 @@ class App extends Component {
       <Provider store={this.props.store}>
         <JSSProvider>
           <ThemeProvider>
-            <SiteHeader languageCode={Mapseed.languageCode} />
-            <TemplateContainer
-              ref={this.templateContainerRef}
-              layout={this.props.layout}
-              currentTemplate={this.props.currentTemplate}
-            >
-              <Switch>
-                <Route exact path="/sha" component={ShaTemplate} />
-                <Route
-                  exact
-                  path="/page/:pageSlug"
-                  render={props => {
-                    return (
-                      <MapTemplate
-                        uiConfiguration="customPage"
-                        languageCode={Mapseed.languageCode}
-                        {...props.match}
-                      />
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/:datasetClientSlug/:placeId"
-                  render={props => {
-                    return (
-                      <MapTemplate
-                        uiConfiguration="placeDetail"
-                        languageCode={Mapseed.languageCode}
-                        {...props.match}
-                      />
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/:zoom?/:lat?/:lng?"
-                  render={props => {
-                    return (
-                      <MapTemplate
-                        uiConfiguration="map"
-                        languageCode={Mapseed.languageCode}
-                        {...props.match}
-                      />
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/list"
-                  render={() => {
-                    return <ListTemplate />;
-                  }}
-                />
-                <Route
-                  exact
-                  path="/dashboard"
-                  render={() => {
-                    return (
-                      <DashboardTemplate
-                        datasetDownloadConfig={
-                          this.props.appConfig.dataset_download
+            {!this.state.isInitialDataLoaded ? (
+              <Spinner />
+            ) : (
+              <>
+                <SiteHeader languageCode={Mapseed.languageCode} />
+                <TemplateContainer
+                  ref={this.templateContainerRef}
+                  layout={this.props.layout}
+                  currentTemplate={this.props.currentTemplate}
+                >
+                  <Switch>
+                    <Route exact path="/sha" component={ShaTemplate} />
+                    <Route
+                      exact
+                      path="/page/:pageSlug"
+                      render={props => {
+                        if (
+                          !this.props.pageExists(
+                            props.match.params.pageSlug,
+                            Mapseed.languageCode,
+                          )
+                        ) {
+                          this.props.history.push("/");
+                          return;
                         }
-                        apiRoot={this.props.appConfig.api_root}
-                      />
-                    );
-                  }}
-                />
-              </Switch>
-            </TemplateContainer>
+
+                        return (
+                          <MapTemplate
+                            uiConfiguration="customPage"
+                            languageCode={Mapseed.languageCode}
+                            {...props.match}
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/:datasetClientSlug/:placeId"
+                      render={props => {
+                        return (
+                          <MapTemplate
+                            uiConfiguration="placeDetail"
+                            languageCode={Mapseed.languageCode}
+                            {...props.match}
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/:zoom?/:lat?/:lng?"
+                      render={props => {
+                        return (
+                          <MapTemplate
+                            uiConfiguration="map"
+                            languageCode={Mapseed.languageCode}
+                            {...props.match}
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/list"
+                      render={() => {
+                        return <ListTemplate />;
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/dashboard"
+                      render={() => {
+                        return (
+                          <DashboardTemplate
+                            datasetDownloadConfig={
+                              this.props.appConfig.dataset_download
+                            }
+                            apiRoot={this.props.appConfig.api_root}
+                          />
+                        );
+                      }}
+                    />
+                  </Switch>
+                </TemplateContainer>
+              </>
+            )}
           </ThemeProvider>
         </JSSProvider>
       </Provider>
@@ -470,6 +413,7 @@ App.propTypes = {
   loadMapViewport: PropTypes.func.isRequired,
   loadDashboardConfig: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
+  pageExists: PropTypes.func.isRequired,
   placeExists: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
@@ -491,6 +435,7 @@ const mapStateToProps = state => ({
       submissionSet,
     }),
   layout: layoutSelector(state),
+  pageExists: (slug, lang) => pageExistsSelector({ state, slug, lang }),
   placeExists: placeId => placeExists(state, placeId),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),

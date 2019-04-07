@@ -3,7 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import styled from "@emotion/styled";
 import moment from "moment";
-import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 import "./typography.scss";
 
@@ -224,30 +224,24 @@ const MicroText = styled("span")(props => {
   return textHandler(props, styles);
 });
 
-const Link = styled(props => {
+const ExternalLink = styled("a")({
+  textDecoration: "none",
+
+  "&:hover": {
+    cursor: "pointer"
+  }
+})
+
+const InternalLink = styled(props => {
   return (
-    <a
-      href={props.href}
+    <Link
+      to={props.href}
       rel={props.rel}
       className={props.className}
-      onClick={evt => {
-        debugger;
-        evt.preventDefault();
-        // For internal routing.
-        if (props.rel === "internal") {
-          console.log("INTERNAL ROUTE")
-          evt.preventDefault();
-          props.history.push(
-            evt.currentTarget.attributes.getNamedItem("href").value,
-          );
-        }
-
-        //props.onClick && props.onClick();
-      }}
       {...props}
     >
       {props.children}
-    </a>
+    </Link>
   );
 })(props => ({
   cursor: "pointer",
@@ -274,7 +268,8 @@ Time.propTypes = {
 };
 
 export {
-  Link,
+  ExternalLink,
+  InternalLink,
   WarningMessage,
   Paragraph,
   Header1,

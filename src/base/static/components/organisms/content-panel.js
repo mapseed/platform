@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { CloseButton as InnerCloseButton } from "../atoms/buttons";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import CustomPage from "./custom-page";
 import InputForm from "../input-form";
@@ -15,6 +16,7 @@ import {
   pageSlugSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
+import { focusedPlaceSelector } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 
 const getLeftOffset = (isRightSidebarVisible, layout) => {
@@ -89,7 +91,7 @@ class ContentPanel extends Component {
           layout={this.props.layout}
           onClick={evt => {
             evt.preventDefault();
-            this.props.router.navigate("/", { trigger: true });
+            this.props.history.push("/");
           }}
         />
         <ContentPanelInnerContainer
@@ -106,13 +108,16 @@ class ContentPanel extends Component {
               }
             />
           )}
-          {this.props.contentPanelComponent === "PlaceDetail" && (
-            <PlaceDetail
-              contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
-              mapContainerRef={this.props.mapContainerRef}
-              scrollToResponseId={null}
-            />
-          )}
+          {this.props.contentPanelComponent === "PlaceDetail" &&
+            this.props.focusedPlace && (
+              <PlaceDetail
+                contentPanelInnerContainerRef={
+                  this.contentPanelInnerContainerRef
+                }
+                mapContainerRef={this.props.mapContainerRef}
+                scrollToResponseId={null}
+              />
+            )}
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
               render={(state, props, onCategoryChange) => {
@@ -140,6 +145,7 @@ class ContentPanel extends Component {
 
 ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
+  history: PropTypes.object.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
@@ -150,10 +156,11 @@ ContentPanel.propTypes = {
 
 const mapStateToProps = state => ({
   contentPanelComponent: contentPanelComponentSelector(state),
+  focusedPlace: focusedPlaceSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   layout: layoutSelector(state),
   pageSelector: (slug, lang) => pageSelector({ state, slug, lang }),
   pageSlug: pageSlugSelector(state),
 });
 
-export default connect(mapStateToProps)(ContentPanel);
+export default withRouter(connect(mapStateToProps)(ContentPanel));
