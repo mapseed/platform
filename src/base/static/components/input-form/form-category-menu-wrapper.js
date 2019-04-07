@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
@@ -124,8 +124,6 @@ FormCategoryMenuWrapper.propTypes = {
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
-  router: PropTypes.instanceOf(Backbone.Router),
   customHooks: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.objectOf(PropTypes.func),

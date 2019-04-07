@@ -160,7 +160,6 @@ class StoryNavigator extends Component {
                   placeUrl={`${chapter.get("_clientSlug")}/${chapter.get(
                     "id",
                   )}`}
-                  router={this.props.router}
                 />
               );
             })
@@ -186,7 +185,6 @@ StoryNavigator.propTypes = {
   }).isRequired,
   places: placesPropType.isRequired,
   placesLoadStatus: PropTypes.string.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
 

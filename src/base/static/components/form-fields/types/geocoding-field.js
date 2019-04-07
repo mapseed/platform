@@ -21,7 +21,7 @@ class GeocodingField extends Component {
       isGeocoding: false,
       isWithGeocodingError: false,
     };
-    this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
+    this.geocodingEngine = "Mapbox";
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -51,20 +51,17 @@ class GeocodingField extends Component {
       bbox: this.props.mapConfig.geocode_bounding_box,
       options: {
         success: data => {
-          const locationsData = data.results[0] && data.results[0].locations;
-          if (locationsData && locationsData.length > 0) {
+          const locationGeometry =
+            data.features[0] && data.features[0].geometry;
+          if (locationGeometry) {
             this.setState({
               isGeocoding: false,
               isWithGeocodingError: false,
             });
 
-            // TODO: Is this location data format specific to the Mapbox
-            // geocoder? We should probably just remove Mapquest as a geocoding
-            // option and assume the Mapbox format is the one we'll always be
-            // dealing with.
             this.props.updateMapViewport({
-              latitude: locationsData[0].latLng.lat,
-              longitude: locationsData[0].latLng.lng,
+              latitude: locationGeometry.coordinates[1],
+              longitude: locationGeometry.coordinates[0],
               zoom: 14,
               transitionDuration: 1000,
             });
