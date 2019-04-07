@@ -234,12 +234,7 @@ const ExternalLink = styled("a")({
 
 const InternalLink = styled(props => {
   return (
-    <Link
-      to={props.href}
-      rel={props.rel}
-      className={props.className}
-      {...props}
-    >
+    <Link to={props.href} className={props.className} {...props}>
       {props.children}
     </Link>
   );

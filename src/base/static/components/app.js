@@ -1,5 +1,4 @@
 import React, { Component, Suspense, createRef, lazy } from "react";
-// TODO: is withRouter needed still?
 import { Route, withRouter, Switch } from "react-router-dom";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
@@ -24,12 +23,7 @@ const MapTemplate = lazy(() => import("./templates/map"));
 import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
-import {
-  loadPlaces,
-  loadPlaceAndSetIgnoreFlag,
-  updatePlacesLoadStatus,
-  placeExists,
-} from "../state/ducks/places";
+import { loadPlaces, updatePlacesLoadStatus } from "../state/ducks/places";
 import {
   datasetsConfigSelector,
   datasetsConfigPropType,
@@ -424,7 +418,6 @@ App.propTypes = {
   layout: PropTypes.string.isRequired,
   loadDatasets: PropTypes.func.isRequired,
   loadPlaces: PropTypes.func.isRequired,
-  loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   // TODO: shape of this:
   storyChapters: PropTypes.array.isRequired,
   // TODO: shape of this:
@@ -449,7 +442,6 @@ App.propTypes = {
   loadDashboardConfig: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
   pageExists: PropTypes.func.isRequired,
-  placeExists: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
 };
 
@@ -469,7 +461,6 @@ const mapStateToProps = state => ({
     }),
   layout: layoutSelector(state),
   pageExists: (slug, lang) => pageExistsSelector({ state, slug, lang }),
-  placeExists: placeId => placeExists(state, placeId),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),
 });
@@ -478,8 +469,6 @@ const mapDispatchToProps = dispatch => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
-  loadPlaceAndSetIgnoreFlag: placeModel =>
-    dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
   loadPlaces: (places, storyConfig) =>
     dispatch(loadPlaces(places, storyConfig)),
   updatePlacesLoadStatus: loadStatus =>

@@ -223,7 +223,6 @@ class MapTemplate extends Component {
         break;
       case "placeDetail":
         this.props.updateEditModeToggled(false);
-        //this.props.updateScrollToResponseId(parseInt(responseId));
         this.props.updateUIVisibility("contentPanel", true);
         this.props.updateUIVisibility("mapCenterpoint", false);
         this.props.updateUIVisibility("addPlaceButton", true);
@@ -294,12 +293,8 @@ class MapTemplate extends Component {
 }
 
 MapTemplate.propTypes = {
-  activePageSlug: PropTypes.string,
-  contentPanelComponent: PropTypes.string,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   datasetsConfig: datasetsConfigPropType,
-  editModeToggled: PropTypes.bool,
-  focusedPlaceId: PropTypes.number,
   hasAddPlacePermission: PropTypes.bool.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
@@ -315,6 +310,7 @@ MapTemplate.propTypes = {
   layout: PropTypes.string.isRequired,
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  // Parameters passed from the router.
   params: PropTypes.shape({
     pageSlug: PropTypes.string,
     placeId: PropTypes.string,
@@ -327,11 +323,7 @@ MapTemplate.propTypes = {
   placeConfig: placeConfigPropType.isRequired,
   placeExists: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
-  initialZoom: PropTypes.number,
-  initialLat: PropTypes.number,
-  initialLng: PropTypes.number,
   uiConfiguration: PropTypes.string.isRequired,
-  uiVisibilities: PropTypes.object,
   updateUIVisibility: PropTypes.func.isRequired,
   updateActivePage: PropTypes.func.isRequired,
   updateContentPanelComponent: PropTypes.func.isRequired,
