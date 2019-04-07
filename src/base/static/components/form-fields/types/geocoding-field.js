@@ -52,7 +52,7 @@ class GeocodingField extends Component {
       options: {
         success: data => {
           const locationGeometry =
-            data.features[0] && data.features[0].geometry;
+            data.features && data.features[0] && data.features[0].geometry;
           if (locationGeometry) {
             this.setState({
               isGeocoding: false,

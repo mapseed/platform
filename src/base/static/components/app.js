@@ -185,18 +185,15 @@ class App extends Component {
     // in custom page content, we need to listen globally. Note that this means
     // the route event will fire twice from internal links rendered by the
     // Link atom.
-    //
-    //  TODO
-    //  document.addEventListener("click", evt => {
-    //    const rel = evt.target.attributes.getNamedItem("rel");
-    //    if (rel && rel.value === "internal") {
-    //      evt.preventDefault();
-    //      this.props.router.navigate(
-    //        evt.target.attributes.getNamedItem("href").value,
-    //        { trigger: true },
-    //      );
-    //    }
-    //  });
+    document.addEventListener("click", evt => {
+      const rel = evt.target.attributes.getNamedItem("rel");
+      if (rel && rel.value === "internal") {
+        evt.preventDefault();
+        this.props.history.push(
+          evt.target.attributes.getNamedItem("href").value,
+        );
+      }
+    });
 
     const templateDims = findDOMNode(
       this.templateContainerRef.current,
@@ -208,7 +205,7 @@ class App extends Component {
     });
 
     this.routeListener = this.props.history.listen(location => {
-      // TODO: add GA calls here
+      recordGoogleAnalyticsHit(location.pathname);
     });
 
     // Fetch and load Places.

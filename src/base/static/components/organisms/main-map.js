@@ -254,7 +254,12 @@ class MainMap extends Component {
     }
 
     const { zoom, latitude, longitude } = this.props.mapViewport;
-    this.props.history.push(
+    // Use the browser's history API here so we don't trigger a route change
+    // event in react router (to avoid repeated analytics tracking of slippy
+    // routes).
+    window.history.pushState(
+      "",
+      "",
       `/${zoom.toFixed(2)}/${latitude.toFixed(5)}/${longitude.toFixed(5)}`,
     );
   });
