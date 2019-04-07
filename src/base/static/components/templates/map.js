@@ -99,9 +99,9 @@ class MapTemplate extends Component {
       lat &&
       lng &&
       this.props.updateMapViewport({
-        zoom,
-        lat,
-        lng,
+        zoom: parseFloat(zoom),
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
       });
 
     // When this component mounts in the PlaceDetail configuration, a couple of

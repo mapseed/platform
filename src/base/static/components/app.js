@@ -1,4 +1,4 @@
-import React, { Component, Suspense, createRef } from "react";
+import React, { Component, Suspense, createRef, lazy } from "react";
 // TODO: is withRouter needed still?
 import { Route, withRouter, Switch } from "react-router-dom";
 import { findDOMNode } from "react-dom";
@@ -20,9 +20,9 @@ import {
   updateContentPanelComponent,
 } from "../state/ducks/ui";
 import ShaTemplate from "./templates/sha";
-import DashboardTemplate from "./templates/dashboard";
-import ListTemplate from "./templates/place-list";
-import MapTemplate from "./templates/map";
+const DashboardTemplate = lazy(() => import("./templates/dashboard"));
+const ListTemplate = lazy(() => import("./templates/place-list"));
+const MapTemplate = lazy(() => import("./templates/map"));
 
 import config from "config";
 
@@ -43,7 +43,7 @@ import {
 } from "../state/ducks/datasets-config";
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
-import { loadAppConfig } from "../state/ducks/app-config";
+import { loadAppConfig, appConfigPropType } from "../state/ducks/app-config";
 import { loadMapConfig } from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
@@ -104,16 +104,11 @@ const TemplateContainer = styled("div")(props => ({
 }));
 
 const Fallback = () => {
-  // TODO: render a spinner here...
-  return <div />;
+  return <Spinner />;
 };
 
 class App extends Component {
   templateContainerRef = createRef();
-
-  state = {
-    isInitialDataLoaded: false,
-  };
 
   async componentDidMount() {
     // In production, use the asynchronously fetched config file so we can
@@ -186,11 +181,6 @@ class App extends Component {
       this.props.updateUIVisibility("rightSidebar", true);
 
     languageModule.changeLanguage(Mapseed.languageCode);
-
-    // Config and user data are now fetched and loaded.
-    this.setState({
-      isInitialDataLoaded: true,
-    });
 
     window.addEventListener("resize", this.props.updateLayout);
 
@@ -281,7 +271,7 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
-    this.routeListener.unlisten();
+    this.routeListener && this.routeListener.unlisten();
   }
 
   render() {
@@ -289,126 +279,140 @@ class App extends Component {
       <Provider store={this.props.store}>
         <JSSProvider>
           <ThemeProvider>
-            {!this.state.isInitialDataLoaded ? (
-              <Spinner />
-            ) : (
-              <>
-                <SiteHeader languageCode={Mapseed.languageCode} />
-                <TemplateContainer
-                  ref={this.templateContainerRef}
-                  layout={this.props.layout}
-                  currentTemplate={this.props.currentTemplate}
-                >
-                  <Switch>
-                    <Route exact path="/sha" component={ShaTemplate} />
-                    <Route exact path="/list" component={ListTemplate} />
-                    <Route
-                      exact
-                      path="/new"
-                      render={props => {
-                        if (
-                          this.props.hasAnonAbilitiesInAnyDataset("places", [
-                            "create",
-                          ]) ||
-                          this.props.hasGroupAbilitiesInDatasets({
-                            submissionSet: "places",
-                            abilities: ["create"],
-                            datasetSlugs: this.props.datasetSlugs,
-                          })
-                        ) {
-                          return (
-                            <MapTemplate
-                              uiConfiguration="newPlace"
-                              languageCode={Mapseed.languageCode}
-                              {...props.match}
-                            />
-                          );
-                        } else {
-                          this.props.history.push("/");
-                          return;
-                        }
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/dashboard"
-                      render={() => {
-                        return (
-                          <DashboardTemplate
-                            datasetDownloadConfig={
-                              this.props.appConfig.dataset_download
-                            }
-                            apiRoot={this.props.appConfig.api_root}
+            <SiteHeader languageCode={Mapseed.languageCode} />
+            <TemplateContainer
+              ref={this.templateContainerRef}
+              layout={this.props.layout}
+              currentTemplate={this.props.currentTemplate}
+            >
+              <Switch>
+                <Route exact path="/sha" component={ShaTemplate} />
+                <Route
+                  exact
+                  path="/list"
+                  render={() => (
+                    <Suspense fallback={<Fallback />}>
+                      <ListTemplate />
+                    </Suspense>
+                  )}
+                />
+                <Route
+                  exact
+                  path="/new"
+                  render={props => {
+                    if (
+                      this.props.hasAnonAbilitiesInAnyDataset("places", [
+                        "create",
+                      ]) ||
+                      this.props.hasGroupAbilitiesInDatasets({
+                        submissionSet: "places",
+                        abilities: ["create"],
+                        datasetSlugs: this.props.datasetSlugs,
+                      })
+                    ) {
+                      return (
+                        <Suspense fallback={<Fallback />}>
+                          <MapTemplate
+                            uiConfiguration="newPlace"
+                            languageCode={Mapseed.languageCode}
+                            {...props.match}
                           />
-                        );
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/page/:pageSlug"
-                      render={props => {
-                        if (
-                          !this.props.pageExists(
-                            props.match.params.pageSlug,
-                            Mapseed.languageCode,
-                          )
-                        ) {
-                          this.props.history.push("/");
-                          return;
-                        }
+                        </Suspense>
+                      );
+                    } else {
+                      this.props.history.push("/");
+                      return;
+                    }
+                  }}
+                />
+                <Route
+                  exact
+                  path="/dashboard"
+                  render={() => {
+                    return (
+                      <Suspense fallback={<Fallback />}>
+                        <DashboardTemplate
+                          datasetDownloadConfig={
+                            this.props.appConfig.dataset_download
+                          }
+                          apiRoot={this.props.appConfig.api_root}
+                        />
+                      </Suspense>
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/page/:pageSlug"
+                  render={props => {
+                    if (
+                      !this.props.pageExists(
+                        props.match.params.pageSlug,
+                        Mapseed.languageCode,
+                      )
+                    ) {
+                      this.props.history.push("/");
+                      return;
+                    }
 
-                        return (
-                          <MapTemplate
-                            uiConfiguration="customPage"
-                            languageCode={Mapseed.languageCode}
-                            {...props.match}
-                          />
-                        );
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/:datasetClientSlug/:placeId"
-                      render={props => {
-                        return (
-                          <MapTemplate
-                            uiConfiguration="placeDetail"
-                            languageCode={Mapseed.languageCode}
-                            {...props.match}
-                          />
-                        );
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/:datasetClientSlug/:placeId/response/:responseId"
-                      render={props => {
-                        return (
-                          <MapTemplate
-                            uiConfiguration="placeDetail"
-                            languageCode={Mapseed.languageCode}
-                            {...props.match}
-                          />
-                        );
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/:zoom?/:lat?/:lng?"
-                      render={props => {
-                        return (
-                          <MapTemplate
-                            uiConfiguration="map"
-                            languageCode={Mapseed.languageCode}
-                            {...props.match}
-                          />
-                        );
-                      }}
-                    />
-                  </Switch>
-                </TemplateContainer>
-              </>
-            )}
+                    return (
+                      <Suspense fallback={<Fallback />}>
+                        <MapTemplate
+                          uiConfiguration="customPage"
+                          languageCode={Mapseed.languageCode}
+                          {...props.match}
+                        />
+                      </Suspense>
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/:datasetClientSlug/:placeId"
+                  render={props => {
+                    return (
+                      <Suspense fallback={<Fallback />}>
+                        <MapTemplate
+                          uiConfiguration="placeDetail"
+                          languageCode={Mapseed.languageCode}
+                          {...props.match}
+                        />
+                      </Suspense>
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/:datasetClientSlug/:placeId/response/:responseId"
+                  render={props => {
+                    return (
+                      <Suspense fallback={<Fallback />}>
+                        <MapTemplate
+                          uiConfiguration="placeDetail"
+                          languageCode={Mapseed.languageCode}
+                          {...props.match}
+                        />
+                      </Suspense>
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/:zoom?/:lat?/:lng?"
+                  render={props => {
+                    return (
+                      <Suspense fallback={<Fallback />}>
+                        <MapTemplate
+                          uiConfiguration="map"
+                          languageCode={Mapseed.languageCode}
+                          {...props.match}
+                        />
+                      </Suspense>
+                    );
+                  }}
+                />
+              </Switch>
+            </TemplateContainer>
           </ThemeProvider>
         </JSSProvider>
       </Provider>
@@ -417,6 +421,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+  appConfig: appConfigPropType,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   datasetsConfig: datasetsConfigPropType,
