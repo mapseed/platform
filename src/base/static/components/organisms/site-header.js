@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { jsx } from "@emotion/core";
+import { withRouter } from "react-router-dom";
 
 import { SiteLogo } from "../atoms/imagery";
 import { NavButton } from "../molecules/buttons";
@@ -79,7 +80,6 @@ const navContainerStyles = props => ({
 const ListToggleLink = styled(props => (
   <InternalLink
     href={props.href}
-    rel="internal"
     className={props.className}
     aria-label={props.ariaLabel}
   >
@@ -319,13 +319,13 @@ const navItemMappings = {
     <ListToggleLink
       className={linkProps.className}
       ariaLabel={
-        linkProps.currentTemplate === "map" ? "view as a list" : "view as a map"
+        linkProps.pathname === "/list" ? "view as a map" : "view as a list"
       }
-      href={linkProps.currentTemplate === "map" ? "/list" : "/"}
+      href={linkProps.pathname === "/list" ? "/" : "/list"}
     >
-      {linkProps.currentTemplate === "map"
-        ? linkProps.navBarItem.show_list_button_label
-        : linkProps.navBarItem.show_map_button_label}
+      {linkProps.pathname === "/list"
+        ? linkProps.navBarItem.show_map_button_label
+        : linkProps.navBarItem.show_list_button_label}
     </ListToggleLink>
   ))(() => ({
     [mq[0]]: {
@@ -398,6 +398,7 @@ class SiteHeader extends React.Component {
                 setLeftSidebarComponent={this.props.setLeftSidebarComponent}
                 setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
                 isLeftSidebarExpanded={this.props.isLeftSidebarExpanded}
+                pathname={this.props.history.location.pathname}
                 onClick={() => {
                   this.setState({
                     isHeaderExpanded: false,
@@ -496,7 +497,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarExpanded(isExpanded)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SiteHeader);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(SiteHeader),
+);

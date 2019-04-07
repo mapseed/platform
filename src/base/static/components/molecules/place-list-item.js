@@ -226,8 +226,6 @@ const PlaceListItem = props => {
                 numberOfComments === 1 ? "" : "s"
               }`}</CommentsText>
               <PlaceInfoButton
-                router={props.router}
-                rel="internal"
                 href={`/${props.place._clientSlug}/${props.place.id}`}
               >
                 <Button color="secondary" size="small" variant="raised">
@@ -276,7 +274,6 @@ PlaceListItem.propTypes = {
   placeConfig: placeConfigPropType.isRequired,
   appConfig: appConfigPropType.isRequired,
   onLoad: PropTypes.func.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({

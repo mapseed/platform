@@ -4,6 +4,7 @@ import { Map, OrderedMap, fromJS } from "immutable";
 import classNames from "classnames";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
@@ -358,7 +359,7 @@ class InputForm extends Component {
         "No internet connection detected. Your submission may not be successful until you are back online.",
       );
       Util.log("USER", "place", "submitted-offline-place");
-      this.props.router.navigate("/", { trigger: true });
+      this.props.history.push("/");
       return;
     }
     Util.log("USER", "new-place", "successfully-add-place");
@@ -423,13 +424,10 @@ class InputForm extends Component {
       // If the Place is note private, follow the default route-to-detail-view
       // behavior.
       this.defaultPostSave(placeResponse);
-      this.props.router.navigate(
+      this.props.history.push(
         `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
           placeResponse.id
         }`,
-        {
-          trigger: true,
-        },
       );
     }
 
@@ -514,9 +512,7 @@ class InputForm extends Component {
           onClose={() => {
             this.setState({ isInfoModalOpen: false });
             this.state.routeOnClose &&
-              this.props.router.navigate(this.state.routeOnClose, {
-                trigger: true,
-              });
+              this.props.history.push(this.state.routeOnClose);
           }}
         />
         <div className="input-form">
@@ -550,7 +546,6 @@ class InputForm extends Component {
                   key={field.get("renderKey")}
                   onAddAttachment={this.onAddAttachment.bind(this)}
                   onFieldChange={this.onFieldChange.bind(this)}
-                  router={this.props.router}
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
@@ -624,6 +619,7 @@ InputForm.propTypes = {
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
@@ -637,7 +633,6 @@ InputForm.propTypes = {
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
-  router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
@@ -688,7 +683,9 @@ const mapDispatchToProps = dispatch => ({
 // Export undecorated component for testing purposes.
 export { InputForm };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("InputForm")(InputForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(translate("InputForm")(InputForm)),
+);

@@ -232,6 +232,10 @@ class MainMap extends Component {
         }
       });
     }
+
+    requestAnimationFrame(() => {
+      this.resizeMap();
+    });
   }
 
   componentWillUnmount() {

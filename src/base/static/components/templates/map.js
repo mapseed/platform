@@ -103,7 +103,13 @@ class MapTemplate extends Component {
     //       lng: params.lng,
     //     });
 
-    // Handle a direct route to a Place on load.
+    // When this component mounts in the PlaceDetail configuration, a couple of
+    // situations can occur:
+    //  - The requested Place is not yet available. In this case, fetch it
+    //    directly.
+    //  - The requested Place is available (such as when routing to a
+    //    PlaceDetail view from the list template). In this case, just set the
+    //    focusedPlaceId.
     const { datasetClientSlug, placeId } = this.props.params;
     if (placeId && !this.props.placeExists(placeId)) {
       const datasetConfig = this.props.datasetsConfig.find(
@@ -144,7 +150,11 @@ class MapTemplate extends Component {
         // The Place doesn't exist, so route back to the map.
         this.props.history.push("/");
       }
+    } else if (placeId) {
+      this.props.updateFocusedPlaceId(parseInt(placeId));
     }
+
+    this.recaculateContainerSize();
   }
 
   componentDidUpdate(prevProps) {
@@ -190,16 +200,20 @@ class MapTemplate extends Component {
 
   updateUIConfiguration(uiConfiguration) {
     switch (uiConfiguration) {
+      case "newPlace":
+        this.props.updateUIVisibility("contentPanel", true);
+        this.props.updateUIVisibility("spotlightMask", true);
+        this.props.updateUIVisibility("mapCenterpoint", true);
+        this.props.updateUIVisibility("addPlaceButton", false);
+        this.props.updateContentPanelComponent("InputForm");
+        break;
       case "map":
         this.props.updateUIVisibility("contentPanel", false);
         this.props.updateUIVisibility("spotlightMask", false);
         this.props.updateUIVisibility("mapCenterpoint", false);
         this.props.updateUIVisibility("addPlaceButton", true);
-        //this.store.dispatch(updateActivePage(null));
-        //this.store.dispatch(updateContentPanelComponent(null));
         break;
       case "placeDetail":
-        // TODO: put inital place fetch here?
         this.props.updateEditModeToggled(false);
         //this.props.updateScrollToResponseId(parseInt(responseId));
         this.props.updateUIVisibility("contentPanel", true);

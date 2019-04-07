@@ -38,6 +38,8 @@ import {
 import {
   datasetsConfigSelector,
   datasetsConfigPropType,
+  hasAnonAbilitiesInAnyDataset,
+  datasetSlugsSelector,
 } from "../state/ducks/datasets-config";
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
@@ -299,6 +301,48 @@ class App extends Component {
                 >
                   <Switch>
                     <Route exact path="/sha" component={ShaTemplate} />
+                    <Route exact path="/list" component={ListTemplate} />
+                    <Route
+                      exact
+                      path="/new"
+                      render={props => {
+                        if (
+                          this.props.hasAnonAbilitiesInAnyDataset("places", [
+                            "create",
+                          ]) ||
+                          this.props.hasGroupAbilitiesInDatasets({
+                            submissionSet: "places",
+                            abilities: ["create"],
+                            datasetSlugs: this.props.datasetSlugs,
+                          })
+                        ) {
+                          return (
+                            <MapTemplate
+                              uiConfiguration="newPlace"
+                              languageCode={Mapseed.languageCode}
+                              {...props.match}
+                            />
+                          );
+                        } else {
+                          this.props.history.push("/");
+                          return;
+                        }
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/dashboard"
+                      render={() => {
+                        return (
+                          <DashboardTemplate
+                            datasetDownloadConfig={
+                              this.props.appConfig.dataset_download
+                            }
+                            apiRoot={this.props.appConfig.api_root}
+                          />
+                        );
+                      }}
+                    />
                     <Route
                       exact
                       path="/page/:pageSlug"
@@ -348,27 +392,6 @@ class App extends Component {
                         );
                       }}
                     />
-                    <Route
-                      exact
-                      path="/list"
-                      render={() => {
-                        return <ListTemplate />;
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/dashboard"
-                      render={() => {
-                        return (
-                          <DashboardTemplate
-                            datasetDownloadConfig={
-                              this.props.appConfig.dataset_download
-                            }
-                            apiRoot={this.props.appConfig.api_root}
-                          />
-                        );
-                      }}
-                    />
                   </Switch>
                 </TemplateContainer>
               </>
@@ -384,6 +407,8 @@ App.propTypes = {
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   datasetsConfig: datasetsConfigPropType,
+  datasetSlugs: PropTypes.array.isRequired,
+  hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   layout: PropTypes.string.isRequired,
@@ -427,6 +452,9 @@ const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
   datasetsConfig: datasetsConfigSelector(state),
+  datasetSlugs: datasetSlugsSelector(state),
+  hasAnonAbilitiesInAnyDataset: (submissionSet, abilities) =>
+    hasAnonAbilitiesInAnyDataset({ state, submissionSet, abilities }),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
       state,
