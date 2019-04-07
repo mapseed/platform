@@ -49,6 +49,7 @@ import {
   updateFocusedPlaceId,
   placeExists,
   loadPlaceAndSetIgnoreFlag,
+  updateScrollToResponseId,
 } from "../../state/ducks/places";
 
 import {
@@ -91,17 +92,17 @@ class MapTemplate extends Component {
   async componentDidMount() {
     this.recaculateContainerSize();
     this.updateUIConfiguration(this.props.uiConfiguration);
-    //   // URL parameters passed through by the router.
-    //   const { params } = this.props.match;
 
-    //   params.zoom &&
-    //     params.lat &&
-    //     params.lng &&
-    //     this.props.updateMapViewport({
-    //       zoom: params.zoom,
-    //       lat: params.lat,
-    //       lng: params.lng,
-    //     });
+    // Set initial map zoom and centerpoint.
+    const { zoom, lat, lng } = this.props.params;
+    zoom &&
+      lat &&
+      lng &&
+      this.props.updateMapViewport({
+        zoom,
+        lat,
+        lng,
+      });
 
     // When this component mounts in the PlaceDetail configuration, a couple of
     // situations can occur:
@@ -110,7 +111,7 @@ class MapTemplate extends Component {
     //  - The requested Place is available (such as when routing to a
     //    PlaceDetail view from the list template). In this case, just set the
     //    focusedPlaceId.
-    const { datasetClientSlug, placeId } = this.props.params;
+    const { datasetClientSlug, placeId, responseId } = this.props.params;
     if (placeId && !this.props.placeExists(placeId)) {
       const datasetConfig = this.props.datasetsConfig.find(
         c => c.clientSlug === datasetClientSlug,
@@ -144,14 +145,15 @@ class MapTemplate extends Component {
         ]);
 
         this.props.updateEditModeToggled(false);
-        //this.store.dispatch(updateScrollToResponseId(parseInt(responseId));
         this.props.updateFocusedPlaceId(parseInt(placeId));
+        this.props.updateScrollToResponseId(parseInt(responseId));
       } else {
         // The Place doesn't exist, so route back to the map.
         this.props.history.push("/");
       }
     } else if (placeId) {
       this.props.updateFocusedPlaceId(parseInt(placeId));
+      this.props.updateScrollToResponseId(parseInt(responseId));
     }
 
     this.recaculateContainerSize();
@@ -176,6 +178,12 @@ class MapTemplate extends Component {
 
     if (this.props.params.pageSlug !== prevProps.params.pageSlug) {
       this.props.updateActivePage(this.props.params.pageSlug);
+    }
+
+    if (this.props.params.responseId !== prevProps.params.responseId) {
+      this.props.updateScrollToResponseId(
+        parseInt(this.props.params.responseId),
+      );
     }
   }
 
@@ -312,6 +320,9 @@ MapTemplate.propTypes = {
     placeId: PropTypes.string,
     datasetClientSlug: PropTypes.string,
     responseId: PropTypes.string,
+    zoom: PropTypes.string,
+    lat: PropTypes.string,
+    lng: PropTypes.string,
   }).isRequired,
   placeConfig: placeConfigPropType.isRequired,
   placeExists: PropTypes.func.isRequired,
@@ -326,6 +337,7 @@ MapTemplate.propTypes = {
   updateContentPanelComponent: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
   updateFocusedPlaceId: PropTypes.func.isRequired,
+  updateScrollToResponseId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -378,6 +390,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateFocusedPlaceId(focusedPlaceId)),
   updateEditModeToggled: isToggled =>
     dispatch(updateEditModeToggled(isToggled)),
+  updateScrollToResponseId: responseId =>
+    dispatch(updateScrollToResponseId(responseId)),
 });
 
 export default withRouter(

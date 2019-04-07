@@ -69,6 +69,7 @@ class ActivityStream extends Component {
               anonymousName = this.props.placeConfig.anonymous_name;
               actionText = this.props.placeConfig.action_text;
               url = `/${activity._clientSlug}/${target.id}`;
+              place = true;
               break;
             case "comments":
               // To derive the title for comment activity, we look up the

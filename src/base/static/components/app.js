@@ -381,6 +381,19 @@ class App extends Component {
                     />
                     <Route
                       exact
+                      path="/:datasetClientSlug/:placeId/response/:responseId"
+                      render={props => {
+                        return (
+                          <MapTemplate
+                            uiConfiguration="placeDetail"
+                            languageCode={Mapseed.languageCode}
+                            {...props.match}
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
                       path="/:zoom?/:lat?/:lng?"
                       render={props => {
                         return (
