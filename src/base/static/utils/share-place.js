@@ -43,10 +43,10 @@ const getSocialUrl = ({
       place.datasetSlug + "/" + place.id,
     ].join(""),
   };
-  const $img = $("img[src='" + components.img + "']");
+  const img = document.querySelector("img[src='" + components.img + "']");
 
-  components["height"] = $img.height() || 630;
-  components["width"] = $img.width() || 1200;
+  components["height"] = img.height || 630;
+  components["width"] = img.width || 1200;
 
   // TODO: If the image was just created and only has a data url,
   // fetch the attachment to obtain the S3 url before contacting the

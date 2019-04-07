@@ -48,7 +48,8 @@ class StoryNavigator extends Component {
   };
 
   componentDidMount() {
-    this.props.router.on("route", this.onRoute);
+    //TODO
+    //this.props.router.on("route", this.onRoute);
   }
 
   componentDidUpdate(prevProps) {
@@ -62,13 +63,15 @@ class StoryNavigator extends Component {
         storyConfig: this.props.storyConfig,
       });
 
-      const placeId = Backbone.history.getFragment().split("/")[1];
-      this.setState(this.getCurrentStoryState(placeId, false));
+      //TODO
+      //const placeId = Backbone.history.getFragment().split("/")[1];
+      //this.setState(this.getCurrentStoryState(placeId, false));
     }
   }
 
   componentWillUnmount() {
-    this.props.router.off("route", this.onRoute);
+    //TODO
+    //this.props.router.off("route", this.onRoute);
   }
 
   getCurrentStoryState(placeId, isInitialized = true) {

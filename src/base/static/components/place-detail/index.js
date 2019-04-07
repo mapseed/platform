@@ -295,7 +295,6 @@ class PlaceDetail extends Component {
         <PBDurhamProjectProposalFieldSummary
           fields={categoryConfig.fields}
           place={this.props.focusedPlace}
-          router={this.props.router}
         />
       );
     } else {
@@ -384,7 +383,6 @@ class PlaceDetail extends Component {
             contentPanelInnerContainerRef={
               this.props.contentPanelInnerContainerRef
             }
-            router={this.props.router}
           />
         ) : (
           fieldSummary

@@ -5,7 +5,7 @@ import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom";
 
 import {
   filteredPlacesSelector,

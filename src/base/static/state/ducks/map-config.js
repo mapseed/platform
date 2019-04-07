@@ -123,10 +123,10 @@ const INITIAL_STATE = {
       zoom: 10,
       latitude: 0,
       longitude: 0,
-    }
+    },
   },
   mapboxSources: {},
-  layerGroups: []
+  layerGroups: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

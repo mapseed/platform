@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { List, Map } from "immutable";
+import { Map } from "immutable";
 import classNames from "classnames";
 import { connect } from "react-redux";
 

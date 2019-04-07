@@ -16,7 +16,7 @@ import {
   pageSlugSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
-import { focusedPlaceSelector } from "../../state/ducks/places";
+import { focusedPlaceSelector, placePropType } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 
 const getLeftOffset = (isRightSidebarVisible, layout) => {
@@ -145,6 +145,7 @@ class ContentPanel extends Component {
 
 ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
+  focusedPlace: placePropType,
   history: PropTypes.object.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,

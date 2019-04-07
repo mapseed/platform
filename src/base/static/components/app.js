@@ -15,9 +15,6 @@ import {
   updateLayout,
   layoutSelector,
   updateUIVisibility,
-  updateActivePage,
-  updateEditModeToggled,
-  updateContentPanelComponent,
 } from "../state/ducks/ui";
 import ShaTemplate from "./templates/sha";
 const DashboardTemplate = lazy(() => import("./templates/dashboard"));
@@ -31,9 +28,7 @@ import {
   loadPlaces,
   loadPlaceAndSetIgnoreFlag,
   updatePlacesLoadStatus,
-  updateFocusedPlaceId,
   placeExists,
-  updateScrollToResponseId,
 } from "../state/ducks/places";
 import {
   datasetsConfigSelector,
@@ -459,11 +454,6 @@ App.propTypes = {
   pageExists: PropTypes.func.isRequired,
   placeExists: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
-  updateEditModeToggled: PropTypes.func.isRequired,
-  updateScrollToResponseId: PropTypes.func.isRequired,
-  updateFocusedPlaceId: PropTypes.func.isRequired,
-  updateContentPanelComponent: PropTypes.func.isRequired,
-  updateActivePage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -519,15 +509,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadMapStyle(mapConfig, datasetsConfig)),
   loadMapViewport: mapViewport => dispatch(loadMapViewport(mapViewport)),
   loadUser: user => dispatch(loadUser(user)),
-  updateEditModeToggled: isToggled =>
-    dispatch(updateEditModeToggled(isToggled)),
-  updateScrollToResponseId: responseId =>
-    dispatch(updateScrollToResponseId(responseId)),
-  updateFocusedPlaceId: focusedPlaceId =>
-    dispatch(updateFocusedPlaceId(focusedPlaceId)),
-  updateContentPanelComponent: componentName =>
-    dispatch(updateContentPanelComponent(componentName)),
-  updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),
 });
 
 export default withRouter(

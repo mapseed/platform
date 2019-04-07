@@ -228,9 +228,9 @@ const ExternalLink = styled("a")({
   textDecoration: "none",
 
   "&:hover": {
-    cursor: "pointer"
-  }
-})
+    cursor: "pointer",
+  },
+});
 
 const InternalLink = styled(props => {
   return (
