@@ -14,6 +14,10 @@ import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import {
+  navBarConfigSelector,
+  navBarConfigPropType,
+} from "../../state/ducks/nav-bar-config";
+import {
   layoutSelector,
   uiVisibilitySelector,
   updateUIVisibility,
@@ -103,6 +107,13 @@ class MapTemplate extends Component {
         lat: parseFloat(lat),
         lng: parseFloat(lng),
       });
+
+    const startPageConfig = this.props.navBarConfig.find(
+      navItem => navItem.start_page,
+    );
+    if (this.props.uiConfiguration === "map" && startPageConfig) {
+      this.props.history.push(startPageConfig.url);
+    }
 
     // When this component mounts in the PlaceDetail configuration, a couple of
     // situations can occur:
@@ -321,6 +332,7 @@ MapTemplate.propTypes = {
   layout: PropTypes.string.isRequired,
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  navBarConfig: navBarConfigPropType.isRequired,
   // Parameters passed from the router.
   params: PropTypes.shape({
     pageSlug: PropTypes.string,
@@ -374,6 +386,7 @@ const mapStateToProps = state => ({
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
+  navBarConfig: navBarConfigSelector(state),
   placeConfig: placeConfigSelector(state),
   placeExists: placeId => placeExists(state, placeId),
 });
