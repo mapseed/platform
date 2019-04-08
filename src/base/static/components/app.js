@@ -284,6 +284,36 @@ class App extends Component {
                 currentTemplate={this.props.currentTemplate}
               >
                 <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={props => {
+                      return (
+                        <Suspense fallback={<Fallback />}>
+                          <MapTemplate
+                            uiConfiguration="map"
+                            languageCode={Mapseed.languageCode}
+                            {...props.match}
+                          />
+                        </Suspense>
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/:zoom(\d*\.\d+)/:lat(-?\d*\.\d+)/:lng(-?\d*\.\d+)"
+                    render={props => {
+                      return (
+                        <Suspense fallback={<Fallback />}>
+                          <MapTemplate
+                            uiConfiguration="map"
+                            languageCode={Mapseed.languageCode}
+                            {...props.match}
+                          />
+                        </Suspense>
+                      );
+                    }}
+                  />
                   <Route exact path="/sha" component={ShaTemplate} />
                   <Route
                     exact
@@ -362,8 +392,16 @@ class App extends Component {
                           Mapseed.languageCode,
                         )
                       ) {
-                        this.props.history.push("/");
-                        return;
+                        window.history.pushState("", "", "/");
+                        return (
+                          <Suspense fallback={<Fallback />}>
+                            <MapTemplate
+                              uiConfiguration="map"
+                              languageCode={Mapseed.languageCode}
+                              {...props.match}
+                            />
+                          </Suspense>
+                        );
                       }
 
                       return (
@@ -408,9 +446,8 @@ class App extends Component {
                     }}
                   />
                   <Route
-                    exact
-                    path="/:zoom?/:lat?/:lng?"
                     render={props => {
+                      window.history.pushState("", "", "/");
                       return (
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate

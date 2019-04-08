@@ -117,6 +117,13 @@ class MapTemplate extends Component {
         c => c.clientSlug === datasetClientSlug,
       );
 
+      if (!datasetConfig) {
+        // If we can't find a datasetConfig, it's likely because an invalid
+        // clientSlug was supplied. In this case route back to the root.
+        this.props.history.push("/");
+        return;
+      }
+
       const response = await mapseedApiClient.place.getPlace({
         datasetUrl: datasetConfig.url,
         datasetClientSlug,
