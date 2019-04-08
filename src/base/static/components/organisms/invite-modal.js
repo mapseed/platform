@@ -63,8 +63,14 @@ class InviteModal extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.state.isModalOpen) {
+    if (!this.props.isOpen) {
       return;
+    }
+
+    if (this.props.isOpen !== prevProps.isOpen) {
+      this.setState({
+        isModalOpen: this.props.isOpen,
+      });
     }
 
     if (!prevProps.currentUser.isLoaded && this.props.currentUser.isLoaded) {

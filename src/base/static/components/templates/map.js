@@ -242,6 +242,9 @@ class MapTemplate extends Component {
         this.props.updateActivePage(this.props.params.pageSlug);
         this.props.updateContentPanelComponent("CustomPage");
         break;
+      case "inviteModal":
+        this.props.updateUIVisibility("inviteModal", true);
+        break;
     }
   }
 

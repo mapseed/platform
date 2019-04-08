@@ -296,6 +296,19 @@ class App extends Component {
                   />
                   <Route
                     exact
+                    path="/invite"
+                    render={props => (
+                      <Suspense fallback={<Fallback />}>
+                        <MapTemplate
+                          uiConfiguration="inviteModal"
+                          languageCode={Mapseed.languageCode}
+                          {...props.match}
+                        />
+                      </Suspense>
+                    )}
+                  />
+                  <Route
+                    exact
                     path="/new"
                     render={props => {
                       if (
