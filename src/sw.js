@@ -138,12 +138,6 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-  /^http[s]?:\/\/ajax.googleapis.com\/ajax\/libs\//,
-  new workbox.strategies.StaleWhileRevalidate(),
-  "GET",
-);
-
-workbox.routing.registerRoute(
   /^http[s]?:\/\/maxcdn.bootstrapcdn.com\/font-awesome\//,
   new workbox.strategies.StaleWhileRevalidate(),
   "GET",

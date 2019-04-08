@@ -126,10 +126,10 @@ module.exports = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,
     new CompressionPlugin(),
-    //    new WorkboxPlugin.InjectManifest({
-    //      swSrc: path.join("src", "sw.js"),
-    //      swDest: path.join(outputPath, "service-worker.js"),
-    //    }),
+    new WorkboxPlugin.InjectManifest({
+      swSrc: path.join("src", "sw.js"),
+      swDest: path.join(outputPath, "service-worker.js"),
+    }),
   ],
   devtool: isProd ? false : "cheap-eval-souce-map",
   devServer: {
