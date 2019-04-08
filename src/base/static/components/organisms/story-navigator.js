@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
+import { withRouter } from "react-router-dom";
 
 import { storyConfigSelector } from "../../state/ducks/story-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
@@ -42,14 +43,13 @@ class StoryNavigator extends Component {
     this.stories = [];
   }
 
-  onRoute = (_, route) => {
-    const currentStoryState = this.getCurrentStoryState(route[1]);
-    currentStoryState && this.setState(currentStoryState);
-  };
-
   componentDidMount() {
-    //TODO
-    //this.props.router.on("route", this.onRoute);
+    this.routeListener = this.props.history.listen(location => {
+      const currentStoryState = this.getCurrentStoryState(
+        parseInt(location.pathname.split("/")[2]),
+      );
+      currentStoryState && this.setState(currentStoryState);
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -63,15 +63,13 @@ class StoryNavigator extends Component {
         storyConfig: this.props.storyConfig,
       });
 
-      //TODO
-      //const placeId = Backbone.history.getFragment().split("/")[1];
-      //this.setState(this.getCurrentStoryState(placeId, false));
+      const placeId = parseInt(this.props.location.pathname.split("/")[2]);
+      this.setState(this.getCurrentStoryState(placeId, false));
     }
   }
 
   componentWillUnmount() {
-    //TODO
-    //this.props.router.off("route", this.onRoute);
+    this.routeListener.unlisten();
   }
 
   getCurrentStoryState(placeId, isInitialized = true) {
@@ -181,7 +179,9 @@ class StoryNavigator extends Component {
 }
 
 StoryNavigator.propTypes = {
+  history: PropTypes.object.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
   storyConfig: PropTypes.object.isRequired,
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
@@ -198,6 +198,6 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(
-  translate("StoryNavigator")(StoryNavigator),
+export default withRouter(
+  connect(mapStateToProps)(translate("StoryNavigator")(StoryNavigator)),
 );
