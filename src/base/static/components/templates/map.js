@@ -169,6 +169,7 @@ class MapTemplate extends Component {
     }
 
     if (this.props.params.placeId !== prevProps.params.placeId) {
+      this.props.updateEditModeToggled(false);
       this.props.updateFocusedPlaceId(parseInt(this.props.params.placeId));
     }
 
