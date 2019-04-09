@@ -17,7 +17,7 @@ const config = {
   uploadDir: "www",
   index: "index.html",
   enableCloudfront: true,
-  certId: process.env.SSL_CERT_ARN
+  certId: process.env.SSL_CERT_ARN,
 };
 
 const AWS = require("aws-sdk");
