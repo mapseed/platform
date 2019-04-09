@@ -5,6 +5,10 @@ const path = require("path");
 if (!process.env.DEPLOY_DOMAIN) {
   throw "Set the DEPLOY_DOMAIN environment variable to the S3 bucket you want to deploy Mapseed to.";
 }
+if (!process.env.SSL_CERT_ARN) {
+  throw "Set the SSL_CERT_ARN environment variable to the ARN of the AWS ACM SSL certificate associated with this flavor.";
+}
+
 // eslint-disable-next-line no-console
 console.log(`Updating website: ${process.env.DEPLOY_DOMAIN}`);
 const config = {
@@ -13,6 +17,7 @@ const config = {
   uploadDir: "www",
   index: "index.html",
   enableCloudfront: true,
+  certId: process.env.SSL_CERT_ARN
 };
 
 const AWS = require("aws-sdk");
