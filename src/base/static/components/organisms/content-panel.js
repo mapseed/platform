@@ -108,18 +108,18 @@ class ContentPanel extends Component {
               }
             />
           )}
-          {this.props.contentPanelComponent === "PlaceDetail" &&
-            this.props.focusedPlace && (
-              <PlaceDetail
-                contentPanelInnerContainerRef={
-                  this.contentPanelInnerContainerRef
-                }
-                mapContainerRef={this.props.mapContainerRef}
-                scrollToResponseId={null}
-              />
-            )}
+          {this.props.contentPanelComponent === "PlaceDetail" && (
+            <PlaceDetail
+              contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
+              mapContainerRef={this.props.mapContainerRef}
+              onUpdateMapViewport={this.props.onUpdateMapViewport}
+              scrollToResponseId={null}
+            />
+          )}
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
+              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+              updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
               render={(state, props, onCategoryChange) => {
                 return (
                   <InputForm
@@ -147,12 +147,15 @@ ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
   focusedPlace: placePropType,
   history: PropTypes.object.isRequired,
+  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
+  onUpdateMapViewport: PropTypes.func.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
+  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

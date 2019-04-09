@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { FlyToInterpolator } from "react-map-gl";
 
 // Selectors:
 export const mapViewportSelector = state => state.map.viewport;
@@ -19,10 +18,12 @@ export const mapCenterpointSelector = state => ({
   longitude: state.map.viewport.longitude,
 });
 export const drawModeActiveSelector = state => state.map.isDrawModeActive;
+export const initialMapViewportSelector = state => state.map.initialMapViewport;
+export const mapContainerDimensionsSeletor = state =>
+  state.map.mapContainerDimensions;
 
 // Actions:
-const LOAD_VIEWPORT = "map/LOAD_VIEWPORT";
-const UPDATE_VIEWPORT = "map/UPDATE_VIEWPORT";
+const LOAD_INITIAL_VIEWPORT = "map/LOAD_INITIAL_VIEWPORT";
 const UPDATE_STYLE = "map/UPDATE_STYLE";
 const UPDATE_LAYER_GROUP_LOAD_STATUS = "map/UPDATE_LAYER_GROUP_LOAD_STATUS";
 const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
@@ -36,11 +37,10 @@ const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
 const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
-const UPDATE_MAP_DRAGGED_OR_ZOOMED = "map/UPDATE_MAP_DRAGGED_OR_ZOOMED";
-const UPDATE_MAP_DRAGGING_OR_ZOOMING = "map/UPDATE_MAP_DRAGGING_OR_ZOOMING";
 const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
 const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
+const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
 
 // Layer group load status terminology:
 // ------------------------------------
@@ -111,30 +111,22 @@ export function updateSourceLoadStatus(sourceId, loadStatus) {
   };
 }
 
-export function loadMapViewport(viewport) {
+export function loadInitialMapViewport(viewport) {
   return {
-    type: LOAD_VIEWPORT,
+    type: LOAD_INITIAL_VIEWPORT,
     payload: viewport,
   };
 }
 
-export function updateMapViewport(viewport) {
+export function updateMapContainerDimensions(dimensions) {
   return {
-    type: UPDATE_VIEWPORT,
-    payload: { viewport, scrollZoomAroundCenter: false },
+    type: UPDATE_MAP_CONTAINER_DIMENSIONS,
+    payload: dimensions,
   };
 }
 
 export function updateMapStyle(style) {
   return { type: UPDATE_STYLE, payload: style };
-}
-
-export function updateMapDraggedOrZoomed(isDraggedOrZoomed) {
-  return { type: UPDATE_MAP_DRAGGED_OR_ZOOMED, payload: isDraggedOrZoomed };
-}
-
-export function updateMapDraggingOrZooming(isDraggingOrZooming) {
-  return { type: UPDATE_MAP_DRAGGING_OR_ZOOMING, payload: isDraggingOrZooming };
 }
 
 export function updateFeaturesInGeoJSONSource(sourceId, newFeatures) {
@@ -305,8 +297,6 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
 }
 
 export const mapViewportPropType = PropTypes.shape({
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
   latitude: PropTypes.number,
   longitude: PropTypes.number,
   zoom: PropTypes.number,
@@ -349,15 +339,18 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 );
 
 const INITIAL_STATE = {
-  viewport: {
+  // The `initialMapViewport` describes the viewport used when the map template
+  // mounts, including when the app first loads and when the user routes to the
+  // map template from another template. This allows us to "save" a viewport
+  // when routing away from the map template, and restore it when routing back
+  // to the map template.
+  initialMapViewport: {
+    minZoom: 0,
+    maxZoom: 18,
+  },
+  mapContainerDimensions: {
     width: 0,
     height: 0,
-    minZoom: 1,
-    maxZoom: 18,
-    zoom: 10,
-    latitude: 0,
-    longitude: 0,
-    transitionInterpolator: new FlyToInterpolator(),
   },
   style: {
     version: 8,
@@ -373,9 +366,6 @@ const INITIAL_STATE = {
   sourcesMetadata: {},
   basemapLayerIds: [],
   interactiveLayerIds: [],
-  isMapSizeValid: false,
-  isMapDraggedOrZoomed: false,
-  isMapDraggingOrZooming: false,
   isDrawModeActive: false,
 };
 
@@ -495,45 +485,12 @@ export default function reducer(state = INITIAL_STATE, action) {
           },
         },
       };
-    case LOAD_VIEWPORT:
+    case LOAD_INITIAL_VIEWPORT:
       return {
         ...state,
-        viewport: {
-          ...state.viewport,
+        initialMapViewport: {
+          ...state.initialMapViewport,
           ...action.payload,
-        },
-      };
-    case UPDATE_VIEWPORT:
-      return {
-        ...state,
-        viewport: {
-          ...state.viewport,
-          ...action.payload.viewport,
-          // NOTE: This is a fix for an apparent bug in react-map-gl.
-          // See: https://github.com/uber/react-map-gl/issues/630
-          bearing: isNaN(action.payload.viewport.bearing)
-            ? state.viewport.bearing
-            : action.payload.viewport.bearing,
-          // These checks support a "scroll zoom around center" feature (in
-          // which a zoom of the map will not change the centerpoint) that is
-          // not exposed by react-map-gl. These checks are pretty convoluted,
-          // though, so it would be great if react-map-gl could just
-          // incorporate the scroll zoom around center option natively.
-          // See: https://github.com/uber/react-map-gl/issues/515
-          latitude:
-            action.payload.scrollZoomAroundCenter &&
-            action.payload.viewport.zoom !== state.viewport.zoom
-              ? state.viewport.latitude
-              : action.payload.viewport.latitude
-                ? action.payload.viewport.latitude
-                : state.viewport.latitude,
-          longitude:
-            action.payload.scrollZoomAroundCenter &&
-            action.payload.viewport.zoom !== state.viewport.zoom
-              ? state.viewport.longitude
-              : action.payload.viewport.longitude
-                ? action.payload.viewport.longitude
-                : state.viewport.longitude,
         },
       };
     case LOAD_STYLE_AND_METADATA:
@@ -660,16 +617,6 @@ export default function reducer(state = INITIAL_STATE, action) {
           }),
         },
       };
-    case UPDATE_MAP_DRAGGED_OR_ZOOMED:
-      return {
-        ...state,
-        isMapDraggedOrZoomed: action.payload,
-      };
-    case UPDATE_MAP_DRAGGING_OR_ZOOMING:
-      return {
-        ...state,
-        isMapDraggingOrZooming: action.payload,
-      };
     case UPDATE_SOURCES:
       return {
         ...state,
@@ -693,6 +640,14 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isDrawModeActive: action.payload,
+      };
+    case UPDATE_MAP_CONTAINER_DIMENSIONS:
+      return {
+        ...state,
+        mapContainerDimensions: {
+          ...state.mapContainerDimensions,
+          ...action.payload,
+        },
       };
     default:
       return state;

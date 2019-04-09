@@ -31,7 +31,6 @@ import {
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   mapCenterpointSelector,
-  mapDraggedOrZoomedSelector,
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
@@ -658,7 +657,6 @@ const mapStateToProps = state => ({
     }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   mapCenterpoint: mapCenterpointSelector(state),

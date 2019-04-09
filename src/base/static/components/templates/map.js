@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter } from "react-router-dom";
+import { FlyToInterpolator } from "react-map-gl";
 
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
 import AddPlaceButton from "../molecules/add-place-button";
-import MapCenterpoint from "../molecules/map-centerpoint";
 import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
@@ -46,15 +46,9 @@ import {
   mapConfigPropType,
 } from "../../state/ducks/map-config";
 import {
-  updateMapViewport,
-  createFeaturesInGeoJSONSource,
+  initialMapViewportSelector,
+  mapViewportPropType,
 } from "../../state/ducks/map";
-import {
-  updateFocusedPlaceId,
-  placeExists,
-  loadPlaceAndSetIgnoreFlag,
-  updateScrollToResponseId,
-} from "../../state/ducks/places";
 
 import {
   getMainContentAreaWidth,
@@ -91,6 +85,12 @@ class MapTemplate extends Component {
     // getMainContentAreaWidth().
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
+    mapViewport: {
+      transitionInterpolator: new FlyToInterpolator(),
+      ...this.props.initialMapViewport,
+    },
+    isMapDraggedOrZoomed: false,
+    isSpotlightMaskVisible: false,
   };
 
   async componentDidMount() {
@@ -239,6 +239,52 @@ class MapTemplate extends Component {
     }
   }
 
+  onUpdateMapDraggedOrZoomed = isMapDraggedOrZoomed => {
+    this.setState({
+      isMapDraggedOrZoomed,
+    });
+  };
+
+  onUpdateSpotlightMaskVisibility = isSpotlightMaskVisible => {
+    this.setState({
+      isSpotlightMaskVisible,
+    });
+  };
+
+  onUpdateMapViewport = (newMapViewport, scrollZoomAroundCenter = false) => {
+    this.setState(state => ({
+      mapViewport: {
+        ...state.mapViewport,
+        ...newMapViewport,
+        // NOTE: This is a fix for an apparent bug in react-map-gl.
+        // See: https://github.com/uber/react-map-gl/issues/630
+        bearing: isNaN(newMapViewport.bearing)
+          ? state.mapViewport.bearing
+          : newMapViewport.bearing,
+        // These checks support a "scroll zoom around center" feature (in
+        // which a zoom of the map will not change the centerpoint) that is
+        // not exposed by react-map-gl. These checks are pretty convoluted,
+        // though, so it would be great if react-map-gl could just
+        // incorporate the scroll zoom around center option natively.
+        // See: https://github.com/uber/react-map-gl/issues/515
+        latitude:
+          scrollZoomAroundCenter &&
+          newMapViewport.zoom !== state.mapViewport.zoom
+            ? state.mapViewport.latitude
+            : newMapViewport.latitude
+              ? newMapViewport.latitude
+              : state.mapViewport.latitude,
+        longitude:
+          scrollZoomAroundCenter &&
+          newMapViewport.zoom !== state.mapViewport.zoom
+            ? state.mapViewport.longitude
+            : newMapViewport.longitude
+              ? newMapViewport.longitude
+              : state.mapViewport.longitude,
+      },
+    }));
+  };
+
   recaculateContainerSize() {
     this.setState({
       mapContainerHeightDeclaration: getMainContentAreaHeight({
@@ -313,21 +359,35 @@ class MapTemplate extends Component {
         >
           {this.props.isLeftSidebarExpanded && <LeftSidebar />}
           <MainMap
+            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             mapContainerRef={this.mapContainerRef}
+            mapContainerDimensions={this.state.mapContainerDimensions}
             mapContainerWidthDeclaration={
               this.state.mapContainerWidthDeclaration
             }
             mapContainerHeightDeclaration={
               this.state.mapContainerHeightDeclaration
             }
+            mapViewport={this.state.mapViewport}
+            onUpdateMapViewport={this.onUpdateMapViewport}
+            onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
+            onUpdateSpotlightMaskVisibility={
+              this.onUpdateSpotlightMaskVisibility
+            }
           />
-          {this.props.isMapCenterpointVisible && <MapCenterpoint />}
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
         </MapContainer>
         {this.props.isContentPanelVisible && (
           <ContentPanel
+            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             languageCode={this.props.languageCode}
             mapContainerRef={this.mapContainerRef}
+            onUpdateMapViewport={this.onUpdateMapViewport}
+            updateMapDraggedOrZoomed={isMapDraggedOrZoomed =>
+              this.setState({
+                isMapDraggedOrZoomed,
+              })
+            }
           />
         )}
         {this.props.isAddPlaceButtonVisible &&
@@ -354,11 +414,11 @@ MapTemplate.propTypes = {
   hasAddPlacePermission: PropTypes.bool.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  initialMapViewport: mapViewportPropType.isRequired,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  isMapCenterpointVisible: PropTypes.bool.isRequired,
   isRightSidebarEnabled: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
@@ -412,11 +472,11 @@ const mapStateToProps = state => ({
       submissionSet,
       datasetSlugs,
     }),
+  initialMapViewport: initialMapViewportSelector(state),
   isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
-  isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),

@@ -8,10 +8,6 @@ import { darken } from "@material-ui/core/styles/colorManipulator";
 import InputFormCategorySelector from "./input-form-category-selector";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import {
-  updateMapDraggedOrZoomed,
-  mapDraggedOrZoomedSelector,
-} from "../../state/ducks/map";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -104,6 +100,7 @@ class FormCategoryMenuWrapper extends Component {
               onCategoryChange={this.onCategoryChange.bind(this)}
               selectedCategory={this.state.selectedCategory}
               visibleCategoryConfigs={this.visibleCategoryConfigs}
+              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
             />
           </>
         )}
@@ -148,15 +145,12 @@ const mapStateToProps = state => ({
     }),
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
-  updateMapDraggedOrZoomed: isMapDraggedOrZoomed =>
-    dispatch(updateMapDraggedOrZoomed(isMapDraggedOrZoomed)),
   updateSpotlightMaskVisibility: isVisible =>
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });

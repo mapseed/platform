@@ -64,6 +64,7 @@ import {
 import {
   createFeaturesInGeoJSONSource,
   updateMapViewport,
+  updateMapContainerDimensions,
 } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
@@ -221,7 +222,7 @@ class App extends Component {
       this.templateContainerRef.current,
     ).getBoundingClientRect();
 
-    this.props.updateMapViewport({
+    this.props.updateMapContainerDimensions({
       width: templateDims.width,
       height: templateDims.height,
     });
@@ -582,6 +583,7 @@ App.propTypes = {
   storyChapters: PropTypes.array.isRequired,
   // TODO: shape of this:
   updateLayout: PropTypes.func.isRequired,
+  updateMapContainerDimensions: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
@@ -643,6 +645,8 @@ const mapDispatchToProps = dispatch => ({
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
   updateLayout: () => dispatch(updateLayout()),
+  updateMapContainerDimensions: newDimensions =>
+    dispatch(updateMapContainerDimensions(newDimensions)),
   updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
   updateUIVisibility: (componentName, isVisible) =>
     dispatch(updateUIVisibility(componentName, isVisible)),
