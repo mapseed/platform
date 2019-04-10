@@ -255,7 +255,7 @@ class MainMap extends Component {
     this.map.off("sourcedata");
     this.map.off("draw.update");
     this.map.off("draw.create");
-    // On unmount, save the current map viewport so we can restore it if we 
+    // On unmount, save the current map viewport so we can restore it if we
     // return to the map template.
     this.props.loadInitialMapViewport(this.props.mapViewport);
   }
