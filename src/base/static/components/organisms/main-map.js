@@ -25,6 +25,7 @@ import {
   updateLayers,
   updateMapContainerDimensions,
   mapContainerDimensionsSeletor,
+  loadInitialMapViewport,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
@@ -254,6 +255,9 @@ class MainMap extends Component {
     this.map.off("sourcedata");
     this.map.off("draw.update");
     this.map.off("draw.create");
+    // On unmount, save the current map viewport so we can restore it if we 
+    // return to the map template.
+    this.props.loadInitialMapViewport(this.props.mapViewport);
   }
 
   // This function gets called a lot, so we throttle it.
@@ -583,6 +587,7 @@ MainMap.propTypes = {
       }),
     ),
   }).isRequired,
+  loadInitialMapViewport: PropTypes.func.isRequired,
   mapConfig: mapConfigPropType.isRequired,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -636,6 +641,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  loadInitialMapViewport: newViewport =>
+    dispatch(loadInitialMapViewport(newViewport)),
   setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
