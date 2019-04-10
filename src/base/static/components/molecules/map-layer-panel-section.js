@@ -140,7 +140,7 @@ MapLayerSelector.defaultProps = {
 class MapLayerPanelSection extends Component {
   onToggleLayerGroup = (layerGroupId, layerGroupMetadata) => {
     if (layerGroupMetadata.isBasemap && layerGroupMetadata.isVisible) {
-      // Prevent toggling current visible basemaps.
+      // Prevent toggling the current visible basemap.
       return;
     }
 
@@ -162,8 +162,8 @@ class MapLayerPanelSection extends Component {
           const layerGroupMetadata = this.props.layerGroupsMetadata[lg.id];
           const sourcesStatus = layerGroupMetadata.sourceIds.map(
             sourceId =>
-              this.props.sourcesMetadata[sourceId]
-                ? this.props.sourcesMetadata[sourceId].loadStatus
+              this.props.mapSourcesLoadStatus[sourceId]
+                ? this.props.mapSourcesLoadStatus[sourceId]
                 : "unloaded",
           );
 
@@ -215,6 +215,7 @@ MapLayerPanelSection.propTypes = {
     }),
   ),
   layerGroupsMetadata: PropTypes.object.isRequired,
+  mapSourcesLoadStatus: PropTypes.object.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   title: PropTypes.string,
   updateLayerGroupVisibility: PropTypes.func.isRequired,

@@ -18,7 +18,6 @@ import {
   mapStyleSelector,
   mapViewportPropType,
   mapStylePropType,
-  updateSourceLoadStatus,
   sourcesMetadataSelector,
   updateFeaturesInGeoJSONSource,
   sourcesMetadataPropType,
@@ -157,28 +156,36 @@ class MainMap extends Component {
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
     this.map = this.mapRef.current.getMap();
-    //    this.map.on("error", evt => {
-    //      if (
-    //        evt.sourceId &&
-    //        this.props.sourcesMetadata[evt.sourceId].loadStatus !== "error"
-    //      ) {
-    //        this.props.updateSourceLoadStatus(evt.sourceId, "error");
-    //      }
-    //    });
-    //
-    //    this.map.on("sourcedata", evt => {
-    //      if (evt.sourceId.startsWith("mapbox-gl-draw")) {
-    //        return;
-    //      }
-    //
-    //      const loadStatus = this.map.isSourceLoaded(evt.sourceId)
-    //        ? "loaded"
-    //        : "loading";
-    //
-    //      if (this.props.sourcesMetadata[evt.sourceId].loadStatus !== loadStatus) {
-    //        this.props.updateSourceLoadStatus(evt.sourceId, loadStatus);
-    //      }
-    //    });
+    this.map.on("error", evt => {
+      if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
+        return;
+      }
+
+      if (
+        evt.sourceId &&
+        this.props.mapSourcesLoadStatus[evt.sourceId] !== "error"
+      ) {
+        this.props.onUpdateSourceLoadStatus(evt.sourceId, "error");
+      }
+    });
+
+    this.map.on("sourcedata", evt => {
+      if (
+        this.state.isMapDraggingOrZooming ||
+        this.isMapTransitioning ||
+        evt.sourceId.startsWith("mapbox-gl-draw")
+      ) {
+        return;
+      }
+
+      const loadStatus = this.map.isSourceLoaded(evt.sourceId)
+        ? "loaded"
+        : "loading";
+
+      if (this.props.mapSourcesLoadStatus[evt.sourceId] !== loadStatus) {
+        this.props.onUpdateSourceLoadStatus(evt.sourceId, loadStatus);
+      }
+    });
 
     if (!this.props.mapConfig.options.disableDrawing) {
       this.draw = new MapboxDraw({
@@ -584,6 +591,7 @@ MainMap.propTypes = {
   mapContainerWidthDeclaration: PropTypes.string.isRequired,
   mapContainerHeightDeclaration: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
+  mapSourcesLoadStatus: PropTypes.object.isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
@@ -597,7 +605,7 @@ MainMap.propTypes = {
   updateLayers: PropTypes.func.isRequired,
   onUpdateMapViewport: PropTypes.func.isRequired,
   updateSources: PropTypes.func.isRequired,
-  updateSourceLoadStatus: PropTypes.func.isRequired,
+  onUpdateSourceLoadStatus: PropTypes.func.isRequired,
   onUpdateSpotlightMaskVisibility: PropTypes.func.isRequired,
   datasets: datasetsPropType,
   updateMapContainerDimensions: PropTypes.func.isRequired,
@@ -635,8 +643,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(component)),
   updateFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(updateFeaturesInGeoJSONSource(sourceId, newFeatures)),
-  updateSourceLoadStatus: (sourceId, loadStatus) =>
-    dispatch(updateSourceLoadStatus(sourceId, loadStatus)),
   updateSources: (newSourceId, newSource) =>
     dispatch(updateSources(newSourceId, newSource)),
   updateLayers: newLayer => dispatch(updateLayers(newLayer)),

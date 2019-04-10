@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 // Selectors:
 export const mapViewportSelector = state => state.map.viewport;
 export const mapStyleSelector = state => state.map.style;
+export const mapSourceNamesSelector = state =>
+  Object.keys(state.map.style.sources);
 export const sourcesMetadataSelector = state => state.map.sourcesMetadata;
 export const layerGroupsMetadataSelector = state =>
   state.map.layerGroupsMetadata;
@@ -25,7 +27,6 @@ export const mapContainerDimensionsSeletor = state =>
 // Actions:
 const LOAD_INITIAL_VIEWPORT = "map/LOAD_INITIAL_VIEWPORT";
 const UPDATE_STYLE = "map/UPDATE_STYLE";
-const UPDATE_LAYER_GROUP_LOAD_STATUS = "map/UPDATE_LAYER_GROUP_LOAD_STATUS";
 const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
   "map/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
 const UPDATE_FEATURE_IN_GEOJSON_SOURCE = "map/UPDATE_FEATURE_IN_GEOJSON_SOURCE";
@@ -33,7 +34,6 @@ const CREATE_FEATURES_IN_GEOJSON_SOURCE =
   "map/CREATE_FEATURES_IN_GEOJSON_SOURCE";
 const REMOVE_FEATURE_IN_GEOJSON_SOURCE = "map/REMOVE_FEATURE_IN_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
-const UPDATE_SOURCE_LOAD_STATUS = "map/UPDATE_SOURCE_LOAD_STATUS";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
 const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
@@ -41,26 +41,6 @@ const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
 const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
-
-// Layer group load status terminology:
-// ------------------------------------
-// "unloaded": The map has not yet begun to fetch data for any source consumed
-//     by this layer group.
-// "loading": The map has begun fetching data for one or more sources consumed
-//     by this layer group, but has not finished.
-// "loaded": All data for all sources consumed by this layer group have been
-//     fetched. Rendering may or may not be in progress.
-// "error": An error occurred when fetching data for one or more sources
-//     consumed by this layer group. Note that an "error" status will take
-//     precedence over a "loading" status. So, if one source consumed by a
-//     layer group has a load status of "loading" and another has a load status
-//     of "error", the status of the layer group will be "error".
-export function updateLayerGroupLoadStatus(groupId, loadStatus) {
-  return {
-    type: UPDATE_LAYER_GROUP_LOAD_STATUS,
-    payload: { groupId, loadStatus },
-  };
-}
 
 export function removeFocusedGeoJSONFeatures() {
   return {
@@ -101,13 +81,6 @@ export function updateLayerGroupVisibility(layerGroupId, isVisible) {
   return {
     type: UPDATE_LAYER_GROUP_VISIBILITY,
     payload: { layerGroupId, isVisible },
-  };
-}
-
-export function updateSourceLoadStatus(sourceId, loadStatus) {
-  return {
-    type: UPDATE_SOURCE_LOAD_STATUS,
-    payload: { sourceId, loadStatus },
   };
 }
 
@@ -258,7 +231,6 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     (memo, sourceId) => ({
       ...memo,
       [sourceId]: {
-        loadStatus: "unloaded",
         layerGroupIds: mapConfig.layerGroups
           .filter(lg =>
             lg.mapboxLayers
@@ -333,7 +305,6 @@ export const mapStylePropType = PropTypes.shape({
 
 export const sourcesMetadataPropType = PropTypes.objectOf(
   PropTypes.shape({
-    loadStatus: PropTypes.string.isRequired,
     layerGroupIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
 );
@@ -510,28 +481,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         },
         basemapLayerIds: action.payload.basemapLayerIds,
         interactiveLayerIds: action.payload.interactiveLayerIds,
-      };
-    case UPDATE_SOURCE_LOAD_STATUS:
-      return {
-        ...state,
-        sourcesMetadata: {
-          ...state.sourcesMetadata,
-          [action.payload.sourceId]: {
-            ...state.sourcesMetadata[action.payload.sourceId],
-            loadStatus: action.payload.loadStatus,
-          },
-        },
-      };
-    case UPDATE_LAYER_GROUP_LOAD_STATUS:
-      return {
-        ...state,
-        layerGroupsMetadata: {
-          ...state.layerGroupsMetadata,
-          [action.payload.groupId]: {
-            ...state.layerGrouspsMetadata[action.payload.groupId],
-            loadStatus: action.payload.loadStatus,
-          },
-        },
       };
     case UPDATE_LAYER_GROUP_VISIBILITY:
       return {

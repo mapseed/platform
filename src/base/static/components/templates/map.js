@@ -49,6 +49,7 @@ import {
   createFeaturesInGeoJSONSource,
   initialMapViewportSelector,
   mapViewportPropType,
+  mapSourceNamesSelector,
 } from "../../state/ducks/map";
 import {
   placeExists,
@@ -98,6 +99,21 @@ class MapTemplate extends Component {
     },
     isMapDraggedOrZoomed: false,
     isSpotlightMaskVisible: false,
+    // Sources load status terminology:
+    // ------------------------------------
+    // "unloaded": The map has not yet begun to fetch data for this source.
+    // "loading": The map has begun fetching data for this source, but it has
+    //     not finished.
+    // "loaded": All data for this source has finished. Rendering may or may not
+    //     be in progress.
+    // "error": An error occurred when fetching data for this source.
+    mapSourcesLoadStatus: this.props.mapSourceNames.reduce(
+      (memo, groupName) => ({
+        ...memo,
+        [groupName]: "unloaded",
+      }),
+      {},
+    ),
   };
 
   async componentDidMount() {
@@ -230,6 +246,15 @@ class MapTemplate extends Component {
     });
   };
 
+  onUpdateSourceLoadStatus = (sourceId, loadStatus) => {
+    this.setState(state => ({
+      mapSourcesLoadStatus: {
+        ...state.mapSourcesLoadStatus,
+        [sourceId]: loadStatus,
+      },
+    }));
+  };
+
   onUpdateMapViewport = (newMapViewport, scrollZoomAroundCenter = false) => {
     this.setState(state => ({
       mapViewport: {
@@ -339,7 +364,11 @@ class MapTemplate extends Component {
           width={this.state.mapContainerWidthDeclaration}
           height={this.state.mapContainerHeightDeclaration}
         >
-          {this.props.isLeftSidebarExpanded && <LeftSidebar />}
+          {this.props.isLeftSidebarExpanded && (
+            <LeftSidebar
+              mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
+            />
+          )}
           <MainMap
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             mapContainerRef={this.mapContainerRef}
@@ -350,12 +379,14 @@ class MapTemplate extends Component {
             mapContainerHeightDeclaration={
               this.state.mapContainerHeightDeclaration
             }
+            mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
             mapViewport={this.state.mapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}
             onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
             onUpdateSpotlightMaskVisibility={
               this.onUpdateSpotlightMaskVisibility
             }
+            onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
           />
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
         </MapContainer>
@@ -410,6 +441,7 @@ MapTemplate.propTypes = {
   layout: PropTypes.string.isRequired,
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  mapSourceNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   navBarConfig: navBarConfigPropType.isRequired,
   onViewStartPage: PropTypes.func,
   // Parameters passed from the router.
@@ -462,6 +494,7 @@ const mapStateToProps = state => ({
   isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),
+  mapSourceNames: mapSourceNamesSelector(state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
