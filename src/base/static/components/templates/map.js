@@ -111,8 +111,13 @@ class MapTemplate extends Component {
     const startPageConfig = this.props.navBarConfig.find(
       navItem => navItem.start_page,
     );
-    if (this.props.uiConfiguration === "map" && startPageConfig) {
+    if (
+      this.props.uiConfiguration === "map" &&
+      startPageConfig &&
+      !this.props.isStartPageViewed
+    ) {
       this.props.history.push(startPageConfig.url);
+      this.props.onViewStartPage();
     }
 
     // When this component mounts in the PlaceDetail configuration, a couple of
@@ -226,6 +231,7 @@ class MapTemplate extends Component {
   }
 
   updateUIConfiguration(uiConfiguration) {
+    // TODO: allow batch updating of ui visibilities.
     switch (uiConfiguration) {
       case "newPlace":
         this.props.updateUIVisibility("contentPanel", true);
@@ -328,11 +334,13 @@ MapTemplate.propTypes = {
   isRightSidebarEnabled: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
+  isStartPageViewed: PropTypes.bool,
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   mapConfig: mapConfigPropType.isRequired,
   navBarConfig: navBarConfigPropType.isRequired,
+  onViewStartPage: PropTypes.func,
   // Parameters passed from the router.
   params: PropTypes.shape({
     pageSlug: PropTypes.string,

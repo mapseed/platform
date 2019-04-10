@@ -253,7 +253,6 @@ const InternalLink = styled(props => {
 
 Link.propTypes = {
   href: PropTypes.string.isRequired,
-  rel: PropTypes.string,
 };
 
 const Time = props => <time>{moment(props.time).fromNow()}</time>;

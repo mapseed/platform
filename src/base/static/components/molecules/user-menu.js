@@ -182,7 +182,7 @@ class UserMenu extends React.Component {
   render() {
     if (this.props.currentUser.isAuthenticated) {
       // If user is logged in
-      const isDashboard = this.props.currentTemplate === "dashboard";
+      const isDashboard = this.props.pathname === "/dashboard";
       return (
         <MenuContainer
           role="article"
@@ -282,7 +282,7 @@ UserMenu.propTypes = {
   offlineBoundingBox: offlineConfigPropType,
   mapLayerConfigs: PropTypes.array,
   hasAdminAbilities: PropTypes.func.isRequired,
-  currentTemplate: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   isMobileEnabled: PropTypes.bool.isRequired,

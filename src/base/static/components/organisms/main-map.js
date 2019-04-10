@@ -233,6 +233,10 @@ class MainMap extends Component {
       });
     }
 
+    // Ensure that any filters set on another template (like the list) are
+    // applied when returning to the map template.
+    this.applyFeatureFilters();
+
     requestAnimationFrame(() => {
       this.resizeMap();
     });
@@ -274,6 +278,19 @@ class MainMap extends Component {
       width: containerDims.width,
     });
   };
+
+  applyFeatureFilters() {
+    this.props.datasets.map(dataset => dataset.slug).forEach(sourceId => {
+      this.props.updateFeaturesInGeoJSONSource(
+        sourceId,
+        createGeoJSONFromPlaces(
+          this.props.filteredPlaces.filter(
+            place => place._datasetSlug === sourceId,
+          ),
+        ).features,
+      );
+    });
+  }
 
   removeDrawGeometry() {
     // Remove any drawn geometry.
@@ -326,17 +343,7 @@ class MainMap extends Component {
 
     if (this.props.placeFilters.length !== prevProps.placeFilters.length) {
       // Filters have been added or removed.
-
-      this.props.datasets.map(dataset => dataset.slug).forEach(sourceId => {
-        this.props.updateFeaturesInGeoJSONSource(
-          sourceId,
-          createGeoJSONFromPlaces(
-            this.props.filteredPlaces.filter(
-              place => place._datasetSlug === sourceId,
-            ),
-          ).features,
-        );
-      });
+      this.applyFeatureFilters();
     }
 
     if (

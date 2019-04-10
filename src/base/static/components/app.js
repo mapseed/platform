@@ -101,6 +101,7 @@ class App extends Component {
 
   state = {
     isInitialDataLoaded: false,
+    isStartPageViewed: false,
   };
 
   async componentDidMount() {
@@ -215,12 +216,12 @@ class App extends Component {
     this.props.updatePlacesLoadStatus("loading");
     const allPlacePagePromises = [];
     await Promise.all(
-      this.props.datasetsConfig.map(async c => {
+      this.props.datasetsConfig.map(async datasetConfig => {
         // Note that the response here is an array of page Promises.
         const response = await mapseedApiClient.place.get({
-          datasetUrl: c.url,
-          datasetSlug: c.slug,
-          clientSlug: c.clientSlug,
+          datasetUrl: datasetConfig.url,
+          datasetSlug: datasetConfig.slug,
+          clientSlug: datasetConfig.clientSlug,
           placeParams: {
             // NOTE: this is to include comments/supports while fetching our place models
             include_submissions: true,
@@ -228,7 +229,7 @@ class App extends Component {
           },
           includePrivate: this.props.hasGroupAbilitiesInDatasets({
             abilities: ["can_access_protected"],
-            datasetSlugs: [c.slug],
+            datasetSlugs: [datasetConfig.slug],
             submissionSet: "places",
           }),
         });
@@ -242,7 +243,7 @@ class App extends Component {
             // Update the map.
             this.props.createFeaturesInGeoJSONSource(
               // "sourceId" and a dataset's slug are the same thing.
-              c.slug,
+              datasetConfig.slug,
               pageData.map(place => {
                 const { geometry, ...rest } = place;
 
@@ -263,6 +264,12 @@ class App extends Component {
     await Promise.all(allPlacePagePromises);
     this.props.updatePlacesLoadStatus("loaded");
   }
+
+  onViewStartPage = () => {
+    this.setState({
+      isStartPageViewed: true,
+    });
+  };
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
@@ -292,6 +299,8 @@ class App extends Component {
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="map"
+                            isStartPageViewed={this.state.isStartPageViewed}
+                            onViewStartPage={this.onViewStartPage}
                             languageCode={Mapseed.languageCode}
                             {...props.match}
                           />
@@ -397,6 +406,8 @@ class App extends Component {
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
                               uiConfiguration="map"
+                              isStartPageViewed={this.state.isStartPageViewed}
+                              onViewStartPage={this.onViewStartPage}
                               languageCode={Mapseed.languageCode}
                               {...props.match}
                             />

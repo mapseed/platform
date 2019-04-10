@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { InternalLink, SmallText } from "../atoms/typography";
 
 const StoryChapterWrapper = styled(props => (
-  <InternalLink href={props.href} rel="internal" className={props.className}>
+  <InternalLink href={props.href} className={props.className}>
     {props.children}
   </InternalLink>
 ))(props => ({

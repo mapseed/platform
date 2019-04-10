@@ -273,7 +273,6 @@ const LogoTitleWrapper = styled(props => (
   <InternalLink
     className={props.className}
     href={`/${props.zoom}/${props.lat}/${props.lng}`}
-    rel="internal"
   >
     {props.children}
   </InternalLink>
@@ -319,11 +318,17 @@ const navItemMappings = {
     <ListToggleLink
       className={linkProps.className}
       ariaLabel={
-        linkProps.pathname === "/list" ? "view as a map" : "view as a list"
+        linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
+          ? "view as a map"
+          : "view as a list"
       }
-      href={linkProps.pathname === "/list" ? "/" : "/list"}
+      href={
+        linkProps.pathname === "/dashboard" || linkProps.pathname === "/list"
+          ? "/"
+          : "/list"
+      }
     >
-      {linkProps.pathname === "/list"
+      {linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
         ? linkProps.navBarItem.show_map_button_label
         : linkProps.navBarItem.show_list_button_label}
     </ListToggleLink>
@@ -452,7 +457,7 @@ class SiteHeader extends React.Component {
             isMenuOpen={
               this.state.isUserMenuOpen || this.state.isHeaderExpanded
             }
-            currentTemplate={this.props.currentTemplate}
+            pathname={this.props.history.location.pathname}
             dashboardConfig={this.props.dashboardConfig}
           />
         </RightAlignedContainer>

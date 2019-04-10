@@ -100,12 +100,7 @@ const RelatedIdeasList = styled("ul")({
 });
 
 const RelatedIdeaLink = styled(props => (
-  <InternalLink
-    rel="internal"
-    href={props.href}
-    router={props.router}
-    className={props.className}
-  >
+  <InternalLink href={props.href} className={props.className}>
     {props.children}
   </InternalLink>
 ))(() => ({
