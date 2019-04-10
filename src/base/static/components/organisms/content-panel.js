@@ -108,14 +108,17 @@ class ContentPanel extends Component {
               }
             />
           )}
-          {this.props.contentPanelComponent === "PlaceDetail" && (
-            <PlaceDetail
-              contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
-              mapContainerRef={this.props.mapContainerRef}
-              onUpdateMapViewport={this.props.onUpdateMapViewport}
-              scrollToResponseId={null}
-            />
-          )}
+          {this.props.contentPanelComponent === "PlaceDetail" &&
+            this.props.focusedPlace && (
+              <PlaceDetail
+                contentPanelInnerContainerRef={
+                  this.contentPanelInnerContainerRef
+                }
+                mapContainerRef={this.props.mapContainerRef}
+                onUpdateMapViewport={this.props.onUpdateMapViewport}
+                scrollToResponseId={null}
+              />
+            )}
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
