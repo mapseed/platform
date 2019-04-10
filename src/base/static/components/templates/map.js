@@ -46,9 +46,16 @@ import {
   mapConfigPropType,
 } from "../../state/ducks/map-config";
 import {
+  createFeaturesInGeoJSONSource,
   initialMapViewportSelector,
   mapViewportPropType,
 } from "../../state/ducks/map";
+import {
+  placeExists,
+  updateFocusedPlaceId,
+  updateScrollToResponseId,
+  loadPlaceAndSetIgnoreFlag,
+} from "../../state/ducks/places";
 
 import {
   getMainContentAreaWidth,
@@ -102,7 +109,7 @@ class MapTemplate extends Component {
     zoom &&
       lat &&
       lng &&
-      this.props.updateMapViewport({
+      this.onUpdateMapViewport({
         zoom: parseFloat(zoom),
         lat: parseFloat(lat),
         lng: parseFloat(lng),
@@ -180,34 +187,6 @@ class MapTemplate extends Component {
     }
 
     this.recaculateContainerSize();
-
- //   // URL parameters passed through by the router.
- //   const { params } = this.props.match;
-
- //   params.zoom &&
- //     params.lat &&
- //     params.lng &&
- //     this.props.updateMapViewport({
- //       zoom: params.zoom,
- //       lat: params.lat,
- //       lng: params.lng,
- //     });
-
- //   this.props.updateUIVisibility(
- //     "contentPanel",
- //     !!(params.pageSlug || params.datasetClientSlug),
- //   );
-
- //   this.props.updateUIVisibility(
- //     "mapCenterpoint",
- //     this.props.location.pathname === "/new",
- //   );
- //   this.props.updateUIVisibility("spotlightMask", (params.datasetClientSlug));
- //   this.props.updateUIVisibility("addPlaceButton", true);
- //   this.props.focusedPlaceId &&
- //     this.props.updateFocusedPlaceId(this.props.focusedPlaceId);
- //   this.props.contentPanelComponent &&
- //     this.props.updateContentPanelComponent(this.props.contentPanelComponent);
   }
 
   componentDidUpdate(prevProps) {
@@ -350,7 +329,10 @@ class MapTemplate extends Component {
     return (
       <>
         {this.props.isGeocodeAddressBarEnabled && (
-          <GeocodeAddressBar mapConfig={this.props.mapConfig} />
+          <GeocodeAddressBar
+            mapConfig={this.props.mapConfig}
+            onUpdateMapViewport={this.onUpdateMapViewport}
+          />
         )}
         <MapContainer
           ref={this.mapContainerRef}
@@ -382,6 +364,7 @@ class MapTemplate extends Component {
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             languageCode={this.props.languageCode}
             mapContainerRef={this.mapContainerRef}
+            mapViewport={this.state.mapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}
             updateMapDraggedOrZoomed={isMapDraggedOrZoomed =>
               this.setState({
@@ -441,7 +424,6 @@ MapTemplate.propTypes = {
   }).isRequired,
   placeConfig: placeConfigPropType.isRequired,
   placeExists: PropTypes.func.isRequired,
-  updateMapViewport: PropTypes.func.isRequired,
   uiConfiguration: PropTypes.string.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   updateActivePage: PropTypes.func.isRequired,
@@ -492,7 +474,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadPlaceAndSetIgnoreFlag: placeModel =>
     dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
-  updateMapViewport: mapViewport => dispatch(updateMapViewport(mapViewport)),
   updateUIVisibility: (componentName, isVisible) =>
     dispatch(updateUIVisibility(componentName, isVisible)),
   updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),

@@ -435,16 +435,16 @@ class MainMap extends Component {
       !this.state.isMapDraggingOrZooming
     ) {
       this.setState({
-        isMapDraggingOrZooming: true
-      })
+        isMapDraggingOrZooming: true,
+      });
     } else if (
       !evt.isDragging &&
       !evt.isZooming &&
       this.state.isMapDraggingOrZooming
     ) {
       this.setState({
-        isMapDraggingOrZooming: false
-      })
+        isMapDraggingOrZooming: false,
+      });
       this.props.onUpdateMapDraggedOrZoomed(true);
     }
   };

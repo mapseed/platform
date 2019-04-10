@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import CustomPage from "./custom-page";
-import InputForm from "../input-form";
 import FormCategoryMenuWrapper from "../input-form/form-category-menu-wrapper";
 import PlaceDetail from "../place-detail";
 
@@ -16,6 +15,7 @@ import {
   pageSlugSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
+import { mapViewportPropType } from "../../state/ducks/map";
 import { focusedPlaceSelector, placePropType } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 
@@ -118,23 +118,11 @@ class ContentPanel extends Component {
           )}
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
+              contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+              mapViewport={this.props.mapViewport}
+              onUpdateMapViewport={this.props.onUpdateMapViewport}
               updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
-              render={(state, props, onCategoryChange) => {
-                return (
-                  <InputForm
-                    {...props}
-                    contentPanelInnerContainerRef={
-                      this.contentPanelInnerContainerRef
-                    }
-                    selectedCategory={state.selectedCategory}
-                    datasetUrl={state.datasetUrl}
-                    datasetSlug={state.datasetSlug}
-                    isSingleCategory={state.isSingleCategory}
-                    onCategoryChange={onCategoryChange}
-                  />
-                );
-              }}
             />
           )}
         </ContentPanelInnerContainer>
@@ -152,6 +140,7 @@ ContentPanel.propTypes = {
   languageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
+  mapViewport: mapViewportPropType.isRequired,
   onUpdateMapViewport: PropTypes.func.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
