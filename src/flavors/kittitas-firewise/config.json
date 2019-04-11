@@ -3766,7 +3766,7 @@
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "wildfire-start-sites",
+            "id": "wildfire-start-sites-heatmap",
             "type": "heatmap",
             "source": "wildfire-start-sites",
             "source-layer": "wa-state-wildfire-start-sites-2008",
@@ -3816,6 +3816,60 @@
                 0
               ]
             }
+          },
+          {
+            "id": "wildfire-start-sites-circle",
+            "type": "circle",
+            "source": "wildfire-start-sites",
+            "source-layer": "wa-state-wildfire-start-sites-2008",
+            "paint": {
+              "circle-color": "#fc4e2b",
+              "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                [
+                  "interpolate",
+                  ["linear"],
+                  ["get", "ACRES_BURN"],
+                  1000,
+                  1,
+                  250000,
+                  4
+                ],
+                9,
+                [
+                  "interpolate",
+                  ["linear"],
+                  ["get", "ACRES_BURN"],
+                  1000,
+                  3,
+                  250000,
+                  10
+                ]
+              ],
+              "circle-stroke-width": 0.5,
+              "circle-stroke-color": "#ffffb2",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                9,
+                ["match", ["get", "COUNTY_LAB"], "KITTITAS", 1, 0.3]
+              ],
+              "circle-stroke-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                9,
+                1
+              ]
+            }
           }
         ]
       },
@@ -3829,7 +3883,7 @@
             "source": "kittitas-county-outline",
             "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
             "paint": {
-              "line-color": "#fff",
+              "line-color": "#666",
               "line-width": 3,
               "line-dasharray": [2, 2]
             }
@@ -3846,7 +3900,78 @@
             "source": "wa-state-large-fires",
             "source-layer": "wa-state-large-fires-1973-2018",
             "paint": {
-              "fill-pattern": "hazard-fill.png"
+              "fill-pattern": "hazard-fill.png",
+              "fill-opacity": [
+                "match",
+                ["get", "FIRENAME"],
+                "LEMAH",
+                0.8,
+                "French Cabin Creek",
+                0.8,
+                "Amabilis",
+                0.8,
+                "Easton Ridge",
+                0.8,
+                "Easton Fire",
+                0.8,
+                "Polallie",
+                0.8,
+                "Jolly Mountain",
+                0.8,
+                "Moon Beam",
+                0.8,
+                "South Cle Elum Ridge",
+                0.8,
+                "Manastash Ridge",
+                0.8,
+                "Rock Creek",
+                0.8,
+                "Diamond Head",
+                0.8,
+                "Lauderdale",
+                0.8,
+                "Elk Heights",
+                0.8,
+                "Trail",
+                0.8,
+                "Bighorn",
+                0.8,
+                "Scorpion Coulee",
+                0.8,
+                "Litttle Parke Creek",
+                0.8,
+                "Colockum Tarps",
+                0.8,
+                "Milepost Twenty Two",
+                0.8,
+                "Boylston",
+                0.8,
+                "Saddle Mountain",
+                0.8,
+                "400",
+                0.8,
+                "Cottonwood",
+                0.8,
+                "Burbank",
+                0.8,
+                "Ellensburg Pass",
+                0.8,
+                "Snag Canyon",
+                0.8,
+                "Table Mountain Fire",
+                0.8,
+                "Dry Creek Fire",
+                0.8,
+                "Gold Creek Springs",
+                0.8,
+                "Crow Creek",
+                0.8,
+                "Taylor Bridge",
+                0.8,
+                "I-82 Manashtash",
+                0.8,
+                0.2
+              ]
             }
           },
           {
@@ -3857,7 +3982,77 @@
             "paint": {
               "line-color": "#e80f0f",
               "line-width": 2,
-              "line-opacity": 0.7
+              "line-opacity": [
+                "match",
+                ["get", "FIRENAME"],
+                "LEMAH",
+                0.8,
+                "French Cabin Creek",
+                0.8,
+                "Amabilis",
+                0.8,
+                "Easton Ridge",
+                0.8,
+                "Easton Fire",
+                0.8,
+                "Polallie",
+                0.8,
+                "Jolly Mountain",
+                0.8,
+                "Moon Beam",
+                0.8,
+                "South Cle Elum Ridge",
+                0.8,
+                "Manastash Ridge",
+                0.8,
+                "Rock Creek",
+                0.8,
+                "Diamond Head",
+                0.8,
+                "Lauderdale",
+                0.8,
+                "Elk Heights",
+                0.8,
+                "Trail",
+                0.8,
+                "Bighorn",
+                0.8,
+                "Scorpion Coulee",
+                0.8,
+                "Litttle Parke Creek",
+                0.8,
+                "Colockum Tarps",
+                0.8,
+                "Milepost Twenty Two",
+                0.8,
+                "Boylston",
+                0.8,
+                "Saddle Mountain",
+                0.8,
+                "400",
+                0.8,
+                "Cottonwood",
+                0.8,
+                "Burbank",
+                0.8,
+                "Ellensburg Pass",
+                0.8,
+                "Snag Canyon",
+                0.8,
+                "Table Mountain Fire",
+                0.8,
+                "Dry Creek Fire",
+                0.8,
+                "Gold Creek Springs",
+                0.8,
+                "Crow Creek",
+                0.8,
+                "Taylor Bridge",
+                0.8,
+                "I-82 Manashtash",
+                0.8,
+                0.2
+              ]
             }
           },
           {
@@ -3869,7 +4064,7 @@
               "text-halo-color": "#fff",
               "text-halo-width": 0.5,
               "text-color": "#222",
-              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
+              "text-opacity": ["interpolate", ["linear"], ["zoom"], 5, 0, 7, 1]
             },
             "layout": {
               "text-field": ["get", "FIRENAME"],
@@ -4056,11 +4251,9 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 4,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "end_field_index": 2,
             "visibleLayerGroupIds": [
-              "satellite",
+              "light",
               "wildfire-start-sites",
               "kittitas-firewise-input",
               "kittitas-county-outline"
@@ -4075,11 +4268,24 @@
             }
           },
           {
-            "start_field_index": 5,
+            "start_field_index": 3,
             "end_field_index": 7,
             "header": "_(Whitman County)",
             "description": "_(Voluntary Stewardship Program)",
-            "visibleLayerGroupIds": ["satellite", "kittitas-county-outline"]
+            "visibleLayerGroupIds": [
+              "light",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ],
+            "viewport": {
+              "zoom": 8,
+              "latitude": 47.07231,
+              "longitude": -120.65079,
+              "transitionDuration": 1500,
+              "bearing": 0,
+              "pitch": 40
+            }
           }
         ],
         "label": "_(Small Landowners)",
@@ -4092,12 +4298,12 @@
           {
             "name": "fire_environment_info",
             "type": "informational_html",
-            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge Wildfire' style='width: 100%;' /><p></p>"
+            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge Wildfire' style='width: 100%;' /><p>This map shows the concentration of wildfire start site in Washington State since 2008.</p><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 2fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>9,689</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total fires started since 2008</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>1,705,602</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
           },
           {
-            "name": "drag_map_info",
+            "name": "large_fires_header",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#ef5f46;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Large Wildfires</h2>"
           }
         ]
       },
