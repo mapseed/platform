@@ -30,10 +30,9 @@ import {
   setActiveDrawGeometryId,
 } from "../../state/ducks/map-drawing-toolbar";
 import {
-  mapCenterpointSelector,
-  mapDraggedOrZoomedSelector,
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
+  mapViewportPropType,
 } from "../../state/ducks/map";
 import {
   hasAdminAbilities,
@@ -313,7 +312,7 @@ class InputForm extends Component {
           ? { "marker-symbol": this.props.activeMarker }
           : this.props.geometryStyle;
     } else {
-      const { longitude, latitude } = this.props.mapCenterpoint;
+      const { longitude, latitude } = this.props.mapViewport;
       attrs.geometry = {
         type: "Point",
         coordinates: [longitude, latitude],
@@ -549,6 +548,7 @@ class InputForm extends Component {
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
+                  onUpdateMapViewport={this.props.onUpdateMapViewport}
                 />
               ))
               .toArray()}
@@ -629,8 +629,9 @@ InputForm.propTypes = {
   isSingleCategory: PropTypes.bool,
   layout: PropTypes.string.isRequired,
   mapConfig: PropTypes.object.isRequired,
-  mapCenterpoint: PropTypes.object,
+  mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
+  onUpdateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
@@ -658,10 +659,8 @@ const mapStateToProps = state => ({
     }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
-  mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 

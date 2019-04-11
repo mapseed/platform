@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter } from "react-router-dom";
+import { FlyToInterpolator } from "react-map-gl";
 
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
 import AddPlaceButton from "../molecules/add-place-button";
-import MapCenterpoint from "../molecules/map-centerpoint";
 import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
@@ -46,14 +46,16 @@ import {
   mapConfigPropType,
 } from "../../state/ducks/map-config";
 import {
-  updateMapViewport,
   createFeaturesInGeoJSONSource,
+  initialMapViewportSelector,
+  mapViewportPropType,
+  mapSourceNamesSelector,
 } from "../../state/ducks/map";
 import {
-  updateFocusedPlaceId,
   placeExists,
-  loadPlaceAndSetIgnoreFlag,
+  updateFocusedPlaceId,
   updateScrollToResponseId,
+  loadPlaceAndSetIgnoreFlag,
 } from "../../state/ducks/places";
 
 import {
@@ -91,6 +93,27 @@ class MapTemplate extends Component {
     // getMainContentAreaWidth().
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
+    mapViewport: {
+      transitionInterpolator: new FlyToInterpolator(),
+      ...this.props.initialMapViewport,
+    },
+    isMapDraggedOrZoomed: false,
+    isSpotlightMaskVisible: false,
+    // Sources load status terminology:
+    // ------------------------------------
+    // "unloaded": The map has not yet begun to fetch data for this source.
+    // "loading": The map has begun fetching data for this source, but it has
+    //     not finished.
+    // "loaded": All data for this source has finished. Rendering may or may not
+    //     be in progress.
+    // "error": An error occurred when fetching data for this source.
+    mapSourcesLoadStatus: this.props.mapSourceNames.reduce(
+      (memo, groupName) => ({
+        ...memo,
+        [groupName]: "unloaded",
+      }),
+      {},
+    ),
   };
 
   async componentDidMount() {
@@ -102,7 +125,7 @@ class MapTemplate extends Component {
     zoom &&
       lat &&
       lng &&
-      this.props.updateMapViewport({
+      this.onUpdateMapViewport({
         zoom: parseFloat(zoom),
         lat: parseFloat(lat),
         lng: parseFloat(lng),
@@ -211,6 +234,61 @@ class MapTemplate extends Component {
     }
   }
 
+  onUpdateMapDraggedOrZoomed = isMapDraggedOrZoomed => {
+    this.setState({
+      isMapDraggedOrZoomed,
+    });
+  };
+
+  onUpdateSpotlightMaskVisibility = isSpotlightMaskVisible => {
+    this.setState({
+      isSpotlightMaskVisible,
+    });
+  };
+
+  onUpdateSourceLoadStatus = (sourceId, loadStatus) => {
+    this.setState(state => ({
+      mapSourcesLoadStatus: {
+        ...state.mapSourcesLoadStatus,
+        [sourceId]: loadStatus,
+      },
+    }));
+  };
+
+  onUpdateMapViewport = (newMapViewport, scrollZoomAroundCenter = false) => {
+    this.setState(state => ({
+      mapViewport: {
+        ...state.mapViewport,
+        ...newMapViewport,
+        // NOTE: This is a fix for an apparent bug in react-map-gl.
+        // See: https://github.com/uber/react-map-gl/issues/630
+        bearing: isNaN(newMapViewport.bearing)
+          ? state.mapViewport.bearing
+          : newMapViewport.bearing,
+        // These checks support a "scroll zoom around center" feature (in
+        // which a zoom of the map will not change the centerpoint) that is
+        // not exposed by react-map-gl. These checks are pretty convoluted,
+        // though, so it would be great if react-map-gl could just
+        // incorporate the scroll zoom around center option natively.
+        // See: https://github.com/uber/react-map-gl/issues/515
+        latitude:
+          scrollZoomAroundCenter &&
+          newMapViewport.zoom !== state.mapViewport.zoom
+            ? state.mapViewport.latitude
+            : newMapViewport.latitude
+              ? newMapViewport.latitude
+              : state.mapViewport.latitude,
+        longitude:
+          scrollZoomAroundCenter &&
+          newMapViewport.zoom !== state.mapViewport.zoom
+            ? state.mapViewport.longitude
+            : newMapViewport.longitude
+              ? newMapViewport.longitude
+              : state.mapViewport.longitude,
+      },
+    }));
+  };
+
   recaculateContainerSize() {
     this.setState({
       mapContainerHeightDeclaration: getMainContentAreaHeight({
@@ -276,30 +354,54 @@ class MapTemplate extends Component {
     return (
       <>
         {this.props.isGeocodeAddressBarEnabled && (
-          <GeocodeAddressBar mapConfig={this.props.mapConfig} />
+          <GeocodeAddressBar
+            mapConfig={this.props.mapConfig}
+            onUpdateMapViewport={this.onUpdateMapViewport}
+          />
         )}
         <MapContainer
           ref={this.mapContainerRef}
           width={this.state.mapContainerWidthDeclaration}
           height={this.state.mapContainerHeightDeclaration}
         >
-          {this.props.isLeftSidebarExpanded && <LeftSidebar />}
+          {this.props.isLeftSidebarExpanded && (
+            <LeftSidebar
+              mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
+            />
+          )}
           <MainMap
+            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             mapContainerRef={this.mapContainerRef}
+            mapContainerDimensions={this.state.mapContainerDimensions}
             mapContainerWidthDeclaration={
               this.state.mapContainerWidthDeclaration
             }
             mapContainerHeightDeclaration={
               this.state.mapContainerHeightDeclaration
             }
+            mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
+            mapViewport={this.state.mapViewport}
+            onUpdateMapViewport={this.onUpdateMapViewport}
+            onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
+            onUpdateSpotlightMaskVisibility={
+              this.onUpdateSpotlightMaskVisibility
+            }
+            onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
           />
-          {this.props.isMapCenterpointVisible && <MapCenterpoint />}
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
         </MapContainer>
         {this.props.isContentPanelVisible && (
           <ContentPanel
+            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             languageCode={this.props.languageCode}
             mapContainerRef={this.mapContainerRef}
+            mapViewport={this.state.mapViewport}
+            onUpdateMapViewport={this.onUpdateMapViewport}
+            updateMapDraggedOrZoomed={isMapDraggedOrZoomed =>
+              this.setState({
+                isMapDraggedOrZoomed,
+              })
+            }
           />
         )}
         {this.props.isAddPlaceButtonVisible &&
@@ -326,11 +428,11 @@ MapTemplate.propTypes = {
   hasAddPlacePermission: PropTypes.bool.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  initialMapViewport: mapViewportPropType.isRequired,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  isMapCenterpointVisible: PropTypes.bool.isRequired,
   isRightSidebarEnabled: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
@@ -339,6 +441,7 @@ MapTemplate.propTypes = {
   layout: PropTypes.string.isRequired,
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   mapConfig: mapConfigPropType.isRequired,
+  mapSourceNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   navBarConfig: navBarConfigPropType.isRequired,
   onViewStartPage: PropTypes.func,
   // Parameters passed from the router.
@@ -353,7 +456,6 @@ MapTemplate.propTypes = {
   }).isRequired,
   placeConfig: placeConfigPropType.isRequired,
   placeExists: PropTypes.func.isRequired,
-  updateMapViewport: PropTypes.func.isRequired,
   uiConfiguration: PropTypes.string.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   updateActivePage: PropTypes.func.isRequired,
@@ -384,14 +486,15 @@ const mapStateToProps = state => ({
       submissionSet,
       datasetSlugs,
     }),
+  initialMapViewport: initialMapViewportSelector(state),
   isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
-  isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),
+  mapSourceNames: mapSourceNamesSelector(state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
@@ -404,7 +507,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadPlaceAndSetIgnoreFlag: placeModel =>
     dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
-  updateMapViewport: mapViewport => dispatch(updateMapViewport(mapViewport)),
   updateUIVisibility: (componentName, isVisible) =>
     dispatch(updateUIVisibility(componentName, isVisible)),
   updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),

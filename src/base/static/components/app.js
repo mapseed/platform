@@ -23,7 +23,6 @@ const MapTemplate = lazy(() => import("./templates/map"));
 import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
-import { loadPlaces, updatePlacesLoadStatus } from "../state/ducks/places";
 import {
   datasetsConfigSelector,
   datasetsConfigPropType,
@@ -47,7 +46,8 @@ import {
   pageExistsSelector,
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
-import { loadMapStyle, loadMapViewport } from "../state/ducks/map";
+import { loadMapStyle, loadInitialMapViewport } from "../state/ducks/map";
+import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
 import languageModule from "../language-module";
@@ -63,7 +63,7 @@ import {
 } from "../state/ducks/story-config";
 import {
   createFeaturesInGeoJSONSource,
-  updateMapViewport,
+  updateMapContainerDimensions,
 } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
@@ -170,7 +170,7 @@ class App extends Component {
     resolvedConfig.dashboard &&
       this.props.loadDashboardConfig(resolvedConfig.dashboard);
 
-    this.props.loadMapViewport(resolvedConfig.map.options.mapViewport);
+    this.props.loadInitialMapViewport(resolvedConfig.map.options.mapViewport);
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
@@ -203,7 +203,7 @@ class App extends Component {
       this.templateContainerRef.current,
     ).getBoundingClientRect();
 
-    this.props.updateMapViewport({
+    this.props.updateMapContainerDimensions({
       width: templateDims.width,
       height: templateDims.height,
     });
@@ -496,7 +496,7 @@ App.propTypes = {
   storyChapters: PropTypes.array.isRequired,
   // TODO: shape of this:
   updateLayout: PropTypes.func.isRequired,
-  updateMapViewport: PropTypes.func.isRequired,
+  updateMapContainerDimensions: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   loadDatasetsConfig: PropTypes.func.isRequired,
@@ -512,7 +512,7 @@ App.propTypes = {
   loadNavBarConfig: PropTypes.func.isRequired,
   loadCustomComponentsConfig: PropTypes.func.isRequired,
   loadMapStyle: PropTypes.func.isRequired,
-  loadMapViewport: PropTypes.func.isRequired,
+  loadInitialMapViewport: PropTypes.func.isRequired,
   loadDashboardConfig: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
   pageExists: PropTypes.func.isRequired,
@@ -548,7 +548,8 @@ const mapDispatchToProps = dispatch => ({
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
   updateLayout: () => dispatch(updateLayout()),
-  updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
+  updateMapContainerDimensions: newDimensions =>
+    dispatch(updateMapContainerDimensions(newDimensions)),
   updateUIVisibility: (componentName, isVisible) =>
     dispatch(updateUIVisibility(componentName, isVisible)),
   loadDatasetsConfig: config => dispatch(loadDatasetsConfig(config)),
@@ -567,7 +568,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadCustomComponentsConfig(config)),
   loadMapStyle: (mapConfig, datasetsConfig) =>
     dispatch(loadMapStyle(mapConfig, datasetsConfig)),
-  loadMapViewport: mapViewport => dispatch(loadMapViewport(mapViewport)),
+  loadInitialMapViewport: mapViewport =>
+    dispatch(loadInitialMapViewport(mapViewport)),
   loadUser: user => dispatch(loadUser(user)),
 });
 

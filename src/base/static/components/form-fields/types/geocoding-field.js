@@ -7,8 +7,6 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
 
-import { updateMapViewport } from "../../../state/ducks/map";
-
 import { mapConfigSelector } from "../../../state/ducks/map-config";
 
 // TODO: Consolidate Util methods used here.
@@ -59,7 +57,7 @@ class GeocodingField extends Component {
               isWithGeocodingError: false,
             });
 
-            this.props.updateMapViewport({
+            this.props.onUpdateMapViewport({
               latitude: locationGeometry.coordinates[1],
               longitude: locationGeometry.coordinates[0],
               zoom: 14,
@@ -126,7 +124,7 @@ GeocodingField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
   placeholder: PropTypes.string,
-  updateMapViewport: PropTypes.func.isRequired,
+  onUpdateMapViewport: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   isTriggeringGeocode: PropTypes.bool,
   value: PropTypes.string,
@@ -136,11 +134,6 @@ const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("GeocodingField")(GeocodingField));
+export default connect(mapStateToProps)(
+  translate("GeocodingField")(GeocodingField),
+);
