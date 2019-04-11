@@ -21,6 +21,18 @@
           "submission_set": "*"
         }
       ]
+    },
+    {
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
+      "slug": "pbdurham-projects",
+      "owner": "smartercleanup",
+      "clientSlug": "project",
+      "anonymous_permissions": [
+        {
+          "abilities": ["retrieve"],
+          "submission_set": "*"
+        }
+      ]
     }
   ],
   "app": {
@@ -471,8 +483,8 @@
             "source": "pbdurham",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
-              "icon-size": ["step", ["zoom"], 0.3, 10, 0.4],
+              "icon-anchor": ["step", ["zoom"], "center", 13, "bottom"],
+              "icon-size": ["step", ["zoom"], 0.3, 13, 0.4],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -493,7 +505,7 @@
                   "dot-ffd614.png",
                   "__no-icon-image__"
                 ],
-                10,
+                13,
                 [
                   "match",
                   ["get", "location_type"],
@@ -513,6 +525,63 @@
                 ]
               ]
             }
+          },
+          {
+            "id": "pbdurham-projects",
+            "datasetSlug": "pbdurham-projects",
+            "interactive": true,
+            "visibleDefault": true,
+            "mapboxFocusedLayers": [
+              {
+                "id": "pbdurham-projects-focused",
+                "type": "symbol",
+                "filter": ["==", ["get", "location_type"], "projects"],
+                "source": "pbdurham-projects",
+                "layout": {
+                  "icon-allow-overlap": true,
+                  "icon-image": [
+                    "match",
+                    ["get", "ward"],
+                    "ward_1",
+                    "project-ward-1-focused.png",
+                    "ward_2",
+                    "project-ward-2-focused.png",
+                    "ward_3",
+                    "project-ward-3-focused.png",
+                    "citywide",
+                    "project-citywide-focused.png",
+                    "money.png"
+                  ],
+                  "icon-size": 0.3,
+                  "icon-anchor": "bottom"
+                }
+              }
+            ],
+            "mapboxLayers": [
+              {
+                "id": "pbdurham-projects",
+                "type": "symbol",
+                "source": "pbdurham-projects",
+                "layout": {
+                  "icon-allow-overlap": true,
+                  "icon-anchor": "bottom",
+                  "icon-image": [
+                    "match",
+                    ["get", "ward"],
+                    "ward_1",
+                    "project-ward-1.png",
+                    "ward_2",
+                    "project-ward-2.png",
+                    "ward_3",
+                    "project-ward-3.png",
+                    "citywide",
+                    "project-citywide.png",
+                    "money.png"
+                  ],
+                  "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
+                }
+              }
+            ]
           }
         ]
       },
@@ -653,6 +722,10 @@
               {
                 "id": "pbdemo",
                 "title": "_(Demo ideas)"
+              },
+              {
+                "id": "pbdurham-projects",
+                "title": "_(Proposed Projects)"
               }
             ]
           },
