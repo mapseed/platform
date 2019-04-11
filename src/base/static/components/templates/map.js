@@ -347,6 +347,9 @@ class MapTemplate extends Component {
       case "inviteModal":
         this.props.updateUIVisibility("inviteModal", true);
         break;
+      case "mapWithInvalidRoute":
+        this.props.history.push("/");
+        break;
     }
   }
 

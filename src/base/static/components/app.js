@@ -401,11 +401,10 @@ class App extends Component {
                           Mapseed.languageCode,
                         )
                       ) {
-                        window.history.pushState("", "", "/");
                         return (
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
-                              uiConfiguration="map"
+                              uiConfiguration="mapWithInvalidRoute"
                               isStartPageViewed={this.state.isStartPageViewed}
                               onViewStartPage={this.onViewStartPage}
                               languageCode={Mapseed.languageCode}
@@ -458,11 +457,10 @@ class App extends Component {
                   />
                   <Route
                     render={props => {
-                      window.history.pushState("", "", "/");
                       return (
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
-                            uiConfiguration="map"
+                            uiConfiguration="mapWithInvalidRoute"
                             languageCode={Mapseed.languageCode}
                             {...props.match}
                           />
