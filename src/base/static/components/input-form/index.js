@@ -182,6 +182,7 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     if (this.isWithCustomGeometry) {
+      this.props.updateMapDraggedOrZoomed(true);
       this.props.updateSpotlightMaskVisibility(false);
       this.props.updateMapCenterpointVisibility(false);
     } else {
@@ -638,6 +639,7 @@ InputForm.propTypes = {
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,

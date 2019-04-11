@@ -119,6 +119,7 @@ class FormCategoryMenuWrapper extends Component {
             onCategoryChange={this.onCategoryChange}
             mapViewport={this.props.mapViewport}
             onUpdateMapViewport={this.props.onUpdateMapViewport}
+            updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
           />
         )}
       </>
