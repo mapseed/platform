@@ -15,17 +15,13 @@
     }
   },
   "globals": {
-    "Backbone": false,
     "module": false,
     "moment": false,
     "EXIF": false,
     "BinaryFile": false,
     "loadImage": false,
     "prefix": false,
-    "_": false,
-    "$": false,
-    "Handlebars": false,
-    "Shareabouts": false,
+    "Mapseed": false,
     "MAP_PROVIDER_TOKEN": false,
     "MIXPANEL_TOKEN": false,
     "GIT_SHA": false,

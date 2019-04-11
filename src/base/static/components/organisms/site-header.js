@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { jsx } from "@emotion/core";
+import { withRouter } from "react-router-dom";
 
 import { SiteLogo } from "../atoms/imagery";
-import { Link } from "../atoms/typography";
 import { NavButton } from "../molecules/buttons";
 import UserMenu from "../molecules/user-menu";
-import { RegularTitle } from "../atoms/typography";
+import { RegularTitle, InternalLink } from "../atoms/typography";
 
 import {
   navBarConfigPropType,
@@ -78,14 +78,13 @@ const navContainerStyles = props => ({
 });
 
 const ListToggleLink = styled(props => (
-  <Link
+  <InternalLink
     href={props.href}
-    rel="internal"
     className={props.className}
     aria-label={props.ariaLabel}
   >
     {props.children}
-  </Link>
+  </InternalLink>
 ))(props => ({
   // TODO: Many of these style rules should eventually be moved to the Link atom.
   fontFamily: props.theme.text.navBarFontFamily,
@@ -120,16 +119,13 @@ const NavButtonWrapper = styled("div")(props => ({
 
 const NavLink = styled(props => (
   <NavButtonWrapper position={props.position}>
-    <Link
-      href={props.href}
-      rel="internal"
-      aria-label={props.ariaLabel}
+    <InternalLink
       className={props.className}
-      onClick={props.onClick}
+      href={props.href}
       style={{ padding: "4px 8px 4px 8px" }}
     >
       {props.children}
-    </Link>
+    </InternalLink>
   </NavButtonWrapper>
 ))(props => ({
   // TODO: Many of these style rules should eventually be moved to the Link atom.
@@ -274,13 +270,12 @@ const NavBarHamburger = styled("i")({
 });
 
 const LogoTitleWrapper = styled(props => (
-  <Link
+  <InternalLink
     className={props.className}
     href={`/${props.zoom}/${props.lat}/${props.lng}`}
-    rel="internal"
   >
     {props.children}
-  </Link>
+  </InternalLink>
 ))(() => ({
   display: "flex",
   alignItems: "center",
@@ -299,7 +294,6 @@ const navItemMappings = {
       position={linkProps.position}
       href={linkProps.navBarItem.url}
       ariaLabel={`navigate to: ${linkProps.navBarItem.title}`}
-      onClick={linkProps.onClick}
     >
       {linkProps.children}
     </NavLink>
@@ -324,13 +318,19 @@ const navItemMappings = {
     <ListToggleLink
       className={linkProps.className}
       ariaLabel={
-        linkProps.currentTemplate === "map" ? "view as a list" : "view as a map"
+        linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
+          ? "view as a map"
+          : "view as a list"
       }
-      href={linkProps.currentTemplate === "map" ? "/list" : "/"}
+      href={
+        linkProps.pathname === "/dashboard" || linkProps.pathname === "/list"
+          ? "/"
+          : "/list"
+      }
     >
-      {linkProps.currentTemplate === "map"
-        ? linkProps.navBarItem.show_list_button_label
-        : linkProps.navBarItem.show_map_button_label}
+      {linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
+        ? linkProps.navBarItem.show_map_button_label
+        : linkProps.navBarItem.show_list_button_label}
     </ListToggleLink>
   ))(() => ({
     [mq[0]]: {
@@ -403,6 +403,7 @@ class SiteHeader extends React.Component {
                 setLeftSidebarComponent={this.props.setLeftSidebarComponent}
                 setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
                 isLeftSidebarExpanded={this.props.isLeftSidebarExpanded}
+                pathname={this.props.history.location.pathname}
                 onClick={() => {
                   this.setState({
                     isHeaderExpanded: false,
@@ -449,7 +450,6 @@ class SiteHeader extends React.Component {
               </LanguagePicker>
             )}
           <UserMenu
-            router={this.props.router}
             apiRoot={this.props.appConfig.api_root}
             isInMobileMode={this.state.isHeaderExpanded}
             isMobileEnabled={!!this.props.appConfig.isShowingMobileUserMenu}
@@ -457,7 +457,7 @@ class SiteHeader extends React.Component {
             isMenuOpen={
               this.state.isUserMenuOpen || this.state.isHeaderExpanded
             }
-            currentTemplate={this.props.currentTemplate}
+            pathname={this.props.history.location.pathname}
             dashboardConfig={this.props.dashboardConfig}
           />
         </RightAlignedContainer>
@@ -482,7 +482,6 @@ SiteHeader.propTypes = {
   }).isRequired,
   navBarConfig: navBarConfigPropType,
   dashboardConfig: dashboardConfigPropType,
-  router: PropTypes.instanceOf(Backbone.Router),
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
 };
@@ -503,7 +502,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarExpanded(isExpanded)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SiteHeader);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(SiteHeader),
+);

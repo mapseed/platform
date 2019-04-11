@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, RegularText } from "../atoms/typography";
+import { InternalLink, RegularText } from "../atoms/typography";
 import { CloseButton } from "../atoms/buttons";
 import { Button } from "../atoms/buttons";
 import { getTilePaths } from "../../utils/geo";
@@ -84,9 +84,9 @@ const OfflineDownloadMenu = props => {
   const [percentDownloaded, setPercentDownloaded] = useState(0);
   return (
     <Fragment>
-      <Link onClick={() => setIsModalOpen(() => true)}>
+      <InternalLink onClick={() => setIsModalOpen(() => true)}>
         {"Download app for offline use"}
-      </Link>
+      </InternalLink>
       <Modal
         style={modalStyles}
         isOpen={isModalOpen}

@@ -542,8 +542,8 @@
             "source": "pbdurham",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
-              "icon-size": ["step", ["zoom"], 0.3, 10, 0.4],
+              "icon-anchor": ["step", ["zoom"], "center", 13, "bottom"],
+              "icon-size": ["step", ["zoom"], 0.3, 13, 0.4],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -564,7 +564,7 @@
                   "dot-ffd614.png",
                   "__no-icon-image__"
                 ],
-                10,
+                13,
                 [
                   "match",
                   ["get", "location_type"],

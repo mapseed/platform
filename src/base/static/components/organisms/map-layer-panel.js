@@ -16,6 +16,7 @@ const MapLayerPanel = props => (
         <MapLayerPanelSection
           key={section.id}
           layerGroups={section.layerGroups}
+          mapSourcesLoadStatus={props.mapSourcesLoadStatus}
           title={section.title}
         />
       ))}
@@ -23,6 +24,7 @@ const MapLayerPanel = props => (
 );
 
 MapLayerPanel.propTypes = {
+  mapSourcesLoadStatus: PropTypes.object.isRequired,
   mapLayerPanelConfig: PropTypes.shape({
     id: PropTypes.string.isRequired,
     component: PropTypes.string.isRequired,

@@ -7,8 +7,6 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
 
-import { updateMapViewport } from "../../../state/ducks/map";
-
 import { mapConfigSelector } from "../../../state/ducks/map-config";
 
 // TODO: Consolidate Util methods used here.
@@ -21,7 +19,7 @@ class GeocodingField extends Component {
       isGeocoding: false,
       isWithGeocodingError: false,
     };
-    this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
+    this.geocodingEngine = "Mapbox";
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -51,20 +49,17 @@ class GeocodingField extends Component {
       bbox: this.props.mapConfig.geocode_bounding_box,
       options: {
         success: data => {
-          const locationsData = data.results[0] && data.results[0].locations;
-          if (locationsData && locationsData.length > 0) {
+          const locationGeometry =
+            data.features && data.features[0] && data.features[0].geometry;
+          if (locationGeometry) {
             this.setState({
               isGeocoding: false,
               isWithGeocodingError: false,
             });
 
-            // TODO: Is this location data format specific to the Mapbox
-            // geocoder? We should probably just remove Mapquest as a geocoding
-            // option and assume the Mapbox format is the one we'll always be
-            // dealing with.
-            this.props.updateMapViewport({
-              latitude: locationsData[0].latLng.lat,
-              longitude: locationsData[0].latLng.lng,
+            this.props.onUpdateMapViewport({
+              latitude: locationGeometry.coordinates[1],
+              longitude: locationGeometry.coordinates[0],
               zoom: 14,
               transitionDuration: 1000,
             });
@@ -129,7 +124,7 @@ GeocodingField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
   placeholder: PropTypes.string,
-  updateMapViewport: PropTypes.func.isRequired,
+  onUpdateMapViewport: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   isTriggeringGeocode: PropTypes.bool,
   value: PropTypes.string,
@@ -139,11 +134,6 @@ const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateMapViewport: viewport => dispatch(updateMapViewport(viewport)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("GeocodingField")(GeocodingField));
+export default connect(mapStateToProps)(
+  translate("GeocodingField")(GeocodingField),
+);

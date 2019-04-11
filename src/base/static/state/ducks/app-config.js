@@ -5,7 +5,7 @@ export const appConfigSelector = state => {
 };
 
 export const themeSelector = state => {
-  return state.appConfig.theme;
+  return state.appConfig.theme || {};
 };
 
 export const appConfigPropType = PropTypes.shape({
@@ -58,20 +58,25 @@ export const themePropType = PropTypes.shape({
 });
 
 // Actions:
-const SET_CONFIG = "app/SET_CONFIG";
+const LOAD = "app/LOAD";
 
 // Action creators:
-export function setAppConfig(config) {
-  return { type: SET_CONFIG, payload: config };
+export function loadAppConfig(config) {
+  return { type: LOAD, payload: config };
 }
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+  title: "",
+  meta_description: "",
+  api_root: "",
+  time_zone: "",
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_CONFIG:
+    case LOAD:
       return {
         ...state,
         ...action.payload,

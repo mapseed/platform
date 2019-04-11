@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 import { jsx } from "@emotion/core";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
-import { Link, SmallText, RegularText } from "../atoms/typography";
+import {
+  InternalLink,
+  ExternalLink,
+  SmallText,
+  RegularText,
+} from "../atoms/typography";
 import { Button } from "../atoms/buttons";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "@emotion/styled";
@@ -88,7 +93,7 @@ const MenuButton = styled(props => {
   },
 }));
 
-const LogoutButton = styled(Link)({
+const LogoutButton = styled(ExternalLink)({
   fontSize: "0.875em",
   fontWeight: "normal",
   textDecoration: "none",
@@ -151,7 +156,7 @@ const SocialMediaMenuItem = styled(MenuItem)({
   gridColumnGap: "8px",
 });
 
-const SocialLoginButton = styled(Link)(props => {
+const SocialLoginButton = styled(ExternalLink)(props => {
   let backgroundColor;
   switch (props.service) {
     case "twitter":
@@ -177,7 +182,7 @@ class UserMenu extends React.Component {
   render() {
     if (this.props.currentUser.isAuthenticated) {
       // If user is logged in
-      const isDashboard = this.props.currentTemplate === "dashboard";
+      const isDashboard = this.props.pathname === "/dashboard";
       return (
         <MenuContainer
           role="article"
@@ -197,9 +202,9 @@ class UserMenu extends React.Component {
                 this.props.hasAdminAbilities(
                   this.props.dashboardConfig[0].datasetSlug,
                 ) && (
-                  <Link rel="internal" href={isDashboard ? "/" : "/dashboard"}>
+                  <InternalLink href={isDashboard ? "/" : "/dashboard"}>
                     {isDashboard ? "back to map" : `go to dashboard`}
-                  </Link>
+                  </InternalLink>
                 )}
             </MenuItem>
             <MenuItem>
@@ -277,9 +282,8 @@ UserMenu.propTypes = {
   offlineBoundingBox: offlineConfigPropType,
   mapLayerConfigs: PropTypes.array,
   hasAdminAbilities: PropTypes.func.isRequired,
-  currentTemplate: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
   t: PropTypes.func.isRequired,
   isMobileEnabled: PropTypes.bool.isRequired,
   isInMobileMode: PropTypes.bool.isRequired,

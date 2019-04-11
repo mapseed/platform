@@ -54,7 +54,6 @@ import {
 import { placePropType, focusedPlaceSelector } from "../../state/ducks/places";
 import {
   removeFocusedGeoJSONFeatures,
-  updateMapViewport,
   updateFocusedGeoJSONFeatures,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
@@ -162,7 +161,7 @@ class PlaceDetail extends Component {
         newViewport.zoom = story.zoom;
       }
 
-      this.props.updateMapViewport(newViewport);
+      this.props.onUpdateMapViewport(newViewport);
     } else if (
       this.props.focusedPlace.geometry.type === "LineString" ||
       this.props.focusedPlace.geometry.type === "Polygon"
@@ -174,7 +173,7 @@ class PlaceDetail extends Component {
         { padding: 50 },
       );
 
-      this.props.updateMapViewport({
+      this.props.onUpdateMapViewport({
         latitude: newViewport.latitude,
         longitude: newViewport.longitude,
         transitionDuration: story ? 3000 : 200,
@@ -190,7 +189,7 @@ class PlaceDetail extends Component {
         newViewport.zoom = story.zoom;
       }
 
-      this.props.updateMapViewport(newViewport);
+      this.props.onUpdateMapViewport(newViewport);
     }
 
     if (story && !story.spotlight) {
@@ -295,7 +294,6 @@ class PlaceDetail extends Component {
         <PBDurhamProjectProposalFieldSummary
           fields={categoryConfig.fields}
           place={this.props.focusedPlace}
-          router={this.props.router}
         />
       );
     } else {
@@ -384,7 +382,6 @@ class PlaceDetail extends Component {
             contentPanelInnerContainerRef={
               this.props.contentPanelInnerContainerRef
             }
-            router={this.props.router}
           />
         ) : (
           fieldSummary
@@ -423,7 +420,6 @@ PlaceDetail.propTypes = {
   mapConfig: mapConfigPropType,
   mapContainerRef: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
   removeFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   supportConfig: PropTypes.object.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
@@ -431,15 +427,14 @@ PlaceDetail.propTypes = {
   updateEditModeToggled: PropTypes.func.isRequired,
   updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
-  updateMapViewport: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
+  onUpdateMapViewport: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
   removeFocusedGeoJSONFeatures: () => dispatch(removeFocusedGeoJSONFeatures()),
   updateEditModeToggled: isToggled =>
     dispatch(updateEditModeToggled(isToggled)),
-  updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
   updateSpotlightMaskVisibility: isVisible =>
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateFocusedGeoJSONFeatures: newFeatures =>

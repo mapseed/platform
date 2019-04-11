@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { RegularText } from "../atoms/typography";
 import { CloseButton } from "../atoms/buttons";
 import { Button } from "../atoms/buttons";
@@ -27,7 +28,7 @@ class InviteModal extends Component {
 
   onClose = () => {
     this.setState({ isModalOpen: false });
-    this.props.router.navigate(`/`, { trigger: true });
+    this.props.history.push(`/`);
   };
 
   setPhase = phase => {
@@ -61,8 +62,14 @@ class InviteModal extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.state.isModalOpen) {
+    if (!this.props.isOpen) {
       return;
+    }
+
+    if (this.props.isOpen !== prevProps.isOpen) {
+      this.setState({
+        isModalOpen: this.props.isOpen,
+      });
     }
 
     if (!prevProps.currentUser.isLoaded && this.props.currentUser.isLoaded) {
@@ -137,12 +144,12 @@ class InviteModal extends Component {
 
 InviteModal.propTypes = {
   currentUser: userPropType,
+  history: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({
   currentUser: userSelector(state),
 });
 
-export default connect(mapStateToProps)(InviteModal);
+export default withRouter(connect(mapStateToProps)(InviteModal));

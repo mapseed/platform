@@ -9,8 +9,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
 import {
-  datasetConfigPropType,
-  datasetConfigsSelector,
+  datasetsConfigPropType,
+  datasetsConfigSelector,
 } from "../../state/ducks/datasets-config";
 import {
   dashboardConfigSelector,
@@ -29,7 +29,7 @@ import {
 import { hasAdminAbilities } from "../../state/ducks/user";
 import { HorizontalRule } from "../atoms/layout";
 import {
-  Link,
+  ExternalLink,
   RegularTitle,
   SmallTitle,
   LargeLabel,
@@ -269,7 +269,7 @@ class Dashboard extends React.Component {
         }
         return count;
       }, 0);
-    const dataset = this.props.datasetConfigs.find(
+    const dataset = this.props.datasetsConfig.find(
       config => config.slug === this.state.dashboard.datasetSlug,
     );
 
@@ -314,7 +314,7 @@ class Dashboard extends React.Component {
                 onClose={this.closeDashboardDropdown}
               >
                 {this.props.dashboardConfig.map(dashboardConfig => {
-                  const dataset = this.props.datasetConfigs.find(
+                  const dataset = this.props.datasetsConfig.find(
                     config => config.slug === dashboardConfig.datasetSlug,
                   );
                   return (
@@ -333,7 +333,7 @@ class Dashboard extends React.Component {
               </Menu>
             </div>
           )}
-          <Link
+          <ExternalLink
             css={theme => ({
               textDecoration: "none",
               gridArea: "link",
@@ -345,7 +345,7 @@ class Dashboard extends React.Component {
             }/mapseed-places.csv?format=csv&include_private_places&include_private_fields&page_size=10000`}
           >
             {`Download Submissions`}
-          </Link>
+          </ExternalLink>
           <CardsWrapper>
             <Card
               gridArea="card1"
@@ -498,11 +498,10 @@ Dashboard.propTypes = {
   appConfig: appConfigPropType.isRequired,
   apiRoot: PropTypes.string,
   hasAdminAbilities: PropTypes.func.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
   allPlaces: placesPropType,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   formFieldsConfig: formFieldsConfigPropType,
-  datasetConfigs: datasetConfigPropType,
+  datasetsConfig: datasetsConfigPropType,
 };
 
 const mapStateToProps = state => ({
@@ -512,7 +511,7 @@ const mapStateToProps = state => ({
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),
   formFieldsConfig: formFieldsConfigSelector(state),
-  datasetConfigs: datasetConfigsSelector(state),
+  datasetsConfig: datasetsConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(Dashboard);

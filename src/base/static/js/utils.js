@@ -1,35 +1,4 @@
 var self = (module.exports = {
-  patch: function(obj, overrides, func) {
-    var attr,
-      originals = {};
-
-    // Switch out for the override values, but save the originals
-    for (attr in overrides) {
-      originals[attr] = obj[attr];
-      obj[attr] = overrides[attr];
-    }
-
-    // Run the function with the now patched object
-    func();
-
-    // Restore the original values
-    for (attr in originals) {
-      obj[attr] = originals[attr];
-    }
-  },
-
-  setPrettyDateLang: function(locale) {
-    moment.lang(locale);
-  },
-
-  getPrettyDateTime: function(datetime, format) {
-    if (format) {
-      return moment(datetime).format(format);
-    } else {
-      return moment(datetime).fromNow();
-    }
-  },
-
   buildSharingQuerystring: function(components) {
     return [
       "?url=",
@@ -69,10 +38,10 @@ var self = (module.exports = {
           place._clientSlug + "/" + place.id,
         ].join(""),
       },
-      $img = $("img[src='" + components.img + "']");
+      img = document.querySelector("img[src='" + components.img + "']");
 
-    components["height"] = $img.height() || 630;
-    components["width"] = $img.width() || 1200;
+    components["height"] = img.height || 630;
+    components["width"] = img.width || 1200;
 
     // return a promise that immediately resolves to our share url:
     const queryString = this.buildSharingQuerystring(components);
@@ -130,47 +99,6 @@ var self = (module.exports = {
     } else {
       this.console.log(args);
     }
-  },
-
-  analytics: function(args) {
-    var firstArg = args.shift(),
-      secondArg,
-      measure,
-      measures = {
-        "center-lat": "metric1",
-        "center-lng": "metric2",
-        zoom: "metric3",
-
-        "panel-state": "dimension1",
-        "language-code": "dimension2",
-      };
-
-    switch (firstArg.toLowerCase()) {
-      case "route":
-        args = ["send", "pageview"].concat(args);
-        break;
-
-      case "user":
-        args = ["send", "event"].concat(args);
-        break;
-
-      case "app":
-        secondArg = args.shift();
-        measure = measures[secondArg];
-        if (!measure) {
-          this.console.error(
-            'No metrics or dimensions matching "' + secondArg + '"',
-          );
-          return;
-        }
-        args = ["set", measure].concat(args);
-        break;
-
-      default:
-        return;
-    }
-
-    window.ga.apply(window, args);
   },
 
   // For browsers without a console
@@ -301,33 +229,6 @@ var self = (module.exports = {
     return newHandler;
   },
 
-  callWithRetries: function(func, retryCount, context) {
-    var args = Array.prototype.slice.call(arguments, 3),
-      options = _.last(args),
-      errorHandler = options.error,
-      retries = 0;
-
-    if (!options) {
-      options = {};
-      args.push(options);
-    }
-
-    options.error = function() {
-      if (retries < retryCount) {
-        retries++;
-        setTimeout(function() {
-          func.apply(context, args);
-        }, retries * 100);
-      } else {
-        if (errorHandler) {
-          errorHandler.apply(context, arguments);
-        }
-      }
-    };
-
-    func.apply(context, args);
-  },
-
   // Cookies! Om nom nom
   // Thanks ppk! http://www.quirksmode.org/js/cookies.html
   cookies: {
@@ -412,138 +313,38 @@ var self = (module.exports = {
     },
   },
 
-  MapQuest: {
-    geocode: function(location, bounds, options) {
-      var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
-
-      if (!mapQuestKey) {
-        // REACT PORT SECTION //////////////////////////////////////////////////
-
-        // call the error handler here to provide better user feedback
-        options.error();
-        // END REACT PORT SECTION //////////////////////////////////////////////
-        throw "You must provide a MapQuest key for geocoding to work.";
-      }
-
-      options = options || {};
-      options.dataType = "jsonp";
-      options.cache = true;
-      options.url =
-        "https://open.mapquestapi.com/geocoding/v1/address?key=" +
-        mapQuestKey +
-        "&location=" +
-        location;
-      if (bounds) {
-        options.url += "&boundingBox=" + bounds.join(",");
-      }
-      $.ajax(options);
-    },
-    reverseGeocode: function(latLng, options) {
-      var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey,
-        lat,
-        lng;
-
-      if (!mapQuestKey)
-        throw "You must provide a MapQuest key for geocoding to work.";
-
-      lat = latLng.lat || latLng[0];
-      lng = latLng.lng || latLng[1];
-      options = options || {};
-      options.dataType = "jsonp";
-      options.cache = true;
-      options.url =
-        "https://open.mapquestapi.com/geocoding/v1/reverse?key=" +
-        mapQuestKey +
-        "&location=" +
-        lat +
-        "," +
-        lng;
-      $.ajax(options);
-    },
-  },
-
   Mapbox: {
-    /* ========================================
-       * Because of an accident of history, geocoding with the MapQuest API was
-       * implemented first in Shareabouts. Thus, in order for geocoder results
-       * from anywhere else to be useful, they have to look like mapquest
-       * results.
-       *
-       * TODO: I'd rather see both the mapquest and mapbox results look more
-       * like GeoJSON, e.g. Carmen:
-       *
-       *     https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
-       */
-
-    // L.mapbox.accessToken = 'pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImNpZjVjdWxpMDBhMnVzcG0zYjZzaXcyczMifQ.lY5dtGpiFt2BvlywF1n59Q';
-    // Shareabouts.geocoderControl = L.mapbox.geocoderControl('mapbox.places', {autocomplete: true});
-    // window.app.appView.mapView.map.addControl(Shareabouts.geocoderControl);
-
-    toMapQuestResult: function(result) {
-      result.latLng = { lat: result.center[1], lng: result.center[0] };
-
-      if (result.center) delete result.center;
-      if (result.relevance) delete result.relevance;
-      if (result.address) delete result.address;
-      if (result.context) delete result.context;
-      if (result.bbox) delete result.bbox;
-      if (result.id) delete result.id;
-      if (result.text) delete result.text;
-      if (result.type) delete result.type;
-
-      return result;
-    },
-    toMapQuestResults: function(data) {
-      // Make Mapbox reverse geocode results look kinda like
-      // MapQuest results.
-      data.results = data.features;
-      if (data.results.length > 0) {
-        data.results[0] = {
-          locations: [self.Mapbox.toMapQuestResult(data.results[0])],
-          providedLocation: { location: data.query.join(" ") },
-        };
-      }
-      return data;
-    },
-
     geocode: function({ location, hint, bbox, options }) {
-      var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
-        originalSuccess = options && options.success,
-        transformedResultsSuccess = function(data) {
-          if (originalSuccess) {
-            originalSuccess(self.Mapbox.toMapQuestResults(data));
-          }
-        };
+      const mapboxToken = Mapseed.bootstrapped.mapboxToken;
 
       if (!mapboxToken)
         throw "You must provide a Mapbox access token " +
-          "(Shareabouts.bootstrapped.mapboxToken) for geocoding to work.";
+          "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
 
-      options = options || {};
-      options.dataType = "json";
-      options.cache = true;
-      options.url =
+      let url =
         "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
         encodeURIComponent(location) +
         ".json?access_token=" +
         mapboxToken;
       if (hint) {
-        options.url += "&proximity=" + hint.join(",");
+        url += "&proximity=" + hint.join(",");
       }
       if (bbox) {
-        options.url += "&bbox=" + bbox.join(",");
+        url += "&bbox=" + bbox.join(",");
       }
-      options.success = transformedResultsSuccess;
-      $.ajax(options);
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => options.success(data));
     },
     reverseGeocode: function(latLng, options) {
-      var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
+      var mapboxToken = Mapseed.bootstrapped.mapboxToken,
         lat,
         lng;
 
       if (!mapboxToken)
         throw "You must provide a Mapbox access token " +
-          "(Shareabouts.bootstrapped.mapboxToken) for geocoding to work.";
+          "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
 
       lat = latLng.lat || latLng[0];
       lng = latLng.lng || latLng[1];
@@ -557,7 +358,8 @@ var self = (module.exports = {
         lat +
         ".json?access_token=" +
         mapboxToken;
-      $.ajax(options);
+
+      fetch(options.url);
     },
   },
 });

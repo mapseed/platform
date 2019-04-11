@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
@@ -6,18 +6,16 @@ import { translate } from "react-i18next";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 
 import InputFormCategorySelector from "./input-form-category-selector";
+import InputForm from "../input-form";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import {
-  updateMapDraggedOrZoomed,
-  mapDraggedOrZoomedSelector,
-} from "../../state/ducks/map";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
+import { mapViewportPropType } from "../../state/ducks/map";
 
 const alertBackground = "#ffc107"; // bright yellow-orange
 const DragMapAlert = styled("div")({
@@ -78,7 +76,7 @@ class FormCategoryMenuWrapper extends Component {
     this.props.updateSpotlightMaskVisibility(true);
   }
 
-  onCategoryChange(selectedCategory) {
+  onCategoryChange = selectedCategory => {
     const categoryConfig = getCategoryConfig(
       this.props.placeConfig,
       selectedCategory,
@@ -90,7 +88,7 @@ class FormCategoryMenuWrapper extends Component {
       datasetUrl: this.props.datasetUrlSelector(categoryConfig.datasetSlug),
       datasetSlug: categoryConfig.datasetSlug,
     });
-  }
+  };
 
   render() {
     return (
@@ -104,35 +102,45 @@ class FormCategoryMenuWrapper extends Component {
               onCategoryChange={this.onCategoryChange.bind(this)}
               selectedCategory={this.state.selectedCategory}
               visibleCategoryConfigs={this.visibleCategoryConfigs}
+              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
             />
           </>
         )}
-        {this.state.selectedCategory
-          ? this.props.render(
-              this.state,
-              this.props,
-              this.onCategoryChange.bind(this),
-            )
-          : null}
+        {this.state.selectedCategory && (
+          <InputForm
+            contentPanelInnerContainerRef={
+              this.props.contentPanelInnerContainerRef
+            }
+            selectedCategory={this.state.selectedCategory}
+            datasetUrl={this.state.datasetUrl}
+            datasetSlug={this.state.datasetSlug}
+            isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+            isSingleCategory={this.state.isSingleCategory}
+            onCategoryChange={this.onCategoryChange}
+            mapViewport={this.props.mapViewport}
+            onUpdateMapViewport={this.props.onUpdateMapViewport}
+            updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
+          />
+        )}
       </>
     );
   }
 }
 
 FormCategoryMenuWrapper.propTypes = {
+  contentPanelInnerContainerRef: PropTypes.object.isRequired,
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
-  router: PropTypes.instanceOf(Backbone.Router),
   customHooks: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.objectOf(PropTypes.func),
   ]),
   containers: PropTypes.instanceOf(NodeList),
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
-  render: PropTypes.func.isRequired,
+  mapViewport: mapViewportPropType.isRequired,
+  onUpdateMapViewport: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
@@ -150,15 +158,12 @@ const mapStateToProps = state => ({
     }),
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
-  updateMapDraggedOrZoomed: isMapDraggedOrZoomed =>
-    dispatch(updateMapDraggedOrZoomed(isMapDraggedOrZoomed)),
   updateSpotlightMaskVisibility: isVisible =>
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });

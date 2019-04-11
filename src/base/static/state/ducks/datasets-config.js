@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 export const datasetSlugsSelector = state =>
   state.datasetsConfig.map(config => config.slug);
 
-export const datasetConfigsSelector = state => state.datasetsConfig;
+export const datasetsConfigSelector = state => state.datasetsConfig;
 
 export const datasetClientSlugSelector = (state, datasetSlug) =>
   state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
     .clientSlug;
 
-export const datasetConfigPropType = PropTypes.arrayOf(
+export const datasetsConfigPropType = PropTypes.arrayOf(
   PropTypes.shape({
     url: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
@@ -67,7 +67,7 @@ export function loadDatasetsConfig(datasetsConfig) {
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

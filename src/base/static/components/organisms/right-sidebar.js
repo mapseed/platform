@@ -88,25 +88,18 @@ const RightSidebar = props => {
             storyConfig={props.storyConfig}
             placeConfig={props.placeConfig}
             places={props.places}
-            router={props.router}
           />
         )}
         {props.rightSidebarConfig.component === "MapLegendPanel" && (
           <MapLegendPanel config={props.rightSidebarConfig} />
         )}
         {props.rightSidebarConfig.component === "ActivityStream" && (
-          <ActivityStream
-            config={props.rightSidebarConfig}
-            router={props.router}
-          />
+          <ActivityStream config={props.rightSidebarConfig} />
         )}
         {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
           <>
             <MapLegendPanel isThemed={true} />
-            <ActivityStream
-              config={props.rightSidebarConfig}
-              router={props.router}
-            />
+            <ActivityStream config={props.rightSidebarConfig} />
           </>
         )}
       </RightSidebarInnerContainer>
@@ -122,7 +115,6 @@ RightSidebar.propTypes = {
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }),
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   updateRightSidebarVisibility: PropTypes.func.isRequired,
 };
 
