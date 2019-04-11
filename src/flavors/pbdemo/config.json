@@ -525,63 +525,6 @@
                 ]
               ]
             }
-          },
-          {
-            "id": "pbdurham-projects",
-            "datasetSlug": "pbdurham-projects",
-            "interactive": true,
-            "visibleDefault": true,
-            "mapboxFocusedLayers": [
-              {
-                "id": "pbdurham-projects-focused",
-                "type": "symbol",
-                "filter": ["==", ["get", "location_type"], "projects"],
-                "source": "pbdurham-projects",
-                "layout": {
-                  "icon-allow-overlap": true,
-                  "icon-image": [
-                    "match",
-                    ["get", "ward"],
-                    "ward_1",
-                    "project-ward-1-focused.png",
-                    "ward_2",
-                    "project-ward-2-focused.png",
-                    "ward_3",
-                    "project-ward-3-focused.png",
-                    "citywide",
-                    "project-citywide-focused.png",
-                    "money.png"
-                  ],
-                  "icon-size": 0.3,
-                  "icon-anchor": "bottom"
-                }
-              }
-            ],
-            "mapboxLayers": [
-              {
-                "id": "pbdurham-projects",
-                "type": "symbol",
-                "source": "pbdurham-projects",
-                "layout": {
-                  "icon-allow-overlap": true,
-                  "icon-anchor": "bottom",
-                  "icon-image": [
-                    "match",
-                    ["get", "ward"],
-                    "ward_1",
-                    "project-ward-1.png",
-                    "ward_2",
-                    "project-ward-2.png",
-                    "ward_3",
-                    "project-ward-3.png",
-                    "citywide",
-                    "project-citywide.png",
-                    "money.png"
-                  ],
-                  "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
-                }
-              }
-            ]
           }
         ]
       },
@@ -676,6 +619,63 @@
                   "__no-icon-image__"
                 ]
               ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "pbdurham-projects",
+        "datasetSlug": "pbdurham-projects",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "pbdurham-projects-focused",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "projects"],
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1-focused.png",
+                "ward_2",
+                "project-ward-2-focused.png",
+                "ward_3",
+                "project-ward-3-focused.png",
+                "citywide",
+                "project-citywide-focused.png",
+                "money.png"
+              ],
+              "icon-size": 0.3,
+              "icon-anchor": "bottom"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "pbdurham-projects",
+            "type": "symbol",
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1.png",
+                "ward_2",
+                "project-ward-2.png",
+                "ward_3",
+                "project-ward-3.png",
+                "citywide",
+                "project-citywide.png",
+                "money.png"
+              ],
+              "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
             }
           }
         ]
@@ -793,6 +793,202 @@
     "submit_button_label": "_(Share my idea)",
     "location_item_name": "location",
     "place_detail": [
+      {
+        "formId": "projects",
+        "category": "projects",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "pbdurham-projects",
+        "icon_url": "/static/css/images/markers/money.png",
+        "value": "project",
+        "label": "_(Project Proposal)",
+        "fields": [
+          {
+            "name": "private",
+            "type": "big_radio",
+            "restrictToGroups": ["administrators"],
+            "prompt": "_(Publish or unpublish this project. Published projects will be visible to all users. Unpublished projects will be visible to administrators, delegates, and technical reviewers.)",
+            "forced_default_value": "yes",
+            "content": [
+              {
+                "label": "_(Published)",
+                "value": "no"
+              },
+              {
+                "label": "_(Unpublished)",
+                "value": "yes"
+              }
+            ],
+            "optional": false
+          },
+          {
+            "prompt": "_(Proposal Name)",
+            "type": "text",
+            "placeholder": "...",
+            "name": "title",
+            "optional": false
+          },
+          {
+            "prompt": "_(Idea(s) it comes from: (List idea tracker number(s), separated by a space))",
+            "display_prompt": "_(Related ideas:)",
+            "type": "text",
+            "placeholder": "...",
+            "name": "related_ideas",
+            "optional": true
+          },
+          {
+            "prompt": "_(Brief Project Description: (less than 100 words))",
+            "display_prompt": "_(Description of this project proposal:)",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "placeholder": "_(Briefly describe the project)",
+            "name": "project_description",
+            "optional": true
+          },
+          {
+            "prompt": "_(Impact Statement: (less than 200 words))",
+            "display_prompt": "_(Impact Statement:)",
+            "includeOnListItem": true,
+            "type": "textarea",
+            "placeholder": "_(Briefly describe the project)",
+            "name": "impact_statement",
+            "optional": true
+          },
+          {
+            "name": "ward",
+            "type": "big_radio",
+            "includeOnListItem": true,
+            "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
+            "label": "_(Ward:)",
+            "content": [
+              {
+                "label": "_(Ward 1)",
+                "value": "ward_1"
+              },
+              {
+                "label": "_(Ward 2)",
+                "value": "ward_2"
+              },
+              {
+                "label": "_(Ward 3)",
+                "value": "ward_3"
+              },
+              {
+                "label": "_(Citywide)",
+                "value": "citywide"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "delegates_header",
+            "restrictToGroups": ["delegates"],
+            "type": "informational_html",
+            "content": "<h1>Budget Delegates section</h1><p>This section is intended to be completed by Budget Delegates.</p>"
+          },
+          {
+            "prompt": "_(Equity Score)",
+            "restrictToGroups": ["delegates"],
+            "display_prompt": "_(Equity Assessment Score:)",
+            "type": "big_radio",
+            "name": "delegate_equity_score",
+            "optional": true,
+            "content": [
+              {
+                "label": "_(1 - Low contribution to advancing equity)",
+                "value": "1"
+              },
+              {
+                "label": "_(2 - Medium contribution to advancing equity)",
+                "value": "2"
+              },
+              {
+                "label": "_(3 - High contribution to advancing equity)",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "prompt": "_(Impact Score)",
+            "restrictToGroups": ["delegates"],
+            "display_prompt": "_(Impact Assessment Score:)",
+            "type": "big_radio",
+            "name": "delegate_impact_score",
+            "optional": true,
+            "content": [
+              {
+                "label": "_(1 - Low impact)",
+                "value": "1"
+              },
+              {
+                "label": "_(2 - Medium impact)",
+                "value": "2"
+              },
+              {
+                "label": "_(3 - High impact)",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "name": "staff_review_header",
+            "restrictToGroups": ["tech-reviewers"],
+            "type": "informational_html",
+            "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
+          },
+          {
+            "prompt": "_(Feasibility Score)",
+            "restrictToGroups": ["tech-reviewers"],
+            "display_prompt": "_(Feasibility Assessment Score)",
+            "type": "big_radio",
+            "name": "staff_feasibility_score",
+            "optional": true,
+            "content": [
+              {
+                "label": "_(1 - Project is not feasible)",
+                "value": "1"
+              },
+              {
+                "label": "_(2 - Project may or may not be feasible)",
+                "value": "2"
+              },
+              {
+                "label": "_(3 - Project is highly likely to be feasible)",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "prompt": "_(Project Budget)",
+            "display_prompt": "_(Project Budget:)",
+            "restrictToGroups": ["tech-reviewers"],
+            "type": "text",
+            "includeOnListItem": true,
+            "placeholder": "...",
+            "name": "staff_project_budget",
+            "optional": true
+          },
+          {
+            "prompt": "_(Ongoing Maintenance Cost)",
+            "display_prompt": "_(Ongoing Maintenance Cost:)",
+            "restrictToGroups": ["tech-reviewers"],
+            "type": "text",
+            "includeOnListItem": true,
+            "placeholder": "...",
+            "name": "staff_cost_estimation",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
       {
         "formId": "culture",
         "category": "culture",
