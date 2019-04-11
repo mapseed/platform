@@ -84,7 +84,7 @@ class InputForm extends Component {
 
       this.setStageLayers(stageConfig);
       stageConfig.viewport &&
-        this.props.updateMapViewport(stageConfig.viewport);
+        this.props.onUpdateMapViewport(stageConfig.viewport);
     }
   }
 
@@ -114,7 +114,7 @@ class InputForm extends Component {
 
       this.setStageLayers(stageConfig);
       stageConfig.viewport &&
-        this.props.updateMapViewport(stageConfig.viewport);
+        this.props.onUpdateMapViewport(stageConfig.viewport);
     }
   }
 
