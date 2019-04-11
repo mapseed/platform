@@ -6,7 +6,7 @@
       "clientSlug": "report",
       "anonymous_permissions": [
         {
-          "abilities": "create",
+          "abilities": ["create"],
           "submission_set": "*"
         }
       ]
