@@ -3884,7 +3884,7 @@
             "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
             "paint": {
               "line-color": "#666",
-              "line-width": 8,
+              "line-width": 5,
               "line-dasharray": [2, 2]
             }
           }
@@ -4341,7 +4341,7 @@
               "wa-state-large-fires"
             ],
             "viewport": {
-              "zoom": 8,
+              "zoom": 8.3,
               "latitude": 47.07231,
               "longitude": -120.65079,
               "transitionDuration": 1500,
@@ -4375,22 +4375,30 @@
           {
             "name": "fire_environment_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Kittitas County: a Fire Environment</h2>"
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Washington State:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
           },
           {
             "name": "fire_environment_info",
             "type": "informational_html",
-            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge Wildfire' style='width: 100%;' /><p>This map shows the concentration of wildfire start site in Washington State since 2008.</p><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 2fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>9,689</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total fires started since 2008</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>1,705,602</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+            "content": "<p class='mapseed-form-stage-body'>Since 2008, wildfires have burned nearly 2 million acres in Washington State. This map visualizes where fires tend to start.</p><img src='/static/css/images/wildfire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>9,689</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total fires started since 2008</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>1,705,602</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
           },
           {
             "name": "large_fires_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Large Wildfires</h2>"
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
           },
           {
             "name": "large_fires_information",
             "type": "informational_html",
-            "content": "<p>Large wildfires in Kittitas County...</p>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973, the largest of which was the Clockum Tarps fire in 2013. Hover over fires on the map to learn more about them [to come].</p><img src='/static/css/images/wildfire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+          },
+          {
+            "name": "fire_resiliency_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "fire_resiliency_information",
+            "type": "common_form_element"
           },
           {
             "name": "immediate_zone_header",
@@ -4454,13 +4462,13 @@
       }
     ],
     "common_form_elements": {
-      "fire_preparedness_header": {
+      "fire_resiliency_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Wildfire Preparedness: Are You Ready?</h2>"
+        "content": "<h2 style='padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Your Path to Wildfire Resilience</h2>"
       },
-      "fire_preparedness_information": {
+      "fire_resiliency_information": {
         "type": "informational_html",
-        "content": "<p></p>"
+        "content": "<p>Be resilient! As a landowner in a fire environment, what you do (and don't do!) on your property matters.</p><p>Tell us a bit about your property and practices, and we'll give you some practical tips for becoming even more wildfire resilient.</p>"
       },
       "immediate_zone_header": {
         "type": "informational_html",

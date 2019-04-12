@@ -1,9 +1,8 @@
 /*
- * This CSS file follows the default Shareabouts style.css.
+ * This CSS file follows the default Mapseed style.css.
  * All rules herein will override the default Shareabouts styles.
  * NOTE: "With great power comes great responsibility."
  */
-
 body {
   font-family: PTSans, sans-serif !important;
 }
@@ -14,6 +13,10 @@ header {
 
 /* =Input Form
 -------------------------------------------------------------- */
+.mapseed-form-stage-body {
+  font-size: 1.2rem;
+}
+
 .input-form__field-container {
   padding: 16px !important;
 }
@@ -56,6 +59,11 @@ header {
 
 .input-form__field-container[data-field-type="informational_html"] {
   padding: 0 !important;
+}
+
+.input-form__field-container[data-field-type="informational_html"]
+  .input-form__field-prompt-container {
+  display: none;
 }
 
 .input-form__field-prompt {
