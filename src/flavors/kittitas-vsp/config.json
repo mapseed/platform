@@ -110,6 +110,12 @@
           "https://vector-tiles.mapseed.org/kittitas-wetlands/{z}/{x}/{y}.pbf"
         ]
       },
+      "kittitas-conservation-areas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-conservation-areas/{z}/{x}/{y}.pbf"
+        ]
+      },
       "kittitas-floodplain": {
         "type": "geojson",
         "data": "https://opendata.arcgis.com/datasets/42e5edd4c38d4559b7bb4caa10cdd8d2_2.geojson"
@@ -317,41 +323,25 @@
         ]
       },
       {
-        "id": "kittitas-wildlife",
+        "id": "kittitas-conservation-areas",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "kittitas-wildlife",
+            "id": "kittitas-conservation-areas",
             "type": "fill",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [
-              "any",
-              ["==", ["to-number", ["get", "AM_HAB"]], 1],
-              ["==", ["to-number", ["get", "NG_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
-            ],
+            "filter": ["==", ["geometry-type"], "Polygon"],
+            "source": "kittitas-conservation-areas",
+            "source-layer": "kittitas-conservation-areas",
             "paint": {
               "fill-pattern": "conservation-fill.png"
             }
           },
           {
-            "id": "kittitas-wildlife-outline",
+            "id": "kittitas-conservation-areas-outline",
             "type": "line",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [
-              "any",
-              ["==", ["to-number", ["get", "AM_HAB"]], 1],
-              ["==", ["to-number", ["get", "NG_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP_HAB"]], 1],
-              ["==", ["to-number", ["get", "SP1_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH_HAB"]], 1],
-              ["==", ["to-number", ["get", "WH1_HAB"]], 1]
-            ],
+            "filter": ["==", ["geometry-type"], "LineString"],
+            "source": "kittitas-conservation-areas",
+            "source-layer": "kittitas-conservation-areas",
             "paint": {
               "line-color": "#10e53d",
               "line-width": 2,
@@ -452,8 +442,8 @@
                 "title": "_(Frequently Flooded Areas)"
               },
               {
-                "id": "kittitas-wildlife",
-                "title": "_(Wildlife Habitat)"
+                "id": "kittitas-conservation-areas",
+                "title": "_(Critical Conservation Areas)"
               }
             ]
           },
@@ -498,8 +488,6 @@
           {
             "start_field_index": 1,
             "end_field_index": 4,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -509,8 +497,6 @@
           {
             "start_field_index": 5,
             "end_field_index": 7,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-wetlands",
@@ -520,8 +506,6 @@
           {
             "start_field_index": 8,
             "end_field_index": 10,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-frequently-flooded",
@@ -531,8 +515,6 @@
           {
             "start_field_index": 11,
             "end_field_index": 13,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-geologic-hazard",
@@ -542,8 +524,6 @@
           {
             "start_field_index": 14,
             "end_field_index": 16,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-critical-aquifer",
@@ -553,19 +533,15 @@
           {
             "start_field_index": 17,
             "end_field_index": 19,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-wildlife",
+              "kittitas-conservation-areas",
               "kittitas-county-outline"
             ]
           },
           {
             "start_field_index": 20,
-            "end_field_index": 37,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "end_field_index": 40,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -573,10 +549,8 @@
             ]
           },
           {
-            "start_field_index": 38,
-            "end_field_index": 55,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "start_field_index": 41,
+            "end_field_index": 59,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -584,10 +558,8 @@
             ]
           },
           {
-            "start_field_index": 56,
-            "end_field_index": 61,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "start_field_index": 60,
+            "end_field_index": 65,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -595,10 +567,8 @@
             ]
           },
           {
-            "start_field_index": 62,
-            "end_field_index": 76,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "start_field_index": 66,
+            "end_field_index": 80,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -606,10 +576,8 @@
             ]
           },
           {
-            "start_field_index": 77,
-            "end_field_index": 82,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "start_field_index": 81,
+            "end_field_index": 86,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -617,10 +585,8 @@
             ]
           },
           {
-            "start_field_index": 83,
-            "end_field_index": 111,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "start_field_index": 87,
+            "end_field_index": 115,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -628,10 +594,8 @@
             ]
           },
           {
-            "start_field_index": 112,
-            "end_field_index": 123,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "start_field_index": 116,
+            "end_field_index": 127,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -671,7 +635,7 @@
           {
             "name": "wetlands_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/wetlands.jpg' alt='Wetlands' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wetlands.jpg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
@@ -697,7 +661,7 @@
           {
             "name": "frequently_flooded_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
@@ -723,7 +687,7 @@
           {
             "name": "geologic_hazard_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/geologic-hazard-area.jpg' alt='Geologic hazard areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/geologic-hazard-area.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_geologic_hazard",
@@ -749,7 +713,7 @@
           {
             "name": "critical_aquifer_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/critical-aquifer-recharge.jpg' alt='Critical aquifer recharge areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/critical-aquifer-recharge.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_critical_aquifer",
@@ -775,7 +739,7 @@
           {
             "name": "fish_wildlife_habitat_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;justify-content:center'><img style='height:150px' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildife conservation areas' /></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_fish_wildlife_habitat",
@@ -812,11 +776,11 @@
             "advance_stage_on_value": "no-water-use",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-water-use"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "water-use"
               }
             ],
@@ -889,7 +853,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -939,7 +903,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -989,7 +953,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1019,8 +983,8 @@
             "//": "=============== PIPELINE IRRIGATION ========================",
             "name": "pipeline_irrigation",
             "type": "big_radio",
-            "prompt": "_(Pipeline irrigation)",
-            "label": "_(Pipeline irrigation)",
+            "prompt": "_(Converted open ditch to pipeline)",
+            "label": "_(Open ditch to pipeline conversion)",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
@@ -1039,7 +1003,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1066,6 +1030,56 @@
             "hidden_default": true
           },
           {
+            "//": "=============== IRRIGATION SCHEDULING ========================",
+            "name": "irrigation_scheduling",
+            "type": "big_radio",
+            "prompt": "_(Irrigation Scheduling – monitoring soil moisture and adjusting water applications accordingly)",
+            "label": "_(Irrigation scheduling)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "irrigation_scheduling_quantity",
+                "irrigation_scheduling_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No but interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "irrigation_scheduling_quantity",
+            "type": "number",
+            "prompt": "_(On how many acres of land do you use irrigation scheduling?)",
+            "min": 0,
+            "hidden_default": true,
+            "placeholder": "_(Approximate acreage)",
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "irrigation_scheduling_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using irrigation scheduling?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
             "//": "--------------SECTION: SOIL HEALTH & EROSION MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
@@ -1084,15 +1098,20 @@
             "advance_stage_on_value": "no-soil-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-soil-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "soil-management"
               }
             ],
             "optional": true
+          },
+          {
+            "name": "web_soil_survey_info",
+            "type": "informational_html",
+            "content": "<p>Go further in depth! Take the USDA's <a target='_blank' href='https://websoilsurvey.sc.egov.usda.gov/App/HomePage.htm'>Web Soil Survey</a> (survey will open in a new tab).</p>"
           },
           {
             "//": "=============== COVER CROP =================================",
@@ -1115,7 +1134,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1162,7 +1181,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1209,7 +1228,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1256,7 +1275,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1303,7 +1322,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1348,11 +1367,11 @@
             "advance_stage_on_value": "no-nutrient-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-nutrient-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "nutrient-management"
               }
             ],
@@ -1382,7 +1401,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1427,11 +1446,11 @@
             "advance_stage_on_value": "no-nutrient-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-nutrient-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "nutrient-management"
               }
             ],
@@ -1461,7 +1480,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1506,11 +1525,11 @@
             "advance_stage_on_value": "no-range-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-range-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "range-management"
               }
             ],
@@ -1540,7 +1559,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1590,7 +1609,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1639,7 +1658,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1685,7 +1704,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1729,11 +1748,11 @@
             "advance_stage_on_value": "no-pest-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-pest-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "pest-management"
               }
             ],
@@ -1763,7 +1782,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1808,11 +1827,11 @@
             "advance_stage_on_value": "no-fish-wildlife-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-fish-wildlife-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "fish-wildlife-management"
               }
             ],
@@ -1842,7 +1861,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1892,7 +1911,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1939,7 +1958,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -1986,7 +2005,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -2033,7 +2052,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -2080,7 +2099,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -2127,7 +2146,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -2174,7 +2193,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]
@@ -2224,7 +2243,7 @@
                 "value": "no"
               },
               {
-                "label": "_(No, but I'm interested)",
+                "label": "_(No but interested)",
                 "value": "interested"
               }
             ]

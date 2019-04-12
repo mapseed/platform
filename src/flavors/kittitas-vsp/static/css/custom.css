@@ -15,7 +15,7 @@ header {
 /* =Input Form
 -------------------------------------------------------------- */
 .input-form__field-container {
-  padding: 16px !important;
+  padding: 8px 16px 8px 16px !important;
 }
 
 .input-form__field-container[data-field-type="datetime"],
@@ -25,7 +25,7 @@ header {
   background-color: #efefef !important;
   margin-top: 15px !important;
   margin-bottom: 0 !important;
-  box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75) !important;
+  box-shadow: 0 4px 5px #aaa, 0 5px 5px #eee !important;
 }
 
 .input-form__field-container[data-field-type="geocoding"],
@@ -35,13 +35,39 @@ header {
   background-color: #efefef !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75) !important;
+  box-shadow: 0 4px 5px #aaa, 0 5px 5px #eee !important;
 }
 
 .input-form__field-container[data-field-name="private-landowner_email"],
 .input-form__field-container[data-field-name="private-landowner_name"],
 .input-form__field-container[data-field-name="private-landowner_phone"] {
   margin-top: 15px !important;
+}
+
+.input-form__field-container[data-field-name="water-use_no-water-use"],
+.input-form__field-container[data-field-name="fish-wildlife-management_no-fish-wildlife-management"],
+.input-form__field-container[data-field-name="pest-management_no-pest-management"],
+.input-form__field-container[data-field-name="range-management_no-range-management"],
+.input-form__field-container[data-field-name="nutrient-management_no-nutrient-management"],
+.input-form__field-container[data-field-name="soil-management_no-soil-management"] {
+  font-family: FontAwesome, sans-serif;
+
+  .input-form__field-prompt-container {
+    display: none;
+  }
+}
+
+label[for="input-form-nutrient-management_no-nutrient-management"],
+label[for="input-form-fish-wildlife-management_no-fish-wildlife-management"],
+label[for="input-form-pest-management_no-pest-management"],
+label[for="input-form-range-management_no-range-management"],
+label[for="input-form-water-use_no-water-use"],
+label[for="input-form-soil-management_no-soil-management"] {
+  padding-left: 0 !important;
+
+  &:before {
+    display: none;
+  }
 }
 
 .input-form__field-container[data-field-type="geolocate"] {
@@ -56,12 +82,18 @@ header {
 
 .input-form__field-container[data-field-type="informational_html"] {
   padding: 0 !important;
+
+  .input-form__field-prompt-container {
+    display: none;
+  }
 }
 
 .input-form__field-prompt {
   color: #444 !important;
   font-size: 1.15em !important;
   font-weight: 900 !important;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
 }
 
 .form-stage-header-bar {
@@ -71,7 +103,7 @@ header {
 .input-form__field-container[data-field-type="number"],
 .input-form__field-container[data-field-type="text"] {
   background-color: #efefef !important;
-  box-shadow: 1px 1px 1px 0px rgba(140, 140, 140, 0.75) !important;
+  box-shadow: 0 4px 5px #aaa, 0 5px 5px #eee !important;
 }
 
 .input-form__field-container[data-field-type="datetime"] {
@@ -87,6 +119,8 @@ header {
   min-height: 30px !important;
   background-color: #efefef !important;
   overflow: hidden !important;
+  padding-left: 50px !important;
+  padding-right: 16px !important;
 }
 
 .textarea-field,
@@ -105,13 +139,7 @@ input[type="number"],
 .big-toggle-field__label--hoverable:hover:before,
 .big-radio-field__label--hoverable:hover:before {
   text-indent: 0.5em !important;
-  color: #999999 !important;
-}
-
-.big-toggle-field,
-.big-radio-field {
-  margin-right: 24px !important;
-  margin-top: 8px !important;
+  color: #ddd !important;
 }
 
 .big-toggle-field__label:before,
@@ -120,15 +148,17 @@ input[type="number"],
   top: 50% !important;
   transform: translate(0, -50%) !important;
   height: 2.5em !important;
-  background-color: #efefef !important;
-  border: 4px solid #999999 !important;
   width: 2em !important;
   text-indent: 0.5em !important;
+  background-color: #999 !important;
+  border-radius: 4px;
+  box-shadow: 0 3px 0 hsla(0,0%,100%,.45), 0 -2px 0 hsla(0,0%,0%,.45);
 }
 
 .datetime-field__label-ongoing:before {
-  background-color: #efefef !important;
-  border: 4px solid #999999 !important;
+  background-color: #999 !important;
+  border-radius: 4px;
+  box-shadow: 0 3px 0 hsla(0,0%,100%,.45), 0 -2px 0 hsla(0,0%,0%,.45);
 }
 
 .datetime-field__label-ongoing--toggled:before {
@@ -137,7 +167,7 @@ input[type="number"],
 }
 
 .datetime-field__label-ongoing--hoverable:hover:before {
-  color: #999999 !important;
+  color: #ddd !important;
 }
 
 .big-radio-field__label--toggled.big-radio-field__label--hoverable:hover:before,
