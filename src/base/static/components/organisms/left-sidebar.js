@@ -61,13 +61,16 @@ const LeftSidebar = props => (
       <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
         &#10005;
       </CloseButton>
-      {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
+      {props.leftSidebarComponent === "MapLayerPanel" && (
+        <MapLayerPanel mapSourcesLoadStatus={props.mapSourcesLoadStatus} />
+      )}
     </LeftSidebarInnerContainer>
   </LeftSidebarOuterContainer>
 );
 
 LeftSidebar.propTypes = {
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
+  mapSourcesLoadStatus: PropTypes.object.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   leftSidebarComponent: PropTypes.string,
   mapLegendPanelConfig: PropTypes.shape({

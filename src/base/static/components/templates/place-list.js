@@ -5,6 +5,8 @@ import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
 import {
   filteredPlacesSelector,
   placesPropType,
@@ -265,7 +267,6 @@ PlaceList.propTypes = {
   places: placesPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -273,4 +274,6 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(translate("PlaceList")(PlaceList));
+export default withRouter(
+  connect(mapStateToProps)(translate("PlaceList")(PlaceList)),
+);

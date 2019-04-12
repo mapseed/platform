@@ -2,17 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
-import { Link, SmallText } from "../atoms/typography";
+import { InternalLink, SmallText } from "../atoms/typography";
 
 const StoryChapterWrapper = styled(props => (
-  <Link
-    href={props.href}
-    rel="internal"
-    className={props.className}
-    router={props.router}
-  >
+  <InternalLink href={props.href} className={props.className}>
     {props.children}
-  </Link>
+  </InternalLink>
 ))(props => ({
   display: "flex",
   flexDirection: "row",
@@ -44,7 +39,6 @@ const StoryChapter = props => {
     <StoryChapterWrapper
       href={"/" + props.placeUrl}
       isSelected={props.isSelected}
-      router={props.router}
     >
       <img src={props.iconUrl} style={{ width: "30px", maxWidth: "30px" }} />
       <StoryChapterTitle>{props.title}</StoryChapterTitle>
@@ -56,7 +50,6 @@ StoryChapter.propTypes = {
   placeUrl: PropTypes.string.isRequired,
   iconUrl: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   title: PropTypes.string.isRequired,
 };
 

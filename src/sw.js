@@ -7,7 +7,7 @@
  */
 
 importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/4.0.0/workbox-sw.js",
+  "https://storage.googleapis.com/workbox-cdn/releases/4.2.0/workbox-sw.js",
 );
 
 // TODO: send an alert to the user when this data is about to expire
@@ -133,12 +133,6 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^http[s]?:\/\/cdnjs.cloudflare.com\/ajax\/libs\//,
-  new workbox.strategies.StaleWhileRevalidate(),
-  "GET",
-);
-
-workbox.routing.registerRoute(
-  /^http[s]?:\/\/ajax.googleapis.com\/ajax\/libs\//,
   new workbox.strategies.StaleWhileRevalidate(),
   "GET",
 );

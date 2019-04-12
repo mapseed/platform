@@ -56,7 +56,10 @@ export function loadPlaceConfig(config, user) {
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = {
+  anonymous_name: "",
+  action_text: "",
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import styled from "@emotion/styled";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 import "./typography.scss";
 
@@ -223,28 +224,19 @@ const MicroText = styled("span")(props => {
   return textHandler(props, styles);
 });
 
-const Link = styled(props => {
-  return (
-    <a
-      href={props.href}
-      rel={props.rel}
-      className={props.className}
-      onClick={evt => {
-        // For internal routing.
-        if (props.rel === "internal" && props.router) {
-          evt.preventDefault();
-          props.router.navigate(
-            evt.currentTarget.attributes.getNamedItem("href").value,
-            { trigger: true },
-          );
-        }
+const ExternalLink = styled("a")({
+  textDecoration: "none",
 
-        props.onClick && props.onClick();
-      }}
-      {...props}
-    >
+  "&:hover": {
+    cursor: "pointer",
+  },
+});
+
+const InternalLink = styled(props => {
+  return (
+    <Link to={props.href} className={props.className} {...props}>
       {props.children}
-    </a>
+    </Link>
   );
 })(props => ({
   cursor: "pointer",
@@ -261,8 +253,6 @@ const Link = styled(props => {
 
 Link.propTypes = {
   href: PropTypes.string.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
-  rel: PropTypes.string,
 };
 
 const Time = props => <time>{moment(props.time).fromNow()}</time>;
@@ -272,7 +262,8 @@ Time.propTypes = {
 };
 
 export {
-  Link,
+  ExternalLink,
+  InternalLink,
   WarningMessage,
   Paragraph,
   Header1,

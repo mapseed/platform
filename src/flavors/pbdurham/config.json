@@ -436,6 +436,101 @@
         ]
       },
       {
+        "id": "pbdurham",
+        "datasetSlug": "pbdurham",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "pbdurham-focused",
+            "type": "symbol",
+            "source": "pbdurham",
+            "filter": [
+              "any",
+              ["==", ["get", "location_type"], "culture"],
+              ["==", ["get", "location_type"], "safety"],
+              ["==", ["get", "location_type"], "parks"],
+              ["==", ["get", "location_type"], "health"],
+              ["==", ["get", "location_type"], "streets"],
+              ["==", ["get", "location_type"], "other"]
+            ],
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "culture",
+                "fountain.png",
+                "safety",
+                "safety.png",
+                "parks",
+                "tree.png",
+                "health",
+                "health.png",
+                "streets",
+                "street-sidewalk.png",
+                "other",
+                "idea.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "pbdurham",
+            "type": "symbol",
+            "source": "pbdurham",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": ["step", ["zoom"], "center", 13, "bottom"],
+              "icon-size": ["step", ["zoom"], 0.3, 13, 0.4],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "culture",
+                  "dot-b75ab8.png",
+                  "safety",
+                  "dot-fc9229.png",
+                  "parks",
+                  "dot-55a504.png",
+                  "health",
+                  "dot-ff78be.png",
+                  "streets",
+                  "dot-8ea4b8.png",
+                  "other",
+                  "dot-ffd614.png",
+                  "__no-icon-image__"
+                ],
+                13,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "culture",
+                  "fountain.png",
+                  "safety",
+                  "safety.png",
+                  "parks",
+                  "tree.png",
+                  "health",
+                  "health.png",
+                  "streets",
+                  "street-sidewalk.png",
+                  "other",
+                  "idea.png",
+                  "__no-icon-image__"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
         "id": "pbdurham-projects",
         "datasetSlug": "pbdurham-projects",
         "interactive": true,
@@ -488,101 +583,6 @@
                 "money.png"
               ], 
               "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
-            }
-          }
-        ]
-      },
-      {
-        "id": "pbdurham",
-        "datasetSlug": "pbdurham",
-        "interactive": true,
-        "visibleDefault": true,
-        "mapboxFocusedLayers": [
-          {
-            "id": "pbdurham-focused",
-            "type": "symbol",
-            "source": "pbdurham",
-            "filter": [
-              "any",
-              ["==", ["get", "location_type"], "culture"],
-              ["==", ["get", "location_type"], "safety"],
-              ["==", ["get", "location_type"], "parks"],
-              ["==", ["get", "location_type"], "health"],
-              ["==", ["get", "location_type"], "streets"],
-              ["==", ["get", "location_type"], "other"]
-            ],
-            "layout": {
-              "icon-allow-overlap": true,
-              "icon-size": 0.7,
-              "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "culture",
-                "fountain.png",
-                "safety",
-                "safety.png",
-                "parks",
-                "tree.png",
-                "health",
-                "health.png",
-                "streets",
-                "street-sidewalk.png",
-                "other",
-                "idea.png",
-                "__no-icon-image__"
-              ]
-            }
-          }
-        ],
-        "mapboxLayers": [
-          {
-            "id": "pbdurham",
-            "type": "symbol",
-            "source": "pbdurham",
-            "layout": {
-              "icon-allow-overlap": true,
-              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
-              "icon-size": ["step", ["zoom"], 0.3, 10, 0.4],
-              "icon-image": [
-                "step",
-                ["zoom"],
-                [
-                  "match",
-                  ["get", "location_type"],
-                  "culture",
-                  "dot-b75ab8.png",
-                  "safety",
-                  "dot-fc9229.png",
-                  "parks",
-                  "dot-55a504.png",
-                  "health",
-                  "dot-ff78be.png",
-                  "streets",
-                  "dot-8ea4b8.png",
-                  "other",
-                  "dot-ffd614.png",
-                  "__no-icon-image__"
-                ],
-                10,
-                [
-                  "match",
-                  ["get", "location_type"],
-                  "culture",
-                  "fountain.png",
-                  "safety",
-                  "safety.png",
-                  "parks",
-                  "tree.png",
-                  "health",
-                  "health.png",
-                  "streets",
-                  "street-sidewalk.png",
-                  "other",
-                  "idea.png",
-                  "__no-icon-image__"
-                ]
-              ]
             }
           }
         ]

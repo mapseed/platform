@@ -16,7 +16,7 @@ const GeolocateButton = styled(props => (
   >
     {props.children}
   </Button>
-))(props => ({
+))(() => ({
   display: "flex",
   alignItems: "center",
 }));

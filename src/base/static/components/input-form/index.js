@@ -4,6 +4,7 @@ import { Map, OrderedMap, fromJS } from "immutable";
 import classNames from "classnames";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
@@ -29,10 +30,9 @@ import {
   setActiveDrawGeometryId,
 } from "../../state/ducks/map-drawing-toolbar";
 import {
-  mapCenterpointSelector,
-  mapDraggedOrZoomedSelector,
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
+  mapViewportPropType,
 } from "../../state/ducks/map";
 import {
   hasAdminAbilities,
@@ -182,6 +182,7 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     if (this.isWithCustomGeometry) {
+      this.props.updateMapDraggedOrZoomed(true);
       this.props.updateSpotlightMaskVisibility(false);
       this.props.updateMapCenterpointVisibility(false);
     } else {
@@ -312,7 +313,7 @@ class InputForm extends Component {
           ? { "marker-symbol": this.props.activeMarker }
           : this.props.geometryStyle;
     } else {
-      const { longitude, latitude } = this.props.mapCenterpoint;
+      const { longitude, latitude } = this.props.mapViewport;
       attrs.geometry = {
         type: "Point",
         coordinates: [longitude, latitude],
@@ -358,7 +359,7 @@ class InputForm extends Component {
         "No internet connection detected. Your submission may not be successful until you are back online.",
       );
       Util.log("USER", "place", "submitted-offline-place");
-      this.props.router.navigate("/", { trigger: true });
+      this.props.history.push("/");
       return;
     }
     Util.log("USER", "new-place", "successfully-add-place");
@@ -423,13 +424,10 @@ class InputForm extends Component {
       // If the Place is note private, follow the default route-to-detail-view
       // behavior.
       this.defaultPostSave(placeResponse);
-      this.props.router.navigate(
+      this.props.history.push(
         `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
           placeResponse.id
         }`,
-        {
-          trigger: true,
-        },
       );
     }
 
@@ -514,9 +512,7 @@ class InputForm extends Component {
           onClose={() => {
             this.setState({ isInfoModalOpen: false });
             this.state.routeOnClose &&
-              this.props.router.navigate(this.state.routeOnClose, {
-                trigger: true,
-              });
+              this.props.history.push(this.state.routeOnClose);
           }}
         />
         <div className="input-form">
@@ -550,10 +546,10 @@ class InputForm extends Component {
                   key={field.get("renderKey")}
                   onAddAttachment={this.onAddAttachment.bind(this)}
                   onFieldChange={this.onFieldChange.bind(this)}
-                  router={this.props.router}
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
+                  onUpdateMapViewport={this.props.onUpdateMapViewport}
                 />
               ))
               .toArray()}
@@ -624,6 +620,7 @@ InputForm.propTypes = {
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
@@ -633,15 +630,16 @@ InputForm.propTypes = {
   isSingleCategory: PropTypes.bool,
   layout: PropTypes.string.isRequired,
   mapConfig: PropTypes.object.isRequired,
-  mapCenterpoint: PropTypes.object,
+  mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
+  onUpdateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
-  router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
@@ -663,10 +661,8 @@ const mapStateToProps = state => ({
     }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
-  mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
@@ -688,7 +684,9 @@ const mapDispatchToProps = dispatch => ({
 // Export undecorated component for testing purposes.
 export { InputForm };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("InputForm")(InputForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(translate("InputForm")(InputForm)),
+);

@@ -1,13 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { connect } from "react-redux";
 import { translate } from "react-i18next";
-
-import {
-  mapDraggingOrZoomingSelector,
-  mapDraggedOrZoomedSelector,
-} from "../../state/ducks/map";
 
 const MapCenterpointX = styled("span")({
   display: "block",
@@ -102,11 +96,4 @@ MapCenterpoint.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
-  isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
-});
-
-export default connect(mapStateToProps)(
-  translate("MapCenterpoint")(MapCenterpoint),
-);
+export default translate("MapCenterpoint")(MapCenterpoint);

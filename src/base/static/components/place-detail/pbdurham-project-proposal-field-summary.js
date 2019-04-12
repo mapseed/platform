@@ -10,7 +10,7 @@ import {
   RegularText,
   LargeText,
 } from "../atoms/typography";
-import { Link } from "../atoms/typography";
+import { InternalLink } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 import TextArea from "../molecules/place-detail-fields/textarea";
@@ -100,14 +100,9 @@ const RelatedIdeasList = styled("ul")({
 });
 
 const RelatedIdeaLink = styled(props => (
-  <Link
-    rel="internal"
-    href={props.href}
-    router={props.router}
-    className={props.className}
-  >
+  <InternalLink href={props.href} className={props.className}>
     {props.children}
-  </Link>
+  </InternalLink>
 ))(() => ({
   textTransform: "none",
 }));
@@ -233,7 +228,6 @@ const PBDurhamProjectProposalFieldSummary = props => {
                 <RealatedIdeaListItem key={placeId}>
                   <RelatedIdeaLink
                     href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
-                    router={props.router}
                   >
                     <RegularText>{relatedIdea.title}</RegularText>
                   </RelatedIdeaLink>
@@ -251,7 +245,6 @@ PBDurhamProjectProposalFieldSummary.propTypes = {
   fields: PropTypes.array.isRequired,
   place: placePropType.isRequired,
   placeSelector: PropTypes.func.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
 
