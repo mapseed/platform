@@ -61,6 +61,7 @@ header {
 .input-form__field-container[data-field-name="pet_food"] {
   margin-top: 0 !important;
   border-radius: 0 !important;
+  padding-left: 40px !important;
 }
 
 .input-form__field-container[data-field-type="geolocate"] {
