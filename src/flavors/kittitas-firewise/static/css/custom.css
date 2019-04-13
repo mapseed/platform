@@ -48,6 +48,21 @@ header {
   margin-top: 15px !important;
 }
 
+.input-form__field-container[data-field-name="food_and_water"],
+.input-form__field-container[data-field-name="medications"],
+.input-form__field-container[data-field-name="clothing"],
+.input-form__field-container[data-field-name="eyeglasses"],
+.input-form__field-container[data-field-name="car_keys_money"],
+.input-form__field-container[data-field-name="first_aid_kit"],
+.input-form__field-container[data-field-name="flashlight"],
+.input-form__field-container[data-field-name="radio"],
+.input-form__field-container[data-field-name="sanitation_supplies"],
+.input-form__field-container[data-field-name="documents"],
+.input-form__field-container[data-field-name="pet_food"] {
+  margin-top: 0 !important;
+  border-radius: 0 !important;
+}
+
 .input-form__field-container[data-field-type="geolocate"] {
   button {
     background-color: #efefef !important;
@@ -136,7 +151,7 @@ input[type="number"],
   width: 2em !important;
   text-indent: 0.5em !important;
   border-radius: 4px;
-  box-shadow: 0 3px 0 hsla(0,0%,100%,.45), 0 -2px 0 hsla(0,0%,0%,.45);
+  box-shadow: 0 3px 0 hsla(0, 0%, 100%, 0.45), 0 -2px 0 hsla(0, 0%, 0%, 0.45);
 }
 
 .datetime-field__label-ongoing:before {

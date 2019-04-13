@@ -3887,7 +3887,15 @@
             "source": "kittitas-county-outline",
             "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
             "paint": {
-              "line-color": "#666",
+              "line-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                "#666",
+                8,
+                "#fff"
+              ],
               "line-width": 5,
               "line-dasharray": [2, 2]
             }
@@ -4296,7 +4304,17 @@
           },
           {
             "start_field_index": 24,
-            "end_field_index": 34,
+            "end_field_index": 31,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 32,
+            "end_field_index": 46,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wildfire-start-sites",
@@ -4404,6 +4422,14 @@
             "type": "common_form_element"
           },
           {
+            "name": "extended_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "extended_zone_information",
+            "type": "common_form_element"
+          },
+          {
             "name": "dispose_ground_debris",
             "type": "common_form_element"
           },
@@ -4425,6 +4451,62 @@
           },
           {
             "name": "space_canopy_tops_60_100_feet",
+            "type": "common_form_element"
+          },
+          {
+            "name": "evacuation_plan_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "evacuation_plan",
+            "type": "common_form_element"
+          },
+          {
+            "name": "emergency_kit",
+            "type": "common_form_element"
+          },
+          {
+            "name": "food_and_water",
+            "type": "common_form_element"
+          },
+          {
+            "name": "medications",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clothing",
+            "type": "common_form_element"
+          },
+          {
+            "name": "eyeglasses",
+            "type": "common_form_element"
+          },
+          {
+            "name": "car_keys_money",
+            "type": "common_form_element"
+          },
+          {
+            "name": "first_aid_kit",
+            "type": "common_form_element"
+          },
+          {
+            "name": "flashlight",
+            "type": "common_form_element"
+          },
+          {
+            "name": "radio",
+            "type": "common_form_element"
+          },
+          {
+            "name": "sanitation_supplies",
+            "type": "common_form_element"
+          },
+          {
+            "name": "documents",
+            "type": "common_form_element"
+          },
+          {
+            "name": "pet_food",
             "type": "common_form_element"
           }
         ]
@@ -4491,7 +4573,7 @@
       },
       "immediate_zone_information": {
         "type": "informational_html",
-        "content": "<p style='margin-top:16px;font-style:italic'>The immediate zone extends to five feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The immediate zone extends to five feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
       },
       "intermediate_zone_header": {
         "type": "informational_html",
@@ -4499,7 +4581,19 @@
       },
       "intermediate_zone_information": {
         "type": "informational_html",
-        "content": "<p style='margin-top:16px;font-style:italic'>The intermediate zone extends between five and thirty feet from your house.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The intermediate zone extends between five and thirty feet from your house.</p>"
+      },
+      "extended_zone_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Extended Zone Actions</h2>"
+      },
+      "extended_zone_information": {
+        "type": "informational_html",
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The extended zone extends between thirty and one hundred feet from your house.</p>"
+      },
+      "evacuation_plan_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Emergency and Evacuation Planning</h2>"
       },
       "clean_roofs": {
         "type": "big_radio",
@@ -4695,7 +4789,7 @@
       },
       "small_tree_clusters": {
         "type": "big_radio",
-        "prompt": "_(I ensure that tree and shrubs in the intermediate zone should be limited to small clusters of a few each to break up the continuity of the vegetation across the landscape)",
+        "prompt": "_(I ensure that tree and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of the vegetation across the landscape)",
         "label": "_(Break up continuity of vegetation)",
         "optional": true,
         "content": [
@@ -4802,6 +4896,285 @@
           {
             "label": "_(No)",
             "value": "no"
+          }
+        ]
+      },
+      "evacuation_plan": {
+        "type": "big_radio",
+        "prompt": "_(I have an evacuation plan that includes escape routes, a designated family meeting location, and a communication plan)",
+        "label": "_(Evacuation plan)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          }
+        ]
+      },
+      "emergency_kit": {
+        "type": "big_radio",
+        "prompt": "_(I have an emergency kit)",
+        "label": "_(Evacuation plan)",
+        "optional": true,
+        "trigger": {
+          "trigger_value": "yes",
+          "targets": [
+            "food_and_water",
+            "medications",
+            "clothing",
+            "eyeglasses",
+            "car_keys_money",
+            "first_aid_kit",
+            "flashlight",
+            "radio",
+            "sanitaion_supplues",
+            "documents",
+            "pet_food"
+          ]
+        },
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          }
+        ]
+      },
+      "food_and_water": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes a three-day supply of non-perishable food and three gallons of water per person)",
+        "label": "_(Food and water)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "medications": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes prescriptions or special medications)",
+        "label": "_(Prescriptions and medications)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "clothing": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes a change of clothing for each person)",
+        "label": "_(Change of clothing)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "eyeglasses": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes extra eyeglasses or contact lenses)",
+        "label": "_(Eyeglasses or contact lenses)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "car_keys_money": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes an extra set of car keys, credit card, cash or traveler's checks)",
+        "label": "_(Car keys and extra money)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "first_aid_kit": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes first aid supplues)",
+        "label": "_(First aid supplies)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "flashlight": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes a flashlight)",
+        "label": "_(Flashlight)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "radio": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes a battery-powered radio and extra batteries)",
+        "label": "_(Battery-powered radio)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "sanitation_supplies": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes sanitation supplies)",
+        "label": "_(Sanitation supplies)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "documents": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes copies of important documents, such as birth certificates, passports, etc.)",
+        "label": "_(Copies of documents)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "pet_food": {
+        "type": "big_radio",
+        "prompt": "_(My kit includes pet food and water)",
+        "label": "_(Pet food and water)",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Yes)",
+            "value": "yes"
+          },
+          {
+            "label": "_(No)",
+            "value": "no"
+          },
+          {
+            "label": "_(Not applicable)",
+            "value": "not_applicable"
           }
         ]
       }
