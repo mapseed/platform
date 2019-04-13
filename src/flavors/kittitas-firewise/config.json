@@ -63,7 +63,7 @@
       "mapViewport": {
         "latitude": 47.18554,
         "longitude": -120.72226,
-        "zoom": 7.95,
+        "zoom": 6.5,
         "pitch": 15,
         "minZoom": 1,
         "maxZoom": 18
@@ -134,21 +134,9 @@
         ]
       },
       {
-        "id": "satellite",
+        "id": "light-satellite",
         "basemap": true,
         "visibleDefault": true,
-        "mapboxLayers": [
-          {
-            "id": "satellite-basemap",
-            "type": "raster",
-            "source": "satellite"
-          }
-        ]
-      },
-      {
-        "id": "light",
-        "basemap": true,
-        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "land",
@@ -3708,6 +3696,22 @@
               ],
               "text-halo-width": 1.25
             }
+          },
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                8,
+                1
+              ]
+            }
           }
         ]
       },
@@ -4050,91 +4054,6 @@
                 0.1
               ]
             }
-          },
-          {
-            "id": "wa-state-large-fires-labels",
-            "type": "symbol",
-            "source": "wa-state-large-fires",
-            "source-layer": "wa-state-large-fires-1973-2018",
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 0.5,
-              "text-color": "#222",
-              "text-opacity": [
-                "match",
-                ["get", "FIRENAME"],
-                "LEMAH",
-                0.8,
-                "French Cabin Creek",
-                0.8,
-                "Amabilis",
-                0.8,
-                "Easton Ridge",
-                0.8,
-                "Easton Fire",
-                0.8,
-                "Polallie",
-                0.8,
-                "Jolly Mountain",
-                0.8,
-                "Moon Beam",
-                0.8,
-                "South Cle Elum Ridge",
-                0.8,
-                "Manastash Ridge",
-                0.8,
-                "Rock Creek",
-                0.8,
-                "Diamond Head",
-                0.8,
-                "Lauderdale",
-                0.8,
-                "Elk Heights",
-                0.8,
-                "Trail",
-                0.8,
-                "Bighorn",
-                0.8,
-                "Scorpion Coulee",
-                0.8,
-                "Litttle Parke Creek",
-                0.8,
-                "Colockum Tarps",
-                0.8,
-                "Milepost Twenty Two",
-                0.8,
-                "Boylston",
-                0.8,
-                "400",
-                0.8,
-                "Cottonwood",
-                0.8,
-                "Burbank",
-                0.8,
-                "Ellensburg Pass",
-                0.8,
-                "Snag Canyon",
-                0.8,
-                "Table Mountain Fire",
-                0.8,
-                "Dry Creek Fire",
-                0.8,
-                "Gold Creek Springs",
-                0.8,
-                "Crow Creek",
-                0.8,
-                "Taylor Bridge",
-                0.8,
-                "I-82 Manashtash",
-                0.8,
-                0.3
-              ]
-            },
-            "layout": {
-              "text-field": ["get", "FIRENAME"],
-              "text-size": 12,
-              "text-max-width": 6
-            }
           }
         ]
       },
@@ -4241,12 +4160,8 @@
                 "title": "_(OpenStreetMap)"
               },
               {
-                "id": "satellite",
-                "title": "_(Satellite View)"
-              },
-              {
-                "id": "light",
-                "title": "_(Light)"
+                "id": "light-satellite",
+                "title": "_(Light/Satellite)"
               }
             ]
           },
@@ -4317,7 +4232,7 @@
             "start_field_index": 1,
             "end_field_index": 2,
             "visibleLayerGroupIds": [
-              "light",
+              "light-satellite",
               "wildfire-start-sites",
               "kittitas-firewise-input",
               "kittitas-county-outline"
@@ -4335,7 +4250,7 @@
             "start_field_index": 3,
             "end_field_index": 4,
             "visibleLayerGroupIds": [
-              "light",
+              "light-satellite",
               "wildfire-start-sites",
               "kittitas-county-outline",
               "wa-state-large-fires"
@@ -4353,7 +4268,7 @@
             "start_field_index": 5,
             "end_field_index": 6,
             "visibleLayerGroupIds": [
-              "light",
+              "light-satellite",
               "wildfire-start-sites",
               "kittitas-county-outline",
               "wa-state-large-fires"
@@ -4361,9 +4276,29 @@
           },
           {
             "start_field_index": 7,
-            "end_field_index": 10,
+            "end_field_index": 14,
             "visibleLayerGroupIds": [
-              "light",
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 15,
+            "end_field_index": 23,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 24,
+            "end_field_index": 34,
+            "visibleLayerGroupIds": [
+              "light-satellite",
               "wildfire-start-sites",
               "kittitas-county-outline",
               "wa-state-large-fires"
@@ -4390,7 +4325,7 @@
           {
             "name": "large_fires_information",
             "type": "informational_html",
-            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973, the largest of which was the Colockum Tarps fire in 2013. Hover over fires on the map to learn more about them [to come].</p><img src='/static/css/images/wildfire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973, the largest of which was the Colockum Tarps fire in 2013. Hover over fires on the map to learn more about them [to come].</p><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
           },
           {
             "name": "fire_resiliency_header",
@@ -4410,6 +4345,86 @@
           },
           {
             "name": "clean_roofs",
+            "type": "common_form_element"
+          },
+          {
+            "name": "replace_shingles",
+            "type": "common_form_element"
+          },
+          {
+            "name": "reduce_embers",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clean_debris_attic_vents",
+            "type": "common_form_element"
+          },
+          {
+            "name": "repair_screens",
+            "type": "common_form_element"
+          },
+          {
+            "name": "move_flammable_material",
+            "type": "common_form_element"
+          },
+          {
+            "name": "intermediate_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "intermediate_zone_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clear_vegetation",
+            "type": "common_form_element"
+          },
+          {
+            "name": "create_fuel_breaks",
+            "type": "common_form_element"
+          },
+          {
+            "name": "mow_to_four_inches",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_ladder_fuels",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_trees",
+            "type": "common_form_element"
+          },
+          {
+            "name": "tree_placement",
+            "type": "common_form_element"
+          },
+          {
+            "name": "small_tree_clusters",
+            "type": "common_form_element"
+          },
+          {
+            "name": "dispose_ground_debris",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_dead_material",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_small_conifers",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_outbuilding_vegetation",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_canopy_tops_30_60_feet",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_canopy_tops_60_100_feet",
             "type": "common_form_element"
           }
         ]
@@ -4468,7 +4483,7 @@
       },
       "fire_resiliency_information": {
         "type": "informational_html",
-        "content": "<p>Be resilient! As a landowner in a fire environment, what you do (and don't do!) on your property matters.</p><p>Tell us a bit about your property and practices, and we'll give you some practical tips for becoming even more wildfire resilient.</p>"
+        "content": "<p>Be resilient! As a landowner in a fire environment, what you do (and don't do!) on your property matters.</p><p>Tell us a bit about your property and practices, and we'll give you some practical tips for becoming even more wildfire resilient.</p><p>We'll ask about your fire resiliency practices in three zones around your property:</p><ul style='list-style:none;'><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Immediate Zone: 0 - 5 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Intermediate Zone: 5 - 30 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Extended Zone: 30 - 100 feet from house</strong></li></ul><img style='width:100%;' src='/static/css/images/fire-zones.jpg' alt='Fire zones' />"
       },
       "immediate_zone_header": {
         "type": "informational_html",
@@ -4476,11 +4491,19 @@
       },
       "immediate_zone_information": {
         "type": "informational_html",
-        "content": "<p style='margin-top:16px;font-style:italic'>The immediate zone extends to five feet from your house. This zone is the most vulnerable to embers. Start here with your fire prevention.</p><img style='width:100%;' src='/static/css/images/fire-zones.jpg' alt='Fire zones' />"
+        "content": "<p style='margin-top:16px;font-style:italic'>The immediate zone extends to five feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
+      },
+      "intermediate_zone_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Intermediate Zone Actions</h2>"
+      },
+      "intermediate_zone_information": {
+        "type": "informational_html",
+        "content": "<p style='margin-top:16px;font-style:italic'>The intermediate zone extends between five and thirty feet from your house.</p>"
       },
       "clean_roofs": {
         "type": "big_radio",
-        "prompt": "_(Clean roofs and gutters of dead leaves, debris and pine needles that could catch embers)",
+        "prompt": "_(I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers)",
         "label": "_(Clean roofs and gutters)",
         "optional": true,
         "content": [
@@ -4496,7 +4519,7 @@
       },
       "replace_shingles": {
         "type": "big_radio",
-        "prompt": "_(Replace or repair any loose or missing shingles or roof tiles to prevent ember penetration)",
+        "prompt": "_(I replace or repair any loose or missing shingles or roof tiles to prevent ember penetration)",
         "label": "_(Replace or repair loose shingles)",
         "optional": true,
         "content": [
@@ -4512,7 +4535,7 @@
       },
       "reduce_embers": {
         "type": "big_radio",
-        "prompt": "_(Reduce embers that could pass through vents in the eaves by installing 1/8 inch metal mesh screening)",
+        "prompt": "_(I reduce embers that could pass through vents in the eaves by installing 1/8 inch metal mesh screening)",
         "label": "_(Reduce embers)",
         "optional": true,
         "content": [
@@ -4526,10 +4549,10 @@
           }
         ]
       },
-      "repair_screens": {
+      "clean_debris_attic_vents": {
         "type": "big_radio",
-        "prompt": "_(Repair or replace damaged or loose window screens and any broken windows screen or box-in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating)",
-        "label": "_(Repair or replace window screens)",
+        "prompt": "_(I clean debris from exterior attic vents and install 1/8 inch metal mesh screening to reduce embers)",
+        "label": "_(Clean debris from attic vents)",
         "optional": true,
         "content": [
           {
@@ -4544,7 +4567,7 @@
       },
       "repair_screens": {
         "type": "big_radio",
-        "prompt": "_(Repair or replace damaged or loose window screens and any broken windows screen or box-in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating)",
+        "prompt": "_(I repair or replace damaged or loose window screens and any broken windows screen or box-in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating)",
         "label": "_(Repair or replace window screens)",
         "optional": true,
         "content": [
@@ -4560,7 +4583,7 @@
       },
       "move_flammable_material": {
         "type": "big_radio",
-        "prompt": "_(Move any flammable material away from wall exteriors – mulch, flammable plants, leaves and needles, firewood piles – anything that can burn. Remove anything stored underneath decks or porches)",
+        "prompt": "_(I move any flammable material away from wall exteriors – mulch, flammable plants, leaves and needles, firewood piles – anything that can burn. Remove anything stored underneath decks or porches)",
         "label": "_(Move flammable material)",
         "optional": true,
         "content": [
@@ -4576,7 +4599,7 @@
       },
       "clear_vegetation": {
         "type": "big_radio",
-        "prompt": "_(Clear vegetation from under large stationary propane tanks)",
+        "prompt": "_(I clear vegetation from under large stationary propane tanks)",
         "label": "_(Clear vegetation from propane tanks)",
         "optional": true,
         "content": [
@@ -4592,7 +4615,7 @@
       },
       "create_fuel_breaks": {
         "type": "big_radio",
-        "prompt": "_(Create fuel breaks with driveways, walkways/paths, patios, and decks)",
+        "prompt": "_(I create fuel breaks with driveways, walkways/paths, patios, and decks)",
         "label": "_(Create fuel breaks)",
         "optional": true,
         "content": [
@@ -4608,7 +4631,7 @@
       },
       "mow_to_four_inches": {
         "type": "big_radio",
-        "prompt": "_(Keep lawns and native grasses mowed to a height of four inches)",
+        "prompt": "_(I keep lawns and native grasses mowed to a height of four inches)",
         "label": "_(Keep lawns mowed to four inches)",
         "optional": true,
         "content": [
@@ -4624,7 +4647,7 @@
       },
       "remove_ladder_fuels": {
         "type": "big_radio",
-        "prompt": "_(Remove ladder fuels (vegetation under trees) so a surface fire cannot reach the crowns. Prune trees up to six to ten feet from the ground; for shorter trees do not exceed 1/3 of the overall tree height)",
+        "prompt": "_(I remove ladder fuels (vegetation under trees) so a surface fire cannot reach the crowns. Prune trees up to six to ten feet from the ground; for shorter trees do not exceed 1/3 of the overall tree height)",
         "label": "_(Remove ladder fuels)",
         "optional": true,
         "content": [
@@ -4640,7 +4663,7 @@
       },
       "space_trees": {
         "type": "big_radio",
-        "prompt": "_(Space trees to have a minimum of eighteen feet between crowns with the distance increasing with the percentage of slope)",
+        "prompt": "_(I space trees to have a minimum of eighteen feet between crowns with the distance increasing with the percentage of slope)",
         "label": "_(Space trees to eighteen feet)",
         "optional": true,
         "content": [
@@ -4656,7 +4679,7 @@
       },
       "tree_placement": {
         "type": "big_radio",
-        "prompt": "_(Tree placement should be planned to ensure the mature canopy is no closer than ten feet to the edge of the structure)",
+        "prompt": "_(I ensure that mature tree canopy is no closer than ten feet to the edge of structures on my property)",
         "label": "_(Keep tree canopy ten feet from structures)",
         "optional": true,
         "content": [
@@ -4672,7 +4695,7 @@
       },
       "small_tree_clusters": {
         "type": "big_radio",
-        "prompt": "_(Tree and shrubs in this zone should be limited to small clusters of a few each to break up the continuity of the vegetation across the landscape)",
+        "prompt": "_(I ensure that tree and shrubs in the intermediate zone should be limited to small clusters of a few each to break up the continuity of the vegetation across the landscape)",
         "label": "_(Break up continuity of vegetation)",
         "optional": true,
         "content": [
@@ -4688,7 +4711,7 @@
       },
       "dispose_ground_debris": {
         "type": "big_radio",
-        "prompt": "_(Dispose of heavy accumulations of ground litter/debris)",
+        "prompt": "_(I dispose of heavy accumulations of ground litter/debris)",
         "label": "_(Disponse of ground debris)",
         "optional": true,
         "content": [
@@ -4704,7 +4727,7 @@
       },
       "remove_dead_material": {
         "type": "big_radio",
-        "prompt": "_(Remove dead plant and tree material)",
+        "prompt": "_(I regularly remove dead plant and tree material)",
         "label": "_(Remove dead plant material)",
         "optional": true,
         "content": [
@@ -4720,7 +4743,7 @@
       },
       "remove_small_conifers": {
         "type": "big_radio",
-        "prompt": "_(Remove small conifers growing between mature trees)",
+        "prompt": "_(I remove small conifers growing between mature trees)",
         "label": "_(Remove small conifers between mature trees)",
         "optional": true,
         "content": [
@@ -4736,7 +4759,7 @@
       },
       "remove_outbuilding_vegetation": {
         "type": "big_radio",
-        "prompt": "_(Remove vegetation adjacent to storage sheds or other outbuildings within this area)",
+        "prompt": "_(I remove vegetation adjacent to storage sheds or other outbuildings)",
         "label": "_(Remove adjacent outbuilding vegetation)",
         "optional": true,
         "content": [
@@ -4752,7 +4775,7 @@
       },
       "space_canopy_tops_30_60_feet": {
         "type": "big_radio",
-        "prompt": "_(Trees 30 to 60 feet from the home should have at least 12 feet between canopy tops)",
+        "prompt": "_(I ensure that trees 30 to 60 feet from the home should have at least 12 feet between canopy tops)",
         "label": "_(Space canopy tops 30 to 60 feet from the house)",
         "optional": true,
         "content": [
@@ -4768,7 +4791,7 @@
       },
       "space_canopy_tops_60_100_feet": {
         "type": "big_radio",
-        "prompt": "_(Trees 60 to 100 feet from the home should have at least 6 feet between the canopy tops)",
+        "prompt": "_(I ensure that trees 60 to 100 feet from the home should have at least 6 feet between the canopy tops)",
         "label": "_(Space canopy tops 60 to 100 feet from the house)",
         "optional": true,
         "content": [
