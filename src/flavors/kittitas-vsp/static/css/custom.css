@@ -25,7 +25,8 @@ header {
   background-color: #efefef !important;
   margin-top: 15px !important;
   margin-bottom: 0 !important;
-  box-shadow: 0 4px 5px #aaa, 0 5px 5px #eee !important;
+  box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
+  border-radius: 4px;
 }
 
 .input-form__field-container[data-field-type="geocoding"],
@@ -35,7 +36,7 @@ header {
   background-color: #efefef !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  box-shadow: 0 4px 5px #aaa, 0 5px 5px #eee !important;
+  box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
 }
 
 .input-form__field-container[data-field-name="private-landowner_email"],
@@ -103,7 +104,7 @@ label[for="input-form-soil-management_no-soil-management"] {
 .input-form__field-container[data-field-type="number"],
 .input-form__field-container[data-field-type="text"] {
   background-color: #efefef !important;
-  box-shadow: 0 4px 5px #aaa, 0 5px 5px #eee !important;
+  box-shadow: 0 2px 2px #aaa, 0 5px 5px #eee !important;
 }
 
 .input-form__field-container[data-field-type="datetime"] {

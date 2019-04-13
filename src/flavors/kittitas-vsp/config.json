@@ -550,7 +550,7 @@
           },
           {
             "start_field_index": 41,
-            "end_field_index": 59,
+            "end_field_index": 53,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -558,8 +558,8 @@
             ]
           },
           {
-            "start_field_index": 60,
-            "end_field_index": 68,
+            "start_field_index": 54,
+            "end_field_index": 62,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -567,8 +567,8 @@
             ]
           },
           {
-            "start_field_index": 69,
-            "end_field_index": 83,
+            "start_field_index": 63,
+            "end_field_index": 80,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -576,7 +576,7 @@
             ]
           },
           {
-            "start_field_index": 84,
+            "start_field_index": 81,
             "end_field_index": 89,
             "visibleLayerGroupIds": [
               "satellite",
@@ -586,7 +586,7 @@
           },
           {
             "start_field_index": 90,
-            "end_field_index": 118,
+            "end_field_index": 116,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -594,8 +594,8 @@
             ]
           },
           {
-            "start_field_index": 119,
-            "end_field_index": 131,
+            "start_field_index": 117,
+            "end_field_index": 129,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -635,7 +635,7 @@
           {
             "name": "wetlands_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wetlands.jpg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wetlands.jpg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
@@ -661,7 +661,7 @@
           {
             "name": "frequently_flooded_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;justify-content:flex-end;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
@@ -687,7 +687,7 @@
           {
             "name": "geologic_hazard_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/geologic-hazard-area.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;justify-content:flex-end;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/geologic-hazard-area.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_geologic_hazard",
@@ -713,7 +713,7 @@
           {
             "name": "critical_aquifer_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/critical-aquifer-recharge.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/critical-aquifer-recharge.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_critical_aquifer",
@@ -739,7 +739,7 @@
           {
             "name": "fish_wildlife_habitat_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_fish_wildlife_habitat",
@@ -766,7 +766,7 @@
           {
             "name": "water_user_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your water use practices.</p></div></div>"
+            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your water use practices.</p>"
           },
           {
             "name": "water-use_no-water-use",
@@ -1092,7 +1092,7 @@
           {
             "name": "soil_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your soil health and erosion management practices.</p></div></div>"
+            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your soil health and erosion management practices.</p>"
           },
           {
             "name": "soil-management_no-soil-management",
@@ -1220,7 +1220,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["permanent_cover_crop_quantity", "permanent_cover_crop_datetime"]
+              "targets": [
+                "permanent_cover_crop_quantity",
+                "permanent_cover_crop_datetime"
+              ]
             },
             "content": [
               {
@@ -1314,7 +1317,7 @@
           {
             "name": "nutrient_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your nutrient management practices.</p>"
           },
           {
             "name": "nutrient-management_no-nutrient-management",
@@ -1343,10 +1346,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "soil_testing_quantity",
-                "soil_testing_datetime"
-              ]
+              "targets": ["soil_testing_quantity", "soil_testing_datetime"]
             },
             "content": [
               {
@@ -1443,7 +1443,7 @@
           {
             "name": "range_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your range management practices.</p></div></div>"
+            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your range management practices.</p>"
           },
           {
             "name": "range-management_no-range-management",
@@ -1716,7 +1716,7 @@
           {
             "name": "pest_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your pest management practices.</p></div></div>"
+            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your pest management practices.</p>"
           },
           {
             "name": "pest-management_no-pest-management",
@@ -1845,7 +1845,7 @@
           {
             "name": "fish_wildlife_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your fish & wildlife management practices.</p></div></div>"
+            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your fish & wildlife management practices.</p>"
           },
           {
             "name": "fish-wildlife-management_no-fish-wildlife-management",
@@ -2018,7 +2018,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["riparian_fencing_quantity", "riparian_fencing_datetime"]
+              "targets": [
+                "riparian_fencing_quantity",
+                "riparian_fencing_datetime"
+              ]
             },
             "content": [
               {
@@ -2159,7 +2162,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["streambank_stabilization_quantity", "streambank_stabilization_datetime"]
+              "targets": [
+                "streambank_stabilization_quantity",
+                "streambank_stabilization_datetime"
+              ]
             },
             "content": [
               {
