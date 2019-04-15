@@ -126,6 +126,29 @@ function updateMetadata() {
       }),
     )
     .concat(
+      glob.sync("./www/**/*.bundle.{js,css}").map(filepath => {
+        filepath = path.relative("./www", filepath);
+        const gzippedFilepath = path.relative("./www", `${filepath}.gz`);
+
+        // Enable a rewrite rule on S3 that directs requests to uncompressed
+        // bundles to their compressed equivalents.
+        params = {
+          WebsiteRedirectLocation: `/${gzippedFilepath}`,
+        };
+        return copyObjectPromise(buildParams(filepath, params));
+      }),
+    )
+    .concat(
+      glob.sync("./www/**/*.bundle.{js,css}.gz").map(filepath => {
+        filepath = path.relative("./www", filepath);
+
+        params = {
+          CacheControl: "max-age=31536000", // One year
+        };
+        return copyObjectPromise(buildParams(filepath, params));
+      }),
+    )
+    .concat(
       glob
         .sync("./www/static/css/images/markers/spritesheet*")
         .map(filepath => {
