@@ -51,7 +51,7 @@
         "zoom": 5.31,
         "pitch": 0,
         "minZoom": 1,
-        "maxZoom": 19
+        "maxZoom": 18.4
       },
       "drawing_enabled": true
     },
@@ -76,6 +76,13 @@
           "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
         ],
         "tileSize": 256
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
       }
     },
     "layerGroups": [
@@ -85,14 +92,23 @@
         "visibleDefault": true,
         "mapboxLayers": [
           {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "minzoom": 11,
+            "maxzoom": 18.5
+          },
+          {
             "id": "topography-basemap",
             "type": "raster",
-            "source": "topography"
+            "source": "topography",
+            "maxzoom": 11
           },
           {
             "id": "landscape-basemap",
             "type": "raster",
-            "source": "landscape"
+            "source": "landscape",
+            "maxzoom": 14.6
           },
           {
             "id": "streets-basemap",
@@ -176,7 +192,7 @@
     ]
   },
   "right_sidebar": {
-    "is_enabled": false,
+    "is_enabled": true,
     "is_visible_default": false
   },
   "left_sidebar": {
@@ -241,7 +257,7 @@
             "name": "title",
             "type": "text",
             "prompt": "_(How does it feel?)",
-            "display_prompt": "_(Title:)",
+            "display_prompt": "_()",
             "placeholder": "_(Title here...)",
             "optional": false
           },
@@ -249,7 +265,7 @@
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(What is the aesthetic of this place?)",
-            "display_prompt": "_(Describe it here:)",
+            "display_prompt": "_()",
             "placeholder": "_(Describe it... (you can also add links, images, videos))",
             "optional": false
           },
@@ -281,7 +297,7 @@
             "name": "title",
             "type": "text",
             "prompt": "_(What's the concept?)",
-            "display_prompt": "_(Title:)",
+            "display_prompt": "_()",
             "placeholder": "_(Title here...)",
             "optional": false
           },
@@ -289,7 +305,7 @@
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_(How do thoughts change things?)",
-            "display_prompt": "_(Describe the idea:)",
+            "display_prompt": "_()",
             "placeholder": "_(Describe it... (you can also add links, images, videos))"
           },
           {
@@ -321,14 +337,14 @@
             "type": "text",
             "prompt": "_(What's new under the rain?)",
             "placeholder": "_(Title:)",
-            "display_prompt": "_(Title here:)",
+            "display_prompt": "_()",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
             "prompt": "_( Is there an artwork here? Could there be one?)",
-            "display_prompt": "_( Let's see/hear the work )",
+            "display_prompt": "_()",
             "placeholder": "_(Show it... (you can add links, images, videos))",
             "optional": false
           },
@@ -361,14 +377,14 @@
             "type": "text",
             "prompt": "_(What's happening here?)",
             "placeholder": "_(Title:)",
-            "display_prompt": "_(Title...)",
+            "display_prompt": "_()",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "_(How are artists changing this place?)",
-            "display_prompt": "_(Tell about it...)",
+            "prompt": "_(What's changing this place?)",
+            "display_prompt": "_()",
             "placeholder": "_(Tell it... (you can also add links, images, videos))",
             "optional": false
           },
