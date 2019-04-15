@@ -683,7 +683,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
-  updateMapViewport: newViewport => dispatch(updateMapViewport(newViewport)),
 });
 
 // Export undecorated component for testing purposes.
