@@ -166,7 +166,7 @@ function updateMetadata() {
         filepath = path.relative("./www", filepath);
 
         params = {
-          CacheControl: "max-age=31536000",
+          CacheControl: "max-age=31536000", // One year
         };
         return copyObjectPromise(buildParams(filepath, params));
       }),
