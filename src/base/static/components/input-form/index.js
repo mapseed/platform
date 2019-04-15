@@ -83,6 +83,8 @@ class InputForm extends Component {
       ];
 
       this.setStageLayers(stageConfig);
+      stageConfig.viewport &&
+        this.props.onUpdateMapViewport(stageConfig.viewport);
     }
   }
 
@@ -102,15 +104,17 @@ class InputForm extends Component {
     }
 
     if (
-      this.state.currentStage !== prevState.currentStage &&
-      this.selectedCategoryConfig.multi_stage
+      this.selectedCategoryConfig.multi_stage &&
+      this.state.currentStage !== prevState.currentStage
     ) {
-      // Configure layer visibility for this form stage.
+      // Configure layer visibility and set the viewport for this form stage.
       const stageConfig = this.selectedCategoryConfig.multi_stage[
         this.state.currentStage - 1
       ];
 
       this.setStageLayers(stageConfig);
+      stageConfig.viewport &&
+        this.props.onUpdateMapViewport(stageConfig.viewport);
     }
   }
 

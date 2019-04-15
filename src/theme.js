@@ -38,6 +38,10 @@ export const globalStyles = css`
     font-family: "Raleway";
     src: url("/static/css/Raleway-Regular.ttf");
   }
+  @font-face {
+    font-family: "PTSans";
+    src: url("/static/css/PT-Sans-Regular.ttf");
+  }
 `;
 
 // This `theme` module should not be imported directly. Instead, it
