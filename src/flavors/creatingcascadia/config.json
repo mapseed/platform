@@ -92,23 +92,42 @@
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "satellite-basemap",
-            "type": "raster",
-            "source": "satellite",
-            "minzoom": 11,
-            "maxzoom": 18.5
-          },
-          {
             "id": "topography-basemap",
             "type": "raster",
             "source": "topography",
             "maxzoom": 11
           },
           {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                13,
+                0,
+                15,
+                1
+              ]
+            }
+          },
+          {
             "id": "landscape-basemap",
             "type": "raster",
             "source": "landscape",
-            "maxzoom": 14.6
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                13,
+                1,
+                15,
+                0
+              ]
+            }
           },
           {
             "id": "streets-basemap",
