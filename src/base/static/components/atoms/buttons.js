@@ -1,7 +1,9 @@
+/** @jsx jsx */
+import * as React from "react";
 import PropTypes from "prop-types";
-import React from "react";
 import classNames from "classnames";
 import styled from "@emotion/styled";
+import { jsx } from "@emotion/core";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
@@ -239,6 +241,16 @@ const CloseButton = styled(props => (
     aria-label="close"
     className={props.className}
     onClick={props.onClick}
+    css={{
+      border: "none",
+      backgroundColor: "transparent",
+      color: "#ff5e99",
+
+      "&:hover": {
+        cursor: "pointer",
+        color: "#cd2c67",
+      },
+    }}
   >
     {"✕"}
   </button>

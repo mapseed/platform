@@ -15,9 +15,11 @@ import {
 import {
   mapLayerConfigsPropType,
   offlineConfigPropType,
+  mapLayerConfigsSelector,
 } from "../../state/ducks/map-config";
 
 import Modal from "react-modal";
+import { connect } from "react-redux";
 Modal.setAppElement("#site-wrap");
 
 const fetchOfflineData = (
@@ -35,12 +37,11 @@ const fetchOfflineData = (
         urls.concat(
           mapLayerConfigs
             .filter(
-              layer =>
-                layer.type &&
-                ["raster-tile", "vector-tile"].includes(layer.type),
+              layer => layer.type && ["raster", "vector"].includes(layer.type),
             )
             .map(mapTileLayerConfig => {
-              return mapTileLayerConfig.url
+              // TODO: handle mulitple url's:
+              return mapTileLayerConfig.tiles[0]
                 .replace("{z}", zoom)
                 .replace("{x}", lng)
                 .replace("{y}", lat);
@@ -50,8 +51,8 @@ const fetchOfflineData = (
     )
     .concat(
       mapLayerConfigs
-        .filter(layer => layer.type && layer.type === "json")
-        .map(mapLayerConfig => mapLayerConfig.source),
+        .filter(layer => layer.type && layer.type === "geojson")
+        .map(mapLayerConfig => mapLayerConfig.data),
     )
     .concat([
       "/static/css/images/marker-arrow-overlay.png",
@@ -168,4 +169,8 @@ OfflineDownloadMenu.propTypes = {
   offlineBoundingBox: offlineConfigPropType.isRequired,
 };
 
-export default OfflineDownloadMenu;
+const mapStateToProps = state => ({
+  mapLayerConfigs: mapLayerConfigsSelector(state),
+});
+
+export default connect(mapStateToProps)(OfflineDownloadMenu);
