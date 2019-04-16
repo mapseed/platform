@@ -4,6 +4,8 @@ import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import moment from "moment";
 import "moment-timezone";
+import { withRouter } from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -177,7 +179,7 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     if (!this.props.hasAdminAbilities(this.state.dashboard.datasetSlug)) {
-      this.props.router.navigate("/", { trigger: true });
+      this.props.history.push("/");
     }
   }
 
@@ -514,4 +516,4 @@ const mapStateToProps = state => ({
   datasetsConfig: datasetsConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default withRouter(connect(mapStateToProps)(Dashboard));

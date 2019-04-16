@@ -2,8 +2,8 @@
   "datasets": [
     {
       "slug": "pbdemo",
-      "url": "https://api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdemo",
-      "clientSlug": "idea",
+      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdemo",
+      "clientSlug": "demo-idea",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
@@ -26,7 +26,7 @@
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdemo-projects",
       "slug": "pbdemo-projects",
       "owner": "smartercleanup",
-      "clientSlug": "project",
+      "clientSlug": "demo-project",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
@@ -89,10 +89,16 @@
   },
   "dashboard": [
     {
+      "datasetSlug": "pbdurham-projects",
+      "surveyMetrics": {
+        "wards": true,
+        "budget": true
+      }
+    },
+    {
       "datasetSlug": "pbdurham",
       "surveyMetrics": {
-        "categories": true,
-        "demographics": true
+        "categories": true
       }
     }
   ],
@@ -1687,6 +1693,32 @@
       }
     ],
     "fields": [
+      {
+        "id": "ward",
+        "type": "radio",
+        "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
+        "display_prompt": "_(Ward:)",
+        "label": "_(Ward:)",
+        "optional": true,
+        "content": [
+          {
+            "label": "_(Ward 1)",
+            "value": "ward_1"
+          },
+          {
+            "label": "_(Ward 2)",
+            "value": "ward_2"
+          },
+          {
+            "label": "_(Ward 3)",
+            "value": "ward_3"
+          },
+          {
+            "label": "_(Citywide)",
+            "value": "citywide"
+          }
+        ]
+      },
       {
         "id": "private-ethnicity",
         "autocomplete": false,
