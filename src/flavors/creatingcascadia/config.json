@@ -94,8 +94,7 @@
           {
             "id": "topography-basemap",
             "type": "raster",
-            "source": "topography",
-            "maxzoom": 11
+            "source": "topography"
           },
           {
             "id": "satellite-basemap",
