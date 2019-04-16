@@ -550,7 +550,7 @@
           },
           {
             "start_field_index": 41,
-            "end_field_index": 53,
+            "end_field_index": 59,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -558,8 +558,8 @@
             ]
           },
           {
-            "start_field_index": 54,
-            "end_field_index": 62,
+            "start_field_index": 60,
+            "end_field_index": 68,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -567,8 +567,8 @@
             ]
           },
           {
-            "start_field_index": 63,
-            "end_field_index": 80,
+            "start_field_index": 69,
+            "end_field_index": 86,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -576,8 +576,8 @@
             ]
           },
           {
-            "start_field_index": 81,
-            "end_field_index": 89,
+            "start_field_index": 87,
+            "end_field_index": 95,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -585,8 +585,8 @@
             ]
           },
           {
-            "start_field_index": 90,
-            "end_field_index": 116,
+            "start_field_index": 96,
+            "end_field_index": 122,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -594,8 +594,8 @@
             ]
           },
           {
-            "start_field_index": 117,
-            "end_field_index": 129,
+            "start_field_index": 123,
+            "end_field_index": 135,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -1118,53 +1118,6 @@
             "content": "<p>Go further in depth! Take the USDA's <a target='_blank' href='https://websoilsurvey.sc.egov.usda.gov/App/HomePage.htm'>Web Soil Survey</a> (survey will open in a new tab).</p>"
           },
           {
-            "//": "=============== REDUCED TILL =================================",
-            "name": "reduced_till",
-            "type": "big_radio",
-            "prompt": "_(Reduced till)",
-            "label": "_(Reduced till)",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["reduced_till_quantity", "reduced_till_datetime"]
-            },
-            "content": [
-              {
-                "label": "_(Yes)",
-                "value": "yes"
-              },
-              {
-                "label": "_(No)",
-                "value": "no"
-              },
-              {
-                "label": "_(No but interested)",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "reduced_till_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "_(On how many acres do you use reduced till?)",
-            "placeholder": "_(Approximate acreage)",
-            "hidden_default": true,
-            "metadata": {
-              "units": "_(acres)"
-            }
-          },
-          {
-            "name": "reduced_till_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start using reduced till?)",
-            "placeholder": "_(Your best estimate)",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
             "//": "=============== POLYACRYLAMIDE =================================",
             "name": "polyacrylamide",
             "type": "big_radio",
@@ -1207,6 +1160,56 @@
             "date_format": "YYYY",
             "display_format": "YYYY",
             "prompt": "_(Approximately when did you start using polyacrylamide?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== COVER CROP =================================",
+            "name": "cover_crop",
+            "type": "big_radio",
+            "prompt": "_(Planting cover crops (grasses, legumes, and forbs) for seasonal vegetative cover to reduce wind and water erosion)",
+            "label": "_(Cover crop plantings)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "cover_crop_quantity",
+                "cover_crop_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No but interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "cover_crop_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(How many acres of cover crop have you planted?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "cover_crop_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start planting cover crops?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
@@ -1262,10 +1265,57 @@
             "hidden_default": true
           },
           {
+            "//": "=============== NO TILL =================================",
+            "name": "no_till",
+            "type": "big_radio",
+            "prompt": "_(No-tillage to limit soil disturbing activities. Soil disturbance is only during planting operation.)",
+            "label": "_(No-tillage)",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["no_till_quantity", "no_till_datetime"]
+            },
+            "content": [
+              {
+                "label": "_(Yes)",
+                "value": "yes"
+              },
+              {
+                "label": "_(No)",
+                "value": "no"
+              },
+              {
+                "label": "_(No but interested)",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "no_till_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "_(On how many acres do you use no-tillage?)",
+            "placeholder": "_(Approximate acreage)",
+            "hidden_default": true,
+            "metadata": {
+              "units": "_(acres)"
+            }
+          },
+          {
+            "name": "no_till_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "_(Approximately when did you start using no-till?)",
+            "placeholder": "_(Your best estimate)",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
             "//": "=============== REDUCED TILL =================================",
             "name": "reduced_till",
             "type": "big_radio",
-            "prompt": "_(Reduced tillage to limit soil disturbing activities. Disturbance may include entire soil surface but limited to chisel plow, tandem disk or field cultivating.)",
+            "prompt": "_(Reduced tillage to limit soil disturbing activities. Disturbance may include entire soil surface but cannot result in an inversion of the soil profile.)",
             "label": "_(Reduced tillage)",
             "optional": true,
             "trigger": {
@@ -1303,7 +1353,7 @@
             "type": "datetime",
             "date_format": "YYYY",
             "display_format": "YYYY",
-            "prompt": "_(Approximately when did you start using reduced tillage?)",
+            "prompt": "_(Approximately when did you start using reduced till?)",
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
