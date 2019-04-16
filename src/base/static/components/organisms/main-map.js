@@ -57,6 +57,7 @@ import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 
 import emitter from "../../utils/emitter";
+import { Mixpanel } from "../../utils/mixpanel";
 
 import drawingLayers from "../../state/misc/drawing-layers";
 
@@ -432,11 +433,10 @@ class MainMap extends Component {
       // If the topmost clicked-on feature has a _clientSlug property, there's
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
-      this.props.history.push(
-        `/${this.queriedFeatures[0].properties._clientSlug}/${
-          this.queriedFeatures[0].properties.id
-        }`,
-      );
+      const placeId = this.queriedFeatures[0].properties.id;
+      const clientSlug = this.queriedFeatures[0].properties._clientSlug;
+      Mixpanel.track("Clicked place on map", { placeId });
+      this.props.history.push(`/${clientSlug}/${placeId}`);
     }
   };
 

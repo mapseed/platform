@@ -290,10 +290,11 @@ class InputForm extends Component {
   onSubmit() {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
-    this.validateForm(this.createPlace);
+    Mixpanel.track("Clicked place form submit");
+    this.validateForm(this.submitForm);
   }
 
-  createPlace = async () => {
+  submitForm = async () => {
     this.setState({
       isFormSubmitting: true,
     });
