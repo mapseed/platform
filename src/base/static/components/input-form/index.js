@@ -43,6 +43,7 @@ import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
+import { Mixpanel } from "../../utils/mixpanel";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -290,10 +291,11 @@ class InputForm extends Component {
   onSubmit() {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
-    this.validateForm(this.createPlace);
+    Mixpanel.track("Clicked place form submit");
+    this.validateForm(this.submitForm);
   }
 
-  createPlace = async () => {
+  submitForm = async () => {
     this.setState({
       isFormSubmitting: true,
     });

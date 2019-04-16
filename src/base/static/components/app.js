@@ -7,6 +7,7 @@ import browserUpdate from "browser-update";
 import styled from "@emotion/styled";
 import { Provider } from "react-redux";
 import Spinner from "react-spinner";
+import { Mixpanel } from "../utils/mixpanel";
 
 import SiteHeader from "./organisms/site-header";
 import {
@@ -141,11 +142,21 @@ class App extends Component {
       : {
           // anonymous user:
           avatar_url: "/static/css/images/user-50.png",
+          // TODO: fix race condition here, with setting the cookie:
           token: `session:${Util.cookies.get("sa-api-sessionid")}`,
           groups: [],
           isAuthenticated: false,
           isLoaded: true,
         };
+    if (user.isAuthenticated) {
+      Mixpanel.identify(user.id);
+      Mixpanel.track("Successful login");
+      Mixpanel.people.set({
+        name: user.name,
+        username: user.username,
+        id: user.id,
+      });
+    }
     this.props.loadUser(user);
 
     // Fetch and load datasets.
