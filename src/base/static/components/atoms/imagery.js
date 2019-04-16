@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
@@ -61,7 +61,19 @@ SiteLogo.propTypes = {
   src: PropTypes.string.isRequired,
 };
 
-const UserAvatar = styled(Image)(props => {
+const UserAvatar = styled(props => {
+  const [avatarSrc, setAvatarSrc] = useState(props.src);
+  useEffect(() => setAvatarSrc(props.src), [props.src]);
+
+  return (
+    <Image
+      alt={props.alt}
+      src={avatarSrc}
+      className={props.className}
+      onError={() => setAvatarSrc("/static/css/images/user-50.png")}
+    />
+  );
+})(props => {
   // These styles correspond to the "regular" size in our design language.
   const styles = {
     width: "24px",

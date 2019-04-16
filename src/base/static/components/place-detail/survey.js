@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import FormField from "../form-fields/form-field";
 import SurveyResponse from "./survey-response";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
-import Avatar from "../ui-elements/avatar";
+import { UserAvatar } from "../atoms/imagery";
 import SurveyResponseEditor from "./survey-response-editor";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
@@ -183,7 +183,7 @@ class Survey extends Component {
         )}
         {this.props.currentUser.isAuthenticated && this.state.canComment ? (
           <span className="place-detail-survey__submit-user-info">
-            <Avatar size="small" src={this.props.currentUser.avatar_url} />
+            <UserAvatar size="small" src={this.props.currentUser.avatar_url} />
             <span className="place-detail-survey__username">
               {this.props.currentUser.name}
             </span>

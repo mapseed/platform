@@ -37,7 +37,7 @@ const ActivityItem = props => (
       href={props.url}
     >
       <UserAvatarContainer>
-        <UserAvatar />
+        <UserAvatar src={props.submitterAvatarUrl} />
       </UserAvatarContainer>
       <ActionTextContainer>
         <RegularText weight="black">{props.submitterName} </RegularText>
@@ -50,6 +50,7 @@ const ActivityItem = props => (
 
 ActivityItem.propTypes = {
   actionText: PropTypes.string.isRequired,
+  submitterAvatarUrl: PropTypes.string,
   submitterName: PropTypes.string.isRequired,
   title: PropTypes.string,
   url: PropTypes.string.isRequired,
