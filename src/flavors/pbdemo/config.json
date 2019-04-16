@@ -98,8 +98,7 @@
     {
       "datasetSlug": "pbdurham",
       "surveyMetrics": {
-        "categories": true,
-        "demographics": true
+        "categories": true
       }
     }
   ],
