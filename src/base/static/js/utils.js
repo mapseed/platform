@@ -94,11 +94,7 @@ var self = (module.exports = {
   log: function() {
     var args = Array.prototype.slice.call(arguments, 0);
 
-    if (window.ga) {
-      this.analytics(args);
-    } else {
-      this.console.log(args);
-    }
+    this.console.log(args);
   },
 
   // For browsers without a console
