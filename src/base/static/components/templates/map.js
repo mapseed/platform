@@ -62,6 +62,7 @@ import {
   getMainContentAreaWidth,
   getMainContentAreaHeight,
 } from "../../utils/layout-utils";
+import { Mixpanel } from "../../utils/mixpanel";
 
 const MapContainer = styled("div")(props => ({
   position: "relative",
@@ -412,6 +413,7 @@ class MapTemplate extends Component {
             <AddPlaceButton
               ref={this.addPlaceButtonRef}
               onClick={() => {
+                Mixpanel.track("Click Add Place Button");
                 this.props.history.push("/new");
               }}
             >

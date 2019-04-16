@@ -10,6 +10,7 @@ import GeocodingField from "../form-fields/types/geocoding-field";
 import { uiVisibilitySelector, layoutSelector } from "../../state/ducks/ui";
 
 import { getMainContentAreaWidth } from "../../utils/layout-utils";
+import { Mixpanel } from "../../utils/mixpanel";
 
 const GeocodeAddressBarWrapper = styled(props => (
   <form onSubmit={props.onSubmit} className={props.className}>
@@ -32,13 +33,13 @@ const GeocodeAddressBarWrapper = styled(props => (
 
 class GeocodeAddressBar extends Component {
   state = {
-    value: "",
+    address: "",
     isTriggeringGeocode: false,
   };
 
   onChange = (fieldName, fieldValue) => {
     this.setState({
-      value: fieldValue,
+      address: fieldValue,
       isTriggeringGeocode: false,
     });
   };
@@ -59,6 +60,7 @@ class GeocodeAddressBar extends Component {
     this.setState({
       isTriggeringGeocode: true,
     });
+    Mixpanel.track("Searching address", { address: this.state.address });
   };
 
   render() {
@@ -76,7 +78,7 @@ class GeocodeAddressBar extends Component {
           name="geocode-address-bar"
           placeholder={this.props.t("placeholderMsg")}
           isTriggeringGeocode={this.state.isTriggeringGeocode}
-          value={this.state.value}
+          value={this.state.address}
           onUpdateMapViewport={this.props.onUpdateMapViewport}
         />
       </GeocodeAddressBarWrapper>

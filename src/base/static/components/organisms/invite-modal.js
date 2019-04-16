@@ -13,7 +13,7 @@ import {
   ModalFooter,
   modalStyles,
 } from "../atoms/layout";
-import mixpanel from "mixpanel-browser";
+import { Mixpanel } from "../../utils/mixpanel";
 
 import { userSelector, userPropType } from "../../state/ducks/user";
 
@@ -36,7 +36,7 @@ class InviteModal extends Component {
   };
 
   inviteUser() {
-    mixpanel.track("user invited", {
+    Mixpanel.track("user invited", {
       id: this.props.currentUser.id,
       name: this.props.currentUser.name,
       username: this.props.currentUser.username,
