@@ -108,7 +108,16 @@ module.exports = {
         test: /\.svg$/,
         loader: "svg-inline-loader",
       },
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+      {
+        test: /\.tsx?$/,
+        loader: "babel-loader",
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["source-map-loader", "babel-loader"],
+        enforce: "pre",
+      },
     ],
   },
   node: {
