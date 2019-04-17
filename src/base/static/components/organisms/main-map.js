@@ -39,6 +39,8 @@ import {
   activeDrawGeometryIdSelector,
   geometryStyleSelector,
   geometryStyleProps,
+  isDrawingPluginInitializedSelector,
+  updateDrawingPluginInitialized,
 } from "../../state/ducks/map-drawing-toolbar";
 import {
   leftSidebarConfigSelector,
@@ -189,7 +191,10 @@ class MainMap extends Component {
       }
     });
 
-    if (!this.props.mapConfig.options.disableDrawing) {
+    if (
+      !this.props.mapConfig.options.disableDrawing &&
+      !this.props.isDrawingPluginInitialized
+    ) {
       this.draw = new MapboxDraw({
         displayControlsDefault: false,
         userProperties: true,
@@ -239,6 +244,8 @@ class MainMap extends Component {
           this.draw.set(this.draw.getAll());
         }
       });
+
+      this.props.updateDrawingPluginInitialized(true);
     }
 
     // Ensure that any filters set on another template (like the list) are
@@ -572,6 +579,7 @@ MainMap.propTypes = {
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isDrawModeActive: PropTypes.bool.isRequired,
+  isDrawingPluginInitialized: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
@@ -614,6 +622,7 @@ MainMap.propTypes = {
   onUpdateSpotlightMaskVisibility: PropTypes.func.isRequired,
   datasets: datasetsPropType,
   updateMapContainerDimensions: PropTypes.func.isRequired,
+  updateDrawingPluginInitialized: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -625,6 +634,7 @@ const mapStateToProps = state => ({
   geometryStyle: geometryStyleSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isDrawModeActive: drawModeActiveSelector(state),
+  isDrawingPluginInitialized: isDrawingPluginInitializedSelector(state),
   isInviteModalOpen: uiVisibilitySelector("inviteModal", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
@@ -655,6 +665,8 @@ const mapDispatchToProps = dispatch => ({
   updateLayers: newLayer => dispatch(updateLayers(newLayer)),
   updateMapContainerDimensions: newDimensions =>
     dispatch(updateMapContainerDimensions(newDimensions)),
+  updateDrawingPluginInitialized: isInitialized =>
+    dispatch(updateDrawingPluginInitialized(isInitialized)),
 });
 
 export default withRouter(
