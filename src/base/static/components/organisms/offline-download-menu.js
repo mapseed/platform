@@ -85,7 +85,10 @@ const OfflineDownloadMenu = props => {
   const [percentDownloaded, setPercentDownloaded] = useState(0);
   return (
     <Fragment>
-      <InternalLink onClick={() => setIsModalOpen(() => true)}>
+      <InternalLink
+        href={{ hash: "#offline-download" }}
+        onClick={() => setIsModalOpen(() => true)}
+      >
         {"Download app for offline use"}
       </InternalLink>
       <Modal
