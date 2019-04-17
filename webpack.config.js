@@ -26,6 +26,7 @@ var entryPoints = [
   "@babel/polyfill",
   "whatwg-fetch",
   "normalize.css",
+  "./src/base/static/css/normalize.scss",
   "./src/base/static/index.js",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];

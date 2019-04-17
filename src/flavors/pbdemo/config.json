@@ -1880,8 +1880,8 @@
       "slug": "about",
       "lang": "en_US",
       "content": [
-        "<h3>Durham Participatory Budgeting:</h3>",
-        "<h4>Put your money where your ideas are!</h4>",
+        "<h1>Durham Participatory Budgeting:</h1>",
+        "<h2>Put your money where your ideas are!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
         "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
@@ -1894,8 +1894,8 @@
       "slug": "about",
       "lang": "es",
       "content": [
-        "<h3>Presupuesto participativo de Durham:</h3>",
-        "<h4>¡Pon tu dinero donde están tus ideas!</h4>",
+        "<h1>Presupuesto participativo de Durham:</h1>",
+        "<h2>¡Pon tu dinero donde están tus ideas!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Envíe su idea</a>",
         "<p>El presupuesto participativo de Durham es un proceso democrático en el que los miembros de la comunidad de los tres distritos municipales deciden directamente cómo gastar $ 2.4 millones ($ 800,000 por distrito).</p>",
