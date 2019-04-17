@@ -4066,15 +4066,15 @@
         ]
       },
       {
-        "id": "kittitas-firewise-input",
+        "id": "firewise-demo-input",
         "visibleDefault": true,
         "interactive": true,
-        "datasetSlug": "kittitas-firewise-input",
+        "datasetSlug": "firewise-demo-input",
         "mapboxFocusedLayers": [
           {
-            "id": "kittitas-firewise-input-focused",
+            "id": "firewise-demo-input-focused",
             "type": "symbol",
-            "source": "kittitas-firewise-input",
+            "source": "firewise-demo-input",
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
@@ -4091,9 +4091,9 @@
         ],
         "mapboxLayers": [
           {
-            "id": "kittitas-firewise-input",
+            "id": "firewise-demo-input",
             "type": "symbol",
-            "source": "kittitas-firewise-input",
+            "source": "firewise-demo-input",
             "layout": {
               "icon-anchor": "bottom",
               "icon-image": "map-pin-marker-red.png",
@@ -4208,7 +4208,7 @@
                 "title": "_(Kittitas County border)"
               },
               {
-                "id": "kittitas-firewise-input",
+                "id": "firewise-demo-input",
                 "title": "_(Community Reports)"
               }
             ]
@@ -4232,7 +4232,7 @@
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "datasetSlug": "kittitas-firewise-input",
+        "datasetSlug": "firewise-demo-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "label": "_(I am a small landowner in Kittitas County)",
         "value": "small-landowner",
@@ -4243,7 +4243,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "wildfire-start-sites",
-              "kittitas-firewise-input",
+              "firewise-demo-input",
               "kittitas-county-outline"
             ],
             "viewport": {
@@ -4517,7 +4517,7 @@
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "datasetSlug": "kittitas-firewise-input",
+        "datasetSlug": "firewise-demo-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "value": "large-landowner",
         "label": "_(I am a large landowner in Kittitas County)",
@@ -4528,7 +4528,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "wildfire-start-sites",
-              "kittitas-firewise-input",
+              "kittitas-demo-input",
               "kittitas-county-outline"
             ],
             "viewport": {
