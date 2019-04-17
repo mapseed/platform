@@ -14,17 +14,16 @@ import { Button } from "../atoms/buttons";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "@emotion/styled";
 import { dashboardConfigPropType } from "../../state/ducks/dashboard-config";
-import {
-  offlineConfigSelector,
-  offlineConfigPropType,
-  mapLayersSelector,
-} from "../../state/ducks/map-config";
 
 import {
   userSelector,
   userPropType,
   hasAdminAbilities,
 } from "../../state/ducks/user";
+import {
+  offlineConfigPropType,
+  offlineConfigSelector,
+} from "../../state/ducks/map-config";
 
 import mq from "../../../../media-queries";
 
@@ -197,24 +196,23 @@ class UserMenu extends React.Component {
             />
           )}
           <Menu isMenuOpen={this.props.isMenuOpen} isLoggedIn={true}>
-            <MenuItem onClick={this.props.toggleMenu}>
-              {this.props.dashboardConfig.length &&
-                this.props.hasAdminAbilities(
-                  this.props.dashboardConfig[0].datasetSlug,
-                ) && (
+            {!!this.props.dashboardConfig.length &&
+              this.props.hasAdminAbilities(
+                this.props.dashboardConfig[0].datasetSlug,
+              ) && (
+                <MenuItem onClick={this.props.toggleMenu}>
                   <InternalLink href={isDashboard ? "/" : "/dashboard"}>
                     {isDashboard ? "back to map" : `go to dashboard`}
                   </InternalLink>
-                )}
-            </MenuItem>
-            <MenuItem>
-              {this.props.offlineBoundingBox && (
+                </MenuItem>
+              )}
+            {this.props.offlineBoundingBox && (
+              <MenuItem>
                 <OfflineDownloadMenu
                   offlineBoundingBox={this.props.offlineBoundingBox}
-                  mapLayerConfigs={this.props.mapLayerConfigs}
                 />
-              )}
-            </MenuItem>
+              </MenuItem>
+            )}
             <MenuItem>
               <div>
                 <SmallText>{this.props.t("signedInAs")}</SmallText>{" "}
@@ -279,8 +277,6 @@ class UserMenu extends React.Component {
 UserMenu.propTypes = {
   currentUser: userPropType,
   dashboardConfig: dashboardConfigPropType,
-  offlineBoundingBox: offlineConfigPropType,
-  mapLayerConfigs: PropTypes.array,
   hasAdminAbilities: PropTypes.func.isRequired,
   pathname: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
@@ -289,13 +285,13 @@ UserMenu.propTypes = {
   isInMobileMode: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   isMenuOpen: PropTypes.bool.isRequired,
+  offlineBoundingBox: offlineConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   currentUser: userSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   offlineBoundingBox: offlineConfigSelector(state),
-  mapLayerConfigs: mapLayersSelector(state),
 });
 
 export default connect(mapStateToProps)(translate("UserMenu")(UserMenu));
