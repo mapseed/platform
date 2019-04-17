@@ -4528,7 +4528,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "wildfire-start-sites",
-              "kittitas-demo-input",
+              "firewise-demo-input",
               "kittitas-county-outline"
             ],
             "viewport": {
