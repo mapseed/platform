@@ -211,7 +211,8 @@
   },
   "right_sidebar": {
     "is_enabled": true,
-    "is_visible_default": false
+    "is_visible_default": false,
+    "component": "StoryNavigator"
   },
   "left_sidebar": {
     "is_enabled": true,
@@ -654,5 +655,22 @@
         "<p>Anyone can use this map. The idea is express the beauty, the importance and the challenge of creating the Cascadian bioregion. This unfinished process has been going on for decades. Cascadia represents a pathway forward, through and beyond ecological damage, through and beyond climate change. Make it now!</p>"
       ]
     }
-  ]
+  ],
+  "story": {
+    "curated-collections": {
+      "header": "_(Curated Collections)",
+      "visibleLayerGroupIds": [
+        "topography-landscape-streets",
+        "creatingcascadia-input"
+      ],
+      "order": [
+        {
+          "placeId": 7124
+        },
+        {
+          "placeId": 7126
+        }
+      ]
+    }
+  }
 }
