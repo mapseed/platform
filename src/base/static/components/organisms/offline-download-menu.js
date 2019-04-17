@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { InternalLink, RegularText } from "../atoms/typography";
-import { CloseButton } from "../atoms/buttons";
-import { Button } from "../atoms/buttons";
+import { CloseButton, Button } from "../atoms/buttons";
 import { getTilePaths } from "../../utils/geo";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {
@@ -84,7 +83,7 @@ const OfflineDownloadMenu = props => {
   const [phase, setPhase] = useState("prompt");
   const [percentDownloaded, setPercentDownloaded] = useState(0);
   return (
-    <Fragment>
+    <>
       <InternalLink
         href={{ hash: "#offline-download" }}
         onClick={() => setIsModalOpen(() => true)}
@@ -163,7 +162,7 @@ const OfflineDownloadMenu = props => {
           </Fragment>
         </ModalWrapper>
       </Modal>
-    </Fragment>
+    </>
   );
 };
 
