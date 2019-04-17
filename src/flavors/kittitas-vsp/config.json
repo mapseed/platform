@@ -1113,11 +1113,6 @@
             "optional": true
           },
           {
-            "name": "web_soil_survey_info",
-            "type": "informational_html",
-            "content": "<p>Go further in depth! Take the USDA's <a target='_blank' href='https://websoilsurvey.sc.egov.usda.gov/App/HomePage.htm'>Web Soil Survey</a> (survey will open in a new tab).</p>"
-          },
-          {
             "//": "=============== POLYACRYLAMIDE =================================",
             "name": "polyacrylamide",
             "type": "big_radio",
@@ -1357,6 +1352,11 @@
             "placeholder": "_(Your best estimate)",
             "optional": false,
             "hidden_default": true
+          },
+          {
+            "name": "web_soil_survey_info",
+            "type": "informational_html",
+            "content": "<p style='margin-top:40px;'>Would you like to learn more about your soils? Go to USDA's <a target='_blank' href='https://websoilsurvey.sc.egov.usda.gov/App/HomePage.htm'>Web Soil Survey</a> (survey will open in a new tab).</p>"
           },
           {
             "//": "-------------SECTION: NUTRIENT MGMT-----------------",
