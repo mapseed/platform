@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import constants from "../../constants";
 
 // Selectors:
+export const isDrawingPluginInitializedSelector = state => {
+  return state.mapDrawingToolbar.isDrawingPluginInitialized;
+};
 export const visibleDrawingToolsSelector = state => {
   return state.mapDrawingToolbar.visibleDrawingTools;
 };
@@ -51,8 +54,13 @@ const SET_ACTIVE_COLORPICKER = "map-drawing-toolbar/SET_ACTIVE_COLORPICKER";
 const SET_GEOMETRY_STYLE = "map-drawing-toolbar/SET_GEOMETRY_STYLE";
 const RESET_DRAWING_TOOLBAR_STATE =
   "map-drawing-toolbar/RESET_DRAWING_TOOLBAR_STATE";
+const UPDATE_DRAWING_PLUGIN_INITIALIZED =
+  "map-drawing-toolbar/UPDATE_DRAWING_PLUGIN_INITIALIZED";
 
 // Action creators:
+export function updateDrawingPluginInitialized(isInitialized) {
+  return { type: UPDATE_DRAWING_PLUGIN_INITIALIZED, payload: isInitialized };
+}
 export function setVisibleDrawingTools(visibleDrawingTools) {
   return { type: SET_VISIBLE_DRAWING_TOOLS, payload: visibleDrawingTools };
 }
@@ -83,6 +91,7 @@ export function resetDrawingToolbarState() {
 
 // Reducers:
 const INITIAL_STATE = {
+  isDrawingPluginInitialized: false,
   visibleDrawingTools: [],
   activeDrawingTool: null,
   activeMarkerIndex: 0,
@@ -142,6 +151,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     case RESET_DRAWING_TOOLBAR_STATE:
       return INITIAL_STATE;
+    case UPDATE_DRAWING_PLUGIN_INITIALIZED:
+      return {
+        ...state,
+        isDrawingPluginInitialized: action.payload,
+      };
     default:
       return state;
   }
