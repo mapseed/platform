@@ -3,7 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 
-import { TinyTitle } from "../atoms/typography"
+import { TinyTitle } from "../atoms/typography";
 
 import fieldDefinitions from "./field-definitions";
 
@@ -36,9 +36,11 @@ const ResponseField = props => {
   ].getResponseComponent();
 
   return (
-    <div css={css`
-      margin-bottom: 10px; 
-    `}>
+    <div
+      css={css`
+        margin-bottom: 10px;
+      `}
+    >
       <TinyTitle
         css={css`
           margin-bottom: 4px;

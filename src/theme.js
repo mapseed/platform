@@ -43,7 +43,7 @@ export const globalStyles = css`
     src: url("/static/css/PT-Sans-Regular.ttf");
   }
 
-  // These styles are intended to mimic the styling of our Atoms on custom 
+  // These styles are intended to mimic the styling of our Atoms on custom
   // pages.
   #mapseed-custom-page-container {
     h1 {
