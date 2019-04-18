@@ -17,9 +17,12 @@ import { updateUIVisibility } from "../../state/ducks/ui";
 import { datasetUrlSelector } from "../../state/ducks/datasets";
 import { mapViewportPropType } from "../../state/ducks/map";
 
+import { RegularText } from "../atoms/typography";
+
 const alertBackground = "#ffc107"; // bright yellow-orange
-const DragMapAlert = styled("div")({
+const DragMapAlert = styled(RegularText)({
   backgroundColor: alertBackground,
+  display: "block",
   color: darken(alertBackground, 0.8),
   border: "2px dotted #ffffff",
   borderRadius: "8px",

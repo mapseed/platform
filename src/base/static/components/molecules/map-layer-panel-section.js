@@ -52,6 +52,7 @@ const SpinnerContainer = styled("div")({
 const LayerGroupTitle = styled("span")(props => ({
   flex: 6,
   backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "initial",
+  fontFamily: props.theme.text.bodyFontFamily,
 
   "&:hover": {
     backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "#ffffd4",

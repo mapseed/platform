@@ -7,7 +7,7 @@ import Spinner from "react-spinner";
 import "react-spinner/react-spinner.css";
 
 import FormField from "../form-fields/form-field";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
 
 import { jumpTo } from "../../utils/scroll-helpers";
@@ -366,10 +366,12 @@ class PlaceDetailEditor extends Component {
           "place-detail-editor--faded": this.props.isSubmitting,
         })}
       >
-        <WarningMessagesContainer
-          errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={this.props.t("validationErrorHeaderMsg")}
-        />
+        {this.state.formValidationErrors.size > 0 && (
+          <WarningMessagesContainer
+            errors={this.state.formValidationErrors}
+            headerMsg={this.props.t("validationErrorHeaderMsg")}
+          />
+        )}
         {this.props.place.attachments
           .filter(attachment => attachment.type === "CO")
           .map((attachment, i) => (

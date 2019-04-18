@@ -2,10 +2,10 @@ import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import Avatar from "../ui-elements/avatar";
+import { UserAvatar } from "../atoms/imagery";
 import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
-import { Time, SmallText } from "../atoms/typography";
+import { Time, SmallText, RegularText } from "../atoms/typography";
 
 import {
   commentFormConfigPropType,
@@ -40,17 +40,15 @@ class SurveyResponse extends Component {
                 field.name !== constants.SUBMITTER_NAME,
             )
             .map(field => (
-              <p
-                key={field.name}
-                className="place-detail-survey-response__paragraph"
-              >
+              <RegularText key={field.name}>
                 {this.props.comment[field.name]}
-              </p>
+              </RegularText>
             ))}
         </div>
         <div className="place-detail-survey-response__metadata-bar">
-          <Avatar
+          <UserAvatar
             className="place-detail-survey-response__avatar"
+            size="large"
             src={
               this.props.comment.submitter
                 ? this.props.comment.submitter.avatar_url

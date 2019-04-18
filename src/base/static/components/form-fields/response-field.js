@@ -1,9 +1,11 @@
+/** @jsx jsx */
 import React from "react";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 
-import fieldDefinitions from "./field-definitions";
+import { TinyTitle } from "../atoms/typography";
 
-import "./response-field.scss";
+import fieldDefinitions from "./field-definitions";
 
 // NOTE: Checkbox values might be a string (for a single checked item) or an
 // array (for multiple items). We resolve that discrepancy here, ensuring all
@@ -34,10 +36,18 @@ const ResponseField = props => {
   ].getResponseComponent();
 
   return (
-    <div className="form-field-response">
-      <p className="form-field-response__header">
+    <div
+      css={css`
+        margin-bottom: 10px;
+      `}
+    >
+      <TinyTitle
+        css={css`
+          margin-bottom: 4px;
+        `}
+      >
         {props.fieldConfig.display_prompt}
-      </p>
+      </TinyTitle>
       {FieldResponseComponent && (
         <FieldResponseComponent
           label={getLabel(props.fieldValue, props.fieldConfig)}

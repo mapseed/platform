@@ -3,42 +3,87 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "@emotion/styled";
-import { jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import { withTheme } from "emotion-theming";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
+import { FontAwesomeIcon } from "./imagery";
+import { SmallText } from "./typography";
 
 import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
 
-const EditorButton = props => {
+const EditorButton = withTheme(props => {
+  let linearGradient;
+  let faClassname;
+  if (props.type === "toggle" && props.isEditModeToggled) {
+    linearGradient = "linear-gradient(#e99a00, #b97a00)";
+    faClassname = "fa fa-pencil"; // pencil icon
+  } else if (props.type === "toggle") {
+    linearGradient = "linear-gradient(#f0ad4e, #e99a00)";
+    faClassname = "fa fa-pencil"; // pencil icon
+  } else if (props.type === "save") {
+    linearGradient = "linear-gradient(#449d44, #449d44)";
+    faClassname = "fa fa-save"; // floppy disk icon
+  } else if (props.type === "remove") {
+    linearGradient = "linear-gradient(#c9302c, #c9302c)";
+    faClassname = "fa fa-times"; // times (X) icon
+  }
+
   return (
     <button
-      className={classNames("editor-button", props.className, {
-        "editor-button--toggle": props.type === "toggle",
-        "editor-button--toggle--depressed":
-          props.type === "toggle" && props.isEditModeToggled,
-        "editor-button--save": props.type === "save",
-        "editor-button--remove": props.type === "remove",
-      })}
+      css={css`
+        float: ${props.type === "toggle" ? "left" : "right"};
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+        background-color: ${props.isEditModeToggled ? "#b27600" : "unset"};
+        box-shadow: ${props.isEditModeToggled
+          ? "inset 0 0 2px #999"
+          : "-2px 2px 3px #ccc"};
+        border-radius: 3px;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        padding: 5px 10px 5px 10px;
+        background-image: ${linearGradient};
+        font-family: ${props.theme.text.bodyFontFamily};
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: ${props.isEditModeToggled
+            ? "inset 0 0 0 1px #27496d"
+            : "-2px 2px 3px #ccc, inset 0 0 0 1px #27496d"};
+        }
+
+        &:focus {
+          outline: none;
+        }
+      `}
       disabled={props.isSubmitting}
       onClick={props.onClick}
       type="button"
     >
-      <span
-        className={classNames("editor-button__icon", {
-          "editor-button__icon--toggle": props.type === "toggle",
-          "editor-button__icon--save": props.type === "save",
-          "editor-button__icon--remove": props.type === "remove",
-        })}
+      <FontAwesomeIcon
+        faClassname={faClassname}
+        color="#fff"
+        hoverColor="#fff"
       />
       {!!props.label && (
-        <span className="editor-button__label">{props.label}</span>
+        <SmallText
+          css={css`
+            padding-left: 8px;
+          `}
+        >
+          {props.label}
+        </SmallText>
       )}
     </button>
   );
-};
+});
 
 EditorButton.propTypes = {
   className: PropTypes.string,
@@ -100,6 +145,7 @@ const Button = styled(props => {
       className={props.className}
       type="button"
       onClick={props.onClick}
+      name={props.name}
     >
       {props.children}
     </button>
@@ -136,8 +182,9 @@ const Button = styled(props => {
     styles.fontSize = "1.25rem";
     styles.padding = "0.5rem 0.75rem 0.5rem 0.75rem";
   } else if (props.size === "medium") {
-    styles.width = "200px";
-    styles.height = "40px";
+    styles.fontWeight = "600";
+    styles.fontSize = "1rem";
+    styles.padding = "0.25rem 0.5rem 0.25rem 0.5rem";
   } else if (props.size === "small") {
     styles.width = "auto";
     styles.fontSize = "1rem";

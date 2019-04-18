@@ -59,6 +59,7 @@ export function loadPlaceConfig(config, user) {
 const INITIAL_STATE = {
   anonymous_name: "",
   action_text: "",
+  formCategoryHeaders: {},
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

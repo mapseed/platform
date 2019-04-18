@@ -54,6 +54,8 @@ class ActivityStream extends Component {
           const submitterName =
             (target.submitter && target.submitter.name) ||
             target.submitter_name;
+          const submitterAvatarUrl =
+            (target.submitter && target.submitter.avatar_url) || undefined;
           let title;
           let anonymousName;
           let url;
@@ -103,6 +105,7 @@ class ActivityStream extends Component {
               key={i}
               title={title}
               actionText={actionText}
+              submitterAvatarUrl={submitterAvatarUrl}
               submitterName={submitterName || anonymousName}
               url={url}
             />

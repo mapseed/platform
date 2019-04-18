@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { connect } from "react-redux";
 
 import FormField from "../form-fields/form-field";
-import Avatar from "../ui-elements/avatar";
+import { UserAvatar } from "../atoms/imagery";
 import SubmitterName from "../ui-elements/submitter-name";
 import { EditorButton } from "../atoms/buttons";
 import { SmallText, Time } from "../atoms/typography";
@@ -162,8 +162,9 @@ class SurveyResponseEditor extends Component {
             ))}
         </div>
         <div className="place-detail-survey-response__metadata-bar">
-          <Avatar
+          <UserAvatar
             className="place-detail-survey-response__avatar"
+            size="large"
             src={
               this.props.comment.submitter
                 ? this.props.comment.submitter.avatar_url

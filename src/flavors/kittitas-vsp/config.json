@@ -34,7 +34,7 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#ef5f46",
-        "headerFontFamily": "Raleway,sans-serif",
+        "titleFontFamily": "Raleway,sans-serif",
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {

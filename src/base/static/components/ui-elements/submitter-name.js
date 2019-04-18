@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { connect } from "react-redux";
+import { withTheme } from "emotion-theming";
 
+import { RegularText } from "../atoms/typography";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 
 const SubmitterName = props => {
   return (
-    <strong className={classNames("submitter-name", props.className)}>
+    <RegularText>
       {props.submitterName || props.placeConfig.anonymous_name}
-    </strong>
+    </RegularText>
   );
 };
 
@@ -23,4 +24,4 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(SubmitterName);
+export default withTheme(connect(mapStateToProps)(SubmitterName));

@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
+
+const CustomPageWrapper = styled(props => ({}));
 
 const CustomPage = props => (
   <div

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import FormField from "../form-fields/form-field";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
@@ -533,7 +533,7 @@ class InputForm extends Component {
           )}
           {this.state.formValidationErrors.size > 0 && (
             <WarningMessagesContainer
-              errors={[...this.state.formValidationErrors]}
+              errors={this.state.formValidationErrors}
               headerMsg={this.props.t("validationHeader")}
             />
           )}
