@@ -18,7 +18,7 @@
       "anonymous_permissions": [
         {
           "abilities": ["create"],
-          "submission_set": "comments"
+          "submission_set": "*"
         }
       ]
     },
@@ -1276,7 +1276,7 @@
         "name": "location_type",
         "icon_url": "/static/css/images/markers/marker-dot-commute-low-carbon.png",
         "value": "featured_project",
-        "label": "_(Featured Project)",
+        "label": "_(Submit a classroom report!)",
         "fields": [
           {
             "name": "title",
@@ -1444,7 +1444,7 @@
         "datasetSlug": "mwfeatured",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
-        "label": "_(Featured Site)",
+        "label": "_(Submit a community report)",
         "fields": [
           {
             "name": "cover-image",
@@ -1596,7 +1596,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
-        "label": "_(Conserve Water)",
+        "label": "_(I will conserve water)",
         "fields": [
           {
             "name": "address",
@@ -1710,7 +1710,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
-        "label": "_(Prevent Stormwater Pollution)",
+        "label": "_(I will prevent stormwater pollution)",
         "fields": [
           {
             "name": "address",
@@ -1823,7 +1823,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-only-flush-this.png",
         "value": "only-flush",
-        "label": "_(Think - Toilet, Shower, Sink)",
+        "label": "_(I will reduce wastewater pollution)",
         "fields": [
           {
             "name": "address",
@@ -1928,7 +1928,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-energy.png",
         "value": "conserve-energy",
-        "label": "_(Conserve Energy)",
+        "label": "_(I will conserve energy)",
         "fields": [
           {
             "name": "address",
@@ -2026,7 +2026,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
-        "label": "_(Waste Less)",
+        "label": "_(I will waste less)",
         "fields": [
           {
             "name": "address",
@@ -2120,7 +2120,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
-        "label": "_(Commute Low Carbon)",
+        "label": "_(I will commute on low carbon transit)",
         "fields": [
           {
             "name": "address",
@@ -2206,7 +2206,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
-        "label": "_(Eat Local Organic)",
+        "label": "_(I will eat local and organic)",
         "fields": [
           {
             "name": "address",
@@ -2284,7 +2284,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
-        "label": "_(Restore Salmon Habitat)",
+        "label": "_(I will help restore salmon habitat)",
         "fields": [
           {
             "name": "address",

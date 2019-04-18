@@ -19,7 +19,11 @@ import {
 const CategoryHeader = withTheme(props => (
   <div
     css={css`
-      margin-bottom: 16px;
+      margin-bottom: ${props.isCollapsed ? 0 : "16px"};
+      height: ${props.isCollapsed ? 0 : "initial"};
+      overflow: ${props.isCollapsed ? "hidden" : "initial"};
+      transition: all 0.5s;
+      transition-timing-function: ease;
     `}
   >
     <HorizontalRule spacing="small" />
@@ -27,6 +31,7 @@ const CategoryHeader = withTheme(props => (
       css={css`
         margin-left: 16px;
         color: #555;
+        display: block;
       `}
     >
       {props.header}
@@ -36,6 +41,7 @@ const CategoryHeader = withTheme(props => (
         margin-left: 16px;
         color: #555;
         font-style: italic;
+        display: block;
       `}
     >
       {props.description}
@@ -86,9 +92,15 @@ class InputFormCategorySelector extends Component {
                 submissionSet: "places",
                 datasetSlugs: [config.datasetSlug],
               })) && (
-              <div key={config.category}>
+              <div
+                key={config.category}
+                css={css`
+                  margin: 0;
+                `}
+              >
                 {isWithFormCategoryHeader && (
                   <CategoryHeader
+                    isCollapsed={this.state.isCollapsed}
                     header={
                       this.props.placeConfig.formCategoryHeaders[
                         config.datasetSlug
