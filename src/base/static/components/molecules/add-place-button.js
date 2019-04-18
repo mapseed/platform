@@ -23,6 +23,7 @@ const AddPlaceButtonContainer = styled(props => (
     position: "absolute",
     zIndex: 1,
     backgroundColor: props.theme.map.addPlaceButtonBackgroundColor,
+    fontFamily: props.theme.text.bodyFontFamily,
 
     "&:hover": {
       backgroundColor: props.theme.map.addPlaceButtonHoverBackgroundColor,

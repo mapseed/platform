@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { translate } from "react-i18next";
 
-import { RegularText, TinyTitle } from "../atoms/typography";
+import { RegularText } from "../atoms/typography";
 
 const WarningMessagesContainer = props => {
   return (
@@ -17,32 +17,45 @@ const WarningMessagesContainer = props => {
         color: #fff;
       `}
     >
-      <TinyTitle
+      <RegularText
         css={css`
+          font-weight: 800;
           margin: 0 0 16px 0;
         `}
       >
         {props.headerMsg}
-      </TinyTitle>
-      {Array.from(props.errors).map(errorMsg => (
-        <RegularText
-          css={css`
-            color: #fff;
-            font-style: italic;
-            padding-left: 16px;
+      </RegularText>
+      <ul
+        css={css`
+          padding-left: 16px;
+        `}
+      >
+        {Array.from(props.errors).map(errorMsg => (
+          <li
+            key={errorMsg}
+            css={css`
+              list-style: none;
+              margin-bottom: 8px;
+            `}
+          >
+            <RegularText
+              css={css`
+                color: #fff;
+                font-style: italic;
 
-            &:before {
-              font-family: FontAwesome;
-              content: "\\f005"; /* solid star */
-              padding-right: 5px;
-              font-style: normal;
-            }
-          `}
-          key={errorMsg}
-        >
-          {props.t(errorMsg)}
-        </RegularText>
-      ))}
+                &:before {
+                  font-family: FontAwesome;
+                  content: "\\f005"; /* solid star */
+                  padding-right: 5px;
+                  font-style: normal;
+                }
+              `}
+            >
+              {props.t(errorMsg)}
+            </RegularText>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };
