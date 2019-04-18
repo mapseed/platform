@@ -51,7 +51,7 @@
         "secondary": "#fff",
         "tertiary": "#58585b",
         "navBarFontFamily": "proxima-nova, sans-serif",
-        "headerFontFamily": "Josefin Sans",
+        "titleFontFamily": "Josefin Sans",
         "bodyFontFamily": "proxima-nova"
       },
       "map": {
