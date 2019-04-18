@@ -13,6 +13,7 @@ const SupportButton = props => {
     <Button
       css={css`
         margin-bottom: 8px;
+        min-width: 125px;
         padding: 5px 10px 5px 10px;
         font-family: ${props.theme.text.bodyFontFamily};
         font-size: 12px;
@@ -20,7 +21,7 @@ const SupportButton = props => {
         &:before {
           padding-right: 8px;
           font-family: FontAwesome;
-          content: "\\F004";
+          content: "\\F004"; /* heart */
           font-size: 12px;
           color: ${props.isSupported ? "#d24444" : "#d1e2ec"};
         }

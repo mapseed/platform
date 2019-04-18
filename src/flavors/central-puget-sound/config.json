@@ -52,6 +52,7 @@
       "text": {
         "tertiary": "#007ec0",
         "titleColor": "#127de4",
+        "bodyFontFamily": "Roboto, sans-serif",
         "titleFontFamily": "Palanquin, sans-serif",
         "secondary": "#fff"
       }
@@ -89,7 +90,8 @@
         "type": "raster",
         "tiles": [
           "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
-        ]
+        ],
+        "tileSize": 256
       },
       "sub-basins": {
         "type": "raster",
@@ -4343,57 +4345,48 @@
   ],
   "story": {
     "watersheds": {
+      "header": "Example projects",
       "default_zoom": 18,
       "visibleLayerGroupIds": ["satellite", "mwfeatured"],
       "order": [
         {
           "placeId": 3737,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3363,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3360,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3362,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3328,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3329,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
-          "placeId": 3330,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "placeId": 3330
         },
         {
           "placeId": 3331,
-          "zoom": 14,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 14
         },
         {
           "placeId": 3747,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3748,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3332,
@@ -4404,8 +4397,7 @@
             "wria-7-8-9",
             "watershed-sammamish"
           ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "spotlight": false
         },
         {
           "placeId": 3333,
@@ -4416,8 +4408,7 @@
             "wria-7-8-9",
             "watershed-cedar-sammamish"
           ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "spotlight": false
         },
         {
           "placeId": 3334,
@@ -4428,8 +4419,7 @@
             "wria-7-8-9",
             "watershed-green"
           ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "spotlight": false
         },
         {
           "placeId": 3335,
@@ -4440,8 +4430,7 @@
             "wria-7-8-9",
             "watershed-puyallup"
           ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "spotlight": false
         }
       ]
     }
