@@ -1,7 +1,9 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import getExtentFromGeometry from "turf-extent";
 import WebMercatorViewport from "viewport-mercator-project";
@@ -335,7 +337,13 @@ class PlaceDetail extends Component {
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
         />
-        <LargeTitle>{this.props.focusedPlace.title}</LargeTitle>
+        <LargeTitle
+          css={css`
+            margin-top: 0;
+          `}
+        >
+          {this.props.focusedPlace.title}
+        </LargeTitle>
         <PromotionMetadataContainer>
           <MetadataBar
             createdDatetime={this.props.focusedPlace.created_datetime}
