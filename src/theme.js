@@ -1,6 +1,6 @@
 import { css } from "@emotion/core";
 
-// Add font faces:
+// Add font faces and other global styles:
 export const globalStyles = css`
   @font-face {
     font-family: "Lithos";
@@ -41,6 +41,46 @@ export const globalStyles = css`
   @font-face {
     font-family: "PTSans";
     src: url("/static/css/PT-Sans-Regular.ttf");
+  }
+
+  // These styles are intended to mimic the styling of our Atoms on custom 
+  // pages.
+  #mapseed-custom-page-container {
+    h1 {
+      font-size: 2rem !important;
+      margin: 0 0 16px 0 !important;
+    }
+    h2 {
+      font-size: 1.8rem !important;
+      margin: 0 0 16px 0 !important;
+    }
+    h3 {
+      font-size: 1.5rem !important;
+      margin: 0 0 16px 0 !important;
+    }
+    h4 {
+      font-size: 1.1rem !important;
+      margin: 0 0 16px 0 !important;
+    }
+    h5 {
+      font-size: 1rem !important;
+      margin: 0 0 16px 0 !important;
+    }
+    h6 {
+      font-size: 1rem !important;
+      margin: 0 0 16px 0 !important;
+    }
+    img {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 0 10px 0 !important;
+    }
+    a {
+      text-decoration: none !important;
+    }
+    p {
+      margin: 0 0 16px 0 !important;
+    }
   }
 `;
 

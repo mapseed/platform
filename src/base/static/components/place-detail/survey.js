@@ -1,14 +1,18 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
+import { css, jsx } from "@emotion/core";
 import emitter from "../../utils/emitter";
 import { connect } from "react-redux";
+import { withTheme } from "emotion-theming";
 
 import FormField from "../form-fields/form-field";
 import SurveyResponse from "./survey-response";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
 import { UserAvatar } from "../atoms/imagery";
 import SurveyResponseEditor from "./survey-response-editor";
+import { SmallTitle, RegularText, ExternalLink } from "../atoms/typography";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -122,14 +126,22 @@ class Survey extends Component {
     const numComments = this.props.comments.length;
 
     return (
-      <div className="place-detail-survey">
-        <div className="place-detail-survey__header-bar">
-          <h4 className="place-detail-survey__num-comments-header">
+      <div>
+        <div
+          css={css`
+            overflow: auto;
+          `}
+        >
+          <SmallTitle
+            css={css`
+              margin-bottom: 8px;
+            `}
+          >
             {numComments}{" "}
             {numComments === 1
               ? this.props.commentFormConfig.response_name
               : this.props.commentFormConfig.response_plural_name}
-          </h4>
+          </SmallTitle>
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
         <div className="place-detail-survey-responses">
@@ -153,13 +165,17 @@ class Survey extends Component {
             }
           })}
         </div>
-        <WarningMessagesContainer
-          errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={this.props.t("validationErrorHeaderMsg")}
-        />
+        {this.state.formValidationErrors.size > 0 && (
+          <WarningMessagesContainer
+            errors={this.state.formValidationErrors}
+            headerMsg={this.props.t("validationErrorHeaderMsg")}
+          />
+        )}
         {this.state.canComment && (
           <form
-            className="place-detail-survey__form"
+            css={css`
+              margin-top: 16px;
+            `}
             onSubmit={evt => evt.preventDefault()}
           >
             {this.state.fields
@@ -184,15 +200,23 @@ class Survey extends Component {
         {this.props.currentUser.isAuthenticated && this.state.canComment ? (
           <span className="place-detail-survey__submit-user-info">
             <UserAvatar size="small" src={this.props.currentUser.avatar_url} />
-            <span className="place-detail-survey__username">
+            <RegularText
+              css={css`
+                margin-left: 8px;
+                font-weight: 800;
+              `}
+            >
               {this.props.currentUser.name}
-            </span>
-            <a
+            </RegularText>
+            <ExternalLink
+              css={css`
+                font-family: ${this.props.theme.text.bodyFontFamily};
+              `}
               className="place-detail-survey__logout-button"
               href={this.props.appConfig.api_root + "users/logout/"}
             >
               {this.props.t("logOut")}
-            </a>
+            </ExternalLink>
           </span>
         ) : null}
       </div>
@@ -216,6 +240,7 @@ Survey.propTypes = {
   currentUser: PropTypes.object,
   submitter: PropTypes.object,
   t: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
   userToken: PropTypes.string,
 };
 
@@ -231,7 +256,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createPlaceComment(placeId, commentData)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("Survey")(Survey));
+export default withTheme(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(translate("Survey")(Survey)),
+);

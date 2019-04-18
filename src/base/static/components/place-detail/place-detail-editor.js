@@ -7,7 +7,7 @@ import Spinner from "react-spinner";
 import "react-spinner/react-spinner.css";
 
 import FormField from "../form-fields/form-field";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
 
 import { jumpTo } from "../../utils/scroll-helpers";

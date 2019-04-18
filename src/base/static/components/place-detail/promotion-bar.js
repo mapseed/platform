@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { connect } from "react-redux";
 
 import styled from "@emotion/styled";
-import SupportButton from "../ui-elements/support-button";
+import SupportButton from "../molecules/support-button";
 import { IconButton } from "../atoms/buttons";
 
 import {

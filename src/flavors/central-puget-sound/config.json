@@ -52,7 +52,7 @@
       "text": {
         "tertiary": "#007ec0",
         "titleColor": "#127de4",
-        "titleFontFamily": "Palanquin; sans-serif",
+        "titleFontFamily": "Palanquin, sans-serif",
         "secondary": "#fff"
       }
     }
@@ -4441,7 +4441,7 @@
       "lang": "en_US",
       "content": [
         "<h3 style='font-family:Palanquin, sans-serif'>Classroom Impact Reporting Protocol</h3>",
-        "<img style='margin-top:16px;margin-bottom:16px' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
+        "<img style='margin-top:16px;margin-bottom:16px;width:100%;' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
         "<p>Add your classroom reports to the map! Let your students and stakeholders track and visualize the positive impact of their classroom and community projects. Need admin support to get started? <a href='mailto:hello@mapseed.org' target='_blank'>Just ask.</a></p>",
         "<p>Click the button below, then choose the <strong>Featured Project</strong> cateory to add your report.</p>",
         "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-large'>REPORT IT!</a>"

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import getExtentFromGeometry from "turf-extent";
 import WebMercatorViewport from "viewport-mercator-project";
 
+import { LargeTitle } from "../atoms/typography";
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
@@ -335,13 +335,7 @@ class PlaceDetail extends Component {
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
         />
-        <h1
-          className={classNames("place-detail-view__header", {
-            "place-detail-view__header--centered": isStoryChapter,
-          })}
-        >
-          {this.props.focusedPlace.title}
-        </h1>
+        <LargeTitle>{this.props.focusedPlace.title}</LargeTitle>
         <PromotionMetadataContainer>
           <MetadataBar
             createdDatetime={this.props.focusedPlace.created_datetime}

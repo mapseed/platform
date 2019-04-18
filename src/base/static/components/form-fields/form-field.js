@@ -1,9 +1,13 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map } from "immutable";
 import classNames from "classnames";
+import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
+import { withTheme } from "emotion-theming";
 
+import { RegularText } from "../atoms/typography";
 import { InfoModalTrigger } from "../atoms/feedback";
 import fieldDefinitions from "./field-definitions";
 import { translate } from "react-i18next";
@@ -113,11 +117,6 @@ class FormField extends Component {
 
   render() {
     const cn = {
-      container: classNames("input-form__field-container", {
-        "input-form__field-container--invalid":
-          this.props.showValidityStatus &&
-          !this.props.fieldState.get(constants.FIELD_VALIDITY_KEY),
-      }),
       optionalMsg: classNames("input-form__optional-msg", {
         "input-form__optional-msg--visible": this.props.fieldConfig.optional,
       }),
@@ -125,17 +124,30 @@ class FormField extends Component {
 
     return (
       <div
-        className={cn.container}
+        css={css`
+          font-family: ${this.props.theme.text.bodyFontFamily};
+          margin-bottom: 5px;
+          padding: 5px;
+          border: ${this.props.showValidityStatus &&
+          !this.props.fieldState.get("isValid")
+            ? "2px dotted #da8583"
+            : "2px solid transparent"};
+          border-radius: 8px;
+        `}
         data-field-type={this.props.fieldConfig.type}
         data-field-name={this.props.fieldConfig.name}
       >
         <div className="input-form__field-prompt-container">
-          <p className="input-form__field-prompt">
+          <RegularText
+            css={css`
+              margin-bottom: 8px;
+            `}
+          >
             {this.props.fieldConfig.prompt}
             <span className={cn.optionalMsg}>
               {this.props.t("optionalMsg")}
             </span>
-          </p>
+          </RegularText>
           {this.props.fieldConfig.modal && (
             <InfoModalTrigger
               classes="input-form__field-modal-trigger"
@@ -164,6 +176,7 @@ FormField.propTypes = {
   router: PropTypes.object,
   showValidityStatus: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
@@ -180,4 +193,6 @@ const mapStateToProps = state => ({
   isEditModeToggled: isEditModeToggled(state),
 });
 
-export default connect(mapStateToProps)(translate("FormField")(FormField));
+export default withTheme(
+  connect(mapStateToProps)(translate("FormField")(FormField)),
+);

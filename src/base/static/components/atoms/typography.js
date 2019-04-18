@@ -7,19 +7,6 @@ import { Link } from "react-router-dom";
 
 import "./typography.scss";
 
-const WarningMessage = ({ children, ...props }) => {
-  return (
-    <p className="mapseed__warning-msg" {...props}>
-      {children}
-    </p>
-  );
-};
-
-WarningMessage.propTypes = {
-  children: PropTypes.node,
-  style: PropTypes.object,
-};
-
 // Legacy Text:
 const Paragraph = ({ children, ...props }) => {
   return (
@@ -116,46 +103,46 @@ Header6.propTypes = {
 // Title atoms:
 const LargeTitle = styled("h1")(props => ({
   fontSize: "2rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
   margin: "16px 0",
 }));
 
 const RegularTitle = styled("h2")(props => ({
   fontSize: "1.8rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
   margin: "16px 0",
 }));
 const SmallTitle = styled("h3")(props => ({
   fontSize: "1.5rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
   margin: "16px 0",
 }));
 const TinyTitle = styled("h4")(props => ({
   fontSize: "1.1rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
   margin: "16px 0",
 }));
 
 // TODO: Other label types.
 const ExtraLargeLabel = styled("label")(props => ({
   fontSize: "2rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
 }));
 
 const LargeLabel = styled("label")(props => ({
   fontSize: "1.5rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
 }));
 
 const RegularLabel = styled("label")(props => ({
   fontSize: "1rem",
   lineHeight: "1.2rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
 }));
 
 const SmallLabel = styled("label")(props => ({
   fontSize: "0.7rem",
-  fontFamily: props.theme.text.headerFontFamily,
+  fontFamily: props.theme.text.titleFontFamily,
 }));
 
 RegularLabel.propTypes = {
@@ -264,7 +251,6 @@ Time.propTypes = {
 export {
   ExternalLink,
   InternalLink,
-  WarningMessage,
   Paragraph,
   Header1,
   Header2,

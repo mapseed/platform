@@ -20,17 +20,6 @@
   display: inline;
 }
 
-.input-form__field-container {
-  margin-bottom: 5px;
-  padding: 5px;
-  border: $input-form-invalid-field-placeholder-border;
-}
-
-.input-form__field-container--invalid {
-  border: $input-form-invalid-field-border;
-  border-radius: $input-form-invalid-field-border-radius;
-}
-
 .input-form__field-container--hidden {
   display: none;
 }
