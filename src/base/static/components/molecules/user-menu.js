@@ -285,7 +285,7 @@ UserMenu.propTypes = {
   isInMobileMode: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   isMenuOpen: PropTypes.bool.isRequired,
-  offlineBoundingBox: offlineConfigPropType.isRequired,
+  offlineBoundingBox: offlineConfigPropType,
 };
 
 const mapStateToProps = state => ({
