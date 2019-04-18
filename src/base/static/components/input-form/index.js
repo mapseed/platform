@@ -533,7 +533,7 @@ class InputForm extends Component {
           )}
           {this.state.formValidationErrors.size > 0 && (
             <WarningMessagesContainer
-              errors={[...this.state.formValidationErrors]}
+              errors={this.state.formValidationErrors}
               headerMsg={this.props.t("validationHeader")}
             />
           )}

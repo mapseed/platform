@@ -34,7 +34,7 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#e57c04",
-        "headerFontFamily": "Raleway,sans-serif",
+        "titleFontFamily": "Raleway,sans-serif",
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
@@ -1000,7 +1000,7 @@
           {
             "name": "residue_tillage_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your residue and tillage management practices.</p></div></div>"
+            "content": "<p style='margin: 0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your residue and tillage management practices.</p>"
           },
           {
             "name": "residue-tillage_no-residue-tillage",
@@ -1010,11 +1010,11 @@
             "advance_stage_on_value": "no-residue-tillage",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-residue-tillage"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "residue-tillage"
               }
             ],
@@ -1122,7 +1122,7 @@
           {
             "name": "pest_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your pest management practices.</p></div></div>"
+            "content": "<p style='margin: 0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your pest management practices.</p>"
           },
           {
             "name": "pest-management_no-pest-management",
@@ -1132,11 +1132,11 @@
             "advance_stage_on_value": "no-pest-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-pest-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "pest-management"
               }
             ],
@@ -1201,7 +1201,7 @@
           {
             "name": "nutrient_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+            "content": "<p style='margin: 0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your nutrient management practices.</p>"
           },
           {
             "name": "nutrient-management_no-nutrient-management",
@@ -1211,11 +1211,11 @@
             "advance_stage_on_value": "no-nutrient-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-nutrient-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "nutrient-management"
               }
             ],
@@ -1280,7 +1280,7 @@
           {
             "name": "water_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your water management practices.</p></div></div>"
+            "content": "<p style='margin: 0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your water management practices.</p>"
           },
           {
             "name": "water-management_no-water-management",
@@ -1290,11 +1290,11 @@
             "advance_stage_on_value": "no-water-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-water-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "water-management"
               }
             ],
@@ -1356,7 +1356,7 @@
           {
             "name": "livestock_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your livestock management practices.</p></div></div>"
+            "content": "<p style='margin: 0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your livestock management practices.</p>"
           },
           {
             "name": "livestock-management_no-livestock-management",
@@ -1366,11 +1366,11 @@
             "advance_stage_on_value": "no-livestock-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-livestock-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "livestock-management"
               }
             ],
@@ -1626,7 +1626,7 @@
           {
             "name": "soil_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your soil management practices.</p></div></div>"
+            "content": "<p style='margin: 0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your soil management practices.</p>"
           },
           {
             "name": "soil-management_no-soil-management",
@@ -1636,11 +1636,11 @@
             "advance_stage_on_value": "no-soil-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-soil-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "soil-management"
               }
             ],
@@ -1752,7 +1752,7 @@
           {
             "name": "fish_wildlife_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your fish & wildlife management practices.</p></div></div>"
+            "content": "<p style='margin: 0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your fish & wildlife management practices.</p>"
           },
           {
             "name": "fish-wildlife-management_no-fish-wildlife-management",
@@ -1762,11 +1762,11 @@
             "advance_stage_on_value": "no-fish-wildlife-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-fish-wildlife-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "fish-wildlife-management"
               }
             ],

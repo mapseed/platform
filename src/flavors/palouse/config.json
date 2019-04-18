@@ -34,7 +34,7 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#e57c04",
-        "headerFontFamily": "Raleway,sans-serif",
+        "titleFontFamily": "Raleway,sans-serif",
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
@@ -877,7 +877,7 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<h1 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h2>"
           },
           {
             "name": "frequently_flooded_information",
@@ -986,7 +986,7 @@
           {
             "name": "residue_tillage_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your residue and tillage management practices.</p></div></div>"
+            "content": "<p style='margin:0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your residue and tillage management practices.</p>"
           },
           {
             "name": "residue-tillage_no-residue-tillage",
@@ -996,11 +996,11 @@
             "advance_stage_on_value": "no-residue-tillage",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-residue-tillage"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "residue-tillage"
               }
             ],
@@ -1108,7 +1108,7 @@
           {
             "name": "pest_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your pest management practices.</p></div></div>"
+            "content": "<p style='margin:0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your pest management practices.</p>"
           },
           {
             "name": "pest-management_no-pest-management",
@@ -1118,11 +1118,11 @@
             "advance_stage_on_value": "no-pest-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-pest-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "pest-management"
               }
             ],
@@ -1187,7 +1187,7 @@
           {
             "name": "nutrient_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your nutrient management practices.</p></div></div>"
+            "content": "<p style='margin:0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your nutrient management practices.</p>"
           },
           {
             "name": "nutrient-management_no-nutrient-management",
@@ -1197,11 +1197,11 @@
             "advance_stage_on_value": "no-nutrient-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-nutrient-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "nutrient-management"
               }
             ],
@@ -1266,7 +1266,7 @@
           {
             "name": "range_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your range management practices.</p></div></div>"
+            "content": "<p style='margin:0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your range management practices.</p>"
           },
           {
             "name": "range-management_no-range-management",
@@ -1276,11 +1276,11 @@
             "advance_stage_on_value": "no-range-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-range-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "range-management"
               }
             ],
@@ -1489,7 +1489,7 @@
           {
             "name": "soil_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your soil management practices.</p></div></div>"
+            "content": "<p style='margin:0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your soil management practices.</p>"
           },
           {
             "name": "soil-management_no-soil-management",
@@ -1499,11 +1499,11 @@
             "advance_stage_on_value": "no-soil-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-soil-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "soil-management"
               }
             ],
@@ -1612,7 +1612,7 @@
           {
             "name": "fish_wildlife_management_information",
             "type": "informational_html",
-            "content": "<div style='display:flex;padding:4px;'><div style='flex:1;margin:4px'><p>Please fill out the form below to report your fish & wildlife management practices.</p></div></div>"
+            "content": "<p style='margin:0 0 24px 0;font-size:1.15rem;'>Please fill out the form below to report your fish & wildlife management practices.</p>"
           },
           {
             "name": "fish-wildlife-management_no-fish-wildlife-management",
@@ -1622,11 +1622,11 @@
             "advance_stage_on_value": "no-fish-wildlife-management",
             "content": [
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "no-fish-wildlife-management"
               },
               {
-                "label": "_(This section is not relevant to me. Proceed to next section.)",
+                "label": "_(This section is not relevant to me. Proceed to next section. )",
                 "value": "fish-wildlife-management"
               }
             ],

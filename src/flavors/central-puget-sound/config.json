@@ -1243,6 +1243,20 @@
   },
   "place": {
     "adding_supported": true,
+    "formCategoryHeaders": {
+      "mw": {
+        "header": "_(Individuals)",
+        "description": "_(Individuals can pledge to live more sustainably)"
+      },
+      "mwfeatured": {
+        "header": "_(Community Members)",
+        "description": "_(Community members can report on projects in their neighborhoods)"
+      },
+      "mw-featured-projects": {
+        "header": "_(Teachers)",
+        "description": "_(Teachers can report on their classroom's activities)"
+      }
+    },
     "add_button_label": "_(Take Action)",
     "show_list_button_label": "_(Myself)",
     "show_map_button_label": "_(Show Map)",

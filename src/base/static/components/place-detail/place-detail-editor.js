@@ -366,10 +366,12 @@ class PlaceDetailEditor extends Component {
           "place-detail-editor--faded": this.props.isSubmitting,
         })}
       >
-        <WarningMessagesContainer
-          errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={this.props.t("validationErrorHeaderMsg")}
-        />
+        {this.state.formValidationErrors.size > 0 && (
+          <WarningMessagesContainer
+            errors={this.state.formValidationErrors}
+            headerMsg={this.props.t("validationErrorHeaderMsg")}
+          />
+        )}
         {this.props.place.attachments
           .filter(attachment => attachment.type === "CO")
           .map((attachment, i) => (

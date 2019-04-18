@@ -15,6 +15,7 @@ const WarningMessagesContainer = props => {
         border: 2px dotted #fff;
         border-radius: 8px;
         color: #fff;
+        margin-bottom: 32px;
       `}
     >
       <RegularText
@@ -28,6 +29,8 @@ const WarningMessagesContainer = props => {
       <ul
         css={css`
           padding-left: 16px;
+          margin-top: 16px;
+          margin-bottom: 0;
         `}
       >
         {Array.from(props.errors).map(errorMsg => (

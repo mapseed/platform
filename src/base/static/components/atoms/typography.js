@@ -104,23 +104,23 @@ Header6.propTypes = {
 const LargeTitle = styled("h1")(props => ({
   fontSize: "2rem",
   fontFamily: props.theme.text.titleFontFamily,
-  margin: "16px 0",
+  margin: "16px 0 8px 0",
 }));
 
 const RegularTitle = styled("h2")(props => ({
   fontSize: "1.8rem",
   fontFamily: props.theme.text.titleFontFamily,
-  margin: "16px 0",
+  margin: "16px 0 8px 0",
 }));
 const SmallTitle = styled("h3")(props => ({
   fontSize: "1.5rem",
   fontFamily: props.theme.text.titleFontFamily,
-  margin: "16px 0",
+  margin: "16px 0 8px 0",
 }));
 const TinyTitle = styled("h4")(props => ({
   fontSize: "1.1rem",
   fontFamily: props.theme.text.titleFontFamily,
-  margin: "16px 0",
+  margin: "16px 0 8px 0",
 }));
 
 // TODO: Other label types.

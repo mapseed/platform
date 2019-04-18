@@ -21,6 +21,9 @@ const HorizontalRule = styled("hr")(props => {
   } else if (props.spacing === "tiny") {
     styles.marginTop = "4px";
     styles.marginBottom = "4px";
+  } else if (props.spacing === "medium") {
+    styles.marginTop = "16px";
+    styles.marginBottom = "16px";
   }
 
   if (props.color === "light") {
