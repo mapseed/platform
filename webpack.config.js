@@ -2,6 +2,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 require("dotenv").config({ path: "src/.env" });
 
@@ -30,15 +31,6 @@ var entryPoints = [
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
 ];
 
-const alias = {
-  config: path.resolve(
-    __dirname,
-    "src/flavors",
-    process.env.FLAVOR,
-    "config.json",
-  ),
-};
-
 const extractSCSS = new MiniCssExtractPlugin({
   // Options similar to the same options in webpackOptions.output
   // both options are optional
@@ -59,7 +51,16 @@ module.exports = {
     publicPath: "/",
   },
   resolve: {
-    alias,
+    alias: {
+      // alias for our config:
+      config: path.resolve(
+        __dirname,
+        "src/flavors",
+        process.env.FLAVOR,
+        "config.json",
+      ),
+    },
+    extensions: [".wasm", ".mjs", ".js", ".json", ".ts", ".tsx"],
   },
   resolveLoader: {
     modules: ["node_modules", path.resolve(__dirname, "scripts")],
@@ -110,13 +111,32 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: "babel-loader",
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            // This is a feature of `babel-loader` for webpack (not Babel itself).
+            // It enables caching results in ./node_modules/.cache/babel-loader/
+            // directory for faster rebuilds.
+            cacheDirectory: true,
+          },
+        },
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ["source-map-loader", "babel-loader"],
         enforce: "pre",
+        use: [
+          {
+            loader: "source-map-loader",
+          },
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
       },
     ],
   },
@@ -124,6 +144,7 @@ module.exports = {
     fs: "empty",
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": isProd
         ? JSON.stringify("production")
