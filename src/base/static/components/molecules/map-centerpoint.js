@@ -50,6 +50,7 @@ const MapCenterpointOverlay = styled("span")(props => ({
   background: "url(/static/css/images/marker-arrow-overlay.png) no-repeat",
   backgroundSize: "150px",
   textAlign: "center",
+  fontFamily: props.theme.text.bodyFontFamily,
 
   "&:before": {
     content: `"${props.overlayMsg}"`,

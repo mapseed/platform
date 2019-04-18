@@ -142,6 +142,7 @@ const theme = {
     highlighted: "#fff",
     headerFontFamily: "Roboto,sans-serif",
     bodyFontFamily: "Roboto,sans-serif",
+    navBarFontFamily: "Roboto,sans-serif",
     textTransform: "uppercase",
     titleColor: "#aaa",
     titleFontFamily: "Roboto,sans-serif",
