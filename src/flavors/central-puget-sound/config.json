@@ -866,7 +866,7 @@
       {
         "id": "mw-featured-projects",
         "datasetSlug": "mw-featured-projects",
-        "visibleDefault": true,
+        "visibleDefault": false,
         "interactive": true,
         "mapboxFocusedLayers": [
           {
@@ -907,7 +907,7 @@
         "id": "mwfeatured",
         "datasetSlug": "mwfeatured",
         "interactive": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxFocusedLayers": [
           {
             "id": "mwfeatured-focused",
