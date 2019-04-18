@@ -329,20 +329,33 @@
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "durham-council-wards-fill",
+            "id": "durham-council-wards-1-fill",
             "type": "fill",
             "source": "durham-council-wards",
+            "filter": ["==", ["get", "Ward"], "Ward 1"],
             "paint": {
-              "fill-color": "#cccccc",
-              "fill-opacity": [
-                "interpolate",
-                ["linear", 1],
-                ["zoom"],
-                0,
-                0.3,
-                14,
-                0
-              ]
+              "fill-color": "#e5bbb4",
+              "fill-opacity": 0.6
+            }
+          },
+          {
+            "id": "durham-council-wards-2-fill",
+            "type": "fill",
+            "source": "durham-council-wards",
+            "filter": ["==", ["get", "Ward"], "Ward 2"],
+            "paint": {
+              "fill-color": "#f5e4b3",
+              "fill-opacity": 0.6
+            }
+          },
+          {
+            "id": "durham-council-wards-3-fill",
+            "type": "fill",
+            "source": "durham-council-wards",
+            "filter": ["==", ["get", "Ward"], "Ward 3"],
+            "paint": {
+              "fill-color": "#99bfd6",
+              "fill-opacity": 0.6
             }
           },
           {
