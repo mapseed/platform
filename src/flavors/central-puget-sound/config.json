@@ -4366,14 +4366,6 @@
           "zoom": 18
         },
         {
-          "placeId": 3328,
-          "zoom": 18
-        },
-        {
-          "placeId": 3329,
-          "zoom": 18
-        },
-        {
           "placeId": 3330
         },
         {
@@ -4387,50 +4379,6 @@
         {
           "placeId": 3748,
           "zoom": 18
-        },
-        {
-          "placeId": 3332,
-          "zoom": 8,
-          "pan_to": [-122.06291037540797, 47.631653886906804],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-sammamish"
-          ],
-          "spotlight": false
-        },
-        {
-          "placeId": 3333,
-          "zoom": 8,
-          "pan_to": [-121.75112573040786, 47.64123180739975],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-cedar-sammamish"
-          ],
-          "spotlight": false
-        },
-        {
-          "placeId": 3334,
-          "zoom": 8,
-          "pan_to": [-121.89064979555963, 47.32023597632835],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-green"
-          ],
-          "spotlight": false
-        },
-        {
-          "placeId": 3335,
-          "zoom": 8,
-          "pan_to": [-121.92300796523165, 47.08293753263453],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-puyallup"
-          ],
-          "spotlight": false
         }
       ]
     }
