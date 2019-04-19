@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
+import { css, jsx } from "@emotion/core";
 
 import { InternalLink, SmallText } from "../atoms/typography";
 
@@ -40,8 +42,21 @@ const StoryChapter = props => {
       href={"/" + props.placeUrl}
       isSelected={props.isSelected}
     >
-      <img src={props.iconUrl} style={{ width: "30px", maxWidth: "30px" }} />
-      <StoryChapterTitle>{props.title}</StoryChapterTitle>
+      <img
+        css={css`
+          width: 30px;
+          max-width: 30px;
+          flex: 1;
+        `}
+        src={props.iconUrl}
+      />
+      <StoryChapterTitle
+        css={css`
+          flex: 2;
+        `}
+      >
+        {props.title}
+      </StoryChapterTitle>
     </StoryChapterWrapper>
   );
 };
