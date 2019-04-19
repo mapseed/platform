@@ -339,7 +339,7 @@
           {
             "id": "kittitas-conservation-areas-outline",
             "type": "line",
-            "filter": ["==", ["geometry-type"], "LineString"],
+            "filter": ["==", ["geometry-type"], "Polygon"],
             "source": "kittitas-conservation-areas",
             "source-layer": "kittitas-conservation-areas",
             "paint": {
