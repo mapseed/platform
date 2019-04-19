@@ -1,5 +1,11 @@
-import React, { Component, Suspense, createRef, lazy } from "react";
-import { Route, withRouter, Switch } from "react-router-dom";
+import React, { Component, createRef, lazy, Suspense } from "react";
+import {
+  Route,
+  RouteComponentProps,
+  Switch,
+  withRouter,
+} from "react-router-dom";
+import { Dispatch, Store } from "redux";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -12,8 +18,8 @@ import { Mixpanel } from "../utils/mixpanel";
 import SiteHeader from "./organisms/site-header";
 import {
   currentTemplateSelector,
-  updateLayout,
   layoutSelector,
+  updateLayout,
   updateUIVisibility,
 } from "../state/ducks/ui";
 import ShaTemplate from "./templates/sha";
@@ -21,25 +27,25 @@ const DashboardTemplate = lazy(() => import("./templates/dashboard"));
 const ListTemplate = lazy(() => import("./templates/place-list"));
 const MapTemplate = lazy(() => import("./templates/map"));
 
+// @ts-ignore
 import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
 import {
-  datasetsConfigSelector,
   datasetsConfigPropType,
-  hasAnonAbilitiesInAnyDataset,
+  datasetsConfigSelector,
   datasetSlugsSelector,
+  hasAnonAbilitiesInAnyDataset,
 } from "../state/ducks/datasets-config";
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
-import { loadAppConfig, appConfigPropType } from "../state/ducks/app-config";
+import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
 import { loadMapConfig } from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
 // TODO: configs always in their own duck
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
 import { loadRightSidebarConfig } from "../state/ducks/right-sidebar-config";
-import { loadStoryConfig } from "../state/ducks/story-config";
 import { loadFormsConfig } from "../state/ducks/forms-config";
 import { loadSupportConfig } from "../state/ducks/support-config";
 import {
@@ -59,8 +65,10 @@ import JSSProvider from "./jss-provider";
 import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
 import {
-  storyConfigSelector,
+  loadStoryConfig,
   storyChaptersSelector,
+  storyConfigPropType,
+  storyConfigSelector,
 } from "../state/ducks/story-config";
 import {
   createFeaturesInGeoJSONSource,
@@ -68,19 +76,22 @@ import {
 } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 
-const Util = require("../js/utils.js");
+import Util from "../js/utils.js";
 
 browserUpdate({
   required: {
-    e: -2, // Edge, last 2 versions
-    i: 11, // IE >= 11.0
-    f: -2, // Firefox, last 2 versions
-    s: -2, // Safari, last 2 versions
     c: -2, // Chrome, last 2 versions
+    e: -2, // Edge, last 2 versions
+    f: -2, // Firefox, last 2 versions
+    i: 11, // IE >= 11.0
+    s: -2, // Safari, last 2 versions
   },
 });
 
-const TemplateContainer = styled("div")(props => ({
+const TemplateContainer = styled("div")<{
+  layout: string;
+  currentTemplate: string;
+}>(props => ({
   position: "relative",
   overflow:
     props.layout === "desktop"
@@ -97,8 +108,75 @@ const Fallback = () => {
   return <Spinner />;
 };
 
-class App extends Component {
-  templateContainerRef = createRef();
+const statePropTypes = {
+  appConfig: appConfigPropType,
+  currentTemplate: PropTypes.string.isRequired,
+  datasetsConfig: datasetsConfigPropType,
+  datasetSlugs: PropTypes.array.isRequired,
+  hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  layout: PropTypes.string.isRequired,
+  // TODO: shape of this:
+  storyChapters: PropTypes.array.isRequired,
+  storyConfig: storyConfigPropType,
+  // TODO: shape of this:
+  pageExists: PropTypes.func.isRequired,
+};
+
+const dispatchPropTypes = {
+  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
+  loadDatasets: PropTypes.func.isRequired,
+  loadPlaces: PropTypes.func.isRequired,
+  updateMapContainerDimensions: PropTypes.func.isRequired,
+  updatePlacesLoadStatus: PropTypes.func.isRequired,
+  updateUIVisibility: PropTypes.func.isRequired,
+  loadDatasetsConfig: PropTypes.func.isRequired,
+  loadMapConfig: PropTypes.func.isRequired,
+  loadPlaceConfig: PropTypes.func.isRequired,
+  loadLeftSidebarConfig: PropTypes.func.isRequired,
+  loadRightSidebarConfig: PropTypes.func.isRequired,
+  loadStoryConfig: PropTypes.func.isRequired,
+  loadAppConfig: PropTypes.func.isRequired,
+  loadFormsConfig: PropTypes.func.isRequired,
+  loadSupportConfig: PropTypes.func.isRequired,
+  loadPagesConfig: PropTypes.func.isRequired,
+  loadNavBarConfig: PropTypes.func.isRequired,
+  loadCustomComponentsConfig: PropTypes.func.isRequired,
+  loadMapStyle: PropTypes.func.isRequired,
+  loadInitialMapViewport: PropTypes.func.isRequired,
+  loadDashboardConfig: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
+  updateLayout: PropTypes.func.isRequired,
+};
+
+type StateProps = PropTypes.InferProps<typeof statePropTypes>;
+
+type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
+
+// These are Props passed down from parent:
+interface OwnProps {
+  store: Store;
+}
+
+type Props = StateProps &
+  DispatchProps &
+  OwnProps &
+  // {} means empty interface, because we are using default ReactRouter props.
+  RouteComponentProps<{}>;
+
+// TODO: remove this once we remove the Mapseed global:
+declare const Mapseed: any;
+// 'process' global is injected by Webpack:
+declare const process: any;
+
+interface State {
+  isInitialDataLoaded: boolean;
+  isStartPageViewed: boolean;
+}
+
+class App extends Component<Props, State> {
+  private templateContainerRef: React.RefObject<HTMLInputElement> = createRef();
+  private routeListener?: any;
 
   state = {
     isInitialDataLoaded: false,
@@ -200,7 +278,12 @@ class App extends Component {
     // in custom page content, we need to listen globally. Note that this means
     // the route event will fire twice from internal links rendered by the
     // Link atom.
-    document.addEventListener("click", evt => {
+    document.addEventListener("click", event => {
+      if (!event) {
+        return;
+      }
+      // https://github.com/Microsoft/TypeScript/issues/299#issuecomment-474690599
+      const evt = event as any;
       const rel = evt.target.attributes.getNamedItem("rel");
       if (rel && rel.value === "internal") {
         evt.preventDefault();
@@ -210,14 +293,18 @@ class App extends Component {
       }
     });
 
-    const templateDims = findDOMNode(
-      this.templateContainerRef.current,
-    ).getBoundingClientRect();
+    if (this.templateContainerRef.current) {
+      const node = findDOMNode(this.templateContainerRef!.current);
 
-    this.props.updateMapContainerDimensions({
-      width: templateDims.width,
-      height: templateDims.height,
-    });
+      if (node instanceof Element) {
+        const templateDims = node.getBoundingClientRect();
+
+        this.props.updateMapContainerDimensions({
+          width: templateDims.width,
+          height: templateDims.height,
+        });
+      }
+    }
 
     this.routeListener = this.props.history.listen(location => {
       recordGoogleAnalyticsHit(location.pathname);
@@ -225,11 +312,11 @@ class App extends Component {
 
     // Fetch and load Places.
     this.props.updatePlacesLoadStatus("loading");
-    const allPlacePagePromises = [];
+    const allPlacePagePromises: Promise<any>[] = [];
     await Promise.all(
       this.props.datasetsConfig.map(async datasetConfig => {
         // Note that the response here is an array of page Promises.
-        const response = await mapseedApiClient.place.get({
+        const response: Promise<any>[] = await mapseedApiClient.place.get({
           datasetUrl: datasetConfig.url,
           datasetSlug: datasetConfig.slug,
           clientSlug: datasetConfig.clientSlug,
@@ -362,9 +449,10 @@ class App extends Component {
                     path="/new"
                     render={props => {
                       if (
-                        this.props.hasAnonAbilitiesInAnyDataset("places", [
-                          "create",
-                        ]) ||
+                        this.props.hasAnonAbilitiesInAnyDataset(
+                          "places",
+                          ["create"],
+                        ) ||
                         this.props.hasGroupAbilitiesInDatasets({
                           submissionSet: "places",
                           abilities: ["create"],
@@ -489,56 +577,22 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  appConfig: appConfigPropType,
-  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
-  currentTemplate: PropTypes.string.isRequired,
-  datasetsConfig: datasetsConfigPropType,
-  datasetSlugs: PropTypes.array.isRequired,
-  hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
-  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-  layout: PropTypes.string.isRequired,
-  loadDatasets: PropTypes.func.isRequired,
-  loadPlaces: PropTypes.func.isRequired,
-  // TODO: shape of this:
-  storyChapters: PropTypes.array.isRequired,
-  // TODO: shape of this:
-  updateLayout: PropTypes.func.isRequired,
-  updateMapContainerDimensions: PropTypes.func.isRequired,
-  updatePlacesLoadStatus: PropTypes.func.isRequired,
-  updateUIVisibility: PropTypes.func.isRequired,
-  loadDatasetsConfig: PropTypes.func.isRequired,
-  loadMapConfig: PropTypes.func.isRequired,
-  loadPlaceConfig: PropTypes.func.isRequired,
-  loadLeftSidebarConfig: PropTypes.func.isRequired,
-  loadRightSidebarConfig: PropTypes.func.isRequired,
-  loadStoryConfig: PropTypes.func.isRequired,
-  loadAppConfig: PropTypes.func.isRequired,
-  loadFormsConfig: PropTypes.func.isRequired,
-  loadSupportConfig: PropTypes.func.isRequired,
-  loadPagesConfig: PropTypes.func.isRequired,
-  loadNavBarConfig: PropTypes.func.isRequired,
-  loadCustomComponentsConfig: PropTypes.func.isRequired,
-  loadMapStyle: PropTypes.func.isRequired,
-  loadInitialMapViewport: PropTypes.func.isRequired,
-  loadDashboardConfig: PropTypes.func.isRequired,
-  loadUser: PropTypes.func.isRequired,
-  pageExists: PropTypes.func.isRequired,
-  store: PropTypes.object.isRequired,
-};
+type MapseedReduxState = any;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (
+  state: MapseedReduxState,
+  ownProps: OwnProps,
+): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
-  datasetsConfig: datasetsConfigSelector(state),
   datasetSlugs: datasetSlugsSelector(state),
+  datasetsConfig: datasetsConfigSelector(state),
   hasAnonAbilitiesInAnyDataset: (submissionSet, abilities) =>
     hasAnonAbilitiesInAnyDataset({ state, submissionSet, abilities }),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
-      state,
       abilities,
+      state,
       datasetSlugs,
       submissionSet,
     }),
@@ -546,17 +600,18 @@ const mapStateToProps = state => ({
   pageExists: (slug, lang) => pageExistsSelector({ state, slug, lang }),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),
+  ...ownProps,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
   loadPlaces: (places, storyConfig) =>
     dispatch(loadPlaces(places, storyConfig)),
+  updateLayout: () => dispatch(updateLayout()),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
-  updateLayout: () => dispatch(updateLayout()),
   updateMapContainerDimensions: newDimensions =>
     dispatch(updateMapContainerDimensions(newDimensions)),
   updateUIVisibility: (componentName, isVisible) =>
@@ -583,7 +638,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-  connect(
+  connect<StateProps, DispatchProps, OwnProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(App),

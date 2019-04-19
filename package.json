@@ -28,7 +28,7 @@
     "build-deploy": "npm run build && npm run deploy",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "test": "npm run eslint && npm run type-check && jest --verbose --config ./jest.config.js",
+    "test": "npm run eslint && npm run prettier && npm run type-check",
     "eslint": "eslint src scripts",
     "eslint-fix": "eslint --fix-dry-run src scripts",
     "test:watch": "jest --watch --verbose --config ./jest.watch.config.js",
@@ -37,7 +37,8 @@
     "build-js-production": "NODE_ENV=production webpack -p --progress",
     "watch-js": "webpack -d --watch",
     "build": "rm -rf www/* && npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
-    "prettier": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
+    "prettier": "prettier --list-different \"{src,scripts}/**/*.{js,jsx,ts,tsx}\"",
+    "prettier:fix": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
@@ -50,10 +51,12 @@
     "@emotion/styled": "^10.0.9",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "@types/prop-types": "^15.7.1",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
     "@types/react-modal": "^3.8.2",
     "@types/react-redux": "^5.0.0",
+    "@types/react-router": "^4.4.5",
     "@types/react-router-dom": "^4.3.2",
     "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "browser-update": "^3.1.13",

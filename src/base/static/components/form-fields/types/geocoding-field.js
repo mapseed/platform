@@ -10,7 +10,7 @@ import "./geocoding-field.scss";
 import { mapConfigSelector } from "../../../state/ducks/map-config";
 
 // TODO: Consolidate Util methods used here.
-const Util = require("../../../js/utils.js");
+import Util from "../../../js/utils.js";
 
 class GeocodingField extends Component {
   constructor(props) {
