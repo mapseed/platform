@@ -359,7 +359,6 @@ class App extends Component<Props, State> {
       }),
     );
 
-    await Promise.all(allPlacePagePromises);
     this.props.updatePlacesLoadStatus("loaded");
   }
 
