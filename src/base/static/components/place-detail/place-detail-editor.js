@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { Map, OrderedMap, fromJS } from "immutable";
 import Spinner from "react-spinner";
 import "react-spinner/react-spinner.css";
+import { withRouter } from "react-router";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
@@ -277,7 +278,6 @@ class PlaceDetailEditor extends Component {
     });
 
     if (response) {
-      this.props.router.navigate("/", { trigger: true });
       this.props.removePlace(this.props.place.id);
       this.props.removeFeatureInGeoJSONSource(
         this.props.place._datasetSlug,
@@ -286,6 +286,7 @@ class PlaceDetailEditor extends Component {
 
       Util.log("USER", "place", "successfully-remove-place");
       this.props.updateEditModeToggled(false);
+      this.props.history.push("/");
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place", "fail-to-remove-place");
@@ -421,6 +422,7 @@ PlaceDetailEditor.propTypes = {
   geometryStyle: geometryStyleProps.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
   layout: PropTypes.string.isRequired,
@@ -476,7 +478,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("PlaceDetailEditor")(PlaceDetailEditor));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(translate("PlaceDetailEditor")(PlaceDetailEditor)),
+);
