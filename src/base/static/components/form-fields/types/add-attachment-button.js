@@ -6,7 +6,7 @@ import FileField from "./file-field";
 
 import "./add-attachment-button.scss";
 
-const Util = require("../../../js/utils.js");
+import Util from "../../../js/utils.js";
 
 class AddAttachmentButton extends Component {
   constructor() {

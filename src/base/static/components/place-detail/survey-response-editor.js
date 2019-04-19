@@ -13,7 +13,7 @@ import { SmallText, Time } from "../atoms/typography";
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 import {
   commentFormConfigPropType,

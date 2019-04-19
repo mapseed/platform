@@ -17,7 +17,7 @@ import { isEditModeToggled } from "../../state/ducks/ui";
 
 import "./form-field.scss";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 class FormField extends Component {
   constructor(props) {

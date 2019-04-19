@@ -42,7 +42,7 @@ import {
 import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
 import { jumpTo } from "../../utils/scroll-helpers";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
 
 import mapseedApiClient from "../../client/mapseed-api-client";

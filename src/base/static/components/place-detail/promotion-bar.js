@@ -16,7 +16,7 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 
 import "./promotion-bar.scss";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 const SocialMediaButton = styled(IconButton)({
   float: "right",
