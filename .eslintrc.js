@@ -1,6 +1,12 @@
 module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["emotion", "react", "@typescript-eslint"],
+  // NOTE: eslint doesn't support .ts or .tsx files via the config
+  // (yet), but it supports checking them in the commandline (via npm t).
+  // Relevant GH issues:
+  // https://github.com/typescript-eslint/typescript-eslint/issues/355
+  // https://github.com/eslint/eslint/issues/10828
+  // https://github.com/eslint/rfcs/pull/9
   extends: ["eslint:recommended", "plugin:react/recommended"],
   settings: {
     react: {
