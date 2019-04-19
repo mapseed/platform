@@ -1,13 +1,21 @@
 {
-  "parser": "babel-eslint",
-  "plugins": ["emotion", "react"],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "emotion",
+    "react",
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "settings": {
     "react": {
-      "version": "detect",
-    },
+      "version": "detect"
+    }
   },
   "parserOptions": {
+    "project": "../tsconfig.json",
     "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
