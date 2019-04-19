@@ -13,7 +13,7 @@ import CoverImage from "../molecules/cover-image";
 
 import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 import { translate } from "react-i18next";
 

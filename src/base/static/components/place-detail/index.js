@@ -60,7 +60,7 @@ import {
 import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 import { translate } from "react-i18next";

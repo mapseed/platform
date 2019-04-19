@@ -1,16 +1,6 @@
 module.exports = {
   projects: [
     {
-      displayName: "jest-prettier",
-      runner: "jest-runner-prettier",
-      moduleFileExtensions: ["js"],
-      testMatch: ["<rootDir>/src/**/*.js", "<rootDir>/scripts/**/*.js"],
-      testPathIgnorePatterns: [
-        "<rootDir>/src/base/static/legacy-libs/",
-        "<rootDir>/node_modules/",
-      ],
-    },
-    {
       displayName: "mapseed-platform-test",
       testURL: "http://localhost/",
       moduleNameMapper: {

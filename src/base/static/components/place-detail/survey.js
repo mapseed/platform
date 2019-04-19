@@ -32,7 +32,7 @@ import { translate } from "react-i18next";
 
 import "./survey.scss";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 class Survey extends Component {
   state = {

@@ -1,3 +1,7 @@
+import PropTypes from "prop-types";
+// PropType
+export const storyConfigPropType = PropTypes.object;
+
 // Selectors:
 export const storyConfigSelector = state => {
   return state.storyConfig.config;
