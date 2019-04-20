@@ -47,39 +47,39 @@ export const globalStyles = css`
   // pages.
   #mapseed-custom-page-container {
     h1 {
-      font-size: 2rem !important;
-      margin: 0 0 16px 0 !important;
+      font-size: 2rem;
+      margin: 0 0 16px 0;
     }
     h2 {
-      font-size: 1.8rem !important;
-      margin: 0 0 16px 0 !important;
+      font-size: 1.8rem;
+      margin: 0 0 16px 0;
     }
     h3 {
-      font-size: 1.5rem !important;
-      margin: 0 0 16px 0 !important;
+      font-size: 1.5rem;
+      margin: 0 0 16px 0;
     }
     h4 {
-      font-size: 1.1rem !important;
-      margin: 0 0 16px 0 !important;
+      font-size: 1.1rem;
+      margin: 0 0 16px 0;
     }
     h5 {
-      font-size: 1rem !important;
-      margin: 0 0 16px 0 !important;
+      font-size: 1rem;
+      margin: 0 0 16px 0;
     }
     h6 {
-      font-size: 1rem !important;
-      margin: 0 0 16px 0 !important;
+      font-size: 1rem;
+      margin: 0 0 16px 0;
     }
     img {
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 0 10px 0 !important;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 0 10px 0;
     }
     a {
-      text-decoration: none !important;
+      text-decoration: none;
     }
     p {
-      margin: 0 0 16px 0 !important;
+      margin: 0 0 16px 0;
     }
   }
 `;
