@@ -11,7 +11,7 @@ const TextFieldResponse = props => {
     <RegularText
       css={css`
         margin: 8px 0 16px 0;
-    `}
+      `}
     >
       {props.value}
     </RegularText>
