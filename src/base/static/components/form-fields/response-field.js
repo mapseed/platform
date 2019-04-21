@@ -2,6 +2,7 @@
 import React from "react";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
+import { withTheme } from "emotion-theming";
 
 import { TinyTitle } from "../atoms/typography";
 
@@ -72,4 +73,4 @@ ResponseField.propTypes = {
   attachments: PropTypes.array,
 };
 
-export default ResponseField;
+export default withTheme(ResponseField);

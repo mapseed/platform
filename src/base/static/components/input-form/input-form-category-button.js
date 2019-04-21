@@ -42,8 +42,8 @@ const InputFormCategoryButton = props => {
         css={css`
           display: flex;
           width: 100%;
-          border: 2px solid transparent;
-          border-radius: 8px;
+          border: 2px solid #eee;
+          border-radius: 6px;
           align-items: center;
           text-transform: uppercase;
           height: 55px;
@@ -64,8 +64,8 @@ const InputFormCategoryButton = props => {
             flex-direction: column;
             justify-content: center;
             height: 100%;
-            border-top-left-radius: 8px;
-            border-bottom-left-radius: 8px;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
             background-color: ${props.isSelected
               ? lighten(props.theme.brand.primary, 0.9)
               : "unset"};
@@ -85,8 +85,8 @@ const InputFormCategoryButton = props => {
             padding-left: 16px;
             height: 100%;
             width: 100%;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
             background-color: ${props.isSelected
               ? props.theme.brand.primary
               : "unset"};

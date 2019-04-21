@@ -18,7 +18,7 @@
       "anonymous_permissions": [
         {
           "abilities": ["create"],
-          "submission_set": "comments"
+          "submission_set": "*"
         }
       ]
     },
@@ -52,6 +52,7 @@
       "text": {
         "tertiary": "#007ec0",
         "titleColor": "#127de4",
+        "bodyFontFamily": "Roboto, sans-serif",
         "titleFontFamily": "Palanquin, sans-serif",
         "secondary": "#fff"
       }
@@ -89,7 +90,8 @@
         "type": "raster",
         "tiles": [
           "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
-        ]
+        ],
+        "tileSize": 256
       },
       "sub-basins": {
         "type": "raster",
@@ -866,7 +868,7 @@
       {
         "id": "mw-featured-projects",
         "datasetSlug": "mw-featured-projects",
-        "visibleDefault": true,
+        "visibleDefault": false,
         "interactive": true,
         "mapboxFocusedLayers": [
           {
@@ -878,6 +880,7 @@
               ["==", ["get", "location_type"], "featured_project"]
             ],
             "layout": {
+              "icon-allow-overlap": true,
               "icon-image": "marker-dot-commute-low-carbon.png",
               "icon-size": 0.5,
               "icon-anchor": "center"
@@ -894,6 +897,7 @@
               ["==", ["get", "location_type"], "featured_project"]
             ],
             "layout": {
+              "icon-allow-overlap": true,
               "icon-image": "marker-dot-commute-low-carbon.png",
               "icon-size": 0.15,
               "icon-anchor": "center"
@@ -905,101 +909,38 @@
         "id": "mwfeatured",
         "datasetSlug": "mwfeatured",
         "interactive": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxFocusedLayers": [
           {
-            "id": "mwfeatured-focused-points",
+            "id": "mwfeatured-focused",
             "type": "symbol",
             "source": "mwfeatured",
-            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "featured_place"]
+            ],
             "layout": {
-              "icon-image": [
-                "case",
-                ["has", "marker-symbol", ["get", "style"]],
-                ["get", "marker-symbol", ["get", "style"]],
-                "marker-dot-conserve-water.png"
-              ],
+              "icon-allow-overlap": true,
+              "icon-image": "map-pin-star-marker.png",
               "icon-size": 0.7,
-              "icon-anchor": "center"
+              "icon-anchor": "bottom"
             }
           }
         ],
         "mapboxLayers": [
           {
-            "id": "mwfeatured-points",
+            "id": "mwfeatured",
             "type": "symbol",
             "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "Point"],
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "featured_place"]
+            ],
             "layout": {
               "icon-allow-overlap": true,
+              "icon-image": "map-pin-star-marker.png",
               "icon-size": 0.5,
-              "icon-anchor": "center",
-              "icon-image": [
-                "case",
-                ["has", "marker-symbol", ["get", "style"]],
-                ["get", "marker-symbol", ["get", "style"]],
-                "marker-dot-conserve-water.png"
-              ]
-            }
-          },
-          {
-            "id": "mwfeatured-lines",
-            "type": "line",
-            "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "LineString"],
-            "paint": {
-              "line-color": [
-                "case",
-                ["has", "stroke", ["get", "style"]],
-                ["get", "stroke", ["get", "style"]],
-                "#f86767"
-              ],
-              "line-opacity": [
-                "case",
-                ["has", "stroke-opacity", ["get", "style"]],
-                ["get", "stroke-opacity", ["get", "style"]],
-                0.7
-              ]
-            }
-          },
-          {
-            "id": "mwfeatured-polygons",
-            "type": "fill",
-            "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "Polygon"],
-            "paint": {
-              "fill-color": [
-                "case",
-                ["has", "fill", ["get", "style"]],
-                ["get", "fill", ["get", "style"]],
-                "#f86767"
-              ],
-              "fill-opacity": [
-                "case",
-                ["has", "fill-opacity", ["get", "style"]],
-                ["get", "fill-opacity", ["get", "style"]],
-                0.7
-              ]
-            }
-          },
-          {
-            "id": "mwfeatured-polygon-outlines",
-            "type": "line",
-            "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "Polygon"],
-            "paint": {
-              "line-color": [
-                "case",
-                ["has", "stroke", ["get", "style"]],
-                ["get", "stroke", ["get", "style"]],
-                "#f86767"
-              ],
-              "line-opacity": [
-                "case",
-                ["has", "stroke-opacity", ["get", "style"]],
-                ["get", "stroke-opacity", ["get", "style"]],
-                0.7
-              ]
+              "icon-anchor": "bottom"
             }
           }
         ]
@@ -1276,7 +1217,7 @@
         "name": "location_type",
         "icon_url": "/static/css/images/markers/marker-dot-commute-low-carbon.png",
         "value": "featured_project",
-        "label": "_(Featured Project)",
+        "label": "_(Submit a classroom report!)",
         "fields": [
           {
             "name": "title",
@@ -1442,9 +1383,9 @@
         "horizontal_rule": true,
         "name": "location_type",
         "datasetSlug": "mwfeatured",
-        "icon_url": "/static/css/images/markers/marker-star.png",
+        "icon_url": "/static/css/images/markers/map-pin-star-marker.png",
         "value": "featured_place",
-        "label": "_(Featured Site)",
+        "label": "_(Submit a community report)",
         "fields": [
           {
             "name": "cover-image",
@@ -1452,61 +1393,6 @@
             "prompt": "_(Cover Image)",
             "label": "_(Add a cover image)",
             "optional": true
-          },
-          {
-            "name": "published",
-            "type": "publish_control_toolbar"
-          },
-          {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "marker-star.png"
-              },
-              {
-                "marker": "marker-bike.png"
-              },
-              {
-                "marker": "marker-construction.png"
-              },
-              {
-                "marker": "marker-foodforest.png"
-              },
-              {
-                "marker": "marker-greenwall.png"
-              },
-              {
-                "marker": "marker-heart.png"
-              },
-              {
-                "marker": "marker-hist_comp.png"
-              },
-              {
-                "marker": "marker-hist_no-prog-or-dead.png"
-              },
-              {
-                "marker": "marker-hist_prog.png"
-              },
-              {
-                "marker": "marker-land_comp.png"
-              },
-              {
-                "marker": "marker-land_no-prog-or-dead.png"
-              },
-              {
-                "marker": "marker-land_prog.png"
-              },
-              {
-                "marker": "marker-transp_comp.png"
-              },
-              {
-                "marker": "marker-transp_no-prog-or-dead.png"
-              },
-              {
-                "marker": "marker-transp_prog.png"
-              }
-            ]
           },
           {
             "name": "title",
@@ -1596,7 +1482,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
-        "label": "_(Conserve Water)",
+        "label": "_(I will conserve water)",
         "fields": [
           {
             "name": "address",
@@ -1710,7 +1596,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
-        "label": "_(Prevent Stormwater Pollution)",
+        "label": "_(I will prevent stormwater pollution)",
         "fields": [
           {
             "name": "address",
@@ -1823,7 +1709,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-only-flush-this.png",
         "value": "only-flush",
-        "label": "_(Think - Toilet, Shower, Sink)",
+        "label": "_(I will reduce wastewater pollution)",
         "fields": [
           {
             "name": "address",
@@ -1928,7 +1814,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-energy.png",
         "value": "conserve-energy",
-        "label": "_(Conserve Energy)",
+        "label": "_(I will conserve energy)",
         "fields": [
           {
             "name": "address",
@@ -2026,7 +1912,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
-        "label": "_(Waste Less)",
+        "label": "_(I will waste less)",
         "fields": [
           {
             "name": "address",
@@ -2120,7 +2006,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
-        "label": "_(Commute Low Carbon)",
+        "label": "_(I will commute on low carbon transit)",
         "fields": [
           {
             "name": "address",
@@ -2206,7 +2092,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
-        "label": "_(Eat Local Organic)",
+        "label": "_(I will eat local and organic)",
         "fields": [
           {
             "name": "address",
@@ -2284,7 +2170,7 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
-        "label": "_(Restore Salmon Habitat)",
+        "label": "_(I will help restore salmon habitat)",
         "fields": [
           {
             "name": "address",
@@ -4365,14 +4251,9 @@
       "component": "MapLayerPanel"
     },
     {
-      "title": "_(Community)",
+      "title": "_(Example Projects)",
       "type": "internal_link",
       "url": "/featured/3737"
-    },
-    {
-      "title": "_(Classroom Project)",
-      "type": "internal_link",
-      "url": "/page/about"
     }
   ],
   "pages": [
@@ -4464,105 +4345,40 @@
   ],
   "story": {
     "watersheds": {
+      "header": "Example projects",
       "default_zoom": 18,
       "visibleLayerGroupIds": ["satellite", "mwfeatured"],
       "order": [
         {
           "placeId": 3737,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3363,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3360,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3362,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
-          "placeId": 3328,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3329,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3330,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "placeId": 3330
         },
         {
           "placeId": 3331,
-          "zoom": 14,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 14
         },
         {
           "placeId": 3747,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         },
         {
           "placeId": 3748,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3332,
-          "zoom": 8,
-          "pan_to": [-122.06291037540797, 47.631653886906804],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-sammamish"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3333,
-          "zoom": 8,
-          "pan_to": [-121.75112573040786, 47.64123180739975],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-cedar-sammamish"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3334,
-          "zoom": 8,
-          "pan_to": [-121.89064979555963, 47.32023597632835],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-green"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3335,
-          "zoom": 8,
-          "pan_to": [-121.92300796523165, 47.08293753263453],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-puyallup"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+          "zoom": 18
         }
       ]
     }

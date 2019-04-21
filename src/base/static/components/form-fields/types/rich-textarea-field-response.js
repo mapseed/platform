@@ -5,11 +5,15 @@ import styled from "@emotion/styled";
 import { insertEmbeddedImages } from "../../../utils/embedded-images";
 
 const RichTextareaFieldResponseWrapper = styled("div")(props => ({
+  // TODO: fluid video
   "& img": {
     maxWidth: "100%",
     margin: "16px 0",
   },
   "& p": {
+    fontFamily: props.theme.text.bodyFontFamily,
+  },
+  "& li": {
     fontFamily: props.theme.text.bodyFontFamily,
   },
   "& a": {

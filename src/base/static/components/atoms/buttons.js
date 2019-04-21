@@ -66,6 +66,7 @@ const EditorButton = withTheme(props => {
       disabled={props.isSubmitting}
       onClick={props.onClick}
       type="button"
+      className={props.className}
     >
       <FontAwesomeIcon
         faClassname={faClassname}

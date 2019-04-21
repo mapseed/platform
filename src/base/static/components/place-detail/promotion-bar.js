@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { connect } from "react-redux";
 
 import styled from "@emotion/styled";
@@ -13,8 +12,6 @@ import {
 } from "../../state/ducks/places";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
-
-import "./promotion-bar.scss";
 
 import Util from "../../js/utils.js";
 
@@ -66,24 +63,14 @@ class PromotionBar extends Component {
 
   render() {
     return (
-      <div
-        className={classNames("place-detail-promotion-bar", {
-          "place-detail-promotion-bar--with-bottom-space": this.props
-            .isHorizontalLayout,
-        })}
-      >
+      <div className="place-detail-promotion-bar">
         <SupportButton
           className="place-detail-promotion-bar__support-button"
           isSupported={!!this.props.userSupport}
           numSupports={this.props.numSupports}
           onClickSupport={this.onClickSupport}
         />
-        <div
-          className={classNames("place-detail-promotion-bar__social-buttons", {
-            "place-detail-promotion-bar__social-buttons--horizontal": this.props
-              .isHorizontalLayout,
-          })}
-        >
+        <div>
           <SocialMediaButton
             onClick={() => this.props.onSocialShare("facebook")}
             icon="facebook"
