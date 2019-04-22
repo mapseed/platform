@@ -174,7 +174,7 @@ class MapTemplate extends Component<Props, State> {
     //     be in progress.
     // "error": An error occurred when fetching data for this source.
     mapSourcesLoadStatus: this.props.mapSourceNames.reduce(
-      (memo, groupName: any) => ({
+      (memo, groupName: string) => ({
         ...memo,
         [groupName]: "unloaded",
       }),
