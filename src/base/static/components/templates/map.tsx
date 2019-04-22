@@ -91,7 +91,7 @@ const statePropTypes = {
   isRightSidebarEnabled: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
-  mapSourceNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mapSourceNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   layout: PropTypes.string.isRequired,
   mapConfig: mapConfigPropType.isRequired,
   navBarConfig: navBarConfigPropType.isRequired,
