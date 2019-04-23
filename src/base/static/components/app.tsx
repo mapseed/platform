@@ -168,20 +168,21 @@ declare const Mapseed: any;
 // 'process' global is injected by Webpack:
 declare const process: any;
 
-export interface IInitialMapViewport {
+export interface IMapViewport {
   minZoom: number;
   maxZoom: number;
-  latitude?: number;
-  longitude?: number;
-  zoom?: number;
-  bearing?: number;
-  pitch?: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+  transitionInterpolator?: any;
 }
 
 interface IState {
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
-  initialMapViewport: IInitialMapViewport;
+  initialMapViewport: IMapViewport;
 }
 
 class App extends Component<Props, IState> {
@@ -199,6 +200,11 @@ class App extends Component<Props, IState> {
     initialMapViewport: {
       minZoom: 0,
       maxZoom: 18,
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+      bearing: 0,
+      pitch: 0,
     },
   };
 
@@ -388,6 +394,7 @@ class App extends Component<Props, IState> {
       isStartPageViewed: true,
     });
   };
+
   onUpdateInitialMapViewport = initialMapViewport => {
     this.setState({
       initialMapViewport,

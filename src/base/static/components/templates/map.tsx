@@ -14,7 +14,7 @@ import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
-import { IInitialMapViewport } from "../app";
+import { IMapViewport } from "../app";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import {
   navBarConfigSelector,
@@ -111,21 +111,11 @@ const dispatchPropTypes = {
 
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-interface IMapViewport {
-  minZoom: number;
-  maxZoom: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
-  transitionInterpolator: any;
-}
 interface IOwnProps {
   uiConfiguration: string;
   isStartPageViewed?: boolean;
   onViewStartPage?: () => void;
-  initialMapViewport: IInitialMapViewport;
+  initialMapViewport: IMapViewport;
   onUpdateInitialMapViewport: (initialMapViewport: IMapViewport) => void;
   languageCode: string;
   params: {
@@ -161,16 +151,9 @@ class MapTemplate extends Component<Props, IState> {
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
     mapViewport: {
-      minZoom: 0,
-      maxZoom: 18,
-      latitude: 0,
-      longitude: 0,
-      zoom: 0,
-      bearing: 0,
-      pitch: 0,
+      ...this.props.initialMapViewport,
       transitionInterpolator: new FlyToInterpolator(),
     },
-    ...this.props.initialMapViewport,
     isMapDraggedOrZoomed: false,
     isSpotlightMaskVisible: false,
     // Sources load status terminology:
