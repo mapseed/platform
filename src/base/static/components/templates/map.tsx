@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Component, createRef } from "react";
+import React, { Component, createRef, Fragment } from "react";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -437,7 +437,7 @@ class MapTemplate extends Component<Props, IState> {
 
   render() {
     return (
-      <div>
+      <Fragment>
         {this.props.isGeocodeAddressBarEnabled && (
           <GeocodeAddressBar
             mapConfig={this.props.mapConfig}
@@ -507,7 +507,7 @@ class MapTemplate extends Component<Props, IState> {
           )}
         {this.props.layout === "desktop" &&
           this.props.isRightSidebarEnabled && <RightSidebar />}
-      </div>
+      </Fragment>
     );
   }
 }
