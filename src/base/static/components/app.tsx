@@ -153,13 +153,13 @@ type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 
 // These are Props passed down from parent:
-interface IOwnProps {
+interface OwnProps {
   store: Store;
 }
 
 type Props = StateProps &
   DispatchProps &
-  IOwnProps &
+  OwnProps &
   // {} means empty interface, because we are using default ReactRouter props.
   RouteComponentProps<{}>;
 
@@ -168,7 +168,7 @@ declare const Mapseed: any;
 // 'process' global is injected by Webpack:
 declare const process: any;
 
-export interface IMapViewport {
+interface InitialMapViewport {
   minZoom: number;
   maxZoom: number;
   latitude: number;
@@ -176,20 +176,19 @@ export interface IMapViewport {
   zoom: number;
   bearing: number;
   pitch: number;
-  transitionInterpolator?: any;
 }
 
-interface IState {
+interface State {
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
-  initialMapViewport: IMapViewport;
+  initialMapViewport: InitialMapViewport;
 }
 
-class App extends Component<Props, IState> {
+class App extends Component<Props, State> {
   private templateContainerRef: React.RefObject<HTMLInputElement> = createRef();
   private routeListener?: any;
 
-  state: IState = {
+  state: State = {
     isInitialDataLoaded: false,
     isStartPageViewed: false,
     // The `initialMapViewport` describes the viewport used when the map template
@@ -617,7 +616,7 @@ type MapseedReduxState = any;
 
 const mapStateToProps = (
   state: MapseedReduxState,
-  ownProps: IOwnProps,
+  ownProps: OwnProps,
 ): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
@@ -672,7 +671,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
 });
 
 export default withRouter(
-  connect<StateProps, DispatchProps, IOwnProps>(
+  connect<StateProps, DispatchProps, OwnProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(App),

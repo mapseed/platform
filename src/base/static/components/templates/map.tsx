@@ -14,7 +14,6 @@ import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
-import { IMapViewport } from "../app";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import {
   navBarConfigSelector,
@@ -111,12 +110,24 @@ const dispatchPropTypes = {
 
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-interface IOwnProps {
+interface InitialMapViewport {
+  minZoom: number;
+  maxZoom: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+}
+interface MapViewport extends InitialMapViewport {
+  transitionInterpolator: any;
+}
+interface OwnProps {
   uiConfiguration: string;
   isStartPageViewed?: boolean;
   onViewStartPage?: () => void;
-  initialMapViewport: IMapViewport;
-  onUpdateInitialMapViewport: (initialMapViewport: IMapViewport) => void;
+  initialMapViewport: InitialMapViewport;
+  onUpdateInitialMapViewport: (initialMapViewport: InitialMapViewport) => void;
   languageCode: string;
   params: {
     datasetClientSlug?: string;
@@ -128,23 +139,23 @@ interface IOwnProps {
     lng?: string;
   };
 }
-interface IState {
+interface State {
   mapContainerHeightDeclaration: string;
   mapContainerWidthDeclaration: string;
-  mapViewport: IMapViewport;
+  mapViewport: MapViewport;
   isMapDraggedOrZoomed: boolean;
   isSpotlightMaskVisible: boolean;
   mapSourcesLoadStatus: {
     [groupName: string]: string;
   };
 }
-type Props = StateProps & DispatchProps & IOwnProps & RouteComponentProps<{}>;
+type Props = StateProps & DispatchProps & OwnProps & RouteComponentProps<{}>;
 
-class MapTemplate extends Component<Props, IState> {
+class MapTemplate extends Component<Props, State> {
   private mapContainerRef = createRef<HTMLDivElement>();
   private addPlaceButtonRef = createRef<HTMLDivElement>();
 
-  state: IState = {
+  state: State = {
     // NOTE: These dimension "declarations" will be CSS strings, as set by the
     // utility methods getMainContentAreaHeight() and
     // getMainContentAreaWidth().
@@ -499,7 +510,7 @@ type MapseedReduxState = any;
 
 const mapStateToProps = (
   state: MapseedReduxState,
-  ownProps: IOwnProps,
+  ownProps: OwnProps,
 ): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
@@ -538,7 +549,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (
   dispatch: any,
-  ownProps: IOwnProps,
+  ownProps: OwnProps,
 ): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
@@ -558,7 +569,7 @@ const mapDispatchToProps = (
 });
 
 export default withRouter(
-  connect<StateProps, DispatchProps, IOwnProps>(
+  connect<StateProps, DispatchProps, OwnProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(MapTemplate),
