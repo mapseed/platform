@@ -53,7 +53,7 @@ import {
   pageExistsSelector,
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
-import { loadMapStyle, loadInitialMapViewport } from "../state/ducks/map";
+import { loadMapStyle } from "../state/ducks/map";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
@@ -143,7 +143,6 @@ const dispatchPropTypes = {
   loadNavBarConfig: PropTypes.func.isRequired,
   loadCustomComponentsConfig: PropTypes.func.isRequired,
   loadMapStyle: PropTypes.func.isRequired,
-  loadInitialMapViewport: PropTypes.func.isRequired,
   loadDashboardConfig: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
   updateLayout: PropTypes.func.isRequired,
@@ -154,13 +153,13 @@ type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 
 // These are Props passed down from parent:
-interface OwnProps {
+interface IOwnProps {
   store: Store;
 }
 
 type Props = StateProps &
   DispatchProps &
-  OwnProps &
+  IOwnProps &
   // {} means empty interface, because we are using default ReactRouter props.
   RouteComponentProps<{}>;
 
@@ -169,18 +168,38 @@ declare const Mapseed: any;
 // 'process' global is injected by Webpack:
 declare const process: any;
 
-interface State {
-  isInitialDataLoaded: boolean;
-  isStartPageViewed: boolean;
+export interface IInitialMapViewport {
+  minZoom: number;
+  maxZoom: number;
+  latitude?: number;
+  longitude?: number;
+  zoom?: number;
+  bearing?: number;
+  pitch?: number;
 }
 
-class App extends Component<Props, State> {
+interface IState {
+  isInitialDataLoaded: boolean;
+  isStartPageViewed: boolean;
+  initialMapViewport: IInitialMapViewport;
+}
+
+class App extends Component<Props, IState> {
   private templateContainerRef: React.RefObject<HTMLInputElement> = createRef();
   private routeListener?: any;
 
-  state = {
+  state: IState = {
     isInitialDataLoaded: false,
     isStartPageViewed: false,
+    // The `initialMapViewport` describes the viewport used when the map template
+    // mounts, including when the app first loads and when the user routes to the
+    // map template from another template. This allows us to "save" a viewport
+    // when routing away from the map template, and restore it when routing back
+    // to the map template.
+    initialMapViewport: {
+      minZoom: 0,
+      maxZoom: 18,
+    },
   };
 
   async componentDidMount() {
@@ -259,7 +278,6 @@ class App extends Component<Props, State> {
     resolvedConfig.dashboard &&
       this.props.loadDashboardConfig(resolvedConfig.dashboard);
 
-    this.props.loadInitialMapViewport(resolvedConfig.map.options.mapViewport);
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
@@ -268,6 +286,9 @@ class App extends Component<Props, State> {
     // The config and user data are now loaded.
     this.setState({
       isInitialDataLoaded: true,
+      initialMapViewport: {
+        ...resolvedConfig.map.options.mapViewport,
+      },
     });
 
     window.addEventListener("resize", this.props.updateLayout);
@@ -367,6 +388,11 @@ class App extends Component<Props, State> {
       isStartPageViewed: true,
     });
   };
+  onUpdateInitialMapViewport = initialMapViewport => {
+    this.setState({
+      initialMapViewport,
+    });
+  };
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
@@ -374,6 +400,14 @@ class App extends Component<Props, State> {
   }
 
   render() {
+    const sharedMapTemplateProps = {
+      initialMapViewport: this.state.initialMapViewport,
+      onUpdateInitialMapViewport: this.onUpdateInitialMapViewport,
+      isStartPageViewed: this.state.isStartPageViewed,
+      onViewStartPage: this.onViewStartPage,
+      languageCode: Mapseed.languageCode,
+    };
+
     return (
       <Provider store={this.props.store}>
         {!this.state.isInitialDataLoaded ? (
@@ -396,9 +430,7 @@ class App extends Component<Props, State> {
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="map"
-                            isStartPageViewed={this.state.isStartPageViewed}
-                            onViewStartPage={this.onViewStartPage}
-                            languageCode={Mapseed.languageCode}
+                            {...sharedMapTemplateProps}
                             {...props.match}
                           />
                         </Suspense>
@@ -413,7 +445,7 @@ class App extends Component<Props, State> {
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="map"
-                            languageCode={Mapseed.languageCode}
+                            {...sharedMapTemplateProps}
                             {...props.match}
                           />
                         </Suspense>
@@ -437,7 +469,7 @@ class App extends Component<Props, State> {
                       <Suspense fallback={<Fallback />}>
                         <MapTemplate
                           uiConfiguration="inviteModal"
-                          languageCode={Mapseed.languageCode}
+                          {...sharedMapTemplateProps}
                           {...props.match}
                         />
                       </Suspense>
@@ -462,7 +494,7 @@ class App extends Component<Props, State> {
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
                               uiConfiguration="newPlace"
-                              languageCode={Mapseed.languageCode}
+                              {...sharedMapTemplateProps}
                               {...props.match}
                             />
                           </Suspense>
@@ -503,9 +535,7 @@ class App extends Component<Props, State> {
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
                               uiConfiguration="mapWithInvalidRoute"
-                              isStartPageViewed={this.state.isStartPageViewed}
-                              onViewStartPage={this.onViewStartPage}
-                              languageCode={Mapseed.languageCode}
+                              {...sharedMapTemplateProps}
                               {...props.match}
                             />
                           </Suspense>
@@ -516,7 +546,7 @@ class App extends Component<Props, State> {
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="customPage"
-                            languageCode={Mapseed.languageCode}
+                            {...sharedMapTemplateProps}
                             {...props.match}
                           />
                         </Suspense>
@@ -531,7 +561,7 @@ class App extends Component<Props, State> {
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="placeDetail"
-                            languageCode={Mapseed.languageCode}
+                            {...sharedMapTemplateProps}
                             {...props.match}
                           />
                         </Suspense>
@@ -546,7 +576,7 @@ class App extends Component<Props, State> {
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="placeDetail"
-                            languageCode={Mapseed.languageCode}
+                            {...sharedMapTemplateProps}
                             {...props.match}
                           />
                         </Suspense>
@@ -559,7 +589,7 @@ class App extends Component<Props, State> {
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="mapWithInvalidRoute"
-                            languageCode={Mapseed.languageCode}
+                            {...sharedMapTemplateProps}
                             {...props.match}
                           />
                         </Suspense>
@@ -580,7 +610,7 @@ type MapseedReduxState = any;
 
 const mapStateToProps = (
   state: MapseedReduxState,
-  ownProps: OwnProps,
+  ownProps: IOwnProps,
 ): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
@@ -631,13 +661,11 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
     dispatch(loadCustomComponentsConfig(config)),
   loadMapStyle: (mapConfig, datasetsConfig) =>
     dispatch(loadMapStyle(mapConfig, datasetsConfig)),
-  loadInitialMapViewport: mapViewport =>
-    dispatch(loadInitialMapViewport(mapViewport)),
   loadUser: user => dispatch(loadUser(user)),
 });
 
 export default withRouter(
-  connect<StateProps, DispatchProps, OwnProps>(
+  connect<StateProps, DispatchProps, IOwnProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(App),

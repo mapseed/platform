@@ -20,12 +20,10 @@ export const mapCenterpointSelector = state => ({
   longitude: state.map.viewport.longitude,
 });
 export const drawModeActiveSelector = state => state.map.isDrawModeActive;
-export const initialMapViewportSelector = state => state.map.initialMapViewport;
 export const mapContainerDimensionsSeletor = state =>
   state.map.mapContainerDimensions;
 
 // Actions:
-const LOAD_INITIAL_VIEWPORT = "map/LOAD_INITIAL_VIEWPORT";
 const UPDATE_STYLE = "map/UPDATE_STYLE";
 const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
   "map/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
@@ -81,13 +79,6 @@ export function updateLayerGroupVisibility(layerGroupId, isVisible) {
   return {
     type: UPDATE_LAYER_GROUP_VISIBILITY,
     payload: { layerGroupId, isVisible },
-  };
-}
-
-export function loadInitialMapViewport(viewport) {
-  return {
-    type: LOAD_INITIAL_VIEWPORT,
-    payload: viewport,
   };
 }
 
@@ -310,15 +301,6 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 );
 
 const INITIAL_STATE = {
-  // The `initialMapViewport` describes the viewport used when the map template
-  // mounts, including when the app first loads and when the user routes to the
-  // map template from another template. This allows us to "save" a viewport
-  // when routing away from the map template, and restore it when routing back
-  // to the map template.
-  initialMapViewport: {
-    minZoom: 0,
-    maxZoom: 18,
-  },
   mapContainerDimensions: {
     width: 0,
     height: 0,
@@ -454,14 +436,6 @@ export default function reducer(state = INITIAL_STATE, action) {
               },
             },
           },
-        },
-      };
-    case LOAD_INITIAL_VIEWPORT:
-      return {
-        ...state,
-        initialMapViewport: {
-          ...state.initialMapViewport,
-          ...action.payload,
         },
       };
     case LOAD_STYLE_AND_METADATA:

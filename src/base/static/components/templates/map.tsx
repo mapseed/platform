@@ -14,6 +14,7 @@ import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
 
+import { IInitialMapViewport } from "../app";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import {
   navBarConfigSelector,
@@ -49,7 +50,6 @@ import {
 } from "../../state/ducks/map-config";
 import {
   createFeaturesInGeoJSONSource,
-  initialMapViewportSelector,
   mapViewportPropType,
   mapSourceNamesSelector,
 } from "../../state/ducks/map";
@@ -83,7 +83,6 @@ const statePropTypes = {
   datasetsConfig: datasetsConfigPropType.isRequired,
   hasAddPlacePermission: PropTypes.bool.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  initialMapViewport: mapViewportPropType.isRequired,
   isAddPlaceButtonVisible: PropTypes.bool.isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
@@ -112,10 +111,22 @@ const dispatchPropTypes = {
 
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-interface MapTemplateOwnProps {
+interface IMapViewport {
+  minZoom: number;
+  maxZoom: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+  transitionInterpolator: any;
+}
+interface IOwnProps {
   uiConfiguration: string;
   isStartPageViewed?: boolean;
   onViewStartPage?: () => void;
+  initialMapViewport: IInitialMapViewport;
+  onUpdateInitialMapViewport: (initialMapViewport: IMapViewport) => void;
   languageCode: string;
   params: {
     datasetClientSlug?: string;
@@ -127,42 +138,39 @@ interface MapTemplateOwnProps {
     lng?: string;
   };
 }
-interface State {
+interface IState {
   mapContainerHeightDeclaration: string;
   mapContainerWidthDeclaration: string;
-  mapViewport: {
-    minZoom: number;
-    maxZoom: number;
-    bearing?: number | undefined | null;
-    zoom?: number | undefined | null;
-    latitude?: number | undefined | null;
-    longitude?: number | undefined | null;
-  };
+  mapViewport: IMapViewport;
   isMapDraggedOrZoomed: boolean;
   isSpotlightMaskVisible: boolean;
   mapSourcesLoadStatus: {
     [groupName: string]: string;
   };
 }
-type Props = StateProps &
-  DispatchProps &
-  MapTemplateOwnProps &
-  RouteComponentProps<{}>;
+type Props = StateProps & DispatchProps & IOwnProps & RouteComponentProps<{}>;
 
-class MapTemplate extends Component<Props, State> {
+class MapTemplate extends Component<Props, IState> {
   private mapContainerRef = createRef<HTMLDivElement>();
   private addPlaceButtonRef = createRef<HTMLDivElement>();
 
-  state: State = {
+  state: IState = {
     // NOTE: These dimension "declarations" will be CSS strings, as set by the
     // utility methods getMainContentAreaHeight() and
     // getMainContentAreaWidth().
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
     mapViewport: {
+      minZoom: 0,
+      maxZoom: 18,
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+      bearing: 0,
+      pitch: 0,
       transitionInterpolator: new FlyToInterpolator(),
-      ...this.props.initialMapViewport,
     },
+    ...this.props.initialMapViewport,
     isMapDraggedOrZoomed: false,
     isSpotlightMaskVisible: false,
     // Sources load status terminology:
@@ -186,7 +194,6 @@ class MapTemplate extends Component<Props, State> {
     this.recaculateContainerSize();
     this.updateUIConfiguration(this.props.uiConfiguration);
 
-    // Set initial map zoom and centerpoint.
     const { zoom, lat, lng } = this.props.params;
     zoom &&
       lat &&
@@ -462,6 +469,7 @@ class MapTemplate extends Component<Props, State> {
             }
             mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
             mapViewport={this.state.mapViewport}
+            onUpdateInitialMapViewport={this.props.onUpdateInitialMapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}
             onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
             onUpdateSpotlightMaskVisibility={
@@ -508,7 +516,7 @@ type MapseedReduxState = any;
 
 const mapStateToProps = (
   state: MapseedReduxState,
-  ownProps: MapTemplateOwnProps,
+  ownProps: IOwnProps,
 ): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
@@ -530,7 +538,6 @@ const mapStateToProps = (
       submissionSet,
       datasetSlugs,
     }),
-  initialMapViewport: initialMapViewportSelector(state),
   isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
@@ -548,7 +555,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (
   dispatch: any,
-  ownProps: MapTemplateOwnProps,
+  ownProps: IOwnProps,
 ): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
@@ -568,7 +575,7 @@ const mapDispatchToProps = (
 });
 
 export default withRouter(
-  connect<StateProps, DispatchProps, MapTemplateOwnProps>(
+  connect<StateProps, DispatchProps, IOwnProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(MapTemplate),
