@@ -1,8 +1,10 @@
-import React, { Component, createRef } from "react";
+/** @jsx jsx */
+import React, { Component, createRef, Fragment } from "react";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FlyToInterpolator } from "react-map-gl";
 
 import MainMap from "../organisms/main-map";
@@ -47,7 +49,6 @@ import {
 } from "../../state/ducks/map-config";
 import {
   createFeaturesInGeoJSONSource,
-  initialMapViewportSelector,
   mapViewportPropType,
   mapSourceNamesSelector,
 } from "../../state/ducks/map";
@@ -64,13 +65,6 @@ import {
 } from "../../utils/layout-utils";
 import { Mixpanel } from "../../utils/mixpanel";
 
-const MapContainer = styled("div")(props => ({
-  position: "relative",
-  overflow: "hidden",
-  width: props.width,
-  height: props.height,
-}));
-
 const SpotlightMask = styled("div")({
   pointerEvents: "none",
   position: "absolute",
@@ -84,19 +78,92 @@ const SpotlightMask = styled("div")({
   zIndex: 8,
 });
 
-class MapTemplate extends Component {
-  mapContainerRef = createRef();
-  addPlaceButtonRef = createRef();
+const statePropTypes = {
+  datasetsConfig: datasetsConfigPropType.isRequired,
+  hasAddPlacePermission: PropTypes.bool.isRequired,
+  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  isAddPlaceButtonVisible: PropTypes.bool.isRequired,
+  isContentPanelVisible: PropTypes.bool.isRequired,
+  isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
+  isLeftSidebarExpanded: PropTypes.bool.isRequired,
+  isRightSidebarEnabled: PropTypes.bool.isRequired,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
+  isSpotlightMaskVisible: PropTypes.bool.isRequired,
+  mapSourceNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  layout: PropTypes.string.isRequired,
+  mapConfig: mapConfigPropType.isRequired,
+  navBarConfig: navBarConfigPropType.isRequired,
+  placeConfig: placeConfigPropType.isRequired,
+  placeExists: PropTypes.func.isRequired,
+};
 
-  state = {
+const dispatchPropTypes = {
+  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
+  loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
+  updateUIVisibility: PropTypes.func.isRequired,
+  updateActivePage: PropTypes.func.isRequired,
+  updateContentPanelComponent: PropTypes.func.isRequired,
+  updateFocusedPlaceId: PropTypes.func.isRequired,
+  updateEditModeToggled: PropTypes.func.isRequired,
+  updateScrollToResponseId: PropTypes.func.isRequired,
+};
+
+type StateProps = PropTypes.InferProps<typeof statePropTypes>;
+type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
+interface InitialMapViewport {
+  minZoom: number;
+  maxZoom: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+}
+interface MapViewport extends InitialMapViewport {
+  transitionInterpolator: any;
+}
+interface OwnProps {
+  uiConfiguration: string;
+  isStartPageViewed?: boolean;
+  onViewStartPage?: () => void;
+  initialMapViewport: InitialMapViewport;
+  onUpdateInitialMapViewport: (initialMapViewport: InitialMapViewport) => void;
+  languageCode: string;
+  params: {
+    datasetClientSlug?: string;
+    responseId?: string;
+    pageSlug?: string;
+    placeId?: string;
+    zoom?: string;
+    lat?: string;
+    lng?: string;
+  };
+}
+interface State {
+  mapContainerHeightDeclaration: string;
+  mapContainerWidthDeclaration: string;
+  mapViewport: MapViewport;
+  isMapDraggedOrZoomed: boolean;
+  isSpotlightMaskVisible: boolean;
+  mapSourcesLoadStatus: {
+    [groupName: string]: string;
+  };
+}
+type Props = StateProps & DispatchProps & OwnProps & RouteComponentProps<{}>;
+
+class MapTemplate extends Component<Props, State> {
+  private mapContainerRef = createRef<HTMLDivElement>();
+  private addPlaceButtonRef = createRef<HTMLDivElement>();
+
+  state: State = {
     // NOTE: These dimension "declarations" will be CSS strings, as set by the
     // utility methods getMainContentAreaHeight() and
     // getMainContentAreaWidth().
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
     mapViewport: {
-      transitionInterpolator: new FlyToInterpolator(),
       ...this.props.initialMapViewport,
+      transitionInterpolator: new FlyToInterpolator(),
     },
     isMapDraggedOrZoomed: false,
     isSpotlightMaskVisible: false,
@@ -109,7 +176,7 @@ class MapTemplate extends Component {
     //     be in progress.
     // "error": An error occurred when fetching data for this source.
     mapSourcesLoadStatus: this.props.mapSourceNames.reduce(
-      (memo, groupName) => ({
+      (memo, groupName: string) => ({
         ...memo,
         [groupName]: "unloaded",
       }),
@@ -121,7 +188,6 @@ class MapTemplate extends Component {
     this.recaculateContainerSize();
     this.updateUIConfiguration(this.props.uiConfiguration);
 
-    // Set initial map zoom and centerpoint.
     const { zoom, lat, lng } = this.props.params;
     zoom &&
       lat &&
@@ -141,7 +207,7 @@ class MapTemplate extends Component {
       !this.props.isStartPageViewed
     ) {
       this.props.history.push(startPageConfig.url);
-      this.props.onViewStartPage();
+      this.props.onViewStartPage && this.props.onViewStartPage();
     }
 
     // When this component mounts in the PlaceDetail configuration, a couple of
@@ -193,14 +259,14 @@ class MapTemplate extends Component {
 
         this.props.updateEditModeToggled(false);
         this.props.updateFocusedPlaceId(parseInt(placeId));
-        this.props.updateScrollToResponseId(parseInt(responseId));
+        responseId && this.props.updateScrollToResponseId(parseInt(responseId));
       } else {
         // The Place doesn't exist, so route back to the map.
         this.props.history.push("/");
       }
     } else if (placeId) {
       this.props.updateFocusedPlaceId(parseInt(placeId));
-      this.props.updateScrollToResponseId(parseInt(responseId));
+      responseId && this.props.updateScrollToResponseId(parseInt(responseId));
     }
 
     this.recaculateContainerSize();
@@ -215,7 +281,10 @@ class MapTemplate extends Component {
       this.recaculateContainerSize();
     }
 
-    if (this.props.params.placeId !== prevProps.params.placeId) {
+    if (
+      this.props.params.placeId &&
+      this.props.params.placeId !== prevProps.params.placeId
+    ) {
       this.props.updateEditModeToggled(false);
       this.props.updateFocusedPlaceId(parseInt(this.props.params.placeId));
     }
@@ -224,11 +293,17 @@ class MapTemplate extends Component {
       this.updateUIConfiguration(this.props.uiConfiguration);
     }
 
-    if (this.props.params.pageSlug !== prevProps.params.pageSlug) {
+    if (
+      this.props.params.pageSlug &&
+      this.props.params.pageSlug !== prevProps.params.pageSlug
+    ) {
       this.props.updateActivePage(this.props.params.pageSlug);
     }
 
-    if (this.props.params.responseId !== prevProps.params.responseId) {
+    if (
+      this.props.params.responseId &&
+      this.props.params.responseId !== prevProps.params.responseId
+    ) {
       this.props.updateScrollToResponseId(
         parseInt(this.props.params.responseId),
       );
@@ -356,17 +431,21 @@ class MapTemplate extends Component {
 
   render() {
     return (
-      <>
+      <Fragment>
         {this.props.isGeocodeAddressBarEnabled && (
           <GeocodeAddressBar
             mapConfig={this.props.mapConfig}
             onUpdateMapViewport={this.onUpdateMapViewport}
           />
         )}
-        <MapContainer
+        <div
+          css={css`
+            position: relative;
+            overflow: hidden;
+            width: ${this.state.mapContainerWidthDeclaration};
+            height: ${this.state.mapContainerHeightDeclaration};
+          `}
           ref={this.mapContainerRef}
-          width={this.state.mapContainerWidthDeclaration}
-          height={this.state.mapContainerHeightDeclaration}
         >
           {this.props.isLeftSidebarExpanded && (
             <LeftSidebar
@@ -376,7 +455,6 @@ class MapTemplate extends Component {
           <MainMap
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             mapContainerRef={this.mapContainerRef}
-            mapContainerDimensions={this.state.mapContainerDimensions}
             mapContainerWidthDeclaration={
               this.state.mapContainerWidthDeclaration
             }
@@ -385,6 +463,7 @@ class MapTemplate extends Component {
             }
             mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
             mapViewport={this.state.mapViewport}
+            onUpdateInitialMapViewport={this.props.onUpdateInitialMapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}
             onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
             onUpdateSpotlightMaskVisibility={
@@ -393,7 +472,7 @@ class MapTemplate extends Component {
             onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
           />
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
-        </MapContainer>
+        </div>
         {this.props.isContentPanelVisible && (
           <ContentPanel
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
@@ -422,55 +501,17 @@ class MapTemplate extends Component {
           )}
         {this.props.layout === "desktop" &&
           this.props.isRightSidebarEnabled && <RightSidebar />}
-      </>
+      </Fragment>
     );
   }
 }
 
-MapTemplate.propTypes = {
-  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
-  datasetsConfig: datasetsConfigPropType,
-  hasAddPlacePermission: PropTypes.bool.isRequired,
-  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-  initialMapViewport: mapViewportPropType.isRequired,
-  isAddPlaceButtonVisible: PropTypes.bool.isRequired,
-  isContentPanelVisible: PropTypes.bool.isRequired,
-  isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
-  isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  isRightSidebarEnabled: PropTypes.bool.isRequired,
-  isRightSidebarVisible: PropTypes.bool.isRequired,
-  isSpotlightMaskVisible: PropTypes.bool.isRequired,
-  isStartPageViewed: PropTypes.bool,
-  languageCode: PropTypes.string.isRequired,
-  layout: PropTypes.string.isRequired,
-  loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
-  mapConfig: mapConfigPropType.isRequired,
-  mapSourceNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  navBarConfig: navBarConfigPropType.isRequired,
-  onViewStartPage: PropTypes.func,
-  // Parameters passed from the router.
-  params: PropTypes.shape({
-    pageSlug: PropTypes.string,
-    placeId: PropTypes.string,
-    datasetClientSlug: PropTypes.string,
-    responseId: PropTypes.string,
-    zoom: PropTypes.string,
-    lat: PropTypes.string,
-    lng: PropTypes.string,
-  }).isRequired,
-  placeConfig: placeConfigPropType.isRequired,
-  placeExists: PropTypes.func.isRequired,
-  uiConfiguration: PropTypes.string.isRequired,
-  updateUIVisibility: PropTypes.func.isRequired,
-  updateActivePage: PropTypes.func.isRequired,
-  updateContentPanelComponent: PropTypes.func.isRequired,
-  updateEditModeToggled: PropTypes.func.isRequired,
-  updateFocusedPlaceId: PropTypes.func.isRequired,
-  updateScrollToResponseId: PropTypes.func.isRequired,
-};
+type MapseedReduxState = any;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (
+  state: MapseedReduxState,
+  ownProps: OwnProps,
+): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
     hasAnonAbilitiesInAnyDataset({
@@ -491,7 +532,6 @@ const mapStateToProps = state => ({
       submissionSet,
       datasetSlugs,
     }),
-  initialMapViewport: initialMapViewportSelector(state),
   isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
@@ -507,7 +547,10 @@ const mapStateToProps = state => ({
   placeExists: placeId => placeExists(state, placeId),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (
+  dispatch: any,
+  ownProps: OwnProps,
+): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadPlaceAndSetIgnoreFlag: placeModel =>
@@ -526,7 +569,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-  connect(
+  connect<StateProps, DispatchProps, OwnProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(MapTemplate),
