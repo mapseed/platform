@@ -31,6 +31,7 @@ module.exports = {
     Mapseed: false,
     MAP_PROVIDER_TOKEN: false,
     MIXPANEL_TOKEN: false,
+    GOOGLE_TRANSLATE_API_TOKEN: false,
     GIT_SHA: false,
     L: false,
     ga: false,

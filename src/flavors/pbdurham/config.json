@@ -1,4 +1,16 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    },
+    "availableLanguages": [
+      {
+        "code": "es",
+        "label": "Español"
+      }
+    ]
+  },
   "datasets": [
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
@@ -568,7 +580,7 @@
                 "citywide",
                 "project-citywide-focused.png",
                 "money.png"
-              ], 
+              ],
               "icon-size": 0.3,
               "icon-anchor": "bottom"
             }
@@ -594,7 +606,7 @@
                 "citywide",
                 "project-citywide.png",
                 "money.png"
-              ], 
+              ],
               "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
             }
           }

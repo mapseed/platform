@@ -10,6 +10,7 @@ import { lighten } from "@material-ui/core/styles/colorManipulator";
 import { getCategoryConfig } from "../../utils/config-utils";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { RegularText } from "../atoms/typography";
+import T from "../translator";
 
 import "./input-form-category-button.scss";
 
@@ -92,7 +93,7 @@ const InputFormCategoryButton = props => {
               : "unset"};
           `}
         >
-          {categoryConfig.label}
+          <T msg={categoryConfig.label} />
         </RegularText>
       </label>
     </div>
