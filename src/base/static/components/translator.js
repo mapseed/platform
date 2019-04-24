@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import qs from "qs";
 
 import { LanguageConsumer } from "../context/language";
 
@@ -17,16 +16,16 @@ const Translator = props => {
 
       async function translate() {
         // TODO: html format
-        // https://cloud.google.com/translate/docs/languages
         const response = await fetch(
-          `https://translation.googleapis.com/language/translate/v2?${qs.stringify(
-            {
-              q: props.msg,
+          "https://qnvmys9mc8.execute-api.us-west-2.amazonaws.com/v1",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              text: props.msg,
               target: props.currentLanguage,
               format: "text",
-              key: GOOGLE_TRANSLATE_API_TOKEN,
-            },
-          )}`,
+            }),
+          },
         );
 
         if (response.status < 200 || response.status >= 300) {
@@ -37,7 +36,8 @@ const Translator = props => {
           );
         } else {
           const result = await response.json();
-          setTranslatedMsg(result.data.translations[0].translatedText);
+
+          setTranslatedMsg(result.body);
         }
       }
 

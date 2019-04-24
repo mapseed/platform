@@ -292,8 +292,7 @@ class App extends Component<Props, State> {
 
     // The config and user data are now loaded.
     this.setState({
-      currentLanguage: "es",
-      //currentLanguage: resolvedConfig.flavor.defaultLanguage,
+      currentLanguage: resolvedConfig.flavor.defaultLanguage,
       defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
       initialMapViewport: {
