@@ -1,6 +1,9 @@
+/** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { translate } from "react-i18next";
+import { jsx, css } from "@emotion/core";
 
 import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar";
 import { SmallTitle } from "../atoms/typography";
@@ -10,16 +13,25 @@ import "./map-layer-panel.scss";
 
 const MapLayerPanel = props => (
   <div className="map-layer-panel">
-    <SmallTitle>{props.mapLayerPanelConfig.title}</SmallTitle>
+    <SmallTitle
+      css={css`
+        margin-top: 0;
+      `}
+    >
+      {props.t("mapLayerPanelTitle", props.mapLayerPanelConfig.title)}
+    </SmallTitle>
     {props.mapLayerPanelConfig.content &&
-      props.mapLayerPanelConfig.content.map(section => (
-        <MapLayerPanelSection
-          key={section.id}
-          layerGroups={section.layerGroups}
-          mapSourcesLoadStatus={props.mapSourcesLoadStatus}
-          title={section.title}
-        />
-      ))}
+      props.mapLayerPanelConfig.content.map(
+        (section, layerPanelSectionIndex) => (
+          <MapLayerPanelSection
+            key={section.id}
+            layerPanelSectionIndex={layerPanelSectionIndex}
+            layerGroups={section.layerGroups}
+            mapSourcesLoadStatus={props.mapSourcesLoadStatus}
+            title={section.title}
+          />
+        ),
+      )}
   </div>
 );
 
@@ -42,6 +54,7 @@ MapLayerPanel.propTypes = {
       }),
     ),
   }),
+  t: PropTypes.func.isRequired,
   visibleBasemapId: PropTypes.string,
 };
 
@@ -49,4 +62,6 @@ const mapStateToProps = state => ({
   mapLayerPanelConfig: leftSidebarPanelConfigSelector(state, "MapLayerPanel"),
 });
 
-export default connect(mapStateToProps)(MapLayerPanel);
+export default connect(mapStateToProps)(
+  translate("MapLayerPanel")(MapLayerPanel),
+);

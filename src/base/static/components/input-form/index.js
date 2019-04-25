@@ -558,6 +558,7 @@ class InputForm extends Component {
             {this.getFields()
               .map(field => (
                 <FormField
+                  formId={this.selectedCategoryConfig.formId}
                   fieldConfig={field.get("config").toJS()}
                   disabled={this.state.isFormSubmitting}
                   fieldState={field}

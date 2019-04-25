@@ -143,7 +143,10 @@ class FormField extends Component {
               margin-bottom: 8px;
             `}
           >
-            {this.props.fieldConfig.prompt}
+            {this.props.t(
+              `formField${this.props.formId}${this.props.fieldConfig.name}`,
+              this.props.fieldConfig.prompt,
+            )}
             <span className={cn.optionalMsg}>
               {this.props.t("optionalMsg")}
             </span>
@@ -167,6 +170,7 @@ FormField.propTypes = {
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
+  formId: PropTypes.string.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isInitializing: PropTypes.bool,
   updatingField: PropTypes.string,
