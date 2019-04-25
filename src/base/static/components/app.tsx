@@ -168,20 +168,16 @@ declare const Mapseed: any;
 // 'process' global is injected by Webpack:
 declare const process: any;
 
-interface InitialMapViewport {
-  minZoom: number;
-  maxZoom: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
+interface Language {
+  code: string;
+  label: string;
 }
-
+interface AvailableLanguages extends Array<Language> {}
 interface State {
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
-  initialMapViewport: InitialMapViewport;
+  defaultLanguage?: Language;
+  availableLanguages?: AvailableLanguages;
 }
 
 class App extends Component<Props, State> {
@@ -191,28 +187,19 @@ class App extends Component<Props, State> {
   state: State = {
     isInitialDataLoaded: false,
     isStartPageViewed: false,
-    // The `initialMapViewport` describes the viewport used when the map template
-    // mounts, including when the app first loads and when the user routes to the
-    // map template from another template. This allows us to "save" a viewport
-    // when routing away from the map template, and restore it when routing back
-    // to the map template.
-    initialMapViewport: {
-      minZoom: 0,
-      maxZoom: 18,
-      latitude: 0,
-      longitude: 0,
-      zoom: 0,
-      bearing: 0,
-      pitch: 0,
+    defaultLanguage: {
+      code: "en",
+      label: "English",
     },
+    availableLanguages: [],
   };
 
   async componentDidMount() {
     // In production, use the asynchronously fetched config file so we can
-    // support a config with overridden environment variables. In development, 
+    // support a config with overridden environment variables. In development,
     // use the imported module so we can support incremental rebuilds.
     // TODO(goldpbear): Now that gettext is gone I think this can be simplified.
-    // We should be able to import the config directly in both prod and dev 
+    // We should be able to import the config directly in both prod and dev
     // with a little more work.
     let resolvedConfig;
     if (process.env.NODE_ENV === "production") {
