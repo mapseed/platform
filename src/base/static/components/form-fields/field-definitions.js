@@ -56,6 +56,7 @@ const getSharedFieldProps = (fieldConfig, context) => {
   return {
     disabled: context.props.disabled,
     hasAutofill: fieldConfig.hasAutofill,
+    formId: context.props.formId,
     name: fieldConfig.name,
     onChange: context.onChange.bind(context),
     placeholder: fieldConfig.placeholder,
@@ -125,6 +126,7 @@ export default {
           key={item.value}
           value={item.value}
           label={item.label}
+          formId={context.props.formId}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checkboxGroupState={context.props.fieldState.get(
             constants.FIELD_VALUE_KEY,
@@ -145,6 +147,7 @@ export default {
           key={item.value}
           value={item.value}
           label={item.label}
+          formId={context.props.formId}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checked={
             context.props.fieldState.get(constants.FIELD_VALUE_KEY) ===
@@ -250,6 +253,7 @@ export default {
         }
         labels={[fieldConfig.content[0].label, fieldConfig.content[1].label]}
         values={[fieldConfig.content[0].value, fieldConfig.content[1].value]}
+        formId={context.props.formId}
         id={"input-form-" + fieldConfig.name}
         onChange={context.onChange.bind(context)}
         hasAutofill={fieldConfig.hasAutofill}
@@ -267,6 +271,7 @@ export default {
         onAddAttachment={context.props.onAddAttachment.bind(context)}
         onChange={context.onChange.bind(context)}
         label={fieldConfig.label}
+        formId={context.props.formId}
       />
     ),
     getInitialValue: () => null,

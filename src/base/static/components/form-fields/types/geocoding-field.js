@@ -99,7 +99,10 @@ class GeocodingField extends Component {
           name={this.props.name}
           type="text"
           aria-label="Search by address"
-          placeholder={this.props.placeholder}
+          placeholder={this.props.t(
+            `geocodingFieldPlaceholder${this.props.formId}${this.props.name}`,
+            this.props.placeholder,
+          )}
           value={this.props.value}
           onBlur={this.doGeocode.bind(this)}
           onKeyDown={e => this.props.onKeyDown && this.props.onKeyDown(e)}
@@ -119,6 +122,7 @@ class GeocodingField extends Component {
 }
 
 GeocodingField.propTypes = {
+  formId: PropTypes.string.isRequired,
   mapConfig: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -128,6 +132,12 @@ GeocodingField.propTypes = {
   t: PropTypes.func.isRequired,
   isTriggeringGeocode: PropTypes.bool,
   value: PropTypes.string,
+};
+
+GeocodingField.defaultProps = {
+  // In case the GeocodingField is used outside the input form, e.g. in the
+  // GeocodeAddressBar:
+  formId: "noForm",
 };
 
 const mapStateToProps = state => ({

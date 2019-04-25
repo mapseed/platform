@@ -748,7 +748,7 @@
             "optional": false
           },
           {
-            "prompt": "Idea(s) it comes from: (List idea tracker number(s), separated by a space",
+            "prompt": "Idea(s) it comes from: (List idea tracker number(s), separated by a space)",
             "display_prompt": "Related ideas:",
             "type": "text",
             "placeholder": "...",
@@ -756,7 +756,7 @@
             "optional": true
           },
           {
-            "prompt": "Brief Project Description: (less than 100 words",
+            "prompt": "Brief Project Description: (less than 100 words)",
             "display_prompt": "Description of this project proposal:",
             "type": "textarea",
             "includeOnListItem": true,
@@ -765,7 +765,7 @@
             "optional": true
           },
           {
-            "prompt": "Impact Statement: (less than 200 words",
+            "prompt": "Impact Statement: (less than 200 words)",
             "display_prompt": "Impact Statement:",
             "includeOnListItem": true,
             "type": "textarea",
@@ -872,7 +872,7 @@
                 "value": "2"
               },
               {
-                "label": "(3 - Project is highly likely to be feasible",
+                "label": "3 - Project is highly likely to be feasible",
                 "value": "3"
               }
             ]
