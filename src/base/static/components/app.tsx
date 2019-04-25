@@ -212,7 +212,8 @@ class App extends Component<Props, State> {
     // support a config with overridden environment variables. In development, 
     // use the imported module so we can support incremental rebuilds.
     // TODO(goldpbear): Now that gettext is gone I think this can be simplified.
-    // We should be able to import the config directly in both prod and dev.
+    // We should be able to import the config directly in both prod and dev 
+    // with a little more work.
     let resolvedConfig;
     if (process.env.NODE_ENV === "production") {
       const configResponse = await fetch(`/config.js`);
