@@ -209,11 +209,13 @@ class App extends Component<Props, State> {
 
   async componentDidMount() {
     // In production, use the asynchronously fetched config file so we can
-    // support localized config content. In development, use the imported
-    // module so we can support incremental rebuilds.
+    // support a config with overridden environment variables. In development, 
+    // use the imported module so we can support incremental rebuilds.
+    // TODO(goldpbear): Now that gettext is gone I think this can be simplified.
+    // We should be able to import the config directly in both prod and dev.
     let resolvedConfig;
     if (process.env.NODE_ENV === "production") {
-      const configResponse = await fetch(`/config-${Mapseed.languageCode}.js`);
+      const configResponse = await fetch(`/config.js`);
       resolvedConfig = await configResponse.json();
     } else {
       resolvedConfig = config;
