@@ -70,17 +70,7 @@
         "addPlaceButtonBackgroundColor": "#045a8b",
         "addPlaceButtonHoverBackgroundColor": "#302d43"
       }
-    },
-    "languages": [
-      {
-        "code": "en_US",
-        "label": "English"
-      },
-      {
-        "code": "es",
-        "label": "Español"
-      }
-    ]
+    }
   },
   "dashboard": [
     {
@@ -1655,7 +1645,7 @@
   "pages": [
     {
       "slug": "get-involved",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Get Involved</h1>",
         "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",

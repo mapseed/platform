@@ -30,7 +30,6 @@ const MapTemplate = lazy(() => import("./templates/map"));
 // @ts-ignore
 import config from "config";
 
-import { LanguageProvider } from "../context/language";
 import mapseedApiClient from "../client/mapseed-api-client";
 import {
   datasetsConfigPropType,
@@ -287,12 +286,12 @@ class App extends Component<Props, State> {
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
-    // TODO:
-    languageModule.changeLanguage(Mapseed.languageCode);
+    languageModule.fallbackLng = resolvedConfig.flavor.defaultLanguage.code;
+    languageModule.changeLanguage(resolvedConfig.flavor.defaultLanguage.code);
 
     // The config and user data are now loaded.
     this.setState({
-      currentLanguage: resolvedConfig.flavor.defaultLanguage,
+      availableLanguages: resolvedConfig.flavor.availableLanguages,
       defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
       initialMapViewport: {
@@ -425,54 +424,21 @@ class App extends Component<Props, State> {
         ) : (
           <JSSProvider>
             <ThemeProvider>
-              <LanguageProvider
-                currentLanguage={this.state.currentLanguage}
+              <SiteHeader
+                availableLanguages={this.state.availableLanguages}
                 defaultLanguage={this.state.defaultLanguage}
+              />
+              <TemplateContainer
+                ref={this.templateContainerRef}
+                layout={this.props.layout}
+                currentTemplate={this.props.currentTemplate}
               >
-                <SiteHeader languageCode={Mapseed.languageCode} />
-                <TemplateContainer
-                  ref={this.templateContainerRef}
-                  layout={this.props.layout}
-                  currentTemplate={this.props.currentTemplate}
-                >
-                  <Switch>
-                    <Route
-                      exact
-                      path="/"
-                      render={props => {
-                        return (
-                          <Suspense fallback={<Fallback />}>
-                            <MapTemplate
-                              uiConfiguration="map"
-                              isStartPageViewed={this.state.isStartPageViewed}
-                              onViewStartPage={this.onViewStartPage}
-                              languageCode={Mapseed.languageCode}
-                              {...props.match}
-                            />
-                          </Suspense>
-                        );
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/:zoom(\d*\.\d+)/:lat(-?\d*\.\d+)/:lng(-?\d*\.\d+)"
-                      render={props => {
-                        return (
-                          <Suspense fallback={<Fallback />}>
-                            <MapTemplate
-                              uiConfiguration="map"
-                              languageCode={Mapseed.languageCode}
-                              {...props.match}
-                            />
-                          </Suspense>
-                        );
-                      }}
-                    />
-                    <Route exact path="/sha" component={ShaTemplate} />
-                    <Route
-                      exact
-                      path="/list"
-                      render={() => (
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={props => {
+                      return (
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="map"
@@ -480,12 +446,14 @@ class App extends Component<Props, State> {
                             {...props.match}
                           />
                         </Suspense>
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/invite"
-                      render={props => (
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/:zoom(\d*\.\d+)/:lat(-?\d*\.\d+)/:lng(-?\d*\.\d+)"
+                    render={props => {
+                      return (
                         <Suspense fallback={<Fallback />}>
                           <MapTemplate
                             uiConfiguration="map"
@@ -567,16 +535,44 @@ class App extends Component<Props, State> {
                         return (
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
-                              uiConfiguration="placeDetail"
+                              uiConfiguration="newPlace"
                               languageCode={Mapseed.languageCode}
                               {...props.match}
                             />
                           </Suspense>
                         );
-                      }}
-                    />
-                    <Route
-                      render={props => {
+                      } else {
+                        this.props.history.push("/");
+                        return;
+                      }
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/dashboard"
+                    render={() => {
+                      return (
+                        <Suspense fallback={<Fallback />}>
+                          <DashboardTemplate
+                            datasetDownloadConfig={
+                              this.props.appConfig.dataset_download
+                            }
+                            apiRoot={this.props.appConfig.api_root}
+                          />
+                        </Suspense>
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/page/:pageSlug"
+                    render={props => {
+                      if (
+                        !this.props.pageExists(
+                          props.match.params.pageSlug,
+                          Mapseed.languageCode,
+                        )
+                      ) {
                         return (
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
