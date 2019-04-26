@@ -15,7 +15,10 @@ import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
-import { mapViewportPropType } from "../../state/ducks/map";
+import {
+  mapViewportPropType,
+  updateLayerGroupVisibility,
+} from "../../state/ducks/map";
 
 import { RegularText } from "../atoms/typography";
 
@@ -77,6 +80,12 @@ class FormCategoryMenuWrapper extends Component {
     this.props.updateMapDraggedOrZoomed(false);
     this.props.updateMapCenterpointVisibility(true);
     this.props.updateSpotlightMaskVisibility(true);
+
+    if (this.props.placeConfig.visibleLayerGroupIds) {
+      this.props.placeConfig.visibleLayerGroupIds.forEach(layerGroupId =>
+        this.props.updateLayerGroupVisibility(layerGroupId, true),
+      );
+    }
   }
 
   onCategoryChange = selectedCategory => {
@@ -144,6 +153,7 @@ FormCategoryMenuWrapper.propTypes = {
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onUpdateMapViewport: PropTypes.func.isRequired,
+  updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
@@ -169,6 +179,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
   updateSpotlightMaskVisibility: isVisible =>
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
+  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
+    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
 
 export default connect(

@@ -845,9 +845,29 @@
             "source": "mw",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-dot-conserve-water.png",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "conserve-water",
+                "marker-conserve-water.png",
+                "prevent-stormwater",
+                "marker-prevent-stormwater.png",
+                "only-flush",
+                "marker-only-flush.png",
+                "conserve-energy",
+                "marker-conserve-energy.png",
+                "waste-less",
+                "marker-waste-less.png",
+                "commute-low-carbon",
+                "marker-commute-low-carbon.png",
+                "eat-local-organic",
+                "marker-eat-local-organic.png",
+                "restore-salmon-habitat",
+                "marker-restore-salmon-habitat.png",
+                "__no-icon-image__"
+              ],
               "icon-size": 0.5,
-              "icon-anchor": "center"
+              "icon-anchor": "bottom"
             }
           }
         ],
@@ -1252,7 +1272,7 @@
     "anonymous_name": "_(Someone)",
     "submit_button_label": "_(Put it on the map!)",
     "location_item_name": "location",
-    "default_basemap": "satellite",
+    "visibleLayerGroupIds": ["satellite"],
     "place_detail": [
       {
         "formId": "featured_project",
@@ -1264,6 +1284,7 @@
         "icon_url": "/static/css/images/markers/marker-star-silver.png",
         "value": "featured_project",
         "label": "_(Add a Classroom Project)",
+        "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
             "name": "title",
@@ -1432,6 +1453,7 @@
         "icon_url": "/static/css/images/markers/marker-star-gold.png",
         "value": "featured_place",
         "label": "_(Add a community project)",
+        "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
             "name": "cover-image",
@@ -1529,6 +1551,7 @@
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
         "label": "_(I will conserve water)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",
@@ -1643,6 +1666,7 @@
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
         "label": "_(I will prevent stormwater pollution)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",
@@ -1756,6 +1780,7 @@
         "icon_url": "/static/css/images/markers/marker-only-flush.png",
         "value": "only-flush",
         "label": "_(I will reduce wastewater pollution)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",
@@ -1861,6 +1886,7 @@
         "icon_url": "/static/css/images/markers/marker-conserve-energy.png",
         "value": "conserve-energy",
         "label": "_(I will conserve energy)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",
@@ -1959,6 +1985,7 @@
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
         "label": "_(I will waste less)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",
@@ -2053,6 +2080,7 @@
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
         "label": "_(I will commute on low carbon transit)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",
@@ -2139,6 +2167,7 @@
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
         "label": "_(I will eat local and organic)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",
@@ -2217,6 +2246,7 @@
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
         "label": "_(I will help restore salmon habitat)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
             "name": "address",

@@ -83,10 +83,19 @@ class InputForm extends Component {
         this.state.currentStage - 1
       ];
 
-      this.setStageLayers(stageConfig);
+      stageConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          stageConfig.visibleLayerGroupIds,
+          true,
+        );
       stageConfig.viewport &&
         this.props.onUpdateMapViewport(stageConfig.viewport);
     }
+
+    this.selectedCategoryConfig.visibleLayerGroupIds &&
+      this.updateLayerGroupVisibilities(
+        this.selectedCategoryConfig.visibleLayerGroupIds,
+      );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -102,6 +111,11 @@ class InputForm extends Component {
         formValidationErrors: new Set(),
         showValidityStatus: false,
       });
+
+      this.selectedCategoryConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          this.selectedCategoryConfig.visibleLayerGroupIds,
+        );
     }
 
     if (
@@ -113,28 +127,27 @@ class InputForm extends Component {
         this.state.currentStage - 1
       ];
 
-      this.setStageLayers(stageConfig);
+      stageConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          stageConfig.visibleLayerGroupIds,
+          true,
+        );
       stageConfig.viewport &&
         this.props.onUpdateMapViewport(stageConfig.viewport);
     }
   }
 
-  setStageLayers(stageConfig) {
-    if (stageConfig.visibleLayerGroupIds) {
-      // Set layers for this stage.
-      stageConfig.visibleLayerGroupIds.forEach(layerGroupId =>
-        this.props.updateLayerGroupVisibility(layerGroupId, true),
-      );
-      // Hide all other layers.
+  updateLayerGroupVisibilities(layerGroupIds, hideOthers = false) {
+    layerGroupIds.forEach(layerGroupId =>
+      this.props.updateLayerGroupVisibility(layerGroupId, true),
+    );
+
+    hideOthers &&
       this.props.mapConfig.layerGroups
-        .filter(
-          layerGroup =>
-            !stageConfig.visibleLayerGroupIds.includes(layerGroup.id),
-        )
+        .filter(layerGroup => !layerGroupIds.includes(layerGroup.id))
         .forEach(layerGroup =>
           this.props.updateLayerGroupVisibility(layerGroup.id, false),
         );
-    }
   }
 
   getNewFields(prevFields) {
