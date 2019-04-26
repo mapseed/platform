@@ -858,9 +858,55 @@
             "source": "mw",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-dot-conserve-water.png",
-              "icon-size": 0.15,
-              "icon-anchor": "center"
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "conserve-water",
+                  "marker-dot-conserve-water.png",
+                  "prevent-stormwater",
+                  "marker-dot-prevent-stormwater.png",
+                  "only-flush",
+                  "marker-dot-only-flush.png",
+                  "conserve-energy",
+                  "marker-dot-conserve-energy.png",
+                  "waste-less",
+                  "marker-dot-waste-less.png",
+                  "commute-low-carbon",
+                  "marker-dot-commute-low-carbon.png",
+                  "eat-local-organic",
+                  "marker-dot-eat-local-organic.png",
+                  "restore-salmon-habitat",
+                  "marker-dot-restore-salmon-habitat.png",
+                  "__no-icon-image__"
+                ],
+                12,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "conserve-water",
+                  "marker-conserve-water.png",
+                  "prevent-stormwater",
+                  "marker-prevent-stormwater.png",
+                  "only-flush",
+                  "marker-only-flush.png",
+                  "conserve-energy",
+                  "marker-conserve-energy.png",
+                  "waste-less",
+                  "marker-waste-less.png",
+                  "commute-low-carbon",
+                  "marker-commute-low-carbon.png",
+                  "eat-local-organic",
+                  "marker-eat-local-organic.png",
+                  "restore-salmon-habitat",
+                  "marker-restore-salmon-habitat.png",
+                  "__no-icon-image__"
+                ]
+              ],
+              "icon-size": ["step", ["zoom"], 0.3, 12, 0.4],
+              "icon-anchor": ["step", ["zoom"], "center", 12, "bottom"]
             }
           }
         ]
@@ -881,9 +927,9 @@
             ],
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-dot-commute-low-carbon.png",
-              "icon-size": 0.5,
-              "icon-anchor": "center"
+              "icon-image": "marker-star-silver.png",
+              "icon-size": 0.7,
+              "icon-anchor": "bottom"
             }
           }
         ],
@@ -898,9 +944,9 @@
             ],
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-dot-commute-low-carbon.png",
-              "icon-size": 0.15,
-              "icon-anchor": "center"
+              "icon-image": "marker-star-silver.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
             }
           }
         ]
@@ -921,7 +967,7 @@
             ],
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "map-pin-star-marker.png",
+              "icon-image": "marker-star-gold.png",
               "icon-size": 0.7,
               "icon-anchor": "bottom"
             }
@@ -938,7 +984,7 @@
             ],
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "map-pin-star-marker.png",
+              "icon-image": "marker-star-gold.png",
               "icon-size": 0.5,
               "icon-anchor": "bottom"
             }
@@ -1030,7 +1076,7 @@
             "layerGroups": [
               {
                 "id": "mwfeatured",
-                "title": "_(Featured Sites)",
+                "title": "_(Classroom Projects)",
                 "info": {
                   "title": "_(Featured Sites)",
                   "body": "_(This is an example of an info window. Layer info will be added soon.)"
@@ -1038,7 +1084,7 @@
               },
               {
                 "id": "mw-featured-projects",
-                "title": "_(Featured Projects)"
+                "title": "_(Community Projects)"
               },
               {
                 "id": "mw",
@@ -1215,9 +1261,9 @@
         "includeOnList": true,
         "datasetSlug": "mw-featured-projects",
         "name": "location_type",
-        "icon_url": "/static/css/images/markers/marker-dot-commute-low-carbon.png",
+        "icon_url": "/static/css/images/markers/marker-star-silver.png",
         "value": "featured_project",
-        "label": "_(Submit a classroom report!)",
+        "label": "_(Add a Classroom Project)",
         "fields": [
           {
             "name": "title",
@@ -1383,9 +1429,9 @@
         "horizontal_rule": true,
         "name": "location_type",
         "datasetSlug": "mwfeatured",
-        "icon_url": "/static/css/images/markers/map-pin-star-marker.png",
+        "icon_url": "/static/css/images/markers/marker-star-gold.png",
         "value": "featured_place",
-        "label": "_(Submit a community report)",
+        "label": "_(Add a community project)",
         "fields": [
           {
             "name": "cover-image",
@@ -1707,7 +1753,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-only-flush-this.png",
+        "icon_url": "/static/css/images/markers/marker-only-flush.png",
         "value": "only-flush",
         "label": "_(I will reduce wastewater pollution)",
         "fields": [
@@ -4347,7 +4393,11 @@
     "watersheds": {
       "header": "Example projects",
       "default_zoom": 18,
-      "visibleLayerGroupIds": ["satellite", "mwfeatured"],
+      "visibleLayerGroupIds": [
+        "satellite",
+        "mwfeatured",
+        "mw-featured-projects"
+      ],
       "order": [
         {
           "placeId": 3737,
@@ -4378,6 +4428,10 @@
         },
         {
           "placeId": 3748,
+          "zoom": 18
+        },
+        {
+          "placeId": 7072,
           "zoom": 18
         }
       ]
