@@ -272,7 +272,7 @@ class MapTemplate extends Component<Props, State> {
     this.recaculateContainerSize();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (
       this.props.layout !== prevProps.layout ||
       this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
@@ -307,6 +307,13 @@ class MapTemplate extends Component<Props, State> {
       this.props.updateScrollToResponseId(
         parseInt(this.props.params.responseId),
       );
+    }
+
+    if (
+      this.state.isMapDraggedOrZoomed !== prevState.isMapDraggedOrZoomed &&
+      this.state.isMapDraggedOrZoomed
+    ) {
+      this.props.updateUIVisibility("spotlightMask", false);
     }
   }
 
