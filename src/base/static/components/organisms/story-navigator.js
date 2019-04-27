@@ -10,7 +10,7 @@ import {
   placesPropType,
   placesLoadStatusSelector,
 } from "../../state/ducks/places";
-import { uiVisibilitySelector } from "../../state/ducks/ui";
+import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
 
 import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 import Immutable from "immutable";
@@ -44,11 +44,9 @@ class StoryNavigator extends Component {
   }
 
   componentDidMount() {
+    this.checkForStoryChapter(this.props.history.location.pathname);
     this.routeListener = this.props.history.listen(location => {
-      const currentStoryState = this.getCurrentStoryState(
-        parseInt(location.pathname.split("/")[2]),
-      );
-      currentStoryState && this.setState(currentStoryState);
+      this.checkForStoryChapter(location.pathname);
     });
   }
 
@@ -64,12 +62,23 @@ class StoryNavigator extends Component {
       });
 
       const placeId = parseInt(this.props.location.pathname.split("/")[2]);
+      placeId && this.props.updateUIVisibility("rightSidebar", true);
       this.setState(this.getCurrentStoryState(placeId, false));
     }
   }
 
   componentWillUnmount() {
     this.routeListener.unlisten();
+  }
+
+  checkForStoryChapter(pathname) {
+    const currentStoryState = this.getCurrentStoryState(pathname.split("/")[2]);
+
+    if (currentStoryState) {
+      this.setState(currentStoryState);
+      currentStoryState.currentStory &&
+        this.props.updateUIVisibility("rightSidebar", true);
+    }
   }
 
   getCurrentStoryState(placeId, isInitialized = true) {
@@ -189,6 +198,7 @@ StoryNavigator.propTypes = {
   places: placesPropType.isRequired,
   placesLoadStatus: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
+  updateUIVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -198,6 +208,14 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+  updateUIVisibility: (componentName, isVisible) =>
+    dispatch(updateUIVisibility(componentName, isVisible)),
+});
+
 export default withRouter(
-  connect(mapStateToProps)(translate("StoryNavigator")(StoryNavigator)),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(translate("StoryNavigator")(StoryNavigator)),
 );
