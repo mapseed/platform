@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTheme } from "emotion-theming";
 import { connect } from "react-redux";
+import { translate } from "react-i18next";
 
 import { Button } from "../atoms/buttons";
 import { supportConfigSelector } from "../../state/ducks/support-config";
@@ -31,7 +32,8 @@ const SupportButton = props => {
       variant="raised"
       onClick={props.onClickSupport}
     >
-      {props.numSupports || ""} {props.supportConfig.submit_btn_text}
+      {props.numSupports || ""}{" "}
+      {props.t("supportButtonLabel", props.supportConfig.submit_btn_text)}
     </Button>
   );
 };
@@ -43,10 +45,13 @@ SupportButton.propTypes = {
   onClickSupport: PropTypes.func.isRequired,
   supportConfig: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   supportConfig: supportConfigSelector(state),
 });
 
-export default withTheme(connect(mapStateToProps)(SupportButton));
+export default withTheme(
+  connect(mapStateToProps)(translate("SupportButton")(SupportButton)),
+);

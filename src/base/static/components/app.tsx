@@ -14,6 +14,9 @@ import styled from "@emotion/styled";
 import { Provider } from "react-redux";
 import Spinner from "react-spinner";
 import { Mixpanel } from "../utils/mixpanel";
+import i18next from "i18next";
+import { reactI18nextModule } from "react-i18next";
+import resourceBundle from "../../../locales";
 
 import SiteHeader from "./organisms/site-header";
 import {
@@ -57,7 +60,6 @@ import { loadMapStyle } from "../state/ducks/map";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
-import languageModule from "../language-module";
 
 import ThemeProvider from "./theme-provider";
 import JSSProvider from "./jss-provider";
@@ -75,6 +77,7 @@ import {
   updateMapContainerDimensions,
 } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
+import isValidNonConfigurablei18nKey from "../utils/i18n-utils";
 
 import Util from "../js/utils.js";
 
@@ -87,6 +90,8 @@ browserUpdate({
     s: -2, // Safari, last 2 versions
   },
 });
+
+const isFetchingTranslation = {};
 
 const TemplateContainer = styled("div")<{
   layout: string;
@@ -168,6 +173,15 @@ declare const Mapseed: any;
 // 'process' global is injected by Webpack:
 declare const process: any;
 
+interface InitialMapViewport {
+  minZoom: number;
+  maxZoom: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+}
 interface Language {
   code: string;
   label: string;
@@ -176,6 +190,7 @@ interface AvailableLanguages extends Array<Language> {}
 interface State {
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
+  initialMapViewport: InitialMapViewport;
   defaultLanguage?: Language;
   availableLanguages?: AvailableLanguages;
 }
@@ -187,6 +202,20 @@ class App extends Component<Props, State> {
   state: State = {
     isInitialDataLoaded: false,
     isStartPageViewed: false,
+    // The `initialMapViewport` describes the viewport used when the map template
+    // mounts, including when the app first loads and when the user routes to the
+    // map template from another template. This allows us to "save" a viewport
+    // when routing away from the map template, and restore it when routing back
+    // to the map template.
+    initialMapViewport: {
+      minZoom: 0,
+      maxZoom: 18,
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+      bearing: 0,
+      pitch: 0,
+    },
     defaultLanguage: {
       code: "en",
       label: "English",
@@ -276,8 +305,76 @@ class App extends Component<Props, State> {
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
-    languageModule.fallbackLng = resolvedConfig.flavor.defaultLanguage.code;
-    languageModule.changeLanguage(resolvedConfig.flavor.defaultLanguage.code);
+    // Set up localization.
+    i18next.use(reactI18nextModule).init({
+      lng: resolvedConfig.flavor.defaultLanguage.code,
+      fallbackLng: resolvedConfig.flavor.defaultLanguage.code,
+      resources: resourceBundle,
+      react: { wait: true },
+      interpolation: { escapeValue: false },
+      saveMissing: true,
+      missingKeyHandler: async (lng, ns, key, fallbackValue) => {
+        if (
+          key !== fallbackValue &&
+          i18next.language === resolvedConfig.flavor.defaultLanguage
+        ) {
+          // Cache this string for future use.
+          i18next.addResource(i18next.language, ns, key, fallbackValue);
+        }
+        // We want to avoid calling the translate API in the following cases:
+        //   - The current language matches the fallback (default) language.
+        //     We make the strong assumption that all strings which are intended
+        //     for automatic translation supply a fallback string in the flavor's
+        //     default languague, so translating in this scenario is pointless.
+        //   - An network request for a given key is already in flight. This can
+        //     happen because the `missingKeyHandler` can get called repeatedly
+        //     for the same key while waiting on the results of the original
+        //     network request.
+        //   - If the `key` equals the `fallbackValue`. If this is true, no
+        //     actual fallbackValue was supplied, and i18next has swapped in the
+        //     key instead. In this situation i18next will look for the key in the
+        //     `fallbackLng`'s (i.e. the flavor's default language) resource
+        //     bundle. If no key is found there, it means no message can be
+        //     located and i18next will render the key itself.
+        if (
+          (i18next.language === resolvedConfig.flavor.defaultLanguage.code ||
+            isFetchingTranslation[key] ||
+            key === fallbackValue) &&
+          isValidNonConfigurablei18nKey(key, i18next.language)
+        ) {
+          return;
+        }
+
+        isFetchingTranslation[key] = true;
+
+        // TODO: move to API client
+        const response = await fetch(
+          "https://qnvmys9mc8.execute-api.us-west-2.amazonaws.com/v1",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              text: fallbackValue,
+              target: i18next.language,
+              // TODO: html format
+              format: "text",
+            }),
+          },
+        );
+
+        if (response.status < 200 || response.status >= 300) {
+          // eslint-disable-next-line no-console
+          console.error(
+            "Error: Failed to translate content:",
+            response.statusText,
+          );
+          isFetchingTranslation[key] = false;
+        } else {
+          const result = await response.json();
+          i18next.addResource(i18next.language, ns, key, result.body);
+          isFetchingTranslation[key] = false;
+        }
+      },
+    });
 
     // The config and user data are now loaded.
     this.setState({
@@ -417,6 +514,8 @@ class App extends Component<Props, State> {
               <SiteHeader
                 availableLanguages={this.state.availableLanguages}
                 defaultLanguage={this.state.defaultLanguage}
+                currentLanguage={i18next.language}
+                changeLanguage={i18next.changeLanguage.bind(i18next)}
               />
               <TemplateContainer
                 ref={this.templateContainerRef}
@@ -497,36 +596,6 @@ class App extends Component<Props, State> {
                             <MapTemplate
                               uiConfiguration="newPlace"
                               {...sharedMapTemplateProps}
-                              {...props.match}
-                            />
-                          </Suspense>
-                        );
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/:datasetClientSlug/:placeId"
-                      render={props => {
-                        return (
-                          <Suspense fallback={<Fallback />}>
-                            <MapTemplate
-                              uiConfiguration="placeDetail"
-                              languageCode={Mapseed.languageCode}
-                              {...props.match}
-                            />
-                          </Suspense>
-                        );
-                      }}
-                    />
-                    <Route
-                      exact
-                      path="/:datasetClientSlug/:placeId/response/:responseId"
-                      render={props => {
-                        return (
-                          <Suspense fallback={<Fallback />}>
-                            <MapTemplate
-                              uiConfiguration="newPlace"
-                              languageCode={Mapseed.languageCode}
                               {...props.match}
                             />
                           </Suspense>

@@ -20,7 +20,7 @@ const InputFormSubmitButton = props => {
       disabled={props.disabled}
       onClick={props.onClickSubmit}
     >
-      {this.props.t("inputFormSubmitButtonLabel", props.label)}
+      {props.t("inputFormSubmitButtonLabel", props.label)}
     </Button>
   );
 };

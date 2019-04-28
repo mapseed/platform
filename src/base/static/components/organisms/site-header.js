@@ -12,7 +12,6 @@ import { NavButton } from "../molecules/buttons";
 import { Button } from "../atoms/buttons";
 import UserMenu from "../molecules/user-menu";
 import { RegularTitle, InternalLink } from "../atoms/typography";
-import languageModule from "../../language-module";
 
 import {
   navBarConfigPropType,
@@ -441,7 +440,7 @@ class SiteHeader extends React.Component {
               {
                 this.props.availableLanguages
                   .concat(this.props.defaultLanguage)
-                  .find(lang => lang.code === languageModule.language).label
+                  .find(lang => lang.code === this.props.currentLanguage).label
               }{" "}
               ⌄
               <LanguagePickerMenu
@@ -453,7 +452,7 @@ class SiteHeader extends React.Component {
                     <LanguagePickerMenuItem key={lang.code}>
                       <LanguageButton
                         onClick={() => {
-                          languageModule.changeLanguage(lang.code);
+                          this.props.changeLanguage(lang.code);
                         }}
                       >
                         {lang.label}
