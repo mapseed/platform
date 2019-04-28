@@ -1693,7 +1693,7 @@
     },
     {
       "slug": "guidelines",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<div class='clearfix'>",
         "<h1>Project Idea Guidelines</h1>",
@@ -1723,7 +1723,7 @@
     },
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Durham Participatory Budgeting:</h1>",
         "<h2>Put your money where your ideas are!</h2>",

@@ -17,7 +17,7 @@ const DropdownField = props => {
       name={props.name}
       onChange={e => props.onChange(e.target.name, e.target.value)}
     >
-      <option value="">{props.t("makeSelection")}</option>
+      <option value="">{props.t("makeSelection", "Make a selection...")}</option>
       {props.options.map((option, optionIndex) => (
         <option key={option.value} value={option.value}>
           {props.t(

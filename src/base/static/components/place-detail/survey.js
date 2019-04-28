@@ -181,6 +181,7 @@ class Survey extends Component {
             {this.state.fields
               .map((fieldState, fieldName) => (
                 <FormField
+                  formId="commentForm"
                   key={fieldState.get(constants.FIELD_RENDER_KEY)}
                   isInitializing={this.state.isInitializing}
                   fieldConfig={this.props.commentFormConfig.items.find(
@@ -215,7 +216,7 @@ class Survey extends Component {
               className="place-detail-survey__logout-button"
               href={this.props.appConfig.api_root + "users/logout/"}
             >
-              {this.props.t("logOut")}
+              {this.props.t("logOut", "Log out")}
             </ExternalLink>
           </span>
         ) : null}

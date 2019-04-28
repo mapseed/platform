@@ -145,7 +145,7 @@ class FormField extends Component {
           >
             {this.props.t(
               `formField${this.props.formId}${this.props.fieldConfig.name}`,
-              this.props.fieldConfig.prompt,
+              this.props.fieldConfig.prompt || " ",
             )}
             <span className={cn.optionalMsg}>
               {this.props.t("optionalMsg")}

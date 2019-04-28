@@ -452,7 +452,7 @@ class SiteHeader extends React.Component {
                     <LanguagePickerMenuItem key={lang.code}>
                       <LanguageButton
                         onClick={() => {
-                          this.props.changeLanguage(lang.code);
+                          this.props.onChangeLanguage(lang.code);
                         }}
                       >
                         {lang.label}
@@ -493,6 +493,7 @@ SiteHeader.propTypes = {
     }).isRequired,
   }).isRequired,
   navBarConfig: navBarConfigPropType,
+  onChangeLanguage: PropTypes.func.isRequired,
   dashboardConfig: dashboardConfigPropType,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,

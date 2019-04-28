@@ -1,18 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
+import { connect } from "react-redux";
 
-const CustomPageWrapper = styled(props => ({}));
+import { pageSelector } from "../../state/ducks/pages-config";
 
 const CustomPage = props => (
   <div
     id="mapseed-custom-page-container"
-    dangerouslySetInnerHTML={{ __html: props.pageContent }}
+    dangerouslySetInnerHTML={{
+      __html: props.pageContent(props.pageSlug, props.currentLanguage).content,
+    }}
   />
 );
 
 CustomPage.propTypes = {
-  pageContent: PropTypes.string.isRequired,
+  currentLanguage: PropTypes.string.isRequired,
+  pageContent: PropTypes.func.isRequired,
+  pageSlug: PropTypes.string.isRequired,
 };
 
-export default CustomPage;
+const mapStateToProps = state => ({
+  pageContent: (slug, lang) => pageSelector({ state, slug, lang }),
+});
+
+export default connect(mapStateToProps)(CustomPage);

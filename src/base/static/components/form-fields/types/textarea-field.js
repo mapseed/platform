@@ -16,7 +16,7 @@ const TextareaField = props => {
       name={props.name}
       placeholder={props.t(
         `textareaFieldPlaceholder${props.formId}${props.name}`,
-        props.placeholder,
+        props.placeholder || " ",
       )}
       value={props.value}
       onChange={e => props.onChange(e.target.name, e.target.value)}

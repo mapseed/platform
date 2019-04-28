@@ -188,6 +188,7 @@ interface Language {
 }
 interface AvailableLanguages extends Array<Language> {}
 interface State {
+  currentLanguage: string;
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
   initialMapViewport: InitialMapViewport;
@@ -221,6 +222,7 @@ class App extends Component<Props, State> {
       label: "English",
     },
     availableLanguages: [],
+    currentLanguage: "",
   };
 
   async componentDidMount() {
@@ -379,6 +381,7 @@ class App extends Component<Props, State> {
     // The config and user data are now loaded.
     this.setState({
       availableLanguages: resolvedConfig.flavor.availableLanguages,
+      currentLanguage: i18next.language,
       defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
       initialMapViewport: {
@@ -490,6 +493,13 @@ class App extends Component<Props, State> {
     });
   };
 
+  onChangeLanguage = newLanguage => {
+    i18next.changeLanguage(newLanguage);
+    this.setState({
+      currentLanguage: newLanguage,
+    });
+  };
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
     this.routeListener && this.routeListener.unlisten();
@@ -501,7 +511,7 @@ class App extends Component<Props, State> {
       onUpdateInitialMapViewport: this.onUpdateInitialMapViewport,
       isStartPageViewed: this.state.isStartPageViewed,
       onViewStartPage: this.onViewStartPage,
-      languageCode: Mapseed.languageCode,
+      currentLanguage: this.state.currentLanguage,
     };
 
     return (
@@ -515,7 +525,7 @@ class App extends Component<Props, State> {
                 availableLanguages={this.state.availableLanguages}
                 defaultLanguage={this.state.defaultLanguage}
                 currentLanguage={i18next.language}
-                changeLanguage={i18next.changeLanguage.bind(i18next)}
+                onChangeLanguage={this.onChangeLanguage}
               />
               <TemplateContainer
                 ref={this.templateContainerRef}
@@ -629,7 +639,7 @@ class App extends Component<Props, State> {
                       if (
                         !this.props.pageExists(
                           props.match.params.pageSlug,
-                          Mapseed.languageCode,
+                          i18next.language,
                         )
                       ) {
                         return (

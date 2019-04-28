@@ -235,7 +235,7 @@ class RichTextareaField extends Component {
             `richTextareaFieldPlaceholder${this.props.formId}${
               this.props.name
             }`,
-            this.props.placeholder,
+            this.props.placeholder || " ",
           )}
           bounds={this.props.bounds}
           value={this.props.value}

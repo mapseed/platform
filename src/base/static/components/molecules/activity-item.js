@@ -3,6 +3,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
+import { translate } from "react-i18next";
 
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, InternalLink } from "../atoms/typography";
@@ -41,7 +42,10 @@ const ActivityItem = props => (
       </UserAvatarContainer>
       <ActionTextContainer>
         <RegularText weight="black">{props.submitterName} </RegularText>
-        <RegularText> {props.actionText}: </RegularText>
+        <RegularText>
+          {" "}
+          {props.t("placeActionText", props.actionText)}:{" "}
+        </RegularText>
         <RegularText>{props.title}</RegularText>
       </ActionTextContainer>
     </InternalLink>
@@ -52,8 +56,9 @@ ActivityItem.propTypes = {
   actionText: PropTypes.string.isRequired,
   submitterAvatarUrl: PropTypes.string,
   submitterName: PropTypes.string.isRequired,
+  t: PropTypes.func.isRequired,
   title: PropTypes.string,
   url: PropTypes.string.isRequired,
 };
 
-export default ActivityItem;
+export default translate("ActivityItem")(ActivityItem);

@@ -128,7 +128,7 @@ interface OwnProps {
   onViewStartPage?: () => void;
   initialMapViewport: InitialMapViewport;
   onUpdateInitialMapViewport: (initialMapViewport: InitialMapViewport) => void;
-  languageCode: string;
+  currentLanguage: string;
   params: {
     datasetClientSlug?: string;
     responseId?: string;
@@ -483,7 +483,7 @@ class MapTemplate extends Component<Props, State> {
         {this.props.isContentPanelVisible && (
           <ContentPanel
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
-            languageCode={this.props.languageCode}
+            currentLanguage={this.props.currentLanguage}
             mapContainerRef={this.mapContainerRef}
             mapViewport={this.state.mapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}

@@ -18,7 +18,7 @@ const TextField = props => {
       value={props.value}
       placeholder={props.t(
         `textFieldLabel${props.formId}${props.name}`,
-        props.placeholder,
+        props.placeholder || " ",
       )}
       onChange={e => props.onChange(e.target.name, e.target.value)}
     />

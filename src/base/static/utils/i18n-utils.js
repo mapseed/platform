@@ -15,7 +15,9 @@ const nonConfigurableI18nKeys = new Set([
   "PBDurhamFeasibilityLabel",
   "PBDurhamEquityLabel",
   "PBDurhamImpactLabel",
+
   // Standard UI text
+  "logOut",
 ]);
 
 export default function isValidNonConfigurableI18nKey(
