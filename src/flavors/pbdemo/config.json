@@ -1,4 +1,32 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    },
+    "availableLanguages": [
+      {
+        "code": "es",
+        "label": "Español"
+      },
+      {
+        "code": "vi",
+        "label": "Tiếng Việt"
+      },
+      {
+        "code": "zh-CN",
+        "label": "中文"
+      },
+      {
+        "code": "hi",
+        "label": "हिंदी"
+      },
+      {
+        "code": "fr",
+        "label": "Française"
+      }
+    ]
+  },
   "datasets": [
     {
       "slug": "pbdemo",

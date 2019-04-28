@@ -1,4 +1,10 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
   "datasets": [
     {
       "slug": "mw",

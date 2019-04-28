@@ -310,7 +310,6 @@ class App extends Component<Props, State> {
     // Set up localization.
     i18next.use(reactI18nextModule).init({
       lng: resolvedConfig.flavor.defaultLanguage.code,
-      fallbackLng: resolvedConfig.flavor.defaultLanguage.code,
       resources: resourceBundle,
       react: { wait: true },
       interpolation: { escapeValue: false },
@@ -323,6 +322,7 @@ class App extends Component<Props, State> {
           // Cache this string for future use.
           i18next.addResource(i18next.language, ns, key, fallbackValue);
         }
+
         // We want to avoid calling the translate API in the following cases:
         //   - The current language matches the fallback (default) language.
         //     We make the strong assumption that all strings which are intended
@@ -334,10 +334,8 @@ class App extends Component<Props, State> {
         //     network request.
         //   - If the `key` equals the `fallbackValue`. If this is true, no
         //     actual fallbackValue was supplied, and i18next has swapped in the
-        //     key instead. In this situation i18next will look for the key in the
-        //     `fallbackLng`'s (i.e. the flavor's default language) resource
-        //     bundle. If no key is found there, it means no message can be
-        //     located and i18next will render the key itself.
+        //     key instead. This is a misconfiguration, so rather than send the
+        //     key itself to the translate API, we just render the key.
         //   - If the `key` represents a non-configurable piece of UI and the
         //     current language is English. We expect the hard-coded default
         //     language of all non-configurable UI to be English.

@@ -42,7 +42,7 @@ const MetadataBar = props => (
       <div style={{ marginBottom: "3px" }}>
         <RegularText weight="black">{props.submitterName}</RegularText>{" "}
         <RegularText>
-          {props.t("placeActionText", `${props.actionText} this`)}{" "}
+          {props.t("placeActionText", `${props.actionText}`)}{" "}
         </RegularText>
       </div>
       <SmallText display="block" textTransform="uppercase">
