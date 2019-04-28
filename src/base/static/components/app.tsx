@@ -307,6 +307,8 @@ class App extends Component<Props, State> {
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
+    console.log(isFetchingTranslation)
+
     // Set up localization.
     i18next.use(reactI18nextModule).init({
       lng: resolvedConfig.flavor.defaultLanguage.code,

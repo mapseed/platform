@@ -19,12 +19,16 @@ const nonConfigurableI18nKeys = new Set([
   // Standard UI text
   "geocodeAddressBarPlaceholderMsg",
   "logOut",
-  "search",
-  "makeSelection",
-  "mostSupports",
-  "mostComments",
-  "mostRecent",
   "mapCenterpointOverlayMsg",
+  "makeSelection", // DropdownField
+  "search", // PlaceList
+  "mostSupports", // PlaceList
+  "mostComments", // PlaceList
+  "mostRecent", // PlaceList
+  "supportThis", // PlaceListItem
+  "comment", // PlaceListItem
+  "viewOnMap", // PlaceListItem
+  "commentsLabel", // PlaceListItem
 ]);
 
 export default function isValidNonConfigurableI18nKey(

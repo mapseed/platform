@@ -252,7 +252,9 @@ const PlaceListItem = props => {
               <CommentsText>
                 {numberOfComments}{" "}
                 {props.t(
-                  "commentsLabel",
+                  numberOfComments === 1
+                    ? "commentsLabel"
+                    : "commentsPluralLabel",
                   `comment${numberOfComments === 1 ? "" : "s"}`,
                 )}
               </CommentsText>
