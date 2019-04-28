@@ -222,7 +222,7 @@ class PlaceList extends React.Component {
                 isActive={this.state.sortBy === "dates"}
                 onClick={() => this.setState({ sortBy: "dates" })}
               >
-                {this.props.t("mostRecent")}
+                {this.props.t("mostRecent", "Most recent")}
               </SortButton>
               <SortButton
                 isActive={this.state.sortBy === "supports"}

@@ -76,7 +76,9 @@ const MapCenterpoint = styled(props => (
       isMapDraggingOrZooming={props.isMapDraggingOrZooming}
     />
     {!props.isMapDraggedOrZoomed && (
-      <MapCenterpointOverlay overlayMsg={props.t("overlayMsg")} />
+      <MapCenterpointOverlay
+        overlayMsg={props.t("mapCenterpointOverlayMsg", "Drag the map")}
+      />
     )}
   </span>
 ))(() => ({

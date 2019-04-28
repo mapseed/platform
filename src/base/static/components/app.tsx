@@ -338,6 +338,9 @@ class App extends Component<Props, State> {
         //     `fallbackLng`'s (i.e. the flavor's default language) resource
         //     bundle. If no key is found there, it means no message can be
         //     located and i18next will render the key itself.
+        //   - If the `key` represents a non-configurable piece of UI and the 
+        //     current language is English. We expect the hard-coded default
+        //     language of all non-configurable UI to be English.
         if (
           (i18next.language === resolvedConfig.flavor.defaultLanguage.code ||
             isFetchingTranslation[key] ||
