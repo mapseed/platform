@@ -20,6 +20,7 @@ const nonConfigurableI18nKeys = new Set([
   "geocodeAddressBarPlaceholderMsg",
   "logOut",
   "search",
+  "makeSelection",
   "mostSupports",
   "mostComments",
   "mostRecent",

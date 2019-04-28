@@ -196,8 +196,8 @@ class MapLayerPanelSection extends Component {
             loadStatus = "loading";
           }
 
-          // Note that below `layerSelectorIndex` needs to be a unique 
-          // combination of the panel section index and the layer selector 
+          // Note that below `layerSelectorIndex` needs to be a unique
+          // combination of the panel section index and the layer selector
           // index.
           return (
             <MapLayerSelector
