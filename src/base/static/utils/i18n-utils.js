@@ -17,6 +17,7 @@ const nonConfigurableI18nKeys = new Set([
   "PBDurhamImpactLabel",
 
   // Standard UI text
+  "geocodeAddressBarPlaceholderMsg",
   "logOut",
 ]);
 

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FlyToInterpolator } from "react-map-gl";
+import { translate } from "react-i18next";
 
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
@@ -95,6 +96,7 @@ const statePropTypes = {
   navBarConfig: navBarConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   placeExists: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const dispatchPropTypes = {
@@ -503,7 +505,10 @@ class MapTemplate extends Component<Props, State> {
                 this.props.history.push("/new");
               }}
             >
-              {this.props.placeConfig.add_button_label}
+              {this.props.t(
+                "addPlaceButtonLabel",
+                this.props.placeConfig.add_button_label,
+              )}
             </AddPlaceButton>
           )}
         {this.props.layout === "desktop" &&
@@ -579,5 +584,5 @@ export default withRouter(
   connect<StateProps, DispatchProps, OwnProps>(
     mapStateToProps,
     mapDispatchToProps,
-  )(MapTemplate),
+  )(translate("MapTemaplte")(MapTemplate)),
 );

@@ -76,7 +76,7 @@ class GeocodeAddressBar extends Component {
           onKeyDown={this.onKeyDown}
           onChange={this.onChange}
           name="geocode-address-bar"
-          placeholder={this.props.t("placeholderMsg")}
+          placeholder={this.props.t("geocodeAddressBarPlaceholderMsg", "Enter an address...")}
           isTriggeringGeocode={this.state.isTriggeringGeocode}
           value={this.state.address}
           onUpdateMapViewport={this.props.onUpdateMapViewport}
