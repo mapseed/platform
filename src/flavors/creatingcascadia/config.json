@@ -638,7 +638,7 @@
   "pages": [
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<p><h2>CALLING ALL BIOREGIONALISTS</h2></p>",
         "<p><strong>What is Cascadia? Where is Cascadia? Why is Cascadia? Here you can make your intimate sensations of the region public, and write your ideas directly into a common landscape. Tell everyone who cares why particular places matter to <em>you</em>.</strong></p><br><br>",
@@ -649,7 +649,7 @@
     },
     {
       "slug": "getinvolved",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<p><h2>Make it now</h2></p>",
         "<p><h4>Thanks to the brilliant folks at <a href='mapseed.org'>Mapseed</a>, this map is very easy to use, either on a computer or a mobile phone.</p>",

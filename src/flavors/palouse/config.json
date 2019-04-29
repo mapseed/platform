@@ -2227,7 +2227,7 @@
   "pages": [
     {
       "slug": "assistance",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
         "<p style='margin-bottom:16px'>Your Whitman County VSP Coordinators or Whitman County Cattlemen’s, Wheat Growers or Farm Bureau are here to help meet your stewardship goals.</p>",
@@ -2270,7 +2270,7 @@
     },
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Whitman County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/rolling-hills-cropped.jpg' alt='Rolling hills, Whitman County' style='margin:8px 0 16px 0' />",
