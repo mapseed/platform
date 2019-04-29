@@ -2,7 +2,7 @@
 import * as React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
-import { jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import { Button, IconButton } from "../atoms/buttons";
 import { HeartIcon } from "../atoms/icons";
 import { SmallTitle } from "../atoms/typography";
@@ -104,14 +104,22 @@ const PlaceFieldText = styled(RegularText)({
   width: "100%",
 });
 
-const PlaceField = ({ field, place }) => {
+const PlaceField = ({ field, place, t, placeFieldIndex }) => {
   const prompt = field.label || field.display_prompt || null;
   const fieldValue = place[field.name];
   if (field.type === "textarea" || field.type === "text") {
     return (
       <>
-        {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
-        <p>
+        {!!prompt && (
+          <PlaceFieldTitle>
+            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
+          </PlaceFieldTitle>
+        )}
+        <p
+          css={css`
+            margin-top: 4px;
+          `}
+        >
           <PlaceFieldText>{fieldValue}</PlaceFieldText>
         </p>
       </>
@@ -122,8 +130,16 @@ const PlaceField = ({ field, place }) => {
     const label = field.content.find(item => item.value === fieldValue).label;
     return (
       <>
-        {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
-        <p>
+        {!!prompt && (
+          <PlaceFieldTitle>
+            {t(`placeFieldPropmpt${placeFieldIndex}`, prompt)}
+          </PlaceFieldTitle>
+        )}
+        <p
+          css={css`
+            margin-top: 4px;
+          `}
+        >
           <PlaceFieldText>{label}</PlaceFieldText>
         </p>
       </>
@@ -131,8 +147,16 @@ const PlaceField = ({ field, place }) => {
   } else if (field.type === "dropdown_autocomplete") {
     return (
       <>
-        {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
-        <p>
+        {!!prompt && (
+          <PlaceFieldTitle>
+            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
+          </PlaceFieldTitle>
+        )}
+        <p
+          css={css`
+            margin-top: 4px;
+          `}
+        >
           <PlaceFieldText>{fieldValue}</PlaceFieldText>
         </p>
       </>
@@ -190,7 +214,7 @@ const PlaceListItem = props => {
           <PlaceSocialContainer>
             <SupportText noWrap={true} textTransform="uppercase">
               <SupportHeartIcon />
-              {`${numberOfSupports} ${props.t("supportThis")}`}
+              {`${numberOfSupports} ${props.t("supportThis", "support this")}`}
             </SupportText>
             <SocialMediaButton
               icon="facebook"
@@ -218,18 +242,27 @@ const PlaceListItem = props => {
             </AvatarContainer>
             <PlaceInfoContainer>
               <RegularText>
-                <b>{submitterName}</b>
-                {` ${props.placeConfig.action_text} ${props.t("this")} `}
+                <b>{submitterName}</b>{" "}
+                {props.t(
+                  "placeActionText",
+                  `${props.placeConfig.action_text} this`,
+                )}{" "}
                 <b>{placeDetailConfig.label}</b>
               </RegularText>
-              <CommentsText>{`${numberOfComments} ${props.t("comment")}${
-                numberOfComments === 1 ? "" : "s"
-              }`}</CommentsText>
+              <CommentsText>
+                {numberOfComments}{" "}
+                {props.t(
+                  numberOfComments === 1
+                    ? "commentsLabel"
+                    : "commentsPluralLabel",
+                  `comment${numberOfComments === 1 ? "" : "s"}`,
+                )}
+              </CommentsText>
               <PlaceInfoButton
                 href={`/${props.place._clientSlug}/${props.place.id}`}
               >
                 <Button color="secondary" size="small" variant="raised">
-                  <SmallText>{props.t("viewOnMap")}</SmallText>
+                  <SmallText>{props.t("viewOnMap", "View on map")}</SmallText>
                 </Button>
               </PlaceInfoButton>
             </PlaceInfoContainer>
@@ -249,11 +282,13 @@ const PlaceListItem = props => {
                 .find(survey => survey.category === props.place.location_type)
                 .fields.filter(field => field.includeOnListItem)
                 .filter(field => props.place[field.name])
-                .map(field => (
+                .map((field, index) => (
                   <PlaceField
+                    placeFieldIndex={index}
                     key={field.name}
                     field={field}
                     place={props.place}
+                    t={props.t}
                   />
                 ))}
             </PlaceFieldsContainer>
@@ -282,6 +317,4 @@ const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(
-  translate("PlaceListItem")(PlaceListItem),
-);
+export default connect(mapStateToProps)(PlaceListItem);

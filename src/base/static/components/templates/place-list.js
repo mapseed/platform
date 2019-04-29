@@ -179,6 +179,7 @@ class PlaceList extends React.Component {
               place={place}
               onLoad={measure}
               router={this.props.router}
+              t={this.props.t}
             />
           </div>
         )}
@@ -193,7 +194,7 @@ class PlaceList extends React.Component {
           <ListHeader>
             <SearchContainer>
               <TextInput
-                placeholder={`${this.props.t("search")}...`}
+                placeholder={`${this.props.t("search", "Search")}...`}
                 color="accent"
                 ariaLabel="search list by text"
                 onKeyPress={evt => {
@@ -214,7 +215,7 @@ class PlaceList extends React.Component {
                 onClick={this._setSortAndFilterPlaces}
                 variant="contained"
               >
-                {this.props.t("search")}
+                {this.props.t("search", "Search")}
               </Button>
             </SearchContainer>
             <ButtonContainer>
@@ -222,19 +223,19 @@ class PlaceList extends React.Component {
                 isActive={this.state.sortBy === "dates"}
                 onClick={() => this.setState({ sortBy: "dates" })}
               >
-                {this.props.t("mostRecent")}
+                {this.props.t("mostRecent", "Most recent")}
               </SortButton>
               <SortButton
                 isActive={this.state.sortBy === "supports"}
                 onClick={() => this.setState({ sortBy: "supports" })}
               >
-                {this.props.t("mostSupports")}
+                {this.props.t("mostSupports", "Most supports")}
               </SortButton>
               <SortButton
                 isActive={this.state.sortBy === "comments"}
                 onClick={() => this.setState({ sortBy: "comments" })}
               >
-                {this.props.t("mostComments")}
+                {this.props.t("mostComments", "Most comments")}
               </SortButton>
             </ButtonContainer>
           </ListHeader>
@@ -274,6 +275,6 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default withRouter(
-  connect(mapStateToProps)(translate("PlaceList")(PlaceList)),
+export default translate("PlaceList")(
+  withRouter(connect(mapStateToProps)(PlaceList)),
 );

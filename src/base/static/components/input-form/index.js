@@ -547,7 +547,10 @@ class InputForm extends Component {
           {this.state.formValidationErrors.size > 0 && (
             <WarningMessagesContainer
               errors={this.state.formValidationErrors}
-              headerMsg={this.props.t("validationHeader")}
+              headerMsg={this.props.t(
+                "validationHeader",
+                "Your post is looking good, but we need some more information before we can proceed.",
+              )}
             />
           )}
           <form
@@ -558,6 +561,7 @@ class InputForm extends Component {
             {this.getFields()
               .map(field => (
                 <FormField
+                  formId={this.selectedCategoryConfig.formId}
                   fieldConfig={field.get("config").toJS()}
                   disabled={this.state.isFormSubmitting}
                   fieldState={field}

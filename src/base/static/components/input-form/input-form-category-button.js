@@ -6,6 +6,7 @@ import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import { translate } from "react-i18next";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { placeConfigSelector } from "../../state/ducks/place-config";
@@ -92,7 +93,10 @@ const InputFormCategoryButton = props => {
               : "unset"};
           `}
         >
-          {categoryConfig.label}
+          {props.t(
+            `inputFormCategorySelectorLabel${props.formCategoryIndex}`,
+            categoryConfig.label,
+          )}
         </RegularText>
       </label>
     </div>
@@ -101,12 +105,14 @@ const InputFormCategoryButton = props => {
 
 InputFormCategoryButton.propTypes = {
   categoryName: PropTypes.string.isRequired,
+  formCategoryIndex: PropTypes.number.isRequired,
   isCategoryMenuCollapsed: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
   onExpandCategories: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
@@ -114,4 +120,8 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default withTheme(connect(mapStateToProps)(InputFormCategoryButton));
+export default withTheme(
+  connect(mapStateToProps)(
+    translate("InputFormCategoryButton")(InputFormCategoryButton),
+  ),
+);

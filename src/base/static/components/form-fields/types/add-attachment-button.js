@@ -60,6 +60,7 @@ class AddAttachmentButton extends Component {
       <div className="add-attachment-container">
         <FileField
           className="add-attachment-button__file-field-label"
+          formId={this.props.formId}
           onChange={this.onChange}
           name={this.props.name}
           label={this.props.label}
@@ -72,6 +73,7 @@ class AddAttachmentButton extends Component {
 }
 
 AddAttachmentButton.propTypes = {
+  formId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func.isRequired,

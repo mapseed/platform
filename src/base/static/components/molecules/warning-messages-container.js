@@ -6,6 +6,14 @@ import { translate } from "react-i18next";
 
 import { RegularText } from "../atoms/typography";
 
+const errorMsgs = {
+  missingGeometry:
+    "Please use the drawing toolbar to add a point, line, or polygon to the map.",
+  missingRequired: "Please fill out the field(s) outlined below.",
+  mapNotDragged:
+    "It looks like you haven't set a location for your post. Please drag and zoom the map to set a location.",
+};
+
 const WarningMessagesContainer = props => {
   return (
     <section
@@ -33,7 +41,7 @@ const WarningMessagesContainer = props => {
           margin-bottom: 0;
         `}
       >
-        {Array.from(props.errors).map(errorMsg => (
+        {Array.from(props.errors).map((errorMsg, errorMsgIndex) => (
           <li
             key={errorMsg}
             css={css`
@@ -54,7 +62,10 @@ const WarningMessagesContainer = props => {
                 }
               `}
             >
-              {props.t(errorMsg)}
+              {props.t(
+                `invalidFormFieldMsg${errorMsgIndex}`,
+                errorMsgs[errorMsg],
+              )}
             </RegularText>
           </li>
         ))}

@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTheme } from "emotion-theming";
+import { translate } from "react-i18next";
 
 import { Button } from "../../atoms/buttons";
 
@@ -19,7 +20,7 @@ const InputFormSubmitButton = props => {
       disabled={props.disabled}
       onClick={props.onClickSubmit}
     >
-      {props.label}
+      {props.t("inputFormSubmitButtonLabel", props.label)}
     </Button>
   );
 };
@@ -29,7 +30,10 @@ InputFormSubmitButton.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onClickSubmit: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withTheme(InputFormSubmitButton);
+export default withTheme(
+  translate("InputFormSubmitButton")(InputFormSubmitButton),
+);

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Datetime from "react-datetime";
 import moment from "moment";
 import classNames from "classnames";
+import { translate } from "react-i18next";
 
 import "react-datetime/css/react-datetime.css";
 
@@ -53,7 +54,14 @@ class DatetimeField extends Component {
                       )
                     }
                   />
-                  <em>{this.props.ongoingLabel}</em>
+                  <em>
+                    {this.props.t(
+                      `datetimeFieldOngoingLabel${this.props.formId}${
+                        this.props.name
+                      }`,
+                      this.props.ongoingLabel,
+                    )}
+                  </em>
                 </label>
               )}
               <DatetimeInput
@@ -63,7 +71,12 @@ class DatetimeField extends Component {
                 }}
                 classes="datetime-field__input"
                 onFocus={openCalendar}
-                placeholder={this.props.placeholder || "Select a date"}
+                placeholder={this.props.t(
+                  `datetimeFieldPlaceholder${this.props.formId}${
+                    this.prop.name
+                  }`,
+                  this.props.placeholder || "Select a date",
+                )}
                 value={
                   (this.props.value &&
                     this.props.value !== this.ongoingValue &&
@@ -95,11 +108,13 @@ class DatetimeField extends Component {
 DatetimeField.propTypes = {
   dateFormat: PropTypes.string.isRequired,
   displayFormat: PropTypes.string.isRequired,
+  formId: PropTypes.string.isRequired,
   isAutoFocusing: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   ongoingLabel: PropTypes.string,
   placeholder: PropTypes.string,
+  t: PropTypes.func.isRequired,
   timeFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
     .isRequired,
   value: PropTypes.string,
@@ -111,4 +126,4 @@ DatetimeField.defaultProps = {
   timeFormat: false,
 };
 
-export default DatetimeField;
+export default translate("DatetimeField")(DatetimeField);

@@ -1,4 +1,10 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
   "datasets": [
     {
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/kittitas-firewise-input",
@@ -16,7 +22,7 @@
     "title": "Kittitas County Firewise Program",
     "name": "Kittitas County Firewise Program",
     "logo": "/static/css/images/logo.png",
-    "meta_description": "_(Welcome!)",
+    "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "isShowingMobileUserMenu": true,
@@ -4157,59 +4163,59 @@
         "id": "gis-layers",
         "icon": "fa fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
+        "title": "Map Layers:",
         "content": [
           {
             "id": "basemaps",
-            "title": "_(Basemaps)",
+            "title": "Basemaps",
             "layerGroups": [
               {
                 "id": "osm",
-                "title": "_(OpenStreetMap)"
+                "title": "OpenStreetMap"
               },
               {
                 "id": "light-satellite",
-                "title": "_(Light/Satellite)"
+                "title": "Light/Satellite"
               }
             ]
           },
           {
             "id": "grp-water",
-            "title": "_(Water Features)",
+            "title": "Water Features",
             "layerGroups": [
               {
                 "id": "columbia-river",
-                "title": "_(Columbia River)"
+                "title": "Columbia River"
               },
               {
                 "id": "snake-river",
-                "title": "_(Snake River)"
+                "title": "Snake River"
               },
               {
                 "id": "kittitas-land-ownership",
-                "title": "_(Land Ownership)"
+                "title": "Land Ownership"
               },
               {
                 "id": "wildfire-start-sites",
-                "title": "_(Wildfire Start Sites)"
+                "title": "Wildfire Start Sites"
               },
               {
                 "id": "wa-state-large-fires",
-                "title": "_(Large Wildfires)"
+                "title": "Large Wildfires"
               }
             ]
           },
           {
             "id": "grp-community",
-            "title": "_(Community Data)",
+            "title": "Community Data",
             "layerGroups": [
               {
                 "id": "kittitas-county-outline",
-                "title": "_(Kittitas County border)"
+                "title": "Kittitas County border"
               },
               {
                 "id": "kittitas-firewise-input",
-                "title": "_(Community Reports)"
+                "title": "Community Reports"
               }
             ]
           }
@@ -4219,11 +4225,11 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Get My Personal Fire Plan)",
-    "action_text": "_(added)",
-    "title": "_(Tell us more...)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Put it on the map!)",
+    "add_button_label": "Get My Personal Fire Plan",
+    "action_text": "added",
+    "title": "Tell us more...",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Put it on the map!",
     "location_item_name": "location",
     "place_detail": [
       {
@@ -4234,7 +4240,7 @@
         "name": "location_type",
         "datasetSlug": "kittitas-firewise-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
-        "label": "_(I am a small landowner in Kittitas County)",
+        "label": "I am a small landowner in Kittitas County",
         "value": "small-landowner",
         "multi_stage": [
           {
@@ -4520,7 +4526,7 @@
         "datasetSlug": "kittitas-firewise-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "value": "large-landowner",
-        "label": "_(I am a large landowner in Kittitas County)",
+        "label": "I am a large landowner in Kittitas County",
         "multi_stage": [
           {
             "start_field_index": 1,
@@ -4836,328 +4842,328 @@
       },
       "clean_roofs": {
         "type": "big_radio",
-        "prompt": "_(I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers)",
-        "label": "_(Clean roofs and gutters)",
+        "prompt": "I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers",
+        "label": "Clean roofs and gutters",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "replace_shingles": {
         "type": "big_radio",
-        "prompt": "_(I replace or repair any loose or missing shingles or roof tiles to prevent ember penetration)",
-        "label": "_(Replace or repair loose shingles)",
+        "prompt": "I replace or repair any loose or missing shingles or roof tiles to prevent ember penetration",
+        "label": "Replace or repair loose shingles",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "reduce_embers": {
         "type": "big_radio",
-        "prompt": "_(I reduce embers that could pass through vents in the eaves by installing 1/8 inch metal mesh screening)",
-        "label": "_(Reduce embers)",
+        "prompt": "I reduce embers that could pass through vents in the eaves by installing 1/8 inch metal mesh screening",
+        "label": "Reduce embers",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "clean_debris_attic_vents": {
         "type": "big_radio",
-        "prompt": "_(I clean debris from exterior attic vents and install 1/8 inch metal mesh screening to reduce embers)",
-        "label": "_(Clean debris from attic vents)",
+        "prompt": "I clean debris from exterior attic vents and install 1/8 inch metal mesh screening to reduce embers",
+        "label": "Clean debris from attic vents",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "repair_screens": {
         "type": "big_radio",
-        "prompt": "_(I repair or replace damaged or loose window screens and any broken windows screen or box-in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating)",
-        "label": "_(Repair or replace window screens)",
+        "prompt": "I repair or replace damaged or loose window screens and any broken windows screen or box-in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating",
+        "label": "Repair or replace window screens",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "move_flammable_material": {
         "type": "big_radio",
-        "prompt": "_(I move any flammable material away from wall exteriors – mulch, flammable plants, leaves and needles, firewood piles – anything that can burn. Remove anything stored underneath decks or porches)",
-        "label": "_(Move flammable material)",
+        "prompt": "I move any flammable material away from wall exteriors – mulch, flammable plants, leaves and needles, firewood piles – anything that can burn. Remove anything stored underneath decks or porches",
+        "label": "Move flammable material",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "clear_vegetation": {
         "type": "big_radio",
-        "prompt": "_(I clear vegetation from under large stationary propane tanks)",
-        "label": "_(Clear vegetation from propane tanks)",
+        "prompt": "I clear vegetation from under large stationary propane tanks",
+        "label": "Clear vegetation from propane tanks",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "create_fuel_breaks": {
         "type": "big_radio",
-        "prompt": "_(I create fuel breaks with driveways, walkways/paths, patios, and decks)",
-        "label": "_(Create fuel breaks)",
+        "prompt": "I create fuel breaks with driveways, walkways/paths, patios, and decks",
+        "label": "Create fuel breaks",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "mow_to_four_inches": {
         "type": "big_radio",
-        "prompt": "_(I keep lawns and native grasses mowed to a height of four inches)",
-        "label": "_(Keep lawns mowed to four inches)",
+        "prompt": "I keep lawns and native grasses mowed to a height of four inches",
+        "label": "Keep lawns mowed to four inches",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "remove_ladder_fuels": {
         "type": "big_radio",
-        "prompt": "_(I remove ladder fuels (vegetation under trees) so a surface fire cannot reach the crowns. Prune trees up to six to ten feet from the ground; for shorter trees do not exceed 1/3 of the overall tree height)",
-        "label": "_(Remove ladder fuels)",
+        "prompt": "I remove ladder fuels (vegetation under trees) so a surface fire cannot reach the crowns. Prune trees up to six to ten feet from the ground; for shorter trees do not exceed 1/3 of the overall tree height",
+        "label": "Remove ladder fuels",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "space_trees": {
         "type": "big_radio",
-        "prompt": "_(I space trees to have a minimum of eighteen feet between crowns with the distance increasing with the percentage of slope)",
-        "label": "_(Space trees to eighteen feet)",
+        "prompt": "I space trees to have a minimum of eighteen feet between crowns with the distance increasing with the percentage of slope",
+        "label": "Space trees to eighteen feet",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "tree_placement": {
         "type": "big_radio",
-        "prompt": "_(I ensure that mature tree canopy is no closer than ten feet to the edge of structures on my property)",
-        "label": "_(Keep tree canopy ten feet from structures)",
+        "prompt": "I ensure that mature tree canopy is no closer than ten feet to the edge of structures on my property",
+        "label": "Keep tree canopy ten feet from structures",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "small_tree_clusters": {
         "type": "big_radio",
-        "prompt": "_(I ensure that tree and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of the vegetation across the landscape)",
-        "label": "_(Break up continuity of vegetation)",
+        "prompt": "I ensure that tree and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of the vegetation across the landscape",
+        "label": "Break up continuity of vegetation",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "dispose_ground_debris": {
         "type": "big_radio",
-        "prompt": "_(I dispose of heavy accumulations of ground litter/debris)",
-        "label": "_(Disponse of ground debris)",
+        "prompt": "I dispose of heavy accumulations of ground litter/debris",
+        "label": "Disponse of ground debris",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "remove_dead_material": {
         "type": "big_radio",
-        "prompt": "_(I regularly remove dead plant and tree material)",
-        "label": "_(Remove dead plant material)",
+        "prompt": "I regularly remove dead plant and tree material",
+        "label": "Remove dead plant material",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "remove_small_conifers": {
         "type": "big_radio",
-        "prompt": "_(I remove small conifers growing between mature trees)",
-        "label": "_(Remove small conifers between mature trees)",
+        "prompt": "I remove small conifers growing between mature trees",
+        "label": "Remove small conifers between mature trees",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "remove_outbuilding_vegetation": {
         "type": "big_radio",
-        "prompt": "_(I remove vegetation adjacent to storage sheds or other outbuildings)",
-        "label": "_(Remove adjacent outbuilding vegetation)",
+        "prompt": "I remove vegetation adjacent to storage sheds or other outbuildings",
+        "label": "Remove adjacent outbuilding vegetation",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "space_canopy_tops_30_60_feet": {
         "type": "big_radio",
-        "prompt": "_(I ensure that trees 30 to 60 feet from the home should have at least 12 feet between canopy tops)",
-        "label": "_(Space canopy tops 30 to 60 feet from the house)",
+        "prompt": "I ensure that trees 30 to 60 feet from the home should have at least 12 feet between canopy tops",
+        "label": "Space canopy tops 30 to 60 feet from the house",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "space_canopy_tops_60_100_feet": {
         "type": "big_radio",
-        "prompt": "_(I ensure that trees 60 to 100 feet from the home should have at least 6 feet between the canopy tops)",
-        "label": "_(Space canopy tops 60 to 100 feet from the house)",
+        "prompt": "I ensure that trees 60 to 100 feet from the home should have at least 6 feet between the canopy tops",
+        "label": "Space canopy tops 60 to 100 feet from the house",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "evacuation_plan": {
         "type": "big_radio",
-        "prompt": "_(I have an evacuation plan that includes escape routes, a designated family meeting location, and a communication plan)",
-        "label": "_(Evacuation plan)",
+        "prompt": "I have an evacuation plan that includes escape routes, a designated family meeting location, and a communication plan",
+        "label": "Evacuation plan",
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "emergency_kit": {
         "type": "big_radio",
-        "prompt": "_(I have an emergency kit)",
-        "label": "_(Evacuation plan)",
+        "prompt": "I have an emergency kit",
+        "label": "Evacuation plan",
         "optional": true,
         "trigger": {
           "trigger_value": "yes",
@@ -5177,242 +5183,242 @@
         },
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ]
       },
       "food_and_water": {
         "type": "big_radio",
-        "prompt": "_(My kit includes a three-day supply of non-perishable food and three gallons of water per person)",
-        "label": "_(Food and water)",
+        "prompt": "My kit includes a three-day supply of non-perishable food and three gallons of water per person",
+        "label": "Food and water",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "medications": {
         "type": "big_radio",
-        "prompt": "_(My kit includes prescriptions or special medications)",
-        "label": "_(Prescriptions and medications)",
+        "prompt": "My kit includes prescriptions or special medications",
+        "label": "Prescriptions and medications",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "clothing": {
         "type": "big_radio",
-        "prompt": "_(My kit includes a change of clothing for each person)",
-        "label": "_(Change of clothing)",
+        "prompt": "My kit includes a change of clothing for each person",
+        "label": "Change of clothing",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "eyeglasses": {
         "type": "big_radio",
-        "prompt": "_(My kit includes extra eyeglasses or contact lenses)",
-        "label": "_(Eyeglasses or contact lenses)",
+        "prompt": "My kit includes extra eyeglasses or contact lenses",
+        "label": "Eyeglasses or contact lenses",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "car_keys_money": {
         "type": "big_radio",
-        "prompt": "_(My kit includes an extra set of car keys, credit card, cash or traveler's checks)",
-        "label": "_(Car keys and extra money)",
+        "prompt": "My kit includes an extra set of car keys, credit card, cash or traveler's checks",
+        "label": "Car keys and extra money",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "first_aid_kit": {
         "type": "big_radio",
-        "prompt": "_(My kit includes first aid supplies)",
-        "label": "_(First aid supplies)",
+        "prompt": "My kit includes first aid supplies",
+        "label": "First aid supplies",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "flashlight": {
         "type": "big_radio",
-        "prompt": "_(My kit includes a flashlight)",
-        "label": "_(Flashlight)",
+        "prompt": "My kit includes a flashlight",
+        "label": "Flashlight",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "radio": {
         "type": "big_radio",
-        "prompt": "_(My kit includes a battery-powered radio and extra batteries)",
-        "label": "_(Battery-powered radio)",
+        "prompt": "My kit includes a battery-powered radio and extra batteries",
+        "label": "Battery-powered radio",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "sanitation_supplies": {
         "type": "big_radio",
-        "prompt": "_(My kit includes sanitation supplies)",
-        "label": "_(Sanitation supplies)",
+        "prompt": "My kit includes sanitation supplies",
+        "label": "Sanitation supplies",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "documents": {
         "type": "big_radio",
-        "prompt": "_(My kit includes copies of important documents, such as birth certificates, passports, etc.)",
-        "label": "_(Copies of documents)",
+        "prompt": "My kit includes copies of important documents, such as birth certificates, passports, etc.",
+        "label": "Copies of documents",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
       },
       "pet_food": {
         "type": "big_radio",
-        "prompt": "_(My kit includes pet food and water)",
-        "label": "_(Pet food and water)",
+        "prompt": "My kit includes pet food and water",
+        "label": "Pet food and water",
         "hidden_default": true,
         "optional": true,
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           },
           {
-            "label": "_(Not applicable)",
+            "label": "Not applicable",
             "value": "not_applicable"
           }
         ]
@@ -5424,31 +5430,31 @@
       "submission_type": "comments",
       "show_responses": true,
       "single_submission": false,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "Comment",
+          "label": "Comment",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
-          "placeholder": "_(Name is optional)",
+          "placeholder": "Name is optional",
           "optional": true
         },
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "Comment"
         }
       ]
     },
@@ -5456,22 +5462,22 @@
       {
         "id": "reports",
         "datasetId": "kittitas-vsp-input",
-        "label": "_(Actions)",
+        "label": "Actions",
         "icon": "/static/css/images/markers/map-pin-marker-red.png"
       }
     ]
   },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "_(Support)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
     "action_text": "supported",
-    "anonymous_name": "_(Someone)"
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "About",
       "type": "internal_link",
       "url": "/page/about",
       "start_page": true

@@ -108,7 +108,12 @@ class FormCategoryMenuWrapper extends Component {
         {this.state.isShowingCategorySelector && (
           <>
             {!this.props.isMapDraggedOrZoomed && (
-              <DragMapAlert>{this.props.t("dragMapAlert")}</DragMapAlert>
+              <DragMapAlert>
+                {this.props.t(
+                  "dragMapAlert",
+                  "Please drag and zoom the map to set the location for your post.",
+                )}
+              </DragMapAlert>
             )}
             <InputFormCategorySelector
               onCategoryChange={this.onCategoryChange.bind(this)}

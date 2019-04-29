@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { translate } from "react-i18next";
 
 import ToggleField from "./toggle-field";
 import "./big-toggle-field.scss";
@@ -28,7 +29,15 @@ const BigToggleField = props => {
         })}
         htmlFor={props.id}
       >
-        {props.checked ? props.labels[0] : props.labels[1]}
+        {props.checked
+          ? props.t(
+              `toggleFieldLabelChecked${props.formId}${props.name}`,
+              props.labels[0],
+            )
+          : props.t(
+              `toggleFieldLabelUnchecked${props.formId}${props.name}`,
+              props.labels[1],
+            )}
       </label>
     </div>
   );
@@ -36,12 +45,14 @@ const BigToggleField = props => {
 
 BigToggleField.propTypes = {
   checked: PropTypes.bool.isRequired,
+  formId: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool,
   id: PropTypes.string.isRequired,
   labels: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default BigToggleField;
+export default translate("BigToggleField")(BigToggleField);

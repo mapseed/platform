@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FlyToInterpolator } from "react-map-gl";
+import { translate } from "react-i18next";
+import i18next, { TranslationFunction } from "i18next";
 
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
@@ -128,7 +130,8 @@ interface OwnProps {
   onViewStartPage?: () => void;
   initialMapViewport: InitialMapViewport;
   onUpdateInitialMapViewport: (initialMapViewport: InitialMapViewport) => void;
-  languageCode: string;
+  currentLanguageCode: string;
+  defaultLanguageCode: string;
   params: {
     datasetClientSlug?: string;
     responseId?: string;
@@ -149,7 +152,25 @@ interface State {
     [groupName: string]: string;
   };
 }
-type Props = StateProps & DispatchProps & OwnProps & RouteComponentProps<{}>;
+// Types were added to react-i18next is a newer version.
+// TODO: Use supplied types when we upgrade i18next deps.
+// See: https://github.com/i18next/react-i18next/pull/557/files
+type TransProps = {
+  i18nKey?: string;
+  count?: number;
+  parent?: React.ReactNode;
+  i18n?: i18next.i18n;
+  t?: TranslationFunction;
+  defaults?: string;
+  values?: {};
+  components?: React.ReactNode[];
+};
+
+type Props = StateProps &
+  DispatchProps &
+  OwnProps &
+  RouteComponentProps<{}> &
+  TransProps;
 
 class MapTemplate extends Component<Props, State> {
   private mapContainerRef = createRef<HTMLDivElement>();
@@ -483,7 +504,8 @@ class MapTemplate extends Component<Props, State> {
         {this.props.isContentPanelVisible && (
           <ContentPanel
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
-            languageCode={this.props.languageCode}
+            currentLanguageCode={this.props.currentLanguageCode}
+            defaultLanguageCode={this.props.defaultLanguageCode}
             mapContainerRef={this.mapContainerRef}
             mapViewport={this.state.mapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}
@@ -503,7 +525,10 @@ class MapTemplate extends Component<Props, State> {
                 this.props.history.push("/new");
               }}
             >
-              {this.props.placeConfig.add_button_label}
+              {this.props.t(
+                "addPlaceButtonLabel",
+                this.props.placeConfig.add_button_label,
+              )}
             </AddPlaceButton>
           )}
         {this.props.layout === "desktop" &&
@@ -575,9 +600,7 @@ const mapDispatchToProps = (
     dispatch(updateScrollToResponseId(responseId)),
 });
 
-export default withRouter(
-  connect<StateProps, DispatchProps, OwnProps>(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(MapTemplate),
-);
+export default connect<StateProps, DispatchProps, OwnProps>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate("MapTemplate")(withRouter(MapTemplate)));

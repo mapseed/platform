@@ -215,11 +215,13 @@ class UserMenu extends React.Component {
             )}
             <MenuItem>
               <div>
-                <SmallText>{this.props.t("signedInAs")}</SmallText>{" "}
+                <SmallText>
+                  {this.props.t("signedInAs", "Signed in as")}
+                </SmallText>{" "}
                 {this.props.currentUser.name}
               </div>
               <LogoutButton href={`${this.props.apiRoot}users/logout/`}>
-                {this.props.t("logOut")}
+                {this.props.t("logOut", "Log out")}
               </LogoutButton>
             </MenuItem>
           </Menu>
@@ -243,7 +245,7 @@ class UserMenu extends React.Component {
             </MobileSigninLabelWrapper>
           ) : (
             <MenuButton onClick={this.props.toggleMenu}>
-              {this.props.t("signIn")}
+              {this.props.t("signIn", "Sign in")}
             </MenuButton>
           )}
           <Menu isMenuOpen={this.props.isMenuOpen}>

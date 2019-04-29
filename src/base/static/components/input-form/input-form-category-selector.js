@@ -66,7 +66,7 @@ class InputFormCategorySelector extends Component {
 
     return (
       <>
-        {this.props.visibleCategoryConfigs.map(config => {
+        {this.props.visibleCategoryConfigs.map((config, formCategoryIndex) => {
           const isSelected = this.props.selectedCategory === config.category;
 
           let isWithFormCategoryHeader = false;
@@ -114,6 +114,7 @@ class InputFormCategorySelector extends Component {
                   />
                 )}
                 <InputFormCategoryButton
+                  formCategoryIndex={formCategoryIndex}
                   isSelected={isSelected}
                   isCategoryMenuCollapsed={this.state.isCollapsed}
                   isSingleCategory={

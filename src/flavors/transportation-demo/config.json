@@ -4,7 +4,7 @@
     "name": "Regional Transportation Plan",
     "logo": "/static/css/images/psrclogo.jpg",
     "show_name_in_header": true,
-    "meta_description": "_(Welcome!)",
+    "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "theme": {
@@ -191,41 +191,41 @@
         "id": "gis-layers",
         "icon": "fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
+        "title": "Map Layers:",
         "groupings": [
           {
             "id": "basemaps",
-            "title": "_(Basemaps)",
+            "title": "Basemaps",
             "layers": [
               {
                 "id": "light-nolabels",
-                "title": "_(Light)"
+                "title": "Light"
               },
               {
                 "id": "satellite",
-                "title": "_(Satellite View)"
+                "title": "Satellite View"
               }
             ]
           },
           {
             "id": "grp-other",
-            "title": "_(Regional Data)",
+            "title": "Regional Data",
             "layers": [
               {
                 "id": "transportation-demo-input",
-                "title": "_(Community Input)"
+                "title": "Community Input"
               },
               {
                 "id": "transit-planning",
-                "title": "_(Regional Transit Planning Projects)"
+                "title": "Regional Transit Planning Projects"
               },
               {
                 "id": "bike-network",
-                "title": "_(Bike Network)"
+                "title": "Bike Network"
               },
               {
                 "id": "bike-plan",
-                "title": "_(Bike Plan)"
+                "title": "Bike Plan"
               }
             ]
           }
@@ -235,11 +235,11 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Add Your Voice)",
-    "action_text": "_(added)",
-    "title": "_(Tell us more...)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Put it on the map!)",
+    "add_button_label": "Add Your Voice",
+    "action_text": "added",
+    "title": "Tell us more...",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Put it on the map!",
     "location_item_name": "location",
     "place_detail": [
       {
@@ -254,24 +254,24 @@
           {
             "start_field_index": 1,
             "end_field_index": 2,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "header": "Whitman County",
+            "description": "Voluntary Stewardship Program",
             "visible_basemap_id": "light-nolabels",
             "visible_layer_ids": ["transit-planning", "st3-ballard-west-seattle"]
           },
           {
             "start_field_index": 3,
             "end_field_index": 4,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "header": "Whitman County",
+            "description": "Voluntary Stewardship Program",
             "visible_basemap_id": "light-nolabels",
             "visible_layer_ids": ["bike-network", "bike-plan"]
           },
           {
             "start_field_index": 5,
             "end_field_index": 9,
-            "header": "_(Whitman County)",
-            "description": "_(Voluntary Stewardship Program)",
+            "header": "Whitman County",
+            "description": "Voluntary Stewardship Program",
             "visible_basemap_id": "light-nolabels",
             "visible_layer_ids": [
               "bike-network",
@@ -280,7 +280,7 @@
             ]
           }
         ],
-        "label": "_(Actions)",
+        "label": "Actions",
         "fields": [
           {
             "name": "regional-plan-header",
@@ -308,7 +308,7 @@
             "content": "<h4 style='border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Tell us what you think!</h4>"
           },
           {
-            "prompt": "_(Ttile)",
+            "prompt": "Ttile",
             "type": "text",
             "name": "ttile",
             "optional": true
@@ -316,20 +316,20 @@
           {
             "name": "comment",
             "type": "textarea",
-            "prompt": "_(What would you like to share?)",
-            "placeholder": "_(Your thoughts...)"
+            "prompt": "What would you like to share?",
+            "placeholder": "Your thoughts..."
           },
           {
             "name": "private-get-notified",
             "type": "big_radio",
-            "prompt": "_(I would like to get notified on important announcements about the 2040 plan)",
+            "prompt": "I would like to get notified on important announcements about the 2040 plan",
             "content": [
               {
-                "label": "_(Yes)",
+                "label": "Yes",
                 "value": "yes"
               },
               {
-                "label": "_(No)",
+                "label": "No",
                 "value": "no"
               }
             ]
@@ -337,7 +337,7 @@
           {
             "name": "submit_field",
             "type": "submit",
-            "label": "_(Put it on the map!)"
+            "label": "Put it on the map!"
           }
         ]
       }
@@ -348,22 +348,22 @@
       "submission_type": "comments",
       "show_responses": true,
       "single_submission": false,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "Comment",
+          "label": "Comment",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -371,7 +371,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "Comment"
         }
       ]
     },
@@ -379,30 +379,30 @@
       {
         "id": "reports",
         "datasetId": "transportation-demo-input",
-        "label": "_(Actions)",
+        "label": "Actions",
         "icon": "/static/css/images/markers/map-pin-marker-red.png"
       }
     ]
   },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "_(Support)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
     "action_text": "supported",
-    "anonymous_name": "_(Someone)"
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "About",
       "type": "internal_link",
       "url": "/page/about",
       "start_page": true
     },
     {
       "type": "list_toggle",
-      "show_list_button_label": "_(Show as a List)",
-      "show_map_button_label": "_(Show on a Map)"
+      "show_list_button_label": "Show as a List",
+      "show_map_button_label": "Show on a Map"
     }
   ],
   "pages": [

@@ -6,6 +6,7 @@ const BlockEmbed = Quill.import("blots/block/embed");
 const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
+import { translate } from "react-i18next";
 
 import constants from "../../../constants";
 
@@ -230,7 +231,12 @@ class RichTextareaField extends Component {
           ref={node => (this.quillEditor = node)}
           theme="snow"
           modules={this.modules}
-          placeholder={this.props.placeholder}
+          placeholder={this.props.t(
+            `richTextareaFieldPlaceholder${this.props.formId}${
+              this.props.name
+            }`,
+            this.props.placeholder || " ",
+          )}
           bounds={this.props.bounds}
           value={this.props.value}
           onChange={this.onChange.bind(this)}
@@ -249,12 +255,14 @@ class RichTextareaField extends Component {
 
 RichTextareaField.propTypes = {
   bounds: PropTypes.string.isRequired,
+  formId: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  t: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 
-export default RichTextareaField;
+export default translate("RichTextareaField")(RichTextareaField);

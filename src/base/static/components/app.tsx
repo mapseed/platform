@@ -14,6 +14,9 @@ import styled from "@emotion/styled";
 import { Provider } from "react-redux";
 import Spinner from "react-spinner";
 import { Mixpanel } from "../utils/mixpanel";
+import i18next from "i18next";
+import { reactI18nextModule } from "react-i18next";
+import resourceBundle from "../../../locales";
 
 import SiteHeader from "./organisms/site-header";
 import {
@@ -31,6 +34,7 @@ const MapTemplate = lazy(() => import("./templates/map"));
 import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
+import translationServiceClient from "../client/translation-service-client";
 import {
   datasetsConfigPropType,
   datasetsConfigSelector,
@@ -57,7 +61,6 @@ import { loadMapStyle } from "../state/ducks/map";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
-import languageModule from "../language-module";
 
 import ThemeProvider from "./theme-provider";
 import JSSProvider from "./jss-provider";
@@ -75,6 +78,7 @@ import {
   updateMapContainerDimensions,
 } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
+import isValidNonConfigurableI18nKey from "../utils/i18n-utils";
 
 import Util from "../js/utils.js";
 
@@ -87,6 +91,8 @@ browserUpdate({
     s: -2, // Safari, last 2 versions
   },
 });
+
+const isFetchingTranslation = {};
 
 const TemplateContainer = styled("div")<{
   layout: string;
@@ -177,11 +183,18 @@ interface InitialMapViewport {
   bearing: number;
   pitch: number;
 }
-
+interface Language {
+  code: string;
+  label: string;
+}
+interface AvailableLanguages extends Array<Language> {}
 interface State {
+  currentLanguageCode: string;
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
   initialMapViewport: InitialMapViewport;
+  defaultLanguage: Language;
+  availableLanguages?: AvailableLanguages;
 }
 
 class App extends Component<Props, State> {
@@ -205,15 +218,24 @@ class App extends Component<Props, State> {
       bearing: 0,
       pitch: 0,
     },
+    defaultLanguage: {
+      code: "en",
+      label: "English",
+    },
+    availableLanguages: [],
+    currentLanguageCode: "",
   };
 
   async componentDidMount() {
     // In production, use the asynchronously fetched config file so we can
-    // support localized config content. In development, use the imported
-    // module so we can support incremental rebuilds.
+    // support a config with overridden environment variables. In development,
+    // use the imported module so we can support incremental rebuilds.
+    // TODO(goldpbear): Now that gettext is gone I think this can be simplified.
+    // We should be able to import the config directly in both prod and dev
+    // with a little more work.
     let resolvedConfig;
     if (process.env.NODE_ENV === "production") {
-      const configResponse = await fetch(`/config-${Mapseed.languageCode}.js`);
+      const configResponse = await fetch(`/config.js`);
       resolvedConfig = await configResponse.json();
     } else {
       resolvedConfig = config;
@@ -286,10 +308,70 @@ class App extends Component<Props, State> {
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
-    languageModule.changeLanguage(Mapseed.languageCode);
+    // Set up localization.
+    i18next.use(reactI18nextModule).init({
+      lng: resolvedConfig.flavor.defaultLanguage.code,
+      resources: resourceBundle,
+      react: { wait: true },
+      interpolation: { escapeValue: false },
+      saveMissing: true,
+      missingKeyHandler: async (lng, ns, key, fallbackValue) => {
+        if (
+          key !== fallbackValue &&
+          i18next.language === resolvedConfig.flavor.defaultLanguage
+        ) {
+          // Cache this string for future use.
+          i18next.addResource(i18next.language, ns, key, fallbackValue);
+        }
+
+        // We want to avoid calling the translate API in the following cases:
+        //   - The current language matches the default language. We make the
+        //     strong assumption that all strings which are intended for
+        //     automatic translation supply a fallback string in the flavor's
+        //     default languague, so translating in this scenario is pointless.
+        //   - A network request for a given key is already in flight. This can
+        //     happen because the `missingKeyHandler` can get called repeatedly
+        //     for the same key while waiting on the results of the original
+        //     network request.
+        //   - If the `key` equals the `fallbackValue`. If this is true, no
+        //     actual fallbackValue was supplied, and i18next has swapped in the
+        //     key instead. This is a misconfiguration, so rather than send the
+        //     key itself to the translate API, we just render the key.
+        //   - If the `key` represents a non-configurable piece of UI text and
+        //     the current language is English. We expect the hard-coded default
+        //     language of all non-configurable UI to be English.
+        if (
+          (i18next.language === resolvedConfig.flavor.defaultLanguage.code ||
+            isFetchingTranslation[key] ||
+            key === fallbackValue) &&
+          isValidNonConfigurableI18nKey(key, i18next.language)
+        ) {
+          return;
+        }
+
+        isFetchingTranslation[key] = true;
+
+        const response = await translationServiceClient.translate({
+          text: fallbackValue,
+          target: i18next.language,
+          format: "text",
+        });
+
+        isFetchingTranslation[key] = false;
+
+        if (response) {
+          i18next.addResource(i18next.language, ns, key, response.body);
+        } else {
+          i18next.addResource(i18next.language, ns, key, fallbackValue);
+        }
+      },
+    });
 
     // The config and user data are now loaded.
     this.setState({
+      availableLanguages: resolvedConfig.flavor.availableLanguages,
+      currentLanguageCode: i18next.language,
+      defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
       initialMapViewport: {
         ...resolvedConfig.map.options.mapViewport,
@@ -400,6 +482,13 @@ class App extends Component<Props, State> {
     });
   };
 
+  onChangeLanguage = newLanguageCode => {
+    i18next.changeLanguage(newLanguageCode);
+    this.setState({
+      currentLanguageCode: newLanguageCode,
+    });
+  };
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
     this.routeListener && this.routeListener.unlisten();
@@ -411,7 +500,8 @@ class App extends Component<Props, State> {
       onUpdateInitialMapViewport: this.onUpdateInitialMapViewport,
       isStartPageViewed: this.state.isStartPageViewed,
       onViewStartPage: this.onViewStartPage,
-      languageCode: Mapseed.languageCode,
+      currentLanguageCode: this.state.currentLanguageCode,
+      defaultLanguageCode: this.state.defaultLanguage.code,
     };
 
     return (
@@ -421,7 +511,12 @@ class App extends Component<Props, State> {
         ) : (
           <JSSProvider>
             <ThemeProvider>
-              <SiteHeader languageCode={Mapseed.languageCode} />
+              <SiteHeader
+                availableLanguages={this.state.availableLanguages}
+                defaultLanguage={this.state.defaultLanguage}
+                currentLanguageCode={this.state.currentLanguageCode}
+                onChangeLanguage={this.onChangeLanguage}
+              />
               <TemplateContainer
                 ref={this.templateContainerRef}
                 layout={this.props.layout}
@@ -531,12 +626,7 @@ class App extends Component<Props, State> {
                     exact
                     path="/page/:pageSlug"
                     render={props => {
-                      if (
-                        !this.props.pageExists(
-                          props.match.params.pageSlug,
-                          Mapseed.languageCode,
-                        )
-                      ) {
+                      if (!this.props.pageExists(props.match.params.pageSlug)) {
                         return (
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
@@ -632,7 +722,7 @@ const mapStateToProps = (
       submissionSet,
     }),
   layout: layoutSelector(state),
-  pageExists: (slug, lang) => pageExistsSelector({ state, slug, lang }),
+  pageExists: slug => pageExistsSelector({ state, slug }),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),
   ...ownProps,

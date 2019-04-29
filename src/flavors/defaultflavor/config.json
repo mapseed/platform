@@ -1,4 +1,10 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
   "datasets": [
     {
       "slug": "demo",
@@ -27,7 +33,7 @@
     "title": "Mapseed Demo",
     "name": "Mapseed Demo",
     "show_name_in_header": true,
-    "meta_description": "_(Welcome!)",
+    "meta_description": "Welcome!",
     "meta_author": "SmarterCleanup.org",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "dataset_download": {
@@ -419,63 +425,63 @@
         "id": "gis-layers",
         "icon": "fa fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Map Layers with an Extra Long Title)",
+        "title": "Map Layers with an Extra Long Title",
         "content": [
           {
             "id": "basemaps",
-            "title": "_(Basemaps)",
+            "title": "Basemaps",
             "layerGroups": [
               {
                 "id": "sample-raster-tile",
-                "title": "_(Sample Raster Tiles with an Extra Long Layer Title)",
+                "title": "Sample Raster Tiles with an Extra Long Layer Title",
                 "info": {
-                  "header": "_(Sample raster tile layer)",
-                  "body": ["_(Some info.)", "_(Some more info.)"]
+                  "header": "Sample raster tile layer",
+                  "body": ["Some info.)", "_(Some more info."]
                 }
               },
               {
                 "id": "sample-wmts",
-                "title": "_(Sample WMTS A)"
+                "title": "Sample WMTS A"
               },
               {
                 "id": "sample-wms",
-                "title": "_(Sample WMS)"
+                "title": "Sample WMS"
               }
             ]
           },
           {
             "id": "group-a",
-            "title": "_(Group A)",
+            "title": "Group A",
             "layerGroups": [
               {
                 "id": "sample-vector-a",
-                "title": "_(Sample vector tile A)",
+                "title": "Sample vector tile A",
                 "info": {
-                  "header": "_(Sample vector tile layer)",
-                  "body": ["_(Some info.)", "_(Some more info.)"]
+                  "header": "Sample vector tile layer",
+                  "body": ["Some info.)", "_(Some more info."]
                 }
               },
               {
                 "id": "sample-vector-b",
-                "title": "_(Sample vector tile B)"
+                "title": "Sample vector tile B"
               },
               {
                 "id": "sample-json-b",
-                "title": "_(Sample polygonal GeoJSON)"
+                "title": "Sample polygonal GeoJSON"
               }
             ]
           },
           {
             "id": "group-b",
-            "title": "_(Group B)",
+            "title": "Group B",
             "layerGroups": [
               {
                 "id": "sample-json-a",
-                "title": "_(Sample point GeoJSON)"
+                "title": "Sample point GeoJSON"
               },
               {
                 "id": "demo",
-                "title": "_(Sample Mapseed place layer A)"
+                "title": "Sample Mapseed place layer A"
               }
             ]
           }
@@ -489,11 +495,11 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Add a report to the map)",
-    "action_text": "_(added)",
-    "title": "_(Tell us more...)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Put it on the map!)",
+    "add_button_label": "Add a report to the map",
+    "action_text": "added",
+    "title": "Tell us more...",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Put it on the map!",
     "location_item_name": "location",
     "place_detail": [
       {
@@ -510,8 +516,8 @@
             "start_field_index": 1,
             "end_field_index": 3,
             "icon_url": "/static/css/images/markers/marker-observation.png",
-            "header": "_(Stage 1)",
-            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)",
+            "header": "Stage 1",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "visible_basemap_id": "sample-raster-tile",
             "visible_layer_ids": ["sample-json-a", "sample-vector-b"]
           },
@@ -519,15 +525,15 @@
             "start_field_index": 4,
             "end_field_index": 7,
             "icon_url": "/static/css/images/markers/marker-question.png",
-            "header": "_(Stage 2, With a Longer and More Complex Header than Stage 1)",
-            "description": "_(Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.)",
+            "header": "Stage 2, With a Longer and More Complex Header than Stage 1",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             "visible_layer_ids": ["sample-vector-a"]
           },
           {
             "start_field_index": 8,
             "end_field_index": 10,
             "icon_url": "",
-            "header": "_(Stage 3)",
+            "header": "Stage 3",
             "visible_basemap_id": "sample-wmts",
             "visible_layer_ids": ["sample-json-b"]
           },
@@ -535,34 +541,34 @@
             "start_field_index": 11,
             "end_field_index": 19,
             "icon_url": "",
-            "header": "_(Stage 4)"
+            "header": "Stage 4"
           }
         ],
-        "label": "_(Form Field Demo)",
+        "label": "Form Field Demo",
         "fields": [
           {
             "name": "title",
             "type": "text",
             "autocomplete": true,
-            "prompt": "_(Title:)",
-            "display_prompt": "_(Ttile:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "Title:",
+            "display_prompt": "Ttile:",
+            "placeholder": "Enter title...",
             "optional": false
           },
           {
             "name": "location",
             "type": "geolocate",
-            "prompt": "_(Locate me on the map)",
-            "placeholder": "_(Click to geolocate yourself on the map)",
+            "prompt": "Locate me on the map",
+            "placeholder": "Click to geolocate yourself on the map",
             "optional": true
           },
           {
             "name": "numberSpinner",
             "type": "number",
             "autocomplete": true,
-            "prompt": "_(Number:)",
-            "display_prompt": "_(Number:)",
-            "placeholder": "_(Enter a number...)",
+            "prompt": "Number:",
+            "display_prompt": "Number:",
+            "placeholder": "Enter a number...",
             "optional": false
           },
           {
@@ -586,7 +592,7 @@
           {
             "name": "informational",
             "type": "informational_html",
-            "prompt": "_(Info)",
+            "prompt": "Info",
             "content": "<h1>This is some information for you.</h1><p>Hooray.</p>"
           },
           {
@@ -594,12 +600,12 @@
             "type": "text",
             "includeOnListItem": true,
             "autocomplete": true,
-            "prompt": "_(Single line text field input prompt:)",
-            "display_prompt": "_(Rendered text field:)",
-            "placeholder": "_(Enter text...)",
+            "prompt": "Single line text field input prompt:",
+            "display_prompt": "Rendered text field:",
+            "placeholder": "Enter text...",
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
@@ -608,12 +614,12 @@
             "type": "textarea",
             "includeOnListItem": true,
             "autocomplete": true,
-            "prompt": "_(Multiline textarea field input prompt:)",
-            "display_prompt": "_(Rendered textarea field:)",
-            "placeholder": "_(Enter text...)",
+            "prompt": "Multiline textarea field input prompt:",
+            "display_prompt": "Rendered textarea field:",
+            "placeholder": "Enter text...",
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
@@ -622,26 +628,26 @@
             "type": "rich_textarea",
             "includeOnListItem": true,
             "autocomplete": true,
-            "prompt": "_(Multiline rich textarea field input prompt:)",
-            "display_prompt": "_(Rendered rich text:)",
-            "placeholder": "_(Enter text...)",
+            "prompt": "Multiline rich textarea field input prompt:",
+            "display_prompt": "Rendered rich text:",
+            "placeholder": "Enter text...",
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
           {
             "name": "range_slider_field",
-            "prompt": "_(Range slider field prompt:)",
+            "prompt": "Range slider field prompt:",
             "type": "range",
             "max": 100,
             "min": 15,
             "default_value": 50,
-            "display_prompt": "_(Rendered range slider:)",
+            "display_prompt": "Rendered range slider:",
             "autocomplete": true,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
@@ -649,33 +655,33 @@
             "name": "big_checkbox_field",
             "type": "big_checkbox",
             "autocomplete": true,
-            "prompt": "_(Large checkbox input prompt:)",
-            "display_prompt": "_(Rendered list of checkbox selections:)",
+            "prompt": "Large checkbox input prompt:",
+            "display_prompt": "Rendered list of checkbox selections:",
             "content": [
               {
-                "label": "_(Choice A)",
+                "label": "Choice A",
                 "value": "choice_a"
               },
               {
-                "label": "_(Choice B)",
+                "label": "Choice B",
                 "value": "choice_b"
               },
               {
-                "label": "_(Choice C)",
+                "label": "Choice C",
                 "value": "choice_c"
               },
               {
-                "label": "_(Choice D)",
+                "label": "Choice D",
                 "value": "choice_d"
               },
               {
-                "label": "_(Choice E)",
+                "label": "Choice E",
                 "value": "choice_e"
               }
             ],
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
@@ -683,33 +689,33 @@
             "name": "big_radio_field",
             "type": "big_radio",
             "autocomplete": true,
-            "prompt": "_(Large radio input prompt:)",
-            "display_prompt": "_(Rendered radio selection:)",
+            "prompt": "Large radio input prompt:",
+            "display_prompt": "Rendered radio selection:",
             "content": [
               {
-                "label": "_(Choice A)",
+                "label": "Choice A",
                 "value": "choice_a"
               },
               {
-                "label": "_(Choice B)",
+                "label": "Choice B",
                 "value": "choice_b"
               },
               {
-                "label": "_(Choice C)",
+                "label": "Choice C",
                 "value": "choice_c"
               },
               {
-                "label": "_(Choice D)",
+                "label": "Choice D",
                 "value": "choice_d"
               },
               {
-                "label": "_(Choice E)",
+                "label": "Choice E",
                 "value": "choice_e"
               }
             ],
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
@@ -717,33 +723,33 @@
             "name": "dropdown_field",
             "type": "dropdown",
             "autocomplete": true,
-            "prompt": "_(Dropdown input prompt:)",
-            "display_prompt": "_(Rendered dropdown selection:)",
+            "prompt": "Dropdown input prompt:",
+            "display_prompt": "Rendered dropdown selection:",
             "content": [
               {
-                "label": "_(Choice A)",
+                "label": "Choice A",
                 "value": "choice_a"
               },
               {
-                "label": "_(Choice B)",
+                "label": "Choice B",
                 "value": "choice_b"
               },
               {
-                "label": "_(Choice C)",
+                "label": "Choice C",
                 "value": "choice_c"
               },
               {
-                "label": "_(Choice D)",
+                "label": "Choice D",
                 "value": "choice_d"
               },
               {
-                "label": "_(Choice E)",
+                "label": "Choice E",
                 "value": "choice_e"
               }
             ],
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
@@ -751,56 +757,56 @@
             "name": "dropdown_autocomplete_combobox_field",
             "type": "dropdown_autocomplete",
             "autocomplete": true,
-            "placeholder": "_(Begin typing a value...)",
-            "prompt": "_(Dropdown autocomplete input prompt:)",
-            "display_prompt": "_(Rendered dropdown autocomplete selection:)",
+            "placeholder": "Begin typing a value...",
+            "prompt": "Dropdown autocomplete input prompt:",
+            "display_prompt": "Rendered dropdown autocomplete selection:",
             "content": [
               {
-                "label": "_(Choice A)",
+                "label": "Choice A",
                 "value": "choice_a"
               },
               {
-                "label": "_(Choice B)",
+                "label": "Choice B",
                 "value": "choice_b"
               },
               {
-                "label": "_(Choice C)",
+                "label": "Choice C",
                 "value": "choice_c"
               },
               {
-                "label": "_(Choice D)",
+                "label": "Choice D",
                 "value": "choice_d"
               },
               {
-                "label": "_(Choice E)",
+                "label": "Choice E",
                 "value": "choice_e"
               }
             ],
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
           {
             "name": "datetime_field",
             "type": "datetime",
-            "prompt": "_(Datetime field prompt:)",
-            "display_prompt": "_(Rendered datetime:)",
+            "prompt": "Datetime field prompt:",
+            "display_prompt": "Rendered datetime:",
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
           {
             "name": "geocoding_field",
             "type": "geocoding",
-            "prompt": "_(Geocoding field prompt:)",
-            "display_prompt": "_(Rendered location:)",
+            "prompt": "Geocoding field prompt:",
+            "display_prompt": "Rendered location:",
             "optional": true,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
@@ -808,39 +814,39 @@
             "name": "big_toggle_field",
             "type": "big_toggle",
             "autocomplete": true,
-            "prompt": "_(Binary toggle field prompt:)",
-            "display_prompt": "_(Rendered binary toggle selection:)",
+            "prompt": "Binary toggle field prompt:",
+            "display_prompt": "Rendered binary toggle selection:",
             "content": [
               {
-                "label": "_(On)",
+                "label": "On",
                 "value": "on"
               },
               {
-                "label": "_(Off)",
+                "label": "Off",
                 "value": "off"
               }
             ],
             "optional": false,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
           {
             "name": "attachment_field",
             "type": "file",
-            "prompt": "_(Attachment field prompt:)",
-            "label": "_(Attachment field button label)",
+            "prompt": "Attachment field prompt:",
+            "label": "Attachment field button label",
             "optional": true,
             "modal": {
-              "header": "_(Modal header)",
+              "header": "Modal header",
               "body": ["Modal body"]
             }
           },
           {
             "name": "submit_field",
             "type": "submit",
-            "label": "_(Submit button label)"
+            "label": "Submit button label"
           }
         ]
       },
@@ -853,41 +859,41 @@
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
-        "label": "_(Observation)",
+        "label": "Observation",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your observation:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "Title of your observation:",
+            "display_prompt": "Title:",
+            "placeholder": "Enter title...",
             "optional": false
           },
           {
             "name": "big_checkbox_field",
             "type": "big_checkbox",
-            "prompt": "_(Types of pollution seen:)",
+            "prompt": "Types of pollution seen:",
             "restrict_to_groups": ["officials"],
-            "display_prompt": "_( )",
+            "display_prompt": " ",
             "content": [
               {
-                "label": "_(Sewage)",
+                "label": "Sewage",
                 "value": "sewage"
               },
               {
-                "label": "_(Tires)",
+                "label": "Tires",
                 "value": "tires"
               },
               {
-                "label": "_(Illegal dumpsite)",
+                "label": "Illegal dumpsite",
                 "value": "dumpsite"
               },
               {
-                "label": "_(Litter)",
+                "label": "Litter",
                 "value": "litter"
               },
               {
-                "label": "_(Other)",
+                "label": "Other",
                 "value": "other"
               }
             ],
@@ -897,9 +903,9 @@
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Description:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter description...)",
+            "prompt": "Description:",
+            "display_prompt": " ",
+            "placeholder": "Enter description...",
             "optional": false
           },
           {
@@ -929,15 +935,15 @@
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
-        "label": "_(Question)",
+        "label": "Question",
         "fields": [
           {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(Title of your question:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "Title of your question:",
+            "display_prompt": "Title:",
+            "placeholder": "Enter title...",
             "optional": false
           },
           {
@@ -945,18 +951,18 @@
             "type": "datetime",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "placeholder": "_(Please select a date)",
-            "prompt": "_(Datetime field prompt:)",
-            "display_prompt": "_(Rendered datetime:)",
+            "placeholder": "Please select a date",
+            "prompt": "Datetime field prompt:",
+            "display_prompt": "Rendered datetime:",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What's your question?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter question...)"
+            "prompt": "What's your question?",
+            "display_prompt": " ",
+            "placeholder": "Enter question..."
           },
           {
             "name": "submitter_name",
@@ -985,41 +991,41 @@
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
-        "label": "_(Idea)",
+        "label": "Idea",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your idea:)",
-            "placeholder": "_(Enter title...)",
-            "display_prompt": "_(Title:)",
+            "prompt": "Title of your idea:",
+            "placeholder": "Enter title...",
+            "display_prompt": "Title:",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Describe your idea below:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Description...)",
+            "prompt": "Describe your idea below:",
+            "display_prompt": " ",
+            "placeholder": "Description...",
             "optional": false
           },
           {
             "name": "toggle_a",
             "type": "big_toggle",
-            "prompt": "_(On or off?)",
-            "display_prompt": "_( )",
+            "prompt": "On or off?",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "on",
               "targets": ["toggle_a_datetime"]
             },
             "content": [
               {
-                "label": "_(On)",
+                "label": "On",
                 "value": "on"
               },
               {
-                "label": "_(Off)",
+                "label": "Off",
                 "value": "off"
               }
             ],
@@ -1028,23 +1034,23 @@
           {
             "name": "toggle_a_datetime",
             "type": "datetime",
-            "prompt": "_(Time for this action:)",
-            "display_prompt": "_( )",
+            "prompt": "Time for this action:",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "toggle_b",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "content": [
               {
-                "label": "_(Yes)",
+                "label": "Yes",
                 "value": "yes"
               },
               {
-                "label": "_(No)",
+                "label": "No",
                 "value": "no"
               }
             ],
@@ -1053,8 +1059,8 @@
           {
             "name": "toggle_b_datetime",
             "type": "datetime",
-            "prompt": "_(Time for this action:)",
-            "display_prompt": "_( )",
+            "prompt": "Time for this action:",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
@@ -1085,23 +1091,23 @@
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
-        "label": "_(Complaint)",
+        "label": "Complaint",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of your complaint:)",
-            "placeholder": "_(Enter title...)",
-            "display_prompt": "_(Title:)",
+            "prompt": "Title of your complaint:",
+            "placeholder": "Enter title...",
+            "display_prompt": "Title:",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What's your complaint?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Description...)",
+            "prompt": "What's your complaint?",
+            "display_prompt": " ",
+            "placeholder": "Description...",
             "optional": false
           },
           {
@@ -1126,27 +1132,27 @@
     "common_form_elements": {
       "submitter_name": {
         "type": "text",
-        "prompt": "_(Your name)",
-        "placeholder": "_(Name)",
+        "prompt": "Your name",
+        "placeholder": "Name",
         "optional": true
       },
       "private-submitter_email": {
         "type": "text",
-        "prompt": "_(Your Email)",
-        "placeholder": "_(Receive email updates on your report)",
+        "prompt": "Your Email",
+        "placeholder": "Receive email updates on your report",
         "optional": true,
         "sticky": true
       },
       "my_image": {
         "type": "file",
         "includeOnListItem": true,
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
+        "prompt": "Image",
+        "label": "Add an Image",
         "optional": true
       },
       "submit": {
         "type": "submit",
-        "label": "_(Put it on the map!)"
+        "label": "Put it on the map!"
       }
     }
   },
@@ -1155,22 +1161,22 @@
       "submission_type": "comments",
       "adding_enabled": false,
       "show_responses": true,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "Comment",
+          "label": "Comment",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -1178,7 +1184,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "Comment"
         }
       ]
     }
@@ -1187,22 +1193,22 @@
     "submission_type": "comments",
     "show_responses": true,
     "single_submission": false,
-    "response_name": "_(comment)",
-    "response_plural_name": "_(comments)",
-    "action_text": "_(commented on)",
-    "anonymous_name": "_(Someone)",
-    "title": "_(Leave a Comment)",
-    "form_link_text": "_(Leave a Comment)",
-    "submit_btn_text": "_(Comment)",
+    "response_name": "comment",
+    "response_plural_name": "comments",
+    "action_text": "commented on",
+    "anonymous_name": "Someone",
+    "title": "Leave a Comment",
+    "form_link_text": "Leave a Comment",
+    "submit_btn_text": "Comment",
     "items": [
       {
-        "prompt": "_(Comment)",
-        "label": "_(Comment)",
+        "prompt": "Comment",
+        "label": "Comment",
         "type": "textarea",
         "name": "comment"
       },
       {
-        "prompt": "_(Your Name)",
+        "prompt": "Your Name",
         "type": "text",
         "name": "submitter_name",
         "optional": true
@@ -1210,33 +1216,33 @@
       {
         "type": "submit",
         "name": "submit",
-        "label": "_(Comment)"
+        "label": "Comment"
       }
     ]
   },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "_(Support)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
     "action_text": "supported",
-    "anonymous_name": "_(Someone)"
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "About",
       "type": "internal_link",
       "url": "/page/about"
     },
     {
-      "title": "_(Get involved)",
+      "title": "Get involved",
       "type": "internal_link",
       "url": "/page/getinvolved"
     },
     {
       "type": "list_toggle",
-      "show_list_button_label": "_(See All Reports)",
-      "show_map_button_label": "_(Show the Map)"
+      "show_list_button_label": "See All Reports",
+      "show_map_button_label": "Show the Map"
     }
   ],
   "pages": [
@@ -1267,9 +1273,9 @@
   ],
   "story": {
     "example": {
-      "tagline": "_(Next featured site)",
-      "header": "_(Story Number One)",
-      "description": "_(This is the first of two stories. I hope you like it!)",
+      "tagline": "Next featured site",
+      "header": "Story Number One",
+      "description": "This is the first of two stories. I hope you like it!",
       "default_zoom": 18,
       "default_basemap": "sample-wmts",
       "default_visible_layers": ["demo", "sample-vector"],

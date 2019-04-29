@@ -1,4 +1,10 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
   "datasets": [
     {
       "slug": "snohomish-input",
@@ -27,7 +33,7 @@
     "title": "Snohomish Conservation",
     "name": "Snohomish Conservation",
     "logo": "/static/css/images/scdHorizontal.png",
-    "meta_description": "_(Welcome!)",
+    "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.heyduwamish.org/api/v2/",
     "list_enabled": false,
@@ -446,57 +452,57 @@
         "id": "gis-layers",
         "icon": "fa fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
+        "title": "Map Layers:",
         "content": [
           {
             "id": "basemaps",
-            "title": "_(Basemaps)",
+            "title": "Basemaps",
             "layerGroups": [
               {
                 "id": "osm-hot",
-                "title": "_(Outdoors)"
+                "title": "Outdoors"
               },
               {
                 "id": "satellite",
-                "title": "_(Satellite View)"
+                "title": "Satellite View"
               },
               {
                 "id": "light-nolabels",
-                "title": "_(Light)"
+                "title": "Light"
               },
               {
                 "id": "watercolor",
-                "title": "_(Watercolor)"
+                "title": "Watercolor"
               }
             ]
           },
           {
             "id": "grp-community",
-            "title": "_(Data Layers)",
+            "title": "Data Layers",
             "layerGroups": [
               {
                 "id": "snohomish-input",
-                "title": "_(Community Reports)"
+                "title": "Community Reports"
               },
               {
                 "id": "snohomish-featured",
-                "title": "_(Featured sites)"
+                "title": "Featured sites"
               },
               {
                 "id": "boundary",
-                "title": "_(Boundary)"
+                "title": "Boundary"
               },
               {
                 "id": "sub-basins",
-                "title": "_(Sub-basins)"
+                "title": "Sub-basins"
               },
               {
                 "id": "wria-boundaries",
-                "title": "_(Watershed boundaries)"
+                "title": "Watershed boundaries"
               },
               {
                 "id": "hydrography",
-                "title": "_(Hydrography)"
+                "title": "Hydrography"
               }
             ]
           }
@@ -514,11 +520,11 @@
     "component": "StoryNavigator"
   },
   "place": {
-    "add_button_label": "_(Show off your projects)",
-    "action_text": "_(added)",
-    "title": "_(Tell us more...)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Submit my project)",
+    "add_button_label": "Show off your projects",
+    "action_text": "added",
+    "title": "Tell us more...",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Submit my project",
     "location_item_name": "location",
     "default_basemap": "satellite",
     "hide_metadata_bar": true,
@@ -535,7 +541,7 @@
         "datasetSlug": "snohomish-featured",
         "icon_url": "/static/css/images/markers/map-pin-star-marker.png",
         "value": "featured_place",
-        "label": "_(Featured Site)",
+        "label": "Featured Site",
         "fields": [
           {
             "name": "published",
@@ -556,18 +562,18 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of this featured site:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter title...)",
+            "prompt": "Title of this featured site:",
+            "display_prompt": " ",
+            "placeholder": "Enter title...",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
             "includeOnListItem": true,
-            "prompt": "_(Description:)",
-            "display_prompt": "_( )",
-            "placeholder": "_( )"
+            "prompt": "Description:",
+            "display_prompt": " ",
+            "placeholder": " "
           },
           {
             "name": "submit",
@@ -590,74 +596,74 @@
             "start_field_index": 1,
             "end_field_index": 2,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "_(Please set your location)",
-            "description": "_(Setting your location will help us list streams as safe. Your address will not be shared on the map.)"
+            "header": "Please set your location",
+            "description": "Setting your location will help us list streams as safe. Your address will not be shared on the map."
           },
           {
             "start_field_index": 3,
             "end_field_index": 23,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "_(Farm Conservation)",
-            "description": "_(Tell us what you’ve done on your farm to protect natural resources)"
+            "header": "Farm Conservation",
+            "description": "Tell us what you’ve done on your farm to protect natural resources"
           },
           {
             "start_field_index": 24,
             "end_field_index": 44,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "_(Forest Conservation)",
-            "description": "_(Tell us what you’ve done to improve forest conservation)"
+            "header": "Forest Conservation",
+            "description": "Tell us what you’ve done to improve forest conservation"
           },
           {
             "start_field_index": 45,
             "end_field_index": 67,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "_(Shoreline or Streamside Conservation)",
-            "description": "_(Tell us what you’ve done to improve shoreline or streamside conservation)"
+            "header": "Shoreline or Streamside Conservation",
+            "description": "Tell us what you’ve done to improve shoreline or streamside conservation"
           },
           {
             "start_field_index": 68,
             "end_field_index": 96,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "_(Urban / Suburban Conservation)",
-            "description": "_(Tell us what you’ve done to improve urban / surburban conservation)"
+            "header": "Urban / Suburban Conservation",
+            "description": "Tell us what you’ve done to improve urban / surburban conservation"
           },
           {
             "start_field_index": 97,
             "end_field_index": 103,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "_(Almost Done!)",
-            "description": "_( )"
+            "header": "Almost Done!",
+            "description": " "
           }
         ],
-        "label": "_(Conservation Actions)",
+        "label": "Conservation Actions",
         "fields": [
           {
             "name": "location-information",
             "type": "informational_html",
-            "prompt": "_( )",
+            "prompt": " ",
             "content": "<h3 class=\"map-drag-header\">You may drag the map to set your location.</h3><h3 class=\"map-drag-header\">Or, you may enter your address:</h3>"
           },
           {
             "name": "private-address",
             "type": "geocoding",
-            "prompt": "_( )",
-            "display_prompt": "_(Address)",
-            "placeholder": "_(Enter your address)",
+            "prompt": " ",
+            "display_prompt": "Address",
+            "placeholder": "Enter your address",
             "optional": false
           },
           {
             "name": "farm_no-farm",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "advance_stage_on_value": "no-farm",
             "content": [
               {
-                "label": "_(I don't live on a farm -- Proceed to next screen (Page 2 of 6))",
+                "label": "I don't live on a farm -- Proceed to next screen (Page 2 of 6)",
                 "value": "no-farm"
               },
               {
-                "label": "_(I don't live on a farm -- Proceed to next screen (Page 2 of 6))",
+                "label": "I don't live on a farm -- Proceed to next screen (Page 2 of 6)",
                 "value": "farm"
               }
             ],
@@ -666,19 +672,19 @@
           {
             "name": "farm_rotational-grazing",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_rotational-grazing-datetime"]
             },
             "content": [
               {
-                "label": "_(Practice rotational grazing, never grazing grass below 3” deep)",
+                "label": "Practice rotational grazing, never grazing grass below 3” deep",
                 "value": "yes"
               },
               {
-                "label": "_(Practice rotational grazing, never grazing grass below 3” deep)",
+                "label": "Practice rotational grazing, never grazing grass below 3” deep",
                 "value": "no"
               }
             ]
@@ -686,31 +692,31 @@
           {
             "name": "farm_rotational-grazing-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_fencing",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_fencing-datetime"]
             },
             "content": [
               {
-                "label": "_(Added streamside fencing to keep livestock out of waterway)",
+                "label": "Added streamside fencing to keep livestock out of waterway",
                 "value": "yes"
               },
               {
-                "label": "_(Added streamside fencing to keep livestock out of waterway)",
+                "label": "Added streamside fencing to keep livestock out of waterway",
                 "value": "no"
               }
             ]
@@ -718,31 +724,31 @@
           {
             "name": "farm_fencing-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_off-stream-watering",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_off-stream-watering-datetime"]
             },
             "content": [
               {
-                "label": "_(Installed an off-stream watering system)",
+                "label": "Installed an off-stream watering system",
                 "value": "yes"
               },
               {
-                "label": "_(Installed an off-stream watering system)",
+                "label": "Installed an off-stream watering system",
                 "value": "no"
               }
             ]
@@ -750,36 +756,36 @@
           {
             "name": "farm_off-stream-watering-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_livestock-heavy-use-areas",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_livestock-heavy-use-areas-datetime"]
             },
             "content": [
               {
-                "label": "_(Installed a heavy use or sacrifice area for livestock)",
+                "label": "Installed a heavy use or sacrifice area for livestock",
                 "value": "yes"
               },
               {
-                "label": "_(Installed a heavy use or sacrifice area for livestock)",
+                "label": "Installed a heavy use or sacrifice area for livestock",
                 "value": "no"
               }
             ],
             "modal": {
-              "header": "_(Heavy use area)",
+              "header": "Heavy use area",
               "body": [
                 "A heavy use area is a small fenced in area with a footing such as gravel or hog fuel. Livestock are kept in this area during winter months to protect pasture soils and grasses."
               ]
@@ -788,31 +794,31 @@
           {
             "name": "farm_livestock-heavy-use-areas-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_gutters",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_gutters-diversion-datetime"]
             },
             "content": [
               {
-                "label": "_(Installed gutters or water diversion to keep roof runoff away from heavily used areas)",
+                "label": "Installed gutters or water diversion to keep roof runoff away from heavily used areas",
                 "value": "yes"
               },
               {
-                "label": "_(Installed gutters or water diversion to keep roof runoff away from heavily used areas)",
+                "label": "Installed gutters or water diversion to keep roof runoff away from heavily used areas",
                 "value": "no"
               }
             ]
@@ -820,31 +826,31 @@
           {
             "name": "farm_gutters-diversion-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_soil-testing",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_soil-testing-datetime"]
             },
             "content": [
               {
-                "label": "_(Tested my soils to ensure proper fertilizer, manure, or lime application rates)",
+                "label": "Tested my soils to ensure proper fertilizer, manure, or lime application rates",
                 "value": "yes"
               },
               {
-                "label": "_(Tested my soils to ensure proper fertilizer, manure, or lime application rates)",
+                "label": "Tested my soils to ensure proper fertilizer, manure, or lime application rates",
                 "value": "no"
               }
             ]
@@ -852,31 +858,31 @@
           {
             "name": "farm_soil-testing-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_manure-storage",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_manure-storage-datetime"]
             },
             "content": [
               {
-                "label": "_(Installed a covered manure storage or composting bin)",
+                "label": "Installed a covered manure storage or composting bin",
                 "value": "yes"
               },
               {
-                "label": "_(Installed a covered manure storage or composting bin)",
+                "label": "Installed a covered manure storage or composting bin",
                 "value": "no"
               }
             ]
@@ -884,31 +890,31 @@
           {
             "name": "farm_manure-storage-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_septic",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_septic-datetime"]
             },
             "content": [
               {
-                "label": "_(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)",
+                "label": "Maintain septic systems and have them inspected regularly to make sure they are functioning properly.",
                 "value": "yes"
               },
               {
-                "label": "_(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)",
+                "label": "Maintain septic systems and have them inspected regularly to make sure they are functioning properly.",
                 "value": "no"
               }
             ]
@@ -916,31 +922,31 @@
           {
             "name": "farm_septic-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "farm_other",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["farm_other-action", "farm_other-datetime"]
             },
             "content": [
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "yes"
               },
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "no"
               }
             ]
@@ -949,21 +955,21 @@
             "name": "farm_other-action",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(What was your action?)",
-            "display_prompt": "_( )",
-            "label": "_(What was your action?)",
+            "prompt": "What was your action?",
+            "display_prompt": " ",
+            "label": "What was your action?",
             "optional": true,
             "hidden_default": true
           },
           {
             "name": "farm_other-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
@@ -971,24 +977,24 @@
             "name": "farm_category-comments",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Please comment or elaborate here:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter your comments...)",
+            "prompt": "Please comment or elaborate here:",
+            "display_prompt": " ",
+            "placeholder": "Enter your comments...",
             "optional": true
           },
           {
             "name": "forest_no-forest",
             "type": "big_toggle",
-            "prompt": "_( )",
+            "prompt": " ",
             "advance_stage_on_value": "no-forest",
-            "display_prompt": "_( )",
+            "display_prompt": " ",
             "content": [
               {
-                "label": "_(I don't own/operate forestland -- Proceed to next screen (Page 3 of 6))",
+                "label": "I don't own/operate forestland -- Proceed to next screen (Page 3 of 6)",
                 "value": "no-forest"
               },
               {
-                "label": "_(I don't own/operate forestland -- Proceed to next screen (Page 3 of 6))",
+                "label": "I don't own/operate forestland -- Proceed to next screen (Page 3 of 6)",
                 "value": "forest"
               }
             ],
@@ -997,19 +1003,19 @@
           {
             "name": "forest_protected-buffers",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_protected-buffers-datetime"]
             },
             "content": [
               {
-                "label": "_(Protected forest buffers around wetlands, streams, steep slopes, and bald eagle nests to protect water quality and critical wildlife areas)",
+                "label": "Protected forest buffers around wetlands, streams, steep slopes, and bald eagle nests to protect water quality and critical wildlife areas",
                 "value": "yes"
               },
               {
-                "label": "_(Protected forest buffers around wetlands, streams, steep slopes, and bald eagle nests to protect water quality and critical wildlife areas)",
+                "label": "Protected forest buffers around wetlands, streams, steep slopes, and bald eagle nests to protect water quality and critical wildlife areas",
                 "value": "no"
               }
             ]
@@ -1017,31 +1023,31 @@
           {
             "name": "forest_protected-buffers-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_restored-buffers",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_restored-buffers-datetime"]
             },
             "content": [
               {
-                "label": "_(Restored forest buffers around wetlands, streams, steep slopes, and bald eagle nests to improve water quality and critical wildlife areas)",
+                "label": "Restored forest buffers around wetlands, streams, steep slopes, and bald eagle nests to improve water quality and critical wildlife areas",
                 "value": "yes"
               },
               {
-                "label": "_(Restored forest buffers around wetlands, streams, steep slopes, and bald eagle nests to improve water quality and critical wildlife areas)",
+                "label": "Restored forest buffers around wetlands, streams, steep slopes, and bald eagle nests to improve water quality and critical wildlife areas",
                 "value": "no"
               }
             ]
@@ -1049,31 +1055,31 @@
           {
             "name": "forest_restored-buffers-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_left-trees-snags-etc",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_left-trees-snags-etc-datetime"]
             },
             "content": [
               {
-                "label": "_(Left green trees and/or left or created snags, brush piles, downed logs, or other habitat features to improve wildlife habitat)",
+                "label": "Left green trees and/or left or created snags, brush piles, downed logs, or other habitat features to improve wildlife habitat",
                 "value": "yes"
               },
               {
-                "label": "_(Left green trees and/or left or created snags, brush piles, downed logs, or other habitat features to improve wildlife habitat)",
+                "label": "Left green trees and/or left or created snags, brush piles, downed logs, or other habitat features to improve wildlife habitat",
                 "value": "no"
               }
             ]
@@ -1081,31 +1087,31 @@
           {
             "name": "forest_left-trees-snags-etc-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_maintain-roads",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_maintain-roads-datetime"]
             },
             "content": [
               {
-                "label": "_(Maintained forest roads and stream crossings to control erosion)",
+                "label": "Maintained forest roads and stream crossings to control erosion",
                 "value": "yes"
               },
               {
-                "label": "_(Maintained forest roads and stream crossings to control erosion)",
+                "label": "Maintained forest roads and stream crossings to control erosion",
                 "value": "no"
               }
             ]
@@ -1113,31 +1119,31 @@
           {
             "name": "forest_maintain-roads-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_reduce-harvest-compaction",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_reduce-harvest-compaction-datetime"]
             },
             "content": [
               {
-                "label": "_(Took steps to reduce compaction during tree harvest)",
+                "label": "Took steps to reduce compaction during tree harvest",
                 "value": "yes"
               },
               {
-                "label": "_(Took steps to reduce compaction during tree harvest)",
+                "label": "Took steps to reduce compaction during tree harvest",
                 "value": "no"
               }
             ]
@@ -1145,31 +1151,31 @@
           {
             "name": "forest_reduce-harvest-compaction-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_fish-passage",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_fish-passage-datetime"]
             },
             "content": [
               {
-                "label": "_(Replaced fish-passage barrier culverts with larger culverts or bridges)",
+                "label": "Replaced fish-passage barrier culverts with larger culverts or bridges",
                 "value": "yes"
               },
               {
-                "label": "_(Replaced fish-passage barrier culverts with larger culverts or bridges)",
+                "label": "Replaced fish-passage barrier culverts with larger culverts or bridges",
                 "value": "no"
               }
             ]
@@ -1177,31 +1183,31 @@
           {
             "name": "forest_fish-passage-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_logging-slash-etc",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_logging-slash-etc-datetime"]
             },
             "content": [
               {
-                "label": "_(Kept logging slash and other materials and equipment away from streams, wetlands, and slopes)",
+                "label": "Kept logging slash and other materials and equipment away from streams, wetlands, and slopes",
                 "value": "yes"
               },
               {
-                "label": "_(Kept logging slash and other materials and equipment away from streams, wetlands, and slopes)",
+                "label": "Kept logging slash and other materials and equipment away from streams, wetlands, and slopes",
                 "value": "no"
               }
             ]
@@ -1209,31 +1215,31 @@
           {
             "name": "forest_logging-slash-etc-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_stewardship-plan",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_stewardship-plan-datetime"]
             },
             "content": [
               {
-                "label": "_(Created and implemented a Forest Stewardship Plan)",
+                "label": "Created and implemented a Forest Stewardship Plan",
                 "value": "yes"
               },
               {
-                "label": "_(Created and implemented a Forest Stewardship Plan)",
+                "label": "Created and implemented a Forest Stewardship Plan",
                 "value": "no"
               }
             ]
@@ -1241,31 +1247,31 @@
           {
             "name": "forest_stewardship-plan-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "forest_other",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["forest_other-datetime", "forest_other-action"]
             },
             "content": [
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "yes"
               },
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "no"
               }
             ]
@@ -1274,20 +1280,20 @@
             "name": "forest_other-action",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(What was your action?)",
-            "display_prompt": "_( )",
+            "prompt": "What was your action?",
+            "display_prompt": " ",
             "optional": true,
             "hidden_default": true
           },
           {
             "name": "forest_other-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
@@ -1295,24 +1301,24 @@
             "name": "forest_comments",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Please comment or elaborate here:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter your comments...)",
+            "prompt": "Please comment or elaborate here:",
+            "display_prompt": " ",
+            "placeholder": "Enter your comments...",
             "optional": true
           },
           {
             "name": "shoreline_no-shoreline",
             "type": "big_toggle",
             "advance_stage_on_value": "no-shoreline",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "content": [
               {
-                "label": "_(I don't live alongside water -- Proceed to next screen (Page 4 of 6))",
+                "label": "I don't live alongside water -- Proceed to next screen (Page 4 of 6)",
                 "value": "no-shoreline"
               },
               {
-                "label": "_(I don't live alongside water -- Proceed to next screen (Page 4 of 6))",
+                "label": "I don't live alongside water -- Proceed to next screen (Page 4 of 6)",
                 "value": "shoreline"
               }
             ],
@@ -1321,19 +1327,19 @@
           {
             "name": "shoreline_left-slope-vegetation",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_left-slope-vegetation-datetime"]
             },
             "content": [
               {
-                "label": "_(Left existing native vegetation on a slope or bank)",
+                "label": "Left existing native vegetation on a slope or bank",
                 "value": "yes"
               },
               {
-                "label": "_(Left existing native vegetation on a slope or bank)",
+                "label": "Left existing native vegetation on a slope or bank",
                 "value": "no"
               }
             ]
@@ -1341,31 +1347,31 @@
           {
             "name": "shoreline_left-slope-vegetation-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_slope-native-buffer",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_slope-native-buffer-datetime"]
             },
             "content": [
               {
-                "label": "_(Planted a buffer of native trees and shrubs along slope or streamside)",
+                "label": "Planted a buffer of native trees and shrubs along slope or streamside",
                 "value": "yes"
               },
               {
-                "label": "_(Planted a buffer of native trees and shrubs along slope or streamside)",
+                "label": "Planted a buffer of native trees and shrubs along slope or streamside",
                 "value": "no"
               }
             ]
@@ -1373,22 +1379,22 @@
           {
             "name": "shoreline_slope-native-buffer-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_remove-noxious-weeds",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "modal": {
-              "header": "_(Noxious Weeds)",
+              "header": "Noxious Weeds",
               "body": [
                 "Common noxious weeds that compete with our native vegetation include blackberry, knotweed, ivy, and scotch broom."
               ]
@@ -1399,11 +1405,11 @@
             },
             "content": [
               {
-                "label": "_(Removed noxious weeds to support native plant health)",
+                "label": "Removed noxious weeds to support native plant health",
                 "value": "yes"
               },
               {
-                "label": "_(Removed noxious weeds to support native plant health)",
+                "label": "Removed noxious weeds to support native plant health",
                 "value": "no"
               }
             ]
@@ -1411,31 +1417,31 @@
           {
             "name": "shoreline_remove-noxious-weeds-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_left-dead-trees",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_left-dead-trees-datetime"]
             },
             "content": [
               {
-                "label": "_(Left dead “habitat” trees standing for wildlife)",
+                "label": "Left dead “habitat” trees standing for wildlife",
                 "value": "yes"
               },
               {
-                "label": "_(Left dead “habitat” trees standing for wildlife)",
+                "label": "Left dead “habitat” trees standing for wildlife",
                 "value": "no"
               }
             ]
@@ -1443,31 +1449,31 @@
           {
             "name": "shoreline_left-dead-trees-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_impervious-surfaces",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_impervious-surfaces-datetime"]
             },
             "content": [
               {
-                "label": "_(Minimized impervious surfaces (driveways, roofs))",
+                "label": "Minimized impervious surfaces (driveways, roofs)",
                 "value": "yes"
               },
               {
-                "label": "_(Minimized impervious surfaces (driveways, roofs))",
+                "label": "Minimized impervious surfaces (driveways, roofs)",
                 "value": "no"
               }
             ]
@@ -1475,31 +1481,31 @@
           {
             "name": "shoreline_impervious-surfaces-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_relocated-slope-structures",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_relocated-slope-structures-datetime"]
             },
             "content": [
               {
-                "label": "_(Re-located structures away from slopes)",
+                "label": "Re-located structures away from slopes",
                 "value": "yes"
               },
               {
-                "label": "_(Re-located structures away from slopes)",
+                "label": "Re-located structures away from slopes",
                 "value": "no"
               }
             ]
@@ -1507,31 +1513,31 @@
           {
             "name": "shoreline_relocated-slope-structures-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_grass-clippings",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_grass-clippings-datetime"]
             },
             "content": [
               {
-                "label": "_(Refrained from dumping grass clippings and yard debris on slopes)",
+                "label": "Refrained from dumping grass clippings and yard debris on slopes",
                 "value": "yes"
               },
               {
-                "label": "_(Refrained from dumping grass clippings and yard debris on slopes)",
+                "label": "Refrained from dumping grass clippings and yard debris on slopes",
                 "value": "no"
               }
             ]
@@ -1539,36 +1545,36 @@
           {
             "name": "shoreline_grass-clippings-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_removed-armoring",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_removed-armoring-datetime"]
             },
             "content": [
               {
-                "label": "_(Removed shoreline armoring)",
+                "label": "Removed shoreline armoring",
                 "value": "yes"
               },
               {
-                "label": "_(Removed shoreline armoring)",
+                "label": "Removed shoreline armoring",
                 "value": "no"
               }
             ],
             "modal": {
-              "header": "_(Shoreline armoring)",
+              "header": "Shoreline armoring",
               "body": [
                 "Removing armoring such as rip rap or bulkheads improves fish and wildlife habitat."
               ]
@@ -1577,31 +1583,31 @@
           {
             "name": "shoreline_removed-armoring-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_pet-waste",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_pet-waste-datetime"]
             },
             "content": [
               {
-                "label": "_(Pick up after my pet)",
+                "label": "Pick up after my pet",
                 "value": "yes"
               },
               {
-                "label": "_(Pick up after my pet)",
+                "label": "Pick up after my pet",
                 "value": "no"
               }
             ]
@@ -1609,31 +1615,31 @@
           {
             "name": "shoreline_pet-waste-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "shoreline_other",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["shoreline_other-action", "shoreline_other-datetime"]
             },
             "content": [
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "yes"
               },
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "no"
               }
             ]
@@ -1642,20 +1648,20 @@
             "name": "shoreline_other-action",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(What was your action?)",
-            "display_prompt": "_( )",
+            "prompt": "What was your action?",
+            "display_prompt": " ",
             "optional": true,
             "hidden_default": true
           },
           {
             "name": "shoreline_other-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
@@ -1663,24 +1669,24 @@
             "name": "shoreline_comments",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Please comment or elaborate here:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter your comments...)",
+            "prompt": "Please comment or elaborate here:",
+            "display_prompt": " ",
+            "placeholder": "Enter your comments...",
             "optional": true
           },
           {
             "name": "urban-suburban_no-urban-suburban",
             "type": "big_toggle",
             "advance_stage_on_value": "no-urban",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "content": [
               {
-                "label": "_(I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6))",
+                "label": "I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6)",
                 "value": "no-urban"
               },
               {
-                "label": "_(I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6))",
+                "label": "I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6)",
                 "value": "urban"
               }
             ],
@@ -1689,10 +1695,10 @@
           {
             "name": "urban_rain-gardens",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "modal": {
-              "header": "_(Rain garden)",
+              "header": "Rain garden",
               "body": [
                 "A rain garden is an area that is dug out, lined with a special soil mix, and planted with the intent of infiltrating runoff from your house, driveway, or other hardened surfaces."
               ]
@@ -1703,11 +1709,11 @@
             },
             "content": [
               {
-                "label": "_(Installed a rain garden)",
+                "label": "Installed a rain garden",
                 "value": "yes"
               },
               {
-                "label": "_(Installed a rain garden)",
+                "label": "Installed a rain garden",
                 "value": "no"
               }
             ]
@@ -1715,31 +1721,31 @@
           {
             "name": "urban_rain-gardens-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_rain-barrels",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_rain-barrels-datetime"]
             },
             "content": [
               {
-                "label": "_(Installed rain barrels or cisterns)",
+                "label": "Installed rain barrels or cisterns",
                 "value": "yes"
               },
               {
-                "label": "_(Installed rain barrels or cisterns)",
+                "label": "Installed rain barrels or cisterns",
                 "value": "no"
               }
             ]
@@ -1747,22 +1753,22 @@
           {
             "name": "urban_rain-barrels-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_rain-beds",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "modal": {
-              "header": "_(Rain bed)",
+              "header": "Rain bed",
               "body": [
                 "A rain bed combines a rain barrel system with a raised garden bed. A special gutter in the raised bed spreads water from the barrels over the garden for easy watering. Excess water from the barrels infiltrates through the bed and is dispersed over the surrounding yard where it is filtered and infiltrated."
               ]
@@ -1773,11 +1779,11 @@
             },
             "content": [
               {
-                "label": "_(Installed rain beds)",
+                "label": "Installed rain beds",
                 "value": "yes"
               },
               {
-                "label": "_(Installed rain beds)",
+                "label": "Installed rain beds",
                 "value": "no"
               }
             ]
@@ -1785,22 +1791,22 @@
           {
             "name": "urban_rain-beds-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_natural-yard-care",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "modal": {
-              "header": "_(Natural Yard Care)",
+              "header": "Natural Yard Care",
               "body": [
                 "Natural Yard Care can include: building healthy soil, practicing smart watering, using organic products, avoiding chemical use, mulching/composting and supporting pollinators."
               ]
@@ -1811,11 +1817,11 @@
             },
             "content": [
               {
-                "label": "_(Used natural yard care)",
+                "label": "Used natural yard care",
                 "value": "yes"
               },
               {
-                "label": "_(Used natural yard care)",
+                "label": "Used natural yard care",
                 "value": "no"
               }
             ]
@@ -1823,31 +1829,31 @@
           {
             "name": "urban_natural-yard-care-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "general_wildlife-backyard",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["general_wildlife-backyard-datetime"]
             },
             "content": [
               {
-                "label": "_(Certified my property as a Backyard Wildlife Habitat)",
+                "label": "Certified my property as a Backyard Wildlife Habitat",
                 "value": "yes"
               },
               {
-                "label": "_(Certified my property as a Backyard Wildlife Habitat)",
+                "label": "Certified my property as a Backyard Wildlife Habitat",
                 "value": "no"
               }
             ]
@@ -1855,31 +1861,31 @@
           {
             "name": "general_wildlife-backyard-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_pollinator-habitat",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_pollinator-habitat-datetime"]
             },
             "content": [
               {
-                "label": "_(Created pollinator habitat by planting flowering native plants)",
+                "label": "Created pollinator habitat by planting flowering native plants",
                 "value": "yes"
               },
               {
-                "label": "_(Created pollinator habitat by planting flowering native plants)",
+                "label": "Created pollinator habitat by planting flowering native plants",
                 "value": "no"
               }
             ]
@@ -1887,31 +1893,31 @@
           {
             "name": "urban_pollinator-habitat-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_water-conservation",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_water-conservation-datetime"]
             },
             "content": [
               {
-                "label": "_(Practice water conservation)",
+                "label": "Practice water conservation",
                 "value": "yes"
               },
               {
-                "label": "_(Practice water conservation)",
+                "label": "Practice water conservation",
                 "value": "no"
               }
             ]
@@ -1919,31 +1925,31 @@
           {
             "name": "urban_water-conservation-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_compost-mulch-soil-amendments",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_compost-mulch-soil-amendments-datetime"]
             },
             "content": [
               {
-                "label": "_(Use compost/mulch/soil amendments)",
+                "label": "Use compost/mulch/soil amendments",
                 "value": "yes"
               },
               {
-                "label": "_(Use compost/mulch/soil amendments)",
+                "label": "Use compost/mulch/soil amendments",
                 "value": "no"
               }
             ]
@@ -1951,31 +1957,31 @@
           {
             "name": "urban_compost-mulch-soil-amendments-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_food-garden",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_food-garden-datetime"]
             },
             "content": [
               {
-                "label": "_(Started a food garden)",
+                "label": "Started a food garden",
                 "value": "yes"
               },
               {
-                "label": "_(Started a food garden)",
+                "label": "Started a food garden",
                 "value": "no"
               }
             ]
@@ -1983,31 +1989,31 @@
           {
             "name": "urban_food-garden-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_drainage-concerns",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_drainage-concerns-datetime"]
             },
             "content": [
               {
-                "label": "_(Addressed stormwater and/or drainage concerns)",
+                "label": "Addressed stormwater and/or drainage concerns",
                 "value": "yes"
               },
               {
-                "label": "_(Addressed stormwater and/or drainage concerns)",
+                "label": "Addressed stormwater and/or drainage concerns",
                 "value": "no"
               }
             ]
@@ -2015,31 +2021,31 @@
           {
             "name": "urban_drainage-concerns-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_pet-waste",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_pet-waste-datetime"]
             },
             "content": [
               {
-                "label": "_(Pick up after my pet)",
+                "label": "Pick up after my pet",
                 "value": "yes"
               },
               {
-                "label": "_(Pick up after my pet)",
+                "label": "Pick up after my pet",
                 "value": "no"
               }
             ]
@@ -2047,31 +2053,31 @@
           {
             "name": "urban_pet-waste-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_septic",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_septic-datetime"]
             },
             "content": [
               {
-                "label": "_(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)",
+                "label": "Maintain septic systems and have them inspected regularly to make sure they are functioning properly.",
                 "value": "yes"
               },
               {
-                "label": "_(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)",
+                "label": "Maintain septic systems and have them inspected regularly to make sure they are functioning properly.",
                 "value": "no"
               }
             ]
@@ -2079,31 +2085,31 @@
           {
             "name": "urban_septic-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
           {
             "name": "urban_other",
             "type": "big_toggle",
-            "prompt": "_( )",
-            "display_prompt": "_( )",
+            "prompt": " ",
+            "display_prompt": " ",
             "trigger": {
               "trigger_value": "yes",
               "targets": ["urban_other-action", "urban_other-datetime"]
             },
             "content": [
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "yes"
               },
               {
-                "label": "_(OTHER)",
+                "label": "OTHER",
                 "value": "no"
               }
             ]
@@ -2112,20 +2118,20 @@
             "name": "urban_other-action",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(What was your action?)",
-            "display_prompt": "_( )",
+            "prompt": "What was your action?",
+            "display_prompt": " ",
             "optional": true,
             "hidden_default": true
           },
           {
             "name": "urban_other-datetime",
             "type": "datetime",
-            "ongoing_label": "_(I perform this action regularly)",
+            "ongoing_label": "I perform this action regularly",
             "date_format": "YYYY-MM",
             "display_format": "MMMM YYYY",
-            "prompt": "_(Approximately when did you last complete this action?)",
-            "placeholder": "_(Your best estimate)",
-            "display_prompt": "_( )",
+            "prompt": "Approximately when did you last complete this action?",
+            "placeholder": "Your best estimate",
+            "display_prompt": " ",
             "optional": false,
             "hidden_default": true
           },
@@ -2133,17 +2139,17 @@
             "name": "urban_comments",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Please comment or elaborate here:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter your comments...)",
+            "prompt": "Please comment or elaborate here:",
+            "display_prompt": " ",
+            "placeholder": "Enter your comments...",
             "optional": true
           },
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Enter a headline that describes your experiences)",
-            "placeholder": "_(Example - Protecting Catherine Creek for fish, Turning my yard into a wildlife haven, etc)",
-            "display_prompt": "_( )",
+            "prompt": "Enter a headline that describes your experiences",
+            "placeholder": "Example - Protecting Catherine Creek for fish, Turning my yard into a wildlife haven, etc",
+            "display_prompt": " ",
             "optional": false
           },
           {
@@ -2158,9 +2164,9 @@
             "name": "other-comments",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Anything else you’d like us to know?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter your comments...)",
+            "prompt": "Anything else you’d like us to know?",
+            "display_prompt": " ",
+            "placeholder": "Enter your comments...",
             "optional": true
           },
           {
@@ -2173,26 +2179,26 @@
     "common_form_elements": {
       "submitter_name": {
         "type": "text",
-        "prompt": "_(Your name)",
-        "placeholder": "_(Name)",
+        "prompt": "Your name",
+        "placeholder": "Name",
         "optional": true
       },
       "private-submitter_email": {
         "type": "text",
-        "prompt": "_(Your Email (important in case we need to follow up))",
-        "placeholder": "_(Optional. Your email will never be shared)",
+        "prompt": "Your Email (important in case we need to follow up)",
+        "placeholder": "Optional. Your email will never be shared",
         "optional": true,
         "sticky": true
       },
       "my_image": {
         "type": "file",
-        "prompt": "_(Please share an image of your work)",
-        "label": "_(📷 Add an Image)",
+        "prompt": "Please share an image of your work",
+        "label": "📷 Add an Image",
         "optional": true
       },
       "submit": {
         "type": "submit",
-        "label": "_(Submit my project)"
+        "label": "Submit my project"
       }
     }
   },
@@ -2201,22 +2207,22 @@
       "submission_type": "comments",
       "show_responses": true,
       "single_submission": false,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "Comment",
+          "label": "Comment",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -2224,7 +2230,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "Comment"
         }
       ]
     },
@@ -2232,39 +2238,39 @@
       {
         "id": "featured_place",
         "datasetSlug": "snohomish-featured",
-        "label": "_(Featured Site)",
+        "label": "Featured Site",
         "icon": "/static/css/images/markers/map-pin-star-marker.png"
       },
       {
         "id": "conservation-actions",
         "datasetSlug": "snohomish-input",
-        "label": "_(Conservation Actions)",
+        "label": "Conservation Actions",
         "icon": "/static/css/images/markers/map-pin-marker.png"
       }
     ]
   },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "_(Support)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
     "action_text": "supported",
-    "anonymous_name": "_(Someone)"
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "About",
       "type": "internal_link",
       "url": "/page/about",
       "start_page": true
     },
     {
-      "title": "_(Local Stories)",
+      "title": "Local Stories",
       "type": "internal_link",
       "url": "/featured/4310"
     },
     {
-      "title": "_(Map Layers)",
+      "title": "Map Layers",
       "type": "left_sidebar_toggle",
       "component": "MapLayerPanel"
     }

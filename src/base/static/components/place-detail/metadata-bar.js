@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 import { UserAvatar } from "../atoms/imagery";
 import { Time, SmallText, RegularText } from "../atoms/typography";
-import { translate, Trans } from "react-i18next";
+import { translate } from "react-i18next";
 
 import {
   commentFormConfigPropType,
@@ -40,16 +40,19 @@ const MetadataBar = props => (
     </UserAvatarContainer>
     <PlaceDetailsContainer>
       <div style={{ marginBottom: "3px" }}>
-        <Trans i18nKey="submitterActionText">
-          <RegularText weight="black">{props.submitterName}</RegularText>{" "}
-          <RegularText>{props.actionText} this</RegularText>
-        </Trans>
+        <RegularText weight="black">{props.submitterName}</RegularText>{" "}
+        <RegularText>
+          {props.t("placeActionText", `${props.actionText}`)}{" "}
+        </RegularText>
       </div>
       <SmallText display="block" textTransform="uppercase">
         {props.numComments}{" "}
         {props.numComments === 1
-          ? props.commentFormConfig.response_name
-          : props.commentFormConfig.response_plural_name}
+          ? props.t("surveyResponseName", props.commentFormConfig.response_name)
+          : props.t(
+              "surveyResponsePluralName",
+              props.commentFormConfig.response_plural_name,
+            )}
       </SmallText>
       {props.appConfig.show_timestamps && (
         <SmallText display="block" textTransform="uppercase">
@@ -67,6 +70,7 @@ MetadataBar.propTypes = {
   numComments: PropTypes.number.isRequired,
   submitterName: PropTypes.string.isRequired,
   submitterAvatarUrl: PropTypes.string,
+  t: PropTypes.func.isRequired,
   commentFormConfig: commentFormConfigPropType.isRequired,
 };
 
