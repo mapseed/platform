@@ -78,7 +78,7 @@ import {
   updateMapContainerDimensions,
 } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
-import isValidNonConfigurablei18nKey from "../utils/i18n-utils";
+import isValidNonConfigurableI18nKey from "../utils/i18n-utils";
 
 import Util from "../js/utils.js";
 
@@ -337,14 +337,14 @@ class App extends Component<Props, State> {
         //     actual fallbackValue was supplied, and i18next has swapped in the
         //     key instead. This is a misconfiguration, so rather than send the
         //     key itself to the translate API, we just render the key.
-        //   - If the `key` represents a non-configurable piece of UI and the
-        //     current language is English. We expect the hard-coded default
+        //   - If the `key` represents a non-configurable piece of UI text and
+        //     the current language is English. We expect the hard-coded default
         //     language of all non-configurable UI to be English.
         if (
           (i18next.language === resolvedConfig.flavor.defaultLanguage.code ||
             isFetchingTranslation[key] ||
             key === fallbackValue) &&
-          isValidNonConfigurablei18nKey(key, i18next.language)
+          isValidNonConfigurableI18nKey(key, i18next.language)
         ) {
           return;
         }
