@@ -361,6 +361,8 @@ class App extends Component<Props, State> {
 
         if (response) {
           i18next.addResource(i18next.language, ns, key, response.body);
+        } else {
+          i18next.addResource(i18next.language, ns, key, fallbackValue);
         }
       },
     });
