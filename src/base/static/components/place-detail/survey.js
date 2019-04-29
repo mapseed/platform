@@ -168,7 +168,10 @@ class Survey extends Component {
         {this.state.formValidationErrors.size > 0 && (
           <WarningMessagesContainer
             errors={this.state.formValidationErrors}
-            headerMsg={this.props.t("validationErrorHeaderMsg")}
+            headerMsg={this.props.t(
+              "validationErrorHeaderMsg",
+              "We're sorry, but we need some more information before we can share your comment.",
+            )}
           />
         )}
         {this.state.canComment && (

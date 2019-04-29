@@ -148,7 +148,7 @@ class FormField extends Component {
               this.props.fieldConfig.prompt || " ",
             )}
             <span className={cn.optionalMsg}>
-              {this.props.t("optionalMsg")}
+              {this.props.t("optionalMsg", "optional")}
             </span>
           </RegularText>
           {this.props.fieldConfig.modal && (
