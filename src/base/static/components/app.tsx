@@ -325,11 +325,11 @@ class App extends Component<Props, State> {
         }
 
         // We want to avoid calling the translate API in the following cases:
-        //   - The current language matches the fallback (default) language.
-        //     We make the strong assumption that all strings which are intended
-        //     for automatic translation supply a fallback string in the flavor's
+        //   - The current language matches the default language. We make the 
+        //     strong assumption that all strings which are intended for 
+        //     automatic translation supply a fallback string in the flavor's 
         //     default languague, so translating in this scenario is pointless.
-        //   - An network request for a given key is already in flight. This can
+        //   - A network request for a given key is already in flight. This can
         //     happen because the `missingKeyHandler` can get called repeatedly
         //     for the same key while waiting on the results of the original
         //     network request.
