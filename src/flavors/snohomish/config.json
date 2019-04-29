@@ -2278,7 +2278,7 @@
   "pages": [
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1 class='custom-page-header'>Welcome</h1>",
         "<img class='custom-page-img' src='/static/css/images/stanwood-volunteers-cropped.jpg' alt='restoration crew'>",

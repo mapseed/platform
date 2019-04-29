@@ -441,7 +441,7 @@
   "pages": [
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Welcome</h1>",
         "<p>Bike sharing is coming to Bellevue! Use this map to suggest sharing locations.</p>",

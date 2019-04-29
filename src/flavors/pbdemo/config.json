@@ -1828,7 +1828,7 @@
   "pages": [
     {
       "slug": "get-involved",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Get Involved</h1>",
         "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
@@ -1876,7 +1876,7 @@
     },
     {
       "slug": "guidelines",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<div class='clearfix'>",
         "<h1>Project Idea Guidelines</h1>",
@@ -1906,7 +1906,7 @@
     },
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Durham Participatory Budgeting:</h1>",
         "<h2>Put your money where your ideas are!</h2>",

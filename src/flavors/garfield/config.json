@@ -2273,7 +2273,7 @@
   "pages": [
     {
       "slug": "assistance",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
         "<p style='margin-bottom:16px'>Your Garfield County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
@@ -2308,7 +2308,7 @@
     },
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Garfield County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/garfield-county-2.jpg' alt='Rolling hills, Garfield County' style='margin:8px 0 16px 0' />",
