@@ -34,6 +34,7 @@ const MapTemplate = lazy(() => import("./templates/map"));
 import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
+import translationServiceClient from "../client/translation-service-client";
 import {
   datasetsConfigPropType,
   datasetsConfigSelector,
@@ -307,8 +308,6 @@ class App extends Component<Props, State> {
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
-    console.log(isFetchingTranslation)
-
     // Set up localization.
     i18next.use(reactI18nextModule).init({
       lng: resolvedConfig.flavor.defaultLanguage.code,
@@ -352,31 +351,16 @@ class App extends Component<Props, State> {
 
         isFetchingTranslation[key] = true;
 
-        // TODO: move to API client
-        const response = await fetch(
-          "https://qnvmys9mc8.execute-api.us-west-2.amazonaws.com/v1",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              text: fallbackValue,
-              target: i18next.language,
-              // TODO: html format
-              format: "text",
-            }),
-          },
-        );
+        const response = await translationServiceClient.translate({
+          text: fallbackValue,
+          target: i18next.language,
+          format: "text",
+        });
 
-        if (response.status < 200 || response.status >= 300) {
-          // eslint-disable-next-line no-console
-          console.error(
-            "Error: Failed to translate content:",
-            response.statusText,
-          );
-          isFetchingTranslation[key] = false;
-        } else {
-          const result = await response.json();
-          i18next.addResource(i18next.language, ns, key, result.body);
-          isFetchingTranslation[key] = false;
+        isFetchingTranslation[key] = false;
+
+        if (response) {
+          i18next.addResource(i18next.language, ns, key, response.body);
         }
       },
     });
