@@ -189,11 +189,11 @@ interface Language {
 }
 interface AvailableLanguages extends Array<Language> {}
 interface State {
-  currentLanguage: string;
+  currentLanguageCode: string;
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
   initialMapViewport: InitialMapViewport;
-  defaultLanguage?: Language;
+  defaultLanguage: Language;
   availableLanguages?: AvailableLanguages;
 }
 
@@ -223,7 +223,7 @@ class App extends Component<Props, State> {
       label: "English",
     },
     availableLanguages: [],
-    currentLanguage: "",
+    currentLanguageCode: "",
   };
 
   async componentDidMount() {
@@ -368,7 +368,7 @@ class App extends Component<Props, State> {
     // The config and user data are now loaded.
     this.setState({
       availableLanguages: resolvedConfig.flavor.availableLanguages,
-      currentLanguage: i18next.language,
+      currentLanguageCode: i18next.language,
       defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
       initialMapViewport: {
@@ -480,10 +480,10 @@ class App extends Component<Props, State> {
     });
   };
 
-  onChangeLanguage = newLanguage => {
-    i18next.changeLanguage(newLanguage);
+  onChangeLanguage = newLanguageCode => {
+    i18next.changeLanguage(newLanguageCode);
     this.setState({
-      currentLanguage: newLanguage,
+      currentLanguageCode: newLanguageCode,
     });
   };
 
@@ -498,7 +498,8 @@ class App extends Component<Props, State> {
       onUpdateInitialMapViewport: this.onUpdateInitialMapViewport,
       isStartPageViewed: this.state.isStartPageViewed,
       onViewStartPage: this.onViewStartPage,
-      currentLanguage: this.state.currentLanguage,
+      currentLanguageCode: this.state.currentLanguageCode,
+      defaultLanguageCode: this.state.defaultLanguage.code,
     };
 
     return (
@@ -511,7 +512,7 @@ class App extends Component<Props, State> {
               <SiteHeader
                 availableLanguages={this.state.availableLanguages}
                 defaultLanguage={this.state.defaultLanguage}
-                currentLanguage={i18next.language}
+                currentLanguageCode={this.state.currentLanguageCode}
                 onChangeLanguage={this.onChangeLanguage}
               />
               <TemplateContainer
@@ -623,12 +624,7 @@ class App extends Component<Props, State> {
                     exact
                     path="/page/:pageSlug"
                     render={props => {
-                      if (
-                        !this.props.pageExists(
-                          props.match.params.pageSlug,
-                          i18next.language,
-                        )
-                      ) {
+                      if (!this.props.pageExists(props.match.params.pageSlug)) {
                         return (
                           <Suspense fallback={<Fallback />}>
                             <MapTemplate
@@ -724,7 +720,7 @@ const mapStateToProps = (
       submissionSet,
     }),
   layout: layoutSelector(state),
-  pageExists: (slug, lang) => pageExistsSelector({ state, slug, lang }),
+  pageExists: slug => pageExistsSelector({ state, slug }),
   storyConfig: storyConfigSelector(state),
   storyChapters: storyChaptersSelector(state),
   ...ownProps,

@@ -8,19 +8,25 @@ const CustomPage = props => (
   <div
     id="mapseed-custom-page-container"
     dangerouslySetInnerHTML={{
-      __html: props.pageContent(props.pageSlug, props.currentLanguage).content,
+      __html: props.pageContent({
+        pageSlug: props.pageSlug,
+        currentLanguageCode: props.currentLanguageCode,
+        defaultLanguageCode: props.defaultLanguageCode,
+      }).content,
     }}
   />
 );
 
 CustomPage.propTypes = {
-  currentLanguage: PropTypes.string.isRequired,
+  currentLanguageCode: PropTypes.string.isRequired,
+  defaultLanguageCode: PropTypes.string.isRequired,
   pageContent: PropTypes.func.isRequired,
   pageSlug: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
-  pageContent: (slug, lang) => pageSelector({ state, slug, lang }),
+  pageContent: ({ pageSlug, currentLanguageCode, defaultLanguageCode }) =>
+    pageSelector({ state, pageSlug, currentLanguageCode, defaultLanguageCode }),
 });
 
 export default connect(mapStateToProps)(CustomPage);

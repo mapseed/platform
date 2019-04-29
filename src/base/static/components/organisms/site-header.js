@@ -440,7 +440,8 @@ class SiteHeader extends React.Component {
               {
                 this.props.availableLanguages
                   .concat(this.props.defaultLanguage)
-                  .find(lang => lang.code === this.props.currentLanguage).label
+                  .find(lang => lang.code === this.props.currentLanguageCode)
+                  .label
               }{" "}
               ⌄
               <LanguagePickerMenu
@@ -481,6 +482,7 @@ class SiteHeader extends React.Component {
 
 SiteHeader.propTypes = {
   appConfig: appConfigPropType.isRequired,
+  currentLanguageCode: PropTypes.string.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   mapConfig: PropTypes.shape({

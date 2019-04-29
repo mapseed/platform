@@ -100,7 +100,8 @@ class ContentPanel extends Component {
         >
           {this.props.contentPanelComponent === "CustomPage" && (
             <CustomPage
-              currentLanguage={this.props.currentLanguage}
+              currentLanguageCode={this.props.currentLanguageCode}
+              defaultLanguageCode={this.props.defaultLanguageCode}
               pageSlug={this.props.pageSlug}
             />
           )}
@@ -136,7 +137,8 @@ ContentPanel.propTypes = {
   history: PropTypes.object.isRequired,
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
-  currentLanguage: PropTypes.string.isRequired,
+  currentLanguageCode: PropTypes.string.isRequired,
+  defaultLanguageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
   mapViewport: mapViewportPropType.isRequired,
