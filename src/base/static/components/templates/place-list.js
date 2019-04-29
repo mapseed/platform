@@ -179,6 +179,7 @@ class PlaceList extends React.Component {
               place={place}
               onLoad={measure}
               router={this.props.router}
+              t={this.props.t}
             />
           </div>
         )}
@@ -274,6 +275,6 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default withRouter(
-  connect(mapStateToProps)(translate("PlaceList")(PlaceList)),
+export default translate("PlaceList")(
+  withRouter(connect(mapStateToProps)(PlaceList)),
 );

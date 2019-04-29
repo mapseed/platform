@@ -317,6 +317,4 @@ const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(
-  translate("PlaceListItem")(PlaceListItem),
-);
+export default connect(mapStateToProps)(PlaceListItem);
