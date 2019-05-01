@@ -394,6 +394,7 @@ class PlaceDetailEditor extends Component {
                 existingPlaceId={this.props.place.id}
                 datasetSlug={this.props.place.datasetSlug}
                 fieldConfig={field.get("config").toJS()}
+                formId="placeDetailEditor"
                 attachments={this.props.place.attachments}
                 categoryConfig={this.categoryConfig}
                 disabled={this.state.isSubmitting}
