@@ -259,7 +259,7 @@ const PlaceListItem = props => {
                 )}
               </CommentsText>
               <PlaceInfoButton
-                href={`/${props.place._clientSlug}/${props.place.id}`}
+                href={`/${props.place.clientSlug}/${props.place.id}`}
               >
                 <Button color="secondary" size="small" variant="raised">
                   <SmallText>{props.t("viewOnMap", "View on map")}</SmallText>

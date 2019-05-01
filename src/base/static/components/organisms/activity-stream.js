@@ -70,7 +70,7 @@ class ActivityStream extends Component {
               title = target.title;
               anonymousName = this.props.placeConfig.anonymous_name;
               actionText = this.props.placeConfig.action_text;
-              url = `/${activity._clientSlug}/${target.id}`;
+              url = `/${activity.clientSlug}/${target.id}`;
               place = true;
               break;
             case "comments":
@@ -85,7 +85,7 @@ class ActivityStream extends Component {
               actionText = this.props.commentFormConfig.action_text;
               url =
                 place &&
-                `/${activity._clientSlug}/${place.id}/response/${target.id}`;
+                `/${activity.clientSlug}/${place.id}/response/${target.id}`;
               break;
             default:
               // If there are other action types in the collection (like

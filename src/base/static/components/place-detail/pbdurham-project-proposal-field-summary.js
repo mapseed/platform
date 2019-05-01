@@ -286,7 +286,7 @@ const PBDurhamProjectProposalFieldSummary = props => {
               return relatedIdea ? (
                 <RealatedIdeaListItem key={placeId}>
                   <RelatedIdeaLink
-                    href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
+                    href={`/${relatedIdea.clientSlug}/${relatedIdea.id}`}
                   >
                     <RegularText>{relatedIdea.title}</RegularText>
                   </RelatedIdeaLink>

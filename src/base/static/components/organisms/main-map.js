@@ -302,7 +302,7 @@ class MainMap extends Component {
         sourceId,
         createGeoJSONFromPlaces(
           this.props.filteredPlaces.filter(
-            place => place._datasetSlug === sourceId,
+            place => place.datasetSlug === sourceId,
           ),
         ).features,
       );
@@ -434,13 +434,13 @@ class MainMap extends Component {
       !this.state.isMapDraggingOrZooming &&
       this.queriedFeatures.length &&
       this.queriedFeatures[0].properties &&
-      this.queriedFeatures[0].properties._clientSlug
+      this.queriedFeatures[0].properties.clientSlug
     ) {
-      // If the topmost clicked-on feature has a _clientSlug property, there's
+      // If the topmost clicked-on feature has a clientSlug property, there's
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
       const placeId = this.queriedFeatures[0].properties.id;
-      const clientSlug = this.queriedFeatures[0].properties._clientSlug;
+      const clientSlug = this.queriedFeatures[0].properties.clientSlug;
       Mixpanel.track("Clicked place on map", { placeId });
       this.props.history.push(`/${clientSlug}/${placeId}`);
     }

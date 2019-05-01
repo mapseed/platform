@@ -34,7 +34,7 @@ const _getSocialUrl = (place, appConfig) => {
         "//",
         window.location.host,
         "/",
-        place._clientSlug + "/" + place.id,
+        place.clientSlug + "/" + place.id,
       ].join(""),
     },
     img = document.querySelector("img[src='" + components.img + "']");

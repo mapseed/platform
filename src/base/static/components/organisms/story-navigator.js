@@ -167,7 +167,7 @@ class StoryNavigator extends Component {
                   title={this.getTitle(chapter)}
                   iconUrl={this.getIconUrl(chapter, route)}
                   isSelected={this.state.currentPlaceId === chapter.get("id")}
-                  placeUrl={`${chapter.get("_clientSlug")}/${chapter.get(
+                  placeUrl={`${chapter.get("clientSlug")}/${chapter.get(
                     "id",
                   )}`}
                 />

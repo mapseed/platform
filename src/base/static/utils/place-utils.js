@@ -34,8 +34,8 @@ const createGeoJSONFromPlaces = places => {
 
 const fromGeoJSONFeature = ({ feature, datasetSlug, clientSlug }) => ({
   geometry: feature.geometry,
-  _datasetSlug: datasetSlug,
-  _clientSlug: clientSlug,
+  datasetSlug,
+  clientSlug,
   ...feature.properties,
 });
 
@@ -47,10 +47,10 @@ const fromGeoJSONFeatureCollection = ({
 }) =>
   featureCollection.features.map(feature => ({
     geometry: feature.geometry,
-    // Add a private field for the slug each Place belongs to, so we can
+    // Add a field for the slug each Place belongs to, so we can
     // filter by dataset when we need to.
-    _datasetSlug: datasetSlug,
-    _clientSlug: clientSlug,
+    datasetSlug,
+    clientSlug,
     ...feature.properties,
   }));
 
@@ -73,8 +73,8 @@ const toServerGeoJSONFeature = placeData => {
     tags,
     submission_sets,
     attachments,
-    _datasetSlug,
-    _clientSlug,
+    datasetSlug,
+    clientSlug,
     ...rest
   } = placeData;
 
