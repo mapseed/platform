@@ -253,7 +253,7 @@ class MapTemplate extends Component<Props, State> {
 
       const response = await mapseedApiClient.place.getPlace({
         datasetUrl: datasetConfig.url,
-        datasetClientSlug,
+        clientSlug: datasetClientSlug,
         datasetSlug: datasetConfig.slug,
         placeId: parseInt(placeId),
         placeParams: {
@@ -266,6 +266,7 @@ class MapTemplate extends Component<Props, State> {
           submissionSet: "places",
         }),
       });
+
       if (response) {
         // Add this Place to the places duck and update the map.
         this.props.loadPlaceAndSetIgnoreFlag(response);
