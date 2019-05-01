@@ -173,7 +173,7 @@ class Dashboard extends React.Component {
     dashboard: this.props.dashboardConfig[0],
     anchorEl: null,
     places: this.props.allPlaces.filter(
-      place => place._datasetSlug === this.props.dashboardConfig[0].datasetSlug,
+      place => place.datasetSlug === this.props.dashboardConfig[0].datasetSlug,
     ),
   };
 
@@ -187,7 +187,7 @@ class Dashboard extends React.Component {
     if (nextProps.allPlaces.length !== this.props.allPlaces.length) {
       this.setState({
         places: this.props.allPlaces.filter(
-          place => place._datasetSlug === this.state.dashboard.datasetSlug,
+          place => place.datasetSlug === this.state.dashboard.datasetSlug,
         ),
       });
     }
@@ -249,7 +249,7 @@ class Dashboard extends React.Component {
       anchorEl: null,
       dashboard: newDashboardConfig,
       places: this.props.allPlaces.filter(
-        place => place._datasetSlug === newDashboardConfig.datasetSlug,
+        place => place.datasetSlug === newDashboardConfig.datasetSlug,
       ),
     });
   };

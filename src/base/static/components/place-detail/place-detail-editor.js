@@ -97,9 +97,9 @@ class PlaceDetailEditor extends Component {
                 : fieldConfig.has("restrictToGroups")
                   ? this.props.isInAtLeastOneGroup(
                       fieldConfig.get("restrictToGroups"),
-                      this.props.place._datasetSlug,
+                      this.props.place.datasetSlug,
                     ) ||
-                    this.props.hasAdminAbilities(this.props.place._datasetSlug)
+                    this.props.hasAdminAbilities(this.props.place.datasetSlug)
                   : true,
             )
             .set("trigger", field.trigger && field.trigger.trigger_value)
@@ -172,10 +172,10 @@ class PlaceDetailEditor extends Component {
           ...this.props.place,
           ...attrs,
         },
-        datasetSlug: this.props.place._datasetSlug,
-        clientSlug: this.props.place._clientSlug,
+        datasetSlug: this.props.place.datasetSlug,
+        clientSlug: this.props.place.clientSlug,
         hasAdminAbilities: this.props.hasAdminAbilities(
-          this.props.place._datasetSlug,
+          this.props.place.datasetSlug,
         ),
       });
 
@@ -196,7 +196,7 @@ class PlaceDetailEditor extends Component {
                   attachment,
                   includePrivate: this.props.hasGroupAbilitiesInDatasets({
                     abilities: ["can_access_protected"],
-                    datasetSlugs: [this.props.place._datasetSlug],
+                    datasetSlugs: [this.props.place.datasetSlug],
                     submissionSet: "places",
                   }),
                 },
@@ -215,7 +215,7 @@ class PlaceDetailEditor extends Component {
 
         this.props.updatePlace(placeResponse);
         this.props.updateFeatureInGeoJSONSource({
-          sourceId: this.props.place._datasetSlug,
+          sourceId: this.props.place.datasetSlug,
           featureId: placeResponse.id,
           feature: toClientGeoJSONFeature(placeResponse),
         });
@@ -269,8 +269,8 @@ class PlaceDetailEditor extends Component {
         ...this.props.place,
         visible: false,
       },
-      datasetSlug: this.props.place._datasetSlug,
-      clientSlug: this.props.place._clientSlug,
+      datasetSlug: this.props.place.datasetSlug,
+      clientSlug: this.props.place.clientSlug,
     });
 
     this.setState({
@@ -280,7 +280,7 @@ class PlaceDetailEditor extends Component {
     if (response) {
       this.props.removePlace(this.props.place.id);
       this.props.removeFeatureInGeoJSONSource(
-        this.props.place._datasetSlug,
+        this.props.place.datasetSlug,
         this.props.place.id,
       );
 
@@ -392,8 +392,9 @@ class PlaceDetailEditor extends Component {
                 existingGeometry={this.props.place.geometry}
                 existingGeometryStyle={this.props.place.style}
                 existingPlaceId={this.props.place.id}
-                datasetSlug={this.props.place._datasetSlug}
+                datasetSlug={this.props.place.datasetSlug}
                 fieldConfig={field.get("config").toJS()}
+                formId="placeDetailEditor"
                 attachments={this.props.place.attachments}
                 categoryConfig={this.categoryConfig}
                 disabled={this.state.isSubmitting}

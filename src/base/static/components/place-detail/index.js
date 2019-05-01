@@ -103,7 +103,7 @@ class PlaceDetail extends Component {
       emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
       emitter.emit(
         constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        this.props.focusedPlace._datasetSlug,
+        this.props.focusedPlace.datasetSlug,
       );
     }
 
@@ -131,7 +131,7 @@ class PlaceDetail extends Component {
         this.props.hasGroupAbilitiesInDatasets({
           abilities: ["update"],
           submissionSet: "places",
-          datasetSlugs: [this.props.focusedPlace._datasetSlug],
+          datasetSlugs: [this.props.focusedPlace.datasetSlug],
         }),
     });
   }
@@ -262,7 +262,7 @@ class PlaceDetail extends Component {
     const isTagBarEditable = this.props.hasGroupAbilitiesInDatasets({
       abilities: ["update", "destroy", "create"],
       submissionSet: "tags",
-      datasetSlugs: [this.props.focusedPlace._datasetSlug],
+      datasetSlugs: [this.props.focusedPlace.datasetSlug],
     });
 
     // TODO: dissolve when flavor abstraction is ready
@@ -315,7 +315,7 @@ class PlaceDetail extends Component {
         {(this.state.isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar
             isAdmin={this.props.hasAdminAbilities(
-              this.props.focusedPlace._datasetSlug,
+              this.props.focusedPlace.datasetSlug,
             )}
             isEditModeToggled={this.props.isEditModeToggled}
             isPlaceDetailEditable={this.state.isPlaceDetailEditable}
@@ -333,7 +333,7 @@ class PlaceDetail extends Component {
           isEditModeToggled={this.props.isEditModeToggled}
           isEditable={isTagBarEditable}
           placeTags={this.props.focusedPlace.tags}
-          datasetSlug={this.props.focusedPlace._datasetSlug}
+          datasetSlug={this.props.focusedPlace.datasetSlug}
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
         />
@@ -391,7 +391,7 @@ class PlaceDetail extends Component {
         <Survey
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
-          datasetSlug={this.props.focusedPlace._datasetSlug}
+          datasetSlug={this.props.focusedPlace.datasetSlug}
           currentUser={this.props.currentUser}
           isEditModeToggled={this.props.isEditModeToggled}
           isEditable={this.state.isPlaceDetailEditable}

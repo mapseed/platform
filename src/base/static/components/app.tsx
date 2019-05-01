@@ -241,13 +241,13 @@ class App extends Component<Props, State> {
       resolvedConfig = config;
     }
 
-    // TODO: Move to API client.
-    fetch(`${resolvedConfig.app.api_root}utils/session-key?format=json`, {
-      credentials: "include",
-    }).then(async session => {
-      const sessionJson = await session.json();
-      Util.cookies.save("sa-api-sessionid", sessionJson.sessionid);
-    });
+    const sessionJSON = await mapseedApiClient.session.get(
+      resolvedConfig.app.api_root,
+    );
+
+    if (sessionJSON) {
+      Util.cookies.save("sa-api-sessionid", sessionJSON.sessionid);
+    }
 
     // Fetch and load user information.
     const authedUser = await mapseedApiClient.user.get(
