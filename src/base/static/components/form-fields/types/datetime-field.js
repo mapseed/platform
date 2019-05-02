@@ -73,7 +73,7 @@ class DatetimeField extends Component {
                 onFocus={openCalendar}
                 placeholder={this.props.t(
                   `datetimeFieldPlaceholder${this.props.formId}${
-                    this.prop.name
+                    this.props.name
                   }`,
                   this.props.placeholder || "Select a date",
                 )}
