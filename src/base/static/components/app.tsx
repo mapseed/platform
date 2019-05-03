@@ -87,7 +87,7 @@ browserUpdate({
     c: -2, // Chrome, last 2 versions
     e: -2, // Edge, last 2 versions
     f: -2, // Firefox, last 2 versions
-    i: 11, // IE >= 11.0
+    i: 12, // All versions of IE
     s: -2, // Safari, last 2 versions
   },
 });
