@@ -744,7 +744,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   loadDatasetsConfig: config => dispatch(loadDatasetsConfig(config)),
   loadDashboardConfig: config => dispatch(loadDashboardConfig(config)),
   loadMapConfig: config => dispatch(loadMapConfig(config)),
-  loadPlaceConfig: config => dispatch(loadPlaceConfig(config)),
+  loadPlaceConfig: (config, user) => dispatch(loadPlaceConfig(config, user)),
   loadLeftSidebarConfig: config => dispatch(loadLeftSidebarConfig(config)),
   loadRightSidebarConfig: config => dispatch(loadRightSidebarConfig(config)),
   loadStoryConfig: config => dispatch(loadStoryConfig(config)),
