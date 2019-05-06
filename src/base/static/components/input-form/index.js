@@ -348,6 +348,8 @@ class InputForm extends Component {
     // Run geospatial analyses:
     if (this.selectedCategoryConfig.geospatialAnalysis) {
       this.selectedCategoryConfig.geospatialAnalysis.forEach(config => {
+        console.log("config", config)
+
         const results = geospatialAnalyses[config.type]({
           config,
           placeCoordinates: attrs.geometry.coordinates,

@@ -967,6 +967,19 @@
               "type": "countByUniquePropertyValues",
               "property": "year"
             }
+          },
+          {
+            "name": "nearby_original_riverpath_sections",
+            "type": "aggregatePolygonsOverlappingBuffer",
+            "mapboxSource": "sample-vector-a",
+            "sourceLayer": "historical_river_pathgeojson",
+            "buffer": {
+              "distance": 30,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "totalCount"
+            }
           }
         ],
         "value": "question",
