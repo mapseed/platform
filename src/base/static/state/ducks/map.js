@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-
 // Selectors:
 export const mapViewportSelector = state => state.map.viewport;
 export const mapStyleSelector = state => state.map.style;
@@ -128,7 +127,11 @@ export function removeFeatureInGeoJSONSource(sourceId, featureId) {
   };
 }
 
-export function loadMapStyle(mapConfig, datasetsConfig) {
+export function loadMapStyle({
+  mapConfig,
+  datasetsConfig,
+  analysisTargets = [],
+}) {
   const style = {
     sources: {
       ...mapConfig.mapboxSources,
@@ -193,6 +196,34 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
               visibility: "visible",
             },
           })),
+      )
+      .concat(
+        // For geospatial analysis purposes, we need to make sure the map 
+        // source that we're analayzing are available at the time of Place
+        // submisison. So we add a permanently invisible layer for each source
+        // we'd like to perform analysis on. This ensure the target sources are
+        // always loaded and available.
+        // TODO: Do we need circle and line layers as well for Point and
+        // LineString features?
+        analysisTargets.map(target => {
+          const layer = {
+            id: `${target.mapboxSource}__analysis-layer`,
+            type: "fill",
+            source: target.mapboxSource,
+            paint: {
+              "fill-opacity": 0,
+            },
+            layout: {
+              visibility: "visible",
+            },
+          };
+
+          if (target.sourceLayer) {
+            layer["source-layer"] = target.sourceLayer;
+          }
+
+          return layer;
+        }),
       ),
   };
 

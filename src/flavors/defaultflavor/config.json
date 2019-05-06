@@ -322,6 +322,7 @@
           {
             "id": "demo-featured-focused-points",
             "type": "symbol",
+            "source": "demo-featured",
             "filter": ["==", ["get", "location_type"], "demo-featured"],
             "layout": {
               "icon-allow-overlap": true,
@@ -504,6 +505,7 @@
     "place_detail": [
       {
         "category": "demo-featured",
+        "formId": "demo-featured",
         "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
@@ -852,12 +854,21 @@
       },
       {
         "category": "observation",
+        "formId": "observation",
         "includeOnForm": true,
         "includeOnList": true,
         "submitter_editing_supported": true,
         "name": "location_type",
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
+        "geospatialAnalysis": [
+          {
+            "name": "LID_master_score",
+            "type": "pointInPolygon",
+            "mapboxSource": "sample-json-b",
+            "propertiesToPluck": ["LID_Checklist_Master_score", "CLASS_DESC"]
+          }
+        ],
         "value": "observation",
         "label": "Observation",
         "fields": [
@@ -928,6 +939,7 @@
       },
       {
         "category": "question",
+        "formId": "question",
         "includeOnForm": true,
         "includeOnList": true,
         "submitter_editing_supported": true,
@@ -984,6 +996,7 @@
       },
       {
         "category": "idea",
+        "formId": "idea",
         "includeOnForm": true,
         "includeOnList": true,
         "submitter_editing_supported": true,

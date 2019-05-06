@@ -147,7 +147,6 @@ class MainMap extends Component {
     isMapDraggingOrZooming: false,
   };
 
-  mapRef = createRef();
   queriedFeatures = [];
   isMapTransitioning = false;
 
@@ -158,7 +157,7 @@ class MainMap extends Component {
     // status state if a new type of event is fired. It's necessary to attach
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
-    this.map = this.mapRef.current.getMap();
+    this.map = this.props.mainMapRef.current.getMap();
     this.map.on("error", evt => {
       if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
         return;
@@ -485,7 +484,7 @@ class MainMap extends Component {
         />
         <MapGL
           attributionControl={false}
-          ref={this.mapRef}
+          ref={this.props.mainMapRef}
           width={this.props.mapContainerDimensions.width}
           height={this.props.mapContainerDimensions.height}
           latitude={this.props.mapViewport.latitude}
@@ -594,6 +593,7 @@ MainMap.propTypes = {
       }),
     ),
   }).isRequired,
+  mainMapRef: PropTypes.object.isRequired,
   mapConfig: mapConfigPropType.isRequired,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,

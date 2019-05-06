@@ -44,18 +44,9 @@ import { jumpTo } from "../../utils/scroll-helpers";
 
 import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
+import geospatialAnalyses from "../../utils/geospatial-utils";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
-
-// TEMPORARY: We define flavor hooks here for the time being.
-const MYWATER_SCHOOL_DISTRICTS = require("../../../../flavors/central-puget-sound/static/school-districts.json");
-const hooks = {
-  myWaterAddDistrict: attrs => {
-    attrs.district = MYWATER_SCHOOL_DISTRICTS[attrs["school-name"]] || "";
-
-    return attrs;
-  },
-};
 
 class InputForm extends Component {
   constructor(props) {
@@ -78,6 +69,8 @@ class InputForm extends Component {
   }
 
   componentDidMount() {
+    this.mainMap = this.props.mainMapRef.current.getMap();
+
     if (this.selectedCategoryConfig.multi_stage) {
       const stageConfig = this.selectedCategoryConfig.multi_stage[
         this.state.currentStage - 1
@@ -96,6 +89,9 @@ class InputForm extends Component {
       this.updateLayerGroupVisibilities(
         this.selectedCategoryConfig.visibleLayerGroupIds,
       );
+
+    this.selectedCategoryConfig.geospatialAnalysis &&
+      this.updateLayerGroupVisibilities;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -349,11 +345,24 @@ class InputForm extends Component {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
 
-    // Fire pre-save hook.
-    // The pre-save hook allows flavors to attach arbitrary data to the attrs
-    // object before submission to the database.
-    if (this.props.customHooks && this.props.customHooks.preSave) {
-      attrs = hooks[this.props.customHooks.preSave](attrs);
+    // Run geospatial analyses:
+    if (this.selectedCategoryConfig.geospatialAnalysis) {
+      this.selectedCategoryConfig.geospatialAnalysis.forEach(config => {
+        const results = geospatialAnalyses[config.type]({
+          config,
+          placeCoordinates: attrs.geometry.coordinates,
+          sourceFeatures: this.mainMap.querySourceFeatures(config.mapboxSource, {
+            // sourceLayer is needed for vector tile layers only.
+            sourceLayer: config.sourceLayer || null,
+            filter: config.filter || null,
+          }),
+        });
+
+        attrs = {
+          ...attrs,
+          ...results,
+        };
+      });
     }
 
     const placeResponse = await mapseedApiClient.place.create({
@@ -652,6 +661,7 @@ InputForm.propTypes = {
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layout: PropTypes.string.isRequired,
+  mainMapRef: PropTypes.object.isRequired,
   mapConfig: PropTypes.object.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,

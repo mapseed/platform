@@ -125,6 +125,7 @@ class FormCategoryMenuWrapper extends Component {
         )}
         {this.state.selectedCategory && (
           <InputForm
+            mainMapRef={this.props.mainMapRef}
             contentPanelInnerContainerRef={
               this.props.contentPanelInnerContainerRef
             }
@@ -156,6 +157,7 @@ FormCategoryMenuWrapper.propTypes = {
   ]),
   containers: PropTypes.instanceOf(NodeList),
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
+  mainMapRef: PropTypes.object.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onUpdateMapViewport: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,

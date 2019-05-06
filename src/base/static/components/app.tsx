@@ -301,7 +301,18 @@ class App extends Component<Props, State> {
     this.props.loadPagesConfig(resolvedConfig.pages);
     this.props.loadNavBarConfig(resolvedConfig.nav_bar);
     this.props.loadCustomComponentsConfig(resolvedConfig.custom_components);
-    this.props.loadMapStyle(resolvedConfig.map, resolvedConfig.datasets);
+    this.props.loadMapStyle({
+      mapConfig: resolvedConfig.map,
+      datasetsConfig: resolvedConfig.datasets,
+      analysisTargets: resolvedConfig.place.place_detail
+        .filter(detail => detail.geospatialAnalysis)
+        .map(detail => detail.geospatialAnalysis)
+        .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+        .map(analysis => ({
+          mapboxSource: analysis.mapboxSource,
+          sourceLayer: analysis.sourceLayer,
+        })),
+    });
     resolvedConfig.dashboard &&
       this.props.loadDashboardConfig(resolvedConfig.dashboard);
 
@@ -755,8 +766,10 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   loadNavBarConfig: config => dispatch(loadNavBarConfig(config)),
   loadCustomComponentsConfig: config =>
     dispatch(loadCustomComponentsConfig(config)),
-  loadMapStyle: (mapConfig, datasetsConfig) =>
-    dispatch(loadMapStyle(mapConfig, datasetsConfig)),
+  loadMapStyle: ({ mapConfig, datasetsConfig, analysisTargets }) =>
+    dispatch(
+      loadMapStyle({ mapConfig, datasetsConfig, analysisTargets }),
+    ),
   loadUser: user => dispatch(loadUser(user)),
 });
 
