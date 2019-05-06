@@ -954,6 +954,21 @@
         "name": "location_type",
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-question.png",
+        "geospatialAnalysis": [
+          {
+            "name": "num_grants",
+            "type": "aggregatePointsInBuffer",
+            "mapboxSource": "sample-json-a",
+            "buffer": {
+              "distance": 5,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "countByUniquePropertyValues",
+              "property": "year"
+            }
+          }
+        ],
         "value": "question",
         "label": "Question",
         "fields": [
@@ -964,16 +979,6 @@
             "prompt": "Title of your question:",
             "display_prompt": "Title:",
             "placeholder": "Enter title...",
-            "optional": false
-          },
-          {
-            "name": "datetime_field",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "placeholder": "Please select a date",
-            "prompt": "Datetime field prompt:",
-            "display_prompt": "Rendered datetime:",
             "optional": false
           },
           {

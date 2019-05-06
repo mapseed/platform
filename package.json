@@ -52,6 +52,8 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "@turf/boolean-point-in-polygon": "^6.0.1",
+    "@turf/buffer": "^5.1.5",
+    "@turf/points-within-polygon": "^5.1.5",
     "@types/prop-types": "^15.7.1",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",

@@ -358,6 +358,8 @@ class InputForm extends Component {
           }),
         });
 
+        console.log("results", results)
+
         attrs = {
           ...attrs,
           ...results,
