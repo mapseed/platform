@@ -767,9 +767,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   loadCustomComponentsConfig: config =>
     dispatch(loadCustomComponentsConfig(config)),
   loadMapStyle: ({ mapConfig, datasetsConfig, analysisTargets }) =>
-    dispatch(
-      loadMapStyle({ mapConfig, datasetsConfig, analysisTargets }),
-    ),
+    dispatch(loadMapStyle({ mapConfig, datasetsConfig, analysisTargets })),
   loadUser: user => dispatch(loadUser(user)),
 });
 

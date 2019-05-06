@@ -348,19 +348,18 @@ class InputForm extends Component {
     // Run geospatial analyses:
     if (this.selectedCategoryConfig.geospatialAnalysis) {
       this.selectedCategoryConfig.geospatialAnalysis.forEach(config => {
-        console.log("config", config)
-
         const results = geospatialAnalyses[config.type]({
           config,
           placeCoordinates: attrs.geometry.coordinates,
-          sourceFeatures: this.mainMap.querySourceFeatures(config.mapboxSource, {
-            // sourceLayer is needed for vector tile layers only.
-            sourceLayer: config.sourceLayer || null,
-            filter: config.filter || null,
-          }),
+          sourceFeatures: this.mainMap.querySourceFeatures(
+            config.mapboxSource,
+            {
+              // sourceLayer is needed for vector tile layers only.
+              sourceLayer: config.sourceLayer || null,
+              filter: config.filter || null,
+            },
+          ),
         });
-
-        console.log("results", results)
 
         attrs = {
           ...attrs,

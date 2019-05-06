@@ -974,7 +974,7 @@
             "mapboxSource": "sample-vector-a",
             "sourceLayer": "historical_river_pathgeojson",
             "buffer": {
-              "distance": 30,
+              "distance": 5,
               "units": "miles"
             },
             "aggregator": {
