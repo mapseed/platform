@@ -21,13 +21,20 @@ export default {
     }
 
     return foundFeature
-      ? config.propertiesToPluck.reduce((memo, property) => {
-          return {
+      ? config.propertiesToPluck.reduce(
+          (memo, property) => ({
             ...memo,
-            [property]: foundFeature.properties[property],
-          };
-        }, {})
-      : null;
+            [property.name]: foundFeature.properties[property.name],
+          }),
+          {},
+        )
+      : config.propertiesToPluck.reduce(
+          (memo, property) => ({
+            ...memo,
+            [property.name]: property.fallbackValue,
+          }),
+          {},
+        );
   },
   aggregatePointsInRadius: () => {},
 };

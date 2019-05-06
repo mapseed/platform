@@ -866,7 +866,15 @@
             "name": "LID_master_score",
             "type": "pointInPolygon",
             "mapboxSource": "sample-json-b",
-            "propertiesToPluck": ["LID_Checklist_Master_score", "CLASS_DESC"]
+            "propertiesToPluck": [
+              {
+                "name": "LID_Checklist_Master_score"
+              },
+              {
+                "name": "CLASS_DESC",
+                "fallbackValue": "This is a fallback value"
+              }
+            ]
           }
         ],
         "value": "observation",
