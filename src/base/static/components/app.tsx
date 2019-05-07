@@ -1,4 +1,5 @@
-import React, { Component, createRef, lazy, Suspense } from "react";
+import * as React from "react"
+import { Component, createRef, lazy, Suspense } from "react";
 import {
   Route,
   RouteComponentProps,
@@ -29,6 +30,7 @@ import ShaTemplate from "./templates/sha";
 const DashboardTemplate = lazy(() => import("./templates/dashboard"));
 const ListTemplate = lazy(() => import("./templates/place-list"));
 const MapTemplate = lazy(() => import("./templates/map"));
+const ReportTemplate = lazy(() => import("./templates/report"));
 
 // @ts-ignore
 import config from "config";
@@ -624,6 +626,17 @@ class App extends Component<Props, State> {
                             }
                             apiRoot={this.props.appConfig.api_root}
                           />
+                        </Suspense>
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/print-report/:datasetClientSlug/:placeId"
+                    render={props => {
+                      return (
+                        <Suspense fallback={<Fallback />}>
+                          <ReportTemplate {...props.match} />
                         </Suspense>
                       );
                     }}

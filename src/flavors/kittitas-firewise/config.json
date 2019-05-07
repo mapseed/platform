@@ -40,8 +40,8 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#e57c04",
-        "headerFontFamily": "PTSans,sans-serif",
-        "bodyFontFamily": "PTSans,sans-serif"
+        "titleFontFamily": "PTSans,sans-serif",
+        "bodyFontFamily": "Raleway-ExtraLight,sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#e57c04",
@@ -4606,7 +4606,17 @@
           },
           {
             "start_field_index": 32,
-            "end_field_index": 46,
+            "end_field_index": 45,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 46,
+            "end_field_index": 50,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wildfire-start-sites",
@@ -4799,6 +4809,25 @@
           {
             "name": "pet_food",
             "type": "common_form_element"
+          },
+          {
+            "name": "private-landowner_email",
+            "type": "text",
+            "optional": true,
+            "placeholder": "Your email address will never be shared",
+            "prompt": "What is your email address?"
+          },
+          {
+            "name": "private-landowner_phone",
+            "type": "text",
+            "prompt": "What is your phone number?",
+            "placeholder": "Your phone number will never be shared",
+            "optional": false
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "label": "Submit!"
           }
         ]
       }
@@ -5530,8 +5559,5 @@
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
     }
-  ],
-  "custom_components": {
-    "FieldSummary": "PalouseFieldSummary"
-  }
+  ]
 }

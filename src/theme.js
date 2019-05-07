@@ -39,8 +39,16 @@ export const globalStyles = css`
     src: url("/static/css/Raleway-Regular.ttf");
   }
   @font-face {
+    font-family: "Raleway-ExtraLight";
+    src: url("/static/css/Raleway-ExtraLight.ttf");
+  }
+  @font-face {
     font-family: "PTSans";
     src: url("/static/css/PT-Sans-Regular.ttf");
+  }
+  @font-face {
+    font-family: "PTSansBold";
+    src: url("/static/css/PT-Sans-Bold.ttf");
   }
 
   // These styles are intended to mimic the styling of our Atoms on custom
