@@ -173,7 +173,7 @@ type Props = StateProps &
   TransProps;
 
 class MapTemplate extends Component<Props, State> {
-  private mainMapRef = createRef<HTMLDivElement>(); // Is this actually a DivElement?
+  private mainMapRef = createRef<HTMLDivElement>();
   private mapContainerRef = createRef<HTMLDivElement>();
   private addPlaceButtonRef = createRef<HTMLDivElement>();
 

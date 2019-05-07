@@ -5,32 +5,32 @@ import booleanOverlap from "@turf/boolean-overlap";
 import booleanContains from "@turf/boolean-contains";
 import flatten from "@turf/flatten";
 import hash from "object-hash";
+import { featureCollection } from "@turf/helpers";
 
-const getBufferFeature = (placeCoordinates, bufferOptions) => {
-  return buffer(
-    {
-      type: "Point",
-      coordinates: placeCoordinates,
-    },
-    bufferOptions.distance,
-    {
+const getBufferFeature = (placeGeometry, bufferOptions) => {
+  try {
+    return buffer(placeGeometry, bufferOptions.distance, {
       units: bufferOptions.units,
-    },
-  );
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+
+    return null;
+  }
 };
 
 export default {
-  // TODO: Handle non-polygonal data gracefully
   pointInPolygon: ({
     config = { propertiesToPluck: [] },
     sourceFeatures,
-    placeCoordinates,
+    placeGeometry,
   }) => {
     // Find the first polygon in which the passed point resides.
     let foundFeature;
     try {
       foundFeature = sourceFeatures.find(feature => {
-        return booleanPointInPolygon(placeCoordinates, feature);
+        return booleanPointInPolygon(placeGeometry, feature);
       });
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -55,13 +55,15 @@ export default {
           {},
         );
   },
-  aggregatePointsInBuffer: ({ placeCoordinates, sourceFeatures, config }) => {
-    const bufferFeature = getBufferFeature(placeCoordinates, config.buffer);
+  aggregatePointsInBuffer: ({ placeGeometry, sourceFeatures, config }) => {
+    const bufferFeature = getBufferFeature(placeGeometry, config.buffer);
+
+    if (!bufferFeature) {
+      return {};
+    }
+
     const pointsWithin = pointsWithinPolygon(
-      {
-        type: "FeatureCollection",
-        features: sourceFeatures,
-      },
+      featureCollection(sourceFeatures),
       bufferFeature,
     );
 
@@ -100,31 +102,49 @@ export default {
     }
   },
   aggregatePolygonsOverlappingBuffer: ({
-    placeCoordinates,
+    placeGeometry,
     sourceFeatures,
     config,
   }) => {
-    const bufferFeature = getBufferFeature(placeCoordinates, config.buffer);
+    const bufferFeature = getBufferFeature(placeGeometry, config.buffer);
+
+    if (!bufferFeature) {
+      return {};
+    }
 
     sourceFeatures = sourceFeatures.reduce((memo, feature) => {
       if (feature.geometry.type === "MultiPolygon") {
         // Flatten any MultiPolygons to arrays of individual Polygon features,
         // because `booleanOverlap` can only compare like feature types.
-        feature = flatten(feature).features;
+        try {
+          feature = flatten(feature).features;
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.error(e);
+
+          feature = [];
+        }
       }
 
       return memo.concat(feature);
     }, []);
 
     let overlappingFeatures = sourceFeatures.filter(feature => {
-      return (
-        // Technically, we're doing more than an overlap comparison here.
-        // `boooleanOverlap` returns features which are strictly overlapping; we
-        // also want to return features which are entirely contained by the
-        // buffer.
-        booleanOverlap(bufferFeature, feature) ||
-        booleanContains(bufferFeature, feature)
-      );
+      try {
+        return (
+          // Technically, we're doing more than an overlap comparison here.
+          // `boooleanOverlap` returns features which are strictly overlapping; we
+          // also want to return features which are entirely contained by the
+          // buffer.
+          booleanOverlap(bufferFeature, feature) ||
+          booleanContains(bufferFeature, feature)
+        );
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+
+        return false;
+      }
     });
 
     const propertyHashes = new Set();
@@ -135,12 +155,9 @@ export default {
       // See: https://docs.mapbox.com/mapbox-gl-js/api/#map#querysourcefeatures
       //
       // Duplicates might also exist as a result of flattening a MultiPolygon
-      // above. In both cases we want to remove any duplicates as duplicates
-      // will throw off the aggregation we return. We determine duplicate
-      // features by comparing hashes of their properties objects, since we
-      // don't have reliable access to a unique feature id for third-party data
-      // sources.
-      // See: https://github.com/mapbox/mapbox-gl-js/issues/6019
+      // above. We determine duplicate features by comparing hashes of their
+      // properties objects, since we don't have reliable access to a unique
+      // feature id for third-party data sources.
       const propertyHash = hash(overlappingFeature.properties);
 
       if (propertyHashes.has(propertyHash)) {

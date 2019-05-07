@@ -56,6 +56,7 @@
     "@turf/boolean-point-in-polygon": "^6.0.1",
     "@turf/buffer": "^5.1.5",
     "@turf/flatten": "^5.1.5",
+    "@turf/helpers": "^6.1.4",
     "@turf/points-within-polygon": "^5.1.5",
     "@types/prop-types": "^15.7.1",
     "@types/react": "^16.8.13",

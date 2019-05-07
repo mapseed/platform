@@ -346,17 +346,20 @@ class InputForm extends Component {
       });
 
     // Run geospatial analyses:
-    if (this.selectedCategoryConfig.geospatialAnalysis) {
+    if (
+      this.selectedCategoryConfig.geospatialAnalysis &&
+      attrs.geometry.type === "Point"
+    ) {
       this.selectedCategoryConfig.geospatialAnalysis.forEach(config => {
         const results = geospatialAnalyses[config.type]({
           config,
-          placeCoordinates: attrs.geometry.coordinates,
+          placeGeometry: attrs.geometry,
           sourceFeatures: this.mainMap.querySourceFeatures(
             config.mapboxSource,
             {
-              // sourceLayer is needed for vector tile layers only.
-              sourceLayer: config.sourceLayer || null,
-              filter: config.filter || null,
+              // `sourceLayer` is relevant for vector tile sources only.
+              sourceLayer: config.sourceLayer,
+              filter: config.filter,
             },
           ),
         });

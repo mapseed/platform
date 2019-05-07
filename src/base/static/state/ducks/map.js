@@ -200,9 +200,11 @@ export function loadMapStyle({
       .concat(
         // For geospatial analysis purposes, we need to make sure the map
         // sources that we're analayzing are available at the time of Place
-        // submisison. So we add a permanently invisible layer for each source
-        // we'd like to perform analysis on. This ensures the target sources are
-        // always loaded and available.
+        // submission. So we add a permanently invisible layer for each source
+        // we'd like to perform analysis on. Setting the `visibility` `layout`
+        // property to `visible` ensures the source's data will be loaded and
+        // available; setting the `opacity` to `0` ensures the layer will never
+        // be visible to the user.
         // TODO: Do we need circle and line layers as well for Point and
         // LineString features?
         analysisTargets.map((target, i) => {
