@@ -89,9 +89,6 @@ class InputForm extends Component {
       this.updateLayerGroupVisibilities(
         this.selectedCategoryConfig.visibleLayerGroupIds,
       );
-
-    this.selectedCategoryConfig.geospatialAnalysis &&
-      this.updateLayerGroupVisibilities;
   }
 
   componentDidUpdate(prevProps, prevState) {
