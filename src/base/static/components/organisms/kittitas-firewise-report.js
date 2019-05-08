@@ -119,54 +119,111 @@ const MainPanelSectionInfo = styled("div")({
 
 const MainPanelSectionText = styled(props => {
   return (
-    <RegularText className={props.className} display="block">
+    <LargeText className={props.className} display="block">
       {props.children}
-    </RegularText>
+    </LargeText>
   );
 })(() => ({
   margin: "0 0 16px 0",
+}));
+
+const WildfireRiskSummaryStats = styled("div")({
+  float: "right",
+});
+
+const SummaryStatRow = styled("div")({
+  display: "flex",
+  alignItems: "center",
+});
+
+const StatSummary = styled(RegularText)({
+  fontStyle: "italic",
+  color: "#999",
+  marginLeft: "16px",
+  width: "125px",
+});
+
+const BigStat = styled(LargeTitle)({
+  flex: 1,
+  fontSize: "3rem",
+  textAlign: "center",
+});
+
+const donutSettings = {
+  low: { color: "#ffffb2", dashSegment: 25 },
+  moderate: { color: "#fecc5c", dashSegment: 50 },
+  high: { color: "#fd8d3c", dashSegment: 75 },
+  extreme: { color: "#e31a1c", dashSegment: 95 },
+};
+
+const SimpleDonutChart = props => (
+  <svg width="150px" height="150px" viewBox="0 0 42 42">
+    <circle cx="21" cy="21" r="15.91549430918954" fill="#fff" />
+    <circle
+      cx="21"
+      cy="21"
+      r="15.91549430918954"
+      fill="transparent"
+      stroke="#eee"
+      strokeWidth="5"
+    />
+    <circle
+      cx="21"
+      cy="21"
+      r="15.91549430918954"
+      fill="transparent"
+      stroke={donutSettings["high"].color}
+      strokeWidth="5"
+      strokeDasharray={`${donutSettings["high"].dashSegment} ${100 -
+        donutSettings["high"].dashSegment}`}
+      strokeDashoffset="-25"
+    />
+  </svg>
+);
+
+const Page = styled("div")({
+  width: "1063px",
+  height: "1375px",
+  margin: "0 auto",
+  color: "#444",
+});
+
+const PageHeader = styled(props => {
+  return (
+    <header className={props.className}>
+      <Image
+        css={css`
+          height: 48px;
+        `}
+        src="/static/css/images/logo.png"
+        alt="Firewise logo"
+      />
+      <LargeTitle
+        css={css`
+          font-family: PTSansBold, sans-serif;
+          float: right;
+          margin: 0;
+        `}
+      >
+        Landowner Report
+      </LargeTitle>
+    </header>
+  );
+})(() => ({
+  height: "56px",
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: "rgba(229, 207, 207, 0.4)",
+  borderTop: "3px solid #ef5f46",
+  padding: "10px",
 }));
 
 const KittitasFirewiseReport = props => {
   const { place } = props;
 
   return (
-    <div
-      css={css`
-        width: 1063px;
-        height: 1375px;
-        margin: 0 auto;
-        padding: 24px;
-        color: #444;
-      `}
-    >
-      <header
-        css={css`
-          height: 56px;
-          display: flex;
-          align-items: center;
-          background-color: rgba(229, 207, 207, 0.4);
-          border-top: 3px solid #ef5f46;
-          padding: 10px;
-        `}
-      >
-        <Image
-          css={css`
-            height: 48px;
-          `}
-          src="/static/css/images/logo.png"
-          alt="Firewise logo"
-        />
-        <LargeTitle
-          css={css`
-            font-familt: PTSansBold, sans-serif;
-            float: right;
-            margin: 0;
-          `}
-        >
-          Landowner Report
-        </LargeTitle>
-      </header>
+    <Page>
+      <PageHeader date={place.created_datetime} coords={place.geometry} />
       <section
         css={css`
           position: relative;
@@ -264,15 +321,26 @@ const KittitasFirewiseReport = props => {
           <MainPanelSection>
             <MainPanelTitle>Wildfire In Kittitas County</MainPanelTitle>
             <MainPanelSectionInfo>
-              <Image
+              <figure
                 css={css`
-                  margin: 0 0 8px 8px;
+                  margin: 0 0 12px 12px;
                   float: right;
                   width: 65%;
                 `}
-                src="/static/css/images/taylor-bridge-fire.jpg"
-                alt="Taylor Bridge Fire"
-              />
+              >
+                <Image
+                  css={css`
+                    max-width: 100%;
+                  `}
+                  src="/static/css/images/taylor-bridge-fire.jpg"
+                  alt="Taylor Bridge Fire"
+                />
+                <figcaption>
+                  <RegularText>
+                    <em>The Taylor Bridge Fire burns in 2012.</em>
+                  </RegularText>
+                </figcaption>
+              </figure>
               <MainPanelSectionText>
                 Thank you for taking the time to report your wildfire
                 preparedness actions.
@@ -286,11 +354,76 @@ const KittitasFirewiseReport = props => {
                 locations in Kittitas County experience some level of wildfire
                 risk.
               </MainPanelSectionText>
+              <MainPanelSectionText>
+                Please note that this report is not a substitute for an onsite
+                fire risk audit. See the sidebar for information about auditing
+                your home and property for wildfire risk.
+              </MainPanelSectionText>
+            </MainPanelSectionInfo>
+          </MainPanelSection>
+          <MainPanelSection>
+            <MainPanelTitle>Understand Your Risk</MainPanelTitle>
+            <WildfireRiskSummaryStats>
+              <SummaryStatRow>
+                <SimpleDonutChart />
+                <StatSummary>General wildfire risk in your area</StatSummary>
+              </SummaryStatRow>
+              <SummaryStatRow>
+                <BigStat>4.7</BigStat>
+                <StatSummary>
+                  Average fire starts in your area per year
+                </StatSummary>
+              </SummaryStatRow>
+              <SummaryStatRow>
+                <BigStat>2</BigStat>
+                <StatSummary>
+                  Number of large wildfires in your area since 1973
+                </StatSummary>
+              </SummaryStatRow>
+            </WildfireRiskSummaryStats>
+            <MainPanelSectionInfo>
+              <MainPanelSectionText>
+                Wildfire risk varies by location throughout Kittitas County.
+              </MainPanelSectionText>
+              <MainPanelSectionText>
+                According to data sources from the State of Washington, wildfire
+                risk in your area is high. The average number of fire starts
+                (including starts from human activity and from lightning) per
+                year in your area is 4.7. Since 1973, 2 large wildfires have
+                burned in your area.
+              </MainPanelSectionText>
+              <MainPanelSectionText>Data sources used:</MainPanelSectionText>
+              <ul>
+                <li>
+                  <RegularText>
+                    Washington Large Fires 1973-2018:{" "}
+                    <ExternalLink href="https://bit.ly/fD34Xsd32">
+                      bit.ly/fD34Xsd32
+                    </ExternalLink>
+                  </RegularText>
+                </li>
+                <li>
+                  <RegularText>
+                    DNR Fire Statistics 2008-2018:{" "}
+                    <ExternalLink href="https://bit.ly/FD32ndf98">
+                      bit.ly/FD32ndf98
+                    </ExternalLink>
+                  </RegularText>
+                </li>
+                <li>
+                  <RegularText>
+                    WUI High Risk Communities:{" "}
+                    <ExternalLink href="https://bit.ly/hh3bcds23">
+                      bit.ly/hh3bcds23
+                    </ExternalLink>
+                  </RegularText>
+                </li>
+              </ul>
             </MainPanelSectionInfo>
           </MainPanelSection>
         </MainPanel>
       </section>
-    </div>
+    </Page>
   );
 };
 
