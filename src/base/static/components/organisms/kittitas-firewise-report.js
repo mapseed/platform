@@ -1,222 +1,37 @@
 /** @jsx jsx */
 import React from "react";
 import { css, jsx } from "@emotion/core";
-import styled from "@emotion/styled";
 
 import {
   RegularText,
   LargeText,
-  SmallTitle,
-  LargeTitle,
   ExternalLink,
 } from "../atoms/typography";
-import { HorizontalRule } from "../atoms/layout";
-import { Image, FontAwesomeIcon } from "../atoms/imagery";
+import { Image } from "../atoms/imagery";
 import fieldResponseFilter from "../../utils/field-response-filter";
 import { placePropType } from "../../state/ducks/places";
-
-const RightSidebar = styled("section")({
-  float: "right",
-  height: "calc(100% - 32px)",
-  padding: "16px",
-  width: "350px",
-  backgroundImage: "url(/static/css/images/topography-background.svg)",
-  backgroundColor: "rgba(229, 207, 207, 0.4)",
-  borderTop: "3px solid #ef5f46",
-});
-
-const SectionTitle = styled(LargeTitle)({
-  textTransform: "uppercase",
-  margin: 0,
-  fontFamily: "PTSansBold,sans-serif",
-});
-
-const ResourcesInfo = styled("div")({
-  marginBottom: "16px",
-  marginTop: "40px",
-});
-
-const SectionSubtitle = styled(SmallTitle)({
-  fontFamily: "PTSansBold, sans-serif",
-  marginBottom: 0,
-});
-
-const ResourceName = styled(SmallTitle)({
-  marginTop: 0,
-  fontWeight: 200,
-  fontStyle: "italic",
-});
-
-const ResourceRelatedInfo = styled("ul")({
-  listStyle: "none",
-  paddingLeft: "24px",
-});
-
-const ExternalLinkWithBreak = styled(ExternalLink)({
-  wordBreak: "break-all",
-});
-
-const ResourceRelatedInfoItem = styled(props => {
-  return (
-    <li className={props.className}>
-      <FontAwesomeIcon
-        css={css`
-          margin-right: 16px;
-        `}
-        fontSize="1.4rem"
-        color="#555"
-        faClassname={props.faClassname}
-      />
-      <LargeText>{props.children}</LargeText>
-    </li>
-  );
-})(() => ({
-  display: "flex",
-  alignItems: "center",
-  marginTop: "16px",
-}));
-
-const MainPanel = styled("section")({
-  width: "640px",
-  height: "100%",
-});
-
-const MainPanelSection = styled("div")({
-  marginBottom: "36px",
-});
-
-const MainPanelTitle = styled(props => {
-  return (
-    <div className={props.className}>
-      <div
-        css={css`
-          display: flex;
-          align-items: baseline;
-        `}
-      >
-        <Image
-          css={css`
-            align-self: baseline;
-            width: 48px;
-          `}
-          src="/static/css/images/fire-icon.png"
-          alt="Fire icon"
-        />
-        <SectionTitle>{props.children}</SectionTitle>
-      </div>
-      <HorizontalRule spacing="tiny" />
-    </div>
-  );
-})(() => ({
-  borderLeft: "6px solid #e49494",
-  padding: "8px 0 8px 16px",
-  marginBottom: "8px",
-}));
-
-const MainPanelSectionInfo = styled("div")({
-  paddingLeft: "36px",
-});
-
-const MainPanelSectionText = styled(props => {
-  return (
-    <LargeText className={props.className} display="block">
-      {props.children}
-    </LargeText>
-  );
-})(() => ({
-  margin: "0 0 16px 0",
-}));
-
-const WildfireRiskSummaryStats = styled("div")({
-  float: "right",
-});
-
-const SummaryStatRow = styled("div")({
-  display: "flex",
-  alignItems: "center",
-});
-
-const StatSummary = styled(RegularText)({
-  fontStyle: "italic",
-  color: "#999",
-  marginLeft: "16px",
-  width: "125px",
-});
-
-const BigStat = styled(LargeTitle)({
-  flex: 1,
-  fontSize: "3rem",
-  textAlign: "center",
-});
-
-const donutSettings = {
-  low: { color: "#ffffb2", dashSegment: 25 },
-  moderate: { color: "#fecc5c", dashSegment: 50 },
-  high: { color: "#fd8d3c", dashSegment: 75 },
-  extreme: { color: "#e31a1c", dashSegment: 95 },
-};
-
-const SimpleDonutChart = props => (
-  <svg width="150px" height="150px" viewBox="0 0 42 42">
-    <circle cx="21" cy="21" r="15.91549430918954" fill="#fff" />
-    <circle
-      cx="21"
-      cy="21"
-      r="15.91549430918954"
-      fill="transparent"
-      stroke="#eee"
-      strokeWidth="5"
-    />
-    <circle
-      cx="21"
-      cy="21"
-      r="15.91549430918954"
-      fill="transparent"
-      stroke={donutSettings["high"].color}
-      strokeWidth="5"
-      strokeDasharray={`${donutSettings["high"].dashSegment} ${100 -
-        donutSettings["high"].dashSegment}`}
-      strokeDashoffset="-25"
-    />
-  </svg>
-);
-
-const Page = styled("div")({
-  width: "1063px",
-  height: "1375px",
-  margin: "0 auto",
-  color: "#444",
-});
-
-const PageHeader = styled(props => {
-  return (
-    <header className={props.className}>
-      <Image
-        css={css`
-          height: 48px;
-        `}
-        src="/static/css/images/logo.png"
-        alt="Firewise logo"
-      />
-      <LargeTitle
-        css={css`
-          font-family: PTSansBold, sans-serif;
-          float: right;
-          margin: 0;
-        `}
-      >
-        Landowner Report
-      </LargeTitle>
-    </header>
-  );
-})(() => ({
-  height: "56px",
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: "rgba(229, 207, 207, 0.4)",
-  borderTop: "3px solid #ef5f46",
-  padding: "10px",
-}));
+import {
+  RightSidebar,
+  SectionTitle,
+  ResourcesInfo,
+  SectionSubtitle,
+  ResourceName,
+  ResourceRelatedInfo,
+  ExternalLinkWithBreak,
+  ResourceRelatedInfoItem,
+  MainPanel,
+  MainPanelTitle,
+  MainPanelSection,
+  MainPanelSectionInfo,
+  MainPanelSectionText,
+  WildfireRiskSummaryStats,
+  SummaryStatRow,
+  StatSummary,
+  BigStat,
+  SimpleDonutChart,
+  Page,
+  PageHeader,
+} from "./report-components/kittitas-firewise";
 
 const KittitasFirewiseReport = props => {
   const { place } = props;
@@ -414,7 +229,7 @@ const KittitasFirewiseReport = props => {
                   <RegularText>
                     WUI High Risk Communities:{" "}
                     <ExternalLink href="https://bit.ly/hh3bcds23">
-                      bit.ly/hh3bcds23
+                      bit.ly/hh3bcds23d
                     </ExternalLink>
                   </RegularText>
                 </li>
