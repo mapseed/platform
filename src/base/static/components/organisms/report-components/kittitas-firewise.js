@@ -95,7 +95,7 @@ ResourceName.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const ResourceRelatedInfo = props => (
+const Checklist = props => (
   <ul
     css={css`
       list-style: none;
@@ -106,7 +106,7 @@ const ResourceRelatedInfo = props => (
   </ul>
 );
 
-ResourceRelatedInfo.propTypes = {
+Checklist.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
@@ -126,7 +126,7 @@ ExternalLinkWithBreak.propTypes = {
   href: PropTypes.string.isRequired,
 };
 
-const ResourceRelatedInfoItem = props => (
+const ResourceInfoItem = props => (
   <li
     css={css`
       display: flex;
@@ -146,7 +146,7 @@ const ResourceRelatedInfoItem = props => (
   </li>
 );
 
-ResourceRelatedInfoItem.propTypes = {
+ResourceInfoItem.propTypes = {
   children: PropTypes.node.isRequired,
   faClassname: PropTypes.string.isRequired,
 };
@@ -155,7 +155,7 @@ const MainPanel = props => (
   <section
     css={css`
       width: 640px;
-      height: 100%;
+      height: 1271px;
     `}
   >
     {props.children}
@@ -339,7 +339,7 @@ const Page = props => (
   <div
     css={css`
       width: 1063px;
-      height: 1375px;
+      height: 1438px;
       margin: 0 auto;
       color: #444;
     `}
@@ -348,7 +348,66 @@ const Page = props => (
   </div>
 );
 
-const PageHeader = props => (
+Page.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const PageBody = props => (
+  <section
+    css={css`
+      position: relative;
+      height: 1319px;
+      padding: 20px 20px 20px 0;
+    `}
+  >
+    {props.children}
+  </section>
+);
+
+PageBody.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const Logo = props => (
+  <Image
+    src={props.src}
+    alt={props.alt}
+    css={css`
+      height: 48px;
+      width: auto;
+      margin: 0 16px 0 16px;
+    `}
+  />
+);
+
+Logo.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+};
+
+const PageFooter = () => (
+  <footer
+    css={css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+    `}
+  >
+    <Logo src="/static/css/images/kccd-logo.png" alt="KCCD logo" />
+    <Logo
+      src="/static/css/images/kittitas-fire-adapted-communities-logo.jpg"
+      alt="Kittitas Fire Adapated Communities logo"
+    />
+    <Logo src="/static/css/images/dnr-logo.png" alt="Washington DNR logo" />
+    <Logo
+      src="https://s3-us-west-2.amazonaws.com/assets.mapseed.org/img/mapseed-wordmark-sprout-no-outline-glow.png"
+      alt="Mapseed logo"
+    />
+  </footer>
+);
+
+const PageHeader = () => (
   <header
     css={css`
       height: 56px;
@@ -378,15 +437,57 @@ const PageHeader = props => (
   </header>
 );
 
+const ChecklistItem = props => (
+  <li
+    css={css`
+      display: flex;
+      align-items: center;
+      min-height: 64px;
+      margin-bottom: 16px;
+
+      &:before {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: FontAwesome;
+        content: ${props.isChecked ? "'\f00c'" : "''"};
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        background-color: red;
+        font-size: 24px;
+        box-shadow: 0 3px 0 rgba(255, 255, 255, 0.45),
+          0 -2px 0 rgba(0, 0, 0, 0.45);
+        background-color: #eedfdf;
+        color: #808080;
+        border-radius: 8px;
+      }
+    `}
+  >
+    <LargeText
+      css={css`
+        margin-left: 64px;
+      `}
+    >
+      {props.children}
+    </LargeText>
+  </li>
+);
+
+ChecklistItem.propTypes = {
+  children: PropTypes.node.isRequired,
+  isChecked: PropTypes.bool.isRequired,
+};
+
 export {
   RightSidebar,
   SectionTitle,
   ResourcesInfo,
   SectionSubtitle,
   ResourceName,
-  ResourceRelatedInfo,
+  Checklist,
   ExternalLinkWithBreak,
-  ResourceRelatedInfoItem,
+  ResourceInfoItem,
   MainPanel,
   MainPanelTitle,
   MainPanelSection,
@@ -399,4 +500,7 @@ export {
   SimpleDonutChart,
   Page,
   PageHeader,
+  PageBody,
+  PageFooter,
+  ChecklistItem,
 };
