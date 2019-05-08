@@ -32,10 +32,18 @@ import {
   PageBody,
   PageFooter,
   ChecklistItem,
+  PreparednessReview,
 } from "./report-components/kittitas-firewise";
 
 const KittitasFirewiseReport = props => {
   const { place } = props;
+  const suggestedBuildingActions = [
+    "Add fuel breaks, such as walkways and patios, to interrupt a fire’s path",
+  ];
+  const suggestedVegetationActions = [
+    "Regularly remove dead plant and tree material",
+    "Keep lawns and native grasses mowed to a height of four inches",
+  ];
 
   return (
     <>
@@ -331,6 +339,24 @@ const KittitasFirewiseReport = props => {
                   professional onsite fire risk audit.
                 </MainPanelSectionText>
               </MainPanelSectionInfo>
+              <div
+                css={css`
+                  margin-left: 64px;
+                `}
+              >
+                <SectionSubtitle>
+                  Use of fire-resistant building materials and techniques
+                </SectionSubtitle>
+                <PreparednessReview
+                  letterGrade={"B"}
+                  suggestedActions={suggestedBuildingActions}
+                />
+                <SectionSubtitle>Vegetation control</SectionSubtitle>
+                <PreparednessReview
+                  letterGrade={"C"}
+                  suggestedActions={suggestedVegetationActions}
+                />
+              </div>
             </MainPanelSection>
           </MainPanel>
           <PageFooter />

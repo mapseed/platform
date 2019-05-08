@@ -479,6 +479,69 @@ ChecklistItem.propTypes = {
   isChecked: PropTypes.bool.isRequired,
 };
 
+const LetterGrade = props => (
+  <LargeTitle
+    css={css`
+      font-size: 64px;
+      margin: 0;
+      text-align: right;
+    `}
+  >
+    {props.children}
+  </LargeTitle>
+);
+
+LetterGrade.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const PreparednessReviewHeader = props => (
+  <SmallTitle
+    css={css`
+      color: #aaa;
+      text-transform: uppercase;
+      margin: 0;
+      text-align: ${props.textAlign};
+    `}
+  >
+    {props.children}
+  </SmallTitle>
+);
+
+PreparednessReviewHeader.propTypes = {
+  textAlign: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+const PreparednessReview = props => (
+  <div
+    css={css`
+      display: grid;
+      grid-template-columns: 100px 450px;
+      grid-column-gap: 48px;
+      margin-top: 16px;
+    `}
+  >
+    <PreparednessReviewHeader textAlign="right">Grade</PreparednessReviewHeader>
+    <PreparednessReviewHeader textAlign="left">
+      Suggested Actions
+    </PreparednessReviewHeader>
+    <LetterGrade>{props.letterGrade}</LetterGrade>
+    <ul>
+      {props.suggestedActions.map((action, i) => (
+        <li key={i}>
+          <LargeText>{action}</LargeText>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+PreparednessReview.propTypes = {
+  letterGrade: PropTypes.string.isRequired,
+  suggestedActions: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
 export {
   RightSidebar,
   SectionTitle,
@@ -503,4 +566,5 @@ export {
   PageBody,
   PageFooter,
   ChecklistItem,
+  PreparednessReview,
 };
