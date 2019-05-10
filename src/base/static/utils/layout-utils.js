@@ -1,5 +1,7 @@
 import { findDOMNode } from "react-dom";
 
+import constants from "../constants";
+
 const getMainContentAreaWidth = ({
   isContentPanelVisible,
   isRightSidebarVisible,
@@ -34,8 +36,11 @@ const getMainContentAreaHeight = ({
 }) => {
   switch (layout) {
     case "desktop":
-      // 42px === fixed height of geocode address bar
-      return isGeocodeAddressBarEnabled ? "calc(100% - 42px)" : "100%";
+      return isGeocodeAddressBarEnabled
+        ? `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+            constants.DESKTOP_HEADER_HEIGHT
+          }px)`
+        : `calc(100% - ${constants.DESKTOP_HEADER_HEIGHT}px)`;
     case "mobile":
       // UI heights which resize the main content area:
       //  - ContentPanel: 40%
@@ -44,7 +49,7 @@ const getMainContentAreaHeight = ({
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "calc(60% - 42px)";
+        return `calc(60% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px)`;
       } else if (
         isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
@@ -56,7 +61,7 @@ const getMainContentAreaHeight = ({
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "calc(100% - 42px)";
+        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
@@ -82,7 +87,9 @@ const getMainContentAreaHeight = ({
           addPlaceButtonRef.current,
         ).getBoundingClientRect();
 
-        return `calc(100% - 42px - ${addPlaceButtonDims.height}px)`;
+        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+          addPlaceButtonDims.height
+        }px)`;
       }
   }
 };

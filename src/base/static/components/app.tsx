@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import { Component, createRef, lazy, Suspense } from "react";
 import {
   Route,
@@ -110,8 +110,11 @@ const TemplateContainer = styled("div")<{
         : "auto"
       : "visible",
   width: "100%",
-  // 56px === fixed height of header bar
-  height: "calc(100% - 56px)",
+  height: "100%",
+
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
 }));
 
 const Fallback = () => {
@@ -511,6 +514,12 @@ class App extends Component<Props, State> {
       currentLanguageCode: this.state.currentLanguageCode,
       defaultLanguageCode: this.state.defaultLanguage.code,
     };
+    const headerProps = {
+      availableLanguages: this.state.availableLanguages,
+      defaultLanguage: this.state.defaultLanguage,
+      currentLanguageCode: this.state.currentLanguageCode,
+      onChangeLanguage: this.onChangeLanguage,
+    };
 
     return (
       <Provider store={this.props.store}>
@@ -519,12 +528,6 @@ class App extends Component<Props, State> {
         ) : (
           <JSSProvider>
             <ThemeProvider>
-              <SiteHeader
-                availableLanguages={this.state.availableLanguages}
-                defaultLanguage={this.state.defaultLanguage}
-                currentLanguageCode={this.state.currentLanguageCode}
-                onChangeLanguage={this.onChangeLanguage}
-              />
               <TemplateContainer
                 ref={this.templateContainerRef}
                 layout={this.props.layout}
@@ -537,6 +540,7 @@ class App extends Component<Props, State> {
                     render={props => {
                       return (
                         <Suspense fallback={<Fallback />}>
+                          <SiteHeader {...headerProps} />
                           <MapTemplate
                             uiConfiguration="map"
                             {...sharedMapTemplateProps}
@@ -552,6 +556,7 @@ class App extends Component<Props, State> {
                     render={props => {
                       return (
                         <Suspense fallback={<Fallback />}>
+                          <SiteHeader {...headerProps} />
                           <MapTemplate
                             uiConfiguration="map"
                             {...sharedMapTemplateProps}
@@ -567,6 +572,7 @@ class App extends Component<Props, State> {
                     path="/list"
                     render={() => (
                       <Suspense fallback={<Fallback />}>
+                        <SiteHeader {...headerProps} />
                         <ListTemplate />
                       </Suspense>
                     )}
@@ -576,6 +582,7 @@ class App extends Component<Props, State> {
                     path="/invite"
                     render={props => (
                       <Suspense fallback={<Fallback />}>
+                        <SiteHeader {...headerProps} />
                         <MapTemplate
                           uiConfiguration="inviteModal"
                           {...sharedMapTemplateProps}
@@ -601,6 +608,7 @@ class App extends Component<Props, State> {
                       ) {
                         return (
                           <Suspense fallback={<Fallback />}>
+                            <SiteHeader {...headerProps} />
                             <MapTemplate
                               uiConfiguration="newPlace"
                               {...sharedMapTemplateProps}
@@ -620,6 +628,7 @@ class App extends Component<Props, State> {
                     render={() => {
                       return (
                         <Suspense fallback={<Fallback />}>
+                          <SiteHeader {...headerProps} />
                           <DashboardTemplate
                             datasetDownloadConfig={
                               this.props.appConfig.dataset_download
@@ -648,6 +657,7 @@ class App extends Component<Props, State> {
                       if (!this.props.pageExists(props.match.params.pageSlug)) {
                         return (
                           <Suspense fallback={<Fallback />}>
+                            <SiteHeader {...headerProps} />
                             <MapTemplate
                               uiConfiguration="mapWithInvalidRoute"
                               {...sharedMapTemplateProps}
@@ -659,6 +669,7 @@ class App extends Component<Props, State> {
 
                       return (
                         <Suspense fallback={<Fallback />}>
+                          <SiteHeader {...headerProps} />
                           <MapTemplate
                             uiConfiguration="customPage"
                             {...sharedMapTemplateProps}
@@ -674,6 +685,7 @@ class App extends Component<Props, State> {
                     render={props => {
                       return (
                         <Suspense fallback={<Fallback />}>
+                          <SiteHeader {...headerProps} />
                           <MapTemplate
                             uiConfiguration="placeDetail"
                             {...sharedMapTemplateProps}
@@ -689,6 +701,7 @@ class App extends Component<Props, State> {
                     render={props => {
                       return (
                         <Suspense fallback={<Fallback />}>
+                          <SiteHeader {...headerProps} />
                           <MapTemplate
                             uiConfiguration="placeDetail"
                             {...sharedMapTemplateProps}
@@ -702,6 +715,7 @@ class App extends Component<Props, State> {
                     render={props => {
                       return (
                         <Suspense fallback={<Fallback />}>
+                          <SiteHeader {...headerProps} />
                           <MapTemplate
                             uiConfiguration="mapWithInvalidRoute"
                             {...sharedMapTemplateProps}

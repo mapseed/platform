@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 import { Button } from "../atoms/buttons";
 import mq from "../../../../media-queries";
+import constants from "../../constants";
 
 import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map-config";
 
@@ -36,7 +37,9 @@ const AddPlaceButtonContainer = styled(props => (
       left: 0,
     },
     [mq[1]]: {
-      top: props.isGeocodeAddressBarEnabled ? "62px" : "20px",
+      top: props.isGeocodeAddressBarEnabled
+        ? `${constants.DESKTOP_HEADER_HEIGHT + 62}px`
+        : `${constants.DESKTOP_HEADER_HEIGHT + 20}px`,
       left: "60px",
     },
   };
