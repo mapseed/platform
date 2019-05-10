@@ -189,13 +189,13 @@ const KittitasFirewiseReport = props => {
                   <StatSummary>General wildfire risk in your area</StatSummary>
                 </SummaryStatRow>
                 <SummaryStatRow>
-                  <BigStat>4.7</BigStat>
+                  <BigStat>[4.7]</BigStat>
                   <StatSummary>
                     Average fire starts in your area per year
                   </StatSummary>
                 </SummaryStatRow>
                 <SummaryStatRow>
-                  <BigStat>2</BigStat>
+                  <BigStat>[2]</BigStat>
                   <StatSummary>
                     Number of large wildfires in your area since 1973
                   </StatSummary>
@@ -290,7 +290,7 @@ const KittitasFirewiseReport = props => {
           </RightSidebar>
           <MainPanel>
             <MainPanelSection>
-              <MainPanelTitle>Wildfire In Kittitas County</MainPanelTitle>
+              <MainPanelTitle>Preparing For Wildfire</MainPanelTitle>
               <MainPanelSectionInfo>
                 <figure
                   css={css`
@@ -348,12 +348,12 @@ const KittitasFirewiseReport = props => {
                   Use of fire-resistant building materials and techniques
                 </SectionSubtitle>
                 <PreparednessReview
-                  letterGrade={"B"}
+                  letterGrade={"[B]"}
                   suggestedActions={suggestedBuildingActions}
                 />
                 <SectionSubtitle>Vegetation control</SectionSubtitle>
                 <PreparednessReview
-                  letterGrade={"C"}
+                  letterGrade={"[C]"}
                   suggestedActions={suggestedVegetationActions}
                 />
               </div>

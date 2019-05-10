@@ -4,6 +4,7 @@ import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 
 import {
+  SmallText,
   RegularText,
   LargeText,
   SmallTitle,
@@ -99,7 +100,7 @@ const Checklist = props => (
   <ul
     css={css`
       list-style: none;
-      padding-left: 24px;
+      padding-left: 12px;
     `}
   >
     {props.children}
@@ -155,7 +156,7 @@ const MainPanel = props => (
   <section
     css={css`
       width: 640px;
-      height: 1271px;
+      height: calc(100% - 48px);
     `}
   >
     {props.children}
@@ -304,42 +305,60 @@ BigStat.propTypes = {
 };
 
 const donutSettings = {
-  low: { color: "#ffffb2", dashSegment: 25 },
-  moderate: { color: "#fecc5c", dashSegment: 50 },
-  high: { color: "#fd8d3c", dashSegment: 75 },
-  extreme: { color: "#e31a1c", dashSegment: 95 },
+  low: { color: "#fdbb84", segmentPercentage: 25, text: "LOW" },
+  moderate: { color: "#fc8d59", segmentPercentage: 50, text: "MODERATE" },
+  high: { color: "#ef6548", segmentPercentage: 75, text: "HIGH" },
+  extreme: { color: "#d7301f", segmentPercentage: 98, text: "EXTREME" },
 };
 
-const SimpleDonutChart = props => (
-  <svg width="150px" height="150px" viewBox="0 0 42 42">
-    <circle cx="21" cy="21" r="15.91549430918954" fill="#fff" />
-    <circle
-      cx="21"
-      cy="21"
-      r="15.91549430918954"
-      fill="transparent"
-      stroke="#eee"
-      strokeWidth="5"
-    />
-    <circle
-      cx="21"
-      cy="21"
-      r="15.91549430918954"
-      fill="transparent"
-      stroke={donutSettings["high"].color}
-      strokeWidth="5"
-      strokeDasharray={`${donutSettings["high"].dashSegment} ${100 -
-        donutSettings["high"].dashSegment}`}
-      strokeDashoffset="-25"
-    />
-  </svg>
-);
+const SimpleDonutChart = props => {
+  // TODO: dynamic content
+  const settings = donutSettings["high"];
+
+  return (
+    <svg width="175px" height="175px" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.91549430918954" fill="#fff" />
+      <circle
+        cx="21"
+        cy="21"
+        r="15.91549430918954"
+        fill="transparent"
+        stroke="#efefef"
+        strokeWidth="4"
+        strokeDasharray="0.5 0.5"
+      />
+      <circle
+        cx="21"
+        cy="21"
+        r="15.91549430918954"
+        fill="transparent"
+        stroke={settings.color}
+        strokeWidth="4"
+        strokeDasharray={`${settings.segmentPercentage} ${100 -
+          settings.segmentPercentage}`}
+        strokeDashoffset="-25"
+      />
+      <text
+        x="21"
+        y="23"
+        style={{
+          fontFamily: "PTSansBold, sans-serif",
+          fontSize: "5px",
+          fill: settings.color,
+          textAnchor: "middle",
+        }}
+      >
+        {settings.text}
+      </text>
+    </svg>
+  );
+};
 
 const Page = props => (
   <div
     css={css`
       width: 1063px;
-      height: 1438px;
+      height: 1375px;
       margin: 0 auto;
       color: #444;
     `}
@@ -356,8 +375,9 @@ const PageBody = props => (
   <section
     css={css`
       position: relative;
-      height: 1319px;
+      height: 1311px;
       padding: 20px 20px 20px 0;
+      box-sizing: border-box;
     `}
   >
     {props.children}
@@ -410,30 +430,72 @@ const PageFooter = () => (
 const PageHeader = () => (
   <header
     css={css`
-      height: 56px;
+      height: 64px;
+      max-height: 64px;
       display: flex;
       align-items: center;
       background-color: rgba(229, 207, 207, 0.4);
       border-top: 3px solid #ef5f46;
-      padding: 10px;
     `}
   >
     <Image
       css={css`
         height: 48px;
+        margin-left: 8px;
       `}
       src="/static/css/images/logo.png"
       alt="Firewise logo"
     />
-    <LargeTitle
+    <div
       css={css`
-        font-family: PTSansBold, sans-serif;
-        float: right;
-        margin: 0;
+        text-align: right;
+        margin: 0 8px 0 auto;
       `}
     >
-      Landowner Report
-    </LargeTitle>
+      <LargeTitle
+        css={css`
+          font-family: PTSansBold, sans-serif;
+          font-size: 24px;
+          text-transform: uppercase;
+          margin: 0;
+          color: #777;
+        `}
+      >
+        Landowner Report
+      </LargeTitle>
+      <SmallText
+        css={css`
+          text-align: right;
+          display: block;
+        `}
+      >
+        <span
+          css={css`
+            font-family: Raleway;
+            font-weight: 900;
+          `}
+        >
+          Report date:
+        </span>{" "}
+        [May 5th, 2019]
+      </SmallText>
+      <SmallText
+        css={css`
+          text-align: right;
+          display: block;
+        `}
+      >
+        <span
+          css={css`
+            font-family: Raleway;
+            font-weight: 900;
+          `}
+        >
+          Report location:
+        </span>{" "}
+        [46.9° latitude / -120.4° longitude]
+      </SmallText>
+    </div>
   </header>
 );
 
