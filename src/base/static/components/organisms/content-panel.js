@@ -120,7 +120,7 @@ class ContentPanel extends Component {
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
-              querySourceFeatures={this.querySourceFeatures}
+              querySourceFeatures={this.props.querySourceFeatures}
               mapViewport={this.props.mapViewport}
               onUpdateMapViewport={this.props.onUpdateMapViewport}
               updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}

@@ -149,10 +149,13 @@ class MainMap extends Component {
 
   queriedFeatures = [];
   isMapTransitioning = false;
+  mapRef = createRef();
 
   componentDidMount() {
     this.map = this.mapRef.current.getMap();
-    this.props.setQuerySourceFeatures(this.map.setQuerySourceFeatures);
+    this.props.setQuerySourceFeatures(
+      this.map.querySourceFeatures.bind(this.map),
+    );
 
     window.addEventListener("resize", this.resizeMap);
 
@@ -160,7 +163,6 @@ class MainMap extends Component {
     // status state if a new type of event is fired. It's necessary to attach
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
-    this.map = this.props.mainMapRef.current.getMap();
     this.map.on("error", evt => {
       if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
         return;
@@ -487,7 +489,7 @@ class MainMap extends Component {
         />
         <MapGL
           attributionControl={false}
-          ref={this.props.mainMapRef}
+          ref={this.mapRef}
           width={this.props.mapContainerDimensions.width}
           height={this.props.mapContainerDimensions.height}
           latitude={this.props.mapViewport.latitude}
