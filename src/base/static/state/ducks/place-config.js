@@ -23,6 +23,32 @@ export const placeConfigPropType = PropTypes.shape({
       }),
     ),
   }),
+  geospatialAnalysis: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      mapboxSource: PropTypes.string.isRequired,
+      sourceLayer: PropTypes.string,
+      buffer: PropTypes.shape({
+        distance: PropTypes.number.isRequired,
+        units: PropTypes.string.isRequired,
+      }),
+      aggregator: {
+        type: PropTypes.string.isRequired,
+        property: PropTypes.string,
+      },
+      propertiesToPluck: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          fallbackValue: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+            PropTypes.bool,
+          ]),
+        }),
+      ),
+    }),
+  ),
 });
 
 // Actions:

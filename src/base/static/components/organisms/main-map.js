@@ -151,6 +151,9 @@ class MainMap extends Component {
   isMapTransitioning = false;
 
   componentDidMount() {
+    this.map = this.mapRef.current.getMap();
+    this.props.setQuerySourceFeatures(this.map.setQuerySourceFeatures);
+
     window.addEventListener("resize", this.resizeMap);
 
     // MapboxGL fires many redundant events, so we only update load or error
@@ -593,7 +596,6 @@ MainMap.propTypes = {
       }),
     ),
   }).isRequired,
-  mainMapRef: PropTypes.object.isRequired,
   mapConfig: mapConfigPropType.isRequired,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -610,6 +612,7 @@ MainMap.propTypes = {
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
+  setQuerySourceFeatures: PropTypes.func.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   onUpdateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,

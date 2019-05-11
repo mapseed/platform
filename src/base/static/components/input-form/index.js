@@ -44,7 +44,7 @@ import { jumpTo } from "../../utils/scroll-helpers";
 
 import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
-import geospatialAnalyses from "../../utils/geospatial-utils";
+import { geoAnalyze } from "../../utils/geo";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -69,8 +69,6 @@ class InputForm extends Component {
   }
 
   componentDidMount() {
-    this.mainMap = this.props.mainMapRef.current.getMap();
-
     if (this.selectedCategoryConfig.multi_stage) {
       const stageConfig = this.selectedCategoryConfig.multi_stage[
         this.state.currentStage - 1
@@ -347,25 +345,31 @@ class InputForm extends Component {
       this.selectedCategoryConfig.geospatialAnalysis &&
       attrs.geometry.type === "Point"
     ) {
-      this.selectedCategoryConfig.geospatialAnalysis.forEach(config => {
-        const results = geospatialAnalyses[config.type]({
-          config,
-          placeGeometry: attrs.geometry,
-          sourceFeatures: this.mainMap.querySourceFeatures(
-            config.mapboxSource,
-            {
-              // `sourceLayer` is relevant for vector tile sources only.
-              sourceLayer: config.sourceLayer,
-              filter: config.filter,
-            },
-          ),
-        });
+      const geospatialAnalysisAttrs = this.selectedCategoryConfig.geospatialAnalysis.reduce(
+        (analysisAttrs, analysisConfig) => {
+          return {
+            ...analysisAttrs,
+            ...geoAnalyze({
+              config: analysisConfig,
+              placeGeometry: attrs.geometry,
+              sourceFeatures: this.props.querySourceFeatures(
+                analysisConfig.mapboxSource,
+                {
+                  // `sourceLayer` is relevant for vector tile sources only.
+                  sourceLayer: analysisConfig.sourceLayer,
+                  filter: analysisConfig.filter,
+                },
+              ),
+            }),
+          };
+        },
+        {},
+      );
 
-        attrs = {
-          ...attrs,
-          ...results,
-        };
-      });
+      attrs = {
+        ...attrs,
+        ...geospatialAnalysisAttrs,
+      };
     }
 
     const placeResponse = await mapseedApiClient.place.create({
@@ -664,7 +668,6 @@ InputForm.propTypes = {
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layout: PropTypes.string.isRequired,
-  mainMapRef: PropTypes.object.isRequired,
   mapConfig: PropTypes.object.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
@@ -675,6 +678,7 @@ InputForm.propTypes = {
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  querySourceFeatures: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,

@@ -127,11 +127,7 @@ export function removeFeatureInGeoJSONSource(sourceId, featureId) {
   };
 }
 
-export function loadMapStyle({
-  mapConfig,
-  datasetsConfig,
-  analysisTargets = [],
-}) {
+export function loadMapStyle({ mapConfig, datasetsConfig, placeDetail }) {
   const style = {
     sources: {
       ...mapConfig.mapboxSources,
@@ -207,25 +203,33 @@ export function loadMapStyle({
         // be visible to the user.
         // TODO: Do we need circle and line layers as well for Point and
         // LineString features?
-        analysisTargets.map((target, i) => {
-          const layer = {
-            id: `${target.mapboxSource}__analysis-layer-${i}`,
-            type: "fill",
-            source: target.mapboxSource,
-            paint: {
-              "fill-opacity": 0,
-            },
-            layout: {
-              visibility: "visible",
-            },
-          };
+        placeDetail
+          .filter(detail => detail.geospatialAnalysis)
+          .map(detail => detail.geospatialAnalysis)
+          .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+          .map(analysisConfig => ({
+            mapboxSource: analysisConfig.mapboxSource,
+            sourceLayer: analysisConfig.sourceLayer,
+          }))
+          .map((target, i) => {
+            const layer = {
+              id: `${target.mapboxSource}__analysis-layer-${i}`,
+              type: "fill",
+              source: target.mapboxSource,
+              paint: {
+                "fill-opacity": 0,
+              },
+              layout: {
+                visibility: "visible",
+              },
+            };
 
-          if (target.sourceLayer) {
-            layer["source-layer"] = target.sourceLayer;
-          }
+            if (target.sourceLayer) {
+              layer["source-layer"] = target.sourceLayer;
+            }
 
-          return layer;
-        }),
+            return layer;
+          }),
       ),
   };
 
