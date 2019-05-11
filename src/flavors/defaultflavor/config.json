@@ -322,6 +322,7 @@
           {
             "id": "demo-featured-focused-points",
             "type": "symbol",
+            "source": "demo-featured",
             "filter": ["==", ["get", "location_type"], "demo-featured"],
             "layout": {
               "icon-allow-overlap": true,
@@ -504,6 +505,7 @@
     "place_detail": [
       {
         "category": "demo-featured",
+        "formId": "demo-featured",
         "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
@@ -852,12 +854,29 @@
       },
       {
         "category": "observation",
+        "formId": "observation",
         "includeOnForm": true,
         "includeOnList": true,
         "submitter_editing_supported": true,
         "name": "location_type",
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-observation.png",
+        "geospatialAnalysis": [
+          {
+            "name": "LID_master_score",
+            "type": "pointInPolygon",
+            "mapboxSource": "sample-json-b",
+            "propertiesToPluck": [
+              {
+                "name": "LID_Checklist_Master_score"
+              },
+              {
+                "name": "CLASS_DESC",
+                "fallbackValue": "This is a fallback value"
+              }
+            ]
+          }
+        ],
         "value": "observation",
         "label": "Observation",
         "fields": [
@@ -928,12 +947,41 @@
       },
       {
         "category": "question",
+        "formId": "question",
         "includeOnForm": true,
         "includeOnList": true,
         "submitter_editing_supported": true,
         "name": "location_type",
         "datasetSlug": "demo",
         "icon_url": "/static/css/images/markers/marker-question.png",
+        "geospatialAnalysis": [
+          {
+            "name": "num_grants",
+            "type": "aggregatePointsInBuffer",
+            "mapboxSource": "sample-json-a",
+            "buffer": {
+              "distance": 5,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "countByUniquePropertyValues",
+              "property": "year"
+            }
+          },
+          {
+            "name": "nearby_original_riverpath_sections",
+            "type": "aggregatePolygonsOverlappingBuffer",
+            "mapboxSource": "sample-vector-a",
+            "sourceLayer": "historical_river_pathgeojson",
+            "buffer": {
+              "distance": 5,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "totalCount"
+            }
+          }
+        ],
         "value": "question",
         "label": "Question",
         "fields": [
@@ -944,16 +992,6 @@
             "prompt": "Title of your question:",
             "display_prompt": "Title:",
             "placeholder": "Enter title...",
-            "optional": false
-          },
-          {
-            "name": "datetime_field",
-            "type": "datetime",
-            "date_format": "YYYY-MM",
-            "display_format": "MMMM YYYY",
-            "placeholder": "Please select a date",
-            "prompt": "Datetime field prompt:",
-            "display_prompt": "Rendered datetime:",
             "optional": false
           },
           {
@@ -984,6 +1022,7 @@
       },
       {
         "category": "idea",
+        "formId": "idea",
         "includeOnForm": true,
         "includeOnList": true,
         "submitter_editing_supported": true,

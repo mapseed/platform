@@ -147,18 +147,22 @@ class MainMap extends Component {
     isMapDraggingOrZooming: false,
   };
 
-  mapRef = createRef();
   queriedFeatures = [];
   isMapTransitioning = false;
+  mapRef = createRef();
 
   componentDidMount() {
+    this.map = this.mapRef.current.getMap();
+    this.props.setQuerySourceFeatures(
+      this.map.querySourceFeatures.bind(this.map),
+    );
+
     window.addEventListener("resize", this.resizeMap);
 
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
-    this.map = this.mapRef.current.getMap();
     this.map.on("error", evt => {
       if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
         return;
@@ -610,6 +614,7 @@ MainMap.propTypes = {
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
+  setQuerySourceFeatures: PropTypes.func.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   onUpdateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
