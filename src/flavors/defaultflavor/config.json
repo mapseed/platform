@@ -865,7 +865,7 @@
           {
             "name": "LID_master_score",
             "type": "pointInPolygon",
-            "mapboxSource": "sample-json-b",
+            "targetUrl": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
             "propertiesToPluck": [
               {
                 "name": "LID_Checklist_Master_score"
@@ -958,7 +958,7 @@
           {
             "name": "num_grants",
             "type": "aggregatePointsInBuffer",
-            "mapboxSource": "sample-json-a",
+            "targetUrl": "https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson",
             "buffer": {
               "distance": 5,
               "units": "miles"
@@ -969,10 +969,9 @@
             }
           },
           {
-            "name": "nearby_original_riverpath_sections",
+            "name": "nearby_scorecard_polygons",
             "type": "aggregatePolygonsOverlappingBuffer",
-            "mapboxSource": "sample-vector-a",
-            "sourceLayer": "historical_river_pathgeojson",
+            "targetUrl": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
             "buffer": {
               "distance": 5,
               "units": "miles"

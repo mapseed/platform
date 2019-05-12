@@ -27,8 +27,7 @@ export const placeConfigPropType = PropTypes.shape({
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      mapboxSource: PropTypes.string.isRequired,
-      sourceLayer: PropTypes.string,
+      targetUrl: PropTypes.string.isRequired,
       buffer: PropTypes.shape({
         distance: PropTypes.number.isRequired,
         units: PropTypes.string.isRequired,

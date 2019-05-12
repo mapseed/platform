@@ -173,7 +173,6 @@ type Props = StateProps &
   TransProps;
 
 class MapTemplate extends Component<Props, State> {
-  private querySourceFeatures;
   private mapContainerRef = createRef<HTMLDivElement>();
   private addPlaceButtonRef = createRef<HTMLDivElement>();
 
@@ -483,9 +482,6 @@ class MapTemplate extends Component<Props, State> {
             />
           )}
           <MainMap
-            setQuerySourceFeatures={querySourceFeatures => {
-              this.querySourceFeatures = querySourceFeatures;
-            }}
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             mapContainerRef={this.mapContainerRef}
             mapContainerWidthDeclaration={
@@ -508,7 +504,6 @@ class MapTemplate extends Component<Props, State> {
         </div>
         {this.props.isContentPanelVisible && (
           <ContentPanel
-            querySourceFeatures={this.querySourceFeatures}
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}

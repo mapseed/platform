@@ -120,7 +120,6 @@ class ContentPanel extends Component {
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
-              querySourceFeatures={this.props.querySourceFeatures}
               mapViewport={this.props.mapViewport}
               onUpdateMapViewport={this.props.onUpdateMapViewport}
               updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
@@ -146,7 +145,6 @@ ContentPanel.propTypes = {
   onUpdateMapViewport: PropTypes.func.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
-  querySourceFeatures: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
 };
 

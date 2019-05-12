@@ -80,13 +80,13 @@ const getBufferFeature = (placeGeometry, bufferOptions) => {
 
 const pointInPolygon = ({
   config = { propertiesToPluck: [] },
-  sourceFeatures,
+  targetFeatures,
   placeGeometry,
 }) => {
   // Find the first polygon in which the passed point resides.
   let foundFeature;
   try {
-    foundFeature = sourceFeatures.find(feature => {
+    foundFeature = targetFeatures.find(feature => {
       return booleanPointInPolygon(placeGeometry, feature);
     });
   } catch (e) {
@@ -111,17 +111,29 @@ const pointInPolygon = ({
   );
 };
 
-const aggregatePointsInBuffer = ({ placeGeometry, sourceFeatures, config }) => {
+const aggregatePointsInBuffer = ({ placeGeometry, targetFeatures, config }) => {
   const bufferFeature = getBufferFeature(placeGeometry, config.buffer);
 
   if (!bufferFeature) {
     return {};
   }
 
-  const pointsWithin = pointsWithinPolygon(
-    featureCollection(sourceFeatures),
-    bufferFeature,
-  );
+  let pointsWithin;
+  try {
+    pointsWithin = pointsWithinPolygon(
+      featureCollection(targetFeatures),
+      bufferFeature,
+    );
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error("ERROR!", e);
+    Mixpanel.track("Error", {
+      message: "unable to perform pointsWithinPolygon on features",
+      error: e,
+    });
+
+    pointsWithin = featureCollection([]); // Empty FeatureCollection.
+  }
 
   if (config.aggregator.type === "totalCount") {
     return {
@@ -163,7 +175,7 @@ const aggregatePointsInBuffer = ({ placeGeometry, sourceFeatures, config }) => {
 
 const aggregatePolygonsOverlappingBuffer = ({
   placeGeometry,
-  sourceFeatures,
+  targetFeatures,
   config,
 }) => {
   const bufferFeature = getBufferFeature(placeGeometry, config.buffer);
@@ -172,7 +184,7 @@ const aggregatePolygonsOverlappingBuffer = ({
     return {};
   }
 
-  const uniqueOverlappingFeatures = sourceFeatures
+  const uniqueOverlappingFeatures = targetFeatures
     .reduce((memo, feature) => {
       if (feature.geometry.type === "MultiPolygon") {
         // Flatten any MultiPolygons to arrays of individual Polygon features,
@@ -227,13 +239,13 @@ const aggregatePolygonsOverlappingBuffer = ({
         // properties objects, since we don't have reliable access to a unique
         // feature id for third-party data sources.
         const propertyHash = hash(feature.properties);
-        if (propertyHashes.has(propertyHash)) {
+        if (!propertyHashes.has(propertyHash)) {
+          propertyHashes.add(propertyHash);
           return {
             propertyHashes,
             features: [...features, feature],
           };
         } else {
-          propertyHashes.add(propertyHash);
           return {
             propertyHashes,
             features,
@@ -258,16 +270,16 @@ const aggregatePolygonsOverlappingBuffer = ({
   // TODO: Other types of aggregations.
 };
 
-export const geoAnalyze = ({ config, sourceFeatures, placeGeometry }) => {
+export const geoAnalyze = ({ config, targetFeatures, placeGeometry }) => {
   switch (config.type) {
     case "pointInPolygon":
-      return pointInPolygon({ config, sourceFeatures, placeGeometry });
+      return pointInPolygon({ config, targetFeatures, placeGeometry });
     case "aggregatePointsInBuffer":
-      return aggregatePointsInBuffer({ placeGeometry, sourceFeatures, config });
+      return aggregatePointsInBuffer({ placeGeometry, targetFeatures, config });
     case "aggregatePolygonsOverlappingBuffer":
       return aggregatePolygonsOverlappingBuffer({
         placeGeometry,
-        sourceFeatures,
+        targetFeatures,
         config,
       });
     default:
