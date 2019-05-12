@@ -35,6 +35,7 @@ import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
+import analysisClient from "../client/analysis-client";
 import {
   datasetsConfigPropType,
   datasetsConfigSelector,
@@ -47,6 +48,7 @@ import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
 import { loadMapConfig } from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
+import { loadAnalysisTargets } from "../state/ducks/analysis";
 // TODO: configs always in their own duck
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
 import { loadRightSidebarConfig } from "../state/ducks/right-sidebar-config";
@@ -301,16 +303,15 @@ class App extends Component<Props, State> {
     this.props.loadPagesConfig(resolvedConfig.pages);
     this.props.loadNavBarConfig(resolvedConfig.nav_bar);
     this.props.loadCustomComponentsConfig(resolvedConfig.custom_components);
-    this.props.loadMapStyle({
-      mapConfig: resolvedConfig.map,
-      datasetsConfig: resolvedConfig.datasets,
-      placeDetail: resolvedConfig.place.place_detail,
-    });
+    this.props.loadMapStyle(resolvedConfig.map, resolvedConfig.datasets);
     resolvedConfig.dashboard &&
       this.props.loadDashboardConfig(resolvedConfig.dashboard);
-
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
+
+    analysisClient
+      .fetchTargets(resolvedConfig.place.place_detail)
+      .then(analysisTargets => this.props.loadAnalysisTargets(analysisTargets));
 
     // Set up localization.
     i18next.use(reactI18nextModule).init({
@@ -759,8 +760,9 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   loadNavBarConfig: config => dispatch(loadNavBarConfig(config)),
   loadCustomComponentsConfig: config =>
     dispatch(loadCustomComponentsConfig(config)),
-  loadMapStyle: ({ mapConfig, datasetsConfig, placeDetail }) =>
-    dispatch(loadMapStyle({ mapConfig, datasetsConfig, placeDetail })),
+  loadAnalysisTargets: targets => dispatch(loadAnalysisTargets(targets)),
+  loadMapStyle: (mapConfig, datasetsConfig) =>
+    dispatch(loadMapStyle(mapConfig, datasetsConfig)),
   loadUser: user => dispatch(loadUser(user)),
 });
 

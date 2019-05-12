@@ -127,7 +127,7 @@ export function removeFeatureInGeoJSONSource(sourceId, featureId) {
   };
 }
 
-export function loadMapStyle({ mapConfig, datasetsConfig, placeDetail }) {
+export function loadMapStyle(mapConfig, datasetsConfig) {
   const style = {
     sources: {
       ...mapConfig.mapboxSources,
@@ -193,44 +193,44 @@ export function loadMapStyle({ mapConfig, datasetsConfig, placeDetail }) {
             },
           })),
       )
-      .concat(
-        // For geospatial analysis purposes, we need to make sure the map
-        // sources that we're analayzing are available at the time of Place
-        // submission. So we add a permanently invisible layer for each source
-        // we'd like to perform analysis on. Setting the `visibility` `layout`
-        // property to `visible` ensures the source's data will be loaded and
-        // available; setting the `opacity` to `0` ensures the layer will never
-        // be visible to the user.
-        // TODO: Do we need circle and line layers as well for Point and
-        // LineString features?
-        placeDetail
-          .filter(detail => detail.geospatialAnalysis)
-          .map(detail => detail.geospatialAnalysis)
-          .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
-          .map(analysisConfig => ({
-            mapboxSource: analysisConfig.mapboxSource,
-            sourceLayer: analysisConfig.sourceLayer,
-          }))
-          .map((target, i) => {
-            const layer = {
-              id: `${target.mapboxSource}__analysis-layer-${i}`,
-              type: "fill",
-              source: target.mapboxSource,
-              paint: {
-                "fill-opacity": 0,
-              },
-              layout: {
-                visibility: "visible",
-              },
-            };
-
-            if (target.sourceLayer) {
-              layer["source-layer"] = target.sourceLayer;
-            }
-
-            return layer;
-          }),
-      ),
+//      .concat(
+//        // For geospatial analysis purposes, we need to make sure the map
+//        // sources that we're analayzing are available at the time of Place
+//        // submission. So we add a permanently invisible layer for each source
+//        // we'd like to perform analysis on. Setting the `visibility` `layout`
+//        // property to `visible` ensures the source's data will be loaded and
+//        // available; setting the `opacity` to `0` ensures the layer will never
+//        // be visible to the user.
+//        // TODO: Do we need circle and line layers as well for Point and
+//        // LineString features?
+//        placeDetail
+//          .filter(detail => detail.geospatialAnalysis)
+//          .map(detail => detail.geospatialAnalysis)
+//          .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+//          .map(analysisConfig => ({
+//            mapboxSource: analysisConfig.mapboxSource,
+//            sourceLayer: analysisConfig.sourceLayer,
+//          }))
+//          .map((target, i) => {
+//            const layer = {
+//              id: `${target.mapboxSource}__analysis-layer-${i}`,
+//              type: "fill",
+//              source: target.mapboxSource,
+//              paint: {
+//                "fill-opacity": 0,
+//              },
+//              layout: {
+//                visibility: "visible",
+//              },
+//            };
+//
+//            if (target.sourceLayer) {
+//              layer["source-layer"] = target.sourceLayer;
+//            }
+//
+//            return layer;
+//          }),
+//      ),
   };
 
   const layerGroupsMetadata = mapConfig.layerGroups.reduce(
