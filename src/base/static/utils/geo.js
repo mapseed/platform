@@ -112,8 +112,6 @@ const pointInPolygon = ({
 };
 
 const aggregatePointsInBuffer = ({ placeGeometry, targetFeatures, config }) => {
-  console.log("targetFeatures", targetFeatures)
-
   const bufferFeature = getBufferFeature(placeGeometry, config.buffer);
 
   if (!bufferFeature) {
@@ -136,8 +134,6 @@ const aggregatePointsInBuffer = ({ placeGeometry, targetFeatures, config }) => {
 
     pointsWithin = featureCollection([]); // Empty FeatureCollection.
   }
-
-  console.log("pointsWithin", pointsWithin)
 
   if (config.aggregator.type === "totalCount") {
     return {

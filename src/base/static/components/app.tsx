@@ -138,6 +138,7 @@ const dispatchPropTypes = {
   updateMapContainerDimensions: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
+  loadAnalysisTargets: PropTypes.func.isRequired,
   loadDatasetsConfig: PropTypes.func.isRequired,
   loadMapConfig: PropTypes.func.isRequired,
   loadPlaceConfig: PropTypes.func.isRequired,
