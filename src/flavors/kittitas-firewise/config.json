@@ -102,7 +102,7 @@
         "url": "mapbox://mapbox.mapbox-streets-v8,mapbox.mapbox-terrain-v2",
         "type": "vector"
       },
-      "wildfire-start-sites": {
+      "wa-state-wildfire-start-sites-2008": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/wa-state-wildfire-start-sites-2008/{z}/{x}/{y}.pbf"
@@ -114,7 +114,7 @@
           "https://vector-tiles.mapseed.org/kittitas-land-ownership/{z}/{x}/{y}.pbf"
         ]
       },
-      "wa-state-large-fires": {
+      "wa-state-large-fires-1973-2018": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/wa-state-large-fires-1973-2018/{z}/{x}/{y}.pbf"
@@ -125,7 +125,6 @@
         "data": "https://opendata.arcgis.com/datasets/bf2498852e614bc1a918ec562150a06b_0.geojson"
       }
     },
-
     "layerGroups": [
       {
         "id": "osm",
@@ -3772,13 +3771,13 @@
         ]
       },
       {
-        "id": "wildfire-start-sites",
+        "id": "wa-state-wildfire-start-sites-2008",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "wildfire-start-sites-heatmap",
+            "id": "wa-state-wildfire-start-sites-2008-heatmap",
             "type": "heatmap",
-            "source": "wildfire-start-sites",
+            "source": "wa-state-wildfire-start-sites-2008",
             "source-layer": "wa-state-wildfire-start-sites-2008",
             "paint": {
               "heatmap-intensity": [
@@ -3828,9 +3827,9 @@
             }
           },
           {
-            "id": "wildfire-start-sites-circle",
+            "id": "wa-state-wildfire-start-sites-2008-circle",
             "type": "circle",
-            "source": "wildfire-start-sites",
+            "source": "wa-state-wildfire-start-sites-2008",
             "source-layer": "wa-state-wildfire-start-sites-2008",
             "paint": {
               "circle-color": "#fc4e2b",
@@ -3909,13 +3908,13 @@
         ]
       },
       {
-        "id": "wa-state-large-fires",
+        "id": "wa-state-large-fires-1973-2018",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "wa-state-large-fires",
+            "id": "wa-state-large-fires-1973-2018",
             "type": "fill",
-            "source": "wa-state-large-fires",
+            "source": "wa-state-large-fires-1973-2018",
             "source-layer": "wa-state-large-fires-1973-2018",
             "paint": {
               "fill-pattern": "hazard-fill.png",
@@ -3991,9 +3990,9 @@
             }
           },
           {
-            "id": "wa-state-large-fires-outline",
+            "id": "wa-state-large-fires-1973-2018-outline",
             "type": "line",
-            "source": "wa-state-large-fires",
+            "source": "wa-state-large-fires-1973-2018",
             "source-layer": "wa-state-large-fires-1973-2018",
             "paint": {
               "line-color": "#e80f0f",
@@ -4196,11 +4195,11 @@
                 "title": "Land Ownership"
               },
               {
-                "id": "wildfire-start-sites",
+                "id": "wa-state-wildfire-start-sites-2008",
                 "title": "Wildfire Start Sites"
               },
               {
-                "id": "wa-state-large-fires",
+                "id": "wa-state-large-fires-1973-2018",
                 "title": "Large Wildfires"
               }
             ]
@@ -4240,6 +4239,42 @@
         "name": "location_type",
         "datasetSlug": "kittitas-firewise-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "geospatialAnalysis": [
+          {
+            "name": "local_fire_district",
+            "type": "pointInPolygon",
+            "targetUrl": "https://assets.mapseed.org/geo/kittitas-fire-districts.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "fire_district_name"
+              }
+            ]
+          },
+          {
+            "name": "num_nearby_fire_start_sites",
+            "type": "aggregatePointsInBuffer",
+            "targetUrl": "https://assets.mapseed.org/geo/kittitas-wildfire-start-sites-2008-2018.geojson",
+            "buffer": {
+              "distance": 20,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "totalCount"
+            }
+          },
+          {
+            "name": "num_nearby_large_fires",
+            "type": "aggregatePolygonsOverlappingBuffer",
+            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-large-fires-1973-2018-simplified.geojson",
+            "buffer": {
+              "distance": 20,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "totalCount"
+            }
+          }
+        ],
         "label": "I am a small landowner in Kittitas County",
         "value": "small-landowner",
         "multi_stage": [
@@ -4248,7 +4283,7 @@
             "end_field_index": 2,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-firewise-input",
               "kittitas-county-outline"
             ],
@@ -4266,9 +4301,9 @@
             "end_field_index": 4,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ],
             "viewport": {
               "zoom": 8.3,
@@ -4284,9 +4319,9 @@
             "end_field_index": 6,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4294,9 +4329,9 @@
             "end_field_index": 14,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4304,9 +4339,9 @@
             "end_field_index": 23,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4314,9 +4349,9 @@
             "end_field_index": 31,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4324,9 +4359,9 @@
             "end_field_index": 46,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           }
         ],
@@ -4525,6 +4560,42 @@
         "name": "location_type",
         "datasetSlug": "kittitas-firewise-input",
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "geospatialAnalysis": [
+          {
+            "name": "local_fire_district",
+            "type": "pointInPolygon",
+            "targetUrl": "https://assets.mapseed.org/geo/kittitas-fire-districts.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "fire_district_name"
+              }
+            ]
+          },
+          {
+            "name": "num_nearby_fire_start_sites",
+            "type": "aggregatePointsInBuffer",
+            "targetUrl": "https://assets.mapseed.org/geo/kittitas-wildfire-start-sites-2008-2018.geojson",
+            "buffer": {
+              "distance": 20,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "totalCount"
+            }
+          },
+          {
+            "name": "num_nearby_large_fires",
+            "type": "aggregatePolygonsOverlappingBuffer",
+            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-large-fires-1973-2018-simplified.geojson",
+            "buffer": {
+              "distance": 20,
+              "units": "miles"
+            },
+            "aggregator": {
+              "type": "totalCount"
+            }
+          }
+        ],
         "value": "large-landowner",
         "label": "I am a large landowner in Kittitas County",
         "multi_stage": [
@@ -4533,7 +4604,7 @@
             "end_field_index": 2,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-firewise-input",
               "kittitas-county-outline"
             ],
@@ -4551,9 +4622,9 @@
             "end_field_index": 4,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ],
             "viewport": {
               "zoom": 8.3,
@@ -4569,9 +4640,9 @@
             "end_field_index": 6,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4579,9 +4650,9 @@
             "end_field_index": 14,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4589,9 +4660,9 @@
             "end_field_index": 23,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4599,9 +4670,9 @@
             "end_field_index": 31,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4609,9 +4680,9 @@
             "end_field_index": 45,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           },
           {
@@ -4619,9 +4690,9 @@
             "end_field_index": 50,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wildfire-start-sites",
+              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires"
+              "wa-state-large-fires-1973-2018"
             ]
           }
         ],
