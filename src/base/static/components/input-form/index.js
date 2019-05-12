@@ -40,6 +40,7 @@ import {
   isInAtLeastOneGroup,
 } from "../../state/ducks/user";
 import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
+import { analysisTargetFeaturesSelector } from "../../state/ducks/analysis";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 import Util from "../../js/utils.js";
@@ -352,13 +353,8 @@ class InputForm extends Component {
             ...geoAnalyze({
               config: analysisConfig,
               placeGeometry: attrs.geometry,
-              sourceFeatures: this.props.querySourceFeatures(
-                analysisConfig.mapboxSource,
-                {
-                  // `sourceLayer` is relevant for vector tile sources only.
-                  sourceLayer: analysisConfig.sourceLayer,
-                  filter: analysisConfig.filter,
-                },
+              targetFeatures: this.props.analysisTargetFeaturesSelector(
+                analysisConfig.targetUrl,
               ),
             }),
           };
@@ -645,6 +641,7 @@ class InputForm extends Component {
 
 InputForm.propTypes = {
   activeMarker: PropTypes.string,
+  analysisTargetFeaturesSelector: PropTypes.func.isRequired,
   className: PropTypes.string,
   customHooks: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.func),
@@ -678,7 +675,6 @@ InputForm.propTypes = {
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  querySourceFeatures: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
@@ -688,6 +684,8 @@ InputForm.propTypes = {
 
 const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
+  analysisTargetFeaturesSelector: targetUrl =>
+    analysisTargetFeaturesSelector(targetUrl, state),
   datasetClientSlugSelector: datasetSlug =>
     datasetClientSlugSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),

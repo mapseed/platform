@@ -1,5 +1,5 @@
 export default {
-  fetchTargets: async placeDetail => {
+  fetchTargets: placeDetail => {
     const analysisTargetPromises = placeDetail
       .filter(detail => detail.geospatialAnalysis)
       .map(detail => detail.geospatialAnalysis)
@@ -16,14 +16,14 @@ export default {
         fetch(targetUrl)
           .then(response => response.json())
           .then(data => ({
-            id: targetUrl,
+            targetUrl,
             data,
           }))
           .catch(e => {
             // eslint-disable-next-line no-console
             console.error("Error: Failed to fetch analysis target:", e);
           }),
-      )
+      );
 
     return Promise.all(analysisTargetPromises);
   },

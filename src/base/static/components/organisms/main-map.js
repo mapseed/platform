@@ -153,9 +153,6 @@ class MainMap extends Component {
 
   componentDidMount() {
     this.map = this.mapRef.current.getMap();
-    this.props.setQuerySourceFeatures(
-      this.map.querySourceFeatures.bind(this.map),
-    );
 
     window.addEventListener("resize", this.resizeMap);
 
@@ -614,7 +611,6 @@ MainMap.propTypes = {
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
-  setQuerySourceFeatures: PropTypes.func.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   onUpdateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
