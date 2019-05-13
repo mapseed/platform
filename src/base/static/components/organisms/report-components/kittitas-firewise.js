@@ -305,15 +305,18 @@ BigStat.propTypes = {
 };
 
 const donutSettings = {
-  low: { color: "#fdbb84", segmentPercentage: 25, text: "LOW" },
-  moderate: { color: "#fc8d59", segmentPercentage: 50, text: "MODERATE" },
-  high: { color: "#ef6548", segmentPercentage: 75, text: "HIGH" },
-  extreme: { color: "#d7301f", segmentPercentage: 98, text: "EXTREME" },
+  Low: { color: "#ffffb2", dashSegment: 25, text: "LOW" },
+  Moderate: { color: "#fecc5c", dashSegment: 50, text: "MODERATE" },
+  High: { color: "#fd8d3c", dashSegment: 75, text: "HIGH" },
+  Extreme: { color: "#e31a1c", dashSegment: 95, text: "EXTREME" },
 };
 
 const SimpleDonutChart = props => {
-  // TODO: dynamic content
-  const settings = donutSettings["high"];
+  const settings = donutSettings[props.hazardRating] || {
+    color: "#ffffb2",
+    dashSegment: 0,
+    text: "UNKNOWN",
+  };
 
   return (
     <svg width="175px" height="175px" viewBox="0 0 42 42">
@@ -323,9 +326,8 @@ const SimpleDonutChart = props => {
         cy="21"
         r="15.91549430918954"
         fill="transparent"
-        stroke="#efefef"
-        strokeWidth="4"
-        strokeDasharray="0.5 0.5"
+        stroke="#eee"
+        strokeWidth="5"
       />
       <circle
         cx="21"
@@ -333,9 +335,9 @@ const SimpleDonutChart = props => {
         r="15.91549430918954"
         fill="transparent"
         stroke={settings.color}
-        strokeWidth="4"
-        strokeDasharray={`${settings.segmentPercentage} ${100 -
-          settings.segmentPercentage}`}
+        strokeWidth="5"
+        strokeDasharray={`${settings.dashSegment} ${100 -
+          settings.dashSegment}`}
         strokeDashoffset="-25"
       />
       <text
@@ -343,7 +345,7 @@ const SimpleDonutChart = props => {
         y="23"
         style={{
           fontFamily: "PTSansBold, sans-serif",
-          fontSize: "5px",
+          fontSize: "6px",
           fill: settings.color,
           textAnchor: "middle",
         }}
@@ -352,6 +354,10 @@ const SimpleDonutChart = props => {
       </text>
     </svg>
   );
+};
+
+SimpleDonutChart.propTypes = {
+  hazardRating: PropTypes.string.isRequired,
 };
 
 const Page = props => (
@@ -427,7 +433,7 @@ const PageFooter = () => (
   </footer>
 );
 
-const PageHeader = () => (
+const PageHeader = props => (
   <header
     css={css`
       height: 64px;
@@ -446,58 +452,57 @@ const PageHeader = () => (
       src="/static/css/images/logo.png"
       alt="Firewise logo"
     />
-    <div
+    <LargeTitle
       css={css`
-        text-align: right;
-        margin: 0 8px 0 auto;
+        font-family: PTSansBold, sans-serif;
+        float: right;
+        margin: 0;
       `}
     >
-      <LargeTitle
+      Landowner Report
+    </LargeTitle>
+    <SmallText
+      css={css`
+        text-align: right;
+        display: block;
+      `}
+    >
+      <span
         css={css`
-          font-family: PTSansBold, sans-serif;
-          font-size: 24px;
-          text-transform: uppercase;
-          margin: 0;
-          color: #777;
+          font-family: Raleway;
+          font-weight: 900;
         `}
       >
-        Landowner Report
-      </LargeTitle>
-      <SmallText
+        Report date:
+      </span>{" "}
+      {props.date}
+    </SmallText>
+    <SmallText
+      css={css`
+        text-align: right;
+        display: block;
+      `}
+    >
+      <span
         css={css`
-          text-align: right;
-          display: block;
+          font-family: Raleway;
+          font-weight: 900;
         `}
       >
-        <span
-          css={css`
-            font-family: Raleway;
-            font-weight: 900;
-          `}
-        >
-          Report date:
-        </span>{" "}
-        [May 5th, 2019]
-      </SmallText>
-      <SmallText
-        css={css`
-          text-align: right;
-          display: block;
-        `}
-      >
-        <span
-          css={css`
-            font-family: Raleway;
-            font-weight: 900;
-          `}
-        >
-          Report location:
-        </span>{" "}
-        [46.9° latitude / -120.4° longitude]
-      </SmallText>
-    </div>
+        Report location:
+      </span>{" "}
+      {props.coords.latitude}° latitude / -120.4° {props.coords.longitude}
+    </SmallText>
   </header>
 );
+
+PageHeader.propTypes = {
+  date: PropTypes.string.isRequired,
+  coords: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 const ChecklistItem = props => (
   <li

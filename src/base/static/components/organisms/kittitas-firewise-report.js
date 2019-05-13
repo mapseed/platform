@@ -35,8 +35,27 @@ import {
   PreparednessReview,
 } from "./report-components/kittitas-firewise";
 
+// https://www.co.kittitas.wa.us/cds/firemarshal/local-fire-districts.aspx
+const fireDistrictInfo = {
+  "Areas outside Fire Districts": "509-962-7506", // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
+  "Snoqualmie Pass Fire and Rescue": "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
+  "Fire District 6 (Ronald)": "509-260-1220",
+  "CITY OF ROSLYN 57-1": "509-649-3105",
+  "CITY OF CLE ELUM 51-1": "509-674-1748",
+  "Fire District 1 (Rural Thorp)": "509-964-2435",
+  "Fire District 4 (Vantage)": "vantageKCFD4@gmail.com", // TODO
+  "Kittitas Valley Fire and Rescue (Fire District 2)": "509-933-7235",
+  "Fire District 7 (Cle Elum)": "509-933-7235",
+};
+
 const KittitasFirewiseReport = props => {
-  const { place } = props;
+  const {
+    num_nearby_large_fires: numLargeFires,
+    num_nearby_fire_start_sites: numFireStarts,
+    local_fire_district_fire_district_name: fireDistrictName,
+    firewise_community_Community: fireAdaptedCommunity,
+    general_wildfire_risk_HAZARD_RAT: hazardRating,
+  } = props.place;
   const suggestedBuildingActions = [
     "Add fuel breaks, such as walkways and patios, to interrupt a fire’s path",
   ];
@@ -44,26 +63,38 @@ const KittitasFirewiseReport = props => {
     "Regularly remove dead plant and tree material",
     "Keep lawns and native grasses mowed to a height of four inches",
   ];
+  const safeAvgFireStarts = !isNaN(numFireStarts) ? numFireStarts / 10 : 0; // 10 === year range of data.
+  const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
+  const safeFireDistrictName =
+    fireDistrictName === "Areas outside Fire Districts"
+      ? "You are not in a fire district"
+      : fireDistrictName;
+  const safeFireDistrictPhone = fireDistrictInfo[fireDistrictName] || "unknown";
+  const safeFireAdaptedCommunity =
+    fireAdaptedCommunity || "You are not in a Fire Adapted Community";
 
   return (
     <>
       <Page>
-        <PageHeader date={place.created_datetime} coords={place.geometry} />
+        <PageHeader
+          date={props.place.created_datetime}
+          coords={props.place.geometry}
+        />
         <PageBody>
           <RightSidebar>
             <SectionTitle>Your Resources</SectionTitle>
             <ResourcesInfo>
               <SectionSubtitle>Your Fire District: </SectionSubtitle>
-              <ResourceName>[Fire District 51 (Snoqualmie Pass)]</ResourceName>
+              <ResourceName>{safeFireDistrictName}</ResourceName>
               <Checklist>
                 <ResourceInfoItem faClassname="fas fa-phone">
-                  [425-761-0781]
+                  {safeFireDistrictPhone}
                 </ResourceInfoItem>
               </Checklist>
             </ResourcesInfo>
             <ResourcesInfo>
               <SectionSubtitle>Your Fire Adapted Community: </SectionSubtitle>
-              <ResourceName>[Green Canyon]</ResourceName>
+              <ResourceName>{safeFireAdaptedCommunity}</ResourceName>
               <Checklist>
                 <ResourceInfoItem faClassname="fas fa-globe">
                   <ExternalLinkWithBreak href="https://www.facebook.com/KittitasFACC">
@@ -185,17 +216,17 @@ const KittitasFirewiseReport = props => {
               <MainPanelTitle>Understand Your Risk</MainPanelTitle>
               <WildfireRiskSummaryStats>
                 <SummaryStatRow>
-                  <SimpleDonutChart />
+                  <SimpleDonutChart hazardRating={hazardRating} />
                   <StatSummary>General wildfire risk in your area</StatSummary>
                 </SummaryStatRow>
                 <SummaryStatRow>
-                  <BigStat>[4.7]</BigStat>
+                  <BigStat>{safeAvgFireStarts}</BigStat>
                   <StatSummary>
                     Average fire starts in your area per year
                   </StatSummary>
                 </SummaryStatRow>
                 <SummaryStatRow>
-                  <BigStat>[2]</BigStat>
+                  <BigStat>{safeNumLargeFires}</BigStat>
                   <StatSummary>
                     Number of large wildfires in your area since 1973
                   </StatSummary>
@@ -246,7 +277,10 @@ const KittitasFirewiseReport = props => {
         </PageBody>
       </Page>
       <Page>
-        <PageHeader date={place.created_datetime} coords={place.geometry} />
+        <PageHeader
+          date={props.place.created_datetime}
+          coords={props.place.geometry}
+        />
         <PageBody>
           <RightSidebar>
             <SectionTitle>In An Emergency...</SectionTitle>
@@ -262,29 +296,41 @@ const KittitasFirewiseReport = props => {
               items.
             </LargeText>
             <Checklist>
-              <ChecklistItem isChecked={true}>
+              <ChecklistItem isChecked={!!props.place["food_and_water"]}>
                 Three-day supply of non-perishable food and water
               </ChecklistItem>
-              <ChecklistItem isChecked={true}>
+              <ChecklistItem isChecked={!!props.place["medications"]}>
                 Prescriptions and medications
               </ChecklistItem>
-              <ChecklistItem isChecked={true}>Change of clothing</ChecklistItem>
-              <ChecklistItem isChecked={true}>
+              <ChecklistItem isChecked={!!props.place["clothing"]}>
+                Change of clothing
+              </ChecklistItem>
+              <ChecklistItem isChecked={!!props.place["car_keys_money"]}>
                 Car keys, credit card, cash, or traveler’s checks
               </ChecklistItem>
-              <ChecklistItem isChecked={true}>First aid supplies</ChecklistItem>
-              <ChecklistItem isChecked={true}>
+              <ChecklistItem isChecked={!!props.place["first_aid_kit"]}>
+                First aid supplies
+              </ChecklistItem>
+              <ChecklistItem isChecked={!!props.place["food_and_water"]}>
                 Three-day supply of non-perishable food and water
               </ChecklistItem>
-              <ChecklistItem isChecked={false}>
+              <ChecklistItem isChecked={!!props.place["radio"]}>
                 Battery-powered radio and extra batteries
               </ChecklistItem>
-              <ChecklistItem isChecked={false}>
+              <ChecklistItem isChecked={!!props.place["documents"]}>
                 Copies of important documents
               </ChecklistItem>
-              <ChecklistItem isChecked={false}>Flashlight</ChecklistItem>
-              <ChecklistItem isChecked={false}>
+              <ChecklistItem isChecked={!!props.place["flashlight"]}>
+                Flashlight
+              </ChecklistItem>
+              <ChecklistItem isChecked={!!props.place["eyeglasses"]}>
                 Eyeglasses or contact lenses
+              </ChecklistItem>
+              <ChecklistItem isChecked={!!props.place["pet_food"]}>
+                Pet food and water
+              </ChecklistItem>
+              <ChecklistItem isChecked={!!props.place["sanitation_supplies"]}>
+                Sanitation supplies
               </ChecklistItem>
             </Checklist>
           </RightSidebar>
