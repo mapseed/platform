@@ -103,7 +103,7 @@ const pointInPolygon = ({
   return config.propertiesToPluck.reduce(
     (pluckedProperties, property) => ({
       ...pluckedProperties,
-      [property.name]: foundFeature
+      [`${config.name}_${property.name}`]: foundFeature
         ? foundFeature.properties[property.name]
         : property.fallbackValue,
     }),

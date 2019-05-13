@@ -4273,6 +4273,28 @@
             "aggregator": {
               "type": "totalCount"
             }
+          },
+          {
+            "name": "general_wildfire_risk",
+            "type": "pointInPolygon",
+            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-wui-high-risk-communities.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "HAZARD_RATING",
+                "fallbackValue": "Low"
+              }
+            ]
+          },
+          {
+            "name": "firewise_community",
+            "type": "pointInPolygon",
+            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-firewise-communities.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "Community",
+                "fallbackValue": "none"
+              }
+            ]
           }
         ],
         "label": "I am a small landowner in Kittitas County",
@@ -4594,6 +4616,28 @@
             "aggregator": {
               "type": "totalCount"
             }
+          },
+          {
+            "name": "general_wildfire_risk",
+            "type": "pointInPolygon",
+            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-wui-high-risk-communities.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "HAZARD_RAT",
+                "fallbackValue": "Low"
+              }
+            ]
+          },
+          {
+            "name": "firewise_community",
+            "type": "pointInPolygon",
+            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-firewise-communities.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "Community",
+                "fallbackValue": "none"
+              }
+            ]
           }
         ],
         "value": "large-landowner",
