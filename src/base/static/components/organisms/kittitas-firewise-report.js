@@ -313,9 +313,6 @@ const KittitasFirewiseReport = props => {
               <ChecklistItem isChecked={!!props.place["first_aid_kit"]}>
                 First aid supplies
               </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["food_and_water"]}>
-                Three-day supply of non-perishable food and water
-              </ChecklistItem>
               <ChecklistItem isChecked={!!props.place["radio"]}>
                 Battery-powered radio and extra batteries
               </ChecklistItem>
