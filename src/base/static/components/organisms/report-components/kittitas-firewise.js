@@ -2,6 +2,7 @@
 import React from "react";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 import {
   SmallText,
@@ -313,9 +314,9 @@ const donutSettings = {
 
 const SimpleDonutChart = props => {
   const settings = donutSettings[props.hazardRating] || {
-    color: "#ffffb2",
+    color: "#888",
     dashSegment: 0,
-    text: "UNKNOWN",
+    text: "N/A",
   };
 
   return (
@@ -452,47 +453,56 @@ const PageHeader = props => (
       src="/static/css/images/logo.png"
       alt="Firewise logo"
     />
-    <LargeTitle
+    <div
       css={css`
-        font-family: PTSansBold, sans-serif;
-        float: right;
-        margin: 0;
+        margin-left: auto;
+        margin-right: 16px;
+        margin-bottom: 4px;
       `}
     >
-      Landowner Report
-    </LargeTitle>
-    <SmallText
-      css={css`
-        text-align: right;
-        display: block;
-      `}
-    >
-      <span
+      <LargeTitle
         css={css`
-          font-family: Raleway;
-          font-weight: 900;
+          font-family: PTSansBold, sans-serif;
+          float: right;
+          margin: 0;
         `}
       >
-        Report date:
-      </span>{" "}
-      {props.date}
-    </SmallText>
-    <SmallText
-      css={css`
-        text-align: right;
-        display: block;
-      `}
-    >
-      <span
+        Landowner Report
+      </LargeTitle>
+      <SmallText
         css={css`
-          font-family: Raleway;
-          font-weight: 900;
+          text-align: right;
+          display: block;
         `}
       >
-        Report location:
-      </span>{" "}
-      {props.coords.latitude}° latitude / -120.4° {props.coords.longitude}
-    </SmallText>
+        <span
+          css={css`
+            font-family: Raleway;
+            font-weight: 900;
+          `}
+        >
+          Report date:
+        </span>{" "}
+        {moment(props.date).format("MMM DD, YYYY")}
+      </SmallText>
+      <SmallText
+        css={css`
+          text-align: right;
+          display: block;
+        `}
+      >
+        <span
+          css={css`
+            font-family: Raleway;
+            font-weight: 900;
+          `}
+        >
+          Report location:
+        </span>{" "}
+        {props.coords[1].toFixed(1)}° latitude / {props.coords[0].toFixed(1)}°
+        longitude
+      </SmallText>
+    </div>
   </header>
 );
 

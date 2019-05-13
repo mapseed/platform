@@ -6,7 +6,6 @@ import { css, jsx } from "@emotion/core";
 
 import { RegularText, LargeText, ExternalLink } from "../atoms/typography";
 import { Image } from "../atoms/imagery";
-import fieldResponseFilter from "../../utils/field-response-filter";
 import { placePropType } from "../../state/ducks/places";
 import {
   RightSidebar,
@@ -66,10 +65,10 @@ const KittitasFirewiseReport = props => {
   const safeAvgFireStarts = !isNaN(numFireStarts) ? numFireStarts / 10 : 0; // 10 === year range of data.
   const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
   const safeFireDistrictName =
-    fireDistrictName === "Areas outside Fire Districts"
-      ? "You are not in a fire district"
+    fireDistrictName === "Areas outside Fire Districts" || !fireDistrictName
+      ? "You are not in a Fire District"
       : fireDistrictName;
-  const safeFireDistrictPhone = fireDistrictInfo[fireDistrictName] || "unknown";
+  const safeFireDistrictPhone = fireDistrictInfo[fireDistrictName];
   const safeFireAdaptedCommunity =
     fireAdaptedCommunity || "You are not in a Fire Adapted Community";
 
@@ -78,7 +77,7 @@ const KittitasFirewiseReport = props => {
       <Page>
         <PageHeader
           date={props.place.created_datetime}
-          coords={props.place.geometry}
+          coords={props.place.geometry.coordinates}
         />
         <PageBody>
           <RightSidebar>
@@ -87,9 +86,11 @@ const KittitasFirewiseReport = props => {
               <SectionSubtitle>Your Fire District: </SectionSubtitle>
               <ResourceName>{safeFireDistrictName}</ResourceName>
               <Checklist>
-                <ResourceInfoItem faClassname="fas fa-phone">
-                  {safeFireDistrictPhone}
-                </ResourceInfoItem>
+                {safeFireDistrictPhone && (
+                  <ResourceInfoItem faClassname="fas fa-phone">
+                    {safeFireDistrictPhone}
+                  </ResourceInfoItem>
+                )}
               </Checklist>
             </ResourcesInfo>
             <ResourcesInfo>
@@ -238,9 +239,10 @@ const KittitasFirewiseReport = props => {
                 </MainPanelSectionText>
                 <MainPanelSectionText>
                   According to data sources from the State of Washington,
-                  wildfire risk in your area is high. The average number of fire
-                  starts (including starts from human activity and from
-                  lightning) per year in your area is 4.7. Since 1973, 2 large
+                  wildfire risk in your area is {hazardRating}. The average
+                  number of fire starts (including starts from human activity
+                  and from lightning) per year in your area is{" "}
+                  {safeAvgFireStarts}. Since 1973, {safeNumLargeFires} large
                   wildfires have burned in your area.
                 </MainPanelSectionText>
                 <MainPanelSectionText>Data sources used:</MainPanelSectionText>
@@ -279,7 +281,7 @@ const KittitasFirewiseReport = props => {
       <Page>
         <PageHeader
           date={props.place.created_datetime}
-          coords={props.place.geometry}
+          coords={props.place.geometry.coordinates}
         />
         <PageBody>
           <RightSidebar>
