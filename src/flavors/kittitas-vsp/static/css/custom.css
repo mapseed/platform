@@ -25,7 +25,6 @@ header {
 [data-field-type="big_radio"] {
   background-color: #efefef !important;
   box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
-  border-radius: 4px;
   margin-bottom: 0 !important;
 }
 
