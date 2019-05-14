@@ -17,7 +17,7 @@ import {
 } from "../../state/ducks/right-sidebar-config";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
 import { updateUIVisibility, uiVisibilitySelector } from "../../state/ducks/ui";
-import constants from "../../constants"
+import constants from "../../constants";
 
 const toggleSidebarStyles = {
   position: "absolute",
