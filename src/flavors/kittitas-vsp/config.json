@@ -53,7 +53,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "geocoding_engine": "Mapbox",
-    "geocode_hint": [-117.59821, 46.472103],
+    "geocode_hint": [-120.549183, 46.9999019],
     "offlineBoundingBox": {
       "southWest": {
         "lat": 46.709206,
@@ -98,17 +98,12 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
-      "kittitas-landcover": {
+      "kittitas-geologic-hazard": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-landcover/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "kittitas-critical-aquifer": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
-        ]
+          "https://vector-tiles.mapseed.org/kittitas-geologic-hazard/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 17
       },
       "kittitas-wetlands": {
         "type": "vector",
@@ -122,9 +117,23 @@
           "https://vector-tiles.mapseed.org/kittitas-conservation-areas/{z}/{x}/{y}.pbf"
         ]
       },
+      "kittitas-conservation-waterways": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-conservation-waterways/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-critical-aquifer": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
+        ]
+      },
       "kittitas-floodplain": {
-        "type": "geojson",
-        "data": "https://opendata.arcgis.com/datasets/42e5edd4c38d4559b7bb4caa10cdd8d2_2.geojson"
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-floodplain/{z}/{x}/{y}.pbf"
+        ]
       },
       "kittitas-county-outline": {
         "type": "geojson",
@@ -225,41 +234,14 @@
         ]
       },
       {
-        "id": "kittitas-critical-aquifer",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-critical-aquifer",
-            "type": "fill",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
-            "paint": {
-              "fill-pattern": "aquifer-fill.png"
-            }
-          },
-          {
-            "id": "kittitas-critical-aquifer-outline",
-            "type": "line",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
-            "paint": {
-              "line-color": "#e57339",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
         "id": "kittitas-geologic-hazard",
         "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "kittitas-geologic-hazard",
             "type": "fill",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
+            "source": "kittitas-geologic-hazard",
+            "source-layer": "kittitas-geologic-hazard",
             "paint": {
               "fill-pattern": "hazard-fill.png"
             }
@@ -267,9 +249,8 @@
           {
             "id": "kittitas-geologic-hazard-outline",
             "type": "line",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
+            "source": "kittitas-geologic-hazard",
+            "source-layer": "kittitas-geologic-hazard",
             "paint": {
               "line-color": "#e80f0f",
               "line-width": 2,
@@ -312,16 +293,44 @@
             "id": "kittitas-frequently-flooded",
             "type": "fill",
             "source": "kittitas-floodplain",
+            "source-layer": "kittitas-floodplain",
             "paint": {
               "fill-pattern": "frequently-flooded-fill.png"
             }
           },
           {
-            "id": "garfield-frequently-flooded-outline",
+            "id": "kittitas-frequently-flooded-outline",
             "type": "line",
             "source": "kittitas-floodplain",
+            "source-layer": "kittitas-floodplain",
             "paint": {
               "line-color": "#3366ff",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-critical-aquifer",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-critical-aquifer",
+            "type": "fill",
+            "source": "kittitas-critical-aquifer",
+            "source-layer": "kittitas-critical-aquifer",
+            "paint": {
+              "fill-pattern": "aquifer-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-critical-aquifer-outline",
+            "type": "line",
+            "source": "kittitas-critical-aquifer",
+            "source-layer": "kittitas-critical-aquifer",
+            "paint": {
+              "line-color": "#1155ce",
               "line-opacity": 0.7,
               "line-width": 2
             }
@@ -334,24 +343,105 @@
         "mapboxLayers": [
           {
             "id": "kittitas-conservation-areas",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
             "type": "fill",
-            "filter": ["==", ["geometry-type"], "Polygon"],
             "source": "kittitas-conservation-areas",
             "source-layer": "kittitas-conservation-areas",
             "paint": {
-              "fill-pattern": "conservation-fill.png"
+              "fill-pattern": "conservation-fill-alt.png",
+              "fill-opacity": 0.7
             }
           },
           {
             "id": "kittitas-conservation-areas-outline",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
             "type": "line",
-            "filter": ["==", ["geometry-type"], "Polygon"],
             "source": "kittitas-conservation-areas",
             "source-layer": "kittitas-conservation-areas",
             "paint": {
-              "line-color": "#10e53d",
+              "line-color": "#6dd84a",
               "line-width": 2,
-              "line-opacity": 0.7
+              "line-opacity": 0.9
+            }
+          },
+          {
+            "id": "kittitas-conservation-waterways",
+            "type": "line",
+            "source": "kittitas-conservation-waterways",
+            "source-layer": "kittitas-conservation-waterways",
+            "paint": {
+              "line-color": "#83a3db",
+              "line-width": 0.9,
+              "line-opacity": 0.9
+            },
+            "layout": {
+              "line-join": "round",
+              "line-cap": "round"
+            }
+          },
+          {
+            "id": "kittitas-conservation-waterways-labels",
+            "type": "symbol",
+            "source": "kittitas-conservation-waterways",
+            "source-layer": "kittitas-conservation-waterways",
+            "paint": {
+              "text-color": "#5380c1",
+              "text-halo-color": "#dde7f2",
+              "text-halo-width": 1.5,
+              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
+            },
+            "layout": {
+              "text-field": ["get", "SPECIES"],
+              "text-font": [
+                "Alegreya ExtraBold Italic",
+                "Arial Unicode MS Regular"
+              ],
+              "text-size": 13,
+              "text-padding": 15,
+              "text-letter-spacing": 0.2
+            }
+          },
+          {
+            "id": "kittitas-conservation-areas-labels",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
+            "type": "symbol",
+            "source": "kittitas-conservation-areas",
+            "source-layer": "kittitas-conservation-areas",
+            "paint": {
+              "text-color": "#618141",
+              "text-halo-color": "#f0f4ec",
+              "text-halo-width": 1.5,
+              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
+            },
+            "layout": {
+              "text-field": ["get", "comname"],
+              "text-size": 15,
+              "text-font": [
+                "Alegreya ExtraBold Italic",
+                "Arial Unicode MS Regular"
+              ],
+              "text-letter-spacing": 0.2
             }
           }
         ]
@@ -373,7 +463,7 @@
                 "match",
                 ["get", "location_type"],
                 "reports",
-                "map-pin-marker-red.png",
+                "marker-field.png",
                 "__no-icon-image__"
               ],
               "icon-allow-overlap": true
@@ -387,7 +477,7 @@
             "source": "kittitas-vsp-input",
             "layout": {
               "icon-anchor": "bottom",
-              "icon-image": "map-pin-marker-red.png",
+              "icon-image": "marker-field.png",
               "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
               "icon-allow-overlap": true
             }
@@ -448,6 +538,10 @@
                 "title": "Frequently Flooded Areas"
               },
               {
+                "id": "kittitas-critical-aquifer",
+                "title": "Critical Aquifer Recharge Areas"
+              },
+              {
                 "id": "kittitas-conservation-areas",
                 "title": "Critical Conservation Areas"
               }
@@ -488,7 +582,7 @@
         "submitter_editing_supported": true,
         "name": "location_type",
         "datasetSlug": "kittitas-vsp-input",
-        "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "icon_url": "/static/css/images/markers/marker-field.png",
         "value": "demo",
         "multi_stage": [
           {
@@ -740,12 +834,12 @@
           {
             "name": "fish_wildlife_habitat_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & Wildlife Habitat (PHS)</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & Wildlife Habitat</h2>"
           },
           {
             "name": "fish_wildlife_habitat_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildlife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px;font-size:0.9em;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;'><strong>Fish & wildlife habitats</strong> are manahed to maintain populations of fish and wildlife. Zoom the map to explore which species live in your area.</p></div></div><div style='display:flex;align-items:center;margin-bottom:16px;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'>Appearance on map</em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Priority habitats: areas with unique or significant value to many species</em></div></div><div style='display:flex;align-items:center;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'> </em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/waterways-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Fish-bearing waterways</em></div></div></div></div>"
           },
           {
             "name": "private-property_on_fish_wildlife_habitat",
@@ -1021,12 +1115,12 @@
           {
             "name": "pipeline_irrigation_quantity",
             "type": "number",
-            "prompt": "On how many acres of land do you use pipeline irrigation?",
+            "prompt": "How many feet of earthen ditch have you converted to a pipeline?",
             "min": 0,
             "hidden_default": true,
-            "placeholder": "Approximate acreage",
+            "placeholder": "Approximate footage",
             "metadata": {
-              "units": "acres"
+              "units": "feet"
             }
           },
           {
@@ -1174,10 +1268,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "cover_crop_quantity",
-                "cover_crop_datetime"
-              ]
+              "targets": ["cover_crop_quantity", "cover_crop_datetime"]
             },
             "content": [
               {
@@ -1824,7 +1915,7 @@
           {
             "name": "weed_prevention_quantity",
             "type": "number",
-            "prompt": "On how many acres do you practive weed prevention, monitoring, or suppression?",
+            "prompt": "On how many acres do you practice weed prevention, monitoring, or suppression?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -1874,7 +1965,7 @@
           {
             "name": "pest_prevention_quantity",
             "type": "number",
-            "prompt": "On how many acres do you practive prest prevention, monitoring, or suppression?",
+            "prompt": "On how many acres do you practice prest prevention, monitoring, or suppression?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -2145,7 +2236,7 @@
             "name": "fish_screens_quantity",
             "type": "number",
             "min": 0,
-            "prompt": "How many fish screens have you established?",
+            "prompt": "How many fish screens have you installed?",
             "placeholder": "Approximate number",
             "hidden_default": true,
             "metadata": {
@@ -2192,11 +2283,11 @@
             "name": "fish_passages_quantity",
             "type": "number",
             "min": 0,
-            "prompt": "How many fish passages have you established?",
+            "prompt": "How many fish passage barriers have you corrected?",
             "placeholder": "Approximate number",
             "hidden_default": true,
             "metadata": {
-              "units": "fishways"
+              "units": "fish barriers"
             }
           },
           {
@@ -2204,7 +2295,7 @@
             "type": "datetime",
             "date_format": "YYYY",
             "display_format": "YYYY",
-            "prompt": "Approximately when did you start establishing fish passages?",
+            "prompt": "Approximately when did you start correcting fish passage barriers?",
             "placeholder": "Your best estimate",
             "optional": false,
             "hidden_default": true
@@ -2435,7 +2526,7 @@
         "id": "reports",
         "datasetId": "kittitas-vsp-input",
         "label": "Actions",
-        "icon": "/static/css/images/markers/map-pin-marker-red.png"
+        "icon": "/static/css/images/markers/marker-field.png"
       }
     ]
   },

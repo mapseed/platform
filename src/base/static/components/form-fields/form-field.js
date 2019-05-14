@@ -127,37 +127,39 @@ class FormField extends Component {
         css={css`
           font-family: ${this.props.theme.text.bodyFontFamily};
           margin-bottom: 5px;
-          padding: 5px;
+          padding: 8px;
           border: ${this.props.showValidityStatus &&
           !this.props.fieldState.get("isValid")
             ? "2px dotted #da8583"
             : "2px solid transparent"};
-          border-radius: 8px;
         `}
         data-field-type={this.props.fieldConfig.type}
         data-field-name={this.props.fieldConfig.name}
       >
-        <div className="input-form__field-prompt-container">
-          <RegularText
-            css={css`
-              margin-bottom: 8px;
-            `}
-          >
-            {this.props.t(
-              `formField${this.props.formId}${this.props.fieldConfig.name}`,
-              this.props.fieldConfig.prompt || " ",
+        {this.props.fieldConfig.prompt && (
+          <div className="input-form__field-prompt-container">
+            <RegularText
+              css={css`
+                margin-bottom: 8px;
+                font-size: 1.15rem;
+              `}
+            >
+              {this.props.t(
+                `formField${this.props.formId}${this.props.fieldConfig.name}`,
+                this.props.fieldConfig.prompt,
+              )}
+              <span className={cn.optionalMsg}>
+                {this.props.t("optionalMsg", "optional")}
+              </span>
+            </RegularText>
+            {this.props.fieldConfig.modal && (
+              <InfoModalTrigger
+                classes="input-form__field-modal-trigger"
+                modalContent={this.props.fieldConfig.modal}
+              />
             )}
-            <span className={cn.optionalMsg}>
-              {this.props.t("optionalMsg", "optional")}
-            </span>
-          </RegularText>
-          {this.props.fieldConfig.modal && (
-            <InfoModalTrigger
-              classes="input-form__field-modal-trigger"
-              modalContent={this.props.fieldConfig.modal}
-            />
-          )}
-        </div>
+          </div>
+        )}
         {this.state.isInitialized &&
           this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>

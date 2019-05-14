@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import CustomPage from "./custom-page";
 import FormCategoryMenuWrapper from "../input-form/form-category-menu-wrapper";
 import PlaceDetail from "../place-detail";
+import constants from "../../constants";
 
 import {
   contentPanelComponentSelector,
@@ -30,10 +31,14 @@ const getLeftOffset = (isRightSidebarVisible, layout) => {
 
 const ContentPanelOuterContainer = styled("section")(props => ({
   position: "absolute",
-  top: props.layout === "desktop" ? 0 : "60%",
+  top:
+    props.layout === "desktop" ? `${constants.DESKTOP_HEADER_HEIGHT}px` : "60%",
   width: props.layout === "desktop" ? "40%" : "100%",
   left: getLeftOffset(props.isRightSidebarVisible, props.layout),
-  height: props.layout === "desktop" ? "100%" : "unset",
+  height:
+    props.layout === "desktop"
+      ? `calc(100% - ${constants.DESKTOP_HEADER_HEIGHT}px)`
+      : "unset",
   backgroundColor: "#fff",
   boxSizing: "border-box",
   boxShadow:

@@ -33,6 +33,12 @@
 
     <style>
       html, body, #site-wrap {
+        /*
+         * This property ensures color fidelity when outputting report PDFs
+         * with Puppeteer.
+         */
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
         width: 100%;
         height: 100%;
       }
