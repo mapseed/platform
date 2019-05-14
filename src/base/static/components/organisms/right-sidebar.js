@@ -17,6 +17,7 @@ import {
 } from "../../state/ducks/right-sidebar-config";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
 import { updateUIVisibility, uiVisibilitySelector } from "../../state/ducks/ui";
+import constants from "../../constants"
 
 const toggleSidebarStyles = {
   position: "absolute",
@@ -47,7 +48,7 @@ const toggleSidebarStyles = {
 const RightSidebarOuterContainer = styled("aside")(props => ({
   zIndex: 10,
   position: "absolute",
-  top: 0,
+  top: constants.DESKTOP_HEADER_HEIGHT,
   right: 0,
   height: "100%",
   backgroundColor: "#fff",
