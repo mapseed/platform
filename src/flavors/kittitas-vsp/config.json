@@ -53,7 +53,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "geocoding_engine": "Mapbox",
-    "geocode_hint": [-117.59821, 46.472103],
+    "geocode_hint": [-120.549183, 46.9999019],
     "offlineBoundingBox": {
       "southWest": {
         "lat": 46.709206,
