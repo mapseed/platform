@@ -98,17 +98,12 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
-      "kittitas-landcover": {
+      "kittitas-geologic-hazard": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-landcover/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "kittitas-critical-aquifer": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
-        ]
+          "https://vector-tiles.mapseed.org/kittitas-geologic-hazard/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 17
       },
       "kittitas-wetlands": {
         "type": "vector",
@@ -126,6 +121,12 @@
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/kittitas-conservation-waterways/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-critical-aquifer": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-floodplain": {
@@ -233,41 +234,14 @@
         ]
       },
       {
-        "id": "kittitas-critical-aquifer",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-critical-aquifer",
-            "type": "fill",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
-            "paint": {
-              "fill-pattern": "aquifer-fill.png"
-            }
-          },
-          {
-            "id": "kittitas-critical-aquifer-outline",
-            "type": "line",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
-            "paint": {
-              "line-color": "#e57339",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
         "id": "kittitas-geologic-hazard",
         "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "kittitas-geologic-hazard",
             "type": "fill",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
+            "source": "kittitas-geologic-hazard",
+            "source-layer": "kittitas-geologic-hazard",
             "paint": {
               "fill-pattern": "hazard-fill.png"
             }
@@ -275,9 +249,8 @@
           {
             "id": "kittitas-geologic-hazard-outline",
             "type": "line",
-            "source": "kittitas-landcover",
-            "source-layer": "kittitas-landcover",
-            "filter": [">=", ["to-number", ["get", "SLOPE"]], 5],
+            "source": "kittitas-geologic-hazard",
+            "source-layer": "kittitas-geologic-hazard",
             "paint": {
               "line-color": "#e80f0f",
               "line-width": 2,
@@ -339,6 +312,32 @@
         ]
       },
       {
+        "id": "kittitas-critical-aquifer",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-critical-aquifer",
+            "type": "fill",
+            "source": "kittitas-critical-aquifer",
+            "source-layer": "kittitas-critical-aquifer",
+            "paint": {
+              "fill-pattern": "aquifer-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-critical-aquifer-outline",
+            "type": "line",
+            "source": "kittitas-critical-aquifer",
+            "source-layer": "kittitas-critical-aquifer",
+            "paint": {
+              "line-color": "#1155ce",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
         "id": "kittitas-conservation-areas",
         "visibleDefault": false,
         "mapboxLayers": [
@@ -349,6 +348,7 @@
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
               ["!=", ["get", "comname"], "Shrub-steppe"],
               ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "fill",
@@ -366,6 +366,7 @@
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
               ["!=", ["get", "comname"], "Shrub-steppe"],
               ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "line",
@@ -409,8 +410,8 @@
                 "Alegreya ExtraBold Italic",
                 "Arial Unicode MS Regular"
               ],
-              "text-size": 15,
-              "text-padding": 10,
+              "text-size": 13,
+              "text-padding": 15,
               "text-letter-spacing": 0.2
             }
           },
@@ -421,6 +422,7 @@
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
               ["!=", ["get", "comname"], "Shrub-steppe"],
               ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "symbol",
@@ -534,6 +536,10 @@
               {
                 "id": "kittitas-frequently-flooded",
                 "title": "Frequently Flooded Areas"
+              },
+              {
+                "id": "kittitas-critical-aquifer",
+                "title": "Critical Aquifer Recharge Areas"
               },
               {
                 "id": "kittitas-conservation-areas",
@@ -1109,12 +1115,12 @@
           {
             "name": "pipeline_irrigation_quantity",
             "type": "number",
-            "prompt": "On how many acres of land do you use pipeline irrigation?",
+            "prompt": "How many feet of earthen ditch have you converted to a pipeline?",
             "min": 0,
             "hidden_default": true,
-            "placeholder": "Approximate acreage",
+            "placeholder": "Approximate footage",
             "metadata": {
-              "units": "acres"
+              "units": "feet"
             }
           },
           {
@@ -1909,7 +1915,7 @@
           {
             "name": "weed_prevention_quantity",
             "type": "number",
-            "prompt": "On how many acres do you practive weed prevention, monitoring, or suppression?",
+            "prompt": "On how many acres do you practice weed prevention, monitoring, or suppression?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -1959,7 +1965,7 @@
           {
             "name": "pest_prevention_quantity",
             "type": "number",
-            "prompt": "On how many acres do you practive prest prevention, monitoring, or suppression?",
+            "prompt": "On how many acres do you practice prest prevention, monitoring, or suppression?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -2230,7 +2236,7 @@
             "name": "fish_screens_quantity",
             "type": "number",
             "min": 0,
-            "prompt": "How many fish screens have you established?",
+            "prompt": "How many fish screens have you installed?",
             "placeholder": "Approximate number",
             "hidden_default": true,
             "metadata": {
@@ -2277,11 +2283,11 @@
             "name": "fish_passages_quantity",
             "type": "number",
             "min": 0,
-            "prompt": "How many fish passages have you established?",
+            "prompt": "How many fish passage barriers have you corrected?",
             "placeholder": "Approximate number",
             "hidden_default": true,
             "metadata": {
-              "units": "fishways"
+              "units": "fish barriers"
             }
           },
           {
@@ -2289,7 +2295,7 @@
             "type": "datetime",
             "date_format": "YYYY",
             "display_format": "YYYY",
-            "prompt": "Approximately when did you start establishing fish passages?",
+            "prompt": "Approximately when did you start correcting fish passage barriers?",
             "placeholder": "Your best estimate",
             "optional": false,
             "hidden_default": true
