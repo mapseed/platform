@@ -18,19 +18,6 @@ header {
  * TODO: All these custom selectors should be ported to styled components.
  */
 
-.input-form__field-prompt-container [class*=FormField] {
-  font-size: 1.15rem;
-}
-
-[class*="FormField"] {
-  padding: 16px !important;
-  border-radius: 0 !important;
-}
-
-[class*="RegularText-FormField"] {
-  padding: 0 !important;
-}
-
 [data-field-type="datetime"],
 [data-field-type="number"],
 [data-field-name="my_image"],
