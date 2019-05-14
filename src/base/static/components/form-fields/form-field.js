@@ -127,7 +127,7 @@ class FormField extends Component {
         css={css`
           font-family: ${this.props.theme.text.bodyFontFamily};
           margin-bottom: 5px;
-          padding: 16px;
+          padding: 8px;
           border: ${this.props.showValidityStatus &&
           !this.props.fieldState.get("isValid")
             ? "2px dotted #da8583"
