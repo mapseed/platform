@@ -4265,7 +4265,7 @@
           {
             "name": "num_nearby_large_fires",
             "type": "aggregatePolygonsOverlappingBuffer",
-            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-large-fires-1973-2018-simplified.geojson",
+            "targetUrl": "https://assets.mapseed.org/geo/kittitas-large-fires-1973-2018-simplified.geojson",
             "buffer": {
               "distance": 20,
               "units": "miles"
@@ -4277,7 +4277,7 @@
           {
             "name": "general_wildfire_risk",
             "type": "pointInPolygon",
-            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-wui-high-risk-communities.geojson",
+            "targetUrl": "https://assets.mapseed.org/geo/kittitas-wui-high-risk-communities.geojson",
             "propertiesToPluck": [
               {
                 "name": "HAZARD_RATING",
@@ -4288,7 +4288,7 @@
           {
             "name": "firewise_community",
             "type": "pointInPolygon",
-            "targetUrl": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/kittitas-firewise-communities.geojson",
+            "targetUrl": "https://assets.mapseed.org/geo/kittitas-firewise-communities.geojson",
             "propertiesToPluck": [
               {
                 "name": "Community",
