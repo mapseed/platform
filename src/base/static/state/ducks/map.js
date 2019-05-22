@@ -287,6 +287,7 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
 export const filterableLayerGroupMetadataPropType = PropTypes.shape({
   layerIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   filterSlider: PropTypes.shape({
+    initialValue: PropTypes.number,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
     step: PropTypes.number,

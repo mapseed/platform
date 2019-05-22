@@ -31,8 +31,7 @@ const getLeftOffset = (isRightSidebarVisible, layout) => {
 
 const ContentPanelOuterContainer = styled("section")(props => ({
   position: "absolute",
-  top:
-    props.layout === "desktop" ? `${constants.HEADER_HEIGHT}px` : "60%",
+  top: props.layout === "desktop" ? `${constants.HEADER_HEIGHT}px` : "60%",
   width: props.layout === "desktop" ? "40%" : "100%",
   left: getLeftOffset(props.isRightSidebarVisible, props.layout),
   height:
