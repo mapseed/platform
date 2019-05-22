@@ -21,6 +21,23 @@ export const mapCenterpointSelector = state => ({
 export const drawModeActiveSelector = state => state.map.isDrawModeActive;
 export const mapContainerDimensionsSeletor = state =>
   state.map.mapContainerDimensions;
+// Return information about visible layer groups which are configured to be
+// filterable with a slider.
+export const filterableLayerGroupsMetadataSelector = state =>
+  Object.values(state.map.layerGroupsMetadata).reduce(
+    (memo, { filterSlider, layerIds, isVisible }) => {
+      return filterSlider && isVisible
+        ? [
+            ...memo,
+            {
+              filterSlider,
+              layerIds,
+            },
+          ]
+        : memo;
+    },
+    [],
+  );
 
 // Actions:
 const UPDATE_STYLE = "map/UPDATE_STYLE";
@@ -38,6 +55,15 @@ const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
 const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
+const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
+
+export function updateLayerFilters(filters) {
+  console.log("updateLayerFilters", filters)
+  return {
+    type: UPDATE_LAYER_FILTERS,
+    payload: filters,
+  };
+}
 
 export function removeFocusedGeoJSONFeatures() {
   return {
@@ -199,6 +225,7 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     (memo, layerGroup) => ({
       ...memo,
       [layerGroup.id]: {
+        filterSlider: layerGroup.filterSlider,
         isBasemap: !!layerGroup.basemap,
         isVisible: !!layerGroup.visibleDefault,
         // Mapbox layer ids which make up this layerGroup:
@@ -258,6 +285,18 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
   };
 }
 
+export const filterableLayerGroupMetadataPropType = PropTypes.shape({
+  layerIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  filterSlider: PropTypes.shape({
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    step: PropTypes.number,
+    label: PropTypes.string,
+    property: PropTypes.string.isRequired,
+    comparator: PropTypes.string.isRequired,
+  }),
+});
+
 export const mapViewportPropType = PropTypes.shape({
   latitude: PropTypes.number,
   longitude: PropTypes.number,
@@ -285,7 +324,7 @@ export const mapStylePropType = PropTypes.shape({
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      source: PropTypes.string.isRequired,
+      source: PropTypes.string,
       "source-layer": PropTypes.string,
       paint: PropTypes.object,
       layout: PropTypes.object,
@@ -435,6 +474,23 @@ export default function reducer(state = INITIAL_STATE, action) {
               },
             },
           },
+        },
+      };
+    case UPDATE_LAYER_FILTERS:
+      return {
+        ...state,
+        style: {
+          ...state.style,
+          layers: state.style.layers.map(layer => {
+            if (action.payload.layerIds.includes(layer.id)) {
+              return {
+                ...layer,
+                filter: action.payload.filter,
+              };
+            }
+
+            return layer;
+          }),
         },
       };
     case LOAD_STYLE_AND_METADATA:
