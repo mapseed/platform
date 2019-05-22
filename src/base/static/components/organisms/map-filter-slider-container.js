@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
@@ -33,13 +33,22 @@ const MapFilterSlider = ({
   updateLayerFilters,
 }) => {
   const [rangeValue, setRangeValue] = useState(filterSlider.initialValue);
+  useEffect(
+    () => {
+      buildAndApplyMapLayerFilters({
+        filterValue: filterSlider.initialValue,
+        layerIds,
+        comparator: filterSlider.comparator,
+        property: filterSlider.property,
+        updateLayerFilters,
+      });
+    },
+    [filterSlider.initialValue],
+  );
 
   return (
     <div
       css={css`
-        display: flex;
-        align-items: middle;
-        justify-content: space-between;
         background-color: rgba(0, 0, 0, 0.6);
         padding: 8px;
         border-radius: 8px;
@@ -47,37 +56,53 @@ const MapFilterSlider = ({
         margin-top: 8px;
       `}
     >
-      <RegularText>{filterSlider.min}</RegularText>
-      <RangeInput
+      <div
         css={css`
-          width: 100%;
-          margin-left: 16px;
-          margin-right: 16px;
-
-          &:hover {
-            cursor: pointer;
-          }
-
-          &:active {
-            cursor: grabbing;
-          }
+          margin-bottom: 8px;
         `}
-        min={filterSlider.min}
-        max={filterSlider.max}
-        step={filterSlider.step}
-        onChange={evt => {
-          buildAndApplyMapLayerFilters({
-            filterValue: parseInt(evt.target.value),
-            layerIds,
-            comparator: filterSlider.comparator,
-            property: filterSlider.property,
-            updateLayerFilters,
-          });
-          setRangeValue(evt.target.value);
-        }}
-        value={rangeValue}
-      />
-      <RegularText>{filterSlider.max}</RegularText>
+      >
+        <RegularText>{filterSlider.label}</RegularText>{" "}
+        <RegularText weight="black">{rangeValue}</RegularText>
+      </div>
+      <div
+        css={css`
+          display: flex;
+          align-items: middle;
+          justify-content: space-between;
+        `}
+      >
+        <RegularText>{filterSlider.min}</RegularText>
+        <RangeInput
+          css={css`
+            width: 100%;
+            margin-left: 16px;
+            margin-right: 16px;
+
+            &:hover {
+              cursor: pointer;
+            }
+
+            &:active {
+              cursor: grabbing;
+            }
+          `}
+          min={filterSlider.min}
+          max={filterSlider.max}
+          step={filterSlider.step}
+          onChange={evt => {
+            buildAndApplyMapLayerFilters({
+              filterValue: parseInt(evt.target.value),
+              layerIds,
+              comparator: filterSlider.comparator,
+              property: filterSlider.property,
+              updateLayerFilters,
+            });
+            setRangeValue(evt.target.value);
+          }}
+          value={rangeValue}
+        />
+        <RegularText>{filterSlider.max}</RegularText>
+      </div>
     </div>
   );
 };

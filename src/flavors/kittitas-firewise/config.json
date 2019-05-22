@@ -3915,7 +3915,7 @@
           "min": 1973,
           "max": 2018,
           "step": 1,
-          "label": "Large wildfires by year",
+          "label": "Large wildfires since:",
           "property": "YEAR",
           "comparator": "<="
         },
