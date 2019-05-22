@@ -48,7 +48,7 @@ const toggleSidebarStyles = {
 const RightSidebarOuterContainer = styled("aside")(props => ({
   zIndex: 10,
   position: "absolute",
-  top: constants.DESKTOP_HEADER_HEIGHT,
+  top: constants.HEADER_HEIGHT,
   right: 0,
   height: "100%",
   backgroundColor: "#fff",

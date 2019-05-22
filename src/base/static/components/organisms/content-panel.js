@@ -32,12 +32,12 @@ const getLeftOffset = (isRightSidebarVisible, layout) => {
 const ContentPanelOuterContainer = styled("section")(props => ({
   position: "absolute",
   top:
-    props.layout === "desktop" ? `${constants.DESKTOP_HEADER_HEIGHT}px` : "60%",
+    props.layout === "desktop" ? `${constants.HEADER_HEIGHT}px` : "60%",
   width: props.layout === "desktop" ? "40%" : "100%",
   left: getLeftOffset(props.isRightSidebarVisible, props.layout),
   height:
     props.layout === "desktop"
-      ? `calc(100% - ${constants.DESKTOP_HEADER_HEIGHT}px)`
+      ? `calc(100% - ${constants.HEADER_HEIGHT}px)`
       : "unset",
   backgroundColor: "#fff",
   boxSizing: "border-box",

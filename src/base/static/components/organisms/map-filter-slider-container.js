@@ -8,6 +8,7 @@ import {
   filterableLayerGroupMetadataPropType,
   updateLayerFilters,
 } from "../../state/ducks/map";
+import { layoutSelector } from "../../state/ducks/ui";
 import { RangeInput } from "../atoms/input";
 import { RegularText } from "../atoms/typography";
 
@@ -39,7 +40,7 @@ const MapFilterSlider = ({
         display: flex;
         align-items: middle;
         justify-content: space-between;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.6);
         padding: 8px;
         border-radius: 8px;
         color: #fff;
@@ -52,6 +53,14 @@ const MapFilterSlider = ({
           width: 100%;
           margin-left: 16px;
           margin-right: 16px;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:active {
+            cursor: grabbing;
+          }
         `}
         min={filterSlider.min}
         max={filterSlider.max}
@@ -86,7 +95,8 @@ const MapFilterSliderContainer = props => {
         position: absolute;
         bottom: 8px;
         left: 8px;
-        width: 25%;
+        right: ${props.layout === "desktop" ? "unset" : "8px"};
+        width: ${props.layout === "desktop" ? "400px" : "unset"};
       `}
     >
       {props.filterableLayerGroupsMetadata.map((metadata, index) => {
@@ -106,14 +116,19 @@ MapFilterSliderContainer.propTypes = {
   filterableLayerGroupsMetadata: PropTypes.arrayOf(
     filterableLayerGroupMetadataPropType,
   ),
+  layout: PropTypes.string.isRequired,
   updateLayerFilters: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  layout: layoutSelector(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(MapFilterSliderContainer);

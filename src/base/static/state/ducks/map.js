@@ -58,7 +58,6 @@ const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
 const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
 
 export function updateLayerFilters(filters) {
-  console.log("updateLayerFilters", filters)
   return {
     type: UPDATE_LAYER_FILTERS,
     payload: filters,
