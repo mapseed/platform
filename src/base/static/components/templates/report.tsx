@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { placeSelector, placePropType } from "../../state/ducks/places";
-import KittitasFirewiseReport from "../organisms/kittitas-firewise-report";
+import KittitasFirewiseReport from "../organisms/reports/kittitas-firewise/report";
 import {
   datasetsConfigSelector,
   datasetsConfigPropType,

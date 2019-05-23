@@ -213,6 +213,7 @@ const MicroText = styled("span")(props => {
 
 const ExternalLink = styled("a")({
   textDecoration: "none",
+  wordBreak: "break-all",
 
   "&:hover": {
     cursor: "pointer",
