@@ -37,7 +37,10 @@ const ReportTemplate = (props: Props) => {
   );
 
   let Report;
-  if (datasetConfig.templateName === "kittitasFirewiseReport") {
+  if (
+    datasetConfig.report &&
+    datasetConfig.report.templateName === "kittitasFirewiseReport"
+  ) {
     Report = KittitasFirewiseReport;
   }
 

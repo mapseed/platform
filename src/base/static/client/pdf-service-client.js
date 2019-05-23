@@ -1,6 +1,6 @@
 import qs from "qs";
 import download from "downloadjs";
-import { Mixpanel } from "../../utils/mixpanel";
+import { Mixpanel } from "../utils/mixpanel";
 
 export default {
   getPDF: ({ url, filename }) => {
