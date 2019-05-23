@@ -24,6 +24,7 @@ FloatedRight.propTypes = {
 
 const FlexCentered = props => (
   <div
+    className={props.className}
     css={css`
       display: flex;
       align-items: center;
@@ -35,6 +36,7 @@ const FlexCentered = props => (
 
 FlexCentered.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
 const FlexItem = props => (
@@ -56,14 +58,25 @@ FlexItem.propTypes = {
 };
 
 const ContentWithFontAwesomeIcon = props => (
-  <FlexCentered>
-    <FontAwesomeIcon faClassname={props.faClassname} />
-    {props.children}
+  <FlexCentered
+    css={css`
+      margin-bottom: 16px;
+    `}
+  >
+    <FlexItem flex="1">
+      <FontAwesomeIcon
+        fontSize="1.4rem"
+        color={props.color}
+        faClassname={props.faClassname}
+      />
+    </FlexItem>
+    <FlexItem flex="8">{props.children}</FlexItem>
   </FlexCentered>
 );
 
 ContentWithFontAwesomeIcon.propTypes = {
   children: PropTypes.node.isRequired,
+  color: PropTypes.string,
   faClassname: PropTypes.string.isRequired,
 };
 
@@ -130,6 +143,20 @@ SidebarSection.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const SidebarResourceList = props => (
+  <div
+    css={css`
+      padding: 16px 0 0 16px;
+    `}
+  >
+    {props.children}
+  </div>
+);
+
+SidebarResourceList.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 export {
   ContentWithFontAwesomeIcon,
   FloatedRight,
@@ -139,4 +166,5 @@ export {
   MainPanelSection,
   RightSidebar,
   SidebarSection,
+  SidebarResourceList,
 };

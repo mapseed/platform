@@ -2,7 +2,11 @@
 import React from "react";
 import { css, jsx } from "@emotion/core";
 
-import { RegularText, ExternalLink } from "../../../atoms/typography";
+import {
+  RegularText,
+  LargeText,
+  ExternalLink,
+} from "../../../atoms/typography";
 import { Image } from "../../../atoms/imagery";
 import { placePropType } from "../../../../state/ducks/places";
 
@@ -14,6 +18,7 @@ import {
   ContentWithFontAwesomeIcon,
   RightSidebar,
   SidebarSection,
+  SidebarResourceList,
   MainPanel,
   MainPanelSection,
 } from "../../../molecules/report-components/layout";
@@ -70,7 +75,9 @@ const KittitasFirewiseReport = props => {
       : fireDistrictName;
   const safeFireDistrictPhone = fireDistrictInfo[fireDistrictName];
   const safeFireAdaptedCommunity =
-    fireAdaptedCommunity || "You are not located in a Fire Adapted Community";
+    !fireAdaptedCommunity || fireAdaptedCommunity === "none"
+      ? "You are not located in a Fire Adapted Community"
+      : fireAdaptedCommunity;
 
   return (
     <>
@@ -91,13 +98,16 @@ const KittitasFirewiseReport = props => {
               <KittitasFirewiseReportSmallTitle weight="regular" style="italic">
                 {safeFireDistrictName}
               </KittitasFirewiseReportSmallTitle>
-              <Checklist>
+              <SidebarResourceList>
                 {safeFireDistrictPhone && (
-                  <ContentWithFontAwesomeIcon faClassname="fas fa-phone">
-                    {safeFireDistrictPhone}
+                  <ContentWithFontAwesomeIcon
+                    color="#444"
+                    faClassname="fas fa-phone"
+                  >
+                    <LargeText>{safeFireDistrictPhone}</LargeText>
                   </ContentWithFontAwesomeIcon>
                 )}
-              </Checklist>
+              </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
               <KittitasFirewiseReportSmallTitle weight="bold" style="regular">
@@ -106,82 +116,109 @@ const KittitasFirewiseReport = props => {
               <KittitasFirewiseReportSmallTitle weight="regular" style="italic">
                 {safeFireAdaptedCommunity}
               </KittitasFirewiseReportSmallTitle>
-              <Checklist>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-globe">
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
                   <ExternalLink href="https://www.facebook.com/KittitasFACC">
-                    www.facebook.com/KittitasFACC
+                    <LargeText>www.facebook.com/KittitasFACC</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-globe">
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
                   <ExternalLink href="https://fireadaptedwashington.org">
-                    fireadaptedwashington.org
+                    <LargeText>fireadaptedwashington.org</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-info-circle">
-                  <ReportBodyText>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-info-circle"
+                >
+                  <LargeText>
                     Connect with your Fire Adapted Community to learn how to
                     live proactively with wildfire
-                  </ReportBodyText>
+                  </LargeText>
                 </ContentWithFontAwesomeIcon>
-              </Checklist>
+              </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
               <KittitasFirewiseReportSmallTitle>
                 Free Onsite Risk Auditing
               </KittitasFirewiseReportSmallTitle>
-              <Checklist>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-phone">
-                  [509-925-3352 x202]
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-phone"
+                >
+                  <LargeText>[509-925-3352 x202]</LargeText>
                 </ContentWithFontAwesomeIcon>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-info-circle">
-                  <ReportBodyText>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-info-circle"
+                >
+                  <LargeText>
                     Free risk auditing is available through your local
                     Conservation District
-                  </ReportBodyText>
+                  </LargeText>
                 </ContentWithFontAwesomeIcon>
-              </Checklist>
+              </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
               <KittitasFirewiseReportSmallTitle>
                 Kittitas County Community Wildfire Protection Plan
               </KittitasFirewiseReportSmallTitle>
-              <Checklist>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-globe">
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
                   <ExternalLink href="https://bit.ly/fdfj3D23d">
-                    bit.ly/fdfj3D23d
+                    <LargeText>bit.ly/fdfj3D23d</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
-              </Checklist>
+              </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
               <KittitasFirewiseReportSmallTitle>
                 Firewise Information
               </KittitasFirewiseReportSmallTitle>
-              <Checklist>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-globe">
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
                   <ExternalLink href="https://bit.ly/aa42nnd22">
-                    bit.ly/aa42nnd22
+                    <LargeText>bit.ly/aa42nnd22</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
-              </Checklist>
+              </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
               <KittitasFirewiseReportSmallTitle>
                 Maps & Data
               </KittitasFirewiseReportSmallTitle>
-              <Checklist>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-globe">
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
                   <ExternalLink href="https://kittitasfirewise.mapseed.org">
-                    kittitasfirewise.mapseed.org
+                    <LargeText>kittitasfirewise.mapseed.org</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
-                <ContentWithFontAwesomeIcon faClassname="fas fa-info-circle">
-                  <ReportBodyText>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-info-circle"
+                >
+                  <LargeText>
                     Visit Kittitas County’s Firewise map to explore fire risk
                     and other critical data
-                  </ReportBodyText>
+                  </LargeText>
                 </ContentWithFontAwesomeIcon>
-              </Checklist>
+              </SidebarResourceList>
             </SidebarSection>
           </RightSidebar>
           <MainPanel>
@@ -307,9 +344,9 @@ const KittitasFirewiseReport = props => {
         />
         <PageBody>
           <RightSidebar>
-            <KittitasFirewiseSectionHeader>
+            <KittitasFirewiseReportLargeTitle>
               In An Emergency...
-            </KittitasFirewiseSectionHeader>
+            </KittitasFirewiseReportLargeTitle>
             <ReportBodyText
               css={css`
                 display: block;
