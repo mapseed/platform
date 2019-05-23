@@ -21,7 +21,10 @@ import { toClientGeoJSONFeature } from "../../utils/place-utils";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
-import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
+import {
+  datasetClientSlugSelector,
+  datasetReportSelector,
+} from "../../state/ducks/datasets-config";
 import {
   activeMarkerSelector,
   geometryStyleSelector,
@@ -48,6 +51,7 @@ import { Mixpanel } from "../../utils/mixpanel";
 import { geoAnalyze } from "../../utils/geo";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
+import mapseedPDFServiceClient from "../../client/pdf-service-client";
 
 class InputForm extends Component {
   constructor(props) {
@@ -419,6 +423,19 @@ class InputForm extends Component {
       );
     }
 
+    // Generate a PDF for the user.
+    if (this.props.datasetReportSelector(this.props.datasetSlug)) {
+      mapseedPDFServiceClient.getPDF({
+        url: `${window.location.protocol}//${
+          window.location.host
+        }/print-report/${this.props.datasetClientSlugSelector(
+          this.props.datasetSlug,
+        )}/${placeResponse.id}`,
+        filename: this.props.datasetReportSelector(this.props.datasetSlug)
+          .filename,
+      });
+    }
+
     if (
       placeResponse.private &&
       this.props.hasGroupAbilitiesInDatasets({
@@ -652,6 +669,7 @@ InputForm.propTypes = {
   createPlace: PropTypes.func.isRequired,
   datasetClientSlugSelector: PropTypes.func.isRequired,
   datasetUrl: PropTypes.string.isRequired,
+  datasetReportSelector: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
@@ -688,6 +706,8 @@ const mapStateToProps = state => ({
     analysisTargetFeaturesSelector(targetUrl, state),
   datasetClientSlugSelector: datasetSlug =>
     datasetClientSlugSelector(state, datasetSlug),
+  datasetReportSelector: datasetSlug =>
+    datasetReportSelector(state, datasetSlug),
   geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
