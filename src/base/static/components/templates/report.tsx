@@ -26,14 +26,22 @@ interface OwnProps {
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type Props = StateProps & RouteComponentProps<{}> & OwnProps;
 
+const reports = {
+  kittitasFirewiseReport: KittitasFirewiseReport,
+};
+
 const ReportTemplate = (props: Props) => {
   const [place, updatePlace] = useState(null);
+  const datasetConfig = props.datasetsConfig.find(
+    config => config.clientSlug === props.params.datasetClientSlug,
+  );
+
+  let Report;
+  if (datasetConfig.templateName === "kittitasFirewiseReport") {
+    Report = KittitasFirewiseReport;
+  }
 
   async function fetchPlace() {
-    const datasetConfig = props.datasetsConfig.find(
-      config => config.clientSlug === props.params.datasetClientSlug,
-    );
-
     const response = await mapseedApiClient.place.getPlace({
       datasetUrl: datasetConfig.url,
       clientSlug: props.params.datasetClientSlug,
@@ -59,7 +67,7 @@ const ReportTemplate = (props: Props) => {
     [parseInt(props.params.placeId)],
   );
 
-  return place ? <KittitasFirewiseReport place={place} /> : null;
+  return place && Report ? <Report place={place} /> : null;
 };
 
 type MapseedReduxState = any;
