@@ -18,7 +18,7 @@ import { HorizontalRule } from "../../../atoms/layout";
 import { Image } from "../../../atoms/imagery";
 import { Logo } from "../../../molecules/report-components/imagery";
 
-const KittitasFirewiseReportLargeTitle = props => (
+const KittitasFireReadyReportLargeTitle = props => (
   <ReportLargeTitle
     css={css`
       color: #444;
@@ -29,11 +29,11 @@ const KittitasFirewiseReportLargeTitle = props => (
   </ReportLargeTitle>
 );
 
-KittitasFirewiseReportLargeTitle.propTypes = {
+KittitasFireReadyReportLargeTitle.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const KittitasFirewiseReportSmallTitle = props => (
+const KittitasFireReadyReportSmallTitle = props => (
   <ReportSmallTitle
     css={css`
       font-family: ${props.weight === "bold"
@@ -46,12 +46,12 @@ const KittitasFirewiseReportSmallTitle = props => (
   </ReportSmallTitle>
 );
 
-KittitasFirewiseReportSmallTitle.propTypes = {
+KittitasFireReadyReportSmallTitle.propTypes = {
   children: PropTypes.node.isRequired,
-  weight: PropTypes.string.isRequired,
+  weight: PropTypes.string,
 };
 
-const KittitasFirewiseSectionHeader = props => (
+const KittitasFireReadySectionHeader = props => (
   <div
     css={css`
       border-left: 6px solid #e49494;
@@ -73,28 +73,35 @@ const KittitasFirewiseSectionHeader = props => (
         src="/static/css/images/fire-icon.png"
         alt="Fire icon"
       />
-      <KittitasFirewiseReportLargeTitle>
+      <KittitasFireReadyReportLargeTitle>
         {props.children}
-      </KittitasFirewiseReportLargeTitle>
+      </KittitasFireReadyReportLargeTitle>
     </div>
     <HorizontalRule spacing="tiny" />
   </div>
 );
 
-KittitasFirewiseSectionHeader.propTypes = {
+KittitasFireReadySectionHeader.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const KittitasFirewisePageHeader = props => (
+const KittitasFireReadyPageHeader = props => (
   <PageHeader
     backgroundColor="rgba(229, 207, 207, 0.4)"
     logoSrc="/static/css/images/logo.png"
   >
-    <FloatedRight>
+    <FloatedRight
+      css={css`
+        margin-right: 8px;
+        margin-bottom: 6px;
+      `}
+    >
       <LargeTitle
         css={css`
+          color: #444;
+          text-align: right;
           font-family: PTSansBold, sans-serif;
-          float: right;
+          font-size: 1.8rem;
           margin: 0;
         `}
       >
@@ -137,15 +144,12 @@ const KittitasFirewisePageHeader = props => (
   </PageHeader>
 );
 
-KittitasFirewisePageHeader.propTypes = {
+KittitasFireReadyPageHeader.propTypes = {
   date: PropTypes.string.isRequired,
-  coords: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-  }).isRequired,
+  coords: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
-const KittitasFirewisePageFooter = () => (
+const KittitasFireReadyPageFooter = () => (
   <PageFooter>
     <Logo src="/static/css/images/kccd-logo.png" alt="KCCD logo" />
     <Logo
@@ -154,15 +158,15 @@ const KittitasFirewisePageFooter = () => (
     />
     <Logo src="/static/css/images/dnr-logo.png" alt="Washington DNR logo" />
     <Logo
-      src="https://s3-us-west-2.amazonaws.com/assets.mapseed.org/img/mapseed-wordmark-sprout-no-outline-glow.png"
+      src="https://assets.mapseed.org/img/mapseed-wordmark-sprout-no-outline-glow.png"
       alt="Mapseed logo"
     />
   </PageFooter>
 );
 export {
-  KittitasFirewisePageHeader,
-  KittitasFirewisePageFooter,
-  KittitasFirewiseSectionHeader,
-  KittitasFirewiseReportLargeTitle,
-  KittitasFirewiseReportSmallTitle,
+  KittitasFireReadyPageHeader,
+  KittitasFireReadyPageFooter,
+  KittitasFireReadySectionHeader,
+  KittitasFireReadyReportLargeTitle,
+  KittitasFireReadyReportSmallTitle,
 };

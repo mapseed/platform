@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "../../atoms/imagery";
 
 const FloatedRight = props => (
   <div
+    className={props.className}
     css={css`
       width: ${props.width};
       float: right;
@@ -19,7 +20,8 @@ const FloatedRight = props => (
 
 FloatedRight.propTypes = {
   children: PropTypes.node.isRequired,
-  width: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  width: PropTypes.string,
 };
 
 const FlexCentered = props => (

@@ -27,17 +27,17 @@ import {
   ChecklistItem,
 } from "../../../molecules/report-components/checklist";
 import {
-  KittitasFirewisePageHeader,
-  KittitasFirewisePageFooter,
-  KittitasFirewiseReportLargeTitle,
-  KittitasFirewiseReportSmallTitle,
-  KittitasFirewiseSectionHeader,
+  KittitasFireReadyPageHeader,
+  KittitasFireReadyPageFooter,
+  KittitasFireReadyReportLargeTitle,
+  KittitasFireReadyReportSmallTitle,
+  KittitasFireReadySectionHeader,
 } from "./components";
 import {
   BigStat,
   ReportBodyText,
 } from "../../../molecules/report-components/typography";
-import { SimpleDonutChart } from "../../../molecules/report-components/charts";
+import { ColoredMeterChart } from "../../../molecules/report-components/charts";
 
 // https://www.co.kittitas.wa.us/cds/firemarshal/local-fire-districts.aspx
 const fireDistrictInfo = {
@@ -52,7 +52,7 @@ const fireDistrictInfo = {
   "Fire District 7 (Cle Elum)": "509-933-7235",
 };
 
-const KittitasFirewiseReport = props => {
+const KittitasFireReadyReport = props => {
   const {
     num_nearby_large_fires: numLargeFires,
     num_nearby_fire_start_sites: numFireStarts,
@@ -78,26 +78,51 @@ const KittitasFirewiseReport = props => {
     !fireAdaptedCommunity || fireAdaptedCommunity === "none"
       ? "You are not located in a Fire Adapted Community"
       : fireAdaptedCommunity;
+  const meterChartSegments = [
+    {
+      color: "#00A247",
+      label: "LOW",
+    },
+    {
+      color: "#1F3D9D",
+      label: "MODERATE",
+    },
+    {
+      color: "#FFDF00",
+      label: "HIGH",
+    },
+    {
+      color: "#F5650A",
+      label: "VERY HIGH",
+    },
+    {
+      color: "#F01516",
+      label: "EXTREME",
+    },
+  ];
 
   return (
     <>
       <Page>
-        <KittitasFirewisePageHeader
+        <KittitasFireReadyPageHeader
           date={props.place.created_datetime}
           coords={props.place.geometry.coordinates}
         />
         <PageBody>
           <RightSidebar>
-            <KittitasFirewiseReportLargeTitle>
+            <KittitasFireReadyReportLargeTitle>
               Your Resources
-            </KittitasFirewiseReportLargeTitle>
+            </KittitasFireReadyReportLargeTitle>
             <SidebarSection>
-              <KittitasFirewiseReportSmallTitle weight="bold" style="regular">
+              <KittitasFireReadyReportSmallTitle weight="bold" style="regular">
                 Your Fire District:{" "}
-              </KittitasFirewiseReportSmallTitle>
-              <KittitasFirewiseReportSmallTitle weight="regular" style="italic">
+              </KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle
+                weight="regular"
+                style="italic"
+              >
                 {safeFireDistrictName}
-              </KittitasFirewiseReportSmallTitle>
+              </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 {safeFireDistrictPhone && (
                   <ContentWithFontAwesomeIcon
@@ -110,12 +135,15 @@ const KittitasFirewiseReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFirewiseReportSmallTitle weight="bold" style="regular">
-                Your Fire Adapted Community:{" "}
-              </KittitasFirewiseReportSmallTitle>
-              <KittitasFirewiseReportSmallTitle weight="regular" style="italic">
+              <KittitasFireReadyReportSmallTitle weight="bold" style="regular">
+                Your Firewise USA Recognized Community:{" "}
+              </KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle
+                weight="regular"
+                style="italic"
+              >
                 {safeFireAdaptedCommunity}
-              </KittitasFirewiseReportSmallTitle>
+              </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -138,16 +166,16 @@ const KittitasFirewiseReport = props => {
                   faClassname="fas fa-info-circle"
                 >
                   <LargeText>
-                    Connect with your Fire Adapted Community to learn how to
-                    live proactively with wildfire
+                    Connect with your Firewise Recognized Community to learn how
+                    to live proactively with wildfire
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFirewiseReportSmallTitle>
-                Free Onsite Risk Auditing
-              </KittitasFirewiseReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle>
+                Free Onsite Risk Consultations
+              </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -160,16 +188,16 @@ const KittitasFirewiseReport = props => {
                   faClassname="fas fa-info-circle"
                 >
                   <LargeText>
-                    Free risk auditing is available through your local
+                    A free risk consultation is available through your local
                     Conservation District
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFirewiseReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle>
                 Kittitas County Community Wildfire Protection Plan
-              </KittitasFirewiseReportSmallTitle>
+              </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -182,9 +210,9 @@ const KittitasFirewiseReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFirewiseReportSmallTitle>
-                Firewise Information
-              </KittitasFirewiseReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle>
+                FireReady Information
+              </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -197,9 +225,9 @@ const KittitasFirewiseReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFirewiseReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle>
                 Maps & Data
-              </KittitasFirewiseReportSmallTitle>
+              </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -214,7 +242,7 @@ const KittitasFirewiseReport = props => {
                   faClassname="fas fa-info-circle"
                 >
                   <LargeText>
-                    Visit Kittitas County’s Firewise map to explore fire risk
+                    Visit Kittitas County’s Fire Ready map to explore fire risk
                     and other critical data
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
@@ -223,9 +251,9 @@ const KittitasFirewiseReport = props => {
           </RightSidebar>
           <MainPanel>
             <MainPanelSection>
-              <KittitasFirewiseSectionHeader>
+              <KittitasFireReadySectionHeader>
                 Wildfire In Kittitas County
-              </KittitasFirewiseSectionHeader>
+              </KittitasFireReadySectionHeader>
               <FloatedRight width="400px">
                 <figure
                   css={css`
@@ -252,7 +280,7 @@ const KittitasFirewiseReport = props => {
               </ReportBodyText>
               <ReportBodyText>
                 This report summarizes the wildfire risk in the vicinity of your
-                property, as reported on the Kittitas County Firewise map.
+                property, as reported on the Kittitas County Fire Ready map.
               </ReportBodyText>
               <ReportBodyText>
                 Even if the fire risk in your area is low, be aware that all
@@ -261,15 +289,15 @@ const KittitasFirewiseReport = props => {
               </ReportBodyText>
               <ReportBodyText>
                 Please note that this report is not a substitute for an onsite
-                fire risk audit. See the sidebar for information about auditing
-                your home and property for wildfire risk.
+                fire risk consultation. See the sidebar for information about
+                how to get a free onsite risk consultation.
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
-              <KittitasFirewiseSectionHeader>
+              <KittitasFireReadySectionHeader>
                 Understand Your Risk
-              </KittitasFirewiseSectionHeader>
-              <FloatedRight width="300px">
+              </KittitasFireReadySectionHeader>
+              <FloatedRight width="375px">
                 <FlexCentered>
                   <FlexItem
                     flex="2"
@@ -278,7 +306,10 @@ const KittitasFirewiseReport = props => {
                       justify-content: center;
                     `}
                   >
-                    <SimpleDonutChart hazardRating={hazardRating} />
+                    <ColoredMeterChart
+                      segments={meterChartSegments}
+                      selectedSegmentIndex={3}
+                    />
                   </FlexItem>
                   <FlexItem flex="1">
                     <RegularText
@@ -334,71 +365,25 @@ const KittitasFirewiseReport = props => {
               </ReportBodyText>
             </MainPanelSection>
           </MainPanel>
-          <KittitasFirewisePageFooter />
+          <KittitasFireReadyPageFooter />
         </PageBody>
       </Page>
       <Page>
-        <KittitasFirewisePageHeader
+        <KittitasFireReadyPageHeader
           date={props.place.created_datetime}
           coords={props.place.geometry.coordinates}
         />
         <PageBody>
           <RightSidebar>
-            <KittitasFirewiseReportLargeTitle>
+            <KittitasFireReadyReportLargeTitle>
               In An Emergency...
-            </KittitasFirewiseReportLargeTitle>
-            <ReportBodyText
-              css={css`
-                display: block;
-                margin-top: 16px;
-                margin-bottom: 32px;
-              `}
-            >
-              We recommend keeping an emergency kit ready in the event of an
-              evacuation. Review your kit below and consider adding any missing
-              items.
-            </ReportBodyText>
-            <Checklist>
-              <ChecklistItem isChecked={!!props.place["food_and_water"]}>
-                Three-day supply of non-perishable food and water
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["medications"]}>
-                Prescriptions and medications
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["clothing"]}>
-                Change of clothing
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["car_keys_money"]}>
-                Car keys, credit card, cash, or traveler’s checks
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["first_aid_kit"]}>
-                First aid supplies
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["radio"]}>
-                Battery-powered radio and extra batteries
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["documents"]}>
-                Copies of important documents
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["flashlight"]}>
-                Flashlight
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["eyeglasses"]}>
-                Eyeglasses or contact lenses
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["pet_food"]}>
-                Pet food and water
-              </ChecklistItem>
-              <ChecklistItem isChecked={!!props.place["sanitation_supplies"]}>
-                Sanitation supplies
-              </ChecklistItem>
-            </Checklist>
+            </KittitasFireReadyReportLargeTitle>
           </RightSidebar>
           <MainPanel>
             <MainPanelSection>
-              <KittitasFirewiseSectionHeader>
+              <KittitasFireReadySectionHeader>
                 Preparing For Wildfire
-              </KittitasFirewiseSectionHeader>
+              </KittitasFireReadySectionHeader>
               <FloatedRight width="400px">
                 <figure
                   css={css`
@@ -420,9 +405,9 @@ const KittitasFirewiseReport = props => {
                 </figure>
               </FloatedRight>
               <ReportBodyText>
-                The national Firewise program recommends you think of fire
-                prevention in three ignition zones around your home: Immediate,
-                Intermediate, and Extended.
+                The National Fire Protection Association program recommends you
+                think of fire prevention in three ignition zones around your
+                home: Immediate, Intermediate, and Extended.
               </ReportBodyText>
               <ReportBodyText>
                 {" "}
@@ -433,14 +418,14 @@ const KittitasFirewiseReport = props => {
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
-              <KittitasFirewiseSectionHeader>
+              <KittitasFireReadySectionHeader>
                 Reviewing Your Preparedness
-              </KittitasFirewiseSectionHeader>
+              </KittitasFireReadySectionHeader>
               <ReportBodyText>
                 Use this section to review your self-reported preparedness
                 efforts. Please note this summary is only a rough guide to your
-                wildfire preparedness based on general Firewise best practices,
-                and should not be used as a substitute for a professional onsite
+                wildfire preparedness based on general best practices, and
+                should not be used as a substitute for a professional onsite
                 fire risk audit.
               </ReportBodyText>
               <div
@@ -448,21 +433,21 @@ const KittitasFirewiseReport = props => {
                   margin-left: 64px;
                 `}
               >
-                <KittitasFirewiseReportSmallTitle>
+                <KittitasFireReadyReportSmallTitle>
                   Use of fire-resistant building materials and techniques
-                </KittitasFirewiseReportSmallTitle>
+                </KittitasFireReadyReportSmallTitle>
               </div>
             </MainPanelSection>
           </MainPanel>
-          <KittitasFirewisePageFooter />
+          <KittitasFireReadyPageFooter />
         </PageBody>
       </Page>
     </>
   );
 };
 
-KittitasFirewiseReport.propTypes = {
+KittitasFireReadyReport.propTypes = {
   place: placePropType.isRequired,
 };
 
-export default KittitasFirewiseReport;
+export default KittitasFireReadyReport;
