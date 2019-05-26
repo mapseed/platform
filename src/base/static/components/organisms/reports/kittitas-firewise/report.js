@@ -23,10 +23,6 @@ import {
   MainPanelSection,
 } from "../../../molecules/report-components/layout";
 import {
-  Checklist,
-  ChecklistItem,
-} from "../../../molecules/report-components/checklist";
-import {
   KittitasFireReadyPageHeader,
   KittitasFireReadyPageFooter,
   KittitasFireReadyReportLargeTitle,
@@ -39,9 +35,24 @@ import {
 } from "../../../molecules/report-components/typography";
 import { ColoredMeterChart } from "../../../molecules/report-components/charts";
 
+// TODO: Get some validation on these ranges.
+const getBurnRiskText = burnRisk => {
+  if (burnRisk <= 0.2) {
+    return "Low";
+  } else if (burnRisk <= 0.4) {
+    return "Moderate";
+  } else if (burnRisk <= 0.6) {
+    return "High";
+  } else if (burnRisk <= 0.8) {
+    return "Very High";
+  } else {
+    return "Extreme";
+  }
+};
+
 // https://www.co.kittitas.wa.us/cds/firemarshal/local-fire-districts.aspx
 const fireDistrictInfo = {
-  "Areas outside Fire Districts": "509-962-7506", // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
+  "You are not located in a Fire District": "509-962-7506", // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
   "Snoqualmie Pass Fire and Rescue": "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
   "Fire District 6 (Ronald)": "509-260-1220",
   "CITY OF ROSLYN 57-1": "509-649-3105",
@@ -58,7 +69,7 @@ const KittitasFireReadyReport = props => {
     num_nearby_fire_start_sites: numFireStarts,
     local_fire_district_fire_district_name: fireDistrictName,
     firewise_community_Community: fireAdaptedCommunity,
-    general_wildfire_risk_HAZARD_RAT: hazardRating,
+    burn_risk_QRC_iBP: burnRisk,
   } = props.place;
   // The actions in these lists should ideally be listed in order of
   // importance.
@@ -95,11 +106,12 @@ const KittitasFireReadyReport = props => {
     fireDistrictName === "Areas outside Fire Districts" || !fireDistrictName
       ? "You are not located in a Fire District"
       : fireDistrictName;
-  const safeFireDistrictPhone = fireDistrictInfo[fireDistrictName];
+  const safeFireDistrictPhone = fireDistrictInfo[safeFireDistrictName];
   const safeFireAdaptedCommunity =
     !fireAdaptedCommunity || fireAdaptedCommunity === "none"
       ? "You are not located in a Fire Adapted Community"
       : fireAdaptedCommunity;
+  const burnRiskText = getBurnRiskText(burnRisk);
   const meterChartSegments = [
     {
       color: "#00A247",
@@ -126,7 +138,7 @@ const KittitasFireReadyReport = props => {
     Low: 0,
     Moderate: 1,
     High: 2,
-    //"Very High": 3 TODO
+    "Very High": 3,
     Extreme: 4,
   };
 
@@ -337,7 +349,7 @@ const KittitasFireReadyReport = props => {
                   >
                     <ColoredMeterChart
                       segments={meterChartSegments}
-                      selectedSegmentIndex={hazardMeterIndex[hazardRating]}
+                      selectedSegmentIndex={hazardMeterIndex[burnRiskText]}
                     />
                   </FlexItem>
                   <FlexItem flex="1">
@@ -389,7 +401,7 @@ const KittitasFireReadyReport = props => {
                 According to data sources from the State of Washington, wildfire
                 risk in your area is{" "}
                 <LargeText fontFamily="PTSansBold,sans-serif">
-                  {hazardRating}
+                  {burnRiskText}
                 </LargeText>
                 . The average number of fire starts (including starts from human
                 activity and from lightning) per year in your area is{" "}
