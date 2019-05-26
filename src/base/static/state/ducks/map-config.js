@@ -96,7 +96,7 @@ export const mapConfigPropType = PropTypes.shape({
         PropTypes.shape({
           id: PropTypes.string.isRequired,
           type: PropTypes.string.isRequired,
-          source: PropTypes.string.isRequired,
+          source: PropTypes.string,
           filter: PropTypes.array,
           "source-layer": PropTypes.string,
           paint: PropTypes.object,
@@ -107,7 +107,7 @@ export const mapConfigPropType = PropTypes.shape({
         PropTypes.shape({
           id: PropTypes.string.isRequired,
           type: PropTypes.string.isRequired,
-          source: PropTypes.string.isRequired,
+          source: PropTypes.string,
           filter: PropTypes.array,
           "source-layer": PropTypes.string,
           paint: PropTypes.object,

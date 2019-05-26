@@ -25,6 +25,8 @@ import {
   updateLayers,
   updateMapContainerDimensions,
   mapContainerDimensionsSeletor,
+  filterableLayerGroupsMetadataSelector,
+  filterableLayerGroupMetadataPropType,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
@@ -56,6 +58,7 @@ import { filtersSelector } from "../../state/ducks/filters";
 import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
+import MapFilterSliderContainer from "../organisms/map-filter-slider-container";
 
 import emitter from "../../utils/emitter";
 import { Mixpanel } from "../../utils/mixpanel";
@@ -563,6 +566,13 @@ class MainMap extends Component {
             </MapControlsContainer>
           )}
         </MapGL>
+        {this.props.filterableLayerGroupsMetadata.length > 0 && (
+          <MapFilterSliderContainer
+            filterableLayerGroupsMetadata={
+              this.props.filterableLayerGroupsMetadata
+            }
+          />
+        )}
       </>
     );
   }
@@ -573,6 +583,9 @@ MainMap.propTypes = {
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
   activeEditPlaceId: PropTypes.number,
+  filterableLayerGroupsMetadata: PropTypes.arrayOf(
+    filterableLayerGroupMetadataPropType,
+  ),
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   geometryStyle: geometryStyleProps,
   history: PropTypes.object.isRequired,
@@ -630,6 +643,7 @@ const mapStateToProps = state => ({
   activeDrawingTool: activeDrawingToolSelector(state),
   activeMarker: activeMarkerSelector(state),
   activeEditPlaceId: activeEditPlaceIdSelector(state),
+  filterableLayerGroupsMetadata: filterableLayerGroupsMetadataSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   geometryStyle: geometryStyleSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),

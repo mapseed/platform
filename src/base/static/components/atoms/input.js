@@ -159,4 +159,36 @@ DatetimeInput.propTypes = {
   value: PropTypes.string,
 };
 
-export { CheckboxInput, DatetimeInput, NumberInput, TextInput, TextareaInput };
+const RangeInput = props => {
+  return (
+    <input
+      className={props.className}
+      type="range"
+      min={props.min}
+      max={props.max}
+      step={props.step}
+      onChange={props.onChange}
+      onFocus={props.onFocus}
+      value={props.value}
+    />
+  );
+};
+
+RangeInput.propTypes = {
+  className: PropTypes.string,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+};
+
+export {
+  CheckboxInput,
+  DatetimeInput,
+  NumberInput,
+  TextInput,
+  TextareaInput,
+  RangeInput,
+};

@@ -3910,6 +3910,15 @@
       {
         "id": "wa-state-large-fires-1973-2018",
         "visibleDefault": false,
+        "filterSlider": {
+          "initialValue": 1973,
+          "min": 1973,
+          "max": 2018,
+          "step": 1,
+          "label": "Large wildfires since:",
+          "property": "YEAR",
+          "comparator": "<="
+        },
         "mapboxLayers": [
           {
             "id": "wa-state-large-fires-1973-2018",

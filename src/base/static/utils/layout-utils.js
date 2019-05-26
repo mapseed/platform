@@ -38,9 +38,9 @@ const getMainContentAreaHeight = ({
     case "desktop":
       return isGeocodeAddressBarEnabled
         ? `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
-            constants.DESKTOP_HEADER_HEIGHT
+            constants.HEADER_HEIGHT
           }px)`
-        : `calc(100% - ${constants.DESKTOP_HEADER_HEIGHT}px)`;
+        : `calc(100% - ${constants.HEADER_HEIGHT}px)`;
     case "mobile":
       // UI heights which resize the main content area:
       //  - ContentPanel: 40%
@@ -49,25 +49,29 @@ const getMainContentAreaHeight = ({
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return `calc(60% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px)`;
+        return `calc(60% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+          constants.HEADER_HEIGHT
+        }px)`;
       } else if (
         isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "60%";
+        return `calc(60% - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px)`;
+        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+          constants.HEADER_HEIGHT
+        }px)`;
       } else if (
         !isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "100%";
+        return `clac(100% - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
@@ -77,7 +81,9 @@ const getMainContentAreaHeight = ({
           addPlaceButtonRef.current,
         ).getBoundingClientRect();
 
-        return `calc(100% - ${addPlaceButtonDims.height}px)`;
+        return `calc(100% - ${addPlaceButtonDims.height}px - ${
+          constants.HEADER_HEIGHT
+        }px)`;
       } else if (
         !isContentPanelVisible &&
         isGeocodeAddressBarEnabled &&
@@ -89,7 +95,7 @@ const getMainContentAreaHeight = ({
 
         return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
           addPlaceButtonDims.height
-        }px)`;
+        }px - ${constants.HEADER_HEIGHT}px)`;
       }
   }
 };

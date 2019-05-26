@@ -38,8 +38,8 @@ const AddPlaceButtonContainer = styled(props => (
     },
     [mq[1]]: {
       top: props.isGeocodeAddressBarEnabled
-        ? `${constants.DESKTOP_HEADER_HEIGHT + 62}px`
-        : `${constants.DESKTOP_HEADER_HEIGHT + 20}px`,
+        ? `${constants.HEADER_HEIGHT + 62}px`
+        : `${constants.HEADER_HEIGHT + 20}px`,
       left: "60px",
     },
   };
