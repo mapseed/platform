@@ -15,7 +15,11 @@
           "abilities": ["create"],
           "submission_set": "*"
         }
-      ]
+      ],
+      "report": {
+        "templateName": "kittitasFirewiseReport",
+        "filename": "personal-wildfire-report.pdf"
+      }
     }
   ],
   "app": {
