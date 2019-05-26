@@ -3714,9 +3714,9 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                7,
+                9,
                 0,
-                8,
+                10,
                 1
               ]
             }
@@ -3883,7 +3883,7 @@
                 9,
                 0.5
               ]
-          }
+            }
           }
         ]
       },
@@ -3901,9 +3901,9 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                7,
+                9,
                 "#666",
-                8,
+                10,
                 "#fff"
               ],
               "line-width": 5,
@@ -3916,7 +3916,7 @@
         "id": "wa-state-large-fires-1973-2018",
         "visibleDefault": false,
         "filterSlider": {
-          "initialValue": 1973,
+          "initialValue": 2010,
           "min": 1973,
           "max": 2018,
           "step": 1,
@@ -3931,76 +3931,96 @@
             "source": "wa-state-large-fires-1973-2018",
             "source-layer": "wa-state-large-fires-1973-2018",
             "paint": {
-              "fill-pattern": "hazard-fill.png",
-              "fill-opacity": [
+              "fill-pattern": [
                 "match",
                 ["get", "FIRENAME"],
                 "LEMAH",
-                0.8,
+                "hazard-fill.png",
                 "French Cabin Creek",
-                0.8,
+                "hazard-fill.png",
                 "Amabilis",
-                0.8,
+                "hazard-fill.png",
                 "Easton Ridge",
-                0.8,
+                "hazard-fill.png",
                 "Easton Fire",
-                0.8,
+                "hazard-fill.png",
                 "Polallie",
-                0.8,
+                "hazard-fill.png",
                 "Jolly Mountain",
-                0.8,
+                "hazard-fill.png",
                 "Moon Beam",
-                0.8,
+                "hazard-fill.png",
                 "South Cle Elum Ridge",
-                0.8,
+                "hazard-fill.png",
                 "Manastash Ridge",
-                0.8,
+                "hazard-fill.png",
                 "Rock Creek",
-                0.8,
+                "hazard-fill.png",
                 "Diamond Head",
-                0.8,
+                "hazard-fill.png",
                 "Lauderdale",
-                0.8,
+                "hazard-fill.png",
                 "Elk Heights",
-                0.8,
+                "hazard-fill.png",
                 "Trail",
-                0.8,
+                "hazard-fill.png",
+                "TRAIL CREEK",
+                "hazard-fill.png",
+                "Lick Creek",
+                "hazard-fill.png",
+                "Saddle Mountain",
+                "hazard-fill.png",
+                "Stafford Creek",
+                "hazard-fill.png",
+                "Jack Creek Pass",
+                "hazard-fill.png",
+                "Iron West",
+                "hazard-fill.png",
+                "Iron East",
+                "hazard-fill.png",
+                "Old Blewett Pass",
+                "hazard-fill.png",
+                "Reecer",
+                "hazard-fill.png",
+                "Quilomene",
+                "hazard-fill.png",
                 "Bighorn",
-                0.8,
+                "hazard-fill.png",
                 "Scorpion Coulee",
-                0.8,
+                "hazard-fill.png",
                 "Litttle Parke Creek",
-                0.8,
+                "hazard-fill.png",
                 "Colockum Tarps",
-                0.8,
+                "hazard-fill.png",
                 "Milepost Twenty Two",
-                0.8,
+                "hazard-fill.png",
                 "Boylston",
-                0.8,
+                "hazard-fill.png",
                 "400",
-                0.8,
+                "hazard-fill.png",
                 "Cottonwood",
-                0.8,
+                "hazard-fill.png",
                 "Burbank",
-                0.8,
+                "hazard-fill.png",
                 "Ellensburg Pass",
-                0.8,
+                "hazard-fill.png",
                 "Snag Canyon",
-                0.8,
+                "hazard-fill.png",
                 "Table Mountain Fire",
-                0.8,
+                "hazard-fill.png",
                 "Dry Creek Fire",
-                0.8,
+                "hazard-fill.png",
                 "Gold Creek Springs",
-                0.8,
+                "hazard-fill.png",
                 "Crow Creek",
-                0.8,
+                "hazard-fill.png",
                 "Taylor Bridge",
-                0.8,
+                "hazard-fill.png",
                 "I-82 Manashtash",
-                0.8,
-                0.1
-              ]
+                "hazard-fill.png",
+                "wildfire-fill.png"
+              ],
+              "fill-opacity": 0.8
             }
           },
           {
@@ -4009,77 +4029,98 @@
             "source": "wa-state-large-fires-1973-2018",
             "source-layer": "wa-state-large-fires-1973-2018",
             "paint": {
-              "line-color": "#e80f0f",
-              "line-width": 2,
-              "line-opacity": [
+              "line-color": [
                 "match",
                 ["get", "FIRENAME"],
                 "LEMAH",
-                0.8,
+                "#f23308",
                 "French Cabin Creek",
-                0.8,
+                "#f23308",
                 "Amabilis",
-                0.8,
+                "#f23308",
                 "Easton Ridge",
-                0.8,
+                "#f23308",
                 "Easton Fire",
-                0.8,
+                "#f23308",
                 "Polallie",
-                0.8,
+                "#f23308",
                 "Jolly Mountain",
-                0.8,
+                "#f23308",
                 "Moon Beam",
-                0.8,
+                "#f23308",
                 "South Cle Elum Ridge",
-                0.8,
+                "#f23308",
                 "Manastash Ridge",
-                0.8,
+                "#f23308",
                 "Rock Creek",
-                0.8,
+                "#f23308",
                 "Diamond Head",
-                0.8,
+                "#f23308",
                 "Lauderdale",
-                0.8,
+                "#f23308",
                 "Elk Heights",
-                0.8,
+                "#f23308",
                 "Trail",
-                0.8,
+                "#f23308",
+                "TRAIL CREEK",
+                "#f23308",
+                "Lick Creek",
+                "#f23308",
+                "Saddle Mountain",
+                "#f23308",
+                "Stafford Creek",
+                "#f23308",
+                "Jack Creek Pass",
+                "#f23308",
+                "Iron West",
+                "#f23308",
+                "Iron East",
+                "#f23308",
+                "Old Blewett Pass",
+                "#f23308",
+                "Reecer",
+                "#f23308",
+                "Quilomene",
+                "#f23308",
                 "Bighorn",
-                0.8,
+                "#f23308",
                 "Scorpion Coulee",
-                0.8,
+                "#f23308",
                 "Litttle Parke Creek",
-                0.8,
+                "#f23308",
                 "Colockum Tarps",
-                0.8,
+                "#f23308",
                 "Milepost Twenty Two",
-                0.8,
+                "#f23308",
                 "Boylston",
-                0.8,
+                "#f23308",
                 "400",
-                0.8,
+                "#f23308",
                 "Cottonwood",
-                0.8,
+                "#f23308",
                 "Burbank",
-                0.8,
+                "#f23308",
                 "Ellensburg Pass",
-                0.8,
+                "#f23308",
                 "Snag Canyon",
-                0.8,
+                "#f23308",
                 "Table Mountain Fire",
-                0.8,
+                "#f23308",
                 "Dry Creek Fire",
-                0.8,
+                "#f23308",
                 "Gold Creek Springs",
-                0.8,
+                "#f23308",
                 "Crow Creek",
-                0.8,
+                "#f23308",
                 "Taylor Bridge",
-                0.8,
+                "#f23308",
                 "I-82 Manashtash",
-                0.8,
-                0.1
-              ]
+                "#f23308",
+                "#f47706"
+              ],
+
+              "line-width": 2,
+              "line-opacity": 0.8
             }
           }
         ]
@@ -4101,7 +4142,7 @@
                 "match",
                 ["get", "location_type"],
                 "reports",
-                "map-pin-marker-red.png",
+                "marker-fire-prevention.png",
                 "__no-icon-image__"
               ],
               "icon-allow-overlap": true
@@ -4115,7 +4156,7 @@
             "source": "kittitas-firewise-input",
             "layout": {
               "icon-anchor": "bottom",
-              "icon-image": "map-pin-marker-red.png",
+              "icon-image": "marker-fire-prevention.png",
               "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
               "icon-allow-overlap": true
             }
@@ -4319,12 +4360,13 @@
             "end_field_index": 2,
             "visibleLayerGroupIds": [
               "light-satellite",
+              "wa-state-large-fires-1973-2018",
               "kittitas-county-outline"
             ],
             "viewport": {
-              "latitude": 47.12295,
-              "zoom": 5.8,
-              "longitude": -120.29676,
+              "latitude": 47.04829,
+              "zoom": 7.65,
+              "longitude": -120.60682,
               "transitionDuration": 1500,
               "bearing": 0,
               "pitch": 40
@@ -4335,13 +4377,13 @@
             "end_field_index": 4,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
+              "wa-state-large-fires-1973-2018",
               "kittitas-county-outline"
             ]
           },
           {
             "start_field_index": 5,
-            "end_field_index": 6,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wa-state-wildfire-start-sites-2008",
@@ -4350,8 +4392,8 @@
             ]
           },
           {
-            "start_field_index": 7,
-            "end_field_index": 14,
+            "start_field_index": 13,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wa-state-wildfire-start-sites-2008",
@@ -4360,8 +4402,8 @@
             ]
           },
           {
-            "start_field_index": 15,
-            "end_field_index": 23,
+            "start_field_index": 22,
+            "end_field_index": 29,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wa-state-wildfire-start-sites-2008",
@@ -4370,8 +4412,8 @@
             ]
           },
           {
-            "start_field_index": 24,
-            "end_field_index": 31,
+            "start_field_index": 30,
+            "end_field_index": 43,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wa-state-wildfire-start-sites-2008",
@@ -4380,18 +4422,8 @@
             ]
           },
           {
-            "start_field_index": 32,
-            "end_field_index": 45,
-            "visibleLayerGroupIds": [
-              "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
-              "kittitas-county-outline",
-              "wa-state-large-fires-1973-2018"
-            ]
-          },
-          {
-            "start_field_index": 46,
-            "end_field_index": 50,
+            "start_field_index": 44,
+            "end_field_index": 48,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wa-state-wildfire-start-sites-2008",
@@ -4402,24 +4434,14 @@
         ],
         "fields": [
           {
-            "name": "fire_environment_header",
-            "type": "informational_html",
-            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Washington State:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
-          },
-          {
-            "name": "fire_environment_info",
-            "type": "informational_html",
-            "content": "<p class='mapseed-form-stage-body'>Since 2008, wildfires have burned nearly 2 million acres in Washington State. This map visualizes where fires tend to start.</p><img src='/static/css/images/wildfire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>9,689</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total fires started since 2008</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>1,705,602</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
-          },
-          {
             "name": "large_fires_header",
             "type": "informational_html",
-            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:PTSansBold,sans-serif;'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;font-family:PTSans,sans-serif;'>a Fire Environment</h2>"
           },
           {
             "name": "large_fires_information",
             "type": "informational_html",
-            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973, the largest of which was the Colockum Tarps fire in 2013. Hover over fires on the map to learn more about them [to come].</p><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Hover over fires on the map to learn more about them [to come], and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:40px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:40px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
           },
           {
             "name": "fire_resiliency_header",
