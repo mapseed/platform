@@ -19,7 +19,6 @@ const buildAndApplyMapLayerFilters = ({
   property,
   updateLayerFilters,
 }) => {
-  // Build filters for each Mapbox layer that makes up this layer group.
   const filters = {
     layerIds,
     filter: [comparator, ["to-number", ["get", property]], filterValue],
@@ -32,7 +31,7 @@ const MapFilterSlider = ({
   metadata: { filterSlider, layerIds },
   updateLayerFilters,
 }) => {
-  const [rangeValue, setRangeValue] = useState(filterSlider.initialValue);
+  const [sliderValue, setSliderValue] = useState(filterSlider.initialValue);
   useEffect(
     () => {
       buildAndApplyMapLayerFilters({
@@ -62,7 +61,7 @@ const MapFilterSlider = ({
         `}
       >
         <RegularText>{filterSlider.label}</RegularText>{" "}
-        <RegularText weight="black">{rangeValue}</RegularText>
+        <RegularText weight="black">{sliderValue}</RegularText>
       </div>
       <div
         css={css`
@@ -97,9 +96,9 @@ const MapFilterSlider = ({
               property: filterSlider.property,
               updateLayerFilters,
             });
-            setRangeValue(evt.target.value);
+            setSliderValue(evt.target.value);
           }}
-          value={rangeValue}
+          value={sliderValue}
         />
         <RegularText>{filterSlider.max}</RegularText>
       </div>
