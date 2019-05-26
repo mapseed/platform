@@ -60,13 +60,35 @@ const KittitasFireReadyReport = props => {
     firewise_community_Community: fireAdaptedCommunity,
     general_wildfire_risk_HAZARD_RAT: hazardRating,
   } = props.place;
-  const suggestedBuildingActions = [
-    "Add fuel breaks, such as walkways and patios, to interrupt a fire’s path",
-  ];
-  const suggestedVegetationActions = [
-    "Regularly remove dead plant and tree material",
-    "Keep lawns and native grasses mowed to a height of four inches",
-  ];
+  // The actions in these lists should ideally be listed in order of
+  // importance.
+  const vegetationActions = [
+    "clear_vegetation",
+    "mow_to_four_inches",
+    "remove_ladder_fuels",
+    "space_trees",
+    "tree_placement",
+    "small_tree_clusters",
+    "dispose_ground_debris",
+    "remove_dead_material",
+    "remove_small_conifers",
+    "remove_outbuilding_vegetation",
+    "space_canopy_tops_30_60_feet",
+    "space_canopy_tops_60_100_feet",
+  ]
+    .filter(action => props.place[action])
+    .slice(0, 2);
+  const buildingActions = [
+    "clean_roofs",
+    "replace_shingles",
+    "reduce_embers",
+    "clean_debris_attic_vents",
+    "repair_screens",
+    "move_flammable_material",
+    "create_fuel_breaks",
+  ]
+    .filter(action => props.place[action])
+    .slice(0, 2);
   const safeAvgFireStarts = !isNaN(numFireStarts) ? numFireStarts / 10 : 0; // 10 === year range of data.
   const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
   const safeFireDistrictName =
@@ -100,6 +122,13 @@ const KittitasFireReadyReport = props => {
       label: "EXTREME",
     },
   ];
+  const hazardMeterIndex = {
+    Low: 0,
+    Moderate: 1,
+    High: 2,
+    //"Very High": 3 TODO
+    Extreme: 4,
+  };
 
   return (
     <>
@@ -308,7 +337,7 @@ const KittitasFireReadyReport = props => {
                   >
                     <ColoredMeterChart
                       segments={meterChartSegments}
-                      selectedSegmentIndex={3}
+                      selectedSegmentIndex={hazardMeterIndex[hazardRating]}
                     />
                   </FlexItem>
                   <FlexItem flex="1">
@@ -358,10 +387,20 @@ const KittitasFireReadyReport = props => {
               </ReportBodyText>
               <ReportBodyText>
                 According to data sources from the State of Washington, wildfire
-                risk in your area is {hazardRating}. The average number of fire
-                starts (including starts from human activity and from lightning)
-                per year in your area is {safeAvgFireStarts}. Since 1973,{" "}
-                {safeNumLargeFires} large wildfires have burned in your area.
+                risk in your area is{" "}
+                <LargeText fontFamily="PTSansBold,sans-serif">
+                  {hazardRating}
+                </LargeText>
+                . The average number of fire starts (including starts from human
+                activity and from lightning) per year in your area is{" "}
+                <LargeText fontFamily="PTSansBold">
+                  {safeAvgFireStarts}
+                </LargeText>
+                . Since 1973,{" "}
+                <LargeText fontFamily="PTSansBold">
+                  {safeNumLargeFires}
+                </LargeText>{" "}
+                large wildfires have burned in your area.
               </ReportBodyText>
             </MainPanelSection>
           </MainPanel>
@@ -378,6 +417,103 @@ const KittitasFireReadyReport = props => {
             <KittitasFireReadyReportLargeTitle>
               In An Emergency...
             </KittitasFireReadyReportLargeTitle>
+            <SidebarSection>
+              <LargeText>
+                Plan ahead and be prepared in the event of an emergency. Here
+                are some tips.
+              </LargeText>
+            </SidebarSection>
+            <SidebarSection>
+              <KittitasFireReadyReportSmallTitle>
+                Emergency Kit
+              </KittitasFireReadyReportSmallTitle>
+              <LargeText>
+                Review this emergency preparedness checklist.
+              </LargeText>
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
+                  <ExternalLink href="https://bit.ly/aa42nnd22">
+                    <LargeText>bit.ly/aa42nnd22</LargeText>
+                  </ExternalLink>
+                </ContentWithFontAwesomeIcon>
+              </SidebarResourceList>
+            </SidebarSection>
+            <SidebarSection>
+              <KittitasFireReadyReportSmallTitle>
+                Evacuation Levels
+              </KittitasFireReadyReportSmallTitle>
+              <LargeText>
+                There are three evacuation levels to be aware of:
+              </LargeText>
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-arrow-right"
+                >
+                  <LargeText>
+                    <LargeText fontFamily="PTSansBold,sans-sefif">
+                      Level 1:
+                    </LargeText>{" "}
+                    Be ready to evacuate. Get your evacuation supplies together.
+                  </LargeText>
+                </ContentWithFontAwesomeIcon>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-arrow-right"
+                >
+                  <LargeText>
+                    <LargeText fontFamily="PTSansBold,sans-sefif">
+                      Level 2:
+                    </LargeText>{" "}
+                    Be set to evacuate. You must prepare to leave at any moment.
+                  </LargeText>
+                </ContentWithFontAwesomeIcon>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-arrow-right"
+                >
+                  <LargeText>
+                    <LargeText fontFamily="PTSansBold,sans-sefif">
+                      Level 3:
+                    </LargeText>{" "}
+                    Evacuate immediately.
+                  </LargeText>
+                </ContentWithFontAwesomeIcon>
+              </SidebarResourceList>
+            </SidebarSection>
+            <SidebarSection>
+              <KittitasFireReadyReportSmallTitle>
+                {"Sheriff's Department"}
+              </KittitasFireReadyReportSmallTitle>
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
+                  <ExternalLink href="twitter.com/kcsheriffoffice">
+                    <LargeText>twitter.com/kcsheriffoffice</LargeText>
+                  </ExternalLink>
+                </ContentWithFontAwesomeIcon>
+              </SidebarResourceList>
+            </SidebarSection>
+            <SidebarSection>
+              <KittitasFireReadyReportSmallTitle>
+                Active Wildfires
+              </KittitasFireReadyReportSmallTitle>
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
+                  <ExternalLink href="inciweb.nwcg.gov">
+                    <LargeText>inciweb.nwcg.gov</LargeText>
+                  </ExternalLink>
+                </ContentWithFontAwesomeIcon>
+              </SidebarResourceList>
+            </SidebarSection>
           </RightSidebar>
           <MainPanel>
             <MainPanelSection>
@@ -407,7 +543,19 @@ const KittitasFireReadyReport = props => {
               <ReportBodyText>
                 The National Fire Protection Association program recommends you
                 think of fire prevention in three ignition zones around your
-                home: Immediate, Intermediate, and Extended.
+                home:{" "}
+                <LargeText fontFamily="PTSansBold,sans-serif">
+                  Immediate
+                </LargeText>
+                ,{" "}
+                <LargeText fontFamily="PTSansBold,sans-serif">
+                  Intermediate
+                </LargeText>
+                , and{" "}
+                <LargeText fontFamily="PTSansBold,sans-serif">
+                  Extended
+                </LargeText>
+                .
               </ReportBodyText>
               <ReportBodyText>
                 {" "}
@@ -421,22 +569,66 @@ const KittitasFireReadyReport = props => {
               <KittitasFireReadySectionHeader>
                 Reviewing Your Preparedness
               </KittitasFireReadySectionHeader>
+              {(vegetationActions.length > 0 || buildingActions.length > 0) && (
+                <ReportBodyText>
+                  It looks like you’ve done some great preparation work! Here’s
+                  a quick review.
+                </ReportBodyText>
+              )}
               <ReportBodyText>
-                Use this section to review your self-reported preparedness
-                efforts. Please note this summary is only a rough guide to your
-                wildfire preparedness based on general best practices, and
-                should not be used as a substitute for a professional onsite
-                fire risk audit.
+                You control vegetation on your property by:
               </ReportBodyText>
-              <div
-                css={css`
-                  margin-left: 64px;
-                `}
-              >
-                <KittitasFireReadyReportSmallTitle>
-                  Use of fire-resistant building materials and techniques
-                </KittitasFireReadyReportSmallTitle>
-              </div>
+              {vegetationActions.length > 0 ? (
+                <ul>
+                  {vegetationActions.map(action => (
+                    <li key={action}>{props.place[action]}</li>
+                  ))}
+                </ul>
+              ) : (
+                <LargeText
+                  css={css`
+                    display: block;
+                    margin-left: 64px;
+                    margin-bottom: 16px;
+                    font-style: italic;
+                  `}
+                >
+                  Schedule an onsite consultation to learn how to minimize your
+                  risk through vegetation control on your property.
+                </LargeText>
+              )}
+              <ReportBodyText>
+                You incorporate fire-resistant building materials and techniques
+                by:
+              </ReportBodyText>
+              {buildingActions.length > 0 ? (
+                <ul>
+                  {buildingActions.map(action => (
+                    <li key={action}>{props.place[action]}</li>
+                  ))}
+                </ul>
+              ) : (
+                <LargeText
+                  css={css`
+                    display: block;
+                    margin-left: 64px;
+                    margin-bottom: 16px;
+                    font-style: italic;
+                  `}
+                >
+                  Schedule an onsite consultation to learn how to minimize your
+                  risk through the use of fire-resistant building materials and
+                  techniques.
+                </LargeText>
+              )}
+              <ReportBodyText>
+                We recommend a full onsite consultation. You can get your free
+                consultation by calling{" "}
+                <LargeText fontFamily="PTSansBold,sans-serif">
+                  509-925-3352 x202
+                </LargeText>
+                .
+              </ReportBodyText>
             </MainPanelSection>
           </MainPanel>
           <KittitasFireReadyPageFooter />

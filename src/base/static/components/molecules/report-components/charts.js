@@ -8,6 +8,7 @@ const ColoredMeterChart = props => {
   const halfSegmentAngle = segmentAngle / 2;
   const segmentAngleDegrees = 180 / numSegments;
   const threeHalvesPI = (3 / 2) * Math.PI;
+  // 31.83... === 200/2PI; based on a chart circumference of 200.
   const radius = 31.8309886184;
   const centerX = 65;
   const centerY = 65;
