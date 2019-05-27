@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 export const userPropType = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,
-  provider_id: PropTypes.string,
   provider_type: PropTypes.string,
   username: PropTypes.string,
   avatar_url: PropTypes.string,
@@ -59,7 +58,7 @@ export const hasUserAbilitiesInPlace = ({
   isSubmitterEditingSupported &&
   submitter &&
   state.user.username === submitter.username &&
-  state.user.provider_id === submitter.provider_id;
+  state.user.id === submitter.id;
 export const hasAdminAbilities = (state, datasetSlug) =>
   state.user.groups.some(
     group =>
