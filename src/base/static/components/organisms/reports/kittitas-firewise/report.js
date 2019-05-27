@@ -233,7 +233,9 @@ const KittitasFireReadyReport = props => {
                       faClassname="fas fa-globe"
                     >
                       <ExternalLink>
-                        {safeFireDistrictContactInfo.email}
+                        <LargeText>
+                          {safeFireDistrictContactInfo.email}
+                        </LargeText>
                       </ExternalLink>
                     </ContentWithFontAwesomeIcon>
                   </>
