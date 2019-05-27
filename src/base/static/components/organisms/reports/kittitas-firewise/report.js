@@ -90,6 +90,32 @@ const fireDistrictInfo = {
   },
 };
 
+const actionDescriptions = {
+  clear_vegetation: "Clearing vegetation",
+  clean_roofs: "Cleaning your roof of dead leaves and debris",
+  replace_shingles: "Reparaing loose or missing shingles",
+  mow_to_four_inches: "Keeping your lawn mowed to four inches",
+  remove_ladder_fuels: "Removing ladder fuels",
+  space_trees: "Spacing trees to a minimum of eighteen feet",
+  tree_placement:
+    "Keeping mature tree canopy at least ten feet from structures",
+  small_tree_clusters: "Keeping trees grouped in small clusters",
+  dispose_ground_debris: "Regularly disposing of group debris",
+  remove_dead_material: "Removing dead plant and tree material",
+  remove_small_conifers: "Removing small conifers between mature trees",
+  remove_outbuilding_vegetation: "Removing outbuilding vegetation",
+  space_canopy_tops_30_60_feet:
+    "Spacing trees thirty to sixty feet from your house at least twelve feet apart",
+  space_canopy_tops_60_100_feet:
+    "Spacing trees sixty to one hundred feet from your house at least six feet apart",
+  reduce_embers:
+    "Reducing embers by installing 1/8 inch metal screening on vents",
+  clean_debris_attic_vents: "Cleaning debris from attic vents",
+  repair_screens: "Repairing damaged or loose window screens",
+  move_flammable_material: "Moving flammable material away from wall exteriors",
+  create_fuel_breaks: "Creating fuel breaks",
+};
+
 const KittitasFireReadyReport = props => {
   const {
     num_nearby_large_fires: numLargeFires,
@@ -123,8 +149,8 @@ const KittitasFireReadyReport = props => {
     "reduce_embers",
     "clean_debris_attic_vents",
     "repair_screens",
-    "move_flammable_material",
     "create_fuel_breaks",
+    "move_flammable_material",
   ]
     .filter(action => props.place[action])
     .slice(0, 2);
@@ -299,7 +325,7 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-globe"
                 >
                   <ExternalLink href="https://kittitascountyfireready.mapseed.org">
-                    <LargeText>kittitasfirewise.mapseed.org</LargeText>
+                    <LargeText>kittitascountyfireready.mapseed.org</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
@@ -615,9 +641,22 @@ const KittitasFireReadyReport = props => {
                 You control vegetation on your property by:
               </ReportBodyText>
               {vegetationActions.length > 0 ? (
-                <ul>
+                <ul
+                  css={css`
+                    padding-left: 80px;
+                  `}
+                >
                   {vegetationActions.map(action => (
-                    <li key={action}>{props.place[action]}</li>
+                    <li
+                      css={css`
+                        font-family: Raleway, sans-serif;
+                        font-style: italic;
+                        font-size: 1.2rem;
+                      `}
+                      key={action}
+                    >
+                      {actionDescriptions[action]}
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -638,9 +677,22 @@ const KittitasFireReadyReport = props => {
                 by:
               </ReportBodyText>
               {buildingActions.length > 0 ? (
-                <ul>
+                <ul
+                  css={css`
+                    padding-left: 80px;
+                  `}
+                >
                   {buildingActions.map(action => (
-                    <li key={action}>{props.place[action]}</li>
+                    <li
+                      css={css`
+                        font-family: Raleway, sans-serif;
+                        font-style: italic;
+                        font-size: 1.2rem;
+                      `}
+                      key={action}
+                    >
+                      {actionDescriptions[action]}
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -664,15 +716,6 @@ const KittitasFireReadyReport = props => {
                   509-925-3352 x202
                 </LargeText>
                 .
-              </ReportBodyText>
-            </MainPanelSection>
-            <MainPanelSection>
-              <KittitasFireReadySectionHeader>
-                Disclaimers
-              </KittitasFireReadySectionHeader>
-              <ReportBodyText>
-                The information in this report is being provided as-is. This
-                information is accurate as of the report date.
               </ReportBodyText>
             </MainPanelSection>
           </MainPanel>
