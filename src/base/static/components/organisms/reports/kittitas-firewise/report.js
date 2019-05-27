@@ -81,7 +81,7 @@ const fireDistrictInfo = {
     phone: "Not available",
   },
   "Kittitas Valley Fire and Rescue (Fire District 2)": {
-    email: "http://www.kvfr.org/Contact_Us.aspx",
+    email: "www.kvfr.org/Contact_Us.aspx",
     phone: "509-933-7231",
   },
   "Fire District 7 (Cle Elum)": {
@@ -232,7 +232,9 @@ const KittitasFireReadyReport = props => {
                       color="#444"
                       faClassname="fas fa-globe"
                     >
-                      <LargeText>{safeFireDistrictContactInfo.email}</LargeText>
+                      <ExternalLink>
+                        {safeFireDistrictContactInfo.email}
+                      </ExternalLink>
                     </ContentWithFontAwesomeIcon>
                   </>
                 )}
@@ -662,6 +664,8 @@ const KittitasFireReadyReport = props => {
               ) : (
                 <LargeText
                   css={css`
+                    font-family: Raleway, sans-serif;
+                    font-size: 1.2rem;
                     display: block;
                     margin-left: 64px;
                     margin-bottom: 16px;
@@ -698,6 +702,8 @@ const KittitasFireReadyReport = props => {
               ) : (
                 <LargeText
                   css={css`
+                    font-family: Raleway, sans-serif;
+                    font-size: 1.2rem;
                     display: block;
                     margin-left: 64px;
                     margin-bottom: 16px;
