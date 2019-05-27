@@ -52,15 +52,42 @@ const getBurnRiskText = burnRisk => {
 
 // https://www.co.kittitas.wa.us/cds/firemarshal/local-fire-districts.aspx
 const fireDistrictInfo = {
-  "You are not located in a Fire District": "509-962-7506", // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
-  "Snoqualmie Pass Fire and Rescue": "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
-  "Fire District 6 (Ronald)": "509-260-1220",
-  "CITY OF ROSLYN 57-1": "509-649-3105",
-  "CITY OF CLE ELUM 51-1": "509-674-1748",
-  "Fire District 1 (Rural Thorp)": "509-964-2435",
-  "Fire District 4 (Vantage)": "vantageKCFD4@gmail.com", // TODO
-  "Kittitas Valley Fire and Rescue (Fire District 2)": "509-933-7235",
-  "Fire District 7 (Cle Elum)": "509-933-7235",
+  "You are not located in a Fire District. Contact the Fire Marshal's Office:": {
+    email: "Not available",
+    phone: "509-962-7506",
+  }, // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
+  "Snoqualmie Pass Fire and Rescue": {
+    email: "jwiseman@snoqualmiepassfirerescue.org",
+    phone: "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
+  },
+  "Fire District 6 (Ronald)": {
+    email: "www.facebook.com/KCFPD6",
+    phone: "509-649-2600",
+  },
+  "CITY OF ROSLYN 57-1": {
+    email: "skye@inlandnet.com",
+    phone: "509-649-3105",
+  },
+  "CITY OF CLE ELUM 51-1": {
+    email: "firechief@cityofcleelum.com",
+    phone: "509-674-1748",
+  },
+  "Fire District 1 (Rural Thorp)": {
+    email: "www.facebook.com/kittitascofd1",
+    phone: "509-964-2435",
+  },
+  "Fire District 4 (Vantage)": {
+    email: "vantageKCFD4@gmail.com",
+    phone: "Not available",
+  },
+  "Kittitas Valley Fire and Rescue (Fire District 2)": {
+    email: "http://www.kvfr.org/Contact_Us.aspx",
+    phone: "509-933-7231",
+  },
+  "Fire District 7 (Cle Elum)": {
+    email: "office@kcfd7.com",
+    phone: "509-933-7235",
+  },
 };
 
 const KittitasFireReadyReport = props => {
@@ -71,6 +98,7 @@ const KittitasFireReadyReport = props => {
     firewise_community_Community: fireAdaptedCommunity,
     burn_risk_QRC_iBP: burnRisk,
   } = props.place;
+
   // The actions in these lists should ideally be listed in order of
   // importance.
   const vegetationActions = [
@@ -104,13 +132,14 @@ const KittitasFireReadyReport = props => {
   const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
   const safeFireDistrictName =
     fireDistrictName === "Areas outside Fire Districts" || !fireDistrictName
-      ? "You are not located in a Fire District"
+      ? "You are not located in a Fire District. Contact the Fire Marshal's Office:"
       : fireDistrictName;
-  const safeFireDistrictPhone = fireDistrictInfo[safeFireDistrictName];
-  const safeFireAdaptedCommunity =
-    !fireAdaptedCommunity || fireAdaptedCommunity === "none"
-      ? "You are not located in a Fire Adapted Community"
-      : fireAdaptedCommunity;
+  const safeFireDistrictContactInfo = fireDistrictInfo[safeFireDistrictName];
+  const isOutsideFireAdaptedCommunity =
+    !fireAdaptedCommunity || fireAdaptedCommunity === "none";
+  const safeFireAdaptedCommunity = isOutsideFireAdaptedCommunity
+    ? "You are not located in a Firewise USA Recognized Community"
+    : fireAdaptedCommunity;
   const burnRiskText = getBurnRiskText(burnRisk);
   const meterChartSegments = [
     {
@@ -165,13 +194,21 @@ const KittitasFireReadyReport = props => {
                 {safeFireDistrictName}
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
-                {safeFireDistrictPhone && (
-                  <ContentWithFontAwesomeIcon
-                    color="#444"
-                    faClassname="fas fa-phone"
-                  >
-                    <LargeText>{safeFireDistrictPhone}</LargeText>
-                  </ContentWithFontAwesomeIcon>
+                {safeFireDistrictContactInfo && (
+                  <>
+                    <ContentWithFontAwesomeIcon
+                      color="#444"
+                      faClassname="fas fa-phone"
+                    >
+                      <LargeText>{safeFireDistrictContactInfo.phone}</LargeText>
+                    </ContentWithFontAwesomeIcon>
+                    <ContentWithFontAwesomeIcon
+                      color="#444"
+                      faClassname="fas fa-globe"
+                    >
+                      <LargeText>{safeFireDistrictContactInfo.email}</LargeText>
+                    </ContentWithFontAwesomeIcon>
+                  </>
                 )}
               </SidebarResourceList>
             </SidebarSection>
@@ -202,15 +239,17 @@ const KittitasFireReadyReport = props => {
                     <LargeText>fireadaptedwashington.org</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
-                <ContentWithFontAwesomeIcon
-                  color="#444"
-                  faClassname="fas fa-info-circle"
-                >
-                  <LargeText>
-                    Connect with your Firewise Recognized Community to learn how
-                    to live proactively with wildfire
-                  </LargeText>
-                </ContentWithFontAwesomeIcon>
+                {!isOutsideFireAdaptedCommunity && (
+                  <ContentWithFontAwesomeIcon
+                    color="#444"
+                    faClassname="fas fa-info-circle"
+                  >
+                    <LargeText>
+                      Connect with your Firewise Recognized Community to learn
+                      how to live proactively with wildfire
+                    </LargeText>
+                  </ContentWithFontAwesomeIcon>
+                )}
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
@@ -222,7 +261,7 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>[509-925-3352 x202]</LargeText>
+                  <LargeText>509-925-3352 x202</LargeText>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -244,23 +283,8 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://bit.ly/fdfj3D23d">
-                    <LargeText>bit.ly/fdfj3D23d</LargeText>
-                  </ExternalLink>
-                </ContentWithFontAwesomeIcon>
-              </SidebarResourceList>
-            </SidebarSection>
-            <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
-                FireReady Information
-              </KittitasFireReadyReportSmallTitle>
-              <SidebarResourceList>
-                <ContentWithFontAwesomeIcon
-                  color="#444"
-                  faClassname="fas fa-globe"
-                >
-                  <ExternalLink href="https://bit.ly/aa42nnd22">
-                    <LargeText>bit.ly/aa42nnd22</LargeText>
+                  <ExternalLink href="http://bit.ly/2YRwbVi">
+                    <LargeText>bit.ly/2YRwbVi</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -274,7 +298,7 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://kittitasfirewise.mapseed.org">
+                  <ExternalLink href="https://kittitascountyfireready.mapseed.org">
                     <LargeText>kittitasfirewise.mapseed.org</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
@@ -447,8 +471,8 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://bit.ly/aa42nnd22">
-                    <LargeText>bit.ly/aa42nnd22</LargeText>
+                  <ExternalLink href="http://bit.ly/2YTc74D">
+                    <LargeText>bit.ly/2YTc74D</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -640,6 +664,15 @@ const KittitasFireReadyReport = props => {
                   509-925-3352 x202
                 </LargeText>
                 .
+              </ReportBodyText>
+            </MainPanelSection>
+            <MainPanelSection>
+              <KittitasFireReadySectionHeader>
+                Disclaimers
+              </KittitasFireReadySectionHeader>
+              <ReportBodyText>
+                The information in this report is being provided as-is. This
+                information is accurate as of the report date.
               </ReportBodyText>
             </MainPanelSection>
           </MainPanel>
