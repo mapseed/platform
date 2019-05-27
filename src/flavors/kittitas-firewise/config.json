@@ -4138,13 +4138,7 @@
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "reports",
-                "marker-fire-prevention.png",
-                "__no-icon-image__"
-              ],
+              "icon-image": "marker-fire-prevention.png",
               "icon-allow-overlap": true
             }
           }
@@ -4156,8 +4150,14 @@
             "source": "kittitas-firewise-input",
             "layout": {
               "icon-anchor": "bottom",
-              "icon-image": "marker-fire-prevention.png",
-              "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                "dot-fc9229.png",
+                7.5,
+                "marker-fire-prevention.png"
+              ],
+              "icon-size": ["step", ["zoom"], 0.3, 7.5, 0.4, 14, 0.5],
               "icon-allow-overlap": true
             }
           }
@@ -4386,7 +4386,6 @@
             "end_field_index": 12,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
               "wa-state-large-fires-1973-2018"
             ]
@@ -4396,7 +4395,6 @@
             "end_field_index": 21,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
               "wa-state-large-fires-1973-2018"
             ]
@@ -4406,7 +4404,6 @@
             "end_field_index": 29,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
               "wa-state-large-fires-1973-2018"
             ]
@@ -4416,7 +4413,6 @@
             "end_field_index": 43,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
               "wa-state-large-fires-1973-2018"
             ]
@@ -4426,9 +4422,9 @@
             "end_field_index": 48,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
               "kittitas-county-outline",
-              "wa-state-large-fires-1973-2018"
+              "wa-state-large-fires-1973-2018",
+              "kittitas-firewise-input"
             ]
           }
         ],
