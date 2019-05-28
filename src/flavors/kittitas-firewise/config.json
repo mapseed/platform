@@ -4150,6 +4150,7 @@
             "source": "kittitas-firewise-input",
             "layout": {
               "icon-anchor": "bottom",
+              "icon-anchor": ["step", ["zoom"], "center", 7.5, "bottom"],
               "icon-image": [
                 "step",
                 ["zoom"],
