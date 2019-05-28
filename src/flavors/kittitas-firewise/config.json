@@ -3916,7 +3916,7 @@
         "id": "wa-state-large-fires-1973-2018",
         "visibleDefault": false,
         "filterSlider": {
-          "initialValue": 2010,
+          "initialValue": 2018,
           "min": 1973,
           "max": 2018,
           "step": 1,
@@ -4419,7 +4419,7 @@
           },
           {
             "start_field_index": 44,
-            "end_field_index": 48,
+            "end_field_index": 50,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-county-outline",
@@ -4615,7 +4615,19 @@
             "type": "text",
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
-            "optional": false
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "label": "Add an image",
+            "optional": true
+          },
+          {
+            "name": "comment",
+            "prompt": "Add any additional comments about your wildfire preparedness efforts",
+            "label": "Comment",
+            "type": "textarea"
           },
           {
             "name": "submit",
@@ -5352,5 +5364,8 @@
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
     }
-  ]
+  ],
+  "custom_components": {
+    "FieldSummary": "KittitasFireReadyFieldSummary"
+  }
 }
