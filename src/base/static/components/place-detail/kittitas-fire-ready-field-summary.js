@@ -48,6 +48,7 @@ const KittitasFireReadyFieldSummary = props => {
         >
           <span
             css={css`
+              width: 36px;
               color: #fff;
               font-family: PTSansBold, sans-serif;
               font-size: 2rem;
