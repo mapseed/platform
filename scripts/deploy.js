@@ -10,7 +10,7 @@ if (!process.env.SSL_CERT_ARN) {
 }
 
 // Files matching this pattern will be uploaded with their ContentEncoding
-// metadata set to `gzip`. This prevents a bug where gzipped files can be 
+// metadata set to `gzip`. This prevents a bug where gzipped files can be
 // deployed momentarily without a proper ContentEncoding header.
 // See: https://github.com/jalMogo/mgmt/issues/266
 const gzippedFiles = glob
@@ -109,9 +109,9 @@ function updateMetadata() {
       filepath = path.relative("./www", filepath);
       params = {
         CacheControl: "no-cache, must-revalidate, max-age=0",
-        // Note that even though we set the ContentEncoding metadata in the 
+        // Note that even though we set the ContentEncoding metadata in the
         // initial file copy to S3, we have to duplicate it here because
-        // there is not metadata "amend" oprtation in S3.
+        // there is not metadata "amend" operation in S3.
         ContentEncoding: "gzip",
       };
       return copyObjectPromise(buildParams(filepath, params));
