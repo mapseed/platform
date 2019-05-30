@@ -140,6 +140,7 @@
       },
       {
         "id": "sample-json-b",
+        "popupContent": "<h3>City name:</h3><p>{{CITYNAME}}</p>",
         "mapboxLayers": [
           {
             "id": "sample-json-b-labels",
@@ -1286,7 +1287,7 @@
   "pages": [
     {
       "slug": "getinvolved",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Get involved</h1>",
         "<p>Want to help out? Excellent!</p>",
@@ -1298,7 +1299,7 @@
     },
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Welcome</h1>",
         "<p>We are a community of residents and stakeholders who are monitoring important issues in our community.</p>",

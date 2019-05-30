@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import MapGL, { NavigationControl } from "react-map-gl";
+import MapGL, { NavigationControl, Popup } from "react-map-gl";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import InviteModal from "../organisms/invite-modal";
@@ -27,6 +27,7 @@ import {
   mapContainerDimensionsSeletor,
   filterableLayerGroupsMetadataSelector,
   filterableLayerGroupMetadataPropType,
+  mapLayerPopupSelector,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
@@ -148,6 +149,9 @@ class MainMap extends Component {
   state = {
     isMapLoaded: false,
     isMapDraggingOrZooming: false,
+    popupContent: null,
+    popupLatitide: null,
+    popupLongitude: null,
   };
 
   queriedFeatures = [];
@@ -420,6 +424,21 @@ class MainMap extends Component {
     }
   }
 
+  parsePopupContent = (popupContent, properties) => {
+    // Support a Handlebars-inspired syntax for injecting feature properties
+    // into popup content.
+    return popupContent.replace(/{{(\w+?)}}/, (match, property) => {
+      if (properties[property]) {
+        return properties[property];
+      } else {
+        // eslint-disable-next-line no-console
+        console.error(
+          `Error: cannot find property ${property} on feature for use on popup`,
+        );
+      }
+    });
+  };
+
   beginFeatureQuery = evt => {
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
     // lag when clicking around Places on the map. It's not clear why, but we
@@ -434,9 +453,11 @@ class MainMap extends Component {
   };
 
   endFeatureQuery = () => {
+    if (this.state.isMapDragginOrZooming || !this.queriedFeatures.length) {
+      return;
+    }
+
     if (
-      !this.state.isMapDraggingOrZooming &&
-      this.queriedFeatures.length &&
       this.queriedFeatures[0].properties &&
       this.queriedFeatures[0].properties.clientSlug
     ) {
@@ -447,6 +468,27 @@ class MainMap extends Component {
       const clientSlug = this.queriedFeatures[0].properties.clientSlug;
       Mixpanel.track("Clicked place on map", { placeId });
       this.props.history.push(`/${clientSlug}/${placeId}`);
+    }
+  };
+
+  onClick = evt => {
+    // We use the onClick handler to query for popup content so popups are only
+    // displayed on distinct clicks (and not, for example, a
+    // click-drag-release).
+    const feature = this.map.queryRenderedFeatures(evt.point)[0];
+
+    if (feature && this.props.mapLayerPopupSelector(feature.layer.id)) {
+      const popupContent = this.parsePopupContent(
+        this.props.mapLayerPopupSelector(feature.layer.id),
+        feature.properties,
+      );
+
+      // Display popup.
+      this.setState({
+        popupContent,
+        popupLatitude: evt.lngLat[1],
+        popupLongitude: evt.lngLat[0],
+      });
     }
   };
 
@@ -506,10 +548,11 @@ class MainMap extends Component {
           mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
           minZoom={this.props.mapViewport.minZoom}
           maxZoom={this.props.mapViewport.maxZoom}
-          onMouseUp={this.endFeatureQuery}
+          onClick={this.onClick}
           onMouseDown={this.beginFeatureQuery}
-          onTouchEnd={this.endFeatureQuery}
+          onMouseUp={this.endFeatureQuery}
           onTouchStart={this.beginFeatureQuery}
+          onTouchEnd={this.endFeatureQuery}
           onViewportChange={viewport => {
             // NOTE: react-map-gl seems to cache the width and height of the map
             // container at the beginning of a transition. If the viewport change
@@ -538,6 +581,24 @@ class MainMap extends Component {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
+          {this.state.popupContent && (
+            <Popup
+              latitude={this.state.popupLatitude}
+              longitude={this.state.popupLongitude}
+              closeButton={true}
+              closeOnClick={true}
+              onClose={() =>
+                this.setState({
+                  popupContent: null,
+                })
+              }
+              anchor="bottom"
+            >
+              <div
+                dangerouslySetInnerHTML={{ __html: this.state.popupContent }}
+              />
+            </Popup>
+          )}
           {this.props.isMapCenterpointVisible && (
             <MapCenterpoint
               isMapDraggingOrZooming={this.state.isMapDraggingOrZooming}
@@ -616,6 +677,7 @@ MainMap.propTypes = {
   mapContainerWidthDeclaration: PropTypes.string.isRequired,
   mapContainerHeightDeclaration: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
+  mapLayerPopupSelector: PropTypes.func.isRequired,
   mapSourcesLoadStatus: PropTypes.object.isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
@@ -657,6 +719,7 @@ const mapStateToProps = state => ({
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapContainerDimensions: mapContainerDimensionsSeletor(state),
+  mapLayerPopupSelector: layerId => mapLayerPopupSelector(layerId, state),
   mapStyle: mapStyleSelector(state),
   placeFilters: filtersSelector(state),
   placeSelector: placeId => placeSelector(state, placeId),
