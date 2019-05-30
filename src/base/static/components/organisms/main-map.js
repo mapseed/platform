@@ -441,12 +441,14 @@ class MainMap extends Component {
     });
   };
 
+  isMapEvent = evt => {
+    // An event's className will be `overlays` when the event originates on
+    // the map itself (as opposed to on control overlays or on popups).
+    return evt.target && evt.target.className === "overlays";
+  };
+
   beginFeatureQuery = evt => {
-    if (evt.target.className !== "overlays") {
-      // The mousedown and touchstart event's className will be `overlays` when
-      // the event originates on the map itself. We want to prevent feature
-      // queries when `className` is anything else (such as when the user
-      // clicks on control overlays or on popups).
+    if (!this.isMapEvent(event)) {
       return;
     }
 
@@ -465,6 +467,10 @@ class MainMap extends Component {
   };
 
   endFeatureQuery = evt => {
+    if (!this.isMapEvent(evt)) {
+      return;
+    }
+
     const feature = this.queriedFeatures[0];
 
     if (
@@ -487,7 +493,9 @@ class MainMap extends Component {
       this.props.mapLayerPopupSelector(feature.layer.id) &&
       // When `center.x` matches `mouseX` and `center.y` matches `mouseY`, the
       // user has clicked in place (as opposed to clicking, dragging, then
-      // releasing). We wouldn't need to worry about tracking this information
+      // releasing). We only want to render popups on in-place clicks.
+      //
+      // We wouldn't need to worry about tracking this information
       // if we used the `onClick` listener, but as explained above we avoid
       // `onClick` for performance reasons.
       evt.center.x === this.mouseX &&
