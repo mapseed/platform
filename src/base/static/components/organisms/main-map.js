@@ -155,6 +155,8 @@ class MainMap extends Component {
   };
 
   queriedFeatures = [];
+  mouseX = 0;
+  mouseY = 0;
   isMapTransitioning = false;
   mapRef = createRef();
 
@@ -440,44 +442,57 @@ class MainMap extends Component {
   };
 
   beginFeatureQuery = evt => {
+    if (evt.target.className !== "overlays") {
+      // The mousedown and touchstart event's className will be `overlays` when
+      // the event originates on the map itself. We want to prevent feature
+      // queries when `className` is anything else (such as when the user
+      // clicks on control overlays or on popups).
+      return;
+    }
+
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
     // lag when clicking around Places on the map. It's not clear why, but we
     // get better performance by querying rendered features as soon as the
     // onMouseDown or onTouchStart events fire, and using the onMouseUp and
     // onTouchEnd handler to test if the most recent queried feature is one we
-    // shoud route to (i.e. is a Place).
+    // should route to (i.e. is a Place).
     //
     // Note that if no features are found in the query, an empty array is
     // returned.
+    this.mouseX = evt.center.x;
+    this.mouseY = evt.center.y;
     this.queriedFeatures = this.map.queryRenderedFeatures(evt.point);
   };
 
-  endFeatureQuery = () => {
-    if (this.state.isMapDragginOrZooming || !this.queriedFeatures.length) {
-      return;
-    }
+  endFeatureQuery = evt => {
+    const feature = this.queriedFeatures[0];
 
     if (
-      this.queriedFeatures[0].properties &&
-      this.queriedFeatures[0].properties.clientSlug
+      !this.state.isMapDraggingOrZooming &&
+      feature &&
+      feature.properties &&
+      feature.properties.clientSlug
     ) {
       // If the topmost clicked-on feature has a clientSlug property, there's
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
-      const placeId = this.queriedFeatures[0].properties.id;
-      const clientSlug = this.queriedFeatures[0].properties.clientSlug;
+      const placeId = feature.properties.id;
+      const clientSlug = feature.properties.clientSlug;
       Mixpanel.track("Clicked place on map", { placeId });
       this.props.history.push(`/${clientSlug}/${placeId}`);
     }
-  };
 
-  onClick = evt => {
-    // We use the onClick handler to query for popup content so popups are only
-    // displayed on distinct clicks (and not, for example, a
-    // click-drag-release).
-    const feature = this.map.queryRenderedFeatures(evt.point)[0];
-
-    if (feature && this.props.mapLayerPopupSelector(feature.layer.id)) {
+    if (
+      feature &&
+      this.props.mapLayerPopupSelector(feature.layer.id) &&
+      // When `center.x` matches `mouseX` and `center.y` matches `mouseY`, the
+      // user has clicked in place (as opposed to clicking, dragging, then
+      // releasing). We wouldn't need to worry about tracking this information
+      // if we used the `onClick` listener, but as explained above we avoid
+      // `onClick` for performance reasons.
+      evt.center.x === this.mouseX &&
+      evt.center.y === this.mouseY
+    ) {
       const popupContent = this.parsePopupContent(
         this.props.mapLayerPopupSelector(feature.layer.id),
         feature.properties,
@@ -548,7 +563,6 @@ class MainMap extends Component {
           mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
           minZoom={this.props.mapViewport.minZoom}
           maxZoom={this.props.mapViewport.maxZoom}
-          onClick={this.onClick}
           onMouseDown={this.beginFeatureQuery}
           onMouseUp={this.endFeatureQuery}
           onTouchStart={this.beginFeatureQuery}
@@ -585,8 +599,6 @@ class MainMap extends Component {
             <Popup
               latitude={this.state.popupLatitude}
               longitude={this.state.popupLongitude}
-              closeButton={true}
-              closeOnClick={true}
               onClose={() =>
                 this.setState({
                   popupContent: null,
