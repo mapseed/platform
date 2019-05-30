@@ -443,7 +443,7 @@ class MainMap extends Component {
 
   isMapEvent = evt => {
     // An event's className will be `overlays` when the event originates on
-    // the map itself (as opposed to on control overlays or on popups).
+    // the map itself (as opposed to on controls or on popups).
     return evt.target && evt.target.className === "overlays";
   };
 
