@@ -58,8 +58,7 @@
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 18.4
-      },
-      "drawing_enabled": true
+      }
     },
     "mapboxSources": {
       "streets": {

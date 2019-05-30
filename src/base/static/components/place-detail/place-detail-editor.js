@@ -17,11 +17,6 @@ import Util from "../../js/utils.js";
 
 import { translate } from "react-i18next";
 
-import {
-  activeMarkerSelector,
-  geometryStyleSelector,
-  geometryStyleProps,
-} from "../../state/ducks/map-drawing-toolbar";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
   updatePlace,
@@ -145,15 +140,6 @@ class PlaceDetailEditor extends Component {
       // that a place should be private.
       // TODO: Make a special form field to encapsulate this.
       attrs.private = attrs.private === "yes" ? true : false;
-
-      if (this.state.fields.get("geometry")) {
-        attrs.style =
-          this.state.fields.getIn(["geometry", "value"]).type === "Point"
-            ? {
-                "marker-symbol": this.props.activeMarker,
-              }
-            : this.props.geometryStyle;
-      }
 
       // Replace image data in rich text fields with placeholders built from each
       // image's name.
@@ -389,8 +375,6 @@ class PlaceDetailEditor extends Component {
             .filter(field => field.get("isVisible"))
             .map((field, fieldName) => (
               <FormField
-                existingGeometry={this.props.place.geometry}
-                existingGeometryStyle={this.props.place.style}
                 existingPlaceId={this.props.place.id}
                 datasetSlug={this.props.place.datasetSlug}
                 fieldConfig={field.get("config").toJS()}
@@ -417,10 +401,8 @@ class PlaceDetailEditor extends Component {
 }
 
 PlaceDetailEditor.propTypes = {
-  activeMarker: PropTypes.string,
   attachments: PropTypes.array,
   contentPanelInnerContainerRef: PropTypes.object.isRequired,
-  geometryStyle: geometryStyleProps.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
@@ -446,12 +428,10 @@ PlaceDetailEditor.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  activeMarker: activeMarkerSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
   layout: layoutSelector(state),
-  geometryStyle: geometryStyleSelector(state),
   placeConfig: placeConfigSelector(state),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({

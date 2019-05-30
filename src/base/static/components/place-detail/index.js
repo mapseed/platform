@@ -15,7 +15,6 @@ import Survey from "./survey";
 import EditorBar from "./editor-bar";
 import TagBar from "../organisms/tag-bar";
 import PlaceDetailEditor from "./place-detail-editor";
-import emitter from "../../utils/emitter";
 
 import FieldSummary from "./field-summary";
 
@@ -23,8 +22,6 @@ import FieldSummary from "./field-summary";
 import SnohomishFieldSummary from "./snohomish-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
 import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
-
-import constants from "../../constants";
 
 import {
   appConfigSelector,
@@ -96,17 +93,6 @@ class PlaceDetail extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      this.props.isEditModeToggled !== prevProps.isEditModeToggled &&
-      !this.props.isEditModeToggled
-    ) {
-      emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
-      emitter.emit(
-        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        this.props.focusedPlace.datasetSlug,
-      );
-    }
-
     if (this.props.focusedPlace.id !== prevProps.focusedPlace.id) {
       jumpTo({
         contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,

@@ -7,8 +7,6 @@ import { translate } from "react-i18next";
 import { RegularText } from "../atoms/typography";
 
 const errorMsgs = {
-  missingGeometry:
-    "Please use the drawing toolbar to add a point, line, or polygon to the map.",
   missingRequired: "Please fill out the field(s) outlined below.",
   mapNotDragged:
     "It looks like you haven't set a location for your post. Please drag and zoom the map to set a location.",

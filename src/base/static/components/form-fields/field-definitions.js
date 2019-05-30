@@ -15,7 +15,6 @@ import {
   BigCheckboxField,
   InputFormSubmitButton,
   RichTextareaField,
-  MapDrawingToolbar,
   AutocompleteComboboxField,
   BigToggleField,
   PublishControlToolbar,
@@ -194,26 +193,6 @@ export default {
       />
     ),
     getInitialValue: ({ value }) => value || "isPublished",
-    getResponseComponent: () => null,
-  },
-  [constants.MAP_DRAWING_TOOLBAR_TYPENAME]: {
-    getValidator: () => {
-      return {
-        validate: isNotEmpty,
-        message: "missingGeometry",
-      };
-    },
-    getComponent: (fieldConfig, context) => (
-      <MapDrawingToolbar
-        {...getSharedFieldProps(fieldConfig, context)}
-        markers={fieldConfig.content.map(item => item.marker)}
-        existingGeometry={context.props.existingGeometry}
-        existingGeometryStyle={context.props.existingGeometryStyle}
-        existingPlaceId={context.props.existingPlaceId}
-        datasetSlug={context.props.datasetSlug}
-      />
-    ),
-    getInitialValue: ({ value }) => value,
     getResponseComponent: () => null,
   },
   [constants.DATETIME_FIELD_TYPENAME]: {

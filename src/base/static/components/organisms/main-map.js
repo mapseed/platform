@@ -5,14 +5,10 @@ import MapGL, { NavigationControl, Popup } from "react-map-gl";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import InviteModal from "../organisms/invite-modal";
-import { Global } from "@emotion/core";
-import MapboxDraw from "mapseed-mapbox-gl-draw/dist/mapbox-gl-draw";
-import "mapseed-mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { throttle } from "throttle-debounce";
 import { withRouter } from "react-router";
 
 import {
-  drawModeActiveSelector,
   interactiveLayerIdsSelector,
   mapDraggingOrZoomingSelector,
   mapStyleSelector,
@@ -35,16 +31,6 @@ import {
   mapConfigPropType,
 } from "../../state/ducks/map-config";
 import {
-  activeDrawingToolSelector,
-  activeMarkerSelector,
-  setActiveDrawGeometryId,
-  activeDrawGeometryIdSelector,
-  geometryStyleSelector,
-  geometryStyleProps,
-  isDrawingPluginInitializedSelector,
-  updateDrawingPluginInitialized,
-} from "../../state/ducks/map-drawing-toolbar";
-import {
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
   setLeftSidebarComponent,
@@ -61,10 +47,7 @@ import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapFilterSliderContainer from "../organisms/map-filter-slider-container";
 
-import emitter from "../../utils/emitter";
 import { Mixpanel } from "../../utils/mixpanel";
-
-import drawingLayers from "../../state/misc/drawing-layers";
 
 const MapControlsContainer = styled("div")({
   position: "absolute",
@@ -183,11 +166,7 @@ class MainMap extends Component {
     });
 
     this.map.on("sourcedata", evt => {
-      if (
-        this.state.isMapDraggingOrZooming ||
-        this.isMapTransitioning ||
-        evt.sourceId.startsWith("mapbox-gl-draw")
-      ) {
+      if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
         return;
       }
 
@@ -199,63 +178,6 @@ class MainMap extends Component {
         this.props.onUpdateSourceLoadStatus(evt.sourceId, loadStatus);
       }
     });
-
-    if (
-      !this.props.mapConfig.options.disableDrawing &&
-      !this.props.isDrawingPluginInitialized
-    ) {
-      this.draw = new MapboxDraw({
-        displayControlsDefault: false,
-        userProperties: true,
-        styles: drawingLayers,
-      });
-
-      this.map.addControl(this.draw);
-
-      // We monkey-patch the native Mapbox methods below to prevent the draw
-      // plugin from manipulating map state directly. Where needed, we reroute
-      // data to our Redux store. Note that "setSourceData" is a custom method
-      // that only exists on our fork of mapbox-gl-draw.
-      // See: https://github.com/mapseed/mapbox-gl-draw/pull/1
-      this.map.addSource = (newSourceId, newSource) => {
-        this.props.updateSources(newSourceId, newSource);
-      };
-      this.map.addLayer = newLayer => {
-        this.props.updateLayers(newLayer);
-      };
-      this.map.removeLayer = () => {
-        // no-op
-      };
-      this.map.removeSource = () => {
-        // no-op
-      };
-      this.map.getSource = () => {
-        return true;
-      };
-      this.map.setSourceData = (sourceId, newFeatures) => {
-        this.props.updateFeaturesInGeoJSONSource(sourceId, newFeatures);
-      };
-
-      this.map.on("draw.update", evt => {
-        emitter.emit("draw:update-geometry", evt.features[0].geometry);
-      });
-
-      this.map.on("draw.create", evt => {
-        this.props.setActiveDrawGeometryId(evt.features[0].id);
-        emitter.emit("draw:update-geometry", evt.features[0].geometry);
-        if (evt.features[0].geometry.type === "Point") {
-          this.draw.get(evt.features[0].id) &&
-            this.draw.setFeatureProperty(
-              evt.features[0].id,
-              "marker-symbol",
-              this.props.activeMarker,
-            );
-          this.draw.set(this.draw.getAll());
-        }
-      });
-
-      this.props.updateDrawingPluginInitialized(true);
-    }
 
     // Ensure that any filters set on another template (like the list) are
     // applied when returning to the map template.
@@ -270,8 +192,6 @@ class MainMap extends Component {
     window.removeEventListener("resize", this.resizeMap);
     this.map.off("error");
     this.map.off("sourcedata");
-    this.map.off("draw.update");
-    this.map.off("draw.create");
     // On unmount, save the current map viewport so we can restore it if we
     // return to the map template.
     this.props.onUpdateInitialMapViewport(this.props.mapViewport);
@@ -319,28 +239,6 @@ class MainMap extends Component {
     });
   }
 
-  removeDrawGeometry() {
-    // Remove any drawn geometry.
-    this.props.setActiveDrawGeometryId(null);
-    ["mapbox-gl-draw-cold", "mapbox-gl-draw-hot"].forEach(sourceId =>
-      this.props.updateFeaturesInGeoJSONSource(sourceId, []),
-    );
-    this.draw.deleteAll();
-  }
-
-  updateDrawGeometryStyle(activeDrawGeometryId) {
-    Object.entries(this.props.geometryStyle).forEach(
-      ([styleProperty, value]) => {
-        this.draw.setFeatureProperty(
-          activeDrawGeometryId,
-          styleProperty,
-          value,
-        );
-      },
-    );
-    this.draw.set(this.draw.getAll());
-  }
-
   componentDidUpdate(prevProps) {
     // NOTE: These checks are not comparing numerical dimensions; rather they
     // are comparing CSS width and height declarations in string form.
@@ -351,21 +249,6 @@ class MainMap extends Component {
         prevProps.mapContainerWidthDeclaration
     ) {
       this.resizeMap();
-    }
-
-    if (this.props.isDrawModeActive && !prevProps.isDrawModeActive) {
-      // Drawing mode has been entered.
-      this.map.on("dragend", () => {
-        const { lng, lat } = this.map.getCenter();
-        this.props.onUpdateMapViewport({
-          latitude: lat,
-          longitude: lng,
-        });
-      });
-    } else if (!this.props.isDrawModeActive && prevProps.isDrawModeActive) {
-      // Drawing mode has been left.
-      this.map.off("dragend");
-      this.removeDrawGeometry();
     }
 
     if (this.props.placeFilters.length !== prevProps.placeFilters.length) {
@@ -379,50 +262,6 @@ class MainMap extends Component {
       this.props.mapViewport.zoom !== prevProps.mapViewport.zoom
     ) {
       this.setSlippyRoute();
-    }
-
-    if (!this.props.mapConfig.options.disableDrawing) {
-      if (this.props.activeDrawingTool !== prevProps.activeDrawingTool) {
-        // A new drawing tool has been selected.
-        switch (this.props.activeDrawingTool) {
-          case "create-polygon":
-            this.draw.changeMode(this.draw.modes.DRAW_POLYGON);
-            break;
-          case "create-polyline":
-            this.draw.changeMode(this.draw.modes.DRAW_LINE_STRING);
-            break;
-          case "create-marker":
-            this.draw.changeMode(this.draw.modes.DRAW_POINT);
-            break;
-          default:
-            this.removeDrawGeometry();
-            break;
-        }
-      }
-
-      if (!prevProps.activeEditPlaceId && this.props.activeEditPlaceId) {
-        // The user has entered Edit mode with pre-existing drawn geometry.
-        const activeDrawGeometryId = this.draw.add(
-          this.props.placeSelector(this.props.activeEditPlaceId).geometry,
-        )[0];
-        this.props.setActiveDrawGeometryId(activeDrawGeometryId);
-        this.draw.changeMode(this.draw.modes.SIMPLE_SELECT);
-        this.updateDrawGeometryStyle(activeDrawGeometryId);
-      }
-
-      if (
-        this.props.geometryStyle !== prevProps.geometryStyle &&
-        this.props.activeDrawGeometryId &&
-        this.props.activeDrawingTool &&
-        this.props.isDrawModeActive
-      ) {
-        this.updateDrawGeometryStyle(this.props.activeDrawGeometryId);
-      }
-
-      if (prevProps.activeDrawGeometryId && !this.props.activeDrawGeometryId) {
-        this.draw.deleteAll();
-        emitter.emit("draw:update-geometry", null);
-      }
     }
   }
 
@@ -545,13 +384,6 @@ class MainMap extends Component {
     return (
       <>
         <InviteModal isOpen={this.props.isInviteModalOpen} />
-        <Global
-          styles={{
-            ".overlays": {
-              pointerEvents: this.props.isDrawModeActive ? "none" : "initial",
-            },
-          }}
-        />
         <MapGL
           attributionControl={false}
           ref={this.mapRef}
@@ -562,9 +394,6 @@ class MainMap extends Component {
           pitch={this.props.mapViewport.pitch}
           bearing={this.props.mapViewport.bearing}
           zoom={this.props.mapViewport.zoom}
-          dragPan={!this.props.isDrawModeActive}
-          doubleClickZoom={!this.props.isDrawModeActive}
-          dragRotate={!this.props.isDrawModeActive}
           transitionDuration={this.props.mapViewport.transitionDuration}
           transitionInterpolator={this.props.mapViewport.transitionInterpolator}
           transitionEasing={this.props.mapViewport.transitionEasing}
@@ -660,20 +489,15 @@ class MainMap extends Component {
 }
 
 MainMap.propTypes = {
-  activeDrawGeometryId: PropTypes.string,
-  activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
   activeEditPlaceId: PropTypes.number,
   filterableLayerGroupsMetadata: PropTypes.arrayOf(
     filterableLayerGroupMetadataPropType,
   ),
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
-  geometryStyle: geometryStyleProps,
   history: PropTypes.object.isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
-  isDrawModeActive: PropTypes.bool.isRequired,
-  isDrawingPluginInitialized: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
@@ -703,7 +527,6 @@ MainMap.propTypes = {
   mapViewport: mapViewportPropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
   placeSelector: PropTypes.func.isRequired,
-  setActiveDrawGeometryId: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
@@ -717,20 +540,13 @@ MainMap.propTypes = {
   onUpdateSpotlightMaskVisibility: PropTypes.func.isRequired,
   datasets: datasetsPropType,
   updateMapContainerDimensions: PropTypes.func.isRequired,
-  updateDrawingPluginInitialized: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  activeDrawGeometryId: activeDrawGeometryIdSelector(state),
-  activeDrawingTool: activeDrawingToolSelector(state),
-  activeMarker: activeMarkerSelector(state),
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filterableLayerGroupsMetadata: filterableLayerGroupsMetadataSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
-  geometryStyle: geometryStyleSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
-  isDrawModeActive: drawModeActiveSelector(state),
-  isDrawingPluginInitialized: isDrawingPluginInitializedSelector(state),
   isInviteModalOpen: uiVisibilitySelector("inviteModal", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
@@ -748,7 +564,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
   setLeftSidebarComponent: component =>
@@ -760,8 +575,6 @@ const mapDispatchToProps = dispatch => ({
   updateLayers: newLayer => dispatch(updateLayers(newLayer)),
   updateMapContainerDimensions: newDimensions =>
     dispatch(updateMapContainerDimensions(newDimensions)),
-  updateDrawingPluginInitialized: isInitialized =>
-    dispatch(updateDrawingPluginInitialized(isInitialized)),
 });
 
 export default withRouter(

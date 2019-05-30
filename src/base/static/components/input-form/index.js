@@ -26,13 +26,6 @@ import {
   datasetReportSelector,
 } from "../../state/ducks/datasets-config";
 import {
-  activeMarkerSelector,
-  geometryStyleSelector,
-  setActiveDrawingTool,
-  geometryStyleProps,
-  setActiveDrawGeometryId,
-} from "../../state/ducks/map-drawing-toolbar";
-import {
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
   mapViewportPropType,
@@ -190,18 +183,8 @@ class InputForm extends Component {
       this.props.placeConfig,
       selectedCategory,
     );
-    this.isWithCustomGeometry =
-      this.selectedCategoryConfig.fields.findIndex(
-        field => field.type === "map_drawing_toolbar",
-      ) >= 0;
     this.attachments = [];
-    if (this.isWithCustomGeometry) {
-      this.props.updateMapDraggedOrZoomed(true);
-      this.props.updateSpotlightMaskVisibility(false);
-      this.props.updateMapCenterpointVisibility(false);
-    } else {
-      this.props.updateMapCenterpointVisibility(true);
-    }
+    this.props.updateMapCenterpointVisibility(true);
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -322,18 +305,11 @@ class InputForm extends Component {
     // TODO: Make a special form field to encapsulate this.
     attrs.private = attrs.private === "yes" ? true : false;
 
-    if (this.state.fields.get("geometry")) {
-      attrs["style"] =
-        this.state.fields.getIn(["geometry", "value"]).type === "Point"
-          ? { "marker-symbol": this.props.activeMarker }
-          : this.props.geometryStyle;
-    } else {
-      const { longitude, latitude } = this.props.mapViewport;
-      attrs.geometry = {
-        type: "Point",
-        coordinates: [longitude, latitude],
-      };
-    }
+    const { longitude, latitude } = this.props.mapViewport;
+    attrs.geometry = {
+      type: "Point",
+      coordinates: [longitude, latitude],
+    };
 
     // Replace image data in rich text fields with placeholders built from each
     // image's name.
@@ -478,8 +454,6 @@ class InputForm extends Component {
         }`,
       );
     }
-
-    this.props.setActiveDrawGeometryId(null);
   };
 
   defaultPostSave(placeResponse) {
@@ -671,7 +645,6 @@ InputForm.propTypes = {
   datasetUrl: PropTypes.string.isRequired,
   datasetReportSelector: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
-  geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
@@ -690,8 +663,6 @@ InputForm.propTypes = {
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
-  setActiveDrawingTool: PropTypes.func.isRequired,
-  setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
@@ -701,14 +672,12 @@ InputForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  activeMarker: activeMarkerSelector(state),
   analysisTargetFeaturesSelector: targetUrl =>
     analysisTargetFeaturesSelector(targetUrl, state),
   datasetClientSlugSelector: datasetSlug =>
     datasetClientSlugSelector(state, datasetSlug),
   datasetReportSelector: datasetSlug =>
     datasetReportSelector(state, datasetSlug),
-  geometryStyle: geometryStyleSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
@@ -727,9 +696,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createFeaturesInGeoJSONSource: (sourceId, sourceData) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, sourceData)),
-  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
-  setActiveDrawingTool: activeDrawingTool =>
-    dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),

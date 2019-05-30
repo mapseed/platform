@@ -48,8 +48,7 @@
       "control": {
         "showCompass": true,
         "position": "top-left"
-      },
-      "drawing_enabled": false
+      }
     },
     "layers": [
       {

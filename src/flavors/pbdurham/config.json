@@ -103,8 +103,7 @@
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
-      },
-      "disableDrawing": true
+      }
     },
     "mapboxSources": {
       "satellite": {

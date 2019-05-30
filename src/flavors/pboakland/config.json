@@ -317,42 +317,6 @@
             "display_prompt": "_(Funds appropriated in fiscal year:)"
           },
           {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "marker-capital-funded.png"
-              },
-              {
-                "marker": "marker-capital-losing.png"
-              },
-              {
-                "marker": "marker-youth-funded.png"
-              },
-              {
-                "marker": "marker-youth-losing.png"
-              },
-              {
-                "marker": "marker-senior-funded.png"
-              },
-              {
-                "marker": "marker-senior-losing.png"
-              },
-              {
-                "marker": "marker-homeless-funded.png"
-              },
-              {
-                "marker": "marker-homeless-losing.png"
-              },
-              {
-                "marker": "marker-housing-funded.png"
-              },
-              {
-                "marker": "marker-housing-losing.png"
-              }
-            ]
-          },
-          {
             "name": "title",
             "type": "text",
             "prompt": "_(Title of this featured site:)",

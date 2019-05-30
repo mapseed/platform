@@ -548,18 +548,6 @@
             "type": "publish_control_toolbar"
           },
           {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "map-pin-marker.png"
-              },
-              {
-                "marker": "map-pin-star-marker.png"
-              }
-            ]
-          },
-          {
             "name": "title",
             "type": "text",
             "prompt": "Title of this featured site:",

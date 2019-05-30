@@ -73,8 +73,7 @@
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 19
-      },
-      "disableDrawing": true
+      }
     },
     "mapboxSources": {
       "osm": {
@@ -364,18 +363,6 @@
         "value": "featured_place",
         "label": "Campañas / Temas",
         "fields": [
-          {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "marker-heart.png"
-              },
-              {
-                "marker": "marker-star.png"
-              }
-            ]
-          },
           {
             "name": "title",
             "type": "text",
