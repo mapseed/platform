@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import MapGL, { NavigationControl } from "react-map-gl";
+import MapGL, { NavigationControl, Popup } from "react-map-gl";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import InviteModal from "../organisms/invite-modal";
@@ -27,6 +27,7 @@ import {
   mapContainerDimensionsSeletor,
   filterableLayerGroupsMetadataSelector,
   filterableLayerGroupMetadataPropType,
+  mapLayerPopupSelector,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
@@ -148,9 +149,14 @@ class MainMap extends Component {
   state = {
     isMapLoaded: false,
     isMapDraggingOrZooming: false,
+    popupContent: null,
+    popupLatitide: null,
+    popupLongitude: null,
   };
 
   queriedFeatures = [];
+  mouseX = 0;
+  mouseY = 0;
   isMapTransitioning = false;
   mapRef = createRef();
 
@@ -420,33 +426,92 @@ class MainMap extends Component {
     }
   }
 
+  parsePopupContent = (popupContent, properties) => {
+    // Support a Handlebars-inspired syntax for injecting feature properties
+    // into popup content.
+    return popupContent.replace(/{{(\w+?)}}/, (match, property) => {
+      if (properties[property]) {
+        return properties[property];
+      } else {
+        // eslint-disable-next-line no-console
+        console.error(
+          `Error: cannot find property ${property} on feature for use on popup`,
+        );
+      }
+    });
+  };
+
+  isMapEvent = evt => {
+    // An event's className will be `overlays` when the event originates on
+    // the map itself (as opposed to on controls or on popups).
+    return evt.target && evt.target.className === "overlays";
+  };
+
   beginFeatureQuery = evt => {
+    if (!this.isMapEvent(event)) {
+      return;
+    }
+
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
     // lag when clicking around Places on the map. It's not clear why, but we
     // get better performance by querying rendered features as soon as the
     // onMouseDown or onTouchStart events fire, and using the onMouseUp and
     // onTouchEnd handler to test if the most recent queried feature is one we
-    // shoud route to (i.e. is a Place).
+    // should route to (i.e. is a Place).
     //
     // Note that if no features are found in the query, an empty array is
     // returned.
+    this.mouseX = evt.center.x;
+    this.mouseY = evt.center.y;
     this.queriedFeatures = this.map.queryRenderedFeatures(evt.point);
   };
 
-  endFeatureQuery = () => {
+  endFeatureQuery = evt => {
+    if (!this.isMapEvent(evt)) {
+      return;
+    }
+
+    const feature = this.queriedFeatures[0];
+
     if (
       !this.state.isMapDraggingOrZooming &&
-      this.queriedFeatures.length &&
-      this.queriedFeatures[0].properties &&
-      this.queriedFeatures[0].properties.clientSlug
+      feature &&
+      feature.properties &&
+      feature.properties.clientSlug
     ) {
       // If the topmost clicked-on feature has a clientSlug property, there's
       // a good bet we've clicked on a Place. Assume we have and route to the
       // Place's detail view.
-      const placeId = this.queriedFeatures[0].properties.id;
-      const clientSlug = this.queriedFeatures[0].properties.clientSlug;
+      const placeId = feature.properties.id;
+      const clientSlug = feature.properties.clientSlug;
       Mixpanel.track("Clicked place on map", { placeId });
       this.props.history.push(`/${clientSlug}/${placeId}`);
+    }
+
+    if (
+      feature &&
+      this.props.mapLayerPopupSelector(feature.layer.id) &&
+      // When `center.x` matches `mouseX` and `center.y` matches `mouseY`, the
+      // user has clicked in place (as opposed to clicking, dragging, then
+      // releasing). We only want to render popups on in-place clicks.
+      //
+      // We wouldn't need to worry about tracking this information
+      // if we used the `onClick` listener, but as explained above we avoid
+      // `onClick` for performance reasons.
+      evt.center.x === this.mouseX &&
+      evt.center.y === this.mouseY
+    ) {
+      const popupContent = this.parsePopupContent(
+        this.props.mapLayerPopupSelector(feature.layer.id),
+        feature.properties,
+      );
+
+      // Display popup.
+      this.setState({
+        popupContent,
+        popupLatitude: evt.lngLat[1],
+        popupLongitude: evt.lngLat[0],
+      });
     }
   };
 
@@ -506,10 +571,10 @@ class MainMap extends Component {
           mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
           minZoom={this.props.mapViewport.minZoom}
           maxZoom={this.props.mapViewport.maxZoom}
-          onMouseUp={this.endFeatureQuery}
           onMouseDown={this.beginFeatureQuery}
-          onTouchEnd={this.endFeatureQuery}
+          onMouseUp={this.endFeatureQuery}
           onTouchStart={this.beginFeatureQuery}
+          onTouchEnd={this.endFeatureQuery}
           onViewportChange={viewport => {
             // NOTE: react-map-gl seems to cache the width and height of the map
             // container at the beginning of a transition. If the viewport change
@@ -538,6 +603,22 @@ class MainMap extends Component {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
+          {this.state.popupContent && (
+            <Popup
+              latitude={this.state.popupLatitude}
+              longitude={this.state.popupLongitude}
+              onClose={() =>
+                this.setState({
+                  popupContent: null,
+                })
+              }
+              anchor="bottom"
+            >
+              <div
+                dangerouslySetInnerHTML={{ __html: this.state.popupContent }}
+              />
+            </Popup>
+          )}
           {this.props.isMapCenterpointVisible && (
             <MapCenterpoint
               isMapDraggingOrZooming={this.state.isMapDraggingOrZooming}
@@ -616,6 +697,7 @@ MainMap.propTypes = {
   mapContainerWidthDeclaration: PropTypes.string.isRequired,
   mapContainerHeightDeclaration: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
+  mapLayerPopupSelector: PropTypes.func.isRequired,
   mapSourcesLoadStatus: PropTypes.object.isRequired,
   mapStyle: mapStylePropType.isRequired,
   mapViewport: mapViewportPropType.isRequired,
@@ -657,6 +739,7 @@ const mapStateToProps = state => ({
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapContainerDimensions: mapContainerDimensionsSeletor(state),
+  mapLayerPopupSelector: layerId => mapLayerPopupSelector(layerId, state),
   mapStyle: mapStyleSelector(state),
   placeFilters: filtersSelector(state),
   placeSelector: placeId => placeSelector(state, placeId),

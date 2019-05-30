@@ -21,6 +21,13 @@ export const mapCenterpointSelector = state => ({
 export const drawModeActiveSelector = state => state.map.isDrawModeActive;
 export const mapContainerDimensionsSeletor = state =>
   state.map.mapContainerDimensions;
+export const mapLayerPopupSelector = (layerId, state) => {
+  const metadata = Object.values(state.map.layerGroupsMetadata).find(
+    layerGroupMetadata => layerGroupMetadata.layerIds.includes(layerId),
+  );
+
+  return metadata && metadata.popupContent ? metadata.popupContent : null;
+};
 // Return information about visible layer groups which are configured to be
 // filterable with a slider.
 export const filterableLayerGroupsMetadataSelector = state =>
@@ -224,6 +231,7 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     (memo, layerGroup) => ({
       ...memo,
       [layerGroup.id]: {
+        popupContent: layerGroup.popupContent,
         filterSlider: layerGroup.filterSlider,
         isBasemap: !!layerGroup.basemap,
         isVisible: !!layerGroup.visibleDefault,
