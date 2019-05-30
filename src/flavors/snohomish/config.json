@@ -351,12 +351,13 @@
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
-            "id": "snohomish-featured-focused-points",
+            "id": "snohomish-featured-focused",
             "type": "symbol",
             "source": "snohomish-featured",
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "layout": {
               "icon-allow-overlap": true,
+              "icon-image": "map-pin-star-marker.png",
               "icon-size": 1.2,
               "icon-anchor": "bottom"
             }
@@ -364,80 +365,14 @@
         ],
         "mapboxLayers": [
           {
-            "id": "snohomish-featured-points",
+            "id": "snohomish-featured",
             "type": "symbol",
             "source": "snohomish-featured",
-            "filter": ["==", ["geometry-type"], "Point"],
             "layout": {
               "icon-allow-overlap": true,
+              "icon-image": "map-pin-star-marker.png",
               "icon-size": 0.5,
-              "icon-anchor": "bottom",
-              "icon-image": [
-                "case",
-                ["has", "marker-symbol", ["get", "style"]],
-                ["get", "marker-symbol", ["get", "style"]],
-                "map-pin-star-marker.png"
-              ]
-            }
-          },
-          {
-            "id": "snohomish-featured-lines",
-            "type": "line",
-            "source": "snohomish-featured",
-            "filter": ["==", ["geometry-type"], "LineString"],
-            "paint": {
-              "line-color": [
-                "case",
-                ["has", "stroke", ["get", "style"]],
-                ["get", "stroke", ["get", "style"]],
-                "#f86767"
-              ],
-              "line-opacity": [
-                "case",
-                ["has", "stroke-opacity", ["get", "style"]],
-                ["get", "stroke-opacity", ["get", "style"]],
-                0.7
-              ]
-            }
-          },
-          {
-            "id": "snohomish-featured-polygons",
-            "type": "fill",
-            "source": "snohomish-featured",
-            "filter": ["==", ["geometry-type"], "Polygon"],
-            "paint": {
-              "fill-color": [
-                "case",
-                ["has", "fill", ["get", "style"]],
-                ["get", "fill", ["get", "style"]],
-                "#f86767"
-              ],
-              "fill-opacity": [
-                "case",
-                ["has", "fill-opacity", ["get", "style"]],
-                ["get", "fill-opacity", ["get", "style"]],
-                0.7
-              ]
-            }
-          },
-          {
-            "id": "snohomish-featured-polygon-outlines",
-            "type": "line",
-            "source": "snohomish-featured",
-            "filter": ["==", ["geometry-type"], "Polygon"],
-            "paint": {
-              "line-color": [
-                "case",
-                ["has", "stroke", ["get", "style"]],
-                ["get", "stroke", ["get", "style"]],
-                "#f86767"
-              ],
-              "line-opacity": [
-                "case",
-                ["has", "stroke-opacity", ["get", "style"]],
-                ["get", "stroke-opacity", ["get", "style"]],
-                0.7
-              ]
+              "icon-anchor": "bottom"
             }
           }
         ]
