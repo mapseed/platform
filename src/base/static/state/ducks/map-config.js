@@ -72,7 +72,6 @@ export const mapConfigPropType = PropTypes.shape({
       minZoom: PropTypes.number,
       maxZoom: PropTypes.number,
     }).isRequired,
-    drawing_enabled: PropTypes.bool,
   }).isRequired,
   mapboxSources: PropTypes.objectOf(
     PropTypes.shape({

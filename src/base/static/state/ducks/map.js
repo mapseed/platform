@@ -18,7 +18,6 @@ export const mapCenterpointSelector = state => ({
   latitude: state.map.viewport.latitude,
   longitude: state.map.viewport.longitude,
 });
-export const drawModeActiveSelector = state => state.map.isDrawModeActive;
 export const mapContainerDimensionsSeletor = state =>
   state.map.mapContainerDimensions;
 export const mapLayerPopupSelector = (layerId, state) => {
@@ -60,7 +59,6 @@ const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
 const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
-const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
 const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
 
@@ -75,13 +73,6 @@ export function removeFocusedGeoJSONFeatures() {
   return {
     type: REMOVE_FOCUSED_GEOJSON_FEATURES,
     payload: null,
-  };
-}
-
-export function updateDrawModeActive(isActive) {
-  return {
-    type: UPDATE_DRAW_MODE_ACTIVE,
-    payload: isActive,
   };
 }
 
@@ -365,7 +356,6 @@ const INITIAL_STATE = {
   sourcesMetadata: {},
   basemapLayerIds: [],
   interactiveLayerIds: [],
-  isDrawModeActive: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -621,11 +611,6 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...state.style,
           layers: state.style.layers.concat(action.payload),
         },
-      };
-    case UPDATE_DRAW_MODE_ACTIVE:
-      return {
-        ...state,
-        isDrawModeActive: action.payload,
       };
     case UPDATE_MAP_CONTAINER_DIMENSIONS:
       return {

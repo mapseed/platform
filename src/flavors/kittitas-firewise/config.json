@@ -77,8 +77,7 @@
         "pitch": 15,
         "minZoom": 1,
         "maxZoom": 18
-      },
-      "disableDrawing": true
+      }
     },
     "mapboxSources": {
       "osm": {

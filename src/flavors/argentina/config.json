@@ -73,8 +73,7 @@
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 19
-      },
-      "disableDrawing": true
+      }
     },
     "mapboxSources": {
       "osm": {
@@ -187,8 +186,9 @@
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "argentina-featured",
             "layout": {
+              "icon-image": "marker-star.png",
               "icon-size": 1.1,
-              "icon-anchor": "bottom"
+              "icon-anchor": "center"
             }
           }
         ],
@@ -199,8 +199,9 @@
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "argentina-featured",
             "layout": {
+              "icon-image": "marker-star.png",
               "icon-size": 0.9,
-              "icon-anchor": "bottom"
+              "icon-anchor": "center"
             }
           }
         ]
@@ -364,18 +365,6 @@
         "value": "featured_place",
         "label": "Campañas / Temas",
         "fields": [
-          {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "marker-heart.png"
-              },
-              {
-                "marker": "marker-star.png"
-              }
-            ]
-          },
           {
             "name": "title",
             "type": "text",
