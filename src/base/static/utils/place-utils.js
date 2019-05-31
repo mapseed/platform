@@ -33,10 +33,10 @@ const createGeoJSONFromPlaces = places => {
 };
 
 const fromGeoJSONFeature = ({ feature, datasetSlug, clientSlug }) => ({
+  ...feature.properties,
   geometry: feature.geometry,
   datasetSlug,
   clientSlug,
-  ...feature.properties,
 });
 
 // Turn GeoJSON FeatureCollections into plain objects of Place data.
@@ -46,12 +46,12 @@ const fromGeoJSONFeatureCollection = ({
   clientSlug,
 }) =>
   featureCollection.features.map(feature => ({
+    ...feature.properties,
     geometry: feature.geometry,
     // Add a field for the slug each Place belongs to, so we can
     // filter by dataset when we need to.
     datasetSlug,
     clientSlug,
-    ...feature.properties,
   }));
 
 const toClientGeoJSONFeature = placeData => {
