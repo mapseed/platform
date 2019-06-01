@@ -103,12 +103,7 @@ const TemplateContainer = styled("div")<{
   currentTemplate: string;
 }>(props => ({
   position: "relative",
-  overflow:
-    props.layout === "desktop"
-      ? props.currentTemplate === "list"
-        ? "hidden"
-        : "auto"
-      : "visible",
+  overflow: props.layout === "desktop" ? "hidden" : "auto",
   width: "100%",
   height: "100%",
 
