@@ -1,4 +1,5 @@
 import constants from "../constants";
+import { Mixpanel } from "./mixpanel";
 
 const getMainContentAreaWidth = ({
   isContentPanelVisible,
@@ -18,6 +19,14 @@ const getMainContentAreaWidth = ({
         return "85%";
       } else if (isContentPanelVisible && isRightSidebarVisible) {
         return "45%";
+      } else {
+        const msg =
+          "Error: could not find appropriate width declaration for main content area.";
+        // eslint-disable-next-line no-console
+        console.error(msg);
+        Mixpanel.track("Error", {
+          message: msg,
+        });
       }
       break;
     case "mobile":
@@ -93,10 +102,13 @@ const getMainContentAreaHeight = ({
           addPlaceButtonDims.height
         }px - ${constants.HEADER_HEIGHT}px)`;
       } else {
+        const msg =
+          "Error: could not find appropriate height declaration for main content area.";
         // eslint-disable-next-line no-console
-        console.error(
-          "Error: could not find appropriate height declaration for main content area.",
-        );
+        console.error(msg);
+        Mixpanel.track("Error", {
+          message: msg,
+        });
       }
   }
 };
