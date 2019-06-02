@@ -41,7 +41,7 @@ const FormStageControlBar = props => {
         box-sizing: border-box;
         width: ${props.layout === "desktop" ? "40%" : "100%"};
         background-color: #fff;
-        left: ${leftPosition}; 
+        left: ${leftPosition};
         box-shadow: 0px -3px 2px rgba(0, 0, 0, 0.1);
         height: ${props.layout === "desktop" ? "92px" : "unset"};
         min-height: ${props.layout === "desktop" ? "92px" : "unset"};
