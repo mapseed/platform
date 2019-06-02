@@ -109,6 +109,7 @@ class ContentPanel extends Component {
             <CustomPage
               currentLanguageCode={this.props.currentLanguageCode}
               defaultLanguageCode={this.props.defaultLanguageCode}
+              layout={this.props.layout}
               pageSlug={this.props.pageSlug}
             />
           )}
@@ -127,6 +128,7 @@ class ContentPanel extends Component {
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+              layout={this.props.layout}
               mapViewport={this.props.mapViewport}
               onUpdateMapViewport={this.props.onUpdateMapViewport}
               updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}

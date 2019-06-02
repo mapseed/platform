@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
+import { css, jsx } from "@emotion/core";
 import { translate } from "react-i18next";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 
@@ -23,16 +24,6 @@ import {
 import { RegularText } from "../atoms/typography";
 
 const alertBackground = "#ffc107"; // bright yellow-orange
-const DragMapAlert = styled(RegularText)({
-  backgroundColor: alertBackground,
-  display: "block",
-  color: darken(alertBackground, 0.8),
-  border: "2px dotted #ffffff",
-  borderRadius: "8px",
-  padding: "8px",
-  marginBottom: "8px",
-  fontWeight: "800",
-});
 
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
@@ -103,17 +94,44 @@ class FormCategoryMenuWrapper extends Component {
   };
 
   render() {
+    let paddingRight;
+    if (this.props.layout === "mobile") {
+      paddingRight = 0;
+    } else if (this.props.layout === "desktop" && this.state.selectedCategory) {
+      paddingRight = "15px";
+    } else if (
+      this.props.layout === "desktop" &&
+      !this.state.selectedCategory
+    ) {
+      paddingRight = "30px";
+    }
+
     return (
-      <>
+      <div
+        css={css`
+          padding-right: ${paddingRight};
+        `}
+      >
         {this.state.isShowingCategorySelector && (
           <>
             {!this.props.isMapDraggedOrZoomed && (
-              <DragMapAlert>
+              <RegularText
+                css={css`
+                  background-color: ${alertBackground};
+                  display: block;
+                  color: ${darken(alertBackground, 0.8)};
+                  border: 2px dotted #ffffff;
+                  border-radius: 8px;
+                  padding: 8px;
+                  margin-bottom: 8px;
+                `}
+                weight="bold"
+              >
                 {this.props.t(
                   "dragMapAlert",
                   "Please drag and zoom the map to set the location for your post.",
                 )}
-              </DragMapAlert>
+              </RegularText>
             )}
             <InputFormCategorySelector
               onCategoryChange={this.onCategoryChange.bind(this)}
@@ -139,7 +157,7 @@ class FormCategoryMenuWrapper extends Component {
             updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
           />
         )}
-      </>
+      </div>
     );
   }
 }
@@ -149,6 +167,7 @@ FormCategoryMenuWrapper.propTypes = {
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  layout: PropTypes.string.isRequired,
   placeConfig: PropTypes.object.isRequired,
   customHooks: PropTypes.oneOfType([
     PropTypes.bool,
