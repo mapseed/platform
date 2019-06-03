@@ -55,6 +55,13 @@ const ContentPanelInnerContainer = styled("div")(props => ({
     props.layout === "desktop" ? 15 : 15 + props.addPlaceButtonHeight
   }px 15px`,
   boxSizing: "border-box",
+  scrollbarWidth: "none",
+  "-ms-overflow-style": "none",
+
+  "::-webkit-scrollbar": {
+    width: 0,
+    height: 0,
+  },
 }));
 
 const CloseButton = styled(InnerCloseButton)(props => ({
@@ -109,6 +116,7 @@ class ContentPanel extends Component {
             <CustomPage
               currentLanguageCode={this.props.currentLanguageCode}
               defaultLanguageCode={this.props.defaultLanguageCode}
+              layout={this.props.layout}
               pageSlug={this.props.pageSlug}
             />
           )}
@@ -127,6 +135,7 @@ class ContentPanel extends Component {
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+              layout={this.props.layout}
               mapViewport={this.props.mapViewport}
               onUpdateMapViewport={this.props.onUpdateMapViewport}
               updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}

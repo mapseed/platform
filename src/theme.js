@@ -89,6 +89,12 @@ export const globalStyles = css`
     p {
       margin: 0 0 16px 0;
     }
+    &:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+    }
   }
 `;
 

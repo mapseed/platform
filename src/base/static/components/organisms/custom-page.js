@@ -20,6 +20,7 @@ const CustomPage = props => (
 CustomPage.propTypes = {
   currentLanguageCode: PropTypes.string.isRequired,
   defaultLanguageCode: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
   pageContent: PropTypes.func.isRequired,
   pageSlug: PropTypes.string.isRequired,
 };

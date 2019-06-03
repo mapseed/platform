@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap, fromJS } from "immutable";
-import classNames from "classnames";
+import { css, jsx } from "@emotion/core";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -14,7 +15,6 @@ import InfoModal from "../organisms/info-modal";
 
 import { translate } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
-import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
@@ -35,7 +35,11 @@ import {
   hasGroupAbilitiesInDatasets,
   isInAtLeastOneGroup,
 } from "../../state/ducks/user";
-import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
+import {
+  updateUIVisibility,
+  layoutSelector,
+  uiVisibilitySelector,
+} from "../../state/ducks/ui";
 import { analysisTargetFeaturesSelector } from "../../state/ducks/analysis";
 import { jumpTo } from "../../utils/scroll-helpers";
 
@@ -511,20 +515,6 @@ class InputForm extends Component {
   }
 
   render() {
-    const cn = {
-      form: classNames("input-form__form", this.props.className, {
-        "input-form__form--inactive": this.state.isFormSubmitting,
-      }),
-      warningMsgs: classNames("input-form__warning-msgs-container", {
-        "input-form__warning-msgs-container--visible":
-          this.state.formValidationErrors.size > 0 &&
-          this.state.showValidityStatus,
-      }),
-      spinner: classNames("input-form__submit-spinner", {
-        "input-form__submit-spinner--visible": this.state.isFormSubmitting,
-      }),
-    };
-
     return (
       <>
         <InfoModal
@@ -537,7 +527,15 @@ class InputForm extends Component {
               this.props.history.push(this.state.routeOnClose);
           }}
         />
-        <div className="input-form">
+        <div
+          css={css`
+            padding-bottom: ${this.selectedCategoryConfig.multi_stage
+              ? this.props.layout === "desktop"
+                ? "122px"
+                : "60px"
+              : "30px"};
+          `}
+        >
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageHeaderBar
               stageConfig={
@@ -557,8 +555,10 @@ class InputForm extends Component {
             />
           )}
           <form
+            css={css`
+              opacity: ${this.state.isFormSubmitting ? 0.3 : 1};
+            `}
             id="mapseed-input-form"
-            className={cn.form}
             onSubmit={evt => evt.preventDefault()}
           >
             {this.getFields()
@@ -584,6 +584,8 @@ class InputForm extends Component {
 
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageControlBar
+              isRightSidebarVisible={this.props.isRightSidebarVisible}
+              layout={this.props.layout}
               onClickAdvanceStage={() => {
                 this.validateForm(() => {
                   jumpTo({
@@ -633,7 +635,6 @@ class InputForm extends Component {
 InputForm.propTypes = {
   activeMarker: PropTypes.string,
   analysisTargetFeaturesSelector: PropTypes.func.isRequired,
-  className: PropTypes.string,
   customHooks: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.func),
     PropTypes.bool,
@@ -654,6 +655,7 @@ InputForm.propTypes = {
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isLeavingForm: PropTypes.bool,
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layout: PropTypes.string.isRequired,
   mapConfig: PropTypes.object.isRequired,
@@ -688,6 +690,7 @@ const mapStateToProps = state => ({
     }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   placeConfig: placeConfigSelector(state),

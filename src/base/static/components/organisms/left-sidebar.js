@@ -13,7 +13,7 @@ import MapLayerPanel from "./map-layer-panel";
 
 const LeftSidebarOuterContainer = styled("section")({
   position: "absolute",
-  zIndex: 9,
+  zIndex: 20,
   width: "250px",
   height: "100%",
   boxSizing: "border-box",

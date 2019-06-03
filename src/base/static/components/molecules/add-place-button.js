@@ -22,7 +22,7 @@ const AddPlaceButtonContainer = styled(props => (
 ))(props => {
   return {
     position: props.layout == "desktop" ? "absolute" : "fixed",
-    zIndex: 200,
+    zIndex: 14,
     backgroundColor: props.theme.map.addPlaceButtonBackgroundColor,
     fontFamily: props.theme.text.bodyFontFamily,
 
