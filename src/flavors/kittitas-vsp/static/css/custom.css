@@ -217,11 +217,10 @@ input[type="number"],
   background-color: #ff6201 !important;
 }
 
-[class*=SupportButton] {
+[class*="SupportButton"] {
   background-color: #a3c7d9 !important;
   color: #007fbf !important;
 }
-
 
 /* =Custom Pages
 -------------------------------------------------------------- */
