@@ -55,6 +55,13 @@ const ContentPanelInnerContainer = styled("div")(props => ({
     props.layout === "desktop" ? 15 : 15 + props.addPlaceButtonHeight
   }px 15px`,
   boxSizing: "border-box",
+  scrollbarWidth: "none",
+  "-ms-overflow-style": "none",
+
+  "::-webkit-scrollbar": {
+    width: 0,
+    height: 0,
+  },
 }));
 
 const CloseButton = styled(InnerCloseButton)(props => ({

@@ -94,24 +94,8 @@ class FormCategoryMenuWrapper extends Component {
   };
 
   render() {
-    let paddingRight;
-    if (this.props.layout === "mobile") {
-      paddingRight = 0;
-    } else if (this.props.layout === "desktop" && this.state.selectedCategory) {
-      paddingRight = "15px";
-    } else if (
-      this.props.layout === "desktop" &&
-      !this.state.selectedCategory
-    ) {
-      paddingRight = "30px";
-    }
-
     return (
-      <div
-        css={css`
-          padding-right: ${paddingRight};
-        `}
-      >
+      <>
         {this.state.isShowingCategorySelector && (
           <>
             {!this.props.isMapDraggedOrZoomed && (
@@ -157,7 +141,7 @@ class FormCategoryMenuWrapper extends Component {
             updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
           />
         )}
-      </div>
+      </>
     );
   }
 }

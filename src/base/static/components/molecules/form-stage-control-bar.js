@@ -34,8 +34,8 @@ const FormStageControlBar = props => {
         margin-top: 30px;
         padding-left: 10px;
         padding-top: ${props.layout === "desktop" ? "20px" : "10px"};
-        padding-right: ${props.layout === "desktop" ? "25px" : "10px"};
-        padding-bottom: ${props.layout === "desktop" ? "20px" : "10px"};
+        padding-right: 10px;
+        padding-bottom: 10px;
         position: fixed;
         bottom: 0;
         box-sizing: border-box;

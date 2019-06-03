@@ -73,7 +73,6 @@ const PromotionMetadataContainer = styled("div")({
 
 const PlaceDetailContainer = styled("div")(props => ({
   marginTop: props.isEditable && props.layout === "desktop" ? "58px" : 0,
-  paddingRight: props.layout === "desktop" ? "30px" : 0,
 }));
 
 class PlaceDetail extends Component {
