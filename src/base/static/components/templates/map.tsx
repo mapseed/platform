@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { Component, createRef, Fragment } from "react";
+import { findDOMNode } from "react-dom";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -143,6 +144,7 @@ interface OwnProps {
   };
 }
 interface State {
+  addPlaceButtonHeight: number;
   mapContainerHeightDeclaration: string;
   mapContainerWidthDeclaration: string;
   mapViewport: MapViewport;
@@ -182,6 +184,7 @@ class MapTemplate extends Component<Props, State> {
     // getMainContentAreaWidth().
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
+    addPlaceButtonHeight: 0,
     mapViewport: {
       ...this.props.initialMapViewport,
       transitionInterpolator: new FlyToInterpolator(),
@@ -206,7 +209,7 @@ class MapTemplate extends Component<Props, State> {
   };
 
   async componentDidMount() {
-    this.recaculateContainerSize();
+    this.recalculateContainerSize();
     this.updateUIConfiguration(this.props.uiConfiguration);
 
     const { zoom, lat, lng } = this.props.params;
@@ -291,7 +294,7 @@ class MapTemplate extends Component<Props, State> {
       responseId && this.props.updateScrollToResponseId(parseInt(responseId));
     }
 
-    this.recaculateContainerSize();
+    this.recalculateContainerSize();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -300,7 +303,7 @@ class MapTemplate extends Component<Props, State> {
       this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
       this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
     ) {
-      this.recaculateContainerSize();
+      this.recalculateContainerSize();
     }
 
     if (
@@ -394,8 +397,17 @@ class MapTemplate extends Component<Props, State> {
     }));
   };
 
-  recaculateContainerSize() {
+  recalculateContainerSize() {
+    const addPlaceButton = findDOMNode(
+      this.addPlaceButtonRef.current,
+    ) as Element;
+    const addPlaceButtonDims =
+      addPlaceButton && addPlaceButton.getBoundingClientRect();
+
     this.setState({
+      addPlaceButtonHeight: addPlaceButtonDims
+        ? addPlaceButtonDims.height
+        : this.state.addPlaceButtonHeight,
       mapContainerHeightDeclaration: getMainContentAreaHeight({
         isContentPanelVisible: this.props.isContentPanelVisible,
         isGeocodeAddressBarEnabled: this.props.isGeocodeAddressBarEnabled,
@@ -403,7 +415,7 @@ class MapTemplate extends Component<Props, State> {
         isAddPlaceButtonVisible:
           this.props.isAddPlaceButtonVisible &&
           this.props.hasAddPlacePermission,
-        addPlaceButtonRef: this.addPlaceButtonRef,
+        addPlaceButtonDims: addPlaceButtonDims,
       }),
       mapContainerWidthDeclaration: getMainContentAreaWidth({
         isContentPanelVisible: this.props.isContentPanelVisible,
@@ -504,6 +516,7 @@ class MapTemplate extends Component<Props, State> {
         </div>
         {this.props.isContentPanelVisible && (
           <ContentPanel
+            addPlaceButtonHeight={this.state.addPlaceButtonHeight}
             isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}
@@ -521,6 +534,7 @@ class MapTemplate extends Component<Props, State> {
           this.props.hasAddPlacePermission && (
             <AddPlaceButton
               ref={this.addPlaceButtonRef}
+              layout={this.props.layout}
               onClick={() => {
                 Mixpanel.track("Click Add Place Button");
                 this.props.history.push("/new");

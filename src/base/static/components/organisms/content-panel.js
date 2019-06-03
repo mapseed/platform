@@ -51,7 +51,9 @@ const ContentPanelInnerContainer = styled("div")(props => ({
   width: "100%",
   height: "100%",
   overflow: props.layout === "desktop" ? "auto" : "visible",
-  padding: "15px 15px 15px 15px",
+  padding: `15px 15px ${
+    props.layout === "desktop" ? 15 : 15 + props.addPlaceButtonHeight
+  }px 15px`,
   boxSizing: "border-box",
 }));
 
@@ -101,6 +103,7 @@ class ContentPanel extends Component {
         <ContentPanelInnerContainer
           ref={this.contentPanelInnerContainerRef}
           layout={this.props.layout}
+          addPlaceButtonHeight={this.props.addPlaceButtonHeight}
         >
           {this.props.contentPanelComponent === "CustomPage" && (
             <CustomPage
@@ -136,6 +139,7 @@ class ContentPanel extends Component {
 }
 
 ContentPanel.propTypes = {
+  addPlaceButtonHeight: PropTypes.number.isRequired,
   contentPanelComponent: PropTypes.string,
   focusedPlace: placePropType,
   history: PropTypes.object.isRequired,

@@ -1,6 +1,5 @@
-import { findDOMNode } from "react-dom";
-
 import constants from "../constants";
+import { Mixpanel } from "./mixpanel";
 
 const getMainContentAreaWidth = ({
   isContentPanelVisible,
@@ -20,6 +19,14 @@ const getMainContentAreaWidth = ({
         return "85%";
       } else if (isContentPanelVisible && isRightSidebarVisible) {
         return "45%";
+      } else {
+        const msg =
+          "Error: could not find appropriate width declaration for main content area.";
+        // eslint-disable-next-line no-console
+        console.error(msg);
+        Mixpanel.track("Error", {
+          message: msg,
+        });
       }
       break;
     case "mobile":
@@ -32,7 +39,7 @@ const getMainContentAreaHeight = ({
   isGeocodeAddressBarEnabled,
   layout,
   isAddPlaceButtonVisible,
-  addPlaceButtonRef,
+  addPlaceButtonDims,
 }) => {
   switch (layout) {
     case "desktop":
@@ -59,6 +66,12 @@ const getMainContentAreaHeight = ({
       ) {
         return `calc(60% - ${constants.HEADER_HEIGHT}px)`;
       } else if (
+        isContentPanelVisible &&
+        !isGeocodeAddressBarEnabled &&
+        isAddPlaceButtonVisible
+      ) {
+        return `calc(60% - ${constants.HEADER_HEIGHT}px)`;
+      } else if (
         !isContentPanelVisible &&
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
@@ -77,10 +90,6 @@ const getMainContentAreaHeight = ({
         !isGeocodeAddressBarEnabled &&
         isAddPlaceButtonVisible
       ) {
-        const addPlaceButtonDims = findDOMNode(
-          addPlaceButtonRef.current,
-        ).getBoundingClientRect();
-
         return `calc(100% - ${addPlaceButtonDims.height}px - ${
           constants.HEADER_HEIGHT
         }px)`;
@@ -89,13 +98,17 @@ const getMainContentAreaHeight = ({
         isGeocodeAddressBarEnabled &&
         isAddPlaceButtonVisible
       ) {
-        const addPlaceButtonDims = findDOMNode(
-          addPlaceButtonRef.current,
-        ).getBoundingClientRect();
-
         return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
           addPlaceButtonDims.height
         }px - ${constants.HEADER_HEIGHT}px)`;
+      } else {
+        const msg =
+          "Error: could not find appropriate height declaration for main content area.";
+        // eslint-disable-next-line no-console
+        console.error(msg);
+        Mixpanel.track("Error", {
+          message: msg,
+        });
       }
   }
 };

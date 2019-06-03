@@ -21,8 +21,8 @@ const AddPlaceButtonContainer = styled(props => (
   </Button>
 ))(props => {
   return {
-    position: "absolute",
-    zIndex: 1,
+    position: props.layout == "desktop" ? "absolute" : "fixed",
+    zIndex: 200,
     backgroundColor: props.theme.map.addPlaceButtonBackgroundColor,
     fontFamily: props.theme.text.bodyFontFamily,
 
@@ -48,6 +48,7 @@ const AddPlaceButtonContainer = styled(props => (
 const AddPlaceButton = props => (
   <AddPlaceButtonContainer
     className={props.className}
+    layout={props.layout}
     onClick={props.onClick}
     isGeocodeAddressBarEnabled={props.isGeocodeAddressBarEnabled}
   >
@@ -59,6 +60,7 @@ AddPlaceButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
+  layout: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
