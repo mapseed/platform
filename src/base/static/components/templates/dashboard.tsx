@@ -42,33 +42,44 @@ import {
 } from "../atoms/typography";
 import PieChart from "../molecules/pie-chart";
 import BarChart from "../molecules/bar-chart";
+import {
+  MapseedLineChart,
+  getLineChartData,
+} from "../organisms/dashboard/line-chart";
 
 import makeParsedExpression from "../../utils/expression/parse";
 
 const MAX_DASHBOARD_WIDTH = "1120px";
 
-// These are the colors we use for our charts:
-const BLUE = "#5DA5DA";
-const COLORS = [
-  "#4D4D4D",
-  "#B2912F",
-  "#FAA43A",
-  "#60BD68",
-  "#F17CB0",
-  BLUE,
-  "#B276B2",
-  "#DECF3F",
-  "#F15854",
-];
+const Temp = () => <div>O HAI IM UR WIDGET</div>;
+const widgetRegistry = {
+  lineChart: {
+    component: MapseedLineChart,
+    getData: getLineChartData,
+  },
+  freeDonutChart: {
+    // TODO
+    component: Temp,
+    getData: () => {
+      return {};
+    },
+  },
+  freeBarChart: {
+    // TODO
+    component: Temp,
+    getData: () => {
+      return {};
+    },
+  },
+};
 
 const DashboardWrapper = styled("div")({
   display: "grid",
   gridTemplateRows: "auto",
-  gridTemplateColumns: "auto",
-  maxWidth: MAX_DASHBOARD_WIDTH,
   margin: "8px auto 24px auto",
-  height: "100%",
   overflow: "auto",
+  width: "90%",
+  boxSizing: "border-box",
 
   "&::-webkit-scrollbar": {
     display: "none",
@@ -78,21 +89,37 @@ const DashboardWrapper = styled("div")({
 class Dashboard extends React.Component {
   state = {
     dashboard: this.props.dashboardConfig[0],
+    dataset: this.props.allPlaces.filter(
+      place => place.datasetSlug === this.props.dashboardConfig[0].datasetSlug,
+    ),
   };
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
+    if (this.props.allPlaces.length !== prevProps.allPlaces.length) {
+      this.setState({
+        dataset: this.props.allPlaces,
+      });
+    }
   }
 
   render() {
     return (
       <DashboardWrapper>
         <SmallTitle>{this.state.dashboard.header}</SmallTitle>
-        <HorizontalRule
-          css={{
-            marginTop: 0,
-          }}
-        />
-        O HAI IM UR DASHBOARD
+        {this.state.dashboard.widgets.map(widget => {
+          const WidgetComponent = widgetRegistry[widget.type].component;
+
+          return (
+            <WidgetComponent
+              {...widget}
+              data={widgetRegistry[widget.type].getData({
+                widget,
+                timeZone: this.props.appConfig.time_zone,
+                dataset: this.state.dataset,
+              })}
+            />
+          );
+        })}
       </DashboardWrapper>
     );
   }

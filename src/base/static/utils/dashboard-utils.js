@@ -12,4 +12,4 @@ const COLORS = [
   "#F15854",
 ];
 
-export { COLORS };
+export { COLORS, BLUE };

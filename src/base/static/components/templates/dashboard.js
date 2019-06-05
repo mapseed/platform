@@ -161,14 +161,6 @@ const DemographicsWrapper = styled("div")({
   gridArea: "demographics",
 });
 
-const getDaysArray = (start, end) => {
-  let arr;
-  let dt;
-  for (arr = [], dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
-    arr.push(new Date(dt));
-  }
-  return arr;
-};
 
 class Dashboard extends React.Component {
   state = {

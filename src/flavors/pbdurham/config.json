@@ -75,20 +75,20 @@
   "dashboard": [
     {
       "header": "PB Durham Idea Collection",
-      "is_exportable": true,
+      "isExportable": true,
       "datasetSlug": "pbdurham",
       "widgets": [
         {
           "title": "Engagement",
           "type": "lineChart",
           "group_by": "created_datetime",
-          "x_axis_label": "Date",
-          "y_axis_label": "Number of ideas"
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of ideas"
         },
         {
           "title": "Idea collection by category",
           "type": "freeDonutChart",
-          "group_by": "location_type",
+          "groupBy": "location_type",
           "labels": {
             "culture": "Arts & Culture",
             "parks": "Parks & Recreation",
@@ -101,29 +101,29 @@
         {
           "title": "Demographics",
           "type": "freeBarChart",
-          "group_by": "private-ethnicity",
-          "x_axis_label": "Ethnicity",
-          "y_axis_label": "Count",
+          "groupBy": "private-ethnicity",
+          "xAxisLabel": "Ethnicity",
+          "yAxisLabel": "Count",
           "annotation": "*race/ethinicity may not add up to 100% because of multiple choices"
         }
       ]
     },
     {
       "header": "PB Durham Projects",
-      "is_exportable": true,
+      "isExportable": true,
       "datasetSlug": "pbdurham-projects",
       "widgets": [
         {
           "title": "Engagement",
           "type": "lineChart",
-          "group_by": "created_datetime",
-          "x_axis_label": "Date",
-          "y_axis_label": "Number of ideas"
+          "groupBy": "created_datetime",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of ideas"
         },
         {
           "title": "Projects by Ward",
           "type": "freeDonutChart",
-          "group_by": "ward",
+          "groupBy": "ward",
           "labels": {
             "ward_1": "Ward 1",
             "ward_2": "Ward 2",
@@ -135,7 +135,7 @@
           "title": "Budget (published proposals)",
           "type": "freeBarChart",
           "group_by": "ward",
-          "x_axis_label": "Wards",
+          "xAxisLabel": "Wards",
           "filter": ["==", ["get", "private"], false]
         }
       ]
