@@ -72,7 +72,7 @@ const CustomDot = props => {
         r={value > 0 ? 3 : 0}
         stroke={BLUE}
         fill="#fff"
-        strokeWidth={1}
+        strokeWidth={2}
       />
     </svg>
   );
@@ -141,6 +141,7 @@ class MapseedLineChart extends Component {
             dataKey="count"
             isAnimationActive={false}
             stroke={BLUE}
+            strokeWidth={2}
             dot={<CustomDot />}
             activeDot={{ r: 3, fill: BLUE, stroke: BLUE }}
           />
