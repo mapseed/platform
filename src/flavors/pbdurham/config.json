@@ -122,7 +122,7 @@
             "black": "Black or African American",
             "hispanic": "Hispanic or Latinx",
             "hawaiian-pacific": "Native Hawaiian or Pacific Islander",
-            "other": "Other ethnicity"
+            "other-ethnicity": "Other ethnicity"
           },
           "layout": {
             "start": 7,

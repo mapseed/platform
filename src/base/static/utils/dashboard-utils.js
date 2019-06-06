@@ -29,12 +29,22 @@ const truncatedTextFormatter = length => {
   };
 };
 
+const tooltipCountFormatter = (value, name, props) => {
+  return `${props.payload.count} (${props.payload.percent})`;
+};
+
+const tooltipCurrencyFormatter = () => {};
+
 const getFormatter = format => {
   switch (format) {
     case "currency":
       return currencyFormatter;
     case "truncated":
       return truncatedTextFormatter;
+    case "tooltip-count":
+      return tooltipCountFormatter;
+    case "tooltip-currency":
+      return tooltipCurrencyFormatter;
     default:
       return null;
   }

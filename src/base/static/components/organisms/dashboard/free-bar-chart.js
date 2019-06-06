@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { placesPropType } from "../../../state/ducks/places";
 import {
   ResponsiveContainer,
   BarChart,
@@ -23,7 +22,7 @@ const NULL_RESPONSE_NAME = "__no-response__";
 const getFreeBarChartData = ({ dataset, widget }) => {
   const labels = {
     ...widget.labels,
-    [NULL_RESPONSE_NAME]: "(No response)",
+    [NULL_RESPONSE_NAME]: "No response",
   };
 
   const totalPlaces = dataset ? dataset.length : 100;
@@ -37,12 +36,12 @@ const getFreeBarChartData = ({ dataset, widget }) => {
           : NULL_RESPONSE_NAME;
         const responseArray = Array.isArray(response) ? response : [response];
 
-        responseArray.forEach(categoryName => {
-          if (memo[categoryName]) {
-            memo[categoryName].count++;
-            memo[categoryName].sum += getNumericalPart(response);
+        responseArray.forEach(category => {
+          if (memo[category]) {
+            memo[category].count++;
+            memo[category].sum += getNumericalPart(response);
           } else {
-            memo[categoryName] = {
+            memo[category] = {
               count: 1,
               sum: getNumericalPart(response),
             };
@@ -54,11 +53,11 @@ const getFreeBarChartData = ({ dataset, widget }) => {
     : [];
 
   const barChartData = Object.entries(grouped).map(
-    ([categoryName, categoryInfo]) => {
+    ([category, categoryInfo]) => {
       return {
         ...categoryInfo,
-        label: labels[categoryName],
-        categoryName,
+        label: labels[category],
+        category,
         percent: `${((categoryInfo.count / totalPlaces) * 100).toFixed(0)}%`,
       };
     },
@@ -67,9 +66,22 @@ const getFreeBarChartData = ({ dataset, widget }) => {
   return barChartData;
 };
 
+const getTooltipFormatter = (format, groupAggregation) => {
+  if (format === "plain" && groupAggregation === "count") {
+    return getFormatter("tooltip-count");
+  } else if (format === "plain" && groupAggregation === "sum") {
+    return getFormatter("tooltip-sum");
+  } else if (format === "currency" && groupAggregation === "count") {
+    // TOOD-- probably not needed
+  } else if (format === "currency" && groupAggregation === "sum") {
+    return getFormatter("tooltip-currency");
+  } else {
+    return getFormatter("tooltip-count");
+  }
+};
+
 class FreeBarChart extends Component {
   render() {
-    const dataKey = this.props.sumOverCategory ? "sum" : "count";
     return (
       <ChartWrapper layout={this.props.layout}>
         <ResponsiveContainer width="100%" height={360}>
@@ -78,19 +90,27 @@ class FreeBarChart extends Component {
             margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
           >
             <XAxis
-              tickFormatter={getFormatter("truncated")(15)}
-              dataKey="label"
+              tickFormatter={getFormatter("truncated")(12)}
+              dataKey={"label"}
               angle={-45}
+              stroke="#aaa"
               textAnchor="end"
+              interval={0}
             >
               <Label
                 content={() => (
                   <g>
-                    <text x="50%" y={286} textAnchor="middle">
+                    <text x="50%" y={286} fill="#aaa" textAnchor="middle">
                       {this.props.xAxisLabel}
                     </text>
-                    {this.props.footer && (
-                      <text x="50%" y={320} fontSize=".7em" textAnchor="middle">
+                    {this.props.annotation && (
+                      <text
+                        fill="#aaa"
+                        x="50%"
+                        y={320}
+                        fontSize=".7em"
+                        textAnchor="middle"
+                      >
                         {this.props.annotation}
                       </text>
                     )}
@@ -100,21 +120,29 @@ class FreeBarChart extends Component {
                 position="bottom"
               />
             </XAxis>
-            <YAxis tickFormatter={getFormatter(this.props.format)}>
-              {this.props.yLabel && (
+            <YAxis
+              stroke="#aaa"
+              tickFormatter={getFormatter(this.props.format)}
+            >
+              {this.props.yAxisLabel && (
                 <Label
                   offset={10}
-                  value={this.props.yLabel}
+                  fill="#aaa"
+                  value={this.props.yAxisLabel}
                   angle={-90}
                   position="left"
                 />
               )}
             </YAxis>
             <Tooltip
+              cursor={false}
+              formatter={getTooltipFormatter(
+                this.props.format,
+                this.props.groupAggregation,
+              )}
               labelFormatter={label => label}
-              formatter={this.props.tooltipFormatter}
             />
-            <Bar dataKey={dataKey} fill={BLUE} />
+            <Bar dataKey={this.props.groupAggregation} fill={BLUE} />
           </BarChart>
         </ResponsiveContainer>
       </ChartWrapper>
@@ -123,15 +151,25 @@ class FreeBarChart extends Component {
 }
 
 FreeBarChart.propTypes = {
-  places: placesPropType,
-  footer: PropTypes.string,
+  annotation: PropTypes.string,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+      sum: PropTypes.number.isRequired,
+      label: PropTypes.string,
+      percent: PropTypes.string.isRequire,
+    }),
+  ).isRequired,
+  format: PropTypes.string,
+  groupAggregation: PropTypes.string.isRequired,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
   category: PropTypes.string.isRequired,
-  sumOverCategory: PropTypes.string,
-  valueAccessor: PropTypes.func,
-  nullCategoryLabel: PropTypes.string,
-  tooltipFormatter: PropTypes.func.isRequired,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export { FreeBarChart, getFreeBarChartData };
