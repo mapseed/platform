@@ -52,6 +52,10 @@ import {
   MapseedLineChart,
   getLineChartData,
 } from "../organisms/dashboard/line-chart";
+import {
+  StatSummary,
+  getStatSummaryData,
+} from "../organisms/dashboard/stat-summary";
 
 import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
@@ -68,6 +72,10 @@ const widgetRegistry = {
   freeBarChart: {
     component: FreeBarChart,
     getData: getFreeBarChartData,
+  },
+  statSummary: {
+    component: StatSummary,
+    getData: getStatSummaryData,
   },
 };
 

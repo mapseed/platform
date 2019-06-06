@@ -79,13 +79,34 @@
       "datasetSlug": "pbdurham",
       "widgets": [
         {
+          "title": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total ideas"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
           "title": "Engagement",
           "type": "lineChart",
-          "group_by": "created_datetime",
           "xAxisLabel": "Date",
           "yAxisLabel": "Number of ideas",
           "layout": {
-            "start": 1,
+            "start": 4,
             "end": 13
           }
         },
