@@ -33,13 +33,7 @@ import {
 } from "../../state/ducks/forms-config";
 import { hasAdminAbilities } from "../../state/ducks/user";
 import { HorizontalRule } from "../atoms/layout";
-import {
-  ExternalLink,
-  RegularTitle,
-  SmallTitle,
-  LargeLabel,
-  ExtraLargeLabel,
-} from "../atoms/typography";
+import { RegularTitle } from "../atoms/typography";
 import {
   FreeDonutChart,
   getFreeDonutChartData,
@@ -102,12 +96,24 @@ class Dashboard extends React.Component {
           overflow: auto;
           width: 100%;
           height: calc(100% - ${constants.HEADER_HEIGHT}px);
+          background-color: #ece6e6;
 
           &::-webkit-scrollbar {
             width: 0;
           }
         `}
       >
+        <div
+          css={css`
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 48px;
+          `}
+        >
+          <RegularTitle>{this.state.dashboard.header}</RegularTitle>
+          <HorizontalRule spacing="tiny" />
+        </div>
         <div
           css={css`
             display: grid;

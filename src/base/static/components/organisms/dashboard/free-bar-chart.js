@@ -83,7 +83,7 @@ const getTooltipFormatter = (format, groupAggregation) => {
 class FreeBarChart extends Component {
   render() {
     return (
-      <ChartWrapper layout={this.props.layout}>
+      <ChartWrapper layout={this.props.layout} header={this.props.header}>
         <ResponsiveContainer width="100%" height={360}>
           <BarChart
             data={this.props.data}
@@ -163,6 +163,7 @@ FreeBarChart.propTypes = {
   ).isRequired,
   format: PropTypes.string,
   groupAggregation: PropTypes.string.isRequired,
+  header: PropTypes.string,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
   category: PropTypes.string.isRequired,

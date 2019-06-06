@@ -9,6 +9,7 @@ class ChartWrapper extends React.Component {
       <div
         css={css`
           grid-column: ${this.props.layout.start} / ${this.props.layout.end};
+          background-color: #fff;
           margin: 8px;
           border-radius: 4px;
           box-sizing: border-box;
@@ -24,7 +25,7 @@ class ChartWrapper extends React.Component {
               border-top-right-radius: 4px;
               border-top-left-radius: 4px;
               background-color: ${this.props.accentColor};
-              padding: 8px 16px 8px 24px;
+              padding: 8px 16px 8px 16px;
               margin-bottom: 32px;
             `}
           >
@@ -39,7 +40,7 @@ class ChartWrapper extends React.Component {
 
 ChartWrapper.defaultProps = {
   accentColor: "#f5f5f5",
-  header: "Engagement activity",
+  header: "Summary",
 };
 
 ChartWrapper.propTypes = {

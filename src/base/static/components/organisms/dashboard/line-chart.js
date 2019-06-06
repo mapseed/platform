@@ -94,7 +94,7 @@ CustomDot.propTypes = {
 class MapseedLineChart extends Component {
   render() {
     return (
-      <ChartWrapper layout={this.props.layout}>
+      <ChartWrapper layout={this.props.layout} header={this.props.header}>
         <ResponsiveContainer
           width={"95%"}
           height={200}
@@ -150,6 +150,7 @@ class MapseedLineChart extends Component {
 
 MapseedLineChart.propTypes = {
   data: PropTypes.object.isRequired,
+  header: PropTypes.string,
   yAxisLabel: PropTypes.string,
   xAxisLabel: PropTypes.string,
   layout: PropTypes.shape({

@@ -79,7 +79,7 @@
       "datasetSlug": "pbdurham",
       "widgets": [
         {
-          "title": "Overview",
+          "header": "Overview",
           "type": "statSummary",
           "rows": [
             {
@@ -101,7 +101,7 @@
           }
         },
         {
-          "title": "Engagement",
+          "header": "Engagement",
           "type": "lineChart",
           "xAxisLabel": "Date",
           "yAxisLabel": "Number of ideas",
@@ -111,7 +111,7 @@
           }
         },
         {
-          "title": "Idea collection by category",
+          "header": "Idea collection by category",
           "type": "freeDonutChart",
           "groupBy": "location_type",
           "labels": {
@@ -128,7 +128,7 @@
           }
         },
         {
-          "title": "Demographics",
+          "header": "Demographics",
           "type": "freeBarChart",
           "groupBy": "private-ethnicity",
           "textFormatter": "plain",
@@ -158,14 +158,14 @@
       "datasetSlug": "pbdurham-projects",
       "widgets": [
         {
-          "title": "Engagement",
+          "header": "Engagement",
           "type": "lineChart",
           "groupBy": "created_datetime",
           "xAxisLabel": "Date",
           "yAxisLabel": "Number of ideas"
         },
         {
-          "title": "Projects by Ward",
+          "header": "Projects by Ward",
           "type": "freeDonutChart",
           "groupBy": "ward",
           "labels": {
@@ -176,7 +176,7 @@
           }
         },
         {
-          "title": "Budget (published proposals)",
+          "header": "Budget (published proposals)",
           "type": "freeBarChart",
           "group_by": "ward",
           "xAxisLabel": "Wards",

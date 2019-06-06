@@ -39,7 +39,7 @@ const getStatSummaryData = ({ dataset, widget }) => {
 
 const StatSummary = props => {
   return (
-    <ChartWrapper layout={props.layout}>
+    <ChartWrapper layout={props.layout} header={props.header}>
       {props.data.map(row => (
         <div
           key={row.label}
@@ -73,6 +73,7 @@ StatSummary.propTypes = {
       total: PropTypes.number.isRequired,
     }),
   ),
+  header: PropTypes.string,
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,

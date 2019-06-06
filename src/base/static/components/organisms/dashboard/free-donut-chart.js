@@ -27,15 +27,19 @@ class FreeDonutChart extends Component {
     let dy = 0;
 
     // Arrange labels nicely around the donut.
-    if (midAngle >= 295 || midAngle <= 65) { // Right section of donut.
+    if (midAngle >= 295 || midAngle <= 65) {
+      // Right section of donut.
       dx = 5;
       anchor = "start";
-    } else if (midAngle > 65 && midAngle < 115) { // Top section.
+    } else if (midAngle > 65 && midAngle < 115) {
+      // Top section.
       dy = -24;
-    } else if (midAngle >= 115 && midAngle < 245) { // Left section.
+    } else if (midAngle >= 115 && midAngle < 245) {
+      // Left section.
       dx = -5;
       anchor = "end";
-    } else { // Bottom section.
+    } else {
+      // Bottom section.
       dy = 15;
     }
 
@@ -54,7 +58,7 @@ class FreeDonutChart extends Component {
 
   render() {
     return (
-      <ChartWrapper layout={this.props.layout}>
+      <ChartWrapper layout={this.props.layout} header={this.props.header}>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
@@ -88,6 +92,7 @@ FreeDonutChart.propTypes = {
       count: PropTypes.number.isRequired,
     }),
   ).isRequired,
+  header: PropTypes.string,
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
