@@ -202,7 +202,7 @@ interface State {
 
 class App extends Component<Props, State> {
   private templateContainerRef: React.RefObject<HTMLInputElement> = createRef();
-  private routeListener?: any;
+  private unlisten?: any;
 
   state: State = {
     isInitialDataLoaded: false,
