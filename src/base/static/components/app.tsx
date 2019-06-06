@@ -420,7 +420,7 @@ class App extends Component<Props, State> {
       }
     }
 
-    this.routeListener = this.props.history.listen(location => {
+    this.unlisten = this.props.history.listen(location => {
       recordGoogleAnalyticsHit(location.pathname);
     });
 
@@ -497,7 +497,7 @@ class App extends Component<Props, State> {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
-    this.routeListener && this.routeListener.unlisten();
+    this.unlisten();
   }
 
   render() {

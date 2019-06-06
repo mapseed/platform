@@ -45,7 +45,7 @@ class StoryNavigator extends Component {
 
   componentDidMount() {
     this.checkForStoryChapter(this.props.history.location.pathname);
-    this.routeListener = this.props.history.listen(location => {
+    this.unlisten = this.props.history.listen(location => {
       this.checkForStoryChapter(location.pathname);
     });
   }
@@ -68,7 +68,7 @@ class StoryNavigator extends Component {
   }
 
   componentWillUnmount() {
-    this.routeListener.unlisten();
+    this.unlisten();
   }
 
   checkForStoryChapter(pathname) {
