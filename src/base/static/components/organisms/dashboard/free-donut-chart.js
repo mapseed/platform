@@ -20,29 +20,30 @@ const getFreeDonutChartData = ({ dataset, widget }) => {
 
 class FreeDonutChart extends Component {
   renderPieChartLabel = pieProps => {
-    console.log("pieProps", pieProps);
-    const { category, percent, count, x, y } = pieProps;
+    const { category, percent, count, x, y, midAngle } = pieProps;
     let anchor = "middle";
     let dx = 0;
     let dy = 0;
-    if (midAngle >= 315 && midAngle <= 45) {
-      dy = -15;
-    } else if (midAngle > 45 && midAngle < 135) {
+
+    // Arrange labels nicely around the donut.
+    if (midAngle >= 295 || midAngle <= 65) { // Right section of donut.
+      dx = 5;
       anchor = "start";
-      dx = 15;
-    } else if (midAngle >= 135 && midAngle < 225) {
-      dy = 15;
-    } else {
-      dx = -15;
+    } else if (midAngle > 65 && midAngle < 115) { // Top section.
+      dy = -24;
+    } else if (midAngle >= 115 && midAngle < 245) { // Left section.
+      dx = -5;
       anchor = "end";
+    } else { // Bottom section.
+      dy = 15;
     }
 
     return (
-      <text x={x} y={y} textAnchor={"middle"}>
-        <tspan x={x} fill="#aaa">
+      <text x={x} y={y}>
+        <tspan x={x} dx={dx} dy={dy} fill="#888" textAnchor={anchor}>
           {category}
         </tspan>
-        <tspan x={x} dy={15} fill="#666">
+        <tspan x={x} dx={dx} dy={15} textAnchor={anchor} fill="#222">
           {count} ({(percent * 100).toFixed(0)}
           %)
         </tspan>
@@ -53,14 +54,14 @@ class FreeDonutChart extends Component {
   render() {
     return (
       <ChartWrapper layout={this.props.layout}>
-        <ResponsiveContainer width="100%" height={250}>
+        <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
               isAnimationActive={false}
               data={this.props.data}
               dataKey="count"
               nameKey="category"
-              outerRadius={80}
+              outerRadius={70}
               innerRadius={35}
               fill="#8884d8"
               label={this.renderPieChartLabel}
