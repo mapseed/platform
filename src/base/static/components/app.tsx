@@ -202,7 +202,7 @@ interface State {
 
 class App extends Component<Props, State> {
   private templateContainerRef: React.RefObject<HTMLInputElement> = createRef();
-  private routeListener?: any;
+  private unlisten?: any;
 
   state: State = {
     isInitialDataLoaded: false,
@@ -420,7 +420,7 @@ class App extends Component<Props, State> {
       }
     }
 
-    this.routeListener = this.props.history.listen(location => {
+    this.unlisten = this.props.history.listen(location => {
       recordGoogleAnalyticsHit(location.pathname);
     });
 
@@ -497,7 +497,7 @@ class App extends Component<Props, State> {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.props.updateLayout);
-    this.routeListener && this.routeListener.unlisten();
+    this.unlisten();
   }
 
   render() {

@@ -82,7 +82,7 @@ const DashboardWrapper = styled("div")({
   gridTemplateColumns: "auto",
   maxWidth: MAX_DASHBOARD_WIDTH,
   margin: "8px auto 24px auto",
-  height: "100%",
+  height: "calc(100% - 56px)",
   overflow: "auto",
 
   "&::-webkit-scrollbar": {
