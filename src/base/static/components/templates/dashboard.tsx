@@ -44,7 +44,10 @@ import {
   FreeDonutChart,
   getFreeDonutChartData,
 } from "../organisms/dashboard/free-donut-chart";
-import BarChart from "../molecules/bar-chart";
+import {
+  FreeBarChart,
+  getFreeBarChartData,
+} from "../organisms/dashboard/free-bar-chart";
 import {
   MapseedLineChart,
   getLineChartData,
@@ -53,7 +56,6 @@ import {
 import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
 
-const Temp = () => <div>O HAI IM UR WIDGET</div>;
 const widgetRegistry = {
   lineChart: {
     component: MapseedLineChart,
@@ -64,11 +66,8 @@ const widgetRegistry = {
     getData: getFreeDonutChartData,
   },
   freeBarChart: {
-    // TODO
-    component: Temp,
-    getData: () => {
-      return {};
-    },
+    component: FreeBarChart,
+    getData: getFreeBarChartData,
   },
 };
 

@@ -110,9 +110,20 @@
           "title": "Demographics",
           "type": "freeBarChart",
           "groupBy": "private-ethnicity",
+          "textFormatter": "plain",
+          "groupAggregation": "count",
           "xAxisLabel": "Ethnicity",
           "yAxisLabel": "Count",
           "annotation": "*race/ethinicity may not add up to 100% because of multiple choices",
+          "labels": {
+            "white": "White",
+            "indian-alaskan": "American Indian/Alaskan Native",
+            "asian": "Asian",
+            "black": "Black or African American",
+            "hispanic": "Hispanic or Latinx",
+            "hawaiian-pacific": "Native Hawaiian or Pacific Islander",
+            "other": "Other ethnicity"
+          },
           "layout": {
             "start": 7,
             "end": 13

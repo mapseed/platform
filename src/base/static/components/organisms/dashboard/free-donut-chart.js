@@ -7,6 +7,7 @@ import { COLORS } from "../../../utils/dashboard-utils";
 import ChartWrapper from "./chart-wrapper";
 
 const getFreeDonutChartData = ({ dataset, widget }) => {
+  // TODO: handle checkbox data.
   const grouped = dataset
     ? lodashGroupBy(dataset, place => place[widget.groupBy])
     : {};
