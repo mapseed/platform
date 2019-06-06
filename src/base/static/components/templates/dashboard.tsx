@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
 import moment from "moment";
 import "moment-timezone";
@@ -40,16 +40,18 @@ import {
   LargeLabel,
   ExtraLargeLabel,
 } from "../atoms/typography";
-import PieChart from "../molecules/pie-chart";
+import {
+  FreeDonutChart,
+  getFreeDonutChartData,
+} from "../organisms/dashboard/free-donut-chart";
 import BarChart from "../molecules/bar-chart";
 import {
   MapseedLineChart,
   getLineChartData,
 } from "../organisms/dashboard/line-chart";
 
+import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
-
-const MAX_DASHBOARD_WIDTH = "1120px";
 
 const Temp = () => <div>O HAI IM UR WIDGET</div>;
 const widgetRegistry = {
@@ -58,11 +60,8 @@ const widgetRegistry = {
     getData: getLineChartData,
   },
   freeDonutChart: {
-    // TODO
-    component: Temp,
-    getData: () => {
-      return {};
-    },
+    component: FreeDonutChart,
+    getData: getFreeDonutChartData,
   },
   freeBarChart: {
     // TODO
@@ -72,19 +71,6 @@ const widgetRegistry = {
     },
   },
 };
-
-const DashboardWrapper = styled("div")({
-  display: "grid",
-  gridTemplateRows: "auto",
-  margin: "8px auto 24px auto",
-  overflow: "auto",
-  width: "90%",
-  boxSizing: "border-box",
-
-  "&::-webkit-scrollbar": {
-    display: "none",
-  },
-});
 
 class Dashboard extends React.Component {
   state = {
@@ -104,23 +90,44 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <DashboardWrapper>
-        <SmallTitle>{this.state.dashboard.header}</SmallTitle>
-        {this.state.dashboard.widgets.map(widget => {
-          const WidgetComponent = widgetRegistry[widget.type].component;
+      <div
+        css={css`
+          overflow: auto;
+          width: 100%;
+          height: calc(100% - ${constants.HEADER_HEIGHT}px);
 
-          return (
-            <WidgetComponent
-              {...widget}
-              data={widgetRegistry[widget.type].getData({
-                widget,
-                timeZone: this.props.appConfig.time_zone,
-                dataset: this.state.dataset,
-              })}
-            />
-          );
-        })}
-      </DashboardWrapper>
+          &::-webkit-scrollbar {
+            width: 0;
+          }
+        `}
+      >
+        <div
+          css={css`
+            display: grid;
+            grid-template-columns: repeat(12, 1fr); // 12-column grid
+            grid-gap: 8px;
+            grid-auto-rows: auto;
+            margin: 24px auto 24px auto;
+            width: 95%;
+            box-sizing: border-box;
+          `}
+        >
+          {this.state.dashboard.widgets.map(widget => {
+            const WidgetComponent = widgetRegistry[widget.type].component;
+
+            return (
+              <WidgetComponent
+                {...widget}
+                data={widgetRegistry[widget.type].getData({
+                  widget,
+                  timeZone: this.props.appConfig.time_zone,
+                  dataset: this.state.dataset,
+                })}
+              />
+            );
+          })}
+        </div>
+      </div>
     );
   }
 }

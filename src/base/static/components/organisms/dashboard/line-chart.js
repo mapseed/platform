@@ -1,11 +1,18 @@
 /** @jsx jsx */
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 import { jsx, css } from "@emotion/core";
-import { findDOMNode } from "react-dom";
 import moment from "moment";
 import PropTypes from "prop-types";
 import groupBy from "lodash.groupby";
-import { LineChart, Line, Label, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  LineChart,
+  Line,
+  Label,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 import { BLUE } from "../../../utils/dashboard-utils";
 import ChartWrapper from "./chart-wrapper";
@@ -72,7 +79,7 @@ const CustomDot = props => {
         r={value > 0 ? 3 : 0}
         stroke={BLUE}
         fill="#fff"
-        strokeWidth={2}
+        strokeWidth={1}
       />
     </svg>
   );
@@ -84,68 +91,58 @@ CustomDot.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-// TODO: ResponsiveContainer
 class MapseedLineChart extends Component {
-  chartWrapperRef = createRef();
-  state = {
-    width: 0,
-  };
-
-  componentDidMount() {
-    const wrapperDims = findDOMNode(
-      this.chartWrapperRef.current,
-    ).getBoundingClientRect();
-
-    this.setState({
-      width: wrapperDims.width - 32,
-    });
-  }
-
   render() {
     return (
-      <ChartWrapper ref={this.chartWrapperRef}>
-        <LineChart
-          css={css`
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 16px;
-          `}
-          margin={{ bottom: 24 }}
-          width={this.state.width}
+      <ChartWrapper layout={this.props.layout}>
+        <ResponsiveContainer
+          width={"95%"}
           height={200}
-          data={this.props.data}
+          css={css`
+            margin: auto;
+          `}
         >
-          <XAxis
-            dataKey="day"
-            stroke="#aaa"
-            tickLine={false}
-            tick={{ fontSize: 12 }}
+          <LineChart
+            css={css`
+              margin-left: auto;
+              margin-right: auto;
+              margin-bottom: 16px;
+            `}
+            margin={{ bottom: 24 }}
+            data={this.props.data}
           >
-            <Label
-              value={this.props.xAxisLabel}
-              fill="#aaa"
-              position="bottom"
+            <XAxis
+              dataKey="day"
+              stroke="#aaa"
+              tickLine={false}
+              tick={{ fontSize: 12 }}
+            >
+              <Label
+                value={this.props.xAxisLabel}
+                fill="#aaa"
+                position="bottom"
+              />
+            </XAxis>
+            <YAxis stroke="#aaa" tickLine={false} tick={{ fontSize: 12 }}>
+              <Label
+                value={this.props.yAxisLabel}
+                fill="#aaa"
+                dx={-10}
+                angle={-90}
+              />
+            </YAxis>
+            <Tooltip cursor={false} />
+            <Line
+              type="monotone"
+              dataKey="count"
+              isAnimationActive={false}
+              stroke={BLUE}
+              strokeWidth={2}
+              dot={<CustomDot />}
+              activeDot={{ r: 3, fill: BLUE, stroke: BLUE }}
             />
-          </XAxis>
-          <YAxis stroke="#aaa" tickLine={false} tick={{ fontSize: 12 }}>
-            <Label
-              value={this.props.yAxisLabel}
-              fill="#aaa"
-              dx={-10}
-              angle={-90}
-            />
-          </YAxis>
-          <Tooltip cursor={false} />
-          <Line
-            type="monotone"
-            dataKey="count"
-            isAnimationActive={false}
-            stroke={BLUE}
-            strokeWidth={2}
-            dot={<CustomDot />}
-            activeDot={{ r: 3, fill: BLUE, stroke: BLUE }}
-          />
-        </LineChart>
+          </LineChart>
+        </ResponsiveContainer>
       </ChartWrapper>
     );
   }
@@ -155,6 +152,17 @@ MapseedLineChart.propTypes = {
   data: PropTypes.object.isRequired,
   yAxisLabel: PropTypes.string,
   xAxisLabel: PropTypes.string,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+MapseedLineChart.defaultProps = {
+  layout: {
+    start: 1,
+    end: 13,
+  },
 };
 
 export { MapseedLineChart, getLineChartData };

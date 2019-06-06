@@ -8,7 +8,8 @@ class ChartWrapper extends React.Component {
     return (
       <div
         css={css`
-          margin: 16px;
+          grid-column: ${this.props.layout.start} / ${this.props.layout.end};
+          margin: 8px;
           border-radius: 4px;
           box-sizing: border-box;
           box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.3),
@@ -38,7 +39,7 @@ class ChartWrapper extends React.Component {
 
 ChartWrapper.defaultProps = {
   accentColor: "#f5f5f5",
-  header: "Engagement activity"
+  header: "Engagement activity",
 };
 
 ChartWrapper.propTypes = {

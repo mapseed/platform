@@ -83,7 +83,11 @@
           "type": "lineChart",
           "group_by": "created_datetime",
           "xAxisLabel": "Date",
-          "yAxisLabel": "Number of ideas"
+          "yAxisLabel": "Number of ideas",
+          "layout": {
+            "start": 1,
+            "end": 13
+          }
         },
         {
           "title": "Idea collection by category",
@@ -96,6 +100,10 @@
             "health": "Health & Wellness",
             "safety": "Safety & Environment",
             "other": "Other"
+          },
+          "layout": {
+            "start": 1,
+            "end": 7
           }
         },
         {
@@ -104,7 +112,11 @@
           "groupBy": "private-ethnicity",
           "xAxisLabel": "Ethnicity",
           "yAxisLabel": "Count",
-          "annotation": "*race/ethinicity may not add up to 100% because of multiple choices"
+          "annotation": "*race/ethinicity may not add up to 100% because of multiple choices",
+          "layout": {
+            "start": 7,
+            "end": 13
+          }
         }
       ]
     },
