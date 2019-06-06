@@ -9,6 +9,7 @@
     {
       "slug": "snohomish-input",
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-input",
+      "owner": "smartercleanup",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -20,6 +21,7 @@
     {
       "slug": "snohomish-featured",
       "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-featured",
+      "owner": "smartercleanup",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
