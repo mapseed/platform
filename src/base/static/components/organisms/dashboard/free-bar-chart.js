@@ -158,7 +158,7 @@ FreeBarChart.propTypes = {
       count: PropTypes.number.isRequired,
       sum: PropTypes.number.isRequired,
       label: PropTypes.string,
-      percent: PropTypes.string.isRequire,
+      percent: PropTypes.string.isRequired,
     }),
   ).isRequired,
   format: PropTypes.string,
@@ -166,7 +166,6 @@ FreeBarChart.propTypes = {
   header: PropTypes.string,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
-  category: PropTypes.string.isRequired,
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,

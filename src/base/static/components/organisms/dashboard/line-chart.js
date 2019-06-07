@@ -86,9 +86,9 @@ const CustomDot = props => {
 };
 
 CustomDot.propTypes = {
-  cx: PropTypes.number.isRequired,
-  cy: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  cx: PropTypes.number,
+  cy: PropTypes.number,
+  value: PropTypes.number,
 };
 
 class MapseedLineChart extends Component {
@@ -149,7 +149,13 @@ class MapseedLineChart extends Component {
 }
 
 MapseedLineChart.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date).isRequired,
+      day: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
   header: PropTypes.string,
   yAxisLabel: PropTypes.string,
   xAxisLabel: PropTypes.string,

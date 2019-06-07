@@ -114,26 +114,64 @@ class Dashboard extends React.Component {
             align-items: center;
           `}
         >
-          <RegularTitle>{this.state.dashboard.header}</RegularTitle>
-          {this.state.dashboard.isExportable && (
-            <Badge color="#cd8888">
-              <SmallText
-                weight="black"
-                css={css`
-                  color: white;
-                  margin-right: 8px;
-                `}
-              >
-                Export raw CSV data
-              </SmallText>
-              <FontAwesomeIcon
-                fontSize="0.7rem"
-                color="#fff"
-                faClassname="fa fa-chevron-right"
-              />
-            </Badge>
-          )}
-          <HorizontalRule spacing="tiny" />
+          <div
+            css={css`
+              display: flex;
+              width: 100%;
+              justify-content: space-between;
+              border-bottom: 1px solid #ccc;
+            `}
+          >
+            <RegularTitle>{this.state.dashboard.header}</RegularTitle>
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+              `}
+            >
+              {this.props.dashboardConfig.length > 0 && (
+                <Badge color="#cd8888">
+                  <SmallText
+                    weight="black"
+                    css={css`
+                      color: white;
+                      margin-right: 8px;
+                    `}
+                  >
+                    Change dataset
+                  </SmallText>
+                  <FontAwesomeIcon
+                    fontSize="0.7rem"
+                    color="#fff"
+                    faClassname="fa fa-chevron-down"
+                  />
+                </Badge>
+              )}
+              {this.state.dashboard.isExportable && (
+                <Badge
+                  css={css`
+                    margin-left: 12px;
+                  `}
+                  color="#cd8888"
+                >
+                  <SmallText
+                    weight="black"
+                    css={css`
+                      color: white;
+                      margin-right: 8px;
+                    `}
+                  >
+                    Export raw CSV data
+                  </SmallText>
+                  <FontAwesomeIcon
+                    fontSize="0.7rem"
+                    color="#fff"
+                    faClassname="fa fa-chevron-right"
+                  />
+                </Badge>
+              )}
+            </div>
+          </div>
         </div>
         <div
           css={css`
@@ -146,11 +184,12 @@ class Dashboard extends React.Component {
             box-sizing: border-box;
           `}
         >
-          {this.state.dashboard.widgets.map(widget => {
+          {this.state.dashboard.widgets.map((widget, i) => {
             const WidgetComponent = widgetRegistry[widget.type].component;
 
             return (
               <WidgetComponent
+                key={i}
                 {...widget}
                 data={widgetRegistry[widget.type].getData({
                   widget,

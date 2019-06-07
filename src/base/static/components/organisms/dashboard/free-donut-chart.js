@@ -6,22 +6,25 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 import { COLORS } from "../../../utils/dashboard-utils";
 import ChartWrapper from "./chart-wrapper";
 
+const NULL_RESPONSE_NAME = "__no-response__";
+
 const getFreeDonutChartData = ({ dataset, widget }) => {
   // TODO: handle checkbox data.
   const grouped = dataset
     ? lodashGroupBy(dataset, place => place[widget.groupBy])
     : {};
-  const pieChartData = Object.entries(grouped).map(([category, places]) => ({
-    category: widget.labels[category],
+  const donutChartData = Object.entries(grouped).map(([category, places]) => ({
+    category: category || NULL_RESPONSE_NAME,
+    label: widget.labels[category] || "No response",
     count: places.length,
   }));
 
-  return pieChartData;
+  return donutChartData;
 };
 
 class FreeDonutChart extends Component {
   renderPieChartLabel = pieProps => {
-    const { category, percent, count, x, y, midAngle } = pieProps;
+    const { label, percent, count, x, y, midAngle } = pieProps;
     let anchor = "middle";
     let dx = 0;
     let dy = 0;
@@ -46,7 +49,7 @@ class FreeDonutChart extends Component {
     return (
       <text x={x} y={y}>
         <tspan x={x} dx={dx} dy={dy} fill="#888" textAnchor={anchor}>
-          {category}
+          {label}
         </tspan>
         <tspan x={x} dx={dx} dy={15} textAnchor={anchor} fill="#222">
           {count} ({(percent * 100).toFixed(0)}
@@ -84,11 +87,10 @@ class FreeDonutChart extends Component {
 }
 
 FreeDonutChart.propTypes = {
-  getLabelFromCategory: PropTypes.func.isRequired,
-  category: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       category: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
     }),
   ).isRequired,
