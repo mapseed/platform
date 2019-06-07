@@ -1,9 +1,12 @@
 import mixpanel from "mixpanel-browser";
-mixpanel.init(MIXPANEL_TOKEN);
+const env_check = process.env.NODE_ENV === "production" && MIXPANEL_TOKEN;
 
-const env_check = process.env.NODE_ENV === "production";
 // For testing:
 // const env_check = true;
+
+if (env_check) {
+  mixpanel.init(MIXPANEL_TOKEN);
+}
 
 const actions = {
   identify: id => {
