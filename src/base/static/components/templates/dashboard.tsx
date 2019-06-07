@@ -9,10 +9,10 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import groupBy from "lodash.groupby";
 
-import Button from "@material-ui/core/Button";
+import { Button } from "../atoms/buttons";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { placesSelector, placesPropType } from "../../state/ducks/places";
+import { datasetPlacesSelector } from "../../state/ducks/places";
 import {
   datasetsConfigPropType,
   datasetsConfigSelector,
@@ -32,7 +32,7 @@ import {
   formFieldsConfigPropType,
 } from "../../state/ducks/forms-config";
 import { hasAdminAbilities } from "../../state/ducks/user";
-import { HorizontalRule, Badge } from "../atoms/layout";
+import { Badge } from "../atoms/layout";
 import { RegularTitle, SmallText } from "../atoms/typography";
 import { FontAwesomeIcon } from "../atoms/imagery";
 import {
@@ -76,19 +76,25 @@ const widgetRegistry = {
 
 class Dashboard extends React.Component {
   state = {
+    anchorEl: null,
     dashboard: this.props.dashboardConfig[0],
-    dataset: this.props.allPlaces.filter(
-      place => place.datasetSlug === this.props.dashboardConfig[0].datasetSlug,
-    ),
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.allPlaces.length !== prevProps.allPlaces.length) {
-      this.setState({
-        dataset: this.props.allPlaces,
-      });
-    }
-  }
+  toggleDashboardDropdown = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  closeDashboardDropdown = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  selectAndCloseDashboardDropdown = newDashboardConfig => {
+    this.setState({
+      anchorEl: null,
+      dashboard: newDashboardConfig,
+      datasetSlug: this.props.dashboardConfig[0].datasetSlug,
+    });
+  };
 
   render() {
     return (
@@ -130,28 +136,61 @@ class Dashboard extends React.Component {
               `}
             >
               {this.props.dashboardConfig.length > 0 && (
-                <Badge color="#cd8888">
-                  <SmallText
-                    weight="black"
-                    css={css`
-                      color: white;
-                      margin-right: 8px;
-                    `}
+                <div>
+                  <Button
+                    variant="badge"
+                    color="#cd8888"
+                    onClick={this.toggleDashboardDropdown}
                   >
-                    Change dataset
-                  </SmallText>
-                  <FontAwesomeIcon
-                    fontSize="0.7rem"
-                    color="#fff"
-                    faClassname="fa fa-chevron-down"
-                  />
-                </Badge>
+                    <SmallText
+                      weight="black"
+                      css={css`
+                        color: white;
+                        margin-right: 8px;
+                      `}
+                    >
+                      View Another Dataset
+                    </SmallText>
+                    <FontAwesomeIcon
+                      fontSize="0.7rem"
+                      color="#fff"
+                      faClassname="fa fa-chevron-down"
+                    />
+                  </Button>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={this.state.anchorEl}
+                    open={Boolean(this.state.anchorEl)}
+                    onClose={this.closeDashboardDropdown}
+                  >
+                    {this.props.dashboardConfig.map(dashboardConfig => {
+                      const dataset = this.props.datasetsConfig.find(
+                        config => config.slug === dashboardConfig.datasetSlug,
+                      );
+                      return (
+                        <MenuItem
+                          selected={
+                            dashboardConfig.datasetSlug ===
+                            this.state.dashboard.datasetSlug
+                          }
+                          key={dashboardConfig.datasetSlug}
+                          onClick={() => {
+                            this.selectAndCloseDashboardDropdown(
+                              dashboardConfig,
+                            );
+                          }}
+                        >{`${dataset.clientSlug}s`}</MenuItem>
+                      );
+                    })}
+                  </Menu>
+                </div>
               )}
               {this.state.dashboard.isExportable && (
-                <Badge
+                <Button
                   css={css`
-                    margin-left: 12px;
+                    margin-left: 8px;
                   `}
+                  variant="badge"
                   color="#cd8888"
                 >
                   <SmallText
@@ -168,7 +207,7 @@ class Dashboard extends React.Component {
                     color="#fff"
                     faClassname="fa fa-chevron-right"
                   />
-                </Badge>
+                </Button>
               )}
             </div>
           </div>
@@ -194,7 +233,9 @@ class Dashboard extends React.Component {
                 data={widgetRegistry[widget.type].getData({
                   widget,
                   timeZone: this.props.appConfig.time_zone,
-                  dataset: this.state.dataset,
+                  places: this.props.datasetPlacesSelector(
+                    this.state.dashboard.datasetSlug,
+                  ),
                 })}
               />
             );
@@ -210,7 +251,7 @@ Dashboard.propTypes = {
   appConfig: appConfigPropType.isRequired,
   apiRoot: PropTypes.string,
   hasAdminAbilities: PropTypes.func.isRequired,
-  allPlaces: placesPropType,
+  datasetPlacesSelector: PropTypes.func.isRequired,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   formFieldsConfig: formFieldsConfigPropType,
   datasetsConfig: datasetsConfigPropType,
@@ -219,7 +260,8 @@ Dashboard.propTypes = {
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
-  allPlaces: placesSelector(state),
+  datasetPlacesSelector: datasetSlug =>
+    datasetPlacesSelector(datasetSlug, state),
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),
   formFieldsConfig: formFieldsConfigSelector(state),

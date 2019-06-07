@@ -49,6 +49,64 @@
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "Whitman County Voluntary Stewardship Program",
+      "isExportable": true,
+      "datasetSlug": "palouse-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total VSP Reports"
+            },
+            {
+              "type": "placePropertyCount",
+              "label": "Total Stewardship Actions",
+              "properties": {
+                "conventional_till": "yes",
+                "no_till": "yes",
+                "pest_management": "yes",
+                "nutrient_management": "yes",
+                "managed_grazing": "yes",
+                "range_plantings": "yes",
+                "watering_facility": "yes",
+                "water_wells": "yes",
+                "cover_crop": "yes",
+                "mulching": "yes",
+                "conservation_cover": "yes",
+                "critical_area_planting": "yes",
+                "grassed_waterways": "yes",
+                "weed_control": "yes",
+                "tree_shrub": "yes",
+                "upland_habitat": "yes",
+                "hedgerow_planting": "yes",
+                "open_channel": "yes",
+                "fencing": "yes"
+              }
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. of VSP reports",
+          "layout": {
+            "start": 4,
+            "end": 13
+          }
+        }
+      ]
+    }
+  ],
   "map": {
     "geolocationEnabled": true,
     "geolocationOnload": false,

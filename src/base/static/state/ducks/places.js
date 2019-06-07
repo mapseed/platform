@@ -26,6 +26,11 @@ export const placesLoadStatusSelector = state => {
 export const placesSelector = state => {
   return state.places.placeModels;
 };
+export const datasetPlacesSelector = (datasetSlug, state) => {
+  return state.places.placeModels.filter(
+    place => place.datasetSlug === datasetSlug,
+  );
+};
 
 export const filteredPlacesSelector = state => {
   const filters = state.filters;

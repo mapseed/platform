@@ -6,33 +6,58 @@ import PropTypes from "prop-types";
 import ChartWrapper from "./chart-wrapper";
 import { RegularText, LargeTitle } from "../../atoms/typography";
 
-const getStatSummaryData = ({ dataset, widget }) => {
+const getStatSummaryData = ({ places, widget }) => {
   return widget.rows.map(row => {
     if (row.type === "placeCount") {
       return {
         ...row,
-        total: dataset.length,
+        total: places.length,
       };
     } else if (row.type === "supportCount") {
       return {
         ...row,
-        total: dataset.reduce((count, place) => {
+        total: places.reduce((count, place) => {
           if (place.submission_sets.support) {
             count += place.submission_sets.support.length;
           }
+
           return count;
         }, 0),
       };
     } else if (row.type === "commentCount") {
       return {
         ...row,
-        total: dataset.reduce((count, place) => {
+        total: places.reduce((count, place) => {
           if (place.submission_sets.comments) {
             count += place.submission_sets.comments.length;
           }
+
           return count;
         }, 0),
       };
+    } else if (row.type === "placePropertyCount") {
+      const propertiesArray = Object.entries(row.properties);
+
+      return {
+        ...row,
+        total: places.reduce((totalCount, place) => {
+          const numProperties = propertiesArray.reduce(
+            (placeCount, [property, value]) => {
+              if (place[property] && place[property] === value) {
+                return placeCount + 1;
+              }
+
+              return placeCount;
+            },
+            0,
+          );
+
+          return totalCount + numProperties;
+        }, 0),
+      };
+    } else {
+      // eslint-disable-next-line no-console
+      console.error(`Error: unknown StatSummary row type: ${row.type}`);
     }
   });
 };
@@ -44,11 +69,12 @@ const StatSummary = props => {
         <div
           key={row.label}
           css={css`
+            margin-top: 32px;
             padding-left: 16px;
             padding-right: 16px;
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
+            align-items: flex-end;
           `}
         >
           <RegularText
@@ -59,7 +85,13 @@ const StatSummary = props => {
           >
             {row.label}
           </RegularText>
-          <LargeTitle>{row.total}</LargeTitle>
+          <LargeTitle
+            css={css`
+              margin: 0;
+            `}
+          >
+            {row.total}
+          </LargeTitle>
         </div>
       ))}
     </ChartWrapper>

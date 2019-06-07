@@ -28,13 +28,13 @@ const getDaysArray = (start, end) => {
 
 // Our line charts always assume aggregation by the `created_datetime`
 // property on Place models.
-const getLineChartData = ({ dataset, timeZone }) => {
+const getLineChartData = ({ places, timeZone }) => {
   // `moment` has better time zone support, so we are using it here
   // instead of `Date`.
   let minDate = moment(8640000000000000); // Sep 13, 275760
   let maxDate = moment(0); // Jan 1, 1970
-  const grouped = dataset
-    ? groupBy(dataset, place => {
+  const grouped = places
+    ? groupBy(places, place => {
         const date = moment(place.created_datetime);
         if (minDate > date) {
           minDate = date;

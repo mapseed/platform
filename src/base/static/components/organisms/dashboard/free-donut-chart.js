@@ -8,10 +8,10 @@ import ChartWrapper from "./chart-wrapper";
 
 const NULL_RESPONSE_NAME = "__no-response__";
 
-const getFreeDonutChartData = ({ dataset, widget }) => {
+const getFreeDonutChartData = ({ places, widget }) => {
   // TODO: handle checkbox data.
-  const grouped = dataset
-    ? lodashGroupBy(dataset, place => place[widget.groupBy])
+  const grouped = places
+    ? lodashGroupBy(places, place => place[widget.groupBy])
     : {};
   const donutChartData = Object.entries(grouped).map(([category, places]) => ({
     category: category || NULL_RESPONSE_NAME,

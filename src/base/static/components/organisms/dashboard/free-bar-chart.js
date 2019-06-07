@@ -19,20 +19,26 @@ import {
 
 const NULL_RESPONSE_NAME = "__no-response__";
 
-const getFreeBarChartData = ({ dataset, widget }) => {
+const getFreeBarChartData = ({ places, widget }) => {
   const labels = {
     ...widget.labels,
     [NULL_RESPONSE_NAME]: "No response",
   };
 
-  const totalPlaces = dataset ? dataset.length : 100;
-  const grouped = dataset
-    ? dataset.reduce((memo, place) => {
-        // Create a memo dict of the response categories, mapped to a count of
-        // Places that fit in each category.
+  const totalPlaces = places ? places.length : 100;
+  const grouped = places
+    ? places.reduce((memo, place) => {
+        // Create a memo dict of the response categories, mapped to a count and
+        // sum of Places that fit in each category.
         // ie: { 'white': 2, 'black': 7 }
         const response = place[widget.groupBy]
-          ? place[widget.groupBy]
+          ? // Empty checkbox responses are stored as an empty array, so we need
+            // to check for that and record it as a null response. Null responses
+            // for other field types will simply not be recorded in the Place.
+            Array.isArray(place[widget.groupBy]) &&
+            place[widget.groupBy].length === 0
+            ? NULL_RESPONSE_NAME
+            : place[widget.groupBy]
           : NULL_RESPONSE_NAME;
         const responseArray = Array.isArray(response) ? response : [response];
 
