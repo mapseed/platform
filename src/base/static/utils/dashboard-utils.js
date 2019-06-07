@@ -1,15 +1,14 @@
 // These are the colors we use for our charts:
-const BLUE = "#5DA5DA";
+const BLUE = "#377eb8";
 const COLORS = [
-  "#4D4D4D",
-  "#B2912F",
-  "#FAA43A",
-  "#60BD68",
-  "#F17CB0",
+  "#e41a1c",
+  "#4daf4a",
+  "#984ea3",
+  "#ff7f00",
+  "#ffff33",
   BLUE,
-  "#B276B2",
-  "#DECF3F",
-  "#F15854",
+  "#a65628",
+  "#f781bf",
 ];
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {

@@ -32,8 +32,9 @@ import {
   formFieldsConfigPropType,
 } from "../../state/ducks/forms-config";
 import { hasAdminAbilities } from "../../state/ducks/user";
-import { HorizontalRule } from "../atoms/layout";
-import { RegularTitle } from "../atoms/typography";
+import { HorizontalRule, Badge } from "../atoms/layout";
+import { RegularTitle, SmallText } from "../atoms/typography";
+import { FontAwesomeIcon } from "../atoms/imagery";
 import {
   FreeDonutChart,
   getFreeDonutChartData,
@@ -109,9 +110,29 @@ class Dashboard extends React.Component {
             margin-left: auto;
             margin-right: auto;
             margin-top: 48px;
+            display: flex;
+            align-items: center;
           `}
         >
           <RegularTitle>{this.state.dashboard.header}</RegularTitle>
+          {this.state.dashboard.isExportable && (
+            <Badge color="#cd8888">
+              <SmallText
+                weight="black"
+                css={css`
+                  color: white;
+                  margin-right: 8px;
+                `}
+              >
+                Export raw CSV data
+              </SmallText>
+              <FontAwesomeIcon
+                fontSize="0.7rem"
+                color="#fff"
+                faClassname="fa fa-chevron-right"
+              />
+            </Badge>
+          )}
           <HorizontalRule spacing="tiny" />
         </div>
         <div

@@ -13,8 +13,8 @@ class ChartWrapper extends React.Component {
           margin: 8px;
           border-radius: 4px;
           box-sizing: border-box;
-          box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.3),
-            0 5px 10px hsla(0, 0%, 0%, 0.1);
+          box-shadow: 0 2px 3px hsla(0, 0%, 0%, 0.3),
+            0 3px 5px hsla(0, 0%, 0%, 0.1);
         `}
       >
         {this.props.header && (
