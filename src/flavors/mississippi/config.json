@@ -150,19 +150,21 @@
             "type": "symbol",
             "source": "mississippi-input",
             "layout": {
-              "icon-size": 1,
-              "icon-anchor": "center",
+              "icon-size": 0.4,
+              "icon-anchor": "bottom",
               "icon-image": [
                 "match",
                 ["get", "location_type"],
-                "sensation",
-                "sensation.png",
-                "idea",
-                "idea.png",
-                "artwork",
-                "artwork.png",
-                "event",
-                "event.png",
+                "geology",
+                "geology.png",
+                "history",
+                "history.png",
+                "industry",
+                "industry.png",
+                "culture",
+                "culture.png",
+                "ecology",
+                "ecology.png",
                 "__no-icon-image__"
               ]
             }
@@ -175,36 +177,40 @@
             "source": "mississippi-input",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-anchor": "center",
-              "icon-size": ["step", ["zoom"], 0.4, 10, 0.9],
+              "icon-anchor": "bottom",
+              "icon-size": ["step", ["zoom"], 0.2, 10, 0.3],
               "icon-image": [
                 "step",
                 ["zoom"],
                 [
                   "match",
                   ["get", "location_type"],
-                  "sensation",
-                  "sensation.png",
-                  "idea",
-                  "idea.png",
-                  "event",
-                  "event.png",
-                  "artwork",
-                  "artwork.png",
+                  "geology",
+                  "geology.png",
+                  "history",
+                  "history.png",
+                  "industry",
+                  "industry.png",
+                  "culture",
+                  "culture.png",
+                  "ecology",
+                  "ecology.png",
                   "__no-icon-image__"
                 ],
                 10,
                 [
                   "match",
                   ["get", "location_type"],
-                  "sensation",
-                  "sensation.png",
-                  "idea",
-                  "idea.png",
-                  "event",
-                  "event.png",
-                  "artwork",
-                  "artwork.png",
+                  "geology",
+                  "geology.png",
+                  "history",
+                  "history.png",
+                  "industry",
+                  "industry.png",
+                  "culture",
+                  "culture.png",
+                  "ecology",
+                  "ecology.png",
                   "__no-icon-image__"
                 ]
               ]
@@ -268,14 +274,14 @@
     "location_item_name": "location",
     "place_detail": [
       {
-        "formId": "sensation",
-        "category": "sensation",
+        "formId": "geology",
+        "category": "geology",
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/sensation.png",
-        "value": "sensation",
-        "label": "Sensation",
+        "icon_url": "/static/css/images/markers/geology.png",
+        "value": "geology",
+        "label": "Geology",
         "fields": [
           {
             "name": "title",
@@ -308,14 +314,14 @@
         ]
       },
       {
-        "formId": "idea",
-        "category": "idea",
+        "formId": "history",
+        "category": "history",
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/idea.png",
-        "value": "idea",
-        "label": "Idea",
+        "icon_url": "/static/css/images/markers/history.png",
+        "value": "history",
+        "label": "History",
         "fields": [
           {
             "name": "title",
@@ -347,14 +353,14 @@
         ]
       },
       {
-        "formId": "artwork",
-        "category": "artwork",
+        "formId": "industry",
+        "category": "industry",
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/artwork.png",
-        "value": "artwork",
-        "label": "Artwork",
+        "icon_url": "/static/css/images/markers/industry.png",
+        "value": "industry",
+        "label": "Industry",
         "fields": [
           {
             "name": "title",
@@ -367,7 +373,7 @@
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": " Is there an artwork here? Could there be one?",
+            "prompt": " Is there an industry here? Could there be one?",
             "display_prompt": " ",
             "placeholder": "Show it... (you can add links, images, videos)",
             "optional": false
@@ -387,14 +393,54 @@
         ]
       },
       {
-        "formId": "event",
-        "category": "event",
+        "formId": "culture",
+        "category": "culture",
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/event.png",
-        "value": "event",
-        "label": "Event",
+        "icon_url": "/static/css/images/markers/culture.png",
+        "value": "culture",
+        "label": "Culture",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "What's happening here?",
+            "placeholder": "Title:",
+            "display_prompt": " ",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "What's changing this place?",
+            "display_prompt": " ",
+            "placeholder": "Tell it... (you can also add links, images, videos)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "ecology",
+        "category": "ecology",
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/ecology.png",
+        "value": "ecology",
+        "label": "Ecology",
         "fields": [
           {
             "name": "title",
@@ -458,20 +504,24 @@
         "type": "select",
         "options": [
           {
-            "label": "Sensation",
-            "value": "sensation"
+            "label": "Geology",
+            "value": "geology"
           },
           {
-            "label": "Idea",
-            "value": "idea"
+            "label": "History",
+            "value": "history"
           },
           {
-            "label": "Artwork",
-            "value": "artwork"
+            "label": "Industry",
+            "value": "industry"
           },
           {
-            "label": "Event",
-            "value": "event"
+            "label": "Culture",
+            "value": "culture"
+          },
+          {
+            "label": "Ecology",
+            "value": "ecology"
           }
         ],
         "name": "location_type",
@@ -589,28 +639,34 @@
     },
     "places": [
       {
-        "id": "sensation",
+        "id": "geology",
         "datasetId": "mississippi-input",
         "label": "Observation",
-        "icon": "/static/css/images/markers/sensation.png"
+        "icon": "/static/css/images/markers/geology.png"
       },
       {
-        "id": "event",
+        "id": "culture",
         "datasetId": "mississippi-input",
         "label": "Question",
-        "icon": "/static/css/images/markers/event.png"
+        "icon": "/static/css/images/markers/culture.png"
       },
       {
-        "id": "idea",
+        "id": "history",
         "datasetId": "mississippi-input",
-        "label": "Idea",
-        "icon": "/static/css/images/markers/idea.png"
+        "label": "History",
+        "icon": "/static/css/images/markers/history.png"
       },
       {
-        "id": "artwork",
+        "id": "industry",
         "datasetId": "mississippi-input",
         "label": "Complaint",
-        "icon": "/static/css/images/markers/artwork.png"
+        "icon": "/static/css/images/markers/industry.png"
+      },
+      {
+        "id": "ecology",
+        "datasetId": "mississippi-input",
+        "label": "Ecology",
+        "icon": "/static/css/images/markers/ecology.png"
       }
     ]
   },
