@@ -8,18 +8,20 @@ const getNumericalValsByKey = (dataset, key) => {
   }, []);
 };
 
-const getPlaceVal = (context: EvaluationContext) => {
-  const val = context.place[context.key];
+const getPlaceVal = (context: EvaluationContext, property: string) => {
+  const val = context.place[property];
 
   return typeof val === "undefined" ? null : val;
 };
 
-const getDatasetSum = (context: EvaluationContext) => {
-  return context.dataset.reduce((sum, place) => {
-    const val = parseFloat(place[context.key]);
+const getDatasetSum = (context: EvaluationContext, property: string) => {
+  const sum = context.dataset.reduce((sum, place) => {
+    const val = parseFloat(place[property]);
 
     return isNaN(val) ? sum : sum + val;
   }, 0);
+
+  return sum
 };
 
 const getDatasetMean = (context: EvaluationContext) => {
@@ -46,6 +48,12 @@ const getDatasetCount = (context: EvaluationContext) => {
 
 const makeLookup = (op, lookupFn) => {
   return class Lookup implements Expression {
+    property: string;
+
+    constructor(property) {
+      this.property = property;
+    }
+
     static parse(args, parsingContext) {
       const op = args[0];
       if (args.length !== 2) {
@@ -54,11 +62,11 @@ const makeLookup = (op, lookupFn) => {
         return;
       }
 
-      return new Lookup();
+      return new Lookup(args[1]);
     }
 
     evaluate(evaluationContext: EvaluationContext) {
-      return lookupFn(evaluationContext);
+      return lookupFn(evaluationContext, this.property);
     }
   };
 };

@@ -51,6 +51,10 @@ import {
   StatSummary,
   getStatSummaryData,
 } from "../organisms/dashboard/stat-summary";
+import {
+  FixedTable,
+  getFixedTableData,
+} from "../organisms/dashboard/fixed-table";
 
 import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
@@ -71,6 +75,10 @@ const widgetRegistry = {
   statSummary: {
     component: StatSummary,
     getData: getStatSummaryData,
+  },
+  fixedTable: {
+    component: FixedTable,
+    getData: getFixedTableData,
   },
 };
 

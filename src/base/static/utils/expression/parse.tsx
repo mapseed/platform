@@ -1,13 +1,9 @@
 import expressionRegistry from "./definitions";
 import Expression from "./expression.tsx";
 
-// ["==", ["get", "location_type"], "streets"]
-// https://github.com/mapbox/mapbox-gl-js/blob/master/src/style-spec/expression/parsing_context.js
-
 class EvaluationContext {
   place;
   dataset;
-  key;
 }
 
 // A parsed expression, ready for evaluation against inputs.
@@ -20,10 +16,9 @@ class ParsedExpression {
     this.evaluator = new EvaluationContext();
   }
 
-  evaluate({ place = {}, dataset = [], key }) {
+  evaluate({ place = {}, dataset = [] }) {
     this.evaluator.place = place;
     this.evaluator.dataset = dataset;
-    this.evaluator.key = key;
 
     return this.expression.evaluate(this.evaluator);
   }

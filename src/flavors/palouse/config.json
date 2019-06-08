@@ -98,11 +98,350 @@
           "header": "Reporting Activity",
           "type": "lineChart",
           "xAxisLabel": "Date",
-          "yAxisLabel": "No. of VSP reports",
+          "yAxisLabel": "No. VSP reports",
           "layout": {
             "start": 4,
             "end": 13
           }
+        },
+        {
+          "header": "Overview by Stewardship Category",
+          "type": "fixedTable",
+          "layout": {
+            "start": 1,
+            "end": 13
+          },
+          "columns": [
+            {
+              "header": "Stewardship category",
+              "type": "string"
+            },
+            {
+              "header": "Countywide",
+              "type": "numeric"
+            },
+            {
+              "header": "Palouse WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "palouse"]
+            },
+            {
+              "header": "Snake WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "snake"]
+            },
+            {
+              "header": "Rock Lake WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "rock"]
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "Range Management",
+                  "label": "(Acreage Totals)"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "managed_grazing_quantity"],
+                    ["get-sum", "range_plantings_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "managed_grazing_quantity"],
+                    ["get-sum", "range_plantings_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "managed_grazing_quantity"],
+                    ["get-sum", "range_plantings_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "managed_grazing_quantity"],
+                    ["get-sum", "range_plantings_quantity"]
+                  ],
+                  "label": "Acres"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Range Management",
+                  "label": "(Watering Facility Totals)"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "watering_facility_quantity"],
+                    ["get-sum", "water_wells_quantity"]
+                  ],
+                  "label": "Watering Facils."
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "watering_facility_quantity"],
+                    ["get-sum", "water_wells_quantity"]
+                  ],
+                  "label": "Watering Facils."
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "watering_facility_quantity"],
+                    ["get-sum", "water_wells_quantity"]
+                  ],
+                  "label": "Watering Facils."
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "watering_facility_quantity"],
+                    ["get-sum", "water_wells_quantity"]
+                  ],
+                  "label": "Watering Facils."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Pest Management"
+                },
+                {
+                  "value": ["get-sum", "pest_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "pest_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "pest_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "pest_management_quantity"],
+                  "label": "acres"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Nutrient Management"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Residue & Tillage Management"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conventional_till_quantity"],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conventional_till_quantity"],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conventional_till_quantity"],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conventional_till_quantity"],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Habitat Management",
+                  "label": "(Acreage Totals)"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conservation_cover_quantity"],
+                    ["get-sum", "critical_area_planting_quantity"],
+                    ["get-sum", "weed_control_quantity"],
+                    ["get-sum", "tree_shrub_quantity"],
+                    ["get-sum", "upland_habitat_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conservation_cover_quantity"],
+                    ["get-sum", "critical_area_planting_quantity"],
+                    ["get-sum", "weed_control_quantity"],
+                    ["get-sum", "tree_shrub_quantity"],
+                    ["get-sum", "upland_habitat_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conservation_cover_quantity"],
+                    ["get-sum", "critical_area_planting_quantity"],
+                    ["get-sum", "weed_control_quantity"],
+                    ["get-sum", "tree_shrub_quantity"],
+                    ["get-sum", "upland_habitat_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "conservation_cover_quantity"],
+                    ["get-sum", "critical_area_planting_quantity"],
+                    ["get-sum", "weed_control_quantity"],
+                    ["get-sum", "tree_shrub_quantity"],
+                    ["get-sum", "upland_habitat_quantity"]
+                  ],
+                  "label": "acres"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Habitat Management",
+                  "label": "(Footage Totals)"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "grassed_waterways_quantity"],
+                    ["get-sum", "hedgerow_planting_quantity"],
+                    ["get-sum", "open_channel_quantity"],
+                    ["get-sum", "fencing_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "grassed_waterways_quantity"],
+                    ["get-sum", "hedgerow_planting_quantity"],
+                    ["get-sum", "open_channel_quantity"],
+                    ["get-sum", "fencing_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "grassed_waterways_quantity"],
+                    ["get-sum", "hedgerow_planting_quantity"],
+                    ["get-sum", "open_channel_quantity"],
+                    ["get-sum", "fencing_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "grassed_waterways_quantity"],
+                    ["get-sum", "hedgerow_planting_quantity"],
+                    ["get-sum", "open_channel_quantity"],
+                    ["get-sum", "fencing_quantity"]
+                  ],
+                  "label": "acres"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Soil Management"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "cover_crop_quantity"],
+                    ["get-sum", "mulching_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "cover_crop_quantity"],
+                    ["get-sum", "mulching_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "cover_crop_quantity"],
+                    ["get-sum", "mulching_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "sum",
+                    ["get-sum", "cover_crop_quantity"],
+                    ["get-sum", "mulching_quantity"]
+                  ],
+                  "label": "acres"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
