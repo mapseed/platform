@@ -25,7 +25,7 @@
     "show_name_in_header": true,
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#a2c7da",
@@ -94,7 +94,7 @@
       },
       {
         "id": "pwi-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-input",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pwi-input",
         "is_visible_default": true,
         "type": "place",
         "slug": "report",
@@ -285,7 +285,7 @@
       },
       {
         "id": "pwi-featured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-featured",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pwi-featured",
         "is_visible_default": true,
         "type": "place",
         "slug": "featured",

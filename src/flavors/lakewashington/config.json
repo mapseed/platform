@@ -4,7 +4,7 @@
     "name": "Our Lake Washington",
     "meta_description": "_(We are looking out to keep Lake Washington healthy for all)",
     "meta_author": "smartercleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
@@ -98,13 +98,13 @@
       },
       {
         "id": "lakewashington",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/lakewashington",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/lakewashington",
         "type": "place",
         "slug": "report"
       },
       {
         "id": "lakewashingtonfeatured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/lakewashingtonfeatured",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/lakewashingtonfeatured",
         "type": "place",
         "slug": "featured"
       },

@@ -4,7 +4,7 @@
     "name": "Passenger Rail",
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
@@ -58,7 +58,7 @@
       },
       {
         "id": "rail",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/rail",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/rail",
         "type": "place",
         "slug": "report"
       }

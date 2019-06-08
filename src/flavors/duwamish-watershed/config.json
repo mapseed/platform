@@ -4,7 +4,7 @@
     "name": "The Green-Duwamish Watershed",
     "meta_description": "_(A free and open source stakeholder map of the Green-Duwamish Watershed (WRIA9))",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "list_enabled": false
   },
   "languages": [
@@ -58,19 +58,19 @@
       },
       {
         "id": "duwamish",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/duwamish",
         "type": "place",
         "slug": "report"
       },
       {
         "id": "trees",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/trees",
         "type": "place",
         "slug": "trees"
       },
       {
         "id": "air",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/air",
         "type": "place",
         "slug": "air"
       },

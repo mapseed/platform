@@ -8,7 +8,7 @@
   "datasets": [
     {
       "slug": "mw",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mw",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +19,7 @@
     },
     {
       "slug": "mwfeatured",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mwfeatured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
@@ -30,7 +30,7 @@
     },
     {
       "slug": "mw-featured-projects",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw-featured-projects",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mw-featured-projects",
       "clientSlug": "project",
       "anonymous_permissions": [
         {
@@ -46,7 +46,7 @@
     "show_name_in_header": true,
     "meta_description": "Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "accent": "#007fbf"
@@ -4346,7 +4346,7 @@
         "<li>Sign in (use the button on the top right)</li>",
         "<li><a href='http://eepurl.com/6IfA5'>Request access</a> to be an administrator.</li>",
         "</ol>",
-        "<em>If you're having trouble signing in send a message to feedback@heyduwamish.org and we'll fix it right away!</em>",
+        "<em>If you're having trouble signing in send a message to feedback@mapseed.org and we'll fix it right away!</em>",
         "<hr>",
         "<h4>Once you've been approved as an admin, you'll have the ability to edit certain sites on the map</h4>",
         "<hr>",

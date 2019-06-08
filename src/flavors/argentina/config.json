@@ -8,7 +8,7 @@
   "datasets": [
     {
       "slug": "argentina-input",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/argentina-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +19,7 @@
     },
     {
       "slug": "argentina-featured",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-featured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/argentina-featured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
@@ -35,7 +35,7 @@
     "show_name_in_header": true,
     "logo": "/static/css/images/TDC.png",
     "meta_description": "We are gathering public input on important issues in the community",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#6BC2D5",

@@ -7,7 +7,7 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsound",
       "slug": "pugetsound",
       "clientSlug": "idea",
       "anonymous_permissions": [
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsoundfeatured",
       "slug": "pugetsoundfeatured",
       "clientSlug": "featured",
       "anonymous_permissions": [
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsoundrose",
       "slug": "pugetsoundrose",
       "clientSlug": "rose",
       "anonymous_permissions": [
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsoundcases",
       "slug": "pugetsoundcases",
       "clientSlug": "cases",
       "anonymous_permissions": [
@@ -58,7 +58,7 @@
     "logo": "/static/css/images/soundkeeper-logo-high-res-small.png",
     "meta_description": "Welcome!",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#007ec0"
@@ -118,7 +118,7 @@
       {
         "id": "pugetsound",
         "is_visible_default": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsound",
         "datasetSlug": "pugetsound",
         "type": "place",
         "slug": "report",
@@ -322,7 +322,7 @@
       },
       {
         "id": "pugetsoundrose",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsoundrose",
         "datasetSlug": "pugetsoundrose",
         "type": "place",
         "slug": "rose",
@@ -349,7 +349,7 @@
       },
       {
         "id": "pugetsoundcases",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsoundcases",
         "datasetSlug": "pugetsoundcases",
         "type": "place",
         "slug": "cases",
@@ -377,7 +377,7 @@
       {
         "id": "pugetsoundfeatured",
         "is_visible_default": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pugetsoundfeatured",
         "datasetSlug": "pugetsoundfeatured",
         "type": "place",
         "slug": "featured",

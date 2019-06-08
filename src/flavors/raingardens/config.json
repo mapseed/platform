@@ -5,7 +5,7 @@
     "name": "12,000 Rain Gardens",
     "meta_description": "_(Washington State University and Stewardship Partners are leading a groundbreaking campaign to install 12,000 rain gardens in the Seattle/Puget Sound Region by 2016. This is the map to track our progress. You can actively participate in this exciting campaign by installing one or more rain gardens in your community. In return you will reduce water pollution, prevent flooding, increase home values, make for beautiful, low-maintenance landscapes, and help your community save millions of dollars in pollution clean-up and expensive stormwater projects.)",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
@@ -49,7 +49,7 @@
       },
       {
         "id": "raingardens",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/raingardens",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/raingardens",
         "type": "place",
         "slug": "place"
       }

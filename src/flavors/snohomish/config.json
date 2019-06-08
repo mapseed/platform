@@ -8,7 +8,7 @@
   "datasets": [
     {
       "slug": "snohomish-input",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/snohomish-input",
       "owner": "smartercleanup",
       "clientSlug": "report",
       "anonymous_permissions": [
@@ -20,7 +20,7 @@
     },
     {
       "slug": "snohomish-featured",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-featured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/snohomish-featured",
       "owner": "smartercleanup",
       "clientSlug": "featured",
       "anonymous_permissions": [
@@ -37,7 +37,7 @@
     "logo": "/static/css/images/scdHorizontal.png",
     "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "list_enabled": false,
     "theme": {
       "brand": {

@@ -4,7 +4,7 @@
     "name": "_(Hull Street Community Garden)",
     "meta_description": "_(Welcome!)",
     "meta_author": "haxgeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "summary_page_header": "_(Over the next few months, we will work with community members and local stakeholders to design a plan for the garden and begin construction soon after.)"
   },
   "languages": [
@@ -68,7 +68,7 @@
         "id": "hull-input",
         "is_visible_default": true,
         "is_topmost_layer": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/hull-input",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/hull-input",
         "type": "place",
         "slug": "report",
         "focus_rules": [
@@ -179,7 +179,7 @@
       {
         "id": "hull-project",
         "is_visible_default": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/hull-project",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/hull-project",
         "type": "place",
         "slug": "project",
         "rules": [
@@ -192,7 +192,7 @@
       },
       {
         "id": "hull-partners",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/hull-partners",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/hull-partners",
         "type": "place",
         "slug": "partners",
         "focus_rules": [

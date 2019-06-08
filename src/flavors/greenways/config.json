@@ -4,7 +4,7 @@
     "name": "Seattle Neighborhood Greenways",
     "meta_description": "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
@@ -49,7 +49,7 @@
       },
       {
         "id": "greenways",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greenways",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/greenways",
         "type": "place",
         "slug": "report"
       },
