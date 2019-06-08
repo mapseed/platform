@@ -4,7 +4,7 @@
     "name": "_(Participatory Budgeting Greensboro)",
     "logo": "/static/css/images/pbgreensboro-logobanner.png",
     "meta_description": "_(Participatory Budgeting for City of Greensboro)",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "district": null,
     "tagline": "_(How would YOU spend $100K?)",
     "show_timestamps": false,
@@ -65,7 +65,7 @@
       },
       {
         "id": "greensboropb",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greensboropb",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/greensboropb",
         "type": "place",
         "slug": "idea",
         "is_visible_default": true,

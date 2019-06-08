@@ -4,7 +4,7 @@
     "name": "_(Williams Ave Community Garden)",
     "meta_description": "_(Welcome!)",
     "meta_author": "haxgeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "summary_page_header": "_(Over the next few months, we will work with community members and local stakeholders to design a plan for the garden and begin construction soon after.)",
     "theme": {
       "text": {
@@ -79,7 +79,7 @@
         "id": "williams-input",
         "is_visible_default": true,
         "is_topmost_layer": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-input",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/williams-input",
         "type": "place",
         "slug": "report",
         "focus_rules": [
@@ -190,7 +190,7 @@
       {
         "id": "williams-project",
         "is_visible_default": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-project",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/williams-project",
         "type": "place",
         "slug": "project",
         "rules": [
@@ -203,7 +203,7 @@
       },
       {
         "id": "williams-partners",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-partners",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/williams-partners",
         "type": "place",
         "slug": "partners",
         "focus_rules": [

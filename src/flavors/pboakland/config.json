@@ -5,7 +5,7 @@
     "logo": "/static/css/images/pblogo_large.png",
     "meta_description": "_(Welcome! Participatory Budgeting Oakland is an innovative democratic process that gives Oakland residents in City Council Districts 1 and 2 the power to decide how to spend city funds in their district. Help us vote now!)",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "show_timestamps": false,
     "theme": {
       "bg": {
@@ -81,7 +81,7 @@
       },
       {
         "id": "pboakland-featured-2017",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland-featured-2017",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pboakland-featured-2017",
         "is_visible_default": true,
         "is_topmost_layer": true,
         "type": "place",
@@ -107,7 +107,7 @@
       },
       {
         "id": "pboakland",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pboakland",
         "is_visible_default": true,
         "type": "place",
         "slug": "idea",

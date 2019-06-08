@@ -8,7 +8,7 @@
   "datasets": [
     {
       "slug": "demo",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/demo",
       "clientSlug": "demo",
       "anonymous_permissions": [
         {
@@ -19,7 +19,7 @@
     },
     {
       "slug": "demo-featured",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo-featured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/demo-featured",
       "clientSlug": "demo-featured",
       "anonymous_permissions": [
         {
@@ -35,7 +35,7 @@
     "show_name_in_header": true,
     "meta_description": "Welcome!",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "dataset_download": {
       "slug": "demo",
       "owner": "smartercleanup"

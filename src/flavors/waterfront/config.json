@@ -4,7 +4,7 @@
     "name": "Which Georgetown waterfront?",
     "meta_description": "_(The Georgetown Community Council, King County and the City of Seattle are interested in jointly pursuing a King County WaterWorks grant to design for better community access to the river and less polluted stormwater runoff in the Georgetown neighborhood.)",
     "meta_author": "smartercleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
@@ -87,7 +87,7 @@
       },
       {
         "id": "waterfront",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/waterfront",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/waterfront",
         "type": "place",
         "slug": "report"
       }

@@ -7,7 +7,7 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/palouse-input",
       "slug": "palouse-input",
       "clientSlug": "report",
       "anonymous_permissions": [
@@ -24,7 +24,7 @@
     "logo": "/static/css/images/whitman-vsp-logo-large.png",
     "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {

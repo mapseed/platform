@@ -7,7 +7,7 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/kittitas-vsp-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/kittitas-vsp-input",
       "slug": "kittitas-vsp-input",
       "clientSlug": "report",
       "anonymous_permissions": [
@@ -24,7 +24,7 @@
     "logo": "/static/css/images/logo.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {

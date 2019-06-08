@@ -6,7 +6,7 @@
     "show_name_in_header": true,
     "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#e57c04",
@@ -137,7 +137,7 @@
       },
       {
         "id": "transportation-demo-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/transportation-demo",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/transportation-demo",
         "is_visible_default": true,
         "type": "place",
         "slug": "report",

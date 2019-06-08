@@ -13,7 +13,7 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham",
       "slug": "pbdurham",
       "owner": "smartercleanup",
       "clientSlug": "idea",
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
       "owner": "smartercleanup",
       "clientSlug": "project",
@@ -46,7 +46,7 @@
     "name": "Participatory Budgeting Durham",
     "logo": "/static/css/images/pbdurham-logo-large.png",
     "meta_description": "Participatory Budgeting for City of Durham",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "time_zone": "America/New_York",
     "isShowingMobileUserMenu": true,
     "theme": {

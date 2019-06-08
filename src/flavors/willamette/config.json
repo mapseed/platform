@@ -2,7 +2,7 @@
   "datasets": [
     {
       "slug": "willamette",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/willamette",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/willamette",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -18,7 +18,7 @@
     "logo": "/static/css/images/site-title_hey-willamette.png",
     "meta_description": "_(We are gathering public input on important issues in the community)",
     "meta_author": "smartercleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
