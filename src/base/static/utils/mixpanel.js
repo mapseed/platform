@@ -5,6 +5,7 @@ const env_check = process.env.NODE_ENV === "production";
 // const env_check = true;
 
 if (env_check && !MIXPANEL_TOKEN) {
+  // eslint-disable-next-line no-console
   console.error("MIXPANEL_TOKEN is required for prod deployments.");
 }
 mixpanel.init(MIXPANEL_TOKEN);
