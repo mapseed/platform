@@ -1,12 +1,13 @@
 import mixpanel from "mixpanel-browser";
-const env_check = process.env.NODE_ENV === "production" && MIXPANEL_TOKEN;
+const env_check = process.env.NODE_ENV === "production";
 
 // For testing:
 // const env_check = true;
 
-if (env_check) {
-  mixpanel.init(MIXPANEL_TOKEN);
+if (env_check && !MIXPANEL_TOKEN) {
+  console.error("MIXPANEL_TOKEN is required for prod deployments.");
 }
+mixpanel.init(MIXPANEL_TOKEN);
 
 const actions = {
   identify: id => {
