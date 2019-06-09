@@ -53,6 +53,7 @@
     {
       "header": "Whitman County Voluntary Stewardship Program",
       "isExportable": true,
+      "backgroundColor": "#f5f3f0",
       "datasetSlug": "palouse-input",
       "widgets": [
         {
@@ -107,8 +108,9 @@
         {
           "header": "Overview by Stewardship Category",
           "type": "fixedTable",
+          "stripeColor": "rgb(255, 248, 234)",
           "layout": {
-            "start": 1,
+            "start": 6,
             "end": 13
           },
           "columns": [

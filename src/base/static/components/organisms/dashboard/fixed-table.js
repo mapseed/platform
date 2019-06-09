@@ -2,6 +2,11 @@
 import React, { Component } from "react";
 import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 
 import makeParsedExpression from "../../../utils/expression/parse.tsx";
 import ChartWrapper from "./chart-wrapper";
@@ -13,7 +18,7 @@ const getFixedTableData = ({ places, widget }) => {
     }
   });
 
-  const fixedTableData = widget.rows.map(row => {
+  const fixedTableRows = widget.rows.map(row => {
     return row.cells.map((cell, i) => {
       const dataset = places.filter(place => {
         if (!columnFilters[i]) {
@@ -23,28 +28,46 @@ const getFixedTableData = ({ places, widget }) => {
         }
       });
 
-      return makeParsedExpression(cell.value).evaluate({ dataset });
+      return {
+        value: makeParsedExpression(cell.value).evaluate({ dataset }),
+        label: cell.label,
+        type: widget.columns[i].type || "string",
+      };
     });
   });
 
-  console.log("fixedTableData", fixedTableData);
-
-  return {};
-
-  /*
- * {
- *    headers: ["foo", "bar", "baz],
- *    rows: [[12, 34], [1, 55], [3, 52]]
- * }
- *
- */
+  return {
+    headers: widget.columns.map(column => column.header),
+    rows: fixedTableRows,
+  };
 };
 
 class FixedTable extends Component {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        O HAI IM UR FIXED TABLE
+        <Table>
+          <TableHead>
+            <TableRow>
+              {this.props.data.headers.map(header => (
+                <TableCell key={header}>{header}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.props.data.rows.map((row, i) => {
+              return (
+                <TableRow key={i}>
+                  {row.map(cell => (
+                    <TableCell component="th" scope="row">
+                      {cell.value} {cell.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
       </ChartWrapper>
     );
   }
