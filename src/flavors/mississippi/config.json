@@ -8,7 +8,7 @@
   "datasets": [
     {
       "slug": "mississippi-input",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mississippi-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -24,7 +24,7 @@
     "show_name_in_header": true,
     "logo": "/static/css/images/Logo2.png",
     "meta_description": "This map is dedicated to all the imhabitants of Cascadia, of every race and species",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#175f54",
