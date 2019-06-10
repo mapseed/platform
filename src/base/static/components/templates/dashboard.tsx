@@ -55,6 +55,7 @@ import {
   FixedTable,
   getFixedTableData,
 } from "../organisms/dashboard/fixed-table";
+import { FreeTable, getFreeTableData } from "../organisms/dashboard/free-table";
 
 import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
@@ -79,6 +80,10 @@ const widgetRegistry = {
   fixedTable: {
     component: FixedTable,
     getData: getFixedTableData,
+  },
+  freeTable: {
+    component: FreeTable,
+    getData: getFreeTableData,
   },
 };
 
@@ -111,7 +116,8 @@ class Dashboard extends React.Component {
           overflow: auto;
           width: 100%;
           height: calc(100% - ${constants.HEADER_HEIGHT}px);
-          background-color: ${this.state.dashboard.backgroundColor || "#ece6e6"};
+          background-color: ${this.state.dashboard.backgroundColor ||
+            "#ece6e6"};
 
           &::-webkit-scrollbar {
             width: 0;
@@ -143,7 +149,7 @@ class Dashboard extends React.Component {
                 align-items: center;
               `}
             >
-              {this.props.dashboardConfig.length > 0 && (
+              {this.props.dashboardConfig.length > 1 && (
                 <div>
                   <Button
                     variant="badge"

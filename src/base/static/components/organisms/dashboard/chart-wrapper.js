@@ -32,7 +32,14 @@ class ChartWrapper extends React.Component {
             {this.props.header}
           </div>
         )}
-        {this.props.children}
+        <div
+          css={css`
+            width: 100%;
+            height: calc(100% - 66px);
+          `}
+        >
+          {this.props.children}
+        </div>
       </div>
     );
   }

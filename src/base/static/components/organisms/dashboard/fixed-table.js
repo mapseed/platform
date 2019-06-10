@@ -58,8 +58,8 @@ class FixedTable extends Component {
             {this.props.data.rows.map((row, i) => {
               return (
                 <TableRow key={i}>
-                  {row.map(cell => (
-                    <TableCell component="th" scope="row">
+                  {row.map((cell, i) => (
+                    <TableCell key={i} component="th" scope="row">
                       {cell.value} {cell.label}
                     </TableCell>
                   ))}

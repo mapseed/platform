@@ -16,6 +16,7 @@ import {
   GetDatasetCount,
 } from "./lookup.tsx";
 import { Sum, Mean, Max, Min } from "./aggregation.tsx";
+import Cat from "./catenation.tsx";
 
 export default {
   "==": Equals,
@@ -35,4 +36,5 @@ export default {
   mean: Mean,
   max: Max,
   min: Min,
+  cat: Cat,
 };
