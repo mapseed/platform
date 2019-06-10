@@ -121,7 +121,7 @@
             },
             {
               "header": "Submitted report on",
-              "type": "datetime",
+              "type": "date",
               "value": ["get-val", "created_datetime"]
             },
             {

@@ -22,6 +22,7 @@ const getFreeTableData = ({ places, widget }) => {
   const freeTableColumns = widget.columns.map(column => ({
     label: column.header,
     dataKey: column.header,
+    type: column.type,
   }));
 
   return {
@@ -42,9 +43,28 @@ class FreeTable extends Component {
       <TableCell
         component="div"
         variant="body"
-        style={{ height: rowHeight, flex: 1 }}
+        style={{ height: rowHeight, flex: 1, wordWrap: "wrap-all" }}
       >
-        {cellData}
+        {Array.isArray(cellData) ? (
+          cellData.map((cell, i) => (
+            <p
+              css={css`
+                margin: 0;
+              `}
+              key={i}
+            >
+              {cell}
+            </p>
+          ))
+        ) : (
+          <p
+            css={css`
+              margin: 0;
+            `}
+          >
+            {cellData}
+          </p>
+        )}
       </TableCell>
     );
   };
@@ -60,6 +80,22 @@ class FreeTable extends Component {
       </TableCell>
     );
   };
+
+  getWidthByType(type) {
+    // These widths are pretty arbitrary...
+    switch (type) {
+      case "string":
+        return 250;
+      case "boolean":
+        return 50;
+      case "date":
+        return 150;
+      case "numeric":
+        return 150;
+      default:
+        return 250;
+    }
+  }
 
   render() {
     const { classes, ...tableProps } = this.props;
@@ -77,24 +113,32 @@ class FreeTable extends Component {
                 columns={this.props.data.columns}
                 rowStyle={{ display: "flex" }}
               >
-                {this.props.data.columns.map(({ dataKey, ...other }, index) => {
-                  return (
-                    <Column
-                      key={dataKey}
-                      width={200}
-                      headerRenderer={headerProps =>
-                        this.headerRenderer({
-                          ...headerProps,
-                          columnIndex: index,
-                        })
-                      }
-                      style={{ display: "flex" }}
-                      cellRenderer={this.cellRenderer}
-                      dataKey={dataKey}
-                      {...other}
-                    />
-                  );
-                })}
+                {this.props.data.columns.map(
+                  ({ dataKey, type, ...other }, index) => {
+                    return (
+                      <AutoSizer>
+                        {({ width }) => {
+                          return (
+                            <Column
+                              key={dataKey}
+                              width={width}
+                              headerRenderer={headerProps =>
+                                this.headerRenderer({
+                                  ...headerProps,
+                                  columnIndex: index,
+                                })
+                              }
+                              style={{ display: "flex" }}
+                              cellRenderer={this.cellRenderer}
+                              dataKey={dataKey}
+                              {...other}
+                            />
+                          );
+                        }}
+                      </AutoSizer>
+                    );
+                  },
+                )}
               </Table>
             );
           }}
