@@ -56,7 +56,6 @@ const ContentPanelInnerContainer = styled("div")(props => ({
   }px 15px`,
   boxSizing: "border-box",
   scrollbarWidth: "none",
-  "-ms-overflow-style": "none",
 
   "::-webkit-scrollbar": {
     width: 0,
