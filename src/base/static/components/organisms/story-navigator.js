@@ -4,21 +4,16 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter } from "react-router-dom";
 
-import { storyConfigSelector } from "../../state/ducks/story-config";
-import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
-  placesPropType,
-  placesLoadStatusSelector,
-} from "../../state/ducks/places";
+  storyConfigSelector,
+  storyConfigPropType,
+} from "../../state/ducks/story-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
+import { placesPropType } from "../../state/ducks/places";
 import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
-
-import { hydrateStoriesFromConfig } from "../../utils/story-utils";
-import Immutable from "immutable";
-import Spinner from "react-spinner";
 
 import StoryChapter from "../molecules/story-chapter";
 import { TinyTitle, Paragraph } from "../atoms/typography";
-import constants from "../../constants";
 
 import { translate } from "react-i18next";
 
@@ -30,156 +25,76 @@ const StoryTitle = styled(TinyTitle)({
 });
 
 class StoryNavigator extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentStory: Immutable.Map(),
-      currentPlaceId: null,
-      isStoryDataReady: false,
-      isWithError: false,
-    };
-
-    this.stories = [];
-  }
+  state = {
+    currentPlaceId: null, // number
+  };
 
   componentDidMount() {
-    this.checkForStoryChapter(this.props.history.location.pathname);
-    this.unlisten = this.props.history.listen(location => {
-      this.checkForStoryChapter(location.pathname);
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.placesLoadStatus !== "loaded" &&
-      this.props.placesLoadStatus === "loaded"
-    ) {
-      // TODO(luke): implement hydrateStoriesFromConfig here
-      this.stories = hydrateStoriesFromConfig({
-        places: this.props.places,
-        storyConfig: this.props.storyConfig,
+    const placeId = parseInt(
+      this.props.history.location.pathname.split("/")[2],
+    );
+    if (placeId) {
+      this.setState({
+        currentPlaceId: placeId,
       });
-
-      const placeId = parseInt(this.props.location.pathname.split("/")[2]);
-      placeId && this.props.updateUIVisibility("rightSidebar", true);
-      this.setState(this.getCurrentStoryState(placeId, false));
     }
+    // TODO: instead of parsing and listening to the url, we should be reading
+    // the "currentPlaceId" from redux
+    this.unlisten = this.props.history.listen(location => {
+      const placeId = parseInt(location.pathname.split("/")[2]);
+      if (placeId) {
+        this.setState({
+          currentPlaceId: placeId,
+        });
+      }
+    });
   }
 
   componentWillUnmount() {
     this.unlisten();
   }
 
-  checkForStoryChapter(pathname) {
-    const currentStoryState = this.getCurrentStoryState(pathname.split("/")[2]);
-
-    if (currentStoryState) {
-      this.setState(currentStoryState);
-      currentStoryState.currentStory &&
-        this.props.updateUIVisibility("rightSidebar", true);
-    }
-  }
-
-  getCurrentStoryState(placeId, isInitialized = true) {
-    placeId = parseInt(placeId);
-
-    const currentStory = this.stories.find(story => {
-      return story.get("chapters").get(placeId);
-    });
-
-    if (currentStory) {
-      return {
-        currentStory: currentStory,
-        currentPlaceId: placeId,
-        isStoryDataReady: true,
-      };
-    } else if (!isInitialized) {
-      return {
-        currentStory: this.stories.valueSeq().first(),
-        isStoryDataReady: true,
-      };
-    } else {
-      return {
-        currentPlaceId: placeId,
-        isStoryDataReady: true,
-      };
-    }
-  }
-
-  getIconUrl(chapter) {
-    // If the story chapter has an icon url defined, use that.
-    if (chapter.get("sidebarIconUrl")) {
-      return chapter.get("sidebarIconUrl");
-    }
-
-    // If the story chapter has a style object with an icon url defined, use
-    // that.
-    if (
-      chapter.get(constants.GEOMETRY_STYLE_PROPERTY_NAME) &&
-      chapter
-        .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-        .get(constants.ICON_URL_PROPERTY_NAME)
-    ) {
-      return chapter
-        .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-        .get(constants.ICON_URL_PROPERTY_NAME);
-    }
-
-    // Otherwise, use the icon url defined in the category config.
-    return this.props.placeConfig.place_detail.find(
-      config =>
-        config.category === chapter.get(constants.LOCATION_TYPE_PROPERTY_NAME),
-    ).icon_url;
-  }
-
-  getTitle(chapter) {
-    // This is an unfortunate series of checks, but needed at the moment.
-    // TODO: We should revisit why this is necessary in the first place and see
-    // if we can refactor.
-    return (
-      chapter.get(constants.FULL_TITLE_PROPERTY_NAME) ||
-      chapter.get(constants.TITLE_PROPERTY_NAME) ||
-      chapter.get(constants.NAME_PROPERTY_NAME) ||
-      ""
-    );
-  }
-
   render() {
+    // The currentStory is defined as the first story corresponding to the place
+    // in the detail view, OR it's the first story in the storyConfig
+    const currentStory =
+      this.props.storyConfig.find(story => {
+        return story.chapters.find(
+          chapter => chapter.placeId === this.state.currentPlaceId,
+        );
+      }) || this.props.storyConfig[0];
+
     return (
       <div className="story-navigator">
-        {this.state.currentStory.get("header") && (
-          <StoryTitle>{this.state.currentStory.get("header")}</StoryTitle>
-        )}
-        {this.state.currentStory.get("description") && (
-          <Paragraph className="story-navigator__description">
-            {this.state.currentStory.get("description")}
-          </Paragraph>
-        )}
+        {currentStory &&
+          currentStory.header && <StoryTitle>{currentStory.header}</StoryTitle>}
+        {currentStory &&
+          currentStory.description && (
+            <Paragraph className="story-navigator__description">
+              {currentStory.description}
+            </Paragraph>
+          )}
         <hr />
-        {this.state.currentStory.get("chapters") &&
-          this.state.currentStory
-            .get("chapters")
-            .map((chapter, route) => {
-              return (
-                <StoryChapter
-                  key={route}
-                  title={this.getTitle(chapter)}
-                  iconUrl={this.getIconUrl(chapter, route)}
-                  isSelected={this.state.currentPlaceId === chapter.get("id")}
-                  placeUrl={`${chapter.get("clientSlug")}/${chapter.get("id")}`}
-                />
-              );
-            })
-            .toArray()}
-        {!this.state.isStoryDataReady &&
-          !this.state.isWithError &&
-          this.props.isRightSidebarVisible && <Spinner />}
-        {this.state.isWithError && (
-          <Paragraph className="story-navigator__error-msg">
-            {this.props.t("errorMsg")}
-          </Paragraph>
-        )}
+        {currentStory &&
+          currentStory.chapters.map(chapter => {
+            const place = this.props.places.find(
+              place => place.id === chapter.placeId,
+            );
+            return (
+              <StoryChapter
+                key={chapter.placeId}
+                title={place.title}
+                iconUrl={
+                  chapter.iconUrl ||
+                  this.props.placeConfig.place_detail.find(
+                    config => config.category === place.location_type,
+                  ).icon_url
+                }
+                isSelected={this.state.currentPlaceId === chapter.placeId}
+                placeUrl={`${place.clientSlug}/${chapter.placeId}`}
+              />
+            );
+          })}
       </div>
     );
   }
@@ -189,19 +104,17 @@ StoryNavigator.propTypes = {
   history: PropTypes.object.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  storyConfig: PropTypes.object.isRequired,
+  storyConfig: storyConfigPropType,
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }).isRequired,
   places: placesPropType.isRequired,
-  placesLoadStatus: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
-  placesLoadStatus: placesLoadStatusSelector(state),
   storyConfig: storyConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });

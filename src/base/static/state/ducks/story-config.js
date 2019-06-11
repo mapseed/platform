@@ -1,6 +1,28 @@
 import PropTypes from "prop-types";
 // PropType
-export const storyConfigPropType = PropTypes.object;
+
+export const storyChaptersPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    placeId: PropTypes.string.isRequired,
+    zoom: PropTypes.number.isRequired,
+    hasCustomZoom: PropTypes.bool.isRequired,
+    panTo: PropTypes.string,
+    visibleLaygerGroupIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+    previous: PropTypes.string.isRequired,
+    next: PropTypes.string.isRequired,
+    spotlight: PropTypes.bool.isRequired,
+    sidebarIconUrl: PropTypes.string,
+  }).isRequired,
+).isRequired;
+
+export const storyConfigPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    name: PropTypes.string,
+    header: PropTypes.string,
+    description: PropTypes.string,
+    chapters: storyChaptersPropType,
+  }),
+);
 
 // Selectors:
 export const storyConfigSelector = state => {
@@ -13,8 +35,8 @@ export const storyChaptersSelector = state => state.storyConfig.chapters;
 const LOAD = "story-config/LOAD";
 
 // Action creators:
-export function loadStoryConfig(config = {}) {
-  const chapters = Object.values(config).reduce((flat, toFlatten) => {
+export function loadStoryConfig(config = []) {
+  const chapters = config.reduce((flat, toFlatten) => {
     return flat.concat(toFlatten.chapters);
   }, []);
 

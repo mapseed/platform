@@ -2,34 +2,31 @@
 
 // Transform the story section of the config to build the data structure we
 // need for story navigation.
-const transformStoryContent = storyConfig => {
-  if (!storyConfig) return;
-  return Object.entries(storyConfig).reduce(
-    (stories, [storyName, storyContent]) => {
-      const numChapters = storyContent.order.length;
-      stories[storyName] = {
-        header: storyContent.header,
-        description: storyContent.description,
-        chapters: storyContent.order.map((chapter, i) => {
+const transformStoryContent = (storyConfig = []) => {
+  return storyConfig.map(
+    story => {
+      const numChapters = story.order.length;
+      return {
+        header: story.header,
+        name: story.name,
+        description: story.description,
+        chapters: story.order.map((chapter, i) => {
           return {
             placeId: chapter.placeId,
-            zoom: chapter.zoom || storyContent.default_zoom,
+            zoom: chapter.zoom || story.default_zoom,
             hasCustomZoom: !!chapter.zoom,
             panTo: chapter.pan_to || null,
             visibleLayerGroupIds:
-              chapter.visibleLayerGroupIds || storyContent.visibleLayerGroupIds,
-            previous:
-              storyContent.order[(i - 1 + numChapters) % numChapters].url,
-            next: storyContent.order[(i + 1) % numChapters].url,
+              chapter.visibleLayerGroupIds || story.visibleLayerGroupIds,
+            previous: story.order[(i - 1 + numChapters) % numChapters].url,
+            next: story.order[(i + 1) % numChapters].url,
             spotlight: chapter.spotlight === false ? false : true,
             sidebarIconUrl: chapter.sidebar_icon_url,
           };
         }),
       };
 
-      return stories;
     },
-    {},
   );
 };
 
