@@ -22,8 +22,6 @@ export default {
 
   LOCATION_TYPE_PROPERTY_NAME: "location_type",
   TITLE_PROPERTY_NAME: "title",
-  FULL_TITLE_PROPERTY_NAME: "fullTitle",
-  NAME_PROPERTY_NAME: "name",
   SUBMITTER_NAME: "submitter_name",
   SUBMITTER: "submitter",
   USER_TOKEN_PROPERTY_NAME: "user_token",

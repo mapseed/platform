@@ -85,11 +85,7 @@ const RightSidebar = props => {
           )}
         </Button>
         {props.rightSidebarConfig.component === "StoryNavigator" && (
-          <StoryNavigator
-            storyConfig={props.storyConfig}
-            placeConfig={props.placeConfig}
-            places={props.places}
-          />
+          <StoryNavigator places={props.places} />
         )}
         {props.rightSidebarConfig.component === "MapLegendPanel" && (
           <MapLegendPanel config={props.rightSidebarConfig} />
@@ -112,10 +108,6 @@ RightSidebar.propTypes = {
   isRightSidebarVisible: PropTypes.bool.isRequired,
   places: placesPropType,
   rightSidebarConfig: rightSidebarConfigPropType.isRequired,
-  storyConfig: PropTypes.object,
-  placeConfig: PropTypes.shape({
-    place_detail: PropTypes.array.isRequired,
-  }),
   updateRightSidebarVisibility: PropTypes.func.isRequired,
 };
 

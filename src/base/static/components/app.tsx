@@ -74,6 +74,7 @@ import { appConfigSelector } from "../state/ducks/app-config";
 import {
   loadStoryConfig,
   storyChaptersSelector,
+  storyChaptersPropType,
   storyConfigPropType,
   storyConfigSelector,
 } from "../state/ducks/story-config";
@@ -124,8 +125,7 @@ const statePropTypes = {
   hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   layout: PropTypes.string.isRequired,
-  // TODO: shape of this:
-  storyChapters: PropTypes.array.isRequired,
+  storyChapters: storyChaptersPropType,
   storyConfig: storyConfigPropType,
   // TODO: shape of this:
   pageExists: PropTypes.func.isRequired,
@@ -760,8 +760,8 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
-  loadPlaces: (places, storyConfig) =>
-    dispatch(loadPlaces(places, storyConfig)),
+  loadPlaces: (places, storyChapters) =>
+    dispatch(loadPlaces(places, storyChapters)),
   updateLayout: () => dispatch(updateLayout()),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
