@@ -105,20 +105,17 @@ export function updateFocusedPlaceId(placeId) {
   };
 }
 
-const ensureSubmissionSetsAndStory = (place, storyChapters = []) => ({
+const ensureSubmissionSetsAndStory = place => ({
   ...place,
   submission_sets: {
     ...place.submission_sets,
     support: place.submission_sets.support || [],
     comments: place.submission_sets.comments || [],
   },
-  story: storyChapters.find(chapter => chapter.placeId === place.id) || null,
 });
 
-export function loadPlaces(places, storyChapters) {
-  places = places.map(place =>
-    ensureSubmissionSetsAndStory(place, storyChapters),
-  );
+export function loadPlaces(places) {
+  places = places.map(place => ensureSubmissionSetsAndStory(place));
 
   return { type: LOAD_PLACES, payload: places };
 }

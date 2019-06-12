@@ -34,6 +34,10 @@ import {
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
+  featuredPlacesSelector,
+  featuredPlacesPropType,
+} from "../../state/ducks/featured-places-config";
+import {
   mapConfigSelector,
   mapConfigPropType,
 } from "../../state/ducks/map-config";
@@ -123,7 +127,9 @@ class PlaceDetail extends Component {
   }
 
   updateMapViewport() {
-    const story = this.props.focusedPlace.story;
+    const story = this.props.featuredPlaces.find(featuredPlace => {
+      return featuredPlace.placeId === this.props.focusedPlace.id;
+    });
     if (story) {
       // Set layers for this story chapter.
       story.visibleLayerGroupIds.forEach(layerGroupId =>
@@ -399,6 +405,7 @@ PlaceDetail.propTypes = {
   currentUser: userPropType,
   customComponents: PropTypes.object.isRequired,
   focusedPlace: placePropType,
+  featuredPlaces: featuredPlacesPropType,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
@@ -436,6 +443,7 @@ const mapStateToProps = state => ({
   currentUser: userSelector(state),
   customComponents: customComponentsConfigSelector(state),
   focusedPlace: focusedPlaceSelector(state),
+  featuredPlaces: featuredPlacesSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
     hasGroupAbilitiesInDatasets({

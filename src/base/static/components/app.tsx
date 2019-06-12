@@ -73,8 +73,6 @@ import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
 import {
   loadFeaturedPlacesConfig,
-  featuredPlacesSelector,
-  featuredPlacesPropType,
   featuredPlacesConfigPropType,
   featuredPlacesConfigSelector,
 } from "../state/ducks/featured-places-config";
@@ -125,7 +123,6 @@ const statePropTypes = {
   hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   layout: PropTypes.string.isRequired,
-  featuredPlaces: featuredPlacesPropType,
   featuredPlacesConfig: featuredPlacesConfigPropType,
   // TODO: shape of this:
   pageExists: PropTypes.func.isRequired,
@@ -452,7 +449,7 @@ class App extends Component<Props, State> {
           response.forEach(async placePagePromise => {
             allPlacePagePromises.push(placePagePromise);
             const pageData = await placePagePromise;
-            this.props.loadPlaces(pageData, this.props.featuredPlaces);
+            this.props.loadPlaces(pageData);
 
             // Update the map.
             this.props.createFeaturesInGeoJSONSource(
@@ -754,7 +751,6 @@ const mapStateToProps = (
   layout: layoutSelector(state),
   pageExists: slug => pageExistsSelector({ state, slug }),
   featuredPlacesConfig: featuredPlacesConfigSelector(state),
-  featuredPlaces: featuredPlacesSelector(state),
   ...ownProps,
 });
 
@@ -762,8 +758,8 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
-  loadPlaces: (places, featuredPlaces) =>
-    dispatch(loadPlaces(places, featuredPlaces)),
+  loadPlaces: (places) =>
+    dispatch(loadPlaces(places)),
   updateLayout: () => dispatch(updateLayout()),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
