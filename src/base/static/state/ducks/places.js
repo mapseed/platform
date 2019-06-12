@@ -105,7 +105,7 @@ export function updateFocusedPlaceId(placeId) {
   };
 }
 
-const ensureSubmissionSetsAndStory = place => ({
+const mapPlaceWithSubmissionSets = place => ({
   ...place,
   submission_sets: {
     ...place.submission_sets,
@@ -115,7 +115,7 @@ const ensureSubmissionSetsAndStory = place => ({
 });
 
 export function loadPlaces(places) {
-  places = places.map(place => ensureSubmissionSetsAndStory(place));
+  places = places.map(place => mapPlaceWithSubmissionSets(place));
 
   return { type: LOAD_PLACES, payload: places };
 }
@@ -123,7 +123,7 @@ export function loadPlaces(places) {
 export function loadPlaceAndSetIgnoreFlag(placeModel) {
   return {
     type: LOAD_PLACE_AND_SET_IGNORE_FLAG,
-    payload: ensureSubmissionSetsAndStory(placeModel),
+    payload: mapPlaceWithSubmissionSets(placeModel),
   };
 }
 
