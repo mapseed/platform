@@ -1292,8 +1292,7 @@
       ]
     }
   ],
-  "story": {
-    "example": {
+  "featuredPlaces": {
       "tagline": "Next featured site",
       "header": "Story Number One",
       "description": "This is the first of two stories. I hope you like it!",
@@ -1307,6 +1306,5 @@
           "zoom": 10
         }
       ]
-    }
   }
 }

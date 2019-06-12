@@ -4419,8 +4419,7 @@
       ]
     }
   ],
-  "story": {
-    "watersheds": {
+  "featuredPlaces": {
       "header": "Example projects",
       "default_zoom": 18,
       "visibleLayerGroupIds": [
@@ -4465,7 +4464,6 @@
           "zoom": 18
         }
       ]
-    }
   },
   "cluster": {
     "animate": true,

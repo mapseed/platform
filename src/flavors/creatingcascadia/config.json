@@ -661,21 +661,19 @@
       ]
     }
   ],
-  "story": {
-    "curated-collections": {
-      "header": "Curated Collections",
-      "visibleLayerGroupIds": [
-        "topography-landscape-streets",
-        "creatingcascadia-input"
-      ],
-      "order": [
-        {
-          "placeId": 7124
-        },
-        {
-          "placeId": 7126
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "header": "Curated Collections",
+    "visibleLayerGroupIds": [
+      "topography-landscape-streets",
+      "creatingcascadia-input"
+    ],
+    "order": [
+      {
+        "placeId": 7124
+      },
+      {
+        "placeId": 7126
+      }
+    ]
   }
 }
