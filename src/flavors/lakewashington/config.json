@@ -12,12 +12,7 @@
     "cartodb_enabled": true,
     "geocoding_enabled": false,
     "geocode_field_label": "_(Enter an address...)",
-    "geocode_bounding_box": [
-      39.830159,
-      -75.478821,
-      40.167331,
-      -74.781189
-    ],
+    "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
       "center": {
         "lat": 47.75121,
@@ -120,40 +115,22 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            50,
-            50
-          ],
-          "iconAnchor": [
-            25,
-            25
-          ]
+          "iconSize": [50, 50],
+          "iconAnchor": [25, 25]
         }
       },
       {
         "condition": "this.map.zoom < 16",
         "icon": {
-          "iconSize": [
-            20,
-            20
-          ],
-          "iconAnchor": [
-            10,
-            10
-          ]
+          "iconSize": [20, 20],
+          "iconAnchor": [10, 10]
         }
       },
       {
         "condition": "this.map.zoom >= 16",
         "icon": {
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ]
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15]
         }
       }
     ],
@@ -165,64 +142,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -235,64 +182,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -305,64 +222,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -375,64 +262,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -475,36 +332,18 @@
           "condition": "this.geometry.type == \"Point\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         },
         {
           "condition": "this.geometry.type == \"Point\" && this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         }
       ]
@@ -1074,79 +913,70 @@
     "on_new_place": true,
     "submitter_email_field": "private-submitter_email"
   },
-  "story": {
-    "priorities": {
-      "tagline": "_(Next featured site)",
-      "default_zoom": 17,
-      "default_basemap": "satellite",
-      "default_visible_layers": [
-        "lakewashington",
-        "lakewashingtonfeatured"
-      ],
-      "order": [
-        {
-          "url": "lakepointe",
-          "spotlight": false
-        },
-        {
-          "url": "littlecreek",
-          "spotlight": false
-        },
-        {
-          "url": "kenmore-channel",
-          "spotlight": false
-        },
-        {
-          "url": "swampcreek",
-          "basemap": "light",
-          "zoom": 13,
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png",
-          "visible_layers": [
-            "swamp-creek"
-          ]
-        },
-        {
-          "url": "toxic-fish",
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
-        },
-        {
-          "url": "calportland-cemex",
-          "spotlight": false
-        },
-        {
-          "url": "portage-bay",
-          "spotlight": false
-        },
-        {
-          "url": "shelton-forest",
-          "spotlight": false
-        },
-        {
-          "url": "ballfield",
-          "spotlight": true,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
-        },
-        {
-          "url": "sammamish-river",
-          "zoom": 12,
-          "visible_layers": [
-            "watershed-sammamish"
-          ],
-          "spotlight": false,
-          "basemap": "light"
-        },
-        {
-          "url": "algae",
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
-        },
-        {
-          "url": "squires-landing",
-          "spotlight": true
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "tagline": "_(Next featured site)",
+    "default_zoom": 17,
+    "default_basemap": "satellite",
+    "default_visible_layers": ["lakewashington", "lakewashingtonfeatured"],
+    "order": [
+      {
+        "url": "lakepointe",
+        "spotlight": false
+      },
+      {
+        "url": "littlecreek",
+        "spotlight": false
+      },
+      {
+        "url": "kenmore-channel",
+        "spotlight": false
+      },
+      {
+        "url": "swampcreek",
+        "basemap": "light",
+        "zoom": 13,
+        "spotlight": false,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png",
+        "visible_layers": ["swamp-creek"]
+      },
+      {
+        "url": "toxic-fish",
+        "spotlight": false,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+      },
+      {
+        "url": "calportland-cemex",
+        "spotlight": false
+      },
+      {
+        "url": "portage-bay",
+        "spotlight": false
+      },
+      {
+        "url": "shelton-forest",
+        "spotlight": false
+      },
+      {
+        "url": "ballfield",
+        "spotlight": true,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+      },
+      {
+        "url": "sammamish-river",
+        "zoom": 12,
+        "visible_layers": ["watershed-sammamish"],
+        "spotlight": false,
+        "basemap": "light"
+      },
+      {
+        "url": "algae",
+        "spotlight": false,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+      },
+      {
+        "url": "squires-landing",
+        "spotlight": true
+      }
+    ]
   }
 }
