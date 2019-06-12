@@ -127,32 +127,33 @@ class PlaceDetail extends Component {
   }
 
   updateMapViewport() {
-    const story = this.props.featuredPlaces.find(featuredPlace => {
+    const featuredPlace = this.props.featuredPlaces.find(featuredPlace => {
       return featuredPlace.placeId === this.props.focusedPlace.id;
     });
-    if (story) {
+    if (featuredPlace) {
       // Set layers for this story chapter.
-      story.visibleLayerGroupIds.forEach(layerGroupId =>
+      featuredPlace.visibleLayerGroupIds.forEach(layerGroupId =>
         this.props.updateLayerGroupVisibility(layerGroupId, true),
       );
       // Hide all other layers.
       this.props.mapConfig.layerGroups
         .filter(
-          layerGroup => !story.visibleLayerGroupIds.includes(layerGroup.id),
+          layerGroup =>
+            !featuredPlace.visibleLayerGroupIds.includes(layerGroup.id),
         )
         .forEach(layerGroup =>
           this.props.updateLayerGroupVisibility(layerGroup.id, false),
         );
     }
 
-    if (story && story.panTo) {
+    if (featuredPlace && featuredPlace.panTo) {
       const newViewport = {
-        latitude: story.panTo[1],
-        longitude: story.panTo[0],
+        latitude: featuredPlace.panTo[1],
+        longitude: featuredPlace.panTo[0],
         transitionDuration: 3000,
       };
-      if (story.zoom) {
-        newViewport.zoom = story.zoom;
+      if (featuredPlace.zoom) {
+        newViewport.zoom = featuredPlace.zoom;
       }
 
       this.props.onUpdateMapViewport(newViewport);
@@ -170,23 +171,23 @@ class PlaceDetail extends Component {
       this.props.onUpdateMapViewport({
         latitude: newViewport.latitude,
         longitude: newViewport.longitude,
-        transitionDuration: story ? 3000 : 200,
+        transitionDuration: featuredPlace ? 3000 : 200,
         zoom: newViewport.zoom,
       });
     } else if (this.props.focusedPlace.geometry.type === "Point") {
       const newViewport = {
         latitude: this.props.focusedPlace.geometry.coordinates[1],
         longitude: this.props.focusedPlace.geometry.coordinates[0],
-        transitionDuration: story ? 3000 : 200,
+        transitionDuration: featuredPlace ? 3000 : 200,
       };
-      if (story && story.zoom) {
-        newViewport.zoom = story.zoom;
+      if (featuredPlace && featuredPlace.zoom) {
+        newViewport.zoom = featuredPlace.zoom;
       }
 
       this.props.onUpdateMapViewport(newViewport);
     }
 
-    if (story && !story.spotlight) {
+    if (featuredPlace && !featuredPlace.spotlight) {
       this.props.updateSpotlightMaskVisibility(false);
     } else {
       this.props.updateSpotlightMaskVisibility(true);
