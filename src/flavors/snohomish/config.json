@@ -454,7 +454,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": false,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "place": {
     "add_button_label": "Show off your projects",
@@ -2215,51 +2215,50 @@
       ]
     }
   ],
-  "story": {
-    "example": {
-      "header": "Local stories",
-      "description": "To inspire us",
-      "default_zoom": 15,
-      "visibleLayerGroupIds": [
-        "satellite",
-        "snohomish-featured",
-        "snohomish-input"
-      ],
-      "order": [
-        {
-          "placeId": 4310,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        },
-        {
-          "placeId": 4311,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        },
-        {
-          "placeId": 4309,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        },
-        {
-          "placeId": 4238,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        },
-        {
-          "placeId": 4239,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        },
-        {
-          "placeId": 6847,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        },
-        {
-          "placeId": 6846,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        },
-        {
-          "placeId": 6845,
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "name": "local-stories",
+    "header": "Local stories",
+    "description": "To inspire us",
+    "default_zoom": 15,
+    "visibleLayerGroupIds": [
+      "satellite",
+      "snohomish-featured",
+      "snohomish-input"
+    ],
+    "order": [
+      {
+        "placeId": 4310,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 4311,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 4309,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 4238,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 4239,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 6847,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 6846,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 6845,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      }
+    ]
   },
   "custom_components": {
     "FieldSummary": "SnohomishFieldSummary"

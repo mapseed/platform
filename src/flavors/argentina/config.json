@@ -285,7 +285,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "left_sidebar": {
     "is_enabled": true,
@@ -773,49 +773,48 @@
       ]
     }
   ],
-  "story": {
-    "campanas": {
-      "header": "Campañas",
-      "visibleLayerGroupIds": [
-        "osm",
-        "argentina-campanas",
-        "argentina-input",
-        "argentina-featured"
-      ],
-      "order": [
-        {
-          "placeId": 5343,
-          "pan_to": [-60.5, -32.35],
-          "zoom": 10
-        },
-        {
-          "placeId": 5342,
-          "pan_to": [-60.58, -32.86],
-          "zoom": 10
-        },
-        {
-          "placeId": 5344,
-          "pan_to": [-58.53, -34.41313],
-          "zoom": 10
-        },
-        {
-          "placeId": 5345,
-          "pan_to": [-58.88098, -34.15955],
-          "zoom": 10
-        },
-        {
-          "placeId": 5346,
-          "pan_to": [-57.91877, -34.88249],
-          "zoom": 10
-        },
-        {
-          "placeId": 6990,
-          "zoom": 8,
-          "pan_to": [-60.1, -32.97],
-          "visibleLayerGroupIds": ["osm", "presencia-agua"],
-          "spotlight": false
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "name": "campanas",
+    "header": "Campañas",
+    "visibleLayerGroupIds": [
+      "osm",
+      "argentina-campanas",
+      "argentina-input",
+      "argentina-featured"
+    ],
+    "order": [
+      {
+        "placeId": 5343,
+        "pan_to": [-60.5, -32.35],
+        "zoom": 10
+      },
+      {
+        "placeId": 5342,
+        "pan_to": [-60.58, -32.86],
+        "zoom": 10
+      },
+      {
+        "placeId": 5344,
+        "pan_to": [-58.53, -34.41313],
+        "zoom": 10
+      },
+      {
+        "placeId": 5345,
+        "pan_to": [-58.88098, -34.15955],
+        "zoom": 10
+      },
+      {
+        "placeId": 5346,
+        "pan_to": [-57.91877, -34.88249],
+        "zoom": 10
+      },
+      {
+        "placeId": 6990,
+        "zoom": 8,
+        "pan_to": [-60.1, -32.97],
+        "visibleLayerGroupIds": ["osm", "presencia-agua"],
+        "spotlight": false
+      }
+    ]
   }
 }

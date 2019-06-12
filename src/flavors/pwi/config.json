@@ -387,7 +387,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "place": {
     "adding_supported": true,

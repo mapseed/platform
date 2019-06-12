@@ -528,7 +528,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": false,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "left_sidebar": {
     "is_enabled": true,
@@ -1133,379 +1133,82 @@
       ]
     }
   ],
-  "story": {
-    "home": {
-      "tagline": "Next featured site",
-      "default_basemap": "satellite",
-      "default_zoom": 15,
-      "default_visible_layers": ["pugetsoundfeatured"],
-      "order": [
-        {
-          "placeId": 3927,
-          "zoom": 13,
-          "basemap": "satellite",
-          "spotlight": false
-        },
-        {
-          "placeId": 3457,
-          "zoom": 14,
-          "basemap": "satellite"
-        },
-        {
-          "placeId": 3718,
-          "zoom": 16,
-          "spotlight": false,
-          "basemap": "satellite"
-        },
-        {
-          "placeId": 3471,
-          "zoom": 18,
-          "basemap": "satellite"
-        },
-        {
-          "placeId": 3931,
-          "zoom": 7,
-          "pan_to": [-122.31682047088867, 47.673217479920595],
-          "visible_layers": ["clean-marinas"],
-          "spotlight": false,
-          "basemap": "light-nolabels"
-        },
-        {
-          "placeId": 3929,
-          "zoom": 7,
-          "pan_to": [-122.31682047088867, 47.673217479920595],
-          "visible_layers": ["shellfish-harvesting"],
-          "basemap": "light-nolabels",
-          "spotlight": false
-        },
-        {
-          "placeId": 3930,
-          "zoom": 7,
-          "pan_to": [-122.31682047088867, 47.673217479920595],
-          "visible_layers": ["spill-incidents"],
-          "basemap": "light-nolabels",
-          "spotlight": false
-        },
-        {
-          "placeId": 3928,
-          "zoom": 10,
-          "pan_to": [-122.31682047088867, 47.59085278732215],
-          "visible_layers": ["cso"],
-          "spotlight": false,
-          "basemap": "satellite"
-        },
-        {
-          "placeId": 3979,
-          "zoom": 8,
-          "pan_to": [-122.31682047088867, 47.673217479920595],
-          "visible_layers": ["scorecard-layer"],
-          "spotlight": false,
-          "basemap": "light-nolabels"
-        },
-        {
-          "placeId": 3470,
-          "spotlight": false,
-          "zoom": 8,
-          "pan_to": [-122.31682047088867, 47.673217479920595],
-          "visible_layers": ["pugetsoundcases"]
-        }
-      ]
-    },
-    "rose-grants": {
-      "tagline": "Next grant",
-      "default_zoom": 14,
-      "default_visible_layers": ["pugetsoundrose"],
-      "order": [
-        {
-          "placeId": 3469,
-          "zoom": 8,
-          "pan_to": [-122.31682047088867, 47.673217479920595],
-          "spotlight": false,
-          "sidebar_icon_placeId": "/static/css/images/markers/map-pin-marker.png"
-        },
-        {
-          "placeId": 3473
-        },
-        {
-          "placeId": 3474
-        },
-        {
-          "placeId": 3475
-        },
-        {
-          "placeId": 3476
-        },
-        {
-          "placeId": 3477
-        },
-        {
-          "placeId": 3478
-        },
-        {
-          "placeId": 3479
-        },
-        {
-          "placeId": 3480
-        },
-        {
-          "placeId": 3481
-        },
-        {
-          "placeId": 3482
-        },
-        {
-          "placeId": 3483
-        },
-        {
-          "placeId": 3484
-        },
-        {
-          "placeId": 3485
-        },
-        {
-          "placeId": 3486
-        },
-        {
-          "placeId": 3487
-        },
-        {
-          "placeId": 3488
-        },
-        {
-          "placeId": 3489
-        },
-        {
-          "placeId": 3490
-        },
-        {
-          "placeId": 3491
-        },
-        {
-          "placeId": 3492
-        },
-        {
-          "placeId": 3493
-        },
-        {
-          "placeId": 3494
-        },
-        {
-          "placeId": 3495
-        },
-        {
-          "placeId": 3496
-        },
-        {
-          "placeId": 3497
-        },
-        {
-          "placeId": 3498
-        },
-        {
-          "placeId": 3499
-        },
-        {
-          "placeId": 3500
-        },
-        {
-          "placeId": 3501
-        },
-        {
-          "placeId": 3502
-        },
-        {
-          "placeId": 3503
-        },
-        {
-          "placeId": 3504
-        },
-        {
-          "placeId": 3505
-        },
-        {
-          "placeId": 3506
-        },
-        {
-          "placeId": 3507
-        },
-        {
-          "placeId": 3508
-        },
-        {
-          "placeId": 3509
-        },
-        {
-          "placeId": 3510
-        },
-        {
-          "placeId": 3511
-        },
-        {
-          "placeId": 3512
-        },
-        {
-          "placeId": 3513
-        },
-        {
-          "placeId": 3514
-        },
-        {
-          "placeId": 3515
-        },
-        {
-          "placeId": 3516
-        },
-        {
-          "placeId": 3517
-        },
-        {
-          "placeId": 3518
-        },
-        {
-          "placeId": 3519
-        },
-        {
-          "placeId": 3520
-        },
-        {
-          "placeId": 3521
-        },
-        {
-          "placeId": 3522
-        },
-        {
-          "placeId": 3523
-        },
-        {
-          "placeId": 3524
-        },
-        {
-          "placeId": 3525
-        },
-        {
-          "placeId": 3526
-        },
-        {
-          "placeId": 3527
-        },
-        {
-          "placeId": 3528
-        },
-        {
-          "placeId": 3529
-        },
-        {
-          "placeId": 3530
-        },
-        {
-          "placeId": 3531
-        },
-        {
-          "placeId": 3532
-        },
-        {
-          "placeId": 3533
-        },
-        {
-          "placeId": 3534
-        },
-        {
-          "placeId": 3535
-        },
-        {
-          "placeId": 3536
-        },
-        {
-          "placeId": 3537
-        },
-        {
-          "placeId": 3538
-        },
-        {
-          "placeId": 3539
-        },
-        {
-          "placeId": 3540
-        },
-        {
-          "placeId": 3541
-        },
-        {
-          "placeId": 3542
-        },
-        {
-          "placeId": 3543
-        },
-        {
-          "placeId": 3544
-        },
-        {
-          "placeId": 3545
-        },
-        {
-          "placeId": 3546
-        },
-        {
-          "placeId": 3547
-        },
-        {
-          "placeId": 3548
-        },
-        {
-          "placeId": 3549
-        },
-        {
-          "placeId": 3550
-        },
-        {
-          "placeId": 3551
-        },
-        {
-          "placeId": 3552
-        },
-        {
-          "placeId": 3553
-        },
-        {
-          "placeId": 3554
-        },
-        {
-          "placeId": 3555
-        },
-        {
-          "placeId": 3556
-        },
-        {
-          "placeId": 3557
-        },
-        {
-          "placeId": 3558
-        },
-        {
-          "placeId": 3559
-        },
-        {
-          "placeId": 3560
-        },
-        {
-          "placeId": 3561
-        },
-        {
-          "placeId": 3562
-        },
-        {
-          "placeId": 3563
-        },
-        {
-          "placeId": 3564
-        },
-        {
-          "placeId": 3565
-        },
-        {
-          "placeId": 3565
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "name": "Rost grants",
+    "tagline": "Next featured site",
+    "default_basemap": "satellite",
+    "default_zoom": 15,
+    "default_visible_layers": ["pugetsoundfeatured"],
+    "order": [
+      {
+        "placeId": 3927,
+        "zoom": 13,
+        "basemap": "satellite",
+        "spotlight": false
+      },
+      {
+        "placeId": 3457,
+        "zoom": 14,
+        "basemap": "satellite"
+      },
+      {
+        "placeId": 3718,
+        "zoom": 16,
+        "spotlight": false,
+        "basemap": "satellite"
+      },
+      {
+        "placeId": 3471,
+        "zoom": 18,
+        "basemap": "satellite"
+      },
+      {
+        "placeId": 3931,
+        "zoom": 7,
+        "pan_to": [-122.31682047088867, 47.673217479920595],
+        "visible_layers": ["clean-marinas"],
+        "spotlight": false,
+        "basemap": "light-nolabels"
+      },
+      {
+        "placeId": 3929,
+        "zoom": 7,
+        "pan_to": [-122.31682047088867, 47.673217479920595],
+        "visible_layers": ["shellfish-harvesting"],
+        "basemap": "light-nolabels",
+        "spotlight": false
+      },
+      {
+        "placeId": 3930,
+        "zoom": 7,
+        "pan_to": [-122.31682047088867, 47.673217479920595],
+        "visible_layers": ["spill-incidents"],
+        "basemap": "light-nolabels",
+        "spotlight": false
+      },
+      {
+        "placeId": 3928,
+        "zoom": 10,
+        "pan_to": [-122.31682047088867, 47.59085278732215],
+        "visible_layers": ["cso"],
+        "spotlight": false,
+        "basemap": "satellite"
+      },
+      {
+        "placeId": 3979,
+        "zoom": 8,
+        "pan_to": [-122.31682047088867, 47.673217479920595],
+        "visible_layers": ["scorecard-layer"],
+        "spotlight": false,
+        "basemap": "light-nolabels"
+      },
+      {
+        "placeId": 3470,
+        "spotlight": false,
+        "zoom": 8,
+        "pan_to": [-122.31682047088867, 47.673217479920595],
+        "visible_layers": ["pugetsoundcases"]
+      }
+    ]
   }
 }

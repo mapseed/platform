@@ -1022,7 +1022,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": false,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "left_sidebar": {
     "is_enabled": true,

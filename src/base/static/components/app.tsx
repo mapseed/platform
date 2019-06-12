@@ -72,12 +72,12 @@ import JSSProvider from "./jss-provider";
 import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
 import {
-  loadStoryConfig,
-  storyChaptersSelector,
-  storyChaptersPropType,
-  storyConfigPropType,
-  storyConfigSelector,
-} from "../state/ducks/story-config";
+  loadFeaturedPlacesConfig,
+  featuredPlacesSelector,
+  featuredPlacesPropType,
+  featuredPlacesConfigPropType,
+  featuredPlacesConfigSelector,
+} from "../state/ducks/featured-places-config";
 import {
   createFeaturesInGeoJSONSource,
   updateMapContainerDimensions,
@@ -125,8 +125,8 @@ const statePropTypes = {
   hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   layout: PropTypes.string.isRequired,
-  storyChapters: storyChaptersPropType,
-  storyConfig: storyConfigPropType,
+  featuredPlaces: featuredPlacesPropType,
+  featuredPlacesConfig: featuredPlacesConfigPropType,
   // TODO: shape of this:
   pageExists: PropTypes.func.isRequired,
 };
@@ -144,7 +144,7 @@ const dispatchPropTypes = {
   loadPlaceConfig: PropTypes.func.isRequired,
   loadLeftSidebarConfig: PropTypes.func.isRequired,
   loadRightSidebarConfig: PropTypes.func.isRequired,
-  loadStoryConfig: PropTypes.func.isRequired,
+  loadFeaturedPlacesConfig: PropTypes.func.isRequired,
   loadAppConfig: PropTypes.func.isRequired,
   loadFormsConfig: PropTypes.func.isRequired,
   loadSupportConfig: PropTypes.func.isRequired,
@@ -298,7 +298,9 @@ class App extends Component<Props, State> {
     this.props.loadPlaceConfig(resolvedConfig.place, user);
     this.props.loadLeftSidebarConfig(resolvedConfig.left_sidebar);
     this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
-    this.props.loadStoryConfig(resolvedConfig.story);
+    if (resolvedConfig.featuredPlaces) {
+      this.props.loadFeaturedPlacesConfig(resolvedConfig.featuredPlaces);
+    }
     this.props.loadFormsConfig(resolvedConfig.forms);
     this.props.loadSupportConfig(resolvedConfig.support);
     this.props.loadPagesConfig(resolvedConfig.pages);
@@ -450,7 +452,7 @@ class App extends Component<Props, State> {
           response.forEach(async placePagePromise => {
             allPlacePagePromises.push(placePagePromise);
             const pageData = await placePagePromise;
-            this.props.loadPlaces(pageData, this.props.storyChapters);
+            this.props.loadPlaces(pageData, this.props.featuredPlaces);
 
             // Update the map.
             this.props.createFeaturesInGeoJSONSource(
@@ -751,8 +753,8 @@ const mapStateToProps = (
     }),
   layout: layoutSelector(state),
   pageExists: slug => pageExistsSelector({ state, slug }),
-  storyConfig: storyConfigSelector(state),
-  storyChapters: storyChaptersSelector(state),
+  featuredPlacesConfig: featuredPlacesConfigSelector(state),
+  featuredPlaces: featuredPlacesSelector(state),
   ...ownProps,
 });
 
@@ -760,8 +762,8 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
-  loadPlaces: (places, storyChapters) =>
-    dispatch(loadPlaces(places, storyChapters)),
+  loadPlaces: (places, featuredPlaces) =>
+    dispatch(loadPlaces(places, featuredPlaces)),
   updateLayout: () => dispatch(updateLayout()),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
@@ -775,7 +777,8 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   loadPlaceConfig: (config, user) => dispatch(loadPlaceConfig(config, user)),
   loadLeftSidebarConfig: config => dispatch(loadLeftSidebarConfig(config)),
   loadRightSidebarConfig: config => dispatch(loadRightSidebarConfig(config)),
-  loadStoryConfig: config => dispatch(loadStoryConfig(config)),
+  loadFeaturedPlacesConfig: config =>
+    dispatch(loadFeaturedPlacesConfig(config)),
   loadAppConfig: config => dispatch(loadAppConfig(config)),
   loadFormsConfig: config => dispatch(loadFormsConfig(config)),
   loadSupportConfig: config => dispatch(loadSupportConfig(config)),

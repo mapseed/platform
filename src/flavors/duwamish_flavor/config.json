@@ -2273,7 +2273,7 @@
   "right_sidebar": {
     "show": true,
     "visibleDefault": true,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "place": {
     "adding_supported": true,
