@@ -1,6 +1,30 @@
 import PropTypes from "prop-types";
 // PropTypes
 
+// HACK: FeaturedSites cannot set arbitrary map state, so to add more flexibility, we
+// added the panTo and centerpoint options which render the featured place
+// geometry invisibly.
+
+// The way it works is:
+
+// * the placeId identifies the Place (which is rendered in the detail view)
+
+// * the panTo and zoom options allow custom map state to be set, overriding
+//   what the map would normally set based on the Place location and geometry
+//   type
+
+// * the geometry for the featured place is designed to be rendered invisibly
+//   (in the case of the argentina flavor it's actually 0-opacity linestrings)
+
+// TODO: One change we could make is to not use the 0-opacity linestrings as
+// placeholders (which is truly a hack). A better approach is to use an
+// icon-image that doesn't actually exist, as Mapbox just won't render anything
+// if it can't find an image.
+
+// We have been using this convention elsewhere to convey that we intend for no
+// icon to render:
+// icon-image: __no-icon-image__
+
 export const featuredPlacesPropType = PropTypes.arrayOf(
   PropTypes.shape({
     placeId: PropTypes.number.isRequired,
