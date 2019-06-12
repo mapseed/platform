@@ -70,7 +70,17 @@ const ReportTemplate = (props: Props) => {
     [parseInt(props.params.placeId)],
   );
 
-  return place && Report ? <Report place={place} /> : null;
+  return place && Report ? (
+    <div
+      css={css`
+        overflow: scroll;
+        width: 100%;
+        height: 100%;
+      `}
+    >
+      <Report place={place} />
+    </div>
+  ) : null;
 };
 
 type MapseedReduxState = any;
