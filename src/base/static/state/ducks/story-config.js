@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-// PropType
+// PropTypes
 
 export const storyChaptersPropType = PropTypes.arrayOf(
   PropTypes.shape({
-    placeId: PropTypes.string.isRequired,
-    zoom: PropTypes.number.isRequired,
-    hasCustomZoom: PropTypes.bool.isRequired,
+    placeId: PropTypes.number.isRequired,
+    zoom: PropTypes.number,
+    hasCustomZoom: PropTypes.bool,
     panTo: PropTypes.string,
     visibleLaygerGroupIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     previous: PropTypes.string.isRequired,
@@ -35,7 +35,7 @@ export const storyChaptersSelector = state => state.storyConfig.chapters;
 const LOAD = "story-config/LOAD";
 
 // Action creators:
-export function loadStoryConfig(config = []) {
+export function loadStoryConfig(config) {
   const chapters = config.reduce((flat, toFlatten) => {
     return flat.concat(toFlatten.chapters);
   }, []);
@@ -44,9 +44,8 @@ export function loadStoryConfig(config = []) {
 }
 
 // Reducers:
-// TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
-  config: null,
+  config: [],
   chapters: [],
 };
 

@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
@@ -15,8 +16,6 @@ import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
 import StoryChapter from "../molecules/story-chapter";
 import { TinyTitle, Paragraph } from "../atoms/typography";
 
-import { translate } from "react-i18next";
-
 import "./story-navigator.scss";
 
 const StoryTitle = styled(TinyTitle)({
@@ -24,81 +23,64 @@ const StoryTitle = styled(TinyTitle)({
   paddingLeft: "10px",
 });
 
-class StoryNavigator extends Component {
-  state = {
-    currentPlaceId: null, // number
-  };
-
-  componentDidMount() {
-    const placeId = parseInt(
-      this.props.history.location.pathname.split("/")[2],
-    );
+const StoryNavigator = props => {
+  const [currentPlaceId, setCurrentPlaceId] = useState(null);
+  useEffect(() => {
+    const placeId = parseInt(props.history.location.pathname.split("/")[2]);
     if (placeId) {
-      this.setState({
-        currentPlaceId: placeId,
-      });
+      setCurrentPlaceId(placeId);
     }
-    // TODO: instead of parsing and listening to the url, we should be reading
-    // the "currentPlaceId" from redux
-    this.unlisten = this.props.history.listen(location => {
+    const unlisten = props.history.listen(location => {
       const placeId = parseInt(location.pathname.split("/")[2]);
       if (placeId) {
-        this.setState({
-          currentPlaceId: placeId,
-        });
+        setCurrentPlaceId(placeId);
       }
     });
-  }
 
-  componentWillUnmount() {
-    this.unlisten();
-  }
+    return unlisten;
+  });
 
-  render() {
-    // The currentStory is defined as the first story corresponding to the place
-    // in the detail view, OR it's the first story in the storyConfig
-    const currentStory =
-      this.props.storyConfig.find(story => {
-        return story.chapters.find(
-          chapter => chapter.placeId === this.state.currentPlaceId,
-        );
-      }) || this.props.storyConfig[0];
+  // The currentStory is defined as the first story corresponding to the place
+  // in the detail view, OR it's the first story in the storyConfig
+  const currentStory =
+    props.storyConfig.find(story => {
+      return story.chapters.find(chapter => chapter.placeId === currentPlaceId);
+    }) || props.storyConfig[0];
 
-    return (
-      <div className="story-navigator">
-        {currentStory &&
-          currentStory.header && <StoryTitle>{currentStory.header}</StoryTitle>}
-        {currentStory &&
-          currentStory.description && (
-            <Paragraph className="story-navigator__description">
-              {currentStory.description}
-            </Paragraph>
-          )}
-        <hr />
-        {currentStory &&
-          currentStory.chapters.map(chapter => {
-            const place = this.props.places.find(
-              place => place.id === chapter.placeId,
-            );
-            return (
-              <StoryChapter
-                key={chapter.placeId}
-                title={place.title}
-                iconUrl={
-                  chapter.iconUrl ||
-                  this.props.placeConfig.place_detail.find(
-                    config => config.category === place.location_type,
-                  ).icon_url
-                }
-                isSelected={this.state.currentPlaceId === chapter.placeId}
-                placeUrl={`${place.clientSlug}/${chapter.placeId}`}
-              />
-            );
-          })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="story-navigator">
+      {currentStory &&
+        currentStory.header && <StoryTitle>{currentStory.header}</StoryTitle>}
+      {currentStory &&
+        currentStory.description && (
+          <Paragraph className="story-navigator__description">
+            {currentStory.description}
+          </Paragraph>
+        )}
+      <hr />
+      {currentStory &&
+        currentStory.chapters.map(chapter => {
+          const place = props.places.find(
+            place => place.id === chapter.placeId,
+          );
+          return (
+            <StoryChapter
+              key={chapter.placeId}
+              title={place.title}
+              iconUrl={
+                chapter.iconUrl ||
+                props.placeConfig.place_detail.find(
+                  config => config.category === place.location_type,
+                ).icon_url
+              }
+              isSelected={currentPlaceId === chapter.placeId}
+              placeUrl={`${place.clientSlug}/${chapter.placeId}`}
+            />
+          );
+        })}
+    </div>
+  );
+};
 
 StoryNavigator.propTypes = {
   history: PropTypes.object.isRequired,
@@ -109,7 +91,6 @@ StoryNavigator.propTypes = {
     place_detail: PropTypes.array.isRequired,
   }).isRequired,
   places: placesPropType.isRequired,
-  t: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
 };
 
@@ -128,5 +109,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("StoryNavigator")(StoryNavigator)),
+  )(StoryNavigator),
 );
