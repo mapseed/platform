@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+/** @jsx jsx */
+import * as React from "react";
 
+import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
@@ -16,16 +18,14 @@ import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
 import FeaturedPlace from "../molecules/featured-place";
 import { TinyTitle, Paragraph } from "../atoms/typography";
 
-import "./story-navigator.scss";
-
 const FeaturedPlaceTitle = styled(TinyTitle)({
   margin: "0 0 8px 0",
   paddingLeft: "10px",
 });
 
 const FeaturedPlacesNavigator = props => {
-  const [currentPlaceId, setCurrentPlaceId] = useState(null);
-  useEffect(() => {
+  const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
+  React.useEffect(() => {
     const placeId = parseInt(props.history.location.pathname.split("/")[2]);
     if (placeId) {
       setCurrentPlaceId(placeId);
@@ -41,14 +41,24 @@ const FeaturedPlacesNavigator = props => {
   });
 
   return (
-    <div className="story-navigator">
+    <div
+      css={{
+        height: "100%",
+        paddingTop: "15px",
+      }}
+    >
       {props.featuredPlacesConfig.header && (
         <FeaturedPlaceTitle>
           {props.featuredPlacesConfig.header}
         </FeaturedPlaceTitle>
       )}
       {props.featuredPlacesConfig.description && (
-        <Paragraph className="story-navigator__description">
+        <Paragraph
+          css={{
+            padding: "0 10px 0 10px",
+            fontStyle: "italic",
+          }}
+        >
           {props.featuredPlacesConfig.description}
         </Paragraph>
       )}
@@ -65,7 +75,7 @@ const FeaturedPlacesNavigator = props => {
               featuredPlace.iconUrl ||
               (
                 props.placeConfig.place_detail.find(
-                  config => config.category === place.location_type,
+                  config => config.category === (place || {}).location_type,
                 ) || {}
               ).icon_url,
           };
