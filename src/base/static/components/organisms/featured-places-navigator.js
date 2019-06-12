@@ -4,7 +4,6 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
 import { withRouter } from "react-router-dom";
 
 import {
@@ -17,11 +16,6 @@ import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
 
 import FeaturedPlace from "../molecules/featured-place";
 import { TinyTitle, Paragraph } from "../atoms/typography";
-
-const FeaturedPlaceTitle = styled(TinyTitle)({
-  margin: "0 0 8px 0",
-  paddingLeft: "10px",
-});
 
 const FeaturedPlacesNavigator = props => {
   const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
@@ -48,9 +42,14 @@ const FeaturedPlacesNavigator = props => {
       }}
     >
       {props.featuredPlacesConfig.header && (
-        <FeaturedPlaceTitle>
+        <TinyTitle
+          css={{
+            margin: "0 0 8px 0",
+            paddingLeft: "10px",
+          }}
+        >
           {props.featuredPlacesConfig.header}
-        </FeaturedPlaceTitle>
+        </TinyTitle>
       )}
       {props.featuredPlacesConfig.description && (
         <Paragraph
