@@ -758,8 +758,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
   loadDatasets: datasets => dispatch(loadDatasets(datasets)),
-  loadPlaces: (places) =>
-    dispatch(loadPlaces(places)),
+  loadPlaces: places => dispatch(loadPlaces(places)),
   updateLayout: () => dispatch(updateLayout()),
   updatePlacesLoadStatus: loadStatus =>
     dispatch(updatePlacesLoadStatus(loadStatus)),
