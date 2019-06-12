@@ -117,6 +117,27 @@
           "https://vector-tiles.mapseed.org/kittitas-land-ownership/{z}/{x}/{y}.pbf"
         ]
       },
+      "kittitas-fire-districts": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-fire-districts/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 16
+      },
+      "kittitas-firewise-communities": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-firewise-communities/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 17
+      },
+      "kittitas-burn-risk": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-burn-risk/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 16
+      },
       "wa-state-large-fires-1973-2018": {
         "type": "vector",
         "tiles": [
@@ -3915,12 +3936,14 @@
       {
         "id": "wa-state-large-fires-1973-2018",
         "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<p><strong>Fire name: </strong><em>{{FIRENAME}}</em></p><p><strong>Year: </strong><em>{{YEAR}}</em></p><p><strong>Cause: </strong><em>{{CAUSE}}</em></p>",
         "filterSlider": {
           "initialValue": 2018,
           "min": 1973,
           "max": 2018,
           "step": 1,
-          "label": "Large wildfires since:",
+          "label": "Large wildfires to date:",
           "property": "YEAR",
           "comparator": "<="
         },
@@ -4126,6 +4149,125 @@
         ]
       },
       {
+        "id": "kittitas-fire-districts",
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_district_name}}</em></p><p><strong>Phone: </strong><em>(to be added...)</em></p><p><strong>Email: </strong><em>(to be added...)</em></p>",
+        "mapboxLayers": [
+          {
+            "id": "kittitas-fire-districts",
+            "type": "fill",
+            "filter": [
+              "!=",
+              ["get", "fire_district_name"],
+              "Areas outside Fire Districts"
+            ],
+            "source": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts",
+            "paint": {
+              "fill-opacity": 0.6,
+              "fill-color": "#a6bddb"
+            }
+          },
+          {
+            "id": "kittitas-fire-districts-outline",
+            "type": "line",
+            "filter": [
+              "!=",
+              ["get", "fire_district_name"],
+              "Areas outside Fire Districts"
+            ],
+            "source": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1
+            }
+          },
+          {
+            "id": "kittitas-fire-districts-labels",
+            "type": "symbol",
+            "filter": [
+              "all",
+              [
+                "!=",
+                ["get", "fire_district_name"],
+                "Areas outside Fire Districts"
+              ],
+              ["==", ["geometry-type"], "Point"]
+            ],
+            "source": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts",
+            "paint": {
+              "text-color": "#5380c1",
+              "text-halo-color": "#dde7f2",
+              "text-halo-width": 20
+            },
+            "layout": {
+              "text-field": [
+                "concat",
+                "Fire district ",
+                ["get", "fire_district_nbr"]
+              ],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 13,
+              "text-max-width": 40,
+              "text-padding": 15,
+              "text-allow-overlap": true,
+              "icon-allow-overlap": true,
+              "text-anchor": [
+                "match",
+                ["to-number", ["get", "fire_district_nbr"]],
+                3,
+                "right",
+                "left"
+              ],
+              "text-offset": [
+                "match",
+                ["to-number", ["get", "fire_district_nbr"]],
+                3,
+                ["literal", [-1, 0]],
+                99,
+                ["literal", [-1, 0]],
+                ["literal", [1, 0]]
+              ],
+              "text-transform": "uppercase",
+              "text-justify": "left",
+              "text-line-height": 1,
+              "icon-image": "marker-shield.png",
+              "icon-size": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-firewise-communities",
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<p><strong>FireWise Community name: </strong><em>{{Community}}</em></p><p><strong>Active since: </strong><em>{{Status}}</em></p>",
+        "mapboxLayers": [
+          {
+            "id": "kittitas-firewise-communities",
+            "type": "fill",
+            "source": "kittitas-firewise-communities",
+            "source-layer": "kittitas-firewise-communities",
+            "paint": {
+              "fill-pattern": "frequently-flooded-fill.png"
+            }
+          },
+          {
+            "id": "kittitas-firewise-communities-oultine",
+            "type": "line",
+            "source": "kittitas-firewise-communities",
+            "source-layer": "kittitas-firewise-communities",
+            "paint": {
+              "line-color": "#fff",
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
         "id": "kittitas-firewise-input",
         "visibleDefault": true,
         "interactive": true,
@@ -4235,8 +4377,8 @@
             ]
           },
           {
-            "id": "grp-water",
-            "title": "Water Features",
+            "id": "grp-other",
+            "title": "Other Data",
             "layerGroups": [
               {
                 "id": "columbia-river",
@@ -4257,6 +4399,14 @@
               {
                 "id": "wa-state-large-fires-1973-2018",
                 "title": "Large Wildfires"
+              },
+              {
+                "id": "kittitas-fire-districts",
+                "title": "Fire Districts"
+              },
+              {
+                "id": "kittitas-firewise-communities",
+                "title": "FireWise USA Communities"
               }
             ]
           },
@@ -4366,7 +4516,7 @@
             ],
             "viewport": {
               "latitude": 47.04829,
-              "zoom": 7.65,
+              "zoom": 6.65,
               "longitude": -120.60682,
               "transitionDuration": 1500,
               "bearing": 0,
@@ -4378,13 +4528,31 @@
             "end_field_index": 4,
             "visibleLayerGroupIds": [
               "light-satellite",
+              "kittitas-fire-districts",
+              "kittitas-firewise-communities",
+              "kittitas-county-outline"
+            ],
+            "viewport": {
+              "latitude": 47.04829,
+              "zoom": 7.65,
+              "longitude": -120.60682,
+              "transitionDuration": 1500,
+              "bearing": 0,
+              "pitch": 40
+            }
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 6,
+            "visibleLayerGroupIds": [
+              "light-satellite",
               "wa-state-large-fires-1973-2018",
               "kittitas-county-outline"
             ]
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 12,
+            "start_field_index": 7,
+            "end_field_index": 14,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-county-outline",
@@ -4392,8 +4560,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 21,
+            "start_field_index": 15,
+            "end_field_index": 23,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-county-outline",
@@ -4401,8 +4569,8 @@
             ]
           },
           {
-            "start_field_index": 22,
-            "end_field_index": 29,
+            "start_field_index": 24,
+            "end_field_index": 31,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-county-outline",
@@ -4410,8 +4578,8 @@
             ]
           },
           {
-            "start_field_index": 30,
-            "end_field_index": 43,
+            "start_field_index": 32,
+            "end_field_index": 45,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-county-outline",
@@ -4419,8 +4587,8 @@
             ]
           },
           {
-            "start_field_index": 44,
-            "end_field_index": 50,
+            "start_field_index": 46,
+            "end_field_index": 52,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-county-outline",
@@ -4438,7 +4606,17 @@
           {
             "name": "large_fires_information",
             "type": "informational_html",
-            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Hover over fires on the map to learn more about them [to come], and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:30px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:30px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+            "content": "<img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Hover over fires on the map to learn more about them, and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:30px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:30px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+          },
+          {
+            "name": "fire_data_header",
+            "type": "informational_html",
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:PTSansBold,sans-serif;border-bottom:3px solid #ef5f46'>Fire resources</h1>"
+          },
+          {
+            "name": "fire_data_information",
+            "type": "informational_html",
+            "content": "<figure style='margin:0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption><figure><p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Hover over fires on the map to learn more about them, and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:30px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:30px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
           },
           {
             "name": "fire_resiliency_header",
