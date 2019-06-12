@@ -69,7 +69,6 @@
       }
     },
     "options": {
-      "scrollZoomAroundCenter": true,
       "mapViewport": {
         "latitude": 47.18554,
         "longitude": -120.72226,
@@ -4308,7 +4307,7 @@
                 ["get", "fire_district_nbr"]
               ],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
-              "text-size": 13,
+              "text-size": 14,
               "text-max-width": 40,
               "text-padding": 15,
               "text-allow-overlap": true,
@@ -4366,7 +4365,7 @@
                 ["linear"],
                 ["zoom"],
                 9,
-                1,
+                0,
                 10,
                 0.4
               ]
@@ -4379,7 +4378,15 @@
             "source-layer": "kittitas-firewise-communities",
             "paint": {
               "line-color": "#fff",
-              "line-opacity": 0.7
+              "line-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                0.7
+              ]
             }
           },
           {
@@ -4403,10 +4410,12 @@
             },
             "layout": {
               "text-field": [
-                ["concat", "Firewise community: ", ["get", "Community"]]
+                "concat",
+                "Firewise community: ",
+                ["get", "Community"]
               ],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
-              "text-size": 11,
+              "text-size": 10,
               "text-allow-overlap": true,
               "text-max-width": 10,
               "text-padding": 15,
@@ -4711,7 +4720,7 @@
             }
           },
           {
-            "start_field_index": 9,
+            "start_field_index": 8,
             "end_field_index": 10,
             "visibleLayerGroupIds": [
               "light-satellite",
@@ -4790,7 +4799,7 @@
           {
             "name": "fire_resources_header",
             "type": "informational_html",
-            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:PTSansBold,sans-serif;border-bottom:3px solid #ef5f46;padding-bottom:8px;'>Kittitas County Fire Resources</h1>"
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:PTSansBold,sans-serif;border-bottom:3px solid #ef5f46;padding-bottom:8px;'>Kittitas County Fire Resources</h1><figure style='margin: 8px 0 24px 0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption></figure>"
           },
           {
             "name": "private-address",
@@ -4801,7 +4810,7 @@
           {
             "name": "fire_resources_information",
             "type": "informational_html",
-            "content": "<figure style='margin:0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption></figure><p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p>"
           },
           {
             "name": "fire_resiliency_header",

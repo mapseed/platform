@@ -56,6 +56,10 @@ const fireDistrictInfo = {
     email: "Not available",
     phone: "509-962-7506",
   }, // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
+  "Fire District 3 (Easton)": {
+    email: "Not available",
+    phone: "509-656-0121",
+  },
   "Snoqualmie Pass Fire and Rescue": {
     email: "jwiseman@snoqualmiepassfirerescue.org",
     phone: "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
@@ -141,7 +145,7 @@ const KittitasFireReadyReport = props => {
     "space_canopy_tops_30_60_feet",
     "space_canopy_tops_60_100_feet",
   ]
-    .filter(action => props.place[action])
+    .filter(action => props.place[action] === "yes")
     .slice(0, 2);
   const buildingActions = [
     "clean_roofs",
@@ -152,7 +156,7 @@ const KittitasFireReadyReport = props => {
     "create_fuel_breaks",
     "move_flammable_material",
   ]
-    .filter(action => props.place[action])
+    .filter(action => props.place[action] === "yes")
     .slice(0, 2);
   const safeAvgFireStarts = !isNaN(numFireStarts) ? numFireStarts / 10 : 0; // 10 === year range of data.
   const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
@@ -559,7 +563,7 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="twitter.com/kcsheriffoffice">
+                  <ExternalLink href="https://twitter.com/kcsheriffoffice">
                     <LargeText>twitter.com/kcsheriffoffice</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
@@ -574,7 +578,7 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="inciweb.nwcg.gov">
+                  <ExternalLink href="https://inciweb.nwcg.gov">
                     <LargeText>inciweb.nwcg.gov</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
