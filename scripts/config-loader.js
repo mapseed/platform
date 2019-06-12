@@ -1,7 +1,6 @@
 const {
   setConfigDefaults,
   transformCommonFormElements,
-  transformStoryContent,
 } = require("../src/base/static/utils/config-loader-utils");
 
 // This loader is used to listen to changes in the config file during development.
@@ -44,9 +43,6 @@ module.exports = function(source) {
     config.place.place_detail,
     config.place.common_form_elements,
   );
-
-  // Build the story data structure used by the app.
-  config.story = transformStoryContent(config.story);
 
   return JSON.stringify(config);
 };

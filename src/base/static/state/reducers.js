@@ -8,7 +8,7 @@ import leftSidebarReducer from "./ducks/left-sidebar";
 import appConfigReducer from "./ducks/app-config";
 import mapConfigReducer from "./ducks/map-config";
 import placeConfigReducer from "./ducks/place-config";
-import storyConfigReducer from "./ducks/story-config";
+import featuredPlacesConfigReducer from "./ducks/featured-places-config";
 import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
 import formsConfigReducer from "./ducks/forms-config";
 import supportConfigReducer from "./ducks/support-config";
@@ -30,7 +30,7 @@ const reducers = combineReducers({
   appConfig: appConfigReducer,
   mapConfig: mapConfigReducer,
   placeConfig: placeConfigReducer,
-  storyConfig: storyConfigReducer,
+  featuredPlacesConfig: featuredPlacesConfigReducer,
   rightSidebarConfig: rightSidebarConfigReducer,
   formsConfig: formsConfigReducer,
   supportConfig: supportConfigReducer,

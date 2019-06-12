@@ -6,7 +6,7 @@ import { css, jsx } from "@emotion/core";
 
 import { InternalLink, SmallText } from "../atoms/typography";
 
-const StoryChapterWrapper = styled(props => (
+const FeaturedPlaceWrapper = styled(props => (
   <InternalLink href={props.href} className={props.className}>
     {props.children}
   </InternalLink>
@@ -28,7 +28,7 @@ const StoryChapterWrapper = styled(props => (
   },
 }));
 
-const StoryChapterTitle = styled(props => (
+const FeaturedPlaceTitle = styled(props => (
   <SmallText textTransform="uppercase" className={props.className}>
     {props.children}
   </SmallText>
@@ -36,9 +36,9 @@ const StoryChapterTitle = styled(props => (
   paddingLeft: "8px",
 }));
 
-const StoryChapter = props => {
+const FeaturedPlace = props => {
   return (
-    <StoryChapterWrapper
+    <FeaturedPlaceWrapper
       href={"/" + props.placeUrl}
       isSelected={props.isSelected}
     >
@@ -50,22 +50,22 @@ const StoryChapter = props => {
         `}
         src={props.iconUrl}
       />
-      <StoryChapterTitle
+      <FeaturedPlaceTitle
         css={css`
           flex: 2;
         `}
       >
         {props.title}
-      </StoryChapterTitle>
-    </StoryChapterWrapper>
+      </FeaturedPlaceTitle>
+    </FeaturedPlaceWrapper>
   );
 };
 
-StoryChapter.propTypes = {
+FeaturedPlace.propTypes = {
   placeUrl: PropTypes.string.isRequired,
   iconUrl: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default StoryChapter;
+export default FeaturedPlace;

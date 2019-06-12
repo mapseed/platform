@@ -6,24 +6,24 @@ import styled from "@emotion/styled";
 import { withRouter } from "react-router-dom";
 
 import {
-  storyConfigSelector,
-  storyConfigPropType,
-} from "../../state/ducks/story-config";
+  featuredPlacesConfigSelector,
+  featuredPlacesConfigPropType,
+} from "../../state/ducks/featured-places-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { placesPropType } from "../../state/ducks/places";
 import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
 
-import StoryChapter from "../molecules/story-chapter";
+import FeaturedPlace from "../molecules/featured-place";
 import { TinyTitle, Paragraph } from "../atoms/typography";
 
 import "./story-navigator.scss";
 
-const StoryTitle = styled(TinyTitle)({
+const FeaturedPlaceTitle = styled(TinyTitle)({
   margin: "0 0 8px 0",
   paddingLeft: "10px",
 });
 
-const StoryNavigator = props => {
+const FeaturedPlacesNavigator = props => {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   useEffect(() => {
     const placeId = parseInt(props.history.location.pathname.split("/")[2]);
@@ -40,41 +40,45 @@ const StoryNavigator = props => {
     return unlisten;
   });
 
-  // The currentStory is defined as the first story corresponding to the place
-  // in the detail view, OR it's the first story in the storyConfig
-  const currentStory =
-    props.storyConfig.find(story => {
-      return story.chapters.find(chapter => chapter.placeId === currentPlaceId);
-    }) || props.storyConfig[0];
-
   return (
     <div className="story-navigator">
-      {currentStory &&
-        currentStory.header && <StoryTitle>{currentStory.header}</StoryTitle>}
-      {currentStory &&
-        currentStory.description && (
-          <Paragraph className="story-navigator__description">
-            {currentStory.description}
-          </Paragraph>
-        )}
+      {props.featuredPlacesConfig.header && (
+        <FeaturedPlaceTitle>
+          {props.featuredPlacesConfig.header}
+        </FeaturedPlaceTitle>
+      )}
+      {props.featuredPlacesConfig.description && (
+        <Paragraph className="story-navigator__description">
+          {props.featuredPlacesConfig.description}
+        </Paragraph>
+      )}
       <hr />
-      {currentStory &&
-        currentStory.chapters.map(chapter => {
+      {props.featuredPlacesConfig.places
+        .map(featuredPlace => {
           const place = props.places.find(
-            place => place.id === chapter.placeId,
+            place => place.id === featuredPlace.placeId,
           );
-          return (
-            <StoryChapter
-              key={chapter.placeId}
-              title={place.title}
-              iconUrl={
-                chapter.iconUrl ||
+          return {
+            featuredPlace,
+            place,
+            iconUrl:
+              featuredPlace.iconUrl ||
+              (
                 props.placeConfig.place_detail.find(
                   config => config.category === place.location_type,
-                ).icon_url
-              }
-              isSelected={currentPlaceId === chapter.placeId}
-              placeUrl={`${place.clientSlug}/${chapter.placeId}`}
+                ) || {}
+              ).icon_url,
+          };
+        })
+        .filter(({ place, iconUrl }) => !!place && !!iconUrl)
+        .map(({ place, featuredPlace, iconUrl }) => {
+          return (
+            <FeaturedPlace
+              key={featuredPlace.placeId}
+              title={place.title}
+              iconUrl={iconUrl}
+              isSelected={currentPlaceId === featuredPlace.placeId}
+              placeUrl={`${place.clientSlug}/${featuredPlace.placeId}`}
             />
           );
         })}
@@ -82,11 +86,11 @@ const StoryNavigator = props => {
   );
 };
 
-StoryNavigator.propTypes = {
+FeaturedPlacesNavigator.propTypes = {
   history: PropTypes.object.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  storyConfig: storyConfigPropType,
+  featuredPlacesConfig: featuredPlacesConfigPropType,
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }).isRequired,
@@ -96,7 +100,7 @@ StoryNavigator.propTypes = {
 
 const mapStateToProps = state => ({
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
-  storyConfig: storyConfigSelector(state),
+  featuredPlacesConfig: featuredPlacesConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
@@ -109,5 +113,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(StoryNavigator),
+  )(FeaturedPlacesNavigator),
 );

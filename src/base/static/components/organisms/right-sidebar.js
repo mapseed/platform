@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
 import { ChevronRight, ChevronLeft } from "@material-ui/icons";
 
-import StoryNavigator from "../organisms/story-navigator";
+import FeaturedPlacesNavigator from "../organisms/featured-places-navigator";
 import MapLegendPanel from "../organisms/map-legend-panel";
 import ActivityStream from "../organisms/activity-stream";
 import Button from "@material-ui/core/Button";
@@ -84,8 +84,8 @@ const RightSidebar = props => {
             <ChevronLeft css={{ fontSize: "32px" }} />
           )}
         </Button>
-        {props.rightSidebarConfig.component === "StoryNavigator" && (
-          <StoryNavigator places={props.places} />
+        {props.rightSidebarConfig.component === "FeaturedPlacesNavigator" && (
+          <FeaturedPlacesNavigator places={props.places} />
         )}
         {props.rightSidebarConfig.component === "MapLegendPanel" && (
           <MapLegendPanel config={props.rightSidebarConfig} />

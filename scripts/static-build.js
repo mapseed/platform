@@ -11,7 +11,6 @@ const zlib = require("zlib");
 const {
   setConfigDefaults,
   transformCommonFormElements,
-  transformStoryContent,
 } = require("../src/base/static/utils/config-loader-utils");
 
 // =============================================================================
@@ -144,9 +143,6 @@ config.place.place_detail = transformCommonFormElements(
   config.place.place_detail,
   config.place.common_form_elements,
 );
-
-// Build the story data structure used by the app.
-config.story = transformStoryContent(config.story);
 
 // Build the index-xx.html file for this language
 const outputIndexFile = indexTemplate({
