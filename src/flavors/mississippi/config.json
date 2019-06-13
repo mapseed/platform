@@ -52,9 +52,9 @@
     "geocode_bounding_box": [],
     "options": {
       "mapViewport": {
-        "latitude": 41.03626,
-        "longitude": -90.93201,
-        "zoom": 4,
+        "latitude": 39.77,
+        "longitude": -92.75,
+        "zoom": 5,
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 18.4
@@ -64,21 +64,21 @@
       "streets": {
         "type": "raster",
         "tiles": [
-          "https://api.mapbox.com/styles/v1/bkholmes/cjwk24ik402l81cot29vlnvsa/wmts?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+          "https://api.mapbox.com/styles/v1/bkholmes/cjwk24ik402l81cot29vlnvsa/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
         ],
         "tileSize": 256
       },
-      "landscape": {
+      "basemap": {
         "type": "raster",
         "tiles": [
-          "https://ecotopia.today/Mississippi/{z}/{x}/{y}.png"
+          "https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"
         ],
         "tileSize": 256
       },
-      "topography": {
+      "oceans": {
         "type": "raster",
         "tiles": [
-          "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
+          "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"
         ],
         "tileSize": 256
       },
@@ -92,15 +92,10 @@
     },
     "layerGroups": [
       {
-        "id": "topography-landscape-streets",
+        "id": "ocean-satellite-streets",
         "basemap": true,
         "visibleDefault": true,
         "mapboxLayers": [
-          {
-            "id": "topography-basemap",
-            "type": "raster",
-            "source": "topography"
-          },
           {
             "id": "satellite-basemap",
             "type": "raster",
@@ -110,28 +105,33 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                13,
+                10,
                 0,
-                15,
+                12,
                 1
               ]
             }
           },
           {
-            "id": "landscape-basemap",
+            "id": "oceans-basemap",
             "type": "raster",
-            "source": "landscape",
+            "source": "oceans",
             "paint": {
               "raster-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                13,
+                10,
                 1,
-                15,
+                12,
                 0
               ]
             }
+          },
+          {
+            "id": "river-basemap",
+            "type": "raster",
+            "source": "basemap"
           },
           {
             "id": "streets-basemap",
@@ -236,11 +236,11 @@
         "title": "Layers:",
         "content": [
           {
-            "id": "topography-landscape-streets",
+            "id": "ocean-satellite-streets",
             "title": "Streets",
             "layerGroups": [
               {
-                "id": "topography-landscape-streets",
+                "id": "ocean-satellite-streets",
                 "title": "Basemap"
               }
             ]
@@ -721,7 +721,7 @@
     "curated-collections": {
       "header": "Curated Collections",
       "visibleLayerGroupIds": [
-        "topography-landscape-streets",
+        "ocean-satellite-streets",
         "mississippi-input"
       ],
       "order": [
