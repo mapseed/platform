@@ -68,7 +68,7 @@
         ],
         "tileSize": 256
       },
-      "basemap": {
+      "mississippi-watershed": {
         "type": "raster",
         "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
         "tileSize": 256
@@ -86,6 +86,17 @@
           "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         ],
         "tileSize": 256
+      },
+      "nitrogen": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Nitrogen/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "nitrogen-plants": {
+        "type": "geojson",
+        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/mississippi_nitrogen-plants.geojson"
       }
     },
     "layerGroups": [
@@ -127,14 +138,20 @@
             }
           },
           {
-            "id": "river-basemap",
-            "type": "raster",
-            "source": "basemap"
-          },
-          {
             "id": "streets-basemap",
             "type": "raster",
             "source": "streets"
+          }
+        ]
+      },
+      {
+        "id": "mississippi-group",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "river-basemap",
+            "type": "raster",
+            "source": "mississippi-watershed"
           }
         ]
       },
@@ -215,13 +232,47 @@
             }
           }
         ]
+      },
+      {
+        "id": "nitrogen-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-layer",
+            "type": "raster",
+            "source": "nitrogen"
+          }
+        ]
+      },
+      {
+        "id": "nitrogen-plants-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<p><strong>test!</strong></p>",
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-plants-labels",
+            "type": "circle",
+            "source": "nitrogen-plants",
+            "source-layer": "nitrogen-plants",
+            "paint": {
+              "circle-radius": {
+                "base": 1.75,
+                "stops": [[12, 2], [22, 180]]
+              },
+              "circle-color": "#fbb03b"
+            }
+          }
+        ]
       }
     ]
   },
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": false,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "left_sidebar": {
     "is_enabled": true,
@@ -235,10 +286,10 @@
         "content": [
           {
             "id": "ocean-satellite-streets",
-            "title": "Streets",
+            "title": "Our River",
             "layerGroups": [
               {
-                "id": "ocean-satellite-streets",
+                "id": "mississippi-group",
                 "title": "Basemap"
               }
             ]
@@ -250,6 +301,20 @@
               {
                 "id": "mississippi-input",
                 "title": "Comments"
+              }
+            ]
+          },
+          {
+            "id": "grp-nitrogen",
+            "title": "Nitrogen",
+            "layerGroups": [
+              {
+                "id": "nitrogen-group",
+                "title": "Nitrogen Details"
+              },
+              {
+                "id": "nitrogen-plants-group",
+                "title": "Nitrogen Plants"
               }
             ]
           }
@@ -717,7 +782,11 @@
   ],
   "featuredPlaces": {
     "header": "Curated Collections",
-    "visibleLayerGroupIds": ["ocean-satellite-streets", "mississippi-input"],
+    "visibleLayerGroupIds": [
+      "ocean-satellite-streets",
+      "mississippi-input",
+      "mississippi-group"
+    ],
     "order": [
       {
         "placeId": 7289
