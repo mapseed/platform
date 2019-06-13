@@ -7,7 +7,7 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/spokane-input",
+      "url": "https://dev-api.mapseed.org/api/v2/spokane-vsp/datasets/spokane-input",
       "slug": "spokane-input",
       "clientSlug": "report",
       "anonymous_permissions": [
@@ -28,10 +28,10 @@
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {
-        "primary": "#115588",
+        "primary": "#273580",
         "secondary": "#d46c4c",
         "tertiary": "#999",
-        "accent": "#ef5f46"
+        "accent": "#9d122b"
       },
       "bg": {
         "default": "rgba(226, 232, 236, 0.4)",
@@ -44,7 +44,7 @@
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
-        "addPlaceButtonBackgroundColor": "#115588",
+        "addPlaceButtonBackgroundColor": "#273580",
         "addPlaceButtonHoverBackgroundColor": "#9ecaeb"
       }
     }
