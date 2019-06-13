@@ -39,13 +39,13 @@
       },
       "text": {
         "secondary": "#fff",
-        "tertiary": "#ef5f46",
+        "tertiary": "#9d122b",
         "titleFontFamily": "Raleway,sans-serif",
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#273580",
-        "addPlaceButtonHoverBackgroundColor": "#9ecaeb"
+        "addPlaceButtonHoverBackgroundColor": "rgb(168,174,204)"
       }
     }
   },
@@ -53,22 +53,22 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "geocoding_engine": "Mapbox",
-    "geocode_hint": [-120.549183, 46.9999019],
+    "geocode_hint": [-117.406929, 47.646225],
     "offlineBoundingBox": {
       "southWest": {
-        "lat": 46.709206,
-        "lng": -121.476997
+        "lat": 47.15606,
+        "lng": -117.945179
       },
       "northEast": {
-        "lat": 47.633585,
-        "lng": -119.891353
+        "lat": 48.104562,
+        "lng": -116.927791
       }
     },
     "options": {
-      "scrollZoomAroundCenter": true,
+      "scrollZoomAroundCenter": false,
       "mapViewport": {
-        "latitude": 47.18554,
-        "longitude": -120.72226,
+        "latitude": 47.646225,
+        "longitude": -117.406929,
         "zoom": 7.95,
         "pitch": 15,
         "minZoom": 1,
@@ -97,23 +97,29 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
-      "kittitas-geologic-hazard": {
+      "spokane-geologic-hazard": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-geologic-hazard/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/spokane-geologic-hazard/{z}/{x}/{y}.pbf"
         ],
         "maxZoom": 17
       },
-      "kittitas-wetlands": {
+      "spokane-wetlands": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-wetlands/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/spokane-wetlands/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-conservation-areas": {
+      "spokane-frequently-flooded": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-conservation-areas/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/spokane-frequently-flooded/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "spokane-critical-conservation-areas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-critical-conservation-areas/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-conservation-waterways": {
@@ -122,10 +128,10 @@
           "https://vector-tiles.mapseed.org/kittitas-conservation-waterways/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-critical-aquifer": {
+      "spokane-critical-aquifer": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-critical-aquifer/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/spokane-critical-aquifer/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-floodplain": {
@@ -134,9 +140,11 @@
           "https://vector-tiles.mapseed.org/kittitas-floodplain/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-county-outline": {
-        "type": "geojson",
-        "data": "https://opendata.arcgis.com/datasets/bf2498852e614bc1a918ec562150a06b_0.geojson"
+      "spokane-county-outline": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-county-outline/{z}/{x}/{y}.pbf"
+        ]
       }
     },
 
@@ -216,14 +224,14 @@
         ]
       },
       {
-        "id": "kittitas-county-outline",
+        "id": "spokane-county-outline",
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "kittitas-county-outline",
+            "id": "spokane-county-outline",
             "type": "line",
-            "source": "kittitas-county-outline",
-            "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
+            "source": "spokane-county-outline",
+            "source-layer": "spokane-county-outline",
             "paint": {
               "line-color": "#fff",
               "line-width": 3,
@@ -233,23 +241,23 @@
         ]
       },
       {
-        "id": "kittitas-geologic-hazard",
+        "id": "spokane-geologic-hazard",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "kittitas-geologic-hazard",
+            "id": "spokane-geologic-hazard",
             "type": "fill",
-            "source": "kittitas-geologic-hazard",
-            "source-layer": "kittitas-geologic-hazard",
+            "source": "spokane-geologic-hazard",
+            "source-layer": "spokane-geologic-hazard",
             "paint": {
               "fill-pattern": "hazard-fill.png"
             }
           },
           {
-            "id": "kittitas-geologic-hazard-outline",
+            "id": "spokane-geologic-hazard-outline",
             "type": "line",
-            "source": "kittitas-geologic-hazard",
-            "source-layer": "kittitas-geologic-hazard",
+            "source": "spokane-geologic-hazard",
+            "source-layer": "spokane-geologic-hazard",
             "paint": {
               "line-color": "#e80f0f",
               "line-width": 2,
@@ -259,23 +267,23 @@
         ]
       },
       {
-        "id": "kittitas-wetlands",
+        "id": "spokane-wetlands",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "kittitas-wetlands",
+            "id": "spokane-wetlands",
             "type": "fill",
-            "source": "kittitas-wetlands",
-            "source-layer": "kittitas-wetlands",
+            "source": "spokane-wetlands",
+            "source-layer": "spokane-wetlands",
             "paint": {
               "fill-pattern": "wetlands-fill.png"
             }
           },
           {
-            "id": "kittitas-wetlands-outline",
+            "id": "spokane-wetlands-outline",
             "type": "line",
-            "source": "kittitas-wetlands",
-            "source-layer": "kittitas-wetlands",
+            "source": "spokane-wetlands",
+            "source-layer": "spokane-wetlands",
             "paint": {
               "line-color": "#10e53d",
               "line-opacity": 0.7,
@@ -285,23 +293,23 @@
         ]
       },
       {
-        "id": "kittitas-frequently-flooded",
+        "id": "spokane-frequently-flooded",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "kittitas-frequently-flooded",
+            "id": "spokane-frequently-flooded",
             "type": "fill",
-            "source": "kittitas-floodplain",
-            "source-layer": "kittitas-floodplain",
+            "source": "spokane-frequently-flooded",
+            "source-layer": "spokane-frequently-flooded",
             "paint": {
               "fill-pattern": "frequently-flooded-fill.png"
             }
           },
           {
-            "id": "kittitas-frequently-flooded-outline",
+            "id": "spokane-frequently-flooded-outline",
             "type": "line",
-            "source": "kittitas-floodplain",
-            "source-layer": "kittitas-floodplain",
+            "source": "spokane-frequently-flooded",
+            "source-layer": "spokane-frequently-flooded",
             "paint": {
               "line-color": "#3366ff",
               "line-opacity": 0.7,
@@ -311,23 +319,23 @@
         ]
       },
       {
-        "id": "kittitas-critical-aquifer",
+        "id": "spokane-critical-aquifer",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "kittitas-critical-aquifer",
+            "id": "spokane-critical-aquifer",
             "type": "fill",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
+            "source": "spokane-critical-aquifer",
+            "source-layer": "spokane-critical-aquifer",
             "paint": {
               "fill-pattern": "aquifer-fill.png"
             }
           },
           {
-            "id": "kittitas-critical-aquifer-outline",
+            "id": "spokane-critical-aquifer-outline",
             "type": "line",
-            "source": "kittitas-critical-aquifer",
-            "source-layer": "kittitas-critical-aquifer",
+            "source": "spokane-critical-aquifer",
+            "source-layer": "spokane-critical-aquifer",
             "paint": {
               "line-color": "#1155ce",
               "line-opacity": 0.7,
@@ -337,11 +345,11 @@
         ]
       },
       {
-        "id": "kittitas-conservation-areas",
+        "id": "spokane-critical-conservation-areas",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "kittitas-conservation-areas",
+            "id": "spokane-critical-conservation-areas",
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
@@ -351,15 +359,15 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "fill",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "spokane-critical-conservation-areas",
+            "source-layer": "spokane-critical-conservation-areas",
             "paint": {
               "fill-pattern": "conservation-fill-alt.png",
               "fill-opacity": 0.7
             }
           },
           {
-            "id": "kittitas-conservation-areas-outline",
+            "id": "spokane-critical-conservation-areas-outline",
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
@@ -369,8 +377,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "line",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "spokane-critical-conservation-areas",
+            "source-layer": "spokane-critical-conservation-areas",
             "paint": {
               "line-color": "#6dd84a",
               "line-width": 2,
@@ -415,7 +423,7 @@
             }
           },
           {
-            "id": "kittitas-conservation-areas-labels",
+            "id": "spokane-critical-conservation-areas-labels",
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
@@ -425,8 +433,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "symbol",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "spokane-critical-conservation-areas",
+            "source-layer": "spokane-critical-conservation-areas",
             "paint": {
               "text-color": "#618141",
               "text-halo-color": "#f0f4ec",
@@ -525,23 +533,23 @@
                 "title": "Snake River"
               },
               {
-                "id": "kittitas-geologic-hazard",
+                "id": "spokane-geologic-hazard",
                 "title": "Geologic Hazards"
               },
               {
-                "id": "kittitas-wetlands",
+                "id": "spokane-wetlands",
                 "title": "Wetlands"
               },
               {
-                "id": "kittitas-frequently-flooded",
+                "id": "spokane-frequently-flooded",
                 "title": "Frequently Flooded Areas"
               },
               {
-                "id": "kittitas-critical-aquifer",
+                "id": "spokane-critical-aquifer",
                 "title": "Critical Aquifer Recharge Areas"
               },
               {
-                "id": "kittitas-conservation-areas",
+                "id": "spokane-critical-conservation-areas",
                 "title": "Critical Conservation Areas"
               }
             ]
@@ -551,7 +559,7 @@
             "title": "Community Data",
             "layerGroups": [
               {
-                "id": "kittitas-county-outline",
+                "id": "spokane-county-outline",
                 "title": "Spokane County border"
               },
               {
@@ -590,7 +598,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           },
           {
@@ -598,8 +606,8 @@
             "end_field_index": 7,
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-wetlands",
-              "kittitas-county-outline"
+              "spokane-wetlands",
+              "spokane-county-outline"
             ]
           },
           {
@@ -607,8 +615,8 @@
             "end_field_index": 10,
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-frequently-flooded",
-              "kittitas-county-outline"
+              "spokane-frequently-flooded",
+              "spokane-county-outline"
             ]
           },
           {
@@ -616,8 +624,8 @@
             "end_field_index": 13,
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-geologic-hazard",
-              "kittitas-county-outline"
+              "spokane-geologic-hazard",
+              "spokane-county-outline"
             ]
           },
           {
@@ -625,8 +633,8 @@
             "end_field_index": 16,
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-critical-aquifer",
-              "kittitas-county-outline"
+              "spokane-critical-aquifer",
+              "spokane-county-outline"
             ]
           },
           {
@@ -634,8 +642,8 @@
             "end_field_index": 19,
             "visibleLayerGroupIds": [
               "satellite",
-              "kittitas-conservation-areas",
-              "kittitas-county-outline"
+              "spokane-critical-conservation-areas",
+              "spokane-county-outline"
             ]
           },
           {
@@ -644,7 +652,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           },
           {
@@ -653,7 +661,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           },
           {
@@ -662,7 +670,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           },
           {
@@ -671,7 +679,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           },
           {
@@ -680,7 +688,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           },
           {
@@ -689,7 +697,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           },
           {
@@ -698,7 +706,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
-              "kittitas-county-outline"
+              "spokane-county-outline"
             ]
           }
         ],
@@ -2543,6 +2551,16 @@
       "type": "internal_link",
       "url": "/page/about",
       "start_page": true
+    },
+    {
+      "title": "VSP Assistance",
+      "type": "internal_link",
+      "url": "/page/assistance"
+    },
+    {
+      "title": "Work Group Application",
+      "type": "internal_link",
+      "url": "/page/sign-up"
     }
   ],
   "pages": [
@@ -2551,34 +2569,32 @@
       "lang": "en",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
-        "<p style='margin-bottom:16px'>Your Garfield County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
-        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator or for more information visit: <a href='https://www.garfieldcountyvsp.com/' target='_blank'>www.garfieldcountyvsp.com</a>.</p>",
+        "<p style='margin-bottom:16px'>Your Spokane County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:",
         "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Bradley Johnson</strong>",
-        "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
+        "<strong style='margin-bottom:0'>Andy Dunau</strong>",
+        "<p style='margin:0'><em>Facilitator</em></p>",
         "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>bradleyj@palousecd.org</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>andy@dunau.com</span></div>",
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Duane Bartels</strong>",
-        "<p style='margin:0'><em>District Manager</em></p>",
+        "<strong style='margin-bottom:0'>Walt Edelen</strong>",
+        "<p style='margin:0'><em>Spokane Conservation District</em></p>",
         "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-843-5008</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcdistrict@qwestoffice.net</span></div>",
-        "</li>",
-        "<li style='margin-top:16px'>",
-        "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Lance Frederick</strong>",
-        "<p style='margin:0'><em>CREP Coordinator</em></p>",
-        "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>508-843-5008</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>lancepcdistrict@qwestoffice.net</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
         "</li>",
         "</ul>"
+      ]
+    },
+    {
+      "slug": "sign-up",
+      "lang": "en",
+      "content": [
+        "<h3 id='about-page-header'>Spokane County VSP Application</h3>",
+        "<iframe style='width: 100%; height: 100%; border: none;' name='Spokane County VSP Work Group Application' src='https://spokanecountyvsp.org/' />"
       ]
     },
     {
@@ -2586,7 +2602,7 @@
       "lang": "en",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Spokane County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
-        "<img src='/static/css/images/kccd-group.jpg' alt='KCCD' style='margin:8px 0 16px 0' />",
+        "<img src='/static/css/images/sccd.jpg' alt='Spokane County Conservation District' style='margin:8px 0 16px 0' />",
         "<p>The Spokane County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
         "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"

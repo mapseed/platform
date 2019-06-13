@@ -226,7 +226,7 @@ input[type="number"],
 -------------------------------------------------------------- */
 
 .next-btn {
-  background-color: #115588 !important;
+  background-color: #273580 !important;
   border-radius: 3px !important;
   float: right !important;
   outline: none !important;
@@ -237,6 +237,6 @@ input[type="number"],
   margin-left: 10px !important;
 
   &:hover {
-    background-color: #9fbbcf !important;
+    background-color: rgb(168,174,204) !important;
   }
 }
