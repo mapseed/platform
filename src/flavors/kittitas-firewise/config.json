@@ -5014,7 +5014,7 @@
             "name": "private",
             "type": "big_radio",
             "prompt": "Would you be willing to share your wildfire resiliency efforts with the public? Checking \"yes\" below will place a pin on the map upon submission and a brief summary of your actions will be visible to the public.",
-            "default_value": "yes",
+            "default_value": "no",
             "content": [
               {
                 "label": "Yes",
