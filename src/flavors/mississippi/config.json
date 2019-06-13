@@ -70,9 +70,7 @@
       },
       "basemap": {
         "type": "raster",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"
-        ],
+        "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
         "tileSize": 256
       },
       "oceans": {
@@ -717,21 +715,16 @@
       ]
     }
   ],
-  "story": {
-    "curated-collections": {
-      "header": "Curated Collections",
-      "visibleLayerGroupIds": [
-        "ocean-satellite-streets",
-        "mississippi-input"
-      ],
-      "order": [
-        {
-          "placeId": 7289
-        },
-        {
-          "placeId": 7288
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "header": "Curated Collections",
+    "visibleLayerGroupIds": ["ocean-satellite-streets", "mississippi-input"],
+    "order": [
+      {
+        "placeId": 7289
+      },
+      {
+        "placeId": 7288
+      }
+    ]
   }
 }
