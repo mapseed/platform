@@ -97,6 +97,14 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
+      "spokane-parcels": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-parcels/{z}/{x}/{y}.pbf"
+        ],
+        "minZoom": 10,
+        "maxZoom": 16
+      },
       "spokane-geologic-hazard": {
         "type": "vector",
         "tiles": [
@@ -454,6 +462,35 @@
         ]
       },
       {
+        "id": "spokane-parcels",
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<p><strong>Parcel number: </strong><em>{{PID_NUM}}</em></p><p><strong>Address: </strong><em>{{site_addre}}</em></p>",
+        "mapboxLayers": [
+          {
+            "id": "spokane-parcels",
+            "type": "fill",
+            "source": "spokane-parcels",
+            "source-layer": "spokane-parcels",
+            "paint": {
+              "fill-color": "#ddd",
+              "fill-opacity": 0.2,
+              "fill-outline-color": "#999"
+            }
+          },
+          {
+            "id": "spokane-parcels-outline",
+            "type": "line",
+            "source": "spokane-parcels",
+            "source-layer": "spokane-parcels",
+            "paint": {
+              "line-color": "#fff",
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
         "id": "spokane-input",
         "visibleDefault": true,
         "interactive": true,
@@ -531,7 +568,13 @@
               {
                 "id": "snake-river",
                 "title": "Snake River"
-              },
+              }
+            ]
+          },
+          {
+            "id": "grp-critical-areas",
+            "title": "Critical Areas",
+            "layerGroups": [
               {
                 "id": "spokane-geologic-hazard",
                 "title": "Geologic Hazards"
@@ -551,6 +594,16 @@
               {
                 "id": "spokane-critical-conservation-areas",
                 "title": "Critical Conservation Areas"
+              }
+            ]
+          },
+          {
+            "id": "grp-parcels",
+            "title": "Property Parcels",
+            "layerGroups": [
+              {
+                "id": "spokane-parcels",
+                "title": "Parcels"
               }
             ]
           },
