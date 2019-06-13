@@ -268,13 +268,13 @@ class MainMap extends Component {
   parsePopupContent = (popupContent, properties) => {
     // Support a Handlebars-inspired syntax for injecting feature properties
     // into popup content.
-    return popupContent.replace(/{{(\w+?)}}/, (match, property) => {
-      if (properties[property]) {
-        return properties[property];
+    return popupContent.replace(/{{(\w+?)}}/gi, (...args) => {
+      if (properties[args[1]]) {
+        return properties[args[1]];
       } else {
         // eslint-disable-next-line no-console
         console.error(
-          `Error: cannot find property ${property} on feature for use on popup`,
+          `Error: cannot find property ${args[1]} on feature for use on popup`,
         );
       }
     });

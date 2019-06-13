@@ -102,7 +102,14 @@ const TemplateContainer = styled("div")<{
   currentTemplate: string;
 }>(props => ({
   position: "relative",
-  overflow: props.layout === "desktop" ? "hidden" : "auto",
+  overflow:
+    // The report template is a special case, and needs `overflow: visible`
+    // for PDFs longer than one page to render.
+    props.currentTemplate === "report"
+      ? "visible"
+      : props.layout === "desktop"
+        ? "hidden"
+        : "auto",
   width: "100%",
   height: "100%",
 

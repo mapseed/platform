@@ -15,6 +15,7 @@ import {
   placeConfigSelector,
   placeConfigPropType,
 } from "../../state/ducks/place-config";
+import { updateCurrentTemplate } from "../../state/ducks/ui";
 import PlaceListItem from "../molecules/place-list-item";
 import Button from "@material-ui/core/Button";
 import { TextInput } from "../atoms/input";
@@ -88,6 +89,10 @@ const SortButton = buttonProps => (
 const ButtonContainer = styled("div")({});
 
 class PlaceList extends React.Component {
+  componentDidMount() {
+    this.props.updateCurrentTemplate("placeList");
+  }
+
   _sortAndFilterPlaces = (places, sortBy, query) => {
     // only render place surveys that are flagged with 'includeOnList':
     const includedPlaces = places.filter(
@@ -268,6 +273,7 @@ PlaceList.propTypes = {
   places: placesPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
+  updateCurrentTemplate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -275,6 +281,16 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+  updateCurrentTemplate: templateName =>
+    dispatch(updateCurrentTemplate(templateName)),
+});
+
 export default translate("PlaceList")(
-  withRouter(connect(mapStateToProps)(PlaceList)),
+  withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(PlaceList),
+  ),
 );

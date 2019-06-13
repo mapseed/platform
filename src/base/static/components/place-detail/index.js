@@ -22,6 +22,7 @@ import FieldSummary from "./field-summary";
 import SnohomishFieldSummary from "./snohomish-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
 import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
+import KittitasFireReadyFieldSummary from "./kittitas-fire-ready-field-summary";
 
 import {
   appConfigSelector,
@@ -266,6 +267,16 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <SnohomishFieldSummary
+          fields={categoryConfig.fields}
+          place={this.props.focusedPlace}
+        />
+      );
+    } else if (
+      this.props.customComponents.FieldSummary ===
+      "KittitasFireReadyFieldSummary"
+    ) {
+      fieldSummary = (
+        <KittitasFireReadyFieldSummary
           fields={categoryConfig.fields}
           place={this.props.focusedPlace}
         />
