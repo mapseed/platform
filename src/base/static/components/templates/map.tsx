@@ -29,6 +29,7 @@ import {
   updateActivePage,
   updateContentPanelComponent,
   updateEditModeToggled,
+  updateCurrentTemplate,
 } from "../../state/ducks/ui";
 import {
   hasAnonAbilitiesInAnyDataset,
@@ -109,6 +110,7 @@ const dispatchPropTypes = {
   updateFocusedPlaceId: PropTypes.func.isRequired,
   updateEditModeToggled: PropTypes.func.isRequired,
   updateScrollToResponseId: PropTypes.func.isRequired,
+  updateCurrentTemplate: PropTypes.func.isRequired,
 };
 
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
@@ -211,6 +213,7 @@ class MapTemplate extends Component<Props, State> {
   async componentDidMount() {
     this.recalculateContainerSize();
     this.updateUIConfiguration(this.props.uiConfiguration);
+    this.props.updateCurrentTemplate("map");
 
     const { zoom, lat, lng } = this.props.params;
     zoom &&
@@ -613,6 +616,8 @@ const mapDispatchToProps = (
     dispatch(updateEditModeToggled(isToggled)),
   updateScrollToResponseId: responseId =>
     dispatch(updateScrollToResponseId(responseId)),
+  updateCurrentTemplate: templateName =>
+    dispatch(updateCurrentTemplate(templateName)),
 });
 
 export default connect<StateProps, DispatchProps, OwnProps>(

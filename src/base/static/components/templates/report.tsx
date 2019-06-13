@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { placeSelector, placePropType } from "../../state/ducks/places";
+import { updateCurrentTemplate } from "../../state/ducks/ui";
 import KittitasFirewiseReport from "../organisms/reports/kittitas-firewise/report";
 import {
   datasetsConfigSelector,
@@ -17,6 +18,9 @@ const statePropTypes = {
   datasetsConfig: datasetsConfigPropType,
   placeSelector: PropTypes.func.isRequired,
 };
+const dispatchPropTypes = {
+  updateCurrentTemplate: PropTypes.func.isRequired,
+};
 interface OwnProps {
   params: {
     datasetClientSlug: string;
@@ -24,7 +28,8 @@ interface OwnProps {
   };
 }
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
-type Props = StateProps & RouteComponentProps<{}> & OwnProps;
+type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
+type Props = StateProps & DispatchProps & RouteComponentProps<{}> & OwnProps;
 
 const reports = {
   kittitasFirewiseReport: KittitasFirewiseReport,
@@ -65,22 +70,13 @@ const ReportTemplate = (props: Props) => {
 
   useEffect(
     () => {
+      props.updateCurrentTemplate("report");
       fetchPlace();
     },
     [parseInt(props.params.placeId)],
   );
 
-  return place && Report ? (
-    <div
-      css={css`
-        overflow: scroll;
-        width: 100%;
-        height: 100%;
-      `}
-    >
-      <Report place={place} />
-    </div>
-  ) : null;
+  return place && Report ? <Report place={place} /> : null;
 };
 
 type MapseedReduxState = any;
@@ -90,6 +86,15 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   placeSelector: placeId => placeSelector(state, placeId),
 });
 
-export default connect<StateProps, OwnProps>(mapStateToProps)(
-  withRouter(ReportTemplate),
-);
+const mapDispatchToProps = (
+  dispatch: any,
+  ownProps: OwnProps,
+): DispatchProps => ({
+  updateCurrentTemplate: templateName =>
+    dispatch(updateCurrentTemplate(templateName)),
+});
+
+export default connect<StateProps, DispatchProps, OwnProps>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(ReportTemplate));

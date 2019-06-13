@@ -22,6 +22,7 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
+import { updateCurrentTemplate } from "../../state/ducks/ui";
 import {
   placeFormsConfigSelector,
   placeFormsConfigPropType,
@@ -179,6 +180,8 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount() {
+    this.props.updateCurrentTemplate("dashboard");
+
     if (!this.props.hasAdminAbilities(this.state.dashboard.datasetSlug)) {
       this.props.history.push("/");
     }
@@ -505,6 +508,7 @@ Dashboard.propTypes = {
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   formFieldsConfig: formFieldsConfigPropType,
   datasetsConfig: datasetsConfigPropType,
+  updateCurrentTemplate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -517,4 +521,14 @@ const mapStateToProps = state => ({
   datasetsConfig: datasetsConfigSelector(state),
 });
 
-export default withRouter(connect(mapStateToProps)(Dashboard));
+const mapDispatchToProps = dispatch => ({
+  updateCurrentTemplate: templateName =>
+    dispatch(updateCurrentTemplate(templateName)),
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Dashboard),
+);
