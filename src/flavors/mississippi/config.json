@@ -1,0 +1,799 @@
+{
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
+  "datasets": [
+    {
+      "slug": "mississippi-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-input",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "an anthropocene river",
+    "name": "Mississippi",
+    "show_name_in_header": true,
+    "logo": "/static/css/images/Logo2.png",
+    "meta_description": "This map is dedicated to all the imhabitants of Cascadia, of every race and species",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#175f54",
+        "accent": "#2ebea8"
+      },
+      "bg": {
+        "default": "#175f54",
+        "light": "#000000"
+      },
+      "text": {
+        "tertiary": "#000000",
+        "titleFontFamily": "Roboto, sans-serif",
+        "titleColor": "#ffffff",
+        "headerFontFamily": "Roboto,sans-serif",
+        "bodyFontFamily": "Roboto,sans-serif"
+      }
+    }
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "cartodb_enabled": true,
+    "geocoding_enabled": false,
+    "geocode_field_label": "Enter an address...",
+    "geocode_bounding_box": [],
+    "options": {
+      "mapViewport": {
+        "latitude": 39.77,
+        "longitude": -92.75,
+        "zoom": 5,
+        "pitch": 0,
+        "minZoom": 1,
+        "maxZoom": 18.4
+      }
+    },
+    "mapboxSources": {
+      "streets": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjwk24ik402l81cot29vlnvsa/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
+      },
+      "mississippi-watershed": {
+        "type": "raster",
+        "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
+        "tileSize": 256
+      },
+      "oceans": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "nitrogen-farm-emissions": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Nitrogen/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "nitrogen-plants": {
+        "type": "geojson",
+        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/mississippi_nitrogen-plants.geojson"
+      }
+    },
+    "layerGroups": [
+      {
+        "id": "ocean-satellite-streets",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                0,
+                12,
+                1
+              ]
+            }
+          },
+          {
+            "id": "oceans-basemap",
+            "type": "raster",
+            "source": "oceans",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                1,
+                12,
+                0
+              ]
+            }
+          },
+          {
+            "id": "streets-basemap",
+            "type": "raster",
+            "source": "streets"
+          }
+        ]
+      },
+      {
+        "id": "mississippi-group",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "river-basemap",
+            "type": "raster",
+            "source": "mississippi-watershed"
+          }
+        ]
+      },
+      {
+        "id": "mississippi-input",
+        "datasetSlug": "mississippi-input",
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "creating-input-focused",
+            "type": "symbol",
+            "source": "mississippi-input",
+            "layout": {
+              "icon-size": 0.4,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "geology",
+                "geology.png",
+                "history",
+                "history.png",
+                "industry",
+                "industry.png",
+                "culture",
+                "culture.png",
+                "ecology",
+                "ecology.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "mississippi-input",
+            "type": "symbol",
+            "source": "mississippi-input",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": "bottom",
+              "icon-size": ["step", ["zoom"], 0.2, 10, 0.3],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "geology",
+                  "geology.png",
+                  "history",
+                  "history.png",
+                  "industry",
+                  "industry.png",
+                  "culture",
+                  "culture.png",
+                  "ecology",
+                  "ecology.png",
+                  "__no-icon-image__"
+                ],
+                10,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "geology",
+                  "geology.png",
+                  "history",
+                  "history.png",
+                  "industry",
+                  "industry.png",
+                  "culture",
+                  "culture.png",
+                  "ecology",
+                  "ecology.png",
+                  "__no-icon-image__"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "nitrogen-farm-emissions-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-layer",
+            "type": "raster",
+            "source": "nitrogen-farm-emissions"
+          }
+        ]
+      },
+      {
+        "id": "nitrogen-plants-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<p><strong>Nitrogen Plant Name: </strong><em>{{PLANT}}</em></p><p><strong>emission count: </strong><em>{{Current}}</em></p>",
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-plants-labels",
+            "type": "circle",
+            "source": "nitrogen-plants",
+            "paint": {
+              "circle-radius": {
+                "property": "Current",
+                "type": "exponential",
+                "stops": [[1, 10], [1500000, 30]]
+              },
+              "circle-color": "#efc300"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "component": "FeaturedPlacesNavigator"
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa fa-bars",
+        "component": "MapLayerPanel",
+        "title": "Layers:",
+        "content": [
+          {
+            "id": "ocean-satellite-streets",
+            "title": "Our River",
+            "layerGroups": [
+              {
+                "id": "mississippi-group",
+                "title": "Watershed"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "Contributions",
+            "layerGroups": [
+              {
+                "id": "mississippi-input",
+                "title": "Comments"
+              }
+            ]
+          },
+          {
+            "id": "grp-nitrogen",
+            "title": "Nitrogen",
+            "layerGroups": [
+              {
+                "id": "nitrogen-farm-emissions-group",
+                "title": "Nitrogen Details"
+              },
+              {
+                "id": "nitrogen-plants-group",
+                "title": "Nitrogen Plants"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "MAKE IT NOW",
+    "show_list_button_label": "See all comments",
+    "show_map_button_label": "Show the Map",
+    "title": "Tell us more...",
+    "action_text": "created",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Submit",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "geology",
+        "category": "geology",
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/geology.png",
+        "value": "geology",
+        "label": "Geology",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "How does it feel?",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "What is the aesthetic of this place?",
+            "display_prompt": " ",
+            "placeholder": "Describe it... (you can also add links, images, videos)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "history",
+        "category": "history",
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/history.png",
+        "value": "history",
+        "label": "History",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "What's the concept?",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "How do thoughts change things?",
+            "display_prompt": " ",
+            "placeholder": "Describe it... (you can also add links, images, videos)"
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "industry",
+        "category": "industry",
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/industry.png",
+        "value": "industry",
+        "label": "Industry",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "What's new under the rain?",
+            "placeholder": "Title:",
+            "display_prompt": " ",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": " Is there an industry here? Could there be one?",
+            "display_prompt": " ",
+            "placeholder": "Show it... (you can add links, images, videos)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "culture",
+        "category": "culture",
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/culture.png",
+        "value": "culture",
+        "label": "Culture",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "What's happening here?",
+            "placeholder": "Title:",
+            "display_prompt": " ",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "What's changing this place?",
+            "display_prompt": " ",
+            "placeholder": "Tell it... (you can also add links, images, videos)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "ecology",
+        "category": "ecology",
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/ecology.png",
+        "value": "ecology",
+        "label": "Ecology",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "What's happening here?",
+            "placeholder": "Title:",
+            "display_prompt": " ",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "What's changing this place?",
+            "display_prompt": " ",
+            "placeholder": "Tell it... (you can also add links, images, videos)",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "Name",
+        "placeholder": "Name",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "type": "text",
+        "prompt": "Email",
+        "placeholder": "Receive notices about this comment",
+        "optional": true,
+        "sticky": true
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "Image",
+        "label": "Add an image",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "Put it on the map!"
+      }
+    },
+    "items": [
+      {
+        "prompt": "Type of report",
+        "type": "select",
+        "options": [
+          {
+            "label": "Geology",
+            "value": "geology"
+          },
+          {
+            "label": "History",
+            "value": "history"
+          },
+          {
+            "label": "Industry",
+            "value": "industry"
+          },
+          {
+            "label": "Culture",
+            "value": "culture"
+          },
+          {
+            "label": "Ecology",
+            "value": "ecology"
+          }
+        ],
+        "name": "location_type",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "Title of report",
+        "type": "text",
+        "name": "name",
+        "optional": null,
+        "attrs": [
+          {
+            "key": "required"
+          },
+          {
+            "key": "placeholder",
+            "value": "Enter title"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "Description",
+        "type": "textarea",
+        "name": "description",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "Description..."
+          }
+        ]
+      },
+      {
+        "prompt": "Your Name",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "Name"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "Your Email",
+        "type": "text",
+        "name": "private-submitter_email",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "Receive email updates on your report"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "Image",
+        "label": "Add an Image",
+        "type": "file",
+        "name": "my_image",
+        "optional": true
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
+      "items": [
+        {
+          "prompt": "Comment",
+          "label": "Comment",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "Your Name",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "Comment"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "geology",
+        "datasetId": "mississippi-input",
+        "label": "Observation",
+        "icon": "/static/css/images/markers/geology.png"
+      },
+      {
+        "id": "culture",
+        "datasetId": "mississippi-input",
+        "label": "Question",
+        "icon": "/static/css/images/markers/culture.png"
+      },
+      {
+        "id": "history",
+        "datasetId": "mississippi-input",
+        "label": "History",
+        "icon": "/static/css/images/markers/history.png"
+      },
+      {
+        "id": "industry",
+        "datasetId": "mississippi-input",
+        "label": "Complaint",
+        "icon": "/static/css/images/markers/industry.png"
+      },
+      {
+        "id": "ecology",
+        "datasetId": "mississippi-input",
+        "label": "Ecology",
+        "icon": "/static/css/images/markers/ecology.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
+  },
+  "nav_bar": [
+    {
+      "title": "the who",
+      "type": "internal_link",
+      "url": "/page/about"
+    },
+    {
+      "title": "the how",
+      "type": "internal_link",
+      "url": "/page/getinvolved"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "about",
+      "lang": "en",
+      "content": [
+        "<p><h2>CALLING ALL BIOREGIONALISTS</h2></p>",
+        "<p><strong>What is Cascadia? Where is Cascadia? Why is Cascadia? Here you can make your intimate sensations of the region public, and write your ideas directly into a common landscape. Tell everyone who cares why particular places matter to <em>you</em>.</strong></p><br><br>",
+        "<p><h2>CALLING ALL ARTISTS</h2></p>",
+        "<p><strong>You can make Cascadia more real, more fictional, more beautiful, more terrifying, more natural, more artifical, more conventional, more controversial, by contributing your sensations, ideas and artworks, plus the events that matter to you.</strong></p><br><br>",
+        "<p><img src='/static/css/images/HoRiverValley.jpg'></p>"
+      ]
+    },
+    {
+      "slug": "getinvolved",
+      "lang": "en",
+      "content": [
+        "<p><h2>Make it now</h2></p>",
+        "<p><h4>Thanks to the brilliant folks at <a href='mapseed.org'>Mapseed</a>, this map is very easy to use, either on a computer or a mobile phone.</p>",
+        "<p>Just hit the button, \"Make it now.\" Then drag the map around until the marker is exactly where you would like it. You can zoom in a long way to find the exact spot. When you have found it, then choose one of the categories: Sensation, Idea, Artwork, Event.</p>",
+        "<p>You can give a title describing the feeling of a place, or its importance to the bioregion. You can also give the name of the artwork or event you are locating. You can use the categories in unexpected ways.</p>",
+        "<p>The idea can be yours or someone else's (let us know whose it is) and the sensation can be agreeable or disagreeable (if there is some problem there).</p>",
+        "<p>The artwork can be made specifically for this map, it can be documented here, or the image of an existing work can be placed in the landscape. The concept of event speaks for itself&mdash;whether it's artistic or otherwise.</p>",
+        "<p>You can write a short or long text, a poem, a dialogue etc. You can add an image with the editor (click the second to last icon on the right) or you can put in the web address of a Vimeo or Youtube video.",
+        "<p>Anyone can use this map. The idea is express the beauty, the importance and the challenge of creating the Cascadian bioregion. This unfinished process has been going on for decades. Cascadia represents a pathway forward, through and beyond ecological damage, through and beyond climate change. Make it now!</p>"
+      ]
+    }
+  ],
+  "featuredPlaces": {
+    "header": "Curated Collections",
+    "visibleLayerGroupIds": [
+      "ocean-satellite-streets",
+      "mississippi-input",
+      "mississippi-group",
+      "nitrogen-plants-group"
+    ],
+    "order": [
+      {
+        "placeId": 7289,
+        "pan_to": [-92.75, 39.77],
+        "zoom": 6
+      }
+    ]
+  }
+}
