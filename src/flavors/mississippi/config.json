@@ -260,7 +260,7 @@
               "circle-radius": {
                 "property": "Current",
                 "type": "exponential",
-                "stops": [[1, 1], [1500000, 30]]
+                "stops": [[1, 10], [1500000, 30]]
               },
               "circle-color": "#efc300"
             }
