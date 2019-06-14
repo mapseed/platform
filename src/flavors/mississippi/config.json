@@ -87,7 +87,7 @@
         ],
         "tileSize": 256
       },
-      "nitrogen": {
+      "nitrogen-farm-emissions": {
         "type": "raster",
         "tiles": [
           "https://ecotopia.today/Mississippi/Nitrogen/{z}/{x}/{y}.png"
@@ -234,14 +234,14 @@
         ]
       },
       {
-        "id": "nitrogen-group",
+        "id": "nitrogen-farm-emissions-group",
         "basemap": false,
         "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "nitrogen-layer",
             "type": "raster",
-            "source": "nitrogen"
+            "source": "nitrogen-farm-emissions"
           }
         ]
       },
@@ -250,19 +250,19 @@
         "basemap": false,
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<p><strong>test!</strong></p>",
+        "popupContent": "<p><strong>Nitrogen Plant Name: </strong><em>{{PLANT}}</em></p><p><strong>emission count: </strong><em>{{Current}}</em></p>",
         "mapboxLayers": [
           {
             "id": "nitrogen-plants-labels",
             "type": "circle",
             "source": "nitrogen-plants",
-            "source-layer": "nitrogen-plants",
             "paint": {
               "circle-radius": {
-                "base": 1.75,
-                "stops": [[12, 2], [22, 180]]
+                "property": "Current",
+                "type": "exponential",
+                "stops": [[1, 1], [1500000, 30]]
               },
-              "circle-color": "#fbb03b"
+              "circle-color": "#efc300"
             }
           }
         ]
@@ -290,7 +290,7 @@
             "layerGroups": [
               {
                 "id": "mississippi-group",
-                "title": "Basemap"
+                "title": "Watershed"
               }
             ]
           },
@@ -309,7 +309,7 @@
             "title": "Nitrogen",
             "layerGroups": [
               {
-                "id": "nitrogen-group",
+                "id": "nitrogen-farms",
                 "title": "Nitrogen Details"
               },
               {
@@ -785,14 +785,14 @@
     "visibleLayerGroupIds": [
       "ocean-satellite-streets",
       "mississippi-input",
-      "mississippi-group"
+      "mississippi-group",
+      "nitrogen-plants-group"
     ],
     "order": [
       {
-        "placeId": 7289
-      },
-      {
-        "placeId": 7288
+        "placeId": 7289,
+        "pan_to": [-92.75, 39.77],
+        "zoom": 6
       }
     ]
   }
