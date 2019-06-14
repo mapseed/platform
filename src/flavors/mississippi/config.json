@@ -309,7 +309,7 @@
             "title": "Nitrogen",
             "layerGroups": [
               {
-                "id": "nitrogen-farms",
+                "id": "nitrogen-farm-emissions-group",
                 "title": "Nitrogen Details"
               },
               {
