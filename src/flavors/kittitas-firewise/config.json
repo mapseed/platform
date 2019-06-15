@@ -105,10 +105,8 @@
         "type": "vector"
       },
       "wa-state-wildfire-start-sites-2008": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/wa-state-wildfire-start-sites-2008/{z}/{x}/{y}.pbf"
-        ]
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/dabefcb8f03549b49bee7564d4c3c4b5_8.geojson"
       },
       "kittitas-land-ownership": {
         "type": "vector",
@@ -122,6 +120,12 @@
           "https://vector-tiles.mapseed.org/kittitas-fire-districts/{z}/{x}/{y}.pbf"
         ],
         "maxZoom": 16
+      },
+      "kittitas-county-cities": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-county-cities/{z}/{x}/{y}.pbf"
+        ]
       },
       "kittitas-firewise-communities": {
         "type": "vector",
@@ -3794,6 +3798,54 @@
         ]
       },
       {
+        "id": "kittitas-county-cities",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-county-cities",
+            "type": "fill",
+            "source": "kittitas-county-cities",
+            "source-layer": "kittitas-county-cities",
+            "paint": {
+              "fill-color": "#aaa",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "kittitas-county-cities-labels",
+            "type": "symbol",
+            "source": "kittitas-county-cities",
+            "source-layer": "kittitas-county-cities",
+            "paint": {
+              "text-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ],
+              "text-color": "#666",
+              "text-halo-color": "#eee",
+              "text-halo-width": 20
+            },
+            "layout": {
+              "text-field": ["concat", "City of ", ["get", "city_name"]],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 13,
+              "text-allow-overlap": true,
+              "text-max-width": 40,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-transform": "uppercase",
+              "text-justify": "left",
+              "text-line-height": 1
+            }
+          }
+        ]
+      },
+      {
         "id": "kittitas-burn-risk",
         "visibleDefault": false,
         "mapboxLayers": [
@@ -4567,6 +4619,10 @@
               {
                 "id": "kittitas-firewise-communities",
                 "title": "FireWise USA Communities"
+              },
+              {
+                "id": "kittitas-county-cities",
+                "title": "Cities"
               }
             ]
           },
@@ -4707,6 +4763,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
+              "kittitas-county-cities",
               "kittitas-firewise-communities",
               "kittitas-county-outline"
             ],
@@ -4725,6 +4782,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
+              "kittitas-county-cities",
               "kittitas-firewise-communities",
               "kittitas-county-outline"
             ]
@@ -4735,6 +4793,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
+              "kittitas-county-cities",
               "kittitas-firewise-communities",
               "kittitas-county-outline"
             ]
@@ -4745,6 +4804,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
+              "kittitas-county-cities",
               "kittitas-firewise-communities",
               "kittitas-county-outline"
             ]
@@ -4755,6 +4815,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
+              "kittitas-county-cities",
               "kittitas-firewise-communities",
               "kittitas-county-outline"
             ]
@@ -4765,6 +4826,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
+              "kittitas-county-cities",
               "kittitas-firewise-communities",
               "kittitas-county-outline"
             ]
@@ -4775,6 +4837,7 @@
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
+              "kittitas-county-cities",
               "kittitas-firewise-communities",
               "kittitas-county-outline",
               "kittitas-firewise-input"
@@ -4995,22 +5058,6 @@
             "optional": false
           },
           {
-            "name": "private-use_photos",
-            "type": "big_radio",
-            "prompt": "Can Kittitas County highlight your photos on our website?",
-            "default_value": "no",
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              }
-            ]
-          },
-          {
             "name": "private",
             "type": "big_radio",
             "prompt": "Would you be willing to share your wildfire resiliency efforts with the public? Checking \"yes\" below will place a pin on the map upon submission and a brief summary of your actions will be visible to the public.",
@@ -5042,6 +5089,22 @@
             "optional": false
           },
           {
+            "name": "private-use_photos",
+            "type": "big_radio",
+            "prompt": "Can Kittitas County Conservation District highlight your photos on our website?",
+            "default_value": "no",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
             "name": "my_image",
             "type": "file",
             "prompt": "Share images of your resiliency efforts!",
@@ -5069,7 +5132,7 @@
       },
       "fire_resiliency_information": {
         "type": "informational_html",
-        "content": "<p class='mapseed-form-stage-body'>Be resilient! As a landowner in a fire environment, what you do (and don't do!) on your property matters.</p><p class='mapseed-form-stage-body'>Tell us a bit about your property and practices, and we'll send you a customized report with fire resiliency resources and other information.</p><p class='mapseed-form-stage-body'>We'll ask about your fire resiliency practices in three zones around your property:</p><ul style='list-style:none;'><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Immediate Zone: 0 - 5 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Intermediate Zone: 5 - 30 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Extended Zone: 30 - 100 feet from house</strong></li></ul>"
+        "content": "<p class='mapseed-form-stage-body'>Be resilient! As a landowner in a fire environment, what you do (and don't do!) on your property matters.</p><p class='mapseed-form-stage-body'>Tell us a bit about your property and practices, and we'll send you a customized report with fire resiliency resources and other information.</p><iframe src='https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F132247553480077%2Fvideos%2F1197040390469832%2F&show_text=0&width=560' width='560' height='315' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true' allowFullScreen='true'></iframe><p class='mapseed-form-stage-body'>We'll ask about your fire resiliency practices in three zones around your property:</p><ul style='list-style:none;'><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Immediate Zone: 0 - 5 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Intermediate Zone: 5 - 30 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Extended Zone: 30 - 100 feet from house</strong></li></ul>"
       },
       "immediate_zone_header": {
         "type": "informational_html",
