@@ -4159,31 +4159,7 @@
             "source": "wa-state-wildfire-start-sites-2008",
             "paint": {
               "circle-color": "#fc4e2b",
-              "circle-radius": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                7,
-                [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "ACRES_BURN"],
-                  1000,
-                  1,
-                  250000,
-                  4
-                ],
-                9,
-                [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "ACRES_BURN"],
-                  1000,
-                  3,
-                  250000,
-                  10
-                ]
-              ],
+              "circle-radius": 4,
               "circle-stroke-width": 0.5,
               "circle-stroke-color": "#ffffb2",
               "circle-opacity": [
@@ -4193,7 +4169,7 @@
                 7,
                 0,
                 9,
-                ["match", ["get", "COUNTY_LAB"], "KITTITAS", 0.5, 0.1]
+                0.7
               ],
               "circle-stroke-opacity": [
                 "interpolate",
@@ -4202,7 +4178,7 @@
                 7,
                 0,
                 9,
-                0.5
+                0.7
               ]
             }
           }
