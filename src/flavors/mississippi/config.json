@@ -83,8 +83,9 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
+
         "tileSize": 256
       },
       "nitrogen-farm-emissions": {
@@ -101,7 +102,7 @@
     },
     "layerGroups": [
       {
-        "id": "ocean-satellite-streets",
+        "id": "ocean-satellite",
         "basemap": true,
         "visibleDefault": true,
         "mapboxLayers": [
@@ -114,9 +115,9 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                10,
+                8,
                 0,
-                12,
+                10,
                 1
               ]
             }
@@ -130,17 +131,12 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                10,
+                8,
                 1,
-                12,
+                10,
                 0
               ]
             }
-          },
-          {
-            "id": "streets-basemap",
-            "type": "raster",
-            "source": "streets"
           }
         ]
       },
@@ -151,7 +147,30 @@
           {
             "id": "river-basemap",
             "type": "raster",
-            "source": "mississippi-watershed"
+            "source": "mississippi-watershed",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                1,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "streets-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "streets-basemap",
+            "type": "raster",
+            "source": "streets"
           }
         ]
       },
@@ -285,7 +304,7 @@
         "title": "Layers:",
         "content": [
           {
-            "id": "ocean-satellite-streets",
+            "id": "river",
             "title": "Our River",
             "layerGroups": [
               {
@@ -783,7 +802,8 @@
   "featuredPlaces": {
     "header": "Curated Collections",
     "visibleLayerGroupIds": [
-      "ocean-satellite-streets",
+      "ocean-satellite",
+      "streets",
       "mississippi-input",
       "mississippi-group",
       "nitrogen-plants-group"
