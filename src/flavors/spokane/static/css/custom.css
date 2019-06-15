@@ -9,9 +9,9 @@ body {
 }
 
 header {
-  border-top: 3px solid #9d122b;
+  border-top: 3px solid #29b1cb;
 }
-
+ite-ha
 /* =Input Form
 -------------------------------------------------------------- */
 /* 
@@ -237,6 +237,6 @@ input[type="number"],
   margin-left: 10px !important;
 
   &:hover {
-    background-color: rgb(168,174,204) !important;
+    background-color: rgb(168, 174, 204) !important;
   }
 }

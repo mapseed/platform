@@ -34,12 +34,12 @@
         "accent": "#9d122b"
       },
       "bg": {
-        "default": "rgba(226, 232, 236, 0.4)",
+        "default": "#e8dbc5",
         "light": "#115588"
       },
       "text": {
         "secondary": "#fff",
-        "tertiary": "#9d122b",
+        "tertiary": "#61974b",
         "titleFontFamily": "Raleway,sans-serif",
         "bodyFontFamily": "Raleway,sans-serif"
       },
@@ -70,7 +70,7 @@
         "latitude": 47.646225,
         "longitude": -117.406929,
         "zoom": 7.95,
-        "pitch": 15,
+        "pitch": 25,
         "minZoom": 1,
         "maxZoom": 18
       }
@@ -102,7 +102,13 @@
         "tiles": [
           "https://vector-tiles.mapseed.org/spokane-parcels/{z}/{x}/{y}.pbf"
         ],
-        "minZoom": 10,
+        "maxZoom": 16
+      },
+      "spokane-watersheds": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-watersheds/{z}/{x}/{y}.pbf"
+        ],
         "maxZoom": 16
       },
       "spokane-geologic-hazard": {
@@ -227,6 +233,73 @@
               "line-color": "#34518f",
               "line-opacity": 0.7,
               "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-watersheds",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "spokane-watersheds",
+            "type": "fill",
+            "source": "spokane-watersheds",
+            "source-layer": "spokane-watersheds",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "NAME"],
+                "Lower Spokane",
+                "#8dd3c7",
+                "Upper Spokane",
+                "#ffffb3",
+                "Pend Oreille Lake",
+                "#bebada",
+                "Little Spokane",
+                "#fb8072",
+                "Hangman",
+                "#80b1d3",
+                "Coeur d'Alene Lake",
+                "#fdb462",
+                "Upper Crab",
+                "#b3de69",
+                "Palouse",
+                "#fccde5",
+                "Rock",
+                "#d9d9d9",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "spokane-watersheds-outline",
+            "type": "line",
+            "source": "spokane-watersheds",
+            "source-layer": "spokane-watersheds",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "spokane-watersheds-labels",
+            "type": "symbol",
+            "source": "spokane-watersheds",
+            "source-layer": "spokane-watersheds",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1,
+              "text-color": "#222"
+            },
+            "layout": {
+              "text-field": ["get", "NAME"],
+              "text-size": 12,
+              "text-max-width": 6
             }
           }
         ]
@@ -477,16 +550,6 @@
               "fill-opacity": 0.2,
               "fill-outline-color": "#999"
             }
-          },
-          {
-            "id": "spokane-parcels-outline",
-            "type": "line",
-            "source": "spokane-parcels",
-            "source-layer": "spokane-parcels",
-            "paint": {
-              "line-color": "#fff",
-              "line-opacity": 0.7
-            }
           }
         ]
       },
@@ -568,6 +631,10 @@
               {
                 "id": "snake-river",
                 "title": "Snake River"
+              },
+              {
+                "id": "spokane-watersheds",
+                "title": "Watersheds"
               }
             ]
           },
@@ -656,7 +723,16 @@
           },
           {
             "start_field_index": 5,
-            "end_field_index": 7,
+            "end_field_index": 6,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-watersheds",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 7,
+            "end_field_index": 9,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-wetlands",
@@ -664,8 +740,8 @@
             ]
           },
           {
-            "start_field_index": 8,
-            "end_field_index": 10,
+            "start_field_index": 10,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-frequently-flooded",
@@ -673,8 +749,8 @@
             ]
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 13,
+            "start_field_index": 13,
+            "end_field_index": 15,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-geologic-hazard",
@@ -682,8 +758,8 @@
             ]
           },
           {
-            "start_field_index": 14,
-            "end_field_index": 16,
+            "start_field_index": 16,
+            "end_field_index": 18,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-aquifer",
@@ -691,8 +767,8 @@
             ]
           },
           {
-            "start_field_index": 17,
-            "end_field_index": 19,
+            "start_field_index": 19,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-conservation-areas",
@@ -700,8 +776,8 @@
             ]
           },
           {
-            "start_field_index": 20,
-            "end_field_index": 40,
+            "start_field_index": 22,
+            "end_field_index": 42,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -709,8 +785,8 @@
             ]
           },
           {
-            "start_field_index": 41,
-            "end_field_index": 59,
+            "start_field_index": 43,
+            "end_field_index": 61,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -718,8 +794,8 @@
             ]
           },
           {
-            "start_field_index": 60,
-            "end_field_index": 68,
+            "start_field_index": 62,
+            "end_field_index": 70,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -727,8 +803,8 @@
             ]
           },
           {
-            "start_field_index": 69,
-            "end_field_index": 86,
+            "start_field_index": 71,
+            "end_field_index": 88,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -736,8 +812,8 @@
             ]
           },
           {
-            "start_field_index": 87,
-            "end_field_index": 95,
+            "start_field_index": 89,
+            "end_field_index": 97,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -745,8 +821,8 @@
             ]
           },
           {
-            "start_field_index": 96,
-            "end_field_index": 122,
+            "start_field_index": 98,
+            "end_field_index": 124,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -754,8 +830,8 @@
             ]
           },
           {
-            "start_field_index": 123,
-            "end_field_index": 135,
+            "start_field_index": 125,
+            "end_field_index": 137,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -788,6 +864,55 @@
             "optional": true
           },
           {
+            "name": "analysis_units_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watersheds</h2>"
+          },
+          {
+            "name": "analysis_unit",
+            "type": "big_radio",
+            "prompt": "Of the nine watersheds on the map, in which do you primarily farm?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Lower Spokane",
+                "value": "lower-spokane"
+              },
+              {
+                "label": "Upper Spokane",
+                "value": "upper-spokane"
+              },
+              {
+                "label": "Pend Oreille Lake",
+                "value": "pend-oreille-lake"
+              },
+              {
+                "label": "Little Spokane",
+                "value": "little-spokane"
+              },
+              {
+                "label": "Hangman",
+                "value": "hangman"
+              },
+              {
+                "label": "Coeur d'Alene Lake",
+                "value": "coeur-dalene-lake"
+              },
+              {
+                "label": "Upper Crab",
+                "value": "Upper Crab"
+              },
+              {
+                "label": "Palouse",
+                "value": "palouse"
+              },
+              {
+                "label": "Rock",
+                "value": "rock"
+              }
+            ]
+          },
+          {
             "name": "wetlands_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland Areas</h2>"
@@ -795,7 +920,7 @@
           {
             "name": "wetlands_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wetlands.jpg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wetlands.jpeg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
@@ -821,7 +946,7 @@
           {
             "name": "frequently_flooded_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/frequently-flooded.jpg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
@@ -847,7 +972,7 @@
           {
             "name": "geologic_hazard_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/geologic-hazard-area.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/geologic-hazard.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_geologic_hazard",
@@ -873,7 +998,7 @@
           {
             "name": "critical_aquifer_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/critical-aquifer-recharge.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/critical-aquifer.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_critical_aquifer",
@@ -892,119 +1017,24 @@
             ]
           },
           {
-            "name": "fish_wildlife_habitat_header",
+            "//": "---------------------TILLAGE-------------------------",
+            "name": "tillage_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & Wildlife Habitat</h2>"
-          },
-          {
-            "name": "fish_wildlife_habitat_information",
-            "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildlife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px;font-size:0.9em;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife. Zoom the map to explore which species live in your area.</p></div></div><div style='display:flex;align-items:center;margin-bottom:16px;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'>Appearance on map</em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Priority habitats: areas with unique or significant value to many species</em></div></div><div style='display:flex;align-items:center;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'> </em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/waterways-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Fish-bearing waterways</em></div></div></div></div>"
-          },
-          {
-            "name": "private-property_on_fish_wildlife_habitat",
-            "type": "big_radio",
-            "prompt": "Are there any fish & wildlife conservation areas?",
-            "optional": false,
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              }
-            ]
-          },
-          {
-            "//": "---------------------WATER USE EFFICIENCY-------------------------",
-            "name": "water_use_header",
-            "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Water Use Efficiency</h2>"
-          },
-          {
-            "name": "water_user_information",
-            "type": "informational_html",
-            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your water use practices.</p>"
-          },
-          {
-            "name": "water-use_no-water-use",
-            "type": "big_toggle",
-            "prompt": " ",
-            "display_prompt": " ",
-            "advance_stage_on_value": "no-water-use",
-            "content": [
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "no-water-use"
-              },
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "water-use"
-              }
-            ],
-            "optional": true
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Water Use Efficiency</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your water use practices.</p>"
           },
           {
             "//": "=============== GATED PIPE ================================",
-            "name": "gated_pipe",
+            "name": "no_till_mulch_till",
             "type": "big_radio",
-            "prompt": "Gated pipe irrigation system",
-            "label": "Gated pipe",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["gated_pipe_quantity", "gated_pipe_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "gated_pipe_quantity",
-            "type": "number",
-            "prompt": "How many feet?",
-            "min": 0,
-            "placeholder": "Approximate footage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "gated_pipe_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using gated pipe irrigation?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== HANDLINE/WHEEL LINE SPRINKLERS ========================",
-            "name": "line_sprinklers",
-            "type": "big_radio",
-            "prompt": "Handline or wheel line sprinklers",
-            "label": "Handline/wheel line sprinklers",
+            "prompt": "No till / mulch till",
+            "label": "No till / mulch till",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "line_sprinklers_quantity",
-                "line_sprinklers_datetime"
+                "no_till_mulch_till_quantity",
+                "no_till_mulch_till_type",
+                "no_till_mulch_till_duration"
               ]
             },
             "content": [
@@ -1023,361 +1053,92 @@
             ]
           },
           {
-            "name": "line_sprinklers_quantity",
+            "name": "no_till_mulch_till_quantity",
             "type": "number",
-            "prompt": "On how many acres of land do you use handline or wheel line sprinklers?",
+            "prompt": "How many acres of no till / mulch till?",
             "min": 0,
-            "hidden_default": true,
             "placeholder": "Approximate acreage",
+            "hidden_default": true,
             "metadata": {
               "units": "acres"
             }
           },
           {
-            "name": "line_sprinklers_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using handline or wheel line sprinklers?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== CENTER PIVOT/LINEAR SPRINKLERS ========================",
-            "name": "pivot_sprinklers",
-            "type": "big_radio",
-            "prompt": "Center pivot or linear sprinklers",
-            "label": "Center pivot/linear sprinklers",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pivot_sprinklers_quantity",
-                "pivot_sprinklers_datetime"
-              ]
-            },
+            "name": "no_till_mulch_till_type",
+            "type": "dropdown",
+            "prompt": "Which type of seeding drill do you use?",
+            "hidden_default": true,
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
               },
               {
-                "label": "No",
-                "value": "no"
+                "label": "Type C",
+                "value": "type_c"
               },
               {
-                "label": "No but interested",
-                "value": "interested"
+                "label": "Someone else is custom seeding for me",
+                "value": "custom_seeding"
               }
             ]
           },
           {
-            "name": "pivot_sprinklers_quantity",
-            "type": "number",
-            "prompt": "On how many acres of land do you use center pivot or linear sprinklers?",
-            "min": 0,
+            "name": "no_till_mulch_till_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been using no-till / mulch till?",
             "hidden_default": true,
-            "placeholder": "Approximate acreage",
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "pivot_sprinklers_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using center pivot or linear sprinklers?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== MICRO (DRIP) IRRIGATION ========================",
-            "name": "micro_irrigation",
-            "type": "big_radio",
-            "prompt": "Micro (drip) irrigation",
-            "label": "Micro (drip) irrigation",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "micro_irrigation_quantity",
-                "micro_irrigation_datetime"
-              ]
-            },
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "0-5 years",
+                "value": "0-5"
               },
               {
-                "label": "No",
-                "value": "no"
+                "label": "6-10 years",
+                "value": "6-10"
               },
               {
-                "label": "No but interested",
-                "value": "interested"
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
               }
             ]
           },
           {
-            "name": "micro_irrigation_quantity",
-            "type": "number",
-            "prompt": "On how many acres of land do you use micro irrigation?",
-            "min": 0,
-            "hidden_default": true,
-            "placeholder": "Approximate acreage",
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "micro_irrigation_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using micro irrigation?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== PIPELINE IRRIGATION ========================",
-            "name": "pipeline_irrigation",
-            "type": "big_radio",
-            "prompt": "Converted open ditch to pipeline",
-            "label": "Open ditch to pipeline conversion",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pipeline_irrigation_quantity",
-                "pipeline_irrigation_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "pipeline_irrigation_quantity",
-            "type": "number",
-            "prompt": "How many feet of earthen ditch have you converted to a pipeline?",
-            "min": 0,
-            "hidden_default": true,
-            "placeholder": "Approximate footage",
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "pipeline_irrigation_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using pipeline irrigation?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== IRRIGATION SCHEDULING ========================",
-            "name": "irrigation_scheduling",
-            "type": "big_radio",
-            "prompt": "Irrigation scheduling – monitoring soil moisture and adjusting water applications accordingly",
-            "label": "Irrigation scheduling",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "irrigation_scheduling_quantity",
-                "irrigation_scheduling_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "irrigation_scheduling_quantity",
-            "type": "number",
-            "prompt": "On how many acres of land do you use irrigation scheduling?",
-            "min": 0,
-            "hidden_default": true,
-            "placeholder": "Approximate acreage",
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "irrigation_scheduling_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using irrigation scheduling?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "--------------SECTION: SOIL HEALTH & EROSION MGMT---------------------------",
-            "name": "soil_management",
+            "//": "--------------NUTRIENT MANAGEMENT---------------------------",
+            "name": "nutrients",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Soil Health & Erosion Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Nutrient Management</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your nutrient management practices.</p>"
           },
           {
-            "name": "soil_management_information",
-            "type": "informational_html",
-            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your soil health and erosion management practices.</p>"
-          },
-          {
-            "name": "soil-management_no-soil-management",
-            "type": "big_toggle",
-            "prompt": " ",
-            "display_prompt": " ",
-            "advance_stage_on_value": "no-soil-management",
-            "content": [
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "no-soil-management"
-              },
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "soil-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== POLYACRYLAMIDE =================================",
-            "name": "polyacrylamide",
+            "//": "=============== BASIC SOIL TESTS =================================",
+            "name": "basic_soil_tests",
             "type": "big_radio",
-            "prompt": "Anionic polyacrylamide (PAM) application to reduce irrigation-associated erosion",
-            "label": "Anionic polyacrylamide application",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["polyacrylamide_quantity", "polyacrylamide_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "polyacrylamide_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "On how many acres do you use polyacrylamide?",
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "polyacrylamide_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using polyacrylamide?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== COVER CROP =================================",
-            "name": "cover_crop",
-            "type": "big_radio",
-            "prompt": "Planting cover crops (grasses, legumes, and forbs) for seasonal vegetative cover to reduce wind and water erosion",
-            "label": "Cover crop plantings",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["cover_crop_quantity", "cover_crop_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "cover_crop_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many acres of cover crop have you planted?",
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "cover_crop_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start planting cover crops?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== PERMANENT COVER CROP =================================",
-            "name": "permanent_cover_crop",
-            "type": "big_radio",
-            "prompt": "Planting permanent cover crops to reduce winter and soil erosion and to establish wildlife or pollinator habitat",
-            "label": "Permanent cover crop plantings",
+            "prompt": "I conduct basic soil tests",
+            "label": "Basic soil tests",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "permanent_cover_crop_quantity",
-                "permanent_cover_crop_datetime"
+                "basic_soil_tests_quantity",
+                "basic_soil_tests_type",
+                "basic_soil_tests_duration"
               ]
             },
             "content": [
@@ -1396,10 +1157,10 @@
             ]
           },
           {
-            "name": "permanent_cover_crop_quantity",
+            "name": "basic_soil_tests_quantity",
             "type": "number",
+            "prompt": "On how many acres do you conduct basic soil tests?",
             "min": 0,
-            "prompt": "How many acres of permanent cover crop have you planted?",
             "placeholder": "Approximate acreage",
             "hidden_default": true,
             "metadata": {
@@ -1407,25 +1168,68 @@
             }
           },
           {
-            "name": "permanent_cover_crop_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start planting permanent cover crops?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
+            "name": "basic_soil_tests_type",
+            "type": "dropdown",
+            "prompt": "Which type of soil test do you use?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
           },
           {
-            "//": "=============== NO TILL =================================",
-            "name": "no_till",
+            "name": "basic_soil_tests_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been conducting soil tests?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "=============== BIOSOLIDS =================================",
+            "name": "biosolids",
             "type": "big_radio",
-            "prompt": "No-tillage to limit soil disturbing activities. Soil disturbance is only during planting operation.",
-            "label": "No-tillage",
+            "prompt": "I control or trap biosolids",
+            "label": "Control biosolids",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["no_till_quantity", "no_till_datetime"]
+              "targets": ["biosolids_quantity", "biosolids_duration"]
             },
             "content": [
               {
@@ -1443,166 +1247,61 @@
             ]
           },
           {
-            "name": "no_till_quantity",
+            "name": "biosolids_quantity",
             "type": "number",
+            "prompt": "How many tons of biosolids do you control or trap?",
             "min": 0,
-            "prompt": "On how many acres do you use no-tillage?",
-            "placeholder": "Approximate acreage",
+            "placeholder": "Approximate tonnage",
             "hidden_default": true,
             "metadata": {
-              "units": "acres"
+              "units": "tons"
             }
           },
           {
-            "name": "no_till_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using no-till?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== REDUCED TILL =================================",
-            "name": "reduced_till",
-            "type": "big_radio",
-            "prompt": "Reduced tillage to limit soil disturbing activities. Disturbance may include entire soil surface but cannot result in an inversion of the soil profile.",
-            "label": "Reduced tillage",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["reduced_till_quantity", "reduced_till_datetime"]
-            },
+            "name": "biosolids_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been controlling biosolids?",
+            "hidden_default": true,
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "0-5 years",
+                "value": "0-5"
               },
               {
-                "label": "No",
-                "value": "no"
+                "label": "6-10 years",
+                "value": "6-10"
               },
               {
-                "label": "No but interested",
-                "value": "interested"
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
               }
             ]
           },
           {
-            "name": "reduced_till_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "On how many acres do you use reduced tillage?",
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "reduced_till_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using reduced till?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "name": "web_soil_survey_info",
-            "type": "informational_html",
-            "content": "<p style='margin-top:40px;'>Would you like to learn more about your soils? Go to USDA's <a target='_blank' href='https://websoilsurvey.sc.egov.usda.gov/App/HomePage.htm'>Web Soil Survey</a> (survey will open in a new tab).</p>"
-          },
-          {
-            "//": "-------------SECTION: NUTRIENT MGMT-----------------",
-            "name": "nutrient_management_header",
-            "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Nutrient Management</h2>"
-          },
-          {
-            "name": "nutrient_management_information",
-            "type": "informational_html",
-            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your nutrient management practices.</p>"
-          },
-          {
-            "name": "nutrient-management_no-nutrient-management",
-            "type": "big_toggle",
-            "prompt": " ",
-            "display_prompt": " ",
-            "advance_stage_on_value": "no-nutrient-management",
-            "content": [
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "no-nutrient-management"
-              },
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "nutrient-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== SOIL TESTING ====================",
-            "name": "soil_testing",
+            "//": "=============== PRECISION SOIL TESTS =================================",
+            "name": "precision_soil_tests",
             "type": "big_radio",
-            "prompt": "Soil testing for use in fertilizer applications or other planet nutrients or soil amendments",
-            "label": "Soil testing",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["soil_testing_quantity", "soil_testing_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "soil_testing_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many acres of soil do you test?",
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "soil_testing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start soil testing?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== PLANT TISSUE TESTING ====================",
-            "name": "plant_tissue_testing",
-            "type": "big_radio",
-            "prompt": "Plant tissue testing or monitoring",
-            "label": "Plant tissue testing",
+            "prompt": "I conduct precision soil tests or mapping",
+            "label": "Precision soil tests / mapping",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "plant_tissue_testing_quantity",
-                "plant_tissue_testing_datetime"
+                "precision_soil_tests_quantity",
+                "precision_soil_tests_type",
+                "precision_soil_tests_duration"
               ]
             },
             "content": [
@@ -1621,10 +1320,10 @@
             ]
           },
           {
-            "name": "plant_tissue_testing_quantity",
+            "name": "precision_soil_tests_quantity",
             "type": "number",
+            "prompt": "On how many acres do you conduct precision soil tests?",
             "min": 0,
-            "prompt": "On how many acres do you perform plant tissue testing or monitoring?",
             "placeholder": "Approximate acreage",
             "hidden_default": true,
             "metadata": {
@@ -1632,56 +1331,344 @@
             }
           },
           {
-            "name": "plant_tissue_testing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start testing or monitoring plant tissues?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
+            "name": "precision_soil_tests_type",
+            "type": "dropdown",
+            "prompt": "Which type of soil test or mapping do you use?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
           },
           {
-            "//": "--------------SECTION: RANGE MGMT---------------------------",
-            "name": "range_management",
+            "name": "precision_soil_tests_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been conducting precision soil tests or mapping?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "--------------BUFFERS---------------------------",
+            "name": "buffers",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Range Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Buffers</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your usage of buffers on your property.</p>"
           },
           {
-            "name": "range_management_information",
+            "//": "=============== GRASS BUFFER =================================",
+            "name": "grass_buffer",
+            "type": "big_radio",
+            "prompt": "I use grass buffers",
+            "label": "Grass buffers",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "grass_buffers_quantity",
+                "grass_buffers_type",
+                "grass_buffers_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "grass_buffers_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use grass buffers?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "grass_buffers_type",
+            "type": "dropdown",
+            "prompt": "Which type of grass buffers do you use?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
+          },
+          {
+            "name": "grass_buffers_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been using grass buffers?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "=============== RIPARIAN HERBACEOUS COVER =================================",
+            "name": "riparian_herbaceous_cover",
+            "type": "big_radio",
+            "prompt": "I use riparian herbaceous cover",
+            "label": "Riparian herbaceous cover",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "riparian_herbaceous_cover_quantity",
+                "riparian_herbaceous_cover_type",
+                "riparian_herbaceous_cover_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "riparian_herbaceous_cover_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use riparian herbaceous cover?",
+            "min": 0,
+            "placeholder": "Approximate tonnage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "tons"
+            }
+          },
+          {
+            "name": "riparian_herbaceous_cover_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been using riparian herbaceous cover?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "=============== RIPARIAN FOREST =================================",
+            "name": "riparian_forest",
+            "type": "big_radio",
+            "prompt": "I plant riparian forests",
+            "label": "Riparian forest planting",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "riparian_forest_quantity",
+                "riparian_forest_type",
+                "riparian_forest_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "riparian_forest_quantity",
+            "type": "number",
+            "prompt": "How many acres of riparian forest have you planted?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "riparian_forest_type",
+            "type": "dropdown",
+            "prompt": "Which type of riparian forest have you planted?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
+          },
+          {
+            "name": "riparian_forest_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been planting riparian forests?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "--------------LIVESTOCK---------------------------",
+            "name": "buffers",
             "type": "informational_html",
-            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your range management practices.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Livestock</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your livestock management practices.</p>"
           },
           {
-            "name": "range-management_no-range-management",
-            "type": "big_toggle",
-            "prompt": " ",
-            "display_prompt": " ",
-            "advance_stage_on_value": "no-range-management",
-            "content": [
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "no-range-management"
-              },
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "range-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== GRAZING MANAGEMENT ========================",
-            "name": "grazing_management",
+            "//": "=============== STREAM CROSSING =================================",
+            "name": "stream_crossing",
             "type": "big_radio",
-            "prompt": "Grazing management (such as rotating pastures, keeping a pocket schedule of dates in/out, or monitoring grass height)",
-            "label": "Grazing management",
+            "prompt": "I have installed stream crossings",
+            "label": "Stream crossings",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "grazing_management_quantity",
-                "grazing_management_datetime"
+                "stream_crossing_quantity",
+                "stream_crossing_type",
+                "stream_crossing_duration"
               ]
             },
             "content": [
@@ -1700,765 +1687,68 @@
             ]
           },
           {
-            "name": "grazing_management_quantity",
+            "name": "stream_crossing_quantity",
             "type": "number",
-            "prompt": "On how many acres do you practice grazing management?",
+            "prompt": "How many stream crossings have you installed",
             "min": 0,
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "grazing_management_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using grazing management practices?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== FENCING FOR GRAZING MANAGEMENT ========================",
-            "name": "grazing_management_fencing",
-            "type": "big_radio",
-            "prompt": "Fencing for grazing management",
-            "label": "Fencing for grazing management",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "grazing_management_fencing_quantity",
-                "grazing_management_fencing_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "grazing_management_fencing_quantity",
-            "type": "number",
-            "prompt": "How many feet of grazing management fencing have you established?",
-            "min": 0,
-            "placeholder": "Approximate footage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "grazing_management_fencing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start establishing grazing management fencing?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== RANGE PLANTINGS ==========================",
-            "name": "range_plantings",
-            "type": "big_radio",
-            "prompt": "Range plantings: establishment of adapted perennial or self-sustaining vegetation",
-            "label": "Range plantings",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "range_plantings_quantity",
-                "range_plantings_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "range_plantings_quantity",
-            "type": "number",
-            "min": 0,
-            "metadata": {
-              "units": "acres"
-            },
-            "prompt": "How many acres?",
-            "hidden_default": true
-          },
-          {
-            "name": "range_plantings_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start range plantings?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== WATERING FACILITIES ==========================",
-            "name": "watering_facility",
-            "type": "big_radio",
-            "prompt": "Watering facilities: means of providing drinking water to livestock or wildlife",
-            "label": "Watering facilities",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "watering_facility_quantity",
-                "watering_facility_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "watering_facility_quantity",
-            "type": "number",
-            "min": 0,
-            "metadata": {
-              "units": "stock tanks"
-            },
-            "prompt": "How many stock tanks?",
-            "hidden_default": true
-          },
-          {
-            "name": "watering_facility_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using watering facilities?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== WATER WELLS ==========================",
-            "name": "water_wells",
-            "type": "big_radio",
-            "prompt": "Water wells: for domestic animals or wildlife",
-            "label": "Water wells",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["water_wells_quantity", "water_wells_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "water_wells_quantity",
-            "type": "number",
-            "min": 0,
-            "metadata": {
-              "units": "wells"
-            },
-            "prompt": "How many wells?",
-            "hidden_default": true
-          },
-          {
-            "name": "water_wells_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start operating water wells?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "------------SECTION: PEST MGMT--------------------",
-            "name": "pest_management_header",
-            "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Pest Management</h2>"
-          },
-          {
-            "name": "pest_management_information",
-            "type": "informational_html",
-            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your pest management practices.</p>"
-          },
-          {
-            "name": "pest-management_no-pest-management",
-            "type": "big_toggle",
-            "prompt": " ",
-            "display_prompt": " ",
-            "advance_stage_on_value": "no-pest-management",
-            "content": [
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "no-pest-management"
-              },
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "pest-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== WEED PREVENTION ========================",
-            "name": "weed_prevention",
-            "type": "big_radio",
-            "prompt": "Weed prevention, monitoring, and suppression",
-            "label": "Weed prevention",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "weed_prevention_quantity",
-                "weed_prevention_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "weed_prevention_quantity",
-            "type": "number",
-            "prompt": "On how many acres do you practice weed prevention, monitoring, or suppression?",
-            "min": 0,
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "weed_prevention_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using weed prevention?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== PEST PREVENTION ========================",
-            "name": "pest_prevention",
-            "type": "big_radio",
-            "prompt": "Pest (insect) prevention, monitoring, and suppression",
-            "label": "Pest prevention",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pest_prevention_quantity",
-                "pest_prevention_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "pest_prevention_quantity",
-            "type": "number",
-            "prompt": "On how many acres do you practice prest prevention, monitoring, or suppression?",
-            "min": 0,
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "pest_prevention_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start using pest prevention?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
-            "name": "fish_wildlife_management",
-            "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Fish & Wildlife Management</h2>"
-          },
-          {
-            "name": "fish_wildlife_management_information",
-            "type": "informational_html",
-            "content": "<p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your fish & wildlife management practices.</p>"
-          },
-          {
-            "name": "fish-wildlife-management_no-fish-wildlife-management",
-            "type": "big_toggle",
-            "prompt": " ",
-            "display_prompt": " ",
-            "advance_stage_on_value": "no-fish-wildlife-management",
-            "content": [
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "no-fish-wildlife-management"
-              },
-              {
-                "label": "This section is not relevant to me. Proceed to next section. ",
-                "value": "fish-wildlife-management"
-              }
-            ],
-            "optional": true
-          },
-          {
-            "//": "=============== CONSERVATION COVER ==========================",
-            "name": "conservation_cover",
-            "type": "big_radio",
-            "prompt": "Conservation cover: consists of establishment of permanent vegetative cover including CRP",
-            "label": "Conservation cover",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "conservation_cover_quantity",
-                "conservation_cover_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "conservation_cover_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many acres?",
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "conservation_cover_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start planting conservation cover?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== TREE/SHRUB ==================================",
-            "name": "tree_shrub",
-            "type": "big_radio",
-            "prompt": "Tree and shrub establishment: establishing woody plants by planting seedlings or cuttings, especially along waterways",
-            "label": "Tree/shrub establishment",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["tree_shrub_quantity", "tree_shrub_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "tree_shrub_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many acres?",
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "tree_shrub_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start establishing new trees and shrubs?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== UPLAND HABITAT MANAGEMENT ==================",
-            "name": "upland_habitat",
-            "type": "big_radio",
-            "prompt": "Upland wildlife habitats management: creating, maintain, or enhancing areas to provide food, cover and habitat connectivity not along waterways",
-            "label": "Upland habitat management",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["upland_habitat_quantity", "upland_habitat_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "upland_habitat_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many acres?",
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "upland_habitat_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start managing upland wildlife habitats?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== RIPARIAN FENCING ==================",
-            "name": "riparian_fencing",
-            "type": "big_radio",
-            "prompt": "Fencing for riparian habitat protection",
-            "label": "Fencing for riparian habitat",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "riparian_fencing_quantity",
-                "riparian_fencing_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "riparian_fencing_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many feet of riparian fencing have you established?",
-            "placeholder": "Approximate feet",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "riparian_fencing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start establishing riparian fencing?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== FISH SCREENS ==================",
-            "name": "fish_screens",
-            "type": "big_radio",
-            "prompt": "Fish screens on irrigation diversions",
-            "label": "Fish screens",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["fish_screens_quantity", "fish_screens_datetime"]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "fish_screens_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many fish screens have you installed?",
             "placeholder": "Approximate number",
             "hidden_default": true,
             "metadata": {
-              "units": "fish screens"
+              "units": "crossings"
             }
           },
           {
-            "name": "fish_screens_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start establishing fish screens?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== FISH PASSAGES ==================",
-            "name": "fish_passages",
-            "type": "big_radio",
-            "prompt": "Fish passages at irrigation diversions or culverts",
-            "label": "Fish passages",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["fish_passages_quantity", "fish_passages_datetime"]
-            },
+            "name": "stream_crossing_type",
+            "type": "dropdown",
+            "prompt": "Which type of stream crossing have you installed?",
+            "hidden_default": true,
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
               },
               {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
+                "label": "Type C",
+                "value": "type_c"
               }
             ]
           },
           {
-            "name": "fish_passages_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many fish passage barriers have you corrected?",
-            "placeholder": "Approximate number",
+            "name": "stream_crossing_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been installing stream crossings?",
             "hidden_default": true,
-            "metadata": {
-              "units": "fish barriers"
-            }
-          },
-          {
-            "name": "fish_passages_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start correcting fish passage barriers?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== STREAMBANK STABILIZATION ==================",
-            "name": "streambank_stabilization",
-            "type": "big_radio",
-            "prompt": "Streambank stabilization using rock or wood structures",
-            "label": "Streambank stabilization",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "streambank_stabilization_quantity",
-                "streambank_stabilization_datetime"
-              ]
-            },
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "0-5 years",
+                "value": "0-5"
               },
               {
-                "label": "No",
-                "value": "no"
+                "label": "6-10 years",
+                "value": "6-10"
               },
               {
-                "label": "No but interested",
-                "value": "interested"
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
               }
             ]
-          },
-          {
-            "name": "streambank_stabilization_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many feet of streambank have you stabilized?",
-            "placeholder": "Approximate footage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "streambank_stabilization_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start stabilizing streambanks?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== IN-STREAM RESTORATION ==================================",
-            "name": "in_stream_restoration",
-            "type": "big_radio",
-            "prompt": "In-stream restoration including wood structures for fish habitat",
-            "label": "In-stream restoration",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "in_stream_restoration_quantity",
-                "in_stream_restoration_datetime"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "in_stream_restoration_quantity",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many feet of in-stream restoration have you implemented?",
-            "placeholder": "Approximate footage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "in_stream_restoration_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "Approximately when did you start implementing in-stream restoration?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
           },
           {
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
