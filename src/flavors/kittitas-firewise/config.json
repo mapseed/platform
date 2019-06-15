@@ -3882,147 +3882,6 @@
         ]
       },
       {
-        "id": "wa-state-wildfire-start-sites-2008",
-        "visibleDefault": false,
-        "interactive": true,
-        "popupContent": "<p><strong>Year: </strong><em>{{YEAR}}</em></p><p><strong>Acres burned: </strong><em>{{ACRES_BURN}}</em></p><p><strong>Cause: </strong><em>{{FIREGCAUSE}}</em></p>",
-        "mapboxLayers": [
-          {
-            "id": "wa-state-wildfire-start-sites-2008-heatmap",
-            "type": "heatmap",
-            "source": "wa-state-wildfire-start-sites-2008",
-            "source-layer": "wa-state-wildfire-start-sites-2008",
-            "filter": ["<=", ["to-number", ["get", "YEAR"]], 2012],
-            "paint": {
-              "heatmap-intensity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                1,
-                9,
-                4
-              ],
-              "heatmap-color": [
-                "interpolate",
-                ["linear"],
-                ["heatmap-density"],
-                0,
-                "rgba(0,0,0,0)",
-                0.6,
-                "#ffffb2",
-                0.7,
-                "#fed976",
-                0.8,
-                "#feb24c",
-                0.9,
-                "#fd8d3c",
-                1,
-                "#fc4e2a"
-              ],
-              "heatmap-radius": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                1,
-                9,
-                5
-              ],
-              "heatmap-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                7,
-                1,
-                12,
-                0
-              ]
-            }
-          },
-          {
-            "id": "wa-state-wildfire-start-sites-2008-circle",
-            "type": "circle",
-            "source": "wa-state-wildfire-start-sites-2008",
-            "source-layer": "wa-state-wildfire-start-sites-2008",
-            "filter": ["<=", ["to-number", ["get", "YEAR"]], 2012],
-            "paint": {
-              "circle-color": "#fc4e2b",
-              "circle-radius": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                7,
-                [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "ACRES_BURN"],
-                  1000,
-                  1,
-                  250000,
-                  4
-                ],
-                9,
-                [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "ACRES_BURN"],
-                  1000,
-                  3,
-                  250000,
-                  10
-                ]
-              ],
-              "circle-stroke-width": 0.5,
-              "circle-stroke-color": "#ffffb2",
-              "circle-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                7,
-                0,
-                9,
-                ["match", ["get", "COUNTY_LAB"], "KITTITAS", 0.5, 0.1]
-              ],
-              "circle-stroke-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                7,
-                0,
-                9,
-                0.5
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "kittitas-county-outline",
-        "visibleDefault": true,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-county-outline",
-            "type": "line",
-            "source": "kittitas-county-outline",
-            "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
-            "paint": {
-              "line-color": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                9,
-                "#666",
-                10,
-                "#fff"
-              ],
-              "line-width": 5,
-              "line-dasharray": [2, 2]
-            }
-          }
-        ]
-      },
-      {
         "id": "wa-state-large-fires-1973-2018",
         "visibleDefault": false,
         "interactive": true,
@@ -4233,6 +4092,143 @@
 
               "line-width": 2,
               "line-opacity": 0.8
+            }
+          }
+        ]
+      },
+      {
+        "id": "wa-state-wildfire-start-sites-2008",
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<p><strong>Year: </strong><em>{{START_DT}}</em></p><p><strong>Acres burned: </strong><em>{{ACRES_BURNED}}</em></p><p><strong>Cause: </strong><em>{{FIREGCAUSE_LABEL_NM}}</em></p>",
+        "mapboxLayers": [
+          {
+            "id": "wa-state-wildfire-start-sites-2008-heatmap",
+            "type": "heatmap",
+            "source": "wa-state-wildfire-start-sites-2008",
+            "paint": {
+              "heatmap-intensity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1,
+                9,
+                4
+              ],
+              "heatmap-color": [
+                "interpolate",
+                ["linear"],
+                ["heatmap-density"],
+                0,
+                "rgba(0,0,0,0)",
+                0.6,
+                "#ffffb2",
+                0.7,
+                "#fed976",
+                0.8,
+                "#feb24c",
+                0.9,
+                "#fd8d3c",
+                1,
+                "#fc4e2a"
+              ],
+              "heatmap-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1,
+                9,
+                5
+              ],
+              "heatmap-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                1,
+                12,
+                0
+              ]
+            }
+          },
+          {
+            "id": "wa-state-wildfire-start-sites-2008-circle",
+            "type": "circle",
+            "source": "wa-state-wildfire-start-sites-2008",
+            "paint": {
+              "circle-color": "#fc4e2b",
+              "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                [
+                  "interpolate",
+                  ["linear"],
+                  ["get", "ACRES_BURN"],
+                  1000,
+                  1,
+                  250000,
+                  4
+                ],
+                9,
+                [
+                  "interpolate",
+                  ["linear"],
+                  ["get", "ACRES_BURN"],
+                  1000,
+                  3,
+                  250000,
+                  10
+                ]
+              ],
+              "circle-stroke-width": 0.5,
+              "circle-stroke-color": "#ffffb2",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                9,
+                ["match", ["get", "COUNTY_LAB"], "KITTITAS", 0.5, 0.1]
+              ],
+              "circle-stroke-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                9,
+                0.5
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-county-outline",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-county-outline",
+            "type": "line",
+            "source": "kittitas-county-outline",
+            "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
+            "paint": {
+              "line-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                "#666",
+                10,
+                "#fff"
+              ],
+              "line-width": 5,
+              "line-dasharray": [2, 2]
             }
           }
         ]
