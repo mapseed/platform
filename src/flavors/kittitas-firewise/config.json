@@ -4851,7 +4851,7 @@
           {
             "name": "fire_resources_information",
             "type": "informational_html",
-            "content": "<p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p><p>If you know your tax parcel number but not your address, go to <a hef='https://gis.co.kittitas.wa.us/compas/default.aspx' target='_blank'>https://gis.co.kittitas.wa.us/compas/default.aspx</a> and enter your parcel number to find more information including the \"situs\" address.</p>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p><p class='mapseed-form-stage-body'>If you know your tax parcel number but not your address, go to <a href='https://gis.co.kittitas.wa.us/compas/default.aspx' target='_blank'>https://gis.co.kittitas.wa.us/compas/default.aspx</a> and enter your parcel number to find more information including the \"situs\" address.</p>"
           },
           {
             "name": "fire_resiliency_header",
