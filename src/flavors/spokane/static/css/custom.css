@@ -23,6 +23,7 @@ ite-ha
 [data-field-name="my_image"],
 [data-field-type="big_toggle"],
 [data-field-type="dropdown"],
+[data-field-type="big_checkbox"],
 [data-field-type="big_radio"] {
   background-color: #efefef !important;
   box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
@@ -30,8 +31,8 @@ ite-ha
 }
 
 [data-field-name="my_image"],
-[data-field-type="dropdown"],
 [data-field-type="big_toggle"],
+[data-field-type="big_checkbox"],
 [data-field-type="big_radio"] {
   margin-top: 15px !important;
   margin-bottom: 0 !important;
@@ -39,6 +40,7 @@ ite-ha
 
 [data-field-type="geocoding"],
 [data-field-type="text"],
+[data-field-type="dropdown"],
 [data-field-type="textarea"],
 [data-field-name="drag_map_info"],
 [data-field-type="geolocate"] {
@@ -104,6 +106,7 @@ label[for="input-form-fish-wildlife-management_no-fish-wildlife-management"] {
 }
 
 .big-toggle-field__label,
+.big-checkbox-field__label,
 .big-radio-field__label {
   margin-top: 0 !important;
   border: none !important;
@@ -130,17 +133,20 @@ input[type="number"],
 }
 
 .big-toggle-field__label--hoverable:hover:before,
+.big-checkbox-field__label--hoverable:hover:before,
 .big-radio-field__label--hoverable:hover:before {
   text-indent: 0.5em !important;
   color: #999999 !important;
 }
 
+.big-checkbox-field,
 .big-radio-field {
   margin-right: 16px !important;
   margin-top: 8px !important;
 }
 
 .big-toggle-field__label:before,
+.big-checkbox-field__label:before,
 .big-radio-field__label:before {
   max-height: 2em !important;
   top: 50% !important;
@@ -170,11 +176,13 @@ input[type="number"],
 
 .big-radio-field__label--toggled.big-radio-field__label--hoverable:hover:before,
 .big-toggle-field__label--toggled.big-toggle-field__label--hoverable:hover:before,
+.big-checkbox-field__label--toggled.big-checkbox-field__label--hoverable:hover:before,
 .datetime-field__label-ongoing--toggled.datetime-field__label-ongoing--hoverable:hover:before {
   color: #fff !important;
 }
 
 .big-toggle-field__label--toggled:before,
+.big-checkbox-field__label--toggled:before,
 .big-radio-field__label--toggled:before {
   background-color: #999999 !important;
 }

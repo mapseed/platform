@@ -713,7 +713,7 @@
           },
           {
             "start_field_index": 7,
-            "end_field_index": 9,
+            "end_field_index": 8,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-wetlands",
@@ -722,8 +722,8 @@
             ]
           },
           {
-            "start_field_index": 10,
-            "end_field_index": 12,
+            "start_field_index": 9,
+            "end_field_index": 10,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-frequently-flooded",
@@ -732,8 +732,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 15,
+            "start_field_index": 11,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-geologic-hazard",
@@ -742,8 +742,8 @@
             ]
           },
           {
-            "start_field_index": 16,
-            "end_field_index": 18,
+            "start_field_index": 13,
+            "end_field_index": 14,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-aquifer",
@@ -752,17 +752,27 @@
             ]
           },
           {
-            "start_field_index": 19,
-            "end_field_index": 21,
+            "start_field_index": 15,
+            "end_field_index": 16,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-conservation-areas",
+              "spokane-parcels",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 17,
+            "end_field_index": 21,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
               "spokane-county-outline"
             ]
           },
           {
             "start_field_index": 22,
-            "end_field_index": 26,
+            "end_field_index": 33,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -770,8 +780,8 @@
             ]
           },
           {
-            "start_field_index": 27,
-            "end_field_index": 40,
+            "start_field_index": 34,
+            "end_field_index": 45,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -779,8 +789,8 @@
             ]
           },
           {
-            "start_field_index": 41,
-            "end_field_index": 54,
+            "start_field_index": 46,
+            "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -788,8 +798,8 @@
             ]
           },
           {
-            "start_field_index": 55,
-            "end_field_index": 76,
+            "start_field_index": 67,
+            "end_field_index": 69,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -797,16 +807,7 @@
             ]
           },
           {
-            "start_field_index": 77,
-            "end_field_index": 78,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 79,
+            "start_field_index": 70,
             "end_field_index": 88,
             "visibleLayerGroupIds": [
               "satellite",
@@ -835,7 +836,7 @@
           {
             "name": "address",
             "type": "geocoding",
-            "prompt": "Search by address",
+            "prompt": "Or, search by address:",
             "placeholder": "Your address will never be shared",
             "optional": true
           },
@@ -891,17 +892,12 @@
           {
             "name": "wetlands_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland Areas</h2>"
-          },
-          {
-            "name": "wetlands_information",
-            "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wetlands.jpeg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wetlands.jpeg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
             "type": "big_radio",
-            "prompt": "Are there any wetlands?",
+            "prompt": "Does your property lie on any wetlands?",
             "optional": false,
             "content": [
               {
@@ -917,17 +913,12 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently Flooded Areas</h2>"
-          },
-          {
-            "name": "frequently_flooded_information",
-            "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently Flooded Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
             "type": "big_radio",
-            "prompt": "Are there any frequently flooded areas?",
+            "prompt": "Does your property lie on any frequently flooded areas?",
             "optional": false,
             "content": [
               {
@@ -943,17 +934,12 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Severe Geologic Hazard Areas</h2>"
-          },
-          {
-            "name": "geologic_hazard_information",
-            "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/geologic-hazard.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Severe Geologic Hazard Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/geologic-hazard.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_geologic_hazard",
             "type": "big_radio",
-            "prompt": "Are there any severe geologic hazard areas?",
+            "prompt": "Does your property lie on any severe geologic hazard areas?",
             "optional": false,
             "content": [
               {
@@ -969,17 +955,12 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Aquifer Recharge Areas</h2>"
-          },
-          {
-            "name": "critical_aquifer_information",
-            "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/critical-aquifer.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Aquifer Recharge Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/critical-aquifer.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_critical_aquifer",
             "type": "big_radio",
-            "prompt": "Are there any critical aquifer recharge areas?",
+            "prompt": "Does your property lie on any critical aquifer recharge areas?",
             "optional": false,
             "content": [
               {
@@ -995,12 +976,7 @@
           {
             "name": "critical_conservation_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Conservation Areas</h2>"
-          },
-          {
-            "name": "critical_aquifer_information",
-            "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wildlife-conservation.jpg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical conservation areas</strong> are managed to maintain habitats of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildife-conservation-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical Conservation Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wildlife-conservation.jpg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical conservation areas</strong> are managed to maintain habitats of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_criticak_conservation",
@@ -1022,14 +998,14 @@
             "//": "---------------------TILLAGE-------------------------",
             "name": "tillage_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Water Use Efficiency</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your water use practices.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Tillage</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your tillage practices.</p>"
           },
           {
-            "//": "=============== NO TILL / MULCH TILL ================================",
+            "//": "=============== NO TILL/MULCH TILL ================================",
             "name": "no_till_mulch_till",
             "type": "big_radio",
-            "prompt": "No till / mulch till",
-            "label": "No till / mulch till",
+            "prompt": "No till/mulch till",
+            "label": "No till/mulch till",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
@@ -1057,7 +1033,7 @@
           {
             "name": "no_till_mulch_till_quantity",
             "type": "number",
-            "prompt": "How many acres of no till / mulch till?",
+            "prompt": "On how many acres do you use no till/mulch till techniques?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -1093,7 +1069,7 @@
           {
             "name": "no_till_mulch_till_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using no-till / mulch till?",
+            "prompt": "For how long have you been using no-till/mulch till techniques?",
             "hidden_default": true,
             "content": [
               {
@@ -1486,6 +1462,100 @@
             ]
           },
           {
+            "//": "=============== COMMODITY BUFFER =================================",
+            "name": "commodity_buffer",
+            "type": "big_radio",
+            "prompt": "I use commodity buffers",
+            "label": "Grass buffers",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "grass_buffers_quantity",
+                "grass_buffers_type",
+                "grass_buffers_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "grass_buffers_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use grass buffers?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "grass_buffers_type",
+            "type": "dropdown",
+            "prompt": "Which type of grass buffers do you use?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
+          },
+          {
+            "name": "grass_buffers_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been using grass buffers?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
             "//": "=============== RIPARIAN HERBACEOUS COVER =================================",
             "name": "riparian_herbaceous_cover",
             "type": "big_radio",
@@ -1654,7 +1724,7 @@
           },
           {
             "//": "--------------LIVESTOCK---------------------------",
-            "name": "buffers",
+            "name": "livestock",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Livestock</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your livestock management practices.</p>"
           },
@@ -2132,7 +2202,7 @@
             "//": "--------------OTHER PRACTICES---------------------------",
             "name": "other",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other VSP Practives</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your livestock management practices.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other VSP Practives</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report any other VSP practices on your property.</p>"
           },
           {
             "name": "other_practices_description",
@@ -2145,7 +2215,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost completed!</h2><p><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><p>This page will determine how your information is shared.  We will report all practices at the watershed scale, but if you are interested in having your project showcased you can give us permission below.  Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
           },
           {
             "name": "my_image",
@@ -2185,6 +2255,100 @@
             ]
           },
           {
+            "name": "private-landowner_email",
+            "type": "text",
+            "optional": true,
+            "placeholder": "Your email address will never be shared",
+            "prompt": "What is your email address?"
+          },
+          {
+            "name": "private-landowner_phone",
+            "type": "text",
+            "prompt": "What is your phone number?",
+            "placeholder": "Your phone number will never be shared",
+            "optional": false
+          },
+          {
+            "name": "acres_farmed",
+            "type": "number",
+            "prompt": "How many acres do you farm?",
+            "placeholder": "Approximate acreage"
+          },
+          {
+            "name": "years_farming",
+            "prompt": "How many years have you been farming?",
+            "type": "number"
+          },
+          {
+            "name": "conservation_programs",
+            "prompt": "Have you ever been a part of, or have interest in, any of the following conservation programs? Check all that apply.",
+            "type": "big_checkbox",
+            "content": [
+              {
+                "label": "RCPP",
+                "value": "rcpp"
+              },
+              {
+                "label": "AWEP",
+                "value": "awep"
+              },
+              {
+                "label": "EQIP",
+                "value": "eqip"
+              },
+              {
+                "label": "CSP",
+                "value": "csp"
+              },
+              {
+                "label": "CCRP",
+                "value": "ccrp"
+              }
+            ]
+          },
+          {
+            "name": "farm_plan",
+            "prompt": "Do you have a Farm Plan in place, or would you like to initiate one?",
+            "type": "big_radio",
+            "content": [
+              {
+                "label": "I have a Farm Plan in place",
+                "value": "have_plan"
+              },
+              {
+                "label": "I am interested in initiating a Farm Plan",
+                "value": "have_interest"
+              },
+              {
+                "label": "I have no interest in a Farm Plan",
+                "value": "no_interest"
+              }
+            ]
+          },
+          {
+            "name": "land_ownership",
+            "prompt": "Who owns the land you work?",
+            "type": "big_radio",
+            "content": [
+              {
+                "label": "Personally owned",
+                "value": "personally_owned"
+              },
+              {
+                "label": "Family owned",
+                "value": "family_owned"
+              },
+              {
+                "label": "Leased by producer (from family)",
+                "value": "leased_by_producer_from_family"
+              },
+              {
+                "label": "Leased by producer (from landlord)",
+                "value": "leased_by_producer_from_landlord"
+              }
+            ]
+          },
+          {
             "name": "private",
             "type": "big_radio",
             "prompt": "Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.",
@@ -2200,20 +2364,6 @@
               }
             ],
             "optional": true
-          },
-          {
-            "name": "private-landowner_email",
-            "type": "text",
-            "optional": true,
-            "placeholder": "Your email address will never be shared",
-            "prompt": "What is your email address?"
-          },
-          {
-            "name": "private-landowner_phone",
-            "type": "text",
-            "prompt": "What is your phone number?",
-            "placeholder": "Your phone number will never be shared",
-            "optional": false
           },
           {
             "name": "submit",
