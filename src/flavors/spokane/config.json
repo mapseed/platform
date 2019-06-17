@@ -189,6 +189,23 @@
         ]
       },
       {
+        "id": "spokane-county-outline",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "spokane-county-outline",
+            "type": "line",
+            "source": "spokane-county-outline",
+            "source-layer": "spokane-county-outline",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 3,
+              "line-dasharray": [2, 2]
+            }
+          }
+        ]
+      },
+      {
         "id": "columbia-river",
         "visibleDefault": true,
         "mapboxLayers": [
@@ -294,30 +311,19 @@
             "source-layer": "spokane-watersheds",
             "paint": {
               "text-halo-color": "#fff",
-              "text-halo-width": 1,
-              "text-color": "#222"
+              "text-halo-width": 20,
+              "text-color": "#666"
             },
             "layout": {
-              "text-field": ["get", "NAME"],
+              "text-field": ["concat", ["get", "NAME"], " watershed"],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
               "text-size": 12,
-              "text-max-width": 6
-            }
-          }
-        ]
-      },
-      {
-        "id": "spokane-county-outline",
-        "visibleDefault": true,
-        "mapboxLayers": [
-          {
-            "id": "spokane-county-outline",
-            "type": "line",
-            "source": "spokane-county-outline",
-            "source-layer": "spokane-county-outline",
-            "paint": {
-              "line-color": "#fff",
-              "line-width": 3,
-              "line-dasharray": [2, 2]
+              "text-allow-overlap": true,
+              "text-max-width": 3,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-transform": "uppercase",
+              "text-line-height": 1
             }
           }
         ]
@@ -465,43 +471,6 @@
               "line-color": "#6dd84a",
               "line-width": 2,
               "line-opacity": 0.9
-            }
-          },
-          {
-            "id": "kittitas-conservation-waterways",
-            "type": "line",
-            "source": "kittitas-conservation-waterways",
-            "source-layer": "kittitas-conservation-waterways",
-            "paint": {
-              "line-color": "#83a3db",
-              "line-width": 0.9,
-              "line-opacity": 0.9
-            },
-            "layout": {
-              "line-join": "round",
-              "line-cap": "round"
-            }
-          },
-          {
-            "id": "kittitas-conservation-waterways-labels",
-            "type": "symbol",
-            "source": "kittitas-conservation-waterways",
-            "source-layer": "kittitas-conservation-waterways",
-            "paint": {
-              "text-color": "#5380c1",
-              "text-halo-color": "#dde7f2",
-              "text-halo-width": 1.5,
-              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
-            },
-            "layout": {
-              "text-field": ["get", "SPECIES"],
-              "text-font": [
-                "Alegreya ExtraBold Italic",
-                "Arial Unicode MS Regular"
-              ],
-              "text-size": 13,
-              "text-padding": 15,
-              "text-letter-spacing": 0.2
             }
           },
           {
@@ -1011,6 +980,32 @@
             "name": "private-property_on_critical_aquifer",
             "type": "big_radio",
             "prompt": "Are there any critical aquifer recharge areas?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "critical_conservation_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Conservation Areas</h2>"
+          },
+          {
+            "name": "critical_aquifer_information",
+            "type": "informational_html",
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/wildlife-conservation.jpg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical conservation areas</strong> are managed to maintain habitats of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildife-conservation-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_criticak_conservation",
+            "type": "big_radio",
+            "prompt": "Does your property lie on any critical conservation areas?",
             "optional": false,
             "content": [
               {

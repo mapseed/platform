@@ -22,6 +22,7 @@ ite-ha
 [data-field-type="number"],
 [data-field-name="my_image"],
 [data-field-type="big_toggle"],
+[data-field-type="dropdown"],
 [data-field-type="big_radio"] {
   background-color: #efefef !important;
   box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
@@ -29,6 +30,7 @@ ite-ha
 }
 
 [data-field-name="my_image"],
+[data-field-type="dropdown"],
 [data-field-type="big_toggle"],
 [data-field-type="big_radio"] {
   margin-top: 15px !important;
@@ -177,7 +179,7 @@ input[type="number"],
   background-color: #999999 !important;
 }
 
-.datetime-field {
+.datetime-field, .dropdown-field {
   border-color: #999999 !important;
 }
 
