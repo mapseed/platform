@@ -728,6 +728,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
+              "spokane-parcels",
               "spokane-county-outline"
             ]
           },
@@ -737,6 +738,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-watersheds",
+              "spokane-parcels",
               "spokane-county-outline"
             ]
           },
@@ -791,7 +793,7 @@
           },
           {
             "start_field_index": 22,
-            "end_field_index": 42,
+            "end_field_index": 26,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -799,8 +801,8 @@
             ]
           },
           {
-            "start_field_index": 43,
-            "end_field_index": 61,
+            "start_field_index": 27,
+            "end_field_index": 40,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -808,8 +810,8 @@
             ]
           },
           {
-            "start_field_index": 62,
-            "end_field_index": 70,
+            "start_field_index": 41,
+            "end_field_index": 54,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -817,35 +819,26 @@
             ]
           },
           {
-            "start_field_index": 71,
+            "start_field_index": 55,
+            "end_field_index": 76,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 77,
+            "end_field_index": 78,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 79,
             "end_field_index": 88,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 89,
-            "end_field_index": 97,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 98,
-            "end_field_index": 124,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 125,
-            "end_field_index": 137,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1037,7 +1030,7 @@
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Water Use Efficiency</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your water use practices.</p>"
           },
           {
-            "//": "=============== GATED PIPE ================================",
+            "//": "=============== NO TILL / MULCH TILL ================================",
             "name": "no_till_mulch_till",
             "type": "big_radio",
             "prompt": "No till / mulch till",
@@ -1765,15 +1758,399 @@
             ]
           },
           {
+            "//": "=============== HEAVY USE AREA =================================",
+            "name": "heavy_use_area",
+            "type": "big_radio",
+            "prompt": "I protect heavy use areas",
+            "label": "Heavy use area protection",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "heavy_use_area_quantity",
+                "heavy_use_area_type",
+                "heavy_use_area_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "heavy_use_area_quantity",
+            "type": "number",
+            "prompt": "How many acres of heavy use area have you protected?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "heavy_use_area_type",
+            "type": "dropdown",
+            "prompt": "Which type of heavy use area protection have you used?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
+          },
+          {
+            "name": "heavy_use_area_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been protecting heavy use areas?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "=============== FENCING =================================",
+            "name": "fencing",
+            "type": "big_radio",
+            "prompt": "I install fencing",
+            "label": "Fencing",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "fencing_quantity",
+                "fencing_type",
+                "fencing_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "fencing_quantity",
+            "type": "number",
+            "prompt": "How many feet of fencing have you installed?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "fencing_type",
+            "type": "dropdown",
+            "prompt": "Which type of fencing have you installed?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
+          },
+          {
+            "name": "fencing_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been installing and maintaining fencing?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "=============== NUTRIENT MANAGEMENT =================================",
+            "name": "nutrient_management",
+            "type": "big_radio",
+            "prompt": "I practice nuterient management",
+            "label": "Nutrient management",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "nutrient_management_quantity",
+                "nutrient_management_type",
+                "nutrient_management_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you practice nutrient management?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "nutrient_management_type",
+            "type": "dropdown",
+            "prompt": "Which type of nutrient management do you practice?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been practicing nutrient management?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "=============== PIPELINE =================================",
+            "name": "pipeline",
+            "type": "big_radio",
+            "prompt": "I install and maintain pipelines for irrigation",
+            "label": "Pipelines",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "pipeline_quantity",
+                "pipeline_type",
+                "pipeline_duration"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pipeline_quantity",
+            "type": "number",
+            "prompt": "How many feet of pipeline do you maintain?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "pipeline_type",
+            "type": "dropdown",
+            "prompt": "Which type of pipeline do you maintain",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Type A",
+                "value": "type_a"
+              },
+
+              {
+                "label": "Type B",
+                "value": "type_b"
+              },
+              {
+                "label": "Type C",
+                "value": "type_c"
+              }
+            ]
+          },
+          {
+            "name": "pipeline_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been installing and maintaining pipeline?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "--------------OTHER PRACTICES---------------------------",
+            "name": "other",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other VSP Practives</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your livestock management practices.</p>"
+          },
+          {
+            "name": "other_practices_description",
+            "type": "textarea",
+            "prompt": "Please describe your other VSP practices:",
+            "placeholder": "Description...",
+            "optional": true
+          },
+          {
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost completed!</h2>"
-          },
-          {
-            "name": "additional_info",
-            "type": "informational_html",
-            "content": "<p><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><p>This page will determine how your information is shared.  We will report all practices at the watershed scale, but if you are interested in having your project showcased you can give us permission below.  Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost completed!</h2><p><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><p>This page will determine how your information is shared.  We will report all practices at the watershed scale, but if you are interested in having your project showcased you can give us permission below.  Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
           },
           {
             "name": "my_image",
