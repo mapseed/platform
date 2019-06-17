@@ -84,7 +84,7 @@ label[for="input-form-fish-wildlife-management_no-fish-wildlife-management"] {
 }
 
 .geocoding-field__do-geocode-icon:before {
-  color: #e57c04 !important;
+  color: #999999 !important;
 }
 
 [data-field-type="informational_html"] {
@@ -213,20 +213,11 @@ input[type="number"],
   background-color: #efefef !important;
 }
 
-.mapseed__progress-bar-inner {
-  background-color: #ff6201 !important;
-}
-
-[class*="SupportButton"] {
-  background-color: #a3c7d9 !important;
-  color: #007fbf !important;
-}
-
 /* =Custom Pages
 -------------------------------------------------------------- */
 
 .next-btn {
-  background-color: #273580 !important;
+  background-color: #61974b !important;
   border-radius: 3px !important;
   float: right !important;
   outline: none !important;
@@ -237,6 +228,6 @@ input[type="number"],
   margin-left: 10px !important;
 
   &:hover {
-    background-color: rgb(168, 174, 204) !important;
+    background-color: rgb(191, 213, 183) !important;
   }
 }

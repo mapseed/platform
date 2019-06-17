@@ -28,14 +28,14 @@
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {
-        "primary": "#273580",
+        "primary": "#61974b",
         "secondary": "#d46c4c",
         "tertiary": "#999",
-        "accent": "#9d122b"
+        "accent": "#29b1cb"
       },
       "bg": {
         "default": "#e8dbc5",
-        "light": "#115588"
+        "light": "#61974b"
       },
       "text": {
         "secondary": "#fff",
@@ -44,8 +44,8 @@
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
-        "addPlaceButtonBackgroundColor": "#273580",
-        "addPlaceButtonHoverBackgroundColor": "rgb(168,174,204)"
+        "addPlaceButtonBackgroundColor": "#61974b",
+        "addPlaceButtonHoverBackgroundColor": "rgb(191,213,183)"
       }
     }
   },
@@ -71,8 +71,8 @@
         "longitude": -117.406929,
         "zoom": 7.95,
         "pitch": 25,
-        "minZoom": 1,
-        "maxZoom": 18
+        "minzoom": 1,
+        "maxzoom": 18
       }
     },
     "mapboxSources": {
@@ -102,21 +102,22 @@
         "tiles": [
           "https://vector-tiles.mapseed.org/spokane-parcels/{z}/{x}/{y}.pbf"
         ],
-        "maxZoom": 16
+        "maxzoom": 16,
+        "minzoom": 12
       },
       "spokane-watersheds": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/spokane-watersheds/{z}/{x}/{y}.pbf"
         ],
-        "maxZoom": 16
+        "maxzoom": 16
       },
       "spokane-geologic-hazard": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/spokane-geologic-hazard/{z}/{x}/{y}.pbf"
         ],
-        "maxZoom": 17
+        "maxzoom": 17
       },
       "spokane-wetlands": {
         "type": "vector",
@@ -546,9 +547,18 @@
             "source": "spokane-parcels",
             "source-layer": "spokane-parcels",
             "paint": {
-              "fill-color": "#ddd",
-              "fill-opacity": 0.2,
-              "fill-outline-color": "#999"
+              "fill-color": "#999",
+              "fill-opacity": 0.3
+            }
+          },
+          {
+            "id": "spokane-parcels-outline",
+            "type": "line",
+            "source": "spokane-parcels",
+            "source-layer": "spokane-parcels",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1
             }
           }
         ]
@@ -736,6 +746,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-wetlands",
+              "spokane-parcels",
               "spokane-county-outline"
             ]
           },
@@ -745,6 +756,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-frequently-flooded",
+              "spokane-parcels",
               "spokane-county-outline"
             ]
           },
@@ -754,6 +766,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-geologic-hazard",
+              "spokane-parcels",
               "spokane-county-outline"
             ]
           },
@@ -763,6 +776,7 @@
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-aquifer",
+              "spokane-parcels",
               "spokane-county-outline"
             ]
           },
@@ -854,7 +868,7 @@
           {
             "name": "drag_map_info",
             "type": "informational_html",
-            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#ef5f46;font-size:1.5rem'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#999999;font-size:1.5rem;margin-right:16px;'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
           },
           {
             "name": "address",
