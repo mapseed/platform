@@ -5328,7 +5328,7 @@
       },
       "small_tree_clusters": {
         "type": "big_radio",
-        "prompt": "I ensure that tree and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of the vegetation across the landscape",
+        "prompt": "I ensure that trees and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of the vegetation across the landscape",
         "label": "Break up continuity of vegetation",
         "optional": true,
         "content": [
@@ -5345,7 +5345,7 @@
       "dispose_ground_debris": {
         "type": "big_radio",
         "prompt": "I dispose of heavy accumulations of ground litter/debris",
-        "label": "Disponse of ground debris",
+        "label": "Dispose of ground debris",
         "optional": true,
         "content": [
           {

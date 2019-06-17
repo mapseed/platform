@@ -12,6 +12,7 @@ const Page = props => (
       height: 1375px;
       margin: 0 auto;
       color: #444;
+      overflow: hidden;
     `}
   >
     {props.children}

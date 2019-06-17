@@ -97,14 +97,14 @@ const fireDistrictInfo = {
 const actionDescriptions = {
   clear_vegetation: "Clearing vegetation",
   clean_roofs: "Cleaning your roof of dead leaves and debris",
-  replace_shingles: "Reparaing loose or missing shingles",
+  replace_shingles: "Repairing loose or missing shingles",
   mow_to_four_inches: "Keeping your lawn mowed to four inches",
   remove_ladder_fuels: "Removing ladder fuels",
   space_trees: "Spacing trees to a minimum of eighteen feet",
   tree_placement:
     "Keeping mature tree canopy at least ten feet from structures",
   small_tree_clusters: "Keeping trees grouped in small clusters",
-  dispose_ground_debris: "Regularly disposing of group debris",
+  dispose_ground_debris: "Regularly disposing of ground debris",
   remove_dead_material: "Removing dead plant and tree material",
   remove_small_conifers: "Removing small conifers between mature trees",
   remove_outbuilding_vegetation: "Removing outbuilding vegetation",
@@ -248,7 +248,7 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle weight="bold" style="regular">
-                {"Your FIREWISE USA\u0174 Recognized Community: "}
+                {"Your FIREWISE USA® Recognized Community: "}
               </KittitasFireReadyReportSmallTitle>
               <KittitasFireReadyReportSmallTitle
                 weight="regular"
@@ -299,7 +299,7 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>509-925-3352 x204</LargeText>
+                  <LargeText>509-925-3352 x204 (KCCD)</LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
@@ -632,9 +632,8 @@ const KittitasFireReadyReport = props => {
                 </figure>
               </FloatedRight>
               <ReportBodyText>
-                The National Fire Protection Association program recommends you
-                think of fire prevention in three ignition zones around your
-                home:{" "}
+                The National Fire Protection Association recommends you think of
+                fire prevention in three ignition zones around your home:{" "}
                 <LargeText fontFamily="PTSansBold,sans-serif">
                   Immediate
                 </LargeText>
@@ -746,9 +745,9 @@ const KittitasFireReadyReport = props => {
                 We recommend a full onsite consultation. You can get your free
                 consultation by calling KCCD at{" "}
                 <LargeText fontFamily="PTSansBold,sans-serif">
-                  509-925-3352 x204
+                  509-925-3352 x204{" "}
                 </LargeText>
-                or DNR at
+                or DNR at{" "}
                 <LargeText fontFamily="PTSansBold,sans-serif">
                   509-925-0974
                 </LargeText>
