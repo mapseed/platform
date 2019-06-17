@@ -97,14 +97,14 @@ const fireDistrictInfo = {
 const actionDescriptions = {
   clear_vegetation: "Clearing vegetation",
   clean_roofs: "Cleaning your roof of dead leaves and debris",
-  replace_shingles: "Reparaing loose or missing shingles",
+  replace_shingles: "Repairing loose or missing shingles",
   mow_to_four_inches: "Keeping your lawn mowed to four inches",
   remove_ladder_fuels: "Removing ladder fuels",
   space_trees: "Spacing trees to a minimum of eighteen feet",
   tree_placement:
     "Keeping mature tree canopy at least ten feet from structures",
   small_tree_clusters: "Keeping trees grouped in small clusters",
-  dispose_ground_debris: "Regularly disposing of group debris",
+  dispose_ground_debris: "Regularly disposing of ground debris",
   remove_dead_material: "Removing dead plant and tree material",
   remove_small_conifers: "Removing small conifers between mature trees",
   remove_outbuilding_vegetation: "Removing outbuilding vegetation",
@@ -248,7 +248,7 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle weight="bold" style="regular">
-                Your Firewise USA Recognized Community:{" "}
+                {"Your FIREWISE USA® Recognized Community: "}
               </KittitasFireReadyReportSmallTitle>
               <KittitasFireReadyReportSmallTitle
                 weight="regular"
@@ -256,6 +256,10 @@ const KittitasFireReadyReport = props => {
               >
                 {safeFireAdaptedCommunity}
               </KittitasFireReadyReportSmallTitle>
+              <LargeText>
+                Learn More About the Kittitas Fire Adapted Communities Coalition
+                (KFACC):
+              </LargeText>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -273,38 +277,29 @@ const KittitasFireReadyReport = props => {
                     <LargeText>fireadaptedwashington.org</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
-                {!isOutsideFireAdaptedCommunity && (
-                  <ContentWithFontAwesomeIcon
-                    color="#444"
-                    faClassname="fas fa-info-circle"
-                  >
-                    <LargeText>
-                      Connect with your Firewise Recognized Community to learn
-                      how to live proactively with wildfire
-                    </LargeText>
-                  </ContentWithFontAwesomeIcon>
-                )}
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle>
                 Free Onsite Risk Consultations
               </KittitasFireReadyReportSmallTitle>
+              <LargeText>
+                A free risk consultation is available through the Kittitas
+                County Conservation District (KCCD) or the Department of Natural
+                Resources (DNR).
+              </LargeText>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>509-925-3352 x202</LargeText>
+                  <LargeText>509-925-0974 (DNR)</LargeText>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
-                  faClassname="fas fa-info-circle"
+                  faClassname="fas fa-phone"
                 >
-                  <LargeText>
-                    A free risk consultation is available through your local
-                    Conservation District
-                  </LargeText>
+                  <LargeText>509-925-3352 x204 (KCCD)</LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
@@ -528,6 +523,7 @@ const KittitasFireReadyReport = props => {
                       Level 1:
                     </LargeText>{" "}
                     Be ready to evacuate. Get your evacuation supplies together.
+                    Know your evacuation route.
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
@@ -539,6 +535,8 @@ const KittitasFireReadyReport = props => {
                       Level 2:
                     </LargeText>{" "}
                     Be set to evacuate. You must prepare to leave at any moment.
+                    If you have elderly or disabled family or pets and
+                    livestock, you are strongly encouraged to leave now.
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
@@ -556,7 +554,7 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle>
-                {"Sheriff's Department"}
+                Kittitas County Sheriff
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
@@ -565,6 +563,16 @@ const KittitasFireReadyReport = props => {
                 >
                   <ExternalLink href="https://twitter.com/kcsheriffoffice">
                     <LargeText>twitter.com/kcsheriffoffice</LargeText>
+                  </ExternalLink>
+                </ContentWithFontAwesomeIcon>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
+                  <ExternalLink href="https://www.facebook.com/KittitasCountySheriff/">
+                    <LargeText>
+                      www.facebook.com/KittitasCountySheriff
+                    </LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -581,6 +589,19 @@ const KittitasFireReadyReport = props => {
                   <ExternalLink href="https://inciweb.nwcg.gov">
                     <LargeText>inciweb.nwcg.gov</LargeText>
                   </ExternalLink>
+                </ContentWithFontAwesomeIcon>
+              </SidebarResourceList>
+            </SidebarSection>
+            <SidebarSection>
+              <KittitasFireReadyReportSmallTitle>
+                Sign Up For Notifications
+              </KittitasFireReadyReportSmallTitle>
+              <SidebarResourceList>
+                <ContentWithFontAwesomeIcon
+                  color="#444"
+                  faClassname="fas fa-globe"
+                >
+                  <LargeText>[QR code to come]</LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
@@ -611,9 +632,8 @@ const KittitasFireReadyReport = props => {
                 </figure>
               </FloatedRight>
               <ReportBodyText>
-                The National Fire Protection Association program recommends you
-                think of fire prevention in three ignition zones around your
-                home:{" "}
+                The National Fire Protection Association recommends you think of
+                fire prevention in three ignition zones around your home:{" "}
                 <LargeText fontFamily="PTSansBold,sans-serif">
                   Immediate
                 </LargeText>
@@ -723,9 +743,13 @@ const KittitasFireReadyReport = props => {
               )}
               <ReportBodyText>
                 We recommend a full onsite consultation. You can get your free
-                consultation by calling{" "}
+                consultation by calling KCCD at{" "}
                 <LargeText fontFamily="PTSansBold,sans-serif">
-                  509-925-3352 x202
+                  509-925-3352 x204{" "}
+                </LargeText>
+                or DNR at{" "}
+                <LargeText fontFamily="PTSansBold,sans-serif">
+                  509-925-0974
                 </LargeText>
                 .
               </ReportBodyText>
