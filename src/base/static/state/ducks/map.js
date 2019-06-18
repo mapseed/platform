@@ -89,8 +89,8 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 // SELECTORS:
 ////////////////////////////////////////////////////////////////////////////////
 
-const getStyle = state => state.style;
-const getLayers = state => state.layers;
+const getStyle = state => state.map.style;
+const getLayers = state => state.map.layers;
 export const mapStyleSelector = createSelector(
   [getStyle, getLayers],
   (style, layers) => {
