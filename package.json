@@ -102,6 +102,7 @@
     "react-virtualized": "^9.20.1",
     "recharts": "^1.4.1",
     "redux": "^4.0.0",
+    "reselect": "^4.0.0",
     "shelljs": "^0.5.3",
     "throttle-debounce": "^2.1.0",
     "turf-extent": "^1.0.4",

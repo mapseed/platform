@@ -1,3 +1,5 @@
+import { createSelector } from "reselect";
+
 import PropTypes from "prop-types";
 import { RESET_UI } from "./ui";
 
@@ -86,13 +88,22 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 ////////////////////////////////////////////////////////////////////////////////
 // SELECTORS:
 ////////////////////////////////////////////////////////////////////////////////
-export const mapStyleSelector = state => ({
-  ...state.map.style,
-  layers: state.map.layers.map(layer => {
-    const { groupId, ...mapboxLayer } = layer;
-    return mapboxLayer;
-  }),
-});
+
+const getStyle = state => state.style;
+const getLayers = state => state.layers;
+export const mapStyleSelector = createSelector(
+  [getStyle, getLayers],
+  (style, layers) => {
+    return {
+      ...style,
+      layers: layers.map(layer => {
+        const { groupId, ...mapboxLayer } = layer;
+        return mapboxLayer;
+      }),
+    };
+  },
+);
+
 export const mapSourcesSelector = state => state.map.style.sources;
 export const sourcesMetadataSelector = state => state.map.sourcesMetadata;
 export const layerGroupsSelector = state => state.map.layerGroups;
