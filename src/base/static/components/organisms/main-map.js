@@ -22,7 +22,7 @@ import {
   updateMapContainerDimensions,
   mapContainerDimensionsSeletor,
   filterableLayerGroupsMetadataSelector,
-  filterableLayerGroupMetadataPropType,
+  filterableLayerGroupPropType,
   mapLayerPopupSelector,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
@@ -492,7 +492,7 @@ MainMap.propTypes = {
   activeMarker: PropTypes.string,
   activeEditPlaceId: PropTypes.number,
   filterableLayerGroupsMetadata: PropTypes.arrayOf(
-    filterableLayerGroupMetadataPropType,
+    filterableLayerGroupPropType,
   ),
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   history: PropTypes.object.isRequired,

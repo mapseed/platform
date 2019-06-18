@@ -28,8 +28,8 @@ import {
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
   mapViewportPropType,
-  layerGroupsMetadataSelector,
-  layerGroupsMetadataPropType,
+  layerGroupsSelector,
+  layerGroupsPropType,
 } from "../../state/ducks/map";
 import {
   hasAdminAbilities,
@@ -137,7 +137,7 @@ class InputForm extends Component {
     );
 
     hideOthers &&
-    this.props.layerGroupsMetadata.allIds
+    this.props.layerGroups.allIds
       .filter(layerGroupId => !layerGroupIds.includes(layerGroupId))
       .forEach(layerGroupId =>
         this.props.updateLayerGroupVisibility(layerGroupId, false),
@@ -658,7 +658,7 @@ InputForm.propTypes = {
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
-  layerGroupsMetadata: layerGroupsMetadataPropType,
+  layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
@@ -692,7 +692,7 @@ const mapStateToProps = state => ({
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
-  layerGroupsMetadata: layerGroupsMetadataSelector(state),
+  layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   placeConfig: placeConfigSelector(state),
 });

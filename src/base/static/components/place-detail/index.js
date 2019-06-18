@@ -56,8 +56,8 @@ import {
   removeFocusedGeoJSONFeatures,
   updateFocusedGeoJSONFeatures,
   updateLayerGroupVisibility,
-  layerGroupsMetadataSelector,
-  layerGroupsMetadataPropType,
+  layerGroupsSelector,
+  layerGroupsPropType,
 } from "../../state/ducks/map";
 import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 
@@ -135,7 +135,7 @@ class PlaceDetail extends Component {
         this.props.updateLayerGroupVisibility(layerGroupId, true),
       );
       // Hide all other layers.
-      this.props.layerGroupsMetadata.allIds
+      this.props.layerGroups.allIds
         .filter(
           layerGroupId =>
             !featuredPlace.visibleLayerGroupIds.includes(layerGroupId),
@@ -421,7 +421,7 @@ PlaceDetail.propTypes = {
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
-  layerGroupsMetadata: layerGroupsMetadataPropType,
+  layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
@@ -465,7 +465,7 @@ const mapStateToProps = state => ({
   hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
     hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
   isEditModeToggled: isEditModeToggled(state),
-  layerGroupsMetadata: layerGroupsMetadataSelector(state),
+  layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),

@@ -27,7 +27,7 @@ const filterSliderPropType = PropTypes.shape({
   comparator: PropTypes.string.isRequired,
 });
 
-export const filterableLayerGroupMetadataPropType = PropTypes.shape({
+export const filterableLayerGroupPropType = PropTypes.shape({
   layerIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   filterSlider: filterSliderPropType,
 });
@@ -59,7 +59,7 @@ export const mapStylePropType = PropTypes.shape({
   ),
 });
 
-export const layerGroupsMetadataPropType = PropTypes.shape({
+export const layerGroupsPropType = PropTypes.shape({
   byId: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -83,7 +83,6 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
   }),
 );
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // SELECTORS:
 ////////////////////////////////////////////////////////////////////////////////
@@ -96,8 +95,7 @@ export const mapStyleSelector = state => ({
 });
 export const mapSourcesSelector = state => state.map.style.sources;
 export const sourcesMetadataSelector = state => state.map.sourcesMetadata;
-export const layerGroupsMetadataSelector = state =>
-  state.map.layerGroupsMetadata;
+export const layerGroupsSelector = state => state.map.layerGroups;
 export const interactiveLayerIdsSelector = state =>
   state.map.interactiveLayerIds;
 export const setMapSizeValiditySelector = state => state.map.isMapSizeValid;
@@ -108,8 +106,8 @@ export const mapDraggedOrZoomedSelector = state =>
 export const mapContainerDimensionsSeletor = state =>
   state.map.mapContainerDimensions;
 export const mapLayerPopupSelector = (layerId, state) => {
-  const metadata = Object.values(state.map.layerGroupsMetadata.byId).find(
-    layerGroupMetadata => layerGroupMetadata.layerIds.includes(layerId),
+  const metadata = Object.values(state.map.layerGroups.byId).find(layerGroup =>
+    layerGroup.layerIds.includes(layerId),
   );
 
   return metadata && metadata.popupContent ? metadata.popupContent : null;
@@ -117,7 +115,7 @@ export const mapLayerPopupSelector = (layerId, state) => {
 // Return information about visible layer groups which are configured to be
 // filterable with a slider.
 export const filterableLayerGroupsMetadataSelector = state =>
-  Object.values(state.map.layerGroupsMetadata.byId).reduce(
+  Object.values(state.map.layerGroups.byId).reduce(
     (memo, { filterSlider, layerIds, isVisible }) => {
       return filterSlider && isVisible
         ? [
@@ -320,7 +318,7 @@ export function loadMapStyle(mapStyleConfig, datasetsConfig) {
         })),
     );
 
-  const layerGroupsMetadataById = mapStyleConfig.layerGroups.reduce(
+  const layerGroupsById = mapStyleConfig.layerGroups.reduce(
     (memo, layerGroup) => ({
       ...memo,
       [layerGroup.id]: {
@@ -381,9 +379,9 @@ export function loadMapStyle(mapStyleConfig, datasetsConfig) {
       style,
       layers,
       sourcesMetadata,
-      layerGroupsMetadata: {
-        byId: layerGroupsMetadataById,
-        allIds: Object.keys(layerGroupsMetadataById),
+      layerGroups: {
+        byId: layerGroupsById,
+        allIds: Object.keys(layerGroupsById),
       },
       basemapLayerIds,
       interactiveLayerIds,
@@ -409,7 +407,7 @@ const INITIAL_STATE = {
     sources: {},
   },
   layers: [],
-  layerGroupsMetadata: {
+  layerGroups: {
     byId: {},
     allIds: [],
   },
@@ -566,13 +564,13 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...action.payload.style,
         },
         layers: action.payload.layers,
-        layerGroupsMetadata: {
+        layerGroups: {
           byId: {
-            ...state.layerGroupsMetadata.byId,
-            ...action.payload.layerGroupsMetadata.byId,
+            ...state.layerGroups.byId,
+            ...action.payload.layerGroups.byId,
           },
-          allIds: state.layerGroupsMetadata.allIds.concat(
-            action.payload.layerGroupsMetadata.allIds,
+          allIds: state.layerGroups.allIds.concat(
+            action.payload.layerGroups.allIds,
           ),
         },
         sourcesMetadata: {
@@ -583,24 +581,22 @@ export default function reducer(state = INITIAL_STATE, action) {
         interactiveLayerIds: action.payload.interactiveLayerIds,
       };
     case RESET_UI:
-      const layers = state.layers.map(layer => {
-        return {
-          ...layer,
-          layout: {
-            ...layer.layout,
-            visibility: state.layerGroupsMetadata.byId[layer.groupId]
-              .isVisibleDefault
-              ? "visible"
-              : "none",
-          },
-        };
-      });
       return {
         ...state,
-        layers,
-        layerGroupsMetadata: {
-          ...state.layerGroupsMetadata,
-          byId: Object.values(state.layerGroupsMetadata.byId).reduce(
+        layers: state.layers.map(layer => {
+          return {
+            ...layer,
+            layout: {
+              ...layer.layout,
+              visibility: state.layerGroups.byId[layer.groupId].isVisibleDefault
+                ? "visible"
+                : "none",
+            },
+          };
+        }),
+        layerGroups: {
+          ...state.layerGroups,
+          byId: Object.values(state.layerGroups.byId).reduce(
             (memo, layer) => ({
               ...memo,
               [layer.id]: {
@@ -614,40 +610,40 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     case UPDATE_LAYER_GROUP_VISIBILITY:
       // eslint-disable-next-line no-case-declarations
-      const layerGroupsMetadataById = Object.entries(
-        state.layerGroupsMetadata.byId,
-      ).reduce((memo, [layerGroupId, metadata]) => {
-        let newVisibilityStatus;
-        if (
-          action.payload.isVisible &&
-          state.layerGroupsMetadata.byId[action.payload.layerGroupId]
-            .isBasemap &&
-          metadata.isBasemap &&
-          layerGroupId !== action.payload.layerGroupId
-        ) {
-          // If the layer group in the payload is a basemap, switch off
-          // other basemap layer groups.
-          newVisibilityStatus = false;
-        } else if (layerGroupId === action.payload.layerGroupId) {
-          newVisibilityStatus = action.payload.isVisible;
-        }
+      const layerGroupsById = Object.entries(state.layerGroups.byId).reduce(
+        (memo, [layerGroupId, metadata]) => {
+          let newVisibilityStatus;
+          if (
+            action.payload.isVisible &&
+            state.layerGroups.byId[action.payload.layerGroupId].isBasemap &&
+            metadata.isBasemap &&
+            layerGroupId !== action.payload.layerGroupId
+          ) {
+            // If the layer group in the payload is a basemap, switch off
+            // other basemap layer groups.
+            newVisibilityStatus = false;
+          } else if (layerGroupId === action.payload.layerGroupId) {
+            newVisibilityStatus = action.payload.isVisible;
+          }
 
-        return {
-          ...memo,
-          [layerGroupId]: {
-            ...metadata,
-            isVisible:
-              typeof newVisibilityStatus === "undefined"
-                ? metadata.isVisible
-                : newVisibilityStatus,
-          },
-        };
-      }, {});
+          return {
+            ...memo,
+            [layerGroupId]: {
+              ...metadata,
+              isVisible:
+                typeof newVisibilityStatus === "undefined"
+                  ? metadata.isVisible
+                  : newVisibilityStatus,
+            },
+          };
+        },
+        {},
+      );
       return {
         ...state,
-        layerGroupsMetadata: {
-          byId: layerGroupsMetadataById,
-          allIds: Object.keys(layerGroupsMetadataById),
+        layerGroups: {
+          byId: layerGroupsById,
+          allIds: Object.keys(layerGroupsById),
         },
         style: {
           ...state.style,
@@ -658,7 +654,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         layers: state.layers.map(layer => {
           let newVisibilityStatus;
           if (
-            state.layerGroupsMetadata.byId[
+            state.layerGroups.byId[
               action.payload.layerGroupId
             ].layerIds.includes(layer.id)
           ) {
@@ -674,10 +670,9 @@ export default function reducer(state = INITIAL_STATE, action) {
             // sets layer visibility for a form stage) will turn off all other
             // basemaps as well.
             action.payload.isVisible &&
-            state.layerGroupsMetadata.byId[action.payload.layerGroupId]
-              .isBasemap &&
+            state.layerGroups.byId[action.payload.layerGroupId].isBasemap &&
             state.basemapLayerIds.includes(layer.id) &&
-            !state.layerGroupsMetadata.byId[
+            !state.layerGroups.byId[
               action.payload.layerGroupId
             ].layerIds.includes(layer.id)
           ) {

@@ -15,8 +15,8 @@ import { TinyTitle } from "../atoms/typography";
 import {
   sourcesMetadataSelector,
   sourcesMetadataPropType,
-  layerGroupsMetadataSelector,
-  layerGroupsMetadataPropType,
+  layerGroupsSelector,
+  layerGroupsPropType,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 
@@ -146,16 +146,13 @@ MapLayerSelector.defaultProps = {
 };
 
 class MapLayerPanelSection extends Component {
-  onToggleLayerGroup = (layerGroupId, layerGroupMetadata) => {
-    if (layerGroupMetadata.isBasemap && layerGroupMetadata.isVisible) {
+  onToggleLayerGroup = layerGroup => {
+    if (layerGroup.isBasemap && layerGroup.isVisible) {
       // Prevent toggling the current visible basemap.
       return;
     }
 
-    this.props.updateLayerGroupVisibility(
-      layerGroupId,
-      !layerGroupMetadata.isVisible,
-    );
+    this.props.updateLayerGroupVisibility(layerGroup.id, !layerGroup.isVisible);
   };
 
   render() {
@@ -172,14 +169,12 @@ class MapLayerPanelSection extends Component {
             this.props.title,
           )}
         </TinyTitle>
-        {this.props.layerGroups.map((layerGroup, layerGroupIndex) => {
+        {this.props.layerGroupPanels.map((layerGroupPanel, layerGroupIndex) => {
           // Assume at first that all sources consumed by layers in this
           // layerGroup have loaded.
           let loadStatus = "loaded";
-          const layerGroupMetadata = this.props.layerGroupsMetadata.byId[
-            layerGroup.id
-          ];
-          const sourcesStatus = layerGroupMetadata.sourceIds.map(
+          const layerGroup = this.props.layerGroups.byId[layerGroupPanel.id];
+          const sourcesStatus = layerGroup.sourceIds.map(
             sourceId =>
               this.props.mapSourcesLoadStatus[sourceId]
                 ? this.props.mapSourcesLoadStatus[sourceId]
@@ -187,12 +182,12 @@ class MapLayerPanelSection extends Component {
           );
 
           if (sourcesStatus.includes("error")) {
-            // If any source has an error, set the entire layerGroup's status to
-            // "error".
+            // If any source has an error, set the entire layerGroupPanel's
+            // status to "error".
             loadStatus = "error";
           } else if (sourcesStatus.includes("loading")) {
             // Otherwise, if any source is still loading, set the entire
-            // layerGroup's status to "loading".
+            // layerGroupPanel's status to "loading".
             loadStatus = "loading";
           }
 
@@ -201,21 +196,17 @@ class MapLayerPanelSection extends Component {
           // index.
           return (
             <MapLayerSelector
-              key={layerGroup.id}
-              id={layerGroup.id}
+              key={layerGroupPanel.id}
+              id={layerGroupPanel.id}
               layerSelectorIndex={`${
                 this.props.layerPanelSectionIndex
               }${layerGroupIndex}`}
-              info={layerGroup.info}
-              title={layerGroup.title}
+              info={layerGroupPanel.info}
+              title={layerGroupPanel.title}
               loadStatus={loadStatus}
-              isLayerGroupVisible={
-                this.props.layerGroupsMetadata.byId[layerGroup.id].isVisible
-              }
+              isLayerGroupVisible={layerGroup.isVisible}
               isSelected={true}
-              onToggleLayerGroup={() =>
-                this.onToggleLayerGroup(layerGroup.id, layerGroupMetadata)
-              }
+              onToggleLayerGroup={() => this.onToggleLayerGroup(layerGroup)}
               t={this.props.t}
             />
           );
@@ -227,13 +218,13 @@ class MapLayerPanelSection extends Component {
 
 MapLayerPanelSection.propTypes = {
   layerPanelSectionIndex: PropTypes.number.isRequired,
-  layerGroups: PropTypes.arrayOf(
+  layerGroupPanels: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
     }),
-  ),
-  layerGroupsMetadata: layerGroupsMetadataPropType.isRequired,
+  ).isRequired,
+  layerGroups: layerGroupsPropType.isRequired,
   mapSourcesLoadStatus: PropTypes.object.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   t: PropTypes.func.isRequired,
@@ -242,7 +233,7 @@ MapLayerPanelSection.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  layerGroupsMetadata: layerGroupsMetadataSelector(state),
+  layerGroups: layerGroupsSelector(state),
   sourcesMetadata: sourcesMetadataSelector(state),
 });
 
