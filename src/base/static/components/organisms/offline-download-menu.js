@@ -12,10 +12,12 @@ import {
   modalStyles,
 } from "../atoms/layout";
 import {
-  mapLayerConfigsPropType,
   offlineConfigPropType,
-  mapLayerConfigsSelector,
 } from "../../state/ducks/map-config";
+import {
+  mapSourcesPropType,
+  mapSourcesSelector,
+} from "../../state/ducks/map";
 
 import Modal from "react-modal";
 import { connect } from "react-redux";
@@ -23,7 +25,7 @@ Modal.setAppElement("#site-wrap");
 
 const fetchOfflineData = (
   offlineBoundingBox,
-  mapLayerConfigs,
+  mapSources,
   setPercentDownloaded,
   setPhase,
 ) => {
@@ -34,7 +36,7 @@ const fetchOfflineData = (
     .reduce(
       (urls, { zoom, lat, lng }) =>
         urls.concat(
-          mapLayerConfigs
+          mapSources
             .filter(
               layer => layer.type && ["raster", "vector"].includes(layer.type),
             )
@@ -49,7 +51,7 @@ const fetchOfflineData = (
       [],
     )
     .concat(
-      mapLayerConfigs
+      mapSources
         .filter(layer => layer.type && layer.type === "geojson")
         .map(mapLayerConfig => mapLayerConfig.data),
     )
@@ -116,7 +118,7 @@ const OfflineDownloadMenu = props => {
                     onClick={() => {
                       fetchOfflineData(
                         props.offlineBoundingBox,
-                        props.mapLayerConfigs,
+                        props.mapSources,
                         setPercentDownloaded,
                         setPhase,
                       );
@@ -167,12 +169,12 @@ const OfflineDownloadMenu = props => {
 };
 
 OfflineDownloadMenu.propTypes = {
-  mapLayerConfigs: mapLayerConfigsPropType.isRequired,
+  mapSources: mapSourcesPropType.isRequired,
   offlineBoundingBox: offlineConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
-  mapLayerConfigs: mapLayerConfigsSelector(state),
+  mapSources: mapSourcesSelector(state),
 });
 
 export default connect(mapStateToProps)(OfflineDownloadMenu);

@@ -17,8 +17,15 @@ const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
 const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
 const UPDATE_CONTENT_PANEL_COMPONENT = "ui/UPDATE_CONTENT_PANEL_COMPONENT";
 const UPDATE_LAYOUT = "ui/UPDATE_LAYOUT";
+export const RESET_UI = "ui/RESET";
 
 // Action creators:
+export function resetUi() {
+  return {
+    type: RESET_UI,
+  };
+}
+
 export function updateCurrentTemplate(templateName) {
   return { type: UPDATE_CURRENT_TEMPLATE, payload: templateName };
 }
@@ -98,6 +105,23 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isEditModeToggled: action.payload,
+      };
+    case RESET_UI:
+      return {
+        ...state,
+        activePageSlug: null,
+        uiVisibility: {
+          ...state.uiVisibility,
+          contentPanel: false,
+          inviteModal: false,
+          mapCenterpoint: false,
+          spotlightMask: false,
+          rightSidebar: false,
+        },
+        contentPanelComponent: null,
+        leftSidebarComponent: null,
+        currentTemplate: "map",
+        isEditModeToggled: false,
       };
     case UPDATE_LAYOUT:
       return {

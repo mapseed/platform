@@ -310,7 +310,7 @@ class App extends Component<Props, State> {
     this.props.loadPagesConfig(resolvedConfig.pages);
     this.props.loadNavBarConfig(resolvedConfig.nav_bar);
     this.props.loadCustomComponentsConfig(resolvedConfig.custom_components);
-    this.props.loadMapStyle(resolvedConfig.map, resolvedConfig.datasets);
+    this.props.loadMapStyle(resolvedConfig.mapStyle, resolvedConfig.datasets);
     resolvedConfig.dashboard &&
       this.props.loadDashboardConfig(resolvedConfig.dashboard);
     resolvedConfig.right_sidebar.is_visible_default &&

@@ -12,12 +12,12 @@ import { FontAwesomeIcon } from "../atoms/imagery";
 import { HorizontalRule } from "../atoms/layout";
 import { TinyTitle } from "../atoms/typography";
 
-import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   sourcesMetadataSelector,
-  layerGroupsMetadataSelector,
-  updateLayerGroupVisibility,
   sourcesMetadataPropType,
+  layerGroupsMetadataSelector,
+  layerGroupsMetadataPropType,
+  updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 
 const MapLayerSelectorContainer = styled("div")({
@@ -176,7 +176,7 @@ class MapLayerPanelSection extends Component {
           // Assume at first that all sources consumed by layers in this
           // layerGroup have loaded.
           let loadStatus = "loaded";
-          const layerGroupMetadata = this.props.layerGroupsMetadata[
+          const layerGroupMetadata = this.props.layerGroupsMetadata.byId[
             layerGroup.id
           ];
           const sourcesStatus = layerGroupMetadata.sourceIds.map(
@@ -210,7 +210,7 @@ class MapLayerPanelSection extends Component {
               title={layerGroup.title}
               loadStatus={loadStatus}
               isLayerGroupVisible={
-                this.props.layerGroupsMetadata[layerGroup.id].isVisible
+                this.props.layerGroupsMetadata.byId[layerGroup.id].isVisible
               }
               isSelected={true}
               onToggleLayerGroup={() =>
@@ -227,21 +227,13 @@ class MapLayerPanelSection extends Component {
 
 MapLayerPanelSection.propTypes = {
   layerPanelSectionIndex: PropTypes.number.isRequired,
-  mapConfig: PropTypes.shape({
-    layerGroups: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        info: PropTypes.string,
-      }),
-    ),
-  }),
   layerGroups: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
     }),
   ),
-  layerGroupsMetadata: PropTypes.object.isRequired,
+  layerGroupsMetadata: layerGroupsMetadataPropType.isRequired,
   mapSourcesLoadStatus: PropTypes.object.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
   t: PropTypes.func.isRequired,
@@ -251,7 +243,6 @@ MapLayerPanelSection.propTypes = {
 
 const mapStateToProps = state => ({
   layerGroupsMetadata: layerGroupsMetadataSelector(state),
-  mapConfig: mapConfigSelector(state),
   sourcesMetadata: sourcesMetadataSelector(state),
 });
 
