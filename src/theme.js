@@ -54,6 +54,8 @@ export const globalStyles = css`
   // These styles are intended to mimic the styling of our Atoms on custom
   // pages.
   #mapseed-custom-page-container {
+    height: 100%;
+
     h1 {
       font-size: 2rem;
       margin: 0 0 16px 0;
