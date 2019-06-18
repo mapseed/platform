@@ -17,7 +17,6 @@ import {
   sourcesMetadataSelector,
   updateFeaturesInGeoJSONSource,
   sourcesMetadataPropType,
-  updateSources,
   updateLayers,
   updateMapContainerDimensions,
   mapContainerDimensionsSeletor,
@@ -534,7 +533,6 @@ MainMap.propTypes = {
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayers: PropTypes.func.isRequired,
   onUpdateMapViewport: PropTypes.func.isRequired,
-  updateSources: PropTypes.func.isRequired,
   onUpdateInitialMapViewport: PropTypes.func.isRequired,
   onUpdateSourceLoadStatus: PropTypes.func.isRequired,
   onUpdateSpotlightMaskVisibility: PropTypes.func.isRequired,
@@ -570,8 +568,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(component)),
   updateFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(updateFeaturesInGeoJSONSource(sourceId, newFeatures)),
-  updateSources: (newSourceId, newSource) =>
-    dispatch(updateSources(newSourceId, newSource)),
   updateLayers: newLayer => dispatch(updateLayers(newLayer)),
   updateMapContainerDimensions: newDimensions =>
     dispatch(updateMapContainerDimensions(newDimensions)),

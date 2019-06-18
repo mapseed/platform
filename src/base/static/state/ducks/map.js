@@ -144,7 +144,6 @@ const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
 const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
-const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
 const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
@@ -163,13 +162,6 @@ export function removeFocusedGeoJSONFeatures() {
   return {
     type: REMOVE_FOCUSED_GEOJSON_FEATURES,
     payload: null,
-  };
-}
-
-export function updateSources(newSourceId, newSource) {
-  return {
-    type: UPDATE_SOURCES,
-    payload: { newSourceId, newSource },
   };
 }
 
@@ -674,17 +666,6 @@ export default function reducer(state = INITIAL_STATE, action) {
             },
           };
         }),
-      };
-    case UPDATE_SOURCES:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-          sources: {
-            ...state.style.sources,
-            [action.payload.newSourceId]: action.payload.newSource,
-          },
-        },
       };
     case UPDATE_LAYERS:
       return {
