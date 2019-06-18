@@ -7,7 +7,10 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
 
-import { mapConfigSelector, mapConfigPropType } from "../../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapConfigPropType,
+} from "../../../state/ducks/map-config";
 
 // TODO: Consolidate Util methods used here.
 import Util from "../../../js/utils.js";
