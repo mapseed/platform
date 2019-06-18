@@ -552,26 +552,15 @@ export default function reducer(state = INITIAL_STATE, action) {
     case LOAD_STYLE_AND_METADATA:
       return {
         ...state,
+        ...action.payload,
         style: {
           ...state.style,
           ...action.payload.style,
         },
-        layers: action.payload.layers,
-        layerGroups: {
-          byId: {
-            ...state.layerGroups.byId,
-            ...action.payload.layerGroups.byId,
-          },
-          allIds: state.layerGroups.allIds.concat(
-            action.payload.layerGroups.allIds,
-          ),
+        mapContainerDimensions: {
+          ...state.mapContainerDimensions,
+          ...action.payload.mapContainerDimensions,
         },
-        sourcesMetadata: {
-          ...state.sourcesMetadata,
-          ...action.payload.sourcesMetadata,
-        },
-        basemapLayerIds: action.payload.basemapLayerIds,
-        interactiveLayerIds: action.payload.interactiveLayerIds,
       };
     case RESET_UI:
       return {
