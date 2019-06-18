@@ -1,19 +1,20 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { connect } from "react-redux";
+import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import getExtentFromGeometry from "turf-extent";
 import WebMercatorViewport from "viewport-mercator-project";
 
+import { LargeTitle } from "../atoms/typography";
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
 import EditorBar from "./editor-bar";
 import TagBar from "../organisms/tag-bar";
 import PlaceDetailEditor from "./place-detail-editor";
-import emitter from "../../utils/emitter";
 
 import FieldSummary from "./field-summary";
 
@@ -21,8 +22,7 @@ import FieldSummary from "./field-summary";
 import SnohomishFieldSummary from "./snohomish-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
 import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
-
-import constants from "../../constants";
+import KittitasFireReadyFieldSummary from "./kittitas-fire-ready-field-summary";
 
 import {
   appConfigSelector,
@@ -34,6 +34,10 @@ import {
 } from "../../state/ducks/forms-config";
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import {
+  featuredPlacesSelector,
+  featuredPlacesPropType,
+} from "../../state/ducks/featured-places-config";
 import {
   mapConfigSelector,
   mapConfigPropType,
@@ -60,7 +64,7 @@ import {
 import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 import { translate } from "react-i18next";
@@ -94,17 +98,6 @@ class PlaceDetail extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      this.props.isEditModeToggled !== prevProps.isEditModeToggled &&
-      !this.props.isEditModeToggled
-    ) {
-      emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
-      emitter.emit(
-        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-        this.props.focusedPlace._datasetSlug,
-      );
-    }
-
     if (this.props.focusedPlace.id !== prevProps.focusedPlace.id) {
       jumpTo({
         contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
@@ -129,36 +122,39 @@ class PlaceDetail extends Component {
         this.props.hasGroupAbilitiesInDatasets({
           abilities: ["update"],
           submissionSet: "places",
-          datasetSlugs: [this.props.focusedPlace._datasetSlug],
+          datasetSlugs: [this.props.focusedPlace.datasetSlug],
         }),
     });
   }
 
   updateMapViewport() {
-    const story = this.props.focusedPlace.story;
-    if (story) {
+    const featuredPlace = this.props.featuredPlaces.find(featuredPlace => {
+      return featuredPlace.placeId === this.props.focusedPlace.id;
+    });
+    if (featuredPlace) {
       // Set layers for this story chapter.
-      story.visibleLayerGroupIds.forEach(layerGroupId =>
+      featuredPlace.visibleLayerGroupIds.forEach(layerGroupId =>
         this.props.updateLayerGroupVisibility(layerGroupId, true),
       );
       // Hide all other layers.
       this.props.mapConfig.layerGroups
         .filter(
-          layerGroup => !story.visibleLayerGroupIds.includes(layerGroup.id),
+          layerGroup =>
+            !featuredPlace.visibleLayerGroupIds.includes(layerGroup.id),
         )
         .forEach(layerGroup =>
           this.props.updateLayerGroupVisibility(layerGroup.id, false),
         );
     }
 
-    if (story && story.panTo) {
+    if (featuredPlace && featuredPlace.panTo) {
       const newViewport = {
-        latitude: story.panTo[1],
-        longitude: story.panTo[0],
+        latitude: featuredPlace.panTo[1],
+        longitude: featuredPlace.panTo[0],
         transitionDuration: 3000,
       };
-      if (story.zoom) {
-        newViewport.zoom = story.zoom;
+      if (featuredPlace.zoom) {
+        newViewport.zoom = featuredPlace.zoom;
       }
 
       this.props.onUpdateMapViewport(newViewport);
@@ -176,23 +172,23 @@ class PlaceDetail extends Component {
       this.props.onUpdateMapViewport({
         latitude: newViewport.latitude,
         longitude: newViewport.longitude,
-        transitionDuration: story ? 3000 : 200,
+        transitionDuration: featuredPlace ? 3000 : 200,
         zoom: newViewport.zoom,
       });
     } else if (this.props.focusedPlace.geometry.type === "Point") {
       const newViewport = {
         latitude: this.props.focusedPlace.geometry.coordinates[1],
         longitude: this.props.focusedPlace.geometry.coordinates[0],
-        transitionDuration: story ? 3000 : 200,
+        transitionDuration: featuredPlace ? 3000 : 200,
       };
-      if (story && story.zoom) {
-        newViewport.zoom = story.zoom;
+      if (featuredPlace && featuredPlace.zoom) {
+        newViewport.zoom = featuredPlace.zoom;
       }
 
       this.props.onUpdateMapViewport(newViewport);
     }
 
-    if (story && !story.spotlight) {
+    if (featuredPlace && !featuredPlace.spotlight) {
       this.props.updateSpotlightMaskVisibility(false);
     } else {
       this.props.updateSpotlightMaskVisibility(true);
@@ -260,7 +256,7 @@ class PlaceDetail extends Component {
     const isTagBarEditable = this.props.hasGroupAbilitiesInDatasets({
       abilities: ["update", "destroy", "create"],
       submissionSet: "tags",
-      datasetSlugs: [this.props.focusedPlace._datasetSlug],
+      datasetSlugs: [this.props.focusedPlace.datasetSlug],
     });
 
     // TODO: dissolve when flavor abstraction is ready
@@ -271,6 +267,16 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <SnohomishFieldSummary
+          fields={categoryConfig.fields}
+          place={this.props.focusedPlace}
+        />
+      );
+    } else if (
+      this.props.customComponents.FieldSummary ===
+      "KittitasFireReadyFieldSummary"
+    ) {
+      fieldSummary = (
+        <KittitasFireReadyFieldSummary
           fields={categoryConfig.fields}
           place={this.props.focusedPlace}
         />
@@ -313,7 +319,7 @@ class PlaceDetail extends Component {
         {(this.state.isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar
             isAdmin={this.props.hasAdminAbilities(
-              this.props.focusedPlace._datasetSlug,
+              this.props.focusedPlace.datasetSlug,
             )}
             isEditModeToggled={this.props.isEditModeToggled}
             isPlaceDetailEditable={this.state.isPlaceDetailEditable}
@@ -331,17 +337,17 @@ class PlaceDetail extends Component {
           isEditModeToggled={this.props.isEditModeToggled}
           isEditable={isTagBarEditable}
           placeTags={this.props.focusedPlace.tags}
-          datasetSlug={this.props.focusedPlace._datasetSlug}
+          datasetSlug={this.props.focusedPlace.datasetSlug}
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
         />
-        <h1
-          className={classNames("place-detail-view__header", {
-            "place-detail-view__header--centered": isStoryChapter,
-          })}
+        <LargeTitle
+          css={css`
+            margin-top: 0;
+          `}
         >
           {this.props.focusedPlace.title}
-        </h1>
+        </LargeTitle>
         <PromotionMetadataContainer>
           <MetadataBar
             createdDatetime={this.props.focusedPlace.created_datetime}
@@ -389,7 +395,7 @@ class PlaceDetail extends Component {
         <Survey
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
-          datasetSlug={this.props.focusedPlace._datasetSlug}
+          datasetSlug={this.props.focusedPlace.datasetSlug}
           currentUser={this.props.currentUser}
           isEditModeToggled={this.props.isEditModeToggled}
           isEditable={this.state.isPlaceDetailEditable}
@@ -411,6 +417,7 @@ PlaceDetail.propTypes = {
   currentUser: userPropType,
   customComponents: PropTypes.object.isRequired,
   focusedPlace: placePropType,
+  featuredPlaces: featuredPlacesPropType,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
@@ -448,6 +455,7 @@ const mapStateToProps = state => ({
   currentUser: userSelector(state),
   customComponents: customComponentsConfigSelector(state),
   focusedPlace: focusedPlaceSelector(state),
+  featuredPlaces: featuredPlacesSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
     hasGroupAbilitiesInDatasets({

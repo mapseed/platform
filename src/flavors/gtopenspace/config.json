@@ -4,18 +4,13 @@
     "name": "Georgetown Open Space Vision Framework",
     "meta_description": "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "center": {
         "lat": 47.54403,
@@ -69,13 +64,13 @@
       },
       {
         "id": "gtopenspace2",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/gtopenspace2",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/gtopenspace2",
         "type": "place",
         "slug": "idea"
       },
       {
         "id": "gtopenspace1",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/gtopenspace1",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/gtopenspace1",
         "type": "place",
         "slug": "site"
       },
@@ -127,53 +122,29 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            60,
-            60
-          ],
-          "iconAnchor": [
-            30,
-            30
-          ]
+          "iconSize": [60, 60],
+          "iconAnchor": [30, 30]
         }
       },
       {
         "condition": "this.map.zoom < 15",
         "icon": {
-          "iconSize": [
-            7.5,
-            7.5
-          ],
-          "iconAnchor": [
-            4,
-            4
-          ]
+          "iconSize": [7.5, 7.5],
+          "iconAnchor": [4, 4]
         }
       },
       {
         "condition": "this.map.zoom < 17",
         "icon": {
-          "iconSize": [
-            25,
-            25
-          ],
-          "iconAnchor": [
-            12.5,
-            12.5
-          ]
+          "iconSize": [25, 25],
+          "iconAnchor": [12.5, 12.5]
         }
       },
       {
         "condition": "this.map.zoom >= 17",
         "icon": {
-          "iconSize": [
-            40,
-            40
-          ],
-          "iconAnchor": [
-            20,
-            20
-          ]
+          "iconSize": [40, 40],
+          "iconAnchor": [20, 20]
         }
       }
     ],
@@ -181,40 +152,22 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            50,
-            50
-          ],
-          "iconAnchor": [
-            25,
-            25
-          ]
+          "iconSize": [50, 50],
+          "iconAnchor": [25, 25]
         }
       },
       {
         "condition": "this.map.zoom < 16",
         "icon": {
-          "iconSize": [
-            20,
-            20
-          ],
-          "iconAnchor": [
-            10,
-            10
-          ]
+          "iconSize": [20, 20],
+          "iconAnchor": [10, 10]
         }
       },
       {
         "condition": "this.map.zoom >= 16",
         "icon": {
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ]
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15]
         }
       }
     ],
@@ -224,91 +177,43 @@
         "icon": {
           "iconUrl": "/static/css/images/markers/marker-star.png",
           "shadowUrl": "/static/css/images/marker-shadow.png",
-          "iconSize": [
-            60,
-            60
-          ],
-          "iconAnchor": [
-            30,
-            30
-          ],
-          "shadowSize": [
-            60,
-            60
-          ],
-          "shadowAnchor": [
-            30,
-            30
-          ]
+          "iconSize": [60, 60],
+          "iconAnchor": [30, 30],
+          "shadowSize": [60, 60],
+          "shadowAnchor": [30, 30]
         }
       },
       {
         "condition": "this.map.zoom < 11",
         "icon": {
           "iconUrl": "/static/css/images/markers/marker-star.png",
-          "iconSize": [
-            12,
-            12
-          ],
-          "iconAnchor": [
-            6,
-            6
-          ],
+          "iconSize": [12, 12],
+          "iconAnchor": [6, 6],
           "shadowUrl": "/static/css/images/marker-shadow.png",
-          "shadowSize": [
-            60,
-            60
-          ],
-          "shadowAnchor": [
-            30,
-            30
-          ]
+          "shadowSize": [60, 60],
+          "shadowAnchor": [30, 30]
         }
       },
       {
         "condition": "this.map.zoom < 15",
         "icon": {
           "iconUrl": "/static/css/images/markers/marker-star.png",
-          "iconSize": [
-            18,
-            18
-          ],
-          "iconAnchor": [
-            9,
-            9
-          ],
+          "iconSize": [18, 18],
+          "iconAnchor": [9, 9],
           "shadowUrl": "/static/css/images/marker-shadow.png",
-          "shadowSize": [
-            60,
-            60
-          ],
-          "shadowAnchor": [
-            30,
-            30
-          ]
+          "shadowSize": [60, 60],
+          "shadowAnchor": [30, 30]
         }
       },
       {
         "condition": "this.map.zoom >= 15",
         "icon": {
           "iconUrl": "/static/css/images/markers/marker-star.png",
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ],
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15],
           "shadowUrl": "/static/css/images/marker-shadow.png",
-          "shadowSize": [
-            60,
-            60
-          ],
-          "shadowAnchor": [
-            30,
-            30
-          ]
+          "shadowSize": [60, 60],
+          "shadowAnchor": [30, 30]
         }
       }
     ],
@@ -559,64 +464,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-a5cf32.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-a5cf32.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-a5cf32.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -629,64 +504,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-f39914.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-f39914.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-f39914.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -699,64 +544,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-e1264d.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-e1264d.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-e1264d.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -769,64 +584,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-green.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ],
-            "shadowSize": [
-              60,
-              60
-            ],
-            "shadowAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30],
+            "shadowSize": [60, 60],
+            "shadowAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-green.png",
-            "iconSize": [
-              12,
-              12
-            ],
-            "iconAnchor": [
-              6,
-              6
-            ]
+            "iconSize": [12, 12],
+            "iconAnchor": [6, 6]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-green.png",
-            "iconSize": [
-              18,
-              18
-            ],
-            "iconAnchor": [
-              9,
-              9
-            ]
+            "iconSize": [18, 18],
+            "iconAnchor": [9, 9]
           }
         },
         {
           "condition": "this.map.zoom >= 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-green.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -839,64 +624,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-maroon.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ],
-            "shadowSize": [
-              60,
-              60
-            ],
-            "shadowAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30],
+            "shadowSize": [60, 60],
+            "shadowAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-maroon.png",
-            "iconSize": [
-              12,
-              12
-            ],
-            "iconAnchor": [
-              6,
-              6
-            ]
+            "iconSize": [12, 12],
+            "iconAnchor": [6, 6]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-maroon.png",
-            "iconSize": [
-              18,
-              18
-            ],
-            "iconAnchor": [
-              9,
-              9
-            ]
+            "iconSize": [18, 18],
+            "iconAnchor": [9, 9]
           }
         },
         {
           "condition": "this.map.zoom >= 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-star-maroon.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1448,139 +1203,41 @@
       "hide_from_top_bar": true
     }
   ],
-  "story": {
-    "priority_sites": {
-      "default_visible_layers": [
-        "10sites",
-        "restoration",
-        "transport"
-      ],
-      "tagline": "_(Explore other priority sites)",
-      "basemap": "transport",
-      "order": [
-        {
-          "url": "sp-connection"
-        },
-        {
-          "url": "gateway-park"
-        },
-        {
-          "url": "dogpark"
-        },
-        {
-          "url": "airport-way"
-        },
-        {
-          "url": "michigan-corson-bailey"
-        },
-        {
-          "url": "s-michigan"
-        },
-        {
-          "url": "fifth-ave-festival"
-        },
-        {
-          "url": "river-st"
-        },
-        {
-          "url": "ellis"
-        },
-        {
-          "url": "corson"
-        }
-      ]
-    },
-    "original_sites": {
-      "tagline": "_(Go to the next site)",
-      "default_visible_layers": [
-        "gtopenspace1"
-      ],
-      "order": [
-        {
-          "url": "site/628"
-        },
-        {
-          "url": "site/629"
-        },
-        {
-          "url": "site/634"
-        },
-        {
-          "url": "site/631"
-        },
-        {
-          "url": "site/635"
-        },
-        {
-          "url": "site/633"
-        },
-        {
-          "url": "site/636"
-        },
-        {
-          "url": "site/637"
-        },
-        {
-          "url": "site/552"
-        },
-        {
-          "url": "site/638"
-        },
-        {
-          "url": "site/639"
-        },
-        {
-          "url": "site/643"
-        },
-        {
-          "url": "site/641"
-        },
-        {
-          "url": "site/642"
-        },
-        {
-          "url": "site/644"
-        },
-        {
-          "url": "site/645"
-        },
-        {
-          "url": "site/646"
-        },
-        {
-          "url": "site/647"
-        },
-        {
-          "url": "site/648"
-        },
-        {
-          "url": "site/649"
-        },
-        {
-          "url": "site/650"
-        },
-        {
-          "url": "site/651"
-        },
-        {
-          "url": "site/558"
-        },
-        {
-          "url": "site/653"
-        },
-        {
-          "url": "site/654"
-        },
-        {
-          "url": "site/655"
-        },
-        {
-          "url": "site/656"
-        },
-        {
-          "url": "site/676"
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "default_visible_layers": ["10sites", "restoration", "transport"],
+    "tagline": "_(Explore other priority sites)",
+    "basemap": "transport",
+    "order": [
+      {
+        "url": "sp-connection"
+      },
+      {
+        "url": "gateway-park"
+      },
+      {
+        "url": "dogpark"
+      },
+      {
+        "url": "airport-way"
+      },
+      {
+        "url": "michigan-corson-bailey"
+      },
+      {
+        "url": "s-michigan"
+      },
+      {
+        "url": "fifth-ave-festival"
+      },
+      {
+        "url": "river-st"
+      },
+      {
+        "url": "ellis"
+      },
+      {
+        "url": "corson"
+      }
+    ]
   }
 }

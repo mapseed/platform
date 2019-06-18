@@ -10,6 +10,10 @@ export const datasetClientSlugSelector = (state, datasetSlug) =>
   state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
     .clientSlug;
 
+export const datasetReportSelector = (state, datasetSlug) =>
+  state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
+    .report;
+
 export const datasetsConfigPropType = PropTypes.arrayOf(
   PropTypes.shape({
     url: PropTypes.string.isRequired,

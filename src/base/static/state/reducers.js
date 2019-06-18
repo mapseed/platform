@@ -4,12 +4,11 @@ import placesReducer from "./ducks/places";
 import uiReducer from "./ducks/ui";
 import filters from "./ducks/filters";
 import leftSidebarReducer from "./ducks/left-sidebar";
-import mapDrawingToolbarReducer from "./ducks/map-drawing-toolbar";
 
 import appConfigReducer from "./ducks/app-config";
 import mapConfigReducer from "./ducks/map-config";
 import placeConfigReducer from "./ducks/place-config";
-import storyConfigReducer from "./ducks/story-config";
+import featuredPlacesConfigReducer from "./ducks/featured-places-config";
 import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
 import formsConfigReducer from "./ducks/forms-config";
 import supportConfigReducer from "./ducks/support-config";
@@ -21,17 +20,17 @@ import datasetsConfigReducer from "./ducks/datasets-config";
 import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
 import customComponentsConfigReducer from "./ducks/custom-components-config";
+import analysisReducer from "./ducks/analysis";
 
 const reducers = combineReducers({
   places: placesReducer,
   ui: uiReducer,
   leftSidebar: leftSidebarReducer,
-  mapDrawingToolbar: mapDrawingToolbarReducer,
   filters,
   appConfig: appConfigReducer,
   mapConfig: mapConfigReducer,
   placeConfig: placeConfigReducer,
-  storyConfig: storyConfigReducer,
+  featuredPlacesConfig: featuredPlacesConfigReducer,
   rightSidebarConfig: rightSidebarConfigReducer,
   formsConfig: formsConfigReducer,
   supportConfig: supportConfigReducer,
@@ -44,6 +43,7 @@ const reducers = combineReducers({
   activity: activityReducer,
   map: mapReducer,
   customComponentsConfig: customComponentsConfigReducer,
+  analysis: analysisReducer,
 });
 
 export default reducers;

@@ -1,9 +1,13 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map } from "immutable";
 import classNames from "classnames";
+import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
+import { withTheme } from "emotion-theming";
 
+import { RegularText } from "../atoms/typography";
 import { InfoModalTrigger } from "../atoms/feedback";
 import fieldDefinitions from "./field-definitions";
 import { translate } from "react-i18next";
@@ -13,7 +17,7 @@ import { isEditModeToggled } from "../../state/ducks/ui";
 
 import "./form-field.scss";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 class FormField extends Component {
   constructor(props) {
@@ -113,11 +117,6 @@ class FormField extends Component {
 
   render() {
     const cn = {
-      container: classNames("input-form__field-container", {
-        "input-form__field-container--invalid":
-          this.props.showValidityStatus &&
-          !this.props.fieldState.get(constants.FIELD_VALIDITY_KEY),
-      }),
       optionalMsg: classNames("input-form__optional-msg", {
         "input-form__optional-msg--visible": this.props.fieldConfig.optional,
       }),
@@ -125,24 +124,42 @@ class FormField extends Component {
 
     return (
       <div
-        className={cn.container}
+        css={css`
+          font-family: ${this.props.theme.text.bodyFontFamily};
+          margin-bottom: 5px;
+          padding: 8px;
+          border: ${this.props.showValidityStatus &&
+          !this.props.fieldState.get("isValid")
+            ? "2px dotted #da8583"
+            : "2px solid transparent"};
+        `}
         data-field-type={this.props.fieldConfig.type}
         data-field-name={this.props.fieldConfig.name}
       >
-        <div className="input-form__field-prompt-container">
-          <p className="input-form__field-prompt">
-            {this.props.fieldConfig.prompt}
-            <span className={cn.optionalMsg}>
-              {this.props.t("optionalMsg")}
-            </span>
-          </p>
-          {this.props.fieldConfig.modal && (
-            <InfoModalTrigger
-              classes="input-form__field-modal-trigger"
-              modalContent={this.props.fieldConfig.modal}
-            />
-          )}
-        </div>
+        {this.props.fieldConfig.prompt && (
+          <div className="input-form__field-prompt-container">
+            <RegularText
+              css={css`
+                margin-bottom: 8px;
+                font-size: 1.15rem;
+              `}
+            >
+              {this.props.t(
+                `formField${this.props.formId}${this.props.fieldConfig.name}`,
+                this.props.fieldConfig.prompt,
+              )}
+              <span className={cn.optionalMsg}>
+                {this.props.t("optionalMsg", "optional")}
+              </span>
+            </RegularText>
+            {this.props.fieldConfig.modal && (
+              <InfoModalTrigger
+                classes="input-form__field-modal-trigger"
+                modalContent={this.props.fieldConfig.modal}
+              />
+            )}
+          </div>
+        )}
         {this.state.isInitialized &&
           this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>
@@ -155,6 +172,7 @@ FormField.propTypes = {
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
+  formId: PropTypes.string.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isInitializing: PropTypes.bool,
   updatingField: PropTypes.string,
@@ -164,6 +182,7 @@ FormField.propTypes = {
   router: PropTypes.object,
   showValidityStatus: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
@@ -180,4 +199,6 @@ const mapStateToProps = state => ({
   isEditModeToggled: isEditModeToggled(state),
 });
 
-export default connect(mapStateToProps)(translate("FormField")(FormField));
+export default withTheme(
+  connect(mapStateToProps)(translate("FormField")(FormField)),
+);

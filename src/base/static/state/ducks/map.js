@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-
 // Selectors:
 export const mapViewportSelector = state => state.map.viewport;
 export const mapStyleSelector = state => state.map.style;
@@ -19,13 +18,34 @@ export const mapCenterpointSelector = state => ({
   latitude: state.map.viewport.latitude,
   longitude: state.map.viewport.longitude,
 });
-export const drawModeActiveSelector = state => state.map.isDrawModeActive;
-export const initialMapViewportSelector = state => state.map.initialMapViewport;
 export const mapContainerDimensionsSeletor = state =>
   state.map.mapContainerDimensions;
+export const mapLayerPopupSelector = (layerId, state) => {
+  const metadata = Object.values(state.map.layerGroupsMetadata).find(
+    layerGroupMetadata => layerGroupMetadata.layerIds.includes(layerId),
+  );
+
+  return metadata && metadata.popupContent ? metadata.popupContent : null;
+};
+// Return information about visible layer groups which are configured to be
+// filterable with a slider.
+export const filterableLayerGroupsMetadataSelector = state =>
+  Object.values(state.map.layerGroupsMetadata).reduce(
+    (memo, { filterSlider, layerIds, isVisible }) => {
+      return filterSlider && isVisible
+        ? [
+            ...memo,
+            {
+              filterSlider,
+              layerIds,
+            },
+          ]
+        : memo;
+    },
+    [],
+  );
 
 // Actions:
-const LOAD_INITIAL_VIEWPORT = "map/LOAD_INITIAL_VIEWPORT";
 const UPDATE_STYLE = "map/UPDATE_STYLE";
 const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
   "map/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
@@ -39,20 +59,20 @@ const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
 const UPDATE_SOURCES = "map/UPDATE_SOURCES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
-const UPDATE_DRAW_MODE_ACTIVE = "map/UPDATE_DRAW_MODE_ACTIVE";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
+const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
+
+export function updateLayerFilters(filters) {
+  return {
+    type: UPDATE_LAYER_FILTERS,
+    payload: filters,
+  };
+}
 
 export function removeFocusedGeoJSONFeatures() {
   return {
     type: REMOVE_FOCUSED_GEOJSON_FEATURES,
     payload: null,
-  };
-}
-
-export function updateDrawModeActive(isActive) {
-  return {
-    type: UPDATE_DRAW_MODE_ACTIVE,
-    payload: isActive,
   };
 }
 
@@ -81,13 +101,6 @@ export function updateLayerGroupVisibility(layerGroupId, isVisible) {
   return {
     type: UPDATE_LAYER_GROUP_VISIBILITY,
     payload: { layerGroupId, isVisible },
-  };
-}
-
-export function loadInitialMapViewport(viewport) {
-  return {
-    type: LOAD_INITIAL_VIEWPORT,
-    payload: viewport,
   };
 }
 
@@ -209,6 +222,8 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
     (memo, layerGroup) => ({
       ...memo,
       [layerGroup.id]: {
+        popupContent: layerGroup.popupContent,
+        filterSlider: layerGroup.filterSlider,
         isBasemap: !!layerGroup.basemap,
         isVisible: !!layerGroup.visibleDefault,
         // Mapbox layer ids which make up this layerGroup:
@@ -268,6 +283,19 @@ export function loadMapStyle(mapConfig, datasetsConfig) {
   };
 }
 
+export const filterableLayerGroupMetadataPropType = PropTypes.shape({
+  layerIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  filterSlider: PropTypes.shape({
+    initialValue: PropTypes.number,
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    step: PropTypes.number,
+    label: PropTypes.string,
+    property: PropTypes.string.isRequired,
+    comparator: PropTypes.string.isRequired,
+  }),
+});
+
 export const mapViewportPropType = PropTypes.shape({
   latitude: PropTypes.number,
   longitude: PropTypes.number,
@@ -295,7 +323,7 @@ export const mapStylePropType = PropTypes.shape({
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      source: PropTypes.string.isRequired,
+      source: PropTypes.string,
       "source-layer": PropTypes.string,
       paint: PropTypes.object,
       layout: PropTypes.object,
@@ -310,15 +338,6 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 );
 
 const INITIAL_STATE = {
-  // The `initialMapViewport` describes the viewport used when the map template
-  // mounts, including when the app first loads and when the user routes to the
-  // map template from another template. This allows us to "save" a viewport
-  // when routing away from the map template, and restore it when routing back
-  // to the map template.
-  initialMapViewport: {
-    minZoom: 0,
-    maxZoom: 18,
-  },
   mapContainerDimensions: {
     width: 0,
     height: 0,
@@ -337,7 +356,6 @@ const INITIAL_STATE = {
   sourcesMetadata: {},
   basemapLayerIds: [],
   interactiveLayerIds: [],
-  isDrawModeActive: false,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -456,12 +474,21 @@ export default function reducer(state = INITIAL_STATE, action) {
           },
         },
       };
-    case LOAD_INITIAL_VIEWPORT:
+    case UPDATE_LAYER_FILTERS:
       return {
         ...state,
-        initialMapViewport: {
-          ...state.initialMapViewport,
-          ...action.payload,
+        style: {
+          ...state.style,
+          layers: state.style.layers.map(layer => {
+            if (action.payload.layerIds.includes(layer.id)) {
+              return {
+                ...layer,
+                filter: action.payload.filter,
+              };
+            }
+
+            return layer;
+          }),
         },
       };
     case LOAD_STYLE_AND_METADATA:
@@ -584,11 +611,6 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...state.style,
           layers: state.style.layers.concat(action.payload),
         },
-      };
-    case UPDATE_DRAW_MODE_ACTIVE:
-      return {
-        ...state,
-        isDrawModeActive: action.payload,
       };
     case UPDATE_MAP_CONTAINER_DIMENSIONS:
       return {

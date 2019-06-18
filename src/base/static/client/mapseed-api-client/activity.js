@@ -19,7 +19,7 @@ const getActivity = async (datasetUrl, clientSlug) => {
     ...activity,
     // Add the "client slug" to be used with activity from this dataset.
     // The client slug is used in urls in the client.
-    _clientSlug: clientSlug,
+    clientSlug,
   }));
 };
 

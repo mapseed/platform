@@ -1,12 +1,23 @@
+/** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
+import { css, jsx } from "@emotion/core";
+import { withTheme } from "emotion-theming";
 
-import { Paragraph } from "../../atoms/typography";
+import { RegularText } from "../../atoms/typography";
 
-const Number = props => <Paragraph>{props.value}</Paragraph>;
+const Number = props => (
+  <RegularText
+    css={css`
+      margin: 8px 0 16px 0;
+    `}
+  >
+    {props.value}
+  </RegularText>
+);
 
 Number.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default Number;
+export default withTheme(Number);

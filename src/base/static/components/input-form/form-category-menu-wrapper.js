@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
+import { css, jsx } from "@emotion/core";
 import { translate } from "react-i18next";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 
@@ -15,18 +16,14 @@ import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
-import { mapViewportPropType } from "../../state/ducks/map";
+import {
+  mapViewportPropType,
+  updateLayerGroupVisibility,
+} from "../../state/ducks/map";
+
+import { RegularText } from "../atoms/typography";
 
 const alertBackground = "#ffc107"; // bright yellow-orange
-const DragMapAlert = styled("div")({
-  backgroundColor: alertBackground,
-  color: darken(alertBackground, 0.8),
-  border: "2px dotted #ffffff",
-  borderRadius: "8px",
-  padding: "8px",
-  marginBottom: "8px",
-  fontWeight: "800",
-});
 
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
@@ -74,6 +71,12 @@ class FormCategoryMenuWrapper extends Component {
     this.props.updateMapDraggedOrZoomed(false);
     this.props.updateMapCenterpointVisibility(true);
     this.props.updateSpotlightMaskVisibility(true);
+
+    if (this.props.placeConfig.visibleLayerGroupIds) {
+      this.props.placeConfig.visibleLayerGroupIds.forEach(layerGroupId =>
+        this.props.updateLayerGroupVisibility(layerGroupId, true),
+      );
+    }
   }
 
   onCategoryChange = selectedCategory => {
@@ -96,7 +99,23 @@ class FormCategoryMenuWrapper extends Component {
         {this.state.isShowingCategorySelector && (
           <>
             {!this.props.isMapDraggedOrZoomed && (
-              <DragMapAlert>{this.props.t("dragMapAlert")}</DragMapAlert>
+              <RegularText
+                css={css`
+                  background-color: ${alertBackground};
+                  display: block;
+                  color: ${darken(alertBackground, 0.8)};
+                  border: 2px dotted #ffffff;
+                  border-radius: 8px;
+                  padding: 8px;
+                  margin-bottom: 8px;
+                `}
+                weight="bold"
+              >
+                {this.props.t(
+                  "dragMapAlert",
+                  "Please drag and zoom the map to set the location for your post.",
+                )}
+              </RegularText>
             )}
             <InputFormCategorySelector
               onCategoryChange={this.onCategoryChange.bind(this)}
@@ -132,6 +151,7 @@ FormCategoryMenuWrapper.propTypes = {
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  layout: PropTypes.string.isRequired,
   placeConfig: PropTypes.object.isRequired,
   customHooks: PropTypes.oneOfType([
     PropTypes.bool,
@@ -141,6 +161,7 @@ FormCategoryMenuWrapper.propTypes = {
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onUpdateMapViewport: PropTypes.func.isRequired,
+  updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
@@ -166,6 +187,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
   updateSpotlightMaskVisibility: isVisible =>
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
+  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
+    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
 
 export default connect(

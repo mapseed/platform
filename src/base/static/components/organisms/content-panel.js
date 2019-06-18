@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import CustomPage from "./custom-page";
 import FormCategoryMenuWrapper from "../input-form/form-category-menu-wrapper";
 import PlaceDetail from "../place-detail";
+import constants from "../../constants";
 
 import {
   contentPanelComponentSelector,
@@ -30,10 +31,13 @@ const getLeftOffset = (isRightSidebarVisible, layout) => {
 
 const ContentPanelOuterContainer = styled("section")(props => ({
   position: "absolute",
-  top: props.layout === "desktop" ? 0 : "60%",
+  top: props.layout === "desktop" ? `${constants.HEADER_HEIGHT}px` : "60%",
   width: props.layout === "desktop" ? "40%" : "100%",
   left: getLeftOffset(props.isRightSidebarVisible, props.layout),
-  height: props.layout === "desktop" ? "100%" : "unset",
+  height:
+    props.layout === "desktop"
+      ? `calc(100% - ${constants.HEADER_HEIGHT}px)`
+      : "unset",
   backgroundColor: "#fff",
   boxSizing: "border-box",
   boxShadow:
@@ -47,8 +51,16 @@ const ContentPanelInnerContainer = styled("div")(props => ({
   width: "100%",
   height: "100%",
   overflow: props.layout === "desktop" ? "auto" : "visible",
-  padding: "15px 15px 15px 15px",
+  padding: `15px 15px ${
+    props.layout === "desktop" ? 15 : 15 + props.addPlaceButtonHeight
+  }px 15px`,
   boxSizing: "border-box",
+  scrollbarWidth: "none",
+
+  "::-webkit-scrollbar": {
+    width: 0,
+    height: 0,
+  },
 }));
 
 const CloseButton = styled(InnerCloseButton)(props => ({
@@ -97,15 +109,14 @@ class ContentPanel extends Component {
         <ContentPanelInnerContainer
           ref={this.contentPanelInnerContainerRef}
           layout={this.props.layout}
+          addPlaceButtonHeight={this.props.addPlaceButtonHeight}
         >
           {this.props.contentPanelComponent === "CustomPage" && (
             <CustomPage
-              pageContent={
-                this.props.pageSelector(
-                  this.props.pageSlug,
-                  this.props.languageCode,
-                ).content
-              }
+              currentLanguageCode={this.props.currentLanguageCode}
+              defaultLanguageCode={this.props.defaultLanguageCode}
+              layout={this.props.layout}
+              pageSlug={this.props.pageSlug}
             />
           )}
           {this.props.contentPanelComponent === "PlaceDetail" &&
@@ -123,6 +134,7 @@ class ContentPanel extends Component {
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+              layout={this.props.layout}
               mapViewport={this.props.mapViewport}
               onUpdateMapViewport={this.props.onUpdateMapViewport}
               updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
@@ -135,12 +147,14 @@ class ContentPanel extends Component {
 }
 
 ContentPanel.propTypes = {
+  addPlaceButtonHeight: PropTypes.number.isRequired,
   contentPanelComponent: PropTypes.string,
   focusedPlace: placePropType,
   history: PropTypes.object.isRequired,
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
-  languageCode: PropTypes.string.isRequired,
+  currentLanguageCode: PropTypes.string.isRequired,
+  defaultLanguageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
   mapViewport: mapViewportPropType.isRequired,

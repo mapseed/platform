@@ -1,0 +1,5536 @@
+{
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
+  "datasets": [
+    {
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/firewise-demo-input",
+      "slug": "firewise-demo-input",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create", "retrieve"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "Firewise Demo",
+    "name": "Firewise Demo",
+    "logo": "/static/css/images/logo.png",
+    "meta_description": "Welcome!",
+    "meta_author": "mapseed.org",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "isShowingMobileUserMenu": true,
+    "theme": {
+      "brand": {
+        "primary": "#e57c04",
+        "secondary": "#d46c4c",
+        "tertiary": "#999",
+        "accent": "#ff6201"
+      },
+      "bg": {
+        "default": "rgba(229, 207, 207, 0.4)",
+        "light": "#e57c04"
+      },
+      "text": {
+        "secondary": "#fff",
+        "tertiary": "#e57c04",
+        "headerFontFamily": "PTSans,sans-serif",
+        "bodyFontFamily": "PTSans,sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#e57c04",
+        "addPlaceButtonHoverBackgroundColor": "#ff6201"
+      }
+    }
+  },
+  "map": {
+    "geolocation_enabled": true,
+    "geolocation_onload": false,
+    "geocoding_engine": "Mapbox",
+    "geocode_hint": [-117.59821, 46.472103],
+    "offlineBoundingBox": {
+      "southWest": {
+        "lat": 46.709206,
+        "lng": -121.476997
+      },
+      "northEast": {
+        "lat": 47.633585,
+        "lng": -119.891353
+      }
+    },
+    "options": {
+      "scrollZoomAroundCenter": true,
+      "mapViewport": {
+        "latitude": 47.18554,
+        "longitude": -120.72226,
+        "zoom": 6.5,
+        "pitch": 15,
+        "minZoom": 1,
+        "maxZoom": 18
+      }
+    },
+    "mapboxSources": {
+      "osm": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tilseSize": 256
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "tileSize": 256,
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      "columbia-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/columbia-river.geojson"
+      },
+      "snake-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/snake-river.geojson"
+      },
+      "composite": {
+        "url": "mapbox://mapbox.mapbox-streets-v8,mapbox.mapbox-terrain-v2",
+        "type": "vector"
+      },
+      "wildfire-start-sites": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wa-state-wildfire-start-sites-2008/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-land-ownership": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-land-ownership/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "wa-state-large-fires": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wa-state-large-fires-1973-2018/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-county-outline": {
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/bf2498852e614bc1a918ec562150a06b_0.geojson"
+      }
+    },
+
+    "layerGroups": [
+      {
+        "id": "osm",
+        "basemap": true,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
+      },
+      {
+        "id": "light-satellite",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "land",
+            "type": "background",
+            "layout": {},
+            "paint": { "background-color": "hsl(55, 11%, 96%)" }
+          },
+          {
+            "id": "landcover",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "landcover",
+            "maxzoom": 7,
+            "layout": {},
+            "paint": {
+              "fill-color": "hsl(0, 0%, 89%)",
+              "fill-opacity": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                2,
+                0.1,
+                7,
+                0
+              ],
+              "fill-antialias": false
+            }
+          },
+          {
+            "id": "national-park",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "landuse_overlay",
+            "minzoom": 5,
+            "filter": ["==", ["get", "class"], "national_park"],
+            "layout": {},
+            "paint": {
+              "fill-color": "hsl(150, 6%, 93%)",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                0,
+                6,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": "landuse",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "landuse",
+            "minzoom": 5,
+            "filter": [
+              "match",
+              ["get", "class"],
+              ["park", "airport", "glacier", "pitch", "sand"],
+              true,
+              false
+            ],
+            "layout": {},
+            "paint": {
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                0,
+                6,
+                ["match", ["get", "class"], "glacier", 0.5, 1]
+              ],
+              "fill-color": "hsl(150, 6%, 93%)"
+            }
+          },
+          {
+            "id": "water-shadow",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "water",
+            "layout": {},
+            "paint": {
+              "fill-translate-anchor": "viewport",
+              "fill-translate": [
+                "interpolate",
+                ["exponential", 1.2],
+                ["zoom"],
+                7,
+                ["literal", [0, 0]],
+                16,
+                ["literal", [-1, -1]]
+              ],
+              "fill-color": "hsl(185, 7%, 73%)"
+            }
+          },
+          {
+            "id": "waterway",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "waterway",
+            "minzoom": 8,
+            "layout": {
+              "line-cap": ["step", ["zoom"], "butt", 11, "round"],
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "hsl(187, 9%, 81%)",
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.3],
+                ["zoom"],
+                9,
+                ["match", ["get", "class"], ["canal", "river"], 0.1, 0],
+                20,
+                ["match", ["get", "class"], ["canal", "river"], 8, 3]
+              ],
+              "line-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                8.5,
+                1
+              ]
+            }
+          },
+          {
+            "id": "water",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "water",
+            "layout": {},
+            "paint": { "fill-color": "hsl(185, 9%, 81%)" }
+          },
+          {
+            "id": "hillshade",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "hillshade",
+            "maxzoom": 16,
+            "layout": {},
+            "paint": {
+              "fill-color": [
+                "match",
+                ["get", "class"],
+                "shadow",
+                "hsl(0, 0%, 35%)",
+                "hsl(0, 0%, 100%)"
+              ],
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                14,
+                [
+                  "match",
+                  ["get", "level"],
+                  [67, 56],
+                  0.06,
+                  [89, 78],
+                  0.03,
+                  0.04
+                ],
+                16,
+                0
+              ],
+              "fill-antialias": false
+            }
+          },
+          {
+            "id": "land-structure-polygon",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "structure",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["geometry-type"], "Polygon"],
+              ["==", ["get", "class"], "land"]
+            ],
+            "layout": {},
+            "paint": { "fill-color": "hsl(156, 20%, 95%)" }
+          },
+          {
+            "id": "land-structure-line",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "structure",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["geometry-type"], "LineString"],
+              ["==", ["get", "class"], "land"]
+            ],
+            "layout": { "line-cap": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.99],
+                ["zoom"],
+                14,
+                0.75,
+                20,
+                40
+              ],
+              "line-color": "hsl(156, 20%, 95%)"
+            }
+          },
+          {
+            "id": "aeroway-polygon",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "aeroway",
+            "minzoom": 11,
+            "filter": [
+              "all",
+              ["==", ["geometry-type"], "Polygon"],
+              [
+                "match",
+                ["get", "type"],
+                ["runway", "taxiway", "helipad"],
+                true,
+                false
+              ]
+            ],
+            "layout": {},
+            "paint": {
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                0,
+                11.5,
+                1
+              ],
+              "fill-color": "hsl(0, 0%, 97%)"
+            }
+          },
+          {
+            "id": "aeroway-line",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "aeroway",
+            "minzoom": 9,
+            "filter": ["==", ["geometry-type"], "LineString"],
+            "layout": {},
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                9,
+                ["match", ["get", "type"], "runway", 1, "taxiway", 0.5, 0.5],
+                18,
+                ["match", ["get", "type"], "runway", 80, "taxiway", 20, 20]
+              ],
+              "line-color": "hsl(0, 0%, 97%)"
+            }
+          },
+          {
+            "id": "building-outline",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "building",
+            "minzoom": 15,
+            "filter": [
+              "all",
+              ["!=", ["get", "type"], "building:part"],
+              ["==", ["get", "underground"], "false"]
+            ],
+            "layout": {},
+            "paint": {
+              "line-color": "hsl(55, 3%, 87%)",
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                15,
+                0.75,
+                20,
+                3
+              ],
+              "line-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                15,
+                0,
+                16,
+                1
+              ]
+            }
+          },
+          {
+            "id": "building",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "building",
+            "minzoom": 15,
+            "filter": [
+              "all",
+              ["!=", ["get", "type"], "building:part"],
+              ["==", ["get", "underground"], "false"]
+            ],
+            "layout": {},
+            "paint": {
+              "fill-outline-color": "hsl(55, 3%, 87%)",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                15,
+                0,
+                16,
+                1
+              ],
+              "fill-color": "hsl(55, 5%, 91%)"
+            }
+          },
+          {
+            "id": "tunnel-street-minor-low",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "track", "primary_link"],
+                  true,
+                  false
+                ],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  [
+                    "street",
+                    "street_limited",
+                    "track",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "service"
+                  ],
+                  true,
+                  false
+                ]
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  2,
+                  "track",
+                  1,
+                  0.5
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  18,
+                  12
+                ]
+              ],
+              "line-color": "hsl(185, 7%, 88%)",
+              "line-opacity": ["step", ["zoom"], 1, 14, 0]
+            }
+          },
+          {
+            "id": "tunnel-street-minor-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "track", "primary_link"],
+                  true,
+                  false
+                ],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  [
+                    "street",
+                    "street_limited",
+                    "track",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "service"
+                  ],
+                  true,
+                  false
+                ]
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-color": "hsl(185, 12%, 89%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  2,
+                  "track",
+                  1,
+                  0.5
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  18,
+                  12
+                ]
+              ],
+              "line-opacity": ["step", ["zoom"], 0, 14, 1],
+              "line-dasharray": [3, 3]
+            }
+          },
+          {
+            "id": "tunnel-primary-secondary-tertiary-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              [
+                "match",
+                ["get", "class"],
+                ["primary", "secondary", "tertiary"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  1,
+                  ["secondary", "tertiary"],
+                  0.75,
+                  0.75
+                ],
+                18,
+                2
+              ],
+              "line-color": "hsl(185, 12%, 89%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  0.75,
+                  ["secondary", "tertiary"],
+                  0.1,
+                  0.1
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  32,
+                  ["secondary", "tertiary"],
+                  26,
+                  26
+                ]
+              ],
+              "line-dasharray": [3, 3]
+            }
+          },
+          {
+            "id": "tunnel-major-link-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-color": "hsl(185, 12%, 89%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-dasharray": [3, 3]
+            }
+          },
+          {
+            "id": "tunnel-motorway-trunk-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                1,
+                18,
+                2
+              ],
+              "line-color": "hsl(185, 12%, 89%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-dasharray": [3, 3]
+            }
+          },
+          {
+            "id": "tunnel-construction",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 14,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              ["==", ["get", "class"], "construction"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": {},
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(187, 7%, 88%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [0.4, 0.8]],
+                15,
+                ["literal", [0.3, 0.6]],
+                16,
+                ["literal", [0.2, 0.3]],
+                17,
+                ["literal", [0.2, 0.25]],
+                18,
+                ["literal", [0.15, 0.15]]
+              ]
+            }
+          },
+          {
+            "id": "tunnel-path",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              ["==", ["get", "class"], "path"],
+              ["!=", ["get", "type"], "steps"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                15,
+                1,
+                18,
+                4
+              ],
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.75, 1]],
+                16,
+                ["literal", [1, 0.75]],
+                17,
+                ["literal", [1, 0.5]]
+              ],
+              "line-color": "hsl(0, 0%, 85%)"
+            }
+          },
+          {
+            "id": "tunnel-steps",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 14,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              ["==", ["get", "class"], "steps"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                15,
+                1,
+                16,
+                1.6,
+                18,
+                6
+              ],
+              "line-color": "hsl(0, 0%, 85%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.75, 1]],
+                16,
+                ["literal", [1, 0.75]],
+                17,
+                ["literal", [0.3, 0.3]]
+              ]
+            }
+          },
+          {
+            "id": "tunnel-major-link",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(187, 7%, 88%)"
+            }
+          },
+          {
+            "id": "tunnel-pedestrian",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              ["==", ["get", "class"], "pedestrian"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                0.5,
+                18,
+                12
+              ],
+              "line-color": "hsl(187, 7%, 88%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.5, 0.4]],
+                16,
+                ["literal", [1, 0.2]]
+              ]
+            }
+          },
+          {
+            "id": "tunnel-street-minor",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "track", "primary_link"],
+                  true,
+                  false
+                ],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  [
+                    "street",
+                    "street_limited",
+                    "track",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "service"
+                  ],
+                  true,
+                  false
+                ]
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  2,
+                  "track",
+                  1,
+                  0.5
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  18,
+                  12
+                ]
+              ],
+              "line-color": "hsl(187, 7%, 88%)",
+              "line-opacity": ["step", ["zoom"], 0, 14, 1]
+            }
+          },
+          {
+            "id": "tunnel-primary-secondary-tertiary",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              [
+                "match",
+                ["get", "class"],
+                ["primary", "secondary", "tertiary"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  0.75,
+                  ["secondary", "tertiary"],
+                  0.1,
+                  0.1
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  32,
+                  ["secondary", "tertiary"],
+                  26,
+                  26
+                ]
+              ],
+              "line-color": "hsl(187, 7%, 88%)"
+            }
+          },
+          {
+            "id": "tunnel-motorway-trunk",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855769305.6016" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "tunnel"],
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-color": "hsl(187, 7%, 88%)"
+            }
+          },
+          {
+            "id": "road-pedestrian-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 12,
+            "filter": [
+              "all",
+              ["==", ["get", "class"], "pedestrian"],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                2,
+                18,
+                14.5
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-opacity": ["step", ["zoom"], 0, 14, 1]
+            }
+          },
+          {
+            "id": "road-minor-low",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              [
+                "step",
+                ["zoom"],
+                ["==", ["get", "class"], "track"],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["track", "secondary_link", "tertiary_link", "service"],
+                  true,
+                  false
+                ]
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                ["match", ["get", "class"], "track", 1, 0.5],
+                18,
+                12
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-opacity": ["step", ["zoom"], 1, 14, 0]
+            }
+          },
+          {
+            "id": "road-street-low",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 11,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["street", "street_limited", "primary_link"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-opacity": ["step", ["zoom"], 1, 14, 0]
+            }
+          },
+          {
+            "id": "road-minor-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              [
+                "step",
+                ["zoom"],
+                ["==", ["get", "class"], "track"],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["track", "secondary_link", "tertiary_link", "service"],
+                  true,
+                  false
+                ]
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                ["match", ["get", "class"], "track", 1, 0.5],
+                18,
+                12
+              ],
+              "line-opacity": ["step", ["zoom"], 0, 14, 1]
+            }
+          },
+          {
+            "id": "road-street-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 11,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["street", "street_limited", "primary_link"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-opacity": ["step", ["zoom"], 0, 14, 1]
+            }
+          },
+          {
+            "id": "road-secondary-tertiary-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["secondary", "tertiary"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                0.75,
+                18,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.1,
+                18,
+                26
+              ]
+            }
+          },
+          {
+            "id": "road-primary-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "filter": [
+              "all",
+              ["==", ["get", "class"], "primary"],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                1,
+                18,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ]
+            }
+          },
+          {
+            "id": "road-major-link-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 10,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-opacity": ["step", ["zoom"], 0, 11, 1]
+            }
+          },
+          {
+            "id": "road-motorway-trunk-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "filter": [
+              "all",
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                1,
+                18,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-opacity": [
+                "step",
+                ["zoom"],
+                ["match", ["get", "class"], "motorway", 1, 0],
+                6,
+                1
+              ]
+            }
+          },
+          {
+            "id": "road-construction",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 14,
+            "filter": [
+              "all",
+              ["==", ["get", "class"], "construction"],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": {},
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [0.4, 0.8]],
+                15,
+                ["literal", [0.3, 0.6]],
+                16,
+                ["literal", [0.2, 0.3]],
+                17,
+                ["literal", [0.2, 0.25]],
+                18,
+                ["literal", [0.15, 0.15]]
+              ]
+            }
+          },
+          {
+            "id": "road-path",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 12,
+            "filter": [
+              "all",
+              ["==", ["get", "class"], "path"],
+              [
+                "step",
+                ["zoom"],
+                [
+                  "!",
+                  [
+                    "match",
+                    ["get", "type"],
+                    ["steps", "sidewalk", "crossing"],
+                    true,
+                    false
+                  ]
+                ],
+                16,
+                ["!=", ["get", "type"], "steps"]
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                13,
+                0.5,
+                14,
+                1,
+                15,
+                1,
+                18,
+                4
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.75, 1]],
+                16,
+                ["literal", [1, 0.75]],
+                17,
+                ["literal", [1, 0.5]]
+              ]
+            }
+          },
+          {
+            "id": "road-steps",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 14,
+            "filter": [
+              "all",
+              ["==", ["get", "type"], "steps"],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                15,
+                1,
+                16,
+                1.6,
+                18,
+                6
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.75, 1]],
+                16,
+                ["literal", [1, 0.75]],
+                17,
+                ["literal", [0.3, 0.3]]
+              ]
+            }
+          },
+          {
+            "id": "road-major-link",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 10,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "road-pedestrian",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 12,
+            "filter": [
+              "all",
+              ["==", ["get", "class"], "pedestrian"],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                0.5,
+                18,
+                12
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.5, 0.4]],
+                16,
+                ["literal", [1, 0.2]]
+              ]
+            }
+          },
+          {
+            "id": "road-minor",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              [
+                "step",
+                ["zoom"],
+                ["==", ["get", "class"], "track"],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["track", "secondary_link", "tertiary_link", "service"],
+                  true,
+                  false
+                ]
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                ["match", ["get", "class"], "track", 1, 0.5],
+                18,
+                12
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-opacity": ["step", ["zoom"], 0, 14, 1]
+            }
+          },
+          {
+            "id": "road-street",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 11,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["street", "street_limited", "primary_link"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-opacity": ["step", ["zoom"], 0, 14, 1]
+            }
+          },
+          {
+            "id": "road-secondary-tertiary",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["secondary", "tertiary"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.1,
+                18,
+                26
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "road-primary",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "filter": [
+              "all",
+              ["==", ["get", "class"], "primary"],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "road-motorway-trunk",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "filter": [
+              "all",
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["match", ["get", "structure"], ["none", "ford"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "road-rail",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855786460.0557" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["major_rail", "minor_rail"],
+                true,
+                false
+              ],
+              ["match", ["get", "structure"], ["none", "ford"], true, false]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                0.5,
+                20,
+                1
+              ],
+              "line-color": "hsl(156, 12%, 92%)"
+            }
+          },
+          {
+            "id": "bridge-pedestrian-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              ["==", ["get", "class"], "pedestrian"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                2,
+                18,
+                14.5
+              ],
+              "line-opacity": ["step", ["zoom"], 0, 14, 1],
+              "line-color": "hsl(156, 12%, 92%)"
+            }
+          },
+          {
+            "id": "bridge-street-minor-low",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "track", "primary_link"],
+                  true,
+                  false
+                ],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  [
+                    "street",
+                    "street_limited",
+                    "track",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "service"
+                  ],
+                  true,
+                  false
+                ]
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  2,
+                  "track",
+                  1,
+                  0.5
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  18,
+                  12
+                ]
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-opacity": ["step", ["zoom"], 1, 14, 0]
+            }
+          },
+          {
+            "id": "bridge-street-minor-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "track", "primary_link"],
+                  true,
+                  false
+                ],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  [
+                    "street",
+                    "street_limited",
+                    "track",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "service"
+                  ],
+                  true,
+                  false
+                ]
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-opacity": ["step", ["zoom"], 0, 14, 1],
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  2,
+                  "track",
+                  1,
+                  0.5
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  18,
+                  12
+                ]
+              ],
+              "line-color": "hsl(156, 12%, 92%)"
+            }
+          },
+          {
+            "id": "bridge-primary-secondary-tertiary-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "match",
+                ["get", "class"],
+                ["primary", "secondary", "tertiary"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  1,
+                  ["secondary", "tertiary"],
+                  0.75,
+                  0.75
+                ],
+                18,
+                2
+              ],
+              "line-opacity": ["step", ["zoom"], 0, 10, 1],
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  0.75,
+                  ["secondary", "tertiary"],
+                  0.1,
+                  0.1
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  32,
+                  ["secondary", "tertiary"],
+                  26,
+                  26
+                ]
+              ],
+              "line-color": "hsl(156, 12%, 92%)"
+            }
+          },
+          {
+            "id": "bridge-major-link-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["<=", ["get", "layer"], 1],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(156, 12%, 92%)"
+            }
+          },
+          {
+            "id": "bridge-motorway-trunk-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["<=", ["get", "layer"], 1],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                1,
+                18,
+                2
+              ],
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-color": "hsl(156, 12%, 92%)"
+            }
+          },
+          {
+            "id": "bridge-construction",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 14,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              ["==", ["get", "class"], "construction"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": {},
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [0.4, 0.8]],
+                15,
+                ["literal", [0.3, 0.6]],
+                16,
+                ["literal", [0.2, 0.3]],
+                17,
+                ["literal", [0.2, 0.25]],
+                18,
+                ["literal", [0.15, 0.15]]
+              ],
+              "line-color": "hsl(156, 0%, 100%)"
+            }
+          },
+          {
+            "id": "bridge-path",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              ["==", ["get", "class"], "path"],
+              ["!=", ["get", "type"], "steps"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                15,
+                1,
+                18,
+                4
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.75, 1]],
+                16,
+                ["literal", [1, 0.75]],
+                17,
+                ["literal", [1, 0.5]]
+              ]
+            }
+          },
+          {
+            "id": "bridge-steps",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 14,
+            "filter": [
+              "all",
+              ["==", ["get", "type"], "steps"],
+              ["==", ["get", "structure"], "bridge"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                15,
+                1,
+                16,
+                1.6,
+                18,
+                6
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.75, 1]],
+                16,
+                ["literal", [1, 0.75]],
+                17,
+                ["literal", [0.3, 0.3]]
+              ]
+            }
+          },
+          {
+            "id": "bridge-major-link",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["<=", ["get", "layer"], 1],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "bridge-pedestrian",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              ["==", ["get", "class"], "pedestrian"],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                0.5,
+                18,
+                12
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [1, 0]],
+                15,
+                ["literal", [1.5, 0.4]],
+                16,
+                ["literal", [1, 0.2]]
+              ]
+            }
+          },
+          {
+            "id": "bridge-street-minor",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "track", "primary_link"],
+                  true,
+                  false
+                ],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  [
+                    "street",
+                    "street_limited",
+                    "track",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "service"
+                  ],
+                  true,
+                  false
+                ]
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  2,
+                  "track",
+                  1,
+                  0.5
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["street", "street_limited", "primary_link"],
+                  18,
+                  12
+                ]
+              ],
+              "line-color": "hsl(0, 0%, 100%)",
+              "line-opacity": ["step", ["zoom"], 0, 14, 1]
+            }
+          },
+          {
+            "id": "bridge-primary-secondary-tertiary",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "match",
+                ["get", "class"],
+                ["primary", "secondary", "tertiary"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  0.75,
+                  ["secondary", "tertiary"],
+                  0.1,
+                  0.1
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  "primary",
+                  32,
+                  ["secondary", "tertiary"],
+                  26,
+                  26
+                ]
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "bridge-motorway-trunk",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["<=", ["get", "layer"], 1],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "bridge-rail",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [
+                "match",
+                ["get", "class"],
+                ["major_rail", "minor_rail"],
+                true,
+                false
+              ]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                14,
+                0.5,
+                20,
+                1
+              ],
+              "line-color": "hsl(156, 12%, 92%)"
+            }
+          },
+          {
+            "id": "bridge-major-link-2-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [">=", ["get", "layer"], 2],
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.75,
+                20,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ]
+            }
+          },
+          {
+            "id": "bridge-motorway-trunk-2-case",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [">=", ["get", "layer"], 2],
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                10,
+                1,
+                18,
+                2
+              ],
+              "line-color": "hsl(156, 12%, 92%)",
+              "line-gap-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ]
+            }
+          },
+          {
+            "id": "bridge-major-link-2",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [">=", ["get", "layer"], 2],
+              [
+                "match",
+                ["get", "class"],
+                ["motorway_link", "trunk_link"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                12,
+                0.5,
+                14,
+                2,
+                18,
+                18
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "bridge-motorway-trunk-2",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444855799204.86" },
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              ["==", ["get", "structure"], "bridge"],
+              [">=", ["get", "layer"], 2],
+              ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": { "line-cap": "round", "line-join": "round" },
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.5],
+                ["zoom"],
+                5,
+                0.75,
+                18,
+                32
+              ],
+              "line-color": "hsl(0, 0%, 100%)"
+            }
+          },
+          {
+            "id": "admin-1-boundary-bg",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444934295202.7542" },
+            "source": "composite",
+            "source-layer": "admin",
+            "filter": [
+              "all",
+              ["==", ["get", "admin_level"], 1],
+              ["==", ["get", "maritime"], "false"],
+              ["match", ["get", "worldview"], ["all", "US"], true, false]
+            ],
+            "layout": { "line-join": "bevel" },
+            "paint": {
+              "line-blur": ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 3],
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                3.75,
+                12,
+                5.5
+              ],
+              "line-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                8,
+                0.75
+              ],
+              "line-dasharray": [1, 0],
+              "line-translate": [0, 0],
+              "line-color": "hsl(0, 0%, 84%)"
+            }
+          },
+          {
+            "id": "admin-0-boundary-bg",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444934295202.7542" },
+            "source": "composite",
+            "source-layer": "admin",
+            "minzoom": 1,
+            "filter": [
+              "all",
+              ["==", ["get", "admin_level"], 0],
+              ["==", ["get", "maritime"], "false"],
+              ["match", ["get", "worldview"], ["all", "US"], true, false]
+            ],
+            "layout": {},
+            "paint": {
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                3.5,
+                10,
+                8
+              ],
+              "line-color": "hsl(0, 0%, 84%)",
+              "line-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                4,
+                0.5
+              ],
+              "line-translate": [0, 0],
+              "line-blur": ["interpolate", ["linear"], ["zoom"], 3, 0, 10, 2]
+            }
+          },
+          {
+            "id": "admin-1-boundary",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444934295202.7542" },
+            "source": "composite",
+            "source-layer": "admin",
+            "filter": [
+              "all",
+              ["==", ["get", "admin_level"], 1],
+              ["==", ["get", "maritime"], "false"],
+              ["match", ["get", "worldview"], ["all", "US"], true, false]
+            ],
+            "layout": { "line-join": "round", "line-cap": "round" },
+            "paint": {
+              "line-dasharray": [
+                "step",
+                ["zoom"],
+                ["literal", [2, 0]],
+                7,
+                ["literal", [2, 2, 6, 2]]
+              ],
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0.75,
+                12,
+                1.5
+              ],
+              "line-opacity": ["interpolate", ["linear"], ["zoom"], 2, 0, 3, 1],
+              "line-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                "hsl(0, 0%, 80%)",
+                7,
+                "hsl(0, 0%, 70%)"
+              ]
+            }
+          },
+          {
+            "id": "admin-0-boundary",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444934295202.7542" },
+            "source": "composite",
+            "source-layer": "admin",
+            "minzoom": 1,
+            "filter": [
+              "all",
+              ["==", ["get", "admin_level"], 0],
+              ["==", ["get", "disputed"], "false"],
+              ["==", ["get", "maritime"], "false"],
+              ["match", ["get", "worldview"], ["all", "US"], true, false]
+            ],
+            "layout": { "line-join": "round", "line-cap": "round" },
+            "paint": {
+              "line-color": "hsl(0, 0%, 62%)",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 3, 0.5, 10, 2]
+            }
+          },
+          {
+            "id": "admin-0-boundary-disputed",
+            "type": "line",
+            "metadata": { "mapbox:group": "1444934295202.7542" },
+            "source": "composite",
+            "source-layer": "admin",
+            "minzoom": 1,
+            "filter": [
+              "all",
+              ["==", ["get", "disputed"], "true"],
+              ["==", ["get", "admin_level"], 0],
+              ["==", ["get", "maritime"], "false"],
+              ["match", ["get", "worldview"], ["all", "US"], true, false]
+            ],
+            "layout": { "line-join": "round" },
+            "paint": {
+              "line-dasharray": [1.5, 1.5],
+              "line-color": "hsl(0, 0%, 62%)",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 3, 0.5, 10, 2]
+            }
+          },
+          {
+            "id": "road-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "road",
+            "minzoom": 10,
+            "filter": [
+              "step",
+              ["zoom"],
+              [
+                "match",
+                ["get", "class"],
+                ["motorway", "trunk", "primary", "secondary", "tertiary"],
+                true,
+                false
+              ],
+              12,
+              [
+                "match",
+                ["get", "class"],
+                [
+                  "motorway",
+                  "trunk",
+                  "primary",
+                  "secondary",
+                  "tertiary",
+                  "pedestrian",
+                  "street",
+                  "street_limited"
+                ],
+                true,
+                false
+              ],
+              15,
+              [
+                "match",
+                ["get", "class"],
+                ["ferry", "golf", "path"],
+                false,
+                true
+              ]
+            ],
+            "layout": {
+              "text-size": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["motorway", "trunk", "primary", "secondary", "tertiary"],
+                  10,
+                  [
+                    "motorway_link",
+                    "trunk_link",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "pedestrian",
+                    "street",
+                    "street_limited"
+                  ],
+                  9,
+                  6.5
+                ],
+                18,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["motorway", "trunk", "primary", "secondary", "tertiary"],
+                  16,
+                  [
+                    "motorway_link",
+                    "trunk_link",
+                    "primary_link",
+                    "secondary_link",
+                    "tertiary_link",
+                    "pedestrian",
+                    "street",
+                    "street_limited"
+                  ],
+                  14,
+                  13
+                ]
+              ],
+              "text-max-angle": 30,
+              "text-font": ["DIN Offc Pro Regular", "Arial Unicode MS Regular"],
+              "symbol-placement": "line",
+              "text-padding": 1,
+              "text-rotation-alignment": "map",
+              "text-pitch-alignment": "viewport",
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+              "text-letter-spacing": 0.01
+            },
+            "paint": {
+              "text-color": "hsl(0, 0%, 42%)",
+              "text-halo-color": [
+                "match",
+                ["get", "class"],
+                ["motorway", "trunk"],
+                "hsla(0, 0%, 100%, 0.75)",
+                "hsl(0, 0%, 100%)"
+              ],
+              "text-halo-width": 1,
+              "text-halo-blur": 1
+            }
+          },
+          {
+            "id": "waterway-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "natural_label",
+            "minzoom": 13,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["canal", "river", "stream"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": {
+              "text-font": ["DIN Offc Pro Italic", "Arial Unicode MS Regular"],
+              "text-max-angle": 30,
+              "symbol-spacing": [
+                "interpolate",
+                ["linear", 1],
+                ["zoom"],
+                15,
+                250,
+                17,
+                400
+              ],
+              "text-size": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                13,
+                12,
+                18,
+                16
+              ],
+              "symbol-placement": "line",
+              "text-pitch-alignment": "viewport",
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]]
+            },
+            "paint": { "text-color": "hsl(187, 7%, 51%)" }
+          },
+          {
+            "id": "natural-line-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "natural_label",
+            "minzoom": 4,
+            "filter": [
+              "all",
+              ["match", ["get", "class"], ["glacier", "landform"], true, false],
+              ["==", ["geometry-type"], "LineString"],
+              ["<=", ["get", "filterrank"], 1]
+            ],
+            "layout": {
+              "text-size": [
+                "step",
+                ["zoom"],
+                ["step", ["get", "sizerank"], 18, 5, 12],
+                17,
+                ["step", ["get", "sizerank"], 18, 13, 12]
+              ],
+              "text-max-angle": 30,
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+              "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Regular"],
+              "symbol-placement": "line-center",
+              "text-pitch-alignment": "viewport"
+            },
+            "paint": {
+              "text-halo-width": 0.5,
+              "text-halo-color": "hsl(0, 0%, 100%)",
+              "text-halo-blur": 0.5,
+              "text-color": "hsl(0, 0%, 42%)"
+            }
+          },
+          {
+            "id": "natural-point-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "natural_label",
+            "minzoom": 4,
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["dock", "glacier", "landform", "water_feature", "wetland"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "Point"],
+              ["<=", ["get", "filterrank"], 1]
+            ],
+            "layout": {
+              "text-size": [
+                "step",
+                ["zoom"],
+                ["step", ["get", "sizerank"], 18, 5, 12],
+                17,
+                ["step", ["get", "sizerank"], 18, 13, 12]
+              ],
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+              "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Regular"],
+              "text-offset": ["literal", [0, 0]]
+            },
+            "paint": {
+              "text-color": "hsl(0, 0%, 42%)",
+              "text-halo-color": "hsl(0, 0%, 100%)",
+              "text-halo-width": 0.5,
+              "text-halo-blur": 0.5
+            }
+          },
+          {
+            "id": "water-line-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "natural_label",
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["bay", "ocean", "reservoir", "sea", "water"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "LineString"]
+            ],
+            "layout": {
+              "text-size": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                ["step", ["get", "sizerank"], 24, 6, 18, 12, 12],
+                10,
+                ["step", ["get", "sizerank"], 18, 9, 12],
+                18,
+                ["step", ["get", "sizerank"], 18, 9, 16]
+              ],
+              "text-max-angle": 30,
+              "text-letter-spacing": [
+                "match",
+                ["get", "class"],
+                "ocean",
+                0.25,
+                ["sea", "bay"],
+                0.15,
+                0
+              ],
+              "text-font": ["DIN Offc Pro Italic", "Arial Unicode MS Regular"],
+              "symbol-placement": "line-center",
+              "text-pitch-alignment": "viewport",
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]]
+            },
+            "paint": { "text-color": "hsl(187, 7%, 51%)" }
+          },
+          {
+            "id": "water-point-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "natural_label",
+            "filter": [
+              "all",
+              [
+                "match",
+                ["get", "class"],
+                ["bay", "ocean", "reservoir", "sea", "water"],
+                true,
+                false
+              ],
+              ["==", ["geometry-type"], "Point"]
+            ],
+            "layout": {
+              "text-line-height": 1.3,
+              "text-size": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                ["step", ["get", "sizerank"], 24, 6, 18, 12, 12],
+                10,
+                ["step", ["get", "sizerank"], 18, 9, 12]
+              ],
+              "text-font": ["DIN Offc Pro Italic", "Arial Unicode MS Regular"],
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+              "text-letter-spacing": [
+                "match",
+                ["get", "class"],
+                "ocean",
+                0.25,
+                ["bay", "sea"],
+                0.15,
+                0.01
+              ],
+              "text-max-width": [
+                "match",
+                ["get", "class"],
+                "ocean",
+                4,
+                "sea",
+                5,
+                ["bay", "water"],
+                7,
+                10
+              ]
+            },
+            "paint": { "text-color": "hsl(187, 7%, 51%)" }
+          },
+          {
+            "id": "poi-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "poi_label",
+            "minzoom": 6,
+            "filter": ["<=", ["get", "filterrank"], 1],
+            "layout": {
+              "text-size": [
+                "step",
+                ["zoom"],
+                ["step", ["get", "sizerank"], 18, 5, 12],
+                17,
+                ["step", ["get", "sizerank"], 18, 13, 12]
+              ],
+              "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Regular"],
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]]
+            },
+            "paint": {
+              "text-halo-color": "hsl(0, 0%, 100%)",
+              "text-halo-width": 0.5,
+              "text-halo-blur": 0.5,
+              "text-color": [
+                "step",
+                ["zoom"],
+                [
+                  "step",
+                  ["get", "sizerank"],
+                  "hsl(0, 0%, 66%)",
+                  5,
+                  "hsl(230, 0%, 56%)"
+                ],
+                17,
+                [
+                  "step",
+                  ["get", "sizerank"],
+                  "hsl(0, 0%, 66%)",
+                  13,
+                  "hsl(0, 0%, 56%)"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "airport-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "airport_label",
+            "minzoom": 8,
+            "layout": {
+              "text-line-height": 1.1,
+              "text-size": ["step", ["get", "sizerank"], 18, 9, 12],
+              "icon-image": [
+                "step",
+                ["get", "sizerank"],
+                ["concat", ["get", "maki"], "-15"],
+                9,
+                ["concat", ["get", "maki"], "-11"]
+              ],
+              "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Regular"],
+              "text-offset": [0, 0.75],
+              "text-rotation-alignment": "viewport",
+              "text-anchor": "top",
+              "text-field": [
+                "step",
+                ["get", "sizerank"],
+                ["coalesce", ["get", "name_en"], ["get", "name"]],
+                15,
+                ["get", "ref"]
+              ],
+              "text-letter-spacing": 0.01,
+              "text-max-width": 9
+            },
+            "paint": {
+              "text-color": "hsl(0, 0%, 42%)",
+              "text-halo-color": "hsl(0, 0%, 100%)",
+              "text-halo-width": 1
+            }
+          },
+          {
+            "id": "settlement-subdivision-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "place_label",
+            "minzoom": 10,
+            "maxzoom": 15,
+            "filter": [
+              "all",
+              ["==", ["get", "class"], "settlement_subdivision"],
+              ["<=", ["get", "filterrank"], 4]
+            ],
+            "layout": {
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+              "text-transform": "uppercase",
+              "text-font": ["DIN Offc Pro Regular", "Arial Unicode MS Regular"],
+              "text-letter-spacing": [
+                "match",
+                ["get", "type"],
+                "suburb",
+                0.15,
+                ["quarter", "neighborhood"],
+                0.1,
+                0.1
+              ],
+              "text-max-width": 7,
+              "text-padding": 3,
+              "text-size": [
+                "interpolate",
+                ["cubic-bezier", 0.5, 0, 1, 1],
+                ["zoom"],
+                11,
+                [
+                  "match",
+                  ["get", "type"],
+                  "suburb",
+                  11,
+                  ["quarter", "neighborhood"],
+                  10.5,
+                  10.5
+                ],
+                15,
+                [
+                  "match",
+                  ["get", "type"],
+                  "suburb",
+                  17,
+                  ["quarter", "neighborhood"],
+                  16,
+                  16
+                ]
+              ]
+            },
+            "paint": {
+              "text-halo-color": "hsl(0, 0%, 100%)",
+              "text-halo-width": 1,
+              "text-color": "hsl(0, 0%, 62%)",
+              "text-halo-blur": 0.5
+            }
+          },
+          {
+            "id": "settlement-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "place_label",
+            "maxzoom": 15,
+            "filter": [
+              "all",
+              ["<=", ["get", "filterrank"], 3],
+              ["==", ["get", "class"], "settlement"],
+              [
+                "step",
+                ["zoom"],
+                true,
+                13,
+                [">=", ["get", "symbolrank"], 11],
+                14,
+                [">=", ["get", "symbolrank"], 13]
+              ]
+            ],
+            "layout": {
+              "text-line-height": 1.1,
+              "text-size": [
+                "interpolate",
+                ["cubic-bezier", 0.2, 0, 0.9, 1],
+                ["zoom"],
+                3,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  12,
+                  9,
+                  11,
+                  10,
+                  10.5,
+                  12,
+                  9.5,
+                  14,
+                  8.5,
+                  16,
+                  6.5,
+                  17,
+                  4
+                ],
+                15,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  28,
+                  9,
+                  26,
+                  10,
+                  23,
+                  11,
+                  21,
+                  12,
+                  20,
+                  13,
+                  19,
+                  15,
+                  17
+                ]
+              ],
+              "icon-image": [
+                "case",
+                ["==", ["get", "capital"], 2],
+                "border-dot-13",
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  "dot-11",
+                  9,
+                  "dot-10",
+                  11,
+                  "dot-9"
+                ]
+              ],
+              "text-font": [
+                "step",
+                ["zoom"],
+                [
+                  "literal",
+                  ["DIN Offc Pro Regular", "Arial Unicode MS Regular"]
+                ],
+                8,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  [
+                    "literal",
+                    ["DIN Offc Pro Medium", "Arial Unicode MS Regular"]
+                  ],
+                  11,
+                  [
+                    "literal",
+                    ["DIN Offc Pro Regular", "Arial Unicode MS Regular"]
+                  ]
+                ],
+                10,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  [
+                    "literal",
+                    ["DIN Offc Pro Medium", "Arial Unicode MS Regular"]
+                  ],
+                  12,
+                  [
+                    "literal",
+                    ["DIN Offc Pro Regular", "Arial Unicode MS Regular"]
+                  ]
+                ],
+                11,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  [
+                    "literal",
+                    ["DIN Offc Pro Medium", "Arial Unicode MS Regular"]
+                  ],
+                  13,
+                  [
+                    "literal",
+                    ["DIN Offc Pro Regular", "Arial Unicode MS Regular"]
+                  ]
+                ],
+                12,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  [
+                    "literal",
+                    ["DIN Offc Pro Medium", "Arial Unicode MS Regular"]
+                  ],
+                  15,
+                  [
+                    "literal",
+                    ["DIN Offc Pro Regular", "Arial Unicode MS Regular"]
+                  ]
+                ],
+                13,
+                ["literal", ["DIN Offc Pro Medium", "Arial Unicode MS Regular"]]
+              ],
+              "text-justify": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "text_anchor"],
+                  ["bottom", "top"],
+                  "center",
+                  ["left", "bottom-left", "top-left"],
+                  "left",
+                  ["right", "bottom-right", "top-right"],
+                  "right",
+                  "center"
+                ],
+                8,
+                "center"
+              ],
+              "text-offset": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "capital"],
+                  2,
+                  [
+                    "match",
+                    ["get", "text_anchor"],
+                    "bottom",
+                    ["literal", [0, -0.3]],
+                    "bottom-left",
+                    ["literal", [0.3, -0.1]],
+                    "left",
+                    ["literal", [0.45, 0.1]],
+                    "top-left",
+                    ["literal", [0.3, 0.1]],
+                    "top",
+                    ["literal", [0, 0.3]],
+                    "top-right",
+                    ["literal", [-0.3, 0.1]],
+                    "right",
+                    ["literal", [-0.45, 0]],
+                    "bottom-right",
+                    ["literal", [-0.3, -0.1]],
+                    ["literal", [0, -0.3]]
+                  ],
+                  [
+                    "match",
+                    ["get", "text_anchor"],
+                    "bottom",
+                    ["literal", [0, -0.25]],
+                    "bottom-left",
+                    ["literal", [0.2, -0.05]],
+                    "left",
+                    ["literal", [0.4, 0.05]],
+                    "top-left",
+                    ["literal", [0.2, 0.05]],
+                    "top",
+                    ["literal", [0, 0.25]],
+                    "top-right",
+                    ["literal", [-0.2, 0.05]],
+                    "right",
+                    ["literal", [-0.4, 0.05]],
+                    "bottom-right",
+                    ["literal", [-0.2, -0.05]],
+                    ["literal", [0, -0.25]]
+                  ]
+                ],
+                8,
+                ["literal", [0, 0]]
+              ],
+              "text-anchor": [
+                "step",
+                ["zoom"],
+                ["get", "text_anchor"],
+                8,
+                "center"
+              ],
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+              "text-max-width": 7
+            },
+            "paint": {
+              "text-color": [
+                "step",
+                ["get", "symbolrank"],
+                "hsl(0, 0%, 42%)",
+                11,
+                "hsl(0, 0%, 55%)",
+                16,
+                "hsl(0, 0%, 62%)"
+              ],
+              "text-halo-color": "hsl(0, 0%, 100%)",
+              "text-halo-width": 1,
+              "icon-opacity": ["step", ["zoom"], 1, 8, 0],
+              "text-halo-blur": 1
+            }
+          },
+          {
+            "id": "state-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "place_label",
+            "minzoom": 3,
+            "maxzoom": 9,
+            "filter": ["==", ["get", "class"], "state"],
+            "layout": {
+              "text-size": [
+                "interpolate",
+                ["cubic-bezier", 0.85, 0.7, 0.65, 1],
+                ["zoom"],
+                4,
+                ["step", ["get", "symbolrank"], 10, 6, 9.5, 7, 9],
+                9,
+                ["step", ["get", "symbolrank"], 24, 6, 18, 7, 14]
+              ],
+              "text-transform": "uppercase",
+              "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+              "text-field": [
+                "step",
+                ["zoom"],
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  ["coalesce", ["get", "name_en"], ["get", "name"]],
+                  5,
+                  [
+                    "coalesce",
+                    ["get", "abbr"],
+                    ["get", "name_en"],
+                    ["get", "name"]
+                  ]
+                ],
+                5,
+                ["coalesce", ["get", "name_en"], ["get", "name"]]
+              ],
+              "text-letter-spacing": 0.15,
+              "text-max-width": 6
+            },
+            "paint": {
+              "text-halo-width": 1,
+              "text-halo-color": "hsl(0, 0%, 100%)",
+              "text-color": "hsl(0, 0%, 66%)"
+            }
+          },
+          {
+            "id": "country-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "place_label",
+            "minzoom": 1,
+            "maxzoom": 10,
+            "filter": ["==", ["get", "class"], "country"],
+            "layout": {
+              "text-line-height": 1.1,
+              "text-size": [
+                "interpolate",
+                ["cubic-bezier", 0.2, 0, 0.7, 1],
+                ["zoom"],
+                1,
+                ["step", ["get", "symbolrank"], 11, 4, 9, 5, 8],
+                9,
+                ["step", ["get", "symbolrank"], 28, 4, 22, 5, 21]
+              ],
+              "icon-image": "dot-11",
+              "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Regular"],
+              "text-justify": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "text_anchor"],
+                  ["bottom", "top"],
+                  "center",
+                  ["left", "bottom-left", "top-left"],
+                  "left",
+                  ["right", "bottom-right", "top-right"],
+                  "right",
+                  "center"
+                ],
+                7,
+                "center"
+              ],
+              "text-offset": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "text_anchor"],
+                  "bottom",
+                  ["literal", [0, -0.25]],
+                  "bottom-left",
+                  ["literal", [0.2, -0.05]],
+                  "left",
+                  ["literal", [0.4, 0.05]],
+                  "top-left",
+                  ["literal", [0.2, 0.05]],
+                  "top",
+                  ["literal", [0, 0.25]],
+                  "top-right",
+                  ["literal", [-0.2, 0.05]],
+                  "right",
+                  ["literal", [-0.4, 0.05]],
+                  "bottom-right",
+                  ["literal", [-0.2, -0.05]],
+                  ["literal", [0, -0.25]]
+                ],
+                7,
+                ["literal", [0, 0]]
+              ],
+              "text-anchor": [
+                "step",
+                ["zoom"],
+                ["coalesce", ["get", "text_anchor"], "center"],
+                7,
+                "center"
+              ],
+              "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+              "text-max-width": 6
+            },
+            "paint": {
+              "icon-opacity": [
+                "step",
+                ["zoom"],
+                ["case", ["has", "text_anchor"], 1, 0],
+                7,
+                0
+              ],
+              "text-color": "hsl(0, 0%, 42%)",
+              "text-halo-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                2,
+                "rgba(255,255,255,0.75)",
+                3,
+                "hsl(0, 0%, 100%)"
+              ],
+              "text-halo-width": 1.25
+            }
+          },
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                8,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "columbia-river-fill",
+            "type": "fill",
+            "source": "columbia-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "columbia-river-outline",
+            "type": "line",
+            "source": "columbia-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "snake-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "snake-river-fill",
+            "type": "fill",
+            "source": "snake-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "snake-river-outline",
+            "type": "line",
+            "source": "snake-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "wildfire-start-sites",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "wildfire-start-sites-heatmap",
+            "type": "heatmap",
+            "source": "wildfire-start-sites",
+            "source-layer": "wa-state-wildfire-start-sites-2008",
+            "paint": {
+              "heatmap-intensity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1,
+                9,
+                4
+              ],
+              "heatmap-color": [
+                "interpolate",
+                ["linear"],
+                ["heatmap-density"],
+                0,
+                "rgba(0,0,0,0)",
+                0.6,
+                "#ffffb2",
+                0.7,
+                "#fed976",
+                0.8,
+                "#feb24c",
+                0.9,
+                "#fd8d3c",
+                1,
+                "#fc4e2a"
+              ],
+              "heatmap-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1,
+                9,
+                5
+              ],
+              "heatmap-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                1,
+                9,
+                0
+              ]
+            }
+          },
+          {
+            "id": "wildfire-start-sites-circle",
+            "type": "circle",
+            "source": "wildfire-start-sites",
+            "source-layer": "wa-state-wildfire-start-sites-2008",
+            "paint": {
+              "circle-color": "#fc4e2b",
+              "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                [
+                  "interpolate",
+                  ["linear"],
+                  ["get", "ACRES_BURN"],
+                  1000,
+                  1,
+                  250000,
+                  4
+                ],
+                9,
+                [
+                  "interpolate",
+                  ["linear"],
+                  ["get", "ACRES_BURN"],
+                  1000,
+                  3,
+                  250000,
+                  10
+                ]
+              ],
+              "circle-stroke-width": 0.5,
+              "circle-stroke-color": "#ffffb2",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                9,
+                ["match", ["get", "COUNTY_LAB"], "KITTITAS", 0.5, 0.1]
+              ],
+              "circle-stroke-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                0,
+                9,
+                0.5
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-county-outline",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-county-outline",
+            "type": "line",
+            "source": "kittitas-county-outline",
+            "filter": ["==", ["get", "NAMELSAD10"], "Kittitas County"],
+            "paint": {
+              "line-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7,
+                "#666",
+                8,
+                "#fff"
+              ],
+              "line-width": 5,
+              "line-dasharray": [2, 2]
+            }
+          }
+        ]
+      },
+      {
+        "id": "wa-state-large-fires",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "wa-state-large-fires",
+            "type": "fill",
+            "source": "wa-state-large-fires",
+            "source-layer": "wa-state-large-fires-1973-2018",
+            "paint": {
+              "fill-pattern": "hazard-fill.png",
+              "fill-opacity": [
+                "match",
+                ["get", "FIRENAME"],
+                "LEMAH",
+                0.8,
+                "French Cabin Creek",
+                0.8,
+                "Amabilis",
+                0.8,
+                "Easton Ridge",
+                0.8,
+                "Easton Fire",
+                0.8,
+                "Polallie",
+                0.8,
+                "Jolly Mountain",
+                0.8,
+                "Moon Beam",
+                0.8,
+                "South Cle Elum Ridge",
+                0.8,
+                "Manastash Ridge",
+                0.8,
+                "Rock Creek",
+                0.8,
+                "Diamond Head",
+                0.8,
+                "Lauderdale",
+                0.8,
+                "Elk Heights",
+                0.8,
+                "Trail",
+                0.8,
+                "Bighorn",
+                0.8,
+                "Scorpion Coulee",
+                0.8,
+                "Litttle Parke Creek",
+                0.8,
+                "Colockum Tarps",
+                0.8,
+                "Milepost Twenty Two",
+                0.8,
+                "Boylston",
+                0.8,
+                "400",
+                0.8,
+                "Cottonwood",
+                0.8,
+                "Burbank",
+                0.8,
+                "Ellensburg Pass",
+                0.8,
+                "Snag Canyon",
+                0.8,
+                "Table Mountain Fire",
+                0.8,
+                "Dry Creek Fire",
+                0.8,
+                "Gold Creek Springs",
+                0.8,
+                "Crow Creek",
+                0.8,
+                "Taylor Bridge",
+                0.8,
+                "I-82 Manashtash",
+                0.8,
+                0.1
+              ]
+            }
+          },
+          {
+            "id": "wa-state-large-fires-outline",
+            "type": "line",
+            "source": "wa-state-large-fires",
+            "source-layer": "wa-state-large-fires-1973-2018",
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 2,
+              "line-opacity": [
+                "match",
+                ["get", "FIRENAME"],
+                "LEMAH",
+                0.8,
+                "French Cabin Creek",
+                0.8,
+                "Amabilis",
+                0.8,
+                "Easton Ridge",
+                0.8,
+                "Easton Fire",
+                0.8,
+                "Polallie",
+                0.8,
+                "Jolly Mountain",
+                0.8,
+                "Moon Beam",
+                0.8,
+                "South Cle Elum Ridge",
+                0.8,
+                "Manastash Ridge",
+                0.8,
+                "Rock Creek",
+                0.8,
+                "Diamond Head",
+                0.8,
+                "Lauderdale",
+                0.8,
+                "Elk Heights",
+                0.8,
+                "Trail",
+                0.8,
+                "Bighorn",
+                0.8,
+                "Scorpion Coulee",
+                0.8,
+                "Litttle Parke Creek",
+                0.8,
+                "Colockum Tarps",
+                0.8,
+                "Milepost Twenty Two",
+                0.8,
+                "Boylston",
+                0.8,
+                "400",
+                0.8,
+                "Cottonwood",
+                0.8,
+                "Burbank",
+                0.8,
+                "Ellensburg Pass",
+                0.8,
+                "Snag Canyon",
+                0.8,
+                "Table Mountain Fire",
+                0.8,
+                "Dry Creek Fire",
+                0.8,
+                "Gold Creek Springs",
+                0.8,
+                "Crow Creek",
+                0.8,
+                "Taylor Bridge",
+                0.8,
+                "I-82 Manashtash",
+                0.8,
+                0.1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "firewise-demo-input",
+        "visibleDefault": true,
+        "interactive": true,
+        "datasetSlug": "firewise-demo-input",
+        "mapboxFocusedLayers": [
+          {
+            "id": "firewise-demo-input-focused",
+            "type": "symbol",
+            "source": "firewise-demo-input",
+            "layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "reports",
+                "map-pin-marker-red.png",
+                "__no-icon-image__"
+              ],
+              "icon-allow-overlap": true
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "firewise-demo-input",
+            "type": "symbol",
+            "source": "firewise-demo-input",
+            "layout": {
+              "icon-anchor": "bottom",
+              "icon-image": "map-pin-marker-red.png",
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
+              "icon-allow-overlap": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "kittitas-land-ownership",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-land-ownership",
+            "type": "fill",
+            "source": "kittitas-land-ownership",
+            "source-layer": "kittitas-land-ownership",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "layer"],
+                "USFS",
+                "#8dd3c7",
+                "Federal",
+                "#ffffb3",
+                "Private",
+                "#bebada",
+                "State",
+                "#fb8072",
+                "TNC",
+                "#80b1d3",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "kittitas-land-ownership-outline",
+            "type": "line",
+            "source": "kittitas-land-ownership",
+            "source-layer": "kittitas-land-ownership",
+            "paint": {
+              "line-width": 0.5,
+              "line-color": "#555",
+              "line-opacity": ["interpolate", ["linear"], ["zoom"], 7, 0, 12, 1]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": false
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa fa-bars",
+        "component": "MapLayerPanel",
+        "title": "Map Layers:",
+        "content": [
+          {
+            "id": "basemaps",
+            "title": "Basemaps",
+            "layerGroups": [
+              {
+                "id": "osm",
+                "title": "OpenStreetMap"
+              },
+              {
+                "id": "light-satellite",
+                "title": "Light/Satellite"
+              }
+            ]
+          },
+          {
+            "id": "grp-water",
+            "title": "Water Features",
+            "layerGroups": [
+              {
+                "id": "columbia-river",
+                "title": "Columbia River"
+              },
+              {
+                "id": "snake-river",
+                "title": "Snake River"
+              },
+              {
+                "id": "kittitas-land-ownership",
+                "title": "Land Ownership"
+              },
+              {
+                "id": "wildfire-start-sites",
+                "title": "Wildfire Start Sites"
+              },
+              {
+                "id": "wa-state-large-fires",
+                "title": "Large Wildfires"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "Community Data",
+            "layerGroups": [
+              {
+                "id": "kittitas-county-outline",
+                "title": "Kittitas County border"
+              },
+              {
+                "id": "firewise-demo-input",
+                "title": "Community Reports"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "Get My Personal Fire Plan",
+    "action_text": "added",
+    "title": "Tell us more...",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Put it on the map!",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "small-landowner-reports",
+        "category": "small-landowner-reports",
+        "includeOnForm": true,
+        "submitter_editing_supported": true,
+        "name": "location_type",
+        "datasetSlug": "firewise-demo-input",
+        "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "label": "I am a small landowner in Kittitas County",
+        "value": "small-landowner",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 2,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "firewise-demo-input",
+              "kittitas-county-outline"
+            ],
+            "viewport": {
+              "latitude": 47.12295,
+              "zoom": 5.8,
+              "longitude": -120.29676,
+              "transitionDuration": 1500,
+              "bearing": 0,
+              "pitch": 40
+            }
+          },
+          {
+            "start_field_index": 3,
+            "end_field_index": 4,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ],
+            "viewport": {
+              "zoom": 8.3,
+              "latitude": 47.07231,
+              "longitude": -120.65079,
+              "transitionDuration": 1500,
+              "bearing": 0,
+              "pitch": 40
+            }
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 6,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 7,
+            "end_field_index": 14,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 15,
+            "end_field_index": 23,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 24,
+            "end_field_index": 31,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 32,
+            "end_field_index": 46,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "fire_environment_header",
+            "type": "informational_html",
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Washington State:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
+          },
+          {
+            "name": "fire_environment_info",
+            "type": "informational_html",
+            "content": "<p class='mapseed-form-stage-body'>Since 2008, wildfires have burned nearly 2 million acres in Washington State. This map visualizes where fires tend to start.</p><img src='/static/css/images/wildfire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>9,689</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total fires started since 2008</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>1,705,602</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+          },
+          {
+            "name": "large_fires_header",
+            "type": "informational_html",
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
+          },
+          {
+            "name": "large_fires_information",
+            "type": "informational_html",
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973, the largest of which was the Colockum Tarps fire in 2013. Hover over fires on the map to learn more about them [to come].</p><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+          },
+          {
+            "name": "fire_resiliency_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "fire_resiliency_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "immediate_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "immediate_zone_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clean_roofs",
+            "type": "common_form_element"
+          },
+          {
+            "name": "replace_shingles",
+            "type": "common_form_element"
+          },
+          {
+            "name": "reduce_embers",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clean_debris_attic_vents",
+            "type": "common_form_element"
+          },
+          {
+            "name": "repair_screens",
+            "type": "common_form_element"
+          },
+          {
+            "name": "move_flammable_material",
+            "type": "common_form_element"
+          },
+          {
+            "name": "intermediate_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "intermediate_zone_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clear_vegetation",
+            "type": "common_form_element"
+          },
+          {
+            "name": "create_fuel_breaks",
+            "type": "common_form_element"
+          },
+          {
+            "name": "mow_to_four_inches",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_ladder_fuels",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_trees",
+            "type": "common_form_element"
+          },
+          {
+            "name": "tree_placement",
+            "type": "common_form_element"
+          },
+          {
+            "name": "small_tree_clusters",
+            "type": "common_form_element"
+          },
+          {
+            "name": "extended_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "extended_zone_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "dispose_ground_debris",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_dead_material",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_small_conifers",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_outbuilding_vegetation",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_canopy_tops_30_60_feet",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_canopy_tops_60_100_feet",
+            "type": "common_form_element"
+          },
+          {
+            "name": "evacuation_plan_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "evacuation_plan",
+            "type": "common_form_element"
+          },
+          {
+            "name": "emergency_kit",
+            "type": "common_form_element"
+          },
+          {
+            "name": "food_and_water",
+            "type": "common_form_element"
+          },
+          {
+            "name": "medications",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clothing",
+            "type": "common_form_element"
+          },
+          {
+            "name": "eyeglasses",
+            "type": "common_form_element"
+          },
+          {
+            "name": "car_keys_money",
+            "type": "common_form_element"
+          },
+          {
+            "name": "first_aid_kit",
+            "type": "common_form_element"
+          },
+          {
+            "name": "flashlight",
+            "type": "common_form_element"
+          },
+          {
+            "name": "radio",
+            "type": "common_form_element"
+          },
+          {
+            "name": "sanitation_supplies",
+            "type": "common_form_element"
+          },
+          {
+            "name": "documents",
+            "type": "common_form_element"
+          },
+          {
+            "name": "pet_food",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "large-landowner-reports",
+        "category": "large-landowner-reports",
+        "includeOnForm": true,
+        "submitter_editing_supported": true,
+        "name": "location_type",
+        "datasetSlug": "firewise-demo-input",
+        "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
+        "value": "large-landowner",
+        "label": "I am a large landowner in Kittitas County",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 2,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "firewise-demo-input",
+              "kittitas-county-outline"
+            ],
+            "viewport": {
+              "latitude": 47.12295,
+              "zoom": 5.8,
+              "longitude": -120.29676,
+              "transitionDuration": 1500,
+              "bearing": 0,
+              "pitch": 40
+            }
+          },
+          {
+            "start_field_index": 3,
+            "end_field_index": 4,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ],
+            "viewport": {
+              "zoom": 8.3,
+              "latitude": 47.07231,
+              "longitude": -120.65079,
+              "transitionDuration": 1500,
+              "bearing": 0,
+              "pitch": 40
+            }
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 6,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 7,
+            "end_field_index": 14,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 15,
+            "end_field_index": 23,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 24,
+            "end_field_index": 31,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          },
+          {
+            "start_field_index": 32,
+            "end_field_index": 46,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "wildfire-start-sites",
+              "kittitas-county-outline",
+              "wa-state-large-fires"
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "fire_environment_header",
+            "type": "informational_html",
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Washington State:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
+          },
+          {
+            "name": "fire_environment_info",
+            "type": "informational_html",
+            "content": "<p class='mapseed-form-stage-body'>Since 2008, wildfires have burned nearly 2 million acres in Washington State. This map visualizes where fires tend to start.</p><img src='/static/css/images/wildfire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>9,689</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total fires started since 2008</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>1,705,602</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+          },
+          {
+            "name": "large_fires_header",
+            "type": "informational_html",
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7)'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2>"
+          },
+          {
+            "name": "large_fires_information",
+            "type": "informational_html",
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973, the largest of which was the Colockum Tarps fire in 2013. Hover over fires on the map to learn more about them [to come].</p><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Wildfire' style='width: 100%;' /><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+          },
+          {
+            "name": "fire_resiliency_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "fire_resiliency_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "immediate_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "immediate_zone_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clean_roofs",
+            "type": "common_form_element"
+          },
+          {
+            "name": "replace_shingles",
+            "type": "common_form_element"
+          },
+          {
+            "name": "reduce_embers",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clean_debris_attic_vents",
+            "type": "common_form_element"
+          },
+          {
+            "name": "repair_screens",
+            "type": "common_form_element"
+          },
+          {
+            "name": "move_flammable_material",
+            "type": "common_form_element"
+          },
+          {
+            "name": "intermediate_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "intermediate_zone_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clear_vegetation",
+            "type": "common_form_element"
+          },
+          {
+            "name": "create_fuel_breaks",
+            "type": "common_form_element"
+          },
+          {
+            "name": "mow_to_four_inches",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_ladder_fuels",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_trees",
+            "type": "common_form_element"
+          },
+          {
+            "name": "tree_placement",
+            "type": "common_form_element"
+          },
+          {
+            "name": "small_tree_clusters",
+            "type": "common_form_element"
+          },
+          {
+            "name": "extended_zone_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "extended_zone_information",
+            "type": "common_form_element"
+          },
+          {
+            "name": "dispose_ground_debris",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_dead_material",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_small_conifers",
+            "type": "common_form_element"
+          },
+          {
+            "name": "remove_outbuilding_vegetation",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_canopy_tops_30_60_feet",
+            "type": "common_form_element"
+          },
+          {
+            "name": "space_canopy_tops_60_100_feet",
+            "type": "common_form_element"
+          },
+          {
+            "name": "evacuation_plan_header",
+            "type": "common_form_element"
+          },
+          {
+            "name": "evacuation_plan",
+            "type": "common_form_element"
+          },
+          {
+            "name": "emergency_kit",
+            "type": "common_form_element"
+          },
+          {
+            "name": "food_and_water",
+            "type": "common_form_element"
+          },
+          {
+            "name": "medications",
+            "type": "common_form_element"
+          },
+          {
+            "name": "clothing",
+            "type": "common_form_element"
+          },
+          {
+            "name": "eyeglasses",
+            "type": "common_form_element"
+          },
+          {
+            "name": "car_keys_money",
+            "type": "common_form_element"
+          },
+          {
+            "name": "first_aid_kit",
+            "type": "common_form_element"
+          },
+          {
+            "name": "flashlight",
+            "type": "common_form_element"
+          },
+          {
+            "name": "radio",
+            "type": "common_form_element"
+          },
+          {
+            "name": "sanitation_supplies",
+            "type": "common_form_element"
+          },
+          {
+            "name": "documents",
+            "type": "common_form_element"
+          },
+          {
+            "name": "pet_food",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "fire_resiliency_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Your Path to Wildfire Resilience</h2>"
+      },
+      "fire_resiliency_information": {
+        "type": "informational_html",
+        "content": "<p>Be resilient! As a landowner in a fire environment, what you do (and don't do!) on your property matters.</p><p>Tell us a bit about your property and practices, and we'll give you some practical tips for becoming even more wildfire resilient.</p><p>We'll ask about your fire resiliency practices in three zones around your property:</p><ul style='list-style:none;'><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Immediate Zone: 0 - 5 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Intermediate Zone: 5 - 30 feet from house</strong></li><li style='display:flex;align-items:center;'><img style='width:40px;padding-right:8px;' src='/static/css/images/fire-icon.png' alt='Fire icon' /><strong>Extended Zone: 30 - 100 feet from house</strong></li></ul><img style='width:100%;' src='/static/css/images/fire-zones.jpg' alt='Fire zones' />"
+      },
+      "immediate_zone_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Immediate Zone Actions</h2>"
+      },
+      "immediate_zone_information": {
+        "type": "informational_html",
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The immediate zone extends to five feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
+      },
+      "intermediate_zone_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Intermediate Zone Actions</h2>"
+      },
+      "intermediate_zone_information": {
+        "type": "informational_html",
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The intermediate zone extends between five and thirty feet from your house.</p>"
+      },
+      "extended_zone_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Extended Zone Actions</h2>"
+      },
+      "extended_zone_information": {
+        "type": "informational_html",
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The extended zone extends between thirty and one hundred feet from your house.</p>"
+      },
+      "evacuation_plan_header": {
+        "type": "informational_html",
+        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Emergency and Evacuation Planning</h2>"
+      },
+      "clean_roofs": {
+        "type": "big_radio",
+        "prompt": "I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers",
+        "label": "Clean roofs and gutters",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "replace_shingles": {
+        "type": "big_radio",
+        "prompt": "I replace or repair any loose or missing shingles or roof tiles to prevent ember penetration",
+        "label": "Replace or repair loose shingles",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "reduce_embers": {
+        "type": "big_radio",
+        "prompt": "I reduce embers that could pass through vents in the eaves by installing 1/8 inch metal mesh screening",
+        "label": "Reduce embers",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "clean_debris_attic_vents": {
+        "type": "big_radio",
+        "prompt": "I clean debris from exterior attic vents and install 1/8 inch metal mesh screening to reduce embers",
+        "label": "Clean debris from attic vents",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "repair_screens": {
+        "type": "big_radio",
+        "prompt": "I repair or replace damaged or loose window screens and any broken windows screen or box-in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating",
+        "label": "Repair or replace window screens",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "move_flammable_material": {
+        "type": "big_radio",
+        "prompt": "I move any flammable material away from wall exteriors – mulch, flammable plants, leaves and needles, firewood piles – anything that can burn. Remove anything stored underneath decks or porches",
+        "label": "Move flammable material",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "clear_vegetation": {
+        "type": "big_radio",
+        "prompt": "I clear vegetation from under large stationary propane tanks",
+        "label": "Clear vegetation from propane tanks",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "create_fuel_breaks": {
+        "type": "big_radio",
+        "prompt": "I create fuel breaks with driveways, walkways/paths, patios, and decks",
+        "label": "Create fuel breaks",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "mow_to_four_inches": {
+        "type": "big_radio",
+        "prompt": "I keep lawns and native grasses mowed to a height of four inches",
+        "label": "Keep lawns mowed to four inches",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "remove_ladder_fuels": {
+        "type": "big_radio",
+        "prompt": "I remove ladder fuels (vegetation under trees) so a surface fire cannot reach the crowns. Prune trees up to six to ten feet from the ground; for shorter trees do not exceed 1/3 of the overall tree height",
+        "label": "Remove ladder fuels",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "space_trees": {
+        "type": "big_radio",
+        "prompt": "I space trees to have a minimum of eighteen feet between crowns with the distance increasing with the percentage of slope",
+        "label": "Space trees to eighteen feet",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "tree_placement": {
+        "type": "big_radio",
+        "prompt": "I ensure that mature tree canopy is no closer than ten feet to the edge of structures on my property",
+        "label": "Keep tree canopy ten feet from structures",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "small_tree_clusters": {
+        "type": "big_radio",
+        "prompt": "I ensure that tree and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of the vegetation across the landscape",
+        "label": "Break up continuity of vegetation",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "dispose_ground_debris": {
+        "type": "big_radio",
+        "prompt": "I dispose of heavy accumulations of ground litter/debris",
+        "label": "Disponse of ground debris",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "remove_dead_material": {
+        "type": "big_radio",
+        "prompt": "I regularly remove dead plant and tree material",
+        "label": "Remove dead plant material",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "remove_small_conifers": {
+        "type": "big_radio",
+        "prompt": "I remove small conifers growing between mature trees",
+        "label": "Remove small conifers between mature trees",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "remove_outbuilding_vegetation": {
+        "type": "big_radio",
+        "prompt": "I remove vegetation adjacent to storage sheds or other outbuildings",
+        "label": "Remove adjacent outbuilding vegetation",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "space_canopy_tops_30_60_feet": {
+        "type": "big_radio",
+        "prompt": "I ensure that trees 30 to 60 feet from the home should have at least 12 feet between canopy tops",
+        "label": "Space canopy tops 30 to 60 feet from the house",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "space_canopy_tops_60_100_feet": {
+        "type": "big_radio",
+        "prompt": "I ensure that trees 60 to 100 feet from the home should have at least 6 feet between the canopy tops",
+        "label": "Space canopy tops 60 to 100 feet from the house",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "evacuation_plan": {
+        "type": "big_radio",
+        "prompt": "I have an evacuation plan that includes escape routes, a designated family meeting location, and a communication plan",
+        "label": "Evacuation plan",
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "emergency_kit": {
+        "type": "big_radio",
+        "prompt": "I have an emergency kit",
+        "label": "Evacuation plan",
+        "optional": true,
+        "trigger": {
+          "trigger_value": "yes",
+          "targets": [
+            "food_and_water",
+            "medications",
+            "clothing",
+            "eyeglasses",
+            "car_keys_money",
+            "first_aid_kit",
+            "flashlight",
+            "radio",
+            "sanitaion_supplues",
+            "documents",
+            "pet_food"
+          ]
+        },
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "food_and_water": {
+        "type": "big_radio",
+        "prompt": "My kit includes a three-day supply of non-perishable food and three gallons of water per person",
+        "label": "Food and water",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "medications": {
+        "type": "big_radio",
+        "prompt": "My kit includes prescriptions or special medications",
+        "label": "Prescriptions and medications",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "clothing": {
+        "type": "big_radio",
+        "prompt": "My kit includes a change of clothing for each person",
+        "label": "Change of clothing",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "eyeglasses": {
+        "type": "big_radio",
+        "prompt": "My kit includes extra eyeglasses or contact lenses",
+        "label": "Eyeglasses or contact lenses",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "car_keys_money": {
+        "type": "big_radio",
+        "prompt": "My kit includes an extra set of car keys, credit card, cash or traveler's checks",
+        "label": "Car keys and extra money",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "first_aid_kit": {
+        "type": "big_radio",
+        "prompt": "My kit includes first aid supplies",
+        "label": "First aid supplies",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "flashlight": {
+        "type": "big_radio",
+        "prompt": "My kit includes a flashlight",
+        "label": "Flashlight",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "radio": {
+        "type": "big_radio",
+        "prompt": "My kit includes a battery-powered radio and extra batteries",
+        "label": "Battery-powered radio",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "sanitation_supplies": {
+        "type": "big_radio",
+        "prompt": "My kit includes sanitation supplies",
+        "label": "Sanitation supplies",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "documents": {
+        "type": "big_radio",
+        "prompt": "My kit includes copies of important documents, such as birth certificates, passports, etc.",
+        "label": "Copies of documents",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      },
+      "pet_food": {
+        "type": "big_radio",
+        "prompt": "My kit includes pet food and water",
+        "label": "Pet food and water",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          },
+          {
+            "label": "Not applicable",
+            "value": "not_applicable"
+          }
+        ]
+      }
+    }
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
+      "items": [
+        {
+          "prompt": "Comment",
+          "label": "Comment",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "Your Name",
+          "type": "text",
+          "name": "submitter_name",
+          "placeholder": "Name is optional",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "Comment"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "reports",
+        "datasetId": "kittitas-vsp-input",
+        "label": "Actions",
+        "icon": "/static/css/images/markers/map-pin-marker-red.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
+  },
+  "nav_bar": [
+    {
+      "title": "About",
+      "type": "internal_link",
+      "url": "/page/about",
+      "start_page": true
+    }
+  ],
+  "pages": [
+    {
+      "slug": "assistance",
+      "lang": "en",
+      "content": [
+        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
+        "<p style='margin-bottom:16px'>Your Garfield County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator or for more information visit: <a href='https://www.garfieldcountyvsp.com/' target='_blank'>www.garfieldcountyvsp.com</a>.</p>",
+        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
+        "<li>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Bradley Johnson</strong>",
+        "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>bradleyj@palousecd.org</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Duane Bartels</strong>",
+        "<p style='margin:0'><em>District Manager</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-843-5008</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcdistrict@qwestoffice.net</span></div>",
+        "</li>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Lance Frederick</strong>",
+        "<p style='margin:0'><em>CREP Coordinator</em></p>",
+        "</div>",
+        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>508-843-5008</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>lancepcdistrict@qwestoffice.net</span></div>",
+        "</li>",
+        "</ul>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en",
+      "content": [
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Landowners!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<div style='margin: 8px 0 16px 0; position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;'><iframe style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' src='https://www.youtube.com/embed/3EbuRaOdxoM' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p>The Kittitas County Firewise Program is designed to educate landowners and others about wildfire risk in their communities, and about how to prepare for the next wildfire.</p>",
+        "<p>Click Get Started to begin!</p>",
+        "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
+      ]
+    }
+  ],
+  "custom_components": {
+    "FieldSummary": "PalouseFieldSummary"
+  }
+}

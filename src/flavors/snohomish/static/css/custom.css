@@ -63,14 +63,26 @@
 
 /* =Input Form
 -------------------------------------------------------------- */
-.input-form__field-container[data-field-type="datetime"],
-.input-form__field-container[data-field-type="big_toggle"] {
+[data-field-type="datetime"],
+[data-field-type="big_toggle"] {
   background-color: #efefef !important;
   margin-bottom: 15px !important;
 }
 
-.input-form__field-container[data-field-type="datetime"] {
+[data-field-type="datetime"] {
   margin-top: -15px !important;
+}
+
+.ql-toolbar.ql-snow {
+  border-top: 0.25em solid #779300 !important;
+  border-left: 0.25em solid #779300 !important;
+  border-right: 0.25em solid #779300 !important;
+}
+
+.ql-container {
+  border-bottom: 0.25em solid #779300 !important;
+  border-left: 0.25em solid #779300 !important;
+  border-right: 0.25em solid #779300 !important;
 }
 
 .big-toggle-field__label {
@@ -132,10 +144,10 @@
   background-color: #779300 !important;
 }
 
-.input-form__field-container[data-field-name="farm_no-farm"],
-.input-form__field-container[data-field-name="forest_no-forest"],
-.input-form__field-container[data-field-name="shoreline_no-shoreline"],
-.input-form__field-container[data-field-name="urban-suburban_no-urban-suburban"] {
+[data-field-name="farm_no-farm"],
+[data-field-name="forest_no-forest"],
+[data-field-name="shoreline_no-shoreline"],
+[data-field-name="urban-suburban_no-urban-suburban"] {
   background-color: #fff !important;
   font-style: italic !important;
   font-weight: bold !important;
@@ -157,15 +169,6 @@
 
 .input-form__optional-msg {
   display: none !important;
-}
-
-.form-stage-control-bar {
-  background: url("data:image/x-ms-bmp;base64,Qk1AAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABAAAAAAAAoAAAASCwAAEgsAAAAAAAAAAAAA/3//f8pO/38AAA==")
-    repeat !important;
-}
-
-.mapseed__progress-bar {
-  background-color: #fff !important;
 }
 
 .mapseed__progress-bar-inner {
@@ -196,7 +199,7 @@
   text-align: center !important;
 }
 
-.input-form__field-container[data-field-name="location-information"] {
+[data-field-name="location-information"] {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
@@ -253,27 +256,27 @@
 
 /* =Custom pages
 -------------------------------------------------------------- */
-.dotted-background-container {
-  overflow: hidden !important;
-  padding: 20px 10px 20px 10px !important;
-  background: url("data:image/x-ms-bmp;base64,Qk1AAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABAAAAAAAAoAAAASCwAAEgsAAAAAAAAAAAAA/3//f8pO/38AAA==")
-    repeat !important;
-  margin-top: 30px !important;
+.next-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  margin-right: 16px;
 }
 
 .next-btn {
-  background-color: #02440b !important;
-  float: right !important;
-  background: none !important;
+  background-color: rgb(2, 68, 11);
   outline: none !important;
   border: none !important;
   text-transform: uppercase !important;
   color: #fff !important;
   padding: 0.5em !important;
   margin-left: 10px !important;
+  border-radius: 3px;
 
   &:hover {
-    color: #779300 !important;
+    background-color: rgb(153, 180, 157);
   }
 }
 

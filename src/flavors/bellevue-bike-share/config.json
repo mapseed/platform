@@ -1,8 +1,14 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
   "datasets": [
     {
       "slug": "bellevue-bike-share",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +25,7 @@
     "logo": "/static/css/images/bellevue-logo.png",
     "meta_description": "_(Decide where to put dockless bike sharing in Bellevue!)",
     "meta_author": "mapseed.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "secondary": "#08626E"
@@ -45,8 +51,7 @@
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
-      },
-      "disableDrawing": true
+      }
     },
     "mapboxSources": {
       "f4": {
@@ -435,7 +440,7 @@
   "pages": [
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Welcome</h1>",
         "<p>Bike sharing is coming to Bellevue! Use this map to suggest sharing locations.</p>",

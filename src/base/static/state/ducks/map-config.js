@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 export const mapLayerConfigsPropType = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    url: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    tiles: PropTypes.arrayOf(PropTypes.string),
+    data: PropTypes.string,
   }),
 );
 
@@ -24,8 +25,11 @@ export const offlineConfigPropType = PropTypes.shape({
 export const mapConfigSelector = state => {
   return state.mapConfig;
 };
-export const mapLayersSelector = state => {
-  return state.layers;
+export const mapLayerConfigsSelector = state => {
+  // TODO: consider using this data structure in our config/store,
+  // instead of the current mapbox schema:
+  const sources = state.mapConfig.mapboxSources;
+  return Object.keys(sources).map(key => ({ id: key, ...sources[key] }));
 };
 export const mapLayerGroupsSelector = state => {
   return state.mapConfig.layerGroups;
@@ -68,7 +72,6 @@ export const mapConfigPropType = PropTypes.shape({
       minZoom: PropTypes.number,
       maxZoom: PropTypes.number,
     }).isRequired,
-    drawing_enabled: PropTypes.bool,
   }).isRequired,
   mapboxSources: PropTypes.objectOf(
     PropTypes.shape({
@@ -92,7 +95,7 @@ export const mapConfigPropType = PropTypes.shape({
         PropTypes.shape({
           id: PropTypes.string.isRequired,
           type: PropTypes.string.isRequired,
-          source: PropTypes.string.isRequired,
+          source: PropTypes.string,
           filter: PropTypes.array,
           "source-layer": PropTypes.string,
           paint: PropTypes.object,
@@ -103,7 +106,7 @@ export const mapConfigPropType = PropTypes.shape({
         PropTypes.shape({
           id: PropTypes.string.isRequired,
           type: PropTypes.string.isRequired,
-          source: PropTypes.string.isRequired,
+          source: PropTypes.string,
           filter: PropTypes.array,
           "source-layer": PropTypes.string,
           paint: PropTypes.object,

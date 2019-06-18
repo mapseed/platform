@@ -16,7 +16,7 @@ import {
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 const TagContainer = styled("div")(props => ({
   outline: "none",

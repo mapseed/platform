@@ -1,0 +1,17 @@
+{
+  "PBDurhamScoreSummaryHeader": "Puntuaciones del proyecto:",
+  "PBDurhamFeasibility": "Factibilidad:",
+  "PBDurhamEquity": "Equidad:",
+  "PBDurhamImpact": "Impacto:",
+  "PBDurhamHighlyFeasibleMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto sería altamente factible",
+  "PBDurhamModeratelyFeasibleMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto sería moderadamente factible",
+  "PBDurhamNotFeasibleMsg": "Los revisores de Citizen y de la Ciudad de Durham han determinado que este proyecto puede no ser factible",
+  "PBDurhamHighlyEquitableMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto sería altamente equitativo",
+  "PBDurhamModeratelyEquitableMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto sería moderadamente equitativo",
+  "PBDurhamNotEquitableMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto puede no ser equitativo",
+  "PBDurhamHighlyImpactfulMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto sería altamente impactante",
+  "PBDurhamModeratelyImpactfulMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto tendría un impacto moderado",
+  "PBDurhamNotImpactfulMsg": "Los revisores de Citizen y City of Durham han determinado que este proyecto puede no ser impactante",
+  "PBDurhamRelatedIdeasHeader": "Ideas relacionadas:",
+  "PBDurhamUnpublishedWarningMsg": "Este proyecto no está publicado actualmente. Será visible para los administradores, delegados y revisores técnicos. Inicie sesión como administrador para publicar este proyecto para el público en general."
+}

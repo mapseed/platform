@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 import { withTheme } from "emotion-theming";
 import { themePropType } from "../../state/ducks/app-config";
+import { translate } from "react-i18next";
 
 import {
   placeFormsConfigPropType,
@@ -43,10 +44,12 @@ const MapLegendPanel = props => {
   const labelColor = darken(backgroundColor, 0.8);
   return (
     <MapLegendPanelContainer backgroundColor={backgroundColor}>
-      {props.placeFormsConfig.map(placeForm => (
+      {props.placeFormsConfig.map((placeForm, i) => (
         <MapLegendItemContainer key={placeForm.id}>
           <LegendIcon src={placeForm.icon} />
-          <LegendLabel color={labelColor}>{placeForm.label}</LegendLabel>
+          <LegendLabel color={labelColor}>
+            {props.t(`mapLegendLabel${i}`, placeForm.label)}
+          </LegendLabel>
         </MapLegendItemContainer>
       ))}
     </MapLegendPanelContainer>
@@ -56,6 +59,7 @@ const MapLegendPanel = props => {
 MapLegendPanel.propTypes = {
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   isThemed: PropTypes.bool,
+  t: PropTypes.func.isRequired,
   theme: themePropType,
 };
 
@@ -63,4 +67,6 @@ const mapStateToProps = state => ({
   placeFormsConfig: placeFormsConfigSelector(state),
 });
 
-export default withTheme(connect(mapStateToProps)(MapLegendPanel));
+export default withTheme(
+  connect(mapStateToProps)(translate("MapLegendPanel")(MapLegendPanel)),
+);

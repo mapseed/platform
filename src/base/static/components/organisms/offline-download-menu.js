@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { InternalLink, RegularText } from "../atoms/typography";
-import { CloseButton } from "../atoms/buttons";
-import { Button } from "../atoms/buttons";
+import { CloseButton, Button } from "../atoms/buttons";
 import { getTilePaths } from "../../utils/geo";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {
@@ -15,9 +14,11 @@ import {
 import {
   mapLayerConfigsPropType,
   offlineConfigPropType,
+  mapLayerConfigsSelector,
 } from "../../state/ducks/map-config";
 
 import Modal from "react-modal";
+import { connect } from "react-redux";
 Modal.setAppElement("#site-wrap");
 
 const fetchOfflineData = (
@@ -35,12 +36,11 @@ const fetchOfflineData = (
         urls.concat(
           mapLayerConfigs
             .filter(
-              layer =>
-                layer.type &&
-                ["raster-tile", "vector-tile"].includes(layer.type),
+              layer => layer.type && ["raster", "vector"].includes(layer.type),
             )
             .map(mapTileLayerConfig => {
-              return mapTileLayerConfig.url
+              // TODO: handle mulitple url's:
+              return mapTileLayerConfig.tiles[0]
                 .replace("{z}", zoom)
                 .replace("{x}", lng)
                 .replace("{y}", lat);
@@ -50,8 +50,8 @@ const fetchOfflineData = (
     )
     .concat(
       mapLayerConfigs
-        .filter(layer => layer.type && layer.type === "json")
-        .map(mapLayerConfig => mapLayerConfig.source),
+        .filter(layer => layer.type && layer.type === "geojson")
+        .map(mapLayerConfig => mapLayerConfig.data),
     )
     .concat([
       "/static/css/images/marker-arrow-overlay.png",
@@ -83,8 +83,11 @@ const OfflineDownloadMenu = props => {
   const [phase, setPhase] = useState("prompt");
   const [percentDownloaded, setPercentDownloaded] = useState(0);
   return (
-    <Fragment>
-      <InternalLink onClick={() => setIsModalOpen(() => true)}>
+    <>
+      <InternalLink
+        href={{ hash: "#offline-download" }}
+        onClick={() => setIsModalOpen(() => true)}
+      >
         {"Download app for offline use"}
       </InternalLink>
       <Modal
@@ -159,7 +162,7 @@ const OfflineDownloadMenu = props => {
           </Fragment>
         </ModalWrapper>
       </Modal>
-    </Fragment>
+    </>
   );
 };
 
@@ -168,4 +171,8 @@ OfflineDownloadMenu.propTypes = {
   offlineBoundingBox: offlineConfigPropType.isRequired,
 };
 
-export default OfflineDownloadMenu;
+const mapStateToProps = state => ({
+  mapLayerConfigs: mapLayerConfigsSelector(state),
+});
+
+export default connect(mapStateToProps)(OfflineDownloadMenu);

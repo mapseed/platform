@@ -4,6 +4,8 @@ import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import moment from "moment";
 import "moment-timezone";
+import { withRouter } from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -20,6 +22,7 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
+import { updateCurrentTemplate } from "../../state/ducks/ui";
 import {
   placeFormsConfigSelector,
   placeFormsConfigPropType,
@@ -80,7 +83,8 @@ const DashboardWrapper = styled("div")({
   gridTemplateColumns: "auto",
   maxWidth: MAX_DASHBOARD_WIDTH,
   margin: "8px auto 24px auto",
-  height: "100%",
+  height: "calc(100% - 56px)",
+  overflow: "auto",
 
   "&::-webkit-scrollbar": {
     display: "none",
@@ -171,13 +175,15 @@ class Dashboard extends React.Component {
     dashboard: this.props.dashboardConfig[0],
     anchorEl: null,
     places: this.props.allPlaces.filter(
-      place => place._datasetSlug === this.props.dashboardConfig[0].datasetSlug,
+      place => place.datasetSlug === this.props.dashboardConfig[0].datasetSlug,
     ),
   };
 
   componentDidMount() {
+    this.props.updateCurrentTemplate("dashboard");
+
     if (!this.props.hasAdminAbilities(this.state.dashboard.datasetSlug)) {
-      this.props.router.navigate("/", { trigger: true });
+      this.props.history.push("/");
     }
   }
 
@@ -185,7 +191,7 @@ class Dashboard extends React.Component {
     if (nextProps.allPlaces.length !== this.props.allPlaces.length) {
       this.setState({
         places: this.props.allPlaces.filter(
-          place => place._datasetSlug === this.state.dashboard.datasetSlug,
+          place => place.datasetSlug === this.state.dashboard.datasetSlug,
         ),
       });
     }
@@ -247,7 +253,7 @@ class Dashboard extends React.Component {
       anchorEl: null,
       dashboard: newDashboardConfig,
       places: this.props.allPlaces.filter(
-        place => place._datasetSlug === newDashboardConfig.datasetSlug,
+        place => place.datasetSlug === newDashboardConfig.datasetSlug,
       ),
     });
   };
@@ -502,6 +508,7 @@ Dashboard.propTypes = {
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   formFieldsConfig: formFieldsConfigPropType,
   datasetsConfig: datasetsConfigPropType,
+  updateCurrentTemplate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -514,4 +521,14 @@ const mapStateToProps = state => ({
   datasetsConfig: datasetsConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = dispatch => ({
+  updateCurrentTemplate: templateName =>
+    dispatch(updateCurrentTemplate(templateName)),
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Dashboard),
+);

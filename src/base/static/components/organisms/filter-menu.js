@@ -8,6 +8,8 @@ import Downshift from "downshift";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
 import { connect } from "react-redux";
+import { translate } from "react-i18next";
+
 import {
   updateFilters,
   filtersPropType,
@@ -119,9 +121,13 @@ class FilterMenu extends React.Component {
               onClick={this.props.onClick}
               {...getToggleButtonProps()}
             >
-              {`${this.props.navBarItem.title}${
-                isFiltering ? " (on) ⌄" : " ⌄"
-              }`}
+              {this.props.t(
+                isFiltering ? "filterMenuOn" : "filterMenuOff",
+                isFiltering
+                  ? `${this.props.navBarItem.title} (on)`
+                  : this.props.navBarItem.title,
+              )}{" "}
+              ⌄
             </Button>
             {isOpen && (
               <ul
@@ -144,7 +150,7 @@ class FilterMenu extends React.Component {
                   isSelected={!isFiltering}
                 >
                   <CategoryLabel isSelected={!isFiltering}>
-                    {"All"}
+                    {this.props.t("filterMenuOptionAll", "All")}
                   </CategoryLabel>
                 </CategoryFilterOption>
                 {this.props.placeFormsConfig.map((placeForm, index) => {
@@ -162,7 +168,10 @@ class FilterMenu extends React.Component {
                       isSelected={isFilterSelected}
                     >
                       <CategoryLabel isSelected={isFilterSelected}>
-                        {placeForm.label}
+                        {this.props.t(
+                          `filterMenuOption${index}`,
+                          placeForm.label,
+                        )}
                       </CategoryLabel>
                     </CategoryFilterOption>
                   );
@@ -182,6 +191,7 @@ FilterMenu.propTypes = {
   filters: filtersPropType.isRequired,
   placeFormsConfig: placeFormsConfigPropType.isRequired,
   updateFilters: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -195,4 +205,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(FilterMenu);
+)(translate("FilterMenu")(FilterMenu));

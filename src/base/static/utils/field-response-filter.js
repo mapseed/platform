@@ -11,8 +11,6 @@ export default (fieldConfigs, place) => {
         ![
           constants.SUBMIT_FIELD_TYPENAME,
           constants.ATTACHMENT_FIELD_TYPENAME,
-          constants.CUSTOM_URL_TOOLBAR_TYPENAME,
-          constants.MAP_DRAWING_TOOLBAR_TYPENAME,
           constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME,
           constants.INFORMATIONAL_HTML_FIELD_TYPENAME,
         ].includes(fieldConfig.type) &&

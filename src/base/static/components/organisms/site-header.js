@@ -5,9 +5,11 @@ import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { jsx } from "@emotion/core";
 import { withRouter } from "react-router-dom";
+import { translate } from "react-i18next";
 
 import { SiteLogo } from "../atoms/imagery";
 import { NavButton } from "../molecules/buttons";
+import { Button } from "../atoms/buttons";
 import UserMenu from "../molecules/user-menu";
 import { RegularTitle, InternalLink } from "../atoms/typography";
 
@@ -35,7 +37,7 @@ import mq from "../../../../media-queries";
 
 const SiteHeaderWrapper = styled("header")(props => ({
   position: "relative",
-  zIndex: 12,
+  zIndex: 25,
   backgroundColor: props.theme.bg.default,
   display: "flex",
   height: props.isHeaderExpanded ? "auto" : "56px",
@@ -217,14 +219,12 @@ const LanguagePicker = styled("nav")(props => ({
   },
 }));
 
-const LanguageLink = styled("a")(props => ({
-  display: "flex",
-  justifyContent: "center",
+const LanguageButton = styled(Button)(props => ({
   fontFamily: props.theme.text.headerBarFontFamily,
   fontSize: "1rem",
   textDecoration: "none",
-  padding: "8px",
-  textAlign: "center",
+  width: "100%",
+  borderRadius: 0,
 
   "&:hover": {
     color: props.theme.text.secondary,
@@ -328,9 +328,14 @@ const navItemMappings = {
           : "/list"
       }
     >
-      {linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
-        ? linkProps.navBarItem.show_map_button_label
-        : linkProps.navBarItem.show_list_button_label}
+      {linkProps.t(
+        linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
+          ? "toggleMapButton"
+          : "toggleListButton",
+        linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
+          ? linkProps.navBarItem.show_map_button_label
+          : linkProps.navBarItem.show_list_button_label,
+      )}
     </ListToggleLink>
   ))(() => ({
     [mq[0]]: {
@@ -382,7 +387,9 @@ class SiteHeader extends React.Component {
               />
             )}
             {this.props.appConfig.show_name_in_header && (
-              <SiteTitle>{this.props.appConfig.name}</SiteTitle>
+              <SiteTitle>
+                {this.props.t("siteTitle", this.props.appConfig.name)}
+              </SiteTitle>
             )}
           </LogoTitleWrapper>
         </HamburgerTitleWrapper>
@@ -409,46 +416,53 @@ class SiteHeader extends React.Component {
                     isHeaderExpanded: false,
                   });
                 }}
+                t={this.props.t}
               >
-                {navBarItem.title}
+                {this.props.t(`navBarItem${i}`, navBarItem.title)}
               </NavItemComponent>
             );
           })}
         </nav>
         <RightAlignedContainer isHeaderExpanded={this.state.isHeaderExpanded}>
-          {this.props.appConfig.languages &&
-            this.props.appConfig.languages.length > 1 && (
-              <LanguagePicker
-                onMouseOver={() =>
-                  this.setState({
-                    isLanguageMenuVisible: true,
-                  })
-                }
-                onMouseOut={() =>
-                  this.setState({
-                    isLanguageMenuVisible: false,
-                  })
-                }
+          {this.props.availableLanguages && (
+            <LanguagePicker
+              onMouseOver={() =>
+                this.setState({
+                  isLanguageMenuVisible: true,
+                })
+              }
+              onMouseOut={() =>
+                this.setState({
+                  isLanguageMenuVisible: false,
+                })
+              }
+            >
+              {
+                this.props.availableLanguages
+                  .concat(this.props.defaultLanguage)
+                  .find(lang => lang.code === this.props.currentLanguageCode)
+                  .label
+              }{" "}
+              ⌄
+              <LanguagePickerMenu
+                isLanguageMenuVisible={this.state.isLanguageMenuVisible}
               >
-                {
-                  this.props.appConfig.languages.find(
-                    language => language.code === this.props.languageCode,
-                  ).label
-                }{" "}
-                ⌄
-                <LanguagePickerMenu
-                  isLanguageMenuVisible={this.state.isLanguageMenuVisible}
-                >
-                  {this.props.appConfig.languages.map(language => (
-                    <LanguagePickerMenuItem key={language.code}>
-                      <LanguageLink href={`/${language.code}.html`}>
-                        {language.label}
-                      </LanguageLink>
+                {this.props.availableLanguages
+                  .concat(this.props.defaultLanguage)
+                  .map(lang => (
+                    <LanguagePickerMenuItem key={lang.code}>
+                      <LanguageButton
+                        onClick={() => {
+                          this.props.onChangeLanguage(lang.code);
+                        }}
+                      >
+                        {lang.label}
+                      </LanguageButton>
                     </LanguagePickerMenuItem>
                   ))}
-                </LanguagePickerMenu>
-              </LanguagePicker>
-            )}
+              </LanguagePickerMenu>
+            </LanguagePicker>
+          )}
           <UserMenu
             apiRoot={this.props.appConfig.api_root}
             isInMobileMode={this.state.isHeaderExpanded}
@@ -468,9 +482,9 @@ class SiteHeader extends React.Component {
 
 SiteHeader.propTypes = {
   appConfig: appConfigPropType.isRequired,
+  currentLanguageCode: PropTypes.string.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  languageCode: PropTypes.string.isRequired,
   mapConfig: PropTypes.shape({
     options: PropTypes.shape({
       mapViewport: PropTypes.shape({
@@ -481,6 +495,7 @@ SiteHeader.propTypes = {
     }).isRequired,
   }).isRequired,
   navBarConfig: navBarConfigPropType,
+  onChangeLanguage: PropTypes.func.isRequired,
   dashboardConfig: dashboardConfigPropType,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
@@ -506,5 +521,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(SiteHeader),
+  )(translate("SiteHeader")(SiteHeader)),
 );

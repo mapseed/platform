@@ -5,7 +5,7 @@
     "name": "New trees!",
     "meta_description": "_(Trees!)",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
@@ -94,7 +94,7 @@
       },
       {
         "id": "trees",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/trees",
         "type": "place",
         "slug": "trees"
       }

@@ -36,7 +36,44 @@ const highScoreMsgKeys = {
   impact: "highlyImpactfulMsg",
 };
 
+const lowScoreMsgs = {
+  feasibility:
+    "Citizen and City of Durham reviewers have determined this project may not be feasible",
+  equitability:
+    "Citizen and City of Durham reviewers have determined this project may not be equitable",
+  impact:
+    "Citize and City of Durham reviewers have determined this project may not be impactful",
+};
+
+const moderateScoreMsgs = {
+  feasibility:
+    "Citizen and City of Durham reviewers have determined this project would be moderately feasible",
+  equitability:
+    "Citizen and City of Durham reviewers have determined this project would be moderately equitable",
+  impact:
+    "Citizen and City of Durham reviewers have determined this projet would be moderately impactful",
+};
+
+const highScoreMsgs = {
+  feasibility:
+    "Citizen and City of Durham reviwers have determined this project would be highly feasible",
+  equitability:
+    "Citizen and City of Durham reviewers have determined this project would be highly equitable",
+  impact:
+    "Citizen and City of Durham reviewers have determined this project would be highly impactful",
+};
+
 const getScoreMsg = (score, category) => {
+  if (score < 2) {
+    return lowScoreMsgs[category];
+  } else if (score >= 2 && score < 3) {
+    return moderateScoreMsgs[category];
+  } else if (score >= 3) {
+    return highScoreMsgs[category];
+  }
+};
+
+const getScoreMsgKey = (score, category) => {
   if (score < 2) {
     return lowScoreMsgKeys[category];
   } else if (score >= 2 && score < 3) {
@@ -135,7 +172,10 @@ const PBDurhamProjectProposalFieldSummary = props => {
     <div>
       {props.place.private && (
         <UnpublishedWarning>
-          {props.t("unpublishedWarningMsg")}
+          {props.t(
+            "PBDurhamPBDurhamUnpublishedWarningMsg",
+            "This Project is currently unpublished. It will be visible to administrators, delegates, and technical reviewers. Please log in as an administrator to publish this Project for the general public.",
+          )}
         </UnpublishedWarning>
       )}
       {props.place.attachments
@@ -144,82 +184,101 @@ const PBDurhamProjectProposalFieldSummary = props => {
           <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       <ProjectScores>
-        <Title>{props.t("scoreSummaryHeader")}</Title>
+        <Title>
+          {props.t("PBDurhamScoreSummaryHeader", "Project scores:")}
+        </Title>
         <HorizontalRule spacing="tiny" color="light" />
         <ScoreSummary>
           {feasibilityScore > 0 && (
             <>
               <ScoreLabel textTransform="uppercase">
-                {props.t("feasibility")}
+                {props.t("PBDurhamFeasibility", "Feasibility:")}
               </ScoreLabel>
               <Score>
                 <BigNumber>{feasibilityScore}</BigNumber>
                 <LargeText>/3</LargeText>
               </Score>
               <ScoreMsg>
-                {props.t(getScoreMsg(feasibilityScore, "feasibility"))}
+                {props.t(
+                  getScoreMsgKey(feasibilityScore, "feasibility"),
+                  getScoreMsg(feasibilityScore, "feasibility"),
+                )}
               </ScoreMsg>
             </>
           )}
           {equityScore > 0 && (
             <>
               <ScoreLabel textTransform="uppercase">
-                {props.t("equity")}
+                {props.t("PBDurhamEquity", "Equity:")}
               </ScoreLabel>
               <Score>
                 <BigNumber>{equityScore}</BigNumber>
                 <LargeText>/3</LargeText>
               </Score>
               <ScoreMsg>
-                {props.t(getScoreMsg(equityScore, "equitability"))}
+                {props.t(
+                  getScoreMsgKey(equityScore, "equitability"),
+                  getScoreMsg(equityScore, "equitability"),
+                )}
               </ScoreMsg>
             </>
           )}
           {impactScore > 0 && (
             <>
               <ScoreLabel textTransform="uppercase">
-                {props.t("impact")}
+                {props.t("PBDurhamImpact", "Impact:")}
               </ScoreLabel>
               <Score>
                 <BigNumber>{impactScore}</BigNumber>
                 <LargeText>/3</LargeText>
               </Score>
-              <ScoreMsg>{props.t(getScoreMsg(impactScore, "impact"))}</ScoreMsg>
+              <ScoreMsg>
+                {props.t(
+                  getScoreMsgKey(impactScore, "impact"),
+                  getScoreMsg(impactScore, "impact"),
+                )}
+              </ScoreMsg>
             </>
           )}
         </ScoreSummary>
       </ProjectScores>
       <TextArea
-        title={
+        title={props.t(
+          "PBDurhamProjectDescriptionHeader",
           props.fields.find(field => field.name === "project_description")
-            .display_prompt
-        }
+            .display_prompt,
+        )}
         description={props.place.project_description}
       />
       <TextArea
-        title={
+        title={props.t(
+          "PBDurhamImpactStatementHeader",
           props.fields.find(field => field.name === "impact_statement")
-            .display_prompt
-        }
+            .display_prompt,
+        )}
         description={props.place.impact_statement}
       />
       <TextArea
-        title={
+        title={props.t(
+          "PBDurhamStaffProjectBudgetHeader",
           props.fields.find(field => field.name === "staff_project_budget")
-            .display_prompt
-        }
+            .display_prompt,
+        )}
         description={props.place.staff_project_budget}
       />
       <TextArea
-        title={
+        title={props.t(
+          "PBDurhamStaffCostEstimationHeader",
           props.fields.find(field => field.name === "staff_cost_estimation")
-            .display_prompt
-        }
+            .display_prompt,
+        )}
         description={props.place.staff_cost_estimation}
       />
       {relatedIdeas && (
         <RelatedIdeas>
-          <Title>{props.t("relatedIdeasHeader")}</Title>
+          <Title>
+            {props.t("PBDurhamRelatedIdeasHeader", "Related ideas:")}
+          </Title>
           <HorizontalRule spacing="tiny" color="light" />
           <RelatedIdeasList>
             {relatedIdeas.map(placeId => {
@@ -227,7 +286,7 @@ const PBDurhamProjectProposalFieldSummary = props => {
               return relatedIdea ? (
                 <RealatedIdeaListItem key={placeId}>
                   <RelatedIdeaLink
-                    href={`/${relatedIdea._clientSlug}/${relatedIdea.id}`}
+                    href={`/${relatedIdea.clientSlug}/${relatedIdea.id}`}
                   >
                     <RegularText>{relatedIdea.title}</RegularText>
                   </RelatedIdeaLink>

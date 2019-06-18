@@ -1,8 +1,14 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "es",
+      "label": "Español"
+    }
+  },
   "datasets": [
     {
       "slug": "argentina-input",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/argentina-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -13,7 +19,7 @@
     },
     {
       "slug": "argentina-featured",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/argentina-featured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/argentina-featured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
@@ -28,8 +34,8 @@
     "name": "TERRITORIOS DE COLABORACIÓN",
     "show_name_in_header": true,
     "logo": "/static/css/images/TDC.png",
-    "meta_description": "_(We are gathering public input on important issues in the community)",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "meta_description": "We are gathering public input on important issues in the community",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#6BC2D5",
@@ -57,7 +63,7 @@
     "geolocation_onload": false,
     "cartodb_enabled": true,
     "geocoding_enabled": false,
-    "geocode_field_label": "_(Enter an address...)",
+    "geocode_field_label": "Enter an address...",
     "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
       "mapViewport": {
@@ -67,8 +73,7 @@
         "pitch": 0,
         "minZoom": 1,
         "maxZoom": 19
-      },
-      "disableDrawing": true
+      }
     },
     "mapboxSources": {
       "osm": {
@@ -181,8 +186,9 @@
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "argentina-featured",
             "layout": {
+              "icon-image": "marker-star.png",
               "icon-size": 1.1,
-              "icon-anchor": "bottom"
+              "icon-anchor": "center"
             }
           }
         ],
@@ -193,8 +199,9 @@
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "argentina-featured",
             "layout": {
+              "icon-image": "marker-star.png",
               "icon-size": 0.9,
-              "icon-anchor": "bottom"
+              "icon-anchor": "center"
             }
           }
         ]
@@ -278,7 +285,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "left_sidebar": {
     "is_enabled": true,
@@ -288,41 +295,41 @@
         "id": "gis-layers",
         "icon": "fa fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Capas:)",
+        "title": "Capas:",
         "content": [
           {
             "id": "basemaps",
-            "title": "_(Geografía)",
+            "title": "Geografía",
             "layerGroups": [
               {
                 "id": "osm",
-                "title": "_(Mapa base)"
+                "title": "Mapa base"
               },
               {
                 "id": "topografico",
-                "title": "_(Topográfico)"
+                "title": "Topográfico"
               }
             ]
           },
           {
             "id": "grp-community",
-            "title": "_(Contribuciones)",
+            "title": "Contribuciones",
             "layerGroups": [
               {
                 "id": "argentina-input",
-                "title": "_(Puntos)"
+                "title": "Puntos"
               },
               {
                 "id": "argentina-featured",
-                "title": "_(Sitios Destacados)"
+                "title": "Sitios Destacados"
               },
               {
                 "id": "argentina-campanas",
-                "title": "_(Campañas)"
+                "title": "Campañas"
               },
               {
                 "id": "presencia-agua",
-                "title": "_(Desecamiento)"
+                "title": "Desecamiento"
               }
             ]
           }
@@ -335,13 +342,13 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Añadir punto)",
-    "show_list_button_label": "_(See all comments)",
-    "show_map_button_label": "_(Show the Map)",
-    "title": "_(Tell us more...)",
-    "action_text": "_(created)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Submit)",
+    "add_button_label": "Añadir punto",
+    "show_list_button_label": "Ver todos los comentarios",
+    "show_map_button_label": "Mostrar el mapa",
+    "title": "Cuentanos más...",
+    "action_text": "creado este",
+    "anonymous_name": "Alguien",
+    "submit_button_label": "Enviar",
     "location_item_name": "location",
     "place_detail": [
       {
@@ -356,34 +363,22 @@
         "datasetSlug": "argentina-featured",
         "icon_url": "/static/css/images/markers/marker-star.png",
         "value": "featured_place",
-        "label": "_(Campañas / Temas)",
+        "label": "Campañas / Temas",
         "fields": [
-          {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "marker-heart.png"
-              },
-              {
-                "marker": "marker-star.png"
-              }
-            ]
-          },
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Título:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Introducir título)",
+            "prompt": "Título:",
+            "display_prompt": " ",
+            "placeholder": "Introducir título",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "_(Contenido:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Escribir texto. Se puede añadir enlaces, fotos o videos.)"
+            "prompt": "Contenido:",
+            "display_prompt": " ",
+            "placeholder": "Escribir texto. Se puede añadir enlaces, fotos o videos."
           },
           {
             "name": "submit",
@@ -399,22 +394,22 @@
         "datasetSlug": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
-        "label": "_(Observación)",
+        "label": "Observación",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(¿De qué se trata?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Introducir títuló...)",
+            "prompt": "¿De qué se trata?",
+            "display_prompt": " ",
+            "placeholder": "Introducir títuló...",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "_(¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)",
+            "prompt": "¿Qué se ve, se oye, se huele, se siente, se toca? ¿Y qué importancia tiene? ¿Cómo se relaciona a la vida común en el territorio?",
+            "display_prompt": " ",
+            "placeholder": "Notar la observación. Se puede añadir enlaces, fotos o videos.",
             "optional": false
           },
           {
@@ -439,22 +434,22 @@
         "datasetSlug": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "question",
-        "label": "_(Amenazas / conflictos)",
+        "label": "Amenazas / conflictos",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(¿Qué pasa?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Introducir títuló...)",
+            "prompt": "¿Qué pasa?",
+            "display_prompt": " ",
+            "placeholder": "Introducir títuló...",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "_(¿Cuáles son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansión de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)"
+            "prompt": "¿Cuáles son las acciones que involucran alteraciones en el modo de vida de manera negativa? ¿Desarrollo inmobiliario descontrolado, expansión de agricultura industrial, contaminación de cursos de agua, proyectos de infraestructura agresivos, destrucción de humedales?",
+            "display_prompt": " ",
+            "placeholder": "Notar la observación. Se puede añadir enlaces, fotos o videos."
           },
           {
             "name": "submitter_name",
@@ -478,22 +473,22 @@
         "datasetSlug": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
-        "label": "_(Experiencias sustentables)",
+        "label": "Experiencias sustentables",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(¿Qué se hace?)",
-            "placeholder": "_(Introducir título)",
-            "display_prompt": "_( )",
+            "prompt": "¿Qué se hace?",
+            "placeholder": "Introducir título",
+            "display_prompt": " ",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "_( ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Notar la observación. Se puede añadir enlaces, fotos o videos.)",
+            "prompt": " ¿Qué micro experiencias, actividades económicas amigables con el ambiente, restauración ecológica, historias de vida, proyectos funcionando, y experiencias locales, hacen para vos un futuro ambientalmente sustentable y mejor para tu zona?",
+            "display_prompt": " ",
+            "placeholder": "Notar la observación. Se puede añadir enlaces, fotos o videos.",
             "optional": false
           },
           {
@@ -518,22 +513,22 @@
         "datasetSlug": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "complaint",
-        "label": "_(Horizontes / potencialidades)",
+        "label": "Horizontes / potencialidades",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(¿Qué se ve en el futuro?)",
-            "placeholder": "_(Introducir título)",
-            "display_prompt": "_( )",
+            "prompt": "¿Qué se ve en el futuro?",
+            "placeholder": "Introducir título",
+            "display_prompt": " ",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "_(¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Descripción...)",
+            "prompt": "¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?",
+            "display_prompt": " ",
+            "placeholder": "Descripción...",
             "optional": false
           },
           {
@@ -554,41 +549,41 @@
     "common_form_elements": {
       "submitter_name": {
         "type": "text",
-        "prompt": "_(Nombre)",
-        "placeholder": "_(Nombre)",
+        "prompt": "Nombre",
+        "placeholder": "Nombre",
         "optional": true
       },
       "private-submitter_email": {
         "type": "text",
-        "prompt": "_(Correo electrónico)",
-        "placeholder": "_(Recibir noticias sobre este comentario)",
+        "prompt": "Correo electrónico",
+        "placeholder": "Recibir noticias sobre este comentario",
         "optional": true,
         "sticky": true
       },
       "submit": {
         "type": "submit",
-        "label": "_(¡Añadir al mapa!)"
+        "label": "¡Añadir al mapa!"
       }
     },
     "items": [
       {
-        "prompt": "_(Type of report)",
+        "prompt": "Type of report",
         "type": "select",
         "options": [
           {
-            "label": "_(Observation)",
+            "label": "Observation",
             "value": "observation"
           },
           {
-            "label": "_(Question)",
+            "label": "Question",
             "value": "question"
           },
           {
-            "label": "_(Idea)",
+            "label": "Idea",
             "value": "idea"
           },
           {
-            "label": "_(Complaint)",
+            "label": "Complaint",
             "value": "complaint"
           }
         ],
@@ -600,7 +595,7 @@
         ]
       },
       {
-        "prompt": "_(Title of report)",
+        "prompt": "Title of report",
         "type": "text",
         "name": "name",
         "optional": null,
@@ -610,7 +605,7 @@
           },
           {
             "key": "placeholder",
-            "value": "_(Enter title)"
+            "value": "Enter title"
           },
           {
             "key": "size",
@@ -619,19 +614,19 @@
         ]
       },
       {
-        "prompt": "_(Description)",
+        "prompt": "Description",
         "type": "textarea",
         "name": "description",
         "optional": true,
         "attrs": [
           {
             "key": "placeholder",
-            "value": "_(Description...)"
+            "value": "Description..."
           }
         ]
       },
       {
-        "prompt": "_(Tu nombre)",
+        "prompt": "Tu nombre",
         "type": "text",
         "name": "submitter_name",
         "optional": true,
@@ -639,7 +634,7 @@
         "attrs": [
           {
             "key": "placeholder",
-            "value": "_(Name)"
+            "value": "Name"
           },
           {
             "key": "size",
@@ -648,7 +643,7 @@
         ]
       },
       {
-        "prompt": "_(Your Email)",
+        "prompt": "Your Email",
         "type": "text",
         "name": "private-submitter_email",
         "optional": true,
@@ -656,7 +651,7 @@
         "attrs": [
           {
             "key": "placeholder",
-            "value": "_(Receive email updates on your report)"
+            "value": "Receive email updates on your report"
           },
           {
             "key": "size",
@@ -671,22 +666,22 @@
       "submission_type": "comments",
       "show_responses": true,
       "single_submission": false,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comentario)",
+      "response_name": "comentario",
+      "response_plural_name": "comentarios",
+      "action_text": "comentado",
+      "anonymous_name": "Alguuien",
+      "title": "Deja un comentario",
+      "form_link_text": "Deja un comentario",
+      "submit_btn_text": "Comentario",
       "items": [
         {
-          "prompt": "_(Comentario)",
-          "label": "_(Comentario)",
+          "prompt": "Comentario",
+          "label": "Comentario",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Tu nombre)",
+          "prompt": "Tu nombre",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -694,7 +689,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comentario)"
+          "label": "Comentario"
         }
       ]
     },
@@ -702,51 +697,51 @@
       {
         "id": "featured_place",
         "datasetId": "argentina-featured",
-        "label": "_(Featured Site)",
+        "label": "Featured Site",
         "icon": "/static/css/images/markers/marker-star.png"
       },
       {
         "id": "observation",
         "datasetId": "argentina-input",
-        "label": "_(Observación)",
+        "label": "Observación",
         "icon": "/static/css/images/markers/marker-observation.png"
       },
       {
         "id": "question",
         "datasetId": "argentina-input",
-        "label": "_(Amenazas / conflictos)",
+        "label": "Amenazas / conflictos",
         "icon": "/static/css/images/markers/marker-complaint.png"
       },
       {
         "id": "idea",
         "datasetId": "argentina-input",
-        "label": "_(Experiencias sustentables)",
+        "label": "Experiencias sustentables",
         "icon": "/static/css/images/markers/marker-idea.png"
       },
       {
         "id": "complaint",
         "datasetId": "argentina-input",
-        "label": "_(Horizontes / potencialidades)",
+        "label": "Horizontes / potencialidades",
         "icon": "/static/css/images/markers/marker-question.png"
       }
     ]
   },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "_(Support)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
     "action_text": "supported",
-    "anonymous_name": "_(Someone)"
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(Sobre nosotros)",
+      "title": "Sobre nosotros",
       "type": "internal_link",
       "url": "/page/about"
     },
     {
-      "title": "_(¿Cómo participar?)",
+      "title": "¿Cómo participar?",
       "type": "internal_link",
       "url": "/page/getinvolved"
     }
@@ -778,49 +773,48 @@
       ]
     }
   ],
-  "story": {
-    "campanas": {
-      "header": "_(Campañas)",
-      "visibleLayerGroupIds": [
-        "osm",
-        "argentina-campanas",
-        "argentina-input",
-        "argentina-featured"
-      ],
-      "order": [
-        {
-          "placeId": 5343,
-          "pan_to": [-60.5, -32.35],
-          "zoom": 10
-        },
-        {
-          "placeId": 5342,
-          "pan_to": [-60.58, -32.86],
-          "zoom": 10
-        },
-        {
-          "placeId": 5344,
-          "pan_to": [-58.53, -34.41313],
-          "zoom": 10
-        },
-        {
-          "placeId": 5345,
-          "pan_to": [-58.88098, -34.15955],
-          "zoom": 10
-        },
-        {
-          "placeId": 5346,
-          "pan_to": [-57.91877, -34.88249],
-          "zoom": 10
-        },
-        {
-          "placeId": 6990,
-          "zoom": 8,
-          "pan_to": [-60.1, -32.97],
-          "visibleLayerGroupIds": ["osm", "presencia-agua"],
-          "spotlight": false
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "name": "campanas",
+    "header": "Campañas",
+    "visibleLayerGroupIds": [
+      "osm",
+      "argentina-campanas",
+      "argentina-input",
+      "argentina-featured"
+    ],
+    "order": [
+      {
+        "placeId": 5343,
+        "pan_to": [-60.5, -32.35],
+        "zoom": 10
+      },
+      {
+        "placeId": 5342,
+        "pan_to": [-60.58, -32.86],
+        "zoom": 10
+      },
+      {
+        "placeId": 5344,
+        "pan_to": [-58.53, -34.41313],
+        "zoom": 10
+      },
+      {
+        "placeId": 5345,
+        "pan_to": [-58.88098, -34.15955],
+        "zoom": 10
+      },
+      {
+        "placeId": 5346,
+        "pan_to": [-57.91877, -34.88249],
+        "zoom": 10
+      },
+      {
+        "placeId": 6990,
+        "zoom": 8,
+        "pan_to": [-60.1, -32.97],
+        "visibleLayerGroupIds": ["osm", "presencia-agua"],
+        "spotlight": false
+      }
+    ]
   }
 }

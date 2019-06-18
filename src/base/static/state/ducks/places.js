@@ -7,11 +7,7 @@ export const placePropType = PropTypes.shape({
   created_datetime: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  // NOTE: the _ prefix indicates that the attribute won't be sent to the
-  // server after serializaation
-  // TODO: remove the _ prefix from _datasetSlug, because it is causing
-  // confusion
-  _datasetSlug: PropTypes.string.isRequired,
+  datasetSlug: PropTypes.string.isRequired,
   submitter_name: PropTypes.string,
   submission_sets: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
@@ -41,13 +37,13 @@ export const filteredPlacesSelector = state => {
     return !!filters.some(
       filter =>
         filter.formId === place.location_type &&
-        filter.datasetSlug === place._datasetSlug,
+        filter.datasetSlug === place.datasetSlug,
     );
   });
 };
 
 export const datasetLengthSelector = (state, datasetSlug) =>
-  state.places.placeModels.filter(place => place._datasetSlug === datasetSlug)
+  state.places.placeModels.filter(place => place.datasetSlug === datasetSlug)
     .length;
 
 export const placeSelector = (state, placeId) => {
@@ -109,20 +105,17 @@ export function updateFocusedPlaceId(placeId) {
   };
 }
 
-const ensureSubmissionSetsAndStory = (place, storyChapters = []) => ({
+const mapPlaceWithSubmissionSets = place => ({
   ...place,
   submission_sets: {
     ...place.submission_sets,
     support: place.submission_sets.support || [],
     comments: place.submission_sets.comments || [],
   },
-  story: storyChapters.find(chapter => chapter.placeId === place.id) || null,
 });
 
-export function loadPlaces(places, storyChapters) {
-  places = places.map(place =>
-    ensureSubmissionSetsAndStory(place, storyChapters),
-  );
+export function loadPlaces(places) {
+  places = places.map(place => mapPlaceWithSubmissionSets(place));
 
   return { type: LOAD_PLACES, payload: places };
 }
@@ -130,7 +123,7 @@ export function loadPlaces(places, storyChapters) {
 export function loadPlaceAndSetIgnoreFlag(placeModel) {
   return {
     type: LOAD_PLACE_AND_SET_IGNORE_FLAG,
-    payload: ensureSubmissionSetsAndStory(placeModel),
+    payload: mapPlaceWithSubmissionSets(placeModel),
   };
 }
 

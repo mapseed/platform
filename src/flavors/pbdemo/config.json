@@ -1,9 +1,37 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    },
+    "availableLanguages": [
+      {
+        "code": "es",
+        "label": "Español"
+      },
+      {
+        "code": "vi",
+        "label": "Tiếng Việt"
+      },
+      {
+        "code": "zh-CN",
+        "label": "中文"
+      },
+      {
+        "code": "hi",
+        "label": "हिंदी"
+      },
+      {
+        "code": "fr",
+        "label": "Française"
+      }
+    ]
+  },
   "datasets": [
     {
       "slug": "pbdemo",
-      "url": "https://api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdemo",
-      "clientSlug": "idea",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdemo",
+      "clientSlug": "demo-idea",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
@@ -13,7 +41,7 @@
     },
     {
       "slug": "pbdurham",
-      "url": "https://api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham",
+      "url": "https://api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham",
       "clientSlug": "idea",
       "anonymous_permissions": [
         {
@@ -23,10 +51,10 @@
       ]
     },
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdemo-projects",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdemo-projects",
       "slug": "pbdemo-projects",
       "owner": "smartercleanup",
-      "clientSlug": "project",
+      "clientSlug": "demo-project",
       "anonymous_permissions": [
         {
           "abilities": ["retrieve", "create"],
@@ -35,7 +63,7 @@
       ]
     },
     {
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham-projects",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
       "owner": "smartercleanup",
       "clientSlug": "project",
@@ -48,11 +76,11 @@
     }
   ],
   "app": {
-    "title": "_(Participatory Budgeting Durham)",
-    "name": "_(Participatory Budgeting Durham)",
+    "title": "Participatory Budgeting Durham",
+    "name": "Participatory Budgeting Durham",
     "logo": "/static/css/images/pbdurham-logo-large.png",
-    "meta_description": "_(Participatory Budgeting for City of Durham)",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "meta_description": "Participatory Budgeting for City of Durham",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "time_zone": "America/New_York",
     "theme": {
       "bg": {
@@ -89,10 +117,16 @@
   },
   "dashboard": [
     {
+      "datasetSlug": "pbdurham-projects",
+      "surveyMetrics": {
+        "wards": true,
+        "budget": true
+      }
+    },
+    {
       "datasetSlug": "pbdurham",
       "surveyMetrics": {
-        "categories": true,
-        "demographics": true
+        "categories": true
       }
     }
   ],
@@ -100,7 +134,7 @@
     "geolocation_enabled": true,
     "geocoding_bar_enabled": true,
     "geocoding_engine": "Mapbox",
-    "geocode_field_label": "_(Enter an address...)",
+    "geocode_field_label": "Enter an address...",
     "geocode_hint": [-78.906412, 35.9954801],
     "geocode_bounding_box": [-79.09479, 35.865179, -78.78392, 36.119792],
     "options": {
@@ -111,8 +145,7 @@
         "pitch": 30,
         "minZoom": 1,
         "maxZoom": 18
-      },
-      "drawing_enabled": false
+      }
     },
     "mapboxSources": {
       "satellite": {
@@ -764,87 +797,87 @@
         "id": "gis-layers",
         "icon": "fa fa-bars",
         "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
+        "title": "Map Layers:",
         "content": [
           {
             "id": "basemaps",
-            "title": "_(Basemaps)",
+            "title": "Basemaps",
             "layerGroups": [
               {
                 "id": "osm",
-                "title": "_(Neighborhood Style)"
+                "title": "Neighborhood Style"
               },
               {
                 "id": "satellite",
-                "title": "_(Satellite View)"
+                "title": "Satellite View"
               }
             ]
           },
           {
             "id": "grp-community",
-            "title": "_(Community Data)",
+            "title": "Community Data",
             "layerGroups": [
               {
                 "id": "pbdurham",
-                "title": "_(Original PB Durham Ideas)"
+                "title": "Original PB Durham Ideas"
               },
               {
                 "id": "pbdurham-projects",
-                "title": "_(Original PB Durham Project Proposals)"
+                "title": "Original PB Durham Project Proposals"
               },
               {
                 "id": "pbdemo",
-                "title": "_(Demo ideas)"
+                "title": "Demo ideas"
               },
               {
                 "id": "pbdemo-projects",
-                "title": "_(Demo Proposed Projects)"
+                "title": "Demo Proposed Projects"
               }
             ]
           },
           {
             "id": "grp-city",
-            "title": "_(City Data)",
+            "title": "City Data",
             "layerGroups": [
               {
                 "id": "durham-bike-trails",
-                "title": "_(Bike Lanes)"
+                "title": "Bike Lanes"
               },
               {
                 "id": "durham-bus-routes",
-                "title": "_(Bus Routes)"
+                "title": "Bus Routes"
               },
               {
                 "id": "durham-bus-stops",
-                "title": "_(Bus Stops)"
+                "title": "Bus Stops"
               },
               {
                 "id": "durham-libraries",
-                "title": "_(Libraries)"
+                "title": "Libraries"
               },
               {
                 "id": "durham-schools",
-                "title": "_(Schools)"
+                "title": "Schools"
               },
               {
                 "id": "durham-council-wards",
-                "title": "_(City Council Wards)"
+                "title": "City Council Wards"
               },
               {
                 "id": "durham-city-boundary",
-                "title": "_(City Boundary)"
+                "title": "City Boundary"
               },
               {
                 "id": "durham-existing-trails",
-                "title": "_(Existing Trails)"
+                "title": "Existing Trails"
               },
               {
                 "id": "durham-proposed-trails",
-                "title": "_(Proposed Trails)"
+                "title": "Proposed Trails"
               },
               {
                 "id": "durham-parks",
-                "title": "_(Parks)"
+                "title": "Parks"
               }
             ]
           }
@@ -858,12 +891,12 @@
     "show_in_right_panel": true
   },
   "place": {
-    "add_button_label": "_(Submit New Project)",
-    "title": "_(Describe your idea)",
-    "action_text": "_(suggested)",
-    "help_text": "_(Ideas must be \"capital\" projects - building, installing, or repairing something for public benefit.)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Share my idea)",
+    "add_button_label": "Submit New Project",
+    "title": "Describe your idea",
+    "action_text": "suggested",
+    "help_text": "Ideas must be \"capital\" projects - building, installing, or repairing something for public benefit.",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Share my idea",
     "location_item_name": "location",
     "place_detail": [
       {
@@ -875,56 +908,56 @@
         "datasetSlug": "pbdemo-projects",
         "icon_url": "/static/css/images/markers/money.png",
         "value": "project",
-        "label": "_(Project Proposal)",
+        "label": "Project Proposal",
         "fields": [
           {
             "name": "private",
             "type": "big_radio",
             "restrictToGroups": ["administrators"],
-            "prompt": "_(Publish or unpublish this project. Published projects will be visible to all users. Unpublished projects will be visible to administrators, delegates, and technical reviewers.)",
+            "prompt": "Publish or unpublish this project. Published projects will be visible to all users. Unpublished projects will be visible to administrators, delegates, and technical reviewers.",
             "forced_default_value": "yes",
             "content": [
               {
-                "label": "_(Published)",
+                "label": "Published",
                 "value": "no"
               },
               {
-                "label": "_(Unpublished)",
+                "label": "Unpublished",
                 "value": "yes"
               }
             ],
             "optional": false
           },
           {
-            "prompt": "_(Proposal Name)",
+            "prompt": "Proposal Name",
             "type": "text",
             "placeholder": "...",
             "name": "title",
             "optional": false
           },
           {
-            "prompt": "_(Idea(s) it comes from: (List idea tracker number(s), separated by a space))",
-            "display_prompt": "_(Related ideas:)",
+            "prompt": "Idea(s) it comes from: (List idea tracker number(s), separated by a space)",
+            "display_prompt": "Related ideas:",
             "type": "text",
             "placeholder": "...",
             "name": "related_ideas",
             "optional": true
           },
           {
-            "prompt": "_(Brief Project Description: (less than 100 words))",
-            "display_prompt": "_(Description of this project proposal:)",
+            "prompt": "Brief Project Description: (less than 100 words)",
+            "display_prompt": "Description of this project proposal:",
             "type": "textarea",
             "includeOnListItem": true,
-            "placeholder": "_(Briefly describe the project)",
+            "placeholder": "Briefly describe the project",
             "name": "project_description",
             "optional": true
           },
           {
-            "prompt": "_(Impact Statement: (less than 200 words))",
-            "display_prompt": "_(Impact Statement:)",
+            "prompt": "Impact Statement: (less than 200 words)",
+            "display_prompt": "Impact Statement:",
             "includeOnListItem": true,
             "type": "textarea",
-            "placeholder": "_(Briefly describe the project)",
+            "placeholder": "Briefly describe the project",
             "name": "impact_statement",
             "optional": true
           },
@@ -932,23 +965,23 @@
             "name": "ward",
             "type": "big_radio",
             "includeOnListItem": true,
-            "prompt": "_(Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?)",
-            "label": "_(Ward:)",
+            "prompt": "Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?",
+            "label": "Ward:",
             "content": [
               {
-                "label": "_(Ward 1)",
+                "label": "Ward 1",
                 "value": "ward_1"
               },
               {
-                "label": "_(Ward 2)",
+                "label": "Ward 2",
                 "value": "ward_2"
               },
               {
-                "label": "_(Ward 3)",
+                "label": "Ward 3",
                 "value": "ward_3"
               },
               {
-                "label": "_(Citywide)",
+                "label": "Citywide",
                 "value": "citywide"
               }
             ],
@@ -961,45 +994,45 @@
             "content": "<h1>Budget Delegates section</h1><p>This section is intended to be completed by Budget Delegates.</p>"
           },
           {
-            "prompt": "_(Equity Score)",
+            "prompt": "Equity Score",
             "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Equity Assessment Score:)",
+            "display_prompt": "Equity Assessment Score:",
             "type": "big_radio",
             "name": "delegate_equity_score",
             "optional": true,
             "content": [
               {
-                "label": "_(1 - Low contribution to advancing equity)",
+                "label": "1 - Low contribution to advancing equity",
                 "value": "1"
               },
               {
-                "label": "_(2 - Medium contribution to advancing equity)",
+                "label": "2 - Medium contribution to advancing equity",
                 "value": "2"
               },
               {
-                "label": "_(3 - High contribution to advancing equity)",
+                "label": "3 - High contribution to advancing equity",
                 "value": "3"
               }
             ]
           },
           {
-            "prompt": "_(Impact Score)",
+            "prompt": "Impact Score",
             "restrictToGroups": ["delegates"],
-            "display_prompt": "_(Impact Assessment Score:)",
+            "display_prompt": "Impact Assessment Score:",
             "type": "big_radio",
             "name": "delegate_impact_score",
             "optional": true,
             "content": [
               {
-                "label": "_(1 - Low impact)",
+                "label": "1 - Low impact",
                 "value": "1"
               },
               {
-                "label": "_(2 - Medium impact)",
+                "label": "2 - Medium impact",
                 "value": "2"
               },
               {
-                "label": "_(3 - High impact)",
+                "label": "3 - High impact",
                 "value": "3"
               }
             ]
@@ -1011,30 +1044,30 @@
             "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
           },
           {
-            "prompt": "_(Feasibility Score)",
+            "prompt": "Feasibility Score",
             "restrictToGroups": ["tech-reviewers"],
-            "display_prompt": "_(Feasibility Assessment Score)",
+            "display_prompt": "Feasibility Assessment Score",
             "type": "big_radio",
             "name": "staff_feasibility_score",
             "optional": true,
             "content": [
               {
-                "label": "_(1 - Project is not feasible)",
+                "label": "1 - Project is not feasible",
                 "value": "1"
               },
               {
-                "label": "_(2 - Project may or may not be feasible)",
+                "label": "2 - Project may or may not be feasible",
                 "value": "2"
               },
               {
-                "label": "_(3 - Project is highly likely to be feasible)",
+                "label": "3 - Project is highly likely to be feasible",
                 "value": "3"
               }
             ]
           },
           {
-            "prompt": "_(Project Budget)",
-            "display_prompt": "_(Project Budget:)",
+            "prompt": "Project Budget",
+            "display_prompt": "Project Budget:",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
             "includeOnListItem": true,
@@ -1043,8 +1076,8 @@
             "optional": true
           },
           {
-            "prompt": "_(Ongoing Maintenance Cost)",
-            "display_prompt": "_(Ongoing Maintenance Cost:)",
+            "prompt": "Ongoing Maintenance Cost",
+            "display_prompt": "Ongoing Maintenance Cost:",
             "restrictToGroups": ["tech-reviewers"],
             "type": "text",
             "includeOnListItem": true,
@@ -1071,32 +1104,32 @@
         "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/fountain.png",
         "value": "culture",
-        "label": "_(Art & Culture)",
+        "label": "Art & Culture",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Choose a descriptive title for your idea)",
+            "prompt": "Title:",
+            "display_prompt": "Title:",
+            "placeholder": "Choose a descriptive title for your idea",
             "optional": false
           },
           {
             "name": "idea-what",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
-            "display_prompt": "_(My project idea is:)",
-            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "prompt": "What is your idea for what should be improved in your neighborhood?",
+            "display_prompt": "My project idea is:",
+            "placeholder": "Ideas should be one-time project expenditures that address a community need",
             "optional": true
           },
           {
             "name": "idea-why",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Why is this important? What need in the community does this serve?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "prompt": "Why is this important? What need in the community does this serve?",
+            "display_prompt": " ",
+            "placeholder": "Let us know how your idea helps the City of Durham!",
             "optional": true
           },
           {
@@ -1146,32 +1179,32 @@
         "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/tree.png",
         "value": "parks",
-        "label": "_(Parks & Recreation)",
+        "label": "Parks & Recreation",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Choose a descriptive title for your idea)",
+            "prompt": "Title:",
+            "display_prompt": "Title:",
+            "placeholder": "Choose a descriptive title for your idea",
             "optional": false
           },
           {
             "name": "idea-what",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
-            "display_prompt": "_(My project idea is:)",
-            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "prompt": "What is your idea for what should be improved in your neighborhood?",
+            "display_prompt": "My project idea is:",
+            "placeholder": "Ideas should be one-time project expenditures that address a community need",
             "optional": true
           },
           {
             "name": "idea-why",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Why is this important? What need in the community does this serve?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "prompt": "Why is this important? What need in the community does this serve?",
+            "display_prompt": " ",
+            "placeholder": "Let us know how your idea helps the City of Durham!",
             "optional": true
           },
           {
@@ -1221,32 +1254,32 @@
         "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/street-sidewalk.png",
         "value": "streets",
-        "label": "_(Streets & Sidewalks)",
+        "label": "Streets & Sidewalks",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Choose a descriptive title for your idea)",
+            "prompt": "Title:",
+            "display_prompt": "Title:",
+            "placeholder": "Choose a descriptive title for your idea",
             "optional": false
           },
           {
             "name": "idea-what",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
-            "display_prompt": "_(My project idea is:)",
-            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "prompt": "What is your idea for what should be improved in your neighborhood?",
+            "display_prompt": "My project idea is:",
+            "placeholder": "Ideas should be one-time project expenditures that address a community need",
             "optional": true
           },
           {
             "name": "idea-why",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Why is this important? What need in the community does this serve?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "prompt": "Why is this important? What need in the community does this serve?",
+            "display_prompt": " ",
+            "placeholder": "Let us know how your idea helps the City of Durham!",
             "optional": true
           },
           {
@@ -1296,32 +1329,32 @@
         "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/health.png",
         "value": "health",
-        "label": "_(Health & Wellness)",
+        "label": "Health & Wellness",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Choose a descriptive title for your idea)",
+            "prompt": "Title:",
+            "display_prompt": "Title:",
+            "placeholder": "Choose a descriptive title for your idea",
             "optional": false
           },
           {
             "name": "idea-what",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
-            "display_prompt": "_(My project idea is:)",
-            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "prompt": "What is your idea for what should be improved in your neighborhood?",
+            "display_prompt": "My project idea is:",
+            "placeholder": "Ideas should be one-time project expenditures that address a community need",
             "optional": true
           },
           {
             "name": "idea-why",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Why is this important? What need in the community does this serve?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "prompt": "Why is this important? What need in the community does this serve?",
+            "display_prompt": " ",
+            "placeholder": "Let us know how your idea helps the City of Durham!",
             "optional": true
           },
           {
@@ -1371,32 +1404,32 @@
         "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/safety.png",
         "value": "safety",
-        "label": "_(Safety & Environment)",
+        "label": "Safety & Environment",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Choose a descriptive title for your idea)",
+            "prompt": "Title:",
+            "display_prompt": "Title:",
+            "placeholder": "Choose a descriptive title for your idea",
             "optional": false
           },
           {
             "name": "idea-what",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What is your idea for what should be improved in your neighborhood?)",
-            "display_prompt": "_(My project idea is:)",
-            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "prompt": "What is your idea for what should be improved in your neighborhood?",
+            "display_prompt": "My project idea is:",
+            "placeholder": "Ideas should be one-time project expenditures that address a community need",
             "optional": true
           },
           {
             "name": "idea-why",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Why is this important? What need in the community does this serve?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "prompt": "Why is this important? What need in the community does this serve?",
+            "display_prompt": " ",
+            "placeholder": "Let us know how your idea helps the City of Durham!",
             "optional": true
           },
           {
@@ -1446,32 +1479,32 @@
         "datasetSlug": "pbdemo",
         "icon_url": "/static/css/images/markers/idea.png",
         "value": "other",
-        "label": "_(Other)",
+        "label": "Other",
         "fields": [
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Choose a descriptive title for your idea)",
+            "prompt": "Title:",
+            "display_prompt": "Title:",
+            "placeholder": "Choose a descriptive title for your idea",
             "optional": false
           },
           {
             "name": "idea-what",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(What is your idea for what should be built or repaired in our neighborhood?)",
-            "display_prompt": "_(My project idea is:)",
-            "placeholder": "_(Ideas should be one-time project expenditures that address a community need)",
+            "prompt": "What is your idea for what should be built or repaired in our neighborhood?",
+            "display_prompt": "My project idea is:",
+            "placeholder": "Ideas should be one-time project expenditures that address a community need",
             "optional": true
           },
           {
             "name": "idea-why",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Why is this important? What need in the community does this serve?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Let us know how your idea helps the City of Durham!)",
+            "prompt": "Why is this important? What need in the community does this serve?",
+            "display_prompt": " ",
+            "placeholder": "Let us know how your idea helps the City of Durham!",
             "optional": true
           },
           {
@@ -1516,50 +1549,50 @@
     "common_form_elements": {
       "my_image": {
         "type": "file",
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
+        "prompt": "Image",
+        "label": "Add an Image",
         "optional": true
       },
       "private-age": {
         "autocomplete": false,
         "type": "text",
-        "prompt": "_(Your age:)",
-        "display_prompt": "_( )",
-        "placeholder": "_(Your age will not appear on the map)",
+        "prompt": "Your age:",
+        "display_prompt": " ",
+        "placeholder": "Your age will not appear on the map",
         "optional": true
       },
       "private-ethnicity": {
         "autocomplete": false,
         "type": "big_checkbox",
-        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
-        "display_prompt": "_(Ethnicity:)",
+        "prompt": "Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):",
+        "display_prompt": "Ethnicity:",
         "content": [
           {
-            "label": "_(American Indian/Alaskan Native)",
+            "label": "American Indian/Alaskan Native",
             "value": "indian-alaskan"
           },
           {
-            "label": "_(Asian)",
+            "label": "Asian",
             "value": "asian"
           },
           {
-            "label": "_(Black or African American)",
+            "label": "Black or African American",
             "value": "black"
           },
           {
-            "label": "_(Hispanic or Latinx)",
+            "label": "Hispanic or Latinx",
             "value": "hispanic"
           },
           {
-            "label": "_(Native Hawaiian or Pacific Islander)",
+            "label": "Native Hawaiian or Pacific Islander",
             "value": "hawaiian-pacific"
           },
           {
-            "label": "_(White)",
+            "label": "White",
             "value": "white"
           },
           {
-            "label": "_(Other)",
+            "label": "Other",
             "value": "other-ethnicity"
           }
         ],
@@ -1568,51 +1601,51 @@
       "private-home_address": {
         "autocomplete": false,
         "type": "text",
-        "prompt": "_(Your home address:)",
-        "placeholder": "_(Your home address will not appear on the map)",
+        "prompt": "Your home address:",
+        "placeholder": "Your home address will not appear on the map",
         "optional": true
       },
       "submitter_name": {
         "autocomplete": false,
         "type": "text",
-        "prompt": "_(Your name:)",
-        "placeholder": "_(Name)",
+        "prompt": "Your name:",
+        "placeholder": "Name",
         "optional": false
       },
       "private-submitter_email": {
         "autocomplete": false,
         "type": "text",
-        "prompt": "_(Your Email:)",
-        "placeholder": "_(Your email will not appear on the map)",
+        "prompt": "Your Email:",
+        "placeholder": "Your email will not appear on the map",
         "optional": false
       },
       "private-phone": {
         "autocomplete": false,
         "type": "text",
-        "prompt": "_(Your phone number:)",
-        "display_prompt": "_( )",
-        "placeholder": "_(Your phone number will not appear on the map)",
+        "prompt": "Your phone number:",
+        "display_prompt": " ",
+        "placeholder": "Your phone number will not appear on the map",
         "optional": true
       },
       "private-volunteer": {
         "type": "big_toggle",
-        "prompt": "_(I'd like to volunteer as a Budget Delegate)",
+        "prompt": "I'd like to volunteer as a Budget Delegate",
         "content": [
           {
-            "label": "_(Yes)",
+            "label": "Yes",
             "value": "yes"
           },
           {
-            "label": "_(No)",
+            "label": "No",
             "value": "no"
           }
         ],
         "optional": true,
-        "attribution": "_(Budget Delegates will meet 6 - 8 times from December through June​ to evaluate project ideas, work with city staff to research the projects and will receive training and support to develop proposals for the ballot.)"
+        "attribution": "Budget Delegates will meet 6 - 8 times from December through June​ to evaluate project ideas, work with city staff to research the projects and will receive training and support to develop proposals for the ballot."
       },
       "submit": {
         "type": "submit",
-        "label": "_(Put it on the map!)"
+        "label": "Put it on the map!"
       }
     }
   },
@@ -1621,22 +1654,22 @@
       "submission_type": "comments",
       "adding_enabled": false,
       "show_responses": true,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "Comment",
+          "label": "Comment",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -1644,7 +1677,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "Comment"
         }
       ]
     },
@@ -1652,76 +1685,102 @@
       {
         "id": "culture",
         "datasetSlug": "pbdurham",
-        "label": "_(Art & Culture)",
+        "label": "Art & Culture",
         "icon": "/static/css/images/markers/fountain.png"
       },
       {
         "id": "parks",
         "datasetSlug": "pbdurham",
-        "label": "_(Parks & Recreation)",
+        "label": "Parks & Recreation",
         "icon": "/static/css/images/markers/tree.png"
       },
       {
         "id": "streets",
         "datasetSlug": "pbdurham",
-        "label": "_(Streets & Sidewalks)",
+        "label": "Streets & Sidewalks",
         "icon": "/static/css/images/markers/street-sidewalk.png"
       },
       {
         "id": "health",
         "datasetSlug": "pbdurham",
-        "label": "_(Health & Wellness)",
+        "label": "Health & Wellness",
         "icon": "/static/css/images/markers/health.png"
       },
       {
         "id": "safety",
         "datasetSlug": "pbdurham",
-        "label": "_(Safety & Environment)",
+        "label": "Safety & Environment",
         "icon": "/static/css/images/markers/safety.png"
       },
       {
         "id": "other",
         "datasetSlug": "pbdurham",
-        "label": "_(Other)",
+        "label": "Other",
         "icon": "/static/css/images/markers/idea.png"
       }
     ],
     "fields": [
       {
-        "id": "private-ethnicity",
-        "autocomplete": false,
-        "type": "big_checkbox",
-        "prompt": "_(Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):)",
-        "display_prompt": "_(Ethnicity:)",
-        "label": "_(Ethnicity:)",
+        "id": "ward",
+        "type": "radio",
+        "prompt": "Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?",
+        "display_prompt": "Ward:",
+        "label": "Ward:",
         "optional": true,
         "content": [
           {
-            "label": "_(American Indian/Alaskan Native)",
+            "label": "Ward 1",
+            "value": "ward_1"
+          },
+          {
+            "label": "Ward 2",
+            "value": "ward_2"
+          },
+          {
+            "label": "Ward 3",
+            "value": "ward_3"
+          },
+          {
+            "label": "Citywide",
+            "value": "citywide"
+          }
+        ]
+      },
+      {
+        "id": "private-ethnicity",
+        "autocomplete": false,
+        "type": "big_checkbox",
+        "prompt": "Your race/ethnicity (check all that apply; your race/ethnicity will not appear on the map):",
+        "display_prompt": "Ethnicity:",
+        "label": "Ethnicity:",
+        "optional": true,
+        "content": [
+          {
+            "label": "American Indian/Alaskan Native",
             "value": "indian-alaskan"
           },
           {
-            "label": "_(Asian)",
+            "label": "Asian",
             "value": "asian"
           },
           {
-            "label": "_(Black or African American)",
+            "label": "Black or African American",
             "value": "black"
           },
           {
-            "label": "_(Hispanic or Latinx)",
+            "label": "Hispanic or Latinx",
             "value": "hispanic"
           },
           {
-            "label": "_(Native Hawaiian or Pacific Islander)",
+            "label": "Native Hawaiian or Pacific Islander",
             "value": "hawaiian-pacific"
           },
           {
-            "label": "_(White)",
+            "label": "White",
             "value": "white"
           },
           {
-            "label": "_(Other)",
+            "label": "Other",
             "value": "other-ethnicity"
           }
         ]
@@ -1731,44 +1790,44 @@
   "support": {
     "submission_type": "support",
     "adding_enabled": false,
-    "submit_btn_text": "_(Support This!)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
-    "action_text": "_(supported)",
-    "anonymous_name": "_(Someone)"
+    "submit_btn_text": "Support This!",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "About",
       "type": "internal_link",
       "url": "/page/about",
       "start_page": true
     },
     {
-      "title": "_(Guidelines)",
+      "title": "Guidelines",
       "type": "internal_link",
       "url": "/page/guidelines"
     },
     {
-      "title": "_(Get Involved)",
+      "title": "Get Involved",
       "type": "internal_link",
       "url": "/page/get-involved"
     },
     {
       "type": "list_toggle",
-      "show_list_button_label": "_(Show as a list)",
-      "show_map_button_label": "_(Show on a map)"
+      "show_list_button_label": "Show as a list",
+      "show_map_button_label": "Show on a map"
     },
     {
-      "title": "_(Filter Ideas)",
-      "enabled_label": "_(Filters Enabled)",
+      "title": "Filter Ideas",
+      "enabled_label": "Filters Enabled",
       "type": "filter"
     }
   ],
   "pages": [
     {
       "slug": "get-involved",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<h1>Get Involved</h1>",
         "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
@@ -1816,7 +1875,7 @@
     },
     {
       "slug": "guidelines",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
         "<div class='clearfix'>",
         "<h1>Project Idea Guidelines</h1>",
@@ -1846,10 +1905,10 @@
     },
     {
       "slug": "about",
-      "lang": "en_US",
+      "lang": "en",
       "content": [
-        "<h3>Durham Participatory Budgeting:</h3>",
-        "<h4>Put your money where your ideas are!</h4>",
+        "<h1>Durham Participatory Budgeting:</h1>",
+        "<h2>Put your money where your ideas are!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
         "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
@@ -1862,10 +1921,9 @@
       "slug": "about",
       "lang": "es",
       "content": [
-        "<h3>Presupuesto participativo de Durham:</h3>",
-        "<h4>¡Pon tu dinero donde están tus ideas!</h4>",
+        "<h1>Presupuesto participativo de Durham:</h1>",
+        "<h2>¡Pon tu dinero donde están tus ideas!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
-        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Envíe su idea</a>",
         "<p>El presupuesto participativo de Durham es un proceso democrático en el que los miembros de la comunidad de los tres distritos municipales deciden directamente cómo gastar $ 2.4 millones ($ 800,000 por distrito).</p>",
         "<p>De Noviembre del 2018 a Marzo del 2019, los delegados voluntarios del presupuesto trabajarán para desarrollar estas ideas iniciales en propuestas de proyectos completos. Los residentes de Durham podrán votar en Mayo del 2019 para determinar los proyectos ganadores.</p>",
         "<p>Proyectos de una sola vez son proyectos con gastos de una sola vez que abordan una necesidad comunitaria. Los proyectos pueden ser construido en tierra de la ciudad, La Autoridad de Vivienda de Durham (Durham Housing Authority) y tierra privada al recibir donaciones. Proyectos de una sola vez pueden incluir infraestructura física, mejoras tecnológicas y mejoras comunitarias. Ejemplos de proyectos de una sola vez incluyen mejoras del parque, las computadoras para un centro comunitario, refugios para autobuses y carriles para bicicletas. Proyectos de una sola vez pueden tener algún costo de operación asociado. Sin embargo, no requieren que la ciudad contratara personal adicional.</p>",

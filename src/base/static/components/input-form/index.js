@@ -1,34 +1,30 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap, fromJS } from "immutable";
-import classNames from "classnames";
+import { css, jsx } from "@emotion/core";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import FormField from "../form-fields/form-field";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
 
 import { translate } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
-import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
-import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
 import {
-  activeMarkerSelector,
-  geometryStyleSelector,
-  setActiveDrawingTool,
-  geometryStyleProps,
-  setActiveDrawGeometryId,
-} from "../../state/ducks/map-drawing-toolbar";
+  datasetClientSlugSelector,
+  datasetReportSelector,
+} from "../../state/ducks/datasets-config";
 import {
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
@@ -39,23 +35,20 @@ import {
   hasGroupAbilitiesInDatasets,
   isInAtLeastOneGroup,
 } from "../../state/ducks/user";
-import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
+import {
+  updateUIVisibility,
+  layoutSelector,
+  uiVisibilitySelector,
+} from "../../state/ducks/ui";
+import { analysisTargetFeaturesSelector } from "../../state/ducks/analysis";
 import { jumpTo } from "../../utils/scroll-helpers";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
+import { geoAnalyze } from "../../utils/geo";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
-
-// TEMPORARY: We define flavor hooks here for the time being.
-const MYWATER_SCHOOL_DISTRICTS = require("../../../../flavors/central-puget-sound/static/school-districts.json");
-const hooks = {
-  myWaterAddDistrict: attrs => {
-    attrs.district = MYWATER_SCHOOL_DISTRICTS[attrs["school-name"]] || "";
-
-    return attrs;
-  },
-};
+import mapseedPDFServiceClient from "../../client/pdf-service-client";
 
 class InputForm extends Component {
   constructor(props) {
@@ -83,10 +76,19 @@ class InputForm extends Component {
         this.state.currentStage - 1
       ];
 
-      this.setStageLayers(stageConfig);
+      stageConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          stageConfig.visibleLayerGroupIds,
+          true,
+        );
       stageConfig.viewport &&
         this.props.onUpdateMapViewport(stageConfig.viewport);
     }
+
+    this.selectedCategoryConfig.visibleLayerGroupIds &&
+      this.updateLayerGroupVisibilities(
+        this.selectedCategoryConfig.visibleLayerGroupIds,
+      );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -102,6 +104,11 @@ class InputForm extends Component {
         formValidationErrors: new Set(),
         showValidityStatus: false,
       });
+
+      this.selectedCategoryConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          this.selectedCategoryConfig.visibleLayerGroupIds,
+        );
     }
 
     if (
@@ -113,28 +120,27 @@ class InputForm extends Component {
         this.state.currentStage - 1
       ];
 
-      this.setStageLayers(stageConfig);
+      stageConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          stageConfig.visibleLayerGroupIds,
+          true,
+        );
       stageConfig.viewport &&
         this.props.onUpdateMapViewport(stageConfig.viewport);
     }
   }
 
-  setStageLayers(stageConfig) {
-    if (stageConfig.visibleLayerGroupIds) {
-      // Set layers for this stage.
-      stageConfig.visibleLayerGroupIds.forEach(layerGroupId =>
-        this.props.updateLayerGroupVisibility(layerGroupId, true),
-      );
-      // Hide all other layers.
+  updateLayerGroupVisibilities(layerGroupIds, hideOthers = false) {
+    layerGroupIds.forEach(layerGroupId =>
+      this.props.updateLayerGroupVisibility(layerGroupId, true),
+    );
+
+    hideOthers &&
       this.props.mapConfig.layerGroups
-        .filter(
-          layerGroup =>
-            !stageConfig.visibleLayerGroupIds.includes(layerGroup.id),
-        )
+        .filter(layerGroup => !layerGroupIds.includes(layerGroup.id))
         .forEach(layerGroup =>
           this.props.updateLayerGroupVisibility(layerGroup.id, false),
         );
-    }
   }
 
   getNewFields(prevFields) {
@@ -181,18 +187,8 @@ class InputForm extends Component {
       this.props.placeConfig,
       selectedCategory,
     );
-    this.isWithCustomGeometry =
-      this.selectedCategoryConfig.fields.findIndex(
-        field => field.type === "map_drawing_toolbar",
-      ) >= 0;
     this.attachments = [];
-    if (this.isWithCustomGeometry) {
-      this.props.updateMapDraggedOrZoomed(true);
-      this.props.updateSpotlightMaskVisibility(false);
-      this.props.updateMapCenterpointVisibility(false);
-    } else {
-      this.props.updateMapCenterpointVisibility(true);
-    }
+    this.props.updateMapCenterpointVisibility(true);
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -313,18 +309,11 @@ class InputForm extends Component {
     // TODO: Make a special form field to encapsulate this.
     attrs.private = attrs.private === "yes" ? true : false;
 
-    if (this.state.fields.get("geometry")) {
-      attrs["style"] =
-        this.state.fields.getIn(["geometry", "value"]).type === "Point"
-          ? { "marker-symbol": this.props.activeMarker }
-          : this.props.geometryStyle;
-    } else {
-      const { longitude, latitude } = this.props.mapViewport;
-      attrs.geometry = {
-        type: "Point",
-        coordinates: [longitude, latitude],
-      };
-    }
+    const { longitude, latitude } = this.props.mapViewport;
+    attrs.geometry = {
+      type: "Point",
+      coordinates: [longitude, latitude],
+    };
 
     // Replace image data in rich text fields with placeholders built from each
     // image's name.
@@ -336,11 +325,31 @@ class InputForm extends Component {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
 
-    // Fire pre-save hook.
-    // The pre-save hook allows flavors to attach arbitrary data to the attrs
-    // object before submission to the database.
-    if (this.props.customHooks && this.props.customHooks.preSave) {
-      attrs = hooks[this.props.customHooks.preSave](attrs);
+    // Run geospatial analyses:
+    if (
+      this.selectedCategoryConfig.geospatialAnalysis &&
+      attrs.geometry.type === "Point"
+    ) {
+      const geospatialAnalysisAttrs = this.selectedCategoryConfig.geospatialAnalysis.reduce(
+        (analysisAttrs, analysisConfig) => {
+          return {
+            ...analysisAttrs,
+            ...geoAnalyze({
+              config: analysisConfig,
+              placeGeometry: attrs.geometry,
+              targetFeatures: this.props.analysisTargetFeaturesSelector(
+                analysisConfig.targetUrl,
+              ),
+            }),
+          };
+        },
+        {},
+      );
+
+      attrs = {
+        ...attrs,
+        ...geospatialAnalysisAttrs,
+      };
     }
 
     const placeResponse = await mapseedApiClient.place.create({
@@ -394,6 +403,19 @@ class InputForm extends Component {
       );
     }
 
+    // Generate a PDF for the user.
+    if (this.props.datasetReportSelector(this.props.datasetSlug)) {
+      mapseedPDFServiceClient.getPDF({
+        url: `${window.location.protocol}//${
+          window.location.host
+        }/print-report/${this.props.datasetClientSlugSelector(
+          this.props.datasetSlug,
+        )}/${placeResponse.id}`,
+        filename: this.props.datasetReportSelector(this.props.datasetSlug)
+          .filename,
+      });
+    }
+
     if (
       placeResponse.private &&
       this.props.hasGroupAbilitiesInDatasets({
@@ -436,8 +458,6 @@ class InputForm extends Component {
         }`,
       );
     }
-
-    this.props.setActiveDrawGeometryId(null);
   };
 
   defaultPostSave(placeResponse) {
@@ -495,20 +515,6 @@ class InputForm extends Component {
   }
 
   render() {
-    const cn = {
-      form: classNames("input-form__form", this.props.className, {
-        "input-form__form--inactive": this.state.isFormSubmitting,
-      }),
-      warningMsgs: classNames("input-form__warning-msgs-container", {
-        "input-form__warning-msgs-container--visible":
-          this.state.formValidationErrors.size > 0 &&
-          this.state.showValidityStatus,
-      }),
-      spinner: classNames("input-form__submit-spinner", {
-        "input-form__submit-spinner--visible": this.state.isFormSubmitting,
-      }),
-    };
-
     return (
       <>
         <InfoModal
@@ -521,7 +527,15 @@ class InputForm extends Component {
               this.props.history.push(this.state.routeOnClose);
           }}
         />
-        <div className="input-form">
+        <div
+          css={css`
+            padding-bottom: ${this.selectedCategoryConfig.multi_stage
+              ? this.props.layout === "desktop"
+                ? "122px"
+                : "60px"
+              : "30px"};
+          `}
+        >
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageHeaderBar
               stageConfig={
@@ -533,18 +547,24 @@ class InputForm extends Component {
           )}
           {this.state.formValidationErrors.size > 0 && (
             <WarningMessagesContainer
-              errors={[...this.state.formValidationErrors]}
-              headerMsg={this.props.t("validationHeader")}
+              errors={this.state.formValidationErrors}
+              headerMsg={this.props.t(
+                "validationHeader",
+                "Your post is looking good, but we need some more information before we can proceed.",
+              )}
             />
           )}
           <form
+            css={css`
+              opacity: ${this.state.isFormSubmitting ? 0.3 : 1};
+            `}
             id="mapseed-input-form"
-            className={cn.form}
             onSubmit={evt => evt.preventDefault()}
           >
             {this.getFields()
               .map(field => (
                 <FormField
+                  formId={this.selectedCategoryConfig.formId}
                   fieldConfig={field.get("config").toJS()}
                   disabled={this.state.isFormSubmitting}
                   fieldState={field}
@@ -564,6 +584,8 @@ class InputForm extends Component {
 
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageControlBar
+              isRightSidebarVisible={this.props.isRightSidebarVisible}
+              layout={this.props.layout}
               onClickAdvanceStage={() => {
                 this.validateForm(() => {
                   jumpTo({
@@ -612,7 +634,7 @@ class InputForm extends Component {
 
 InputForm.propTypes = {
   activeMarker: PropTypes.string,
-  className: PropTypes.string,
+  analysisTargetFeaturesSelector: PropTypes.func.isRequired,
   customHooks: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.func),
     PropTypes.bool,
@@ -622,8 +644,8 @@ InputForm.propTypes = {
   createPlace: PropTypes.func.isRequired,
   datasetClientSlugSelector: PropTypes.func.isRequired,
   datasetUrl: PropTypes.string.isRequired,
+  datasetReportSelector: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
-  geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
@@ -633,6 +655,7 @@ InputForm.propTypes = {
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isLeavingForm: PropTypes.bool,
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layout: PropTypes.string.isRequired,
   mapConfig: PropTypes.object.isRequired,
@@ -642,8 +665,6 @@ InputForm.propTypes = {
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
-  setActiveDrawingTool: PropTypes.func.isRequired,
-  setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
@@ -653,10 +674,12 @@ InputForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  activeMarker: activeMarkerSelector(state),
+  analysisTargetFeaturesSelector: targetUrl =>
+    analysisTargetFeaturesSelector(targetUrl, state),
   datasetClientSlugSelector: datasetSlug =>
     datasetClientSlugSelector(state, datasetSlug),
-  geometryStyle: geometryStyleSelector(state),
+  datasetReportSelector: datasetSlug =>
+    datasetReportSelector(state, datasetSlug),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
@@ -667,6 +690,7 @@ const mapStateToProps = state => ({
     }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   placeConfig: placeConfigSelector(state),
@@ -675,9 +699,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createFeaturesInGeoJSONSource: (sourceId, sourceData) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, sourceData)),
-  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
-  setActiveDrawingTool: activeDrawingTool =>
-    dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),

@@ -1,4 +1,5 @@
-import { findDOMNode } from "react-dom";
+import constants from "../constants";
+import { Mixpanel } from "./mixpanel";
 
 const getMainContentAreaWidth = ({
   isContentPanelVisible,
@@ -18,6 +19,14 @@ const getMainContentAreaWidth = ({
         return "85%";
       } else if (isContentPanelVisible && isRightSidebarVisible) {
         return "45%";
+      } else {
+        const msg =
+          "Error: could not find appropriate width declaration for main content area.";
+        // eslint-disable-next-line no-console
+        console.error(msg);
+        Mixpanel.track("Error", {
+          message: msg,
+        });
       }
       break;
     case "mobile":
@@ -30,12 +39,15 @@ const getMainContentAreaHeight = ({
   isGeocodeAddressBarEnabled,
   layout,
   isAddPlaceButtonVisible,
-  addPlaceButtonRef,
+  addPlaceButtonDims,
 }) => {
   switch (layout) {
     case "desktop":
-      // 42px === fixed height of geocode address bar
-      return isGeocodeAddressBarEnabled ? "calc(100% - 42px)" : "100%";
+      return isGeocodeAddressBarEnabled
+        ? `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+            constants.HEADER_HEIGHT
+          }px)`
+        : `calc(100% - ${constants.HEADER_HEIGHT}px)`;
     case "mobile":
       // UI heights which resize the main content area:
       //  - ContentPanel: 40%
@@ -44,45 +56,59 @@ const getMainContentAreaHeight = ({
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "calc(60% - 42px)";
+        return `calc(60% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+          constants.HEADER_HEIGHT
+        }px)`;
       } else if (
         isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "60%";
+        return `calc(60% - ${constants.HEADER_HEIGHT}px)`;
+      } else if (
+        isContentPanelVisible &&
+        !isGeocodeAddressBarEnabled &&
+        isAddPlaceButtonVisible
+      ) {
+        return `calc(60% - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "calc(100% - 42px)";
+        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+          constants.HEADER_HEIGHT
+        }px)`;
       } else if (
         !isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return "100%";
+        return `clac(100% - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
         isAddPlaceButtonVisible
       ) {
-        const addPlaceButtonDims = findDOMNode(
-          addPlaceButtonRef.current,
-        ).getBoundingClientRect();
-
-        return `calc(100% - ${addPlaceButtonDims.height}px)`;
+        return `calc(100% - ${addPlaceButtonDims.height}px - ${
+          constants.HEADER_HEIGHT
+        }px)`;
       } else if (
         !isContentPanelVisible &&
         isGeocodeAddressBarEnabled &&
         isAddPlaceButtonVisible
       ) {
-        const addPlaceButtonDims = findDOMNode(
-          addPlaceButtonRef.current,
-        ).getBoundingClientRect();
-
-        return `calc(100% - 42px - ${addPlaceButtonDims.height}px)`;
+        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
+          addPlaceButtonDims.height
+        }px - ${constants.HEADER_HEIGHT}px)`;
+      } else {
+        const msg =
+          "Error: could not find appropriate height declaration for main content area.";
+        // eslint-disable-next-line no-console
+        console.error(msg);
+        Mixpanel.track("Error", {
+          message: msg,
+        });
       }
   }
 };

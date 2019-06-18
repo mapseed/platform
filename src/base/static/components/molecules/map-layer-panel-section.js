@@ -1,8 +1,11 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "react-spinner";
 import styled from "@emotion/styled";
+import { translate } from "react-i18next";
+import { jsx, css } from "@emotion/core";
 
 import { InfoModalTrigger } from "../atoms/feedback";
 import { FontAwesomeIcon } from "../atoms/imagery";
@@ -52,6 +55,7 @@ const SpinnerContainer = styled("div")({
 const LayerGroupTitle = styled("span")(props => ({
   flex: 6,
   backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "initial",
+  fontFamily: props.theme.text.bodyFontFamily,
 
   "&:hover": {
     backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "#ffffd4",
@@ -89,7 +93,10 @@ const MapLayerSelector = props => {
     <MapLayerSelectorContainer>
       <SelectableArea onClick={props.onToggleLayerGroup}>
         <LayerGroupTitle isLayerGroupVisible={props.isLayerGroupVisible}>
-          {props.title}
+          {props.t(
+            `layerSelectorLayerGroupTitle${props.layerSelectorIndex}`,
+            props.title,
+          )}
         </LayerGroupTitle>
         <LayerGroupsStatusContainer>
           {props.isLayerGroupVisible &&
@@ -124,16 +131,17 @@ const MapLayerSelector = props => {
 MapLayerSelector.propTypes = {
   isLayerGroupVisible: PropTypes.bool.isRequired,
   icon: PropTypes.string,
-  info: PropTypes.object.isRequired,
+  layerSelectorIndex: PropTypes.string.isRequired,
+  info: PropTypes.object,
   id: PropTypes.string.isRequired,
   loadStatus: PropTypes.string.isRequired,
   onToggleLayerGroup: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 
 MapLayerSelector.defaultProps = {
-  info: {},
   type: "layer",
 };
 
@@ -154,12 +162,23 @@ class MapLayerPanelSection extends Component {
     return (
       <div>
         <HorizontalRule spacing="tiny" />
-        <TinyTitle>{this.props.title}</TinyTitle>
-        {this.props.layerGroups.map(lg => {
+        <TinyTitle
+          css={css`
+            margin-bottom: 16px;
+          `}
+        >
+          {this.props.t(
+            `mapLayerPanelSectionTitle${this.props.layerPanelSectionIndex}`,
+            this.props.title,
+          )}
+        </TinyTitle>
+        {this.props.layerGroups.map((layerGroup, layerGroupIndex) => {
           // Assume at first that all sources consumed by layers in this
           // layerGroup have loaded.
           let loadStatus = "loaded";
-          const layerGroupMetadata = this.props.layerGroupsMetadata[lg.id];
+          const layerGroupMetadata = this.props.layerGroupsMetadata[
+            layerGroup.id
+          ];
           const sourcesStatus = layerGroupMetadata.sourceIds.map(
             sourceId =>
               this.props.mapSourcesLoadStatus[sourceId]
@@ -177,20 +196,27 @@ class MapLayerPanelSection extends Component {
             loadStatus = "loading";
           }
 
+          // Note that below `layerSelectorIndex` needs to be a unique
+          // combination of the panel section index and the layer selector
+          // index.
           return (
             <MapLayerSelector
-              key={lg.id}
-              id={lg.id}
-              info={lg.info}
-              title={lg.title}
+              key={layerGroup.id}
+              id={layerGroup.id}
+              layerSelectorIndex={`${
+                this.props.layerPanelSectionIndex
+              }${layerGroupIndex}`}
+              info={layerGroup.info}
+              title={layerGroup.title}
               loadStatus={loadStatus}
               isLayerGroupVisible={
-                this.props.layerGroupsMetadata[lg.id].isVisible
+                this.props.layerGroupsMetadata[layerGroup.id].isVisible
               }
               isSelected={true}
               onToggleLayerGroup={() =>
-                this.onToggleLayerGroup(lg.id, layerGroupMetadata)
+                this.onToggleLayerGroup(layerGroup.id, layerGroupMetadata)
               }
+              t={this.props.t}
             />
           );
         })}
@@ -200,6 +226,7 @@ class MapLayerPanelSection extends Component {
 }
 
 MapLayerPanelSection.propTypes = {
+  layerPanelSectionIndex: PropTypes.number.isRequired,
   mapConfig: PropTypes.shape({
     layerGroups: PropTypes.arrayOf(
       PropTypes.shape({
@@ -217,6 +244,7 @@ MapLayerPanelSection.propTypes = {
   layerGroupsMetadata: PropTypes.object.isRequired,
   mapSourcesLoadStatus: PropTypes.object.isRequired,
   sourcesMetadata: sourcesMetadataPropType.isRequired,
+  t: PropTypes.func.isRequired,
   title: PropTypes.string,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
@@ -235,4 +263,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(MapLayerPanelSection);
+)(translate("MapLayerPanelSection")(MapLayerPanelSection));

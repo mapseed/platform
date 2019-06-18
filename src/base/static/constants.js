@@ -7,7 +7,6 @@ export default {
   DROPDOWN_FIELD_TYPENAME: "dropdown",
   DROPDOWN_AUTOCOMPLETE_FIELD_TYPENAME: "dropdown_autocomplete",
   PUBLISH_CONTROL_TOOLBAR_TYPENAME: "publish_control_toolbar",
-  MAP_DRAWING_TOOLBAR_TYPENAME: "map_drawing_toolbar",
   DATETIME_FIELD_TYPENAME: "datetime",
   GEOCODING_FIELD_TYPENAME: "geocoding",
   BIG_TOGGLE_FIELD_TYPENAME: "big_toggle",
@@ -23,8 +22,6 @@ export default {
 
   LOCATION_TYPE_PROPERTY_NAME: "location_type",
   TITLE_PROPERTY_NAME: "title",
-  FULL_TITLE_PROPERTY_NAME: "fullTitle",
-  NAME_PROPERTY_NAME: "name",
   SUBMITTER_NAME: "submitter_name",
   SUBMITTER: "submitter",
   USER_TOKEN_PROPERTY_NAME: "user_token",
@@ -75,41 +72,8 @@ export default {
   FILL_OPACITY_PROPERTY_NAME: "fill-opacity",
   MARKER_ICON_PROPERTY_NAME: "marker-symbol",
 
-  DRAW_DEFAULT_LINE_COLOR: "#f86767",
-  DRAW_DEFAULT_LINE_OPACITY: 0.7,
-  DRAW_DEFAULT_FILL_COLOR: "#f1f075",
-  DRAW_DEFAULT_FILL_OPACITY: 0.3,
-  DRAW_CREATE_MARKER_TOOL: "create-marker",
-  DRAW_CREATE_POLYLINE_TOOL: "create-polyline",
-  DRAW_CREATE_POLYGON_TOOL: "create-polygon",
-  DRAW_DELETE_GEOMETRY_EVENT: "draw:delete",
-  DRAW_START_POLYGON_EVENT: "draw:start-polygon",
-  DRAW_START_POLYLINE_EVENT: "draw:start-polyline",
-  DRAW_START_MARKER_EVENT: "draw:start-marker",
-  DRAW_UPDATE_GEOMETRY_EVENT: "draw:update-geometry",
-  DRAW_INIT_GEOMETRY_EVENT: "draw:init-geometry",
-  DRAW_STROKE_COLORPICKER_NAME: "stroke",
-  DRAW_FILL_COLORPICKER_NAME: "fill",
-  DRAW_MARKER_SELECTOR_NAME: "marker",
-
-  PLACE_MODEL_UPDATE_EVENT: "place-model:update",
-  PLACE_MODEL_REMOVE_EVENT: "place-model:remove",
-
   IS_HIDDEN_BY_FILTERS: "_mapseed:isHiddenByFilters",
   IS_FOCUSED_BY_FILTERS: "_mapseed:isFocusedByFilters",
-
-  PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT:
-    "place-collection:unfocus-all-places",
-  PLACE_COLLECTION_HIDE_PLACE_EVENT: "place-collection:hide-place",
-  PLACE_COLLECTION_FOCUS_PLACE_EVENT: "place-collection:focus-place",
-  PLACE_COLLECTION_ADD_PLACE_EVENT: "place-collection:add-place",
-  PLACE_COLLECTION_REMOVE_PLACE_EVENT: "place-collection:remove-place",
-
-  PLACE_MODEL_IO_START_ACTION: "place:io-start",
-  PLACE_MODEL_IO_END_SUCCESS_ACTION: "place:io-end-success",
-  PLACE_MODEL_IO_END_ERROR_ACTION: "place:io-end-error",
-  SURVEY_MODEL_IO_END_SUCCESS_ACTION: "survey:io-end",
-  SUPPORT_MODEL_IO_END_SUCCESS_ACTION: "support:io-end-success",
 
   FOCUS_TARGET_LAYER_ACTION: "focus",
   UNFOCUS_MODEL_ACTION: "unfocus",
@@ -122,4 +86,7 @@ export default {
   MAP_TRANSITION_EASE_TO_POINT: "map:ease-to-point",
 
   TRIGGER_GEOLOCATE_EVENT: "map:trigger-geolocate",
+
+  HEADER_HEIGHT: 56,
+  GEOCODE_ADDRESS_BAR_HEIGHT: 42,
 };

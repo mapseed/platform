@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
 import { ChevronRight, ChevronLeft } from "@material-ui/icons";
 
-import StoryNavigator from "../organisms/story-navigator";
+import FeaturedPlacesNavigator from "../organisms/featured-places-navigator";
 import MapLegendPanel from "../organisms/map-legend-panel";
 import ActivityStream from "../organisms/activity-stream";
 import Button from "@material-ui/core/Button";
@@ -17,6 +17,7 @@ import {
 } from "../../state/ducks/right-sidebar-config";
 import { placesSelector, placesPropType } from "../../state/ducks/places";
 import { updateUIVisibility, uiVisibilitySelector } from "../../state/ducks/ui";
+import constants from "../../constants";
 
 const toggleSidebarStyles = {
   position: "absolute",
@@ -47,7 +48,7 @@ const toggleSidebarStyles = {
 const RightSidebarOuterContainer = styled("aside")(props => ({
   zIndex: 10,
   position: "absolute",
-  top: 0,
+  top: constants.HEADER_HEIGHT,
   right: 0,
   height: "100%",
   backgroundColor: "#fff",
@@ -83,12 +84,8 @@ const RightSidebar = props => {
             <ChevronLeft css={{ fontSize: "32px" }} />
           )}
         </Button>
-        {props.rightSidebarConfig.component === "StoryNavigator" && (
-          <StoryNavigator
-            storyConfig={props.storyConfig}
-            placeConfig={props.placeConfig}
-            places={props.places}
-          />
+        {props.rightSidebarConfig.component === "FeaturedPlacesNavigator" && (
+          <FeaturedPlacesNavigator places={props.places} />
         )}
         {props.rightSidebarConfig.component === "MapLegendPanel" && (
           <MapLegendPanel config={props.rightSidebarConfig} />
@@ -111,10 +108,6 @@ RightSidebar.propTypes = {
   isRightSidebarVisible: PropTypes.bool.isRequired,
   places: placesPropType,
   rightSidebarConfig: rightSidebarConfigPropType.isRequired,
-  storyConfig: PropTypes.object,
-  placeConfig: PropTypes.shape({
-    place_detail: PropTypes.array.isRequired,
-  }),
   updateRightSidebarVisibility: PropTypes.func.isRequired,
 };
 
