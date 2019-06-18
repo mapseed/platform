@@ -15,7 +15,7 @@ export const mapViewportPropType = PropTypes.shape({
   transitionEasing: PropTypes.func,
   minZoom: PropTypes.number.isRequired,
   maxZoom: PropTypes.number.isRequired,
-}).isRequired;
+});
 
 const filterSliderPropType = PropTypes.shape({
   initialValue: PropTypes.number,
