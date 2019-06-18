@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 
-// TODO: Remove this Duck, and nest this confuguration under AppConfig.map.
-
 // PropTypes:
 
 export const offlineConfigPropType = PropTypes.shape({
@@ -19,35 +17,47 @@ export const offlineConfigPropType = PropTypes.shape({
 export const mapConfigSelector = state => {
   return state.mapConfig;
 };
+export const defaultMapViewportSelector = state => {
+  return state.mapConfig.defaultMapViewport;
+};
 export const offlineConfigSelector = state => {
   return state.mapConfig.offlineBoundingBox;
 };
 export const geocodeAddressBarEnabledSelector = state =>
-  state.mapConfig.geocoding_bar_enabled;
+  state.mapConfig.geocodingBarEnabled;
 
 // Actions:
 const LOAD = "map-config/LOAD";
 
 // Action creators:
 export function loadMapConfig(config) {
-  config.geocoding_bar_enabled = !!config.geocoding_bar_enabled;
-
   return { type: LOAD, payload: config };
 }
 
 export const mapConfigPropType = PropTypes.shape({
-  geolocation_enabled: PropTypes.bool,
-  geocoding_bar_enabled: PropTypes.bool,
-  geocoding_engine: PropTypes.string,
-  geocode_field_label: PropTypes.string,
-  geocode_hint: PropTypes.arrayOf(PropTypes.number),
-  geocode_bounding_box: PropTypes.arrayOf(PropTypes.number),
+  geolocationEnabled: PropTypes.bool,
+  geocodingBarEnabled: PropTypes.bool,
+  geocodingEngine: PropTypes.string,
+  geocodeFieldLabel: PropTypes.string,
+  geocodeHint: PropTypes.arrayOf(PropTypes.number),
+  geocodeBoundingBox: PropTypes.arrayOf(PropTypes.number),
   offlineBoundingBox: offlineConfigPropType,
-});
+  scrollZoomAroundCenter: PropTypes.bool,
+  defaultMapViewport: PropTypes.object.isRequired,
+}).isRequired;
 
 // Reducers:
 const INITIAL_STATE = {
-  geocoding_bar_enabled: false,
+  geocodingBarEnabled: false,
+  scrollZoomAroundCenter: false,
+  defaultMapViewport: {
+    zoom: 10,
+    latitude: 0,
+    longitude: 0,
+    maxZoom: 18,
+    minZoom: 1,
+    pitch: 15,
+  },
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -56,6 +66,10 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         ...action.payload,
+        defaultMapViewport: {
+          ...state.defaultMapViewport,
+          ...action.payload.mapViewport,
+        },
       };
     default:
       return state;

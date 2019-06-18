@@ -15,7 +15,7 @@ export const mapViewportPropType = PropTypes.shape({
   transitionEasing: PropTypes.func,
   minZoom: PropTypes.number.isRequired,
   maxZoom: PropTypes.number.isRequired,
-});
+}).isRequired;
 
 const filterSliderPropType = PropTypes.shape({
   initialValue: PropTypes.number,
@@ -414,13 +414,6 @@ const INITIAL_STATE = {
   sourcesMetadata: {},
   basemapLayerIds: [],
   interactiveLayerIds: [],
-  defaults: {
-    mapViewport: {
-      zoom: 10,
-      latitude: 0,
-      longitude: 0,
-    },
-  },
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

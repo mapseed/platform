@@ -22,7 +22,10 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
-import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapConfigPropType,
+} from "../../state/ducks/map-config";
 import {
   dashboardConfigSelector,
   dashboardConfigPropType,
@@ -348,7 +351,7 @@ class SiteHeader extends React.Component {
   };
 
   render() {
-    const viewport = this.props.mapConfig.options.mapViewport;
+    const viewport = this.props.mapConfig.defaultMapViewport;
     return (
       <SiteHeaderWrapper isHeaderExpanded={this.state.isHeaderExpanded}>
         <HamburgerTitleWrapper>
@@ -481,15 +484,7 @@ SiteHeader.propTypes = {
   currentLanguageCode: PropTypes.string.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  mapConfig: PropTypes.shape({
-    options: PropTypes.shape({
-      mapViewport: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-        zoom: PropTypes.number.isRequired,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+  mapConfig: mapConfigPropType,
   navBarConfig: navBarConfigPropType,
   onChangeLanguage: PropTypes.func.isRequired,
   dashboardConfig: dashboardConfigPropType,

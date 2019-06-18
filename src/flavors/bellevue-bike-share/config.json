@@ -39,20 +39,20 @@
     }
   },
   "map": {
-    "geolocation_enabled": false,
-    "geolocation_onload": false,
-    "cartodb_enabled": true,
-    "geocoding_enabled": false,
-    "options": {
-      "mapViewport": {
-        "latitude": 47.61306,
-        "longitude": -122.19538,
-        "zoom": 13.5,
-        "pitch": 30,
-        "minZoom": 1,
-        "maxZoom": 18
-      }
-    },
+    "geolocationEnabled": false,
+    "geolocationOnload": false,
+    "cartodbEnabled": true,
+    "geocodingEnabled": false,
+    "mapViewport": {
+      "latitude": 47.61306,
+      "longitude": -122.19538,
+      "zoom": 13.5,
+      "pitch": 30,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "f4": {
         "type": "raster",

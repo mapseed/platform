@@ -422,7 +422,7 @@ class MainMap extends Component {
               rest,
               this.isMapTransitioning
                 ? false
-                : this.props.mapConfig.options.scrollZoomAroundCenter,
+                : this.props.mapConfig.scrollZoomAroundCenter,
             );
           }}
           onTransitionStart={() => (this.isMapTransitioning = true)}
@@ -513,7 +513,7 @@ MainMap.propTypes = {
       }),
     ),
   }).isRequired,
-  mapConfig: mapConfigPropType.isRequired,
+  mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,

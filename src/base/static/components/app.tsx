@@ -47,7 +47,10 @@ import {
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
 import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
-import { loadMapConfig } from "../state/ducks/map-config";
+import {
+  loadMapConfig,
+  defaultMapViewportSelector,
+} from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
 import { loadAnalysisTargets } from "../state/ducks/analysis";
@@ -61,7 +64,7 @@ import {
   pageExistsSelector,
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
-import { loadMapStyle } from "../state/ducks/map";
+import { loadMapStyle, mapViewportPropType } from "../state/ducks/map";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
@@ -125,6 +128,7 @@ const Fallback = () => {
 const statePropTypes = {
   appConfig: appConfigPropType,
   currentTemplate: PropTypes.string.isRequired,
+  defaultMapViewport: mapViewportPropType,
   datasetsConfig: datasetsConfigPropType,
   datasetSlugs: PropTypes.array.isRequired,
   hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
@@ -216,15 +220,7 @@ class App extends Component<Props, State> {
     // map template from another template. This allows us to "save" a viewport
     // when routing away from the map template, and restore it when routing back
     // to the map template.
-    initialMapViewport: {
-      minZoom: 0,
-      maxZoom: 18,
-      latitude: 0,
-      longitude: 0,
-      zoom: 0,
-      bearing: 0,
-      pitch: 0,
-    },
+    initialMapViewport: this.props.defaultMapViewport,
     defaultLanguage: {
       code: "en",
       label: "English",
@@ -385,9 +381,7 @@ class App extends Component<Props, State> {
       currentLanguageCode: i18next.language,
       defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
-      initialMapViewport: {
-        ...resolvedConfig.map.options.mapViewport,
-      },
+      initialMapViewport: this.props.defaultMapViewport,
     });
 
     window.addEventListener("resize", this.props.updateLayout);
@@ -744,6 +738,7 @@ const mapStateToProps = (
 ): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
+  defaultMapViewport: defaultMapViewportSelector(state),
   datasetSlugs: datasetSlugsSelector(state),
   datasetsConfig: datasetsConfigSelector(state),
   hasAnonAbilitiesInAnyDataset: (submissionSet, abilities) =>

@@ -95,7 +95,7 @@ const statePropTypes = {
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
   mapSources: mapSourcesPropType,
   layout: PropTypes.string.isRequired,
-  mapConfig: mapConfigPropType.isRequired,
+  mapConfig: mapConfigPropType,
   navBarConfig: navBarConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   placeExists: PropTypes.func.isRequired,
