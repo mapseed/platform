@@ -137,11 +137,11 @@ class InputForm extends Component {
     );
 
     hideOthers &&
-    this.props.layerGroups.allIds
-      .filter(layerGroupId => !layerGroupIds.includes(layerGroupId))
-      .forEach(layerGroupId =>
-        this.props.updateLayerGroupVisibility(layerGroupId, false),
-      );
+      this.props.layerGroups.allIds
+        .filter(layerGroupId => !layerGroupIds.includes(layerGroupId))
+        .forEach(layerGroupId =>
+          this.props.updateLayerGroupVisibility(layerGroupId, false),
+        );
   }
 
   getNewFields(prevFields) {

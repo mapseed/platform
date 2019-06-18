@@ -269,7 +269,6 @@ const NavBarHamburger = styled("i")({
   },
 });
 
-
 const navItemMappings = {
   // eslint-disable-next-line react/display-name
   internal_link: linkProps => (
