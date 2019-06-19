@@ -7,8 +7,8 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/spokane-vsp/datasets/spokane-input",
-      "slug": "spokane-input",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/columbia-input",
+      "slug": "columbia-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -28,14 +28,14 @@
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {
-        "primary": "#61974b",
+        "primary": "#8b4710",
         "secondary": "#d46c4c",
         "tertiary": "#999",
-        "accent": "#29b1cb"
+        "accent": "#8cbfc4"
       },
       "bg": {
         "default": "#e8dbc5",
-        "light": "#61974b"
+        "light": "#8b4710"
       },
       "text": {
         "secondary": "#fff",
@@ -44,8 +44,8 @@
         "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
-        "addPlaceButtonBackgroundColor": "#61974b",
-        "addPlaceButtonHoverBackgroundColor": "rgb(191,213,183)"
+        "addPlaceButtonBackgroundColor": "#8b4710",
+        "addPlaceButtonHoverBackgroundColor": "rgb(208,181,159)"
       }
     }
   },
@@ -97,72 +97,51 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
       },
-      "spokane-parcels": {
+      "columbia-watersheds": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-parcels/{z}/{x}/{y}.pbf"
-        ],
-        "maxzoom": 16,
-        "minzoom": 12
-      },
-      "spokane-watersheds": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-watersheds/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/columbia-watersheds/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
-      "spokane-geologic-hazard": {
+      "columbia-geologic-hazard": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-geologic-hazard/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/columbia-geologic-hazard/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 17
       },
-      "spokane-wetlands": {
+      "columbia-wetlands": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-wetlands/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/columbia-wetlands/{z}/{x}/{y}.pbf"
         ]
       },
-      "spokane-frequently-flooded": {
+      "columbia-frequently-flooded": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-frequently-flooded/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/columbia-frequently-flooded/{z}/{x}/{y}.pbf"
         ]
       },
-      "spokane-critical-conservation-areas": {
+      "columbia-critical-conservation-areas": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-critical-conservation-areas/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/columbia-critical-conservation-areas/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-conservation-waterways": {
+      "columbia-critical-aquifer": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-conservation-waterways/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/columbia-critical-aquifer/{z}/{x}/{y}.pbf"
         ]
       },
-      "spokane-critical-aquifer": {
+      "columbia-county-border": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-critical-aquifer/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "kittitas-floodplain": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-floodplain/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "spokane-county-outline": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/spokane-county-outline/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/columbia-county-border/{z}/{x}/{y}.pbf"
         ]
       }
     },
-
     "layerGroups": [
       {
         "id": "osm",
@@ -189,14 +168,14 @@
         ]
       },
       {
-        "id": "spokane-county-outline",
+        "id": "columbia-county-border",
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "spokane-county-outline",
+            "id": "columbia-county-border",
             "type": "line",
-            "source": "spokane-county-outline",
-            "source-layer": "spokane-county-outline",
+            "source": "columbia-county-border",
+            "source-layer": "columbia-county-border",
             "paint": {
               "line-color": "#fff",
               "line-width": 3,
@@ -256,14 +235,14 @@
         ]
       },
       {
-        "id": "spokane-watersheds",
+        "id": "columbia-watersheds",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "spokane-watersheds",
+            "id": "columbia-watersheds",
             "type": "fill",
-            "source": "spokane-watersheds",
-            "source-layer": "spokane-watersheds",
+            "source": "columbia-watersheds",
+            "source-layer": "columbia-watersheds",
             "paint": {
               "fill-opacity": 0.7,
               "fill-color": [
@@ -292,10 +271,10 @@
             }
           },
           {
-            "id": "spokane-watersheds-outline",
+            "id": "columbia-watersheds-outline",
             "type": "line",
-            "source": "spokane-watersheds",
-            "source-layer": "spokane-watersheds",
+            "source": "columbia-watersheds",
+            "source-layer": "columbia-watersheds",
             "layout": {
               "line-join": "round"
             },
@@ -305,10 +284,10 @@
             }
           },
           {
-            "id": "spokane-watersheds-labels",
+            "id": "columbia-watersheds-labels",
             "type": "symbol",
-            "source": "spokane-watersheds",
-            "source-layer": "spokane-watersheds",
+            "source": "columbia-watersheds",
+            "source-layer": "columbia-watersheds",
             "paint": {
               "text-halo-color": "#fff",
               "text-halo-width": 20,
@@ -329,23 +308,23 @@
         ]
       },
       {
-        "id": "spokane-geologic-hazard",
+        "id": "columbia-geologic-hazard",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "spokane-geologic-hazard",
+            "id": "columbia-geologic-hazard",
             "type": "fill",
-            "source": "spokane-geologic-hazard",
-            "source-layer": "spokane-geologic-hazard",
+            "source": "columbia-geologic-hazard",
+            "source-layer": "columbia-geologic-hazard",
             "paint": {
               "fill-pattern": "hazard-fill.png"
             }
           },
           {
-            "id": "spokane-geologic-hazard-outline",
+            "id": "columbia-geologic-hazard-outline",
             "type": "line",
-            "source": "spokane-geologic-hazard",
-            "source-layer": "spokane-geologic-hazard",
+            "source": "columbia-geologic-hazard",
+            "source-layer": "columbia-geologic-hazard",
             "paint": {
               "line-color": "#e80f0f",
               "line-width": 2,
@@ -355,23 +334,23 @@
         ]
       },
       {
-        "id": "spokane-wetlands",
+        "id": "columbia-wetlands",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "spokane-wetlands",
+            "id": "columbia-wetlands",
             "type": "fill",
-            "source": "spokane-wetlands",
-            "source-layer": "spokane-wetlands",
+            "source": "columbia-wetlands",
+            "source-layer": "columbia-wetlands",
             "paint": {
               "fill-pattern": "wetlands-fill.png"
             }
           },
           {
-            "id": "spokane-wetlands-outline",
+            "id": "columbia-wetlands-outline",
             "type": "line",
-            "source": "spokane-wetlands",
-            "source-layer": "spokane-wetlands",
+            "source": "columbia-wetlands",
+            "source-layer": "columbia-wetlands",
             "paint": {
               "line-color": "#10e53d",
               "line-opacity": 0.7,
@@ -381,23 +360,23 @@
         ]
       },
       {
-        "id": "spokane-frequently-flooded",
+        "id": "columbia-frequently-flooded",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "spokane-frequently-flooded",
+            "id": "columbia-frequently-flooded",
             "type": "fill",
-            "source": "spokane-frequently-flooded",
-            "source-layer": "spokane-frequently-flooded",
+            "source": "columbia-frequently-flooded",
+            "source-layer": "columbia-frequently-flooded",
             "paint": {
               "fill-pattern": "frequently-flooded-fill.png"
             }
           },
           {
-            "id": "spokane-frequently-flooded-outline",
+            "id": "columbia-frequently-flooded-outline",
             "type": "line",
-            "source": "spokane-frequently-flooded",
-            "source-layer": "spokane-frequently-flooded",
+            "source": "columbia-frequently-flooded",
+            "source-layer": "columbia-frequently-flooded",
             "paint": {
               "line-color": "#3366ff",
               "line-opacity": 0.7,
@@ -407,23 +386,23 @@
         ]
       },
       {
-        "id": "spokane-critical-aquifer",
+        "id": "columbia-critical-aquifer",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "spokane-critical-aquifer",
+            "id": "columbia-critical-aquifer",
             "type": "fill",
-            "source": "spokane-critical-aquifer",
-            "source-layer": "spokane-critical-aquifer",
+            "source": "columbia-critical-aquifer",
+            "source-layer": "columbia-critical-aquifer",
             "paint": {
               "fill-pattern": "aquifer-fill.png"
             }
           },
           {
-            "id": "spokane-critical-aquifer-outline",
+            "id": "columbia-critical-aquifer-outline",
             "type": "line",
-            "source": "spokane-critical-aquifer",
-            "source-layer": "spokane-critical-aquifer",
+            "source": "columbia-critical-aquifer",
+            "source-layer": "columbia-critical-aquifer",
             "paint": {
               "line-color": "#1155ce",
               "line-opacity": 0.7,
@@ -433,11 +412,11 @@
         ]
       },
       {
-        "id": "spokane-critical-conservation-areas",
+        "id": "columbia-critical-conservation-areas",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "spokane-critical-conservation-areas",
+            "id": "columbia-critical-conservation-areas",
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
@@ -447,15 +426,15 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "fill",
-            "source": "spokane-critical-conservation-areas",
-            "source-layer": "spokane-critical-conservation-areas",
+            "source": "columbia-critical-conservation-areas",
+            "source-layer": "columbia-critical-conservation-areas",
             "paint": {
               "fill-pattern": "conservation-fill-alt.png",
               "fill-opacity": 0.7
             }
           },
           {
-            "id": "spokane-critical-conservation-areas-outline",
+            "id": "columbia-critical-conservation-areas-outline",
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
@@ -465,8 +444,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "line",
-            "source": "spokane-critical-conservation-areas",
-            "source-layer": "spokane-critical-conservation-areas",
+            "source": "columbia-critical-conservation-areas",
+            "source-layer": "columbia-critical-conservation-areas",
             "paint": {
               "line-color": "#6dd84a",
               "line-width": 2,
@@ -474,7 +453,7 @@
             }
           },
           {
-            "id": "spokane-critical-conservation-areas-labels",
+            "id": "columbia-critical-conservation-areas-labels",
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
@@ -484,8 +463,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "symbol",
-            "source": "spokane-critical-conservation-areas",
-            "source-layer": "spokane-critical-conservation-areas",
+            "source": "columbia-critical-conservation-areas",
+            "source-layer": "columbia-critical-conservation-areas",
             "paint": {
               "text-color": "#618141",
               "text-halo-color": "#f0f4ec",
@@ -505,43 +484,15 @@
         ]
       },
       {
-        "id": "spokane-parcels",
-        "visibleDefault": false,
-        "interactive": true,
-        "popupContent": "<p><strong>Parcel number: </strong><em>{{PID_NUM}}</em></p><p><strong>Address: </strong><em>{{site_addre}}</em></p>",
-        "mapboxLayers": [
-          {
-            "id": "spokane-parcels",
-            "type": "fill",
-            "source": "spokane-parcels",
-            "source-layer": "spokane-parcels",
-            "paint": {
-              "fill-color": "#999",
-              "fill-opacity": 0.3
-            }
-          },
-          {
-            "id": "spokane-parcels-outline",
-            "type": "line",
-            "source": "spokane-parcels",
-            "source-layer": "spokane-parcels",
-            "paint": {
-              "line-color": "#fff",
-              "line-width": 1
-            }
-          }
-        ]
-      },
-      {
-        "id": "spokane-input",
+        "id": "columbia-input",
         "visibleDefault": true,
         "interactive": true,
-        "datasetSlug": "spokane-input",
+        "datasetSlug": "columbia-input",
         "mapboxFocusedLayers": [
           {
-            "id": "spokane-input-focused",
+            "id": "columbia-input-focused",
             "type": "symbol",
-            "source": "spokane-input",
+            "source": "columbia-input",
             "layout": {
               "icon-size": 0.7,
               "icon-anchor": "bottom",
@@ -558,9 +509,9 @@
         ],
         "mapboxLayers": [
           {
-            "id": "spokane-input",
+            "id": "columbia-input",
             "type": "symbol",
-            "source": "spokane-input",
+            "source": "columbia-input",
             "layout": {
               "icon-anchor": "bottom",
               "icon-image": "marker-field.png",
@@ -612,7 +563,7 @@
                 "title": "Snake River"
               },
               {
-                "id": "spokane-watersheds",
+                "id": "columbia-watersheds",
                 "title": "Watersheds"
               }
             ]
@@ -622,34 +573,24 @@
             "title": "Critical Areas",
             "layerGroups": [
               {
-                "id": "spokane-geologic-hazard",
+                "id": "columbia-geologic-hazard",
                 "title": "Geologic Hazards"
               },
               {
-                "id": "spokane-wetlands",
+                "id": "columbia-wetlands",
                 "title": "Wetlands"
               },
               {
-                "id": "spokane-frequently-flooded",
+                "id": "columbia-frequently-flooded",
                 "title": "Frequently Flooded Areas"
               },
               {
-                "id": "spokane-critical-aquifer",
+                "id": "columbia-critical-aquifer",
                 "title": "Critical Aquifer Recharge Areas"
               },
               {
-                "id": "spokane-critical-conservation-areas",
+                "id": "columbia-critical-conservation-areas",
                 "title": "Critical Conservation Areas"
-              }
-            ]
-          },
-          {
-            "id": "grp-parcels",
-            "title": "Property Parcels",
-            "layerGroups": [
-              {
-                "id": "spokane-parcels",
-                "title": "Parcels"
               }
             ]
           },
@@ -658,11 +599,11 @@
             "title": "Community Data",
             "layerGroups": [
               {
-                "id": "spokane-county-outline",
+                "id": "columbia-county-border",
                 "title": "Spokane County border"
               },
               {
-                "id": "spokane-input",
+                "id": "columbia-input",
                 "title": "Community Reports"
               }
             ]
@@ -687,7 +628,7 @@
         "includeOnForm": true,
         "submitter_editing_supported": true,
         "name": "location_type",
-        "datasetSlug": "spokane-input",
+        "datasetSlug": "columbia-input",
         "icon_url": "/static/css/images/markers/marker-field.png",
         "value": "demo",
         "multi_stage": [
@@ -696,9 +637,8 @@
             "end_field_index": 4,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-input",
-              "spokane-parcels",
-              "spokane-county-outline"
+              "columbia-input",
+              "columbia-county-border"
             ]
           },
           {
@@ -706,9 +646,8 @@
             "end_field_index": 6,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-watersheds",
-              "spokane-parcels",
-              "spokane-county-outline"
+              "columbia-watersheds",
+              "columbia-county-border"
             ]
           },
           {
@@ -716,9 +655,8 @@
             "end_field_index": 8,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-wetlands",
-              "spokane-parcels",
-              "spokane-county-outline"
+              "columbia-wetlands",
+              "columbia-county-border"
             ]
           },
           {
@@ -726,9 +664,8 @@
             "end_field_index": 10,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-frequently-flooded",
-              "spokane-parcels",
-              "spokane-county-outline"
+              "columbia-frequently-flooded",
+              "columbia-county-border"
             ]
           },
           {
@@ -736,9 +673,8 @@
             "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-geologic-hazard",
-              "spokane-parcels",
-              "spokane-county-outline"
+              "columbia-geologic-hazard",
+              "columbia-county-border"
             ]
           },
           {
@@ -746,9 +682,8 @@
             "end_field_index": 14,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-critical-aquifer",
-              "spokane-parcels",
-              "spokane-county-outline"
+              "columbia-critical-aquifer",
+              "columbia-county-border"
             ]
           },
           {
@@ -756,9 +691,8 @@
             "end_field_index": 16,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-critical-conservation-areas",
-              "spokane-parcels",
-              "spokane-county-outline"
+              "columbia-critical-conservation-areas",
+              "columbia-county-border"
             ]
           },
           {
@@ -766,8 +700,8 @@
             "end_field_index": 21,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-input",
-              "spokane-county-outline"
+              "columbia-input",
+              "columbia-county-border"
             ]
           },
           {
@@ -775,8 +709,8 @@
             "end_field_index": 33,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-input",
-              "spokane-county-outline"
+              "columbia-input",
+              "columbia-county-border"
             ]
           },
           {
@@ -784,8 +718,8 @@
             "end_field_index": 45,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-input",
-              "spokane-county-outline"
+              "columbia-input",
+              "columbia-county-border"
             ]
           },
           {
@@ -793,8 +727,8 @@
             "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-input",
-              "spokane-county-outline"
+              "columbia-input",
+              "columbia-county-border"
             ]
           },
           {
@@ -802,8 +736,8 @@
             "end_field_index": 69,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-input",
-              "spokane-county-outline"
+              "columbia-input",
+              "columbia-county-border"
             ]
           },
           {
@@ -811,8 +745,8 @@
             "end_field_index": 88,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-input",
-              "spokane-county-outline"
+              "columbia-input",
+              "columbia-county-border"
             ]
           }
         ],
@@ -2410,7 +2344,7 @@
     "places": [
       {
         "id": "reports",
-        "datasetId": "spokane-input",
+        "datasetId": "columbia-input",
         "label": "Actions",
         "icon": "/static/css/images/markers/marker-field.png"
       }
@@ -2435,11 +2369,6 @@
       "title": "VSP Assistance",
       "type": "internal_link",
       "url": "/page/assistance"
-    },
-    {
-      "title": "Work Group Application",
-      "type": "internal_link",
-      "url": "/page/sign-up"
     }
   ],
   "pages": [
@@ -2466,14 +2395,6 @@
         "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
         "</li>",
         "</ul>"
-      ]
-    },
-    {
-      "slug": "sign-up",
-      "lang": "en",
-      "content": [
-        "<h3 id='about-page-header'>Spokane County VSP Application</h3>",
-        "<iframe style='width: 100%; height: 100%; border: none;' name='Spokane County VSP Work Group Application' src='https://spokanecountyvsp.org/' />"
       ]
     },
     {

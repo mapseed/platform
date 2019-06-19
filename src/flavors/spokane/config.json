@@ -137,22 +137,10 @@
           "https://vector-tiles.mapseed.org/spokane-critical-conservation-areas/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-conservation-waterways": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-conservation-waterways/{z}/{x}/{y}.pbf"
-        ]
-      },
       "spokane-critical-aquifer": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/spokane-critical-aquifer/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "kittitas-floodplain": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-floodplain/{z}/{x}/{y}.pbf"
         ]
       },
       "spokane-county-outline": {
