@@ -32,12 +32,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "map": {
         "center": {
@@ -86,14 +81,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ]
+              ["==", ["get", "location_type"], "community_input"]
             ],
             "symbol-layout": {
               "icon-image": "comment-map-marker.png",
@@ -106,21 +94,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "community_input"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "dot-dbcf2c.png",
@@ -131,28 +106,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                16
-              ]
+              ["==", ["get", "location_type"], "community_input"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 16]
             ],
             "symbol-layout": {
               "icon-image": "comment-map-marker.png",
@@ -163,21 +119,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                16
-              ]
+              ["==", ["get", "location_type"], "community_input"],
+              [">=", ["zoom"], 16]
             ],
             "symbol-layout": {
               "icon-image": "comment-map-marker.png",
@@ -210,14 +153,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "williams-partners"
-              ]
+              ["==", ["get", "location_type"], "williams-partners"]
             ],
             "symbol-layout": {
               "icon-size": 1.2,
@@ -229,14 +165,7 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "williams-partners"
-              ]
+              ["==", ["get", "location_type"], "williams-partners"]
             ],
             "symbol-layout": {
               "icon-size": 1,

@@ -12,12 +12,7 @@
     "geolocation_onload": false,
     "geocoding_enabled": true,
     "geocoding_bar_enabled": false,
-    "geocode_bounding_box": [
-      45.2,
-      -125,
-      49.3,
-      -116.4
-    ],
+    "geocode_bounding_box": [45.2, -125, 49.3, -116.4],
     "cartodb_enabled": true,
     "counter": true,
     "counter_min": 0,
@@ -30,16 +25,7 @@
       "zoom": 15,
       "minZoom": 1,
       "maxZoom": 18,
-      "maxBounds": [
-        [
-          45.2,
-          -125
-        ],
-        [
-          49.3,
-          -116.4
-        ]
-      ]
+      "maxBounds": [[45.2, -125], [49.3, -116.4]]
     },
     "layers": [
       {
@@ -105,53 +91,29 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            60,
-            60
-          ],
-          "iconAnchor": [
-            30,
-            30
-          ]
+          "iconSize": [60, 60],
+          "iconAnchor": [30, 30]
         }
       },
       {
         "condition": "this.map.zoom < 14",
         "icon": {
-          "iconSize": [
-            7.5,
-            7.5
-          ],
-          "iconAnchor": [
-            4,
-            4
-          ]
+          "iconSize": [7.5, 7.5],
+          "iconAnchor": [4, 4]
         }
       },
       {
         "condition": "this.map.zoom < 16",
         "icon": {
-          "iconSize": [
-            15,
-            15
-          ],
-          "iconAnchor": [
-            8,
-            8
-          ]
+          "iconSize": [15, 15],
+          "iconAnchor": [8, 8]
         }
       },
       {
         "condition": "this.map.zoom >= 16",
         "icon": {
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ]
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15]
         }
       }
     ],
@@ -159,40 +121,22 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            50,
-            50
-          ],
-          "iconAnchor": [
-            25,
-            25
-          ]
+          "iconSize": [50, 50],
+          "iconAnchor": [25, 25]
         }
       },
       {
         "condition": "this.map.zoom < 16",
         "icon": {
-          "iconSize": [
-            20,
-            20
-          ],
-          "iconAnchor": [
-            10,
-            10
-          ]
+          "iconSize": [20, 20],
+          "iconAnchor": [10, 10]
         }
       },
       {
         "condition": "this.map.zoom >= 16",
         "icon": {
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ]
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15]
         }
       }
     ],
@@ -442,14 +386,8 @@
           "condition": "this.location_type === \"tree\" && this.layer.focused === false",
           "icon": {
             "iconUrl": "/static/css/images/markers/tree.png",
-            "iconSize": [
-              18,
-              25
-            ],
-            "iconAnchor": [
-              9,
-              25
-            ]
+            "iconSize": [18, 25],
+            "iconAnchor": [9, 25]
           }
         },
         {
@@ -457,22 +395,10 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/tree.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              40,
-              50
-            ],
-            "iconAnchor": [
-              20,
-              50
-            ],
-            "shadowSize": [
-              40,
-              50
-            ],
-            "shadowAnchor": [
-              10,
-              50
-            ]
+            "iconSize": [40, 50],
+            "iconAnchor": [20, 50],
+            "shadowSize": [40, 50],
+            "shadowAnchor": [10, 50]
           }
         }
       ]

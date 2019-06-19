@@ -37,8 +37,8 @@
     "build-js-production": "NODE_ENV=production webpack -p --progress",
     "watch-js": "webpack -d --watch",
     "build": "rm -rf www/* && npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
-    "prettier": "prettier --list-different \"{src,scripts}/**/*.{js,jsx,ts,tsx}\"",
-    "prettier:fix": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
+    "prettier": "prettier --list-different \"{src,scripts}/**/*.{js,jsx,ts,tsx,json}\"",
+    "prettier:fix": "prettier --write \"{src,scripts}/**/*.{js,jsx,json}\""
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
