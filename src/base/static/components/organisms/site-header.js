@@ -22,12 +22,15 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
-import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapConfigPropType,
+} from "../../state/ducks/map-config";
 import {
   dashboardConfigSelector,
   dashboardConfigPropType,
 } from "../../state/ducks/dashboard-config";
-import { currentTemplateSelector } from "../../state/ducks/ui";
+import { currentTemplateSelector, resetUi } from "../../state/ducks/ui";
 import {
   isLeftSidebarExpandedSelector,
   setLeftSidebarComponent,
@@ -269,23 +272,6 @@ const NavBarHamburger = styled("i")({
   },
 });
 
-const LogoTitleWrapper = styled(props => (
-  <InternalLink
-    className={props.className}
-    href={`/${props.zoom}/${props.lat}/${props.lng}`}
-  >
-    {props.children}
-  </InternalLink>
-))(() => ({
-  display: "flex",
-  alignItems: "center",
-  textDecoration: "none",
-
-  [mq[0]]: {
-    width: "100%",
-  },
-}));
-
 const navItemMappings = {
   // eslint-disable-next-line react/display-name
   internal_link: linkProps => (
@@ -365,6 +351,7 @@ class SiteHeader extends React.Component {
   };
 
   render() {
+    const viewport = this.props.mapConfig.defaultMapViewport;
     return (
       <SiteHeaderWrapper isHeaderExpanded={this.state.isHeaderExpanded}>
         <HamburgerTitleWrapper>
@@ -375,10 +362,22 @@ class SiteHeader extends React.Component {
               });
             }}
           />
-          <LogoTitleWrapper
-            zoom={this.props.mapConfig.options.mapViewport.zoom.toFixed(2)}
-            lat={this.props.mapConfig.options.mapViewport.latitude.toFixed(5)}
-            lng={this.props.mapConfig.options.mapViewport.longitude.toFixed(5)}
+          <InternalLink
+            href={`/${viewport.zoom.toFixed(1)}/${viewport.latitude.toFixed(
+              5,
+            )}/${viewport.longitude.toFixed(5)}`}
+            onClick={() => {
+              this.props.resetUi();
+            }}
+            css={{
+              display: "flex",
+              alignItems: "center",
+              textDecoration: "none",
+
+              [mq[0]]: {
+                width: "100%",
+              },
+            }}
           >
             {this.props.appConfig.logo && (
               <SiteLogo
@@ -391,7 +390,7 @@ class SiteHeader extends React.Component {
                 {this.props.t("siteTitle", this.props.appConfig.name)}
               </SiteTitle>
             )}
-          </LogoTitleWrapper>
+          </InternalLink>
         </HamburgerTitleWrapper>
         <nav
           aria-label="navigation header"
@@ -485,20 +484,13 @@ SiteHeader.propTypes = {
   currentLanguageCode: PropTypes.string.isRequired,
   currentTemplate: PropTypes.string.isRequired,
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  mapConfig: PropTypes.shape({
-    options: PropTypes.shape({
-      mapViewport: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-        zoom: PropTypes.number.isRequired,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+  mapConfig: mapConfigPropType,
   navBarConfig: navBarConfigPropType,
   onChangeLanguage: PropTypes.func.isRequired,
   dashboardConfig: dashboardConfigPropType,
   setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
+  resetUi: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -515,6 +507,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(componentName)),
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
+  resetUi: () => dispatch(resetUi()),
 });
 
 export default withRouter(

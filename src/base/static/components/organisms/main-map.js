@@ -17,12 +17,11 @@ import {
   sourcesMetadataSelector,
   updateFeaturesInGeoJSONSource,
   sourcesMetadataPropType,
-  updateSources,
   updateLayers,
   updateMapContainerDimensions,
   mapContainerDimensionsSeletor,
   filterableLayerGroupsMetadataSelector,
-  filterableLayerGroupMetadataPropType,
+  filterableLayerGroupPropType,
   mapLayerPopupSelector,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
@@ -422,7 +421,7 @@ class MainMap extends Component {
               rest,
               this.isMapTransitioning
                 ? false
-                : this.props.mapConfig.options.scrollZoomAroundCenter,
+                : this.props.mapConfig.scrollZoomAroundCenter,
             );
           }}
           onTransitionStart={() => (this.isMapTransitioning = true)}
@@ -492,7 +491,7 @@ MainMap.propTypes = {
   activeMarker: PropTypes.string,
   activeEditPlaceId: PropTypes.number,
   filterableLayerGroupsMetadata: PropTypes.arrayOf(
-    filterableLayerGroupMetadataPropType,
+    filterableLayerGroupPropType,
   ),
   filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
   history: PropTypes.object.isRequired,
@@ -513,7 +512,7 @@ MainMap.propTypes = {
       }),
     ),
   }).isRequired,
-  mapConfig: mapConfigPropType.isRequired,
+  mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -534,7 +533,6 @@ MainMap.propTypes = {
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayers: PropTypes.func.isRequired,
   onUpdateMapViewport: PropTypes.func.isRequired,
-  updateSources: PropTypes.func.isRequired,
   onUpdateInitialMapViewport: PropTypes.func.isRequired,
   onUpdateSourceLoadStatus: PropTypes.func.isRequired,
   onUpdateSpotlightMaskVisibility: PropTypes.func.isRequired,
@@ -570,8 +568,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLeftSidebarComponent(component)),
   updateFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
     dispatch(updateFeaturesInGeoJSONSource(sourceId, newFeatures)),
-  updateSources: (newSourceId, newSource) =>
-    dispatch(updateSources(newSourceId, newSource)),
   updateLayers: newLayer => dispatch(updateLayers(newLayer)),
   updateMapContainerDimensions: newDimensions =>
     dispatch(updateMapContainerDimensions(newDimensions)),

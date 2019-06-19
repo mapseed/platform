@@ -59,7 +59,9 @@
         "minZoom": 1,
         "maxZoom": 18.4
       }
-    },
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "streets": {
         "type": "raster",

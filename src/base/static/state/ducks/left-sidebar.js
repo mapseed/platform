@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 // Selectors:
 export const leftSidebarConfigSelector = state => {
   return state.leftSidebar.config;
@@ -13,6 +15,25 @@ export const isLeftSidebarExpandedSelector = state => {
 export const leftSidebarComponentSelector = state => {
   return state.leftSidebar.activeComponentName;
 };
+
+// Selectors:
+export const leftSidebarConfigPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  component: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  content: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string,
+      layerGroups: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
+        }),
+      ),
+    }),
+  ),
+});
 
 // Actions:
 const LOAD = "left-sidebar/LOAD";

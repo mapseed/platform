@@ -131,22 +131,22 @@
     }
   ],
   "map": {
-    "geolocation_enabled": true,
-    "geocoding_bar_enabled": true,
-    "geocoding_engine": "Mapbox",
-    "geocode_field_label": "Enter an address...",
-    "geocode_hint": [-78.906412, 35.9954801],
-    "geocode_bounding_box": [-79.09479, 35.865179, -78.78392, 36.119792],
-    "options": {
-      "mapViewport": {
-        "latitude": 35.976899833978976,
-        "longitude": -78.88370073534878,
-        "zoom": 10.2,
-        "pitch": 30,
-        "minZoom": 1,
-        "maxZoom": 18
-      }
-    },
+    "geolocationEnabled": true,
+    "geocodingBarEnabled": true,
+    "geocodingEngine": "Mapbox",
+    "geocodeFieldLabel": "Enter an address...",
+    "geocodeHint": [-78.906412, 35.9954801],
+    "geocodeBoundingBox": [-79.09479, 35.865179, -78.78392, 36.119792],
+    "mapViewport": {
+      "latitude": 35.976899833978976,
+      "longitude": -78.88370073534878,
+      "zoom": 10.2,
+      "pitch": 30,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "satellite": {
         "type": "raster",

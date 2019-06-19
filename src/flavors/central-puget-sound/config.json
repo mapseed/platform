@@ -65,17 +65,17 @@
     }
   },
   "map": {
-    "geolocation_enabled": true,
-    "options": {
-      "mapViewport": {
-        "latitude": 47.66909,
-        "longitude": -122.39593,
-        "zoom": 8,
-        "minZoom": 1,
-        "maxZoom": 18,
-        "pitch": 30
-      }
-    },
+    "geolocationEnabled": true,
+    "mapViewport": {
+      "latitude": 47.66909,
+      "longitude": -122.39593,
+      "zoom": 8,
+      "minZoom": 1,
+      "maxZoom": 18,
+      "pitch": 30
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "satellite": {
         "type": "raster",
@@ -1782,9 +1782,7 @@
         "icon_url": "/static/css/images/markers/marker-only-flush.png",
         "value": "only-flush",
         "visibleLayerGroupIds": ["mw"],
-=======
         "label": "I will reduce wastewater pollution",
->>>>>>> refactor(flavorConfigs): remove gettext syntax
         "fields": [
           {
             "name": "address",
@@ -4420,50 +4418,46 @@
     }
   ],
   "featuredPlaces": {
-      "header": "Example projects",
-      "default_zoom": 18,
-      "visibleLayerGroupIds": [
-        "satellite",
-        "mwfeatured",
-        "mw-featured-projects"
-      ],
-      "order": [
-        {
-          "placeId": 3737,
-          "zoom": 18
-        },
-        {
-          "placeId": 3363,
-          "zoom": 18
-        },
-        {
-          "placeId": 3360,
-          "zoom": 18
-        },
-        {
-          "placeId": 3362,
-          "zoom": 18
-        },
-        {
-          "placeId": 3330
-        },
-        {
-          "placeId": 3331,
-          "zoom": 14
-        },
-        {
-          "placeId": 3747,
-          "zoom": 18
-        },
-        {
-          "placeId": 3748,
-          "zoom": 18
-        },
-        {
-          "placeId": 7072,
-          "zoom": 18
-        }
-      ]
+    "header": "Example projects",
+    "default_zoom": 18,
+    "visibleLayerGroupIds": ["satellite", "mwfeatured", "mw-featured-projects"],
+    "order": [
+      {
+        "placeId": 3737,
+        "zoom": 18
+      },
+      {
+        "placeId": 3363,
+        "zoom": 18
+      },
+      {
+        "placeId": 3360,
+        "zoom": 18
+      },
+      {
+        "placeId": 3362,
+        "zoom": 18
+      },
+      {
+        "placeId": 3330
+      },
+      {
+        "placeId": 3331,
+        "zoom": 14
+      },
+      {
+        "placeId": 3747,
+        "zoom": 18
+      },
+      {
+        "placeId": 3748,
+        "zoom": 18
+      },
+      {
+        "placeId": 7072,
+        "zoom": 18
+      }
+    ]
   },
   "cluster": {
     "animate": true,

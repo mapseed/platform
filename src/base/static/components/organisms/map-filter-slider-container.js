@@ -5,7 +5,7 @@ import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import {
-  filterableLayerGroupMetadataPropType,
+  filterableLayerGroupPropType,
   updateLayerFilters,
 } from "../../state/ducks/map";
 import { layoutSelector } from "../../state/ducks/ui";
@@ -107,7 +107,7 @@ const MapFilterSlider = ({
 };
 
 MapFilterSlider.propTypes = {
-  metadata: filterableLayerGroupMetadataPropType,
+  metadata: filterableLayerGroupPropType,
   updateLayerFilters: PropTypes.func.isRequired,
 };
 
@@ -138,7 +138,7 @@ const MapFilterSliderContainer = props => {
 
 MapFilterSliderContainer.propTypes = {
   filterableLayerGroupsMetadata: PropTypes.arrayOf(
-    filterableLayerGroupMetadataPropType,
+    filterableLayerGroupPropType,
   ),
   layout: PropTypes.string.isRequired,
   updateLayerFilters: PropTypes.func.isRequired,

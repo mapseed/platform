@@ -53,8 +53,8 @@ import {
 } from "../../state/ducks/map-config";
 import {
   createFeaturesInGeoJSONSource,
-  mapViewportPropType,
-  mapSourceNamesSelector,
+  mapSourcesSelector,
+  mapSourcesPropType,
 } from "../../state/ducks/map";
 import {
   placeExists,
@@ -93,9 +93,9 @@ const statePropTypes = {
   isRightSidebarEnabled: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSpotlightMaskVisible: PropTypes.bool.isRequired,
-  mapSourceNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  mapSources: mapSourcesPropType,
   layout: PropTypes.string.isRequired,
-  mapConfig: mapConfigPropType.isRequired,
+  mapConfig: mapConfigPropType,
   navBarConfig: navBarConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   placeExists: PropTypes.func.isRequired,
@@ -201,7 +201,7 @@ class MapTemplate extends Component<Props, State> {
     // "loaded": All data for this source has finished. Rendering may or may not
     //     be in progress.
     // "error": An error occurred when fetching data for this source.
-    mapSourcesLoadStatus: this.props.mapSourceNames.reduce(
+    mapSourcesLoadStatus: Object.keys(this.props.mapSources).reduce(
       (memo, groupName: string) => ({
         ...memo,
         [groupName]: "unloaded",
@@ -589,7 +589,7 @@ const mapStateToProps = (
   isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
   isSpotlightMaskVisible: uiVisibilitySelector("spotlightMask", state),
-  mapSourceNames: mapSourceNamesSelector(state),
+  mapSources: mapSourcesSelector(state),
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),

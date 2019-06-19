@@ -81,7 +81,6 @@ const KittitasFireReadyFieldSummary = props => {
 };
 
 KittitasFireReadyFieldSummary.propTypes = {
-  fields: PropTypes.array.isRequired,
   place: placePropType.isRequired,
 };
 

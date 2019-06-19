@@ -59,22 +59,21 @@
     ]
   },
   "map": {
-    "geolocation_enabled": true,
-    "geolocation_onload": false,
-    "cartodb_enabled": true,
-    "geocoding_enabled": false,
-    "geocode_field_label": "Enter an address...",
-    "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
-    "options": {
-      "mapViewport": {
-        "latitude": -33.41863,
-        "longitude": -59.50497,
-        "zoom": 7,
-        "pitch": 0,
-        "minZoom": 1,
-        "maxZoom": 19
-      }
-    },
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "geocodingEnabled": false,
+    "geocodeFieldLabel": "Enter an address...",
+    "geocodeBoundingBox": [39.830159, -75.478821, 40.167331, -74.781189],
+    "mapViewport": {
+      "latitude": -33.41863,
+      "longitude": -59.50497,
+      "zoom": 7,
+      "pitch": 0,
+      "minZoom": 1,
+      "maxZoom": 19
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "osm": {
         "type": "raster",

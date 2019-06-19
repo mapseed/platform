@@ -54,10 +54,10 @@
     }
   },
   "map": {
-    "geolocation_enabled": true,
-    "geolocation_onload": false,
-    "geocoding_engine": "Mapbox",
-    "geocode_hint": [-120.541803, 46.99644],
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "geocodingEngine": "Mapbox",
+    "geocodeHint": [-120.541803, 46.99644],
     "offlineBoundingBox": {
       "southWest": {
         "lat": 46.709206,
@@ -68,16 +68,16 @@
         "lng": -119.891353
       }
     },
-    "options": {
-      "mapViewport": {
-        "latitude": 47.18554,
-        "longitude": -120.72226,
-        "zoom": 6.5,
-        "pitch": 15,
-        "minZoom": 1,
-        "maxZoom": 18
-      }
-    },
+    "mapViewport": {
+      "latitude": 47.18554,
+      "longitude": -120.72226,
+      "zoom": 6.5,
+      "pitch": 15,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "osm": {
         "type": "raster",
@@ -4097,7 +4097,7 @@
         ]
       },
       {
-        "id": "wa-state-wildfire-start-sites-2008",
+        "id": "wa-state-wildfire-start-sites-2008-group",
         "visibleDefault": false,
         "interactive": true,
         "popupContent": "<p><strong>Year: </strong><em>{{START_DT}}</em></p><p><strong>Acres burned: </strong><em>{{ACRES_BURNED}}</em></p><p><strong>Cause: </strong><em>{{FIREGCAUSE_LABEL_NM}}</em></p>",
@@ -4577,7 +4577,7 @@
                 "title": "Land Ownership"
               },
               {
-                "id": "wa-state-wildfire-start-sites-2008",
+                "id": "wa-state-wildfire-start-sites-2008-group",
                 "title": "Wildfire Start Sites"
               },
               {
@@ -4716,7 +4716,7 @@
             "end_field_index": 4,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-wildfire-start-sites-2008",
+              "wa-state-wildfire-start-sites-2008-group",
               "kittitas-burn-risk",
               "kittitas-county-outline"
             ],
