@@ -621,9 +621,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         style: {
           ...state.style,
         },
-        // Set visibility on all layers making up this layer group. Also
-        // update basemap layer visibility if this layer group is a
-        // basemap.
       };
     case UPDATE_LAYERS:
       return {
