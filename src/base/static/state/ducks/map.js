@@ -49,7 +49,6 @@ export const mapStylePropType = PropTypes.shape({
   layers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      // groupId: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       source: PropTypes.string,
       "source-layer": PropTypes.string,
