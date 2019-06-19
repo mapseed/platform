@@ -91,14 +91,23 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 
 const getStyle = state => state.map.style;
 const getLayers = state => state.map.layers;
+export const layerGroupsSelector = state => state.map.layerGroups;
 export const mapStyleSelector = createSelector(
-  [getStyle, getLayers],
-  (style, layers) => {
+  [getStyle, getLayers, layerGroupsSelector],
+  (style, layers, layerGroups) => {
     return {
       ...style,
       layers: layers.map(layer => {
         const { groupId, ...mapboxLayer } = layer;
-        return mapboxLayer;
+        return {
+          ...mapboxLayer,
+          layout: {
+            ...mapboxLayer.layout,
+            visibility: layerGroups.byId[groupId].isVisible
+              ? "visible"
+              : "none",
+          },
+        };
       }),
     };
   },
@@ -106,7 +115,6 @@ export const mapStyleSelector = createSelector(
 
 export const mapSourcesSelector = state => state.map.style.sources;
 export const sourcesMetadataSelector = state => state.map.sourcesMetadata;
-export const layerGroupsSelector = state => state.map.layerGroups;
 export const interactiveLayerIdsSelector = state =>
   state.map.interactiveLayerIds;
 export const setMapSizeValiditySelector = state => state.map.isMapSizeValid;
@@ -286,11 +294,6 @@ export function loadMapStyle(mapStyleConfig, datasetsConfig) {
       mapboxLayers: lg.mapboxLayers.map(mbl => ({
         ...mbl,
         groupId: lg.id,
-        layout: {
-          ...mbl.layout,
-          // Set default visibility.
-          visibility: lg.visibleDefault ? "visible" : "none",
-        },
       })),
     }))
     .reduce((memo, lg) => memo.concat(lg.mapboxLayers), [])
@@ -314,10 +317,6 @@ export function loadMapStyle(mapStyleConfig, datasetsConfig) {
           // will only render geometry if the focused source has been
           // populated with features to focus.
           source: "__mapseed-focused-source__",
-          layout: {
-            ...mbl.layout,
-            visibility: "visible",
-          },
         })),
     );
 
@@ -568,17 +567,6 @@ export default function reducer(state = INITIAL_STATE, action) {
     case RESET_UI:
       return {
         ...state,
-        layers: state.layers.map(layer => {
-          return {
-            ...layer,
-            layout: {
-              ...layer.layout,
-              visibility: state.layerGroups.byId[layer.groupId].isVisibleDefault
-                ? "visible"
-                : "none",
-            },
-          };
-        }),
         layerGroups: {
           ...state.layerGroups,
           byId: Object.values(state.layerGroups.byId).reduce(
@@ -595,29 +583,29 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     case UPDATE_LAYER_GROUP_VISIBILITY:
       // eslint-disable-next-line no-case-declarations
-      const layerGroupsById = Object.entries(state.layerGroups.byId).reduce(
-        (memo, [layerGroupId, metadata]) => {
+      const layerGroupsById = Object.values(state.layerGroups.byId).reduce(
+        (memo, layerGroup) => {
           let newVisibilityStatus;
           if (
             action.payload.isVisible &&
             state.layerGroups.byId[action.payload.layerGroupId].isBasemap &&
-            metadata.isBasemap &&
-            layerGroupId !== action.payload.layerGroupId
+            layerGroup.isBasemap &&
+            layerGroup.id !== action.payload.layerGroupId
           ) {
             // If the layer group in the payload is a basemap, switch off
             // other basemap layer groups.
             newVisibilityStatus = false;
-          } else if (layerGroupId === action.payload.layerGroupId) {
+          } else if (layerGroup.id === action.payload.layerGroupId) {
             newVisibilityStatus = action.payload.isVisible;
           }
 
           return {
             ...memo,
-            [layerGroupId]: {
-              ...metadata,
+            [layerGroup.id]: {
+              ...layerGroup,
               isVisible:
                 typeof newVisibilityStatus === "undefined"
-                  ? metadata.isVisible
+                  ? layerGroup.isVisible
                   : newVisibilityStatus,
             },
           };
@@ -636,47 +624,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         // Set visibility on all layers making up this layer group. Also
         // update basemap layer visibility if this layer group is a
         // basemap.
-        layers: state.layers.map(layer => {
-          let newVisibilityStatus;
-          if (
-            state.layerGroups.byId[
-              action.payload.layerGroupId
-            ].layerIds.includes(layer.id)
-          ) {
-            // If this layer is part of the layer group, adjust its
-            // visibility accordingly.
-            newVisibilityStatus = action.payload.isVisible ? "visible" : "none";
-          }
-          if (
-            // If the payload layer is a basemap and the layer we're checking
-            // against is also a basemap, turn that layer off. Only do this
-            // if the incoming request is to turn a layer on; otherwise, a
-            // request to turn a basemap off (for example from the code that
-            // sets layer visibility for a form stage) will turn off all other
-            // basemaps as well.
-            action.payload.isVisible &&
-            state.layerGroups.byId[action.payload.layerGroupId].isBasemap &&
-            state.basemapLayerIds.includes(layer.id) &&
-            !state.layerGroups.byId[
-              action.payload.layerGroupId
-            ].layerIds.includes(layer.id)
-          ) {
-            // If this layer group is a basemap, check to see if this layer
-            // belongs to another basemap. If so, switch it off.
-            newVisibilityStatus = "none";
-          }
-
-          return {
-            ...layer,
-            layout: {
-              ...layer.layout,
-              visibility:
-                typeof newVisibilityStatus === "undefined"
-                  ? layer.layout.visibility
-                  : newVisibilityStatus,
-            },
-          };
-        }),
       };
     case UPDATE_LAYERS:
       return {
