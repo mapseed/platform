@@ -187,7 +187,8 @@ input[type="number"],
   background-color: #999999 !important;
 }
 
-.datetime-field, .dropdown-field {
+.datetime-field,
+.dropdown-field {
   border-color: #999999 !important;
 }
 
@@ -204,7 +205,7 @@ input[type="number"],
 }
 
 .mapseed__progress-bar-inner {
-  background-color: #40becd !important;
+  background-color: #8cbfc4 !important;
 }
 
 .mapseed__link--color-primary {
@@ -227,7 +228,7 @@ input[type="number"],
 -------------------------------------------------------------- */
 
 .next-btn {
-  background-color: #61974b !important;
+  background-color: #8b4710 !important;
   border-radius: 3px !important;
   float: right !important;
   outline: none !important;
@@ -238,6 +239,6 @@ input[type="number"],
   margin-left: 10px !important;
 
   &:hover {
-    background-color: rgb(191, 213, 183) !important;
+    background-color: rgb(208, 181, 159) !important;
   }
 }
