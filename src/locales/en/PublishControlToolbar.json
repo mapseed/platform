@@ -1,8 +1,6 @@
 {
   "publishedLabel": "Published",
   "notPublishedLabel": "Not published",
-  "publishedFooterMsg":
-    "When created, this post will be visible to all map users",
-  "notPublishedFooterMsg":
-    "When created, this post will be visible only to logged-in editors"
+  "publishedFooterMsg": "When created, this post will be visible to all map users",
+  "notPublishedFooterMsg": "When created, this post will be visible only to logged-in editors"
 }

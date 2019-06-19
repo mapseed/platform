@@ -256,7 +256,10 @@
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visible_basemap_id": "light-nolabels",
-            "visible_layer_ids": ["transit-planning", "st3-ballard-west-seattle"]
+            "visible_layer_ids": [
+              "transit-planning",
+              "st3-ballard-west-seattle"
+            ]
           },
           {
             "start_field_index": 3,
