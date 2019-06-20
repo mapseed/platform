@@ -137,22 +137,10 @@
           "https://vector-tiles.mapseed.org/spokane-critical-conservation-areas/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-conservation-waterways": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-conservation-waterways/{z}/{x}/{y}.pbf"
-        ]
-      },
       "spokane-critical-aquifer": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/spokane-critical-aquifer/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "kittitas-floodplain": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-floodplain/{z}/{x}/{y}.pbf"
         ]
       },
       "spokane-county-outline": {
@@ -2202,7 +2190,7 @@
             "//": "--------------OTHER PRACTICES---------------------------",
             "name": "other",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other VSP Practives</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report any other VSP practices on your property.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other VSP Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report any other VSP practices on your property.</p>"
           },
           {
             "name": "other_practices_description",
