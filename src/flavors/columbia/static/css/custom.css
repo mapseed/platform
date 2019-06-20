@@ -43,7 +43,19 @@ ite-ha
 [data-field-type="dropdown"],
 [data-field-type="textarea"],
 [data-field-name="drag_map_info"],
-[data-field-type="geolocate"] {
+[data-field-type="geolocate"],
+[data-field-name="conservation_cover_date"],
+[data-field-name="cropland_pest_management_date"],
+[data-field-name="cover_crop_date"],
+[data-field-name="crop_riparian_forest_buffer_date"],
+[data-field-name="residue_tillage_management_date"],
+[data-field-name="nutrient_management_date"],
+[data-field-name="crop_fencing_date"],
+[data-field-name="ranch_riparian_forest_buffer_date"],
+[data-field-name="ranch_fencing_date"],
+[data-field-name="stream_habitat_improvement_date"],
+[data-field-name="livestock_grazing_date"],
+[data-field-name="watering_facility_date"] {
   background-color: #efefef !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;

@@ -19,8 +19,8 @@
     }
   ],
   "app": {
-    "title": "Spokane County Voluntary Stewardship Program",
-    "name": "Spokane County Voluntary Stewardship Program",
+    "title": "Columbia County Voluntary Stewardship Program",
+    "name": "Columbia County Voluntary Stewardship Program",
     "logo": "/static/css/images/logo.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
@@ -247,25 +247,13 @@
               "fill-opacity": 0.7,
               "fill-color": [
                 "match",
-                ["get", "NAME"],
-                "Lower Spokane",
+                ["get", "Analysis_Unit"],
+                "Touchet",
                 "#8dd3c7",
-                "Upper Spokane",
+                "Tucannon",
                 "#ffffb3",
-                "Pend Oreille Lake",
+                "Lower Snake",
                 "#bebada",
-                "Little Spokane",
-                "#fb8072",
-                "Hangman",
-                "#80b1d3",
-                "Coeur d'Alene Lake",
-                "#fdb462",
-                "Upper Crab",
-                "#b3de69",
-                "Palouse",
-                "#fccde5",
-                "Rock",
-                "#d9d9d9",
                 "#fff"
               ]
             }
@@ -294,7 +282,7 @@
               "text-color": "#666"
             },
             "layout": {
-              "text-field": ["concat", ["get", "NAME"], " watershed"],
+              "text-field": ["concat", ["get", "Analysis_Unit"], " watershed"],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
               "text-size": 12,
               "text-allow-overlap": true,
@@ -652,19 +640,10 @@
           },
           {
             "start_field_index": 7,
-            "end_field_index": 8,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "columbia-wetlands",
-              "columbia-county-border"
-            ]
-          },
-          {
-            "start_field_index": 9,
             "end_field_index": 10,
             "visibleLayerGroupIds": [
               "satellite",
-              "columbia-frequently-flooded",
+              "columbia-watersheds",
               "columbia-county-border"
             ]
           },
@@ -673,7 +652,7 @@
             "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
-              "columbia-geologic-hazard",
+              "columbia-wetlands",
               "columbia-county-border"
             ]
           },
@@ -682,7 +661,7 @@
             "end_field_index": 14,
             "visibleLayerGroupIds": [
               "satellite",
-              "columbia-critical-aquifer",
+              "columbia-frequently-flooded",
               "columbia-county-border"
             ]
           },
@@ -691,13 +670,31 @@
             "end_field_index": 16,
             "visibleLayerGroupIds": [
               "satellite",
-              "columbia-critical-conservation-areas",
+              "columbia-geologic-hazard",
               "columbia-county-border"
             ]
           },
           {
             "start_field_index": 17,
-            "end_field_index": 21,
+            "end_field_index": 18,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-critical-aquifer",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 19,
+            "end_field_index": 20,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-critical-conservation-areas",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 21,
+            "end_field_index": 35,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -705,8 +702,8 @@
             ]
           },
           {
-            "start_field_index": 22,
-            "end_field_index": 33,
+            "start_field_index": 36,
+            "end_field_index": 46,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -714,8 +711,8 @@
             ]
           },
           {
-            "start_field_index": 34,
-            "end_field_index": 45,
+            "start_field_index": 47,
+            "end_field_index": 48,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -723,26 +720,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 66,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "columbia-input",
-              "columbia-county-border"
-            ]
-          },
-          {
-            "start_field_index": 67,
-            "end_field_index": 69,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "columbia-input",
-              "columbia-county-border"
-            ]
-          },
-          {
-            "start_field_index": 70,
-            "end_field_index": 88,
+            "start_field_index": 49,
+            "end_field_index": 58,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -782,51 +761,108 @@
           {
             "name": "analysis_unit",
             "type": "big_radio",
-            "prompt": "Of the three watersheds on the map, in which do you primarily farm?",
+            "prompt": "Of the three watersheds on the map, in which does your land primarily lie?",
             "optional": false,
             "content": [
               {
-                "label": "Lower Spokane",
-                "value": "lower-spokane"
+                "label": "Touchet",
+                "value": "touchet"
               },
               {
-                "label": "Upper Spokane",
-                "value": "upper-spokane"
+                "label": "Tucannon",
+                "value": "tucannon"
               },
               {
-                "label": "Pend Oreille Lake",
+                "label": "Lower Snake",
                 "value": "pend-oreille-lake"
-              },
-              {
-                "label": "Little Spokane",
-                "value": "little-spokane"
-              },
-              {
-                "label": "Hangman",
-                "value": "hangman"
-              },
-              {
-                "label": "Coeur d'Alene Lake",
-                "value": "coeur-dalene-lake"
-              },
-              {
-                "label": "Upper Crab",
-                "value": "Upper Crab"
-              },
-              {
-                "label": "Palouse",
-                "value": "palouse"
-              },
-              {
-                "label": "Rock",
-                "value": "rock"
               }
             ]
           },
           {
+            "name": "land_use_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Your Land Use</h2>"
+          },
+          {
+            "name": "acres_owned_leased",
+            "type": "big_radio",
+            "prompt": "How many acres of land do you own/lease and actively farm or ranch on? (Choose one)",
+            "content": [
+              {
+                "label": "0-50 acres",
+                "value": "0_50_acres"
+              },
+              {
+                "label": "50-100 acres",
+                "value": "50_100_acres"
+              },
+              {
+                "label": "101-1,000 acres",
+                "value": "101_1000_acres"
+              },
+              {
+                "label": "1,001+ acres",
+                "value": "1001_plus_acres"
+              },
+              {
+                "label": "Prefer not to answer",
+                "value": "no_answer"
+              }
+            ]
+          },
+          {
+            "name": "current_crops",
+            "type": "big_checkbox",
+            "prompt": "What crops are you currently growing, or have you previously (between 2011—now) grown on your land? Choose all that apply.",
+            "content": [
+              {
+                "label": "Barley",
+                "value": "barley"
+              },
+              {
+                "label": "Spring Peas",
+                "value": "spring_peas"
+              },
+              {
+                "label": "Lentils",
+                "value": "lentils"
+              },
+              {
+                "label": "Spring Wheat",
+                "value": "spring_wheat"
+              },
+              {
+                "label": "Winter Wheat",
+                "value": "winter_wheat"
+              },
+              {
+                "label": "Alfalfa/Hay",
+                "value": "alfalfa_hay"
+              },
+              {
+                "label": "Beans",
+                "value": "beans"
+              },
+              {
+                "label": "Oilseed Crops",
+                "value": "oilseed_crops"
+              },
+              {
+                "label": "N/A",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "other_crops",
+            "type": "text",
+            "prompt": "Other (please explain)",
+            "optional": true
+          },
+          {
             "name": "wetlands_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wetlands.jpg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Wetland Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wetlands.jpg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
@@ -847,7 +883,7 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently Flooded Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Frequently Flooded Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
@@ -868,7 +904,7 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Severe Geologic Hazard Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/geologic-hazard.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Severe Geologic Hazard Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/geologic-hazard.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_geologic_hazard",
@@ -889,7 +925,7 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Aquifer Recharge Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/critical-aquifer.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Critical Aquifer Recharge Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/critical-aquifer.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_critical_aquifer",
@@ -910,7 +946,7 @@
           {
             "name": "critical_conservation_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical Conservation Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wildlife-conservation.jpeg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical conservation areas</strong> are managed to maintain habitats of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Critical Conservation Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wildlife-conservation.jpeg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical conservation areas</strong> are managed to maintain habitats of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
             "name": "private-property_on_criticak_conservation",
@@ -932,7 +968,7 @@
             "//": "---------------------CROP PRACTICES-------------------------",
             "name": "tillage_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Crop Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your crop practices. If you do not farm your land, please proceed to the next section.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Crop Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your crop practices. If you do not farm your land, please proceed to the next section.</p>"
           },
           {
             "//": "=============== CONSERVATION COVER ================================",
@@ -1232,7 +1268,7 @@
             "//": "---------------------LIVESTOCK PRACTICES-------------------------",
             "name": "livestock_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Livestock Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your livestock practices. If you do not ranch your land, please proceed to the next section.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Livestock Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your livestock practices. If you do not ranch your land, please proceed to the next section.</p>"
           },
           {
             "//": "=============== LIVESTOCK RIPARIAN FOREST BUFFER =================================",
@@ -1448,33 +1484,54 @@
             "//": "--------------OTHER PRACTICES---------------------------",
             "name": "other",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other VSP Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Are there any additional Conservation Practices you participate in that weren’t listed within the survey? Please list them here, with the year implemented, in the space provided.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other Conservation Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Are there any additional Conservation Practices you participate in that weren’t listed within the survey? Please list them here, with the year implemented, in the space provided.</p>"
           },
           {
             "name": "other_practices_description",
             "type": "textarea",
-            "prompt": "Please describe your other VSP practices:",
+            "prompt": "Please describe your other Conservation Practices:",
             "placeholder": "Description and year implemented",
             "optional": true
           },
           {
-            "//": "---------------SECTION: ADDITIONAL INFO-------------------",
+            "//": "---------------ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
           },
           {
-            "name": "my_image",
-            "type": "file",
-            "prompt": "Show your stewardship practices! Upload photos before, during, or after you implemented your stewardship practices:",
-            "label": "Upload photos",
-            "optional": true
+            "name": "funding_sources",
+            "type": "big_radio",
+            "prompt": "For the conservation practices you currently participate in, what are your funding sources?",
+            "content": [
+              {
+                "label": "Federal funding sources",
+                "value": "federal_funding"
+              },
+              {
+                "label": "State funding sources",
+                "value": "state_funding"
+              },
+              {
+                "label": "Private funding sources",
+                "value": "private_funding"
+              },
+              {
+                "label": "Mixed funding sources",
+                "value": "mixed_funding"
+              }
+            ]
           },
           {
-            "name": "practices_description",
+            "name": "desired_outcome",
             "type": "textarea",
-            "prompt": "Add a description of your stewardship practices!",
-            "display_prompt": "Description:",
+            "prompt": "Through this survey, what would you like to gain? Are you interested in learning about funding options, available technical assistance, or other Conservation Practices available to you? Please be as detailed as possible."
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "Show your conservation practices! Upload photos before, during, or after you implemented your stewardship practices:",
+            "label": "Upload photos",
             "optional": true
           },
           {
@@ -1487,7 +1544,7 @@
           {
             "name": "private-use_photos",
             "type": "big_radio",
-            "prompt": "Can Spokane County VSP highlight your photos on our website?",
+            "prompt": "Can Columbia County VSP highlight your photos on our website?",
             "default_value": "no",
             "content": [
               {
@@ -1503,7 +1560,6 @@
           {
             "name": "private-landowner_email",
             "type": "text",
-            "optional": true,
             "placeholder": "Your email address will never be shared",
             "prompt": "What is your email address?"
           },
@@ -1513,86 +1569,6 @@
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
             "optional": false
-          },
-          {
-            "name": "acres_farmed",
-            "type": "number",
-            "prompt": "How many acres do you farm?",
-            "placeholder": "Approximate acreage"
-          },
-          {
-            "name": "years_farming",
-            "prompt": "How many years have you been farming?",
-            "type": "number"
-          },
-          {
-            "name": "conservation_programs",
-            "prompt": "Have you ever been a part of, or have interest in, any of the following conservation programs? Check all that apply.",
-            "type": "big_checkbox",
-            "content": [
-              {
-                "label": "RCPP",
-                "value": "rcpp"
-              },
-              {
-                "label": "AWEP",
-                "value": "awep"
-              },
-              {
-                "label": "EQIP",
-                "value": "eqip"
-              },
-              {
-                "label": "CSP",
-                "value": "csp"
-              },
-              {
-                "label": "CCRP",
-                "value": "ccrp"
-              }
-            ]
-          },
-          {
-            "name": "farm_plan",
-            "prompt": "Do you have a Farm Plan in place, or would you like to initiate one?",
-            "type": "big_radio",
-            "content": [
-              {
-                "label": "I have a Farm Plan in place",
-                "value": "have_plan"
-              },
-              {
-                "label": "I am interested in initiating a Farm Plan",
-                "value": "have_interest"
-              },
-              {
-                "label": "I have no interest in a Farm Plan",
-                "value": "no_interest"
-              }
-            ]
-          },
-          {
-            "name": "land_ownership",
-            "prompt": "Who owns the land you work?",
-            "type": "big_radio",
-            "content": [
-              {
-                "label": "Personally owned",
-                "value": "personally_owned"
-              },
-              {
-                "label": "Family owned",
-                "value": "family_owned"
-              },
-              {
-                "label": "Leased by producer (from family)",
-                "value": "leased_by_producer_from_family"
-              },
-              {
-                "label": "Leased by producer (from landlord)",
-                "value": "leased_by_producer_from_landlord"
-              }
-            ]
           },
           {
             "name": "private",
