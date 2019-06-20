@@ -588,7 +588,7 @@
             "layerGroups": [
               {
                 "id": "columbia-county-border",
-                "title": "Spokane County border"
+                "title": "Columbia County border"
               },
               {
                 "id": "columbia-input",
@@ -1100,7 +1100,7 @@
             "//": "=============== CROPLAND RIPARIAN FOREST BUFFER =================================",
             "name": "crop_riparian_forest_buffer",
             "type": "big_radio",
-            "prompt": "Do you participate in having a riparian forest buffer on cropland (an area predominantly of suitable trees and/or shrubs planted along a stream, river, lake, or other water body)?",
+            "prompt": "Do you participate in having a riparian forest buffer (an area predominantly of suitable trees and/or shrubs planted along a stream, river, lake, or other water body) on cropland?",
             "label": "Riparian forest buffer on cropland",
             "optional": true,
             "trigger": {
@@ -1274,7 +1274,7 @@
             "//": "=============== LIVESTOCK RIPARIAN FOREST BUFFER =================================",
             "name": "ranch_riparian_forest_buffer",
             "type": "big_radio",
-            "prompt": "Do you participate in any conservation cover practices (establishing and maintaining long-term, permanent vegetative cover) on ranchland?",
+            "prompt": "Do you participate in having a riparian forest buffer (an area predominantly of suitable trees and/or shrubs planted along a stream, river, lake, or other water body) on ranchland?",
             "label": "Riparian forest buffer on ranchland",
             "optional": true,
             "trigger": {
