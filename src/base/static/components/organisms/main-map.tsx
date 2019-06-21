@@ -202,9 +202,7 @@ class MainMap extends React.Component<Props, State> {
   });
 
   resizeMap = () => {
-    const node = findDOMNode(
-      this.props.mapContainerRef.current,
-    );
+    const node = findDOMNode(this.props.mapContainerRef.current);
     if (node instanceof Element) {
       const containerDims = node.getBoundingClientRect();
 
