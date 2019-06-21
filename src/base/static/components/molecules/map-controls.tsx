@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import {
+  leftSidebarConfigPropType,
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
   setLeftSidebarComponent,
@@ -92,23 +93,12 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
 }
 
 // These are Props passed down from parent:
-interface ParentProps {
-  onViewportChange(any): void;
-}
+const parentPropTypes = {
+  onViewportChange: PropTypes.func.isRequired,
+};
 
 const mapControlStatePropTypes = {
-  leftSidebarConfig: PropTypes.shape({
-    is_enabled: PropTypes.bool,
-    is_visible_default: PropTypes.bool,
-    panels: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        component: PropTypes.string.isRequired,
-      }).isRequired,
-    ).isRequired,
-  }).isRequired,
+  leftSidebarConfig: leftSidebarConfigPropType.isRequired,
 };
 
 const dispatchPropTypes = {
@@ -117,6 +107,7 @@ const dispatchPropTypes = {
 };
 
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
+type ParentProps = PropTypes.InferProps<typeof parentPropTypes>;
 
 type MapControlStateProps = PropTypes.InferProps<
   typeof mapControlStatePropTypes
