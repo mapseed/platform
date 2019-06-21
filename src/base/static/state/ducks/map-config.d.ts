@@ -15,8 +15,8 @@ export interface MapViewport extends InitialMapViewport {
   transitionInterpolator: any;
 }
 
-export const mapConfigSelector:any;
-export const loadMapConfig:any;
-export const geocodeAddressBarEnabledSelector:any;
-export const mapConfigPropType:any;
-export const defaultMapViewportSelector:any;
+export const mapConfigSelector: any;
+export const loadMapConfig: any;
+export const geocodeAddressBarEnabledSelector: any;
+export const mapConfigPropType: any;
+export const defaultMapViewportSelector: any;
