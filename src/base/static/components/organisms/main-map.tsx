@@ -210,12 +210,12 @@ class MainMap extends React.Component<Props, State> {
     if (node instanceof Element) {
       const containerDims = node.getBoundingClientRect();
 
-      console.log("setting containerDims:", containerDims);
       this.props.updateMapContainerDimensions({
         height: containerDims.height,
         width: containerDims.width,
       });
     } else {
+      // eslint-disable-next-line no-console
       console.warn("resizemap: node is not element! node:", node);
     }
   };
