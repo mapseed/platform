@@ -20,5 +20,3 @@ export const loadMapConfig:any;
 export const geocodeAddressBarEnabledSelector:any;
 export const mapConfigPropType:any;
 export const defaultMapViewportSelector:any;
-
-export * from "./map-config"
