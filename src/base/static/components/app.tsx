@@ -50,6 +50,7 @@ import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
 import {
   loadMapConfig,
   defaultMapViewportSelector,
+  InitialMapViewport,
 } from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
@@ -185,15 +186,6 @@ declare const Mapseed: any;
 // 'process' global is injected by Webpack:
 declare const process: any;
 
-interface InitialMapViewport {
-  minZoom: number;
-  maxZoom: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
-}
 interface Language {
   code: string;
   label: string;

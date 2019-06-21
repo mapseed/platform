@@ -49,13 +49,9 @@ class CustomControl extends React.Component<CustomControlProps> {
   }
 }
 
-const geolocateControlStatePropTypes = {
-  onViewportChange: PropTypes.func.isRequired,
+type GeolocateControlProps = {
+  onViewportChange: Function;
 };
-
-type GeolocateControlProps = PropTypes.InferProps<
-  typeof geolocateControlStatePropTypes
->;
 
 // react-map-gl does not export mapboxgl's built-in geolocate control, so we
 // need to build our own here.
@@ -93,10 +89,6 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
 }
 
 // These are Props passed down from parent:
-const parentPropTypes = {
-  onViewportChange: PropTypes.func.isRequired,
-};
-
 const mapControlStatePropTypes = {
   leftSidebarConfig: leftSidebarConfigPropType.isRequired,
 };
@@ -107,7 +99,9 @@ const dispatchPropTypes = {
 };
 
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-type ParentProps = PropTypes.InferProps<typeof parentPropTypes>;
+type ParentProps = {
+  onViewportChange: Function;
+};
 
 type MapControlStateProps = PropTypes.InferProps<
   typeof mapControlStatePropTypes

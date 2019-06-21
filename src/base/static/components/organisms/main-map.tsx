@@ -12,7 +12,6 @@ import { RouteComponentProps, withRouter } from "react-router";
 import {
   interactiveLayerIdsSelector,
   mapStyleSelector,
-  mapViewportPropType,
   mapStylePropType,
   updateFeaturesInGeoJSONSource,
   updateLayers,
@@ -26,6 +25,7 @@ import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
   mapConfigSelector,
   mapConfigPropType,
+  MapViewport,
 } from "../../state/ducks/map-config";
 import {
   activeEditPlaceIdSelector,
@@ -65,20 +65,6 @@ const statePropTypes = {
   datasets: datasetsPropType,
 };
 
-const parentPropTypes = {
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
-  mapContainerWidthDeclaration: PropTypes.string.isRequired,
-  mapContainerHeightDeclaration: PropTypes.string.isRequired,
-  mapContainerRef: PropTypes.object.isRequired,
-  onUpdateInitialMapViewport: PropTypes.func.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
-  onUpdateMapDraggedOrZoomed: PropTypes.func.isRequired,
-  onUpdateSpotlightMaskVisibility: PropTypes.func.isRequired,
-  onUpdateSourceLoadStatus: PropTypes.func.isRequired,
-  mapSourcesLoadStatus: PropTypes.object.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
-};
-
 const dispatchPropTypes = {
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayers: PropTypes.func.isRequired,
@@ -87,7 +73,19 @@ const dispatchPropTypes = {
 
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-type ParentProps = PropTypes.InferProps<typeof parentPropTypes>;
+type ParentProps = {
+  isMapDraggedOrZoomed: boolean;
+  mapContainerWidthDeclaration: string;
+  mapContainerHeightDeclaration: string;
+  mapContainerRef: React.RefObject<HTMLElement>;
+  onUpdateInitialMapViewport: Function;
+  onUpdateMapViewport: Function;
+  onUpdateMapDraggedOrZoomed: Function;
+  onUpdateSpotlightMaskVisibility: Function;
+  onUpdateSourceLoadStatus: Function;
+  mapSourcesLoadStatus: any;
+  mapViewport: MapViewport;
+};
 
 type Props = StateProps & DispatchProps & ParentProps & RouteComponentProps<{}>;
 
@@ -205,7 +203,7 @@ class MainMap extends React.Component<Props, State> {
 
   resizeMap = () => {
     const node = findDOMNode(
-      (this.props.mapContainerRef as React.RefObject<HTMLElement>).current,
+      this.props.mapContainerRef.current,
     );
     if (node instanceof Element) {
       const containerDims = node.getBoundingClientRect();
