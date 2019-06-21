@@ -17,10 +17,11 @@ export const leftSidebarComponentSelector = state => {
 };
 
 // Selectors:
-export const leftSidebarConfigPropType = PropTypes.shape({
+export const leftSidebarPanelPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   component: PropTypes.string.isRequired,
   title: PropTypes.string,
+  icon: PropTypes.string.isRequired,
   content: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -33,6 +34,12 @@ export const leftSidebarConfigPropType = PropTypes.shape({
       ),
     }),
   ),
+});
+
+export const leftSidebarConfigPropType = PropTypes.shape({
+  is_enabled: PropTypes.bool,
+  is_visible_default: PropTypes.bool,
+  panels: PropTypes.arrayOf(leftSidebarPanelPropType).isRequired,
 });
 
 // Actions:
