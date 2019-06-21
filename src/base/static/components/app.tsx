@@ -756,38 +756,31 @@ const mapStateToProps = (
   ...ownProps,
 });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
-    dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
-  loadDatasets: datasets => dispatch(loadDatasets(datasets)),
-  loadPlaces: places => dispatch(loadPlaces(places)),
-  updateLayout: () => dispatch(updateLayout()),
-  updatePlacesLoadStatus: loadStatus =>
-    dispatch(updatePlacesLoadStatus(loadStatus)),
-  updateMapContainerDimensions: newDimensions =>
-    dispatch(updateMapContainerDimensions(newDimensions)),
-  updateUIVisibility: (componentName, isVisible) =>
-    dispatch(updateUIVisibility(componentName, isVisible)),
-  loadDatasetsConfig: config => dispatch(loadDatasetsConfig(config)),
-  loadDashboardConfig: config => dispatch(loadDashboardConfig(config)),
-  loadMapConfig: config => dispatch(loadMapConfig(config)),
-  loadPlaceConfig: (config, user) => dispatch(loadPlaceConfig(config, user)),
-  loadLeftSidebarConfig: config => dispatch(loadLeftSidebarConfig(config)),
-  loadRightSidebarConfig: config => dispatch(loadRightSidebarConfig(config)),
-  loadFeaturedPlacesConfig: config =>
-    dispatch(loadFeaturedPlacesConfig(config)),
-  loadAppConfig: config => dispatch(loadAppConfig(config)),
-  loadFormsConfig: config => dispatch(loadFormsConfig(config)),
-  loadSupportConfig: config => dispatch(loadSupportConfig(config)),
-  loadPagesConfig: config => dispatch(loadPagesConfig(config)),
-  loadNavBarConfig: config => dispatch(loadNavBarConfig(config)),
-  loadCustomComponentsConfig: config =>
-    dispatch(loadCustomComponentsConfig(config)),
-  loadAnalysisTargets: targets => dispatch(loadAnalysisTargets(targets)),
-  loadMapStyle: (mapConfig, datasetsConfig) =>
-    dispatch(loadMapStyle(mapConfig, datasetsConfig)),
-  loadUser: user => dispatch(loadUser(user)),
-});
+const mapDispatchToProps = {
+  createFeaturesInGeoJSONSource,
+  loadDatasets,
+  loadPlaces,
+  updateLayout,
+  updatePlacesLoadStatus,
+  updateMapContainerDimensions,
+  updateUIVisibility,
+  loadDatasetsConfig,
+  loadDashboardConfig,
+  loadMapConfig,
+  loadPlaceConfig,
+  loadLeftSidebarConfig,
+  loadRightSidebarConfig,
+  loadFeaturedPlacesConfig,
+  loadAppConfig,
+  loadFormsConfig,
+  loadSupportConfig,
+  loadPagesConfig,
+  loadNavBarConfig,
+  loadCustomComponentsConfig,
+  loadAnalysisTargets,
+  loadMapStyle,
+  loadUser,
+};
 
 export default withRouter(
   connect<StateProps, DispatchProps, OwnProps>(
