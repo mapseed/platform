@@ -4585,6 +4585,10 @@
                 "title": "Fire Districts"
               },
               {
+                "id": "kittitas-burn-risk",
+                "title": "Wildfire Risk"
+              },
+              {
                 "id": "kittitas-firewise-communities",
                 "title": "FireWise USA Communities"
               },
@@ -4670,8 +4674,8 @@
             "analysisTarget": "kittitas-burn-risk.geojson",
             "propertiesToPluck": [
               {
-                "name": "QRC_iBP",
-                "fallbackValue": 0
+                "name": "LABEL",
+                "fallbackValue": "MOD"
               }
             ]
           },
