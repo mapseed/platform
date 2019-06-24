@@ -35,15 +35,14 @@ import {
 } from "../../../molecules/report-components/typography";
 import { ColoredMeterChart } from "../../../molecules/report-components/charts";
 
-// TODO: Get some validation on these ranges.
 const getBurnRiskText = burnRisk => {
-  if (burnRisk <= 0.2) {
+  if (burnRisk === "BENEFICIAL" || burnRisk === "LOW") {
     return "Low";
-  } else if (burnRisk <= 0.4) {
+  } else if (burnRisk === "MOD") {
     return "Moderate";
-  } else if (burnRisk <= 0.6) {
+  } else if (burnRisk === "HIGH") {
     return "High";
-  } else if (burnRisk <= 0.8) {
+  } else if (burnRisk === "VERY HIGH") {
     return "Very High";
   } else {
     return "Extreme";

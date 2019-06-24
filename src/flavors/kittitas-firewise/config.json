@@ -139,7 +139,7 @@
         "tiles": [
           "https://vector-tiles.mapseed.org/kittitas-burn-risk/{z}/{x}/{y}.pbf"
         ],
-        "maxZoom": 16
+        "maxZoom": 18
       },
       "wa-state-large-fires-1973-2018": {
         "type": "vector",
@@ -3857,25 +3857,21 @@
             "paint": {
               "fill-opacity": 0.5,
               "fill-color": [
-                "step",
-                ["to-number", ["get", "QRC_iBP"]],
-                "#ffffcc",
-                0.2,
-                "#ffeda0",
-                0.3,
+                "match",
+                ["get", "LABEL"],
+                "BENEFICIAL",
+                "#ffffb2",
+                "LOW",
                 "#fed976",
-                0.4,
+                "MOD",
                 "#feb24c",
-                0.5,
+                "HIGH",
                 "#fd8d3c",
-                0.6,
-                "#fc4e2a",
-                0.7,
-                "#e31a1c",
-                0.8,
+                "VERY HIGH",
+                "#f03b20",
+                "EXTREME",
                 "#bd0026",
-                0.9,
-                "#800026"
+                "#fff"
               ]
             }
           }
