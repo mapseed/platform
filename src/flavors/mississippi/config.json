@@ -22,7 +22,8 @@
     "title": "an anthropocene river",
     "name": "Mississippi",
     "show_name_in_header": true,
-    "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",    "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
+    "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
+    "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
@@ -81,7 +82,9 @@
       },
       "confluence": {
         "type": "raster",
-        "tiles": ["https://ecotopia.today/Mississippi/Confluence/{z}/{x}/{y}.png"],
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Confluence/{z}/{x}/{y}.png"
+        ],
         "tileSize": 256
       },
       "oceans": {
@@ -855,9 +858,13 @@
       },
       {
         "placeId": 7285,
-        "pan_to": [-89.50, 37.07],
+        "pan_to": [-89.5, 37.07],
         "zoom": 9,
-        "visibleLayerGroupIds": ["ocean-satellite", "confluence-group", "streets2-group"],
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "confluence-group",
+          "streets2-group"
+        ],
         "spotlight": false
       }
     ]
