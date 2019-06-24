@@ -22,8 +22,7 @@
     "title": "an anthropocene river",
     "name": "Mississippi",
     "show_name_in_header": true,
-    "logo": "/static/css/images/Logo2.png",
-    "meta_description": "This map is dedicated to all the imhabitants of Cascadia, of every race and species",
+    "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",    "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
@@ -68,9 +67,21 @@
         ],
         "tileSize": 256
       },
+      "streets2": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjxalbmke3pej1cmn26b8b74q/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
+      },
       "mississippi-watershed": {
         "type": "raster",
         "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
+        "tileSize": 256
+      },
+      "confluence": {
+        "type": "raster",
+        "tiles": ["https://ecotopia.today/Mississippi/Confluence/{z}/{x}/{y}.png"],
         "tileSize": 256
       },
       "oceans": {
@@ -163,6 +174,18 @@
         ]
       },
       {
+        "id": "confluence-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "confluence-basemap",
+            "type": "raster",
+            "source": "confluence"
+          }
+        ]
+      },
+      {
         "id": "streets-group",
         "basemap": false,
         "visibleDefault": true,
@@ -171,6 +194,18 @@
             "id": "streets-basemap",
             "type": "raster",
             "source": "streets"
+          }
+        ]
+      },
+      {
+        "id": "streets2-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "streets2-basemap",
+            "type": "raster",
+            "source": "streets2"
           }
         ]
       },
@@ -281,7 +316,7 @@
                 "type": "exponential",
                 "stops": [[1, 10], [1500000, 30]]
               },
-              "circle-color": "#efc300"
+              "circle-color": "#f8f8f8"
             }
           }
         ]
@@ -346,7 +381,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "MAKE IT NOW",
+    "add_button_label": "PUT IT ON THE MAP",
     "show_list_button_label": "See all comments",
     "show_map_button_label": "Show the Map",
     "title": "Tell us more...",
@@ -762,45 +797,48 @@
   },
   "nav_bar": [
     {
-      "title": "the who",
+      "title": "concept",
       "type": "internal_link",
-      "url": "/page/about"
+      "url": "/page/concept"
     },
     {
-      "title": "the how",
+      "title": "field stations",
       "type": "internal_link",
-      "url": "/page/getinvolved"
+      "url": "/page/fieldstations"
     }
   ],
   "pages": [
     {
-      "slug": "about",
+      "slug": "concept",
       "lang": "en",
       "content": [
-        "<p><h2>CALLING ALL BIOREGIONALISTS</h2></p>",
-        "<p><strong>What is Cascadia? Where is Cascadia? Why is Cascadia? Here you can make your intimate sensations of the region public, and write your ideas directly into a common landscape. Tell everyone who cares why particular places matter to <em>you</em>.</strong></p><br><br>",
-        "<p><h2>CALLING ALL ARTISTS</h2></p>",
-        "<p><strong>You can make Cascadia more real, more fictional, more beautiful, more terrifying, more natural, more artifical, more conventional, more controversial, by contributing your sensations, ideas and artworks, plus the events that matter to you.</strong></p><br><br>",
-        "<p><img src='/static/css/images/HoRiverValley.jpg'></p>"
+        "<p><h2>MISSISSIPPI: An Anthropocene River</h2></p>",
+        "<img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/>",
+        "<p><br><strong>Mississippi: An Anthropocene River</strong> explores the vast but patchy region around the Mississippi in its changing spatio-temporal formations. The project’s aim is to make this archival landscape legible as a critical zone of habitation and long-term interaction between humans and the environment. It seeks to analyze the Anthropocene on the ground and in the field, exploring ground-truthing measures to augment the remote-sensing operations and abstract knowledge forms of Anthropocene science. Through November 2019, interdisciplinary groups of researchers, artists and stakeholders from civil society will investigate the river basin to develop local approaches to issues of planetary change and together will forge new methods of transdisciplinary research and education. The project is developed and organized by Haus der Kulturen der Welt (HKW) and the Max Planck Institute for the History of Science, Berlin (MPIWG).</p>",
+        "<p>The Mississippi River’s meandering path has carved out an iconic landscape in US mythology and has become a symbol for human impact. Barely a river but more of a floodplain before colonization, it was massively dredged in the 20th century. Its ecology has evolved as a constantly shifting ecosystem, a catchment of cultures, a dividing line, a water highway for resources and goods, and a sink for pollutants. From the logging and mining zones in the Upper River area to the high technology and petrochemical centers in the Delta; from the industrial agricultural landscapes of the Midwest to the “dead zones” in the Gulf of Mexico; from the historic transportation network enabling the iniquitous trade of forced human labor to the social injustices of poverty and deindustrialization today—the Mississippi is a symptom and object of investigation for the radical impact humans inflict on the Earth.</p>",
+        "<p><strong>Mississippi: An Anthropocene River</strong> manifests itself in a variety of field-research activities, public forums, workshops, and travels on and along the Mississippi River. Five Anthropocene River Field Stations, distributed along the watershed from North to South, investigate, highlight, and share historical and contemporary issues of their respective region using both scientific and artistic research methods over the course of one year. <em>Sediment, Settlement, Sentiment: The Machinic River</em> (Field Station 1) addresses the uppermost part of the Mississippi river as a site of river engineering, experimentation and speculation. <em>Anthropocene Drift</em> (Field Station 2) centers on the process of biome change, contrasting the monocrop landscapes of the Corn Belt with the Driftless Area stretching across southeastern Minnesota, southwestern Wisconsin and northwestern Iowa. Anthropocene Vernacular. <em>Industry, Indigeneity, and Empire</em> (Field Station 3) explores the long and conflicted histories of settlement and domestication in the St. Louis area and the American Bottom. <em>Confluence Ecologies</em> (Field Station 4) engages with the ecologic-economic-technological infrastructures in the “Confluence Region” between Southern Illinois, Missouri and Kentucky. <em>Commodity Exploitation</em> (Field Station 5) explores identity and commerce in the in the Lower Mississippi River stretching from Memphis to Natchez. During the fall of 2019, an Anthropocene River Journey - made on canoes and vans travelling down and along the Mississippi—gathers the explorations of the various Field Stations and synthesizes them into a common framework. Travelling participants carry out their own research and provide extensive documentation, bringing the findings downstream and tying the different narratives together. In a weeklong series of experimental seminars taking place November 9–16 in New Orleans the Anthropocene River Campus: The Human Delta will mark a conceptual contraction of the specifically local approaches of the project, informed and leveraged by the research works of the Field Stations, and the planetary-scale framework of economic, ecological, and social teleconnections of the Anthropocene River. An Anthropocene River School features several linked activities, working as an exemplary platform for research practice and activism, transforming field site data into an ongoing, collaborative teaching enterprise—both on site and online.</p>",
+        "<p><br></p>",
+        "<img src='https://ecotopia.today/Mississippi/Images/Partners.jpg'/>"
       ]
     },
     {
-      "slug": "getinvolved",
+      "slug": "fieldstations",
       "lang": "en",
       "content": [
-        "<p><h2>Make it now</h2></p>",
-        "<p><h4>Thanks to the brilliant folks at <a href='mapseed.org'>Mapseed</a>, this map is very easy to use, either on a computer or a mobile phone.</p>",
-        "<p>Just hit the button, \"Make it now.\" Then drag the map around until the marker is exactly where you would like it. You can zoom in a long way to find the exact spot. When you have found it, then choose one of the categories: Sensation, Idea, Artwork, Event.</p>",
-        "<p>You can give a title describing the feeling of a place, or its importance to the bioregion. You can also give the name of the artwork or event you are locating. You can use the categories in unexpected ways.</p>",
-        "<p>The idea can be yours or someone else's (let us know whose it is) and the sensation can be agreeable or disagreeable (if there is some problem there).</p>",
-        "<p>The artwork can be made specifically for this map, it can be documented here, or the image of an existing work can be placed in the landscape. The concept of event speaks for itself&mdash;whether it's artistic or otherwise.</p>",
-        "<p>You can write a short or long text, a poem, a dialogue etc. You can add an image with the editor (click the second to last icon on the right) or you can put in the web address of a Vimeo or Youtube video.",
-        "<p>Anyone can use this map. The idea is express the beauty, the importance and the challenge of creating the Cascadian bioregion. This unfinished process has been going on for decades. Cascadia represents a pathway forward, through and beyond ecological damage, through and beyond climate change. Make it now!</p>"
+        "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/report/7285' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceEcologies.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-middle'>",
+        "<h3>Confluence Ecologies</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>"
       ]
     }
   ],
   "featuredPlaces": {
-    "header": "Curated Collections",
+    "header": "Sites",
     "visibleLayerGroupIds": [
       "ocean-satellite",
       "streets-group",
@@ -812,7 +850,15 @@
       {
         "placeId": 7289,
         "pan_to": [-92.75, 39.77],
-        "zoom": 6
+        "zoom": 6,
+        "spotlight": false
+      },
+      {
+        "placeId": 7285,
+        "pan_to": [-89.50, 37.07],
+        "zoom": 9,
+        "visibleLayerGroupIds": ["ocean-satellite", "confluence-group", "streets2-group"],
+        "spotlight": false
       }
     ]
   }
