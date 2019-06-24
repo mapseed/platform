@@ -44,22 +44,22 @@
     }
   },
   "map": {
-    "geolocation_enabled": true,
-    "geolocation_onload": false,
-    "cartodb_enabled": true,
-    "geocoding_enabled": false,
-    "geocode_field_label": "Enter an address...",
-    "geocode_bounding_box": [],
-    "options": {
-      "mapViewport": {
-        "latitude": 39.77,
-        "longitude": -92.75,
-        "zoom": 5,
-        "pitch": 0,
-        "minZoom": 1,
-        "maxZoom": 18.4
-      }
-    },
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "cartodbEnabled": true,
+    "geocodingEnabled": false,
+    "geocodeFieldLabel": "Enter an address...",
+    "geocodeBoundingBox": [],
+    "mapViewport": {
+      "latitude": 39.77,
+      "longitude": -92.75,
+      "zoom": 5,
+      "pitch": 0,
+      "minZoom": 1,
+      "maxZoom": 18.4
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "streets": {
         "type": "raster",
@@ -803,7 +803,7 @@
     "header": "Curated Collections",
     "visibleLayerGroupIds": [
       "ocean-satellite",
-      "streets",
+      "streets-group",
       "mississippi-input",
       "mississippi-group",
       "nitrogen-plants-group"

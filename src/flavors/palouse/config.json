@@ -50,10 +50,10 @@
     }
   },
   "map": {
-    "geolocation_enabled": true,
-    "geolocation_onload": false,
-    "geocoding_engine": "Mapbox",
-    "geocode_hint": [-117.1889785, 46.7298657],
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "geocodingEngine": "Mapbox",
+    "geocodeHint": [-117.1889785, 46.7298657],
     "offlineBoundingBox": {
       "southWest": {
         "lat": 46.375191,
@@ -64,17 +64,17 @@
         "lng": -118.79526
       }
     },
-    "options": {
-      "scrollZoomAroundCenter": true,
-      "mapViewport": {
-        "latitude": 46.855999488224484,
-        "longitude": -117.51842014278026,
-        "zoom": 8,
-        "pitch": 15,
-        "minZoom": 1,
-        "maxZoom": 18
-      }
-    },
+    "scrollZoomAroundCenter": true,
+    "mapViewport": {
+      "latitude": 46.855999488224484,
+      "longitude": -117.51842014278026,
+      "zoom": 8,
+      "pitch": 15,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "osm": {
         "type": "raster",

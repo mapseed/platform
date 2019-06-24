@@ -18,7 +18,6 @@ import { extractEmbeddedImages } from "../../utils/embedded-images";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
-import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
 import {
@@ -29,6 +28,8 @@ import {
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
   mapViewportPropType,
+  layerGroupsSelector,
+  layerGroupsPropType,
 } from "../../state/ducks/map";
 import {
   hasAdminAbilities,
@@ -136,10 +137,10 @@ class InputForm extends Component {
     );
 
     hideOthers &&
-      this.props.mapConfig.layerGroups
-        .filter(layerGroup => !layerGroupIds.includes(layerGroup.id))
-        .forEach(layerGroup =>
-          this.props.updateLayerGroupVisibility(layerGroup.id, false),
+      this.props.layerGroups.allIds
+        .filter(layerGroupId => !layerGroupIds.includes(layerGroupId))
+        .forEach(layerGroupId =>
+          this.props.updateLayerGroupVisibility(layerGroupId, false),
         );
   }
 
@@ -657,8 +658,8 @@ InputForm.propTypes = {
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
+  layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
-  mapConfig: PropTypes.object.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
   onUpdateMapViewport: PropTypes.func.isRequired,
@@ -691,8 +692,8 @@ const mapStateToProps = state => ({
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
   isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
+  layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
-  mapConfig: mapConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 

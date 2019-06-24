@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 // Selectors:
 export const leftSidebarConfigSelector = state => {
   return state.leftSidebar.config;
@@ -13,6 +15,32 @@ export const isLeftSidebarExpandedSelector = state => {
 export const leftSidebarComponentSelector = state => {
   return state.leftSidebar.activeComponentName;
 };
+
+// Selectors:
+export const leftSidebarPanelPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  component: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  icon: PropTypes.string.isRequired,
+  content: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string,
+      layerGroups: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
+        }),
+      ),
+    }),
+  ),
+});
+
+export const leftSidebarConfigPropType = PropTypes.shape({
+  is_enabled: PropTypes.bool,
+  is_visible_default: PropTypes.bool,
+  panels: PropTypes.arrayOf(leftSidebarPanelPropType).isRequired,
+});
 
 // Actions:
 const LOAD = "left-sidebar/LOAD";

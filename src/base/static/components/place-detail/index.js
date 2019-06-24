@@ -39,10 +39,6 @@ import {
   featuredPlacesPropType,
 } from "../../state/ducks/featured-places-config";
 import {
-  mapConfigSelector,
-  mapConfigPropType,
-} from "../../state/ducks/map-config";
-import {
   userPropType,
   userSelector,
   hasUserAbilitiesInPlace,
@@ -60,6 +56,8 @@ import {
   removeFocusedGeoJSONFeatures,
   updateFocusedGeoJSONFeatures,
   updateLayerGroupVisibility,
+  layerGroupsSelector,
+  layerGroupsPropType,
 } from "../../state/ducks/map";
 import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 
@@ -137,13 +135,13 @@ class PlaceDetail extends Component {
         this.props.updateLayerGroupVisibility(layerGroupId, true),
       );
       // Hide all other layers.
-      this.props.mapConfig.layerGroups
+      this.props.layerGroups.allIds
         .filter(
-          layerGroup =>
-            !featuredPlace.visibleLayerGroupIds.includes(layerGroup.id),
+          layerGroupId =>
+            !featuredPlace.visibleLayerGroupIds.includes(layerGroupId),
         )
-        .forEach(layerGroup =>
-          this.props.updateLayerGroupVisibility(layerGroup.id, false),
+        .forEach(layerGroupId =>
+          this.props.updateLayerGroupVisibility(layerGroupId, false),
         );
     }
 
@@ -423,8 +421,8 @@ PlaceDetail.propTypes = {
   hasUserAbilitiesInPlace: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isGeocodingBarEnabled: PropTypes.bool,
+  layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
-  mapConfig: mapConfigPropType,
   mapContainerRef: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   removeFocusedGeoJSONFeatures: PropTypes.func.isRequired,
@@ -467,8 +465,8 @@ const mapStateToProps = state => ({
   hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
     hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
   isEditModeToggled: isEditModeToggled(state),
+  layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
-  mapConfig: mapConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
   supportConfig: supportConfigSelector(state),
   placeConfig: placeConfigSelector(state),

@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import { jsx, css } from "@emotion/core";
 
-import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar";
+import {
+  leftSidebarPanelConfigSelector,
+  leftSidebarPanelPropType,
+} from "../../state/ducks/left-sidebar";
 import { SmallTitle } from "../atoms/typography";
 import MapLayerPanelSection from "../molecules/map-layer-panel-section";
 
@@ -26,7 +29,7 @@ const MapLayerPanel = props => (
           <MapLayerPanelSection
             key={section.id}
             layerPanelSectionIndex={layerPanelSectionIndex}
-            layerGroups={section.layerGroups}
+            layerGroupPanels={section.layerGroups}
             mapSourcesLoadStatus={props.mapSourcesLoadStatus}
             title={section.title}
           />
@@ -37,23 +40,7 @@ const MapLayerPanel = props => (
 
 MapLayerPanel.propTypes = {
   mapSourcesLoadStatus: PropTypes.object.isRequired,
-  mapLayerPanelConfig: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    component: PropTypes.string.isRequired,
-    title: PropTypes.string,
-    content: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        layerGroups: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-          }),
-        ),
-      }),
-    ),
-  }),
+  mapLayerPanelConfig: leftSidebarPanelPropType,
   t: PropTypes.func.isRequired,
   visibleBasemapId: PropTypes.string,
 };

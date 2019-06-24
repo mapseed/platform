@@ -10,12 +10,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "center": {
         "lat": 39.02772,
@@ -73,50 +68,26 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         },
         {
           "condition": "this.map.zoom >= 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -129,50 +100,26 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         },
         {
           "condition": "this.map.zoom >= 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -185,50 +132,26 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         },
         {
           "condition": "this.map.zoom >= 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -241,50 +164,26 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         },
         {
           "condition": "this.map.zoom >= 16",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]

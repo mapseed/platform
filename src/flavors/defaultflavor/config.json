@@ -52,16 +52,16 @@
     }
   },
   "map": {
-    "geolocation_enabled": true,
-    "options": {
-      "mapViewport": {
-        "latitude": 47.53722,
-        "longitude": -122.32573,
-        "zoom": 16,
-        "minZoom": 1,
-        "maxZoom": 18
-      }
-    },
+    "geolocationEnabled": true,
+    "mapViewport": {
+      "latitude": 47.53722,
+      "longitude": -122.32573,
+      "zoom": 16,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "sample-json-a": {
         "type": "geojson",
@@ -1293,18 +1293,18 @@
     }
   ],
   "featuredPlaces": {
-      "tagline": "Next featured site",
-      "header": "Story Number One",
-      "description": "This is the first of two stories. I hope you like it!",
-      "default_zoom": 18,
-      "default_basemap": "sample-wmts",
-      "default_visible_layers": ["demo", "sample-vector"],
-      "order": [
-        {
-          "placeId": 21,
-          "pan_to": [-122.57256740778439, 47.44334015969261],
-          "zoom": 10
-        }
-      ]
+    "tagline": "Next featured site",
+    "header": "Story Number One",
+    "description": "This is the first of two stories. I hope you like it!",
+    "default_zoom": 18,
+    "default_basemap": "sample-wmts",
+    "default_visible_layers": ["demo", "sample-vector"],
+    "order": [
+      {
+        "placeId": 21,
+        "pan_to": [-122.57256740778439, 47.44334015969261],
+        "zoom": 10
+      }
+    ]
   }
 }

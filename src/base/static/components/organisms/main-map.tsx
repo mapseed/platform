@@ -1,150 +1,157 @@
-import React, { Component, createRef } from "react";
+import * as React from "react";
 import { findDOMNode } from "react-dom";
+import { Map } from "mapbox-gl";
+import { Feature, GeometryObject, Geometry, GeoJsonProperties } from "geojson";
 import PropTypes from "prop-types";
-import MapGL, { NavigationControl, Popup } from "react-map-gl";
+import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
 import InviteModal from "../organisms/invite-modal";
 import { throttle } from "throttle-debounce";
-import { withRouter } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 
 import {
   interactiveLayerIdsSelector,
-  mapDraggingOrZoomingSelector,
   mapStyleSelector,
-  mapViewportPropType,
   mapStylePropType,
-  sourcesMetadataSelector,
   updateFeaturesInGeoJSONSource,
-  sourcesMetadataPropType,
-  updateSources,
   updateLayers,
   updateMapContainerDimensions,
-  mapContainerDimensionsSeletor,
+  mapContainerDimensionsSelector,
   filterableLayerGroupsMetadataSelector,
-  filterableLayerGroupMetadataPropType,
+  filterableLayerGroupPropType,
   mapLayerPopupSelector,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
   mapConfigSelector,
   mapConfigPropType,
+  MapViewport,
 } from "../../state/ducks/map-config";
-import {
-  leftSidebarConfigSelector,
-  setLeftSidebarExpanded,
-  setLeftSidebarComponent,
-} from "../../state/ducks/left-sidebar";
 import {
   activeEditPlaceIdSelector,
   filteredPlacesSelector,
-  placePropType,
-  placeSelector,
+  placesPropType,
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
 import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
+import MapControls from "../molecules/map-controls";
 import MapFilterSliderContainer from "../organisms/map-filter-slider-container";
 
 import { Mixpanel } from "../../utils/mixpanel";
 
-const MapControlsContainer = styled("div")({
-  position: "absolute",
-  top: "8px",
-  left: "8px",
-});
+// TODO: remove this once we remove the Mapseed global:
+declare const MAP_PROVIDER_TOKEN: string;
 
-// react-map-gl does not export mapboxgl's built-in geolocate control, so we
-// need to build our own here.
-class GeolocateControl extends Component {
-  onClickGeolocateControl = () => {
-    // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
-    navigator.geolocation.getCurrentPosition(position => {
-      this.props.updateMapViewport({
-        longitude: position.coords.longitude,
-        latitude: position.coords.latitude,
-      });
-    });
+const statePropTypes = {
+  activeEditPlaceId: PropTypes.number,
+  filterableLayerGroupsMetadata: PropTypes.arrayOf(filterableLayerGroupPropType)
+    .isRequired,
+  filteredPlaces: placesPropType.isRequired,
+  interactiveLayerIds: PropTypes.arrayOf(PropTypes.string.isRequired)
+    .isRequired,
+  isContentPanelVisible: PropTypes.bool.isRequired,
+  isMapCenterpointVisible: PropTypes.bool.isRequired,
+  isInviteModalOpen: PropTypes.bool.isRequired,
+  mapConfig: mapConfigPropType,
+  mapContainerDimensions: PropTypes.shape({
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }).isRequired,
+  mapLayerPopupSelector: PropTypes.func.isRequired,
+  mapStyle: mapStylePropType.isRequired,
+  placeFilters: PropTypes.array.isRequired,
+  datasets: datasetsPropType,
+};
 
-    // TODO: Geolocate error handling.
-    // TODO: Set zoom on geolocate? Add pulsating marker?
-  };
+const dispatchPropTypes = {
+  updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
+  updateLayers: PropTypes.func.isRequired,
+  updateMapContainerDimensions: PropTypes.func.isRequired,
+};
 
-  render() {
-    // If geolocation is not supported, do not render the geolocate control.
-    // This mirrors the default mapboxgl behavior.
-    return "geolocation" in navigator ? (
-      <div
-        className="mapboxgl-ctrl mapboxgl-ctrl-group"
-        style={{ marginTop: "8px" }}
-      >
-        <button
-          className="mapboxgl-ctrl-icon mapboxgl-ctrl-geolocate"
-          type="button"
-          title="Geolocate"
-          onClick={this.onClickGeolocateControl}
-        />
-      </div>
-    ) : null;
-  }
+type StateProps = PropTypes.InferProps<typeof statePropTypes>;
+type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
+type ParentProps = {
+  isMapDraggedOrZoomed: boolean;
+  mapContainerWidthDeclaration: string;
+  mapContainerHeightDeclaration: string;
+  mapContainerRef: React.RefObject<HTMLElement>;
+  onUpdateInitialMapViewport: Function;
+  onUpdateMapViewport: Function;
+  onUpdateMapDraggedOrZoomed: Function;
+  onUpdateSpotlightMaskVisibility: Function;
+  onUpdateSourceLoadStatus: Function;
+  mapSourcesLoadStatus: any;
+  mapViewport: MapViewport;
+};
+
+type Props = StateProps & DispatchProps & ParentProps & RouteComponentProps<{}>;
+
+interface State {
+  isMapLoaded: boolean;
+  isMapDraggingOrZooming: boolean;
+  popupContent: string | null;
+  popupLatitude: number | null;
+  popupLongitude: number | null;
 }
 
-GeolocateControl.propTypes = {
-  updateMapViewport: PropTypes.func.isRequired,
-};
-
-class CustomControl extends Component {
-  onClickControl = () => {
-    this.props.setLeftSidebarComponent(this.props.component);
-    this.props.setLeftSidebarExpanded(true);
+// TODO: make this a reusable Layer interface:
+interface LayerFeature<
+  G extends Geometry | null = Geometry,
+  P = GeoJsonProperties
+> extends Feature {
+  layer: {
+    id: string;
   };
-
-  render() {
-    return (
-      <div
-        className="mapboxgl-ctrl mapboxgl-ctrl-group"
-        style={{ marginTop: "8px" }}
-      >
-        <button
-          className={`mapboxgl-ctrl-icon ${this.props.icon}`}
-          type="button"
-          title="Custom control"
-          onClick={this.onClickControl}
-        />
-      </div>
-    );
-  }
 }
 
-CustomControl.propTypes = {
-  component: PropTypes.string.isRequired,
-  setLeftSidebarExpanded: PropTypes.func.isRequired,
-  setLeftSidebarComponent: PropTypes.func.isRequired,
-  icon: PropTypes.string.isRequired,
-};
-
-CustomControl.defaultProps = {
-  icon: "fa-info",
-};
-
-class MainMap extends Component {
-  state = {
+class MainMap extends React.Component<Props, State> {
+  state: State = {
     isMapLoaded: false,
     isMapDraggingOrZooming: false,
     popupContent: null,
-    popupLatitide: null,
+    popupLatitude: null,
     popupLongitude: null,
   };
 
-  queriedFeatures = [];
+  private queriedFeatures: Array<LayerFeature<GeometryObject>> = [];
   mouseX = 0;
   mouseY = 0;
   isMapTransitioning = false;
-  mapRef = createRef();
+  mapRef: React.RefObject<InteractiveMap> = React.createRef();
+  private map: Map | null = null;
+
+  errorListener = evt => {
+    if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
+      return;
+    }
+
+    if (
+      evt.sourceId &&
+      this.props.mapSourcesLoadStatus[evt.sourceId] !== "error"
+    ) {
+      this.props.onUpdateSourceLoadStatus(evt.sourceId, "error");
+    }
+  };
+
+  sourceDataListener = evt => {
+    if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
+      return;
+    }
+
+    const loadStatus = (this.map as Map).isSourceLoaded(evt.sourceId)
+      ? "loaded"
+      : "loading";
+
+    if (this.props.mapSourcesLoadStatus[evt.sourceId] !== loadStatus) {
+      this.props.onUpdateSourceLoadStatus(evt.sourceId, loadStatus);
+    }
+  };
 
   componentDidMount() {
-    this.map = this.mapRef.current.getMap();
+    this.map = (this.mapRef.current as InteractiveMap).getMap();
 
     window.addEventListener("resize", this.resizeMap);
 
@@ -152,32 +159,9 @@ class MainMap extends Component {
     // status state if a new type of event is fired. It's necessary to attach
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
-    this.map.on("error", evt => {
-      if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
-        return;
-      }
+    this.map.on("error", this.errorListener);
 
-      if (
-        evt.sourceId &&
-        this.props.mapSourcesLoadStatus[evt.sourceId] !== "error"
-      ) {
-        this.props.onUpdateSourceLoadStatus(evt.sourceId, "error");
-      }
-    });
-
-    this.map.on("sourcedata", evt => {
-      if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
-        return;
-      }
-
-      const loadStatus = this.map.isSourceLoaded(evt.sourceId)
-        ? "loaded"
-        : "loading";
-
-      if (this.props.mapSourcesLoadStatus[evt.sourceId] !== loadStatus) {
-        this.props.onUpdateSourceLoadStatus(evt.sourceId, loadStatus);
-      }
-    });
+    this.map.on("sourcedata", this.sourceDataListener);
 
     // Ensure that any filters set on another template (like the list) are
     // applied when returning to the map template.
@@ -190,8 +174,10 @@ class MainMap extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeMap);
-    this.map.off("error");
-    this.map.off("sourcedata");
+    if (this.map) {
+      this.map.off("error", this.errorListener);
+      this.map.off("sourcedata", this.sourceDataListener);
+    }
     // On unmount, save the current map viewport so we can restore it if we
     // return to the map template.
     this.props.onUpdateInitialMapViewport(this.props.mapViewport);
@@ -216,14 +202,18 @@ class MainMap extends Component {
   });
 
   resizeMap = () => {
-    const containerDims = findDOMNode(
-      this.props.mapContainerRef.current,
-    ).getBoundingClientRect();
+    const node = findDOMNode(this.props.mapContainerRef.current);
+    if (node instanceof Element) {
+      const containerDims = node.getBoundingClientRect();
 
-    this.props.updateMapContainerDimensions({
-      height: containerDims.height,
-      width: containerDims.width,
-    });
+      this.props.updateMapContainerDimensions({
+        height: containerDims.height,
+        width: containerDims.width,
+      });
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn("resizemap: node is not element! node:", node);
+    }
   };
 
   applyFeatureFilters() {
@@ -302,7 +292,7 @@ class MainMap extends Component {
     // returned.
     this.mouseX = evt.center.x;
     this.mouseY = evt.center.y;
-    this.queriedFeatures = this.map.queryRenderedFeatures(evt.point);
+    this.queriedFeatures = (this.map as Map).queryRenderedFeatures(evt.point);
   };
 
   endFeatureQuery = evt => {
@@ -417,12 +407,16 @@ class MainMap extends Component {
             // originating from react-map-gl. There should never be a situation
             // where react-map-gl needs to set the width or height of the map
             // container.
-            const { width, height, ...rest } = viewport;
+
+            // NOTE: the ViewState interface typings are missing width/height
+            // properties:
+            // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/9e274b5be1609766d26ac3addfd14901dab658ba/types/react-map-gl/index.d.ts#L14-L21
+            const { width, height, ...rest } = viewport as any;
             this.props.onUpdateMapViewport(
               rest,
               this.isMapTransitioning
                 ? false
-                : this.props.mapConfig.options.scrollZoomAroundCenter,
+                : this.props.mapConfig.scrollZoomAroundCenter,
             );
           }}
           onTransitionStart={() => (this.isMapTransitioning = true)}
@@ -432,22 +426,24 @@ class MainMap extends Component {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
-          {this.state.popupContent && (
-            <Popup
-              latitude={this.state.popupLatitude}
-              longitude={this.state.popupLongitude}
-              onClose={() =>
-                this.setState({
-                  popupContent: null,
-                })
-              }
-              anchor="bottom"
-            >
-              <div
-                dangerouslySetInnerHTML={{ __html: this.state.popupContent }}
-              />
-            </Popup>
-          )}
+          {this.state.popupContent &&
+            this.state.popupLatitude &&
+            this.state.popupLongitude && (
+              <Popup
+                latitude={this.state.popupLatitude}
+                longitude={this.state.popupLongitude}
+                onClose={() =>
+                  this.setState({
+                    popupContent: null,
+                  })
+                }
+                anchor="bottom"
+              >
+                <div
+                  dangerouslySetInnerHTML={{ __html: this.state.popupContent }}
+                />
+              </Popup>
+            )}
           {this.props.isMapCenterpointVisible && (
             <MapCenterpoint
               isMapDraggingOrZooming={this.state.isMapDraggingOrZooming}
@@ -455,25 +451,7 @@ class MainMap extends Component {
             />
           )}
           {this.state.isMapLoaded && (
-            <MapControlsContainer>
-              <NavigationControl
-                onViewportChange={viewport =>
-                  this.props.onUpdateMapViewport(viewport)
-                }
-              />
-              <GeolocateControl
-                updateMapViewport={this.props.onUpdateMapViewport}
-              />
-              {this.props.leftSidebarConfig.panels.map(panel => (
-                <CustomControl
-                  key={panel.id}
-                  icon={panel.icon}
-                  component={panel.component}
-                  setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
-                  setLeftSidebarComponent={this.props.setLeftSidebarComponent}
-                />
-              ))}
-            </MapControlsContainer>
+            <MapControls onViewportChange={this.props.onUpdateMapViewport} />
           )}
         </MapGL>
         {this.props.filterableLayerGroupsMetadata.length > 0 && (
@@ -488,97 +466,30 @@ class MainMap extends Component {
   }
 }
 
-MainMap.propTypes = {
-  activeMarker: PropTypes.string,
-  activeEditPlaceId: PropTypes.number,
-  filterableLayerGroupsMetadata: PropTypes.arrayOf(
-    filterableLayerGroupMetadataPropType,
-  ),
-  filteredPlaces: PropTypes.arrayOf(placePropType).isRequired,
-  history: PropTypes.object.isRequired,
-  interactiveLayerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
-  isContentPanelVisible: PropTypes.bool.isRequired,
-  isMapCenterpointVisible: PropTypes.bool.isRequired,
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
-  isRightSidebarVisible: PropTypes.bool.isRequired,
-  isInviteModalOpen: PropTypes.bool.isRequired,
-  leftSidebarConfig: PropTypes.shape({
-    is_enabled: PropTypes.bool,
-    is_visible_default: PropTypes.bool,
-    panels: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-        title: PropTypes.string,
-      }),
-    ),
-  }).isRequired,
-  mapConfig: mapConfigPropType.isRequired,
-  mapContainerDimensions: PropTypes.shape({
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-  }),
-  mapContainerWidthDeclaration: PropTypes.string.isRequired,
-  mapContainerHeightDeclaration: PropTypes.string.isRequired,
-  mapContainerRef: PropTypes.object.isRequired,
-  mapLayerPopupSelector: PropTypes.func.isRequired,
-  mapSourcesLoadStatus: PropTypes.object.isRequired,
-  mapStyle: mapStylePropType.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
-  placeFilters: PropTypes.array.isRequired,
-  placeSelector: PropTypes.func.isRequired,
-  setLeftSidebarExpanded: PropTypes.func.isRequired,
-  setLeftSidebarComponent: PropTypes.func.isRequired,
-  sourcesMetadata: sourcesMetadataPropType.isRequired,
-  onUpdateMapDraggedOrZoomed: PropTypes.func.isRequired,
-  updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
-  updateLayers: PropTypes.func.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
-  updateSources: PropTypes.func.isRequired,
-  onUpdateInitialMapViewport: PropTypes.func.isRequired,
-  onUpdateSourceLoadStatus: PropTypes.func.isRequired,
-  onUpdateSpotlightMaskVisibility: PropTypes.func.isRequired,
-  datasets: datasetsPropType,
-  updateMapContainerDimensions: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state): StateProps => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filterableLayerGroupsMetadata: filterableLayerGroupsMetadataSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isInviteModalOpen: uiVisibilitySelector("inviteModal", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
-  isMapDraggingOrZooming: mapDraggingOrZoomingSelector(state),
-  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
-  leftSidebarConfig: leftSidebarConfigSelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
-  mapContainerDimensions: mapContainerDimensionsSeletor(state),
+  mapContainerDimensions: mapContainerDimensionsSelector(state),
   mapLayerPopupSelector: layerId => mapLayerPopupSelector(layerId, state),
   mapStyle: mapStyleSelector(state),
   placeFilters: filtersSelector(state),
-  placeSelector: placeId => placeSelector(state, placeId),
-  sourcesMetadata: sourcesMetadataSelector(state),
   datasets: datasetsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  setLeftSidebarExpanded: isExpanded =>
-    dispatch(setLeftSidebarExpanded(isExpanded)),
-  setLeftSidebarComponent: component =>
-    dispatch(setLeftSidebarComponent(component)),
-  updateFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
-    dispatch(updateFeaturesInGeoJSONSource(sourceId, newFeatures)),
-  updateSources: (newSourceId, newSource) =>
-    dispatch(updateSources(newSourceId, newSource)),
-  updateLayers: newLayer => dispatch(updateLayers(newLayer)),
-  updateMapContainerDimensions: newDimensions =>
-    dispatch(updateMapContainerDimensions(newDimensions)),
-});
+const mapDispatchToProps = {
+  updateFeaturesInGeoJSONSource,
+  updateLayers,
+  updateMapContainerDimensions,
+};
 
 export default withRouter(
-  connect(
+  connect<StateProps, DispatchProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(MainMap),

@@ -1,0 +1,1704 @@
+{
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
+  "datasets": [
+    {
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/columbia-input",
+      "slug": "columbia-input",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "Columbia County Voluntary Stewardship Program",
+    "name": "Columbia County Voluntary Stewardship Program",
+    "logo": "/static/css/images/logo.png",
+    "meta_description": "Welcome!",
+    "meta_author": "mapseed.org",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "isShowingMobileUserMenu": true,
+    "theme": {
+      "brand": {
+        "primary": "#8b4710",
+        "secondary": "#d46c4c",
+        "tertiary": "#999",
+        "accent": "#8cbfc4"
+      },
+      "bg": {
+        "default": "#e8dbc5",
+        "light": "#8b4710"
+      },
+      "text": {
+        "secondary": "#fff",
+        "tertiary": "#8b4710",
+        "titleFontFamily": "Raleway,sans-serif",
+        "bodyFontFamily": "Raleway,sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#8b4710",
+        "addPlaceButtonHoverBackgroundColor": "rgb(208,181,159)"
+      }
+    }
+  },
+  "map": {
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "geocodingEngine": "Mapbox",
+    "geocodeHint": [-117.975085, 46.316023],
+    "offlineBoundingBox": {
+      "southWest": {
+        "lat": 45.979484,
+        "lng": -118.326326
+      },
+      "northEast": {
+        "lat": 46.667782,
+        "lng": -117.576393
+      }
+    },
+    "scrollZoomAroundCenter": false,
+    "mapViewport": {
+      "latitude": 46.32066,
+      "longitude": -117.92239,
+      "zoom": 8.5,
+      "pitch": 25,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
+    "mapboxSources": {
+      "osm": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tilseSize": 256
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "tileSize": 256,
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      "columbia-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/columbia-river.geojson"
+      },
+      "snake-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/snake-river.geojson"
+      },
+      "columbia-watersheds": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-watersheds/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "columbia-geologic-hazard": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-geologic-hazard/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 17
+      },
+      "columbia-wetlands": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-wetlands/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "columbia-frequently-flooded": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-frequently-flooded/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "columbia-critical-conservation-areas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-critical-conservation-areas/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "columbia-critical-aquifer": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-critical-aquifer/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "columbia-county-border": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-county-border/{z}/{x}/{y}.pbf"
+        ]
+      }
+    },
+    "layerGroups": [
+      {
+        "id": "osm",
+        "basemap": true,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
+      },
+      {
+        "id": "satellite",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "columbia-county-border",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "columbia-county-border",
+            "type": "line",
+            "source": "columbia-county-border",
+            "source-layer": "columbia-county-border",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 3,
+              "line-dasharray": [2, 2]
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "columbia-river-fill",
+            "type": "fill",
+            "source": "columbia-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "columbia-river-outline",
+            "type": "line",
+            "source": "columbia-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "snake-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "snake-river-fill",
+            "type": "fill",
+            "source": "snake-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "snake-river-outline",
+            "type": "line",
+            "source": "snake-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-watersheds",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "columbia-watersheds",
+            "type": "fill",
+            "source": "columbia-watersheds",
+            "source-layer": "columbia-watersheds",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "match",
+                ["get", "Analysis_Unit"],
+                "Touchet",
+                "#8dd3c7",
+                "Tucannon",
+                "#ffffb3",
+                "Lower Snake",
+                "#bebada",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "columbia-watersheds-outline",
+            "type": "line",
+            "source": "columbia-watersheds",
+            "source-layer": "columbia-watersheds",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "columbia-watersheds-labels",
+            "type": "symbol",
+            "source": "columbia-watersheds",
+            "source-layer": "columbia-watersheds",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 20,
+              "text-color": "#666"
+            },
+            "layout": {
+              "text-field": ["concat", ["get", "Analysis_Unit"], " watershed"],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 12,
+              "text-allow-overlap": true,
+              "text-max-width": 3,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-transform": "uppercase",
+              "text-line-height": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-geologic-hazard",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "columbia-geologic-hazard",
+            "type": "fill",
+            "source": "columbia-geologic-hazard",
+            "source-layer": "columbia-geologic-hazard",
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "columbia-geologic-hazard-outline",
+            "type": "line",
+            "source": "columbia-geologic-hazard",
+            "source-layer": "columbia-geologic-hazard",
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-wetlands",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "columbia-wetlands",
+            "type": "fill",
+            "source": "columbia-wetlands",
+            "source-layer": "columbia-wetlands",
+            "paint": {
+              "fill-pattern": "wetlands-fill.png"
+            }
+          },
+          {
+            "id": "columbia-wetlands-outline",
+            "type": "line",
+            "source": "columbia-wetlands",
+            "source-layer": "columbia-wetlands",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-frequently-flooded",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "columbia-frequently-flooded",
+            "type": "fill",
+            "source": "columbia-frequently-flooded",
+            "source-layer": "columbia-frequently-flooded",
+            "paint": {
+              "fill-pattern": "frequently-flooded-fill.png"
+            }
+          },
+          {
+            "id": "columbia-frequently-flooded-outline",
+            "type": "line",
+            "source": "columbia-frequently-flooded",
+            "source-layer": "columbia-frequently-flooded",
+            "paint": {
+              "line-color": "#3366ff",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-critical-aquifer",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "columbia-critical-aquifer",
+            "type": "fill",
+            "source": "columbia-critical-aquifer",
+            "source-layer": "columbia-critical-aquifer",
+            "paint": {
+              "fill-pattern": "aquifer-fill.png"
+            }
+          },
+          {
+            "id": "columbia-critical-aquifer-outline",
+            "type": "line",
+            "source": "columbia-critical-aquifer",
+            "source-layer": "columbia-critical-aquifer",
+            "paint": {
+              "line-color": "#1155ce",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-critical-conservation-areas",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "columbia-critical-conservation-areas",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
+            "type": "fill",
+            "source": "columbia-critical-conservation-areas",
+            "source-layer": "columbia-critical-conservation-areas",
+            "paint": {
+              "fill-pattern": "conservation-fill-alt.png",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "columbia-critical-conservation-areas-outline",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
+            "type": "line",
+            "source": "columbia-critical-conservation-areas",
+            "source-layer": "columbia-critical-conservation-areas",
+            "paint": {
+              "line-color": "#6dd84a",
+              "line-width": 2,
+              "line-opacity": 0.9
+            }
+          },
+          {
+            "id": "columbia-critical-conservation-areas-labels",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
+            "type": "symbol",
+            "source": "columbia-critical-conservation-areas",
+            "source-layer": "columbia-critical-conservation-areas",
+            "paint": {
+              "text-color": "#618141",
+              "text-halo-color": "#f0f4ec",
+              "text-halo-width": 1.5,
+              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
+            },
+            "layout": {
+              "text-field": ["get", "comname"],
+              "text-size": 15,
+              "text-font": [
+                "Alegreya ExtraBold Italic",
+                "Arial Unicode MS Regular"
+              ],
+              "text-letter-spacing": 0.2
+            }
+          }
+        ]
+      },
+      {
+        "id": "columbia-input",
+        "visibleDefault": true,
+        "interactive": true,
+        "datasetSlug": "columbia-input",
+        "mapboxFocusedLayers": [
+          {
+            "id": "columbia-input-focused",
+            "type": "symbol",
+            "source": "columbia-input",
+            "layout": {
+              "icon-size": 0.7,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "reports",
+                "marker-field.png",
+                "__no-icon-image__"
+              ],
+              "icon-allow-overlap": true
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "columbia-input",
+            "type": "symbol",
+            "source": "columbia-input",
+            "layout": {
+              "icon-anchor": "bottom",
+              "icon-image": "marker-field.png",
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
+              "icon-allow-overlap": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": false
+  },
+  "left_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "panels": [
+      {
+        "id": "gis-layers",
+        "icon": "fa fa-bars",
+        "component": "MapLayerPanel",
+        "title": "Map Layers:",
+        "content": [
+          {
+            "id": "basemaps",
+            "title": "Basemaps",
+            "layerGroups": [
+              {
+                "id": "osm",
+                "title": "OpenStreetMap"
+              },
+              {
+                "id": "satellite",
+                "title": "Satellite View"
+              }
+            ]
+          },
+          {
+            "id": "grp-water",
+            "title": "Water Features",
+            "layerGroups": [
+              {
+                "id": "columbia-river",
+                "title": "Columbia River"
+              },
+              {
+                "id": "snake-river",
+                "title": "Snake River"
+              },
+              {
+                "id": "columbia-watersheds",
+                "title": "Watersheds"
+              }
+            ]
+          },
+          {
+            "id": "grp-critical-areas",
+            "title": "Critical Areas",
+            "layerGroups": [
+              {
+                "id": "columbia-geologic-hazard",
+                "title": "Geologic Hazards"
+              },
+              {
+                "id": "columbia-wetlands",
+                "title": "Wetlands"
+              },
+              {
+                "id": "columbia-frequently-flooded",
+                "title": "Frequently Flooded Areas"
+              },
+              {
+                "id": "columbia-critical-aquifer",
+                "title": "Critical Aquifer Recharge Areas"
+              },
+              {
+                "id": "columbia-critical-conservation-areas",
+                "title": "Critical Conservation Areas"
+              }
+            ]
+          },
+          {
+            "id": "grp-community",
+            "title": "Community Data",
+            "layerGroups": [
+              {
+                "id": "columbia-county-border",
+                "title": "Columbia County border"
+              },
+              {
+                "id": "columbia-input",
+                "title": "Community Reports"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "Share Your Stewardship",
+    "action_text": "added",
+    "title": "Tell us more...",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Put it on the map!",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "reports",
+        "category": "reports",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "submitter_editing_supported": true,
+        "name": "location_type",
+        "datasetSlug": "columbia-input",
+        "icon_url": "/static/css/images/markers/marker-field.png",
+        "value": "demo",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 4,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-input",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 6,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-watersheds",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 7,
+            "end_field_index": 10,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-watersheds",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 11,
+            "end_field_index": 12,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-wetlands",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 13,
+            "end_field_index": 14,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-frequently-flooded",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 15,
+            "end_field_index": 16,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-geologic-hazard",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 17,
+            "end_field_index": 18,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-critical-aquifer",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 19,
+            "end_field_index": 20,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-critical-conservation-areas",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 21,
+            "end_field_index": 35,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-input",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 36,
+            "end_field_index": 46,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-input",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 47,
+            "end_field_index": 48,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-input",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 49,
+            "end_field_index": 58,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-input",
+              "columbia-county-border"
+            ]
+          }
+        ],
+        "label": "Actions",
+        "fields": [
+          {
+            "name": "location_information_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
+          },
+          {
+            "name": "location_why",
+            "type": "informational_html",
+            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p>"
+          },
+          {
+            "name": "drag_map_info",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#999999;font-size:1.5rem;margin-right:16px;'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
+          },
+          {
+            "name": "address",
+            "type": "geocoding",
+            "prompt": "Or, search by address:",
+            "placeholder": "Your address will never be shared",
+            "optional": true
+          },
+          {
+            "name": "analysis_units_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watersheds</h2>"
+          },
+          {
+            "name": "analysis_unit",
+            "type": "big_radio",
+            "prompt": "Of the three watersheds on the map, in which does your land primarily lie?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Touchet",
+                "value": "touchet"
+              },
+              {
+                "label": "Tucannon",
+                "value": "tucannon"
+              },
+              {
+                "label": "Lower Snake",
+                "value": "pend-oreille-lake"
+              }
+            ]
+          },
+          {
+            "name": "land_use_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Your Land Use</h2>"
+          },
+          {
+            "name": "acres_owned_leased",
+            "type": "big_radio",
+            "prompt": "How many acres of land do you own/lease and actively farm or ranch on? (Choose one)",
+            "content": [
+              {
+                "label": "0-50 acres",
+                "value": "0_50_acres"
+              },
+              {
+                "label": "50-100 acres",
+                "value": "50_100_acres"
+              },
+              {
+                "label": "101-1,000 acres",
+                "value": "101_1000_acres"
+              },
+              {
+                "label": "1,001+ acres",
+                "value": "1001_plus_acres"
+              },
+              {
+                "label": "Prefer not to answer",
+                "value": "no_answer"
+              }
+            ]
+          },
+          {
+            "name": "current_crops",
+            "type": "big_checkbox",
+            "prompt": "What crops are you currently growing, or have you previously (between 2011—now) grown on your land? Choose all that apply.",
+            "content": [
+              {
+                "label": "Barley",
+                "value": "barley"
+              },
+              {
+                "label": "Spring Peas",
+                "value": "spring_peas"
+              },
+              {
+                "label": "Lentils",
+                "value": "lentils"
+              },
+              {
+                "label": "Spring Wheat",
+                "value": "spring_wheat"
+              },
+              {
+                "label": "Winter Wheat",
+                "value": "winter_wheat"
+              },
+              {
+                "label": "Alfalfa/Hay",
+                "value": "alfalfa_hay"
+              },
+              {
+                "label": "Beans",
+                "value": "beans"
+              },
+              {
+                "label": "Oilseed Crops",
+                "value": "oilseed_crops"
+              },
+              {
+                "label": "N/A",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "other_crops",
+            "type": "text",
+            "prompt": "Other (please explain)",
+            "optional": true
+          },
+          {
+            "name": "wetlands_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Wetland Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wetlands.jpg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_wetlands",
+            "type": "big_radio",
+            "prompt": "Does your property lie on any wetlands?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "frequently_flooded_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Frequently Flooded Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_frequently_flooded",
+            "type": "big_radio",
+            "prompt": "Does your property lie on any frequently flooded areas?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "geologic_hazard_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Severe Geologic Hazard Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/geologic-hazard.jpg' alt='Geologic hazard areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_geologic_hazard",
+            "type": "big_radio",
+            "prompt": "Does your property lie on any severe geologic hazard areas?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "critical_aquifer_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Critical Aquifer Recharge Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/critical-aquifer.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_critical_aquifer",
+            "type": "big_radio",
+            "prompt": "Does your property lie on any critical aquifer recharge areas?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "critical_conservation_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Critical Conservation Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wildlife-conservation.jpeg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical conservation areas</strong> are managed to maintain habitats of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_criticak_conservation",
+            "type": "big_radio",
+            "prompt": "Does your property lie on any critical conservation areas?",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "//": "---------------------CROP PRACTICES-------------------------",
+            "name": "tillage_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Crop Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your crop practices. If you do not farm your land, please proceed to the next section.</p>"
+          },
+          {
+            "//": "=============== CONSERVATION COVER ================================",
+            "name": "conservation_cover",
+            "type": "big_radio",
+            "prompt": "Do you participate in any conservation cover practices (establishing and maintaining long-term, permanent vegetative cover)?",
+            "label": "Conservation cover",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["conservation_cover_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "conservation_cover_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement conservation cover practices?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== CROPLAND INTEGRATED PEST MGMT =================================",
+            "name": "cropland_pest_management",
+            "type": "big_radio",
+            "prompt": "Do you participate in integrated pest management practices (a site-specific combination of pest prevention, pest avoidance, pest monitoring, and pest suppression strategies) on cropland?",
+            "label": "Integrated pest management on cropland",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["cropland_pest_management_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "cropland_pest_management_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement integrated pest management practices on cropland?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== COVER CROP =================================",
+            "name": "cover_crop",
+            "type": "big_radio",
+            "prompt": "Do you participate in any cover crop practices (using grasses, legumes, and leafy ground cover plants for seasonal vegetative cover)?",
+            "label": "Cover crop",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["cover_crop_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "cover_crop_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement cover crop practices?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== CROPLAND RIPARIAN FOREST BUFFER =================================",
+            "name": "crop_riparian_forest_buffer",
+            "type": "big_radio",
+            "prompt": "Do you participate in having a riparian forest buffer (an area predominantly of suitable trees and/or shrubs planted along a stream, river, lake, or other water body) on cropland?",
+            "label": "Riparian forest buffer on cropland",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["crop_riparian_forest_buffer_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "crop_riparian_forest_buffer_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement riparian forest buffer practices on cropland?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== RESIDUE AND TILLAGE MANAGEMENT =================================",
+            "name": "residue_tillage_management",
+            "type": "big_radio",
+            "prompt": "Do you participate in residue and tillage management/reduced till (managing the amount, orientation, and distribution of crop and other plant residue on the soil surface year-round)?",
+            "label": "Residue and tillage management",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["residue_tillage_management_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "residue_tillage_management_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement residue and tillage management practices?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== NUTRIENT MANAGEMENT =================================",
+            "name": "nutrient_management",
+            "type": "big_radio",
+            "prompt": "Do you participate in nutrient management (managing the amount, source, placement, and timing of plant nutrients and soil amendments)?",
+            "label": "Residue and tillage management",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["nutrient_management_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "nutrient_management_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement nutrient management practices?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== CROPLAND FENCING =================================",
+            "name": "crop_fencing",
+            "type": "big_radio",
+            "prompt": "Do you participate in fencing (a constructed barrier to protect animals or people) on cropland?",
+            "label": "Fencing on cropland",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["crop_fencing_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "crop_fencing_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement fencing on cropland?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "---------------------LIVESTOCK PRACTICES-------------------------",
+            "name": "livestock_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Livestock Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report your livestock practices. If you do not ranch your land, please proceed to the next section.</p>"
+          },
+          {
+            "//": "=============== LIVESTOCK RIPARIAN FOREST BUFFER =================================",
+            "name": "ranch_riparian_forest_buffer",
+            "type": "big_radio",
+            "prompt": "Do you participate in having a riparian forest buffer (an area predominantly of suitable trees and/or shrubs planted along a stream, river, lake, or other water body) on ranchland?",
+            "label": "Riparian forest buffer on ranchland",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["ranch_riparian_forest_buffer_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "ranch_riparian_forest_buffer_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement riparian forest buffer practices on ranchland?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== LIVESTOCK FENCING =================================",
+            "name": "ranch_fencing",
+            "type": "big_radio",
+            "prompt": "Do you participate in fencing (a constructed barrier to protect animals or people) on ranchland?",
+            "label": "Fencing on ranchland",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["ranch_fencing_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "ranch_fencing_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement fencing on ranchland?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== STREAM HABITAT IMPROVEMENT AND MGMT =================================",
+            "name": "stream_habitat_improvement",
+            "type": "big_radio",
+            "prompt": "Do you participate in stream habitat improvement and management (maintaining, improving, or restoring physical, chemical and biological functions of a stream and its associated riparian zone)?",
+            "label": "Stream habitat improvement and management",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["stream_habitat_improvement_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "stream_habitat_improvement_date",
+            "type": "big_radio",
+            "prompt": "When did you first implement stream habitat improvement?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== LIVESTOCK GRAZING =================================",
+            "name": "livestock_grazing",
+            "type": "big_radio",
+            "prompt": "Do you participate in livestock grazing (managing the harvest of vegetation with grazing and/or browsing animals and soil amendments)?",
+            "label": "Livestock grazing",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["livestock_grazing_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "livestock_grazing_date",
+            "type": "big_radio",
+            "prompt": "When did you first participate in livestock grazing?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "=============== WATERING FACILITY =================================",
+            "name": "watering_facility",
+            "type": "big_radio",
+            "prompt": "Do you participate in having a watering facility? (a means of providing a controlled water source to livestock or wildlife)?",
+            "label": "Watering facility",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["watering_facility_date"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested in learning more",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "watering_facility_date",
+            "type": "big_radio",
+            "prompt": "When did you first participate in having a watering facility?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Before July, 2011",
+                "value": "pre-july-2011"
+              },
+              {
+                "label": "After July, 2011",
+                "value": "post-july-2011"
+              }
+            ]
+          },
+          {
+            "//": "--------------OTHER PRACTICES---------------------------",
+            "name": "other",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other Conservation Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Are there any additional Conservation Practices you participate in that weren’t listed within the survey? Please list them here, with the year implemented, in the space provided.</p>"
+          },
+          {
+            "name": "other_practices_description",
+            "type": "textarea",
+            "prompt": "Please describe your other Conservation Practices:",
+            "placeholder": "Description and year implemented",
+            "optional": true
+          },
+          {
+            "//": "---------------ADDITIONAL INFO-------------------",
+            "name": "additional_info_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
+          },
+          {
+            "name": "funding_sources",
+            "type": "big_radio",
+            "prompt": "For the conservation practices you currently participate in, what are your funding sources?",
+            "content": [
+              {
+                "label": "Federal funding sources",
+                "value": "federal_funding"
+              },
+              {
+                "label": "State funding sources",
+                "value": "state_funding"
+              },
+              {
+                "label": "Private funding sources",
+                "value": "private_funding"
+              },
+              {
+                "label": "Mixed funding sources",
+                "value": "mixed_funding"
+              }
+            ]
+          },
+          {
+            "name": "desired_outcome",
+            "type": "textarea",
+            "prompt": "Through this survey, what would you like to gain? Are you interested in learning about funding options, available technical assistance, or other Conservation Practices available to you? Please be as detailed as possible."
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "Show your conservation practices! Upload photos before, during, or after you implemented your stewardship practices:",
+            "label": "Upload photos",
+            "optional": true
+          },
+          {
+            "name": "private-landowner_name",
+            "type": "text",
+            "placeholder": "Your name will only be shared if you are logged in",
+            "prompt": "What is your name?",
+            "optional": false
+          },
+          {
+            "name": "private-use_photos",
+            "type": "big_radio",
+            "prompt": "Can Columbia County VSP highlight your photos on our website?",
+            "default_value": "no",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "private-landowner_email",
+            "type": "text",
+            "placeholder": "Your email address will never be shared",
+            "prompt": "What is your email address?"
+          },
+          {
+            "name": "private-landowner_phone",
+            "type": "text",
+            "prompt": "What is your phone number?",
+            "placeholder": "Your phone number will never be shared",
+            "optional": false
+          },
+          {
+            "name": "private",
+            "type": "big_radio",
+            "prompt": "Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.",
+            "default_value": "yes",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "no"
+              },
+              {
+                "label": "No",
+                "value": "yes"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "label": "Submit!"
+          }
+        ]
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
+      "items": [
+        {
+          "prompt": "Comment",
+          "label": "Comment",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "Your Name",
+          "type": "text",
+          "name": "submitter_name",
+          "placeholder": "Name is optional",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "Comment"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "reports",
+        "datasetId": "columbia-input",
+        "label": "Actions",
+        "icon": "/static/css/images/markers/marker-field.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
+  },
+  "nav_bar": [
+    {
+      "title": "About",
+      "type": "internal_link",
+      "url": "/page/about",
+      "start_page": true
+    },
+    {
+      "title": "VSP Assistance",
+      "type": "internal_link",
+      "url": "/page/assistance"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "assistance",
+      "lang": "en",
+      "content": [
+        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
+        "<p style='margin-bottom:16px'>Your Columbia County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:",
+        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
+        "<li style='margin-top:16px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Meagan Bailey</strong>",
+        "<p style='margin:0'><em>Planning Director</em></p>",
+        "</div>",
+        "<div style='margin-left:16px;margin-bottom: 8px;'><i class='fa fa-globe'></i><span style='margin-left:16px'>Meagan_Bailey@co.columbia.wa.us</span></div>",
+        "<div style='margin-left:16px;margin-bottom: 8px;'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-382-3940</span></div>",
+        "</li>",
+        "<li style='margin-top:24px;'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Kim E. Lyonnais</strong>",
+        "<p style='margin:0'><em>Planning and Building Department</em></p>",
+        "</div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-540-2626</span></div>",
+        "</li>",
+        "</ul>"
+      ]
+    },
+    {
+      "slug": "about",
+      "lang": "en",
+      "content": [
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Columbia County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<img src='/static/css/images/columbia-county-fields.jpg' alt='Columbia County fields' style='margin:8px 0 16px 0' />",
+        "<p>The Columbia County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
+        "<p>Click Get Started to begin!</p>",
+        "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
+      ]
+    }
+  ],
+  "custom_components": {
+    "FieldSummary": "PalouseFieldSummary"
+  }
+}

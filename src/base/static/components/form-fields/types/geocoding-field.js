@@ -7,7 +7,10 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
 
-import { mapConfigSelector } from "../../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapConfigPropType,
+} from "../../../state/ducks/map-config";
 
 // TODO: Consolidate Util methods used here.
 import Util from "../../../js/utils.js";
@@ -45,8 +48,8 @@ class GeocodingField extends Component {
 
     Util[this.geocodingEngine].geocode({
       location: address,
-      hint: this.props.mapConfig.geocode_hint,
-      bbox: this.props.mapConfig.geocode_bounding_box,
+      hint: this.props.mapConfig.geocodeHint,
+      bbox: this.props.mapConfig.geocodeBoundingBox,
       options: {
         success: data => {
           const locationGeometry =
@@ -123,7 +126,7 @@ class GeocodingField extends Component {
 
 GeocodingField.propTypes = {
   formId: PropTypes.string.isRequired,
-  mapConfig: PropTypes.object.isRequired,
+  mapConfig: mapConfigPropType,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
