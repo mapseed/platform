@@ -50,6 +50,8 @@ import {
   geocodeAddressBarEnabledSelector,
   mapConfigSelector,
   mapConfigPropType,
+  MapViewport,
+  InitialMapViewport,
 } from "../../state/ducks/map-config";
 import {
   createFeaturesInGeoJSONSource,
@@ -115,18 +117,6 @@ const dispatchPropTypes = {
 
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-interface InitialMapViewport {
-  minZoom: number;
-  maxZoom: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
-}
-interface MapViewport extends InitialMapViewport {
-  transitionInterpolator: any;
-}
 interface OwnProps {
   uiConfiguration: string;
   isStartPageViewed?: boolean;

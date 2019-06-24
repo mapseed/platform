@@ -121,7 +121,7 @@ export const mapDraggingOrZoomingSelector = state =>
   state.map.isMapDraggingOrZooming;
 export const mapDraggedOrZoomedSelector = state =>
   state.map.isMapDraggedOrZoomed;
-export const mapContainerDimensionsSeletor = state =>
+export const mapContainerDimensionsSelector = state =>
   state.map.mapContainerDimensions;
 export const mapLayerPopupSelector = (layerId, state) => {
   const metadata = Object.values(state.map.layerGroups.byId).find(layerGroup =>

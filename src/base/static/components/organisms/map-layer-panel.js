@@ -7,7 +7,7 @@ import { jsx, css } from "@emotion/core";
 
 import {
   leftSidebarPanelConfigSelector,
-  leftSidebarConfigPropType,
+  leftSidebarPanelPropType,
 } from "../../state/ducks/left-sidebar";
 import { SmallTitle } from "../atoms/typography";
 import MapLayerPanelSection from "../molecules/map-layer-panel-section";
@@ -40,7 +40,7 @@ const MapLayerPanel = props => (
 
 MapLayerPanel.propTypes = {
   mapSourcesLoadStatus: PropTypes.object.isRequired,
-  mapLayerPanelConfig: leftSidebarConfigPropType,
+  mapLayerPanelConfig: leftSidebarPanelPropType,
   t: PropTypes.func.isRequired,
   visibleBasemapId: PropTypes.string,
 };
