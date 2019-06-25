@@ -16,6 +16,17 @@
           "submission_set": "*"
         }
       ]
+    },
+    {
+      "slug": "mississippi-featured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-featured",
+      "clientSlug": "featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
     }
   ],
   "app": {
@@ -291,6 +302,37 @@
         ]
       },
       {
+        "id": "mississippi-featured",
+        "datasetSlug": "mississippi-featured",
+        "interactive": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "mississippi-featured-focused",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "mississippi-featured",
+            "layout": {
+              "icon-image": "marker-invisible.png",
+              "icon-size": 1.1,
+              "icon-anchor": "center"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "mississippi-featured",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "mississippi-featured",
+            "layout": {
+              "icon-image": "marker-invisible.png",
+              "icon-size": 0.9,
+              "icon-anchor": "center"
+            }
+          }
+        ]
+      },
+      {
         "id": "nitrogen-farm-emissions-group",
         "basemap": false,
         "visibleDefault": false,
@@ -393,6 +435,41 @@
     "submit_button_label": "Submit",
     "location_item_name": "location",
     "place_detail": [
+      {
+        "formId": "featured_place",
+        "category": "featured_place",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-featured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "featured_place",
+        "label": "Featured Site",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "Title:",
+            "display_prompt": " ",
+            "placeholder": "Site Title",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "Content:",
+            "display_prompt": " ",
+            "placeholder": "write test. You can add links, photos, and videos."
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
       {
         "formId": "geology",
         "category": "geology",
@@ -759,6 +836,12 @@
     },
     "places": [
       {
+        "id": "featured_place",
+        "datasetId": "mississippi-featured",
+        "label": "Featured Site",
+        "icon": "/static/css/images/markers/marker-star.png"
+      },
+      {
         "id": "geology",
         "datasetId": "mississippi-input",
         "label": "Observation",
@@ -882,6 +965,11 @@
           "confluence-group",
           "streets2-group"
         ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7305,
+        "zoom": 9,
         "spotlight": false
       }
     ]
