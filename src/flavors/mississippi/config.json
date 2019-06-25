@@ -830,13 +830,30 @@
       "content": [
         "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/MachinicRiver.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Machinic River</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-vert-right'>",
         "<a href='/report/7285' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceEcologies.jpg'/>",
-        "<figcaption class='flow-layout-title flow-layout-title-middle'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceRegion.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Confluence Ecologies</h3>",
         "</figcaption>",
         "</a>",
-        "</figure>"
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/IndustryIndigeneity&Empire.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Industry, Indigeneity, and Empire</h3>",
+        "</figcaption>",
+        "</figure>",
+        "<img src='https://ecotopia.today/Mississippi/Images/AnthropoceneDrift.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Anthropocene Drift</h3>",
+        "</figcaption>"
       ]
     }
   ],
@@ -858,7 +875,7 @@
       },
       {
         "placeId": 7285,
-        "pan_to": [-89.5, 37.07],
+        "pan_to": [-89.15, 37.07],
         "zoom": 9,
         "visibleLayerGroupIds": [
           "ocean-satellite",
