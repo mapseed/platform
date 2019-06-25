@@ -53,6 +53,80 @@ body {
     background-color: transparent;
     color: #BD9462;
 }
+
+/* =Flow layout on about page
+-------------------------------------------------------------- */
+.flow-layout {
+  margin: 0;
+  position: relative;
+}
+
+.flow-layout img {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.flow-layout:hover figcaption {
+  opacity: 1.0;
+  color: #127de4;
+}
+
+.flow-layout:hover img {
+  opacity: 0.7;
+}
+
+.flow-layout-title {
+  background-color: #FFF;
+  position: absolute;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 0.5em;
+  width: 75%;
+  max-width: 75%;
+  text-align: center;
+  opacity: 0.7;
+  color: #000;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flow-layout-title.flow-layout-title-middle {
+  top: 50%;
+}
+
+.flow-layout-title.flow-layout-title-bottom {
+  top: 75%;
+}
+
+.flow-vert {
+  width: calc(50% - 2px);
+}
+
+.flow-vert img {
+  position: relative;
+  width: 100%;
+}
+
+.flow-vert-right {
+  float: right;
+}
+
+.flow-vert-left {
+  float: left;
+}
+
+.flow-sq {
+  width: calc(50% - 2px);
+}
+
+.flow-sq-left {
+  float: left;
+}
+
+.flow-sq-right {
+  float: right;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
