@@ -54,6 +54,10 @@ body {
     color: #BD9462;
 }
 
+a[class*='InternalLink-NavLink'] {
+  font-size: 1.3em;
+}
+
 /* =Flow layout on about page
 -------------------------------------------------------------- */
 .flow-layout {
@@ -80,11 +84,12 @@ body {
   position: absolute;
   padding: 5px;
   text-transform: uppercase;
-  font-size: 0.5em;
+  font-size: 0.4em;
   width: 75%;
   max-width: 75%;
+  max-height: 83px;
   text-align: center;
-  opacity: 0.7;
+  opacity: 0.5;
   color: #000;
   left: 50%;
   transform: translate(-50%, -50%);
