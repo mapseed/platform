@@ -5,13 +5,13 @@ export type LayerGroup = {
     header: string;
     body: string;
   };
-}
+};
 
 type LeftSidebarSection = {
   id: string;
   title: string;
   layerGroups: LayerGroup[];
-}
+};
 
 export type LeftSidebarPanel = {
   id: string;
@@ -19,14 +19,14 @@ export type LeftSidebarPanel = {
   title: string;
   icon: string;
   content: LeftSidebarSection[];
-}
+};
 
 export type LeftSidebarConfig = {
   is_enabled: boolean;
   is_visible_default: boolean;
   panels: LeftSidebarPanel[];
   isExpanded: boolean;
-}
+};
 
 export const leftSidebarPanelConfigSelector: any;
 export const leftSidebarComponentSelector: any;
