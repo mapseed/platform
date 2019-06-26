@@ -13,7 +13,7 @@ export interface InitialMapViewport {
 }
 
 export interface MapSourcesLoadStatus {
-    [groupName: string]: string;
+  [groupName: string]: string;
 }
 export interface MapViewport extends InitialMapViewport {
   transitionInterpolator: any;
