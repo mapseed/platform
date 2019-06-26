@@ -52,6 +52,7 @@ import {
   mapConfigPropType,
   MapViewport,
   InitialMapViewport,
+  MapSourcesLoadStatus,
 } from "../../state/ducks/map-config";
 import {
   createFeaturesInGeoJSONSource,
@@ -142,9 +143,7 @@ interface State {
   mapViewport: MapViewport;
   isMapDraggedOrZoomed: boolean;
   isSpotlightMaskVisible: boolean;
-  mapSourcesLoadStatus: {
-    [groupName: string]: string;
-  };
+  mapSourcesLoadStatus: MapSourcesLoadStatus,
 }
 // Types were added to react-i18next is a newer version.
 // TODO: Use supplied types when we upgrade i18next deps.

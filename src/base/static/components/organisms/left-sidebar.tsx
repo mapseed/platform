@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
 
+import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
 import {
   isLeftSidebarExpandedSelector,
   leftSidebarComponentSelector,
@@ -34,7 +35,7 @@ const CloseButton = styled("button")({
 
 type Props = {
   isLeftSidebarExpanded: boolean;
-  mapSourcesLoadStatus: any;
+  mapSourcesLoadStatus: MapSourcesLoadStatus;
   setLeftSidebarExpanded: any;
   leftSidebarComponent: string;
 };

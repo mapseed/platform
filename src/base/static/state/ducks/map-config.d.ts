@@ -11,6 +11,10 @@ export interface InitialMapViewport {
   transitionDuration: number;
   transitionEasing: EasingFunction;
 }
+
+export interface MapSourcesLoadStatus {
+    [groupName: string]: string;
+}
 export interface MapViewport extends InitialMapViewport {
   transitionInterpolator: any;
 }

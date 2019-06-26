@@ -1,21 +1,34 @@
 /** @jsx jsx */
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import { jsx, css } from "@emotion/core";
 
+import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
 import {
   leftSidebarPanelConfigSelector,
-  leftSidebarPanelPropType,
+  LeftSidebarPanel,
 } from "../../state/ducks/left-sidebar";
 import { SmallTitle } from "../atoms/typography";
 import MapLayerPanelSection from "../molecules/map-layer-panel-section";
 
-import "./map-layer-panel.scss";
+// These are Props passed down from parent:
+type OwnProps = {
+  mapSourcesLoadStatus: MapSourcesLoadStatus;
+};
 
-const MapLayerPanel = props => (
-  <div className="map-layer-panel">
+// These are Props from Redux:
+type StateProps = {
+  mapLayerPanelConfig: LeftSidebarPanel;
+};
+
+type Props = {
+  t: Function;
+} & OwnProps &
+  StateProps;
+
+const MapLayerPanel: React.FunctionComponent<Props> = props => (
+  <div>
     <SmallTitle
       css={css`
         margin-top: 0;
@@ -38,15 +51,9 @@ const MapLayerPanel = props => (
   </div>
 );
 
-MapLayerPanel.propTypes = {
-  mapSourcesLoadStatus: PropTypes.object.isRequired,
-  mapLayerPanelConfig: leftSidebarPanelPropType,
-  t: PropTypes.func.isRequired,
-  visibleBasemapId: PropTypes.string,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   mapLayerPanelConfig: leftSidebarPanelConfigSelector(state, "MapLayerPanel"),
+  ...ownProps,
 });
 
 export default connect(mapStateToProps)(
