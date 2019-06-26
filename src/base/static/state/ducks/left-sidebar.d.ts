@@ -5,13 +5,11 @@ export type LayerGroup = {
     header: string;
     body: string;
   };
-  // variant: PropTypes.oneOf(["layerGroup", "aggregate"]),
 }
 
 type LeftSidebarSection = {
   id: string;
   title: string;
-  // TODO: rename this to "option"
   layerGroups: LayerGroup[];
 }
 
@@ -20,7 +18,6 @@ export type LeftSidebarPanel = {
   component: string;
   title: string;
   icon: string;
-  // TODO: rename this to "sections"
   content: LeftSidebarSection[];
 }
 
@@ -38,9 +35,3 @@ export const setLeftSidebarExpanded: any;
 export const setLeftSidebarComponent: any;
 export const leftSidebarConfigSelector: any;
 export const loadLeftSidebarConfig: any;
-
-
-// 'loadLeftSidebarConfig'.
-// 'leftSidebarConfigPropType'.
-// 'leftSidebarConfigSelector'.
-// 'setLeftSidebarComponent'.
