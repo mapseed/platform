@@ -37,7 +37,6 @@ import config from "config";
 
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
-import analysisClient from "../client/analysis-client";
 import {
   datasetsConfigPropType,
   datasetsConfigSelector,
@@ -54,8 +53,6 @@ import {
 } from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
-import { loadAnalysisTargets } from "../state/ducks/analysis";
-// TODO: configs always in their own duck
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
 import { loadRightSidebarConfig } from "../state/ducks/right-sidebar-config";
 import { loadFormsConfig } from "../state/ducks/forms-config";
@@ -147,7 +144,6 @@ const dispatchPropTypes = {
   updateMapContainerDimensions: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
-  loadAnalysisTargets: PropTypes.func.isRequired,
   loadDatasetsConfig: PropTypes.func.isRequired,
   loadMapConfig: PropTypes.func.isRequired,
   loadPlaceConfig: PropTypes.func.isRequired,
@@ -303,10 +299,6 @@ class App extends Component<Props, State> {
       this.props.loadDashboardConfig(resolvedConfig.dashboard);
     resolvedConfig.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
-
-    analysisClient
-      .fetchTargets(resolvedConfig.place.place_detail)
-      .then(analysisTargets => this.props.loadAnalysisTargets(analysisTargets));
 
     // Set up localization.
     i18next.use(reactI18nextModule).init({
@@ -769,7 +761,6 @@ const mapDispatchToProps = {
   loadPagesConfig,
   loadNavBarConfig,
   loadCustomComponentsConfig,
-  loadAnalysisTargets,
   loadMapStyle,
   loadUser,
 };
