@@ -237,10 +237,9 @@ const mapStateToProps = state => ({
   sourcesMetadata: sourcesMetadataSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
-    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-});
+const mapDispatchToProps = {
+  updateLayerGroupVisibility,
+};
 
 export default connect(
   mapStateToProps,

@@ -587,28 +587,17 @@ const mapStateToProps = (
   placeExists: placeId => placeExists(state, placeId),
 });
 
-const mapDispatchToProps = (
-  dispatch: any,
-  ownProps: OwnProps,
-): DispatchProps => ({
-  createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
-    dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
-  loadPlaceAndSetIgnoreFlag: placeModel =>
-    dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
-  updateUIVisibility: (componentName, isVisible) =>
-    dispatch(updateUIVisibility(componentName, isVisible)),
-  updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),
-  updateContentPanelComponent: componentName =>
-    dispatch(updateContentPanelComponent(componentName)),
-  updateFocusedPlaceId: focusedPlaceId =>
-    dispatch(updateFocusedPlaceId(focusedPlaceId)),
-  updateEditModeToggled: isToggled =>
-    dispatch(updateEditModeToggled(isToggled)),
-  updateScrollToResponseId: responseId =>
-    dispatch(updateScrollToResponseId(responseId)),
-  updateCurrentTemplate: templateName =>
-    dispatch(updateCurrentTemplate(templateName)),
-});
+const mapDispatchToProps = {
+  createFeaturesInGeoJSONSource,
+  loadPlaceAndSetIgnoreFlag,
+  updateUIVisibility,
+  updateActivePage,
+  updateContentPanelComponent,
+  updateFocusedPlaceId,
+  updateEditModeToggled,
+  updateScrollToResponseId,
+  updateCurrentTemplate,
+};
 
 export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,

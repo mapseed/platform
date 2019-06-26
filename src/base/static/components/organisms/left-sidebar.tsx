@@ -1,38 +1,15 @@
+/** @jsx jsx */
+import * as React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import React from "react";
 import styled from "@emotion/styled";
+import { jsx } from "@emotion/core";
 
 import {
   isLeftSidebarExpandedSelector,
   leftSidebarComponentSelector,
-  leftSidebarPanelConfigSelector,
   setLeftSidebarExpanded,
 } from "../../state/ducks/left-sidebar";
 import MapLayerPanel from "./map-layer-panel";
-
-const LeftSidebarOuterContainer = styled("section")({
-  position: "absolute",
-  zIndex: 20,
-  width: "250px",
-  height: "100%",
-  boxSizing: "border-box",
-  backgroundColor: "#fff",
-  lineHeight: "1rem",
-  boxShadow: "4px 0px 3px rgba(0,0,0,0.1)",
-});
-
-const LeftSidebarInnerContainer = styled("div")({
-  width: "100%",
-  height: "100%",
-  padding: "1em 1em 4em 1em",
-  overflow: "auto",
-  boxSizing: "border-box",
-
-  "&::-webkit-scrollbar": {
-    display: "none",
-  },
-});
 
 // TODO: Abstract this out into a molecule.
 const CloseButton = styled("button")({
@@ -55,53 +32,57 @@ const CloseButton = styled("button")({
   },
 });
 
-const LeftSidebar = props => (
-  <LeftSidebarOuterContainer>
-    <LeftSidebarInnerContainer>
+type Props = {
+  isLeftSidebarExpanded: boolean;
+  mapSourcesLoadStatus: any;
+  setLeftSidebarExpanded: any;
+  leftSidebarComponent: string;
+};
+
+const LeftSidebar: React.FunctionComponent<Props> = props => (
+  <section
+    css={{
+      position: "absolute",
+      zIndex: 20,
+      width: "250px",
+      height: "100%",
+      boxSizing: "border-box",
+      backgroundColor: "#fff",
+      lineHeight: "1rem",
+      boxShadow: "4px 0px 3px rgba(0,0,0,0.1)",
+    }}
+  >
+    <div
+      css={{
+        width: "100%",
+        height: "100%",
+        padding: "1em 1em 4em 1em",
+        overflow: "auto",
+        boxSizing: "border-box",
+
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
       <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
         &#10005;
       </CloseButton>
       {props.leftSidebarComponent === "MapLayerPanel" && (
         <MapLayerPanel mapSourcesLoadStatus={props.mapSourcesLoadStatus} />
       )}
-    </LeftSidebarInnerContainer>
-  </LeftSidebarOuterContainer>
+    </div>
+  </section>
 );
-
-LeftSidebar.propTypes = {
-  isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  mapSourcesLoadStatus: PropTypes.object.isRequired,
-  setLeftSidebarExpanded: PropTypes.func.isRequired,
-  leftSidebarComponent: PropTypes.string,
-  mapLegendPanelConfig: PropTypes.shape({
-    component: PropTypes.string.isRequired,
-    icon: PropTypes.string,
-    title: PropTypes.string,
-    groupings: PropTypes.arrayOf(
-      PropTypes.shape({
-        content: PropTypes.arrayOf(
-          PropTypes.shape({
-            icon: PropTypes.string,
-            label: PropTypes.string.isRequired,
-            swatch: PropTypes.string,
-          }),
-        ),
-        title: PropTypes.string,
-      }),
-    ).isRequired,
-  }),
-};
 
 const mapStateToProps = state => ({
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   leftSidebarComponent: leftSidebarComponentSelector(state),
-  mapLegendPanelConfig: leftSidebarPanelConfigSelector(state, "MapLegendPanel"),
 });
 
-const mapDispatchToProps = dispatch => ({
-  setLeftSidebarExpanded: isExpanded =>
-    dispatch(setLeftSidebarExpanded(isExpanded)),
-});
+const mapDispatchToProps = {
+  setLeftSidebarExpanded,
+};
 
 export default connect(
   mapStateToProps,
