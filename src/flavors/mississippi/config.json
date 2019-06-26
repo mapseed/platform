@@ -1035,7 +1035,7 @@
       },
       {
         "placeId": 7309,
-        "pan_to": [ -90.72, 43.38 ],
+        "pan_to": [-90.72, 43.38],
         "zoom": 8.5,
         "visibleLayerGroupIds": [
           "ocean-satellite",
@@ -1046,7 +1046,7 @@
       },
       {
         "placeId": 7310,
-        "pan_to": [ -90.29, 38.63 ],
+        "pan_to": [-90.29, 38.63],
         "zoom": 10,
         "visibleLayerGroupIds": [
           "ocean-satellite",
@@ -1068,7 +1068,7 @@
       },
       {
         "placeId": 7308,
-        "pan_to": [ -93.250447, 30.93689 ],
+        "pan_to": [-93.250447, 30.93689],
         "zoom": 5.8,
         "iconUrl": "/static/css/images/markers/industry.png",
         "visibleLayerGroupIds": [
