@@ -45,7 +45,7 @@ import { jumpTo } from "../../utils/scroll-helpers";
 
 import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
-import { geoAnalyze } from "../../client/geo-analysis-client";
+import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
@@ -330,7 +330,7 @@ class InputForm extends Component {
       this.selectedCategoryConfig.geospatialAnalysis &&
       attrs.geometry.type === "Point"
     ) {
-      const geospatialAnalysisAttrs = await geoAnalyze({
+      const geospatialAnalysisAttrs = await geoAnalysisClient.analyze({
         analyses: this.selectedCategoryConfig.geospatialAnalysis,
         inputGeometry: attrs.geometry,
       });

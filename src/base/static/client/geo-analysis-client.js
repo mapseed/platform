@@ -1,4 +1,4 @@
-const geoAnalyze = async ({ analyses, inputGeometry }) => {
+const analyze = async ({ analyses, inputGeometry }) => {
   const response = await fetch(
     "https://tczvytgpjb.execute-api.us-west-2.amazonaws.com/v1",
     {
@@ -27,5 +27,5 @@ const geoAnalyze = async ({ analyses, inputGeometry }) => {
 };
 
 export default {
-  geoAnalyze,
+  analyze,
 };
