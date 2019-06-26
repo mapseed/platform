@@ -34,6 +34,7 @@ export const featuredPlacesPropType = PropTypes.arrayOf(
     visibleLaygerGroupIds: PropTypes.arrayOf(PropTypes.string),
     previous: PropTypes.string,
     next: PropTypes.string,
+    iconUrl: PropTypes.string,
     spotlight: PropTypes.bool.isRequired,
     sidebarIconUrl: PropTypes.string,
   }).isRequired,
@@ -72,6 +73,7 @@ export function loadFeaturedPlacesConfig(config) {
           zoom: featuredPlace.zoom || config.default_zoom,
           hasCustomZoom: !!featuredPlace.zoom,
           panTo: featuredPlace.pan_to || null,
+          iconUrl: featuredPlace.iconUrl || null,
           visibleLayerGroupIds:
             featuredPlace.visibleLayerGroupIds || config.visibleLayerGroupIds,
           previous: config.order[(i - 1 + numChapters) % numChapters].url,
