@@ -98,6 +98,13 @@
         ],
         "tileSize": 256
       },
+      "terrain": {
+        "type": "raster",
+        "tiles": [
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
       "oceans": {
         "type": "raster",
         "tiles": [
@@ -108,9 +115,22 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         ],
-
+        "tileSize": 256
+      },
+      "topomap": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "kickapoo": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/kickapoo/alltiles/tiles2/{z}/{x}/{y}.png"
+        ],
         "tileSize": 256
       },
       "nitrogen-farm-emissions": {
@@ -122,7 +142,7 @@
       },
       "nitrogen-plants": {
         "type": "geojson",
-        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/mississippi_nitrogen-plants.geojson"
+        "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
       }
     },
     "layerGroups": [
@@ -200,6 +220,18 @@
         ]
       },
       {
+        "id": "kickapoo-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kickapoo-basemap",
+            "type": "raster",
+            "source": "kickapoo"
+          }
+        ]
+      },
+      {
         "id": "streets-group",
         "basemap": false,
         "visibleDefault": true,
@@ -208,6 +240,30 @@
             "id": "streets-basemap",
             "type": "raster",
             "source": "streets"
+          }
+        ]
+      },
+      {
+        "id": "topomap-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "topomap-basemap",
+            "type": "raster",
+            "source": "topomap"
+          }
+        ]
+      },
+      {
+        "id": "terrain-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "terrain-basemap",
+            "type": "raster",
+            "source": "terrain"
           }
         ]
       },
@@ -349,7 +405,7 @@
         "basemap": false,
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<p><strong>Nitrogen Plant Name: </strong><em>{{PLANT}}</em></p><p><strong>emission count: </strong><em>{{Current}}</em></p>",
+        "popupContent": "<div style='max-width: 250px'><p><strong>Plant name: </strong><em>{{PLANT}}</em></p><p><strong>Stated capacity: </strong><em>{{CAPACITY}}</em></p></div>",
         "mapboxLayers": [
           {
             "id": "nitrogen-plants-labels",
@@ -931,6 +987,7 @@
       "content": [
         "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7306' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/MachinicRiver.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Machinic River</h3>",
@@ -938,7 +995,7 @@
         "</a>",
         "</figure>",
         "<figure class='flow-layout flow-sq flow-vert-right'>",
-        "<a href='/report/7285' rel='internal'>",
+        "<a href='/featured/7307' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceRegion.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Confluence Ecologies</h3>",
@@ -946,15 +1003,19 @@
         "</a>",
         "</figure>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7310' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/IndustryIndigeneity&Empire.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Industry, Indigeneity, and Empire</h3>",
         "</figcaption>",
+        "</a>",
         "</figure>",
+        "<a href='/featured/7309' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/AnthropoceneDrift.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Anthropocene Drift</h3>",
-        "</figcaption>"
+        "</figcaption>",
+        "</a>"
       ]
     }
   ],
@@ -964,18 +1025,38 @@
       "ocean-satellite",
       "streets-group",
       "mississippi-input",
-      "mississippi-group",
-      "nitrogen-plants-group"
+      "mississippi-group"
     ],
     "order": [
       {
-        "placeId": 7289,
-        "pan_to": [-92.75, 39.77],
-        "zoom": 6,
+        "placeId": 7306,
+        "zoom": 15,
         "spotlight": false
       },
       {
-        "placeId": 7285,
+        "placeId": 7309,
+        "pan_to": [ -90.72, 43.38 ],
+        "zoom": 8.5,
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "kickapoo-group",
+          "streets2-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7310,
+        "pan_to": [ -90.29, 38.63 ],
+        "zoom": 10,
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "streets2-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7307,
         "pan_to": [-89.15, 37.07],
         "zoom": 9,
         "visibleLayerGroupIds": [
@@ -986,8 +1067,17 @@
         "spotlight": false
       },
       {
-        "placeId": 7305,
-        "zoom": 9,
+        "placeId": 7308,
+        "pan_to": [ -93.250447, 30.93689 ],
+        "zoom": 5.8,
+        "iconUrl": "/static/css/images/markers/industry.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "streets-group",
+          "mississippi-input",
+          "mississippi-group",
+          "nitrogen-plants-group"
+        ],
         "spotlight": false
       }
     ]
