@@ -1,17 +1,21 @@
-interface LayerGroup {
+export type LayerGroup = {
   id: string;
   title: string;
+  info?: {
+    header: string;
+    body: string;
+  };
   // variant: PropTypes.oneOf(["layerGroup", "aggregate"]),
 }
 
-interface LeftSidebarSection {
+type LeftSidebarSection = {
   id: string;
   title: string;
   // TODO: rename this to "option"
   layerGroups: LayerGroup[];
 }
 
-export interface LeftSidebarPanel {
+export type LeftSidebarPanel = {
   id: string;
   component: string;
   title: string;
@@ -20,7 +24,7 @@ export interface LeftSidebarPanel {
   content: LeftSidebarSection[];
 }
 
-export interface LeftSidebarConfig {
+export type LeftSidebarConfig = {
   is_enabled: boolean;
   is_visible_default: boolean;
   panels: LeftSidebarPanel[];
