@@ -1043,6 +1043,10 @@
           {
             "layerGroupId": "osm",
             "title": "OpenStreetMap"
+          },
+          {
+            "layerGroupId": "light-satellite",
+            "title": "Light/Satellite"
           }
         ]
       },
