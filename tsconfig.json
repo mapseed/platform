@@ -8,9 +8,10 @@
     "outDir": "./dist/",
     "strict": true,
     "noImplicitAny": false,
-    "types": [ "redux" ],
+    "types": ["redux"],
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["es6", "dom", "es2017", "dom.iterable", "scripthost"]
   },
   "include": ["./src/**/*"]
 }

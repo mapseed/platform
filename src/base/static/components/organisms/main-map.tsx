@@ -26,6 +26,7 @@ import {
   mapConfigSelector,
   mapConfigPropType,
   MapViewport,
+  MapSourcesLoadStatus,
 } from "../../state/ducks/map-config";
 import {
   activeEditPlaceIdSelector,
@@ -83,7 +84,7 @@ type ParentProps = {
   onUpdateMapDraggedOrZoomed: Function;
   onUpdateSpotlightMaskVisibility: Function;
   onUpdateSourceLoadStatus: Function;
-  mapSourcesLoadStatus: any;
+  mapSourcesLoadStatus: MapSourcesLoadStatus;
   mapViewport: MapViewport;
 };
 

@@ -40,6 +40,7 @@ export const leftSidebarConfigPropType = PropTypes.shape({
   is_enabled: PropTypes.bool,
   is_visible_default: PropTypes.bool,
   panels: PropTypes.arrayOf(leftSidebarPanelPropType).isRequired,
+  isExpanded: PropTypes.bool,
 });
 
 // Actions:
