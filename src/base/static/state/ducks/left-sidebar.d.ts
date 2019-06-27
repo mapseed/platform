@@ -15,8 +15,6 @@ export type LeftSidebarSection = {
 };
 
 export type LeftSidebarConfig = {
-  is_enabled: boolean;
-  is_visible_default: boolean;
   isExpanded: boolean;
   title: string;
   icon: string;

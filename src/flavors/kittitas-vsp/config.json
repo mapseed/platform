@@ -488,77 +488,66 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "OpenStreetMap"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "layerGroupId": "osm",
+            "title": "OpenStreetMap"
           },
           {
-            "id": "grp-water",
-            "title": "Water Features",
-            "layerGroups": [
-              {
-                "id": "columbia-river",
-                "title": "Columbia River"
-              },
-              {
-                "id": "snake-river",
-                "title": "Snake River"
-              },
-              {
-                "id": "kittitas-geologic-hazard",
-                "title": "Geologic Hazards"
-              },
-              {
-                "id": "kittitas-wetlands",
-                "title": "Wetlands"
-              },
-              {
-                "id": "kittitas-frequently-flooded",
-                "title": "Frequently Flooded Areas"
-              },
-              {
-                "id": "kittitas-critical-aquifer",
-                "title": "Critical Aquifer Recharge Areas"
-              },
-              {
-                "id": "kittitas-conservation-areas",
-                "title": "Critical Conservation Areas"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "columbia-river",
+            "title": "Columbia River"
           },
           {
-            "id": "grp-community",
-            "title": "Community Data",
-            "layerGroups": [
-              {
-                "id": "kittitas-county-outline",
-                "title": "Kittitas County border"
-              },
-              {
-                "id": "kittitas-vsp-input",
-                "title": "Community Reports"
-              }
-            ]
+            "layerGroupId": "snake-river",
+            "title": "Snake River"
+          },
+          {
+            "layerGroupId": "kittitas-geologic-hazard",
+            "title": "Geologic Hazards"
+          },
+          {
+            "layerGroupId": "kittitas-wetlands",
+            "title": "Wetlands"
+          },
+          {
+            "layerGroupId": "kittitas-frequently-flooded",
+            "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "kittitas-critical-aquifer",
+            "title": "Critical Aquifer Recharge Areas"
+          },
+          {
+            "layerGroupId": "kittitas-conservation-areas",
+            "title": "Critical Conservation Areas"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "layerGroupId": "kittitas-county-outline",
+            "title": "Kittitas County border"
+          },
+          {
+            "layerGroupId": "kittitas-vsp-input",
+            "title": "Community Reports"
           }
         ]
       }

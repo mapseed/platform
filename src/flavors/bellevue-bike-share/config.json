@@ -141,39 +141,29 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "_(Map Layers:)",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
-        "content": [
+        "title": "_(Basemaps)",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "_(Basemaps)",
-            "layerGroups": [
-              {
-                "id": "satellite",
-                "title": "_(Satellite)"
-              },
-              {
-                "id": "f4",
-                "title": "_(Streets)"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "_(Satellite)"
           },
           {
-            "id": "grp-community",
-            "title": "_(Data layers)",
-            "layerGroups": [
-              {
-                "id": "bellevue-bike-share",
-                "title": "_(Suggested Bike Share Locations)"
-              }
-            ]
+            "layerGroupId": "f4",
+            "title": "_(Streets)"
+          }
+        ]
+      },
+      {
+        "title": "_(Data layers)",
+        "options": [
+          {
+            "layerGroupId": "bellevue-bike-share",
+            "title": "_(Suggested Bike Share Locations)"
           }
         ]
       }

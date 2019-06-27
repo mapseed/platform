@@ -284,7 +284,7 @@ class App extends Component<Props, State> {
     this.props.loadDatasetsConfig(resolvedConfig.datasets);
     this.props.loadMapConfig(resolvedConfig.map);
     this.props.loadPlaceConfig(resolvedConfig.place, user);
-    this.props.loadLeftSidebarConfig(resolvedConfig.left_sidebar);
+    this.props.loadLeftSidebarConfig(resolvedConfig.leftSidebar);
     this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
     if (resolvedConfig.featuredPlaces) {
       this.props.loadFeaturedPlacesConfig(resolvedConfig.featuredPlaces);

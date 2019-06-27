@@ -286,51 +286,41 @@
     "is_visible_default": true,
     "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Capas:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Capas:",
-        "content": [
+        "title": "Geografía",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Geografía",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "Mapa base"
-              },
-              {
-                "id": "topografico",
-                "title": "Topográfico"
-              }
-            ]
+            "layerGroupId": "osm",
+            "title": "Mapa base"
           },
           {
-            "id": "grp-community",
-            "title": "Contribuciones",
-            "layerGroups": [
-              {
-                "id": "argentina-input",
-                "title": "Puntos"
-              },
-              {
-                "id": "argentina-featured",
-                "title": "Sitios Destacados"
-              },
-              {
-                "id": "argentina-campanas",
-                "title": "Campañas"
-              },
-              {
-                "id": "presencia-agua",
-                "title": "Desecamiento"
-              }
-            ]
+            "layerGroupId": "topografico",
+            "title": "Topográfico"
+          }
+        ]
+      },
+      {
+        "title": "Contribuciones",
+        "options": [
+          {
+            "layerGroupId": "argentina-input",
+            "title": "Puntos"
+          },
+          {
+            "layerGroupId": "argentina-featured",
+            "title": "Sitios Destacados"
+          },
+          {
+            "layerGroupId": "argentina-campanas",
+            "title": "Campañas"
+          },
+          {
+            "layerGroupId": "presencia-agua",
+            "title": "Desecamiento"
           }
         ]
       }

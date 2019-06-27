@@ -563,97 +563,84 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "OpenStreetMap"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "layerGroupId": "osm",
+            "title": "OpenStreetMap"
           },
           {
-            "id": "grp-water",
-            "title": "Water Features",
-            "layerGroups": [
-              {
-                "id": "columbia-river",
-                "title": "Columbia River"
-              },
-              {
-                "id": "snake-river",
-                "title": "Snake River"
-              },
-              {
-                "id": "spokane-watersheds",
-                "title": "Watersheds"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "columbia-river",
+            "title": "Columbia River"
           },
           {
-            "id": "grp-critical-areas",
-            "title": "Critical Areas",
-            "layerGroups": [
-              {
-                "id": "spokane-geologic-hazard",
-                "title": "Geologic Hazards"
-              },
-              {
-                "id": "spokane-wetlands",
-                "title": "Wetlands"
-              },
-              {
-                "id": "spokane-frequently-flooded",
-                "title": "Frequently Flooded Areas"
-              },
-              {
-                "id": "spokane-critical-aquifer",
-                "title": "Critical Aquifer Recharge Areas"
-              },
-              {
-                "id": "spokane-critical-conservation-areas",
-                "title": "Critical Conservation Areas"
-              }
-            ]
+            "layerGroupId": "snake-river",
+            "title": "Snake River"
           },
           {
-            "id": "grp-parcels",
-            "title": "Property Parcels",
-            "layerGroups": [
-              {
-                "id": "spokane-parcels",
-                "title": "Parcels"
-              }
-            ]
+            "layerGroupId": "spokane-watersheds",
+            "title": "Watersheds"
+          }
+        ]
+      },
+      {
+        "title": "Critical Areas",
+        "options": [
+          {
+            "layerGroupId": "spokane-geologic-hazard",
+            "title": "Geologic Hazards"
           },
           {
-            "id": "grp-community",
-            "title": "Community Data",
-            "layerGroups": [
-              {
-                "id": "spokane-county-outline",
-                "title": "Spokane County border"
-              },
-              {
-                "id": "spokane-input",
-                "title": "Community Reports"
-              }
-            ]
+            "layerGroupId": "spokane-wetlands",
+            "title": "Wetlands"
+          },
+          {
+            "layerGroupId": "spokane-frequently-flooded",
+            "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "spokane-critical-aquifer",
+            "title": "Critical Aquifer Recharge Areas"
+          },
+          {
+            "layerGroupId": "spokane-critical-conservation-areas",
+            "title": "Critical Conservation Areas"
+          }
+        ]
+      },
+      {
+        "title": "Property Parcels",
+        "options": [
+          {
+            "layerGroupId": "spokane-parcels",
+            "title": "Parcels"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "layerGroupId": "spokane-county-outline",
+            "title": "Spokane County border"
+          },
+          {
+            "layerGroupId": "spokane-input",
+            "title": "Community Reports"
           }
         ]
       }

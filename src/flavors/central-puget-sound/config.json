@@ -1024,223 +1024,213 @@
     "is_visible_default": false,
     "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "topo",
-                "title": "Topography",
-                "info": {
-                  "header": "Topography",
-                  "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
-                }
-              },
-              {
-                "id": "hillshade",
-                "title": "Hillshade",
-                "info": {
-                  "title": "Hillshade",
-                  "body": "Shaded terrain that pops with clarity. A bold grey color, great for layering"
-                }
-              },
-              {
-                "id": "hydrography",
-                "title": "Hydrography",
-                "info": {
-                  "title": "Hydrography",
-                  "body": "Explore our connection through waterways and watch the magic as political boundaries disappear"
-                }
-              },
-              {
-                "id": "bath",
-                "title": "Bathymetry",
-                "info": {
-                  "title": "Bathymetry",
-                  "body": "The shape and depth of the ocean floor. What does it tell us about the history of this place?"
-                }
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View",
-                "info": {
-                  "title": "Satellite View",
-                  "body": "A bird’s eye view of the world"
-                }
-              },
-              {
-                "id": "1936aerial",
-                "title": "1936 Aerial View",
-                "info": {
-                  "title": "1936 Aerial View",
-                  "body": "Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936."
-                }
-              },
-              {
-                "id": "light-nolabels",
-                "title": "Simple Canvas",
-                "info": {
-                  "title": "Simple Canvas",
-                  "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
-                }
-              }
-            ]
+            "layerGroupId": "topo",
+            "title": "Topography",
+            "info": {
+              "header": "Topography",
+              "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
+            }
           },
           {
-            "id": "grp-map-layers",
-            "title": "Map Layers",
-            "layerGroups": [
-              {
-                "id": "mwfeatured",
-                "title": "Classroom Projects",
-                "info": {
-                  "title": "Featured Sites",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "mw-featured-projects",
-                "title": "Community Projects"
-              },
-              {
-                "id": "mw",
-                "title": "Stewardship Actions",
-                "info": {
-                  "title": "Stewardship Actions",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "wria-7",
-                "title": "WRIA 7 Streams",
-                "info": {
-                  "title": "WRIA 7 Streams",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "watershed-cedar-sammamish",
-                "title": "WRIA 8 Streams",
-                "info": {
-                  "title": "WRIA 8 Streams",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "watershed-green",
-                "title": "WRIA 9 Streams",
-                "info": {
-                  "title": "WRIA 9 Streams",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "watershed-puyallup",
-                "title": "WRIA 10 Streams",
-                "info": {
-                  "title": "WRIA 10 Streams",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "wria-7-8-9",
-                "title": "WRIA Boundaries ALL",
-                "info": {
-                  "title": "WRIA Boundaries ALL",
-                  "body": "WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its ridgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state."
-                }
-              },
-              {
-                "id": "sub-basins",
-                "title": "Sub-Basin Boundaries",
-                "info": {
-                  "title": "Sub-Basin Boundaries",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "contour",
-                "title": "Contour Lines",
-                "info": {
-                  "title": "Contour Lines",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "cities",
-                "title": "City Boundaries",
-                "info": {
-                  "title": "City Boundaries",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "landuse",
-                "title": "Land Use",
-                "info": {
-                  "title": "Land Use",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "impervious",
-                "title": "Impervious Surface Area",
-                "info": {
-                  "title": "Impervious Surface Area",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "sewer",
-                "title": "Sewer lines",
-                "info": {
-                  "title": "Sewer lines",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "school-boundaries",
-                "title": "School Districts",
-                "info": {
-                  "title": "School Districts",
-                  "body": "This is some information about the school boundaries layer."
-                }
-              },
-              {
-                "id": "school-sites",
-                "title": "Schools and Colleges",
-                "info": {
-                  "title": "Schools and Colleges",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              },
-              {
-                "id": "commfood",
-                "title": "Farmers Markets",
-                "info": {
-                  "title": "Farmers Markets",
-                  "body": "This is some information and a legend"
-                }
-              },
-              {
-                "id": "duwamish-original",
-                "title": "Historical Duwamish River",
-                "info": {
-                  "title": "Historical Duwamish River",
-                  "body": "This is an example of an info window. Layer info will be added soon."
-                }
-              }
-            ]
+            "layerGroupId": "hillshade",
+            "title": "Hillshade",
+            "info": {
+              "title": "Hillshade",
+              "body": "Shaded terrain that pops with clarity. A bold grey color, great for layering"
+            }
+          },
+          {
+            "layerGroupId": "hydrography",
+            "title": "Hydrography",
+            "info": {
+              "title": "Hydrography",
+              "body": "Explore our connection through waterways and watch the magic as political boundaries disappear"
+            }
+          },
+          {
+            "layerGroupId": "bath",
+            "title": "Bathymetry",
+            "info": {
+              "title": "Bathymetry",
+              "body": "The shape and depth of the ocean floor. What does it tell us about the history of this place?"
+            }
+          },
+          {
+            "layerGroupId": "satellite",
+            "title": "Satellite View",
+            "info": {
+              "title": "Satellite View",
+              "body": "A bird’s eye view of the world"
+            }
+          },
+          {
+            "layerGroupId": "1936aerial",
+            "title": "1936 Aerial View",
+            "info": {
+              "title": "1936 Aerial View",
+              "body": "Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936."
+            }
+          },
+          {
+            "layerGroupId": "light-nolabels",
+            "title": "Simple Canvas",
+            "info": {
+              "title": "Simple Canvas",
+              "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Map Layers",
+        "options": [
+          {
+            "layerGroupId": "mwfeatured",
+            "title": "Classroom Projects",
+            "info": {
+              "title": "Featured Sites",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "mw-featured-projects",
+            "title": "Community Projects"
+          },
+          {
+            "layerGroupId": "mw",
+            "title": "Stewardship Actions",
+            "info": {
+              "title": "Stewardship Actions",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "wria-7",
+            "title": "WRIA 7 Streams",
+            "info": {
+              "title": "WRIA 7 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "watershed-cedar-sammamish",
+            "title": "WRIA 8 Streams",
+            "info": {
+              "title": "WRIA 8 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "watershed-green",
+            "title": "WRIA 9 Streams",
+            "info": {
+              "title": "WRIA 9 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "watershed-puyallup",
+            "title": "WRIA 10 Streams",
+            "info": {
+              "title": "WRIA 10 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "wria-7-8-9",
+            "title": "WRIA Boundaries ALL",
+            "info": {
+              "title": "WRIA Boundaries ALL",
+              "body": "WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its rlayerGroupIdgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state."
+            }
+          },
+          {
+            "layerGroupId": "sub-basins",
+            "title": "Sub-Basin Boundaries",
+            "info": {
+              "title": "Sub-Basin Boundaries",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "contour",
+            "title": "Contour Lines",
+            "info": {
+              "title": "Contour Lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "cities",
+            "title": "City Boundaries",
+            "info": {
+              "title": "City Boundaries",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "landuse",
+            "title": "Land Use",
+            "info": {
+              "title": "Land Use",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "impervious",
+            "title": "Impervious Surface Area",
+            "info": {
+              "title": "Impervious Surface Area",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "sewer",
+            "title": "Sewer lines",
+            "info": {
+              "title": "Sewer lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "school-boundaries",
+            "title": "School Districts",
+            "info": {
+              "title": "School Districts",
+              "body": "This is some information about the school boundaries layer."
+            }
+          },
+          {
+            "layerGroupId": "school-sites",
+            "title": "Schools and Colleges",
+            "info": {
+              "title": "Schools and Colleges",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "commfood",
+            "title": "Farmers Markets",
+            "info": {
+              "title": "Farmers Markets",
+              "body": "This is some information and a legend"
+            }
+          },
+          {
+            "layerGroupId": "duwamish-original",
+            "title": "Historical Duwamish River",
+            "info": {
+              "title": "Historical Duwamish River",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
           }
         ]
       }

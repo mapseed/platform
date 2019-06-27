@@ -9,7 +9,6 @@ export const isLeftSidebarExpandedSelector = state => {
 // Actions:
 const LOAD = "left-sidebar/LOAD";
 const SET_EXPANDED = "left-sidebar/SET_EXPANDED";
-const SET_COMPONENT = "left-sidebar/SET_COMPONENT";
 
 // Action creators:
 export function loadLeftSidebarConfig(config) {

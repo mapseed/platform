@@ -471,49 +471,41 @@
     "is_visible_default": false,
     "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Layers:",
-        "content": [
+        "id": "river",
+        "title": "Our River",
+        "options": [
           {
-            "id": "river",
-            "title": "Our River",
-            "layerGroups": [
-              {
-                "id": "mississippi-group",
-                "title": "Watershed"
-              }
-            ]
+            "layerGroupId": "mississippi-group",
+            "title": "Watershed"
+          }
+        ]
+      },
+      {
+        "id": "grp-community",
+        "title": "Contributions",
+        "options": [
+          {
+            "layerGroupId": "mississippi-input",
+            "title": "Comments"
+          }
+        ]
+      },
+      {
+        "id": "grp-nitrogen",
+        "title": "Nitrogen",
+        "options": [
+          {
+            "layerGroupId": "nitrogen-farm-emissions-group",
+            "title": "Nitrogen Details"
           },
           {
-            "id": "grp-community",
-            "title": "Contributions",
-            "layerGroups": [
-              {
-                "id": "mississippi-input",
-                "title": "Comments"
-              }
-            ]
-          },
-          {
-            "id": "grp-nitrogen",
-            "title": "Nitrogen",
-            "layerGroups": [
-              {
-                "id": "nitrogen-farm-emissions-group",
-                "title": "Nitrogen Details"
-              },
-              {
-                "id": "nitrogen-plants-group",
-                "title": "Nitrogen Plants"
-              }
-            ]
+            "layerGroupId": "nitrogen-plants-group",
+            "title": "Nitrogen Plants"
           }
         ]
       }
