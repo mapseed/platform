@@ -126,6 +126,13 @@
         ],
         "maxzoom": 16
       },
+      "kittitas-forest-type": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-forest-type/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
       "kittitas-county-cities": {
         "type": "vector",
         "tiles": [
@@ -1097,6 +1104,16 @@
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "geospatialAnalysis": [
           {
+            "name": "forest_type",
+            "type": "pointInPolygon",
+            "analysisTarget": "kittitas-forest-type.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "LABEL"
+              }
+            ]
+          },
+          {
             "name": "local_fire_district",
             "type": "pointInPolygon",
             "analysisTarget": "kittitas-fire-districts.geojson",
@@ -1609,6 +1626,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1625,6 +1646,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1641,6 +1666,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1657,6 +1686,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1673,6 +1706,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1689,6 +1726,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1705,6 +1746,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1721,6 +1766,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1737,6 +1786,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1753,6 +1806,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1769,6 +1826,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1785,6 +1846,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1801,6 +1866,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1817,6 +1886,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1833,6 +1906,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1849,6 +1926,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1865,6 +1946,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1881,6 +1966,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1897,6 +1986,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
@@ -1913,6 +2006,10 @@
           {
             "label": "No",
             "value": "no"
+          },
+          {
+            "label": "No, but interested",
+            "value": "interested"
           }
         ]
       },
