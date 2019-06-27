@@ -36,16 +36,18 @@ import {
 import { ColoredMeterChart } from "../../../molecules/report-components/charts";
 
 const getBurnRiskText = burnRisk => {
-  if (burnRisk === "BENEFICIAL" || burnRisk === "LOW") {
+  if (burnRisk === "LOW") {
     return "Low";
-  } else if (burnRisk === "MOD") {
+  } else if (burnRisk === "MEDIUM") {
     return "Moderate";
   } else if (burnRisk === "HIGH") {
     return "High";
   } else if (burnRisk === "VERY HIGH") {
     return "Very High";
-  } else {
+  } else if (burnRisk === "EXTREME") {
     return "Extreme";
+  } else {
+    return "Moderate";
   }
 };
 

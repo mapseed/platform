@@ -23,8 +23,8 @@
     }
   ],
   "app": {
-    "title": "Kittitas County Fire Ready Program",
-    "name": "Kittitas County Fire Ready Program",
+    "title": "Kittitas County Fire Adapted Program",
+    "name": "Kittitas County Fire Adapted Program",
     "logo": "/static/css/images/logo.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
@@ -149,7 +149,7 @@
       "kittitas-burn-risk": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-burn-risk/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-burn-risk-alt/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -362,16 +362,14 @@
               "fill-color": [
                 "match",
                 ["get", "LABEL"],
-                "BENEFICIAL",
-                "#ffffb2",
                 "LOW",
+                "#ffffb2",
+                "MEDIUM",
                 "#fed976",
-                "MOD",
-                "#feb24c",
                 "HIGH",
-                "#fd8d3c",
+                "#feb24c",
                 "VERY HIGH",
-                "#f03b20",
+                "#fd8d3c",
                 "EXTREME",
                 "#bd0026",
                 "#fff"
@@ -2404,47 +2402,12 @@
   ],
   "pages": [
     {
-      "slug": "assistance",
-      "lang": "en",
-      "content": [
-        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
-        "<p style='margin-bottom:16px'>Your Garfield County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
-        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator or for more information visit: <a href='https://www.garfieldcountyvsp.com/' target='_blank'>www.garfieldcountyvsp.com</a>.</p>",
-        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
-        "<li>",
-        "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Bradley Johnson</strong>",
-        "<p style='margin:0'><em>Watershed Manager, VSP Coordinator</em></p>",
-        "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-552-9562</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>bradleyj@palousecd.org</span></div>",
-        "</li>",
-        "<li style='margin-top:16px'>",
-        "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Duane Bartels</strong>",
-        "<p style='margin:0'><em>District Manager</em></p>",
-        "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-843-5008</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcdistrict@qwestoffice.net</span></div>",
-        "</li>",
-        "<li style='margin-top:16px'>",
-        "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Lance Frederick</strong>",
-        "<p style='margin:0'><em>CREP Coordinator</em></p>",
-        "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>508-843-5008</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>lancepcdistrict@qwestoffice.net</span></div>",
-        "</li>",
-        "</ul>"
-      ]
-    },
-    {
       "slug": "about",
       "lang": "en",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Landowners!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<div style='margin: 8px 0 16px 0; position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;'><iframe style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' src='https://www.youtube.com/embed/3EbuRaOdxoM' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
-        "<p>The Kittitas County Fire Ready program is designed to educate landowners and others about wildfire risk in their communities, and about how to prepare for the next wildfire.</p>",
+        "<p>The Kittitas County Fire Adapted program is designed to educate landowners and others about wildfire risk in their communities, and about how to prepare for the next wildfire.</p>",
         "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
