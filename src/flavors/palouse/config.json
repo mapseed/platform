@@ -1792,7 +1792,7 @@
             "name": "weed_control",
             "type": "big_radio",
             "prompt": "Weed control on rangeland: can include chemical, mechanical, cultural or biological",
-            "label": "Weed control",
+            "label": "Weed control on rangeland",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
