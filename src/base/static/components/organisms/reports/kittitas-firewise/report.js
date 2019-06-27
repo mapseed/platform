@@ -35,18 +35,19 @@ import {
 } from "../../../molecules/report-components/typography";
 import { ColoredMeterChart } from "../../../molecules/report-components/charts";
 
-// TODO: Get some validation on these ranges.
 const getBurnRiskText = burnRisk => {
-  if (burnRisk <= 0.2) {
+  if (burnRisk === "LOW") {
     return "Low";
-  } else if (burnRisk <= 0.4) {
+  } else if (burnRisk === "MEDIUM") {
     return "Moderate";
-  } else if (burnRisk <= 0.6) {
+  } else if (burnRisk === "HIGH") {
     return "High";
-  } else if (burnRisk <= 0.8) {
+  } else if (burnRisk === "VERY HIGH") {
     return "Very High";
-  } else {
+  } else if (burnRisk === "EXTREME") {
     return "Extreme";
+  } else {
+    return "Moderate";
   }
 };
 
@@ -126,7 +127,8 @@ const KittitasFireReadyReport = props => {
     num_nearby_fire_start_sites: numFireStarts,
     local_fire_district_fire_district_name: fireDistrictName,
     firewise_community_Community: fireAdaptedCommunity,
-    burn_risk_QRC_iBP: burnRisk,
+    burn_risk_LABEL: burnRisk,
+    forest_type_LABEL: forestType,
   } = props.place;
 
   // The actions in these lists should ideally be listed in order of
@@ -160,6 +162,7 @@ const KittitasFireReadyReport = props => {
     .slice(0, 2);
   const safeAvgFireStarts = !isNaN(numFireStarts) ? numFireStarts / 10 : 0; // 10 === year range of data.
   const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
+  const safeForestType = forestType || "unknown";
   const safeFireDistrictName =
     fireDistrictName === "Areas outside Fire Districts" || !fireDistrictName
       ? "You are not located in a Fire District. Contact the Fire Marshal's Office:"
@@ -381,10 +384,16 @@ const KittitasFireReadyReport = props => {
                 locations in Kittitas County experience some level of wildfire
                 risk.
               </ReportBodyText>
+            </MainPanelSection>
+            <MainPanelSection>
+              <KittitasFireReadySectionHeader>
+                Know Your Forest
+              </KittitasFireReadySectionHeader>
               <ReportBodyText>
-                Please note that this report is not a substitute for an onsite
-                fire risk consultation. See the sidebar for information about
-                how to get a free onsite risk consultation.
+                Based on DNR data, the forest in your area is primarily made up
+                of{" "}
+                <LargeText fontFamily="PTSansBold">{safeForestType}</LargeText>.{" "}
+                [Link to explanation of wildfire implications...]
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
@@ -617,16 +626,19 @@ const KittitasFireReadyReport = props => {
                     margin: 0 0 16px 16px;
                   `}
                 >
-                  <div
+                  <Image
                     css={css`
-                      width: 384px;
-                      height: 288px;
-                      background-color: #efefef;
+                      width: 100%;
                     `}
+                    src="/static/css/images/fire-zones.jpg"
+                    alt="Taylor Bridge Fire"
                   />
                   <figcaption>
                     <RegularText>
-                      <em>(Placeholder graphic)</em>
+                      <em>
+                        Three fire ignition zones exist around your house:
+                        Immediate, Intermediate, and Extended.
+                      </em>
                     </RegularText>
                   </figcaption>
                 </figure>
