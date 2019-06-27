@@ -348,7 +348,7 @@
         "basemap": false,
         "visibleDefault": false,
         "interactive": true,
-        "popupContent":"{{Photo}}",
+        "popupContent": "{{Photo}}",
         "mapboxLayers": [
           {
             "id": "NewMadrid-labels",
@@ -375,7 +375,7 @@
         "basemap": false,
         "visibleDefault": false,
         "interactive": true,
-        "popupContent":"INACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "popupContent": "INACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
         "mapboxLayers": [
           {
             "id": "InactiveCoalMines-labels",
@@ -404,7 +404,7 @@
         "basemap": false,
         "visibleDefault": false,
         "interactive": true,
-        "popupContent":"ACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "popupContent": "ACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
         "mapboxLayers": [
           {
             "id": "ActiveCoalMines-labels",
@@ -1174,7 +1174,7 @@
       },
       {
         "placeId": 7309,
-        "pan_to": [ -90.92, 43.48 ],
+        "pan_to": [-90.92, 43.48],
         "zoom": 8,
         "visibleLayerGroupIds": [
           "ocean-satellite",
@@ -1186,7 +1186,7 @@
       },
       {
         "placeId": 7310,
-        "pan_to": [ -90.29, 38.73 ],
+        "pan_to": [-90.29, 38.73],
         "zoom": 10,
         "visibleLayerGroupIds": [
           "ocean-satellite",
@@ -1211,7 +1211,7 @@
       },
       {
         "placeId": 7308,
-        "pan_to": [ -93.250447, 30.93689 ],
+        "pan_to": [-93.250447, 30.93689],
         "zoom": 5.8,
         "iconUrl": "/static/css/images/markers/industry.png",
         "visibleLayerGroupIds": [
