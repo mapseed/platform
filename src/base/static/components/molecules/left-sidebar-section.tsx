@@ -83,7 +83,7 @@ type MapLayerSelectorProps = {
   option: LeftSidebarOption;
 };
 
-const MapLayerSelector: React.FunctionComponent<
+const OptionSelector: React.FunctionComponent<
   MapLayerSelectorProps
 > = props => {
   return (
@@ -162,7 +162,7 @@ type Props = {
 } & OwnProps &
   StateProps;
 
-class MapLayerPanelSection extends React.Component<Props> {
+class LeftSidebarSectionSelector extends React.Component<Props> {
   onToggleLayerGroup = layerGroup => {
     if (layerGroup.isBasemap && layerGroup.isVisible) {
       // Prevent toggling the current visible basemap.
@@ -206,7 +206,7 @@ class MapLayerPanelSection extends React.Component<Props> {
           }
 
           return (
-            <MapLayerSelector
+            <OptionSelector
               key={option.layerGroupId}
               id={option.layerGroupId}
               option={option}
@@ -236,4 +236,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("MapLayerPanelSection")(MapLayerPanelSection));
+)(translate("MapLayerPanelSection")(LeftSidebarSectionSelector));

@@ -12,7 +12,7 @@ import {
   setLeftSidebarExpanded,
   LeftSidebarConfig,
 } from "../../state/ducks/left-sidebar";
-import MapLayerPanelSection from "../molecules/map-layer-panel-section";
+import LeftSidebarSection from "../molecules/left-sidebar-section";
 
 // TODO: Abstract this out into a molecule.
 const CloseButton = styled("button")({
@@ -82,7 +82,7 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
       {props.leftSidebarConfig.sections.length > 0 &&
         props.leftSidebarConfig.sections.map(
           (section, layerPanelSectionIndex) => (
-            <MapLayerPanelSection
+            <LeftSidebarSection
               key={layerPanelSectionIndex}
               section={section}
               mapSourcesLoadStatus={props.mapSourcesLoadStatus}
