@@ -127,8 +127,8 @@ const KittitasFireReadyReport = props => {
     num_nearby_fire_start_sites: numFireStarts,
     local_fire_district_fire_district_name: fireDistrictName,
     firewise_community_Community: fireAdaptedCommunity,
-    burn_risk_QRC_iBP: burnRisk,
-    forest_type: forestType,
+    burn_risk_LABEL: burnRisk,
+    forest_type_LABEL: forestType,
   } = props.place;
 
   // The actions in these lists should ideally be listed in order of
@@ -390,7 +390,8 @@ const KittitasFireReadyReport = props => {
                 Know Your Forest
               </KittitasFireReadySectionHeader>
               <ReportBodyText>
-                Based on DNR data, the forest in your area is primarily{" "}
+                Based on DNR data, the forest in your area is primarily made up
+                of{" "}
                 <LargeText fontFamily="PTSansBold">{safeForestType}</LargeText>.{" "}
                 [Link to explanation of wildfire implications...]
               </ReportBodyText>
