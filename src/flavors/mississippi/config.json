@@ -143,6 +143,18 @@
       "nitrogen-plants": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
+      },
+      "NewMadrid": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
+      },
+      "InactiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/InactiveCoalMines.geojson"
+      },
+      "ActiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
       }
     },
     "layerGroups": [
@@ -221,9 +233,9 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                14,
+                11,
                 1,
-                17,
+                16,
                 0
               ]
             }
@@ -326,6 +338,91 @@
                 0,
                 4,
                 1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NewMadrid-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent":"{{Photo}}",
+        "mapboxLayers": [
+          {
+            "id": "NewMadrid-labels",
+            "type": "circle",
+            "source": "NewMadrid",
+            "paint": {
+              "circle-radius": 8,
+              "circle-color": "coral",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "InactiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent":"INACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "InactiveCoalMines-labels",
+            "type": "fill",
+            "source": "InactiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "darkgray",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                11,
+                0.8,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "ActiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent":"ACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "ActiveCoalMines-labels",
+            "type": "fill",
+            "source": "ActiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "black",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1,
+                16,
+                0.1
               ]
             }
           }
@@ -1077,7 +1174,7 @@
       },
       {
         "placeId": 7309,
-        "pan_to": [-90.92, 43.48],
+        "pan_to": [ -90.92, 43.48 ],
         "zoom": 8,
         "visibleLayerGroupIds": [
           "ocean-satellite",
@@ -1089,7 +1186,7 @@
       },
       {
         "placeId": 7310,
-        "pan_to": [-90.29, 38.73],
+        "pan_to": [ -90.29, 38.73 ],
         "zoom": 10,
         "visibleLayerGroupIds": [
           "ocean-satellite",
@@ -1100,18 +1197,21 @@
       },
       {
         "placeId": 7307,
-        "pan_to": [-89.45, 36.95],
-        "zoom": 9,
+        "pan_to": [-89.143, 37.16],
+        "zoom": 8,
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "confluence-group",
+          "NewMadrid-group",
+          "InactiveCoalMines-group",
+          "ActiveCoalMines-group",
           "streets2-group"
         ],
         "spotlight": false
       },
       {
         "placeId": 7308,
-        "pan_to": [-93.250447, 30.93689],
+        "pan_to": [ -93.250447, 30.93689 ],
         "zoom": 5.8,
         "iconUrl": "/static/css/images/markers/industry.png",
         "visibleLayerGroupIds": [
