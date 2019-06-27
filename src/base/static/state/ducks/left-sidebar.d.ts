@@ -1,37 +1,30 @@
-export type LayerGroup = {
-  id: string;
+export type LeftSidebarOption = {
+  layerGroupId: string;
   title: string;
   info?: {
     header: string;
     body: string;
   };
+  // If an options with a filter is toggled, the layerGroup's filter is toggled:
+  filter?: string;
 };
 
-type LeftSidebarSection = {
-  id: string;
+export type LeftSidebarSection = {
   title: string;
-  layerGroups: LayerGroup[];
-};
-
-export type LeftSidebarPanel = {
-  id: string;
-  component: string;
-  title: string;
-  icon: string;
-  content: LeftSidebarSection[];
+  options: LeftSidebarOption[];
 };
 
 export type LeftSidebarConfig = {
   is_enabled: boolean;
   is_visible_default: boolean;
-  panels: LeftSidebarPanel[];
   isExpanded: boolean;
+  title: string;
+  icon: string;
+  sections: LeftSidebarSection[];
 };
 
 export const leftSidebarPanelConfigSelector: any;
-export const leftSidebarComponentSelector: any;
 export const isLeftSidebarExpandedSelector: any;
 export const setLeftSidebarExpanded: any;
-export const setLeftSidebarComponent: any;
 export const leftSidebarConfigSelector: any;
 export const loadLeftSidebarConfig: any;

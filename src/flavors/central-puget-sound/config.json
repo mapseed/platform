@@ -4321,8 +4321,7 @@
   "nav_bar": [
     {
       "title": "Map Layers",
-      "type": "left_sidebar_toggle",
-      "component": "MapLayerPanel"
+      "type": "left_sidebar_toggle"
     },
     {
       "title": "Example Projects",
