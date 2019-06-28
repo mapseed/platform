@@ -597,7 +597,7 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle>
-                {"Kittitas County Sheriff's Information"}
+                {"Scan this code for Kittitas County Sheriff's Information:"}
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
