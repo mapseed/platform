@@ -14,7 +14,6 @@ import {
   mapStyleSelector,
   mapStylePropType,
   updateFeaturesInGeoJSONSource,
-  updateLayers,
   updateMapContainerDimensions,
   mapContainerDimensionsSelector,
   filterableLayerGroupsMetadataSelector,
@@ -68,7 +67,6 @@ const statePropTypes = {
 
 const dispatchPropTypes = {
   updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
-  updateLayers: PropTypes.func.isRequired,
   updateMapContainerDimensions: PropTypes.func.isRequired,
 };
 
@@ -485,7 +483,6 @@ const mapStateToProps = (state): StateProps => ({
 
 const mapDispatchToProps = {
   updateFeaturesInGeoJSONSource,
-  updateLayers,
   updateMapContainerDimensions,
 };
 

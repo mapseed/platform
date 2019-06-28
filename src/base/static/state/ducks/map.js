@@ -69,6 +69,18 @@ export const layerGroupsPropType = PropTypes.shape({
       isBasemap: PropTypes.bool,
       isVisible: PropTypes.bool,
       isVisibleDefault: PropTypes.bool,
+
+      aggregationSelector: PropTypes.shape({
+        paintProperty: PropTypes.string.isRequired,
+        options: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            property: PropTypes.string.isRequired,
+            defaultSelected: PropTypes.bool,
+          }),
+        ).isRequired,
+      }),
+
       // Mapbox layer ids which make up this layerGroup:
       layerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
       // Source ids which this layerGroup consumes:
@@ -89,10 +101,10 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 ////////////////////////////////////////////////////////////////////////////////
 
 const getStyle = state => state.map.style;
-const getLayers = state => state.map.layers;
+export const layersSelector = state => state.map.layers;
 export const layerGroupsSelector = state => state.map.layerGroups;
 export const mapStyleSelector = createSelector(
-  [getStyle, getLayers, layerGroupsSelector],
+  [getStyle, layersSelector, layerGroupsSelector],
   (style, layers, layerGroups) => {
     return {
       ...style,
@@ -162,7 +174,7 @@ const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
 const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
 const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
-const UPDATE_LAYERS = "map/UPDATE_LAYERS";
+const UPDATE_LAYER = "map/UPDATE_LAYER";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
 const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
 
@@ -183,10 +195,10 @@ export function removeFocusedGeoJSONFeatures() {
   };
 }
 
-export function updateLayers(newLayer) {
+export function updateLayer(layer) {
   return {
-    type: UPDATE_LAYERS,
-    payload: newLayer,
+    type: UPDATE_LAYER,
+    payload: layer,
   };
 }
 
@@ -329,6 +341,7 @@ export function loadMapStyle(mapStyleConfig, datasetsConfig) {
         isBasemap: !!layerGroup.basemap,
         isVisible: !!layerGroup.visibleDefault,
         isVisibleDefault: !!layerGroup.visibleDefault,
+        aggregationSelector: layerGroup.aggregationSelector,
         // Mapbox layer ids which make up this layerGroup:
         layerIds: layerGroup.mapboxLayers
           .concat(layerGroup.mapboxFocusedLayers || [])
@@ -621,10 +634,12 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...state.style,
         },
       };
-    case UPDATE_LAYERS:
+    case UPDATE_LAYER:
       return {
         ...state,
-        layers: state.layers.concat(action.payload),
+        layers: state.layers
+          .filter(layer => layer.id !== action.payload.id)
+          .concat(action.payload),
       };
     case UPDATE_MAP_CONTAINER_DIMENSIONS:
       return {

@@ -1,3 +1,5 @@
+import { Layer } from "mapbox-gl";
+
 export const mapViewportPropType: any;
 
 type filterSliderPropType = {
@@ -18,21 +20,37 @@ export const mapStylePropType: any;
 
 export const layerGroupsPropType: any;
 
+export type AggregatorOption = {
+  id: string;
+  property: string;
+  defaultSelected: boolean;
+};
+
+export type LayerGroup = {
+  id: string;
+  popupContent: string;
+  filterSlider: any;
+  isBasemap: boolean;
+  isVisible: boolean;
+  isVisibleDefault: boolean;
+  // Mapbox layer ids which make up this layerGroup:
+  layerIds: string[];
+
+  aggregationSelector?: {
+    layerId: string;
+    paintProperty: string;
+    options: AggregatorOption[];
+  };
+  // Source ids which this layerGroup consumes:
+  sourceIds: string[];
+};
+
+export type Layer = Layer;
+
+
 export type LayerGroups = {
   byId: {
-    [id: string]: {
-      id: string;
-      popupContent: string;
-      //   filterSlider: filterSliderPropType,
-      filterSlider: any;
-      isBasemap: boolean;
-      isVisible: boolean;
-      isVisibleDefault: boolean;
-      // Mapbox layer ids which make up this layerGroup:
-      layerIds: string[];
-      // Source ids which this layerGroup consumes:
-      sourceIds: string[];
-    };
+    [id: string]: LayerGroup;
   };
   allIds: string[];
 };
@@ -44,6 +62,7 @@ export type SourcesMetadata = {
   };
 };
 
+export const layersSelector: any;
 export const layerGroupsSelector: any;
 export const mapStyleSelector: any;
 export const mapSourcesSelector: any;
@@ -62,7 +81,7 @@ export const updateLayerFilters: any;
 
 export const removeFocusedGeoJSONFeatures: any;
 
-export const updateLayers: any;
+export const updateLayer: any;
 
 export const updateFocusedGeoJSONFeatures: any;
 

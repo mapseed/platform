@@ -134,13 +134,6 @@
         ],
         "tileSize": 256
       },
-      "nitrogen-farm-emissions": {
-        "type": "raster",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/Nitrogen/{z}/{x}/{y}.png"
-        ],
-        "tileSize": 256
-      },
       "nitrogen-plants": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
@@ -156,6 +149,13 @@
       "ActiveCoalMines": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
+      },
+      "nitrogen-deposition": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/mississippi-nitrogen-deposition/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
       }
     },
     "layerGroups": [
@@ -442,6 +442,60 @@
         ]
       },
       {
+        "id": "nitrogen-deposition-group",
+        "visibleDefault": false,
+        "aggregationSelector": {
+          "layerId": "nitrogen-deposition",
+          "paintProperty": "fill-color",
+          "options": [
+            {
+              "id": "farm-fertilizer",
+              "property": "INCY_S5",
+              "defaultSelected": true
+            },
+            {
+              "id": "cafo",
+              "property": "INCY_S4"
+            },
+            {
+              "id": "urban-runoff",
+              "property": "INCY_S2"
+            },
+            {
+              "id": "sewerage",
+              "property": "INCY_S1"
+            }
+          ],
+          "defaultFilters": ["cafo"]
+        },
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-deposition",
+            "type": "fill",
+            "source": "nitrogen-deposition",
+            "source-layer": "mississippi-nitrogen-deposition",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "interpolate-hcl",
+                ["linear"],
+                [
+                  "+",
+                  ["get", "INCY_S5"],
+                  ["get", "INCY_S4"],
+                  ["get", "INCY_S2"],
+                  ["get", "INCY_S1"]
+                ],
+                0,
+                "rgba(255, 255, 255, .3)",
+                5000,
+                "#c35800"
+              ]
+            }
+          }
+        ]
+      },
+      {
         "id": "mississippi-input",
         "datasetSlug": "mississippi-input",
         "visibleDefault": true,
@@ -549,18 +603,6 @@
             }
           }
         ]
-      },
-      {
-        "id": "nitrogen-farm-emissions-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "nitrogen-layer",
-            "type": "raster",
-            "source": "nitrogen-farm-emissions"
-          }
-        ]
       }
     ]
   },
@@ -598,8 +640,24 @@
         "title": "Nitrogen",
         "options": [
           {
-            "layerGroupId": "nitrogen-farm-emissions-group",
-            "title": "Nitrogen Details"
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition - cafo",
+            "aggregationOptionId": "cafo"
+          },
+          {
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition - sewerage",
+            "aggregationOptionId": "sewerage"
+          },
+          {
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition - urban",
+            "aggregationOptionId": "urban-runoff"
+          },
+          {
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition - farms",
+            "aggregationOptionId": "farm-fertilizer"
           },
           {
             "layerGroupId": "nitrogen-plants-group",

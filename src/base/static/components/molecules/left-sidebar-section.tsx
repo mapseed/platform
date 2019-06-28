@@ -17,12 +17,22 @@ import {
   updateLayerGroupVisibility,
   LayerGroups,
   SourcesMetadata,
+  LayerGroup,
+  Layer,
+  layersSelector,
+  updateLayer,
 } from "../../state/ducks/map";
 import {
   LeftSidebarSection,
   LeftSidebarOption,
 } from "../../state/ducks/left-sidebar";
 import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
+import {
+  isSidebarOptionToggled,
+  clearAndSetAggregator,
+  toggleAggregator,
+  hasNoAggregators,
+} from "../../utils/map-style";
 
 const MapLayerSelectorContainer = styled("div")({
   display: "flex",
@@ -73,11 +83,10 @@ const statusColors = {
 };
 
 type MapLayerSelectorProps = {
-  isLayerGroupVisible: boolean;
+  isSidebarOptionToggled: boolean;
   icon?: string;
-  id: string;
   loadStatus: string;
-  onToggleLayerGroup: any;
+  onToggleOption: any;
   isSelected: boolean;
   t: Function;
   option: LeftSidebarOption;
@@ -98,16 +107,18 @@ const OptionSelector: React.FunctionComponent<
             cursor: "pointer",
           },
         }}
-        onClick={props.onToggleLayerGroup}
+        onClick={props.onToggleOption}
       >
         <span
           css={theme => ({
             flex: 6,
-            backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "initial",
+            backgroundColor: props.isSidebarOptionToggled
+              ? "#ffff00"
+              : "initial",
             fontFamily: theme.text.bodyFontFamily,
 
             "&:hover": {
-              backgroundColor: props.isLayerGroupVisible
+              backgroundColor: props.isSidebarOptionToggled
                 ? "#ffff00"
                 : "#ffffd4",
             },
@@ -116,13 +127,13 @@ const OptionSelector: React.FunctionComponent<
           {props.option.title}
         </span>
         <LayerGroupsStatusContainer>
-          {props.isLayerGroupVisible &&
+          {props.isSidebarOptionToggled &&
             props.loadStatus === "loading" && (
               <SpinnerContainer className="map-layer-status-spinner">
                 <Spinner style={{ width: "20px", height: "20px" }} />
               </SpinnerContainer>
             )}
-          {props.isLayerGroupVisible &&
+          {props.isSidebarOptionToggled &&
             (props.loadStatus === "loaded" || props.loadStatus === "error") && (
               <LayerGroupStatusIcon
                 faClassname={statusIcons[props.loadStatus]}
@@ -154,22 +165,73 @@ type OwnProps = {
 type StateProps = {
   layerGroups: LayerGroups;
   sourcesMetadata: SourcesMetadata;
+  layers: Layer[];
 };
 
 type Props = {
   t: Function;
   updateLayerGroupVisibility: Function;
+  updateLayer: Function;
 } & OwnProps &
   StateProps;
 
 class LeftSidebarSectionSelector extends React.Component<Props> {
-  onToggleLayerGroup = layerGroup => {
+  onToggleOption = (
+    option: LeftSidebarOption,
+    layerGroup: LayerGroup,
+    layers: Layer[],
+    isToggled: boolean,
+  ) => {
     if (layerGroup.isBasemap && layerGroup.isVisible) {
       // Prevent toggling the current visible basemap.
       return;
     }
 
-    this.props.updateLayerGroupVisibility(layerGroup.id, !layerGroup.isVisible);
+    if (!option.aggregationOptionId || !layerGroup.aggregationSelector) {
+      this.props.updateLayerGroupVisibility(
+        layerGroup.id,
+        !layerGroup.isVisible,
+      );
+      return;
+    }
+
+    const layerId = layerGroup.aggregationSelector.layerId;
+    const layer = layers.find(layer => layer.id === layerId);
+
+    // query for the aggretorOption:
+    const aggregatorOption = layerGroup.aggregationSelector.options.find(
+      aggregatorOption => aggregatorOption.id === option.aggregationOptionId,
+    );
+    if (layerGroup.isVisible) {
+      // If visible, and the filter's not present, we should add our aggregator
+      // If visible, and the filter is present, then remove the aggregator:
+      const updatedLayer = toggleAggregator(
+        layer,
+        aggregatorOption!,
+        layerGroup,
+      );
+
+      if (hasNoAggregators(updatedLayer, layerGroup)) {
+        this.props.updateLayerGroupVisibility(
+          layerGroup.id,
+          !layerGroup.isVisible,
+        );
+      }
+      // we need to update the layer after the LayerGroup is visible to avoid rendering a layer that has no categories:
+      this.props.updateLayer(updatedLayer);
+
+      // If visible, and our aggregator is the only one enabled, then turn off the entire layer:
+    } else {
+      // If the layerGroup is invisible, make it visible, and set the aggregator
+      // to be the only aggregator on the layer:
+      this.props.updateLayer(
+        clearAndSetAggregator(layer, aggregatorOption!, layerGroup),
+      );
+      this.props.updateLayerGroupVisibility(
+        layerGroup.id,
+        !layerGroup.isVisible,
+      );
+    }
   };
 
   render() {
@@ -204,16 +266,26 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
             // layerGroupPanel's status to "loading".
             loadStatus = "loading";
           }
-
+          const isToggled = isSidebarOptionToggled(
+            option,
+            layerGroup,
+            this.props.layers,
+          );
           return (
             <OptionSelector
-              key={option.layerGroupId}
-              id={option.layerGroupId}
+              key={option.title}
               option={option}
               loadStatus={loadStatus}
-              isLayerGroupVisible={layerGroup.isVisible}
+              isSidebarOptionToggled={isToggled}
               isSelected={true}
-              onToggleLayerGroup={() => this.onToggleLayerGroup(layerGroup)}
+              onToggleOption={() =>
+                this.onToggleOption(
+                  option,
+                  layerGroup,
+                  this.props.layers,
+                  isToggled,
+                )
+              }
               t={this.props.t}
             />
           );
@@ -226,11 +298,13 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
 const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   layerGroups: layerGroupsSelector(state),
   sourcesMetadata: sourcesMetadataSelector(state),
+  layers: layersSelector(state),
   ...ownProps,
 });
 
 const mapDispatchToProps = {
   updateLayerGroupVisibility,
+  updateLayer,
 };
 
 export default connect(

@@ -2,11 +2,12 @@ export type LeftSidebarOption = {
   layerGroupId: string;
   title: string;
   info?: {
+    // This contains information to be shown in a popup modal:
     header: string;
     body: string;
   };
-  // If an options with a filter is toggled, the layerGroup's filter is toggled:
-  filter?: string;
+  // If an option with an aggregator is toggled, the layerGroup will be updated
+  aggregationOptionId?: string;
 };
 
 export type LeftSidebarSection = {
