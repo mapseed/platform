@@ -3,14 +3,16 @@ import * as React from "react";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
+import { SmallTitle } from "../atoms/typography";
 
 import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
 import {
   isLeftSidebarExpandedSelector,
-  leftSidebarComponentSelector,
+  leftSidebarConfigSelector,
   setLeftSidebarExpanded,
+  LeftSidebarConfig,
 } from "../../state/ducks/left-sidebar";
-import MapLayerPanel from "./map-layer-panel";
+import LeftSidebarSection from "../molecules/left-sidebar-section";
 
 // TODO: Abstract this out into a molecule.
 const CloseButton = styled("button")({
@@ -37,7 +39,7 @@ type Props = {
   isLeftSidebarExpanded: boolean;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
   setLeftSidebarExpanded: any;
-  leftSidebarComponent: string;
+  leftSidebarConfig: LeftSidebarConfig;
 };
 
 const LeftSidebar: React.FunctionComponent<Props> = props => (
@@ -69,16 +71,31 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
       <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
         &#10005;
       </CloseButton>
-      {props.leftSidebarComponent === "MapLayerPanel" && (
-        <MapLayerPanel mapSourcesLoadStatus={props.mapSourcesLoadStatus} />
-      )}
+      <SmallTitle
+        css={{
+          marginTop: 0,
+        }}
+      >
+        {props.leftSidebarConfig.title}
+      </SmallTitle>
+
+      {props.leftSidebarConfig.sections.length > 0 &&
+        props.leftSidebarConfig.sections.map(
+          (section, layerPanelSectionIndex) => (
+            <LeftSidebarSection
+              key={layerPanelSectionIndex}
+              section={section}
+              mapSourcesLoadStatus={props.mapSourcesLoadStatus}
+            />
+          ),
+        )}
     </div>
   </section>
 );
 
 const mapStateToProps = state => ({
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
-  leftSidebarComponent: leftSidebarComponentSelector(state),
+  leftSidebarConfig: leftSidebarConfigSelector(state),
 });
 
 const mapDispatchToProps = {

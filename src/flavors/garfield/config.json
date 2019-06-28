@@ -501,85 +501,74 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "OpenStreetMap"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "layerGroupId": "osm",
+            "title": "OpenStreetMap"
           },
           {
-            "id": "grp-water",
-            "title": "Water Features",
-            "layerGroups": [
-              {
-                "id": "columbia-river",
-                "title": "Columbia River"
-              },
-              {
-                "id": "snake-river",
-                "title": "Snake River"
-              },
-              {
-                "id": "garfield-critical-aquifer",
-                "title": "Critical Aquifers"
-              },
-              {
-                "id": "garfield-wildlife",
-                "title": "Fish & Wildlife Habitat (PHS)"
-              },
-              {
-                "id": "garfield-frequently-flooded",
-                "title": "Frequently Flooded Areas"
-              },
-              {
-                "id": "garfield-wetlands",
-                "title": "Wetlands"
-              },
-              {
-                "id": "garfield-geologic-hazard",
-                "title": "Geologic Hazards"
-              },
-              {
-                "id": "garfield-salmon-steelhead-habitat",
-                "title": "Salmon & Steelhead Habitat"
-              },
-              {
-                "id": "garfield-watersheds",
-                "title": "Watersheds"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "columbia-river",
+            "title": "Columbia River"
           },
           {
-            "id": "grp-community",
-            "title": "Community Data",
-            "layerGroups": [
-              {
-                "id": "garfield-county-outline",
-                "title": "Garfield County border"
-              },
-              {
-                "id": "garfield-input",
-                "title": "Community Reports"
-              }
-            ]
+            "layerGroupId": "snake-river",
+            "title": "Snake River"
+          },
+          {
+            "layerGroupId": "garfield-critical-aquifer",
+            "title": "Critical Aquifers"
+          },
+          {
+            "layerGroupId": "garfield-wildlife",
+            "title": "Fish & Wildlife Habitat (PHS)"
+          },
+          {
+            "layerGroupId": "garfield-frequently-flooded",
+            "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "garfield-wetlands",
+            "title": "Wetlands"
+          },
+          {
+            "layerGroupId": "garfield-geologic-hazard",
+            "title": "Geologic Hazards"
+          },
+          {
+            "layerGroupId": "garfield-salmon-steelhead-habitat",
+            "title": "Salmon & Steelhead Habitat"
+          },
+          {
+            "layerGroupId": "garfield-watersheds",
+            "title": "Watersheds"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "layerGroupId": "garfield-county-outline",
+            "title": "Garfield County border"
+          },
+          {
+            "layerGroupId": "garfield-input",
+            "title": "Community Reports"
           }
         ]
       }

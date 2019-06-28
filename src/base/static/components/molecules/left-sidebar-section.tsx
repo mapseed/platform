@@ -18,7 +18,10 @@ import {
   LayerGroups,
   SourcesMetadata,
 } from "../../state/ducks/map";
-import { LayerGroup } from "../../state/ducks/left-sidebar";
+import {
+  LeftSidebarSection,
+  LeftSidebarOption,
+} from "../../state/ducks/left-sidebar";
 import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
 
 const MapLayerSelectorContainer = styled("div")({
@@ -72,20 +75,15 @@ const statusColors = {
 type MapLayerSelectorProps = {
   isLayerGroupVisible: boolean;
   icon?: string;
-  layerSelectorIndex: string;
-  info?: {
-    header: string;
-    body: string;
-  };
   id: string;
   loadStatus: string;
   onToggleLayerGroup: any;
   isSelected: boolean;
   t: Function;
-  title: string;
+  option: LeftSidebarOption;
 };
 
-const MapLayerSelector: React.FunctionComponent<
+const OptionSelector: React.FunctionComponent<
   MapLayerSelectorProps
 > = props => {
   return (
@@ -115,10 +113,7 @@ const MapLayerSelector: React.FunctionComponent<
             },
           })}
         >
-          {props.t(
-            `layerSelectorLayerGroupTitle${props.layerSelectorIndex}`,
-            props.title,
-          )}
+          {props.option.title}
         </span>
         <LayerGroupsStatusContainer>
           {props.isLayerGroupVisible &&
@@ -136,12 +131,13 @@ const MapLayerSelector: React.FunctionComponent<
             )}
         </LayerGroupsStatusContainer>
       </span>
-      {props.info && (
+      {props.option.info && (
+        // TODO: refactor this to use ReactModal
         <InfoModalContainer>
           <InfoModalTrigger
             modalContent={{
-              header: props.info.header,
-              body: props.info.body,
+              header: props.option.info.header,
+              body: props.option.info.body,
             }}
           />
         </InfoModalContainer>
@@ -151,9 +147,7 @@ const MapLayerSelector: React.FunctionComponent<
 };
 
 type OwnProps = {
-  layerPanelSectionIndex: number;
-  layerGroupPanels: LayerGroup[];
-  title?: string;
+  section: LeftSidebarSection;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 };
 
@@ -168,7 +162,7 @@ type Props = {
 } & OwnProps &
   StateProps;
 
-class MapLayerPanelSection extends React.Component<Props> {
+class LeftSidebarSectionSelector extends React.Component<Props> {
   onToggleLayerGroup = layerGroup => {
     if (layerGroup.isBasemap && layerGroup.isVisible) {
       // Prevent toggling the current visible basemap.
@@ -187,16 +181,13 @@ class MapLayerPanelSection extends React.Component<Props> {
             margin-bottom: 16px;
           `}
         >
-          {this.props.t(
-            `mapLayerPanelSectionTitle${this.props.layerPanelSectionIndex}`,
-            this.props.title,
-          )}
+          {this.props.section.title}
         </TinyTitle>
-        {this.props.layerGroupPanels.map((layerGroupPanel, layerGroupIndex) => {
+        {this.props.section.options.map(option => {
           // Assume at first that all sources consumed by layers in this
           // layerGroup have loaded.
           let loadStatus = "loaded";
-          const layerGroup = this.props.layerGroups.byId[layerGroupPanel.id];
+          const layerGroup = this.props.layerGroups.byId[option.layerGroupId];
           const sourcesStatus = layerGroup.sourceIds.map(
             sourceId =>
               this.props.mapSourcesLoadStatus[sourceId]
@@ -214,18 +205,11 @@ class MapLayerPanelSection extends React.Component<Props> {
             loadStatus = "loading";
           }
 
-          // Note that below `layerSelectorIndex` needs to be a unique
-          // combination of the panel section index and the layer selector
-          // index.
           return (
-            <MapLayerSelector
-              key={layerGroupPanel.id}
-              id={layerGroupPanel.id}
-              layerSelectorIndex={`${
-                this.props.layerPanelSectionIndex
-              }${layerGroupIndex}`}
-              info={layerGroupPanel.info}
-              title={layerGroupPanel.title}
+            <OptionSelector
+              key={option.layerGroupId}
+              id={option.layerGroupId}
+              option={option}
               loadStatus={loadStatus}
               isLayerGroupVisible={layerGroup.isVisible}
               isSelected={true}
@@ -252,4 +236,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("MapLayerPanelSection")(MapLayerPanelSection));
+)(translate("MapLayerPanelSection")(LeftSidebarSectionSelector));

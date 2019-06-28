@@ -218,35 +218,25 @@
     "is_visible_default": false,
     "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Layers:",
-        "content": [
+        "title": "Streets",
+        "options": [
           {
-            "id": "topography-landscape-streets",
-            "title": "Streets",
-            "layerGroups": [
-              {
-                "id": "topography-landscape-streets",
-                "title": "Basemap"
-              }
-            ]
-          },
+            "layerGroupId": "topography-landscape-streets",
+            "title": "Basemap"
+          }
+        ]
+      },
+      {
+        "title": "Contributions",
+        "options": [
           {
-            "id": "grp-community",
-            "title": "Contributions",
-            "layerGroups": [
-              {
-                "id": "creatingcascadia-input",
-                "title": "Comments"
-              }
-            ]
+            "layerGroupId": "creatingcascadia-input",
+            "title": "Comments"
           }
         ]
       }

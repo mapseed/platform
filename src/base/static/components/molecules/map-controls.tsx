@@ -9,13 +9,10 @@ import {
   LeftSidebarConfig,
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
-  setLeftSidebarComponent,
 } from "../../state/ducks/left-sidebar";
 
 const customControlStatePropTypes = {
-  component: PropTypes.string.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
-  setLeftSidebarComponent: PropTypes.func.isRequired,
   icon: PropTypes.string.isRequired,
 };
 
@@ -28,7 +25,6 @@ class CustomControl extends React.Component<CustomControlProps> {
     icon: "fa-info",
   };
   onClickControl = () => {
-    this.props.setLeftSidebarComponent(this.props.component);
     this.props.setLeftSidebarExpanded(true);
   };
 
@@ -91,7 +87,6 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
 // These are Props passed down from parent:
 
 const dispatchPropTypes = {
-  setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
 };
 
@@ -119,22 +114,16 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
         onViewportChange={viewport => props.onViewportChange(viewport)}
       />
       <GeolocateControl onViewportChange={props.onViewportChange} />
-      {props.leftSidebarConfig.panels.map(panel => (
-        <CustomControl
-          key={panel.id}
-          icon={panel.icon}
-          component={panel.component}
-          setLeftSidebarComponent={props.setLeftSidebarComponent}
-          setLeftSidebarExpanded={props.setLeftSidebarExpanded}
-        />
-      ))}
+      <CustomControl
+        icon={props.leftSidebarConfig.icon}
+        setLeftSidebarExpanded={props.setLeftSidebarExpanded}
+      />
     </div>
   );
 };
 
 const mapDispatchToProps = {
   setLeftSidebarExpanded,
-  setLeftSidebarComponent,
 };
 
 const mapStateToProps = (state): MapControlStateProps => ({
