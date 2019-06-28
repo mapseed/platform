@@ -492,12 +492,6 @@ const KittitasFireReadyReport = props => {
               In An Emergency...
             </KittitasFireReadyReportLargeTitle>
             <SidebarSection>
-              <LargeText>
-                Plan ahead and be prepared in the event of an emergency. Here
-                are some tips.
-              </LargeText>
-            </SidebarSection>
-            <SidebarSection>
               <KittitasFireReadyReportSmallTitle>
                 Emergency Kit
               </KittitasFireReadyReportSmallTitle>
@@ -603,14 +597,20 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle>
-                Sign Up For Notifications
+                {"Kittitas County Sheriff's Information"}
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <LargeText>[QR code to come]</LargeText>
+                  <Image
+                    css={css`
+                      width: 50%;
+                    `}
+                    src="/static/css/images/kcso-qr-code.png"
+                    alt="KCSO QR code"
+                  />
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
