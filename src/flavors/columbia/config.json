@@ -111,6 +111,13 @@
         ],
         "maxzoom": 17
       },
+      "columbia-hydrology": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-hydrology/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
       "columbia-wetlands": {
         "type": "vector",
         "tiles": [
@@ -269,6 +276,19 @@
             "paint": {
               "line-color": "#fff",
               "line-width": 2
+            }
+          },
+          {
+            "id": "columbia-hydrology",
+            "type": "line",
+            "source": "columbia-hydrology",
+            "source-layer": "columbia-hydrology",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#34518f",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 9, 1, 10, 2]
             }
           },
           {
@@ -705,7 +725,7 @@
           },
           {
             "start_field_index": 43,
-            "end_field_index": 57,
+            "end_field_index": 58,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -713,8 +733,8 @@
             ]
           },
           {
-            "start_field_index": 58,
-            "end_field_index": 70,
+            "start_field_index": 59,
+            "end_field_index": 60,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -722,8 +742,8 @@
             ]
           },
           {
-            "start_field_index": 71,
-            "end_field_index": 83,
+            "start_field_index": 61,
+            "end_field_index": 72,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
