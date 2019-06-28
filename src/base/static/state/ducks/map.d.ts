@@ -40,13 +40,12 @@ export type LayerGroup = {
     layerId: string;
     paintProperty: string;
     options: AggregatorOption[];
+    // TODO: set default options here, to be enabled on featured sites
   };
-  // Source ids which this layerGroup consumes:
   sourceIds: string[];
 };
 
 export type Layer = Layer;
-
 
 export type LayerGroups = {
   byId: {

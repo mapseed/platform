@@ -180,7 +180,6 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
     option: LeftSidebarOption,
     layerGroup: LayerGroup,
     layers: Layer[],
-    isToggled: boolean,
   ) => {
     if (layerGroup.isBasemap && layerGroup.isVisible) {
       // Prevent toggling the current visible basemap.
@@ -195,23 +194,25 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
       return;
     }
 
+    // Handle toggling of an "aggregation" option:
+
+    // First query for the layer:
     const layerId = layerGroup.aggregationSelector.layerId;
     const layer = layers.find(layer => layer.id === layerId);
 
-    // query for the aggretorOption:
+    // Then query for the aggretorOption:
     const aggregatorOption = layerGroup.aggregationSelector.options.find(
       aggregatorOption => aggregatorOption.id === option.aggregationOptionId,
     );
     if (layerGroup.isVisible) {
-      // If visible, and the filter's not present, we should add our aggregator
-      // If visible, and the filter is present, then remove the aggregator:
       const updatedLayer = toggleAggregator(
-        layer,
+        layer!,
         aggregatorOption!,
         layerGroup,
       );
 
       if (hasNoAggregators(updatedLayer, layerGroup)) {
+        // If visible, and our aggregator is the only one enabled, then turn off the entire layer:
         this.props.updateLayerGroupVisibility(
           layerGroup.id,
           !layerGroup.isVisible,
@@ -219,13 +220,11 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
       }
       // we need to update the layer after the LayerGroup is visible to avoid rendering a layer that has no categories:
       this.props.updateLayer(updatedLayer);
-
-      // If visible, and our aggregator is the only one enabled, then turn off the entire layer:
     } else {
       // If the layerGroup is invisible, make it visible, and set the aggregator
       // to be the only aggregator on the layer:
       this.props.updateLayer(
-        clearAndSetAggregator(layer, aggregatorOption!, layerGroup),
+        clearAndSetAggregator(layer!, aggregatorOption!, layerGroup),
       );
       this.props.updateLayerGroupVisibility(
         layerGroup.id,
@@ -279,12 +278,7 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
               isSidebarOptionToggled={isToggled}
               isSelected={true}
               onToggleOption={() =>
-                this.onToggleOption(
-                  option,
-                  layerGroup,
-                  this.props.layers,
-                  isToggled,
-                )
+                this.onToggleOption(option, layerGroup, this.props.layers)
               }
               t={this.props.t}
             />
