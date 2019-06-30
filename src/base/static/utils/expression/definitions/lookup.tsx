@@ -1,4 +1,4 @@
-import Expression from "../expression.tsx";
+import Expression from "../expression";
 
 const getNumericalValsByKey = (dataset, key) => {
   return dataset.reduce((validVals, place) => {

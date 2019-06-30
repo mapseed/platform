@@ -1,4 +1,4 @@
-import Expression from "../expression.tsx";
+import Expression from "../expression";
 
 const getSum = (context: EvaluationContext, operands) => {
   return operands.reduce((sum, operand) => {

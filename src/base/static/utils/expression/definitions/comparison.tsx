@@ -1,4 +1,4 @@
-import Expression from "../expression.tsx";
+import Expression from "../expression";
 
 const eq = (a, b) => a === b;
 const neq = (a, b) => a !== b;

@@ -1,4 +1,4 @@
-import Expression from "../expression.tsx";
+import Expression from "../expression";
 
 class Cat implements Expression {
   operands;

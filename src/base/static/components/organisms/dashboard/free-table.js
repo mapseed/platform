@@ -1,9 +1,12 @@
 /** @jsx jsx */
-import React, { Component } from "react";
-import { jsx, css } from "@emotion/core";
+import React, { Component, Fragment } from "react";
+import { jsx, css, ClassNames } from "@emotion/core";
 import PropTypes from "prop-types";
 import TableCell from "@material-ui/core/TableCell";
 import { AutoSizer, Column, Table } from "react-virtualized";
+import Draggable from "react-draggable";
+import "react-virtualized/styles.css";
+import moment from "moment";
 
 import makeParsedExpression from "../../../utils/expression/parse.tsx";
 import ChartWrapper from "./chart-wrapper";
@@ -37,23 +40,53 @@ class FreeTable extends Component {
     rowHeight: 48,
   };
 
-  cellRenderer = ({ cellData, columnIndex }) => {
+  state = {
+    columnPercentageWidths: {},
+    tableWidth: 100,
+  };
+
+  componentDidMount() {
+    const initialColumnPercentageWidth = 1 / this.props.data.columns.length;
+
+    this.setState({
+      columnPercentageWidths: this.props.data.columns.reduce(
+        (memo, column) => ({
+          ...memo,
+          [column.dataKey]: initialColumnPercentageWidth,
+        }),
+        {},
+      ),
+    });
+  }
+
+  onResize = ({ width }) => {
+    this.setState({
+      tableWidth: width,
+    });
+  };
+
+  formatCellData = (data, type) => {
+    switch (type) {
+      case "date":
+        return moment(data).format("MMM Do, YYYY");
+      default:
+        return data;
+    }
+  };
+
+  cellRenderer = ({ cellData, columnIndex, type }) => {
     const { columns, classes, rowHeight, onRowClick } = this.props;
     return (
-      <TableCell
-        component="div"
-        variant="body"
-        style={{ height: rowHeight, flex: 1, wordWrap: "wrap-all" }}
-      >
+      <div style={{ height: rowHeight }}>
         {Array.isArray(cellData) ? (
-          cellData.map((cell, i) => (
+          cellData.map((cellDataPart, i) => (
             <p
               css={css`
                 margin: 0;
               `}
               key={i}
             >
-              {cell}
+              {this.formatCellData(cellDataPart, type)}
             </p>
           ))
         ) : (
@@ -62,80 +95,128 @@ class FreeTable extends Component {
               margin: 0;
             `}
           >
-            {cellData}
+            {this.formatCellData(cellData, type)}
           </p>
         )}
-      </TableCell>
+      </div>
     );
   };
 
-  headerRenderer = ({ label, columnIndex }) => {
+  resizeRow = ({ dataKey, deltaX, nextDataKey }) =>
+    this.setState(prevState => {
+      const prevWidths = prevState.columnPercentageWidths;
+      const percentDelta = deltaX / this.state.tableWidth;
+
+      return {
+        columnPercentageWidths: {
+          ...prevWidths,
+          [dataKey]: prevWidths[dataKey] + percentDelta,
+          [nextDataKey]: prevWidths[nextDataKey] - percentDelta,
+        },
+      };
+    });
+
+  headerRenderer = ({ label, dataKey, columnIndex }) => {
     return (
-      <TableCell
-        component="div"
-        variant="head"
-        style={{ display: "flex", flex: 1, height: "48px" }}
+      <div
+        key={dataKey}
+        css={css`
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          padding: 0;
+        `}
       >
-        <span>{label}</span>
-      </TableCell>
+        <div
+          css={css`
+            flex: auto;
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          `}
+        >
+          {label}
+        </div>
+        <ClassNames>
+          {({ css }) => (
+            <Draggable
+              axis="x"
+              defaultClassName={css`
+                flex: 0 0 16px;
+                z-index: 2;
+                cursor: col-resize;
+                color: #0085ff;
+              `}
+              onDrag={(event, { deltaX }) =>
+                this.resizeRow({
+                  dataKey,
+                  deltaX,
+                  columnIndex,
+                })
+              }
+              position={{ x: 0 }}
+              zIndex={999}
+            >
+              <span
+                css={css`
+                  flex: 0 0 12px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                `}
+              >
+                ⋮
+              </span>
+            </Draggable>
+          )}
+        </ClassNames>
+      </div>
     );
   };
-
-  getWidthByType(type) {
-    // These widths are pretty arbitrary...
-    switch (type) {
-      case "string":
-        return 250;
-      case "boolean":
-        return 50;
-      case "date":
-        return 150;
-      case "numeric":
-        return 150;
-      default:
-        return 250;
-    }
-  }
 
   render() {
-    const { classes, ...tableProps } = this.props;
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        <AutoSizer>
+        <AutoSizer onResize={this.onResize}>
           {({ height, width }) => {
             return (
               <Table
                 width={width}
                 height={height}
+                headerHeight={75}
                 rowHeight={75}
                 rowCount={this.props.data.rows.length}
                 rowGetter={({ index }) => this.props.data.rows[index]}
-                columns={this.props.data.columns}
-                rowStyle={{ display: "flex" }}
               >
                 {this.props.data.columns.map(
                   ({ dataKey, type, ...other }, index) => {
                     return (
-                      <AutoSizer>
-                        {({ width }) => {
-                          return (
-                            <Column
-                              key={dataKey}
-                              width={width}
-                              headerRenderer={headerProps =>
-                                this.headerRenderer({
-                                  ...headerProps,
-                                  columnIndex: index,
-                                })
-                              }
-                              style={{ display: "flex" }}
-                              cellRenderer={this.cellRenderer}
-                              dataKey={dataKey}
-                              {...other}
-                            />
-                          );
-                        }}
-                      </AutoSizer>
+                      <Column
+                        width={
+                          this.state.columnPercentageWidths[dataKey] *
+                          this.state.tableWidth
+                        }
+                        key={dataKey}
+                        headerRenderer={headerProps =>
+                          this.headerRenderer({
+                            ...headerProps,
+                            nextDataKey: this.props.data.columns[index + 1]
+                              ? this.props.data.columns[index + 1].dataKey
+                              : "", // TOOD: last column??
+                          })
+                        }
+                        cellRenderer={cellProps =>
+                          this.cellRenderer({
+                            ...cellProps,
+                            columnIndex: index,
+                            type,
+                          })
+                        }
+                        dataKey={dataKey}
+                        {...other}
+                      />
                     );
                   },
                 )}
@@ -148,6 +229,23 @@ class FreeTable extends Component {
   }
 }
 
-FreeTable.propTypes = {};
+FreeTable.propTypes = {
+  data: PropTypes.shape({
+    columns: PropTypes.arrayOf(
+      PropTypes.shape({
+        dataKey: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    rows: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  }).isRequired,
+  header: PropTypes.string.isRequired,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+    height: PropTypes.string,
+  }).isRequired,
+};
 
 export { FreeTable, getFreeTableData };

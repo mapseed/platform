@@ -5,8 +5,8 @@ import {
   GreaterThan,
   LessThanOrEqual,
   GreaterThanOrEqual,
-} from "./comparison.tsx";
-import Literal from "./literal.tsx";
+} from "./comparison";
+import Literal from "./literal";
 import {
   GetPlaceVal,
   GetDatasetSum,
@@ -14,9 +14,9 @@ import {
   GetDatasetMax,
   GetDatasetMin,
   GetDatasetCount,
-} from "./lookup.tsx";
-import { Sum, Mean, Max, Min } from "./aggregation.tsx";
-import Cat from "./catenation.tsx";
+} from "./lookup";
+import { Sum, Mean, Max, Min } from "./aggregation";
+import Cat from "./catenation";
 
 export default {
   "==": Equals,
