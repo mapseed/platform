@@ -1,6 +1,6 @@
-import Expression from "../expression";
+import { Expression, IEvaluationContext } from "../expression";
 
-const getSum = (context: EvaluationContext, operands) => {
+const getSum = (context: IEvaluationContext, operands) => {
   return operands.reduce((sum, operand) => {
     if (isNaN(operand)) {
       // eslint-disable-next-line no-console
@@ -13,11 +13,11 @@ const getSum = (context: EvaluationContext, operands) => {
   }, 0);
 };
 
-const getMean = () => {};
+const getMean = () => {}; // TODO
 
-const getMax = () => {};
+const getMax = () => {}; // TODO
 
-const getMin = () => {};
+const getMin = () => {}; // TODO
 
 const makeAggregation = (op, aggregationFn) => {
   return class Aggregation implements Expression {
@@ -35,7 +35,7 @@ const makeAggregation = (op, aggregationFn) => {
       return new Aggregation(operands);
     }
 
-    evaluate(evaluationContext: EvaluationContext) {
+    evaluate(evaluationContext: IEvaluationContext) {
       return aggregationFn(
         evaluationContext,
         this.operands.map(operand => operand.evaluate(evaluationContext)),

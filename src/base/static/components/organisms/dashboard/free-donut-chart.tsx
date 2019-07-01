@@ -6,6 +6,23 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 import { COLORS } from "../../../utils/dashboard-utils";
 import ChartWrapper from "./chart-wrapper";
 
+const freeDonutChartPropTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+  header: PropTypes.string,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+type Props = PropTypes.InferProps<typeof freeDonutChartPropTypes>;
+
 const NULL_RESPONSE_NAME = "__no-response__";
 
 const getFreeDonutChartData = ({ places, widget }) => {
@@ -22,7 +39,7 @@ const getFreeDonutChartData = ({ places, widget }) => {
   return donutChartData;
 };
 
-class FreeDonutChart extends Component {
+class FreeDonutChart extends Component<Props> {
   renderPieChartLabel = pieProps => {
     const { label, percent, count, x, y, midAngle } = pieProps;
     let anchor = "middle";
@@ -85,20 +102,5 @@ class FreeDonutChart extends Component {
     );
   }
 }
-
-FreeDonutChart.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  header: PropTypes.string,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 export { getFreeDonutChartData, FreeDonutChart };

@@ -6,6 +6,22 @@ import PropTypes from "prop-types";
 import ChartWrapper from "./chart-wrapper";
 import { RegularText, LargeTitle } from "../../atoms/typography";
 
+const statSummaryPropTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      total: PropTypes.number.isRequired,
+    }).isRequired,
+  ).isRequired,
+  header: PropTypes.string,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+type Props = PropTypes.InferProps<typeof statSummaryPropTypes>;
+
 const getStatSummaryData = ({ places, widget }) => {
   return widget.rows.map(row => {
     if (row.type === "placeCount") {
@@ -62,7 +78,7 @@ const getStatSummaryData = ({ places, widget }) => {
   });
 };
 
-const StatSummary = props => {
+const StatSummary = (props: Props) => {
   return (
     <ChartWrapper layout={props.layout} header={props.header}>
       {props.data.map(row => (
@@ -96,20 +112,6 @@ const StatSummary = props => {
       ))}
     </ChartWrapper>
   );
-};
-
-StatSummary.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      total: PropTypes.number.isRequired,
-    }),
-  ),
-  header: PropTypes.string,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-  }).isRequired,
 };
 
 export { StatSummary, getStatSummaryData };

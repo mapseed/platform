@@ -11,6 +11,37 @@ import TableRow from "@material-ui/core/TableRow";
 import makeParsedExpression from "../../../utils/expression/parse.tsx";
 import ChartWrapper from "./chart-wrapper";
 
+const fixedTablePropTypes = {
+  data: PropTypes.shape({
+    columns: PropTypes.arrayOf(
+      PropTypes.shape({
+        dataKey: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    rows: PropTypes.arrayOf(
+      PropTypes.shape({
+        cells: PropTypes.arrayOf(
+          PropTypes.shape({
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+              .isRequired,
+            label: PropTypes.string,
+          }),
+        ).isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
+  header: PropTypes.string.isRequired,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+    height: PropTypes.string,
+  }).isRequired,
+};
+
+type Props = PropTypes.InferProps<typeof fixedTablePropTypes>;
+
 const getFixedTableData = ({ places, widget }) => {
   const columnFilters = widget.columns.map(column => {
     if (column.filter) {
@@ -42,7 +73,7 @@ const getFixedTableData = ({ places, widget }) => {
   };
 };
 
-class FixedTable extends Component {
+class FixedTable extends Component<Props> {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
@@ -72,7 +103,5 @@ class FixedTable extends Component {
     );
   }
 }
-
-FixedTable.propTypes = {};
 
 export { FixedTable, getFixedTableData };

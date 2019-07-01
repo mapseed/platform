@@ -1,4 +1,4 @@
-import Expression from "../expression";
+import { Expression, IEvaluationContext } from "../expression";
 
 class Cat implements Expression {
   operands;
@@ -15,7 +15,7 @@ class Cat implements Expression {
     return new Cat(operands);
   }
 
-  evaluate(evaluationContext: EvaluationContext) {
+  evaluate(evaluationContext: IEvaluationContext) {
     return this.operands.map(operand => operand.evaluate(evaluationContext));
   }
 }

@@ -1,4 +1,4 @@
-import Expression from "../expression";
+import { Expression, IEvaluationContext } from "../expression";
 
 const getNumericalValsByKey = (dataset, key) => {
   return dataset.reduce((validVals, place) => {
@@ -8,42 +8,42 @@ const getNumericalValsByKey = (dataset, key) => {
   }, []);
 };
 
-const getPlaceVal = (context: EvaluationContext, property: string) => {
+const getPlaceVal = (context: IEvaluationContext, property: string) => {
   const val = context.place[property];
 
   return typeof val === "undefined" ? null : val;
 };
 
-const getDatasetSum = (context: EvaluationContext, property: string) => {
+const getDatasetSum = (context: IEvaluationContext, property: string) => {
   const sum = context.dataset.reduce((sum, place) => {
     const val = parseFloat(place[property]);
 
     return isNaN(val) ? sum : sum + val;
   }, 0);
 
-  return sum
+  return sum;
 };
 
-const getDatasetMean = (context: EvaluationContext) => {
-  const sum = getDatasetSum(context);
+const getDatasetMean = (context: IEvaluationContext, property: string) => {
+  const sum = getDatasetSum(context, property);
 
   return sum / context.dataset.length;
 };
 
-const getDatasetMax = (context: EvaluationContext) => {
-  const vals = getNumericalValsByKey(context.dataset, context.key);
+const getDatasetMax = (context: IEvaluationContext, property: string) => {
+  const vals = getNumericalValsByKey(context.dataset, property);
 
   return Math.max(...vals);
 };
 
-const getDatasetMin = (context: EvaluationContext) => {
-  const vals = getNumericalValsByKey(context.dataset, context.key);
+const getDatasetMin = (context: IEvaluationContext, property: string) => {
+  const vals = getNumericalValsByKey(context.dataset, property);
 
   return Math.min(...vals);
 };
 
-const getDatasetCount = (context: EvaluationContext) => {
-  return context.dataset.filter(place => place[context.key]).length;
+const getDatasetCount = (context: IEvaluationContext, property: string) => {
+  return context.dataset.filter(place => place[property]).length;
 };
 
 const makeLookup = (op, lookupFn) => {
@@ -65,7 +65,7 @@ const makeLookup = (op, lookupFn) => {
       return new Lookup(args[1]);
     }
 
-    evaluate(evaluationContext: EvaluationContext) {
+    evaluate(evaluationContext: IEvaluationContext) {
       return lookupFn(evaluationContext, this.property);
     }
   };

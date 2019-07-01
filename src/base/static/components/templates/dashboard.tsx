@@ -4,7 +4,7 @@ import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
 import moment from "moment";
 import "moment-timezone";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import groupBy from "lodash.groupby";
@@ -60,6 +60,30 @@ import { FreeTable, getFreeTableData } from "../organisms/dashboard/free-table";
 import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
 
+const statePropsTypes = {
+  dashboardConfig: dashboardConfigPropType.isRequired,
+  appConfig: appConfigPropType.isRequired,
+  hasAdminAbilities: PropTypes.func.isRequired,
+  datasetPlacesSelector: PropTypes.func.isRequired,
+  placeFormsConfig: placeFormsConfigPropType.isRequired,
+  formFieldsConfig: formFieldsConfigPropType,
+  datasetsConfig: datasetsConfigPropType,
+};
+
+const ownProps = {
+  apiRoot: PropTypes.string,
+  datasetDownloadConfig: PropTypes.object,
+};
+
+type StateProps = PropTypes.InferProps<typeof statePropTypes>;
+type OwnProps = PropTypes.InferProps<typeof ownProps>;
+type Props = StateProps & OwnProps & RouteComponentProps<{}>;
+
+interface State {
+  anchorEl: any; // TODO
+  dashboard: any; // TODO
+}
+
 const widgetRegistry = {
   lineChart: {
     component: MapseedLineChart,
@@ -87,8 +111,8 @@ const widgetRegistry = {
   },
 };
 
-class Dashboard extends React.Component {
-  state = {
+class Dashboard extends React.Component<Props, State> {
+  state: State = {
     anchorEl: null,
     dashboard: this.props.dashboardConfig[0],
   };
@@ -260,18 +284,12 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
-  dashboardConfig: dashboardConfigPropType.isRequired,
-  appConfig: appConfigPropType.isRequired,
-  apiRoot: PropTypes.string,
-  hasAdminAbilities: PropTypes.func.isRequired,
-  datasetPlacesSelector: PropTypes.func.isRequired,
-  placeFormsConfig: placeFormsConfigPropType.isRequired,
-  formFieldsConfig: formFieldsConfigPropType,
-  datasetsConfig: datasetsConfigPropType,
-};
+type MapseedReduxState = any;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (
+  state: MapseedReduxState,
+  ownProps: OwnProps,
+): StateProps => ({
   appConfig: appConfigSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   datasetPlacesSelector: datasetSlug =>
@@ -280,6 +298,9 @@ const mapStateToProps = state => ({
   placeFormsConfig: placeFormsConfigSelector(state),
   formFieldsConfig: formFieldsConfigSelector(state),
   datasetsConfig: datasetsConfigSelector(state),
+  ...ownProps,
 });
 
-export default withRouter(connect(mapStateToProps)(Dashboard));
+export default withRouter(
+  connect<StateProps, OwnProps>(mapStateToProps)(Dashboard),
+);

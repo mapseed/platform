@@ -1,7 +1,7 @@
 import expressionRegistry from "./definitions";
-import Expression from "./expression.tsx";
+import { Expression, IEvaluationContext } from "./expression";
 
-class EvaluationContext {
+class EvaluationContext implements EvaluationContext {
   place;
   dataset;
 }
@@ -9,7 +9,7 @@ class EvaluationContext {
 // A parsed expression, ready for evaluation against inputs.
 class ParsedExpression {
   expression: Expression;
-  evaluator;
+  evaluator: EvaluationContext;
 
   constructor(expression: Expression) {
     this.expression = expression;

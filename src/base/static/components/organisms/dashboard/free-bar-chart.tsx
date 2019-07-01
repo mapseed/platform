@@ -17,6 +17,30 @@ import {
   BLUE,
 } from "../../../utils/dashboard-utils";
 
+freeBarChartPropTypes = {
+  annotation: PropTypes.string,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+      sum: PropTypes.number.isRequired,
+      label: PropTypes.string,
+      percent: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  format: PropTypes.string,
+  groupAggregation: PropTypes.string.isRequired,
+  header: PropTypes.string,
+  xAxisLabel: PropTypes.string,
+  yAxisLabel: PropTypes.string,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+type Props = PropTypes.InferProps<typeof freeBarChartPropTypes>;
+
 const NULL_RESPONSE_NAME = "__no-response__";
 
 const getFreeBarChartData = ({ places, widget }) => {
@@ -86,7 +110,7 @@ const getTooltipFormatter = (format, groupAggregation) => {
   }
 };
 
-class FreeBarChart extends Component {
+class FreeBarChart extends Component<Props> {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
@@ -155,27 +179,5 @@ class FreeBarChart extends Component {
     );
   }
 }
-
-FreeBarChart.propTypes = {
-  annotation: PropTypes.string,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-      sum: PropTypes.number.isRequired,
-      label: PropTypes.string,
-      percent: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  format: PropTypes.string,
-  groupAggregation: PropTypes.string.isRequired,
-  header: PropTypes.string,
-  xAxisLabel: PropTypes.string,
-  yAxisLabel: PropTypes.string,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 export { FreeBarChart, getFreeBarChartData };

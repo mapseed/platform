@@ -17,6 +17,25 @@ import {
 import { BLUE } from "../../../utils/dashboard-utils";
 import ChartWrapper from "./chart-wrapper";
 
+const mapseedLineChartPropTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date).isRequired,
+      day: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+  header: PropTypes.string,
+  yAxisLabel: PropTypes.string,
+  xAxisLabel: PropTypes.string,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+type Props = PropTypes.InferProps<typeof mapseedLineChartPropTypes>;
+
 const getDaysArray = (start, end) => {
   let arr;
   let dt;
@@ -47,7 +66,7 @@ const getLineChartData = ({ places, timeZone }) => {
     : {};
 
   // Get a list of all days in range, to account for days where no posts were made:
-  const daysGrouped = getDaysArray(new Date(minDate), new Date(maxDate)).reduce(
+  const daysGrouped = getDaysArray(moment(minDate), moment(maxDate)).reduce(
     (memo, date) => {
       memo[
         `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
@@ -59,7 +78,7 @@ const getLineChartData = ({ places, timeZone }) => {
 
   return Object.entries({ ...daysGrouped, ...grouped })
     .map(([day, places]) => ({
-      date: new Date(day),
+      date: moment(day),
       day,
       count: places.length,
     }))
@@ -91,7 +110,7 @@ CustomDot.propTypes = {
   value: PropTypes.number,
 };
 
-class MapseedLineChart extends Component {
+class MapseedLineChart extends Component<Props> {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
@@ -147,23 +166,6 @@ class MapseedLineChart extends Component {
     );
   }
 }
-
-MapseedLineChart.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      date: PropTypes.instanceOf(Date).isRequired,
-      day: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  header: PropTypes.string,
-  yAxisLabel: PropTypes.string,
-  xAxisLabel: PropTypes.string,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 MapseedLineChart.defaultProps = {
   layout: {

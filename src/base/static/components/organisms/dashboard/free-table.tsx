@@ -2,14 +2,39 @@
 import React, { Component, Fragment } from "react";
 import { jsx, css, ClassNames } from "@emotion/core";
 import PropTypes from "prop-types";
-import TableCell from "@material-ui/core/TableCell";
 import { AutoSizer, Column, Table } from "react-virtualized";
 import Draggable from "react-draggable";
 import "react-virtualized/styles.css";
 import moment from "moment";
 
-import makeParsedExpression from "../../../utils/expression/parse.tsx";
+import makeParsedExpression from "../../../utils/expression/parse";
 import ChartWrapper from "./chart-wrapper";
+
+const freeTablePropTypes = {
+  data: PropTypes.shape({
+    columns: PropTypes.arrayOf(
+      PropTypes.shape({
+        dataKey: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    rows: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  }).isRequired,
+  header: PropTypes.string.isRequired,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+    height: PropTypes.string,
+  }).isRequired,
+};
+
+type Props = PropTypes.InferProps<typeof freeTablePropTypes>;
+
+interface State {
+  columnPercentageWidths: object;
+  tableWidth: number;
+}
 
 const getFreeTableData = ({ places, widget }) => {
   const freeTableRows = places.map(place => {
@@ -34,7 +59,7 @@ const getFreeTableData = ({ places, widget }) => {
   };
 };
 
-class FreeTable extends Component {
+class FreeTable extends Component<Props, State> {
   static defaultProps = {
     headerHeight: 48,
     rowHeight: 48,
@@ -74,14 +99,16 @@ class FreeTable extends Component {
     }
   };
 
-  cellRenderer = ({ cellData, columnIndex, type }) => {
-    const { columns, classes, rowHeight, onRowClick } = this.props;
+  cellRenderer = ({ cellData, columnIndex, type, rowHeight }) => {
     return (
       <div style={{ height: rowHeight }}>
         {Array.isArray(cellData) ? (
           cellData.map((cellDataPart, i) => (
             <p
               css={css`
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
                 margin: 0;
               `}
               key={i}
@@ -92,6 +119,9 @@ class FreeTable extends Component {
         ) : (
           <p
             css={css`
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
               margin: 0;
             `}
           >
@@ -116,7 +146,7 @@ class FreeTable extends Component {
       };
     });
 
-  headerRenderer = ({ label, dataKey, columnIndex }) => {
+  headerRenderer = ({ label, dataKey, nextDataKey }) => {
     return (
       <div
         key={dataKey}
@@ -153,10 +183,10 @@ class FreeTable extends Component {
                 this.resizeRow({
                   dataKey,
                   deltaX,
-                  columnIndex,
+                  nextDataKey,
                 })
               }
-              position={{ x: 0 }}
+              position={{ x: 0, y: 0 }}
               zIndex={999}
             >
               <span
@@ -228,24 +258,5 @@ class FreeTable extends Component {
     );
   }
 }
-
-FreeTable.propTypes = {
-  data: PropTypes.shape({
-    columns: PropTypes.arrayOf(
-      PropTypes.shape({
-        dataKey: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    rows: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  }).isRequired,
-  header: PropTypes.string.isRequired,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    height: PropTypes.string,
-  }).isRequired,
-};
 
 export { FreeTable, getFreeTableData };

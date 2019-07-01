@@ -1,4 +1,4 @@
-import Expression from "../expression";
+import { Expression } from "../expression";
 
 const eq = (a, b) => a === b;
 const neq = (a, b) => a !== b;
@@ -17,12 +17,13 @@ const makeComparison = (op, compareBasic) => {
       this.rhs = rhs;
     }
 
-    static parse(args, context) {
+    static parse(args: (string|number|boolean|Expression)[], context: any): Expression { // TODO:  not always an Expression?
       const op = args[0];
       if (args.length !== 3) {
         // eslint-disable-next-line no-console
         console.error(`Error: expected two arguments for "${op}"`);
-        return;
+
+        return null;
       }
 
       const lhs = context.parse(args[1]);

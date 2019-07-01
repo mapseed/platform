@@ -3,7 +3,15 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
 
-class ChartWrapper extends React.Component {
+const chartWrapperPropTypes = {
+  accentColor: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  header: PropTypes.string,
+};
+
+type Props = PropTypes.InferProps<typeof chartWrapperPropTypes>;
+
+class ChartWrapper extends React.Component<Props> {
   render() {
     return (
       <div
@@ -48,12 +56,6 @@ class ChartWrapper extends React.Component {
 ChartWrapper.defaultProps = {
   accentColor: "#f5f5f5",
   header: "Summary",
-};
-
-ChartWrapper.propTypes = {
-  accentColor: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  header: PropTypes.string,
 };
 
 export default ChartWrapper;
