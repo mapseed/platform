@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import lodashGroupBy from "lodash.groupby";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
@@ -39,7 +39,7 @@ const getFreeDonutChartData = ({ places, widget }) => {
   return donutChartData;
 };
 
-class FreeDonutChart extends Component<Props> {
+class FreeDonutChart extends React.Component<Props> {
   renderPieChartLabel = pieProps => {
     const { label, percent, count, x, y, midAngle } = pieProps;
     let anchor = "middle";

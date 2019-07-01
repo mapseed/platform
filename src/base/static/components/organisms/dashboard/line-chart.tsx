@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Component } from "react";
+import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import moment from "moment";
 import PropTypes from "prop-types";
@@ -36,12 +36,17 @@ const mapseedLineChartPropTypes = {
 
 type Props = PropTypes.InferProps<typeof mapseedLineChartPropTypes>;
 
+const DATETIME_FORMAT = "MM-DD-YYYY";
+
 const getDaysArray = (start, end) => {
+  const totalDays = end.diff(start, "days") + 1;
   let arr;
-  let dt;
-  for (arr = [], dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
-    arr.push(new Date(dt));
+  let i;
+
+  for (arr = [], i = 0; i < totalDays; i++) {
+    arr.push(moment(start, DATETIME_FORMAT).add(i, "days"));
   }
+
   return arr;
 };
 
@@ -61,16 +66,14 @@ const getLineChartData = ({ places, timeZone }) => {
         if (maxDate < date) {
           maxDate = date;
         }
-        return date.tz(timeZone).format("MM/DD/YYYY");
+        return date.tz(timeZone).format(DATETIME_FORMAT);
       })
     : {};
 
   // Get a list of all days in range, to account for days where no posts were made:
   const daysGrouped = getDaysArray(moment(minDate), moment(maxDate)).reduce(
     (memo, date) => {
-      memo[
-        `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-      ] = [];
+      memo[date.format(DATETIME_FORMAT)] = [];
       return memo;
     },
     {},
@@ -78,7 +81,7 @@ const getLineChartData = ({ places, timeZone }) => {
 
   return Object.entries({ ...daysGrouped, ...grouped })
     .map(([day, places]) => ({
-      date: moment(day),
+      date: moment(day, DATETIME_FORMAT),
       day,
       count: Array.isArray(places) ? places.length : 0,
     }))
@@ -110,7 +113,7 @@ CustomDot.propTypes = {
   value: PropTypes.number,
 };
 
-class MapseedLineChart extends Component<Props> {
+class MapseedLineChart extends React.Component<Props> {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>

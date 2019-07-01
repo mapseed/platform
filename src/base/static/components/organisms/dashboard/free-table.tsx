@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Component, Fragment } from "react";
+import * as React from "react";
 import { jsx, css, ClassNames } from "@emotion/core";
 import PropTypes from "prop-types";
 import { AutoSizer, Column, Table } from "react-virtualized";
@@ -59,7 +59,7 @@ const getFreeTableData = ({ places, widget }) => {
   };
 };
 
-class FreeTable extends Component<Props, State> {
+class FreeTable extends React.Component<Props, State> {
   static defaultProps = {
     headerHeight: 48,
     rowHeight: 48,
@@ -169,38 +169,40 @@ class FreeTable extends Component<Props, State> {
         >
           {label}
         </div>
-        <ClassNames>
-          {({ css }) => (
-            <Draggable
-              axis="x"
-              defaultClassName={css`
-                flex: 0 0 16px;
-                z-index: 2;
-                cursor: col-resize;
-                color: #0085ff;
-              `}
-              onDrag={(event, { deltaX }) =>
-                this.resizeRow({
-                  dataKey,
-                  deltaX,
-                  nextDataKey,
-                })
-              }
-              position={{ x: 0, y: 0 }}
-            >
-              <span
-                css={css`
-                  flex: 0 0 12px;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
+        {nextDataKey && (
+          <ClassNames>
+            {({ css }) => (
+              <Draggable
+                axis="x"
+                defaultClassName={css`
+                  flex: 0 0 16px;
+                  z-index: 2;
+                  cursor: col-resize;
+                  color: #0085ff;
                 `}
+                onDrag={(event, { deltaX }) =>
+                  this.resizeRow({
+                    dataKey,
+                    deltaX,
+                    nextDataKey,
+                  })
+                }
+                position={{ x: 0, y: 0 }}
               >
-                ⋮
-              </span>
-            </Draggable>
-          )}
-        </ClassNames>
+                <span
+                  css={css`
+                    flex: 0 0 12px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  `}
+                >
+                  ⋮
+                </span>
+              </Draggable>
+            )}
+          </ClassNames>
+        )}
       </div>
     );
   };
@@ -233,7 +235,7 @@ class FreeTable extends Component<Props, State> {
                             ...headerProps,
                             nextDataKey: this.props.data.columns[index + 1]
                               ? this.props.data.columns[index + 1].dataKey
-                              : "", // TOOD: last column??
+                              : null,
                           })
                         }
                         cellRenderer={cellProps =>

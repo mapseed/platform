@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import {
   ResponsiveContainer,
@@ -51,14 +51,10 @@ const getFreeBarChartData = ({ places, widget }) => {
 
   const totalPlaces = places ? places.length : 100;
   const grouped = places
-    ? places.reduce((memo, place) => {
-        // Create a memo dict of the response categories, mapped to a count and
-        // sum of Places that fit in each category.
-        // ie: { 'white': 2, 'black': 7 }
+    ? places.reduce((categories, place) => {
         const response = place[widget.groupBy]
           ? // Empty checkbox responses are stored as an empty array, so we need
-            // to check for that and record it as a null response. Null responses
-            // for other field types will simply not be recorded in the Place.
+            // to check for that and record it as a null response.
             Array.isArray(place[widget.groupBy]) &&
             place[widget.groupBy].length === 0
             ? NULL_RESPONSE_NAME
@@ -66,21 +62,28 @@ const getFreeBarChartData = ({ places, widget }) => {
           : NULL_RESPONSE_NAME;
         const responseArray = Array.isArray(response) ? response : [response];
 
-        return responseArray.reduce((_, category) => {
-          const isAlreadyWithCategory = !!memo[category];
+        // Create a memo dict of the response categories, mapped to a count and
+        // sum of Places that fit in each category.
+        // ie: { 'white': { count: 3, sum: 0 }, 'black': { count: 4, sum: 0 } }
+        responseArray.forEach(category => {
+          const isAlreadyWithCategory = !!categories[category];
 
-          return {
-            ...memo,
-            [category]: {
-              count: isAlreadyWithCategory ? memo[category].count++ : 1,
-              sum: isAlreadyWithCategory
-                ? (memo[category] += getNumericalPart(response))
-                : getNumericalPart(response),
-            },
-          };
-        }, {});
+          if (isAlreadyWithCategory) {
+            categories[category].count++;
+            categories[category].sum = categories[
+              category
+            ].sum += getNumericalPart(category);
+          } else {
+            categories[category] = {
+              count: 1,
+              sum: getNumericalPart(category),
+            };
+          }
+        });
+
+        return { ...categories };
       }, {})
-    : { count: 0 };
+    : {};
 
   const barChartData = Object.entries(grouped).map(
     ([category, categoryInfo]) => {
@@ -88,9 +91,7 @@ const getFreeBarChartData = ({ places, widget }) => {
         ...categoryInfo,
         label: labels[category],
         category,
-        // TODO
-        // @ts-ignore
-        percent: `${((categoryInfo.count / totalPlaces) * 100).toFixed(0)}%`,
+        percent: `${(((categoryInfo as any).count / totalPlaces) * 100).toFixed(0)}%`,
       };
     },
   );
@@ -112,7 +113,7 @@ const getTooltipFormatter = (format, groupAggregation) => {
   }
 };
 
-class FreeBarChart extends Component<Props> {
+class FreeBarChart extends React.Component<Props> {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>

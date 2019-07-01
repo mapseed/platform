@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Component } from "react";
+import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
 import Table from "@material-ui/core/Table";
@@ -73,7 +73,7 @@ const getFixedTableData = ({ places, widget }) => {
   };
 };
 
-class FixedTable extends Component<Props> {
+class FixedTable extends React.Component<Props> {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
