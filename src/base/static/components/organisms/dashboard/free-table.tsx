@@ -17,7 +17,7 @@ const freeTablePropTypes = {
         dataKey: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-      }),
+      }).isRequired,
     ).isRequired,
     rows: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   }).isRequired,
@@ -187,7 +187,6 @@ class FreeTable extends Component<Props, State> {
                 })
               }
               position={{ x: 0, y: 0 }}
-              zIndex={999}
             >
               <span
                 css={css`

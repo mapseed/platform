@@ -17,7 +17,11 @@ const makeComparison = (op, compareBasic) => {
       this.rhs = rhs;
     }
 
-    static parse(args: (string|number|boolean|Expression)[], context: any): Expression { // TODO:  not always an Expression?
+    static parse(
+      args: (string | number | boolean | Expression)[],
+      context: any,
+    ): Expression | null {
+      // TODO:  not always an Expression?
       const op = args[0];
       if (args.length !== 3) {
         // eslint-disable-next-line no-console

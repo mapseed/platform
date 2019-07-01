@@ -25,7 +25,7 @@ const mapseedLineChartPropTypes = {
       count: PropTypes.number.isRequired,
     }),
   ).isRequired,
-  header: PropTypes.string,
+  header: PropTypes.string.isRequired,
   yAxisLabel: PropTypes.string,
   xAxisLabel: PropTypes.string,
   layout: PropTypes.shape({
@@ -80,10 +80,10 @@ const getLineChartData = ({ places, timeZone }) => {
     .map(([day, places]) => ({
       date: moment(day),
       day,
-      count: places.length,
+      count: Array.isArray(places) ? places.length : 0,
     }))
     .sort((a, b) => {
-      return a.date - b.date;
+      return a.date.diff(b.date);
     });
 };
 
@@ -166,12 +166,5 @@ class MapseedLineChart extends Component<Props> {
     );
   }
 }
-
-MapseedLineChart.defaultProps = {
-  layout: {
-    start: 1,
-    end: 13,
-  },
-};
 
 export { MapseedLineChart, getLineChartData };

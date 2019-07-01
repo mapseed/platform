@@ -13,7 +13,7 @@ const statSummaryPropTypes = {
       total: PropTypes.number.isRequired,
     }).isRequired,
   ).isRequired,
-  header: PropTypes.string,
+  header: PropTypes.string.isRequired,
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,

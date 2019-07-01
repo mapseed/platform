@@ -8,7 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import makeParsedExpression from "../../../utils/expression/parse.tsx";
+import makeParsedExpression from "../../../utils/expression/parse";
 import ChartWrapper from "./chart-wrapper";
 
 const fixedTablePropTypes = {
@@ -21,16 +21,16 @@ const fixedTablePropTypes = {
       }),
     ).isRequired,
     rows: PropTypes.arrayOf(
-      PropTypes.shape({
-        cells: PropTypes.arrayOf(
-          PropTypes.shape({
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
-              .isRequired,
-            label: PropTypes.string,
-          }),
-        ).isRequired,
-      }).isRequired,
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          value: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+            .isRequired,
+          label: PropTypes.string,
+          type: PropTypes.string.isRequired,
+        }).isRequired,
+      ).isRequired,
     ).isRequired,
+    headers: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
   header: PropTypes.string.isRequired,
   layout: PropTypes.shape({

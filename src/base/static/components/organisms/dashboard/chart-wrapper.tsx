@@ -7,11 +7,26 @@ const chartWrapperPropTypes = {
   accentColor: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   header: PropTypes.string,
+  layout: PropTypes.shape({
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
-type Props = PropTypes.InferProps<typeof chartWrapperPropTypes>;
+type DefaultProps = {
+  accentColor: string;
+  header: string;
+};
+
+type Props = PropTypes.InferProps<typeof chartWrapperPropTypes> &
+  Partial<DefaultProps>;
 
 class ChartWrapper extends React.Component<Props> {
+  static defaultProps: DefaultProps = {
+    accentColor: "#f5f5f5",
+    header: "Summary",
+  };
+
   render() {
     return (
       <div
@@ -52,10 +67,5 @@ class ChartWrapper extends React.Component<Props> {
     );
   }
 }
-
-ChartWrapper.defaultProps = {
-  accentColor: "#f5f5f5",
-  header: "Summary",
-};
 
 export default ChartWrapper;

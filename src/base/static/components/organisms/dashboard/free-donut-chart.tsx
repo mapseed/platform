@@ -14,7 +14,7 @@ const freeDonutChartPropTypes = {
       count: PropTypes.number.isRequired,
     }),
   ).isRequired,
-  header: PropTypes.string,
+  header: PropTypes.string.isRequired,
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
@@ -33,7 +33,7 @@ const getFreeDonutChartData = ({ places, widget }) => {
   const donutChartData = Object.entries(grouped).map(([category, places]) => ({
     category: category || NULL_RESPONSE_NAME,
     label: widget.labels[category] || "No response",
-    count: places.length,
+    count: Array.isArray(places) ? places.length : 0,
   }));
 
   return donutChartData;

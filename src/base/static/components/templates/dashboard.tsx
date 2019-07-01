@@ -60,7 +60,7 @@ import { FreeTable, getFreeTableData } from "../organisms/dashboard/free-table";
 import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
 
-const statePropsTypes = {
+const statePropTypes = {
   dashboardConfig: dashboardConfigPropType.isRequired,
   appConfig: appConfigPropType.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,

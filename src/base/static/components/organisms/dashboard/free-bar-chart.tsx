@@ -17,7 +17,7 @@ import {
   BLUE,
 } from "../../../utils/dashboard-utils";
 
-freeBarChartPropTypes = {
+const freeBarChartPropTypes = {
   annotation: PropTypes.string,
   data: PropTypes.arrayOf(
     PropTypes.shape({
@@ -30,7 +30,7 @@ freeBarChartPropTypes = {
   ).isRequired,
   format: PropTypes.string,
   groupAggregation: PropTypes.string.isRequired,
-  header: PropTypes.string,
+  header: PropTypes.string.isRequired,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
   layout: PropTypes.shape({
@@ -66,21 +66,21 @@ const getFreeBarChartData = ({ places, widget }) => {
           : NULL_RESPONSE_NAME;
         const responseArray = Array.isArray(response) ? response : [response];
 
-        responseArray.forEach(category => {
-          if (memo[category]) {
-            memo[category].count++;
-            memo[category].sum += getNumericalPart(response);
-          } else {
-            memo[category] = {
-              count: 1,
-              sum: getNumericalPart(response),
-            };
-          }
-        });
+        return responseArray.reduce((_, category) => {
+          const isAlreadyWithCategory = !!memo[category];
 
-        return memo;
+          return {
+            ...memo,
+            [category]: {
+              count: isAlreadyWithCategory ? memo[category].count++ : 1,
+              sum: isAlreadyWithCategory
+                ? (memo[category] += getNumericalPart(response))
+                : getNumericalPart(response),
+            },
+          };
+        }, {});
       }, {})
-    : [];
+    : { count: 0 };
 
   const barChartData = Object.entries(grouped).map(
     ([category, categoryInfo]) => {
