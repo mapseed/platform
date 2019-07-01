@@ -33,6 +33,7 @@
     "title": "an anthropocene river",
     "name": "Mississippi",
     "show_name_in_header": true,
+    "isShowingMobileUserMenu": true,
     "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
     "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
@@ -625,6 +626,7 @@
       {
         "formId": "featured_place",
         "category": "featured_place",
+        "submitter_editing_supported": true,
         "admin_only": true,
         "includeOnList": true,
         "includeOnForm": true,
@@ -663,6 +665,7 @@
       {
         "formId": "geology",
         "category": "geology",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -706,6 +709,7 @@
       {
         "formId": "history",
         "category": "history",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -748,6 +752,7 @@
       {
         "formId": "industry",
         "category": "industry",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -791,6 +796,7 @@
       {
         "formId": "culture",
         "category": "culture",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -834,6 +840,7 @@
       {
         "formId": "ecology",
         "category": "ecology",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
