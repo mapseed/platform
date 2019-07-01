@@ -88,6 +88,8 @@ const getFreeBarChartData = ({ places, widget }) => {
         ...categoryInfo,
         label: labels[category],
         category,
+        // TODO
+        // @ts-ignore
         percent: `${((categoryInfo.count / totalPlaces) * 100).toFixed(0)}%`,
       };
     },

@@ -82,6 +82,7 @@ type Props = StateProps & OwnProps & RouteComponentProps<{}>;
 interface State {
   anchorEl: any; // TODO
   dashboard: any; // TODO
+  datasetSlug: string | null;
 }
 
 const widgetRegistry = {
@@ -115,6 +116,7 @@ class Dashboard extends React.Component<Props, State> {
   state: State = {
     anchorEl: null,
     dashboard: this.props.dashboardConfig[0],
+    datasetSlug: null,
   };
 
   toggleDashboardDropdown = event => {
