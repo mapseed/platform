@@ -128,7 +128,7 @@ class Dashboard extends React.Component<Props, State> {
   };
 
   selectAndCloseDashboardDropdown = newDashboardConfig => {
-    console.log("newDashboardConfig")
+    console.log("newDashboardConfig", newDashboardConfig)
 
     this.setState({
       anchorEl: null,

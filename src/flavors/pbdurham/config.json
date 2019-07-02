@@ -131,8 +131,8 @@
           "header": "Demographics",
           "type": "freeBarChart",
           "groupBy": "private-ethnicity",
-          "textFormatter": "plain",
-          "groupAggregation": "count",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count-percent",
           "xAxisLabel": "Ethnicity",
           "yAxisLabel": "Count",
           "annotation": "*race/ethinicity may not add up to 100% because of multiple choices",
@@ -158,11 +158,29 @@
       "datasetSlug": "pbdurham-projects",
       "widgets": [
         {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total projects"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
           "header": "Engagement",
           "type": "lineChart",
           "groupBy": "created_datetime",
           "xAxisLabel": "Date",
-          "yAxisLabel": "Number of ideas"
+          "yAxisLabel": "Number of projects",
+          "layout": {
+            "start": 4,
+            "end": 13
+          }
         },
         {
           "header": "Projects by Ward",
@@ -173,14 +191,30 @@
             "ward_2": "Ward 2",
             "ward_3": "Ward 3",
             "citywide": "Citywide"
+          },
+          "layout": {
+            "start": 1,
+            "end": 7
           }
         },
         {
           "header": "Budget (published proposals)",
           "type": "freeBarChart",
-          "group_by": "ward",
+          "groupBy": "ward",
+          "textFormatter": "plain",
+          "groupAggregation": "count",
           "xAxisLabel": "Wards",
-          "filter": ["==", ["get", "private"], false]
+          "yAxisLabel": "Count",
+          "labels": {
+            "ward_1": "Ward 1",
+            "ward_2": "Ward 2",
+            "ward_3": "Ward 3",
+            "citywide": "Citywide"
+          },
+          "layout": {
+            "start": 7,
+            "end": 13
+          }
         }
       ]
     }

@@ -2,6 +2,7 @@ import { Expression, IEvaluationContext } from "../expression";
 
 const getNumericalValsByKey = (dataset, key) => {
   return dataset.reduce((validVals, place) => {
+    // TODO: getNumericalPart
     const val = parseFloat(place[key]);
 
     return isNaN(val) ? validVals : [...validVals, val];
@@ -50,7 +51,10 @@ const getDatasetMin = (context: IEvaluationContext, property: string) => {
 
 const getDatasetCount = (context: IEvaluationContext, property: string) => {
   return context.dataset
-    ? context.dataset.filter(place => place[property]).length
+    ? // getDatasetCount counts Places in a dataset, optioanlly filtered by a
+      // Place property.
+      context.dataset.filter(place => (property ? place[property] : true))
+        .length
     : 0;
 };
 
@@ -64,10 +68,16 @@ const makeLookup = (op, lookupFn) => {
 
     static parse(args, parsingContext) {
       const op = args[0];
-      if (args.length !== 2) {
+      if (op !== "get-count" && args.length !== 2) {
         // eslint-disable-next-line no-console
         console.error(`Error: expected one argument for "${op}"`);
-        return;
+
+        return null;
+      } else if (op === "get-count" && args.length > 2) {
+        // eslint-disable-next-line no-console
+        console.error(`Error: expected one or zero arguments for "${op}"`);
+
+        return null;
       }
 
       return new Lookup(args[1]);

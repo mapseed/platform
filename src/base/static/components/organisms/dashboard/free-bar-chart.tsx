@@ -16,6 +16,7 @@ import {
   getNumericalPart,
   BLUE,
 } from "../../../utils/dashboard-utils";
+import makeParsedExpression from "../../../utils/expression/parse";
 
 const freeBarChartPropTypes = {
   annotation: PropTypes.string,
@@ -51,7 +52,7 @@ const getFreeBarChartData = ({ places, widget }) => {
 
   const totalPlaces = places ? places.length : 100;
   const grouped = places
-    ? places.reduce((categories, place) => {
+    ? places.reduce((groups, place) => {
         const response = place[widget.groupBy]
           ? // Empty checkbox responses are stored as an empty array, so we need
             // to check for that and record it as a null response.
@@ -62,55 +63,36 @@ const getFreeBarChartData = ({ places, widget }) => {
           : NULL_RESPONSE_NAME;
         const responseArray = Array.isArray(response) ? response : [response];
 
-        // Create a memo dict of the response categories, mapped to a count and
-        // sum of Places that fit in each category.
-        // ie: { 'white': { count: 3, sum: 0 }, 'black': { count: 4, sum: 0 } }
-        responseArray.forEach(category => {
-          const isAlreadyWithCategory = !!categories[category];
+        // Create a memo dict of the response groups, mapped to an array of
+        // Places which fall into each group. Note that a Place may fall in
+        // more than one group if `widget.groupBy` refers to a checkbox
+        // property on the Place model.
+        // ie: { "group_1": [Place, Place, Place], "group_2": [Place, Place] }
+        responseArray.forEach(group => {
+          const isAlreadyWithCategory = !!groups[group];
 
           if (isAlreadyWithCategory) {
-            categories[category].count++;
-            categories[category].sum = categories[
-              category
-            ].sum += getNumericalPart(category);
+            groups[group] = [...groups[group], { ...place }];
           } else {
-            categories[category] = {
-              count: 1,
-              sum: getNumericalPart(category),
-            };
+            groups[group] = [{ ...place }];
           }
         });
 
-        return { ...categories };
+        return { ...groups };
       }, {})
     : {};
 
-  const barChartData = Object.entries(grouped).map(
-    ([category, categoryInfo]) => {
-      return {
-        ...categoryInfo,
-        label: labels[category],
-        category,
-        percent: `${(((categoryInfo as any).count / totalPlaces) * 100).toFixed(0)}%`,
-      };
-    },
-  );
+  const barChartData = Object.entries(grouped).map(([group, groupedPlaces]) => {
+    const parsedExpression = makeParsedExpression(widget.groupValue);
+
+    return {
+      value: parsedExpression.evaluate({ dataset: groupedPlaces }),
+      label: labels[group],
+      totalPlaces,
+    };
+  });
 
   return barChartData;
-};
-
-const getTooltipFormatter = (format, groupAggregation) => {
-  if (format === "plain" && groupAggregation === "count") {
-    return getFormatter("tooltip-count");
-  } else if (format === "plain" && groupAggregation === "sum") {
-    return getFormatter("tooltip-sum");
-  } else if (format === "currency" && groupAggregation === "count") {
-    // TOOD-- probably not needed
-  } else if (format === "currency" && groupAggregation === "sum") {
-    return getFormatter("tooltip-currency");
-  } else {
-    return getFormatter("tooltip-count");
-  }
 };
 
 class FreeBarChart extends React.Component<Props> {
@@ -167,15 +149,14 @@ class FreeBarChart extends React.Component<Props> {
                 />
               )}
             </YAxis>
-            <Tooltip
-              cursor={false}
-              formatter={getTooltipFormatter(
-                this.props.format,
-                this.props.groupAggregation,
-              )}
-              labelFormatter={label => label}
-            />
-            <Bar dataKey={this.props.groupAggregation} fill={BLUE} />
+            {this.props.tooltipFormat && (
+              <Tooltip
+                cursor={false}
+                formatter={getFormatter(this.props.tooltipFormat)}
+                labelFormatter={label => label}
+              />
+            )}
+            <Bar dataKey={"value"} fill={BLUE} />
           </BarChart>
         </ResponsiveContainer>
       </ChartWrapper>
