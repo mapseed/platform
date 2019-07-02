@@ -194,17 +194,17 @@
           },
           "layout": {
             "start": 1,
-            "end": 7
+            "end": 5
           }
         },
         {
-          "header": "Budget (published proposals)",
+          "header": "Budget by Ward (published proposals)",
           "type": "freeBarChart",
           "groupBy": "ward",
-          "textFormatter": "plain",
-          "groupAggregation": "count",
+          "groupValue": ["get-sum", "staff_project_budget"],
+          "tooltipFormat": "currency",
+          "labelFormat": "currency",
           "xAxisLabel": "Wards",
-          "yAxisLabel": "Count",
           "labels": {
             "ward_1": "Ward 1",
             "ward_2": "Ward 2",
@@ -212,7 +212,7 @@
             "citywide": "Citywide"
           },
           "layout": {
-            "start": 7,
+            "start": 5,
             "end": 13
           }
         }

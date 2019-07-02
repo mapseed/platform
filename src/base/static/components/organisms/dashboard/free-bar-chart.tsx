@@ -11,11 +11,7 @@ import {
 } from "recharts";
 
 import ChartWrapper from "./chart-wrapper";
-import {
-  getFormatter,
-  getNumericalPart,
-  BLUE,
-} from "../../../utils/dashboard-utils";
+import { getFormatter, BLUE } from "../../../utils/dashboard-utils";
 import makeParsedExpression from "../../../utils/expression/parse";
 
 const freeBarChartPropTypes = {
@@ -30,7 +26,9 @@ const freeBarChartPropTypes = {
     }),
   ).isRequired,
   format: PropTypes.string,
-  groupAggregation: PropTypes.string.isRequired,
+  groupValue: PropTypes.array.isRequired,
+  tooltipFormat: PropTypes.string,
+  labelFormat: PropTypes.string,
   header: PropTypes.string.isRequired,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
@@ -95,6 +93,19 @@ const getFreeBarChartData = ({ places, widget }) => {
   return barChartData;
 };
 
+const getTooltipFormatter = format => {
+  switch (format) {
+    case "count-percent":
+      return getFormatter("tooltip-count-percent");
+    case "count":
+      return getFormatter("tooltop-count");
+    case "currency":
+      return getFormatter("tooltip-currency");
+    default:
+      return getFormatter("tooltip-default");
+  }
+};
+
 class FreeBarChart extends React.Component<Props> {
   render() {
     return (
@@ -102,7 +113,12 @@ class FreeBarChart extends React.Component<Props> {
         <ResponsiveContainer width="100%" height={360}>
           <BarChart
             data={this.props.data}
-            margin={{ top: 5, right: 30, left: 36, bottom: 160 }}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 70,
+              bottom: this.props.annotation ? 160 : 120,
+            }}
           >
             <XAxis
               tickFormatter={getFormatter("truncated")(12)}
@@ -137,7 +153,7 @@ class FreeBarChart extends React.Component<Props> {
             </XAxis>
             <YAxis
               stroke="#aaa"
-              tickFormatter={getFormatter(this.props.format)}
+              tickFormatter={getFormatter(this.props.labelFormat)}
             >
               {this.props.yAxisLabel && (
                 <Label
@@ -152,7 +168,7 @@ class FreeBarChart extends React.Component<Props> {
             {this.props.tooltipFormat && (
               <Tooltip
                 cursor={false}
-                formatter={getFormatter(this.props.tooltipFormat)}
+                formatter={getTooltipFormatter(this.props.tooltipFormat)}
                 labelFormatter={label => label}
               />
             )}

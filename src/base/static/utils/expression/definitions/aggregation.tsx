@@ -1,15 +1,18 @@
 import { Expression, IEvaluationContext, IParsingContext } from "../expression";
+import { getNumericalPart } from "../../../utils/dashboard-utils"
 
 const getSum = (context: IEvaluationContext, operands: number[]) => {
   return operands.reduce((sum, operand) => {
-    if (isNaN(operand)) {
+    const val = getNumericalPart(operand)
+
+    if (isNaN(val)) {
       // eslint-disable-next-line no-console
       console.error("Error: got non-numerical operand for summation");
 
       return sum;
     }
 
-    return sum + operand;
+    return sum + val;
   }, 0);
 };
 

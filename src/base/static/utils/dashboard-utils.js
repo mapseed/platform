@@ -11,12 +11,17 @@ const COLORS = [
   "#f781bf",
 ];
 
-const currencyFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-  minimumFractionDigits: 0,
-});
+const currencyFormatter = value =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  }).format(value);
+
+const tooltipCurrencyFormatter = (value, name, props) => {
+  return currencyFormatter(props.payload.value);
+};
 
 const truncatedTextFormatter = length => {
   return text => {
@@ -28,31 +33,40 @@ const truncatedTextFormatter = length => {
   };
 };
 
-const countFormatter = (value, name, props) => {
+const defaultFormatter = value => value;
+
+const defaultTooltipFormatter = (value, name, props) => {
   return props.payload.value;
 };
 
-const countPercentFormatter = (value, name, props) => {
-  return `${props.payload.value} (${(
-    (props.payload.value / props.payload.totalPlaces) *
-    100
-  ).toFixed(0)}%)`;
+const tooltipCountPercentFormatter = (value, name, props) => {
+  return countPercentFormatter(props.payload.value, props.payload.totalPlaces);
 };
 
-const tooltipCurrencyFormatter = () => {};
+const countPercentFormatter = (count, totalCount) => {
+  return `${count} (${((count / totalCount) * 100).toFixed(0)}%)`;
+};
 
 const getFormatter = format => {
   switch (format) {
     case "currency":
       return currencyFormatter;
+    case "tooltip-currency":
+      return tooltipCurrencyFormatter;
     case "truncated":
       return truncatedTextFormatter;
     case "count-percent":
       return countPercentFormatter;
+    case "tooltip-count-percent":
+      return tooltipCountPercentFormatter;
     case "count":
-      return countFormatter;
+      return defaultFormatter;
+    case "tooltip-count":
+      return defaultTooltipFormatter;
+    case "tooltip-default":
+      return defaultTooltipFormatter;
     default:
-      return null;
+      return defaultFormatter;
   }
 };
 
@@ -63,12 +77,12 @@ const getFormatter = format => {
 const getNumericalPart = response => {
   if (typeof response !== "number" && typeof response !== "string") {
     // Don't attempt to pull a number out of arrays, objects, or booleans.
-    return 0;
+    return null;
   }
 
   const match = /([0-9,.]+)/.exec(response.trim());
   if (!match) {
-    return 0;
+    return null;
   } else {
     return Number(match[1].replace(",", ""));
   }

@@ -1,9 +1,9 @@
 import { Expression, IEvaluationContext } from "../expression";
+import { getNumericalPart } from "../../../utils/dashboard-utils";
 
 const getNumericalValsByKey = (dataset, key) => {
   return dataset.reduce((validVals, place) => {
-    // TODO: getNumericalPart
-    const val = parseFloat(place[key]);
+    const val = getNumericalPart(place[key]);
 
     return isNaN(val) ? validVals : [...validVals, val];
   }, []);
@@ -18,7 +18,7 @@ const getPlaceVal = (context: IEvaluationContext, property: string) => {
 const getDatasetSum = (context: IEvaluationContext, property: string) => {
   const sum = context.dataset
     ? context.dataset.reduce((sum, place) => {
-        const val = parseFloat(place[property]);
+        const val = getNumericalPart(place[property]);
 
         return isNaN(val) ? sum : sum + val;
       }, 0)
