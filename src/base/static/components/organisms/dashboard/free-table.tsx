@@ -38,13 +38,15 @@ interface State {
 
 const getFreeTableData = ({ places, widget }) => {
   const freeTableRows = places.map(place => {
-    return widget.columns.reduce(
-      (rows, column) => ({
+    return widget.columns.reduce((rows, column) => {
+      const parsedExpression = makeParsedExpression(column.value);
+
+      return {
         ...rows,
-        [column.header]: makeParsedExpression(column.value).evaluate({ place }),
-      }),
-      {},
-    );
+        [column.header]:
+          parsedExpression && parsedExpression.evaluate({ place }),
+      };
+    }, {});
   });
 
   const freeTableColumns = widget.columns.map(column => ({

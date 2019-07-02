@@ -9,17 +9,19 @@ const getNumericalValsByKey = (dataset, key) => {
 };
 
 const getPlaceVal = (context: IEvaluationContext, property: string) => {
-  const val = context.place[property];
+  const val = context.place ? context.place[property] : undefined;
 
   return typeof val === "undefined" ? null : val;
 };
 
 const getDatasetSum = (context: IEvaluationContext, property: string) => {
-  const sum = context.dataset.reduce((sum, place) => {
-    const val = parseFloat(place[property]);
+  const sum = context.dataset
+    ? context.dataset.reduce((sum, place) => {
+        const val = parseFloat(place[property]);
 
-    return isNaN(val) ? sum : sum + val;
-  }, 0);
+        return isNaN(val) ? sum : sum + val;
+      }, 0)
+    : 0;
 
   return sum;
 };
@@ -27,28 +29,34 @@ const getDatasetSum = (context: IEvaluationContext, property: string) => {
 const getDatasetMean = (context: IEvaluationContext, property: string) => {
   const sum = getDatasetSum(context, property);
 
-  return sum / context.dataset.length;
+  return context.dataset ? sum / context.dataset.length : 0;
 };
 
 const getDatasetMax = (context: IEvaluationContext, property: string) => {
-  const vals = getNumericalValsByKey(context.dataset, property);
+  const vals = context.dataset
+    ? getNumericalValsByKey(context.dataset, property)
+    : [];
 
   return Math.max(...vals);
 };
 
 const getDatasetMin = (context: IEvaluationContext, property: string) => {
-  const vals = getNumericalValsByKey(context.dataset, property);
+  const vals = context.dataset
+    ? getNumericalValsByKey(context.dataset, property)
+    : [];
 
   return Math.min(...vals);
 };
 
 const getDatasetCount = (context: IEvaluationContext, property: string) => {
-  return context.dataset.filter(place => place[property]).length;
+  return context.dataset
+    ? context.dataset.filter(place => place[property]).length
+    : 0;
 };
 
 const makeLookup = (op, lookupFn) => {
   return class Lookup implements Expression {
-    property: string;
+    property;
 
     constructor(property) {
       this.property = property;

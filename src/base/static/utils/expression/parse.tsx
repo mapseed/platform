@@ -1,31 +1,49 @@
-import expressionRegistry from "./definitions";
-import { Expression, IEvaluationContext } from "./expression";
+import PropTypes from "prop-types";
 
-class EvaluationContext implements EvaluationContext {
+import { placePropType } from "../../state/ducks/places";
+import expressionRegistry from "./definitions";
+import {
+  Expression,
+  IEvaluationContext,
+  IParsingContext,
+  IParsedExpression,
+} from "./expression";
+
+type Place = PropTypes.InferProps<typeof placePropType>;
+
+class EvaluationContext implements IEvaluationContext {
   place;
   dataset;
+
+  setPlace(place: Place) {
+    this.place = place;
+  }
+
+  setDataset(dataset: Place[]) {
+    this.dataset = dataset;
+  }
 }
 
 // A parsed expression, ready for evaluation against inputs.
-class ParsedExpression {
-  expression: Expression;
-  evaluator: EvaluationContext;
+class ParsedExpression implements IParsedExpression {
+  expression;
+  evaluator;
 
   constructor(expression: Expression) {
     this.expression = expression;
     this.evaluator = new EvaluationContext();
   }
 
-  evaluate({ place = {}, dataset = [] }) {
-    this.evaluator.place = place;
-    this.evaluator.dataset = dataset;
+  evaluate({ place, dataset }: { place?: Place; dataset?: Place[] }) {
+    this.evaluator.setPlace(place);
+    this.evaluator.setDataset(dataset);
 
     return this.expression.evaluate(this.evaluator);
   }
 }
 
-class ParsingContext {
-  parse(expr) {
+class ParsingContext implements IParsingContext {
+  parse(expr: any): Expression | null {
     if (
       expr === null ||
       typeof expr === "string" ||
@@ -49,10 +67,14 @@ class ParsingContext {
       } else {
         // eslint-disable-next-line no-console
         console.error(`Unknown expression "${op}"`);
+
+        return null;
       }
     } else {
       // eslint-disable-next-line no-console
       console.error(`Expected an array, but found ${typeof expr} instead.`);
+
+      return null;
     }
   }
 }
@@ -61,7 +83,14 @@ const makeParsedExpression = expression => {
   const parser = new ParsingContext();
   const parsed = parser.parse(expression);
 
-  return new ParsedExpression(parsed);
+  if (parsed) {
+    return new ParsedExpression(parsed);
+  } else {
+    // eslint-disable-next-line no-console
+    console.error(`Unable to make parsed expression from ${expression}`);
+
+    return null;
+  }
 };
 
 export default makeParsedExpression;

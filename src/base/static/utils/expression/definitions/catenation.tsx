@@ -1,13 +1,13 @@
-import { Expression, IEvaluationContext } from "../expression";
+import { Expression, IEvaluationContext, IParsingContext } from "../expression";
 
 class Cat implements Expression {
-  operands;
+  operands: any;
 
-  constructor(operands) {
+  constructor(operands: any) {
     this.operands = operands;
   }
 
-  static parse(args, parsingContext) {
+  static parse(args: any, parsingContext: IParsingContext) {
     const operands = args
       .slice(1)
       .map(operand => parsingContext.parse(operand));

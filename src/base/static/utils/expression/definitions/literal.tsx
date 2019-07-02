@@ -1,21 +1,9 @@
 import { Expression } from "../expression";
 
-const isLiteralValue = value => {
-  if (
-    typeof value === "string" ||
-    typeof value === "boolean" ||
-    typeof value === "number"
-  ) {
-    return true;
-  }
-
-  return false;
-};
-
 class Literal implements Expression {
   value: number | string | boolean;
 
-  constructor(value) {
+  constructor(value: number | string | boolean) {
     this.value = value;
   }
 
@@ -23,6 +11,7 @@ class Literal implements Expression {
     if (args.length !== 2) {
       // eslint-disable-next-line no-console
       console.error(`Error: expected one argument for "literal"`);
+
       return null;
     }
 

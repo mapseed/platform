@@ -1,6 +1,6 @@
-import { Expression, IEvaluationContext } from "../expression";
+import { Expression, IEvaluationContext, IParsingContext } from "../expression";
 
-const getSum = (context: IEvaluationContext, operands) => {
+const getSum = (context: IEvaluationContext, operands: number[]) => {
   return operands.reduce((sum, operand) => {
     if (isNaN(operand)) {
       // eslint-disable-next-line no-console
@@ -13,24 +13,42 @@ const getSum = (context: IEvaluationContext, operands) => {
   }, 0);
 };
 
-const getMean = () => {}; // TODO
+const getMean = (context: IEvaluationContext, operands: number[]) => {
+  const sum = getSum(context, operands);
 
-const getMax = () => {}; // TODO
+  return sum / operands.length;
+};
 
-const getMin = () => {}; // TODO
+const getMax = (context: IEvaluationContext, operands: number[]) => {
+  return Math.max(...operands);
+};
+
+const getMin = (context: IEvaluationContext, operands: number[]) => {
+  return Math.min(...operands);
+};
 
 const makeAggregation = (op, aggregationFn) => {
   return class Aggregation implements Expression {
-    operands;
+    operands: Expression[];
 
     constructor(operands) {
       this.operands = operands;
     }
 
-    static parse(args, parsingContext) {
+    static parse(
+      args: (Expression)[],
+      parsingContext: IParsingContext,
+    ): Expression | null {
       const operands = args
         .slice(1)
         .map(operand => parsingContext.parse(operand));
+
+      if (operands.length < 1) {
+        // eslint-disable-next-line no-console
+        console.error(`Error: expected at least one argument for "${op}"`);
+
+        return null;
+      }
 
       return new Aggregation(operands);
     }

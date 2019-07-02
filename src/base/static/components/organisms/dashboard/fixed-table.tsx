@@ -59,8 +59,10 @@ const getFixedTableData = ({ places, widget }) => {
         }
       });
 
+      const parsedExpression = makeParsedExpression(cell.value);
+
       return {
-        value: makeParsedExpression(cell.value).evaluate({ dataset }),
+        value: parsedExpression && parsedExpression.evaluate({ dataset }),
         label: cell.label,
         type: widget.columns[i].type || "string",
       };
