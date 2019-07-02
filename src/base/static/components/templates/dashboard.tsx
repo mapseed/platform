@@ -33,7 +33,7 @@ import {
 } from "../../state/ducks/forms-config";
 import { hasAdminAbilities } from "../../state/ducks/user";
 import { Badge } from "../atoms/layout";
-import { RegularTitle, SmallText } from "../atoms/typography";
+import { RegularTitle, SmallText, ExternalLink } from "../atoms/typography";
 import { FontAwesomeIcon } from "../atoms/imagery";
 import {
   FreeDonutChart,
@@ -128,6 +128,8 @@ class Dashboard extends React.Component<Props, State> {
   };
 
   selectAndCloseDashboardDropdown = newDashboardConfig => {
+    console.log("newDashboardConfig")
+
     this.setState({
       anchorEl: null,
       dashboard: newDashboardConfig,
@@ -136,6 +138,10 @@ class Dashboard extends React.Component<Props, State> {
   };
 
   render() {
+    const dataset = this.props.datasetsConfig.find(
+      config => config.slug === this.state.dashboard.datasetSlug,
+    );
+
     return (
       <div
         css={css`
@@ -207,6 +213,7 @@ class Dashboard extends React.Component<Props, State> {
                       const dataset = this.props.datasetsConfig.find(
                         config => config.slug === dashboardConfig.datasetSlug,
                       );
+
                       return (
                         <MenuItem
                           selected={
@@ -233,20 +240,29 @@ class Dashboard extends React.Component<Props, State> {
                   variant="badge"
                   color="#cd8888"
                 >
-                  <SmallText
-                    weight="black"
+                  <ExternalLink
                     css={css`
-                      color: white;
-                      margin-right: 8px;
+                      display: flex;
                     `}
+                    href={`${this.props.apiRoot}${dataset.owner}/datasets/${
+                      dataset.slug
+                    }/mapseed-places.csv?format=csv&include_submissions&include_private_places&include_private_fields&page_size=10000`}
                   >
-                    Export raw CSV data
-                  </SmallText>
-                  <FontAwesomeIcon
-                    fontSize="0.7rem"
-                    color="#fff"
-                    faClassname="fa fa-chevron-right"
-                  />
+                    <SmallText
+                      weight="black"
+                      css={css`
+                        color: white;
+                        margin-right: 8px;
+                      `}
+                    >
+                      Export raw CSV data
+                    </SmallText>
+                    <FontAwesomeIcon
+                      fontSize="0.7rem"
+                      color="#fff"
+                      faClassname="fa fa-chevron-right"
+                    />
+                  </ExternalLink>
                 </Button>
               )}
             </div>
