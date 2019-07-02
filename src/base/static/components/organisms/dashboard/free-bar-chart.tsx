@@ -48,11 +48,19 @@ const getFreeBarChartData = ({ places, widget }) => {
     [NULL_RESPONSE_NAME]: "No response",
   };
 
+  if (widget.filter) {
+    const parsedFilterExpression = makeParsedExpression(widget.filter);
+    places = places.filter(
+      place =>
+        parsedFilterExpression && parsedFilterExpression.evaluate({ place }),
+    );
+  }
+
   const totalPlaces = places ? places.length : 100;
   const grouped = places
     ? places.reduce((groups, place) => {
         const response = place[widget.groupBy]
-          ? // Empty checkbox responses are stored as an empty array, so we need
+          ? // Checkbox non-responses are stored as an empty array, so we need
             // to check for that and record it as a null response.
             Array.isArray(place[widget.groupBy]) &&
             place[widget.groupBy].length === 0

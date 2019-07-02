@@ -200,6 +200,7 @@
         {
           "header": "Budget by Ward (published proposals)",
           "type": "freeBarChart",
+          "filter": ["!=", ["get-val", "private"], true],
           "groupBy": "ward",
           "groupValue": ["get-sum", "staff_project_budget"],
           "tooltipFormat": "currency",
