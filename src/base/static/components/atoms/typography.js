@@ -211,6 +211,22 @@ const MicroText = styled("span")(props => {
   return textHandler(props, styles);
 });
 
+const DashboardText = styled("span")(props => ({
+  display: "block",
+  textAlign: props.textAlign,
+  fontFamily: props.weight === "bold" ? "PTSansBold" : "PTSans",
+  fontSize: "1rem",
+  color: props.color,
+  textTransform: props.textTransform,
+}));
+
+DashboardText.defaultProps = {
+  color: "#222",
+  textAlign: "left",
+  weight: "regular",
+  textTransform: "none",
+};
+
 const ExternalLink = styled("a")({
   textDecoration: "none",
   wordBreak: "break-all",
@@ -271,5 +287,6 @@ export {
   RegularText,
   SmallText,
   MicroText,
+  DashboardText,
   Time,
 };

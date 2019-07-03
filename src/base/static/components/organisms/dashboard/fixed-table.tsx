@@ -1,15 +1,11 @@
 /** @jsx jsx */
 import * as React from "react";
-import { jsx, css } from "@emotion/core";
+import { jsx, css, ClassNames } from "@emotion/core";
 import PropTypes from "prop-types";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 
 import makeParsedExpression from "../../../utils/expression/parse";
 import ChartWrapper from "./chart-wrapper";
+import BaseTable from "./base-table";
 
 const fixedTablePropTypes = {
   data: PropTypes.shape({
@@ -50,7 +46,7 @@ const getFixedTableData = ({ places, widget }) => {
   });
 
   const fixedTableRows = widget.rows.map(row => {
-    return row.cells.map((cell, i) => {
+    return row.cells.reduce((cells, cell, i) => {
       const dataset = places.filter(place => {
         if (!columnFilters[i]) {
           return true;
@@ -62,15 +58,25 @@ const getFixedTableData = ({ places, widget }) => {
       const parsedExpression = makeParsedExpression(cell.value);
 
       return {
-        value: parsedExpression && parsedExpression.evaluate({ dataset }),
-        label: cell.label,
-        type: widget.columns[i].type || "string",
+        ...cells,
+        [widget.columns[i].header]: {
+          type: widget.columns[i].type,
+          label: cell.label,
+          value: parsedExpression && parsedExpression.evaluate({ dataset }),
+        },
       };
-    });
+    }, {});
   });
 
+  const fixedTableColumns = widget.columns.map(column => ({
+    label: column.header,
+    dataKey: column.header,
+    type: column.type,
+    fractionalWidth: column.fractionalWidth || 1,
+  }));
+
   return {
-    headers: widget.columns.map(column => column.header),
+    columns: fixedTableColumns,
     rows: fixedTableRows,
   };
 };
@@ -79,28 +85,10 @@ class FixedTable extends React.Component<Props> {
   render() {
     return (
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {this.props.data.headers.map(header => (
-                <TableCell key={header}>{header}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.props.data.rows.map((row, i) => {
-              return (
-                <TableRow key={i}>
-                  {row.map((cell, i) => (
-                    <TableCell key={i} component="th" scope="row">
-                      {cell.value} {cell.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+        <BaseTable
+          columns={this.props.data.columns}
+          rows={this.props.data.rows}
+        />
       </ChartWrapper>
     );
   }

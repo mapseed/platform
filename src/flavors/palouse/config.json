@@ -102,7 +102,8 @@
           "yAxisLabel": "No. VSP reports",
           "layout": {
             "start": 4,
-            "end": 13
+            "end": 13,
+            "height": "300px"
           }
         },
         {
@@ -112,6 +113,7 @@
             {
               "header": "Name and contact",
               "type": "string",
+              "fractionalWidth": 2,
               "value": [
                 "cat",
                 ["get-val", "private-landowner_name"],
@@ -142,7 +144,8 @@
           "stripeColor": "rgb(255, 248, 234)",
           "layout": {
             "start": 6,
-            "end": 13
+            "end": 13,
+            "height": "500px"
           },
           "columns": [
             {
@@ -214,7 +217,7 @@
               "cells": [
                 {
                   "value": "Range Management",
-                  "label": "(Watering Facility Totals)"
+                  "label": "(Wat. Facil. Totals)"
                 },
                 {
                   "value": [
@@ -222,7 +225,7 @@
                     ["get-sum", "watering_facility_quantity"],
                     ["get-sum", "water_wells_quantity"]
                   ],
-                  "label": "Watering Facils."
+                  "label": "Facils."
                 },
                 {
                   "value": [
@@ -230,7 +233,7 @@
                     ["get-sum", "watering_facility_quantity"],
                     ["get-sum", "water_wells_quantity"]
                   ],
-                  "label": "Watering Facils."
+                  "label": "Facils."
                 },
                 {
                   "value": [
@@ -238,7 +241,7 @@
                     ["get-sum", "watering_facility_quantity"],
                     ["get-sum", "water_wells_quantity"]
                   ],
-                  "label": "Watering Facils."
+                  "label": "Facils."
                 },
                 {
                   "value": [
@@ -246,7 +249,7 @@
                     ["get-sum", "watering_facility_quantity"],
                     ["get-sum", "water_wells_quantity"]
                   ],
-                  "label": "Watering Facils."
+                  "label": "Facils."
                 }
               ]
             },
@@ -401,7 +404,7 @@
                     ["get-sum", "open_channel_quantity"],
                     ["get-sum", "fencing_quantity"]
                   ],
-                  "label": "acres"
+                  "label": "feet"
                 },
                 {
                   "value": [
@@ -411,7 +414,7 @@
                     ["get-sum", "open_channel_quantity"],
                     ["get-sum", "fencing_quantity"]
                   ],
-                  "label": "acres"
+                  "label": "feet"
                 },
                 {
                   "value": [
@@ -421,7 +424,7 @@
                     ["get-sum", "open_channel_quantity"],
                     ["get-sum", "fencing_quantity"]
                   ],
-                  "label": "acres"
+                  "label": "feet"
                 },
                 {
                   "value": [
@@ -431,7 +434,7 @@
                     ["get-sum", "open_channel_quantity"],
                     ["get-sum", "fencing_quantity"]
                   ],
-                  "label": "acres"
+                  "label": "feet"
                 }
               ]
             },

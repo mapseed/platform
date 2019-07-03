@@ -23,6 +23,8 @@ const tooltipCurrencyFormatter = (value, name, props) => {
   return currencyFormatter(props.payload.value);
 };
 
+const numericFormatter = value => new Intl.NumberFormat("en-US").format(value);
+
 const truncatedTextFormatter = length => {
   return text => {
     if (text.length > length) {
@@ -65,6 +67,8 @@ const getFormatter = format => {
       return defaultTooltipFormatter;
     case "tooltip-default":
       return defaultTooltipFormatter;
+    case "numeric":
+      return numericFormatter;
     default:
       return defaultFormatter;
   }
@@ -78,6 +82,10 @@ const getNumericalPart = response => {
   if (typeof response !== "number" && typeof response !== "string") {
     // Don't attempt to pull a number out of arrays, objects, or booleans.
     return null;
+  }
+
+  if (typeof response === "number") {
+    return response;
   }
 
   const match = /([0-9,.]+)/.exec(response.trim());

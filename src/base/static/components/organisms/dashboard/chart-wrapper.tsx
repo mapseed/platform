@@ -32,6 +32,7 @@ class ChartWrapper extends React.Component<Props> {
       <div
         css={css`
           grid-column: ${this.props.layout.start} / ${this.props.layout.end};
+          height: ${this.props.layout.height || "auto"};
           background-color: #fff;
           margin: 8px;
           border-radius: 4px;
