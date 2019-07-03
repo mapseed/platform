@@ -30,26 +30,22 @@
     }
   },
   "map": {
-    "geolocation_enabled": true,
-    "geolocation_onload": false,
-    "geocoding_engine": "Mapbox",
-    "geocode_hint": [-117.1889785, 46.7298657],
-    "options": {
-      "map": {
-        "center": {
-          "lat": 47.39327308616325,
-          "lng": -122.29317726069291
-        },
-        "zoom": 8.6,
-        "pitch": 40,
-        "minZoom": 1,
-        "maxZoom": 18
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "geocodingEngine": "Mapbox",
+    "geocodeHint": [-117.1889785, 46.7298657],
+    "mapViewport": {
+      "center": {
+        "lat": 47.39327308616325,
+        "lng": -122.29317726069291
       },
-      "control": {
-        "showCompass": true,
-        "position": "top-left"
-      }
-    },
+      "zoom": 8.6,
+      "pitch": 40,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
     "layers": [
       {
         "id": "light-nolabels",
@@ -182,51 +178,41 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "groupings": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layers": [
-              {
-                "id": "light-nolabels",
-                "title": "Light"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "layerGroupId": "light-nolabels",
+            "title": "Light"
           },
           {
-            "id": "grp-other",
-            "title": "Regional Data",
-            "layers": [
-              {
-                "id": "transportation-demo-input",
-                "title": "Community Input"
-              },
-              {
-                "id": "transit-planning",
-                "title": "Regional Transit Planning Projects"
-              },
-              {
-                "id": "bike-network",
-                "title": "Bike Network"
-              },
-              {
-                "id": "bike-plan",
-                "title": "Bike Plan"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Regional Data",
+        "options": [
+          {
+            "layerGroupId": "transportation-demo-input",
+            "title": "Community Input"
+          },
+          {
+            "layerGroupId": "transit-planning",
+            "title": "Regional Transit Planning Projects"
+          },
+          {
+            "layerGroupId": "bike-network",
+            "title": "Bike Network"
+          },
+          {
+            "layerGroupId": "bike-plan",
+            "title": "Bike Plan"
           }
         ]
       }

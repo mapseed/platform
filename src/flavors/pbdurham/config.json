@@ -608,89 +608,78 @@
     "is_visible_default": true,
     "component": "ActivityStreamWithLegend"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "Neighborhood Style"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "LayerGroupId": "osm",
+            "title": "Neighborhood Style"
           },
           {
-            "id": "grp-community",
-            "title": "Community Data",
-            "layerGroups": [
-              {
-                "id": "pbdurham",
-                "title": "Your Ideas"
-              },
-              {
-                "id": "pbdurham-projects",
-                "title": "Proposed Projects"
-              }
-            ]
+            "LayerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "LayerGroupId": "pbdurham",
+            "title": "Your Ideas"
           },
           {
-            "id": "grp-city",
-            "title": "City Data",
-            "layerGroups": [
-              {
-                "id": "durham-bike-trails",
-                "title": "Bike Lanes"
-              },
-              {
-                "id": "durham-bus-routes",
-                "title": "Bus Routes"
-              },
-              {
-                "id": "durham-bus-stops",
-                "title": "Bus Stops"
-              },
-              {
-                "id": "durham-libraries",
-                "title": "Libraries"
-              },
-              {
-                "id": "durham-schools",
-                "title": "Schools"
-              },
-              {
-                "id": "durham-council-wards",
-                "title": "City Council Wards"
-              },
-              {
-                "id": "durham-city-boundary",
-                "title": "City Boundary"
-              },
-              {
-                "id": "durham-existing-trails",
-                "title": "Existing Trails"
-              },
-              {
-                "id": "durham-proposed-trails",
-                "title": "Proposed Trails"
-              },
-              {
-                "id": "durham-parks",
-                "title": "Parks"
-              }
-            ]
+            "LayerGroupId": "pbdurham-projects",
+            "title": "Proposed Projects"
+          }
+        ]
+      },
+      {
+        "title": "City Data",
+        "options": [
+          {
+            "LayerGroupId": "durham-bike-trails",
+            "title": "Bike Lanes"
+          },
+          {
+            "LayerGroupId": "durham-bus-routes",
+            "title": "Bus Routes"
+          },
+          {
+            "LayerGroupId": "durham-bus-stops",
+            "title": "Bus Stops"
+          },
+          {
+            "LayerGroupId": "durham-libraries",
+            "title": "Libraries"
+          },
+          {
+            "LayerGroupId": "durham-schools",
+            "title": "Schools"
+          },
+          {
+            "LayerGroupId": "durham-council-wards",
+            "title": "City Council Wards"
+          },
+          {
+            "LayerGroupId": "durham-city-boundary",
+            "title": "City Boundary"
+          },
+          {
+            "LayerGroupId": "durham-existing-trails",
+            "title": "Existing Trails"
+          },
+          {
+            "LayerGroupId": "durham-proposed-trails",
+            "title": "Proposed Trails"
+          },
+          {
+            "LayerGroupId": "durham-parks",
+            "title": "Parks"
           }
         ]
       }

@@ -394,7 +394,7 @@ class InputForm extends Component {
       );
     }
 
-    // Generate a PDF for the user.
+    // Generate a PDF for the user if configured to do so.
     if (this.props.datasetReportSelector(this.props.datasetSlug)) {
       mapseedPDFServiceClient.getPDF({
         url: `${window.location.protocol}//${
@@ -404,6 +404,7 @@ class InputForm extends Component {
         )}/${placeResponse.id}`,
         filename: this.props.datasetReportSelector(this.props.datasetSlug)
           .filename,
+        jwtPublic: placeResponse.jwt_public,
       });
     }
 

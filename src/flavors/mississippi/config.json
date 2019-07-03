@@ -33,6 +33,7 @@
     "title": "an anthropocene river",
     "name": "Mississippi",
     "show_name_in_header": true,
+    "isShowingMobileUserMenu": true,
     "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
     "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
@@ -143,6 +144,18 @@
       "nitrogen-plants": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
+      },
+      "NewMadrid": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
+      },
+      "InactiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/InactiveCoalMines.geojson"
+      },
+      "ActiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
       }
     },
     "layerGroups": [
@@ -221,9 +234,9 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                14,
+                11,
                 1,
-                17,
+                16,
                 0
               ]
             }
@@ -326,6 +339,91 @@
                 0,
                 4,
                 1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NewMadrid-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{Photo}}",
+        "mapboxLayers": [
+          {
+            "id": "NewMadrid-labels",
+            "type": "circle",
+            "source": "NewMadrid",
+            "paint": {
+              "circle-radius": 8,
+              "circle-color": "coral",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "InactiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "INACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "InactiveCoalMines-labels",
+            "type": "fill",
+            "source": "InactiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "darkgray",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                11,
+                0.8,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "ActiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "ACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "ActiveCoalMines-labels",
+            "type": "fill",
+            "source": "ActiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "black",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1,
+                16,
+                0.1
               ]
             }
           }
@@ -471,49 +569,41 @@
     "is_visible_default": false,
     "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Layers:",
-        "content": [
+        "id": "river",
+        "title": "Our River",
+        "options": [
           {
-            "id": "river",
-            "title": "Our River",
-            "layerGroups": [
-              {
-                "id": "mississippi-group",
-                "title": "Watershed"
-              }
-            ]
+            "layerGroupId": "mississippi-group",
+            "title": "Watershed"
+          }
+        ]
+      },
+      {
+        "id": "grp-community",
+        "title": "Contributions",
+        "options": [
+          {
+            "layerGroupId": "mississippi-input",
+            "title": "Comments"
+          }
+        ]
+      },
+      {
+        "id": "grp-nitrogen",
+        "title": "Nitrogen",
+        "options": [
+          {
+            "layerGroupId": "nitrogen-farm-emissions-group",
+            "title": "Nitrogen Details"
           },
           {
-            "id": "grp-community",
-            "title": "Contributions",
-            "layerGroups": [
-              {
-                "id": "mississippi-input",
-                "title": "Comments"
-              }
-            ]
-          },
-          {
-            "id": "grp-nitrogen",
-            "title": "Nitrogen",
-            "layerGroups": [
-              {
-                "id": "nitrogen-farm-emissions-group",
-                "title": "Nitrogen Details"
-              },
-              {
-                "id": "nitrogen-plants-group",
-                "title": "Nitrogen Plants"
-              }
-            ]
+            "layerGroupId": "nitrogen-plants-group",
+            "title": "Nitrogen Plants"
           }
         ]
       }
@@ -536,6 +626,7 @@
       {
         "formId": "featured_place",
         "category": "featured_place",
+        "submitter_editing_supported": true,
         "admin_only": true,
         "includeOnList": true,
         "includeOnForm": true,
@@ -574,6 +665,7 @@
       {
         "formId": "geology",
         "category": "geology",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -617,6 +709,7 @@
       {
         "formId": "history",
         "category": "history",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -659,6 +752,7 @@
       {
         "formId": "industry",
         "category": "industry",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -702,6 +796,7 @@
       {
         "formId": "culture",
         "category": "culture",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -745,6 +840,7 @@
       {
         "formId": "ecology",
         "category": "ecology",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
@@ -1100,11 +1196,14 @@
       },
       {
         "placeId": 7307,
-        "pan_to": [-89.45, 36.95],
-        "zoom": 9,
+        "pan_to": [-89.143, 37.16],
+        "zoom": 8,
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "confluence-group",
+          "NewMadrid-group",
+          "InactiveCoalMines-group",
+          "ActiveCoalMines-group",
           "streets2-group"
         ],
         "spotlight": false

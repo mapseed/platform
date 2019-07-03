@@ -64,7 +64,7 @@
         "lng": -117.576393
       }
     },
-    "scrollZoomAroundCenter": false,
+    "scrollZoomAroundCenter": true,
     "mapViewport": {
       "latitude": 46.32066,
       "longitude": -117.92239,
@@ -110,6 +110,13 @@
           "https://vector-tiles.mapseed.org/columbia-geologic-hazard/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 17
+      },
+      "columbia-hydrology": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/columbia-hydrology/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
       },
       "columbia-wetlands": {
         "type": "vector",
@@ -272,6 +279,19 @@
             }
           },
           {
+            "id": "columbia-hydrology",
+            "type": "line",
+            "source": "columbia-hydrology",
+            "source-layer": "columbia-hydrology",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#34518f",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 9, 1, 10, 2]
+            }
+          },
+          {
             "id": "columbia-watersheds-labels",
             "type": "symbol",
             "source": "columbia-watersheds",
@@ -304,6 +324,7 @@
             "type": "fill",
             "source": "columbia-geologic-hazard",
             "source-layer": "columbia-geologic-hazard",
+            "filter": ["==", ["get", "forpehrtdcp"], "Severe"],
             "paint": {
               "fill-pattern": "hazard-fill.png"
             }
@@ -313,6 +334,7 @@
             "type": "line",
             "source": "columbia-geologic-hazard",
             "source-layer": "columbia-geologic-hazard",
+            "filter": ["==", ["get", "forpehrtdcp"], "Severe"],
             "paint": {
               "line-color": "#e80f0f",
               "line-width": 2,
@@ -514,87 +536,75 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "OpenStreetMap"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "layerGroupId": "osm",
+            "title": "OpenStreetMap"
           },
           {
-            "id": "grp-water",
-            "title": "Water Features",
-            "layerGroups": [
-              {
-                "id": "columbia-river",
-                "title": "Columbia River"
-              },
-              {
-                "id": "snake-river",
-                "title": "Snake River"
-              },
-              {
-                "id": "columbia-watersheds",
-                "title": "Watersheds"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "columbia-river",
+            "title": "Columbia River"
           },
           {
-            "id": "grp-critical-areas",
-            "title": "Critical Areas",
-            "layerGroups": [
-              {
-                "id": "columbia-geologic-hazard",
-                "title": "Geologic Hazards"
-              },
-              {
-                "id": "columbia-wetlands",
-                "title": "Wetlands"
-              },
-              {
-                "id": "columbia-frequently-flooded",
-                "title": "Frequently Flooded Areas"
-              },
-              {
-                "id": "columbia-critical-aquifer",
-                "title": "Critical Aquifer Recharge Areas"
-              },
-              {
-                "id": "columbia-critical-conservation-areas",
-                "title": "Critical Conservation Areas"
-              }
-            ]
+            "layerGroupId": "snake-river",
+            "title": "Snake River"
           },
           {
-            "id": "grp-community",
-            "title": "Community Data",
-            "layerGroups": [
-              {
-                "id": "columbia-county-border",
-                "title": "Columbia County border"
-              },
-              {
-                "id": "columbia-input",
-                "title": "Community Reports"
-              }
-            ]
+            "layerGroupId": "columbia-watersheds",
+            "title": "Watersheds"
+          }
+        ]
+      },
+      {
+        "title": "Critical Areas",
+        "options": [
+          {
+            "layerGroupId": "columbia-geologic-hazard",
+            "title": "Geologic Hazards"
+          },
+          {
+            "layerGroupId": "columbia-wetlands",
+            "title": "Wetlands"
+          },
+          {
+            "layerGroupId": "columbia-frequently-flooded",
+            "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "columbia-critical-aquifer",
+            "title": "Critical Aquifer Recharge Areas"
+          },
+          {
+            "layerGroupId": "columbia-critical-conservation-areas",
+            "title": "Critical Conservation Areas"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "layerGroupId": "columbia-county-border",
+            "title": "Columbia County border"
+          },
+          {
+            "layerGroupId": "columbia-input",
+            "title": "Community Reports"
           }
         ]
       }
@@ -694,7 +704,7 @@
           },
           {
             "start_field_index": 21,
-            "end_field_index": 35,
+            "end_field_index": 42,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -702,26 +712,26 @@
             ]
           },
           {
-            "start_field_index": 36,
-            "end_field_index": 46,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "columbia-input",
-              "columbia-county-border"
-            ]
-          },
-          {
-            "start_field_index": 47,
-            "end_field_index": 48,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "columbia-input",
-              "columbia-county-border"
-            ]
-          },
-          {
-            "start_field_index": 49,
+            "start_field_index": 43,
             "end_field_index": 58,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-input",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 59,
+            "end_field_index": 60,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "columbia-input",
+              "columbia-county-border"
+            ]
+          },
+          {
+            "start_field_index": 61,
+            "end_field_index": 72,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -774,7 +784,7 @@
               },
               {
                 "label": "Lower Snake",
-                "value": "pend-oreille-lake"
+                "value": "lower-snake"
               }
             ]
           },
@@ -979,7 +989,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["conservation_cover_date"]
+              "targets": [
+                "conservation_cover_date",
+                "conservation_cover_amount"
+              ]
             },
             "content": [
               {
@@ -1013,6 +1026,18 @@
             ]
           },
           {
+            "name": "conservation_cover_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "On how many acres of cropland have you implemeted conservation cover practices (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
             "//": "=============== CROPLAND INTEGRATED PEST MGMT =================================",
             "name": "cropland_pest_management",
             "type": "big_radio",
@@ -1021,7 +1046,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["cropland_pest_management_date"]
+              "targets": [
+                "cropland_pest_management_date",
+                "cropland_pest_management_amount"
+              ]
             },
             "content": [
               {
@@ -1055,6 +1083,18 @@
             ]
           },
           {
+            "name": "cropland_pest_management_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "On how many acres of cropland have you implemented pest management practices (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
             "//": "=============== COVER CROP =================================",
             "name": "cover_crop",
             "type": "big_radio",
@@ -1063,7 +1103,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["cover_crop_date"]
+              "targets": ["cover_crop_date", "cover_crop_amount"]
             },
             "content": [
               {
@@ -1097,6 +1137,18 @@
             ]
           },
           {
+            "name": "cover_crop_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "On how many acres of cropland have you implemented cover crop practices (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
             "//": "=============== CROPLAND RIPARIAN FOREST BUFFER =================================",
             "name": "crop_riparian_forest_buffer",
             "type": "big_radio",
@@ -1105,7 +1157,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["crop_riparian_forest_buffer_date"]
+              "targets": [
+                "crop_riparian_forest_buffer_date",
+                "crop_riparian_forest_buffer_amount"
+              ]
             },
             "content": [
               {
@@ -1139,6 +1194,18 @@
             ]
           },
           {
+            "name": "crop_riparian_forest_buffer_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "How many feet of cropland riparian forest buffer have you implemented (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
             "//": "=============== RESIDUE AND TILLAGE MANAGEMENT =================================",
             "name": "residue_tillage_management",
             "type": "big_radio",
@@ -1147,7 +1214,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["residue_tillage_management_date"]
+              "targets": [
+                "residue_tillage_management_date",
+                "residue_tillage_management_amount"
+              ]
             },
             "content": [
               {
@@ -1181,6 +1251,18 @@
             ]
           },
           {
+            "name": "residue_tillage_management_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "On how many acres of cropland have you implemented residue and tillage management practices (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
             "//": "=============== NUTRIENT MANAGEMENT =================================",
             "name": "nutrient_management",
             "type": "big_radio",
@@ -1189,7 +1271,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["nutrient_management_date"]
+              "targets": [
+                "nutrient_management_date",
+                "nutrient_management_amount"
+              ]
             },
             "content": [
               {
@@ -1223,6 +1308,18 @@
             ]
           },
           {
+            "name": "nutrient_management_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "On how many acres of cropland have you implemented nutrient management practices (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
             "//": "=============== CROPLAND FENCING =================================",
             "name": "crop_fencing",
             "type": "big_radio",
@@ -1231,7 +1328,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["crop_fencing_date"]
+              "targets": ["crop_fencing_date", "crop_fencing_amount"]
             },
             "content": [
               {
@@ -1265,6 +1362,18 @@
             ]
           },
           {
+            "name": "crop_fencing_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "How many feet of cropland fencing have you implemented (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
             "//": "---------------------LIVESTOCK PRACTICES-------------------------",
             "name": "livestock_header",
             "type": "informational_html",
@@ -1279,7 +1388,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["ranch_riparian_forest_buffer_date"]
+              "targets": [
+                "ranch_riparian_forest_buffer_date",
+                "ranch_riparian_forest_buffer_amount"
+              ]
             },
             "content": [
               {
@@ -1313,6 +1425,18 @@
             ]
           },
           {
+            "name": "ranch_riparian_forest_buffer_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "How many feet of ranchland riparian forest buffer have you implemented (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
             "//": "=============== LIVESTOCK FENCING =================================",
             "name": "ranch_fencing",
             "type": "big_radio",
@@ -1321,7 +1445,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["ranch_fencing_date"]
+              "targets": ["ranch_fencing_date", "ranch_fencing_amount"]
             },
             "content": [
               {
@@ -1355,6 +1479,18 @@
             ]
           },
           {
+            "name": "ranch_fencing_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "How many feet of ranchland fencing have you implemented (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
             "//": "=============== STREAM HABITAT IMPROVEMENT AND MGMT =================================",
             "name": "stream_habitat_improvement",
             "type": "big_radio",
@@ -1363,7 +1499,10 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["stream_habitat_improvement_date"]
+              "targets": [
+                "stream_habitat_improvement_date",
+                "stream_habitat_improvement_amount"
+              ]
             },
             "content": [
               {
@@ -1397,6 +1536,18 @@
             ]
           },
           {
+            "name": "stream_habitat_improvement_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "How many feet of ranchland stream habitat improvement have you implemented (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
             "//": "=============== LIVESTOCK GRAZING =================================",
             "name": "livestock_grazing",
             "type": "big_radio",
@@ -1405,7 +1556,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["livestock_grazing_date"]
+              "targets": ["livestock_grazing_date", "livestock_grazing_amount"]
             },
             "content": [
               {
@@ -1439,6 +1590,18 @@
             ]
           },
           {
+            "name": "livestock_grazing_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "On how many acres of ranchland have you implemented livestock grazing practices (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
             "//": "=============== WATERING FACILITY =================================",
             "name": "watering_facility",
             "type": "big_radio",
@@ -1447,7 +1610,7 @@
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": ["watering_facility_date"]
+              "targets": ["watering_facility_date", "watering_facility_amount"]
             },
             "content": [
               {
@@ -1479,6 +1642,18 @@
                 "value": "post-july-2011"
               }
             ]
+          },
+          {
+            "name": "watering_facility_amount",
+            "type": "number",
+            "optional": true,
+            "prompt": "How many water facilities have you implemented (estimate used for reporting purposes only)?",
+            "min": 0,
+            "placeholder": "Approximate number",
+            "hidden_default": true,
+            "metadata": {
+              "units": "watering facilities"
+            }
           },
           {
             "//": "--------------OTHER PRACTICES---------------------------",
@@ -1560,14 +1735,14 @@
           {
             "name": "private-landowner_email",
             "type": "text",
-            "placeholder": "Your email address will never be shared",
-            "prompt": "What is your email address?"
+            "placeholder": "Your email address will never be made public",
+            "prompt": "What is your email address? (Your email address will be used for reporting purposes only, and will never be made public.)"
           },
           {
             "name": "private-landowner_phone",
             "type": "text",
-            "prompt": "What is your phone number?",
-            "placeholder": "Your phone number will never be shared",
+            "prompt": "What is your phone number? (Your phone number will be used for reporting purposes only, and will never be made public.)",
+            "placeholder": "Your phone number will never be made public",
             "optional": false
           },
           {

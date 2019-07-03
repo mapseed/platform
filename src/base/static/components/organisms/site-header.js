@@ -33,7 +33,6 @@ import {
 import { currentTemplateSelector, resetUi } from "../../state/ducks/ui";
 import {
   isLeftSidebarExpandedSelector,
-  setLeftSidebarComponent,
   setLeftSidebarExpanded,
 } from "../../state/ducks/left-sidebar";
 import mq from "../../../../media-queries";
@@ -292,7 +291,6 @@ const navItemMappings = {
         ariaLabel={`open the ${linkProps.navBarItem.title} menu`}
         onClick={() => {
           linkProps.onClick();
-          linkProps.setLeftSidebarComponent(linkProps.navBarItem.component);
           linkProps.setLeftSidebarExpanded(!linkProps.isLeftSidebarExpanded);
         }}
       >
@@ -406,7 +404,6 @@ class SiteHeader extends React.Component {
                 position={i}
                 navBarItem={navBarItem}
                 currentTemplate={this.props.currentTemplate}
-                setLeftSidebarComponent={this.props.setLeftSidebarComponent}
                 setLeftSidebarExpanded={this.props.setLeftSidebarExpanded}
                 isLeftSidebarExpanded={this.props.isLeftSidebarExpanded}
                 pathname={this.props.history.location.pathname}
@@ -488,7 +485,6 @@ SiteHeader.propTypes = {
   navBarConfig: navBarConfigPropType,
   onChangeLanguage: PropTypes.func.isRequired,
   dashboardConfig: dashboardConfigPropType,
-  setLeftSidebarComponent: PropTypes.func.isRequired,
   setLeftSidebarExpanded: PropTypes.func.isRequired,
   resetUi: PropTypes.func.isRequired,
 };
@@ -502,13 +498,10 @@ const mapStateToProps = state => ({
   dashboardConfig: dashboardConfigSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  setLeftSidebarComponent: componentName =>
-    dispatch(setLeftSidebarComponent(componentName)),
-  setLeftSidebarExpanded: isExpanded =>
-    dispatch(setLeftSidebarExpanded(isExpanded)),
-  resetUi: () => dispatch(resetUi()),
-});
+const mapDispatchToProps = {
+  setLeftSidebarExpanded,
+  resetUi,
+};
 
 export default withRouter(
   connect(
