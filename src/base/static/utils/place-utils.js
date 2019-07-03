@@ -1,13 +1,21 @@
 import constants from "../constants";
 
-const setPrivateParams = (placeParams, includePrivate) =>
-  includePrivate
+const setPrivateParams = (placeParams, includePrivate, jwtToken = null) => {
+  if (jwtToken) {
+    placeParams = {
+      ...placeParams,
+      token: jwtToken,
+    };
+  }
+
+  return includePrivate
     ? {
         ...placeParams,
         include_private_places: true,
         include_private_fields: true,
       }
     : placeParams;
+};
 
 const createGeoJSONFromPlaces = places => {
   const features = places.map(place => {
