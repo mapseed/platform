@@ -20,7 +20,7 @@ class BaseTable extends React.Component<Props> {
 
   componentDidMount() {
     // Compute the base unit for calculating column percentage widths.
-    const fractionalUnit =
+    const baseFractionalUnit =
       1 /
       this.props.columns.reduce((totalUnits, column) => {
         return totalUnits + column.fractionalWidth;
@@ -30,7 +30,7 @@ class BaseTable extends React.Component<Props> {
       columnPercentageWidths: this.props.columns.reduce(
         (memo, column) => ({
           ...memo,
-          [column.dataKey]: fractionalUnit * column.fractionalWidth,
+          [column.dataKey]: baseFractionalUnit * column.fractionalWidth,
         }),
         {},
       ),
@@ -48,6 +48,7 @@ class BaseTable extends React.Component<Props> {
       case "numeric":
         return "right";
       case "boolean":
+      case "badge":
         return "center";
       case "text":
         return "left";
@@ -70,11 +71,13 @@ class BaseTable extends React.Component<Props> {
               `}
               key={i}
               weight={
-                CELL_FORMAT_WEIGHTS[
-                  i > CELL_FORMAT_WEIGHTS.length - 1
-                    ? CELL_FORMAT_WEIGHTS.length - 1
-                    : i
-                ]
+                type === "badge"
+                  ? "regular"
+                  : CELL_FORMAT_WEIGHTS[
+                      i > CELL_FORMAT_WEIGHTS.length - 1
+                        ? CELL_FORMAT_WEIGHTS.length - 1
+                        : i
+                    ]
               }
               color={
                 isEmail

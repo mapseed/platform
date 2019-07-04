@@ -29,8 +29,8 @@ const makeComparison = (op, compareBasic) => {
         return null;
       }
 
-      const lhs = parsingContext.parse(args[1]);
-      const rhs = parsingContext.parse(args[2]);
+      const lhs = parsingContext.parse(args[1], parsingContext);
+      const rhs = parsingContext.parse(args[2], parsingContext);
 
       return new Comparison(lhs, rhs);
     }

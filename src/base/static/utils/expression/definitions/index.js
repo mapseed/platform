@@ -15,8 +15,9 @@ import {
   GetDatasetMin,
   GetDatasetCount,
 } from "./lookup";
-import { Sum, Mean, Max, Min } from "./aggregation";
+import { Product, Sum, Mean, Max, Min } from "./aggregation";
 import Cat from "./catenation";
+import Case from "./case";
 
 export default {
   "==": Equals,
@@ -32,9 +33,11 @@ export default {
   "get-max": GetDatasetMax,
   "get-min": GetDatasetMin,
   "get-count": GetDatasetCount,
-  sum: Sum,
+  "*": Product,
+  "+": Sum,
   mean: Mean,
   max: Max,
   min: Min,
   cat: Cat,
+  case: Case,
 };

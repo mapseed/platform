@@ -1,9 +1,9 @@
 import { Expression, IEvaluationContext, IParsingContext } from "../expression";
-import { getNumericalPart } from "../../../utils/dashboard-utils"
+import { getNumericalPart } from "../../../utils/dashboard-utils";
 
 const getSum = (context: IEvaluationContext, operands: number[]) => {
   return operands.reduce((sum, operand) => {
-    const val = getNumericalPart(operand)
+    const val = getNumericalPart(operand);
 
     if (isNaN(val)) {
       // eslint-disable-next-line no-console
@@ -13,6 +13,21 @@ const getSum = (context: IEvaluationContext, operands: number[]) => {
     }
 
     return sum + val;
+  }, 0);
+};
+
+const getProduct = (context: IEvaluationContext, operands: number[]) => {
+  return operands.reduce((product, operand) => {
+    const val = getNumericalPart(operand);
+
+    if (isNaN(val)) {
+      // eslint-disable-next-line no-console
+      console.error("Error: got non-numerical operand for summation");
+
+      return product;
+    }
+
+    return product * val;
   }, 0);
 };
 
@@ -32,10 +47,12 @@ const getMin = (context: IEvaluationContext, operands: number[]) => {
 
 const makeAggregation = (op, aggregationFn) => {
   return class Aggregation implements Expression {
+    type: string;
     operands: Expression[];
 
-    constructor(operands) {
+    constructor(operands, type) {
       this.operands = operands;
+      this.type = type;
     }
 
     static parse(
@@ -53,7 +70,7 @@ const makeAggregation = (op, aggregationFn) => {
         return null;
       }
 
-      return new Aggregation(operands);
+      return new Aggregation(operands, op);
     }
 
     evaluate(evaluationContext: IEvaluationContext) {
@@ -65,7 +82,8 @@ const makeAggregation = (op, aggregationFn) => {
   };
 };
 
-export const Sum = makeAggregation("sum", getSum);
+export const Sum = makeAggregation("+", getSum);
+export const Product = makeAggregation("*", getProduct);
 export const Mean = makeAggregation("mean", getMean);
 export const Max = makeAggregation("max", getMax);
 export const Min = makeAggregation("min", getMin);

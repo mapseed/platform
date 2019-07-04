@@ -97,6 +97,10 @@ const booleanFormatter = value => {
   }
 };
 
+const badgeFormatter = value => {
+  return <div style={{ backgroundColor: value.color }}>{value.label}</div>;
+};
+
 const getFormatter = format => {
   switch (format) {
     case "currency":
@@ -112,7 +116,6 @@ const getFormatter = format => {
     case "count":
       return defaultFormatter;
     case "tooltip-count":
-      return defaultTooltipFormatter;
     case "tooltip-default":
       return defaultTooltipFormatter;
     case "numeric":
@@ -121,6 +124,8 @@ const getFormatter = format => {
       return dateFormatter;
     case "boolean":
       return booleanFormatter;
+    case "badge":
+      return badgeFormatter;
     default:
       return defaultFormatter;
   }
