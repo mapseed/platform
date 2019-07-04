@@ -103,7 +103,7 @@
           "layout": {
             "start": 4,
             "end": 13,
-            "height": "300px"
+            "height": 300
           }
         },
         {
@@ -114,7 +114,7 @@
             {
               "header": "Name and contact",
               "type": "string",
-              "fractionalWidth": 2,
+              "fractionalWidth": 3,
               "value": [
                 "cat",
                 ["get-val", "private-landowner_name"],
@@ -125,18 +125,20 @@
             {
               "header": "Submitted report on",
               "type": "date",
+              "fractionalWidth": 2,
               "value": ["get-val", "created_datetime"]
             },
             {
               "header": "OK to use photos?",
               "type": "boolean",
+              "fractionalWidth": 1,
               "value": ["get-val", "private-use_photos"]
             }
           ],
           "layout": {
             "start": 1,
             "end": 6,
-            "height": "500px"
+            "height": 500
           }
         },
         {

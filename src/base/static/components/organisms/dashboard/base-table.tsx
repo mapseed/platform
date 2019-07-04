@@ -13,17 +13,13 @@ const CELL_FORMAT_COLORS = ["#222", "#888", "#aaa"];
 const ROW_HEIGHT = 75;
 
 class BaseTable extends React.Component<Props> {
-  static defaultProps = {
-    headerHeight: 48,
-    rowHeight: 48,
-  };
-
   state = {
     columnPercentageWidths: {},
     tableWidth: 100, // Arbitrary initial width.
   };
 
   componentDidMount() {
+    // Compute the base unit for calculating column percentage widths.
     const fractionalUnit =
       1 /
       this.props.columns.reduce((totalUnits, column) => {
@@ -62,7 +58,7 @@ class BaseTable extends React.Component<Props> {
 
   cellRenderer = ({ cellData, columnIndex, type, rowHeight }) => {
     return (
-      <div>
+      <div style={{ width: "100%", padding: "8px" }}>
         {cellData.value.map((valuePart, i) => {
           const isEmail = isEmailAddress(valuePart);
 
@@ -103,6 +99,10 @@ class BaseTable extends React.Component<Props> {
         })}
         {cellData.label && (
           <DashboardText
+            css={css`
+              text-overflow: ellipsis;
+              overflow: hidden;
+            `}
             textTransform="uppercase"
             color="#aaa"
             fontSize="0.9rem"
@@ -131,14 +131,7 @@ class BaseTable extends React.Component<Props> {
 
   headerRenderer = ({ label, dataKey, nextDataKey, columnIndex, type }) => {
     return (
-      <div
-        key={dataKey}
-        css={css`
-          padding: 0;
-          display: flex;
-          justify-content: space-between;
-        `}
-      >
+      <>
         <DashboardText
           color="#aaa"
           textAlign={columnIndex === 0 ? "left" : this.getCellAlignment(type)}
@@ -151,10 +144,9 @@ class BaseTable extends React.Component<Props> {
               <Draggable
                 axis="x"
                 defaultClassName={css`
-                  flex: 0 0 16px;
                   z-index: 2;
                   cursor: col-resize;
-                  color: #0085ff;
+                  color: #000;
                 `}
                 onDrag={(event, { deltaX }) =>
                   this.resizeRow({
@@ -167,8 +159,8 @@ class BaseTable extends React.Component<Props> {
               >
                 <span
                   css={css`
-                    flex: 0 0 12px;
                     display: flex;
+                    flex-direction: column;
                     justify-content: center;
                     align-items: center;
                   `}
@@ -179,7 +171,7 @@ class BaseTable extends React.Component<Props> {
             )}
           </ClassNames>
         )}
-      </div>
+      </>
     );
   };
 
@@ -211,6 +203,11 @@ class BaseTable extends React.Component<Props> {
                       height: `${ROW_HEIGHT}px`,
                       borderRight:
                         index === 0 ? "3px solid #dedede" : "1px solid #dedede",
+                    }}
+                    headerStyle={{
+                      padding: 0,
+                      display: "flex",
+                      flexDirection: "row",
                     }}
                     width={
                       this.state.columnPercentageWidths[dataKey] *

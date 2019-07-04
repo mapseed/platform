@@ -119,18 +119,15 @@ class MapseedLineChart extends React.Component<Props> {
       <ChartWrapper layout={this.props.layout} header={this.props.header}>
         <ResponsiveContainer
           width={"95%"}
-          height={200}
+          height={
+            this.props.layout.height ? this.props.layout.height - 50 : 250
+          }
           css={css`
             margin: auto;
           `}
         >
           <LineChart
-            css={css`
-              margin-left: auto;
-              margin-right: auto;
-              margin-bottom: 16px;
-            `}
-            margin={{ bottom: 24 }}
+            margin={{ bottom: 24, top: 36 }}
             data={this.props.data}
           >
             <XAxis

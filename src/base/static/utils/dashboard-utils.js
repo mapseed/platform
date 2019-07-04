@@ -59,7 +59,7 @@ const dateFormatter = value => moment(value).format("MMM Do, YYYY");
 
 const BooleanIndicator = ({ color, outlineColor, faClassname }) => (
   <FontAwesomeIcon
-    fontSize="1.8rem"
+    fontSize="1.6rem"
     faClassname={faClassname}
     color={color}
     textShadow={`-1px -1px 0 ${outlineColor}, 1px -1px 0 ${outlineColor}, -1px 1px 0 ${outlineColor}, 1px 1px 0 ${outlineColor}`}
