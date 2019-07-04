@@ -5,7 +5,12 @@ import { AutoSizer, Column, Table } from "react-virtualized";
 import Draggable from "react-draggable";
 import "react-virtualized/styles.css";
 
-import { DashboardText } from "../../atoms/typography";
+import { DashboardText, ExternalLink } from "../../atoms/typography";
+import { isEmailAddress, getFormatter } from "../../../utils/dashboard-utils";
+
+const CELL_FORMAT_WEIGHTS = ["bold", "regular"];
+const CELL_FORMAT_COLORS = ["#222", "#888", "#aaa"];
+const ROW_HEIGHT = 75;
 
 class BaseTable extends React.Component<Props> {
   static defaultProps = {
@@ -42,34 +47,68 @@ class BaseTable extends React.Component<Props> {
     });
   };
 
-  formatCellData = (data, type) => {
+  getCellAlignment = type => {
     switch (type) {
-      case "date":
-        return moment(data).format("MMM Do, YYYY");
+      case "numeric":
+        return "right";
+      case "boolean":
+        return "center";
+      case "text":
+        return "left";
       default:
-        return data;
+        return "left";
     }
   };
 
   cellRenderer = ({ cellData, columnIndex, type, rowHeight }) => {
     return (
-      <div style={{ height: rowHeight }}>
-        {Array.isArray(cellData.value) ? (
-          cellData.value.map((cellDataPart, i) => (
+      <div>
+        {cellData.value.map((valuePart, i) => {
+          const isEmail = isEmailAddress(valuePart);
+
+          return (
             <DashboardText
+              css={css`
+                text-overflow: ellipsis;
+                overflow: hidden;
+              `}
               key={i}
-              weight="bold"
-              textAlign={cellData.type === "numeric" ? "right" : "left"}
+              weight={
+                CELL_FORMAT_WEIGHTS[
+                  i > CELL_FORMAT_WEIGHTS.length - 1
+                    ? CELL_FORMAT_WEIGHTS.length - 1
+                    : i
+                ]
+              }
+              color={
+                isEmail
+                  ? "#005999"
+                  : CELL_FORMAT_COLORS[
+                      i > CELL_FORMAT_COLORS.length - 1
+                        ? CELL_FORMAT_COLORS.length - 1
+                        : i
+                    ]
+              }
+              textAlign={this.getCellAlignment(cellData.type)}
             >
-              {cellDataPart}
+              {isEmail ? (
+                <ExternalLink href={`mailto:${valuePart}`}>
+                  {valuePart}
+                </ExternalLink>
+              ) : (
+                getFormatter(cellData.type)(valuePart)
+              )}
             </DashboardText>
-          ))
-        ) : (
+          );
+        })}
+        {cellData.label && (
           <DashboardText
-            weight="bold"
-            textAlign={cellData.type === "numeric" ? "right" : "left"}
+            textTransform="uppercase"
+            color="#aaa"
+            fontSize="0.9rem"
+            textAlign={this.getCellAlignment(cellData.type)}
           >
-            {cellData.value}
+            {cellData.label}
           </DashboardText>
         )}
       </div>
@@ -90,29 +129,22 @@ class BaseTable extends React.Component<Props> {
       };
     });
 
-  headerRenderer = ({ label, dataKey, nextDataKey }) => {
+  headerRenderer = ({ label, dataKey, nextDataKey, columnIndex, type }) => {
     return (
       <div
         key={dataKey}
         css={css`
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
           padding: 0;
+          display: flex;
+          justify-content: space-between;
         `}
       >
-        <div
-          css={css`
-            flex: auto;
-            display: inline-block;
-            max-width: 100%;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-          `}
+        <DashboardText
+          color="#aaa"
+          textAlign={columnIndex === 0 ? "left" : this.getCellAlignment(type)}
         >
           {label}
-        </div>
+        </DashboardText>
         {nextDataKey && (
           <ClassNames>
             {({ css }) => (
@@ -159,14 +191,27 @@ class BaseTable extends React.Component<Props> {
             <Table
               width={width}
               height={height}
-              headerHeight={75}
-              rowHeight={75}
+              headerHeight={ROW_HEIGHT}
+              rowHeight={ROW_HEIGHT}
               rowCount={this.props.rows.length}
               rowGetter={({ index }) => this.props.rows[index]}
+              rowStyle={({ index }) => ({
+                backgroundColor:
+                  index % 2 === 0
+                    ? this.props.stripeColor || "initial"
+                    : "initial",
+              })}
             >
               {this.props.columns.map(({ dataKey, type, ...other }, index) => {
                 return (
                   <Column
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      height: `${ROW_HEIGHT}px`,
+                      borderRight:
+                        index === 0 ? "3px solid #dedede" : "1px solid #dedede",
+                    }}
                     width={
                       this.state.columnPercentageWidths[dataKey] *
                       this.state.tableWidth
@@ -175,6 +220,8 @@ class BaseTable extends React.Component<Props> {
                     headerRenderer={headerProps =>
                       this.headerRenderer({
                         ...headerProps,
+                        type,
+                        columnIndex: index,
                         nextDataKey: this.props.columns[index + 1]
                           ? this.props.columns[index + 1].dataKey
                           : null,

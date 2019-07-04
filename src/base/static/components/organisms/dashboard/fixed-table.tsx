@@ -62,7 +62,9 @@ const getFixedTableData = ({ places, widget }) => {
         [widget.columns[i].header]: {
           type: widget.columns[i].type,
           label: cell.label,
-          value: parsedExpression && parsedExpression.evaluate({ dataset }),
+          value: parsedExpression
+            ? [].concat(parsedExpression.evaluate({ dataset }))
+            : [],
         },
       };
     }, {});
@@ -88,6 +90,7 @@ class FixedTable extends React.Component<Props> {
         <BaseTable
           columns={this.props.data.columns}
           rows={this.props.data.rows}
+          stripeColor={this.props.stripeColor}
         />
       </ChartWrapper>
     );

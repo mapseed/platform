@@ -50,7 +50,6 @@ class ChartWrapper extends React.Component<Props> {
               border-top-left-radius: 4px;
               background-color: ${this.props.accentColor};
               padding: 8px 16px 8px 16px;
-              margin-bottom: 32px;
             `}
           >
             {this.props.header}

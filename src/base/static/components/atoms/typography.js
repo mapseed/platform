@@ -215,9 +215,11 @@ const DashboardText = styled("span")(props => ({
   display: "block",
   textAlign: props.textAlign,
   fontFamily: props.weight === "bold" ? "PTSansBold" : "PTSans",
-  fontSize: "1rem",
+  fontSize: props.fontSize,
   color: props.color,
   textTransform: props.textTransform,
+  marginTop: "4px",
+  marginBottom: "4px",
 }));
 
 DashboardText.defaultProps = {
@@ -225,6 +227,7 @@ DashboardText.defaultProps = {
   textAlign: "left",
   weight: "regular",
   textTransform: "none",
+  fontSize: "1rem"
 };
 
 const ExternalLink = styled("a")({

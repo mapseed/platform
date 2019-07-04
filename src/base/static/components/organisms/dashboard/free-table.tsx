@@ -40,7 +40,9 @@ const getFreeTableData = ({ places, widget }) => {
         ...rows,
         [column.header]: {
           type: column.type,
-          value: parsedExpression && parsedExpression.evaluate({ place }),
+          value: parsedExpression
+            ? [].concat(parsedExpression.evaluate({ place }))
+            : [],
           label: column.label,
         },
       };
@@ -67,6 +69,7 @@ class FreeTable extends React.Component<Props, State> {
         <BaseTable
           rows={this.props.data.rows}
           columns={this.props.data.columns}
+          stripeColor={this.props.stripeColor}
         />
       </ChartWrapper>
     );

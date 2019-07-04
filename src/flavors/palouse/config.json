@@ -109,6 +109,7 @@
         {
           "header": "Landowner summary",
           "type": "freeTable",
+          "stripeColor": "#f8f5f5",
           "columns": [
             {
               "header": "Name and contact",
@@ -141,7 +142,7 @@
         {
           "header": "Overview by Stewardship Category",
           "type": "fixedTable",
-          "stripeColor": "rgb(255, 248, 234)",
+          "stripeColor": "#f8f5f5",
           "layout": {
             "start": 6,
             "end": 13,
@@ -150,7 +151,8 @@
           "columns": [
             {
               "header": "Stewardship category",
-              "type": "string"
+              "type": "string",
+              "fractionalWidth": 2
             },
             {
               "header": "Countywide",
