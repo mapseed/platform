@@ -134,6 +134,13 @@
         ],
         "tileSize": 256
       },
+      "noheart": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/NoHeartOfFear/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
       "nitrogen-farm-emissions": {
         "type": "raster",
         "tiles": [
@@ -260,6 +267,31 @@
                 15,
                 1,
                 16,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "noheart-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "noheart-basemap",
+            "type": "raster",
+            "source": "noheart",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                4,
+                0,
+                5,
+                1,
+                9,
                 0
               ]
             }
@@ -451,21 +483,21 @@
             "type": "symbol",
             "source": "mississippi-input",
             "layout": {
-              "icon-size": 0.4,
-              "icon-anchor": "bottom",
+              "icon-size": 0.8,
+              "icon-anchor": "center",
               "icon-image": [
                 "match",
                 ["get", "location_type"],
                 "geology",
-                "geology.png",
+                "Geology.png",
                 "history",
-                "history.png",
+                "History.png",
                 "industry",
-                "industry.png",
+                "Industry.png",
                 "culture",
-                "culture.png",
+                "Culture.png",
                 "ecology",
-                "ecology.png",
+                "Ecology.png",
                 "__no-icon-image__"
               ]
             }
@@ -478,8 +510,8 @@
             "source": "mississippi-input",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-anchor": "bottom",
-              "icon-size": ["step", ["zoom"], 0.2, 10, 0.3],
+              "icon-anchor": "center",
+              "icon-size": ["step", ["zoom"], 0.3, 9, 0.8],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -487,15 +519,15 @@
                   "match",
                   ["get", "location_type"],
                   "geology",
-                  "geology.png",
+                  "Geology.png",
                   "history",
-                  "history.png",
+                  "History.png",
                   "industry",
-                  "industry.png",
+                  "Industry.png",
                   "culture",
-                  "culture.png",
+                  "Culture.png",
                   "ecology",
-                  "ecology.png",
+                  "Ecology.png",
                   "__no-icon-image__"
                 ],
                 10,
@@ -503,15 +535,15 @@
                   "match",
                   ["get", "location_type"],
                   "geology",
-                  "geology.png",
+                  "Geology.png",
                   "history",
-                  "history.png",
+                  "History.png",
                   "industry",
-                  "industry.png",
+                  "Industry.png",
                   "culture",
-                  "culture.png",
+                  "Culture.png",
                   "ecology",
-                  "ecology.png",
+                  "Ecology.png",
                   "__no-icon-image__"
                 ]
               ]
@@ -1173,13 +1205,14 @@
       },
       {
         "placeId": 7309,
-        "pan_to": [-90.92, 43.48],
-        "zoom": 8,
+        "pan_to": [-94.0, 41.9],
+        "zoom": 5.6,
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "mississippi-group",
           "kickapoo-group",
-          "streets2-group"
+          "streets2-group",
+          "noheart-group"
         ],
         "spotlight": false
       },
@@ -1204,7 +1237,8 @@
           "NewMadrid-group",
           "InactiveCoalMines-group",
           "ActiveCoalMines-group",
-          "streets2-group"
+          "streets2-group",
+          "mississippi-input"
         ],
         "spotlight": false
       },
