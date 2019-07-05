@@ -38,7 +38,7 @@ const fixedTablePropTypes = {
 
 type Props = PropTypes.InferProps<typeof fixedTablePropTypes>;
 
-const getFixedTableData = ({ places, widget }) => {
+const getFixedTableData = ({ places, widget, widgetState }) => {
   const columnFilters = widget.columns.map(column => {
     if (column.filter) {
       return makeParsedExpression(column.filter);
@@ -47,23 +47,31 @@ const getFixedTableData = ({ places, widget }) => {
 
   const fixedTableRows = widget.rows.map(row => {
     return row.cells.reduce((cells, cell, i) => {
-      const dataset = places.filter(place => {
-        if (!columnFilters[i]) {
-          return true;
-        } else {
-          return columnFilters[i].evaluate({ place });
-        }
-      });
+      const filteredDataset = places.filter(
+        place =>
+          columnFilters[i]
+            ? columnFilters[i].evaluate({
+                dataset: places,
+                place,
+                widgetState,
+              })
+            : true,
+      );
 
-      const parsedExpression = makeParsedExpression(cell.value);
+      const valueExpression = makeParsedExpression(cell.value);
 
       return {
         ...cells,
         [widget.columns[i].header]: {
           type: widget.columns[i].type,
           label: cell.label,
-          value: parsedExpression
-            ? [].concat(parsedExpression.evaluate({ dataset }))
+          value: valueExpression
+            ? [].concat(
+                valueExpression.evaluate({
+                  dataset: filteredDataset,
+                  widgetState,
+                }),
+              )
             : [],
         },
       };

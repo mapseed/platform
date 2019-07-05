@@ -14,6 +14,7 @@ type Place = PropTypes.InferProps<typeof placePropType>;
 class EvaluationContext implements IEvaluationContext {
   place;
   dataset;
+  widgetState;
 
   setPlace(place: Place) {
     this.place = place;
@@ -21,6 +22,10 @@ class EvaluationContext implements IEvaluationContext {
 
   setDataset(dataset: Place[]) {
     this.dataset = dataset;
+  }
+
+  setWidgetState(widgetState: any) {
+    this.widgetState = widgetState;
   }
 }
 
@@ -34,9 +39,18 @@ class ParsedExpression implements IParsedExpression {
     this.evaluator = new EvaluationContext();
   }
 
-  evaluate({ place, dataset }: { place?: Place; dataset?: Place[] }) {
+  evaluate({
+    place,
+    dataset,
+    widgetState,
+  }: {
+    place?: Place;
+    dataset?: Place[];
+    widgetState?: any;
+  }) {
     this.evaluator.setPlace(place);
     this.evaluator.setDataset(dataset);
+    this.evaluator.setWidgetState(widgetState);
 
     return this.expression.evaluate(this.evaluator);
   }

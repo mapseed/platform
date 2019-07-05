@@ -5,7 +5,7 @@ import { placePropType } from "../../state/ducks/places";
 export interface Expression {
   property?: string;
   evaluate: (
-    evaluationContext: IEvaluationContext,
+    evaluationContext: IEvaluationContet,
   ) => number | string | boolean | Expression;
 }
 
@@ -14,6 +14,7 @@ type Place = PropTypes.InferProps<typeof placePropType>;
 export interface IEvaluationContext {
   place?: Place;
   dataset?: Place[];
+  widgetState?: any;
 }
 
 export interface IParsingContext {

@@ -1,5 +1,6 @@
 import { Expression, IEvaluationContext } from "../expression";
 import { getNumericalPart } from "../../../utils/dashboard-utils";
+import makeParsedExpression from "../parse";
 
 const getNumericalValsByKey = (dataset, key) => {
   return dataset.reduce((validVals, place) => {
@@ -15,12 +16,33 @@ const getPlaceVal = (context: IEvaluationContext, property: string) => {
   return typeof val === "undefined" ? null : val;
 };
 
-const getDatasetSum = (context: IEvaluationContext, property: string) => {
+const getDatasetSum = (
+  context: IEvaluationContext,
+  property: string,
+  placeCondition?: Expression,
+) => {
   const sum = context.dataset
     ? context.dataset.reduce((sum, place) => {
         const val = getNumericalPart(place[property]);
 
-        return isNaN(val) ? sum : sum + val;
+        if (isNaN(val)) {
+          return sum;
+        }
+
+        if (placeCondition) {
+          const conditionExpression = makeParsedExpression(placeCondition);
+
+          return conditionExpression &&
+            conditionExpression.evaluate({
+              place,
+              dataset: context.dataset,
+              widgetState: context.widgetState,
+            })
+            ? sum + val
+            : sum;
+        }
+
+        return sum + val;
       }, 0)
     : 0;
 
@@ -51,44 +73,53 @@ const getDatasetMin = (context: IEvaluationContext, property: string) => {
 
 const getDatasetCount = (context: IEvaluationContext, property: string) => {
   return context.dataset
-    ? // getDatasetCount counts Places in a dataset, optioanlly filtered by a
+    ? // getDatasetCount counts Places in a dataset, optionally filtered by a
       // Place property.
       context.dataset.filter(place => (property ? place[property] : true))
         .length
     : 0;
 };
 
+const getWidgetState = (context: IEvaluationContext, property: string) => {
+  const val = context.widgetState ? context.widgetState[property] : undefined;
+
+  return typeof val === "undefined" ? null : val;
+};
+
 const makeLookup = (op, lookupFn) => {
   return class Lookup implements Expression {
     property;
+    placeCondition;
+    type: op;
 
-    constructor(property) {
+    constructor(property: string, placeCondition?: Expression) {
       this.property = property;
+      this.placeCondition = placeCondition;
     }
 
     static parse(args, parsingContext) {
-      const op = args[0];
-      if (op !== "get-count" && args.length !== 2) {
+      if (op === "get-count" && args.length !== 2) {
         // eslint-disable-next-line no-console
         console.error(`Error: expected one argument for "${op}"`);
 
         return null;
-      } else if (op === "get-count" && args.length > 2) {
+      } else if (args.length > 3) {
         // eslint-disable-next-line no-console
-        console.error(`Error: expected one or zero arguments for "${op}"`);
+        console.error(`Error: expected one or two arguments for "${op}"`);
 
         return null;
       }
 
-      return new Lookup(args[1]);
+      return new Lookup(args[1], args[2]);
     }
 
     evaluate(evaluationContext: IEvaluationContext) {
-      return lookupFn(evaluationContext, this.property);
+      return lookupFn(evaluationContext, this.property, this.placeCondition);
     }
   };
 };
 
+export const GetWidgetState = makeLookup("get-widget-state", getWidgetState);
 export const GetPlaceVal = makeLookup("get-val", getPlaceVal);
 export const GetDatasetSum = makeLookup("get-sum", getDatasetSum);
 export const GetDatasetMean = makeLookup("get-mean", getDatasetMean);

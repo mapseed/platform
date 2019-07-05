@@ -176,10 +176,10 @@ class ChartWrapper extends React.Component<Props> {
         >
           <WidgetComponent
             {...widget}
-            widgetState={this.state.widgetState}
             data={widgetRegistry[widget.type].getData({
               widget,
               timeZone: this.props.timeZone,
+              widgetState: this.state.widgetState,
               places: this.props.places,
             })}
           />

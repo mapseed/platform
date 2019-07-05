@@ -29,7 +29,7 @@ const freeTablePropTypes = {
 
 type Props = PropTypes.InferProps<typeof freeTablePropTypes>;
 
-const getFreeTableData = ({ places, widget }) => {
+const getFreeTableData = ({ places, widget, widgetState }) => {
   const freeTableRows = places.map(place => {
     return widget.columns.reduce((rows, column) => {
       const parsedExpression = makeParsedExpression(column.value);
@@ -41,7 +41,13 @@ const getFreeTableData = ({ places, widget }) => {
         [column.header]: {
           type: column.type,
           value: parsedExpression
-            ? [].concat(parsedExpression.evaluate({ place }))
+            ? [].concat(
+                parsedExpression.evaluate({
+                  place,
+                  dataset: places,
+                  widgetState,
+                }),
+              )
             : [],
           label: column.label,
         },
