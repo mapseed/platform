@@ -1,8 +1,11 @@
+/** @jsx jsx */
 import * as React from "react";
+import { jsx, css } from "@emotion/core";
 import moment from "moment";
 import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "../components/atoms/imagery";
+import { Badge } from "../components/atoms/typography";
 
 // These are the colors we use for our charts:
 const BLUE = "#377eb8";
@@ -98,7 +101,16 @@ const booleanFormatter = value => {
 };
 
 const badgeFormatter = value => {
-  return <div style={{ backgroundColor: value.color }}>{value.label}</div>;
+  return (
+    <Badge
+      css={css`
+        display: inline;
+      `}
+      color={value.color}
+    >
+      {value.label}
+    </Badge>
+  );
 };
 
 const getFormatter = format => {

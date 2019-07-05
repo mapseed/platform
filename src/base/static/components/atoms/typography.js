@@ -4,6 +4,7 @@ import classNames from "classnames";
 import styled from "@emotion/styled";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { darken } from "@material-ui/core/styles/colorManipulator";
 
 import "./typography.scss";
 
@@ -211,8 +212,9 @@ const MicroText = styled("span")(props => {
   return textHandler(props, styles);
 });
 
-const DashboardText = styled("span")(props => ({
-  display: "block",
+const DashboardText = styled("p")(props => ({
+  margin: 0,
+  padding: 0,
   textAlign: props.textAlign,
   fontFamily: props.weight === "bold" ? "PTSansBold" : "PTSans",
   fontSize: props.fontSize,
@@ -220,14 +222,16 @@ const DashboardText = styled("span")(props => ({
   textTransform: props.textTransform,
   marginTop: "4px",
   marginBottom: "4px",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
 }));
 
 DashboardText.defaultProps = {
   color: "#222",
-  textAlign: "left",
+  textAlign: "center",
   weight: "regular",
   textTransform: "none",
-  fontSize: "1rem"
+  fontSize: "1rem",
 };
 
 const ExternalLink = styled("a")({
@@ -268,6 +272,22 @@ Time.propTypes = {
   time: PropTypes.string.isRequired,
 };
 
+// TODO: Dynamic badge border radius and padding to match content.
+const Badge = styled("span")(props => ({
+  backgroundColor: props.color,
+  color: darken(props.color, 0.8),
+  padding: "2px 12px 2px 12px",
+  borderRadius: "14px",
+}));
+
+Badge.defaultProps = {
+  color: "#bbb",
+};
+
+Badge.propTypes = {
+  color: PropTypes.string.isRequired,
+};
+
 export {
   ExternalLink,
   InternalLink,
@@ -292,4 +312,5 @@ export {
   MicroText,
   DashboardText,
   Time,
+  Badge,
 };

@@ -7,10 +7,12 @@ import "react-virtualized/styles.css";
 
 import { DashboardText, ExternalLink } from "../../atoms/typography";
 import { isEmailAddress, getFormatter } from "../../../utils/dashboard-utils";
+import { Badge } from "../../atoms/typography";
 
 const CELL_FORMAT_WEIGHTS = ["bold", "regular"];
 const CELL_FORMAT_COLORS = ["#222", "#888", "#aaa"];
 const ROW_HEIGHT = 75;
+const clamp = (arr, i) => (i > arr.length - 1 ? arr[arr.length - 1] : arr[i]);
 
 class BaseTable extends React.Component<Props> {
   state = {
@@ -48,7 +50,6 @@ class BaseTable extends React.Component<Props> {
       case "numeric":
         return "right";
       case "boolean":
-      case "badge":
         return "center";
       case "text":
         return "left";
@@ -59,57 +60,52 @@ class BaseTable extends React.Component<Props> {
 
   cellRenderer = ({ cellData, columnIndex, type, rowHeight }) => {
     return (
-      <div style={{ width: "100%", padding: "8px" }}>
+      <div
+        css={css`
+          width: 100%;
+          padding: 8px;
+        `}
+      >
         {cellData.value.map((valuePart, i) => {
           const isEmail = isEmailAddress(valuePart);
 
-          return (
-            <DashboardText
-              css={css`
-                text-overflow: ellipsis;
-                overflow: hidden;
-              `}
+          return type === "badge" ? (
+            <div
               key={i}
-              weight={
-                type === "badge"
-                  ? "regular"
-                  : CELL_FORMAT_WEIGHTS[
-                      i > CELL_FORMAT_WEIGHTS.length - 1
-                        ? CELL_FORMAT_WEIGHTS.length - 1
-                        : i
-                    ]
-              }
-              color={
-                isEmail
-                  ? "#005999"
-                  : CELL_FORMAT_COLORS[
-                      i > CELL_FORMAT_COLORS.length - 1
-                        ? CELL_FORMAT_COLORS.length - 1
-                        : i
-                    ]
-              }
-              textAlign={this.getCellAlignment(cellData.type)}
+              css={css`
+                display: flex;
+                justify-content: center;
+              `}
+            >
+              <Badge color={valuePart.color}>
+                <DashboardText weight="bold" fontSize="0.9rem">
+                  {valuePart.label}
+                </DashboardText>
+              </Badge>
+            </div>
+          ) : (
+            <DashboardText
+              key={i}
+              textAlign={this.getCellAlignment(type)}
+              weight={clamp(CELL_FORMAT_WEIGHTS, i)}
+              color={isEmail ? "#005999" : clamp(CELL_FORMAT_COLORS, i)}
             >
               {isEmail ? (
                 <ExternalLink href={`mailto:${valuePart}`}>
                   {valuePart}
                 </ExternalLink>
               ) : (
-                getFormatter(cellData.type)(valuePart)
+                getFormatter(type)(valuePart)
               )}
             </DashboardText>
           );
         })}
         {cellData.label && (
           <DashboardText
-            css={css`
-              text-overflow: ellipsis;
-              overflow: hidden;
-            `}
+            textAlign={this.getCellAlignment(type)}
             textTransform="uppercase"
             color="#aaa"
             fontSize="0.9rem"
-            textAlign={this.getCellAlignment(cellData.type)}
           >
             {cellData.label}
           </DashboardText>
@@ -134,47 +130,27 @@ class BaseTable extends React.Component<Props> {
 
   headerRenderer = ({ label, dataKey, nextDataKey, columnIndex, type }) => {
     return (
-      <>
-        <DashboardText
-          color="#aaa"
-          textAlign={columnIndex === 0 ? "left" : this.getCellAlignment(type)}
-        >
-          {label}
-        </DashboardText>
-        {nextDataKey && (
-          <ClassNames>
-            {({ css }) => (
-              <Draggable
-                axis="x"
-                defaultClassName={css`
-                  z-index: 2;
-                  cursor: col-resize;
-                  color: #000;
-                `}
-                onDrag={(event, { deltaX }) =>
-                  this.resizeRow({
-                    dataKey,
-                    deltaX,
-                    nextDataKey,
-                  })
-                }
-                position={{ x: 0, y: 0 }}
-              >
-                <span
-                  css={css`
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                  `}
-                >
-                  ⋮
-                </span>
-              </Draggable>
-            )}
-          </ClassNames>
+      <ClassNames>
+        {({ css }) => (
+          <Draggable
+            axis="x"
+            defaultClassName={css`
+              z-index: 2;
+              cursor: col-resize;
+            `}
+            onDrag={(event, { deltaX }) =>
+              this.resizeRow({
+                dataKey,
+                deltaX,
+                nextDataKey,
+              })
+            }
+            position={{ x: 0, y: 0 }}
+          >
+            <DashboardText color="#aaa">{label}</DashboardText>
+          </Draggable>
         )}
-      </>
+      </ClassNames>
     );
   };
 
@@ -206,11 +182,19 @@ class BaseTable extends React.Component<Props> {
                       height: `${ROW_HEIGHT}px`,
                       borderRight:
                         index === 0 ? "3px solid #dedede" : "1px solid #dedede",
+                      marginRight: 0,
                     }}
                     headerStyle={{
-                      padding: 0,
+                      width: "100%",
                       display: "flex",
-                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: `${ROW_HEIGHT}px`,
+                      borderRight:
+                        index === 0 ? "3px solid #dedede" : "1px solid #dedede",
+                      marginRight: 0,
+                      padding: "4px",
+                      boxSizing: "border-box",
                     }}
                     width={
                       this.state.columnPercentageWidths[dataKey] *
