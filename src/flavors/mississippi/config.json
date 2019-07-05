@@ -1199,7 +1199,7 @@
       "content": [
         "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/7306' rel='internal'>",
+        "<a href='/featured/7529' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/MachinicRiver.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Machinic River</h3>",
@@ -1207,7 +1207,7 @@
         "</a>",
         "</figure>",
         "<figure class='flow-layout flow-sq flow-vert-right'>",
-        "<a href='/featured/7307' rel='internal'>",
+        "<a href='/featured/7530' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceRegion.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Confluence Ecologies</h3>",
@@ -1215,14 +1215,14 @@
         "</a>",
         "</figure>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/7310' rel='internal'>",
+        "<a href='/featured/7533' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/IndustryIndigeneity&Empire.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Industry, Indigeneity, and Empire</h3>",
         "</figcaption>",
         "</a>",
         "</figure>",
-        "<a href='/featured/7309' rel='internal'>",
+        "<a href='/featured/7532' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/AnthropoceneDrift.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
         "<h3>Anthropocene Drift</h3>",
@@ -1241,12 +1241,12 @@
     ],
     "order": [
       {
-        "placeId": 7306,
+        "placeId": 7529,
         "zoom": 15,
         "spotlight": false
       },
       {
-        "placeId": 7309,
+        "placeId": 7532,
         "pan_to": [-94.0, 41.9],
         "zoom": 5.6,
         "visibleLayerGroupIds": [
@@ -1259,7 +1259,7 @@
         "spotlight": false
       },
       {
-        "placeId": 7310,
+        "placeId": 7533,
         "pan_to": [-90.29, 38.73],
         "zoom": 10,
         "visibleLayerGroupIds": [
@@ -1270,7 +1270,7 @@
         "spotlight": false
       },
       {
-        "placeId": 7307,
+        "placeId": 7530,
         "pan_to": [-89.143, 37.16],
         "zoom": 8,
         "visibleLayerGroupIds": [
@@ -1285,7 +1285,7 @@
         "spotlight": false
       },
       {
-        "placeId": 7308,
+        "placeId": 7531,
         "pan_to": [-90.65, 39.65],
         "zoom": 5,
         "iconUrl": "/static/css/images/markers/Industry.png",
