@@ -3,8 +3,9 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
 
-import { RegularText, SmallText } from "../../atoms/typography";
+import { RegularText, SmallText, TinyTitle } from "../../atoms/typography";
 import { RadioInput } from "../../atoms/input";
+import { FontAwesomeIcon } from "../../atoms/imagery";
 import { FreeDonutChart, getFreeDonutChartData } from "./free-donut-chart";
 import { FreeBarChart, getFreeBarChartData } from "./free-bar-chart";
 import { MapseedLineChart, getLineChartData } from "./line-chart";
@@ -30,7 +31,7 @@ type DefaultProps = {
 type Props = PropTypes.InferProps<typeof chartWrapperPropTypes> &
   Partial<DefaultProps>;
 
-const HEADER_HEIGHT = "48px";
+const HEADER_HEIGHT = "56px";
 
 const widgetRegistry = {
   lineChart: {
@@ -95,6 +96,23 @@ class ChartWrapper extends React.Component<Props> {
     });
   };
 
+  getIconClassname = type => {
+    switch (type) {
+      case "fixedTable":
+      case "freeTable":
+      case "statSummary":
+        return "fa fa-table";
+      case "lineChart":
+        return "fa fa-line-chart";
+      case "freeDonutChart":
+        return "fa fa-chart-pie";
+      case "freeBarChart":
+        return "fa fa-chart-bar";
+      default:
+        return "fa fa-table";
+    }
+  };
+
   render() {
     const { widget } = this.props;
     const WidgetComponent = widgetRegistry[widget.type].component;
@@ -115,15 +133,29 @@ class ChartWrapper extends React.Component<Props> {
         <div
           css={css`
             height: ${HEADER_HEIGHT};
+            max-height: ${HEADER_HEIGHT};
             color: #777;
             font-weight: 900;
             border-top-right-radius: 4px;
             border-top-left-radius: 4px;
             background-color: ${this.props.accentColor};
             padding: 8px 16px 8px 16px;
+            box-sizing: border-box;
           `}
         >
-          <RegularText>{widget.header}</RegularText>
+          <FontAwesomeIcon
+            color="#777"
+            hoverColor="#777"
+            faClassname={this.getIconClassname(widget.type)}
+          />
+          <TinyTitle
+            css={css`
+              margin: 0 0 0 12px;
+              display: inline-block;
+            `}
+          >
+            {widget.header}
+          </TinyTitle>
           {widget.widgetStateControls &&
             widget.widgetStateControls.map(control => {
               return (
@@ -133,7 +165,16 @@ class ChartWrapper extends React.Component<Props> {
                     float: right;
                   `}
                 >
-                  <SmallText>{control.title}</SmallText>
+                  <SmallText
+                    css={css`
+                      display: block;
+                      border-bottom: 0.5px solid #ddd;
+                      padding-bottom: 4px;
+                      margin-bottom: 4px;
+                    `}
+                  >
+                    {control.title}
+                  </SmallText>
                   <div>
                     {control.options.map(option => (
                       <label

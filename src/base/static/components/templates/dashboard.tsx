@@ -234,6 +234,7 @@ class Dashboard extends React.Component<Props, State> {
             <ChartWrapper
               key={i}
               widget={widget}
+              widgetIndex={i}
               timeZone={this.props.appConfig.time_zone}
               places={this.props.datasetPlacesSelector(
                 this.state.dashboard.datasetSlug,

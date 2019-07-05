@@ -119,7 +119,7 @@ class MapseedLineChart extends React.Component<Props> {
     return (
       <ResponsiveContainer
         width={"95%"}
-        height={this.props.layout.height ? this.props.layout.height - 50 : 250}
+        height={this.props.layout.height ? this.props.layout.height - 75 : 250}
         css={css`
           margin: auto;
         `}
