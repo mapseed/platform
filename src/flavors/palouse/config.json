@@ -115,6 +115,23 @@
             "end": 13,
             "height": 500
           },
+          "widgetStateControls": [
+            {
+              "defaultValue": "all-dates",
+              "name": "date-range-selector",
+              "title": "Date range",
+              "options": [
+                {
+                  "value": "all-dates",
+                  "label": "All dates"
+                },
+                {
+                  "value": "pre-2011",
+                  "label": "Pre-2011"
+                }
+              ]
+            }
+          ],
           "columns": [
             {
               "header": "Stewardship category",

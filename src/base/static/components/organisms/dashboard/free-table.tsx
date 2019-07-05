@@ -65,13 +65,11 @@ const getFreeTableData = ({ places, widget }) => {
 class FreeTable extends React.Component<Props, State> {
   render() {
     return (
-      <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        <BaseTable
-          rows={this.props.data.rows}
-          columns={this.props.data.columns}
-          stripeColor={this.props.stripeColor}
-        />
-      </ChartWrapper>
+      <BaseTable
+        rows={this.props.data.rows}
+        columns={this.props.data.columns}
+        stripeColor={this.props.stripeColor}
+      />
     );
   }
 }

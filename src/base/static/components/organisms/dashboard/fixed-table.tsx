@@ -86,13 +86,11 @@ const getFixedTableData = ({ places, widget }) => {
 class FixedTable extends React.Component<Props> {
   render() {
     return (
-      <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        <BaseTable
-          columns={this.props.data.columns}
-          rows={this.props.data.rows}
-          stripeColor={this.props.stripeColor}
-        />
-      </ChartWrapper>
+      <BaseTable
+        columns={this.props.data.columns}
+        rows={this.props.data.rows}
+        stripeColor={this.props.stripeColor}
+      />
     );
   }
 }

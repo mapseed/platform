@@ -66,6 +66,7 @@ const getLineChartData = ({ places, timeZone }) => {
         if (maxDate < date) {
           maxDate = date;
         }
+
         return date.tz(timeZone).format(DATETIME_FORMAT);
       })
     : {};
@@ -116,53 +117,46 @@ CustomDot.propTypes = {
 class MapseedLineChart extends React.Component<Props> {
   render() {
     return (
-      <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        <ResponsiveContainer
-          width={"95%"}
-          height={
-            this.props.layout.height ? this.props.layout.height - 50 : 250
-          }
-          css={css`
-            margin: auto;
-          `}
-        >
-          <LineChart
-            margin={{ bottom: 24, top: 36 }}
-            data={this.props.data}
+      <ResponsiveContainer
+        width={"95%"}
+        height={this.props.layout.height ? this.props.layout.height - 50 : 250}
+        css={css`
+          margin: auto;
+        `}
+      >
+        <LineChart margin={{ bottom: 24, top: 36 }} data={this.props.data}>
+          <XAxis
+            dataKey="day"
+            stroke="#aaa"
+            tickLine={false}
+            tick={{ fontSize: 12 }}
           >
-            <XAxis
-              dataKey="day"
-              stroke="#aaa"
-              tickLine={false}
-              tick={{ fontSize: 12 }}
-            >
-              <Label
-                value={this.props.xAxisLabel}
-                fill="#aaa"
-                position="bottom"
-              />
-            </XAxis>
-            <YAxis stroke="#aaa" tickLine={false} tick={{ fontSize: 12 }}>
-              <Label
-                value={this.props.yAxisLabel}
-                fill="#aaa"
-                dx={-10}
-                angle={-90}
-              />
-            </YAxis>
-            <Tooltip cursor={false} />
-            <Line
-              type="monotone"
-              dataKey="count"
-              isAnimationActive={false}
-              stroke={BLUE}
-              strokeWidth={2}
-              dot={<CustomDot />}
-              activeDot={{ r: 3, fill: BLUE, stroke: BLUE }}
+            <Label
+              value={this.props.xAxisLabel}
+              fill="#aaa"
+              position="bottom"
             />
-          </LineChart>
-        </ResponsiveContainer>
-      </ChartWrapper>
+          </XAxis>
+          <YAxis stroke="#aaa" tickLine={false} tick={{ fontSize: 12 }}>
+            <Label
+              value={this.props.yAxisLabel}
+              fill="#aaa"
+              dx={-10}
+              angle={-90}
+            />
+          </YAxis>
+          <Tooltip cursor={false} />
+          <Line
+            type="monotone"
+            dataKey="count"
+            isAnimationActive={false}
+            stroke={BLUE}
+            strokeWidth={2}
+            dot={<CustomDot />}
+            activeDot={{ r: 3, fill: BLUE, stroke: BLUE }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     );
   }
 }

@@ -80,7 +80,7 @@ const getStatSummaryData = ({ places, widget }) => {
 
 const StatSummary = (props: Props) => {
   return (
-    <ChartWrapper layout={props.layout} header={props.header}>
+    <React.Fragment>
       {props.data.map(row => (
         <div
           key={row.label}
@@ -110,7 +110,7 @@ const StatSummary = (props: Props) => {
           </LargeTitle>
         </div>
       ))}
-    </ChartWrapper>
+    </React.Fragment>
   );
 };
 

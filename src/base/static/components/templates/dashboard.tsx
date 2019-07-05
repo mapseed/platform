@@ -35,27 +35,7 @@ import { hasAdminAbilities } from "../../state/ducks/user";
 import { Badge } from "../atoms/layout";
 import { RegularTitle, SmallText, ExternalLink } from "../atoms/typography";
 import { FontAwesomeIcon } from "../atoms/imagery";
-import {
-  FreeDonutChart,
-  getFreeDonutChartData,
-} from "../organisms/dashboard/free-donut-chart";
-import {
-  FreeBarChart,
-  getFreeBarChartData,
-} from "../organisms/dashboard/free-bar-chart";
-import {
-  MapseedLineChart,
-  getLineChartData,
-} from "../organisms/dashboard/line-chart";
-import {
-  StatSummary,
-  getStatSummaryData,
-} from "../organisms/dashboard/stat-summary";
-import {
-  FixedTable,
-  getFixedTableData,
-} from "../organisms/dashboard/fixed-table";
-import { FreeTable, getFreeTableData } from "../organisms/dashboard/free-table";
+import ChartWrapper from "../organisms/dashboard/chart-wrapper";
 
 import constants from "../../constants";
 import makeParsedExpression from "../../utils/expression/parse";
@@ -85,33 +65,6 @@ interface State {
   datasetSlug: string | null;
 }
 
-const widgetRegistry = {
-  lineChart: {
-    component: MapseedLineChart,
-    getData: getLineChartData,
-  },
-  freeDonutChart: {
-    component: FreeDonutChart,
-    getData: getFreeDonutChartData,
-  },
-  freeBarChart: {
-    component: FreeBarChart,
-    getData: getFreeBarChartData,
-  },
-  statSummary: {
-    component: StatSummary,
-    getData: getStatSummaryData,
-  },
-  fixedTable: {
-    component: FixedTable,
-    getData: getFixedTableData,
-  },
-  freeTable: {
-    component: FreeTable,
-    getData: getFreeTableData,
-  },
-};
-
 class Dashboard extends React.Component<Props, State> {
   state: State = {
     anchorEl: null,
@@ -128,8 +81,6 @@ class Dashboard extends React.Component<Props, State> {
   };
 
   selectAndCloseDashboardDropdown = newDashboardConfig => {
-    console.log("newDashboardConfig", newDashboardConfig)
-
     this.setState({
       anchorEl: null,
       dashboard: newDashboardConfig,
@@ -279,23 +230,16 @@ class Dashboard extends React.Component<Props, State> {
             box-sizing: border-box;
           `}
         >
-          {this.state.dashboard.widgets.map((widget, i) => {
-            const WidgetComponent = widgetRegistry[widget.type].component;
-
-            return (
-              <WidgetComponent
-                key={i}
-                {...widget}
-                data={widgetRegistry[widget.type].getData({
-                  widget,
-                  timeZone: this.props.appConfig.time_zone,
-                  places: this.props.datasetPlacesSelector(
-                    this.state.dashboard.datasetSlug,
-                  ),
-                })}
-              />
-            );
-          })}
+          {this.state.dashboard.widgets.map((widget, i) => (
+            <ChartWrapper
+              key={i}
+              widget={widget}
+              timeZone={this.props.appConfig.time_zone}
+              places={this.props.datasetPlacesSelector(
+                this.state.dashboard.datasetSlug,
+              )}
+            />
+          ))}
         </div>
       </div>
     );
