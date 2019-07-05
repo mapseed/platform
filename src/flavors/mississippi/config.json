@@ -164,10 +164,10 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
       },
-    "nitrogenloading": {
-      "type": "vector",
-      "tiles": [
-        "https://ecotopia.today/Mississippi/MARBvectortiles/{z}/{x}/{y}.pbf"
+      "nitrogenloading": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/MARBvectortiles/{z}/{x}/{y}.pbf"
         ]
       }
     },
@@ -246,7 +246,16 @@
             "source-layer": "nitrogen",
             "paint": {
               "fill-color": "#c35800",
-              "fill-opacity": { "property": "INCY_S5", "stops": [ [0, 0], [200, 0.25], [500, 0.5], [1000, 0.75], [2000, 1] ] },
+              "fill-opacity": {
+                "property": "INCY_S5",
+                "stops": [
+                  [0, 0],
+                  [200, 0.25],
+                  [500, 0.5],
+                  [1000, 0.75],
+                  [2000, 1]
+                ]
+              },
               "fill-outline-color": [
                 "interpolate",
                 ["linear"],
