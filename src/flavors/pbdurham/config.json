@@ -561,11 +561,35 @@
                 "match",
                 ["get", "ward"],
                 "ward_1",
-                "project-ward-1-focused.png",
+                "project-ward-2-focused.png",
                 "ward_2",
                 "project-ward-2-focused.png",
                 "ward_3",
-                "project-ward-3-focused.png",
+                "project-ward-2-focused.png",
+                "citywide",
+                "project-ward-2-focused.png",
+                "money.png"
+              ],
+              "icon-size": 0.3,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "id": "pbdurham-projects-focused-approved",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "cycle1-projects"],
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-citywide-focused.png",
+                "ward_2",
+                "project-citywide-focused.png",
+                "ward_3",
+                "project-citywide-focused.png",
                 "citywide",
                 "project-citywide-focused.png",
                 "money.png"
@@ -579,6 +603,7 @@
           {
             "id": "pbdurham-projects",
             "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "projects"],
             "source": "pbdurham-projects",
             "layout": {
               "icon-allow-overlap": true,
@@ -587,11 +612,35 @@
                 "match",
                 ["get", "ward"],
                 "ward_1",
-                "project-ward-1.png",
+                "project-ward-2.png",
                 "ward_2",
                 "project-ward-2.png",
                 "ward_3",
-                "project-ward-3.png",
+                "project-ward-2.png",
+                "citywide",
+                "project-ward-2.png",
+                "money.png"
+              ],
+              "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
+            }
+          },
+          {
+            "id": "pbdurham-projects-approved",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "cycle1-projects"],
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-citywide.png",
+                "ward_2",
+                "project-citywide.png",
+                "ward_3",
+                "project-citywide.png",
                 "citywide",
                 "project-citywide.png",
                 "money.png"
@@ -1483,6 +1532,18 @@
     },
     "places": [
       {
+        "id": "cycle1-projects",
+        "datasetSlug": "pbdurham-projects",
+        "label": "Cycle 1 Winners",
+        "icon": "/static/css/images/markers/money.png"
+      },
+      {
+        "id": "projects",
+        "datasetSlug": "pbdurham-projects",
+        "label": "Proposals",
+        "icon": "/static/css/images/markers/money.png"
+      },
+      {
         "id": "culture",
         "datasetSlug": "pbdurham",
         "label": "Art & Culture",
@@ -1517,12 +1578,6 @@
         "datasetSlug": "pbdurham",
         "label": "Other",
         "icon": "/static/css/images/markers/idea.png"
-      },
-      {
-        "id": "projects",
-        "datasetSlug": "pbdurham-projects",
-        "label": "Proposals",
-        "icon": "/static/css/images/markers/money.png"
       }
     ],
     "fields": [
