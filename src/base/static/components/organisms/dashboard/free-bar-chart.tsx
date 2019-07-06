@@ -10,7 +10,6 @@ import {
   Tooltip,
 } from "recharts";
 
-import ChartWrapper from "./chart-wrapper";
 import { getFormatter, BLUE } from "../../../utils/dashboard-utils";
 import makeParsedExpression from "../../../utils/expression/parse";
 
@@ -35,6 +34,7 @@ const freeBarChartPropTypes = {
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    height: PropTypes.number,
   }).isRequired,
 };
 
@@ -88,15 +88,19 @@ const getFreeBarChartData = ({ places, widget }) => {
       }, {})
     : {};
 
-  const barChartData = Object.entries(grouped).map(([group, groupedPlaces]) => {
-    const parsedExpression = makeParsedExpression(widget.groupValue);
+  const barChartData = Object.entries(grouped).map(
+    ([group, groupedPlaces]: [any, any]) => {
+      const parsedExpression = makeParsedExpression(widget.groupValue);
 
-    return {
-      value: parsedExpression.evaluate({ dataset: groupedPlaces }),
-      label: labels[group],
-      totalPlaces,
-    };
-  });
+      return {
+        value:
+          parsedExpression &&
+          parsedExpression.evaluate({ dataset: groupedPlaces }),
+        label: labels[group],
+        totalPlaces,
+      };
+    },
+  );
 
   return barChartData;
 };
@@ -117,73 +121,71 @@ const getTooltipFormatter = format => {
 class FreeBarChart extends React.Component<Props> {
   render() {
     return (
-      <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        <ResponsiveContainer width="100%" height={360}>
-          <BarChart
-            data={this.props.data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 70,
-              bottom: this.props.annotation ? 160 : 120,
-            }}
+      <ResponsiveContainer width="100%" height={360}>
+        <BarChart
+          data={this.props.data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 70,
+            bottom: this.props.annotation ? 160 : 120,
+          }}
+        >
+          <XAxis
+            tickFormatter={getFormatter("truncated")(12)}
+            dataKey={"label"}
+            angle={-45}
+            stroke="#aaa"
+            textAnchor="end"
+            interval={0}
           >
-            <XAxis
-              tickFormatter={getFormatter("truncated")(12)}
-              dataKey={"label"}
-              angle={-45}
-              stroke="#aaa"
-              textAnchor="end"
-              interval={0}
-            >
-              <Label
-                content={() => (
-                  <g>
-                    <text x="50%" y={286} fill="#aaa" textAnchor="middle">
-                      {this.props.xAxisLabel}
+            <Label
+              content={() => (
+                <g>
+                  <text x="50%" y={286} fill="#aaa" textAnchor="middle">
+                    {this.props.xAxisLabel}
+                  </text>
+                  {this.props.annotation && (
+                    <text
+                      fill="#aaa"
+                      x="50%"
+                      y={320}
+                      fontSize=".7em"
+                      textAnchor="middle"
+                    >
+                      {this.props.annotation}
                     </text>
-                    {this.props.annotation && (
-                      <text
-                        fill="#aaa"
-                        x="50%"
-                        y={320}
-                        fontSize=".7em"
-                        textAnchor="middle"
-                      >
-                        {this.props.annotation}
-                      </text>
-                    )}
-                  </g>
-                )}
-                offset={96}
-                position="bottom"
-              />
-            </XAxis>
-            <YAxis
-              stroke="#aaa"
-              tickFormatter={getFormatter(this.props.labelFormat)}
-            >
-              {this.props.yAxisLabel && (
-                <Label
-                  offset={10}
-                  fill="#aaa"
-                  value={this.props.yAxisLabel}
-                  angle={-90}
-                  position="left"
-                />
+                  )}
+                </g>
               )}
-            </YAxis>
-            {this.props.tooltipFormat && (
-              <Tooltip
-                cursor={false}
-                formatter={getTooltipFormatter(this.props.tooltipFormat)}
-                labelFormatter={label => label}
+              offset={96}
+              position="bottom"
+            />
+          </XAxis>
+          <YAxis
+            stroke="#aaa"
+            tickFormatter={getFormatter(this.props.labelFormat)}
+          >
+            {this.props.yAxisLabel && (
+              <Label
+                offset={10}
+                fill="#aaa"
+                value={this.props.yAxisLabel}
+                angle={-90}
+                position="left"
               />
             )}
-            <Bar dataKey={"value"} fill={BLUE} />
-          </BarChart>
-        </ResponsiveContainer>
-      </ChartWrapper>
+          </YAxis>
+          {this.props.tooltipFormat && (
+            <Tooltip
+              cursor={false}
+              formatter={getTooltipFormatter(this.props.tooltipFormat)}
+              labelFormatter={label => label}
+            />
+          )}
+          <Bar dataKey={"value"} fill={BLUE} />
+        </BarChart>
+      </ResponsiveContainer>
     );
   }
 }

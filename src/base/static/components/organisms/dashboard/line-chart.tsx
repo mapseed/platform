@@ -15,7 +15,6 @@ import {
 } from "recharts";
 
 import { BLUE } from "../../../utils/dashboard-utils";
-import ChartWrapper from "./chart-wrapper";
 
 const mapseedLineChartPropTypes = {
   data: PropTypes.arrayOf(
@@ -31,6 +30,7 @@ const mapseedLineChartPropTypes = {
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    height: PropTypes.number,
   }).isRequired,
 };
 

@@ -19,7 +19,6 @@ import {
 import { Product, Sum, Mean, Max, Min } from "./aggregation";
 import Cat from "./catenation";
 import Case from "./case";
-import { All } from "./logical";
 
 export default {
   "==": Equals,
@@ -43,5 +42,4 @@ export default {
   min: Min,
   cat: Cat,
   case: Case,
-  all: All,
 };

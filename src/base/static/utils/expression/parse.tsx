@@ -57,7 +57,7 @@ class ParsedExpression implements IParsedExpression {
 }
 
 class ParsingContext implements IParsingContext {
-  parse(expr: any): Expression | null {
+  parse(expr: any): IParsedExpression | null {
     if (
       expr === null ||
       typeof expr === "string" ||

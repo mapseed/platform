@@ -61,7 +61,7 @@ const makeAggregation = (op, aggregationFn) => {
     ): Expression | null {
       const operands = args
         .slice(1)
-        .map(operand => parsingContext.parse(operand));
+        .map(operand => parsingContext.parse(operand, parsingContext));
 
       if (operands.length < 1) {
         // eslint-disable-next-line no-console

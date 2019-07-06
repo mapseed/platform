@@ -86,18 +86,19 @@ const getWidgetState = (context: IEvaluationContext, property: string) => {
   return typeof val === "undefined" ? null : val;
 };
 
-const makeLookup = (op, lookupFn) => {
+const makeLookup = (op: string, lookupFn: any) => {
   return class Lookup implements Expression {
-    property;
-    placeCondition;
-    type: op;
+    property: string;
+    placeCondition?: Expression;
+    type: string;
 
     constructor(property: string, placeCondition?: Expression) {
       this.property = property;
       this.placeCondition = placeCondition;
+      this.type = op;
     }
 
-    static parse(args, parsingContext) {
+    static parse(args) {
       if (op === "get-count" && args.length !== 2) {
         // eslint-disable-next-line no-console
         console.error(`Error: expected one argument for "${op}"`);

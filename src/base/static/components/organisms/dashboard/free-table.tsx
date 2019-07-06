@@ -1,11 +1,7 @@
-/** @jsx jsx */
 import * as React from "react";
-import { jsx, css, ClassNames } from "@emotion/core";
 import PropTypes from "prop-types";
-import moment from "moment";
 
 import makeParsedExpression from "../../../utils/expression/parse";
-import ChartWrapper from "./chart-wrapper";
 import BaseTable from "./base-table";
 
 const freeTablePropTypes = {
@@ -15,16 +11,25 @@ const freeTablePropTypes = {
         dataKey: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
+        fractionalWidth: PropTypes.number.isRequired,
       }).isRequired,
     ).isRequired,
-    rows: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    rows: PropTypes.arrayOf(
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          value: PropTypes.array.isRequired,
+          label: PropTypes.string,
+          type: PropTypes.string.isRequired,
+        }).isRequired,
+      ).isRequired,
+    ).isRequired,
   }).isRequired,
-  header: PropTypes.string.isRequired,
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     height: PropTypes.string,
   }).isRequired,
+  stripeColor: PropTypes.string,
 };
 
 type Props = PropTypes.InferProps<typeof freeTablePropTypes>;
@@ -68,7 +73,7 @@ const getFreeTableData = ({ places, widget, widgetState }) => {
   };
 };
 
-class FreeTable extends React.Component<Props, State> {
+class FreeTable extends React.Component<Props> {
   render() {
     return (
       <BaseTable

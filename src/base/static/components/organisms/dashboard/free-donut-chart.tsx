@@ -4,7 +4,6 @@ import lodashGroupBy from "lodash.groupby";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 
 import { COLORS } from "../../../utils/dashboard-utils";
-import ChartWrapper from "./chart-wrapper";
 
 const freeDonutChartPropTypes = {
   data: PropTypes.arrayOf(
@@ -78,27 +77,25 @@ class FreeDonutChart extends React.Component<Props> {
 
   render() {
     return (
-      <ChartWrapper layout={this.props.layout} header={this.props.header}>
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              isAnimationActive={false}
-              data={this.props.data}
-              dataKey="count"
-              nameKey="category"
-              outerRadius={70}
-              innerRadius={35}
-              fill="#8884d8"
-              label={this.renderPieChartLabel}
-            >
-              {this.props.data.map((entry, index) => (
-                <Cell key={index} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
-      </ChartWrapper>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            isAnimationActive={false}
+            data={this.props.data}
+            dataKey="count"
+            nameKey="category"
+            outerRadius={70}
+            innerRadius={35}
+            fill="#8884d8"
+            label={this.renderPieChartLabel}
+          >
+            {this.props.data.map((entry, index) => (
+              <Cell key={index} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
     );
   }
 }

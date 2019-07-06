@@ -3,7 +3,7 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
 
-import { RegularText, SmallText, TinyTitle } from "../../atoms/typography";
+import { SmallText, TinyTitle } from "../../atoms/typography";
 import { RadioInput } from "../../atoms/input";
 import { FontAwesomeIcon } from "../../atoms/imagery";
 import { FreeDonutChart, getFreeDonutChartData } from "./free-donut-chart";
@@ -12,24 +12,25 @@ import { MapseedLineChart, getLineChartData } from "./line-chart";
 import { StatSummary, getStatSummaryData } from "./stat-summary";
 import { FixedTable, getFixedTableData } from "./fixed-table";
 import { FreeTable, getFreeTableData } from "./free-table";
+import { placePropType } from "../../../state/ducks/places";
 
 const chartWrapperPropTypes = {
-  accentColor: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  header: PropTypes.string,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
+  widget: PropTypes.shape({
+    header: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    layout: PropTypes.shape({
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired,
+      height: PropTypes.number,
+    }).isRequired,
+    widgetStateControls: PropTypes.array,
   }).isRequired,
+  widgetIndex: PropTypes.number.isRequired,
+  timeZone: PropTypes.string.isRequired,
+  places: PropTypes.arrayOf(placePropType.isRequired).isRequired,
 };
 
-type DefaultProps = {
-  accentColor: string;
-  header: string;
-};
-
-type Props = PropTypes.InferProps<typeof chartWrapperPropTypes> &
-  Partial<DefaultProps>;
+type Props = PropTypes.InferProps<typeof chartWrapperPropTypes>;
 
 const HEADER_HEIGHT = "56px";
 
@@ -61,11 +62,6 @@ const widgetRegistry = {
 };
 
 class ChartWrapper extends React.Component<Props> {
-  static defaultProps: DefaultProps = {
-    accentColor: "#f5f5f5",
-    header: "Summary",
-  };
-
   state = {
     widgetState: {},
   };
@@ -138,7 +134,7 @@ class ChartWrapper extends React.Component<Props> {
             font-weight: 900;
             border-top-right-radius: 4px;
             border-top-left-radius: 4px;
-            background-color: ${this.props.accentColor};
+            background-color: #f5f5f5;
             padding: 8px 16px 8px 16px;
             box-sizing: border-box;
           `}

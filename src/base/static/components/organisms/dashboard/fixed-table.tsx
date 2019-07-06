@@ -1,10 +1,7 @@
-/** @jsx jsx */
 import * as React from "react";
-import { jsx, css, ClassNames } from "@emotion/core";
 import PropTypes from "prop-types";
 
 import makeParsedExpression from "../../../utils/expression/parse";
-import ChartWrapper from "./chart-wrapper";
 import BaseTable from "./base-table";
 
 const fixedTablePropTypes = {
@@ -14,13 +11,13 @@ const fixedTablePropTypes = {
         dataKey: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-      }),
+        fractionalWidth: PropTypes.number.isRequired,
+      }).isRequired,
     ).isRequired,
     rows: PropTypes.arrayOf(
       PropTypes.arrayOf(
         PropTypes.shape({
-          value: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
-            .isRequired,
+          value: PropTypes.array.isRequired,
           label: PropTypes.string,
           type: PropTypes.string.isRequired,
         }).isRequired,
@@ -34,6 +31,7 @@ const fixedTablePropTypes = {
     end: PropTypes.number.isRequired,
     height: PropTypes.string,
   }).isRequired,
+  stripeColor: PropTypes.string,
 };
 
 type Props = PropTypes.InferProps<typeof fixedTablePropTypes>;

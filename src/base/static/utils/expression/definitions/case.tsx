@@ -1,4 +1,9 @@
-import { Expression, IEvaluationContext, IParsingContext } from "../expression";
+import {
+  Expression,
+  IEvaluationContext,
+  IParsingContext,
+  IParsedExpression,
+} from "../expression";
 
 class Case implements Expression {
   branches;
@@ -11,7 +16,7 @@ class Case implements Expression {
 
   static parse(args: (Expression)[], parsingContext: IParsingContext) {
     const op = args[0];
-    if (args < 4) {
+    if (args.length < 4) {
       // eslint-disable-next-line no-console
       console.error(
         `Error: expected at least 3 arguments for "${op}", but found only ${args.length -
@@ -26,7 +31,7 @@ class Case implements Expression {
       return null;
     }
 
-    const branches = [];
+    const branches: any = [];
     for (let i = 1; i < args.length - 1; i += 2) {
       const test = parsingContext.parse(args[i], parsingContext);
       if (!test) {

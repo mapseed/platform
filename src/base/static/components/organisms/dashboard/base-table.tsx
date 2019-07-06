@@ -4,18 +4,49 @@ import { jsx, css, ClassNames } from "@emotion/core";
 import { AutoSizer, Column, Table } from "react-virtualized";
 import Draggable from "react-draggable";
 import "react-virtualized/styles.css";
+import PropTypes from "prop-types";
 
 import { DashboardText, ExternalLink } from "../../atoms/typography";
 import { isEmailAddress, getFormatter } from "../../../utils/dashboard-utils";
 import { Badge } from "../../atoms/typography";
+
+const baseTablePropTypes = {
+  // NOTE: The column and row typings here represent data that has been
+  // transformed by the ETL methods in fixed-table.tsx and free-table.tsx.
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      fractionalWidth: PropTypes.number.isRequired,
+      dataKey: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  rows: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.array.isRequired,
+        label: PropTypes.string,
+        type: PropTypes.string.isRequired,
+      }).isRequired,
+    ).isRequired,
+  ).isRequired,
+  stripeColor: PropTypes.string,
+};
+
+type Props = PropTypes.InferProps<typeof baseTablePropTypes>;
 
 const CELL_FORMAT_WEIGHTS = ["bold", "regular"];
 const CELL_FORMAT_COLORS = ["#222", "#888", "#aaa"];
 const ROW_HEIGHT = 75;
 const clamp = (arr, i) => (i > arr.length - 1 ? arr[arr.length - 1] : arr[i]);
 
+type State = {
+  tableWidth: number;
+  columnPercentageWidths: object;
+};
+
 class BaseTable extends React.Component<Props> {
-  state = {
+  state: State = {
     columnPercentageWidths: {},
     tableWidth: 100, // Arbitrary initial width.
   };
@@ -58,7 +89,7 @@ class BaseTable extends React.Component<Props> {
     }
   };
 
-  cellRenderer = ({ cellData, columnIndex, type, rowHeight }) => {
+  cellRenderer = ({ cellData, type }) => {
     return (
       <div
         css={css`
@@ -115,7 +146,7 @@ class BaseTable extends React.Component<Props> {
   };
 
   resizeRow = ({ dataKey, deltaX, nextDataKey }) =>
-    this.setState(prevState => {
+    this.setState((prevState: State) => {
       const prevWidths = prevState.columnPercentageWidths;
       const percentDelta = deltaX / this.state.tableWidth;
 
@@ -128,7 +159,7 @@ class BaseTable extends React.Component<Props> {
       };
     });
 
-  headerRenderer = ({ label, dataKey, nextDataKey, columnIndex, type }) => {
+  headerRenderer = ({ label, dataKey, nextDataKey }) => {
     return (
       <ClassNames>
         {({ css }) => (
@@ -167,6 +198,7 @@ class BaseTable extends React.Component<Props> {
               rowCount={this.props.rows.length}
               rowGetter={({ index }) => this.props.rows[index]}
               rowStyle={({ index }) => ({
+                boxSizing: "border-box",
                 backgroundColor:
                   index % 2 === 0
                     ? this.props.stripeColor || "initial"

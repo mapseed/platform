@@ -10,7 +10,7 @@ class Cat implements Expression {
   static parse(args: any, parsingContext: IParsingContext) {
     const operands = args
       .slice(1)
-      .map(operand => parsingContext.parse(operand));
+      .map(operand => parsingContext.parse(operand, parsingContext));
 
     return new Cat(operands);
   }

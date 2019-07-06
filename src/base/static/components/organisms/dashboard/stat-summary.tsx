@@ -3,7 +3,6 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
 
-import ChartWrapper from "./chart-wrapper";
 import { RegularText, LargeTitle } from "../../atoms/typography";
 
 const statSummaryPropTypes = {
@@ -17,6 +16,7 @@ const statSummaryPropTypes = {
   layout: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    height: PropTypes.number,
   }).isRequired,
 };
 

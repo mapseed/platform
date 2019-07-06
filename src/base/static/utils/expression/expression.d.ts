@@ -5,7 +5,7 @@ import { placePropType } from "../../state/ducks/places";
 export interface Expression {
   property?: string;
   evaluate: (
-    evaluationContext: IEvaluationContet,
+    evaluationContext: IEvaluationContext,
   ) => number | string | boolean | Expression;
 }
 
@@ -18,7 +18,10 @@ export interface IEvaluationContext {
 }
 
 export interface IParsingContext {
-  parse: (expr: any) => Expression | null;
+  parse: (
+    expr: any,
+    parsingContext: IParsingContext,
+  ) => IParsedExpression | null;
 }
 
 export interface IParsedExpression {
