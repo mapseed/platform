@@ -1535,7 +1535,7 @@
         "id": "cycle1-projects",
         "datasetSlug": "pbdurham-projects",
         "label": "Cycle 1 Winners",
-        "icon": "/static/css/images/markers/money.png"
+        "icon": "/static/css/images/markers/money-greyscale.png"
       },
       {
         "id": "projects",
