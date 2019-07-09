@@ -749,6 +749,15 @@
     "location_item_name": "location",
     "place_detail": [
       {
+        "formId": "cycle1-projects",
+        "category": "cycle1-projects",
+        "includeOnForm": false,
+        "includeOnList": true,
+        "datasetSlug": "pbdurham-projects",
+        "label": "Cycle 1 Winners",
+        "fields": []
+      },
+      {
         "formId": "projects",
         "category": "projects",
         "includeOnForm": true,
