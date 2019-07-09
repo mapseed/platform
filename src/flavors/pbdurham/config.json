@@ -98,7 +98,7 @@
     "mapViewport": {
       "latitude": 35.976899833978976,
       "longitude": -78.88370073534878,
-      "zoom": 10.2,
+      "zoom": 11.2,
       "pitch": 30,
       "minZoom": 1,
       "maxZoom": 18
@@ -1535,13 +1535,13 @@
         "id": "cycle1-projects",
         "datasetSlug": "pbdurham-projects",
         "label": "Cycle 1 Winners",
-        "icon": "/static/css/images/markers/money-greyscale.png"
+        "icon": "/static/css/images/markers/money.png"
       },
       {
         "id": "projects",
         "datasetSlug": "pbdurham-projects",
         "label": "Proposals",
-        "icon": "/static/css/images/markers/money.png"
+        "icon": "/static/css/images/markers/money-greyscale.png"
       },
       {
         "id": "culture",
