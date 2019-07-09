@@ -98,7 +98,7 @@
     "mapViewport": {
       "latitude": 35.976899833978976,
       "longitude": -78.88370073534878,
-      "zoom": 10.2,
+      "zoom": 11.2,
       "pitch": 30,
       "minZoom": 1,
       "maxZoom": 18
@@ -561,13 +561,37 @@
                 "match",
                 ["get", "ward"],
                 "ward_1",
-                "project-ward-1-focused.png",
+                "project-ward-1-unapproved.png",
                 "ward_2",
-                "project-ward-2-focused.png",
+                "project-ward-2-unapproved.png",
                 "ward_3",
-                "project-ward-3-focused.png",
+                "project-ward-3-unapproved.png",
                 "citywide",
-                "project-citywide-focused.png",
+                "project-citywide-unapproved.png",
+                "money.png"
+              ],
+              "icon-size": 0.3,
+              "icon-anchor": "bottom"
+            }
+          },
+          {
+            "id": "pbdurham-projects-focused-approved",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "cycle1-projects"],
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1-approved.png",
+                "ward_2",
+                "project-ward-2-approved.png",
+                "ward_3",
+                "project-ward-3-approved.png",
+                "citywide",
+                "project-citywide-approved.png",
                 "money.png"
               ],
               "icon-size": 0.3,
@@ -579,6 +603,7 @@
           {
             "id": "pbdurham-projects",
             "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "projects"],
             "source": "pbdurham-projects",
             "layout": {
               "icon-allow-overlap": true,
@@ -587,13 +612,37 @@
                 "match",
                 ["get", "ward"],
                 "ward_1",
-                "project-ward-1.png",
+                "project-ward-1-unapproved.png",
                 "ward_2",
-                "project-ward-2.png",
+                "project-ward-2-unapproved.png",
                 "ward_3",
-                "project-ward-3.png",
+                "project-ward-3-unapproved.png",
                 "citywide",
-                "project-citywide.png",
+                "project-citywide-unapproved.png",
+                "money.png"
+              ],
+              "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
+            }
+          },
+          {
+            "id": "pbdurham-projects-approved",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "cycle1-projects"],
+            "source": "pbdurham-projects",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "ward"],
+                "ward_1",
+                "project-ward-1-approved.png",
+                "ward_2",
+                "project-ward-2-approved.png",
+                "ward_3",
+                "project-ward-3-approved.png",
+                "citywide",
+                "project-citywide-approved.png",
                 "money.png"
               ],
               "icon-size": ["step", ["zoom"], 0.1, 10, 0.2]
@@ -616,11 +665,11 @@
         "title": "Basemaps",
         "options": [
           {
-            "LayerGroupId": "osm",
+            "layerGroupId": "osm",
             "title": "Neighborhood Style"
           },
           {
-            "LayerGroupId": "satellite",
+            "layerGroupId": "satellite",
             "title": "Satellite View"
           }
         ]
@@ -629,11 +678,11 @@
         "title": "Community Data",
         "options": [
           {
-            "LayerGroupId": "pbdurham",
+            "layerGroupId": "pbdurham",
             "title": "Your Ideas"
           },
           {
-            "LayerGroupId": "pbdurham-projects",
+            "layerGroupId": "pbdurham-projects",
             "title": "Proposed Projects"
           }
         ]
@@ -642,43 +691,43 @@
         "title": "City Data",
         "options": [
           {
-            "LayerGroupId": "durham-bike-trails",
+            "layerGroupId": "durham-bike-trails",
             "title": "Bike Lanes"
           },
           {
-            "LayerGroupId": "durham-bus-routes",
+            "layerGroupId": "durham-bus-routes",
             "title": "Bus Routes"
           },
           {
-            "LayerGroupId": "durham-bus-stops",
+            "layerGroupId": "durham-bus-stops",
             "title": "Bus Stops"
           },
           {
-            "LayerGroupId": "durham-libraries",
+            "layerGroupId": "durham-libraries",
             "title": "Libraries"
           },
           {
-            "LayerGroupId": "durham-schools",
+            "layerGroupId": "durham-schools",
             "title": "Schools"
           },
           {
-            "LayerGroupId": "durham-council-wards",
+            "layerGroupId": "durham-council-wards",
             "title": "City Council Wards"
           },
           {
-            "LayerGroupId": "durham-city-boundary",
+            "layerGroupId": "durham-city-boundary",
             "title": "City Boundary"
           },
           {
-            "LayerGroupId": "durham-existing-trails",
+            "layerGroupId": "durham-existing-trails",
             "title": "Existing Trails"
           },
           {
-            "LayerGroupId": "durham-proposed-trails",
+            "layerGroupId": "durham-proposed-trails",
             "title": "Proposed Trails"
           },
           {
-            "LayerGroupId": "durham-parks",
+            "layerGroupId": "durham-parks",
             "title": "Parks"
           }
         ]
@@ -699,6 +748,15 @@
     "submit_button_label": "Share my idea",
     "location_item_name": "location",
     "place_detail": [
+      {
+        "formId": "cycle1-projects",
+        "category": "cycle1-projects",
+        "includeOnForm": false,
+        "includeOnList": true,
+        "datasetSlug": "pbdurham-projects",
+        "label": "Cycle 1 Winners",
+        "fields": []
+      },
       {
         "formId": "projects",
         "category": "projects",
@@ -1483,6 +1541,18 @@
     },
     "places": [
       {
+        "id": "cycle1-projects",
+        "datasetSlug": "pbdurham-projects",
+        "label": "Cycle 1 Winners",
+        "icon": "/static/css/images/markers/money.png"
+      },
+      {
+        "id": "projects",
+        "datasetSlug": "pbdurham-projects",
+        "label": "Proposals",
+        "icon": "/static/css/images/markers/money-greyscale.png"
+      },
+      {
         "id": "culture",
         "datasetSlug": "pbdurham",
         "label": "Art & Culture",
@@ -1517,12 +1587,6 @@
         "datasetSlug": "pbdurham",
         "label": "Other",
         "icon": "/static/css/images/markers/idea.png"
-      },
-      {
-        "id": "projects",
-        "datasetSlug": "pbdurham-projects",
-        "label": "Proposals",
-        "icon": "/static/css/images/markers/money.png"
       }
     ],
     "fields": [
