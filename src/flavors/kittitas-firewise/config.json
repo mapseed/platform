@@ -75,6 +75,18 @@
       "pitch": 15,
       "minZoom": 1,
       "maxZoom": 18
+    },
+    "mapWidgets": {
+      "filterSlider": {
+        "layerGroupId": "wa-state-large-fires-1973-2018",
+        "initialValue": 2018,
+        "min": 1973,
+        "max": 2018,
+        "step": 1,
+        "label": "Large wildfires to date:",
+        "property": "YEAR",
+        "comparator": "<="
+      }
     }
   },
   "mapStyle": {
@@ -383,15 +395,6 @@
         "visibleDefault": false,
         "interactive": true,
         "popupContent": "<p><strong>Fire name: </strong><em>{{FIRENAME}}</em></p><p><strong>Year: </strong><em>{{YEAR}}</em></p><p><strong>Cause: </strong><em>{{CAUSE}}</em></p>",
-        "filterSlider": {
-          "initialValue": 2018,
-          "min": 1973,
-          "max": 2018,
-          "step": 1,
-          "label": "Large wildfires to date:",
-          "property": "YEAR",
-          "comparator": "<="
-        },
         "mapboxLayers": [
           {
             "id": "wa-state-large-fires-1973-2018",

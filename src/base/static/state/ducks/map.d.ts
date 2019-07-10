@@ -1,6 +1,6 @@
 export const mapViewportPropType: any;
 
-type filterSliderPropType = {
+export type FilterSlider = {
   initialValue?: number;
   min: number;
   max: number;
@@ -10,7 +10,10 @@ type filterSliderPropType = {
   comparator: string;
 };
 
-export const filterableLayerGroupPropType: any;
+export type FilterableLayerGroup = {
+  layerIds: string[];
+  filterSlider: FilterSlider;
+};
 
 export const mapSourcesPropType: any;
 
@@ -18,21 +21,23 @@ export const mapStylePropType: any;
 
 export const layerGroupsPropType: any;
 
+export type LayerGroup = {
+  id: string;
+  popupContent: string;
+  // TODO: move this into it's own MapWidget config
+  filterSlider?: FilterSlider;
+  isBasemap: boolean;
+  isVisible: boolean;
+  isVisibleDefault: boolean;
+  // Mapbox layer ids which make up this layerGroup:
+  layerIds: string[];
+  // Source ids which this layerGroup consumes:
+  sourceIds: string[];
+};
+
 export type LayerGroups = {
   byId: {
-    [id: string]: {
-      id: string;
-      popupContent: string;
-      //   filterSlider: filterSliderPropType,
-      filterSlider: any;
-      isBasemap: boolean;
-      isVisible: boolean;
-      isVisibleDefault: boolean;
-      // Mapbox layer ids which make up this layerGroup:
-      layerIds: string[];
-      // Source ids which this layerGroup consumes:
-      sourceIds: string[];
-    };
+    [id: string]: LayerGroup;
   };
   allIds: string[];
 };
@@ -56,7 +61,7 @@ export const mapContainerDimensionsSelector: any;
 export const mapLayerPopupSelector: any;
 // Return information about visible layer groups which are configured to be
 // filterable with a slider.
-export const filterableLayerGroupsMetadataSelector: any;
+export const filterableLayerGroupsSelector: any;
 
 export const updateLayerFilters: any;
 

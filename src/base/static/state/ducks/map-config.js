@@ -25,6 +25,9 @@ export const offlineConfigSelector = state => {
 };
 export const geocodeAddressBarEnabledSelector = state =>
   state.mapConfig.geocodingBarEnabled;
+export const mapWidgetsSelector = state => {
+  return state.mapConfig.mapWidgets;
+};
 
 // Actions:
 const LOAD = "map-config/LOAD";
@@ -44,6 +47,7 @@ export const mapConfigPropType = PropTypes.shape({
   offlineBoundingBox: offlineConfigPropType,
   scrollZoomAroundCenter: PropTypes.bool,
   defaultMapViewport: PropTypes.object.isRequired,
+  mapWidgets: PropTypes.object.isRequired,
 }).isRequired;
 
 // Reducers:
@@ -58,6 +62,7 @@ const INITIAL_STATE = {
     minZoom: 1,
     pitch: 15,
   },
+  mapWidgets: {},
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
