@@ -176,9 +176,9 @@
         "type": "vector",
         "tiles": [
           "https://ecotopia.today/Mississippi/MARBvectortiles/{z}/{x}/{y}.pbf"
-          ]
-        }
-      },
+        ]
+      }
+    },
     "layerGroups": [
       {
         "id": "ocean-satellite",
