@@ -63,7 +63,6 @@ const INITIAL_STATE = {
   uiVisibility: {
     addPlaceButton: false,
     contentPanel: false,
-    inviteModal: false,
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,
@@ -113,7 +112,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         uiVisibility: {
           ...state.uiVisibility,
           contentPanel: false,
-          inviteModal: false,
           mapCenterpoint: false,
           spotlightMask: false,
           rightSidebar: false,

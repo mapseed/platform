@@ -6,7 +6,7 @@ export const filtersSelector = state => {
 
 export const filtersPropType = PropTypes.arrayOf(
   PropTypes.shape({
-    formId: PropTypes.string,
+    formId: PropTypes.string, // same as location_type
     datasetSlug: PropTypes.string,
   }),
 );

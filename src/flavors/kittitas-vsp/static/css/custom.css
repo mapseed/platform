@@ -18,6 +18,10 @@ header {
  * TODO: All these custom selectors should be ported to styled components.
  */
 
+[data-field-name="private"] {
+  color: #ef5f46;
+}
+
 [data-field-type="datetime"],
 [data-field-type="number"],
 [data-field-name="my_image"],

@@ -5,7 +5,6 @@ import { Feature, GeometryObject, Geometry, GeoJsonProperties } from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
-import InviteModal from "../organisms/invite-modal";
 import { throttle } from "throttle-debounce";
 import { RouteComponentProps, withRouter } from "react-router";
 
@@ -17,8 +16,6 @@ import {
   updateLayers,
   updateMapContainerDimensions,
   mapContainerDimensionsSelector,
-  filterableLayerGroupsMetadataSelector,
-  filterableLayerGroupPropType,
   mapLayerPopupSelector,
 } from "../../state/ducks/map";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
@@ -38,7 +35,7 @@ import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
-import MapFilterSliderContainer from "../organisms/map-filter-slider-container";
+import MapWidgetContainer from "../organisms/map-widget-container";
 
 import { Mixpanel } from "../../utils/mixpanel";
 
@@ -47,14 +44,11 @@ declare const MAP_PROVIDER_TOKEN: string;
 
 const statePropTypes = {
   activeEditPlaceId: PropTypes.number,
-  filterableLayerGroupsMetadata: PropTypes.arrayOf(filterableLayerGroupPropType)
-    .isRequired,
   filteredPlaces: placesPropType.isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string.isRequired)
     .isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
-  isInviteModalOpen: PropTypes.bool.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -374,7 +368,6 @@ class MainMap extends React.Component<Props, State> {
   render() {
     return (
       <>
-        <InviteModal isOpen={this.props.isInviteModalOpen} />
         <MapGL
           attributionControl={false}
           ref={this.mapRef}
@@ -455,13 +448,7 @@ class MainMap extends React.Component<Props, State> {
             <MapControls onViewportChange={this.props.onUpdateMapViewport} />
           )}
         </MapGL>
-        {this.props.filterableLayerGroupsMetadata.length > 0 && (
-          <MapFilterSliderContainer
-            filterableLayerGroupsMetadata={
-              this.props.filterableLayerGroupsMetadata
-            }
-          />
-        )}
+        <MapWidgetContainer />
       </>
     );
   }
@@ -469,10 +456,8 @@ class MainMap extends React.Component<Props, State> {
 
 const mapStateToProps = (state): StateProps => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
-  filterableLayerGroupsMetadata: filterableLayerGroupsMetadataSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
-  isInviteModalOpen: uiVisibilitySelector("inviteModal", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),

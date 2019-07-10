@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import * as React from "react";
+import { jsx } from "@emotion/core";
 import { Component, createRef, lazy, Suspense } from "react";
 import {
   Route,
@@ -553,20 +555,6 @@ class App extends Component<Props, State> {
                       <Suspense fallback={<Fallback />}>
                         <SiteHeader {...headerProps} />
                         <ListTemplate />
-                      </Suspense>
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/invite"
-                    render={props => (
-                      <Suspense fallback={<Fallback />}>
-                        <SiteHeader {...headerProps} />
-                        <MapTemplate
-                          uiConfiguration="inviteModal"
-                          {...sharedMapTemplateProps}
-                          {...props.match}
-                        />
                       </Suspense>
                     )}
                   />
