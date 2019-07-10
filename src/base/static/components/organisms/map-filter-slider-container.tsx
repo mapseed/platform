@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import {
-  filterableLayerGroupPropType,
   updateLayerFilters,
+  FilterableLayerGroup,
+  filterableLayerGroupsSelector,
 } from "../../state/ducks/map";
 import { layoutSelector } from "../../state/ducks/ui";
 import { RangeInput } from "../atoms/input";
@@ -27,12 +27,19 @@ const buildAndApplyMapLayerFilters = ({
   updateLayerFilters(filters);
 };
 
-const MapFilterSlider = ({
+type FilterSliderProps = {
+  metadata: FilterableLayerGroup;
+  updateLayerFilters: Function;
+};
+
+const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
   metadata: { filterSlider, layerIds },
   updateLayerFilters,
 }) => {
-  const [sliderValue, setSliderValue] = useState(filterSlider.initialValue);
-  useEffect(
+  const [sliderValue, setSliderValue] = React.useState(
+    filterSlider.initialValue,
+  );
+  React.useEffect(
     () => {
       buildAndApplyMapLayerFilters({
         filterValue: filterSlider.initialValue,
@@ -106,12 +113,20 @@ const MapFilterSlider = ({
   );
 };
 
-MapFilterSlider.propTypes = {
-  metadata: filterableLayerGroupPropType,
-  updateLayerFilters: PropTypes.func.isRequired,
+type ContainerStateProps = {
+  layout: string;
+  filterableLayerGroups: FilterableLayerGroup[];
 };
 
-const MapFilterSliderContainer = props => {
+type DispatchProps = {
+  updateLayerFilters: Function;
+};
+
+type ContainerProps = ContainerStateProps & DispatchProps;
+const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
+  if (props.filterableLayerGroups.length === 0) {
+    return null;
+  }
   return (
     <div
       css={css`
@@ -123,7 +138,7 @@ const MapFilterSliderContainer = props => {
         width: ${props.layout === "desktop" ? "400px" : "unset"};
       `}
     >
-      {props.filterableLayerGroupsMetadata.map((metadata, index) => {
+      {props.filterableLayerGroups.map((metadata, index) => {
         return (
           <MapFilterSlider
             updateLayerFilters={props.updateLayerFilters}
@@ -136,23 +151,16 @@ const MapFilterSliderContainer = props => {
   );
 };
 
-MapFilterSliderContainer.propTypes = {
-  filterableLayerGroupsMetadata: PropTypes.arrayOf(
-    filterableLayerGroupPropType,
-  ),
-  layout: PropTypes.string.isRequired,
-  updateLayerFilters: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = state => ({
   layout: layoutSelector(state),
+  filterableLayerGroups: filterableLayerGroupsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
-});
+const mapDispatchToProps = {
+  updateLayerFilters,
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(MapFilterSliderContainer);
+)(MapWidgetContainer);

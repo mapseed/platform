@@ -29,11 +29,6 @@ const filterSliderPropType = PropTypes.shape({
   comparator: PropTypes.string.isRequired,
 });
 
-export const filterableLayerGroupPropType = PropTypes.shape({
-  layerIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  filterSlider: filterSliderPropType,
-});
-
 export const mapSourcesPropType = PropTypes.objectOf(
   PropTypes.shape({
     type: PropTypes.string.isRequired,
@@ -132,7 +127,7 @@ export const mapLayerPopupSelector = (layerId, state) => {
 };
 // Return information about visible layer groups which are configured to be
 // filterable with a slider.
-export const filterableLayerGroupsMetadataSelector = state =>
+export const filterableLayerGroupsSelector = state =>
   Object.values(state.map.layerGroups.byId).reduce(
     (memo, { filterSlider, layerIds, isVisible }) => {
       return filterSlider && isVisible
