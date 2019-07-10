@@ -35,7 +35,7 @@ import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
-import MapWidgetContainer from "../organisms/map-filter-slider-container";
+import MapWidgetContainer from "../organisms/map-widget-container";
 
 import { Mixpanel } from "../../utils/mixpanel";
 
