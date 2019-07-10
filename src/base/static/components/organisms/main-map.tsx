@@ -5,7 +5,6 @@ import { Feature, GeometryObject, Geometry, GeoJsonProperties } from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
-import InviteModal from "../organisms/invite-modal";
 import { throttle } from "throttle-debounce";
 import { RouteComponentProps, withRouter } from "react-router";
 
@@ -54,7 +53,6 @@ const statePropTypes = {
     .isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
-  isInviteModalOpen: PropTypes.bool.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -374,7 +372,6 @@ class MainMap extends React.Component<Props, State> {
   render() {
     return (
       <>
-        <InviteModal isOpen={this.props.isInviteModalOpen} />
         <MapGL
           attributionControl={false}
           ref={this.mapRef}
@@ -472,7 +469,6 @@ const mapStateToProps = (state): StateProps => ({
   filterableLayerGroupsMetadata: filterableLayerGroupsMetadataSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
-  isInviteModalOpen: uiVisibilitySelector("inviteModal", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),

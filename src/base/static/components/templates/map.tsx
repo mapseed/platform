@@ -453,9 +453,6 @@ class MapTemplate extends Component<Props, State> {
         this.props.updateActivePage(this.props.params.pageSlug);
         this.props.updateContentPanelComponent("CustomPage");
         break;
-      case "inviteModal":
-        this.props.updateUIVisibility("inviteModal", true);
-        break;
       case "mapWithInvalidRoute":
         this.props.history.push("/");
         break;
