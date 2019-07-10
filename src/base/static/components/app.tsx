@@ -79,10 +79,7 @@ import {
   featuredPlacesConfigPropType,
   featuredPlacesConfigSelector,
 } from "../state/ducks/featured-places-config";
-import {
-  createFeaturesInGeoJSONSource,
-  updateMapContainerDimensions,
-} from "../state/ducks/map";
+import { createFeaturesInGeoJSONSource } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 import isValidNonConfigurableI18nKey from "../utils/i18n-utils";
 
@@ -142,7 +139,6 @@ const dispatchPropTypes = {
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   loadDatasets: PropTypes.func.isRequired,
   loadPlaces: PropTypes.func.isRequired,
-  updateMapContainerDimensions: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   loadDatasetsConfig: PropTypes.func.isRequired,
@@ -198,7 +194,6 @@ interface State {
 }
 
 class App extends Component<Props, State> {
-  private templateContainerRef: React.RefObject<HTMLInputElement> = createRef();
   private unlisten?: any;
 
   state: State = {
@@ -392,19 +387,6 @@ class App extends Component<Props, State> {
       }
     });
 
-    if (this.templateContainerRef.current) {
-      const node = findDOMNode(this.templateContainerRef!.current);
-
-      if (node instanceof Element) {
-        const templateDims = node.getBoundingClientRect();
-
-        this.props.updateMapContainerDimensions({
-          width: templateDims.width,
-          height: templateDims.height,
-        });
-      }
-    }
-
     this.unlisten = this.props.history.listen(location => {
       recordGoogleAnalyticsHit(location.pathname);
     });
@@ -509,7 +491,6 @@ class App extends Component<Props, State> {
           <JSSProvider>
             <ThemeProvider>
               <TemplateContainer
-                ref={this.templateContainerRef}
                 layout={this.props.layout}
                 currentTemplate={this.props.currentTemplate}
               >
@@ -733,7 +714,6 @@ const mapDispatchToProps = {
   loadPlaces,
   updateLayout,
   updatePlacesLoadStatus,
-  updateMapContainerDimensions,
   updateUIVisibility,
   loadDatasetsConfig,
   loadDashboardConfig,

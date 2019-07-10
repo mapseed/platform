@@ -44,4 +44,72 @@ const HeartIcon = props => (
   </svg>
 );
 
-export { TwitterIcon, FacebookIcon, HeartIcon };
+const CreatePolygonIcon = props => (
+  <svg width="1.5rem" height="1.5rem" viewBox="0 0 75 75" {...props}>
+    <path
+      fill="none"
+      stroke={props.color}
+      strokeWidth={8}
+      strokeMiterlimit={10}
+      d="M16.3 15.6l30.4-.1 14 20.8-16.3 24.5-29.3.1 13.1-23.7z"
+    />
+    <circle fill={props.color} cx={16.5} cy={15} r={11} />
+    <circle fill={props.color} cx={57.3} cy={37.3} r={11} />
+    <circle fill={props.color} cx={16.4} cy={60.6} r={11} />
+  </svg>
+);
+
+CreatePolygonIcon.defaultProps = {
+  color: "#000",
+};
+
+const CreatePolylineIcon = props => (
+  <svg width="1.5rem" height="1.5rem" viewBox="0 0 75 75" {...props}>
+    <circle fill={props.color} cx={14.8} cy={15.9} r={11.7} />
+    <circle fill={props.color} cx={58.5} cy={57.9} r={11.7} />
+    <path
+      fill="none"
+      stroke={props.color}
+      strokeWidth={8}
+      strokeMiterlimit={10}
+      d="M14.2 16l36.4 12.1 8.3 30.5"
+    />
+  </svg>
+);
+
+CreatePolylineIcon.defaultProps = {
+  color: "#000",
+};
+
+const DeleteGeometryIcon = props => (
+  <svg width="1.5rem" height="1.5rem" viewBox="0 0 75 75" {...props}>
+    <path
+      fill={props.color}
+      d="M11.3 17.8l.2 6.5H16l3.1 45.4 35.7.2 3.1-45.7 4.8-.1v-6l-51.4-.3zm13.5 46l-2.4-39.6h5.1l.6 39.7-3.3-.1zm13.8 0h-3.2l-1-39.5h5.5l-1.3 39.5zm10.8.1h-3.5l.8-39.4h5.1l-2.4 39.4zM16.2 15.1l41.8.1.1-5.9-16.2-.1V4.9h-9.5V9l-16.2.1z"
+    />
+  </svg>
+);
+
+DeleteGeometryIcon.defaultProps = {
+  color: "#000",
+};
+
+const UndoIcon = props => (
+  <svg width="1.5rem" height="1.5rem" viewBox="0 0 28.6 24.6" {...props}>
+    <path fill={props.color} d="M20.5 21.6c-2.2 1.9-5 3.1-8.1 3.1C5.5 24.6 0 19.1 0 12.3 0 5.5 5.5 0 12.3 0c6.1 0 11.2 4.5 12.2 10.3h4.1l-6.3 7.6-6.2-7.7h4.3c-.9-3.6-4.2-6.2-8-6.2C7.7 4 4 7.7 4 12.3s3.7 8.3 8.3 8.3c2.2 0 4.2-.8 5.6-2.2l2.6 3.2z" />
+  </svg>
+);
+
+UndoIcon.defaultProps = {
+  color: "#000",
+};
+
+export {
+  TwitterIcon,
+  FacebookIcon,
+  HeartIcon,
+  CreatePolygonIcon,
+  CreatePolylineIcon,
+  DeleteGeometryIcon,
+  UndoIcon,
+};

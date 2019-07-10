@@ -36,6 +36,7 @@ import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
 import MapWidgetContainer from "../organisms/map-widget-container";
+import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
 
 import { Mixpanel } from "../../utils/mixpanel";
 
@@ -420,6 +421,13 @@ class MainMap extends React.Component<Props, State> {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
+          <MapMeasurementOverlay
+            mapViewport={this.props.mapViewport}
+            renderWhileDragging={true}
+            viewport={this.props.mapViewport}
+            width={this.props.mapContainerDimensions.width}
+            height={this.props.mapContainerDimensions.height}
+          />
           {this.state.popupContent &&
             this.state.popupLatitude &&
             this.state.popupLongitude && (
