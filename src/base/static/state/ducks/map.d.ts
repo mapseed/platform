@@ -21,21 +21,23 @@ export const mapStylePropType: any;
 
 export const layerGroupsPropType: any;
 
+export type LayerGroup = {
+  id: string;
+  popupContent: string;
+  // TODO: move this into it's own MapWidget config
+  filterSlider?: FilterSlider;
+  isBasemap: boolean;
+  isVisible: boolean;
+  isVisibleDefault: boolean;
+  // Mapbox layer ids which make up this layerGroup:
+  layerIds: string[];
+  // Source ids which this layerGroup consumes:
+  sourceIds: string[];
+};
+
 export type LayerGroups = {
   byId: {
-    [id: string]: {
-      id: string;
-      popupContent: string;
-      // TODO: move this into it's own MapWidget config
-      filterSlider?: FilterSlider;
-      isBasemap: boolean;
-      isVisible: boolean;
-      isVisibleDefault: boolean;
-      // Mapbox layer ids which make up this layerGroup:
-      layerIds: string[];
-      // Source ids which this layerGroup consumes:
-      sourceIds: string[];
-    };
+    [id: string]: LayerGroup;
   };
   allIds: string[];
 };

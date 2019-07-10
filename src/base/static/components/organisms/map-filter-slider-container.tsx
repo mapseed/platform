@@ -5,9 +5,15 @@ import { connect } from "react-redux";
 
 import {
   updateLayerFilters,
-  FilterableLayerGroup,
-  filterableLayerGroupsSelector,
+  LayerGroup,
+  LayerGroups,
+  layerGroupsSelector,
 } from "../../state/ducks/map";
+import {
+  FilterSliderConfig,
+  MapWidgetsConfig,
+  mapWidgetsSelector,
+} from "../../state/ducks/map-config";
 import { layoutSelector } from "../../state/ducks/ui";
 import { RangeInput } from "../atoms/input";
 import { RegularText } from "../atoms/typography";
@@ -28,28 +34,33 @@ const buildAndApplyMapLayerFilters = ({
 };
 
 type FilterSliderProps = {
-  metadata: FilterableLayerGroup;
+  filterSliderConfig: FilterSliderConfig;
+  layerGroup: LayerGroup;
   updateLayerFilters: Function;
 };
 
 const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
-  metadata: { filterSlider, layerIds },
+  filterSliderConfig,
+  layerGroup,
   updateLayerFilters,
 }) => {
+  if (!layerGroup.isVisible) {
+    return null;
+  }
   const [sliderValue, setSliderValue] = React.useState(
-    filterSlider.initialValue,
+    filterSliderConfig.initialValue,
   );
   React.useEffect(
     () => {
       buildAndApplyMapLayerFilters({
-        filterValue: filterSlider.initialValue,
-        layerIds,
-        comparator: filterSlider.comparator,
-        property: filterSlider.property,
+        filterValue: filterSliderConfig.initialValue,
+        layerIds: layerGroup.layerIds,
+        comparator: filterSliderConfig.comparator,
+        property: filterSliderConfig.property,
         updateLayerFilters,
       });
     },
-    [filterSlider.initialValue],
+    [filterSliderConfig.initialValue],
   );
 
   return (
@@ -67,7 +78,7 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
           margin-bottom: 8px;
         `}
       >
-        <RegularText>{filterSlider.label}</RegularText>{" "}
+        <RegularText>{filterSliderConfig.label}</RegularText>{" "}
         <RegularText weight="black">{sliderValue}</RegularText>
       </div>
       <div
@@ -77,7 +88,7 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
           justify-content: space-between;
         `}
       >
-        <RegularText>{filterSlider.min}</RegularText>
+        <RegularText>{filterSliderConfig.min}</RegularText>
         <RangeInput
           css={css`
             width: 100%;
@@ -92,22 +103,22 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
               cursor: grabbing;
             }
           `}
-          min={filterSlider.min}
-          max={filterSlider.max}
-          step={filterSlider.step}
+          min={filterSliderConfig.min}
+          max={filterSliderConfig.max}
+          step={filterSliderConfig.step}
           onChange={evt => {
             buildAndApplyMapLayerFilters({
               filterValue: parseInt(evt.target.value),
-              layerIds,
-              comparator: filterSlider.comparator,
-              property: filterSlider.property,
+              layerIds: layerGroup.layerIds,
+              comparator: filterSliderConfig.comparator,
+              property: filterSliderConfig.property,
               updateLayerFilters,
             });
             setSliderValue(evt.target.value);
           }}
           value={sliderValue}
         />
-        <RegularText>{filterSlider.max}</RegularText>
+        <RegularText>{filterSliderConfig.max}</RegularText>
       </div>
     </div>
   );
@@ -115,7 +126,8 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
 
 type ContainerStateProps = {
   layout: string;
-  filterableLayerGroups: FilterableLayerGroup[];
+  mapWidgets: MapWidgetsConfig;
+  layerGroups: LayerGroups;
 };
 
 type DispatchProps = {
@@ -124,7 +136,7 @@ type DispatchProps = {
 
 type ContainerProps = ContainerStateProps & DispatchProps;
 const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
-  if (props.filterableLayerGroups.length === 0) {
+  if (Object.values(props.mapWidgets).length === 0) {
     return null;
   }
   return (
@@ -138,22 +150,24 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
         width: ${props.layout === "desktop" ? "400px" : "unset"};
       `}
     >
-      {props.filterableLayerGroups.map((metadata, index) => {
-        return (
-          <MapFilterSlider
-            updateLayerFilters={props.updateLayerFilters}
-            key={index}
-            metadata={metadata}
-          />
-        );
-      })}
+      {props.mapWidgets.filterSlider && (
+        <MapFilterSlider
+          updateLayerFilters={props.updateLayerFilters}
+          filterSliderConfig={props.mapWidgets.filterSlider}
+          layerGroup={
+            props.layerGroups.byId[props.mapWidgets.filterSlider.layerGroupId]
+          }
+        />
+      )}
+      )}
     </div>
   );
 };
 
 const mapStateToProps = state => ({
   layout: layoutSelector(state),
-  filterableLayerGroups: filterableLayerGroupsSelector(state),
+  mapWidgets: mapWidgetsSelector(state),
+  layerGroups: layerGroupsSelector(state),
 });
 
 const mapDispatchToProps = {
