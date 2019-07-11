@@ -70,9 +70,7 @@ const buildMeasurementFeatureCollection = (selectedTool, positions) => {
       featureFn = () => [];
       newPositions = positions;
       // eslint-disable-next-line no-console
-      console.error(
-        `Measurement overlay: unsupported tool ${this.state.selectedTool}`,
-      );
+      console.error(`Measurement overlay: unsupported tool ${selectedTool}`);
       break;
   }
 
@@ -143,7 +141,7 @@ const MapMeasurementOverlay = props => {
     measurementFeatureCollection,
     setMeasurementFeatureCollection,
   ] = React.useState(featureCollection([]));
-  const [selectedTool, setSelectedTool] = React.useState(null);
+  const selectedTool = React.useRef(null);
   const [measurement, setMeasurement] = React.useState(null);
   const [units, setUnits] = React.useState(null);
   const positions = React.useRef([]);
@@ -151,43 +149,41 @@ const MapMeasurementOverlay = props => {
   const overlayRef = React.useRef();
 
   const handleOverlayClick = evt => {
-    setSelectedTool(selectedTool => {
-      if (!selectedTool) {
-        return;
-      }
+    if (!selectedTool.current) {
+      return;
+    }
 
-      const { left, top } = evt.currentTarget.getBoundingClientRect();
-      // Get unprojected (i.e. lng/lat) coordinates from the x/y click position,
-      // relative to the overlay canvas element.
-      const unprojected = webMercatorViewport.current.unproject([
-        evt.x - left,
-        evt.y - top,
-      ]);
+    const { left, top } = evt.currentTarget.getBoundingClientRect();
+    // Get unprojected (i.e. lng/lat) coordinates from the x/y click position,
+    // relative to the overlay canvas element.
+    const unprojected = webMercatorViewport.current.unproject([
+      evt.x - left,
+      evt.y - top,
+    ]);
 
-      positions.current.push(unprojected);
-      setMeasurementFeatureCollection(
-        buildMeasurementFeatureCollection(selectedTool, positions.current),
-      );
-
-      return selectedTool;
-    });
+    positions.current.push(unprojected);
+    setMeasurementFeatureCollection(
+      buildMeasurementFeatureCollection(
+        selectedTool.current,
+        positions.current,
+      ),
+    );
   };
 
   const handleUndoLastPoint = () => {
-    setSelectedTool(selectedTool => {
-      positions.current.pop();
-      setMeasurementFeatureCollection(
-        buildMeasurementFeatureCollection(selectedTool, positions.current),
-      );
-
-      return selectedTool;
-    });
+    positions.current.pop();
+    setMeasurementFeatureCollection(
+      buildMeasurementFeatureCollection(
+        selectedTool.current,
+        positions.current,
+      ),
+    );
   };
 
   const handleReset = () => {
     positions.current = [];
     setMeasurementFeatureCollection(featureCollection([]));
-    setSelectedTool(null);
+    selectedTool.current = null;
     setUnits(null);
     setMeasurement(null);
   };
@@ -264,12 +260,6 @@ const MapMeasurementOverlay = props => {
     [measurementFeatureCollection],
   );
 
-  //componentWillUnmount() {
-  //  this._overlayRef &&
-  //    this._overlayRef.current &&
-  //    this._overlayRef.current._canvas.removeEventListener("click");
-  //}
-
   return (
     <React.Fragment>
       <CanvasOverlay
@@ -282,7 +272,7 @@ const MapMeasurementOverlay = props => {
             measurementFeatureCollection,
             height: props.height,
             width: props.width,
-            isWithFill: selectedTool === "create-polygon",
+            isWithFill: selectedTool.current === "create-polygon",
           })
         }
       />
@@ -305,7 +295,7 @@ const MapMeasurementOverlay = props => {
             font-family: courier, sans-serif;
           `}
         >
-          {selectedTool
+          {selectedTool.current
             ? `Total ${units}: ${formatMeasurement(measurement)}`
             : "Measurement tools"}
         </RegularText>
@@ -324,13 +314,13 @@ const MapMeasurementOverlay = props => {
             `}
           >
             <MeasurementToolIcon
-              isSelected={selectedTool === "create-polyline"}
+              isSelected={selectedTool.current === "create-polyline"}
               onClick={() => {
-                if (selectedTool === "create-polyline") {
+                if (selectedTool.current === "create-polyline") {
                   return;
                 }
 
-                setSelectedTool("create-polyline");
+                selectedTool.current = "create-polyline";
                 setMeasurement(0);
                 setUnits("feet");
               }}
@@ -338,13 +328,13 @@ const MapMeasurementOverlay = props => {
               <CreatePolylineIcon />
             </MeasurementToolIcon>
             <MeasurementToolIcon
-              isSelected={selectedTool === "create-polygon"}
+              isSelected={selectedTool.current === "create-polygon"}
               onClick={() => {
-                if (selectedTool === "create-polygon") {
+                if (selectedTool.current === "create-polygon") {
                   return;
                 }
 
-                setSelectedTool("create-polygon");
+                selectedTool.current = "create-polygon";
                 setMeasurement(0);
                 setUnits("acres");
               }}
@@ -360,17 +350,17 @@ const MapMeasurementOverlay = props => {
           >
             <MeasurementToolIcon
               onClick={handleUndoLastPoint}
-              isEnabled={!!selectedTool}
+              isEnabled={!!selectedTool.current}
             >
-              <UndoIcon color={selectedTool ? "#000" : "#999"} />
+              <UndoIcon color={selectedTool.current ? "#000" : "#999"} />
             </MeasurementToolIcon>
             <MeasurementToolIcon
-              isEnabled={!!selectedTool}
-              onClick={() => setSelectedTool(null)}
+              isEnabled={!!selectedTool.current}
+              onClick={() => (selectedTool.current = null)}
             >
               <DeleteGeometryIcon
                 onClick={handleReset}
-                color={selectedTool ? "#000" : "#999"}
+                color={selectedTool.current ? "#000" : "#999"}
               />
             </MeasurementToolIcon>
           </div>
