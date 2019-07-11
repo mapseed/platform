@@ -393,7 +393,6 @@ const KittitasFireReadyReport = props => {
                 Based on DNR data, the forest in your area is primarily made up
                 of{" "}
                 <LargeText fontFamily="PTSansBold">{safeForestType}</LargeText>.{" "}
-                [Link to explanation of wildfire implications...]
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
