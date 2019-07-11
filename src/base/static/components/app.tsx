@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx } from "@emotion/core";
-import { Component, createRef, lazy, Suspense } from "react";
+import { Component, lazy, Suspense } from "react";
 import {
   Route,
   RouteComponentProps,
@@ -36,7 +36,7 @@ const ReportTemplate = lazy(() => import("./templates/report"));
 
 // @ts-ignore
 import config from "config";
-
+import { createFeaturesInGeoJSONSource } from "../state/ducks/map";
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
 import {
@@ -79,7 +79,6 @@ import {
   featuredPlacesConfigPropType,
   featuredPlacesConfigSelector,
 } from "../state/ducks/featured-places-config";
-import { createFeaturesInGeoJSONSource } from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 import isValidNonConfigurableI18nKey from "../utils/i18n-utils";
 

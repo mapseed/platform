@@ -90,7 +90,6 @@ const redraw = ({
   isDragging,
   ctx,
   measurementFeatureCollection,
-  isWithFill,
   width,
   height,
 }) => {
@@ -113,16 +112,20 @@ const redraw = ({
   }
 
   for (const feature of features) {
-    ctx.beginPath();
-    ctx.strokeStyle = "rgba(245, 241, 17, 0.8)"; // Bright yellow.
-    ctx.lineWidth = "2";
-    ctx.fillStyle = "rgba(188, 0, 0, 0.5)"; // Bright red.
     const geometry = feature.geometry;
+
+    ctx.beginPath();
+    geometry.type !== "Point" && ctx.setLineDash([2, 2]);
+    ctx.strokeStyle =
+      geometry.type === "Point" ? "rgba(255,255,255,1)" : "rgba(251,176,59,1)"; // Orange.
+    ctx.lineWidth = "2";
+    ctx.fillStyle =
+      geometry.type === "Point" ? "rgba(251,176,59,1)" : "rgba(251,176,59,0.2)";
     path({
       type: geometry.type,
       coordinates: geometry.coordinates,
     });
-    isWithFill && ctx.fill();
+    geometry.type !== "LineString" && ctx.fill();
     ctx.stroke();
   }
 };
@@ -277,7 +280,6 @@ const MapMeasurementOverlay = props => {
             measurementFeatureCollection,
             height: props.height,
             width: props.width,
-            isWithFill: selectedTool.current === "create-polygon",
           })
         }
       />
