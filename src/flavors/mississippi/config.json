@@ -160,6 +160,14 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/InactiveCoalMines.geojson"
       },
+      "NuclearComplex": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NuclearComplex.geojson"
+      },
+      "NuclearPlants": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Nuclear_Plants.geojson"
+      },
       "ActiveCoalMines": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
@@ -335,7 +343,9 @@
                 0,
                 5,
                 1,
-                9,
+                7,
+                1,
+                8,
                 0
               ]
             }
@@ -448,6 +458,62 @@
         ]
       },
       {
+        "id": "NuclearComplex-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p>{{name}}<br><br>{{description}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "NuclearComplex-labels",
+            "type": "symbol",
+            "source": "NuclearComplex",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.4, 7, 1],
+              "icon-anchor": "center",
+              "icon-image": [
+                "match",
+                ["get", "category"],
+                "Administration",
+                "administration.png",
+                "Designing",
+                "nuclear-weapon.png",
+                "Enriching",
+                "chemicals.png",
+                "Fabricating",
+                "factory.png",
+                "Mining",
+                "mining.png",
+                "Operating",
+                "nuclear-operations.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NuclearPlants-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p>{{unit}}<br><br>{{current_st}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "NuclearPlants-labels",
+            "type": "symbol",
+            "source": "NuclearPlants",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.5, 7, 1.2],
+              "icon-anchor": "center",
+              "icon-image": "power-reactor.png"
+            }
+          }
+        ]
+      },
+      {
         "id": "InactiveCoalMines-group",
         "basemap": false,
         "visibleDefault": false,
@@ -527,21 +593,21 @@
             "type": "symbol",
             "source": "mississippi-input",
             "layout": {
-              "icon-size": 0.8,
+              "icon-size": 0.9,
               "icon-anchor": "center",
               "icon-image": [
                 "match",
                 ["get", "location_type"],
                 "geology",
-                "Geology.png",
+                "geology.png",
                 "history",
-                "History.png",
+                "history.png",
                 "industry",
-                "Industry.png",
+                "industry.png",
                 "culture",
-                "Culture.png",
+                "culture.png",
                 "ecology",
-                "Ecology.png",
+                "ecology.png",
                 "__no-icon-image__"
               ]
             }
@@ -555,7 +621,7 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": "center",
-              "icon-size": ["step", ["zoom"], 0.3, 9, 0.8],
+              "icon-size": ["step", ["zoom"], 0.4, 9, 0.9],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -563,15 +629,15 @@
                   "match",
                   ["get", "location_type"],
                   "geology",
-                  "Geology.png",
+                  "geology.png",
                   "history",
-                  "History.png",
+                  "history.png",
                   "industry",
-                  "Industry.png",
+                  "industry.png",
                   "culture",
-                  "Culture.png",
+                  "culture.png",
                   "ecology",
-                  "Ecology.png",
+                  "ecology.png",
                   "__no-icon-image__"
                 ],
                 10,
@@ -579,15 +645,15 @@
                   "match",
                   ["get", "location_type"],
                   "geology",
-                  "Geology.png",
+                  "geology.png",
                   "history",
-                  "History.png",
+                  "history.png",
                   "industry",
-                  "Industry.png",
+                  "industry.png",
                   "culture",
-                  "Culture.png",
+                  "culture.png",
                   "ecology",
-                  "Ecology.png",
+                  "ecology.png",
                   "__no-icon-image__"
                 ]
               ]
@@ -746,7 +812,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Geology.png",
+        "icon_url": "/static/css/images/markers/geology.png",
         "value": "geology",
         "label": "Geology",
         "fields": [
@@ -790,7 +856,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/History.png",
+        "icon_url": "/static/css/images/markers/history.png",
         "value": "history",
         "label": "History",
         "fields": [
@@ -833,7 +899,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Industry.png",
+        "icon_url": "/static/css/images/markers/industry.png",
         "value": "industry",
         "label": "Industry",
         "fields": [
@@ -877,7 +943,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Culture.png",
+        "icon_url": "/static/css/images/markers/culture.png",
         "value": "culture",
         "label": "Culture",
         "fields": [
@@ -920,7 +986,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Ecology.png",
+        "icon_url": "/static/css/images/markers/ecology.png",
         "value": "ecology",
         "label": "Ecology",
         "fields": [
@@ -1247,14 +1313,15 @@
       },
       {
         "placeId": 7532,
-        "pan_to": [-94.0, 41.9],
-        "zoom": 5.6,
+        "pan_to": [-94.0, 42.4],
+        "zoom": 5.2,
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "mississippi-group",
           "kickapoo-group",
           "streets2-group",
-          "noheart-group"
+          "noheart-group",
+          "mississippi-input"
         ],
         "spotlight": false
       },
@@ -1288,14 +1355,27 @@
         "placeId": 7531,
         "pan_to": [-90.65, 39.65],
         "zoom": 5,
-        "iconUrl": "/static/css/images/markers/Industry.png",
+        "iconUrl": "/static/css/images/markers/Nitrogen.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "nitrogen-plants-group",
           "nitrogenloading-group",
           "streets-group",
-          "mississippi-input",
           "mississippi-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7534,
+        "pan_to": [-93.97, 39.44],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/atom.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "streets-group",
+          "NuclearComplex-group",
+          "NuclearPlants-group"
         ],
         "spotlight": false
       }
