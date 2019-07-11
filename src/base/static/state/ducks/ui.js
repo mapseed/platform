@@ -66,6 +66,7 @@ const INITIAL_STATE = {
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,
+    mapMeasurementTool: false,
   },
   contentPanelComponent: null,
   leftSidebarComponent: null,

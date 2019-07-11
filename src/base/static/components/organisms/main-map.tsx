@@ -50,6 +50,7 @@ const statePropTypes = {
     .isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
+  isMapCenterpointVisible: PropTypes.bool.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -421,12 +422,14 @@ class MainMap extends React.Component<Props, State> {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
-          <MapMeasurementOverlay
-            mapViewport={this.props.mapViewport}
-            viewport={this.props.mapViewport}
-            width={this.props.mapContainerDimensions.width}
-            height={this.props.mapContainerDimensions.height}
-          />
+          {this.props.isMapMeasurementToolVisible && (
+            <MapMeasurementOverlay
+              mapViewport={this.props.mapViewport}
+              viewport={this.props.mapViewport}
+              width={this.props.mapContainerDimensions.width}
+              height={this.props.mapContainerDimensions.height}
+            />
+          )}
           {this.state.popupContent &&
             this.state.popupLatitude &&
             this.state.popupLongitude && (
@@ -466,6 +469,10 @@ const mapStateToProps = (state): StateProps => ({
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
+  isMapMeasurementToolVisible: uiVisibilitySelector(
+    "mapMeasurementTool",
+    state,
+  ),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapContainerDimensions: mapContainerDimensionsSelector(state),

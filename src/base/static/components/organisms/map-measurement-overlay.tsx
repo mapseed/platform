@@ -87,7 +87,6 @@ const buildMeasurementFeatureCollection = (selectedTool, positions) => {
 
 const redraw = ({
   project,
-  isDragging,
   ctx,
   measurementFeatureCollection,
   width,
@@ -212,7 +211,10 @@ const MapMeasurementOverlay = props => {
     return () => {
       overlayRef &&
         overlayRef.current &&
-        overlayRef.current._canvas.removeEventListener("click");
+        overlayRef.current._canvas.removeEventListener(
+          "click",
+          handleOverlayClick,
+        );
     };
   }, []);
 
