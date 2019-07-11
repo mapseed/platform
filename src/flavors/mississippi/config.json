@@ -71,25 +71,32 @@
       "maxZoom": 18.4
     },
     "mapWidgets": {
-      "radioMenu": {
+      "checkboxMenu": {
         "label": "Explore Nitrogen Deposition",
         "options": [
           {
-            "layerGroupId": "nitrogen-deposition-group-sewerage",
-            "defaultSelected": true,
+            "layerGroupId": "nitrogen-deposition-group",
+            "layerId": "nitrogen-deposition",
+            "aggregator": "INCY_S1",
             "label": "from sewerage"
           },
           {
-            "layerGroupId": "nitrogen-deposition-group-farm",
-            "label": "from farms"
-          },
-          {
-            "layerGroupId": "nitrogen-deposition-group-urban",
+            "layerGroupId": "nitrogen-deposition-group",
+            "layerId": "nitrogen-deposition",
+            "aggregator": "INCY_S2",
             "label": "from urban"
           },
           {
-            "layerGroupId": "nitrogen-deposition-group-cafo",
+            "layerGroupId": "nitrogen-deposition-group",
+            "layerId": "nitrogen-deposition",
+            "aggregator": "INCY_S4",
             "label": "from cafo"
+          },
+          {
+            "layerGroupId": "nitrogen-deposition-group",
+            "layerId": "nitrogen-deposition",
+            "aggregator": "INCY_S5",
+            "label": "from farms"
           }
         ]
       }
@@ -603,35 +610,11 @@
         ]
       },
       {
-        "id": "nitrogen-deposition-group-sewerage",
+        "id": "nitrogen-deposition-group",
         "visibleDefault": false,
-        "aggregationSelector": {
-          "layerId": "nitrogen-deposition",
-          "paintProperty": "fill-color",
-          "options": [
-            {
-              "id": "farm-fertilizer",
-              "property": "INCY_S5",
-              "defaultSelected": true
-            },
-            {
-              "id": "cafo",
-              "property": "INCY_S4"
-            },
-            {
-              "id": "urban-runoff",
-              "property": "INCY_S2"
-            },
-            {
-              "id": "sewerage",
-              "property": "INCY_S1"
-            }
-          ],
-          "defaultFilters": ["cafo"]
-        },
         "mapboxLayers": [
           {
-            "id": "nitrogen-deposition-sewerage",
+            "id": "nitrogen-deposition",
             "type": "fill",
             "source": "nitrogen-deposition",
             "source-layer": "mississippi-nitrogen-deposition",
@@ -640,79 +623,13 @@
               "fill-color": [
                 "interpolate-hcl",
                 ["linear"],
-                ["get", "INCY_S1"],
-                0,
-                "rgba(255, 255, 255, .3)",
-                5000,
-                "#c35800"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "nitrogen-deposition-group-urban",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "nitrogen-deposition-urban",
-            "type": "fill",
-            "source": "nitrogen-deposition",
-            "source-layer": "mississippi-nitrogen-deposition",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "interpolate-hcl",
-                ["linear"],
-                ["get", "INCY_S2"],
-                0,
-                "rgba(255, 255, 255, .3)",
-                5000,
-                "#c35800"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "nitrogen-deposition-group-cafo",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "nitrogen-deposition-cafo",
-            "type": "fill",
-            "source": "nitrogen-deposition",
-            "source-layer": "mississippi-nitrogen-deposition",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "interpolate-hcl",
-                ["linear"],
-                ["get", "INCY_S4"],
-                0,
-                "rgba(255, 255, 255, .3)",
-                5000,
-                "#c35800"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "nitrogen-deposition-group-farm",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "nitrogen-deposition-farm",
-            "type": "fill",
-            "source": "nitrogen-deposition",
-            "source-layer": "mississippi-nitrogen-deposition",
-            "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "interpolate-hcl",
-                ["linear"],
-                ["get", "INCY_S5"],
+                [
+                  "+",
+                  ["get", "INCY_S1"],
+                  ["get", "INCY_S2"],
+                  ["get", "INCY_S4"],
+                  ["get", "INCY_S5"]
+                ],
                 0,
                 "rgba(255, 255, 255, .3)",
                 5000,

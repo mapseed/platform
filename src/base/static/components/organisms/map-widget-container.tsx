@@ -4,12 +4,15 @@ import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import MapFilterSlider from "../molecules/map-filter-slider";
-import MapRadioMenu from "../molecules/map-radio-menu";
+import MapCheckboxMenu from "../molecules/map-checkbox-menu";
 import {
   updateLayerGroupVisibility,
   updateLayerFilters,
+  updateLayerAggregators,
   LayerGroups,
   layerGroupsSelector,
+  layersSelector,
+  Layer,
 } from "../../state/ducks/map";
 import {
   MapWidgetsConfig,
@@ -21,10 +24,12 @@ type ContainerStateProps = {
   layout: string;
   mapWidgets: MapWidgetsConfig;
   layerGroups: LayerGroups;
+  layers: Layer[];
 };
 
 type DispatchProps = {
   updateLayerFilters: Function;
+  updateLayerAggregators: typeof updateLayerAggregators;
   updateLayerGroupVisibility: typeof updateLayerGroupVisibility;
 };
 
@@ -54,13 +59,13 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
             }
           />
         )}
-        {props.mapWidgets.radioMenu && (
-          <MapRadioMenu
-            radioMenuConfig={props.mapWidgets.radioMenu}
+        {props.mapWidgets.checkboxMenu && (
+          <MapCheckboxMenu
+            checkboxMenuConfig={props.mapWidgets.checkboxMenu}
             updateLayerGroupVisibility={props.updateLayerGroupVisibility}
-            layerGroups={props.mapWidgets.radioMenu.options.map(
-              option => props.layerGroups.byId[option.layerGroupId],
-            )}
+            updateLayerAggregators={props.updateLayerAggregators}
+            layerGroups={props.layerGroups}
+            layers={props.layers}
           />
         )}
       </React.Fragment>
@@ -72,11 +77,13 @@ const mapStateToProps = state => ({
   layout: layoutSelector(state),
   mapWidgets: mapWidgetsSelector(state),
   layerGroups: layerGroupsSelector(state),
+  layers: layersSelector(state),
 });
 
 const mapDispatchToProps = {
   updateLayerFilters,
   updateLayerGroupVisibility,
+  updateLayerAggregators,
 };
 
 export default connect(

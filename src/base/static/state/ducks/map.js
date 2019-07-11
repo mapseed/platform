@@ -36,23 +36,22 @@ export const mapSourcesPropType = PropTypes.objectOf(
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   }),
 );
+const MapboxLayerPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  source: PropTypes.string,
+  "source-layer": PropTypes.string,
+  paint: PropTypes.object,
+  layout: PropTypes.shape({
+    visibility: PropTypes.string.isRequired,
+  }),
+});
 
 export const mapStylePropType = PropTypes.shape({
   version: PropTypes.number,
   name: PropTypes.string,
   sources: mapSourcesPropType,
-  layers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      source: PropTypes.string,
-      "source-layer": PropTypes.string,
-      paint: PropTypes.object,
-      layout: PropTypes.shape({
-        visibility: PropTypes.string.isRequired,
-      }),
-    }),
-  ),
+  layers: PropTypes.arrayOf(MapboxLayerPropType).isRequired,
 });
 
 export const layerGroupsPropType = PropTypes.shape({
@@ -84,17 +83,37 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 ////////////////////////////////////////////////////////////////////////////////
 
 const getStyle = state => state.map.style;
-const getLayers = state => state.map.layers;
+export const layersSelector = state => state.map.layers;
 export const layerGroupsSelector = state => state.map.layerGroups;
+
+const getPaintFromAggregators = (aggregators, layerPaint) => {
+  // since 'splice', used below, is mutable, we copy the array here:
+  const fillColor = [...layerPaint["fill-color"]];
+  fillColor.splice(2, 1, [
+    "+",
+    ...aggregators.map(aggregator => ["get", aggregator]),
+  ]);
+  return {
+    ...layerPaint,
+    "fill-color": fillColor,
+  };
+};
+
 export const mapStyleSelector = createSelector(
-  [getStyle, getLayers, layerGroupsSelector],
+  [getStyle, layersSelector, layerGroupsSelector],
   (style, layers, layerGroups) => {
     return {
       ...style,
+      // Convert our internal layer representation into the Mapbox layer spec:
       layers: layers.map(layer => {
-        const { groupId, ...mapboxLayer } = layer;
+        const { groupId, aggregators, ...mapboxLayer } = layer;
         return {
           ...mapboxLayer,
+          ...(mapboxLayer.paint && {
+            paint: aggregators
+              ? getPaintFromAggregators(aggregators, mapboxLayer.paint)
+              : mapboxLayer.paint,
+          }),
           layout: {
             ...mapboxLayer.layout,
             visibility: layerGroups.byId[groupId].isVisible
@@ -141,6 +160,7 @@ const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
 const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
+const UPDATE_LAYER_AGGREGATORS = "map/UPDATE_LAYER_AGGREGATORS";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
 const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
 
@@ -165,6 +185,13 @@ export function updateLayers(newLayer) {
   return {
     type: UPDATE_LAYERS,
     payload: newLayer,
+  };
+}
+
+export function updateLayerAggregators(layerId, aggregators) {
+  return {
+    type: UPDATE_LAYER_AGGREGATORS,
+    payload: { layerId, aggregators },
   };
 }
 
@@ -603,6 +630,17 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         layers: state.layers.concat(action.payload),
+      };
+    case UPDATE_LAYER_AGGREGATORS:
+      return {
+        ...state,
+        layers: [
+          ...state.layers.filter(layer => layer.id !== action.payload.layerId),
+          {
+            ...state.layers.find(layer => layer.id === action.payload.layerId),
+            aggregators: action.payload.aggregators,
+          },
+        ],
       };
     case UPDATE_MAP_CONTAINER_DIMENSIONS:
       return {

@@ -15,6 +15,18 @@ export type FilterableLayerGroup = {
   filterSlider: FilterSlider;
 };
 
+export type Layer = {
+  id: string;
+  type: string;
+  source: string;
+  "source-layer": string;
+  paint: any;
+
+  // Non-mapbox attrs:
+  groupId: string;
+  aggregators: string[];
+};
+
 export const mapSourcesPropType: any;
 
 export const mapStylePropType: any;
@@ -50,6 +62,7 @@ export type SourcesMetadata = {
 };
 
 export const layerGroupsSelector: any;
+export const layersSelector: any;
 export const mapStyleSelector: any;
 export const mapSourcesSelector: any;
 export const sourcesMetadataSelector: any;
@@ -68,6 +81,11 @@ export const updateLayerFilters: any;
 export const removeFocusedGeoJSONFeatures: any;
 
 export const updateLayers: any;
+
+export const updateLayerAggregators: (
+  layerId: string,
+  aggregators: string[],
+) => void;
 
 export const updateFocusedGeoJSONFeatures: any;
 
