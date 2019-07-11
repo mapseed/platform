@@ -71,7 +71,10 @@ export const updateLayers: any;
 
 export const updateFocusedGeoJSONFeatures: any;
 
-export const updateLayerGroupVisibility: any;
+export const updateLayerGroupVisibility: (
+  id: string,
+  isVisible: boolean,
+) => void;
 
 export const updateMapContainerDimensions: any;
 

@@ -23,8 +23,18 @@ export type FilterSliderConfig = {
   comparator: string;
 };
 
+export type RadioMenuConfig = {
+  label: string;
+  options: {
+    layerGroupId: string;
+    label: string;
+    defaultSelected?: string;
+  }[];
+};
+
 export type MapWidgetsConfig = {
   filterSlider?: FilterSliderConfig;
+  radioMenu?: RadioMenuConfig;
 };
 
 export type OfflineConfig = {

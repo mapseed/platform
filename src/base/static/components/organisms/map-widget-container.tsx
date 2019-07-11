@@ -4,7 +4,9 @@ import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import MapFilterSlider from "../molecules/map-filter-slider";
+import MapRadioMenu from "../molecules/map-radio-menu";
 import {
+  updateLayerGroupVisibility,
   updateLayerFilters,
   LayerGroups,
   layerGroupsSelector,
@@ -23,6 +25,7 @@ type ContainerStateProps = {
 
 type DispatchProps = {
   updateLayerFilters: Function;
+  updateLayerGroupVisibility: typeof updateLayerGroupVisibility;
 };
 
 type ContainerProps = ContainerStateProps & DispatchProps;
@@ -41,15 +44,26 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
         width: ${props.layout === "desktop" ? "400px" : "unset"};
       `}
     >
-      {props.mapWidgets.filterSlider && (
-        <MapFilterSlider
-          updateLayerFilters={props.updateLayerFilters}
-          filterSliderConfig={props.mapWidgets.filterSlider}
-          layerGroup={
-            props.layerGroups.byId[props.mapWidgets.filterSlider.layerGroupId]
-          }
-        />
-      )}
+      <React.Fragment>
+        {props.mapWidgets.filterSlider && (
+          <MapFilterSlider
+            updateLayerFilters={props.updateLayerFilters}
+            filterSliderConfig={props.mapWidgets.filterSlider}
+            layerGroup={
+              props.layerGroups.byId[props.mapWidgets.filterSlider.layerGroupId]
+            }
+          />
+        )}
+        {props.mapWidgets.radioMenu && (
+          <MapRadioMenu
+            radioMenuConfig={props.mapWidgets.radioMenu}
+            updateLayerGroupVisibility={props.updateLayerGroupVisibility}
+            layerGroups={props.mapWidgets.radioMenu.options.map(
+              option => props.layerGroups.byId[option.layerGroupId],
+            )}
+          />
+        )}
+      </React.Fragment>
     </div>
   );
 };
@@ -62,6 +76,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   updateLayerFilters,
+  updateLayerGroupVisibility,
 };
 
 export default connect(
