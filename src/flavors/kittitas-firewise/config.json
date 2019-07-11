@@ -198,6 +198,7 @@
             "id": "light-nolabels-basemap",
             "type": "raster",
             "source": "light-nolabels",
+            "maxzoom": 10,
             "paint": {
               "raster-opacity": [
                 "interpolate",
@@ -214,6 +215,7 @@
             "id": "satellite-basemap",
             "type": "raster",
             "source": "satellite",
+            "minzoom": 9,
             "paint": {
               "raster-opacity": [
                 "interpolate",
@@ -881,6 +883,7 @@
             "id": "kittitas-firewise-communities",
             "type": "fill",
             "source": "kittitas-firewise-communities",
+            "minzoom": 9,
             "source-layer": "kittitas-firewise-communities",
             "paint": {
               "fill-color": "#3366ff",
@@ -900,6 +903,7 @@
             "type": "line",
             "source": "kittitas-firewise-communities",
             "source-layer": "kittitas-firewise-communities",
+            "minzoom": 9,
             "paint": {
               "line-color": "#fff",
               "line-opacity": [
@@ -918,6 +922,7 @@
             "type": "symbol",
             "source": "kittitas-firewise-communities",
             "source-layer": "kittitas-firewise-communities",
+            "minzoom": 9,
             "paint": {
               "text-opacity": [
                 "interpolate",
@@ -1203,7 +1208,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 2,
+            "end_field_index": 3,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wa-state-large-fires-1973-2018",
@@ -1219,8 +1224,8 @@
             }
           },
           {
-            "start_field_index": 3,
-            "end_field_index": 4,
+            "start_field_index": 4,
+            "end_field_index": 5,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-forest-type",
@@ -1237,8 +1242,8 @@
             }
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 6,
+            "start_field_index": 6,
+            "end_field_index": 7,
             "visibleLayerGroupIds": [
               "light-satellite",
               "wa-state-wildfire-start-sites-2008-group",
@@ -1255,8 +1260,8 @@
             }
           },
           {
-            "start_field_index": 7,
-            "end_field_index": 9,
+            "start_field_index": 8,
+            "end_field_index": 10,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1274,8 +1279,8 @@
             }
           },
           {
-            "start_field_index": 10,
-            "end_field_index": 11,
+            "start_field_index": 11,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1285,8 +1290,8 @@
             ]
           },
           {
-            "start_field_index": 12,
-            "end_field_index": 19,
+            "start_field_index": 13,
+            "end_field_index": 20,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1296,8 +1301,8 @@
             ]
           },
           {
-            "start_field_index": 20,
-            "end_field_index": 28,
+            "start_field_index": 21,
+            "end_field_index": 29,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1307,8 +1312,8 @@
             ]
           },
           {
-            "start_field_index": 29,
-            "end_field_index": 36,
+            "start_field_index": 30,
+            "end_field_index": 37,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1318,8 +1323,8 @@
             ]
           },
           {
-            "start_field_index": 37,
-            "end_field_index": 50,
+            "start_field_index": 38,
+            "end_field_index": 51,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1329,8 +1334,8 @@
             ]
           },
           {
-            "start_field_index": 51,
-            "end_field_index": 61,
+            "start_field_index": 52,
+            "end_field_index": 60,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1345,12 +1350,19 @@
           {
             "name": "large_fires_header",
             "type": "informational_html",
-            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:PTSansBold,sans-serif;'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;font-family:PTSans,sans-serif;'>a Fire Environment</h2>"
+            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:PTSansBold,sans-serif;'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;font-family:PTSans,sans-serif;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>The Taylor Bridge Fire burns in 2012.</figcaption></figure>"
+          },
+          {
+            "name": "private-landowner_email",
+            "type": "text",
+            "optional": true,
+            "placeholder": "Your email address will never be shared",
+            "prompt": "Enter your email address to make sure you get information about an onsite wildfire consultation at the end of this survey. You'll learn about your wildfire risk and forest conditions:"
           },
           {
             "name": "large_fires_information",
             "type": "informational_html",
-            "content": "<figure style='margin: 0;'><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>The Taylor Bridge Fire burns in 2012.</figcaption></figure><p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Click on fires on the map to learn more about them, and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:30px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:30px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Click on fires on the map to learn more about them, and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:30px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:30px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
           },
           {
             "name": "forest_type_header",
@@ -1580,13 +1592,6 @@
               }
             ],
             "optional": true
-          },
-          {
-            "name": "private-landowner_email",
-            "type": "text",
-            "optional": true,
-            "placeholder": "Your email address will never be shared",
-            "prompt": "What is your email address?"
           },
           {
             "name": "private-landowner_phone",
