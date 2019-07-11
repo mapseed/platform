@@ -4,7 +4,6 @@ import { css, jsx } from "@emotion/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
-  LayerGroup,
   updateLayerGroupVisibility,
   updateLayerAggregators,
   LayerGroups,
@@ -14,20 +13,15 @@ import {
   CheckboxMenuConfig,
   CheckboxMenuOption,
 } from "../../state/ducks/map-config";
-// import Radio from "@material-ui/core/Radio";
 import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 
-// import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 
 type CheckboxMenuProps = {
   checkboxMenuConfig: CheckboxMenuConfig;
-  // layerGroups: LayerGroup[];
   layerGroups: LayerGroups;
   layers: Layer[];
   updateLayerGroupVisibility: typeof updateLayerGroupVisibility;
@@ -52,57 +46,6 @@ const MapCheckboxMenu: React.FunctionComponent<CheckboxMenuProps> = ({
   updateLayerAggregators,
   classes,
 }) => {
-  // const visibleLayerGroups = layerGroups.filter(
-  //   layerGroup => layerGroup.isVisible,
-  // );
-  // let currentSelectedLayerGroup: LayerGroup | null = null;
-  // if (visibleLayerGroups.length > 1) {
-  //   console.warn(
-  //     "more than one layer groups selected for the MapRadioMenu: ",
-  //     visibleLayerGroups.map(group => group.id),
-  //   );
-  // } else if (visibleLayerGroups.length === 1) {
-  //   currentSelectedLayerGroup = visibleLayerGroups[0] || null;
-  // } else {
-  //   const defaultSelectedOption = checkboxMenuConfig.options.find(
-  //     option => !!option.defaultSelected,
-  //   );
-  //   currentSelectedLayerGroup =
-  //     layerGroups.find(
-  //       group => group.id === defaultSelectedOption!.layerGroupId,
-  //     ) || null;
-  // }
-
-  // const handleChange = (event: React.ChangeEvent<unknown>) => {
-  //   const id = (event.target as HTMLInputElement).value;
-  //   // if (layerGroups.some(group => id === group.id)) {
-  //   //   updateLayerGroupVisibility(id, true);
-  //   // }
-  //   // if (currentSelectedLayerGroup) {
-  //   //   updateLayerGroupVisibility(currentSelectedLayerGroup.id, false);
-  //   // }
-  //   updateLayerGroupVisibility(id, true);
-  //   updateLayerGroupVisibility(currentSelectedLayerGroup.id, false);
-  // };
-
-  // <RadioGroup
-  //   aria-label="map layer selector"
-  //   name="map radio menu"
-  //   value={currentSelectedLayerGroup.id}
-  //   onChange={handleChange}
-  // >
-  //   {checkboxMenuConfig.options.map(option => (
-  //     <FormControlLabel
-  //       key={option.layerGroupId}
-  //       value={option.layerGroupId}
-  //       control={<Radio style={{ padding: "4px 12px" }} />}
-  //       label={option.label}
-  //       classes={{
-  //         label: classes.label,
-  //       }}
-  //     />
-  //   ))}
-  // </RadioGroup>
   const isOptionChecked = (option: CheckboxMenuOption): boolean => {
     if (option.aggregator) {
       // When the checkbox toggles aggregators within a layer:
@@ -120,9 +63,6 @@ const MapCheckboxMenu: React.FunctionComponent<CheckboxMenuProps> = ({
   const handleChange = (option: CheckboxMenuOption) => (
     event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    // const checked = event.target.checked;
-    // setState({ ...state, [name]:  });
-    const id = (event.target as HTMLInputElement).value;
     const isChecked = event.target.checked;
     const layerGroup = layerGroups.byId[option.layerGroupId];
     console.log("map checkbox: layerGroup:", layerGroup);
@@ -136,7 +76,6 @@ const MapCheckboxMenu: React.FunctionComponent<CheckboxMenuProps> = ({
     // Update the aggregators for the layer, and update the layerGroup
     // visibility as needed:
     const layer = layers.find(layer => layer.id === option.layerId);
-    // layerGroups.byId[option.layerGroupId].isVisible
     if (!layerGroup.isVisible && isChecked) {
       updateLayerAggregators(layer!.id, [option.aggregator]);
       updateLayerGroupVisibility(layerGroup.id, true);
