@@ -39,331 +39,345 @@ const FEET_PER_MILE = 5280;
 const SQUARE_METERS_PER_ACRE = 0.000247105;
 const measurementFormatter = new Intl.NumberFormat("en-US");
 const MIN_POSITIONS = {
-  "create-polygon": 4,
+  "create-polygon": 4, // Including final position matching the first.
   "create-polyline": 2,
 };
 
-export default class MapMeasurementOverlay extends React.Component {
-  state = {
-    // NOTE: The structure of this featureCollection is such that all but the
-    // last feature are Points representing clicked-on locations, and the final
-    // feature is either a LineString or a Polygon built from those points. The
-    // final feature is used for measurement purposes.
-    featureCollection: featureCollection([]),
-    selectedTool: null,
-    measurement: null,
-    units: null,
+const getNewViewport = ({ viewport, width, height }) =>
+  new WebMercatorViewport({
+    ...viewport,
+    width,
+    height,
+  });
+
+const buildMeasurementFeatureCollection = (selectedTool, positions) => {
+  let featureFn;
+  let newPositions;
+  let numPositions = 0;
+  switch (selectedTool) {
+    case "create-polygon":
+      featureFn = polygon;
+      // Ensure the last position of the Polygon matches the first.
+      newPositions = [positions.concat([positions[0]])];
+      numPositions = newPositions[0].length;
+      break;
+    case "create-polyline":
+      featureFn = lineString;
+      newPositions = positions;
+      numPositions = newPositions.length;
+      break;
+    default:
+      featureFn = () => [];
+      newPositions = positions;
+      // eslint-disable-next-line no-console
+      console.error(
+        `Measurement overlay: unsupported tool ${this.state.selectedTool}`,
+      );
+      break;
+  }
+
+  return featureCollection(
+    positions.map(position => point(position)).concat(
+      // Only add the measurement feature if we have enough positions on
+      // the map to support the given feature type.
+      numPositions >= MIN_POSITIONS[selectedTool]
+        ? featureFn(newPositions)
+        : [],
+    ),
+  );
+};
+
+const redraw = ({
+  project,
+  isDragging,
+  ctx,
+  measurementFeatureCollection,
+  isWithFill,
+  width,
+  height,
+}) => {
+  function projectPoint(lon, lat) {
+    const point = project([lon, lat]);
+    /* eslint-disable-next-line no-invalid-this */
+    this.stream.point(point[0], point[1]);
+  }
+
+  const transform = geoTransform({ point: projectPoint });
+  const path = geoPath()
+    .projection(transform)
+    .context(ctx);
+
+  ctx.clearRect(0, 0, width, height);
+
+  const { features } = measurementFeatureCollection;
+  if (!features) {
+    return;
+  }
+
+  for (const feature of features) {
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(245, 241, 17, 0.8)"; // Bright yellow.
+    ctx.lineWidth = "2";
+    ctx.fillStyle = "rgba(188, 0, 0, 0.5)"; // Bright red.
+    const geometry = feature.geometry;
+    path({
+      type: geometry.type,
+      coordinates: geometry.coordinates,
+    });
+    isWithFill && ctx.fill();
+    ctx.stroke();
+  }
+};
+
+const formatMeasurement = measurement =>
+  isNaN(measurement)
+    ? null
+    : measurementFormatter.format(measurement.toFixed(1));
+
+const MapMeasurementOverlay = props => {
+  // NOTE: The structure of this featureCollection is such that all but the
+  // last feature are Points representing clicked-on locations, and the final
+  // feature is either a LineString or a Polygon built from those points. The
+  // final feature is used for measurement purposes.
+  const [
+    measurementFeatureCollection,
+    setMeasurementFeatureCollection,
+  ] = React.useState(featureCollection([]));
+  const [selectedTool, setSelectedTool] = React.useState(null);
+  const [measurement, setMeasurement] = React.useState(null);
+  const [units, setUnits] = React.useState(null);
+  const positions = React.useRef([]);
+  const webMercatorViewport = React.useRef();
+  const overlayRef = React.useRef();
+
+  const handleOverlayClick = evt => {
+    setSelectedTool(selectedTool => {
+      if (!selectedTool) {
+        return;
+      }
+
+      const { left, top } = evt.currentTarget.getBoundingClientRect();
+      // Get unprojected (i.e. lng/lat) coordinates from the x/y click position,
+      // relative to the overlay canvas element.
+      const unprojected = webMercatorViewport.current.unproject([
+        evt.x - left,
+        evt.y - top,
+      ]);
+
+      positions.current.push(unprojected);
+      setMeasurementFeatureCollection(
+        buildMeasurementFeatureCollection(selectedTool, positions.current),
+      );
+
+      return selectedTool;
+    });
   };
 
-  _getNewViewport = () =>
-    new WebMercatorViewport({
-      ...this.props.viewport,
-      width: this.props.width,
-      height: this.props.height,
+  const handleUndoLastPoint = () => {
+    setSelectedTool(selectedTool => {
+      positions.current.pop();
+      setMeasurementFeatureCollection(
+        buildMeasurementFeatureCollection(selectedTool, positions.current),
+      );
+
+      return selectedTool;
     });
+  };
 
-  _overlayRef = React.createRef();
-  _webMercatorViewport = this._getNewViewport();
-  _positions = [];
+  const handleReset = () => {
+    positions.current = [];
+    setMeasurementFeatureCollection(featureCollection([]));
+    setSelectedTool(null);
+    setUnits(null);
+    setMeasurement(null);
+  };
 
-  componentDidMount() {
+  React.useEffect(() => {
     // Unless I'm missing the right way to use overlays, it seems necessary
     // to attach a click listener here to capture clicks on the overlay.
     // See: https://github.com/uber/react-map-gl/issues/470
-    if (this._overlayRef && this._overlayRef.current) {
-      this._overlayRef.current._canvas.addEventListener("click", this._onClick);
-      this._overlayRef.current._canvas.addEventListener(
-        "mousemove",
-        this._onMousemove,
-      );
+    if (overlayRef && overlayRef.current) {
+      overlayRef.current._canvas.addEventListener("click", handleOverlayClick);
     } else {
       // eslint-disable-next-line no-console
       console.error(
         "Measurement overlay: failed to attach click event listener",
       );
     }
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.viewport !== prevProps.viewport ||
-      this.props.height !== prevProps.height ||
-      this.props.width !== prevProps.width
-    ) {
-      this._webMercatorViewport = this._getNewViewport();
-    }
+    return () => {
+      overlayRef &&
+        overlayRef.current &&
+        overlayRef.current._canvas.removeEventListener("click");
+    };
+  }, []);
 
-    if (this.state.featureCollection !== prevState.featureCollection) {
-      // Geometry has been added or removed from the measurement
-      // FeatureCollection.
-      const { features } = this.state.featureCollection;
+  React.useEffect(
+    () => {
+      webMercatorViewport.current = getNewViewport({
+        viewport: props.viewport,
+        width: props.width,
+        height: props.height,
+      });
+    },
+    [props.viewport, props.width, props.height],
+  );
+
+  React.useEffect(
+    () => {
+      const { features } = measurementFeatureCollection;
       const measurementFeature = features[features.length - 1];
       if (
         measurementFeature &&
         measurementFeature.geometry.type == "LineString"
       ) {
-        this.setState({
-          measurement:
-            measurementFeature.geometry.coordinates.reduce(
-              (total, nextCoords, i) => {
-                return (
-                  i > 0 &&
-                  total +
-                    distance(
-                      measurementFeature.geometry.coordinates[i - 1],
-                      nextCoords,
-                      {
-                        units: "miles",
-                      },
-                    )
-                );
-              },
-              0,
-            ) * FEET_PER_MILE,
-        });
+        setMeasurement(
+          measurementFeature.geometry.coordinates.reduce(
+            (total, nextCoords, i) => {
+              return (
+                i > 0 &&
+                total +
+                  distance(
+                    measurementFeature.geometry.coordinates[i - 1],
+                    nextCoords,
+                    {
+                      units: "miles",
+                    },
+                  )
+              );
+            },
+            0,
+          ) * FEET_PER_MILE,
+        );
       } else if (
         measurementFeature &&
         measurementFeature.geometry.type === "Polygon"
       ) {
-        this.setState({
-          // NOTE: the `area` function always returns areas in square meters.
-          measurement:
-            area(measurementFeature.geometry) * SQUARE_METERS_PER_ACRE,
-        });
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    this._overlayRef &&
-      this._overlayRef.current &&
-      this._overlayRef.current._canvas.removeEventListener("click");
-  }
-
-  _onMousemove = evt => {};
-
-  _onClick = evt => {
-    if (!this.state.selectedTool) {
-      return;
-    }
-
-    const { left, top } = evt.currentTarget.getBoundingClientRect();
-
-    // Get unprojected (i.e. lng/lat) coordinates from the x/y click position,
-    // relative to the overlay canvas element.
-    const unprojected = this._webMercatorViewport.unproject([
-      evt.x - left,
-      evt.y - top,
-    ]);
-
-    this._positions.push(unprojected);
-    this._updateFeatureCollection();
-  };
-
-  _updateFeatureCollection = () => {
-    let featureFn;
-    let positions;
-    let numPositions = 0;
-    switch (this.state.selectedTool) {
-      case "create-polygon":
-        featureFn = polygon;
-        // Ensure the last position of the Polygon matches the first.
-        positions = [this._positions.concat([this._positions[0]])];
-        numPositions = positions[0].length;
-        break;
-      case "create-polyline":
-        featureFn = lineString;
-        positions = this._positions;
-        numPositions = positions.length;
-        break;
-      default:
-        featureFn = () => [];
-        positions = this._positions;
-        // eslint-disable-next-line no-console
-        console.error(
-          `Measurement overlay: unsupported tool ${this.state.selectedTool}`,
+        // NOTE: the `area` function always returns areas in square meters.
+        setMeasurement(
+          area(measurementFeature.geometry) * SQUARE_METERS_PER_ACRE,
         );
-        break;
-    }
+      } else {
+        setMeasurement(0);
+      }
+    },
+    [measurementFeatureCollection],
+  );
 
-    this.setState({
-      featureCollection: featureCollection(
-        this._positions.map(position => point(position)).concat(
-          // Only add the measurement feature if we have enough positions on
-          // the map.
-          numPositions >= MIN_POSITIONS[this.state.selectedTool]
-            ? featureFn(positions)
-            : [],
-        ),
-      ),
-    });
-  };
+  //componentWillUnmount() {
+  //  this._overlayRef &&
+  //    this._overlayRef.current &&
+  //    this._overlayRef.current._canvas.removeEventListener("click");
+  //}
 
-  _redraw = ({ project, isDragging, ctx }) => {
-    function projectPoint(lon, lat) {
-      const point = project([lon, lat]);
-      /* eslint-disable-next-line no-invalid-this */
-      this.stream.point(point[0], point[1]);
-    }
-
-    if (this.props.renderWhileDragging || !isDragging) {
-      const transform = geoTransform({ point: projectPoint });
-      const path = geoPath()
-        .projection(transform)
-        .context(ctx);
-      this._drawFeatures(ctx, path);
-    }
-  };
-
-  _drawFeatures(ctx, path) {
-    ctx.clearRect(0, 0, this.props.width, this.props.height);
-
-    const { features } = this.state.featureCollection;
-    if (!features) {
-      return;
-    }
-
-    for (const feature of features) {
-      ctx.beginPath();
-      ctx.strokeStyle = "rgba(245, 241, 17, 0.8)"; // Bright yellow.
-      ctx.lineWidth = "2";
-      ctx.fillStyle = "rgba(188, 0, 0, 0.5)";
-      const geometry = feature.geometry;
-      path({
-        type: geometry.type,
-        coordinates: geometry.coordinates,
-      });
-      this.state.selectedTool === "create-polygon" && ctx.fill();
-      ctx.stroke();
-    }
-  }
-
-  _undoLastPoint = () => {
-    this._positions.pop();
-    this._updateFeatureCollection();
-  };
-
-  _reset = () => {
-    this._positions = [];
-    this.setState({
-      featureCollection: featureCollection([]),
-      selectedTool: null,
-      units: null,
-      measurement: null,
-    });
-  };
-
-  _formatMeasurement = measurement =>
-    isNaN(measurement)
-      ? null
-      : measurementFormatter.format(measurement.toFixed(1));
-
-  render() {
-    const { selectedTool, units, measurement, featureCollection } = this.state;
-
-    return (
-      <React.Fragment>
-        <CanvasOverlay
-          featureCollection={featureCollection}
-          ref={this._overlayRef}
-          captureClick={true}
-          redraw={this._redraw}
-        />
-        <div
+  return (
+    <React.Fragment>
+      <CanvasOverlay
+        featureCollection={featureCollection}
+        ref={overlayRef}
+        captureClick={true}
+        redraw={props =>
+          redraw({
+            ...props,
+            measurementFeatureCollection,
+            height: props.height,
+            width: props.width,
+            isWithFill: selectedTool === "create-polygon",
+          })
+        }
+      />
+      <div
+        css={css`
+          position: absolute;
+          right: 8px;
+          bottom: 8px;
+          background-color: rgba(255, 255, 255, 0.85);
+          padding: 8px;
+          border-radius: 8px;
+          width: 225px;
+          min-width: 225px;
+        `}
+      >
+        <RegularText
           css={css`
-            position: absolute;
-            right: 8px;
-            bottom: 8px;
-            background-color: rgba(255, 255, 255, 0.85);
-            padding: 8px;
-            border-radius: 8px;
-            width: 225px;
-            min-width: 225px;
+            display: block;
+            margin-bottom: 8px;
+            font-family: courier, sans-serif;
           `}
         >
-          <RegularText
+          {selectedTool
+            ? `Total ${units}: ${formatMeasurement(measurement)}`
+            : "Measurement tools"}
+        </RegularText>
+        <div
+          css={css`
+            display: flex;
+            align-items: center;
+          `}
+        >
+          <div
             css={css`
-              display: block;
-              margin-bottom: 8px;
-              font-family: courier, sans-serif;
+              border-right: 1px solid #999;
+              display: flex;
+              align-items: center;
+              margin-right: 8px;
             `}
           >
-            {selectedTool
-              ? `Total ${units}: ${this._formatMeasurement(measurement)}`
-              : "Measurement tools"}
-          </RegularText>
+            <MeasurementToolIcon
+              isSelected={selectedTool === "create-polyline"}
+              onClick={() => {
+                if (selectedTool === "create-polyline") {
+                  return;
+                }
+
+                setSelectedTool("create-polyline");
+                setMeasurement(0);
+                setUnits("feet");
+              }}
+            >
+              <CreatePolylineIcon />
+            </MeasurementToolIcon>
+            <MeasurementToolIcon
+              isSelected={selectedTool === "create-polygon"}
+              onClick={() => {
+                if (selectedTool === "create-polygon") {
+                  return;
+                }
+
+                setSelectedTool("create-polygon");
+                setMeasurement(0);
+                setUnits("acres");
+              }}
+            >
+              <CreatePolygonIcon />
+            </MeasurementToolIcon>
+          </div>
           <div
             css={css`
               display: flex;
               align-items: center;
             `}
           >
-            <div
-              css={css`
-                border-right: 1px solid #999;
-                display: flex;
-                align-items: center;
-                margin-right: 8px;
-              `}
+            <MeasurementToolIcon
+              onClick={handleUndoLastPoint}
+              isEnabled={!!selectedTool}
             >
-              <MeasurementToolIcon
-                isSelected={selectedTool === "create-polyline"}
-                onClick={() => {
-                  if (selectedTool === "create-polyline") {
-                    return;
-                  }
-
-                  this.setState({
-                    selectedTool: "create-polyline",
-                    measurement: 0,
-                    units: "feet",
-                  });
-                }}
-              >
-                <CreatePolylineIcon />
-              </MeasurementToolIcon>
-              <MeasurementToolIcon
-                isSelected={selectedTool === "create-polygon"}
-                onClick={() => {
-                  if (selectedTool === "create-polygon") {
-                    return;
-                  }
-
-                  this.setState({
-                    selectedTool: "create-polygon",
-                    measurement: 0,
-                    units: "acres",
-                  });
-                }}
-              >
-                <CreatePolygonIcon />
-              </MeasurementToolIcon>
-            </div>
-            <div
-              css={css`
-                display: flex;
-                align-items: center;
-              `}
+              <UndoIcon color={selectedTool ? "#000" : "#999"} />
+            </MeasurementToolIcon>
+            <MeasurementToolIcon
+              isEnabled={!!selectedTool}
+              onClick={() => setSelectedTool(null)}
             >
-              <MeasurementToolIcon
-                onClick={this._undoLastPoint}
-                isEnabled={!!selectedTool}
-              >
-                <UndoIcon color={selectedTool ? "#000" : "#999"} />
-              </MeasurementToolIcon>
-              <MeasurementToolIcon
-                isEnabled={!!selectedTool}
-                onClick={() => this.setState({ selectedTool: null })}
-              >
-                <DeleteGeometryIcon
-                  onClick={this._reset}
-                  color={selectedTool ? "#000" : "#999"}
-                />
-              </MeasurementToolIcon>
-            </div>
+              <DeleteGeometryIcon
+                onClick={handleReset}
+                color={selectedTool ? "#000" : "#999"}
+              />
+            </MeasurementToolIcon>
           </div>
         </div>
-      </React.Fragment>
-    );
-  }
-}
+      </div>
+    </React.Fragment>
+  );
+};
+
+export default MapMeasurementOverlay;
