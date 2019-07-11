@@ -121,7 +121,7 @@
     "babel-eslint": "^9.0.0",
     "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.0",
-    "babel-plugin-emotion": "^10.0.0",
+    "babel-plugin-emotion": "^10.0.14",
     "colors": "^1.1.2",
     "compass-mixins": "^0.12.10",
     "compression-webpack-plugin": "^2.0.0",
