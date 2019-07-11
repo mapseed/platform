@@ -65,8 +65,6 @@ const MapCheckboxMenu: React.FunctionComponent<CheckboxMenuProps> = ({
   ): void => {
     const isChecked = event.target.checked;
     const layerGroup = layerGroups.byId[option.layerGroupId];
-    console.log("map checkbox: layerGroup:", layerGroup);
-    console.log("map checkbox: isChecked:", isChecked);
     if (!option.aggregator) {
       // all we have to do is toggle the layer group's visibility:
       updateLayerGroupVisibility(layerGroup.id, isChecked);
@@ -80,13 +78,17 @@ const MapCheckboxMenu: React.FunctionComponent<CheckboxMenuProps> = ({
       updateLayerAggregators(layer!.id, [option.aggregator]);
       updateLayerGroupVisibility(layerGroup.id, true);
     } else if (!layerGroup.isVisible && !isChecked) {
-      console.warn(
-        "unchedking a layer group that is not visible:",
+      console.error(
+        "MapBheckboxMenu: unchecking a layer group that is already not visible:",
         layerGroup.id,
       );
     } else if (layerGroup.isVisible && isChecked) {
       if (layer!.aggregators.includes(option.aggregator)) {
-        console.error("should not have aggregator!");
+        console.error(
+          `MapCheckboxMenu: aggregator present on layer when it shouldn't be: layerId: ${
+            layer!.id
+          }, aggregator: ${option.aggregator}`,
+        );
       }
       // add the option's agregator:
       const newAggregators = [...layer!.aggregators, option.aggregator];
@@ -94,7 +96,11 @@ const MapCheckboxMenu: React.FunctionComponent<CheckboxMenuProps> = ({
     } else {
       // (layerGroup.isVisible && !isChecked)
       if (!layer!.aggregators.includes(option.aggregator)) {
-        console.error("should have the aggregator!");
+        console.error(
+          `MapCheckboxMenu: aggregator not present on layer when it should 't be: layerId: ${
+            layer!.id
+          }, aggregator: ${option.aggregator}`,
+        );
       }
       // remove the aggregator
       const newAggregators = layer!.aggregators.filter(
