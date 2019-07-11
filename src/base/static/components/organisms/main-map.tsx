@@ -423,7 +423,6 @@ class MainMap extends React.Component<Props, State> {
         >
           <MapMeasurementOverlay
             mapViewport={this.props.mapViewport}
-            renderWhileDragging={true}
             viewport={this.props.mapViewport}
             width={this.props.mapContainerDimensions.width}
             height={this.props.mapContainerDimensions.height}

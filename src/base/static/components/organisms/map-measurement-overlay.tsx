@@ -186,6 +186,7 @@ const MapMeasurementOverlay = props => {
     selectedTool.current = null;
     setUnits(null);
     setMeasurement(null);
+    overlayRef.current._canvas.style.pointerEvents = "none";
   };
 
   React.useEffect(() => {
@@ -194,6 +195,10 @@ const MapMeasurementOverlay = props => {
     // See: https://github.com/uber/react-map-gl/issues/470
     if (overlayRef && overlayRef.current) {
       overlayRef.current._canvas.addEventListener("click", handleOverlayClick);
+      // This direct manipulation of the `pointer-events` style property feels
+      // like a hack, but the goal is to enable clicks on the underlying map
+      // when no measurement tool is selected.
+      overlayRef.current._canvas.style.pointerEvents = "none";
     } else {
       // eslint-disable-next-line no-console
       console.error(
@@ -265,7 +270,7 @@ const MapMeasurementOverlay = props => {
       <CanvasOverlay
         featureCollection={featureCollection}
         ref={overlayRef}
-        captureClick={true}
+        captureClick={!!selectedTool.current}
         redraw={props =>
           redraw({
             ...props,
@@ -277,6 +282,7 @@ const MapMeasurementOverlay = props => {
         }
       />
       <div
+        onClick={evt => evt.stopPropagation()}
         css={css`
           position: absolute;
           right: 8px;
@@ -320,6 +326,7 @@ const MapMeasurementOverlay = props => {
                   return;
                 }
 
+                overlayRef.current._canvas.style.pointerEvents = "initial";
                 selectedTool.current = "create-polyline";
                 setMeasurement(0);
                 setUnits("feet");
@@ -334,6 +341,7 @@ const MapMeasurementOverlay = props => {
                   return;
                 }
 
+                overlayRef.current._canvas.style.pointerEvents = "initial";
                 selectedTool.current = "create-polygon";
                 setMeasurement(0);
                 setUnits("acres");
