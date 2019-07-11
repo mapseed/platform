@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "@emotion/styled";
 import { css, jsx } from "@emotion/core";
-import { lighten } from "@material-ui/core/styles/colorManipulator";
+import { lighten, darken } from "@material-ui/core/styles/colorManipulator";
 import { withTheme } from "emotion-theming";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
@@ -207,7 +207,7 @@ const Button = styled(props => {
     styles["&:hover"].color = props.theme.text.secondary;
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
-    styles.color = props.theme.text.secondary;
+    styles.color = darken(props.theme.bg.light, 0.6);
     styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
     styles["&:hover"].color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
