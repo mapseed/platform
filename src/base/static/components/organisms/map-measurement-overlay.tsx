@@ -9,7 +9,9 @@ import distance from "@turf/distance";
 import { geoPath, geoTransform } from "d3-geo";
 import WebMercatorViewport from "viewport-mercator-project";
 import { CanvasOverlay } from "react-map-gl";
+import { FeatureCollection, Point, LineString, Polygon } from "geojson";
 
+import { mapViewportPropType } from "../../state/ducks/map";
 import { RegularText } from "../atoms/typography";
 import {
   CreatePolygonIcon,
@@ -18,18 +20,37 @@ import {
   UndoIcon,
 } from "../atoms/icons";
 
-const MeasurementToolIcon = styled("span")(props => ({
-  border: "2px solid transparent",
-  borderRadius: "4px",
-  padding: "4px 4px 0 4px",
-  marginRight: "8px",
-  backgroundColor: props.isSelected ? "#999" : "initial",
+const mapMeasurementOverlayProps = {
+  viewport: mapViewportPropType.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+};
 
-  "&:hover": {
-    borderColor: props.isEnabled ? "#999" : "transparent",
-    cursor: props.isEnabled ? "pointer" : "unset",
-  },
-}));
+type MapMeasurementOverlayProps = PropTypes.InferProps<
+  typeof mapMeasurementOverlayProps
+>;
+
+const measurementToolIconProps = {
+  isEnabled: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+};
+
+type MeasurementToolIconProps = PropTypes.inferProps<measurementToolIconProps>;
+
+const MeasurementToolIcon = styled("span")(
+  (props: MeasurementToolIconProps) => ({
+    border: "2px solid transparent",
+    borderRadius: "4px",
+    padding: "4px 4px 0 4px",
+    marginRight: "8px",
+    backgroundColor: props.isSelected ? "#999" : "initial",
+
+    "&:hover": {
+      borderColor: props.isEnabled ? "#999" : "transparent",
+      cursor: props.isEnabled ? "pointer" : "unset",
+    },
+  }),
+);
 
 MeasurementToolIcon.defaultProps = {
   isEnabled: true,
@@ -134,7 +155,9 @@ const formatMeasurement = measurement =>
     ? null
     : measurementFormatter.format(measurement.toFixed(1));
 
-const MapMeasurementOverlay = props => {
+const MapMeasurementOverlay: React.FunctionalComponent<
+  MapMeasurementOverlayProps
+> = props => {
   // NOTE: The structure of this featureCollection is such that all but the
   // last feature are Points representing clicked-on locations, and the final
   // feature is either a LineString or a Polygon built from those points. The
@@ -142,13 +165,13 @@ const MapMeasurementOverlay = props => {
   const [
     measurementFeatureCollection,
     setMeasurementFeatureCollection,
-  ] = React.useState(featureCollection([]));
-  const selectedTool = React.useRef(null);
-  const [measurement, setMeasurement] = React.useState(null);
-  const [units, setUnits] = React.useState(null);
-  const positions = React.useRef([]);
+  ] = React.useState<FeatureCollection>(featureCollection([]));
+  const selectedTool = React.useRef<null | string>(null);
+  const [measurement, setMeasurement] = React.useState<null | number>(null);
+  const [units, setUnits] = React.useState<null | string>(null);
+  const positions = React.useRef<number[][]>([]);
   const webMercatorViewport = React.useRef();
-  const overlayRef = React.useRef();
+  const overlayRef = React.useRef<HTMLElement>();
 
   const handleOverlayClick = evt => {
     if (!selectedTool.current) {
@@ -195,7 +218,7 @@ const MapMeasurementOverlay = props => {
     // Unless I'm missing the right way to use overlays, it seems necessary
     // to attach a click listener here to capture clicks on the overlay.
     // See: https://github.com/uber/react-map-gl/issues/470
-    if (overlayRef && overlayRef.current) {
+    if (overlayRef && overlayRef.current && overlayRef.current._canvas) {
       overlayRef.current._canvas.addEventListener("click", handleOverlayClick);
       // This direct manipulation of the `pointer-events` style property feels
       // like a hack, but the goal is to enable clicks on the underlying map
