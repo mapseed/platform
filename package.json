@@ -85,7 +85,7 @@
     "qs": "^6.6.0",
     "react": "^16.8.2",
     "react-datetime": "~2.14.0",
-    "react-dom": "~16.8.2",
+    "react-dom": "~16.8.6",
     "react-i18next": "~7.5.1",
     "react-jss": "^8.6.1",
     "react-map-gl": "^5.0.4",
