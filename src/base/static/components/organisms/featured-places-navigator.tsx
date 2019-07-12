@@ -90,7 +90,7 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
               ) || {}) as any).icon_url,
           };
         })
-        .filter(({ featuredPlace, place, iconUrl }) => !!place && !!iconUrl)
+        .filter(({ place, iconUrl }) => !!place && !!iconUrl)
         .map(({ place, featuredPlace, iconUrl }) => {
           return (
             <FeaturedPlace
