@@ -292,7 +292,9 @@ class PlaceDetail extends Component {
     } else if (
       this.props.customComponents.FieldSummary ===
         "PBDurhamProjectProposalFieldSummary" &&
-      this.props.focusedPlace.location_type === "projects"
+      ["projects", "cycle1-projects"].includes(
+        this.props.focusedPlace.location_type,
+      )
     ) {
       fieldSummary = (
         <PBDurhamProjectProposalFieldSummary
