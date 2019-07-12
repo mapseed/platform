@@ -98,7 +98,7 @@
     "recharts": "^1.4.1",
     "redux": "^4.0.0",
     "reselect": "^4.0.0",
-    "shelljs": "^0.5.3",
+    "shelljs": "^0.8.3",
     "throttle-debounce": "^2.1.0",
     "turf-extent": "^1.0.4",
     "whatwg-fetch": "^3.0.0"
