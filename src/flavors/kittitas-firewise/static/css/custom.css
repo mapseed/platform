@@ -53,6 +53,7 @@ header {
 }
 
 [data-field-name="private-landowner_email"],
+[data-field-name="private"],
 [data-field-name="private-landowner_name"],
 [data-field-name="private-use_photos"],
 [data-field-name="private-my_image"],
