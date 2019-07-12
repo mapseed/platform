@@ -755,8 +755,194 @@
         "includeOnList": true,
         "datasetSlug": "pbdurham-projects",
         "label": "Cycle 1 Winners",
-        "fields": [],
-        "icon_url": "/static/css/images/markers/money.png"
+        "icon_url": "/static/css/images/markers/money.png",
+        "name": "location_type",
+        "value": "cycle1-projects",
+        "fields": [
+          {
+            "name": "private",
+            "type": "big_radio",
+            "restrictToGroups": ["administrators"],
+            "prompt": "Publish or unpublish this project. Published projects will be visible to all users. Unpublished projects will be visible to administrators, delegates, and technical reviewers.",
+            "forced_default_value": "yes",
+            "content": [
+              {
+                "label": "Published",
+                "value": "no"
+              },
+              {
+                "label": "Unpublished",
+                "value": "yes"
+              }
+            ],
+            "optional": false
+          },
+          {
+            "prompt": "Proposal Name",
+            "type": "text",
+            "placeholder": "...",
+            "name": "title",
+            "optional": false
+          },
+          {
+            "prompt": "Idea(s) it comes from: (List idea tracker number(s), separated by a space)",
+            "display_prompt": "Related ideas:",
+            "type": "text",
+            "placeholder": "...",
+            "name": "related_ideas",
+            "optional": true
+          },
+          {
+            "prompt": "Brief Project Description: (less than 100 words)",
+            "display_prompt": "Description of this project proposal:",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "placeholder": "Briefly describe the project",
+            "name": "project_description",
+            "optional": true
+          },
+          {
+            "prompt": "Impact Statement: (less than 200 words)",
+            "display_prompt": "Impact Statement:",
+            "includeOnListItem": true,
+            "type": "textarea",
+            "placeholder": "Briefly describe the project",
+            "name": "impact_statement",
+            "optional": true
+          },
+          {
+            "name": "ward",
+            "type": "big_radio",
+            "includeOnListItem": true,
+            "prompt": "Is this project located in Ward 1, Ward 2, Ward 3, or Citywide?",
+            "label": "Ward:",
+            "content": [
+              {
+                "label": "Ward 1",
+                "value": "ward_1"
+              },
+              {
+                "label": "Ward 2",
+                "value": "ward_2"
+              },
+              {
+                "label": "Ward 3",
+                "value": "ward_3"
+              },
+              {
+                "label": "Citywide",
+                "value": "citywide"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "delegates_header",
+            "restrictToGroups": ["delegates"],
+            "type": "informational_html",
+            "content": "<h1>Budget Delegates section</h1><p>This section is intended to be completed by Budget Delegates.</p>"
+          },
+          {
+            "prompt": "Equity Score",
+            "restrictToGroups": ["delegates"],
+            "display_prompt": "Equity Assessment Score:",
+            "type": "big_radio",
+            "name": "delegate_equity_score",
+            "optional": true,
+            "content": [
+              {
+                "label": "1 - Low contribution to advancing equity",
+                "value": "1"
+              },
+              {
+                "label": "2 - Medium contribution to advancing equity",
+                "value": "2"
+              },
+              {
+                "label": "3 - High contribution to advancing equity",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "prompt": "Impact Score",
+            "restrictToGroups": ["delegates"],
+            "display_prompt": "Impact Assessment Score:",
+            "type": "big_radio",
+            "name": "delegate_impact_score",
+            "optional": true,
+            "content": [
+              {
+                "label": "1 - Low impact",
+                "value": "1"
+              },
+              {
+                "label": "2 - Medium impact",
+                "value": "2"
+              },
+              {
+                "label": "3 - High impact",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "name": "staff_review_header",
+            "restrictToGroups": ["tech-reviewers"],
+            "type": "informational_html",
+            "content": "<h1>Internal Staff Review Section</h1><p>This section is intended to be completed by members of the City of Durham internal staff committee.</p>"
+          },
+          {
+            "prompt": "Feasibility Score",
+            "restrictToGroups": ["tech-reviewers"],
+            "display_prompt": "Feasibility Assessment Score",
+            "type": "big_radio",
+            "name": "staff_feasibility_score",
+            "optional": true,
+            "content": [
+              {
+                "label": "1 - Project is not feasible",
+                "value": "1"
+              },
+              {
+                "label": "2 - Project may or may not be feasible",
+                "value": "2"
+              },
+              {
+                "label": "3 - Project is highly likely to be feasible",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "prompt": "Project Budget",
+            "display_prompt": "Project Budget:",
+            "restrictToGroups": ["tech-reviewers"],
+            "type": "text",
+            "includeOnListItem": true,
+            "placeholder": "...",
+            "name": "staff_project_budget",
+            "optional": true
+          },
+          {
+            "prompt": "Ongoing Maintenance Cost",
+            "display_prompt": "Ongoing Maintenance Cost:",
+            "restrictToGroups": ["tech-reviewers"],
+            "type": "text",
+            "includeOnListItem": true,
+            "placeholder": "...",
+            "name": "staff_cost_estimation",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
       },
       {
         "formId": "projects",
