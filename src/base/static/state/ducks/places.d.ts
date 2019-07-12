@@ -12,7 +12,8 @@ export type Place = {
   submission_sets: any;
   id: number;
   url: string;
-  title?: string;
+  title: string;
+  clientSlug: string;
   location_type: string;
   submitter?: any;
 };

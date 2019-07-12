@@ -95,10 +95,10 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
           return (
             <FeaturedPlace
               key={featuredPlace.placeId}
-              title={(place as any).title}
+              title={place!.title}
               iconUrl={iconUrl}
               isSelected={currentPlaceId === featuredPlace.placeId}
-              placeUrl={`${(place as any).clientSlug}/${featuredPlace.placeId}`}
+              placeUrl={`${place!.clientSlug}/${featuredPlace.placeId}`}
             />
           );
         })}
