@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import * as React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
@@ -15,47 +14,9 @@ import {
   rightSidebarConfigPropType,
   rightSidebarConfigSelector,
 } from "../../state/ducks/right-sidebar-config";
-import { placesSelector, placesPropType } from "../../state/ducks/places";
+import { placesSelector, Place } from "../../state/ducks/places";
 import { updateUIVisibility, uiVisibilitySelector } from "../../state/ducks/ui";
 import constants from "../../constants";
-
-const toggleSidebarStyles = {
-  position: "absolute",
-  top: "50%",
-  left: "-32px",
-  width: "32px",
-  borderTopLeftRadius: "8px",
-  borderBottomLeftRadius: "8px",
-  backgroundColor: "#fff",
-  outline: "none",
-  border: "none",
-  boxShadow: "-4px 4px 3px rgba(0,0,0,0.1)",
-  color: "#ff5e99",
-
-  // MUI overrides
-  minWidth: "unset",
-  borderTopRightRadius: "0",
-  borderBottomRightRadius: "0",
-
-  "&:hover": {
-    color: "#cd2c67",
-    backgroundColor: "#fff",
-  },
-
-  "&:before": {},
-};
-
-const RightSidebarOuterContainer = styled("aside")(props => ({
-  zIndex: 10,
-  position: "absolute",
-  top: constants.HEADER_HEIGHT,
-  right: 0,
-  height: "100%",
-  backgroundColor: "#fff",
-  width: props.isRightSidebarVisible ? "15%" : 0,
-  boxShadow: "-4px 0 3px rgba(0,0,0,0.1)",
-  boxSizing: "border-box",
-}));
 
 const RightSidebarInnerContainer = styled("div")({
   width: "100%",
@@ -64,18 +25,62 @@ const RightSidebarInnerContainer = styled("div")({
   boxSizing: "border-box",
 });
 
-const RightSidebar = props => {
+type Props = {
+  isRightSidebarVisible: boolean;
+  places: Place[];
+  rightSidebarConfig: rightSidebarConfigPropType.isRequired;
+  updateUIVisibility: Function;
+};
+
+const RightSidebar: React.FunctionComponent<Props> = props => {
   // TODO: Support multiple simultaneous right sidebar components.
   return (
-    <RightSidebarOuterContainer
-      isRightSidebarVisible={props.isRightSidebarVisible}
+    <aside
+      css={{
+        zIndex: 10,
+        position: "absolute",
+        top: constants.HEADER_HEIGHT,
+        right: 0,
+        height: "100%",
+        backgroundColor: "#fff",
+        width: props.isRightSidebarVisible ? "15%" : 0,
+        boxShadow: "-4px 0 3px rgba(0,0,0,0.1)",
+        boxSizing: "border-box",
+      }}
     >
       <RightSidebarInnerContainer>
         <Button
           aria-label="toggle sidebar open"
-          css={toggleSidebarStyles}
+          css={{
+            position: "absolute",
+            top: "50%",
+            left: "-32px",
+            width: "32px",
+            borderTopLeftRadius: "8px",
+            borderBottomLeftRadius: "8px",
+            backgroundColor: "#fff",
+            outline: "none",
+            border: "none",
+            boxShadow: "-4px 4px 3px rgba(0,0,0,0.1)",
+            color: "#ff5e99",
+
+            // MUI overrides
+            minWidth: "unset",
+            borderTopRightRadius: "0",
+            borderBottomRightRadius: "0",
+
+            "&:hover": {
+              color: "#cd2c67",
+              backgroundColor: "#fff",
+            },
+
+            "&:before": {},
+          }}
           onClick={() => {
-            props.updateRightSidebarVisibility(!props.isRightSidebarVisible);
+            props.updateUIVisibility(
+              "rightSidebar",
+              !props.isRightSidebarVisible,
+            );
           }}
         >
           {props.isRightSidebarVisible ? (
@@ -94,21 +99,20 @@ const RightSidebar = props => {
           <ActivityStream config={props.rightSidebarConfig} />
         )}
         {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
-          <>
+          <React.Fragment>
             <MapLegendPanel isThemed={true} />
             <ActivityStream config={props.rightSidebarConfig} />
-          </>
+          </React.Fragment>
+        )}
+        {props.rightSidebarConfig.component === "FeaturedPlacesWithLegend" && (
+          <React.Fragment>
+            <MapLegendPanel isThemed={true} />
+            <FeaturedPlacesNavigator places={props.places} />
+          </React.Fragment>
         )}
       </RightSidebarInnerContainer>
-    </RightSidebarOuterContainer>
+    </aside>
   );
-};
-
-RightSidebar.propTypes = {
-  isRightSidebarVisible: PropTypes.bool.isRequired,
-  places: placesPropType,
-  rightSidebarConfig: rightSidebarConfigPropType.isRequired,
-  updateRightSidebarVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -117,10 +121,9 @@ const mapStateToProps = state => ({
   places: placesSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateRightSidebarVisibility: isVisible =>
-    dispatch(updateUIVisibility("rightSidebar", isVisible)),
-});
+const mapDispatchToProps = {
+  updateUIVisibility,
+};
 
 export default connect(
   mapStateToProps,

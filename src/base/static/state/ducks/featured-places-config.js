@@ -43,6 +43,7 @@ export const featuredPlacesPropType = PropTypes.arrayOf(
 export const featuredPlacesConfigPropType = PropTypes.shape({
   name: PropTypes.string,
   header: PropTypes.string,
+  visibleLayerGroupIds: PropTypes.string.isRequired,
   description: PropTypes.string,
   places: featuredPlacesPropType,
 });
