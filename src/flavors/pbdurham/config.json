@@ -1813,57 +1813,73 @@
   },
   "featuredPlaces": {
     "header": "Cycle 1 Project Winners",
-    "visibleLayerGroupIds": [],
     "order": [
       {
+        "zoom": 13.5,
         "placeId": 7013
       },
       {
+        "zoom": 13.5,
         "placeId": 7014
       },
       {
+        "zoom": 13.5,
         "placeId": 7015
       },
       {
+        "zoom": 13.5,
         "placeId": 7019
       },
       {
+        "zoom": 13.5,
         "placeId": 7024
       },
       {
+        "zoom": 13.5,
         "placeId": 7027
       },
       {
+        "zoom": 13.5,
         "placeId": 7029
       },
       {
+        "zoom": 13.5,
         "placeId": 7030
       },
       {
+        "zoom": 13.5,
         "placeId": 7031
       },
       {
+        "zoom": 13.5,
         "placeId": 7056
       },
       {
+        "zoom": 13.5,
         "placeId": 7057
       },
       {
+        "zoom": 13.5,
         "placeId": 7078
       },
       {
+        "zoom": 13.5,
         "placeId": 7095
       },
       {
+        "zoom": 13.5,
         "placeId": 7096
       },
       {
+        "zoom": 13.5,
         "placeId": 7101
       },
       {
+        "zoom": 13.5,
         "placeId": 7139
       },
       {
+        "zoom": 13.5,
         "placeId": 7145
       }
     ]
