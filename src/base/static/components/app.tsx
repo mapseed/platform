@@ -105,7 +105,6 @@ const TemplateContainer = styled("div")<{
   currentTemplate: string;
 }>(props => ({
   position: "relative",
-  "-webkit-overflow-scrolling": "touch", // Inertia-based scrolling on iOS.
   overflow:
     // The report template is a special case, and needs `overflow: visible`
     // for PDFs longer than one page to render.
