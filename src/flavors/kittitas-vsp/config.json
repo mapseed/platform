@@ -93,6 +93,10 @@
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/columbia-river.geojson"
       },
+      "yakima-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/yakima-river.geojson"
+      },
       "snake-river": {
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/snake-river.geojson"
@@ -162,6 +166,31 @@
             "id": "satellite-basemap",
             "type": "raster",
             "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "yakima-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "yakima-river-fill",
+            "type": "fill",
+            "source": "yakima-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "yakima-river-outline",
+            "type": "line",
+            "source": "yakima-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
           }
         ]
       },
@@ -345,9 +374,10 @@
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
-              ["!=", ["get", "comname"], "Shrub-steppe"],
               ["!=", ["get", "comname"], "Wetlands"],
               ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["get", "PHS_Priori"], "Y"],
+              ["!=", ["get", "sensitive"], "Y"],
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "fill",
@@ -363,9 +393,10 @@
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
-              ["!=", ["get", "comname"], "Shrub-steppe"],
               ["!=", ["get", "comname"], "Wetlands"],
               ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["get", "PHS_Priori"], "Y"],
+              ["!=", ["get", "sensitive"], "Y"],
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "line",
@@ -380,6 +411,11 @@
           {
             "id": "kittitas-conservation-waterways",
             "type": "line",
+            "filter": [
+              "all",
+              ["==", ["get", "PHS_Priori"], "Y"],
+              ["!=", ["get", "sensitive"], "Y"]
+            ],
             "source": "kittitas-conservation-waterways",
             "source-layer": "kittitas-conservation-waterways",
             "paint": {
@@ -393,35 +429,14 @@
             }
           },
           {
-            "id": "kittitas-conservation-waterways-labels",
-            "type": "symbol",
-            "source": "kittitas-conservation-waterways",
-            "source-layer": "kittitas-conservation-waterways",
-            "paint": {
-              "text-color": "#5380c1",
-              "text-halo-color": "#dde7f2",
-              "text-halo-width": 1.5,
-              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
-            },
-            "layout": {
-              "text-field": ["get", "SPECIES"],
-              "text-font": [
-                "Alegreya ExtraBold Italic",
-                "Arial Unicode MS Regular"
-              ],
-              "text-size": 13,
-              "text-padding": 15,
-              "text-letter-spacing": 0.2
-            }
-          },
-          {
             "id": "kittitas-conservation-areas-labels",
             "filter": [
               "all",
               ["!=", ["get", "comname"], "Cliffs/bluffs"],
-              ["!=", ["get", "comname"], "Shrub-steppe"],
               ["!=", ["get", "comname"], "Wetlands"],
               ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["get", "PHS_Priori"], "Y"],
+              ["!=", ["get", "sensitive"], "Y"],
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "symbol",
@@ -488,77 +503,70 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "OpenStreetMap"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "layerGroupId": "osm",
+            "title": "OpenStreetMap"
           },
           {
-            "id": "grp-water",
-            "title": "Water Features",
-            "layerGroups": [
-              {
-                "id": "columbia-river",
-                "title": "Columbia River"
-              },
-              {
-                "id": "snake-river",
-                "title": "Snake River"
-              },
-              {
-                "id": "kittitas-geologic-hazard",
-                "title": "Geologic Hazards"
-              },
-              {
-                "id": "kittitas-wetlands",
-                "title": "Wetlands"
-              },
-              {
-                "id": "kittitas-frequently-flooded",
-                "title": "Frequently Flooded Areas"
-              },
-              {
-                "id": "kittitas-critical-aquifer",
-                "title": "Critical Aquifer Recharge Areas"
-              },
-              {
-                "id": "kittitas-conservation-areas",
-                "title": "Critical Conservation Areas"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "columbia-river",
+            "title": "Columbia River"
           },
           {
-            "id": "grp-community",
-            "title": "Community Data",
-            "layerGroups": [
-              {
-                "id": "kittitas-county-outline",
-                "title": "Kittitas County border"
-              },
-              {
-                "id": "kittitas-vsp-input",
-                "title": "Community Reports"
-              }
-            ]
+            "layerGroupId": "snake-river",
+            "title": "Snake River"
+          },
+          {
+            "layerGroupId": "yakima-river",
+            "title": "Yakima River"
+          },
+          {
+            "layerGroupId": "kittitas-geologic-hazard",
+            "title": "Geologic Hazards"
+          },
+          {
+            "layerGroupId": "kittitas-wetlands",
+            "title": "Wetlands"
+          },
+          {
+            "layerGroupId": "kittitas-frequently-flooded",
+            "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "kittitas-critical-aquifer",
+            "title": "Critical Aquifer Recharge Areas"
+          },
+          {
+            "layerGroupId": "kittitas-conservation-areas",
+            "title": "Critical Conservation Areas"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "layerGroupId": "kittitas-county-outline",
+            "title": "Kittitas County border"
+          },
+          {
+            "layerGroupId": "kittitas-vsp-input",
+            "title": "Community Reports"
           }
         ]
       }
@@ -595,7 +603,7 @@
           },
           {
             "start_field_index": 5,
-            "end_field_index": 7,
+            "end_field_index": 8,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-wetlands",
@@ -603,8 +611,8 @@
             ]
           },
           {
-            "start_field_index": 8,
-            "end_field_index": 10,
+            "start_field_index": 9,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-frequently-flooded",
@@ -612,8 +620,8 @@
             ]
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 13,
+            "start_field_index": 13,
+            "end_field_index": 16,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-geologic-hazard",
@@ -621,8 +629,8 @@
             ]
           },
           {
-            "start_field_index": 14,
-            "end_field_index": 16,
+            "start_field_index": 17,
+            "end_field_index": 20,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-critical-aquifer",
@@ -630,8 +638,8 @@
             ]
           },
           {
-            "start_field_index": 17,
-            "end_field_index": 19,
+            "start_field_index": 21,
+            "end_field_index": 24,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-conservation-areas",
@@ -639,8 +647,8 @@
             ]
           },
           {
-            "start_field_index": 20,
-            "end_field_index": 40,
+            "start_field_index": 25,
+            "end_field_index": 45,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -648,8 +656,8 @@
             ]
           },
           {
-            "start_field_index": 41,
-            "end_field_index": 59,
+            "start_field_index": 46,
+            "end_field_index": 64,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -657,8 +665,8 @@
             ]
           },
           {
-            "start_field_index": 60,
-            "end_field_index": 68,
+            "start_field_index": 65,
+            "end_field_index": 73,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -666,8 +674,8 @@
             ]
           },
           {
-            "start_field_index": 69,
-            "end_field_index": 86,
+            "start_field_index": 74,
+            "end_field_index": 91,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -675,8 +683,8 @@
             ]
           },
           {
-            "start_field_index": 87,
-            "end_field_index": 95,
+            "start_field_index": 92,
+            "end_field_index": 100,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -684,8 +692,8 @@
             ]
           },
           {
-            "start_field_index": 96,
-            "end_field_index": 122,
+            "start_field_index": 101,
+            "end_field_index": 127,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -693,8 +701,17 @@
             ]
           },
           {
-            "start_field_index": 123,
-            "end_field_index": 135,
+            "start_field_index": 128,
+            "end_field_index": 129,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 130,
+            "end_field_index": 142,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -753,6 +770,11 @@
             ]
           },
           {
+            "name": "wetlands_disclaimer",
+            "type": "informational_html",
+            "content": "<p style='font-size:0.9rem;color:#777'><em>The wetlands data is supplied by US Fish & Wildlife Service through their National Wetlands Inventory. Their maps are prepared from the analysis of high altitude imagery. Wetlands are identified based on vegetation, visible hydrology and geography. A margin of error is inherent in the use of imagery. Landowners interested in an on-the-ground assessment to confirm the presence of these mapped wetlands for the purposes of the Voluntary Stewardship Program are encouraged to contact the KCCD.</em></p>"
+          },
+          {
             "name": "frequently_flooded_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently Flooded Areas</h2>"
@@ -777,6 +799,11 @@
                 "value": "no"
               }
             ]
+          },
+          {
+            "name": "frequently_flooded_disclaimer",
+            "type": "informational_html",
+            "content": "<p style='font-size:0.9rem;color:#777'><em>Frequently flood areas on this map are a combination of the Federal Emergency Management Agency (FEMA) flood insurance rate map (FIRM) designated 100- year floodplain and floodway.</em></p>"
           },
           {
             "name": "geologic_hazard_header",
@@ -805,6 +832,11 @@
             ]
           },
           {
+            "name": "geologic_hazard_disclaimer",
+            "type": "informational_html",
+            "content": "<p style='font-size:0.9rem;color:#777'><em>The data displayed on this map includes soil types with a slope of 25% or greater as an approximation of areas where geologic hazards may exist. For more detailed information on geologic hazards contact the KCCD.</em></p>"
+          },
+          {
             "name": "critical_aquifer_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Aquifer Recharge Areas</h2>"
@@ -831,6 +863,11 @@
             ]
           },
           {
+            "name": "critical_aquifer_disclaimer",
+            "type": "informational_html",
+            "content": "<p style='font-size:0.9rem;color:#777'><em>Kittitas County does not currently have a designated critical aquifer recharge area, however wellhead protection for public water systems is an important component of the larger effort to protect aquifers used for potable water. The data shown here are the Group A and Group B wells with a 600 foot to 10,000 foot buffer depending on the number of connections allowed. For additional information on Critical Aquifer Recharge Areas, contact the KCCD.</em></p>"
+          },
+          {
             "name": "fish_wildlife_habitat_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & Wildlife Habitat</h2>"
@@ -838,7 +875,7 @@
           {
             "name": "fish_wildlife_habitat_information",
             "type": "informational_html",
-            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildlife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px;font-size:0.9em;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife. Zoom the map to explore which species live in your area.</p></div></div><div style='display:flex;align-items:center;margin-bottom:16px;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'>Appearance on map</em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Priority habitats: areas with unique or significant value to many species</em></div></div><div style='display:flex;align-items:center;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'> </em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/waterways-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Fish-bearing waterways</em></div></div></div></div>"
+            "content": "<img style='height:150px;margin-left:16px;' src='/static/css/images/fish-wildlife-habitat.jpg' alt='Fish and wildlife conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px;font-size:0.9em;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;'><strong>Fish & wildlife habitats</strong> are managed to maintain populations of fish and wildlife. Zoom the map to explore which species live in your area.</p></div></div><div style='display:flex;align-items:center;margin-bottom:16px;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'>Appearance on map</em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Priority habitats: areas with unique or significant value to many species</em></div></div><div style='display:flex;align-items:center;'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='text-align:right;font-size:0.9em;'> </em></div><div style='flex:1;margin-left:24px'><img style='width:48px' src='/static/css/images/waterways-legend.png' /></div><div style='flex:4;'><em style='font-size:0.9em;'>Fish-bearing waterways: creeks and rivers that are priority habitats for Summer Steelhead, Spring Chinook, Coho, Dolly Varden/Bull Trout, Westslope Cutthroat, Mountain Sucker, or Rainbow Trout</em></div></div></div></div>"
           },
           {
             "name": "private-property_on_fish_wildlife_habitat",
@@ -855,6 +892,11 @@
                 "value": "no"
               }
             ]
+          },
+          {
+            "name": "fish_wildlife_habitat_disclaimer",
+            "type": "informational_html",
+            "content": "<p style='font-size:0.9rem;color:#777'><em>The Fish and Wildlife Conservation areas are provided by the Washington State Department of Fish and Wildlife’s Priority Habitats and Species (PHS) Program. For more specific information on habitats or species on or near your property, contact the KCCD.</em></p>"
           },
           {
             "//": "---------------------WATER USE EFFICIENCY-------------------------",
@@ -2400,10 +2442,23 @@
             "hidden_default": true
           },
           {
+            "//": "---------------SECTION: OTHER PRACTICES-------------------",
+            "name": "other_practices_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Other VSP Practices</h2>"
+          },
+          {
+            "name": "other_practices",
+            "type": "textarea",
+            "prompt": "Use this space to describe any other stewardship practices you have completed. If you can, please include approximate acreage or footage and approximate start date:",
+            "placeholder": "Description, acreage or footage, and approximate start date:",
+            "optional": true
+          },
+          {
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Almost completed!</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2>"
           },
           {
             "name": "additional_info",
@@ -2588,7 +2643,11 @@
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/kccd-group.jpg' alt='KCCD' style='margin:8px 0 16px 0' />",
         "<p>The Kittitas County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
-        "<p>Click Get Started to begin!</p>",
+        "<div style='display:flex;align-items:center;'>",
+        "<p style='flex:2;'>VSP is facilitated by the Kittitas County Conservation District (KCCD), who is designated as the Technical Service Provider for this program.</p>",
+        "<a style='flex:1;display:flex;align-items:center;' href='http://www.kccd.net' target='_blank'><img style='width: 40px;margin-right:8px;' src='/static/css/images/kccd-logo.png' />Click here to learn more about KCCD's services</a>",
+        "</div>",
+        "<p style='margin-top:24px;'><strong>Or, click Get Started to share your stewardship!</strong></p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
       ]
     }

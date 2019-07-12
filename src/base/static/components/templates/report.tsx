@@ -4,6 +4,7 @@ import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
+import qs from "qs";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { placeSelector, placePropType } from "../../state/ducks/places";
@@ -50,6 +51,14 @@ const ReportTemplate = (props: Props) => {
   }
 
   async function fetchPlace() {
+    let includePrivate = false;
+    let jwtToken = null;
+    const params = qs.parse(window.location.search.slice(1));
+    if ("token" in params) {
+      includePrivate = true;
+      jwtToken = params["token"];
+    }
+
     const response = await mapseedApiClient.place.getPlace({
       datasetUrl: datasetConfig.url,
       clientSlug: props.params.datasetClientSlug,
@@ -59,8 +68,8 @@ const ReportTemplate = (props: Props) => {
         include_submissions: true,
         include_tags: true,
       },
-      // TODO: Handle private data?
-      includePrivate: false,
+      includePrivate,
+      jwtToken,
     });
 
     if (response) {

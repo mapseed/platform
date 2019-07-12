@@ -129,7 +129,7 @@ class PlaceDetail extends Component {
     const featuredPlace = this.props.featuredPlaces.find(featuredPlace => {
       return featuredPlace.placeId === this.props.focusedPlace.id;
     });
-    if (featuredPlace) {
+    if (featuredPlace && featuredPlace.visibleLayerGroupIds) {
       // Set layers for this story chapter.
       featuredPlace.visibleLayerGroupIds.forEach(layerGroupId =>
         this.props.updateLayerGroupVisibility(layerGroupId, true),

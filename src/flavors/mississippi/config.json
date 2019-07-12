@@ -16,14 +16,26 @@
           "submission_set": "*"
         }
       ]
+    },
+    {
+      "slug": "mississippi-featured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-featured",
+      "clientSlug": "featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
     }
   ],
   "app": {
     "title": "an anthropocene river",
     "name": "Mississippi",
     "show_name_in_header": true,
-    "logo": "/static/css/images/Logo2.png",
-    "meta_description": "This map is dedicated to all the imhabitants of Cascadia, of every race and species",
+    "isShowingMobileUserMenu": true,
+    "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
+    "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
@@ -32,12 +44,12 @@
       },
       "bg": {
         "default": "#175f54",
-        "light": "#000000"
+        "light": "#ffffff"
       },
       "text": {
-        "tertiary": "#000000",
+        "tertiary": "#ffffff",
         "titleFontFamily": "Roboto, sans-serif",
-        "titleColor": "#ffffff",
+        "titleColor": "#000000",
         "headerFontFamily": "Roboto,sans-serif",
         "bodyFontFamily": "Roboto,sans-serif"
       }
@@ -53,7 +65,7 @@
     "mapViewport": {
       "latitude": 39.77,
       "longitude": -92.75,
-      "zoom": 5,
+      "zoom": 4,
       "pitch": 0,
       "minZoom": 1,
       "maxZoom": 18.4
@@ -68,9 +80,30 @@
         ],
         "tileSize": 256
       },
+      "streets2": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjxalbmke3pej1cmn26b8b74q/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
+      },
       "mississippi-watershed": {
         "type": "raster",
         "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
+        "tileSize": 256
+      },
+      "confluence": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Confluence/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "terrain": {
+        "type": "raster",
+        "tiles": [
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}"
+        ],
         "tileSize": 256
       },
       "oceans": {
@@ -83,9 +116,29 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         ],
-
+        "tileSize": 256
+      },
+      "topomap": {
+        "type": "raster",
+        "tiles": [
+          "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "kickapoo": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/kickapoo/alltiles/tiles2/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "noheart": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/NoHeartOfFear/{z}/{x}/{y}.png"
+        ],
         "tileSize": 256
       },
       "nitrogen-farm-emissions": {
@@ -97,7 +150,33 @@
       },
       "nitrogen-plants": {
         "type": "geojson",
-        "data": "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/mississippi_nitrogen-plants.geojson"
+        "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
+      },
+      "NewMadrid": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
+      },
+      "InactiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/InactiveCoalMines.geojson"
+      },
+      "NuclearComplex": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NuclearComplex.geojson"
+      },
+      "NuclearPlants": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Nuclear_Plants.geojson"
+      },
+      "ActiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
+      },
+      "nitrogenloading": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/MARBvectortiles/{z}/{x}/{y}.pbf"
+        ]
       }
     },
     "layerGroups": [
@@ -155,7 +234,118 @@
                 ["zoom"],
                 11,
                 1,
-                13,
+                14,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "nitrogenloading-group",
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p><strong>Watershed name:</p><p></strong>{{PNAME}}</p><p><strong>Nitrogen from fertilizer:</p><p></strong>{{INCY}}&nbsp;kg per square kilometer</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "nitrogenloading-polygons",
+            "type": "fill",
+            "source": "nitrogenloading",
+            "source-layer": "nitrogen",
+            "paint": {
+              "fill-color": "#c35800",
+              "fill-opacity": {
+                "property": "INCY_S5",
+                "stops": [
+                  [0, 0],
+                  [200, 0.25],
+                  [500, 0.5],
+                  [1000, 0.75],
+                  [2000, 1]
+                ]
+              },
+              "fill-outline-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                "rgba(255,255,255,0)",
+                9,
+                "rgba(255,255,255,1)",
+                12,
+                "rgba(255,255,255,0)"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "confluence-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "confluence-basemap",
+            "type": "raster",
+            "source": "confluence",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                1,
+                16,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "kickapoo-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kickapoo-basemap",
+            "type": "raster",
+            "source": "kickapoo",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                15,
+                1,
+                16,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "noheart-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "noheart-basemap",
+            "type": "raster",
+            "source": "noheart",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                4,
+                0,
+                5,
+                1,
+                7,
+                1,
+                8,
                 0
               ]
             }
@@ -175,6 +365,225 @@
         ]
       },
       {
+        "id": "topomap-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "topomap-basemap",
+            "type": "raster",
+            "source": "topomap"
+          }
+        ]
+      },
+      {
+        "id": "terrain-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "terrain-basemap",
+            "type": "raster",
+            "source": "terrain"
+          }
+        ]
+      },
+      {
+        "id": "nitrogen-plants-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p><strong>Plant name: </strong>{{PLANT}}</p><p><strong>Owner: </strong>{{OWNER}}</p><p><strong>Ammonia capacity: </strong><em>{{Current}}</em>&nbsp;&nbsp;metric tons per year</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-plants-labels",
+            "type": "circle",
+            "source": "nitrogen-plants",
+            "paint": {
+              "circle-radius": {
+                "property": "Current",
+                "type": "exponential",
+                "stops": [[4, 10], [1500000, 30]]
+              },
+              "circle-color": "#f8f8f8",
+              "circle-stroke-width": 1,
+              "circle-stroke-color": "#191919",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                4,
+                1
+              ],
+              "circle-stroke-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                4,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NewMadrid-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{Photo}}",
+        "mapboxLayers": [
+          {
+            "id": "NewMadrid-labels",
+            "type": "circle",
+            "source": "NewMadrid",
+            "paint": {
+              "circle-radius": 8,
+              "circle-color": "coral",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NuclearComplex-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p>{{name}}<br><br>{{description}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "NuclearComplex-labels",
+            "type": "symbol",
+            "source": "NuclearComplex",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.4, 7, 1],
+              "icon-anchor": "center",
+              "icon-image": [
+                "match",
+                ["get", "category"],
+                "Administration",
+                "administration.png",
+                "Designing",
+                "nuclear-weapon.png",
+                "Enriching",
+                "chemicals.png",
+                "Fabricating",
+                "factory.png",
+                "Mining",
+                "mining.png",
+                "Operating",
+                "nuclear-operations.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NuclearPlants-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p>{{unit}}<br><br>{{current_st}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "NuclearPlants-labels",
+            "type": "symbol",
+            "source": "NuclearPlants",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.5, 7, 1.2],
+              "icon-anchor": "center",
+              "icon-image": "power-reactor.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "InactiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "INACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "InactiveCoalMines-labels",
+            "type": "fill",
+            "source": "InactiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "darkgray",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                11,
+                0.8,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "ActiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "ACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "ActiveCoalMines-labels",
+            "type": "fill",
+            "source": "ActiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "black",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1,
+                16,
+                0.1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "streets2-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "streets2-basemap",
+            "type": "raster",
+            "source": "streets2"
+          }
+        ]
+      },
+      {
         "id": "mississippi-input",
         "datasetSlug": "mississippi-input",
         "visibleDefault": true,
@@ -184,8 +593,8 @@
             "type": "symbol",
             "source": "mississippi-input",
             "layout": {
-              "icon-size": 0.4,
-              "icon-anchor": "bottom",
+              "icon-size": 0.9,
+              "icon-anchor": "center",
               "icon-image": [
                 "match",
                 ["get", "location_type"],
@@ -211,8 +620,8 @@
             "source": "mississippi-input",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-anchor": "bottom",
-              "icon-size": ["step", ["zoom"], 0.2, 10, 0.3],
+              "icon-anchor": "center",
+              "icon-size": ["step", ["zoom"], 0.4, 9, 0.9],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -253,6 +662,37 @@
         ]
       },
       {
+        "id": "mississippi-featured",
+        "datasetSlug": "mississippi-featured",
+        "interactive": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "mississippi-featured-focused",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "mississippi-featured",
+            "layout": {
+              "icon-image": "marker-invisible.png",
+              "icon-size": 1.1,
+              "icon-anchor": "center"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "mississippi-featured",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "mississippi-featured",
+            "layout": {
+              "icon-image": "marker-invisible.png",
+              "icon-size": 0.9,
+              "icon-anchor": "center"
+            }
+          }
+        ]
+      },
+      {
         "id": "nitrogen-farm-emissions-group",
         "basemap": false,
         "visibleDefault": false,
@@ -263,28 +703,6 @@
             "source": "nitrogen-farm-emissions"
           }
         ]
-      },
-      {
-        "id": "nitrogen-plants-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "interactive": true,
-        "popupContent": "<p><strong>Nitrogen Plant Name: </strong><em>{{PLANT}}</em></p><p><strong>emission count: </strong><em>{{Current}}</em></p>",
-        "mapboxLayers": [
-          {
-            "id": "nitrogen-plants-labels",
-            "type": "circle",
-            "source": "nitrogen-plants",
-            "paint": {
-              "circle-radius": {
-                "property": "Current",
-                "type": "exponential",
-                "stops": [[1, 10], [1500000, 30]]
-              },
-              "circle-color": "#efc300"
-            }
-          }
-        ]
       }
     ]
   },
@@ -293,49 +711,41 @@
     "is_visible_default": false,
     "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Layers:",
-        "content": [
+        "id": "river",
+        "title": "Our River",
+        "options": [
           {
-            "id": "river",
-            "title": "Our River",
-            "layerGroups": [
-              {
-                "id": "mississippi-group",
-                "title": "Watershed"
-              }
-            ]
+            "layerGroupId": "mississippi-group",
+            "title": "Watershed"
+          }
+        ]
+      },
+      {
+        "id": "grp-community",
+        "title": "Contributions",
+        "options": [
+          {
+            "layerGroupId": "mississippi-input",
+            "title": "Comments"
+          }
+        ]
+      },
+      {
+        "id": "grp-nitrogen",
+        "title": "Nitrogen",
+        "options": [
+          {
+            "layerGroupId": "nitrogen-farm-emissions-group",
+            "title": "Nitrogen Details"
           },
           {
-            "id": "grp-community",
-            "title": "Contributions",
-            "layerGroups": [
-              {
-                "id": "mississippi-input",
-                "title": "Comments"
-              }
-            ]
-          },
-          {
-            "id": "grp-nitrogen",
-            "title": "Nitrogen",
-            "layerGroups": [
-              {
-                "id": "nitrogen-farm-emissions-group",
-                "title": "Nitrogen Details"
-              },
-              {
-                "id": "nitrogen-plants-group",
-                "title": "Nitrogen Plants"
-              }
-            ]
+            "layerGroupId": "nitrogen-plants-group",
+            "title": "Nitrogen Plants"
           }
         ]
       }
@@ -346,7 +756,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "MAKE IT NOW",
+    "add_button_label": "PUT IT ON THE MAP",
     "show_list_button_label": "See all comments",
     "show_map_button_label": "Show the Map",
     "title": "Tell us more...",
@@ -356,9 +766,50 @@
     "location_item_name": "location",
     "place_detail": [
       {
+        "formId": "featured_place",
+        "category": "featured_place",
+        "submitter_editing_supported": true,
+        "admin_only": true,
+        "includeOnList": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-featured",
+        "icon_url": "/static/css/images/markers/marker-star.png",
+        "value": "featured_place",
+        "label": "Featured Site",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "Title:",
+            "includeOnListItem": true,
+            "display_prompt": " ",
+            "placeholder": "Site Title",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "Content:",
+            "includeOnListItem": true,
+            "display_prompt": " ",
+            "placeholder": "write test. You can add links, photos, and videos."
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
         "formId": "geology",
         "category": "geology",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
         "icon_url": "/static/css/images/markers/geology.png",
@@ -368,7 +819,8 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "How does it feel?",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
             "display_prompt": " ",
             "placeholder": "Title here...",
             "optional": false
@@ -376,9 +828,10 @@
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "What is the aesthetic of this place?",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
             "display_prompt": " ",
-            "placeholder": "Describe it... (you can also add links, images, videos)",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
             "optional": false
           },
           {
@@ -398,7 +851,9 @@
       {
         "formId": "history",
         "category": "history",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
         "icon_url": "/static/css/images/markers/history.png",
@@ -408,7 +863,8 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "What's the concept?",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
             "display_prompt": " ",
             "placeholder": "Title here...",
             "optional": false
@@ -416,9 +872,10 @@
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "How do thoughts change things?",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
             "display_prompt": " ",
-            "placeholder": "Describe it... (you can also add links, images, videos)"
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text."
           },
           {
             "name": "submitter_name",
@@ -437,7 +894,9 @@
       {
         "formId": "industry",
         "category": "industry",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
         "icon_url": "/static/css/images/markers/industry.png",
@@ -447,17 +906,19 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "What's new under the rain?",
-            "placeholder": "Title:",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "placeholder": "Title here...",
             "display_prompt": " ",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": " Is there an industry here? Could there be one?",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
             "display_prompt": " ",
-            "placeholder": "Show it... (you can add links, images, videos)",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
             "optional": false
           },
           {
@@ -477,7 +938,9 @@
       {
         "formId": "culture",
         "category": "culture",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
         "icon_url": "/static/css/images/markers/culture.png",
@@ -487,17 +950,18 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "What's happening here?",
-            "placeholder": "Title:",
+            "prompt": "Title of your post",
+            "includeOnListItem": true,
+            "placeholder": "Title here...",
             "display_prompt": " ",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "What's changing this place?",
+            "prompt": "What's it all about?",
             "display_prompt": " ",
-            "placeholder": "Tell it... (you can also add links, images, videos)",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
             "optional": false
           },
           {
@@ -517,7 +981,9 @@
       {
         "formId": "ecology",
         "category": "ecology",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
         "icon_url": "/static/css/images/markers/ecology.png",
@@ -527,17 +993,18 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "What's happening here?",
-            "placeholder": "Title:",
+            "prompt": "Title of your post",
+            "includeOnListItem": true,
+            "placeholder": "Title here...",
             "display_prompt": " ",
             "optional": false
           },
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "What's changing this place?",
+            "prompt": "What's it all about?",
             "display_prompt": " ",
-            "placeholder": "Tell it... (you can also add links, images, videos)",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
             "optional": false
           },
           {
@@ -721,6 +1188,12 @@
     },
     "places": [
       {
+        "id": "featured_place",
+        "datasetId": "mississippi-featured",
+        "label": "Featured Site",
+        "icon": "/static/css/images/markers/marker-star.png"
+      },
+      {
         "id": "geology",
         "datasetId": "mississippi-input",
         "label": "Observation",
@@ -762,57 +1235,149 @@
   },
   "nav_bar": [
     {
-      "title": "the who",
+      "title": "concept",
       "type": "internal_link",
-      "url": "/page/about"
+      "url": "/page/concept"
     },
     {
-      "title": "the how",
+      "title": "field stations",
       "type": "internal_link",
-      "url": "/page/getinvolved"
+      "url": "/page/fieldstations"
     }
   ],
   "pages": [
     {
-      "slug": "about",
+      "slug": "concept",
       "lang": "en",
       "content": [
-        "<p><h2>CALLING ALL BIOREGIONALISTS</h2></p>",
-        "<p><strong>What is Cascadia? Where is Cascadia? Why is Cascadia? Here you can make your intimate sensations of the region public, and write your ideas directly into a common landscape. Tell everyone who cares why particular places matter to <em>you</em>.</strong></p><br><br>",
-        "<p><h2>CALLING ALL ARTISTS</h2></p>",
-        "<p><strong>You can make Cascadia more real, more fictional, more beautiful, more terrifying, more natural, more artifical, more conventional, more controversial, by contributing your sensations, ideas and artworks, plus the events that matter to you.</strong></p><br><br>",
-        "<p><img src='/static/css/images/HoRiverValley.jpg'></p>"
+        "<p><h2>MISSISSIPPI: An Anthropocene River</h2></p>",
+        "<img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/>",
+        "<p><br><strong>Mississippi: An Anthropocene River</strong> explores the vast but patchy region around the Mississippi in its changing spatio-temporal formations. The project’s aim is to make this archival landscape legible as a critical zone of habitation and long-term interaction between humans and the environment. It seeks to analyze the Anthropocene on the ground and in the field, exploring ground-truthing measures to augment the remote-sensing operations and abstract knowledge forms of Anthropocene science. Through November 2019, interdisciplinary groups of researchers, artists and stakeholders from civil society will investigate the river basin to develop local approaches to issues of planetary change and together will forge new methods of transdisciplinary research and education. The project is developed and organized by Haus der Kulturen der Welt (HKW) and the Max Planck Institute for the History of Science, Berlin (MPIWG).</p>",
+        "<p>The Mississippi River’s meandering path has carved out an iconic landscape in US mythology and has become a symbol for human impact. Barely a river but more of a floodplain before colonization, it was massively dredged in the 20th century. Its ecology has evolved as a constantly shifting ecosystem, a catchment of cultures, a dividing line, a water highway for resources and goods, and a sink for pollutants. From the logging and mining zones in the Upper River area to the high technology and petrochemical centers in the Delta; from the industrial agricultural landscapes of the Midwest to the “dead zones” in the Gulf of Mexico; from the historic transportation network enabling the iniquitous trade of forced human labor to the social injustices of poverty and deindustrialization today—the Mississippi is a symptom and object of investigation for the radical impact humans inflict on the Earth.</p>",
+        "<p><strong>Mississippi: An Anthropocene River</strong> manifests itself in a variety of field-research activities, public forums, workshops, and travels on and along the Mississippi River. Five Anthropocene River Field Stations, distributed along the watershed from North to South, investigate, highlight, and share historical and contemporary issues of their respective region using both scientific and artistic research methods over the course of one year. <em>Sediment, Settlement, Sentiment: The Machinic River</em> (Field Station 1) addresses the uppermost part of the Mississippi river as a site of river engineering, experimentation and speculation. <em>Anthropocene Drift</em> (Field Station 2) centers on the process of biome change, contrasting the monocrop landscapes of the Corn Belt with the Driftless Area stretching across southeastern Minnesota, southwestern Wisconsin and northwestern Iowa. Anthropocene Vernacular. <em>Industry, Indigeneity, and Empire</em> (Field Station 3) explores the long and conflicted histories of settlement and domestication in the St. Louis area and the American Bottom. <em>Confluence Ecologies</em> (Field Station 4) engages with the ecologic-economic-technological infrastructures in the “Confluence Region” between Southern Illinois, Missouri and Kentucky. <em>Commodity Exploitation</em> (Field Station 5) explores identity and commerce in the in the Lower Mississippi River stretching from Memphis to Natchez. During the fall of 2019, an Anthropocene River Journey - made on canoes and vans travelling down and along the Mississippi—gathers the explorations of the various Field Stations and synthesizes them into a common framework. Travelling participants carry out their own research and provide extensive documentation, bringing the findings downstream and tying the different narratives together. In a weeklong series of experimental seminars taking place November 9–16 in New Orleans the Anthropocene River Campus: The Human Delta will mark a conceptual contraction of the specifically local approaches of the project, informed and leveraged by the research works of the Field Stations, and the planetary-scale framework of economic, ecological, and social teleconnections of the Anthropocene River. An Anthropocene River School features several linked activities, working as an exemplary platform for research practice and activism, transforming field site data into an ongoing, collaborative teaching enterprise—both on site and online.</p>",
+        "<p><br></p>",
+        "<img src='https://ecotopia.today/Mississippi/Images/Partners.jpg'/>"
       ]
     },
     {
-      "slug": "getinvolved",
+      "slug": "fieldstations",
       "lang": "en",
       "content": [
-        "<p><h2>Make it now</h2></p>",
-        "<p><h4>Thanks to the brilliant folks at <a href='mapseed.org'>Mapseed</a>, this map is very easy to use, either on a computer or a mobile phone.</p>",
-        "<p>Just hit the button, \"Make it now.\" Then drag the map around until the marker is exactly where you would like it. You can zoom in a long way to find the exact spot. When you have found it, then choose one of the categories: Sensation, Idea, Artwork, Event.</p>",
-        "<p>You can give a title describing the feeling of a place, or its importance to the bioregion. You can also give the name of the artwork or event you are locating. You can use the categories in unexpected ways.</p>",
-        "<p>The idea can be yours or someone else's (let us know whose it is) and the sensation can be agreeable or disagreeable (if there is some problem there).</p>",
-        "<p>The artwork can be made specifically for this map, it can be documented here, or the image of an existing work can be placed in the landscape. The concept of event speaks for itself&mdash;whether it's artistic or otherwise.</p>",
-        "<p>You can write a short or long text, a poem, a dialogue etc. You can add an image with the editor (click the second to last icon on the right) or you can put in the web address of a Vimeo or Youtube video.",
-        "<p>Anyone can use this map. The idea is express the beauty, the importance and the challenge of creating the Cascadian bioregion. This unfinished process has been going on for decades. Cascadia represents a pathway forward, through and beyond ecological damage, through and beyond climate change. Make it now!</p>"
+        "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7529' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/MachinicRiver.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Machinic River</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-vert-right'>",
+        "<a href='/featured/7530' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceRegion.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Confluence Ecologies</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7533' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/IndustryIndigeneity&Empire.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Industry, Indigeneity, and Empire</h3>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<a href='/featured/7532' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/AnthropoceneDrift.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h3>Anthropocene Drift</h3>",
+        "</figcaption>",
+        "</a>"
       ]
     }
   ],
   "featuredPlaces": {
-    "header": "Curated Collections",
+    "header": "Sites",
     "visibleLayerGroupIds": [
       "ocean-satellite",
       "streets-group",
       "mississippi-input",
-      "mississippi-group",
-      "nitrogen-plants-group"
+      "mississippi-group"
     ],
     "order": [
       {
-        "placeId": 7289,
-        "pan_to": [-92.75, 39.77],
-        "zoom": 6
+        "placeId": 7529,
+        "zoom": 15,
+        "spotlight": false
+      },
+      {
+        "placeId": 7532,
+        "pan_to": [-94.0, 42.4],
+        "zoom": 5.2,
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "kickapoo-group",
+          "streets2-group",
+          "noheart-group",
+          "mississippi-input"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7533,
+        "pan_to": [-90.29, 38.73],
+        "zoom": 10,
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "streets2-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7530,
+        "pan_to": [-89.143, 37.16],
+        "zoom": 8,
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "confluence-group",
+          "NewMadrid-group",
+          "InactiveCoalMines-group",
+          "ActiveCoalMines-group",
+          "streets2-group",
+          "mississippi-input"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7531,
+        "pan_to": [-90.65, 39.65],
+        "zoom": 5,
+        "iconUrl": "/static/css/images/markers/Nitrogen.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "nitrogen-plants-group",
+          "nitrogenloading-group",
+          "streets-group",
+          "mississippi-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7538,
+        "pan_to": [-93.97, 39.44],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/atom.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "streets-group",
+          "NuclearComplex-group",
+          "NuclearPlants-group"
+        ],
+        "spotlight": false
       }
     ]
   }

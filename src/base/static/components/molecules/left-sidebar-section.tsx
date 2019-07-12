@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { connect } from "react-redux";
 import Spinner from "react-spinner";
 import styled from "@emotion/styled";
@@ -14,11 +13,16 @@ import { TinyTitle } from "../atoms/typography";
 
 import {
   sourcesMetadataSelector,
-  sourcesMetadataPropType,
   layerGroupsSelector,
-  layerGroupsPropType,
   updateLayerGroupVisibility,
+  LayerGroups,
+  SourcesMetadata,
 } from "../../state/ducks/map";
+import {
+  LeftSidebarSection,
+  LeftSidebarOption,
+} from "../../state/ducks/left-sidebar";
+import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
 
 const MapLayerSelectorContainer = styled("div")({
   display: "flex",
@@ -26,16 +30,6 @@ const MapLayerSelectorContainer = styled("div")({
   paddingLeft: "16px",
   paddingRight: "16px",
   marginBottom: "16px",
-});
-
-const SelectableArea = styled("span")({
-  display: "flex",
-  flex: 1,
-  alignItems: "center",
-
-  "&:hover": {
-    cursor: "pointer",
-  },
 });
 
 const LayerGroupsStatusContainer = styled("span")({
@@ -51,16 +45,6 @@ const SpinnerContainer = styled("div")({
   position: "relative",
   marginLeft: "8px",
 });
-
-const LayerGroupTitle = styled("span")(props => ({
-  flex: 6,
-  backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "initial",
-  fontFamily: props.theme.text.bodyFontFamily,
-
-  "&:hover": {
-    backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "#ffffd4",
-  },
-}));
 
 const LayerGroupStatusIcon = styled(props => (
   <FontAwesomeIcon
@@ -88,16 +72,49 @@ const statusColors = {
   error: "#ff0000",
 };
 
-const MapLayerSelector = props => {
+type MapLayerSelectorProps = {
+  isLayerGroupVisible: boolean;
+  icon?: string;
+  id: string;
+  loadStatus: string;
+  onToggleLayerGroup: any;
+  isSelected: boolean;
+  t: Function;
+  option: LeftSidebarOption;
+};
+
+const OptionSelector: React.FunctionComponent<
+  MapLayerSelectorProps
+> = props => {
   return (
     <MapLayerSelectorContainer>
-      <SelectableArea onClick={props.onToggleLayerGroup}>
-        <LayerGroupTitle isLayerGroupVisible={props.isLayerGroupVisible}>
-          {props.t(
-            `layerSelectorLayerGroupTitle${props.layerSelectorIndex}`,
-            props.title,
-          )}
-        </LayerGroupTitle>
+      <span
+        css={{
+          display: "flex",
+          flex: 1,
+          alignItems: "center",
+
+          "&:hover": {
+            cursor: "pointer",
+          },
+        }}
+        onClick={props.onToggleLayerGroup}
+      >
+        <span
+          css={theme => ({
+            flex: 6,
+            backgroundColor: props.isLayerGroupVisible ? "#ffff00" : "initial",
+            fontFamily: theme.text.bodyFontFamily,
+
+            "&:hover": {
+              backgroundColor: props.isLayerGroupVisible
+                ? "#ffff00"
+                : "#ffffd4",
+            },
+          })}
+        >
+          {props.option.title}
+        </span>
         <LayerGroupsStatusContainer>
           {props.isLayerGroupVisible &&
             props.loadStatus === "loading" && (
@@ -113,13 +130,14 @@ const MapLayerSelector = props => {
               />
             )}
         </LayerGroupsStatusContainer>
-      </SelectableArea>
-      {props.info && (
+      </span>
+      {props.option.info && (
+        // TODO: refactor this to use ReactModal
         <InfoModalContainer>
           <InfoModalTrigger
             modalContent={{
-              header: props.info.header,
-              body: props.info.body,
+              header: props.option.info.header,
+              body: props.option.info.body,
             }}
           />
         </InfoModalContainer>
@@ -128,24 +146,23 @@ const MapLayerSelector = props => {
   );
 };
 
-MapLayerSelector.propTypes = {
-  isLayerGroupVisible: PropTypes.bool.isRequired,
-  icon: PropTypes.string,
-  layerSelectorIndex: PropTypes.string.isRequired,
-  info: PropTypes.object,
-  id: PropTypes.string.isRequired,
-  loadStatus: PropTypes.string.isRequired,
-  onToggleLayerGroup: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+type OwnProps = {
+  section: LeftSidebarSection;
+  mapSourcesLoadStatus: MapSourcesLoadStatus;
 };
 
-MapLayerSelector.defaultProps = {
-  type: "layer",
+type StateProps = {
+  layerGroups: LayerGroups;
+  sourcesMetadata: SourcesMetadata;
 };
 
-class MapLayerPanelSection extends Component {
+type Props = {
+  t: Function;
+  updateLayerGroupVisibility: Function;
+} & OwnProps &
+  StateProps;
+
+class LeftSidebarSectionSelector extends React.Component<Props> {
   onToggleLayerGroup = layerGroup => {
     if (layerGroup.isBasemap && layerGroup.isVisible) {
       // Prevent toggling the current visible basemap.
@@ -164,16 +181,13 @@ class MapLayerPanelSection extends Component {
             margin-bottom: 16px;
           `}
         >
-          {this.props.t(
-            `mapLayerPanelSectionTitle${this.props.layerPanelSectionIndex}`,
-            this.props.title,
-          )}
+          {this.props.section.title}
         </TinyTitle>
-        {this.props.layerGroupPanels.map((layerGroupPanel, layerGroupIndex) => {
+        {this.props.section.options.map(option => {
           // Assume at first that all sources consumed by layers in this
           // layerGroup have loaded.
           let loadStatus = "loaded";
-          const layerGroup = this.props.layerGroups.byId[layerGroupPanel.id];
+          const layerGroup = this.props.layerGroups.byId[option.layerGroupId];
           const sourcesStatus = layerGroup.sourceIds.map(
             sourceId =>
               this.props.mapSourcesLoadStatus[sourceId]
@@ -191,18 +205,11 @@ class MapLayerPanelSection extends Component {
             loadStatus = "loading";
           }
 
-          // Note that below `layerSelectorIndex` needs to be a unique
-          // combination of the panel section index and the layer selector
-          // index.
           return (
-            <MapLayerSelector
-              key={layerGroupPanel.id}
-              id={layerGroupPanel.id}
-              layerSelectorIndex={`${
-                this.props.layerPanelSectionIndex
-              }${layerGroupIndex}`}
-              info={layerGroupPanel.info}
-              title={layerGroupPanel.title}
+            <OptionSelector
+              key={option.layerGroupId}
+              id={option.layerGroupId}
+              option={option}
               loadStatus={loadStatus}
               isLayerGroupVisible={layerGroup.isVisible}
               isSelected={true}
@@ -216,33 +223,17 @@ class MapLayerPanelSection extends Component {
   }
 }
 
-MapLayerPanelSection.propTypes = {
-  layerPanelSectionIndex: PropTypes.number.isRequired,
-  layerGroupPanels: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  layerGroups: layerGroupsPropType.isRequired,
-  mapSourcesLoadStatus: PropTypes.object.isRequired,
-  sourcesMetadata: sourcesMetadataPropType.isRequired,
-  t: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  updateLayerGroupVisibility: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   layerGroups: layerGroupsSelector(state),
   sourcesMetadata: sourcesMetadataSelector(state),
+  ...ownProps,
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
-    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-});
+const mapDispatchToProps = {
+  updateLayerGroupVisibility,
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("MapLayerPanelSection")(MapLayerPanelSection));
+)(translate("MapLayerPanelSection")(LeftSidebarSectionSelector));

@@ -535,93 +535,82 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm",
-                "title": "OpenStreetMap"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              }
-            ]
+            "layerGroupId": "osm",
+            "title": "OpenStreetMap"
           },
           {
-            "id": "grp-water",
-            "title": "Water Features",
-            "layerGroups": [
-              {
-                "id": "columbia-river",
-                "title": "Columbia River"
-              },
-              {
-                "id": "snake-river",
-                "title": "Snake River"
-              },
-              {
-                "id": "palouse-basin",
-                "title": "Palouse Watershed Basin"
-              },
-              {
-                "id": "palouse-basin-streams",
-                "title": "Palouse Watershed Basin Streams"
-              },
-              {
-                "id": "palouse-critical-aquifer",
-                "title": "Critical Aquifers"
-              },
-              {
-                "id": "palouse-critical-conservation-areas",
-                "title": "Fish & Wildlife Conservation Areas"
-              },
-              {
-                "id": "palouse-frequently-flooded",
-                "title": "Frequently Flooded Areas"
-              },
-              {
-                "id": "palouse-huc-12",
-                "title": "Subbasins"
-              },
-              {
-                "id": "palouse-analysis-units",
-                "title": "Watershed Analysis Units"
-              },
-              {
-                "id": "palouse-wetlands",
-                "title": "Wetlands"
-              },
-              {
-                "id": "palouse-geologic-hazard",
-                "title": "Geologic Hazards"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "columbia-river",
+            "title": "Columbia River"
           },
           {
-            "id": "grp-community",
-            "title": "Community Data",
-            "layerGroups": [
-              {
-                "id": "whitman-county-outline",
-                "title": "Whitman County border"
-              },
-              {
-                "id": "palouse-input",
-                "title": "Community Reports"
-              }
-            ]
+            "layerGroupId": "snake-river",
+            "title": "Snake River"
+          },
+          {
+            "layerGroupId": "palouse-basin",
+            "title": "Palouse Watershed Basin"
+          },
+          {
+            "layerGroupId": "palouse-basin-streams",
+            "title": "Palouse Watershed Basin Streams"
+          },
+          {
+            "layerGroupId": "palouse-critical-aquifer",
+            "title": "Critical Aquifers"
+          },
+          {
+            "layerGroupId": "palouse-critical-conservation-areas",
+            "title": "Fish & Wildlife Conservation Areas"
+          },
+          {
+            "layerGroupId": "palouse-frequently-flooded",
+            "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "palouse-huc-12",
+            "title": "Subbasins"
+          },
+          {
+            "layerGroupId": "palouse-analysis-units",
+            "title": "Watershed Analysis Units"
+          },
+          {
+            "layerGroupId": "palouse-wetlands",
+            "title": "Wetlands"
+          },
+          {
+            "layerGroupId": "palouse-geologic-hazard",
+            "title": "Geologic Hazards"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "layerGroupId": "whitman-county-outline",
+            "title": "Whitman County border"
+          },
+          {
+            "layerGroupId": "palouse-input",
+            "title": "Community Reports"
           }
         ]
       }
@@ -1792,7 +1781,7 @@
             "name": "weed_control",
             "type": "big_radio",
             "prompt": "Weed control on rangeland: can include chemical, mechanical, cultural or biological",
-            "label": "Weed control",
+            "label": "Weed control on rangeland",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",

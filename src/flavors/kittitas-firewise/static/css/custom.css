@@ -60,7 +60,18 @@ header {
   margin-top: 15px !important;
 }
 
-[data-field-name="emergency_kit"] {
+[data-field-name="emergency_kit"],
+[data-field-name="food_and_water"],
+[data-field-name="medications"],
+[data-field-name="clothing"],
+[data-field-name="eyeglasses"],
+[data-field-name="car_keys_money"],
+[data-field-name="first_aid_kit"],
+[data-field-name="flashlight"],
+[data-field-name="radio"],
+[data-field-name="sanitation_supplies"],
+[data-field-name="documents"],
+[data-field-name="pet_food"] {
   margin-bottom: 0 !important;
 }
 

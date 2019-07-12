@@ -377,67 +377,57 @@
       }
     ]
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "Map Layers:",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "osm-hot",
-                "title": "Outdoors"
-              },
-              {
-                "id": "satellite",
-                "title": "Satellite View"
-              },
-              {
-                "id": "light-nolabels",
-                "title": "Light"
-              },
-              {
-                "id": "watercolor",
-                "title": "Watercolor"
-              }
-            ]
+            "layerGroupId": "osm-hot",
+            "title": "Outdoors"
           },
           {
-            "id": "grp-community",
-            "title": "Data Layers",
-            "layerGroups": [
-              {
-                "id": "snohomish-input",
-                "title": "Community Reports"
-              },
-              {
-                "id": "snohomish-featured",
-                "title": "Featured sites"
-              },
-              {
-                "id": "boundary",
-                "title": "Boundary"
-              },
-              {
-                "id": "sub-basins",
-                "title": "Sub-basins"
-              },
-              {
-                "id": "wria-boundaries",
-                "title": "Watershed boundaries"
-              },
-              {
-                "id": "hydrography",
-                "title": "Hydrography"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite View"
+          },
+          {
+            "layerGroupId": "light-nolabels",
+            "title": "Light"
+          },
+          {
+            "layerGroupId": "watercolor",
+            "title": "Watercolor"
+          }
+        ]
+      },
+      {
+        "title": "Data Layers",
+        "options": [
+          {
+            "layerGroupId": "snohomish-input",
+            "title": "Community Reports"
+          },
+          {
+            "layerGroupId": "snohomish-featured",
+            "title": "Featured sites"
+          },
+          {
+            "layerGroupId": "boundary",
+            "title": "Boundary"
+          },
+          {
+            "layerGroupId": "sub-basins",
+            "title": "Sub-basins"
+          },
+          {
+            "layerGroupId": "wria-boundaries",
+            "title": "Watershed boundaries"
+          },
+          {
+            "layerGroupId": "hydrography",
+            "title": "Hydrography"
           }
         ]
       }

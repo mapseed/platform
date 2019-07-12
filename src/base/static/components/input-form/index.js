@@ -41,12 +41,11 @@ import {
   layoutSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
-import { analysisTargetFeaturesSelector } from "../../state/ducks/analysis";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
-import { geoAnalyze } from "../../utils/geo";
+import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
@@ -331,26 +330,17 @@ class InputForm extends Component {
       this.selectedCategoryConfig.geospatialAnalysis &&
       attrs.geometry.type === "Point"
     ) {
-      const geospatialAnalysisAttrs = this.selectedCategoryConfig.geospatialAnalysis.reduce(
-        (analysisAttrs, analysisConfig) => {
-          return {
-            ...analysisAttrs,
-            ...geoAnalyze({
-              config: analysisConfig,
-              placeGeometry: attrs.geometry,
-              targetFeatures: this.props.analysisTargetFeaturesSelector(
-                analysisConfig.targetUrl,
-              ),
-            }),
-          };
-        },
-        {},
-      );
+      const geospatialAnalysisAttrs = await geoAnalysisClient.analyze({
+        analyses: this.selectedCategoryConfig.geospatialAnalysis,
+        inputGeometry: attrs.geometry,
+      });
 
-      attrs = {
-        ...attrs,
-        ...geospatialAnalysisAttrs,
-      };
+      if (geospatialAnalysisAttrs) {
+        attrs = {
+          ...attrs,
+          ...geospatialAnalysisAttrs,
+        };
+      }
     }
 
     const placeResponse = await mapseedApiClient.place.create({
@@ -404,7 +394,7 @@ class InputForm extends Component {
       );
     }
 
-    // Generate a PDF for the user.
+    // Generate a PDF for the user if configured to do so.
     if (this.props.datasetReportSelector(this.props.datasetSlug)) {
       mapseedPDFServiceClient.getPDF({
         url: `${window.location.protocol}//${
@@ -414,6 +404,7 @@ class InputForm extends Component {
         )}/${placeResponse.id}`,
         filename: this.props.datasetReportSelector(this.props.datasetSlug)
           .filename,
+        jwtPublic: placeResponse.jwt_public,
       });
     }
 
@@ -635,7 +626,6 @@ class InputForm extends Component {
 
 InputForm.propTypes = {
   activeMarker: PropTypes.string,
-  analysisTargetFeaturesSelector: PropTypes.func.isRequired,
   customHooks: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.func),
     PropTypes.bool,
@@ -675,8 +665,6 @@ InputForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  analysisTargetFeaturesSelector: targetUrl =>
-    analysisTargetFeaturesSelector(targetUrl, state),
   datasetClientSlugSelector: datasetSlug =>
     datasetClientSlugSelector(state, datasetSlug),
   datasetReportSelector: datasetSlug =>

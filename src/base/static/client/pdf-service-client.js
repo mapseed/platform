@@ -3,7 +3,13 @@ import download from "downloadjs";
 import { Mixpanel } from "../utils/mixpanel";
 
 export default {
-  getPDF: ({ url, filename }) => {
+  getPDF: ({ url, filename, jwtPublic = null }) => {
+    if (jwtPublic) {
+      // Don't use qs.stringify here, as we don't want to double-URIEncode
+      // this parameter below.
+      url += `?token=${jwtPublic}`;
+    }
+
     fetch(
       `https://jlupes39i0.execute-api.us-west-2.amazonaws.com/v1/generate-pdf?${qs.stringify(
         {

@@ -1,6 +1,6 @@
 import { EasingFunction } from "react-map-gl";
 
-export interface InitialMapViewport {
+export type InitialMapViewport = {
   minZoom: number;
   maxZoom: number;
   latitude: number;
@@ -10,7 +10,50 @@ export interface InitialMapViewport {
   pitch: number;
   transitionDuration: number;
   transitionEasing: EasingFunction;
-}
+};
+
+export type FilterSliderConfig = {
+  layerGroupId: string;
+  initialValue: number;
+  min: number;
+  max: number;
+  step: number;
+  label: string;
+  property: string;
+  comparator: string;
+};
+
+export type MapWidgetsConfig = {
+  filterSlider?: FilterSliderConfig;
+};
+
+export type OfflineConfig = {
+  southWest: {
+    lat: number;
+    lng: number;
+  };
+  northEast: {
+    lat: number;
+    lng: number;
+  };
+};
+
+export type MapConfig = {
+  geolocationEnabled: boolean;
+  geocodingBarEnabled: boolean;
+  geocodingEngine: string;
+  geocodeFieldLabel: string;
+  geocodeHint: number[];
+  geocodeBoundingBox: number[];
+  offlineBoundingBox?: OfflineConfig;
+  scrollZoomAroundCenter: boolean;
+  defaultMapViewport: InitialMapViewport;
+  mapWidgets: MapWidgetsConfig;
+};
+
+export type MapSourcesLoadStatus = {
+  [groupName: string]: string;
+};
 export interface MapViewport extends InitialMapViewport {
   transitionInterpolator: any;
 }
@@ -20,3 +63,4 @@ export const loadMapConfig: any;
 export const geocodeAddressBarEnabledSelector: any;
 export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;
+export const mapWidgetsSelector: any;

@@ -52,6 +52,7 @@ import {
   mapConfigPropType,
   MapViewport,
   InitialMapViewport,
+  MapSourcesLoadStatus,
 } from "../../state/ducks/map-config";
 import {
   createFeaturesInGeoJSONSource,
@@ -142,9 +143,7 @@ interface State {
   mapViewport: MapViewport;
   isMapDraggedOrZoomed: boolean;
   isSpotlightMaskVisible: boolean;
-  mapSourcesLoadStatus: {
-    [groupName: string]: string;
-  };
+  mapSourcesLoadStatus: MapSourcesLoadStatus;
 }
 // Types were added to react-i18next is a newer version.
 // TODO: Use supplied types when we upgrade i18next deps.
@@ -454,9 +453,6 @@ class MapTemplate extends Component<Props, State> {
         this.props.updateActivePage(this.props.params.pageSlug);
         this.props.updateContentPanelComponent("CustomPage");
         break;
-      case "inviteModal":
-        this.props.updateUIVisibility("inviteModal", true);
-        break;
       case "mapWithInvalidRoute":
         this.props.history.push("/");
         break;
@@ -587,28 +583,17 @@ const mapStateToProps = (
   placeExists: placeId => placeExists(state, placeId),
 });
 
-const mapDispatchToProps = (
-  dispatch: any,
-  ownProps: OwnProps,
-): DispatchProps => ({
-  createFeaturesInGeoJSONSource: (sourceId, newFeatures) =>
-    dispatch(createFeaturesInGeoJSONSource(sourceId, newFeatures)),
-  loadPlaceAndSetIgnoreFlag: placeModel =>
-    dispatch(loadPlaceAndSetIgnoreFlag(placeModel)),
-  updateUIVisibility: (componentName, isVisible) =>
-    dispatch(updateUIVisibility(componentName, isVisible)),
-  updateActivePage: pageSlug => dispatch(updateActivePage(pageSlug)),
-  updateContentPanelComponent: componentName =>
-    dispatch(updateContentPanelComponent(componentName)),
-  updateFocusedPlaceId: focusedPlaceId =>
-    dispatch(updateFocusedPlaceId(focusedPlaceId)),
-  updateEditModeToggled: isToggled =>
-    dispatch(updateEditModeToggled(isToggled)),
-  updateScrollToResponseId: responseId =>
-    dispatch(updateScrollToResponseId(responseId)),
-  updateCurrentTemplate: templateName =>
-    dispatch(updateCurrentTemplate(templateName)),
-});
+const mapDispatchToProps = {
+  createFeaturesInGeoJSONSource,
+  loadPlaceAndSetIgnoreFlag,
+  updateUIVisibility,
+  updateActivePage,
+  updateContentPanelComponent,
+  updateFocusedPlaceId,
+  updateEditModeToggled,
+  updateScrollToResponseId,
+  updateCurrentTemplate,
+};
 
 export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,

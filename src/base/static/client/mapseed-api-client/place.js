@@ -99,8 +99,9 @@ const getPlace = async ({
   placeId,
   datasetSlug,
   clientSlug,
+  jwtToken,
 }) => {
-  placeParams = setPrivateParams(placeParams, includePrivate);
+  placeParams = setPrivateParams(placeParams, includePrivate, jwtToken);
 
   const response = await fetch(
     `${datasetUrl}/places/${placeId}?${qs.stringify(placeParams)}`,
