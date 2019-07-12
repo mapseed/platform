@@ -104,7 +104,6 @@ const TemplateContainer = styled("div")<{
   layout: string;
   currentTemplate: string;
 }>(props => ({
-  position: "relative",
   overflow:
     // The report template is a special case, and needs `overflow: visible`
     // for PDFs longer than one page to render.

@@ -46,7 +46,8 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
   <section
     css={{
       position: "absolute",
-      zIndex: 20,
+      left: 0,
+      zIndex: 1,
       width: "250px",
       height: "100%",
       boxSizing: "border-box",
@@ -60,17 +61,15 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
         width: "100%",
         height: "100%",
         padding: "1em 1em 4em 1em",
-        overflow: "auto",
+        overflow: "scroll",
         boxSizing: "border-box",
+        "-webkit-overflow-scrolling": "touch",
 
         "&::-webkit-scrollbar": {
           display: "none",
         },
       }}
     >
-      <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
-        &#10005;
-      </CloseButton>
       <SmallTitle
         css={{
           marginTop: 0,
@@ -90,6 +89,9 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
           ),
         )}
     </div>
+    <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
+      &#10005;
+    </CloseButton>
   </section>
 );
 
