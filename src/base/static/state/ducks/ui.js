@@ -3,8 +3,11 @@ import { getLayout } from "../../utils/layout-utils";
 // Selectors:
 export const currentTemplateSelector = state => state.ui.currentTemplate;
 export const isEditModeToggled = state => state.ui.isEditModeToggled;
+// TODO: Replace this general visibility selector with UI-specific selectors.
 export const uiVisibilitySelector = (uiComponentName, state) =>
   state.ui.uiVisibility[uiComponentName];
+export const measurementToolVisibilitySelector = state =>
+  state.ui.uiVisibility.measurementTool;
 export const contentPanelComponentSelector = state =>
   state.ui.contentPanelComponent;
 export const pageSlugSelector = state => state.ui.activePageSlug;
@@ -32,10 +35,18 @@ export function updateCurrentTemplate(templateName) {
 export function updateEditModeToggled(isToggled) {
   return { type: UPDATE_EDIT_MODE_TOGGLED, payload: isToggled };
 }
+// TODO: Replace this general visibility updater with UI-specific action
+// creators.
 export function updateUIVisibility(uiComponentName, isVisible) {
   return {
     type: UPDATE_UI_VISIBILITY,
     payload: { uiComponentName, isVisible },
+  };
+}
+export function updateMeasurementToolVisibility(isVisible) {
+  return {
+    type: UPDATE_UI_VISIBILITY,
+    payload: { uiComponentName: "measurementTool", isVisible },
   };
 }
 export function updateActivePage(pageSlug) {
@@ -66,7 +77,7 @@ const INITIAL_STATE = {
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,
-    mapMeasurementTool: false,
+    measurementTool: false,
   },
   contentPanelComponent: null,
   leftSidebarComponent: null,

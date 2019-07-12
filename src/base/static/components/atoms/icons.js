@@ -1,6 +1,7 @@
 // these components were generated with this command:
 // npx @svgr/cli --icon twitter-icon.svg
 import React from "react";
+import PropTypes from "prop-types";
 
 const TwitterIcon = props => (
   <svg viewBox="0 0 300 244.187" width="1em" height="1em" {...props}>
@@ -59,6 +60,10 @@ const CreatePolygonIcon = props => (
   </svg>
 );
 
+CreatePolygonIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+};
+
 CreatePolygonIcon.defaultProps = {
   color: "#000",
 };
@@ -77,6 +82,10 @@ const CreatePolylineIcon = props => (
   </svg>
 );
 
+CreatePolylineIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+};
+
 CreatePolylineIcon.defaultProps = {
   color: "#000",
 };
@@ -90,15 +99,26 @@ const DeleteGeometryIcon = props => (
   </svg>
 );
 
+DeleteGeometryIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+};
+
 DeleteGeometryIcon.defaultProps = {
   color: "#000",
 };
 
 const UndoIcon = props => (
   <svg width="1.5rem" height="1.5rem" viewBox="0 0 28.6 24.6" {...props}>
-    <path fill={props.color} d="M20.5 21.6c-2.2 1.9-5 3.1-8.1 3.1C5.5 24.6 0 19.1 0 12.3 0 5.5 5.5 0 12.3 0c6.1 0 11.2 4.5 12.2 10.3h4.1l-6.3 7.6-6.2-7.7h4.3c-.9-3.6-4.2-6.2-8-6.2C7.7 4 4 7.7 4 12.3s3.7 8.3 8.3 8.3c2.2 0 4.2-.8 5.6-2.2l2.6 3.2z" />
+    <path
+      fill={props.color}
+      d="M20.5 21.6c-2.2 1.9-5 3.1-8.1 3.1C5.5 24.6 0 19.1 0 12.3 0 5.5 5.5 0 12.3 0c6.1 0 11.2 4.5 12.2 10.3h4.1l-6.3 7.6-6.2-7.7h4.3c-.9-3.6-4.2-6.2-8-6.2C7.7 4 4 7.7 4 12.3s3.7 8.3 8.3 8.3c2.2 0 4.2-.8 5.6-2.2l2.6 3.2z"
+    />
   </svg>
 );
+
+UndoIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+};
 
 UndoIcon.defaultProps = {
   color: "#000",

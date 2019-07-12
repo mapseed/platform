@@ -10,11 +10,14 @@ import {
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
 } from "../../state/ducks/left-sidebar";
-import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
-import { mapMeasurementToolEnabledSelector } from "../../state/ducks/map-config";
+import {
+  measurementToolVisibilitySelector,
+  updateMeasurementToolVisibility,
+} from "../../state/ducks/ui";
+import { measurementToolEnabledSelector } from "../../state/ducks/map-config";
 
 const customControlStatePropTypes = {
-  onClickControl: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   icon: PropTypes.string.isRequired,
 };
 
@@ -37,7 +40,7 @@ class CustomControl extends React.Component<CustomControlProps> {
           className={`mapboxgl-ctrl-icon ${this.props.icon}`}
           type="button"
           title="Custom control"
-          onClick={this.props.onClickControl}
+          onClick={this.props.onClick}
         />
       </div>
     );
@@ -83,19 +86,17 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
   }
 }
 
-// These are Props passed down from parent:
-
-const dispatchPropTypes = {
-  setLeftSidebarExpanded: PropTypes.func.isRequired,
+type DispatchProps = {
+  setLeftSidebarExpanded: (isExpanded: boolean) => any;
+  toggleMeasurementToolVisibility: (isVisible: boolean) => any;
 };
-
-type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 type ParentProps = {
   onViewportChange: Function;
 };
-
 type MapControlStateProps = {
   leftSidebarConfig: LeftSidebarConfig;
+  isMeasurementToolEnabled: boolean;
+  isMeasurementToolVisible: boolean;
 };
 
 type MapControlProps = MapControlStateProps & ParentProps & DispatchProps;
@@ -115,14 +116,14 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
       <GeolocateControl onViewportChange={props.onViewportChange} />
       <CustomControl
         icon={props.leftSidebarConfig.icon}
-        onClickControl={() => props.setLeftSidebarExpanded(true)}
+        onClick={() => props.setLeftSidebarExpanded(true)}
       />
-      {props.isMapMeasurementToolEnabled && (
+      {props.isMeasurementToolEnabled && (
         <CustomControl
           icon={"fas fa-ruler-combined"}
-          onClickControl={() =>
-            props.toggleMapMeasurementToolVisibility(
-              !props.isMapMeasurementToolVisible,
+          onClick={() =>
+            props.toggleMeasurementToolVisibility(
+              !props.isMeasurementToolVisible,
             )
           }
         />
@@ -134,17 +135,14 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
 const mapDispatchToProps = dispatch => ({
   setLeftSidebarExpanded: isExpanded =>
     dispatch(setLeftSidebarExpanded(isExpanded)),
-  toggleMapMeasurementToolVisibility: isVisible =>
-    dispatch(updateUIVisibility("mapMeasurementTool", isVisible)),
+  toggleMeasurementToolVisibility: isVisible =>
+    dispatch(updateMeasurementToolVisibility(isVisible)),
 });
 
 const mapStateToProps = (state): MapControlStateProps => ({
   leftSidebarConfig: leftSidebarConfigSelector(state),
-  isMapMeasurementToolVisible: uiVisibilitySelector(
-    "mapMeasurementTool",
-    state,
-  ),
-  isMapMeasurementToolEnabled: mapMeasurementToolEnabledSelector(state),
+  isMeasurementToolVisible: measurementToolVisibilitySelector(state),
+  isMeasurementToolEnabled: measurementToolEnabledSelector(state),
 });
 
 export default connect<MapControlStateProps, DispatchProps>(

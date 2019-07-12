@@ -1,15 +1,23 @@
 /** @jsx jsx */
 import * as React from "react";
 import { css, jsx } from "@emotion/core";
-import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import { featureCollection, point, lineString, polygon } from "@turf/helpers";
 import area from "@turf/area";
 import distance from "@turf/distance";
 import { geoPath, geoTransform } from "d3-geo";
-import WebMercatorViewport from "viewport-mercator-project";
+import WebMercatorViewport, {
+  WebMercatorViewportOptions,
+  WebMercatorViewport as IWebMercatorViewport,
+} from "viewport-mercator-project";
 import { CanvasOverlay } from "react-map-gl";
-import { FeatureCollection, Point, LineString, Polygon } from "geojson";
+import {
+  FeatureCollection,
+  Feature,
+  Point,
+  LineString,
+  Polygon,
+} from "geojson";
 
 import { mapViewportPropType } from "../../state/ducks/map";
 import { RegularText } from "../atoms/typography";
@@ -26,31 +34,55 @@ const mapMeasurementOverlayProps = {
   height: PropTypes.number.isRequired,
 };
 
+interface ExposedCanvasOverlay extends CanvasOverlay {
+  _canvas: HTMLCanvasElement;
+}
+
 type MapMeasurementOverlayProps = PropTypes.InferProps<
   typeof mapMeasurementOverlayProps
 >;
 
-const measurementToolIconProps = {
-  isEnabled: PropTypes.bool.isRequired,
-  isSelected: PropTypes.bool.isRequired,
+type MeasurementToolIconProps = {
+  isEnabled: boolean;
+  isSelected?: boolean;
+  children: any;
+  onClick: any;
 };
 
-type MeasurementToolIconProps = PropTypes.inferProps<measurementToolIconProps>;
+const MeasurementToolIcon = (props: MeasurementToolIconProps) => (
+  <span
+    onClick={props.onClick}
+    css={css`
+      border: 2px solid transparent;
+      border-radius: 4px;
+      padding: 4px 4px 0 4px;
+      margin-right: 8px;
+      background-color: ${props.isSelected ? "#999" : "initial"};
 
-const MeasurementToolIcon = styled("span")(
-  (props: MeasurementToolIconProps) => ({
-    border: "2px solid transparent",
-    borderRadius: "4px",
-    padding: "4px 4px 0 4px",
-    marginRight: "8px",
-    backgroundColor: props.isSelected ? "#999" : "initial",
-
-    "&:hover": {
-      borderColor: props.isEnabled ? "#999" : "transparent",
-      cursor: props.isEnabled ? "pointer" : "unset",
-    },
-  }),
+      &:hover {
+        border-color: ${props.isEnabled ? "#999" : "transparent"};
+        cursor: ${props.isEnabled ? "pointer" : "unset"};
+      }
+    `}
+  >
+    {props.children}
+  </span>
 );
+
+//const MeasurementToolIcon = styled("span")(
+//  (props: MeasurementToolIconProps) => ({
+//    border: "2px solid transparent",
+//    borderRadius: "4px",
+//    padding: "4px 4px 0 4px",
+//    marginRight: "8px",
+//    backgroundColor: props.isSelected ? "#999" : "initial",
+
+//    "&:hover": {
+//      borderColor: props.isEnabled ? "#999" : "transparent",
+//      cursor: props.isEnabled ? "pointer" : "unset",
+//    },
+//  }),
+//);
 
 MeasurementToolIcon.defaultProps = {
   isEnabled: true,
@@ -64,14 +96,31 @@ const MIN_POSITIONS = {
   "create-polyline": 2,
 };
 
-const getNewViewport = ({ viewport, width, height }) =>
+const getNewViewport = ({
+  latitude,
+  longitude,
+  zoom,
+  pitch,
+  bearing,
+  altitude,
+  width,
+  height,
+}: WebMercatorViewportOptions): IWebMercatorViewport =>
   new WebMercatorViewport({
-    ...viewport,
+    latitude,
+    longitude,
+    zoom,
+    pitch,
+    bearing,
+    altitude,
     width,
     height,
   });
 
-const buildMeasurementFeatureCollection = (selectedTool, positions) => {
+const buildMeasurementFeatureCollection = (
+  selectedTool: string,
+  positions: number[][],
+): FeatureCollection => {
   let featureFn;
   let newPositions;
   let numPositions = 0;
@@ -115,7 +164,7 @@ const redraw = ({
 }) => {
   function projectPoint(lon, lat) {
     const point = project([lon, lat]);
-    /* eslint-disable-next-line no-invalid-this */
+    // @ts-ignore
     this.stream.point(point[0], point[1]);
   }
 
@@ -155,7 +204,7 @@ const formatMeasurement = measurement =>
     ? null
     : measurementFormatter.format(measurement.toFixed(1));
 
-const MapMeasurementOverlay: React.FunctionalComponent<
+const MapMeasurementOverlay: React.FunctionComponent<
   MapMeasurementOverlayProps
 > = props => {
   // NOTE: The structure of this featureCollection is such that all but the
@@ -170,8 +219,8 @@ const MapMeasurementOverlay: React.FunctionalComponent<
   const [measurement, setMeasurement] = React.useState<null | number>(null);
   const [units, setUnits] = React.useState<null | string>(null);
   const positions = React.useRef<number[][]>([]);
-  const webMercatorViewport = React.useRef();
-  const overlayRef = React.useRef<HTMLElement>();
+  const webMercatorViewport = React.useRef<WebMercatorViewport>();
+  const overlayRef = React.useRef<ExposedCanvasOverlay>(null);
 
   const handleOverlayClick = evt => {
     if (!selectedTool.current) {
@@ -181,28 +230,29 @@ const MapMeasurementOverlay: React.FunctionalComponent<
     const { left, top } = evt.currentTarget.getBoundingClientRect();
     // Get unprojected (i.e. lng/lat) coordinates from the x/y click position,
     // relative to the overlay canvas element.
-    const unprojected = webMercatorViewport.current.unproject([
-      evt.x - left,
-      evt.y - top,
-    ]);
+    const unprojected =
+      webMercatorViewport.current &&
+      webMercatorViewport.current.unproject([evt.x - left, evt.y - top]);
 
-    positions.current.push(unprojected);
-    setMeasurementFeatureCollection(
-      buildMeasurementFeatureCollection(
-        selectedTool.current,
-        positions.current,
-      ),
-    );
+    unprojected && positions.current.push(unprojected);
+    selectedTool.current &&
+      setMeasurementFeatureCollection(
+        buildMeasurementFeatureCollection(
+          selectedTool.current,
+          positions.current,
+        ),
+      );
   };
 
   const handleUndoLastPoint = () => {
     positions.current.pop();
-    setMeasurementFeatureCollection(
-      buildMeasurementFeatureCollection(
-        selectedTool.current,
-        positions.current,
-      ),
-    );
+    selectedTool.current &&
+      setMeasurementFeatureCollection(
+        buildMeasurementFeatureCollection(
+          selectedTool.current,
+          positions.current,
+        ),
+      );
   };
 
   const handleReset = () => {
@@ -211,7 +261,9 @@ const MapMeasurementOverlay: React.FunctionalComponent<
     selectedTool.current = null;
     setUnits(null);
     setMeasurement(null);
-    overlayRef.current._canvas.style.pointerEvents = "none";
+    if (overlayRef.current) {
+      overlayRef.current._canvas.style.pointerEvents = "none";
+    }
   };
 
   React.useEffect(() => {
@@ -244,7 +296,7 @@ const MapMeasurementOverlay: React.FunctionalComponent<
   React.useEffect(
     () => {
       webMercatorViewport.current = getNewViewport({
-        viewport: props.viewport,
+        ...props.viewport,
         width: props.width,
         height: props.height,
       });
@@ -254,8 +306,11 @@ const MapMeasurementOverlay: React.FunctionalComponent<
 
   React.useEffect(
     () => {
-      const { features } = measurementFeatureCollection;
-      const measurementFeature = features[features.length - 1];
+      const {
+        features,
+      }: { features: Feature[] } = measurementFeatureCollection;
+      const measurementFeature = features[features.length - 1] as Feature;
+
       if (
         measurementFeature &&
         measurementFeature.geometry.type == "LineString"
@@ -267,6 +322,7 @@ const MapMeasurementOverlay: React.FunctionalComponent<
                 i > 0 &&
                 total +
                   distance(
+                    // @ts-ignore
                     measurementFeature.geometry.coordinates[i - 1],
                     nextCoords,
                     {
@@ -296,7 +352,6 @@ const MapMeasurementOverlay: React.FunctionalComponent<
   return (
     <React.Fragment>
       <CanvasOverlay
-        featureCollection={featureCollection}
         ref={overlayRef}
         captureClick={!!selectedTool.current}
         redraw={props =>
@@ -353,7 +408,9 @@ const MapMeasurementOverlay: React.FunctionalComponent<
                   return;
                 }
 
-                overlayRef.current._canvas.style.pointerEvents = "initial";
+                if (overlayRef.current) {
+                  overlayRef.current._canvas.style.pointerEvents = "initial";
+                }
                 selectedTool.current = "create-polyline";
                 setMeasurement(0);
                 setUnits("feet");
@@ -368,7 +425,9 @@ const MapMeasurementOverlay: React.FunctionalComponent<
                   return;
                 }
 
-                overlayRef.current._canvas.style.pointerEvents = "initial";
+                if (overlayRef.current) {
+                  overlayRef.current._canvas.style.pointerEvents = "initial";
+                }
                 selectedTool.current = "create-polygon";
                 setMeasurement(0);
                 setUnits("acres");

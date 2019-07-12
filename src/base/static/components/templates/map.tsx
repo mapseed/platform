@@ -226,8 +226,8 @@ class MapTemplate extends Component<Props, State> {
 
     const { datasetClientSlug, placeId, responseId } = this.props.params;
 
-    // When this component mounts in the Place detail configuration, ensure
-    // that we have the requested Place.
+    // When this component mounts in the Place detail configuration, fetch the
+    // requested Place directly from the API for a better UX.
     if (placeId) {
       const datasetConfig = this.props.datasetsConfig.find(
         c => c.clientSlug === datasetClientSlug,

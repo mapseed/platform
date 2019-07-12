@@ -28,7 +28,7 @@ export const geocodeAddressBarEnabledSelector = state =>
 export const mapWidgetsSelector = state => {
   return state.mapConfig.mapWidgets;
 };
-export const mapMeasurementToolEnabledSelector = state =>
+export const measurementToolEnabledSelector = state =>
   state.mapConfig.measurementToolEnabled;
 
 // Actions:
