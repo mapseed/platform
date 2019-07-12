@@ -48,7 +48,7 @@ const FeaturedPlace: React.FunctionComponent<Props> = props => {
         textTransform="uppercase"
         css={css`
           flex: 2;
-          paddingleft: 8px;
+          padding-left: 8px;
         `}
       >
         {props.title}
