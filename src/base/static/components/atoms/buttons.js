@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "@emotion/styled";
 import { css, jsx } from "@emotion/core";
-import { lighten, darken } from "@material-ui/core/styles/colorManipulator";
 import { withTheme } from "emotion-theming";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
 import { FontAwesomeIcon } from "./imagery";
 import { SmallText } from "./typography";
 
+import { CHARCOAL, OFF_WHITE, getReadableColor } from "../../utils/color";
 import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
@@ -203,31 +203,39 @@ const Button = styled(props => {
     styles.backgroundColor = props.theme.brand.primary;
     styles.color = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
-    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
-    styles["&:hover"].color = props.theme.text.secondary;
+    styles["&:hover"].backgroundColor = props.theme.brand.primary;
+    styles["&:hover"].color = getReadableColor(
+      styles["&:hover"].backgroundColor,
+    );
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
-    styles.color = darken(props.theme.bg.light, 0.6);
-    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
-    styles["&:hover"].color = props.theme.text.secondary;
+    styles.color = getReadableColor(styles.backgroundColor);
+    styles["&:hover"].backgroundColor = props.theme.brand.secondary;
+    styles["&:hover"].color = getReadableColor(props.theme.brand.secondary);
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
     styles.backgroundColor = "transparent";
     styles.color = props.theme.text.tertiary;
-    styles["&:hover"].color = props.theme.text.secondary;
-    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].backgroundColor = props.theme.text.secondary;
+    styles["&:hover"].color = getReadableColor(
+      styles["&:hover"].backgroundColor,
+    );
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "black") {
-    styles.backgroundColor = "#fff";
-    styles.color = "black";
-    styles["&:hover"].color = "grey";
-    styles["&:hover"].backgroundColor = lighten("#fff", 0.6);
+    styles.backgroundColor = CHARCOAL;
+    styles.color = getReadableColor(styles.backgroundColor);
+    styles["&:hover"].backgroundColor = OFF_WHITE;
+    styles["&:hover"].color = getReadableColor(
+      styles["&:hover"].backgroundColor,
+    );
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "grey") {
     styles.backgroundColor = "#fff";
     styles.color = "grey";
     styles["&:hover"].color = "black";
-    styles["&:hover"].backgroundColor = lighten("#fff", 0.6);
+    styles["&:hover"].backgroundColor = getReadableColor(
+      styles["&:hover"].color,
+    );
     styles["&:hover"].textDecoration = "none";
   }
 
