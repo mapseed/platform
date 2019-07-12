@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { css, jsx } from "@emotion/core";
 import { translate } from "react-i18next";
-import { darken } from "@material-ui/core/styles/colorManipulator";
+import { getReadableColor } from "../../utils/color";
 
 import InputFormCategorySelector from "./input-form-category-selector";
 import InputForm from "../input-form";
@@ -103,7 +103,7 @@ class FormCategoryMenuWrapper extends Component {
                 css={css`
                   background-color: ${alertBackground};
                   display: block;
-                  color: ${darken(alertBackground, 0.8)};
+                  color: ${getReadableColor(alertBackground)};
                   border: 2px dotted #ffffff;
                   border-radius: 8px;
                   padding: 8px;
