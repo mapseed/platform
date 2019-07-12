@@ -9,7 +9,10 @@ import {
   featuredPlacesConfigSelector,
   FeaturedPlacesConfig,
 } from "../../state/ducks/featured-places-config";
-import { placeConfigSelector } from "../../state/ducks/place-config";
+import {
+  placeConfigSelector,
+  PlaceConfig,
+} from "../../state/ducks/place-config";
 import { Place } from "../../state/ducks/places";
 
 import FeaturedPlace from "../molecules/featured-place";
@@ -17,7 +20,7 @@ import { TinyTitle, Paragraph } from "../atoms/typography";
 
 type StateProps = {
   featuredPlacesConfig: FeaturedPlacesConfig;
-  placeConfig: any;
+  placeConfig: PlaceConfig;
 };
 type Props = {
   places: Place[];
