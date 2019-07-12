@@ -84,12 +84,10 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
             place,
             iconUrl:
               featuredPlace.iconUrl ||
-              (
-                props.placeConfig.place_detail.find(
-                  config =>
-                    config.category === ((place || {}) as Place).location_type,
-                ) || {}
-              ).icon_url,
+              ((props.placeConfig.place_detail.find(
+                config =>
+                  config.category === ((place || {}) as Place).location_type,
+              ) || {}) as any).icon_url,
           };
         })
         .filter(({ featuredPlace, place, iconUrl }) => !!place && !!iconUrl)

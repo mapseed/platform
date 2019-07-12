@@ -8,6 +8,7 @@ export type PlaceConfig = {
   place_detail: {
     category: string;
     label: string;
+    icon_url?: string;
   }[];
   list: {
     fields: {
