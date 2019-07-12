@@ -655,7 +655,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "ActivityStreamWithLegend"
+    "component": "FeaturedPlacesWithLegend"
   },
   "leftSidebar": {
     "icon": "fa fa-bars",
@@ -755,7 +755,8 @@
         "includeOnList": true,
         "datasetSlug": "pbdurham-projects",
         "label": "Cycle 1 Winners",
-        "fields": []
+        "fields": [],
+        "icon_url": "/static/css/images/markers/money.png"
       },
       {
         "formId": "projects",
@@ -764,7 +765,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "pbdurham-projects",
-        "icon_url": "/static/css/images/markers/money.png",
+        "icon_url": "/static/css/images/markers/money-greyscale.png",
         "value": "project",
         "label": "Project Proposal",
         "fields": [
@@ -1809,5 +1810,62 @@
   },
   "custom_components": {
     "FieldSummary": "PBDurhamProjectProposalFieldSummary"
+  },
+  "featuredPlaces": {
+    "header": "Cycle 1 Project Winners",
+    "visibleLayerGroupIds": [],
+    "order": [
+      {
+        "placeId": 7013
+      },
+      {
+        "placeId": 7014
+      },
+      {
+        "placeId": 7015
+      },
+      {
+        "placeId": 7019
+      },
+      {
+        "placeId": 7024
+      },
+      {
+        "placeId": 7027
+      },
+      {
+        "placeId": 7029
+      },
+      {
+        "placeId": 7030
+      },
+      {
+        "placeId": 7031
+      },
+      {
+        "placeId": 7056
+      },
+      {
+        "placeId": 7057
+      },
+      {
+        "placeId": 7078
+      },
+      {
+        "placeId": 7095
+      },
+      {
+        "placeId": 7096
+      },
+      {
+        "placeId": 7101
+      },
+      {
+        "placeId": 7139
+      },
+      {
+        "placeId": 7145
+      }
+    ]
   }
 }

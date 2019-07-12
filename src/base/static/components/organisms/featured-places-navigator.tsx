@@ -2,23 +2,32 @@
 import * as React from "react";
 
 import { jsx } from "@emotion/core";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import {
   featuredPlacesConfigSelector,
-  featuredPlacesConfigPropType,
+  FeaturedPlacesConfig,
 } from "../../state/ducks/featured-places-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { placesPropType } from "../../state/ducks/places";
-import { uiVisibilitySelector, updateUIVisibility } from "../../state/ducks/ui";
+import { Place } from "../../state/ducks/places";
 
 import FeaturedPlace from "../molecules/featured-place";
 import { TinyTitle, Paragraph } from "../atoms/typography";
 
-const FeaturedPlacesNavigator = props => {
-  const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
+type StateProps = {
+  featuredPlacesConfig: FeaturedPlacesConfig;
+  placeConfig: any;
+};
+type Props = {
+  places: Place[];
+} & StateProps &
+  RouteComponentProps<{}>;
+
+const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
+  const [currentPlaceId, setCurrentPlaceId] = React.useState<number | null>(
+    null,
+  );
   React.useEffect(() => {
     const placeId = parseInt(props.history.location.pathname.split("/")[2]);
     if (placeId) {
@@ -74,20 +83,21 @@ const FeaturedPlacesNavigator = props => {
               featuredPlace.iconUrl ||
               (
                 props.placeConfig.place_detail.find(
-                  config => config.category === (place || {}).location_type,
+                  config =>
+                    config.category === ((place || {}) as Place).location_type,
                 ) || {}
               ).icon_url,
           };
         })
-        .filter(({ place, iconUrl }) => !!place && !!iconUrl)
+        .filter(({ featuredPlace, place, iconUrl }) => !!place && !!iconUrl)
         .map(({ place, featuredPlace, iconUrl }) => {
           return (
             <FeaturedPlace
               key={featuredPlace.placeId}
-              title={place.title}
+              title={(place as any).title}
               iconUrl={iconUrl}
               isSelected={currentPlaceId === featuredPlace.placeId}
-              placeUrl={`${place.clientSlug}/${featuredPlace.placeId}`}
+              placeUrl={`${(place as any).clientSlug}/${featuredPlace.placeId}`}
             />
           );
         })}
@@ -95,32 +105,11 @@ const FeaturedPlacesNavigator = props => {
   );
 };
 
-FeaturedPlacesNavigator.propTypes = {
-  history: PropTypes.object.isRequired,
-  isRightSidebarVisible: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired,
-  featuredPlacesConfig: featuredPlacesConfigPropType,
-  placeConfig: PropTypes.shape({
-    place_detail: PropTypes.array.isRequired,
-  }).isRequired,
-  places: placesPropType.isRequired,
-  updateUIVisibility: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
+const mapStateToProps = (state): StateProps => ({
   featuredPlacesConfig: featuredPlacesConfigSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateUIVisibility: (componentName, isVisible) =>
-    dispatch(updateUIVisibility(componentName, isVisible)),
-});
-
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(FeaturedPlacesNavigator),
+  connect<StateProps>(mapStateToProps)(FeaturedPlacesNavigator),
 );
