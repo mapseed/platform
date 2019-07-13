@@ -147,9 +147,8 @@ const redraw = ({
   width,
   height,
 }) => {
-  function projectPoint(lon, lat) {
+  function projectPoint(this: any, lon, lat) {
     const point = project([lon, lat]);
-    // @ts-ignore
     this.stream.point(point[0], point[1]);
   }
 
