@@ -69,21 +69,6 @@ const MeasurementToolIcon = (props: MeasurementToolIconProps) => (
   </span>
 );
 
-//const MeasurementToolIcon = styled("span")(
-//  (props: MeasurementToolIconProps) => ({
-//    border: "2px solid transparent",
-//    borderRadius: "4px",
-//    padding: "4px 4px 0 4px",
-//    marginRight: "8px",
-//    backgroundColor: props.isSelected ? "#999" : "initial",
-
-//    "&:hover": {
-//      borderColor: props.isEnabled ? "#999" : "transparent",
-//      cursor: props.isEnabled ? "pointer" : "unset",
-//    },
-//  }),
-//);
-
 MeasurementToolIcon.defaultProps = {
   isEnabled: true,
 };
