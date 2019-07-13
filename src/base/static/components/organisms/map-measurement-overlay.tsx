@@ -8,7 +8,6 @@ import distance from "@turf/distance";
 import { geoPath, geoTransform } from "d3-geo";
 import WebMercatorViewport, {
   WebMercatorViewportOptions,
-  WebMercatorViewport as IWebMercatorViewport,
 } from "viewport-mercator-project";
 import { CanvasOverlay } from "react-map-gl";
 import {
@@ -90,7 +89,7 @@ const getNewViewport = ({
   altitude,
   width,
   height,
-}: WebMercatorViewportOptions): IWebMercatorViewport =>
+}: WebMercatorViewportOptions): WebMercatorViewport =>
   new WebMercatorViewport({
     latitude,
     longitude,
