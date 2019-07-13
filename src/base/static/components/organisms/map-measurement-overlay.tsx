@@ -105,7 +105,7 @@ const getNewViewport = ({
 const buildMeasurementFeatureCollection = (
   selectedTool: string,
   positions: number[][],
-): FeatureCollection => {
+): FeatureCollection<Point | LineString | Polygon> => {
   let featureFn;
   let newPositions;
   let numPositions = 0;
@@ -199,7 +199,9 @@ const MapMeasurementOverlay: React.FunctionComponent<
   const [
     measurementFeatureCollection,
     setMeasurementFeatureCollection,
-  ] = React.useState<FeatureCollection>(featureCollection([]));
+  ] = React.useState<FeatureCollection<Point | LineString | Polygon>>(
+    featureCollection([]),
+  );
   const selectedTool = React.useRef<null | string>(null);
   const [measurement, setMeasurement] = React.useState<null | number>(null);
   const [units, setUnits] = React.useState<null | string>(null);
@@ -295,38 +297,23 @@ const MapMeasurementOverlay: React.FunctionComponent<
         features,
       }: { features: Feature[] } = measurementFeatureCollection;
       const measurementFeature = features[features.length - 1] as Feature;
+      const geometry = measurementFeature.geometry;
 
-      if (
-        measurementFeature &&
-        measurementFeature.geometry.type == "LineString"
-      ) {
+      if (geometry && geometry.type == "LineString") {
         setMeasurement(
-          measurementFeature.geometry.coordinates.reduce(
-            (total, nextCoords, i) => {
-              return (
-                i > 0 &&
-                total +
-                  distance(
-                    // @ts-ignore
-                    measurementFeature.geometry.coordinates[i - 1],
-                    nextCoords,
-                    {
-                      units: "miles",
-                    },
-                  )
-              );
-            },
-            0,
-          ) * FEET_PER_MILE,
+          geometry.coordinates.reduce((total, nextCoords, i) => {
+            return (
+              i > 0 &&
+              total +
+                distance(geometry.coordinates[i - 1], nextCoords, {
+                  units: "miles",
+                })
+            );
+          }, 0) * FEET_PER_MILE,
         );
-      } else if (
-        measurementFeature &&
-        measurementFeature.geometry.type === "Polygon"
-      ) {
+      } else if (geometry && geometry.type === "Polygon") {
         // NOTE: the `area` function always returns areas in square meters.
-        setMeasurement(
-          area(measurementFeature.geometry) * SQUARE_METERS_PER_ACRE,
-        );
+        setMeasurement(area(geometry) * SQUARE_METERS_PER_ACRE);
       } else {
         setMeasurement(0);
       }
