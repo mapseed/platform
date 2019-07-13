@@ -47,7 +47,7 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
     css={{
       position: "absolute",
       left: 0,
-      zIndex: 1,
+      zIndex: 6,
       width: "250px",
       height: "100%",
       boxSizing: "border-box",
