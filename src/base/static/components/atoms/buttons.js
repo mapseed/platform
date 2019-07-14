@@ -200,13 +200,13 @@ const Button = styled(props => {
   }
 
   if (props.color === "primary") {
+    // NOTE: hard-coded colors here are temporary, for a description of planned
+    // themeing changes see: https://github.com/jalMogo/mgmt/issues/329
     styles.backgroundColor = props.theme.brand.primary;
-    styles.color = props.theme.text.secondary;
+    styles.color = "#fff";
     styles["&:hover"].textDecoration = "none";
     styles["&:hover"].backgroundColor = props.theme.brand.primary;
-    styles["&:hover"].color = getReadableColor(
-      styles["&:hover"].backgroundColor,
-    );
+    styles["&:hover"].color = "#fff";
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
     styles.color = getReadableColor(styles.backgroundColor);

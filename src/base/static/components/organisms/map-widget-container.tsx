@@ -50,7 +50,6 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
           }
         />
       )}
-      )}
     </div>
   );
 };
