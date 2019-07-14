@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { featureCollection, point, lineString, polygon } from "@turf/helpers";
 import area from "@turf/area";
 import distance from "@turf/distance";
-import { geoPath, geoTransform } from "d3-geo";
+import { geoPath, geoTransform, GeoStream } from "d3-geo";
 import WebMercatorViewport, {
   WebMercatorViewportOptions,
 } from "viewport-mercator-project";
@@ -32,6 +32,10 @@ const mapMeasurementOverlayProps = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
 };
+
+interface GeoTransformWrapper {
+  stream: GeoStream;
+}
 
 interface ExposedCanvasOverlay extends CanvasOverlay {
   _canvas: HTMLCanvasElement;
@@ -146,7 +150,7 @@ const redraw = ({
   width,
   height,
 }) => {
-  function projectPoint(this: any, lon, lat) {
+  function projectPoint(this: GeoTransformWrapper, lon, lat) {
     const point = project([lon, lat]);
     this.stream.point(point[0], point[1]);
   }
@@ -291,10 +295,8 @@ const MapMeasurementOverlay: React.FunctionComponent<
 
   React.useEffect(
     () => {
-      const {
-        features,
-      }: { features: Feature[] } = measurementFeatureCollection;
-      const measurementFeature = features[features.length - 1] as Feature;
+      const { features } = measurementFeatureCollection;
+      const measurementFeature = features[features.length - 1];
       const geometry = measurementFeature.geometry;
 
       if (geometry && geometry.type == "LineString") {
