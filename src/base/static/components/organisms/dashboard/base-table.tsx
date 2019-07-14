@@ -1,7 +1,13 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css, ClassNames } from "@emotion/core";
-import { AutoSizer, Column, Table } from "react-virtualized";
+import {
+  AutoSizer,
+  Column,
+  Table,
+  CellMeasurer,
+  CellMeasurerCache,
+} from "react-virtualized";
 import Draggable from "react-draggable";
 import "react-virtualized/styles.css";
 import PropTypes from "prop-types";
@@ -44,6 +50,13 @@ type State = {
   tableWidth: number;
   columnPercentageWidths: object;
 };
+
+const cache = new CellMeasurerCache({
+  fixedWidth: true,
+  fixedHeight: false,
+  defaultHeight: ROW_HEIGHT,
+  minHeight: ROW_HEIGHT,
+});
 
 class BaseTable extends React.Component<Props> {
   state: State = {
@@ -89,59 +102,75 @@ class BaseTable extends React.Component<Props> {
     }
   };
 
-  cellRenderer = ({ cellData, type }) => {
+  cellRenderer = ({ cellData, parent, key, type, columnIndex, rowIndex }) => {
     return (
-      <div
-        css={css`
-          width: 100%;
-          padding: 8px;
-        `}
+      <CellMeasurer
+        key={key}
+        parent={parent}
+        cache={cache}
+        rowIndex={rowIndex}
+        columnIndex={columnIndex}
       >
-        {cellData.value.map((valuePart, i) => {
-          const isEmail = isEmailAddress(valuePart);
+        <div
+          css={css`
+            width: 100%;
+            padding: 8px;
+          `}
+        >
+          {cellData.value.map((valuePart, i) => {
+            const isEmail = isEmailAddress(valuePart);
+            const cellColor =
+              type === "unstyled-string"
+                ? "#888"
+                : clamp(CELL_FORMAT_COLORS, i);
+            const cellWeight =
+              type === "unstyled-string"
+                ? "regular"
+                : clamp(CELL_FORMAT_WEIGHTS, i);
 
-          return type === "badge" ? (
-            <div
-              key={i}
-              css={css`
-                display: flex;
-                justify-content: center;
-              `}
-            >
-              <Badge color={valuePart.color}>
-                <DashboardText weight="bold" fontSize="0.9rem">
-                  {valuePart.label}
-                </DashboardText>
-              </Badge>
-            </div>
-          ) : (
+            return type === "badge" ? (
+              <div
+                key={i}
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                `}
+              >
+                <Badge color={valuePart.color}>
+                  <DashboardText weight="bold" fontSize="0.9rem">
+                    {valuePart.label}
+                  </DashboardText>
+                </Badge>
+              </div>
+            ) : (
+              <DashboardText
+                key={i}
+                textAlign={this.getCellAlignment(type)}
+                weight={cellWeight}
+                color={isEmail ? "#005999" : cellColor}
+              >
+                {isEmail ? (
+                  <ExternalLink href={`mailto:${valuePart}`}>
+                    {valuePart}
+                  </ExternalLink>
+                ) : (
+                  getFormatter(type)(valuePart)
+                )}
+              </DashboardText>
+            );
+          })}
+          {cellData.label && (
             <DashboardText
-              key={i}
               textAlign={this.getCellAlignment(type)}
-              weight={clamp(CELL_FORMAT_WEIGHTS, i)}
-              color={isEmail ? "#005999" : clamp(CELL_FORMAT_COLORS, i)}
+              textTransform="uppercase"
+              color="#aaa"
+              fontSize="0.9rem"
             >
-              {isEmail ? (
-                <ExternalLink href={`mailto:${valuePart}`}>
-                  {valuePart}
-                </ExternalLink>
-              ) : (
-                getFormatter(type)(valuePart)
-              )}
+              {cellData.label}
             </DashboardText>
-          );
-        })}
-        {cellData.label && (
-          <DashboardText
-            textAlign={this.getCellAlignment(type)}
-            textTransform="uppercase"
-            color="#aaa"
-            fontSize="0.9rem"
-          >
-            {cellData.label}
-          </DashboardText>
-        )}
-      </div>
+          )}
+        </div>
+      </CellMeasurer>
     );
   };
 
@@ -194,7 +223,7 @@ class BaseTable extends React.Component<Props> {
               width={width}
               height={height}
               headerHeight={ROW_HEIGHT}
-              rowHeight={ROW_HEIGHT}
+              rowHeight={cache.rowHeight}
               rowCount={this.props.rows.length}
               rowGetter={({ index }) => this.props.rows[index]}
               rowStyle={({ index }) => ({
@@ -211,10 +240,10 @@ class BaseTable extends React.Component<Props> {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      height: `${ROW_HEIGHT}px`,
                       borderRight:
                         index === 0 ? "3px solid #dedede" : "1px solid #dedede",
                       marginRight: 0,
+                      height: "100%",
                     }}
                     headerStyle={{
                       width: "100%",

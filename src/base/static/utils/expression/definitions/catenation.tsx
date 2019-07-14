@@ -16,7 +16,11 @@ class Cat implements Expression {
   }
 
   evaluate(evaluationContext: IEvaluationContext) {
-    return this.operands.map(operand => operand.evaluate(evaluationContext));
+    return this.operands.reduce((result, operand) => {
+      const val = operand.evaluate(evaluationContext);
+
+      return val ? [...result, val] : result;
+    }, []);
   }
 }
 

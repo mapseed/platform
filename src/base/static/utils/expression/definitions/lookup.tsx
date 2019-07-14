@@ -99,9 +99,9 @@ const makeLookup = (op: string, lookupFn: any) => {
     }
 
     static parse(args) {
-      if (op === "get-count" && args.length !== 2) {
+      if (op === "get-count" && args.length > 2) {
         // eslint-disable-next-line no-console
-        console.error(`Error: expected one argument for "${op}"`);
+        console.error(`Error: expected one or zero arguments for "${op}"`);
 
         return null;
       } else if (args.length > 3) {

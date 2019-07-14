@@ -1780,7 +1780,7 @@
           "stripeColor": "#f8f5f5",
           "layout": {
             "start": 1,
-            "end": 8,
+            "end": 7,
             "height": 500
           },
           "widgetStateControls": [
@@ -3275,7 +3275,7 @@
           "type": "freeTable",
           "stripeColor": "#f8f5f5",
           "layout": {
-            "start": 8,
+            "start": 7,
             "end": 13,
             "height": 500
           },
@@ -3302,6 +3302,219 @@
               "type": "boolean",
               "fractionalWidth": 1,
               "value": ["get-val", "private-use_photos"]
+            },
+            {
+              "header": "Requesting information",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "conventional_till"], "interested"],
+                  ["literal", "Conventional Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "interested"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pest_management"], "interested"],
+                  ["literal", "Pest Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "nutrient_management"], "interested"],
+                  ["literal", "Nutrient Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "managed_grazing"], "interested"],
+                  ["literal", "Managed Grazing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "range_plantings"], "interested"],
+                  ["literal", "Range Plantings"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "watering_facility"], "interested"],
+                  ["literal", "Watering Facility"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "water_wells"], "interested"],
+                  ["literal", "Water Wells"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "cover_crop"], "interested"],
+                  ["literal", "Cover Crop"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mulching"], "interested"],
+                  ["literal", "Mulching"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "conservation_cover"], "interested"],
+                  ["literal", "Conservation Cover"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "critical_area_planting"], "interested"],
+                  ["literal", "Critical Area Planting"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grassed_waterways"], "interested"],
+                  ["literal", "Grassed Waterways"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "weed_control"], "interested"],
+                  ["literal", "Weed Control"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "tree_shrub"], "interested"],
+                  ["literal", "Tree/Shrub Planting"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "upland_habitat"], "interested"],
+                  ["literal", "Upland Wildlife Habitat Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "hedgerow_planting"], "interested"],
+                  ["literal", "Hedgerow Planting"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "open_channel"], "interested"],
+                  ["literal", "Open Channel"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fencing"], "interested"],
+                  ["literal", "Fencing"],
+                  ["literal", ""]
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "header": "Critical Area Summary",
+          "type": "fixedTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 8,
+            "height": 206
+          },
+          "columns": [
+            {
+              "header": "Summary type",
+              "type": "string",
+              "fractionalWidth": 3
+            },
+            {
+              "header": "Wetlands",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_wetlands"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Frequently flooded areas",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_frequently_flooded"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Hazardous areas",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_geologic_hazard"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Critical aquifers",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_critical_aquifer"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Fish & wildlife conservation areas",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_wildlife_conservation"],
+                "palouse"
+              ]
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "Number of reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                }
+              ]
             }
           ]
         }
