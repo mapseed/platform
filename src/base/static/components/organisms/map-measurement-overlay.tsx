@@ -297,7 +297,7 @@ const MapMeasurementOverlay: React.FunctionComponent<
     () => {
       const { features } = measurementFeatureCollection;
       const measurementFeature = features[features.length - 1];
-      const geometry = measurementFeature.geometry;
+      const geometry = measurementFeature && measurementFeature.geometry;
 
       if (geometry && geometry.type == "LineString") {
         setMeasurement(

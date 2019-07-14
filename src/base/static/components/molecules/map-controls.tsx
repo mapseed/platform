@@ -88,7 +88,7 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
 
 type DispatchProps = {
   setLeftSidebarExpanded: (isExpanded: boolean) => any;
-  toggleMeasurementToolVisibility: (isVisible: boolean) => any;
+  updateMeasurementToolVisibility: (isVisible: boolean) => any;
 };
 type ParentProps = {
   onViewportChange: Function;
@@ -122,7 +122,7 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
         <CustomControl
           icon={"fas fa-ruler-combined"}
           onClick={() =>
-            props.toggleMeasurementToolVisibility(
+            props.updateMeasurementToolVisibility(
               !props.isMeasurementToolVisible,
             )
           }
@@ -132,12 +132,10 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  setLeftSidebarExpanded: isExpanded =>
-    dispatch(setLeftSidebarExpanded(isExpanded)),
-  toggleMeasurementToolVisibility: isVisible =>
-    dispatch(updateMeasurementToolVisibility(isVisible)),
-});
+const mapDispatchToProps = {
+  setLeftSidebarExpanded,
+  updateMeasurementToolVisibility,
+};
 
 const mapStateToProps = (state): MapControlStateProps => ({
   leftSidebarConfig: leftSidebarConfigSelector(state),
