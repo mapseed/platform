@@ -31,7 +31,7 @@ const SnohomishFieldSummary = props => {
 
   return (
     <div>
-      <RegularTitle>{numActions} Actions</RegularTitle>
+      <RegularTitle>{numActions} Stewardship Actions</RegularTitle>
       <HorizontalRule spacing="small" />
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
