@@ -10,7 +10,12 @@ import { TwitterIcon, FacebookIcon } from "./icons";
 import { FontAwesomeIcon } from "./imagery";
 import { SmallText } from "./typography";
 
-import { CHARCOAL, OFF_WHITE, getReadableColor } from "../../utils/color";
+import {
+  CHARCOAL,
+  OFF_WHITE,
+  getReadableColor,
+  lighten,
+} from "../../utils/color";
 import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
@@ -205,7 +210,7 @@ const Button = styled(props => {
     styles.paddingLeft = "16px";
     styles.paddingRight = "16px";
     styles.borderRadius = "16px";
-    styles["&:hover"].backgroundColor = lighten(props.color, 0.4);
+    styles["&:hover"].backgroundColor = lighten(props.color, 40);
   }
 
   if (props.color === "primary") {

@@ -15,3 +15,8 @@ export const getReadableColor = color => {
         .setAlpha(1)
         .toString();
 };
+
+export const lighten = (color, lightness) => {
+  const tc = tinycolor(color);
+  return tc.lighten(lightness).toString();
+};
