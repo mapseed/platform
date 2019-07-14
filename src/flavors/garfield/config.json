@@ -750,7 +750,7 @@
           },
           {
             "start_field_index": 103,
-            "end_field_index": 113,
+            "end_field_index": 114,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -2185,6 +2185,34 @@
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
             "optional": false
+          },
+          {
+            "name": "learned_about_vsp_map",
+            "type": "big_checkbox",
+            "prompt": "How did you find out about the Whitman County VSP map? Please check all that apply:",
+            "optional": true,
+            "content": [
+              {
+                "label": "Word of mouth",
+                "value": "word_of_mouth"
+              },
+              {
+                "label": "Fellow producer",
+                "value": "fellow_producer"
+              },
+              {
+                "label": "Conservation District staff",
+                "value": "cd_staff"
+              },
+              {
+                "label": "Grower meeting",
+                "value": "grower_meeting"
+              },
+              {
+                "label": "Other",
+                "value": "other"
+              }
+            ]
           },
           {
             "name": "submit",
