@@ -31,11 +31,15 @@ import {
   placesPropType,
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
-import { uiVisibilitySelector } from "../../state/ducks/ui";
+import {
+  uiVisibilitySelector,
+  measurementToolVisibilitySelector,
+} from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
 import MapWidgetContainer from "../organisms/map-widget-container";
+import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
 
 import { Mixpanel } from "../../utils/mixpanel";
 
@@ -49,6 +53,7 @@ const statePropTypes = {
     .isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
   isMapCenterpointVisible: PropTypes.bool.isRequired,
+  isMeasurementToolVisible: PropTypes.bool.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -420,6 +425,13 @@ class MainMap extends React.Component<Props, State> {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
+          {this.props.isMeasurementToolVisible && (
+            <MapMeasurementOverlay
+              viewport={this.props.mapViewport}
+              width={this.props.mapContainerDimensions.width}
+              height={this.props.mapContainerDimensions.height}
+            />
+          )}
           {this.state.popupContent &&
             this.state.popupLatitude &&
             this.state.popupLongitude && (
@@ -459,6 +471,7 @@ const mapStateToProps = (state): StateProps => ({
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
+  isMeasurementToolVisible: measurementToolVisibilitySelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapContainerDimensions: mapContainerDimensionsSelector(state),

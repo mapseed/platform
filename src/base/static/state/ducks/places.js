@@ -55,12 +55,6 @@ export const focusedPlaceSelector = state =>
     place => place.id === state.places.focusedPlaceId,
   );
 
-export const placeExists = (state, placeId) => {
-  return !!state.places.placeModels.find(
-    place => place.id === parseInt(placeId),
-  );
-};
-
 export const activeEditPlaceIdSelector = state => {
   return state.places.activeEditPlaceId;
 };

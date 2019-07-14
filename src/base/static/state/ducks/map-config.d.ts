@@ -64,3 +64,4 @@ export const geocodeAddressBarEnabledSelector: any;
 export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;
 export const mapWidgetsSelector: any;
+export const measurementToolEnabledSelector: any;

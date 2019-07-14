@@ -60,7 +60,6 @@ import {
   mapSourcesPropType,
 } from "../../state/ducks/map";
 import {
-  placeExists,
   updateFocusedPlaceId,
   updateScrollToResponseId,
   loadPlaceAndSetIgnoreFlag,
@@ -101,7 +100,6 @@ const statePropTypes = {
   mapConfig: mapConfigPropType,
   navBarConfig: navBarConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
-  placeExists: PropTypes.func.isRequired,
 };
 
 const dispatchPropTypes = {
@@ -226,15 +224,11 @@ class MapTemplate extends Component<Props, State> {
       this.props.onViewStartPage && this.props.onViewStartPage();
     }
 
-    // When this component mounts in the PlaceDetail configuration, a couple of
-    // situations can occur:
-    //  - The requested Place is not yet available. In this case, fetch it
-    //    directly.
-    //  - The requested Place is available (such as when routing to a
-    //    PlaceDetail view from the list template). In this case, just set the
-    //    focusedPlaceId.
     const { datasetClientSlug, placeId, responseId } = this.props.params;
-    if (placeId && !this.props.placeExists(placeId)) {
+
+    // When this component mounts in the Place detail configuration, fetch the
+    // requested Place directly from the API for a better UX.
+    if (placeId) {
       const datasetConfig = this.props.datasetsConfig.find(
         c => c.clientSlug === datasetClientSlug,
       );
@@ -281,9 +275,6 @@ class MapTemplate extends Component<Props, State> {
         // The Place doesn't exist, so route back to the map.
         this.props.history.push("/");
       }
-    } else if (placeId) {
-      this.props.updateFocusedPlaceId(parseInt(placeId));
-      responseId && this.props.updateScrollToResponseId(parseInt(responseId));
     }
 
     this.recalculateContainerSize();
@@ -580,7 +571,6 @@ const mapStateToProps = (
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
   placeConfig: placeConfigSelector(state),
-  placeExists: placeId => placeExists(state, placeId),
 });
 
 const mapDispatchToProps = {
