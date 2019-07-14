@@ -210,7 +210,7 @@ const Button = styled(props => {
     styles.paddingLeft = "16px";
     styles.paddingRight = "16px";
     styles.borderRadius = "16px";
-    styles["&:hover"].backgroundColor = lighten(props.color, 40);
+    styles["&:hover"].backgroundColor = lighten(props.color, 10);
   }
 
   if (props.color === "primary") {
