@@ -116,9 +116,6 @@ const dispatchPropTypes = {
 
 type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-type TranslateProps = {
-  t: TranslationFunction;
-}
 interface OwnProps {
   uiConfiguration: string;
   isStartPageViewed?: boolean;
