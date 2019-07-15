@@ -63,8 +63,8 @@ const InfoModalContainer = styled("span")({
 });
 
 const statusIcons = {
-  loaded: "fa fa-check",
-  error: "fa fa-times",
+  loaded: "fas fa-check",
+  error: "fas fa-times",
 };
 
 const statusColors = {

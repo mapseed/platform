@@ -21,7 +21,7 @@ const SupportButton = props => {
 
         &:before {
           padding-right: 8px;
-          font-family: FontAwesome;
+          font-family: "Font Awesome 5 Free";
           content: "\\F004"; /* heart */
           font-size: 12px;
           color: ${props.isSupported ? "#d24444" : "#d1e2ec"};

@@ -91,7 +91,7 @@ label[for="input-form-water-management_no-water-management"],
 label[for="input-form-livestock-management_no-livestock-management"],
 label[for="input-form-soil-management_no-soil-management"] {
   padding: 0 !important;
-  font-family: FontAwesome, sans-serif;
+  font-family: "Font Awesome 5 Free", sans-serif;
 
   &:before {
     display: none;

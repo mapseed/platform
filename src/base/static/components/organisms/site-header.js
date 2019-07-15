@@ -257,13 +257,9 @@ const RightAlignedContainer = styled("div")(props => ({
 const NavBarHamburger = styled("i")({
   fontSize: "20px",
   margin: "0 8px 0 8px",
+  fontFamily: '"Font Awesome 5 Free"',
   "&:hover": {
     cursor: "pointer",
-  },
-  "&:before": {
-    fontStyle: "normal",
-    fontFamily: "FontAwesome",
-    content: "'\f0c9'",
   },
 
   [mq[1]]: {
@@ -354,6 +350,7 @@ class SiteHeader extends React.Component {
       <SiteHeaderWrapper isHeaderExpanded={this.state.isHeaderExpanded}>
         <HamburgerTitleWrapper>
           <NavBarHamburger
+            className="fa fa-bars"
             onClick={() => {
               this.setState({
                 isHeaderExpanded: !this.state.isHeaderExpanded,

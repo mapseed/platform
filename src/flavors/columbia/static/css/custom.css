@@ -92,7 +92,7 @@ label[for="input-form-range-management_no-range-management"],
 label[for="input-form-pest-management_no-pest-management"],
 label[for="input-form-fish-wildlife-management_no-fish-wildlife-management"] {
   padding: 0 !important;
-  font-family: FontAwesome, sans-serif;
+  font-family: "Font Awesome 5 Free", sans-serif;
 
   &:before {
     display: none;

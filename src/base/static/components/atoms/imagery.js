@@ -18,7 +18,7 @@ const FontAwesomeIcon = styled(props => (
   <span className={`${props.className} ${props.faClassname}`} />
 ))(props => {
   const styles = {
-    fontFamily: "FontAwesome",
+    fontFamily: "Font Awesome 5 Free",
     fontSize: props.fontSize,
     color: props.color,
 
