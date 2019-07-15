@@ -95,7 +95,7 @@
     "react-i18next": "~7.5.1",
     "react-jss": "^8.6.1",
     "react-map-gl": "^5.0.4",
-    "react-modal": "~3.8.1",
+    "react-modal": "~3.9.1",
     "react-quill": "~1.1.0",
     "react-redux": "~5.0.7",
     "react-router-dom": "^5.0.0",
