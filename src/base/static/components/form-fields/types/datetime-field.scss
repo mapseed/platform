@@ -11,7 +11,7 @@
   border-style: solid;
 
   &:before {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Free";
     content: "\F073";
     margin-right: 10px;
   }
@@ -43,14 +43,14 @@
   }
 
   &:hover:before {
-    font-family: Font Awesome 5 Free;
+    font-family: "Font Awesome 5 Free";
     content: $datetime-field-ongoing-icon;
   }
 }
 
 .datetime-field__label-ongoing--toggled {
   &:before {
-    font-family: Font Awesome 5 Free;
+    font-family: "Font Awesome 5 Free";
     content: $datetime-field-ongoing-icon;
   }
 }

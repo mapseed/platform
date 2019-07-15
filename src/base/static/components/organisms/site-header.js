@@ -262,7 +262,7 @@ const NavBarHamburger = styled("i")({
   },
   "&:before": {
     fontStyle: "normal",
-    fontFamily: "FontAwesome",
+    fontFamily: "Font Awesome 5 Free",
     content: "'\f0c9'",
   },
 

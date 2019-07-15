@@ -53,7 +53,7 @@ const WarningMessagesContainer = props => {
                 font-style: italic;
 
                 &:before {
-                  font-family: FontAwesome;
+                  font-family: "Font Awesome 5 Free";
                   content: "\\f005"; /* solid star */
                   padding-right: 5px;
                   font-style: normal;
