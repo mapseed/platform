@@ -46,7 +46,7 @@
     color: $big-radio-field-hover-label-color;
 
     &:before {
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
       content: $big-radio-field-icon;
       text-indent: 0.7em;
       color: $big-radio-field-hover-icon-color;
@@ -63,7 +63,7 @@
   color: $big-radio-field-selected-label-color;
 
   &:before {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Free";
     content: $big-radio-field-icon;
     background-color: $big-radio-field-selected-icon-background-color;
     text-indent: 0.7em;

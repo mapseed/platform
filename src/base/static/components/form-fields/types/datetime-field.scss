@@ -43,14 +43,14 @@
   }
 
   &:hover:before {
-    font-family: FontAwesome;
+    font-family: Font Awesome 5 Free;
     content: $datetime-field-ongoing-icon;
   }
 }
 
 .datetime-field__label-ongoing--toggled {
   &:before {
-    font-family: FontAwesome;
+    font-family: Font Awesome 5 Free;
     content: $datetime-field-ongoing-icon;
   }
 }
