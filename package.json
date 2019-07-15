@@ -89,7 +89,7 @@
     "node-sass": "^4.11.0",
     "normalize.css": "^8.0.1",
     "qs": "^6.7.0",
-    "react": "^16.8.2",
+    "react": "^16.8.6",
     "react-datetime": "~2.14.0",
     "react-dom": "~16.8.6",
     "react-i18next": "~7.5.1",
