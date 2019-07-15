@@ -31,7 +31,6 @@ type EditorBarProps = {
   onClickUpdatePlace: Function;
   onClickRemovePlace: Function;
   isEditModeToggled: boolean;
-  t: TranslationFunction;
 };
 
 type Props = TransProps & EditorBarProps;
