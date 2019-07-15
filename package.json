@@ -98,7 +98,7 @@
     "react-modal": "~3.9.1",
     "react-quill": "~1.1.0",
     "react-redux": "~5.0.7",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "^5.0.1",
     "react-spinner": "~0.2.7",
     "react-virtualized": "^9.20.1",
     "recharts": "^1.4.1",
