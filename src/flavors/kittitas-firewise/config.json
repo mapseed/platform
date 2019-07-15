@@ -1624,7 +1624,7 @@
             "optional": true
           },
           {
-            "name": "comment",
+            "name": "other-comments",
             "prompt": "Add any additional comments about your wildfire preparedness efforts",
             "label": "Comment",
             "type": "textarea"

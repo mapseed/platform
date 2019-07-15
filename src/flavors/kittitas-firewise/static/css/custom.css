@@ -20,17 +20,13 @@ header {
   font-size: 1.15rem;
 }
 
-.input-form__field-prompt-container [class*="FormField"] {
-  font-size: 1.15rem;
-}
+.place-detail-promotion-bar > button {
+  color: #007fbf;
+  background-color: #a3c7d9;
 
-[class*="FormField"] {
-  padding: 16px !important;
-  border-radius: 0 !important;
-}
-
-[class*="RegularText-FormField"] {
-  padding: 0 !important;
+  &:hover {
+    background-color: #93b7c9;
+  }
 }
 
 [data-field-type="datetime"],
@@ -43,7 +39,9 @@ header {
 }
 
 [data-field-type="geocoding"],
-[data-field-type="textarea"],
+[data-field-name="private-landowner_phone"],
+[data-field-name="private-landowner_name"],
+[data-field-name="other-comments"],
 [data-field-name="drag_map_info"],
 [data-field-type="geolocate"] {
   background-color: #efefef !important;
@@ -123,8 +121,7 @@ header {
   display: none !important;
 }
 
-[data-field-type="number"],
-[data-field-type="text"] {
+[data-field-type="number"] {
   background-color: #efefef !important;
   box-shadow: 0 2px 2px #aaa, 0 5px 5px #eee !important;
 }
