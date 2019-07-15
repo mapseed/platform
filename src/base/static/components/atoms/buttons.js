@@ -20,16 +20,16 @@ const EditorButton = withTheme(props => {
   let faClassname;
   if (props.type === "toggle" && props.isEditModeToggled) {
     linearGradient = "linear-gradient(#e99a00, #b97a00)";
-    faClassname = "fa fa-pencil"; // pencil icon
+    faClassname = "fas fa-edit"; // pencil icon
   } else if (props.type === "toggle") {
     linearGradient = "linear-gradient(#f0ad4e, #e99a00)";
-    faClassname = "fa fa-pencil"; // pencil icon
+    faClassname = "fas fa-edit"; // pencil icon
   } else if (props.type === "save") {
     linearGradient = "linear-gradient(#449d44, #449d44)";
-    faClassname = "fa fa-save"; // floppy disk icon
+    faClassname = "fas fa-save"; // floppy disk icon
   } else if (props.type === "remove") {
     linearGradient = "linear-gradient(#c9302c, #c9302c)";
-    faClassname = "fa fa-times"; // times (X) icon
+    faClassname = "fas fa-times"; // times (X) icon
   }
 
   return (

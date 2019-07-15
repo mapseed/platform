@@ -59,8 +59,12 @@ class PlaceDetailEditor extends Component {
     this.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
-      .filter(field => field.type !== "submit")
-      .filter(field => field.isVisible)
+      .filter(
+        field =>
+          field.type !== "submit" &&
+          field.type !== "informational_html" &&
+          field.isVisible,
+      )
       .forEach(field => {
         const fieldConfig = fromJS(
           this.categoryConfig.fields.find(f => f.name === field.name),
