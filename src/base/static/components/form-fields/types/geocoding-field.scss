@@ -38,11 +38,13 @@
   cursor: pointer;
   left: 12px;
   top: 5px;
-  font-size: $geocoding-field-search-icon-font-size;
+  font-size: 20px;
+  margin-top: 4px;
 
   &:before {
     font-family: "Font Awesome 5 Free";
     color: $geocoding-field-search-icon-color;
-    content: $geocoding-field-search-icon;
+    content: "\f002";
+    font-weight: 900;
   }
 }
