@@ -47,6 +47,7 @@
 
     &:before {
       font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: $big-checkbox-field-icon;
       text-indent: 0.7em;
       color: $big-checkbox-field-hover-icon-color;
@@ -64,6 +65,7 @@
 
   &:before {
     font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: $big-checkbox-field-icon;
     background-color: $big-checkbox-field-selected-icon-background-color;
     text-indent: 0.7em;
