@@ -336,6 +336,7 @@ class InputForm extends Component {
       });
 
       if (geospatialAnalysisAttrs) {
+        // eslint-disable-next-line require-atomic-updates
         attrs = {
           ...attrs,
           ...geospatialAnalysisAttrs,

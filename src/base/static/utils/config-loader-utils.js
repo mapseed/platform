@@ -2,7 +2,10 @@
 
 // Transform the place_detail section of the config to resolve
 // common_form_element references.
-const transformCommonFormElements = (placeDetail, commonFormElements) => {
+export const transformCommonFormElements = (
+  placeDetail,
+  commonFormElements,
+) => {
   return placeDetail.map(category => {
     category.fields = category.fields.map(field => {
       if (field.type === "common_form_element") {
@@ -18,10 +21,11 @@ const transformCommonFormElements = (placeDetail, commonFormElements) => {
   });
 };
 
-const setConfigDefaults = config => {
+export const setConfigDefaults = config => {
   // set the default values for our config:
 
   // `show_timestamps`:
+  // eslint-disable-next-line no-prototype-builtins
   if (!config.app.hasOwnProperty("show_timestamps")) {
     config.app.show_timestamps = true;
   }
@@ -29,9 +33,4 @@ const setConfigDefaults = config => {
   if (!config.app.time_zone) {
     config.app.time_zone = "America/Los_Angeles";
   }
-};
-
-module.exports = {
-  transformCommonFormElements,
-  setConfigDefaults,
 };
