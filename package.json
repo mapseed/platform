@@ -126,7 +126,7 @@
     "@typescript-eslint/parser": "^1.12.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.4.2",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^8.0.6",
     "babel-plugin-emotion": "^10.0.14",
     "colors": "^1.1.2",
     "compass-mixins": "^0.12.10",
