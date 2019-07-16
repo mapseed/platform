@@ -4,9 +4,8 @@ import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import MapFilterSlider from "../molecules/map-filter-slider";
-import MapCheckboxMenu from "../molecules/map-checkbox-menu";
+import MapRadioMenu from "../molecules/map-radio-menu";
 import {
-  updateLayerGroupVisibility,
   updateLayerFilters,
   updateLayerAggregators,
   LayerGroups,
@@ -30,7 +29,6 @@ type ContainerStateProps = {
 type DispatchProps = {
   updateLayerFilters: Function;
   updateLayerAggregators: typeof updateLayerAggregators;
-  updateLayerGroupVisibility: typeof updateLayerGroupVisibility;
 };
 
 type ContainerProps = ContainerStateProps & DispatchProps;
@@ -59,10 +57,9 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
             }
           />
         )}
-        {props.mapWidgets.checkboxMenu && (
-          <MapCheckboxMenu
-            checkboxMenuConfig={props.mapWidgets.checkboxMenu}
-            updateLayerGroupVisibility={props.updateLayerGroupVisibility}
+        {props.mapWidgets.radioMenu && (
+          <MapRadioMenu
+            radioMenuConfig={props.mapWidgets.radioMenu}
             updateLayerAggregators={props.updateLayerAggregators}
             layerGroups={props.layerGroups}
             layers={props.layers}
@@ -82,7 +79,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   updateLayerFilters,
-  updateLayerGroupVisibility,
   updateLayerAggregators,
 };
 

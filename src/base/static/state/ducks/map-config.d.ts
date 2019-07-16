@@ -23,21 +23,23 @@ export type FilterSliderConfig = {
   comparator: string;
 };
 
-export type CheckboxMenuOption = {
-  layerGroupId: string;
-  layerId?: string;
+export type RadioMenuOption = {
   aggregator?: string;
   label: string;
+  id: string;
 };
 
-export type CheckboxMenuConfig = {
+export type RadioMenuConfig = {
   label: string;
-  options: CheckboxMenuOption[];
+  layerGroupId: string;
+  layerId: string;
+  options: RadioMenuOption[];
+  defaultSelectedOption: string;
 };
 
 export type MapWidgetsConfig = {
   filterSlider?: FilterSliderConfig;
-  checkboxMenu?: CheckboxMenuConfig;
+  radioMenu?: RadioMenuConfig;
 };
 
 export type OfflineConfig = {

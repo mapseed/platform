@@ -71,30 +71,34 @@
       "maxZoom": 18.4
     },
     "mapWidgets": {
-      "checkboxMenu": {
+      "radioMenu": {
         "label": "Explore Nitrogen Deposition",
+        "layerGroupId": "nitrogen-deposition-group",
+        "layerId": "nitrogen-deposition",
+        "defaultSelectedOption": "all",
         "options": [
           {
-            "layerGroupId": "nitrogen-deposition-group",
-            "layerId": "nitrogen-deposition",
+            "id": "all",
+            "aggregator": "INCY",
+            "label": "All"
+          },
+          {
+            "id": "sewerage",
             "aggregator": "INCY_S1",
             "label": "from sewerage"
           },
           {
-            "layerGroupId": "nitrogen-deposition-group",
-            "layerId": "nitrogen-deposition",
+            "id": "urban",
             "aggregator": "INCY_S2",
             "label": "from urban"
           },
           {
-            "layerGroupId": "nitrogen-deposition-group",
-            "layerId": "nitrogen-deposition",
+            "id": "cafo",
             "aggregator": "INCY_S4",
             "label": "from cafo"
           },
           {
-            "layerGroupId": "nitrogen-deposition-group",
-            "layerId": "nitrogen-deposition",
+            "id": "farms",
             "aggregator": "INCY_S5",
             "label": "from farms"
           }
@@ -796,6 +800,10 @@
         "title": "Nitrogen",
         "options": [
           {
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition"
+          },
+          {
             "layerGroupId": "nitrogen-plants-group",
             "title": "Nitrogen Plants"
           }
@@ -1411,7 +1419,7 @@
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "nitrogen-plants-group",
-          "nitrogenloading-group",
+          "nitrogen-deposition-group",
           "streets-group",
           "mississippi-group"
         ],
