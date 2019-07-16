@@ -1,13 +1,14 @@
-import {
+/* eslint-disable @typescript-eslint/no-var-requires */
+const {
   setConfigDefaults,
   transformCommonFormElements,
-} from "../src/base/static/utils/config-loader-utils";
+} = require("../src/base/static/utils/config-loader-utils");
 
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
 // static site) will be rebuilt.
 
-export default function(source) {
+module.exports = function(source) {
   source = source.substring(17);
 
   const datasetSiteUrls = {};
@@ -45,4 +46,4 @@ export default function(source) {
   );
 
   return JSON.stringify(config);
-}
+};
