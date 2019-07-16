@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({ path: "src/.env" });
-import glob from "glob";
-import path from "path";
-import AWS from "aws-sdk";
+const glob = require("glob");
+const path = require("path");
+const AWS = require("aws-sdk");
 
 if (!process.env.DEPLOY_DOMAIN) {
   throw "Set the DEPLOY_DOMAIN environment variable to the S3 bucket you want to deploy Mapseed to.";

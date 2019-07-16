@@ -1,16 +1,18 @@
-import path from "path";
-import fs from "fs-extra";
-import Handlebars from "handlebars";
-import glob from "glob";
-import colors from "colors";
-import Spritesmith from "spritesmith";
-import shell from "shelljs";
-import zlib from "zlib";
+/* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({ path: "src/.env" });
-import {
+const path = require("path");
+const fs = require("fs-extra");
+const Handlebars = require("handlebars");
+const glob = require("glob");
+const colors = require("colors");
+const Spritesmith = require("spritesmith");
+const shell = require("shelljs");
+const zlib = require("zlib");
+
+const {
   setConfigDefaults,
   transformCommonFormElements,
-} from "../src/base/static/utils/config-loader-utils";
+} = require("../src/base/static/utils/config-loader-utils");
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
