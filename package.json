@@ -71,7 +71,7 @@
     "classnames": "^2.2.5",
     "compass-importer": "^0.4.1",
     "d3-geo": "^1.11.6",
-    "dotenv": "^4.0.0",
+    "dotenv": "^8.0.0",
     "downloadjs": "^1.4.7",
     "downshift": "^3.1.5",
     "emotion-theming": "^10.0.0",
