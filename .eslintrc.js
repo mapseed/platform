@@ -1,13 +1,17 @@
 module.exports = {
   parser: "@typescript-eslint/parser",
-  plugins: ["emotion", "react", "@typescript-eslint"],
+  plugins: ["emotion", "react", "@typescript-eslint", "react-hooks"],
   // NOTE: eslint doesn't support .ts or .tsx files via the config
   // (yet), but it supports checking them in the commandline (via npm t).
   // Relevant GH issues:
   // https://github.com/typescript-eslint/typescript-eslint/issues/355
   // https://github.com/eslint/eslint/issues/10828
   // https://github.com/eslint/rfcs/pull/9
-  extends: ["eslint:recommended", "plugin:react/recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+  ],
   settings: {
     react: {
       version: "detect",
@@ -51,5 +55,12 @@ module.exports = {
     "emotion/no-vanilla": 2,
     "emotion/import-from-emotion": 2,
     "emotion/styled-import": 2,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/prefer-interface": 0,
+    "react/prop-types": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
   },
 };
