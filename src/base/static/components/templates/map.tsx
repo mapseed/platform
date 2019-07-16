@@ -513,7 +513,6 @@ class MapTemplate extends Component<Props, State> {
         {this.props.isAddPlaceButtonVisible &&
           this.props.hasAddPlacePermission && (
             <AddPlaceButton
-              ref={this.addPlaceButtonRef}
               layout={this.props.layout}
               onClick={() => {
                 Mixpanel.track("Click Add Place Button");
