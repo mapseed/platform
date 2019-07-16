@@ -1046,7 +1046,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Tillage",
+              "body": [
+                "NRCS code: xxx",
+                "Tillage description"
+              ]
+            }
           },
           {
             "name": "no_till_quantity",
