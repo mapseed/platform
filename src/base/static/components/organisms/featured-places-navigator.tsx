@@ -46,7 +46,7 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
     });
 
     return unlisten;
-  });
+  }, [props.history]);
 
   return (
     <div

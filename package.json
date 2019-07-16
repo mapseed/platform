@@ -30,7 +30,7 @@
     "type-check:watch": "npm run type-check -- --watch",
     "test": "npm run eslint && npm run prettier && npm run type-check",
     "eslint": "eslint src scripts --ext .js,.ts,.tsx",
-    "eslint:fix": "eslint --fix-dry-run src scripts",
+    "eslint:fix": "eslint --fix src scripts --ext .js,.ts,.tsx",
     "test:watch": "jest --watch --verbose --config ./jest.watch.config.js",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "build-js": "webpack -d",
