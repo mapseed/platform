@@ -2,10 +2,8 @@
 
 // Transform the place_detail section of the config to resolve
 // common_form_element references.
-export const transformCommonFormElements = (
-  placeDetail,
-  commonFormElements,
-) => {
+
+const transformCommonFormElements = (placeDetail, commonFormElements) => {
   return placeDetail.map(category => {
     category.fields = category.fields.map(field => {
       if (field.type === "common_form_element") {
@@ -21,7 +19,7 @@ export const transformCommonFormElements = (
   });
 };
 
-export const setConfigDefaults = config => {
+const setConfigDefaults = config => {
   // set the default values for our config:
 
   // `show_timestamps`:
@@ -33,4 +31,9 @@ export const setConfigDefaults = config => {
   if (!config.app.time_zone) {
     config.app.time_zone = "America/Los_Angeles";
   }
+};
+
+module.exports = {
+  transformCommonFormElements,
+  setConfigDefaults,
 };
