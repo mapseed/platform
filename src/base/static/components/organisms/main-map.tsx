@@ -116,7 +116,7 @@ class MainMap extends React.Component<Props, State> {
     popupLongitude: null,
   };
 
-  private queriedFeatures: Array<LayerFeature<GeometryObject>> = [];
+  private queriedFeatures: LayerFeature<GeometryObject>[] = [];
   mouseX = 0;
   mouseY = 0;
   isMapTransitioning = false;

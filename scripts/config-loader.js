@@ -1,13 +1,13 @@
-const {
+import {
   setConfigDefaults,
   transformCommonFormElements,
-} = require("../src/base/static/utils/config-loader-utils");
+} from "../src/base/static/utils/config-loader-utils";
 
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
 // static site) will be rebuilt.
 
-module.exports = function(source) {
+export default function(source) {
   source = source.substring(17);
 
   const datasetSiteUrls = {};
@@ -45,4 +45,4 @@ module.exports = function(source) {
   );
 
   return JSON.stringify(config);
-};
+}

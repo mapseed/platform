@@ -33,9 +33,6 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
   layerGroup,
   updateLayerFilters,
 }) => {
-  if (!layerGroup.isVisible) {
-    return null;
-  }
   const [sliderValue, setSliderValue] = React.useState(
     filterSliderConfig.initialValue,
   );
@@ -52,6 +49,9 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
     [filterSliderConfig.initialValue],
   );
 
+  if (!layerGroup.isVisible) {
+    return null;
+  }
   return (
     <div
       css={css`

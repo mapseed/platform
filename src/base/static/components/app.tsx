@@ -181,14 +181,13 @@ interface Language {
   code: string;
   label: string;
 }
-interface AvailableLanguages extends Array<Language> {}
 interface State {
   currentLanguageCode: string;
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
   initialMapViewport: InitialMapViewport;
   defaultLanguage: Language;
-  availableLanguages?: AvailableLanguages;
+  availableLanguages?: Language[];
 }
 
 class App extends React.Component<Props, State> {
@@ -343,6 +342,7 @@ class App extends React.Component<Props, State> {
           format: "text",
         });
 
+        // eslint-disable-next-line require-atomic-updates
         isFetchingTranslation[key] = false;
 
         if (response) {
