@@ -132,7 +132,7 @@
     "babel-plugin-emotion": "^10.0.14",
     "colors": "^1.1.2",
     "compass-mixins": "^0.12.10",
-    "compression-webpack-plugin": "^2.0.0",
+    "compression-webpack-plugin": "^3.0.0",
     "css-loader": "^3.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "~1.1.1",
