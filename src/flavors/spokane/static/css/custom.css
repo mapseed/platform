@@ -65,10 +65,10 @@ ite-ha
   }
 }
 
-label[for="input-form-tillage_no-tillage"],
-label[for="input-form-nutrient-mgmt_no-nutrient-mgmt"],
-label[for="input-form-buffers_no-buffers"],
-label[for="input-form-livestock_no-livestock"] {
+[data-field-name="tillage_no-tillage"],
+[data-field-name="nutrient-mgmt_no-nutrient-mgmt"],
+[data-field-name="buffers_no-buffers"],
+[data-field-name="livestock_no-livestock"] {
   .input-form__field-prompt-container {
     display: none;
   }

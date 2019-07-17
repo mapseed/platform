@@ -822,7 +822,7 @@
           },
           {
             "start_field_index": 19,
-            "end_field_index": 20,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-conservation-areas",
@@ -830,7 +830,7 @@
             ]
           },
           {
-            "start_field_index": 21,
+            "start_field_index": 22,
             "end_field_index": 24,
             "visibleLayerGroupIds": [
               "satellite",
@@ -840,7 +840,7 @@
           },
           {
             "start_field_index": 25,
-            "end_field_index": 31,
+            "end_field_index": 33,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -848,8 +848,8 @@
             ]
           },
           {
-            "start_field_index": 32,
-            "end_field_index": 44,
+            "start_field_index": 34,
+            "end_field_index": 46,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -857,8 +857,8 @@
             ]
           },
           {
-            "start_field_index": 45,
-            "end_field_index": 54,
+            "start_field_index": 47,
+            "end_field_index": 58,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -866,8 +866,8 @@
             ]
           },
           {
-            "start_field_index": 54,
-            "end_field_index": 75,
+            "start_field_index": 59,
+            "end_field_index": 79,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -875,8 +875,8 @@
             ]
           },
           {
-            "start_field_index": 76,
-            "end_field_index": 78,
+            "start_field_index": 80,
+            "end_field_index": 81,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -884,8 +884,8 @@
             ]
           },
           {
-            "start_field_index": 79,
-            "end_field_index": 95,
+            "start_field_index": 82,
+            "end_field_index": 98,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1126,7 +1126,7 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "advance_stage_on_value": "tillage",
+            "advance_stage_on_value": "no-tillage",
             "content": [
               {
                 "label": "This section is not relevant to me. Proceed to next section. ",
@@ -1331,7 +1331,7 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "advance_stage_on_value": "nutrient-mgmt",
+            "advance_stage_on_value": "no-nutrient-mgmt",
             "content": [
               {
                 "label": "This section is not relevant to me. Proceed to next section. ",
@@ -1630,7 +1630,7 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "advance_stage_on_value": "buffers",
+            "advance_stage_on_value": "no-buffers",
             "content": [
               {
                 "label": "This section is not relevant to me. Proceed to next section. ",
@@ -1773,7 +1773,7 @@
           {
             "name": "commodity_buffer_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using grass buffers?",
+            "prompt": "For how long have you been participating in the commodity buffer program?",
             "hidden_default": true,
             "content": [
               {
@@ -1914,7 +1914,7 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "advance_stage_on_value": "livestock",
+            "advance_stage_on_value": "no-livestock",
             "content": [
               {
                 "label": "This section is not relevant to me. Proceed to next section. ",
@@ -2356,7 +2356,7 @@
           {
             "name": "pipeline_type",
             "type": "dropdown",
-            "prompt": "Which type of pipeline do you maintain",
+            "prompt": "Which type of pipeline do you maintain?",
             "hidden_default": true,
             "content": [
               {
@@ -2377,7 +2377,7 @@
           {
             "name": "pipeline_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been installing and maintaining pipeline?",
+            "prompt": "For how long have you been installing and maintaining pipelines?",
             "hidden_default": true,
             "content": [
               {
@@ -2426,7 +2426,7 @@
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
           },
           {
-            "name": "farm_name",
+            "name": "title",
             "type": "text",
             "prompt": "What is your farm's name? If you choose to share the name it will appear on the map.",
             "optional": true
@@ -2711,7 +2711,7 @@
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Commodity Buffer (Supports RCPP)</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>No till increment payment</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Voluntary Stewardship Program (VSP)</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>319\/Centennial Program</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>319/Centennial Program</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Terry Husseman</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Flood Plains by Design</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Stream Flow Restoration (Rural Water Supply)</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
