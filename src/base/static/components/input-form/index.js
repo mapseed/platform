@@ -507,6 +507,15 @@ class InputForm extends Component {
     return fields.slice(stage.start_field_index - 1, stage.end_field_index);
   }
 
+  onClickModal = modalContent => {
+    this.setState({
+      isInfoModalOpen: true,
+      infoModalHeader: modalContent.header,
+      infoModalBody: modalContent.body,
+      routeOnClose: false,
+    });
+  };
+
   render() {
     return (
       <>
@@ -558,6 +567,7 @@ class InputForm extends Component {
               .map(field => (
                 <FormField
                   formId={this.selectedCategoryConfig.formId}
+                  onClickModal={this.onClickModal}
                   fieldConfig={field.get("config").toJS()}
                   disabled={this.state.isFormSubmitting}
                   fieldState={field}

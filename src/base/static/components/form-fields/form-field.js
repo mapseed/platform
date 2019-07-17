@@ -8,7 +8,8 @@ import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
 
 import { RegularText } from "../atoms/typography";
-import { InfoModalTrigger } from "../atoms/feedback";
+import { Button } from "../atoms/buttons";
+import { FontAwesomeIcon } from "../atoms/imagery";
 import fieldDefinitions from "./field-definitions";
 import { translate } from "react-i18next";
 import constants from "../../constants";
@@ -130,8 +131,8 @@ class FormField extends Component {
           padding: 8px;
           border: ${this.props.showValidityStatus &&
           !this.props.fieldState.get("isValid")
-            ? "2px dotted #da8583"
-            : "2px solid transparent"};
+            ? "4px dotted #da8583"
+            : "4px solid transparent"};
         `}
         data-field-type={this.props.fieldConfig.type}
         data-field-name={this.props.fieldConfig.name}
@@ -153,10 +154,17 @@ class FormField extends Component {
               </span>
             </RegularText>
             {this.props.fieldConfig.modal && (
-              <InfoModalTrigger
-                classes="input-form__field-modal-trigger"
-                modalContent={this.props.fieldConfig.modal}
-              />
+              <Button
+                css={css`
+                  padding: 0;
+                  background: transparent;
+                `}
+                onClick={() => {
+                  this.props.onClickModal(this.props.fieldConfig.modal);
+                }}
+              >
+                <FontAwesomeIcon faClassname="fas fa-question-circle" />
+              </Button>
             )}
           </div>
         )}
@@ -177,6 +185,7 @@ FormField.propTypes = {
   isInitializing: PropTypes.bool,
   updatingField: PropTypes.string,
   map: PropTypes.object,
+  onClickModal: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func.isRequired,
   places: PropTypes.object,
   router: PropTypes.object,

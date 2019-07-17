@@ -6,7 +6,6 @@ import styled from "@emotion/styled";
 import { translate } from "react-i18next";
 import { jsx, css } from "@emotion/core";
 
-import { InfoModalTrigger } from "../atoms/feedback";
 import { FontAwesomeIcon } from "../atoms/imagery";
 import { HorizontalRule } from "../atoms/layout";
 import { TinyTitle } from "../atoms/typography";
@@ -55,11 +54,6 @@ const LayerGroupStatusIcon = styled(props => (
 ))({
   marginLeft: "8px",
   textAlign: "center",
-});
-
-const InfoModalContainer = styled("span")({
-  width: "16px",
-  height: "16px",
 });
 
 const statusIcons = {
@@ -131,17 +125,6 @@ const OptionSelector: React.FunctionComponent<
             )}
         </LayerGroupsStatusContainer>
       </span>
-      {props.option.info && (
-        // TODO: refactor this to use ReactModal
-        <InfoModalContainer>
-          <InfoModalTrigger
-            modalContent={{
-              header: props.option.info.header,
-              body: props.option.info.body,
-            }}
-          />
-        </InfoModalContainer>
-      )}
     </MapLayerSelectorContainer>
   );
 };
