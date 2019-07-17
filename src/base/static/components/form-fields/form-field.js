@@ -131,8 +131,8 @@ class FormField extends Component {
           padding: 8px;
           border: ${this.props.showValidityStatus &&
           !this.props.fieldState.get("isValid")
-            ? "2px dotted #da8583"
-            : "2px solid transparent"};
+            ? "4px dotted #da8583"
+            : "4px solid transparent"};
         `}
         data-field-type={this.props.fieldConfig.type}
         data-field-name={this.props.fieldConfig.name}

@@ -124,6 +124,12 @@
         ],
         "maxzoom": 16
       },
+      "spokane-watersheds-labels": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-watersheds-labels/{z}/{x}/{y}.pbf"
+        ]
+      },
       "spokane-geologic-hazard": {
         "type": "vector",
         "tiles": [
@@ -325,7 +331,7 @@
             "source": "spokane-watersheds",
             "source-layer": "spokane-watersheds",
             "paint": {
-              "fill-opacity": 0.7,
+              "fill-opacity": 0.5,
               "fill-color": [
                 "match",
                 ["get", "NAME"],
@@ -336,17 +342,17 @@
                 "Pend Oreille Lake",
                 "#bebada",
                 "Little Spokane",
-                "#fb8072",
+                "#bebada",
                 "Hangman",
                 "#80b1d3",
                 "Coeur d'Alene Lake",
-                "#fdb462",
+                "#80b1d3",
                 "Upper Crab",
                 "#b3de69",
                 "Palouse",
-                "#fccde5",
+                "#b3de69",
                 "Rock",
-                "#d9d9d9",
+                "#b3de69",
                 "#fff"
               ]
             }
@@ -365,10 +371,35 @@
             }
           },
           {
-            "id": "spokane-watersheds-labels",
+            "id": "spokane-watersheds-labels-placed",
+            "type": "symbol",
+            "source": "spokane-watersheds-labels",
+            "source-layer": "spokane-watersheds-labels",
+            "maxzoom": 10,
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 20,
+              "text-color": "#666"
+            },
+            "layout": {
+              "text-field": ["concat", ["get", "watershed_name"], " watershed"],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 12,
+              "text-allow-overlap": true,
+              "text-max-width": 8,
+              "text-padding": 15,
+              "text-allow-overlap": true,
+              "text-transform": "uppercase",
+              "text-line-height": 1,
+              "text-offset": [1, 0]
+            }
+          },
+          {
+            "id": "spokane-watersheds-labels-unplaced",
             "type": "symbol",
             "source": "spokane-watersheds",
             "source-layer": "spokane-watersheds",
+            "minzoom": 10,
             "paint": {
               "text-halo-color": "#fff",
               "text-halo-width": 20,
@@ -379,9 +410,9 @@
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
               "text-size": 12,
               "text-allow-overlap": true,
-              "text-max-width": 3,
+              "text-max-width": 8,
               "text-padding": 15,
-              "text-allow-overlap": false,
+              "text-allow-overlap": true,
               "text-transform": "uppercase",
               "text-line-height": 1
             }
@@ -464,7 +495,15 @@
             "source": "spokane-frequently-flooded",
             "source-layer": "spokane-frequently-flooded",
             "paint": {
-              "fill-pattern": "frequently-flooded-fill.png"
+              "fill-pattern": [
+                "match",
+                ["get", "FloodZone"],
+                "100 Year",
+                "hash-fill-88b9ff.png",
+                "500 Year",
+                "frequently-flooded-fill.png",
+                "frequently-flooded-fill.png"
+              ]
             }
           },
           {
@@ -473,7 +512,15 @@
             "source": "spokane-frequently-flooded",
             "source-layer": "spokane-frequently-flooded",
             "paint": {
-              "line-color": "#3366ff",
+              "line-color": [
+                "match",
+                ["get", "FloodZone"],
+                "100 Year",
+                "#88b9ff",
+                "500 Year",
+                "#3366ff",
+                "#3366ff"
+              ],
               "line-opacity": 0.7,
               "line-width": 2
             }
@@ -634,7 +681,7 @@
           },
           {
             "layerGroupId": "satellite",
-            "title": "Satellite View"
+            "title": "Light/Satellite View"
           }
         ]
       },
@@ -739,7 +786,7 @@
           },
           {
             "start_field_index": 7,
-            "end_field_index": 8,
+            "end_field_index": 9,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-wetlands",
@@ -747,8 +794,8 @@
             ]
           },
           {
-            "start_field_index": 9,
-            "end_field_index": 10,
+            "start_field_index": 10,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-frequently-flooded",
@@ -756,8 +803,8 @@
             ]
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 12,
+            "start_field_index": 13,
+            "end_field_index": 15,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-geologic-hazard",
@@ -765,8 +812,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 14,
+            "start_field_index": 16,
+            "end_field_index": 18,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-aquifer",
@@ -774,8 +821,8 @@
             ]
           },
           {
-            "start_field_index": 15,
-            "end_field_index": 16,
+            "start_field_index": 19,
+            "end_field_index": 20,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-conservation-areas",
@@ -783,8 +830,8 @@
             ]
           },
           {
-            "start_field_index": 17,
-            "end_field_index": 19,
+            "start_field_index": 21,
+            "end_field_index": 24,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-critical-conservation-areas",
@@ -792,8 +839,8 @@
             ]
           },
           {
-            "start_field_index": 20,
-            "end_field_index": 27,
+            "start_field_index": 25,
+            "end_field_index": 31,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -801,8 +848,8 @@
             ]
           },
           {
-            "start_field_index": 28,
-            "end_field_index": 40,
+            "start_field_index": 32,
+            "end_field_index": 44,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -810,8 +857,8 @@
             ]
           },
           {
-            "start_field_index": 41,
-            "end_field_index": 50,
+            "start_field_index": 45,
+            "end_field_index": 54,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -819,8 +866,8 @@
             ]
           },
           {
-            "start_field_index": 50,
-            "end_field_index": 71,
+            "start_field_index": 54,
+            "end_field_index": 75,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -828,8 +875,8 @@
             ]
           },
           {
-            "start_field_index": 72,
-            "end_field_index": 74,
+            "start_field_index": 76,
+            "end_field_index": 78,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -837,8 +884,8 @@
             ]
           },
           {
-            "start_field_index": 75,
-            "end_field_index": 91,
+            "start_field_index": 79,
+            "end_field_index": 95,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -922,7 +969,7 @@
           {
             "name": "wetlands_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wetlands.jpeg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wetlands.jpeg' alt='Wetlands' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right'>Appearance on map</em></div><div style='flex:6;margin-left:24px;'><div style='display:flex;align-items:center;margin-bottom:8px;' ><div style='width:20px;height:20px;background-color:#cbaed6;margin-right:16px;'></div><p style='margin:0;'>Palustrine</p></div><div style='display:flex;align-items:center;margin-bottom:8px;' ><div style='width:20px;height:20px;background-color:#c6dbef;margin-right:16px;'></div><p style='margin:0;'>Lacustrine Limnetic</p></div><div style='display:flex;align-items:center;margin-bottom:8px;' ><div style='width:20px;height:20px;background-color:#9ecae1;margin-right:16px;'></div><p style='margin:0;'>Lacustrine Littoral</p></div><div style='display:flex;align-items:center;margin-bottom:8px;' ><div style='width:20px;height:20px;background-color:#4292c6;margin-right:16px;'></div><p style='margin:0;'>Riverine Lower Perennial</p></div><div style='display:flex;align-items:center;margin-bottom:8px;' ><div style='width:20px;height:20px;background-color:#2171b5;margin-right:16px;'></div><p style='margin:0'>Riverine Upper Perennial</p></div><div style='display:flex;align-items:center;margin-bottom:8px' ><div style='width:20px;height:20px;background-color:#08519c;margin-right:16px;'></div><p style='margin:0'>Riverine Intermittent</p></div></div></div></div>"
           },
           {
             "name": "private-property_on_wetlands",
@@ -941,9 +988,14 @@
             ]
           },
           {
+            "name": "toggle_wetlands",
+            "type": "informational_html",
+            "content": "<p style='margin-top: 24px; color:#888;'>Click the <i style='font-family: \"Font Awesome 5 Free\"; font-weight:900;margin-left:8px;margin-right:8px;' class='fas fa-bars'></i> icon on the map and select \"Wetlands\" to toggle wetlands data.</p>"
+          },
+          {
             "name": "frequently_flooded_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently Flooded Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently Flooded Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/frequently-flooded.jpeg' alt='Frequently flooded areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><div style='display:flex;align-items:center;' ><img style='width:48px;margin-right:16px;' src='/static/css/images/frequently-flooded-legend.png' /><p>500-year floodplain</p></div><div style='display:flex;align-items:center;'><img style='width:48px;margin-right:16px;' src='/static/css/images/hash-fill-88b9ff-legend.png' /><p>100-year floodplain</p></div></div></div>"
           },
           {
             "name": "private-property_on_frequently_flooded",
@@ -960,6 +1012,11 @@
                 "value": "no"
               }
             ]
+          },
+          {
+            "name": "toggle_frequently_flooded",
+            "type": "informational_html",
+            "content": "<p style='margin-top: 24px; color:#888;'>Click the <i style='font-family: \"Font Awesome 5 Free\"; font-weight:900;margin-left:8px;margin-right:8px;' class='fas fa-bars'></i> icon on the map and select \"Frequently Flooded Areas\" to toggle frequently flooded data.</p>"
           },
           {
             "name": "geologic_hazard_header",
@@ -983,6 +1040,11 @@
             ]
           },
           {
+            "name": "toggle_geologic_hazard",
+            "type": "informational_html",
+            "content": "<p style='margin-top: 24px; color:#888;'>Click the <i style='font-family: \"Font Awesome 5 Free\"; font-weight:900;margin-left:8px;margin-right:8px;' class='fas fa-bars'></i> icon on the map and select \"Geologic Hazards\" to toggle geologic hazard data.</p>"
+          },
+          {
             "name": "critical_aquifer_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical Aquifer Recharge Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/critical-aquifer.jpg' alt='Critical aquifer recharge areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
@@ -1004,12 +1066,17 @@
             ]
           },
           {
+            "name": "toggle_critical_aquifer",
+            "type": "informational_html",
+            "content": "<p style='margin-top: 24px; color:#888;'>Click the <i style='font-family: \"Font Awesome 5 Free\"; font-weight:900;margin-left:8px;margin-right:8px;' class='fas fa-bars'></i> icon on the map and select \"Critical Aquifer Recharge Areas\" to toggle critical aquifer data.</p>"
+          },
+          {
             "name": "critical_conservation_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & Wildlife Habitat Conservation Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wildlife-conservation.jpg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife habitat conservation areas</strong> are managed to maintain habitats of fish and wildlife. Zoom the map to explore species types.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
-            "name": "private-property_on_criticak_conservation",
+            "name": "private-property_on_critical_conservation",
             "type": "big_radio",
             "prompt": "Does your property lie on any critical conservation areas?",
             "optional": false,
@@ -1023,6 +1090,11 @@
                 "value": "no"
               }
             ]
+          },
+          {
+            "name": "toggle_critical_conservation",
+            "type": "informational_html",
+            "content": "<p style='margin-top: 24px; color:#888;'>Click the <i style='font-family: \"Font Awesome 5 Free\"; font-weight:900;margin-left:8px;margin-right:8px;' class='fas fa-bars'></i> icon on the map and select \"Critical Conservation Areas\" to toggle critical conservation data.</p>"
           },
           {
             "//": "---------------------FARMING HISTORY-------------------------",
@@ -1071,7 +1143,7 @@
             "//": "=============== NO TILLL ================================",
             "name": "no_till",
             "type": "big_radio",
-            "prompt": "I practice no till",
+            "prompt": "No till",
             "label": "No till",
             "optional": true,
             "trigger": {
@@ -1147,7 +1219,7 @@
             "//": "=============== MULCH TILLL ================================",
             "name": "mulch_till",
             "type": "big_radio",
-            "prompt": "I use mulch till techniques",
+            "prompt": "Mulch till",
             "label": "Mulch till",
             "optional": true,
             "trigger": {
@@ -1276,7 +1348,7 @@
             "//": "=============== BASIC SOIL TESTS =================================",
             "name": "basic_soil_tests",
             "type": "big_radio",
-            "prompt": "I conduct basic soil tests",
+            "prompt": "Basic soil tests",
             "label": "Basic soil tests",
             "optional": true,
             "trigger": {
@@ -1377,7 +1449,7 @@
             "//": "=============== BIOSOLIDS =================================",
             "name": "biosolids",
             "type": "big_radio",
-            "prompt": "I control or trap biosolids",
+            "prompt": "Biosolids management",
             "label": "Control biosolids",
             "optional": true,
             "trigger": {
@@ -1409,7 +1481,7 @@
           {
             "name": "biosolids_quantity",
             "type": "number",
-            "prompt": "How many tons of biosolids do you control or trap?",
+            "prompt": "How many tons of biosolids do you manage?",
             "min": 0,
             "placeholder": "Approximate tonnage",
             "hidden_default": true,
@@ -1420,7 +1492,7 @@
           {
             "name": "biosolids_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been controlling biosolids?",
+            "prompt": "For how long have you been managing biosolids?",
             "hidden_default": true,
             "content": [
               {
@@ -1453,7 +1525,7 @@
             "//": "=============== PRECISION SOIL TESTS =================================",
             "name": "precision_soil_tests",
             "type": "big_radio",
-            "prompt": "I conduct precision soil tests or mapping",
+            "prompt": "Precision soil tests or mapping",
             "label": "Precision soil tests / mapping",
             "optional": true,
             "trigger": {
@@ -1575,7 +1647,7 @@
             "//": "=============== GRASSED WATERWAYS =================================",
             "name": "grassed_waterways",
             "type": "big_radio",
-            "prompt": "I use grassed waterways",
+            "prompt": "Grassed waterways",
             "label": "Grassed waterways",
             "optional": true,
             "trigger": {
@@ -1734,7 +1806,7 @@
             "//": "=============== RIPARIAN FOREST =================================",
             "name": "riparian_forest",
             "type": "big_radio",
-            "prompt": "I plant trees and shrubs adjacent to rivers",
+            "prompt": "Riparian tree and shrub planting",
             "label": "Riparian forest planting",
             "optional": true,
             "trigger": {
@@ -1859,7 +1931,7 @@
             "//": "=============== STREAM CROSSING =================================",
             "name": "stream_crossing",
             "type": "big_radio",
-            "prompt": "I have installed stream crossings",
+            "prompt": "Stream crossings",
             "label": "Stream crossings",
             "optional": true,
             "trigger": {
@@ -2035,7 +2107,7 @@
             "//": "=============== FENCING =================================",
             "name": "fencing",
             "type": "big_radio",
-            "prompt": "I install fencing",
+            "prompt": "Fencing",
             "label": "Fencing",
             "optional": true,
             "trigger": {
@@ -2136,7 +2208,7 @@
             "//": "=============== NUTRIENT MANAGEMENT =================================",
             "name": "nutrient_management",
             "type": "big_radio",
-            "prompt": "I practice nutrient management",
+            "prompt": "Nutrient management",
             "label": "Nutrient management",
             "optional": true,
             "trigger": {
@@ -2237,7 +2309,7 @@
             "//": "=============== PIPELINE =================================",
             "name": "pipeline",
             "type": "big_radio",
-            "prompt": "I install and maintain pipelines for irrigation",
+            "prompt": "Pipelines",
             "label": "Pipelines",
             "optional": true,
             "trigger": {
@@ -2338,12 +2410,12 @@
             "//": "--------------OTHER PRACTICES---------------------------",
             "name": "other",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Other VSP Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report any other VSP practices on your property.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Other Stewardship Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Please fill out the form below to report any other stewardship practices on your property.</p>"
           },
           {
             "name": "other_practices_description",
             "type": "textarea",
-            "prompt": "Please describe your other VSP practices:",
+            "prompt": "Please describe your other stewardship practices:",
             "placeholder": "Description...",
             "optional": true
           },
@@ -2352,6 +2424,12 @@
             "name": "additional_info_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
+          },
+          {
+            "name": "farm_name",
+            "type": "text",
+            "prompt": "What is your farm's name? If you choose to share the name it will appear on the map.",
+            "optional": true
           },
           {
             "name": "my_image",
@@ -2365,6 +2443,12 @@
             "type": "textarea",
             "prompt": "Add a description of your stewardship practices!",
             "display_prompt": "Description:",
+            "optional": true
+          },
+          {
+            "name": "stewardship_difficulties",
+            "type": "textarea",
+            "prompt": "What challenges or difficulties have you experienced as a voluntary steward?",
             "optional": true
           },
           {
@@ -2408,6 +2492,7 @@
             "name": "conservation_programs",
             "prompt": "Have you ever been a part of, or have interest in, any of the following conservation programs? Check all that apply.",
             "type": "big_checkbox",
+            "optional": true,
             "content": [
               {
                 "label": "RCPP",
@@ -2476,7 +2561,7 @@
           {
             "name": "private",
             "type": "big_radio",
-            "prompt": "Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.",
+            "prompt": "Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public. (Your address and other property identifying information will not be published.)",
             "default_value": "yes",
             "content": [
               {
@@ -2560,6 +2645,11 @@
       "title": "VSP Assistance",
       "type": "internal_link",
       "url": "/page/assistance"
+    },
+    {
+      "title": "Programs",
+      "type": "internal_link",
+      "url": "/page/programs"
     }
   ],
   "pages": [
@@ -2572,18 +2662,19 @@
         "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:",
         "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
-        "<div style='margin-bottom: 8px'>",
+        "<div style='margin-bottom: 16px'>",
         "<strong style='margin-bottom:0'>Andy Dunau</strong>",
         "<p style='margin:0'><em>Facilitator</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>andy@dunau.com</span></div>",
         "</li>",
         "<li style='margin-top:16px'>",
-        "<div style='margin-bottom: 8px'>",
+        "<div style='margin-bottom: 16px'>",
         "<strong style='margin-bottom:0'>Walt Edelen</strong>",
         "<p style='margin:0'><em>Spokane Conservation District</em></p>",
         "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i class='fas fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px'><i class='fas fa-phone'></i><span style='margin-left:16px'>509-535-7274, ext. 224</span></div>",
         "</li>",
         "</ul>"
       ]
@@ -2594,9 +2685,46 @@
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Spokane County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/sccd.jpg' alt='Spokane County Conservation District' style='margin:8px 0 16px 0' />",
-        "<p>The Spokane County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
-        "<p>Click Get Started to begin!</p>",
+        "<p>The Spokane County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas. By reporting your voluntary stewardship on this site, you'll help Spokane County allocate resources, and you'll help the Spokane County Conservation District learn what types of technical assistance we can provide to you.</p>",
+        "<div style='display:flex;align-items:center;'>",
+        "<p style='flex: 6;margin-right:8px;'>Explore your fellow producers' voluntary stewardship actions by clicking pins on the map:</p><span style='flex:1;'><img style='width:30px' src='/static/css/images/markers/marker-field.png' alt='Stewardship action marker' /></span>",
+        "</div>",
+        "<p>Or, click Get Started to begin reporting your own stewardship!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
+      ]
+    },
+    {
+      "slug": "programs",
+      "lang": "en",
+      "content": [
+        "<h3 id='about-page-header'>Technical Assistance and Funding Opportunities</h3>",
+        "<p style='margin-bottom:32px'>Spokane Conservation District can assist you in applying for these opportunities.</p>",
+        "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;'><span style='flex:2;margin-right:8px;'>Program</span><span style='flex:1;margin-right:8px;'>Agency</span><span style='flex:1'>Level</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>ACEP: Agriculture Conservation Easement Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>EQIP: Environmental Quality Incentives Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>HFRP: Healthy Forests Reserve Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>RCPP</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>CSP: Conservation Stewardship Program</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>US Fish and Wildlife Service</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Conservation Reserve Enhancement Program</span><span style='flex:1;margin-right:8px;'>Farm Service Administration</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Continuous CRP</span><span style='flex:1;margin-right:8px;'>Farm Service Administration</span><span style='flex:1;'>Federal</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Commodity Buffer (Supports RCPP)</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>No till increment payment</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Voluntary Stewardship Program (VSP)</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>319\/Centennial Program</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Terry Husseman</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Flood Plains by Design</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Stream Flow Restoration (Rural Water Supply)</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>State Revolving Fund</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>DIF (Leftover 319 money)</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>ALEA</span><span style='flex:1;margin-right:8px;'>WA State Department of Fish and Wildlife</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>State Lands for Wildlife</span><span style='flex:1;margin-right:8px;'>WA State Department of Fish and Wildlife</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>WA State Department of Natural Resources</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Spangle, Small Grants for Research</span><span style='flex:1;margin-right:8px;'>WA State Department of Transportation</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>FFFPP (Reconnecting Spawning Activity)</span><span style='flex:1;margin-right:8px;'>RCO</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>WWRP (Easement Acquisition)</span><span style='flex:1;margin-right:8px;'>RCO</span><span style='flex:1;'>State</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>Lands Council</span><span style='flex:1;'>Other</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>Washington State University Extension</span><span style='flex:1;'>Other</span></div>"
       ]
     }
   ],
