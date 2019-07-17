@@ -2699,7 +2699,7 @@
       "content": [
         "<h3 id='about-page-header'>Technical Assistance and Funding Opportunities</h3>",
         "<p style='margin-bottom:32px'>Spokane Conservation District can assist you in applying for these opportunities.</p>",
-        "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;'><span style='flex:2;margin-right:8px;'>Program</span><span style='flex:1;margin-right:8px;'>Agency</span><span style='flex:1'>Level</span></div>",
+        "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:64px;'><span style='flex:2;margin-right:8px;'>Program</span><span style='flex:1;margin-right:8px;'>Agency</span><span style='flex:1'>Level</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>ACEP: Agriculture Conservation Easement Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>EQIP: Environmental Quality Incentives Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>HFRP: Healthy Forests Reserve Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
