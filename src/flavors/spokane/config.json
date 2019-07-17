@@ -83,17 +83,27 @@
         "tilseSize": 256
       },
       "satellite": {
+        "url": "mapbox://mapbox.satellite",
         "type": "raster",
-        "tiles": [
-          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-        ],
-        "tileSize": 256,
-        "minzoom": 10,
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
+        "tileSize": 256
       },
-      "columbia-river": {
-        "type": "geojson",
-        "data": "https://assets.mapseed.org/geo/columbia-river.geojson"
+      "spokane-river": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-river/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "little-spokane-river": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/little-spokane-river/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "hangman-creek": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/hangman-creek/{z}/{x}/{y}.pbf"
+        ]
       },
       "light-nolabels": {
         "type": "raster",
@@ -225,22 +235,24 @@
         ]
       },
       {
-        "id": "columbia-river",
+        "id": "spokane-river",
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "columbia-river-fill",
+            "id": "spokane-river-fill",
             "type": "fill",
-            "source": "columbia-river",
+            "source": "spokane-river",
+            "source-layer": "spokane-river",
             "paint": {
               "fill-color": "#34518f",
               "fill-opacity": 0.7
             }
           },
           {
-            "id": "columbia-river-outline",
+            "id": "spokane-river-outline",
             "type": "line",
-            "source": "columbia-river",
+            "source": "spokane-river",
+            "source-layer": "spokane-river",
             "paint": {
               "line-color": "#34518f",
               "line-opacity": 0.7,
@@ -250,22 +262,51 @@
         ]
       },
       {
-        "id": "snake-river",
+        "id": "little-spokane-river",
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "snake-river-fill",
+            "id": "little-spokane-river-fill",
             "type": "fill",
-            "source": "snake-river",
+            "source": "little-spokane-river",
+            "source-layer": "little-spokane-river",
             "paint": {
               "fill-color": "#34518f",
               "fill-opacity": 0.7
             }
           },
           {
-            "id": "snake-river-outline",
+            "id": "little-spokane-river-outline",
             "type": "line",
-            "source": "snake-river",
+            "source": "little-spokane-river",
+            "source-layer": "little-spokane-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "hangman-creek",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "hangman-creek-fill",
+            "type": "fill",
+            "source": "hangman-creek",
+            "source-layer": "hangman-creek",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "hangman-creek-outline",
+            "type": "line",
+            "source": "hangman-creek",
+            "source-layer": "hangman-creek",
             "paint": {
               "line-color": "#34518f",
               "line-opacity": 0.7,
@@ -548,7 +589,7 @@
             "type": "symbol",
             "source": "spokane-input",
             "layout": {
-              "icon-size": 0.7,
+              "icon-size": 0.5,
               "icon-anchor": "bottom",
               "icon-image": [
                 "match",
@@ -569,7 +610,7 @@
             "layout": {
               "icon-anchor": "bottom",
               "icon-image": "marker-field.png",
-              "icon-size": ["step", ["zoom"], 0.5, 11, 0.6, 16, 0.7],
+              "icon-size": ["step", ["zoom"], 0.3, 11, 0.4, 16, 0.5],
               "icon-allow-overlap": true
             }
           }
@@ -601,12 +642,16 @@
         "title": "Water Features",
         "options": [
           {
-            "layerGroupId": "columbia-river",
-            "title": "Columbia River"
+            "layerGroupId": "spokane-river",
+            "title": "Spokane River"
           },
           {
-            "layerGroupId": "snake-river",
-            "title": "Snake River"
+            "layerGroupId": "little-spokane-river",
+            "title": "Little Spokane River"
+          },
+          {
+            "layerGroupId": "hangman-creek",
+            "title": "Hangman Creek"
           },
           {
             "layerGroupId": "spokane-watersheds",
@@ -648,7 +693,7 @@
           },
           {
             "layerGroupId": "spokane-input",
-            "title": "Community Reports"
+            "title": "Voluntary Stewardship Program Reports"
           }
         ]
       }
@@ -766,7 +811,7 @@
           },
           {
             "start_field_index": 41,
-            "end_field_index": 53,
+            "end_field_index": 50,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -774,7 +819,16 @@
             ]
           },
           {
-            "start_field_index": 53,
+            "start_field_index": 50,
+            "end_field_index": 71,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 72,
             "end_field_index": 74,
             "visibleLayerGroupIds": [
               "satellite",
@@ -784,16 +838,7 @@
           },
           {
             "start_field_index": 75,
-            "end_field_index": 77,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 78,
-            "end_field_index": 94,
+            "end_field_index": 91,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1048,10 +1093,10 @@
               }
             ],
             "modal": {
-              "header": "Tillage",
+              "header": "No till",
               "body": [
-                "NRCS code: xxx",
-                "Tillage description"
+                "NRCS code: 329",
+                "This practice leaves the soil and crop residue undisturbed except for crop row where the seed and fertilizer is placed in the ground. No Till planters disturb less than 25% of the row width."
               ]
             }
           },
@@ -1126,7 +1171,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Mulch till",
+              "body": [
+                "NRCS code: 345",
+                "This practice includes tillage methods commonly referred to as mulch tillage where a majority of the soil surface is disturbed by noninversion tillage operations such as vertical tillage, chiseling, and disking, and also includes tillage/planting systems with relatively minimal soil disturbance."
+              ]
+            }
           },
           {
             "name": "mulch_till_quantity",
@@ -1248,7 +1300,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Basic soil tests",
+              "body": [
+                "NRCS code: 590",
+                "Basic soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), pH, and buffer pH every four years."
+              ]
+            }
           },
           {
             "name": "basic_soil_tests_quantity",
@@ -1338,7 +1397,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Biosolids",
+              "body": [
+                "NRCS code: 590",
+                "Municipal and, especially, industrial biosolids can be sources of heavy metals."
+              ]
+            }
           },
           {
             "name": "biosolids_quantity",
@@ -1411,7 +1477,11 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Precision soil tests",
+              "body": ["NRCS code: 590", "..."]
+            }
           },
           {
             "name": "precision_soil_tests_quantity",
@@ -1529,7 +1599,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Grassed waterways",
+              "body": [
+                "NRCS code: 412",
+                "A grassed waterway is a shaped or graded channel that is established with suitable vegetation to convey surface water at a non-erosive velocity using a broad and shallow cross section to a stable outlet."
+              ]
+            }
           },
           {
             "name": "grassed_waterways_quantity",
@@ -1596,19 +1673,15 @@
             ]
           },
           {
-            "//": "=============== COMMODITY BUFFER =================================",
+            "//": "=============== COMMODITY BUFFER PROGRAM =================================",
             "name": "commodity_buffer",
             "type": "big_radio",
-            "prompt": "I use commodity buffers",
-            "label": "Grass buffers",
+            "prompt": "I participate in the commodity buffer program",
+            "label": "Commodity buffer program",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
-              "targets": [
-                "grass_buffers_quantity",
-                "grass_buffers_type",
-                "grass_buffers_duration"
-              ]
+              "targets": ["commodity_buffer_duration"]
             },
             "content": [
               {
@@ -1626,114 +1699,9 @@
             ]
           },
           {
-            "name": "grass_buffers_quantity",
-            "type": "number",
-            "prompt": "On how many acres do you use grass buffers?",
-            "min": 0,
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "grass_buffers_type",
-            "type": "dropdown",
-            "prompt": "Which type of grass buffers do you use?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "Type A",
-                "value": "type_a"
-              },
-
-              {
-                "label": "Type B",
-                "value": "type_b"
-              },
-              {
-                "label": "Type C",
-                "value": "type_c"
-              }
-            ]
-          },
-          {
-            "name": "grass_buffers_duration",
+            "name": "commodity_buffer_duration",
             "type": "dropdown",
             "prompt": "For how long have you been using grass buffers?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "0-5 years",
-                "value": "0-5"
-              },
-              {
-                "label": "6-10 years",
-                "value": "6-10"
-              },
-              {
-                "label": "11-15 years",
-                "value": "11-15"
-              },
-              {
-                "label": "16-20 years",
-                "value": "16-20"
-              },
-              {
-                "label": "21-35 years",
-                "value": "21-35"
-              },
-              {
-                "label": "36 years or more",
-                "value": "36-or-more"
-              }
-            ]
-          },
-          {
-            "//": "=============== RIPARIAN HERBACEOUS COVER =================================",
-            "name": "riparian_herbaceous_cover",
-            "type": "big_radio",
-            "prompt": "I use riparian herbaceous cover",
-            "label": "Riparian herbaceous cover",
-            "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "riparian_herbaceous_cover_quantity",
-                "riparian_herbaceous_cover_type",
-                "riparian_herbaceous_cover_duration"
-              ]
-            },
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "riparian_herbaceous_cover_quantity",
-            "type": "number",
-            "prompt": "On how many acres do you use riparian herbaceous cover?",
-            "min": 0,
-            "placeholder": "Approximate tonnage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "tons"
-            }
-          },
-          {
-            "name": "riparian_herbaceous_cover_duration",
-            "type": "dropdown",
-            "prompt": "For how long have you been using riparian herbaceous cover?",
             "hidden_default": true,
             "content": [
               {
@@ -1766,7 +1734,7 @@
             "//": "=============== RIPARIAN FOREST =================================",
             "name": "riparian_forest",
             "type": "big_radio",
-            "prompt": "I plant riparian forests",
+            "prompt": "I plant trees and shrubs adjacent to rivers",
             "label": "Riparian forest planting",
             "optional": true,
             "trigger": {
@@ -1790,7 +1758,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Riparian forest",
+              "body": [
+                "NRCS code: 391",
+                "A corridor of trees and/or shrubs planted adjacent to a river, stream, wetland or water body. The planting is of sufficient width and up-gradient and near the water body to insure adequate functioning for the desired purpose."
+              ]
+            }
           },
           {
             "name": "riparian_forest_quantity",
@@ -1908,7 +1883,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Stream crossings",
+              "body": [
+                "NRCS code: 578",
+                "A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles."
+              ]
+            }
           },
           {
             "name": "stream_crossing_quantity",
@@ -1978,15 +1960,14 @@
             "//": "=============== HEAVY USE AREA =================================",
             "name": "heavy_use_area",
             "type": "big_radio",
-            "prompt": "I protect heavy use areas",
+            "prompt": "My operation has a designated heavy use area",
             "label": "Heavy use area protection",
             "optional": true,
             "trigger": {
               "trigger_value": "yes",
               "targets": [
                 "heavy_use_area_quantity",
-                "heavy_use_area_type",
-                "heavy_use_area_duration"
+                "heavy_use_area_description"
               ]
             },
             "content": [
@@ -2002,44 +1983,26 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
-          },
-          {
-            "name": "heavy_use_area_quantity",
-            "type": "number",
-            "prompt": "How many acres of heavy use area have you protected?",
-            "min": 0,
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
+            ],
+            "modal": {
+              "header": "Heavy use area protection",
+              "body": [
+                "NRCS code: 561",
+                "The stabilization of areas frequently and intensively used by people, animals or vehicles by establishing vegetative cover, surfacing with suitable materials, and/or installing needed structures."
+              ]
             }
           },
           {
-            "name": "heavy_use_area_type",
-            "type": "dropdown",
-            "prompt": "Which type of heavy use area protection have you used?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "Type A",
-                "value": "type_a"
-              },
-
-              {
-                "label": "Type B",
-                "value": "type_b"
-              },
-              {
-                "label": "Type C",
-                "value": "type_c"
-              }
-            ]
+            "name": "heavy_use_area_description",
+            "type": "textarea",
+            "prompt": "Please describe your heavy use area in detail:",
+            "placeholder": "Describe your designated heavy use area",
+            "hidden_default": true
           },
           {
             "name": "heavy_use_area_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been protecting heavy use areas?",
+            "prompt": "For how long have you had a designated heavy use areas?",
             "hidden_default": true,
             "content": [
               {
@@ -2096,7 +2059,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Fencing",
+              "body": [
+                "NRCS code: 382",
+                "There are many different purposes for and types of fences. Generally, fences shall be appropriately planned, designed, and installed to control the animal(s), vehicles, or people of concern."
+              ]
+            }
           },
           {
             "name": "fencing_quantity",
@@ -2190,7 +2160,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Nutrient management",
+              "body": [
+                "NRCS code: 590",
+                "Managing the amount (rate), source, placement (method of application), and timing of plant nutrients and soil amendments."
+              ]
+            }
           },
           {
             "name": "nutrient_management_quantity",
@@ -2284,7 +2261,14 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Pipeline",
+              "body": [
+                "NRCS code: 516",
+                "Pipeline having an inside diameter of 8 inches or less to achieve one or more of the following purposes: (1) convey water from a source of supply to points of use for livestock, wildlife, or recreation; (2) reduce energy use; or (3) develop renewale energy systems (i.e., in-pipe hydropower)."
+              ]
+            }
           },
           {
             "name": "pipeline_quantity",
