@@ -2,10 +2,10 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
-import { darken } from "@material-ui/core/styles/colorManipulator";
 import { withTheme } from "emotion-theming";
 import { themePropType } from "../../state/ducks/app-config";
 import { translate } from "react-i18next";
+import { getReadableColor } from "../../utils/color";
 
 import {
   placeFormsConfigPropType,
@@ -41,7 +41,7 @@ const LegendIcon = styled(Image)({
 
 const MapLegendPanel = props => {
   const backgroundColor = props.isThemed ? props.theme.brand.secondary : "#fff";
-  const labelColor = darken(backgroundColor, 0.8);
+  const labelColor = getReadableColor(backgroundColor);
   return (
     <MapLegendPanelContainer backgroundColor={backgroundColor}>
       {props.placeFormsConfig.map((placeForm, i) => (

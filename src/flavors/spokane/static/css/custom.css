@@ -51,6 +51,10 @@ ite-ha
 }
 
 [data-field-name="private-landowner_email"],
+[data-field-name="acres_farmed"],
+[data-field-name="years_farming"],
+[data-field-name="practices_description"],
+[data-field-name="stewardship_difficulties"],
 [data-field-name="private-landowner_name"],
 [data-field-name="private-landowner_phone"] {
   margin-top: 15px !important;
@@ -62,25 +66,22 @@ ite-ha
   }
 }
 
-[data-field-name="water-use_no-water-use"],
-[data-field-name="soil-management_no-soil-management"],
-[data-field-name="nutrient-management_no-nutrient-management"],
-[data-field-name="range-management_no-range-management"],
-[data-field-name="pest-management_no-pest-management"],
-[data-field-name="fish-wildlife-management_no-fish-wildlife-management"] {
+[data-field-name="tillage_no-tillage"],
+[data-field-name="nutrient-mgmt_no-nutrient-mgmt"],
+[data-field-name="buffers_no-buffers"],
+[data-field-name="livestock_no-livestock"] {
   .input-form__field-prompt-container {
     display: none;
   }
 }
 
-label[for="input-form-water-use_no-water-use"],
-label[for="input-form-soil-management_no-soil-management"],
-label[for="input-form-nutrient-management_no-nutrient-management"],
-label[for="input-form-range-management_no-range-management"],
-label[for="input-form-pest-management_no-pest-management"],
-label[for="input-form-fish-wildlife-management_no-fish-wildlife-management"] {
+label[for="input-form-tillage_no-tillage"],
+label[for="input-form-nutrient-mgmt_no-nutrient-mgmt"],
+label[for="input-form-buffers_no-buffers"],
+label[for="input-form-livestock_no-livestock"] {
   padding: 0 !important;
-  font-family: FontAwesome, sans-serif;
+  font-family: "Font Awesome 5 Free", sans-serif;
+  font-weight: 900;
 
   &:before {
     display: none;
@@ -187,7 +188,8 @@ input[type="number"],
   background-color: #999999 !important;
 }
 
-.datetime-field, .dropdown-field {
+.datetime-field,
+.dropdown-field {
   border-color: #999999 !important;
 }
 

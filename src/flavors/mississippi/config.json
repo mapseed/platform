@@ -69,6 +69,41 @@
       "pitch": 0,
       "minZoom": 1,
       "maxZoom": 18.4
+    },
+    "mapWidgets": {
+      "radioMenu": {
+        "label": "Explore Nitrogen Deposition",
+        "layerGroupId": "nitrogen-deposition-group",
+        "layerId": "nitrogen-deposition",
+        "defaultSelectedOption": "all",
+        "options": [
+          {
+            "id": "all",
+            "aggregator": "INCY",
+            "label": "All"
+          },
+          {
+            "id": "sewerage",
+            "aggregator": "INCY_S1",
+            "label": "from sewerage"
+          },
+          {
+            "id": "urban",
+            "aggregator": "INCY_S2",
+            "label": "from urban"
+          },
+          {
+            "id": "cafo",
+            "aggregator": "INCY_S4",
+            "label": "from cafo"
+          },
+          {
+            "id": "farms",
+            "aggregator": "INCY_S5",
+            "label": "from farms"
+          }
+        ]
+      }
     }
   },
   "mapStyle": {
@@ -177,6 +212,13 @@
         "tiles": [
           "https://ecotopia.today/Mississippi/MARBvectortiles/{z}/{x}/{y}.pbf"
         ]
+      },
+      "nitrogen-deposition": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/mississippi-nitrogen-deposition/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
       }
     },
     "layerGroups": [
@@ -385,6 +427,36 @@
             "id": "terrain-basemap",
             "type": "raster",
             "source": "terrain"
+          }
+        ]
+      },
+      {
+        "id": "nitrogen-deposition-group",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-deposition",
+            "type": "fill",
+            "source": "nitrogen-deposition",
+            "source-layer": "mississippi-nitrogen-deposition",
+            "paint": {
+              "fill-opacity": 0.7,
+              "fill-color": [
+                "interpolate-hcl",
+                ["linear"],
+                [
+                  "+",
+                  ["get", "INCY_S1"],
+                  ["get", "INCY_S2"],
+                  ["get", "INCY_S4"],
+                  ["get", "INCY_S5"]
+                ],
+                0,
+                "rgba(255, 255, 255, .3)",
+                5000,
+                "#c35800"
+              ]
+            }
           }
         ]
       },
@@ -691,18 +763,6 @@
             }
           }
         ]
-      },
-      {
-        "id": "nitrogen-farm-emissions-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "nitrogen-layer",
-            "type": "raster",
-            "source": "nitrogen-farm-emissions"
-          }
-        ]
       }
     ]
   },
@@ -740,8 +800,8 @@
         "title": "Nitrogen",
         "options": [
           {
-            "layerGroupId": "nitrogen-farm-emissions-group",
-            "title": "Nitrogen Details"
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition"
           },
           {
             "layerGroupId": "nitrogen-plants-group",
@@ -1359,14 +1419,14 @@
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "nitrogen-plants-group",
-          "nitrogenloading-group",
+          "nitrogen-deposition-group",
           "streets-group",
           "mississippi-group"
         ],
         "spotlight": false
       },
       {
-        "placeId": 7534,
+        "placeId": 7538,
         "pan_to": [-93.97, 39.44],
         "zoom": 4.5,
         "iconUrl": "/static/css/images/markers/atom.png",

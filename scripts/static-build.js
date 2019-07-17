@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({ path: "src/.env" });
 const path = require("path");
 const fs = require("fs-extra");

@@ -129,7 +129,7 @@ class PlaceDetail extends Component {
     const featuredPlace = this.props.featuredPlaces.find(featuredPlace => {
       return featuredPlace.placeId === this.props.focusedPlace.id;
     });
-    if (featuredPlace) {
+    if (featuredPlace && featuredPlace.visibleLayerGroupIds) {
       // Set layers for this story chapter.
       featuredPlace.visibleLayerGroupIds.forEach(layerGroupId =>
         this.props.updateLayerGroupVisibility(layerGroupId, true),
@@ -292,7 +292,9 @@ class PlaceDetail extends Component {
     } else if (
       this.props.customComponents.FieldSummary ===
         "PBDurhamProjectProposalFieldSummary" &&
-      this.props.focusedPlace.location_type === "projects"
+      ["projects", "cycle1-projects"].includes(
+        this.props.focusedPlace.location_type,
+      )
     ) {
       fieldSummary = (
         <PBDurhamProjectProposalFieldSummary

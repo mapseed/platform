@@ -50,6 +50,7 @@
     }
   },
   "map": {
+    "measurementToolEnabled": true,
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
@@ -504,7 +505,7 @@
     "is_enabled": false
   },
   "leftSidebar": {
-    "icon": "fa fa-bars",
+    "icon": "fas fa-bars",
     "title": "Map Layers:",
     "sections": [
       {

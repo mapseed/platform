@@ -61,24 +61,30 @@ const onSocialShare = ({ place, service, appConfig }) => {
 // fall back to cookies
 const saveAutocompleteValue = (name, value, days) => {
   if (typeof Storage !== "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     localstorage.save(name, value, days);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     cookies.save(name, value, days, "mapseed-");
   }
 };
 
 const getAutocompleteValue = name => {
   if (typeof Storage !== "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return localstorage.get(name);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return cookies.get(name, "mapseed-");
   }
 };
 
 const removeAutocompleteValue = name => {
   if (typeof Storage !== "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return localstorage.destroy(name);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return cookies.destroy(name, "mapseed-");
   }
 };

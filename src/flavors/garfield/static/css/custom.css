@@ -30,7 +30,12 @@ body {
 [data-field-type="datetime"],
 [data-field-type="number"],
 [data-field-name="my_image"],
+[data-field-name="practices_description"],
+[data-field-name="private-landowner_name"],
+[data-field-name="private-landowner_email"],
+[data-field-name="private-landowner_phone"],
 [data-field-type="big_toggle"],
+[data-field-type="big_checkbox"],
 [data-field-type="big_radio"] {
   background-color: #efefef !important;
   box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
@@ -39,15 +44,15 @@ body {
 }
 
 [data-field-name="my_image"],
+[data-field-name="practices_description"],
 [data-field-type="big_toggle"],
+[data-field-type="big_checkbox"],
 [data-field-type="big_radio"] {
   margin-top: 15px !important;
   margin-bottom: 0 !important;
 }
 
 [data-field-type="geocoding"],
-[data-field-type="text"],
-[data-field-type="textarea"],
 [data-field-name="drag_map_info"],
 [data-field-type="geolocate"] {
   background-color: #efefef !important;
@@ -86,7 +91,7 @@ label[for="input-form-water-management_no-water-management"],
 label[for="input-form-livestock-management_no-livestock-management"],
 label[for="input-form-soil-management_no-soil-management"] {
   padding: 0 !important;
-  font-family: FontAwesome, sans-serif;
+  font-family: "Font Awesome 5 Free", sans-serif;
 
   &:before {
     display: none;
@@ -112,6 +117,7 @@ label[for="input-form-soil-management_no-soil-management"] {
 }
 
 .big-toggle-field__label,
+.big-checkbox-field__label,
 .big-radio-field__label {
   margin-top: 0 !important;
   border: none !important;
@@ -138,6 +144,7 @@ input[type="number"],
 }
 
 .big-toggle-field__label--hoverable:hover:before,
+.big-checkbox-field__label--hoverable:hover:before,
 .big-radio-field__label--hoverable:hover:before {
   text-indent: 0.5em !important;
   color: #999999 !important;
@@ -149,6 +156,7 @@ input[type="number"],
 }
 
 .big-toggle-field__label:before,
+.big-checkbox-field__label:before,
 .big-radio-field__label:before {
   max-height: 2em !important;
   top: 50% !important;
@@ -183,6 +191,7 @@ input[type="number"],
 }
 
 .big-toggle-field__label--toggled:before,
+.big-checkbox-field__label--toggled:before,
 .big-radio-field__label--toggled:before {
   background-color: #999999 !important;
 }

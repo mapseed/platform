@@ -44,7 +44,7 @@ const ContentPanelOuterContainer = styled("section")(props => ({
     props.layout === "desktop"
       ? "-4px 0 3px rgba(0,0,0,0.1)"
       : "0 -4px 3px rgba(0,0,0,0.1)",
-  zIndex: 9,
+  zIndex: 15,
 }));
 
 const ContentPanelInnerContainer = styled("div")(props => ({

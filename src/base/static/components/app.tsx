@@ -1,20 +1,16 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx } from "@emotion/core";
-import { Component, createRef, lazy, Suspense } from "react";
 import {
   Route,
   RouteComponentProps,
   Switch,
   withRouter,
 } from "react-router-dom";
-import { Dispatch, Store } from "redux";
-import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import browserUpdate from "browser-update";
 import styled from "@emotion/styled";
-import { Provider } from "react-redux";
 import Spinner from "react-spinner";
 import { Mixpanel } from "../utils/mixpanel";
 import i18next from "i18next";
@@ -29,14 +25,14 @@ import {
   updateUIVisibility,
 } from "../state/ducks/ui";
 import ShaTemplate from "./templates/sha";
-const DashboardTemplate = lazy(() => import("./templates/dashboard"));
-const ListTemplate = lazy(() => import("./templates/place-list"));
-const MapTemplate = lazy(() => import("./templates/map"));
-const ReportTemplate = lazy(() => import("./templates/report"));
+const DashboardTemplate = React.lazy(() => import("./templates/dashboard"));
+const ListTemplate = React.lazy(() => import("./templates/place-list"));
+const MapTemplate = React.lazy(() => import("./templates/map"));
+const ReportTemplate = React.lazy(() => import("./templates/report"));
 
 // @ts-ignore
 import config from "config";
-
+import { createFeaturesInGeoJSONSource } from "../state/ducks/map";
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
 import {
@@ -69,9 +65,6 @@ import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
 
-import ThemeProvider from "./theme-provider";
-import JSSProvider from "./jss-provider";
-
 import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
 import {
@@ -79,10 +72,6 @@ import {
   featuredPlacesConfigPropType,
   featuredPlacesConfigSelector,
 } from "../state/ducks/featured-places-config";
-import {
-  createFeaturesInGeoJSONSource,
-  updateMapContainerDimensions,
-} from "../state/ducks/map";
 import { recordGoogleAnalyticsHit } from "../utils/analytics";
 import isValidNonConfigurableI18nKey from "../utils/i18n-utils";
 
@@ -104,7 +93,6 @@ const TemplateContainer = styled("div")<{
   layout: string;
   currentTemplate: string;
 }>(props => ({
-  position: "relative",
   overflow:
     // The report template is a special case, and needs `overflow: visible`
     // for PDFs longer than one page to render.
@@ -143,7 +131,6 @@ const dispatchPropTypes = {
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   loadDatasets: PropTypes.func.isRequired,
   loadPlaces: PropTypes.func.isRequired,
-  updateMapContainerDimensions: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   loadDatasetsConfig: PropTypes.func.isRequired,
@@ -168,14 +155,8 @@ type StateProps = PropTypes.InferProps<typeof statePropTypes>;
 
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 
-// These are Props passed down from parent:
-interface OwnProps {
-  store: Store;
-}
-
 type Props = StateProps &
   DispatchProps &
-  OwnProps &
   // {} means empty interface, because we are using default ReactRouter props.
   RouteComponentProps<{}>;
 
@@ -188,18 +169,16 @@ interface Language {
   code: string;
   label: string;
 }
-interface AvailableLanguages extends Array<Language> {}
 interface State {
   currentLanguageCode: string;
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
   initialMapViewport: InitialMapViewport;
   defaultLanguage: Language;
-  availableLanguages?: AvailableLanguages;
+  availableLanguages?: Language[];
 }
 
-class App extends Component<Props, State> {
-  private templateContainerRef: React.RefObject<HTMLInputElement> = createRef();
+class App extends React.Component<Props, State> {
   private unlisten?: any;
 
   state: State = {
@@ -351,6 +330,7 @@ class App extends Component<Props, State> {
           format: "text",
         });
 
+        // eslint-disable-next-line require-atomic-updates
         isFetchingTranslation[key] = false;
 
         if (response) {
@@ -392,19 +372,6 @@ class App extends Component<Props, State> {
         );
       }
     });
-
-    if (this.templateContainerRef.current) {
-      const node = findDOMNode(this.templateContainerRef!.current);
-
-      if (node instanceof Element) {
-        const templateDims = node.getBoundingClientRect();
-
-        this.props.updateMapContainerDimensions({
-          width: templateDims.width,
-          height: templateDims.height,
-        });
-      }
-    }
 
     this.unlisten = this.props.history.listen(location => {
       recordGoogleAnalyticsHit(location.pathname);
@@ -502,212 +469,198 @@ class App extends Component<Props, State> {
       onChangeLanguage: this.onChangeLanguage,
     };
 
+    if (!this.state.isInitialDataLoaded) {
+      return <Spinner />;
+    }
     return (
-      <Provider store={this.props.store}>
-        {!this.state.isInitialDataLoaded ? (
-          <Spinner />
-        ) : (
-          <JSSProvider>
-            <ThemeProvider>
-              <TemplateContainer
-                ref={this.templateContainerRef}
-                layout={this.props.layout}
-                currentTemplate={this.props.currentTemplate}
-              >
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    render={props => {
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <SiteHeader {...headerProps} />
-                          <MapTemplate
-                            uiConfiguration="map"
-                            {...sharedMapTemplateProps}
-                            {...props.match}
-                          />
-                        </Suspense>
-                      );
-                    }}
+      <TemplateContainer
+        layout={this.props.layout}
+        currentTemplate={this.props.currentTemplate}
+      >
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => {
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <SiteHeader {...headerProps} />
+                  <MapTemplate
+                    uiConfiguration="map"
+                    {...sharedMapTemplateProps}
+                    {...props.match}
                   />
-                  <Route
-                    exact
-                    path="/:zoom(\d*\.\d+)/:lat(-?\d*\.\d+)/:lng(-?\d*\.\d+)"
-                    render={props => {
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <SiteHeader {...headerProps} />
-                          <MapTemplate
-                            uiConfiguration="map"
-                            {...sharedMapTemplateProps}
-                            {...props.match}
-                          />
-                        </Suspense>
-                      );
-                    }}
+                </React.Suspense>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/:zoom(\d*\.\d+)/:lat(-?\d*\.\d+)/:lng(-?\d*\.\d+)"
+            render={props => {
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <SiteHeader {...headerProps} />
+                  <MapTemplate
+                    uiConfiguration="map"
+                    {...sharedMapTemplateProps}
+                    {...props.match}
                   />
-                  <Route exact path="/sha" component={ShaTemplate} />
-                  <Route
-                    exact
-                    path="/list"
-                    render={() => (
-                      <Suspense fallback={<Fallback />}>
-                        <SiteHeader {...headerProps} />
-                        <ListTemplate />
-                      </Suspense>
-                    )}
+                </React.Suspense>
+              );
+            }}
+          />
+          <Route exact path="/sha" component={ShaTemplate} />
+          <Route
+            exact
+            path="/list"
+            render={() => (
+              <React.Suspense fallback={<Fallback />}>
+                <SiteHeader {...headerProps} />
+                <ListTemplate />
+              </React.Suspense>
+            )}
+          />
+          <Route
+            exact
+            path="/new"
+            render={props => {
+              if (
+                this.props.hasAnonAbilitiesInAnyDataset("places", ["create"]) ||
+                this.props.hasGroupAbilitiesInDatasets({
+                  submissionSet: "places",
+                  abilities: ["create"],
+                  datasetSlugs: this.props.datasetSlugs,
+                })
+              ) {
+                return (
+                  <React.Suspense fallback={<Fallback />}>
+                    <SiteHeader {...headerProps} />
+                    <MapTemplate
+                      uiConfiguration="newPlace"
+                      {...sharedMapTemplateProps}
+                      {...props.match}
+                    />
+                  </React.Suspense>
+                );
+              } else {
+                this.props.history.push("/");
+                return;
+              }
+            }}
+          />
+          <Route
+            exact
+            path="/dashboard"
+            render={() => {
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <SiteHeader {...headerProps} />
+                  <DashboardTemplate
+                    datasetDownloadConfig={
+                      this.props.appConfig.dataset_download
+                    }
+                    apiRoot={this.props.appConfig.api_root}
                   />
-                  <Route
-                    exact
-                    path="/new"
-                    render={props => {
-                      if (
-                        this.props.hasAnonAbilitiesInAnyDataset(
-                          "places",
-                          ["create"],
-                        ) ||
-                        this.props.hasGroupAbilitiesInDatasets({
-                          submissionSet: "places",
-                          abilities: ["create"],
-                          datasetSlugs: this.props.datasetSlugs,
-                        })
-                      ) {
-                        return (
-                          <Suspense fallback={<Fallback />}>
-                            <SiteHeader {...headerProps} />
-                            <MapTemplate
-                              uiConfiguration="newPlace"
-                              {...sharedMapTemplateProps}
-                              {...props.match}
-                            />
-                          </Suspense>
-                        );
-                      } else {
-                        this.props.history.push("/");
-                        return;
-                      }
-                    }}
-                  />
-                  <Route
-                    exact
-                    path="/dashboard"
-                    render={() => {
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <SiteHeader {...headerProps} />
-                          <DashboardTemplate
-                            datasetDownloadConfig={
-                              this.props.appConfig.dataset_download
-                            }
-                            apiRoot={this.props.appConfig.api_root}
-                          />
-                        </Suspense>
-                      );
-                    }}
-                  />
-                  <Route
-                    exact
-                    path="/print-report/:datasetClientSlug/:placeId"
-                    render={props => {
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <ReportTemplate {...props.match} />
-                        </Suspense>
-                      );
-                    }}
-                  />
-                  <Route
-                    exact
-                    path="/page/:pageSlug"
-                    render={props => {
-                      if (!this.props.pageExists(props.match.params.pageSlug)) {
-                        return (
-                          <Suspense fallback={<Fallback />}>
-                            <SiteHeader {...headerProps} />
-                            <MapTemplate
-                              uiConfiguration="mapWithInvalidRoute"
-                              {...sharedMapTemplateProps}
-                              {...props.match}
-                            />
-                          </Suspense>
-                        );
-                      }
+                </React.Suspense>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/print-report/:datasetClientSlug/:placeId"
+            render={props => {
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <ReportTemplate {...props.match} />
+                </React.Suspense>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/page/:pageSlug"
+            render={props => {
+              if (!this.props.pageExists(props.match.params.pageSlug)) {
+                return (
+                  <React.Suspense fallback={<Fallback />}>
+                    <SiteHeader {...headerProps} />
+                    <MapTemplate
+                      uiConfiguration="mapWithInvalidRoute"
+                      {...sharedMapTemplateProps}
+                      {...props.match}
+                    />
+                  </React.Suspense>
+                );
+              }
 
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <SiteHeader {...headerProps} />
-                          <MapTemplate
-                            uiConfiguration="customPage"
-                            {...sharedMapTemplateProps}
-                            {...props.match}
-                          />
-                        </Suspense>
-                      );
-                    }}
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <SiteHeader {...headerProps} />
+                  <MapTemplate
+                    uiConfiguration="customPage"
+                    {...sharedMapTemplateProps}
+                    {...props.match}
                   />
-                  <Route
-                    exact
-                    path="/:datasetClientSlug/:placeId"
-                    render={props => {
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <SiteHeader {...headerProps} />
-                          <MapTemplate
-                            uiConfiguration="placeDetail"
-                            {...sharedMapTemplateProps}
-                            {...props.match}
-                          />
-                        </Suspense>
-                      );
-                    }}
+                </React.Suspense>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/:datasetClientSlug/:placeId"
+            render={props => {
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <SiteHeader {...headerProps} />
+                  <MapTemplate
+                    uiConfiguration="placeDetail"
+                    {...sharedMapTemplateProps}
+                    {...props.match}
                   />
-                  <Route
-                    exact
-                    path="/:datasetClientSlug/:placeId/response/:responseId"
-                    render={props => {
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <SiteHeader {...headerProps} />
-                          <MapTemplate
-                            uiConfiguration="placeDetail"
-                            {...sharedMapTemplateProps}
-                            {...props.match}
-                          />
-                        </Suspense>
-                      );
-                    }}
+                </React.Suspense>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/:datasetClientSlug/:placeId/response/:responseId"
+            render={props => {
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <SiteHeader {...headerProps} />
+                  <MapTemplate
+                    uiConfiguration="placeDetail"
+                    {...sharedMapTemplateProps}
+                    {...props.match}
                   />
-                  <Route
-                    render={props => {
-                      return (
-                        <Suspense fallback={<Fallback />}>
-                          <SiteHeader {...headerProps} />
-                          <MapTemplate
-                            uiConfiguration="mapWithInvalidRoute"
-                            {...sharedMapTemplateProps}
-                            {...props.match}
-                          />
-                        </Suspense>
-                      );
-                    }}
+                </React.Suspense>
+              );
+            }}
+          />
+          <Route
+            render={props => {
+              return (
+                <React.Suspense fallback={<Fallback />}>
+                  <SiteHeader {...headerProps} />
+                  <MapTemplate
+                    uiConfiguration="mapWithInvalidRoute"
+                    {...sharedMapTemplateProps}
+                    {...props.match}
                   />
-                </Switch>
-              </TemplateContainer>
-            </ThemeProvider>
-          </JSSProvider>
-        )}
-      </Provider>
+                </React.Suspense>
+              );
+            }}
+          />
+        </Switch>
+      </TemplateContainer>
     );
   }
 }
 
 type MapseedReduxState = any;
 
-const mapStateToProps = (
-  state: MapseedReduxState,
-  ownProps: OwnProps,
-): StateProps => ({
+const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
   defaultMapViewport: defaultMapViewportSelector(state),
@@ -725,7 +678,6 @@ const mapStateToProps = (
   layout: layoutSelector(state),
   pageExists: slug => pageExistsSelector({ state, slug }),
   featuredPlacesConfig: featuredPlacesConfigSelector(state),
-  ...ownProps,
 });
 
 const mapDispatchToProps = {
@@ -734,7 +686,6 @@ const mapDispatchToProps = {
   loadPlaces,
   updateLayout,
   updatePlacesLoadStatus,
-  updateMapContainerDimensions,
   updateUIVisibility,
   loadDatasetsConfig,
   loadDashboardConfig,
@@ -754,7 +705,7 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-  connect<StateProps, DispatchProps, OwnProps>(
+  connect<StateProps, DispatchProps>(
     mapStateToProps,
     mapDispatchToProps,
   )(App),

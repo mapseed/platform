@@ -95,12 +95,15 @@ class PlaceList extends React.Component {
 
   _sortAndFilterPlaces = (places, sortBy, query) => {
     // only render place surveys that are flagged with 'includeOnList':
-    const includedPlaces = places.filter(
-      place =>
-        this.props.placeConfig.place_detail.find(
-          survey => survey.category === place.location_type,
-        ).includeOnList,
-    );
+    const includedPlaces = places.filter(place => {
+      const placeDetailConfig = this.props.placeConfig.place_detail.find(
+        survey => survey.category === place.location_type,
+      );
+
+      return typeof placeDetailConfig === "undefined"
+        ? false
+        : placeDetailConfig.includeOnList;
+    });
     const filteredPlaces = query
       ? includedPlaces.filter(place => {
           return Object.values(place).some(field => {

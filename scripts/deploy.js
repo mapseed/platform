@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({ path: "src/.env" });
 const glob = require("glob");
 const path = require("path");
+const AWS = require("aws-sdk");
 
 if (!process.env.DEPLOY_DOMAIN) {
   throw "Set the DEPLOY_DOMAIN environment variable to the S3 bucket you want to deploy Mapseed to.";
@@ -29,7 +31,6 @@ const config = {
   gzippedFiles: gzippedFiles,
 };
 
-const AWS = require("aws-sdk");
 const s3 = new AWS.S3({ region: config.region });
 const cloudfront = new AWS.CloudFront();
 

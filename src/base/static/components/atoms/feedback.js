@@ -22,24 +22,6 @@ ProgressBar.propTypes = {
   total: PropTypes.number.isRequired,
 };
 
-const InfoModalTrigger = props => {
-  return (
-    <button
-      type="button"
-      className={classNames("mapseed__info-modal-trigger", props.classes)}
-      onClick={() => emitter.emit("info-modal:open", props.modalContent)}
-    />
-  );
-};
-
-InfoModalTrigger.propTypes = {
-  classes: PropTypes.string,
-  modalContent: PropTypes.shape({
-    header: PropTypes.string,
-    body: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
-};
-
 // The source image for an Icon component can be either the name of a
 // FontAwesome icon or the url of an image asset. We assume that if the icon
 // reference ends with an image filetype, the identifier is an image url.
@@ -72,4 +54,4 @@ LegacyIcon.defaultProps = {
   icon: "__no-icon__",
 };
 
-export { ProgressBar, InfoModalTrigger, LegacyIcon };
+export { ProgressBar, LegacyIcon };

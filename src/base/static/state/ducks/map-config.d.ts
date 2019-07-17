@@ -23,8 +23,23 @@ export type FilterSliderConfig = {
   comparator: string;
 };
 
+export type RadioMenuOption = {
+  aggregator?: string;
+  label: string;
+  id: string;
+};
+
+export type RadioMenuConfig = {
+  label: string;
+  layerGroupId: string;
+  layerId: string;
+  options: RadioMenuOption[];
+  defaultSelectedOption: string;
+};
+
 export type MapWidgetsConfig = {
   filterSlider?: FilterSliderConfig;
+  radioMenu?: RadioMenuConfig;
 };
 
 export type OfflineConfig = {
@@ -64,3 +79,4 @@ export const geocodeAddressBarEnabledSelector: any;
 export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;
 export const mapWidgetsSelector: any;
+export const measurementToolEnabledSelector: any;

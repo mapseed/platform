@@ -28,6 +28,8 @@ export const geocodeAddressBarEnabledSelector = state =>
 export const mapWidgetsSelector = state => {
   return state.mapConfig.mapWidgets;
 };
+export const measurementToolEnabledSelector = state =>
+  state.mapConfig.measurementToolEnabled;
 
 // Actions:
 const LOAD = "map-config/LOAD";
@@ -38,6 +40,7 @@ export function loadMapConfig(config) {
 }
 
 export const mapConfigPropType = PropTypes.shape({
+  measurementToolEnabled: PropTypes.bool,
   geolocationEnabled: PropTypes.bool,
   geocodingBarEnabled: PropTypes.bool,
   geocodingEngine: PropTypes.string,
@@ -52,6 +55,7 @@ export const mapConfigPropType = PropTypes.shape({
 
 // Reducers:
 const INITIAL_STATE = {
+  measurementToolEnabled: false,
   geocodingBarEnabled: false,
   scrollZoomAroundCenter: false,
   defaultMapViewport: {

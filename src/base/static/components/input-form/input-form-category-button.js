@@ -5,8 +5,8 @@ import classNames from "classnames";
 import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
-import { lighten } from "@material-ui/core/styles/colorManipulator";
 import { translate } from "react-i18next";
+import { getReadableColor } from "../../utils/color";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { placeConfigSelector } from "../../state/ducks/place-config";
@@ -68,7 +68,7 @@ const InputFormCategoryButton = props => {
             border-top-left-radius: 6px;
             border-bottom-left-radius: 6px;
             background-color: ${props.isSelected
-              ? lighten(props.theme.brand.primary, 0.9)
+              ? getReadableColor(props.theme.brand.primary)
               : "unset"};
           `}
         >

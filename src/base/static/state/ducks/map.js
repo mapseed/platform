@@ -1,3 +1,4 @@
+import produce from "immer";
 import { createSelector } from "reselect";
 
 import PropTypes from "prop-types";
@@ -36,23 +37,22 @@ export const mapSourcesPropType = PropTypes.objectOf(
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   }),
 );
+const MapboxLayerPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  source: PropTypes.string,
+  "source-layer": PropTypes.string,
+  paint: PropTypes.object,
+  layout: PropTypes.shape({
+    visibility: PropTypes.string.isRequired,
+  }),
+});
 
 export const mapStylePropType = PropTypes.shape({
   version: PropTypes.number,
   name: PropTypes.string,
   sources: mapSourcesPropType,
-  layers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      source: PropTypes.string,
-      "source-layer": PropTypes.string,
-      paint: PropTypes.object,
-      layout: PropTypes.shape({
-        visibility: PropTypes.string.isRequired,
-      }),
-    }),
-  ),
+  layers: PropTypes.arrayOf(MapboxLayerPropType).isRequired,
 });
 
 export const layerGroupsPropType = PropTypes.shape({
@@ -84,17 +84,37 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 ////////////////////////////////////////////////////////////////////////////////
 
 const getStyle = state => state.map.style;
-const getLayers = state => state.map.layers;
+export const layersSelector = state => state.map.layers;
 export const layerGroupsSelector = state => state.map.layerGroups;
+
+const getPaintFromAggregators = (aggregators, layerPaint) => {
+  // since 'splice', used below, is mutable, we copy the array here:
+  const fillColor = [...layerPaint["fill-color"]];
+  fillColor.splice(2, 1, [
+    "+",
+    ...aggregators.map(aggregator => ["get", aggregator]),
+  ]);
+  return {
+    ...layerPaint,
+    "fill-color": fillColor,
+  };
+};
+
 export const mapStyleSelector = createSelector(
-  [getStyle, getLayers, layerGroupsSelector],
+  [getStyle, layersSelector, layerGroupsSelector],
   (style, layers, layerGroups) => {
     return {
       ...style,
+      // Convert our internal layer representation into the Mapbox layer spec:
       layers: layers.map(layer => {
-        const { groupId, ...mapboxLayer } = layer;
+        const { groupId, aggregators, ...mapboxLayer } = layer;
         return {
           ...mapboxLayer,
+          ...(mapboxLayer.paint && {
+            paint: aggregators
+              ? getPaintFromAggregators(aggregators, mapboxLayer.paint)
+              : mapboxLayer.paint,
+          }),
           layout: {
             ...mapboxLayer.layout,
             visibility: layerGroups.byId[groupId].isVisible
@@ -141,6 +161,7 @@ const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
 const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
 const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
 const UPDATE_LAYERS = "map/UPDATE_LAYERS";
+const UPDATE_LAYER_AGGREGATORS = "map/UPDATE_LAYER_AGGREGATORS";
 const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
 const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
 
@@ -165,6 +186,13 @@ export function updateLayers(newLayer) {
   return {
     type: UPDATE_LAYERS,
     payload: newLayer,
+  };
+}
+
+export function updateLayerAggregators(layerId, aggregators) {
+  return {
+    type: UPDATE_LAYER_AGGREGATORS,
+    payload: { layerId, aggregators },
   };
 }
 
@@ -395,224 +423,149 @@ const INITIAL_STATE = {
   interactiveLayerIds: [],
 };
 
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case UPDATE_FEATURE_IN_GEOJSON_SOURCE:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-          sources: {
-            ...state.style.sources,
-            [action.payload.sourceId]: {
-              ...state.style.sources[action.payload.sourceId],
-              data: {
-                ...state.style.sources[action.payload.sourceId].data,
-                features: state.style.sources[
-                  action.payload.sourceId
-                ].data.features.map(feature => {
-                  return action.payload.featureId === feature.properties.id
-                    ? action.payload.feature
-                    : feature;
-                }),
-              },
-            },
+export default (state = INITIAL_STATE, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case UPDATE_FEATURE_IN_GEOJSON_SOURCE:
+        draft.style.sources[
+          action.payload.sourceId
+        ].data.features = draft.style.sources[
+          action.payload.sourceId
+        ].data.features.map(feature => {
+          return action.payload.featureId === feature.properties.id
+            ? action.payload.feature
+            : feature;
+        });
+        return;
+      case UPDATE_FEATURES_IN_GEOJSON_SOURCE:
+        draft.style.sources[action.payload.sourceId].data.features =
+          action.payload.newFeatures;
+        return;
+      case CREATE_FEATURES_IN_GEOJSON_SOURCE:
+        draft.style.sources[action.payload.sourceId].data.features.push(
+          ...action.payload.newFeatures,
+        );
+        return;
+      case REMOVE_FEATURE_IN_GEOJSON_SOURCE:
+        draft.style.sources[
+          action.payload.sourceId
+        ].data.features = draft.style.sources[
+          action.payload.sourceId
+        ].data.features.filter(
+          feature => feature.properties.id !== action.payload.featureId,
+        );
+        return;
+      case REMOVE_FOCUSED_GEOJSON_FEATURES:
+        draft.style.sources["__mapseed-focused-source__"] = {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [],
           },
-        },
-      };
-    case UPDATE_FEATURES_IN_GEOJSON_SOURCE:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-          sources: {
-            ...state.style.sources,
-            [action.payload.sourceId]: {
-              ...state.style.sources[action.payload.sourceId],
-              data: {
-                ...state.style.sources[action.payload.sourceId].data,
-                features: action.payload.newFeatures,
-              },
-            },
+        };
+        return;
+      case UPDATE_FOCUSED_GEOJSON_FEATURES:
+        draft.style.sources["__mapseed-focused-source__"] = {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: action.payload,
           },
-        },
-      };
-    case CREATE_FEATURES_IN_GEOJSON_SOURCE:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-          sources: {
-            ...state.style.sources,
-            [action.payload.sourceId]: {
-              ...state.style.sources[action.payload.sourceId],
-              data: {
-                ...state.style.sources[action.payload.sourceId].data,
-                features: state.style.sources[
-                  action.payload.sourceId
-                ].data.features.concat(action.payload.newFeatures),
-              },
-            },
-          },
-        },
-      };
-    case REMOVE_FEATURE_IN_GEOJSON_SOURCE:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-          sources: {
-            ...state.style.sources,
-            [action.payload.sourceId]: {
-              ...state.style.sources[action.payload.sourceId],
-              data: {
-                ...state.style.sources[action.payload.sourceId].data,
-                features: state.style.sources[
-                  action.payload.sourceId
-                ].data.features.filter(
-                  feature => feature.properties.id !== action.payload.featureId,
-                ),
-              },
-            },
-          },
-        },
-      };
-    case REMOVE_FOCUSED_GEOJSON_FEATURES:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-          sources: {
-            ...state.style.sources,
-            "__mapseed-focused-source__": {
-              type: "geojson",
-              data: {
-                type: "FeatureCollection",
-                features: [],
-              },
-            },
-          },
-        },
-      };
-    case UPDATE_FOCUSED_GEOJSON_FEATURES:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-          sources: {
-            ...state.style.sources,
-            "__mapseed-focused-source__": {
-              type: "geojson",
-              data: {
-                type: "FeatureCollection",
-                features: action.payload,
-              },
-            },
-          },
-        },
-      };
-    case UPDATE_LAYER_FILTERS:
-      return {
-        ...state,
-        style: {
-          ...state.style,
-        },
-        layers: state.layers.map(layer => {
+        };
+        return;
+      case UPDATE_LAYER_FILTERS:
+        draft.layers = draft.layers.map(layer => {
           if (action.payload.layerIds.includes(layer.id)) {
             return {
               ...layer,
               filter: action.payload.filter,
             };
+          } else {
+            return layer;
           }
+        });
+        return;
 
-          return layer;
-        }),
-      };
-    case LOAD_STYLE_AND_METADATA:
-      return {
-        ...state,
-        ...action.payload,
-        style: {
+      case LOAD_STYLE_AND_METADATA:
+        draft.style = {
           ...state.style,
           ...action.payload.style,
-        },
-        mapContainerDimensions: {
+        };
+        draft.mapContainerDimensions = {
           ...state.mapContainerDimensions,
           ...action.payload.mapContainerDimensions,
-        },
-      };
-    case RESET_UI:
-      return {
-        ...state,
-        layerGroups: {
-          ...state.layerGroups,
-          byId: Object.values(state.layerGroups.byId).reduce(
-            (memo, layer) => ({
-              ...memo,
-              [layer.id]: {
-                ...layer,
-                isVisible: layer.isVisibleDefault,
-              },
-            }),
-            {},
-          ),
-        },
-      };
-    case UPDATE_LAYER_GROUP_VISIBILITY:
-      // eslint-disable-next-line no-case-declarations
-      const layerGroupsById = Object.values(state.layerGroups.byId).reduce(
-        (memo, layerGroup) => {
-          let newVisibilityStatus;
-          if (
-            action.payload.isVisible &&
-            state.layerGroups.byId[action.payload.layerGroupId].isBasemap &&
-            layerGroup.isBasemap &&
-            layerGroup.id !== action.payload.layerGroupId
-          ) {
-            // If the layer group in the payload is a basemap, switch off
-            // other basemap layer groups.
-            newVisibilityStatus = false;
-          } else if (layerGroup.id === action.payload.layerGroupId) {
-            newVisibilityStatus = action.payload.isVisible;
-          }
+        };
+        draft.layers = action.payload.layers;
+        draft.layerGroups = action.payload.layerGroups;
+        draft.sourcesMetadata = action.payload.sourcesMetadata;
+        draft.basemapLayerIds = action.payload.basemapLayerIds;
+        draft.interactiveLayerIds = action.payload.interactiveLayerIds;
 
-          return {
+        return;
+      case RESET_UI:
+        draft.layerGroups.byId = Object.values(draft.layerGroups.byId).reduce(
+          (memo, layer) => ({
             ...memo,
-            [layerGroup.id]: {
-              ...layerGroup,
-              isVisible:
-                typeof newVisibilityStatus === "undefined"
-                  ? layerGroup.isVisible
-                  : newVisibilityStatus,
+            [layer.id]: {
+              ...layer,
+              isVisible: layer.isVisibleDefault,
             },
-          };
-        },
-        {},
-      );
-      return {
-        ...state,
-        layerGroups: {
-          byId: layerGroupsById,
-          allIds: Object.keys(layerGroupsById),
-        },
-        style: {
-          ...state.style,
-        },
-      };
-    case UPDATE_LAYERS:
-      return {
-        ...state,
-        layers: state.layers.concat(action.payload),
-      };
-    case UPDATE_MAP_CONTAINER_DIMENSIONS:
-      return {
-        ...state,
-        mapContainerDimensions: {
-          ...state.mapContainerDimensions,
+          }),
+          {},
+        );
+        return;
+      case UPDATE_LAYER_GROUP_VISIBILITY:
+        // eslint-disable-next-line no-case-declarations
+        const layerGroupsById = Object.values(draft.layerGroups.byId).reduce(
+          (memo, layerGroup) => {
+            let newVisibilityStatus;
+            if (
+              action.payload.isVisible &&
+              draft.layerGroups.byId[action.payload.layerGroupId].isBasemap &&
+              layerGroup.isBasemap &&
+              layerGroup.id !== action.payload.layerGroupId
+            ) {
+              // If the layer group in the payload is a basemap, switch off
+              // other basemap layer groups.
+              newVisibilityStatus = false;
+            } else if (layerGroup.id === action.payload.layerGroupId) {
+              newVisibilityStatus = action.payload.isVisible;
+            }
+
+            return {
+              ...memo,
+              [layerGroup.id]: {
+                ...layerGroup,
+                isVisible:
+                  typeof newVisibilityStatus === "undefined"
+                    ? layerGroup.isVisible
+                    : newVisibilityStatus,
+              },
+            };
+          },
+          {},
+        );
+        draft.layerGroups.byId = layerGroupsById;
+        draft.layerGroups.allIds = Object.keys(layerGroupsById);
+        return;
+      case UPDATE_LAYERS:
+        draft.layers.push(...action.payload);
+        return;
+      case UPDATE_LAYER_AGGREGATORS:
+        draft.layers = draft.layers.map(layer => {
+          return layer.id === action.payload.layerId
+            ? {
+                ...layer,
+                aggregators: action.payload.aggregators,
+              }
+            : layer;
+        });
+        return;
+      case UPDATE_MAP_CONTAINER_DIMENSIONS:
+        draft.mapContainerDimensions = {
+          ...draft.mapContainerDimensions,
           ...action.payload,
-        },
-      };
-    default:
-      return state;
-  }
-}
+        };
+        return;
+    }
+  });
