@@ -54,6 +54,7 @@ ite-ha
 [data-field-name="acres_farmed"],
 [data-field-name="years_farming"],
 [data-field-name="practices_description"],
+[data-field-name="stewardship_difficulties"],
 [data-field-name="private-landowner_name"],
 [data-field-name="private-landowner_phone"] {
   margin-top: 15px !important;
