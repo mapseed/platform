@@ -4,10 +4,14 @@ import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import MapFilterSlider from "../molecules/map-filter-slider";
+import MapRadioMenu from "../molecules/map-radio-menu";
 import {
   updateLayerFilters,
+  updateLayerAggregators,
   LayerGroups,
   layerGroupsSelector,
+  layersSelector,
+  Layer,
 } from "../../state/ducks/map";
 import {
   MapWidgetsConfig,
@@ -19,10 +23,12 @@ type ContainerStateProps = {
   layout: string;
   mapWidgets: MapWidgetsConfig;
   layerGroups: LayerGroups;
+  layers: Layer[];
 };
 
 type DispatchProps = {
   updateLayerFilters: Function;
+  updateLayerAggregators: typeof updateLayerAggregators;
 };
 
 type ContainerProps = ContainerStateProps & DispatchProps;
@@ -41,15 +47,25 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
         width: ${props.layout === "desktop" ? "400px" : "unset"};
       `}
     >
-      {props.mapWidgets.filterSlider && (
-        <MapFilterSlider
-          updateLayerFilters={props.updateLayerFilters}
-          filterSliderConfig={props.mapWidgets.filterSlider}
-          layerGroup={
-            props.layerGroups.byId[props.mapWidgets.filterSlider.layerGroupId]
-          }
-        />
-      )}
+      <React.Fragment>
+        {props.mapWidgets.filterSlider && (
+          <MapFilterSlider
+            updateLayerFilters={props.updateLayerFilters}
+            filterSliderConfig={props.mapWidgets.filterSlider}
+            layerGroup={
+              props.layerGroups.byId[props.mapWidgets.filterSlider.layerGroupId]
+            }
+          />
+        )}
+        {props.mapWidgets.radioMenu && (
+          <MapRadioMenu
+            radioMenuConfig={props.mapWidgets.radioMenu}
+            updateLayerAggregators={props.updateLayerAggregators}
+            layerGroups={props.layerGroups}
+            layers={props.layers}
+          />
+        )}
+      </React.Fragment>
     </div>
   );
 };
@@ -58,10 +74,12 @@ const mapStateToProps = state => ({
   layout: layoutSelector(state),
   mapWidgets: mapWidgetsSelector(state),
   layerGroups: layerGroupsSelector(state),
+  layers: layersSelector(state),
 });
 
 const mapDispatchToProps = {
   updateLayerFilters,
+  updateLayerAggregators,
 };
 
 export default connect(

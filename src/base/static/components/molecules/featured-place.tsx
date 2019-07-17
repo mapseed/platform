@@ -15,7 +15,6 @@ const FeaturedPlace: React.FunctionComponent<Props> = props => {
   return (
     <InternalLink
       href={"/" + props.placeUrl}
-      isSelected={props.isSelected}
       css={theme => ({
         display: "flex",
         flexDirection: "row",
