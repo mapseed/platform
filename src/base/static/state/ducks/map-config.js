@@ -17,9 +17,6 @@ export const offlineConfigPropType = PropTypes.shape({
 export const mapConfigSelector = state => {
   return state.mapConfig;
 };
-export const defaultMapViewportSelector = state => {
-  return state.mapConfig.defaultMapViewport;
-};
 export const offlineConfigSelector = state => {
   return state.mapConfig.offlineBoundingBox;
 };

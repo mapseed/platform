@@ -46,8 +46,8 @@ import { loadDashboardConfig } from "../state/ducks/dashboard-config";
 import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
 import {
   loadMapConfig,
-  defaultMapViewportSelector,
-  InitialMapViewport,
+  // defaultMapViewportSelector,
+  // InitialMapViewport,
 } from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
@@ -60,7 +60,9 @@ import {
   pageExistsSelector,
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
-import { loadMapStyle, mapViewportPropType } from "../state/ducks/map";
+// import { loadMapStyle, mapViewportPropType } from "../state/ducks/map";
+import { loadMapStyle } from "../state/ducks/map";
+import { loadMapViewport } from "../state/ducks/map-viewport";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
@@ -116,7 +118,7 @@ const Fallback = () => {
 const statePropTypes = {
   appConfig: appConfigPropType,
   currentTemplate: PropTypes.string.isRequired,
-  defaultMapViewport: mapViewportPropType,
+  // defaultMapViewport: mapViewportPropType,
   datasetsConfig: datasetsConfigPropType,
   datasetSlugs: PropTypes.array.isRequired,
   hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
@@ -134,12 +136,13 @@ const dispatchPropTypes = {
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   loadDatasetsConfig: PropTypes.func.isRequired,
-  loadMapConfig: PropTypes.func.isRequired,
+  loadMapConfig: typeof loadMapConfig,
   loadPlaceConfig: PropTypes.func.isRequired,
   loadLeftSidebarConfig: PropTypes.func.isRequired,
   loadRightSidebarConfig: PropTypes.func.isRequired,
   loadFeaturedPlacesConfig: PropTypes.func.isRequired,
   loadAppConfig: PropTypes.func.isRequired,
+  loadMapViewport: typeof loadMapViewport,
   loadFormsConfig: PropTypes.func.isRequired,
   loadSupportConfig: PropTypes.func.isRequired,
   loadPagesConfig: PropTypes.func.isRequired,
@@ -173,7 +176,7 @@ interface State {
   currentLanguageCode: string;
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
-  initialMapViewport: InitialMapViewport;
+  // initialMapViewport: InitialMapViewport;
   defaultLanguage: Language;
   availableLanguages?: Language[];
 }
@@ -189,7 +192,7 @@ class App extends React.Component<Props, State> {
     // map template from another template. This allows us to "save" a viewport
     // when routing away from the map template, and restore it when routing back
     // to the map template.
-    initialMapViewport: this.props.defaultMapViewport,
+    // initialMapViewport: this.props.defaultMapViewport,
     defaultLanguage: {
       code: "en",
       label: "English",
@@ -263,7 +266,10 @@ class App extends React.Component<Props, State> {
     // Load all other ducks.
     this.props.loadAppConfig(resolvedConfig.app);
     this.props.loadDatasetsConfig(resolvedConfig.datasets);
+    // const { mapViewport, ...mapConfig } = resolvedConfig.map;
+    const mapViewport = resolvedConfig.map.mapViewport;
     this.props.loadMapConfig(resolvedConfig.map);
+    this.props.loadMapViewport(mapViewport);
     this.props.loadPlaceConfig(resolvedConfig.place, user);
     this.props.loadLeftSidebarConfig(resolvedConfig.leftSidebar);
     this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
@@ -347,7 +353,7 @@ class App extends React.Component<Props, State> {
       currentLanguageCode: i18next.language,
       defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
-      initialMapViewport: this.props.defaultMapViewport,
+      // initialMapViewport: this.props.defaultMapViewport,
     });
 
     window.addEventListener("resize", this.props.updateLayout);
@@ -435,11 +441,11 @@ class App extends React.Component<Props, State> {
     });
   };
 
-  onUpdateInitialMapViewport = initialMapViewport => {
-    this.setState({
-      initialMapViewport,
-    });
-  };
+  // onUpdateInitialMapViewport = initialMapViewport => {
+  //   this.setState({
+  //     initialMapViewport,
+  //   });
+  // };
 
   onChangeLanguage = newLanguageCode => {
     i18next.changeLanguage(newLanguageCode);
@@ -455,8 +461,8 @@ class App extends React.Component<Props, State> {
 
   render() {
     const sharedMapTemplateProps = {
-      initialMapViewport: this.state.initialMapViewport,
-      onUpdateInitialMapViewport: this.onUpdateInitialMapViewport,
+      // initialMapViewport: this.state.initialMapViewport,
+      // onUpdateInitialMapViewport: this.onUpdateInitialMapViewport,
       isStartPageViewed: this.state.isStartPageViewed,
       onViewStartPage: this.onViewStartPage,
       currentLanguageCode: this.state.currentLanguageCode,
@@ -663,7 +669,7 @@ type MapseedReduxState = any;
 const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
-  defaultMapViewport: defaultMapViewportSelector(state),
+  // defaultMapViewport: defaultMapViewportSelector(state),
   datasetSlugs: datasetSlugsSelector(state),
   datasetsConfig: datasetsConfigSelector(state),
   hasAnonAbilitiesInAnyDataset: (submissionSet, abilities) =>
@@ -695,6 +701,7 @@ const mapDispatchToProps = {
   loadRightSidebarConfig,
   loadFeaturedPlacesConfig,
   loadAppConfig,
+  loadMapViewport,
   loadFormsConfig,
   loadSupportConfig,
   loadPagesConfig,

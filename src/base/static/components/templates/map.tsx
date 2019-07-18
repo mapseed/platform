@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { FlyToInterpolator } from "react-map-gl";
+// import { FlyToInterpolator } from "react-map-gl";
 import { translate } from "react-i18next";
 import i18next, { TranslationFunction } from "i18next";
 
@@ -50,8 +50,8 @@ import {
   geocodeAddressBarEnabledSelector,
   mapConfigSelector,
   mapConfigPropType,
-  MapViewport,
-  InitialMapViewport,
+  // MapViewport,
+  // InitialMapViewport,
   MapSourcesLoadStatus,
 } from "../../state/ducks/map-config";
 import {
@@ -120,8 +120,8 @@ interface OwnProps {
   uiConfiguration: string;
   isStartPageViewed?: boolean;
   onViewStartPage?: () => void;
-  initialMapViewport: InitialMapViewport;
-  onUpdateInitialMapViewport: (initialMapViewport: InitialMapViewport) => void;
+  // initialMapViewport: InitialMapViewport;
+  // onUpdateInitialMapViewport: (initialMapViewport: InitialMapViewport) => void;
   currentLanguageCode: string;
   defaultLanguageCode: string;
   params: {
@@ -138,7 +138,7 @@ interface State {
   addPlaceButtonHeight: number;
   mapContainerHeightDeclaration: string;
   mapContainerWidthDeclaration: string;
-  mapViewport: MapViewport;
+  // mapViewport: MapViewport;
   isMapDraggedOrZoomed: boolean;
   isSpotlightMaskVisible: boolean;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
@@ -174,10 +174,10 @@ class MapTemplate extends Component<Props, State> {
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
     addPlaceButtonHeight: 0,
-    mapViewport: {
-      ...this.props.initialMapViewport,
-      transitionInterpolator: new FlyToInterpolator(),
-    },
+    // mapViewport: {
+    //   ...this.props.initialMapViewport,
+    //   transitionInterpolator: new FlyToInterpolator(),
+    // },
     isMapDraggedOrZoomed: false,
     isSpotlightMaskVisible: false,
     // Sources load status terminology:
@@ -203,14 +203,14 @@ class MapTemplate extends Component<Props, State> {
     this.props.updateCurrentTemplate("map");
 
     const { zoom, lat, lng } = this.props.params;
-    zoom &&
-      lat &&
-      lng &&
-      this.onUpdateMapViewport({
-        zoom: parseFloat(zoom),
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
-      });
+    // zoom &&
+    //   lat &&
+    //   lng &&
+    //   this.onUpdateMapViewport({
+    //     zoom: parseFloat(zoom),
+    //     lat: parseFloat(lat),
+    //     lng: parseFloat(lng),
+    //   });
 
     const startPageConfig = this.props.navBarConfig.find(
       navItem => navItem.start_page,
@@ -346,39 +346,39 @@ class MapTemplate extends Component<Props, State> {
     }));
   };
 
-  onUpdateMapViewport = (newMapViewport, scrollZoomAroundCenter = false) => {
-    this.setState(state => ({
-      mapViewport: {
-        ...state.mapViewport,
-        ...newMapViewport,
-        // NOTE: This is a fix for an apparent bug in react-map-gl.
-        // See: https://github.com/uber/react-map-gl/issues/630
-        bearing: isNaN(newMapViewport.bearing)
-          ? state.mapViewport.bearing
-          : newMapViewport.bearing,
-        // These checks support a "scroll zoom around center" feature (in
-        // which a zoom of the map will not change the centerpoint) that is
-        // not exposed by react-map-gl. These checks are pretty convoluted,
-        // though, so it would be great if react-map-gl could just
-        // incorporate the scroll zoom around center option natively.
-        // See: https://github.com/uber/react-map-gl/issues/515
-        latitude:
-          scrollZoomAroundCenter &&
-          newMapViewport.zoom !== state.mapViewport.zoom
-            ? state.mapViewport.latitude
-            : newMapViewport.latitude
-              ? newMapViewport.latitude
-              : state.mapViewport.latitude,
-        longitude:
-          scrollZoomAroundCenter &&
-          newMapViewport.zoom !== state.mapViewport.zoom
-            ? state.mapViewport.longitude
-            : newMapViewport.longitude
-              ? newMapViewport.longitude
-              : state.mapViewport.longitude,
-      },
-    }));
-  };
+  // onUpdateMapViewport = (newMapViewport, scrollZoomAroundCenter = false) => {
+  //   this.setState(state => ({
+  //     mapViewport: {
+  //       ...state.mapViewport,
+  //       ...newMapViewport,
+  //       // NOTE: This is a fix for an apparent bug in react-map-gl.
+  //       // See: https://github.com/uber/react-map-gl/issues/630
+  //       bearing: isNaN(newMapViewport.bearing)
+  //         ? state.mapViewport.bearing
+  //         : newMapViewport.bearing,
+  //       // These checks support a "scroll zoom around center" feature (in
+  //       // which a zoom of the map will not change the centerpoint) that is
+  //       // not exposed by react-map-gl. These checks are pretty convoluted,
+  //       // though, so it would be great if react-map-gl could just
+  //       // incorporate the scroll zoom around center option natively.
+  //       // See: https://github.com/uber/react-map-gl/issues/515
+  //       latitude:
+  //         scrollZoomAroundCenter &&
+  //         newMapViewport.zoom !== state.mapViewport.zoom
+  //           ? state.mapViewport.latitude
+  //           : newMapViewport.latitude
+  //             ? newMapViewport.latitude
+  //             : state.mapViewport.latitude,
+  //       longitude:
+  //         scrollZoomAroundCenter &&
+  //         newMapViewport.zoom !== state.mapViewport.zoom
+  //           ? state.mapViewport.longitude
+  //           : newMapViewport.longitude
+  //             ? newMapViewport.longitude
+  //             : state.mapViewport.longitude,
+  //     },
+  //   }));
+  // };
 
   recalculateContainerSize() {
     const addPlaceButton = findDOMNode(
@@ -451,13 +451,18 @@ class MapTemplate extends Component<Props, State> {
   }
 
   render() {
+    // onUpdateMapViewport={this.onUpdateMapViewport}
+
+    // mapViewport={this.state.mapViewport}
+    // onUpdateInitialMapViewport={this.props.onUpdateInitialMapViewport}
+    // onUpdateMapViewport={this.onUpdateMapViewport}
+
+    // mapViewport={this.state.mapViewport}
+    // onUpdateMapViewport={this.onUpdateMapViewport}
     return (
       <Fragment>
         {this.props.isGeocodeAddressBarEnabled && (
-          <GeocodeAddressBar
-            mapConfig={this.props.mapConfig}
-            onUpdateMapViewport={this.onUpdateMapViewport}
-          />
+          <GeocodeAddressBar mapConfig={this.props.mapConfig} />
         )}
         <div
           css={css`
@@ -483,9 +488,6 @@ class MapTemplate extends Component<Props, State> {
               this.state.mapContainerHeightDeclaration
             }
             mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
-            mapViewport={this.state.mapViewport}
-            onUpdateInitialMapViewport={this.props.onUpdateInitialMapViewport}
-            onUpdateMapViewport={this.onUpdateMapViewport}
             onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
             onUpdateSpotlightMaskVisibility={
               this.onUpdateSpotlightMaskVisibility
@@ -501,8 +503,6 @@ class MapTemplate extends Component<Props, State> {
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}
             mapContainerRef={this.mapContainerRef}
-            mapViewport={this.state.mapViewport}
-            onUpdateMapViewport={this.onUpdateMapViewport}
             updateMapDraggedOrZoomed={isMapDraggedOrZoomed =>
               this.setState({
                 isMapDraggedOrZoomed,

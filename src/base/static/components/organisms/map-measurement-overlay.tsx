@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import * as React from "react";
 import { css, jsx } from "@emotion/core";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
+// import PropTypes from "prop-types";
 import { featureCollection, point, lineString, polygon } from "@turf/helpers";
 import area from "@turf/area";
 import distance from "@turf/distance";
@@ -18,7 +19,16 @@ import {
   Polygon,
 } from "geojson";
 
-import { mapViewportPropType } from "../../state/ducks/map";
+import {
+  MapViewport,
+  mapViewportSelector,
+} from "../../state/ducks/map-viewport";
+import {
+  mapViewportPropType,
+  mapContainerDimensionsSelector,
+  MapContainerDimensions,
+} from "../../state/ducks/map";
+import { measurementToolVisibilitySelector } from "../../state/ducks/ui";
 import { RegularText } from "../atoms/typography";
 import {
   CreatePolygonIcon,
@@ -27,11 +37,11 @@ import {
   UndoIcon,
 } from "../atoms/icons";
 
-const mapMeasurementOverlayProps = {
-  viewport: mapViewportPropType.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-};
+// const mapMeasurementOverlayProps = {
+//   viewport: mapViewportPropType.isRequired,
+//   width: PropTypes.number.isRequired,
+//   height: PropTypes.number.isRequired,
+// };
 
 interface GeoTransformWrapper {
   stream: GeoStream;
@@ -41,16 +51,22 @@ interface ExposedCanvasOverlay extends CanvasOverlay {
   _canvas: HTMLCanvasElement;
 }
 
-type MapMeasurementOverlayProps = PropTypes.InferProps<
-  typeof mapMeasurementOverlayProps
->;
-
+// type MapMeasurementOverlayProps = PropTypes.InferProps<
+//   typeof mapMeasurementOverlayProps
+// >;
 type MeasurementToolIconProps = {
   isEnabled: boolean;
   isSelected?: boolean;
   children: any;
   onClick: any;
 };
+
+// type MapMeasurementOverlayProps = {
+//   width: number;
+//   height: number;
+// };
+
+// type Props  = MapMeasurementOverlayProps & StateProps;
 
 const MeasurementToolIcon = (props: MeasurementToolIconProps) => (
   <span
@@ -191,9 +207,13 @@ const formatMeasurement = measurement =>
     ? null
     : measurementFormatter.format(measurement.toFixed(1));
 
-const MapMeasurementOverlay: React.FunctionComponent<
-  MapMeasurementOverlayProps
-> = props => {
+type Props = {
+  mapViewport: MapViewport;
+  mapContainerDimensions: MapContainerDimensions;
+  isMeasurementToolVisible: boolean;
+};
+
+const MapMeasurementOverlay: React.FunctionComponent<Props> = props => {
   // NOTE: The structure of this featureCollection is such that all but the
   // last feature are Points representing clicked-on locations, and the final
   // feature is either a LineString or a Polygon built from those points. The
@@ -285,12 +305,16 @@ const MapMeasurementOverlay: React.FunctionComponent<
   React.useEffect(
     () => {
       webMercatorViewport.current = getNewViewport({
-        ...props.viewport,
-        width: props.width,
-        height: props.height,
+        ...props.mapViewport,
+        width: props.mapContainerDimensions.width,
+        height: props.mapContainerDimensions.height,
       });
     },
-    [props.viewport, props.width, props.height],
+    [
+      props.mapViewport,
+      props.mapContainerDimensions.width,
+      props.mapContainerDimensions.height,
+    ],
   );
 
   React.useEffect(
@@ -321,6 +345,9 @@ const MapMeasurementOverlay: React.FunctionComponent<
     [measurementFeatureCollection],
   );
 
+  if (!props.isMeasurementToolVisible) {
+    return null;
+  }
   return (
     <React.Fragment>
       <CanvasOverlay
@@ -436,4 +463,10 @@ const MapMeasurementOverlay: React.FunctionComponent<
   );
 };
 
-export default MapMeasurementOverlay;
+const mapStateToProps = (state: any): Props => ({
+  mapContainerDimensions: mapContainerDimensionsSelector(state),
+  mapViewport: mapViewportSelector(state),
+  isMeasurementToolVisible: measurementToolVisibilitySelector(state),
+});
+
+export default connect(mapStateToProps)(MapMeasurementOverlay);

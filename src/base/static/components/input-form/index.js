@@ -49,6 +49,10 @@ import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
+import {
+  mapViewportSelector,
+  updateMapViewport,
+} from "../../state/ducks/map-viewport";
 
 class InputForm extends Component {
   constructor(props) {
@@ -82,7 +86,8 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        this.props.onUpdateMapViewport(stageConfig.viewport);
+        // this.props.onUpdateMapViewport(stageConfig.viewport);
+        this.props.updateMapViewport(stageConfig.viewport);
     }
 
     this.selectedCategoryConfig.visibleLayerGroupIds &&
@@ -126,7 +131,8 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        this.props.onUpdateMapViewport(stageConfig.viewport);
+        // this.props.onUpdateMapViewport(stageConfig.viewport);
+        this.props.updateMapViewport(stageConfig.viewport);
     }
   }
 
@@ -578,7 +584,7 @@ class InputForm extends Component {
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
-                  onUpdateMapViewport={this.props.onUpdateMapViewport}
+                  onUpdateMapViewport={this.props.updateMapViewport}
                 />
               ))
               .toArray()}
@@ -663,7 +669,8 @@ InputForm.propTypes = {
   layout: PropTypes.string.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
-  onUpdateMapViewport: PropTypes.func.isRequired,
+  // onUpdateMapViewport: PropTypes.func.isRequired,
+  updateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
@@ -694,6 +701,7 @@ const mapStateToProps = state => ({
   layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   placeConfig: placeConfigSelector(state),
+  mapViewport: mapViewportSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -706,6 +714,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
+  updateMapViewport: (newViewport, scrollZoomAroundCenter) =>
+    dispatch(updateMapViewport(newViewport, scrollZoomAroundCenter)),
 });
 
 // Export undecorated component for testing purposes.

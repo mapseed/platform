@@ -7,6 +7,7 @@ import leftSidebarReducer from "./ducks/left-sidebar";
 
 import appConfigReducer from "./ducks/app-config";
 import mapConfigReducer from "./ducks/map-config";
+import mapViewportReducer from "./ducks/map-viewport";
 import placeConfigReducer from "./ducks/place-config";
 import featuredPlacesConfigReducer from "./ducks/featured-places-config";
 import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
@@ -28,6 +29,7 @@ const reducers = combineReducers({
   filters,
   appConfig: appConfigReducer,
   mapConfig: mapConfigReducer,
+  mapViewport: mapViewportReducer,
   placeConfig: placeConfigReducer,
   featuredPlacesConfig: featuredPlacesConfigReducer,
   rightSidebarConfig: rightSidebarConfigReducer,

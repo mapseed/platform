@@ -59,6 +59,7 @@ import {
   layerGroupsSelector,
   layerGroupsPropType,
 } from "../../state/ducks/map";
+import { updateMapViewport } from "../../state/ducks/map-viewport";
 import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -155,7 +156,8 @@ class PlaceDetail extends Component {
         newViewport.zoom = featuredPlace.zoom;
       }
 
-      this.props.onUpdateMapViewport(newViewport);
+      // this.props.onUpdateMapViewport(newViewport);
+      this.props.updateMapViewport(newViewport);
     } else if (
       this.props.focusedPlace.geometry.type === "LineString" ||
       this.props.focusedPlace.geometry.type === "Polygon"
@@ -167,7 +169,8 @@ class PlaceDetail extends Component {
         { padding: 50 },
       );
 
-      this.props.onUpdateMapViewport({
+      // this.props.onUpdateMapViewport({
+      this.props.updateMapViewport({
         latitude: newViewport.latitude,
         longitude: newViewport.longitude,
         transitionDuration: featuredPlace ? 3000 : 200,
@@ -183,7 +186,8 @@ class PlaceDetail extends Component {
         newViewport.zoom = featuredPlace.zoom;
       }
 
-      this.props.onUpdateMapViewport(newViewport);
+      // this.props.onUpdateMapViewport(newViewport);
+      this.props.updateMapViewport(newViewport);
     }
 
     if (featuredPlace && !featuredPlace.spotlight) {
@@ -435,7 +439,8 @@ PlaceDetail.propTypes = {
   updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
+  // onUpdateMapViewport: PropTypes.func.isRequired,
+  updateMapViewport: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -448,6 +453,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
+  updateMapViewport: (newViewport, scrollZoomAroundCenter) =>
+    dispatch(updateMapViewport(newViewport, scrollZoomAroundCenter)),
 });
 
 const mapStateToProps = state => ({

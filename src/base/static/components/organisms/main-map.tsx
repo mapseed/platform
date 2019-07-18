@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import * as React from "react";
+import { jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
 import { Map } from "mapbox-gl";
 import { Feature, GeometryObject, Geometry, GeoJsonProperties } from "geojson";
@@ -22,9 +24,15 @@ import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
   mapConfigSelector,
   mapConfigPropType,
-  MapViewport,
+  // MapViewport,
   MapSourcesLoadStatus,
 } from "../../state/ducks/map-config";
+
+import {
+  MapViewport,
+  updateMapViewport,
+  mapViewportSelector,
+} from "../../state/ducks/map-viewport";
 import {
   activeEditPlaceIdSelector,
   filteredPlacesSelector,
@@ -42,6 +50,9 @@ import MapWidgetContainer from "../organisms/map-widget-container";
 import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
 
 import { Mixpanel } from "../../utils/mixpanel";
+import { FlyToInterpolator } from "react-map-gl";
+
+const transitionInterpolator = new FlyToInterpolator();
 
 // TODO: remove this once we remove the Mapseed global:
 declare const MAP_PROVIDER_TOKEN: string;
@@ -52,8 +63,8 @@ const statePropTypes = {
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string.isRequired)
     .isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
-  isMapCenterpointVisible: PropTypes.bool.isRequired,
-  isMeasurementToolVisible: PropTypes.bool.isRequired,
+  // isMapCenterpointVisible: PropTypes.bool.isRequired,
+  // isMeasurementToolVisible: PropTypes.bool.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -65,26 +76,30 @@ const statePropTypes = {
   datasets: datasetsPropType,
 };
 
-const dispatchPropTypes = {
-  updateFeaturesInGeoJSONSource: PropTypes.func.isRequired,
-  updateLayers: PropTypes.func.isRequired,
-  updateMapContainerDimensions: PropTypes.func.isRequired,
+interface StateProps extends PropTypes.InferProps<typeof statePropTypes> {
+  mapViewport: MapViewport;
+}
+
+type DispatchProps = {
+  updateFeaturesInGeoJSONSource: typeof updateFeaturesInGeoJSONSource;
+  updateLayers: typeof updateLayers;
+  updateMapContainerDimensions: typeof updateMapContainerDimensions;
+  updateMapViewport: typeof updateMapViewport;
 };
 
-type StateProps = PropTypes.InferProps<typeof statePropTypes>;
-type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
+// type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 type ParentProps = {
   isMapDraggedOrZoomed: boolean;
   mapContainerWidthDeclaration: string;
   mapContainerHeightDeclaration: string;
   mapContainerRef: React.RefObject<HTMLElement>;
-  onUpdateInitialMapViewport: Function;
-  onUpdateMapViewport: Function;
+  // onUpdateInitialMapViewport: Function;
+  // onUpdateMapViewport: Function;
   onUpdateMapDraggedOrZoomed: Function;
   onUpdateSpotlightMaskVisibility: Function;
   onUpdateSourceLoadStatus: Function;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
-  mapViewport: MapViewport;
+  // mapViewport: MapViewport;
 };
 
 type Props = StateProps & DispatchProps & ParentProps & RouteComponentProps<{}>;
@@ -95,6 +110,7 @@ interface State {
   popupContent: string | null;
   popupLatitude: number | null;
   popupLongitude: number | null;
+  // mapViewport: MapViewport;
 }
 
 // TODO: make this a reusable Layer interface:
@@ -180,7 +196,8 @@ class MainMap extends React.Component<Props, State> {
     }
     // On unmount, save the current map viewport so we can restore it if we
     // return to the map template.
-    this.props.onUpdateInitialMapViewport(this.props.mapViewport);
+    // this.props.onUpdateInitialMapViewport(this.props.mapViewport);
+    // this.props.updateInitialMapViewport(this.props.mapViewport);
   }
 
   // This function gets called a lot, so we throttle it.
@@ -371,8 +388,10 @@ class MainMap extends React.Component<Props, State> {
   };
 
   render() {
+    console.log("lat:", this.props.mapViewport.latitude);
+    console.log("long:", this.props.mapViewport.longitude);
     return (
-      <>
+      <React.Fragment>
         <MapGL
           attributionControl={false}
           ref={this.mapRef}
@@ -384,7 +403,7 @@ class MainMap extends React.Component<Props, State> {
           bearing={this.props.mapViewport.bearing}
           zoom={this.props.mapViewport.zoom}
           transitionDuration={this.props.mapViewport.transitionDuration}
-          transitionInterpolator={this.props.mapViewport.transitionInterpolator}
+          transitionInterpolator={transitionInterpolator}
           transitionEasing={this.props.mapViewport.transitionEasing}
           mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
           minZoom={this.props.mapViewport.minZoom}
@@ -411,7 +430,7 @@ class MainMap extends React.Component<Props, State> {
             // properties:
             // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/9e274b5be1609766d26ac3addfd14901dab658ba/types/react-map-gl/index.d.ts#L14-L21
             const { width, height, ...rest } = viewport as any;
-            this.props.onUpdateMapViewport(
+            this.props.updateMapViewport(
               rest,
               this.isMapTransitioning
                 ? false
@@ -425,13 +444,7 @@ class MainMap extends React.Component<Props, State> {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
-          {this.props.isMeasurementToolVisible && (
-            <MapMeasurementOverlay
-              viewport={this.props.mapViewport}
-              width={this.props.mapContainerDimensions.width}
-              height={this.props.mapContainerDimensions.height}
-            />
-          )}
+          <MapMeasurementOverlay />
           {this.state.popupContent &&
             this.state.popupLatitude &&
             this.state.popupLongitude && (
@@ -450,18 +463,14 @@ class MainMap extends React.Component<Props, State> {
                 />
               </Popup>
             )}
-          {this.props.isMapCenterpointVisible && (
-            <MapCenterpoint
-              isMapDraggingOrZooming={this.state.isMapDraggingOrZooming}
-              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
-            />
-          )}
-          {this.state.isMapLoaded && (
-            <MapControls onViewportChange={this.props.onUpdateMapViewport} />
-          )}
+          <MapCenterpoint
+            isMapDraggingOrZooming={this.state.isMapDraggingOrZooming}
+            isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+          />
+          {this.state.isMapLoaded && <MapControls />}
         </MapGL>
         <MapWidgetContainer />
-      </>
+      </React.Fragment>
     );
   }
 }
@@ -470,10 +479,11 @@ const mapStateToProps = (state): StateProps => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
-  isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
-  isMeasurementToolVisible: measurementToolVisibilitySelector(state),
+  // isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
+  // isMeasurementToolVisible: measurementToolVisibilitySelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
+  mapViewport: mapViewportSelector(state),
   mapContainerDimensions: mapContainerDimensionsSelector(state),
   mapLayerPopupSelector: layerId => mapLayerPopupSelector(layerId, state),
   mapStyle: mapStyleSelector(state),
@@ -485,6 +495,7 @@ const mapDispatchToProps = {
   updateFeaturesInGeoJSONSource,
   updateLayers,
   updateMapContainerDimensions,
+  updateMapViewport,
 };
 
 export default withRouter(

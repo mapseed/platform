@@ -1,16 +1,16 @@
-import { EasingFunction } from "react-map-gl";
+// import { EasingFunction } from "react-map-gl";
 
-export type InitialMapViewport = {
-  minZoom: number;
-  maxZoom: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
-  transitionDuration: number;
-  transitionEasing: EasingFunction;
-};
+// export type InitialMapViewport = {
+//   minZoom: number;
+//   maxZoom: number;
+//   latitude: number;
+//   longitude: number;
+//   zoom: number;
+//   bearing: number;
+//   pitch: number;
+//   transitionDuration: number;
+//   transitionEasing: EasingFunction;
+// };
 
 export type FilterSliderConfig = {
   layerGroupId: string;
@@ -62,19 +62,19 @@ export type MapConfig = {
   geocodeBoundingBox: number[];
   offlineBoundingBox?: OfflineConfig;
   scrollZoomAroundCenter: boolean;
-  defaultMapViewport: InitialMapViewport;
+  // defaultMapViewport: InitialMapViewport;
   mapWidgets: MapWidgetsConfig;
 };
 
 export type MapSourcesLoadStatus = {
   [groupName: string]: string;
 };
-export interface MapViewport extends InitialMapViewport {
-  transitionInterpolator: any;
-}
+// export interface MapViewport extends InitialMapViewport {
+//   transitionInterpolator: any;
+// }
 
 export const mapConfigSelector: any;
-export const loadMapConfig: any;
+export const loadMapConfig: (mapConfig: MapConfig) => void;
 export const geocodeAddressBarEnabledSelector: any;
 export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;

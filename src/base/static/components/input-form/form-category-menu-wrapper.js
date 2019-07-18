@@ -17,7 +17,7 @@ import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
 import {
-  mapViewportPropType,
+  // mapViewportPropType,
   updateLayerGroupVisibility,
 } from "../../state/ducks/map";
 
@@ -136,8 +136,6 @@ class FormCategoryMenuWrapper extends Component {
             isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
             isSingleCategory={this.state.isSingleCategory}
             onCategoryChange={this.onCategoryChange}
-            mapViewport={this.props.mapViewport}
-            onUpdateMapViewport={this.props.onUpdateMapViewport}
             updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
           />
         )}
@@ -159,8 +157,9 @@ FormCategoryMenuWrapper.propTypes = {
   ]),
   containers: PropTypes.instanceOf(NodeList),
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
+  // mapViewport: mapViewportPropType.isRequired,
+  // onUpdateMapViewport: PropTypes.func.isRequired,
+  // updateMapViewport: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
@@ -189,6 +188,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
+  // updateMapViewport: (newViewport, scrollZoomAroundCenter) => dispatch(updateMapViewport(newViewport, scrollZoomAroundCenter)),
 });
 
 export default connect(
