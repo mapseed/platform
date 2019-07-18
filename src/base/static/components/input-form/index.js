@@ -458,7 +458,7 @@ class InputForm extends Component {
     this.props.createFeaturesInGeoJSONSource(
       // "sourceId" and a place's datasetSlug are the same thing.
       this.props.datasetSlug,
-      toClientGeoJSONFeature(placeResponse),
+      [toClientGeoJSONFeature(placeResponse)],
     );
 
     // Save autofill values as necessary.
