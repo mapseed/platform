@@ -73,6 +73,10 @@ class FormField extends Component {
     this.setState({
       isInitialized: true,
     });
+
+    if (this.props.fieldConfig.type === "lng_lat") {
+      this.props.onUpdateMapDraggedOrZoomedByUser(false)
+    }
   }
 
   onChange(fieldName, fieldValue, isInitializing = false) {
@@ -126,6 +130,10 @@ class FormField extends Component {
     return (
       <div
         css={css`
+          display: ${this.props.fieldConfig.type ===
+          constants.LNG_LAT_FIELD_TYPENAME
+            ? "none"
+            : "block"};
           font-family: ${this.props.theme.text.bodyFontFamily};
           margin-bottom: 5px;
           padding: 8px;

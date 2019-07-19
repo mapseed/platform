@@ -67,7 +67,6 @@ class FormCategoryMenuWrapper extends Component {
   componentDidMount() {
     this.props.updateMapDraggedOrZoomed(false);
     this.props.updateMapCenterpointVisibility(true);
-    this.props.updateSpotlightMaskVisibility(true);
 
     if (this.props.placeConfig.visibleLayerGroupIds) {
       this.props.placeConfig.visibleLayerGroupIds.forEach(layerGroupId =>
@@ -130,10 +129,12 @@ class FormCategoryMenuWrapper extends Component {
             selectedCategory={this.state.selectedCategory}
             datasetUrl={this.state.datasetUrl}
             datasetSlug={this.state.datasetSlug}
-            isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+            isMapTransitioning={this.props.isMapTransitioning}
             isSingleCategory={this.state.isSingleCategory}
             onCategoryChange={this.onCategoryChange}
-            updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
+            mapViewport={this.props.mapViewport}
+            onUpdateMapViewport={this.props.onUpdateMapViewport}
+            onUpdateMapDraggedOrZoomedByUser={this.props.onUpdateMapDraggedOrZoomedByUser}
           />
         )}
       </>
@@ -153,11 +154,12 @@ FormCategoryMenuWrapper.propTypes = {
     PropTypes.objectOf(PropTypes.func),
   ]),
   containers: PropTypes.instanceOf(NodeList),
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
+  isMapTransitioning: PropTypes.bool.isRequired,
+  mapViewport: mapViewportPropType.isRequired,
+  onUpdateMapViewport: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
+  onUpdateMapDraggedOrZoomedByUser: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 
@@ -178,8 +180,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
