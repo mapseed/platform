@@ -16,10 +16,7 @@ import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
-import {
-  // mapViewportPropType,
-  updateLayerGroupVisibility,
-} from "../../state/ducks/map";
+import { updateLayerGroupVisibility } from "../../state/ducks/map";
 
 import { RegularText } from "../atoms/typography";
 
@@ -157,9 +154,6 @@ FormCategoryMenuWrapper.propTypes = {
   ]),
   containers: PropTypes.instanceOf(NodeList),
   isMapDraggedOrZoomed: PropTypes.bool.isRequired,
-  // mapViewport: mapViewportPropType.isRequired,
-  // onUpdateMapViewport: PropTypes.func.isRequired,
-  // updateMapViewport: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
@@ -188,7 +182,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-  // updateMapViewport: (newViewport, scrollZoomAroundCenter) => dispatch(updateMapViewport(newViewport, scrollZoomAroundCenter)),
 });
 
 export default connect(

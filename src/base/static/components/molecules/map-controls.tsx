@@ -16,15 +16,6 @@ import {
 import { measurementToolEnabledSelector } from "../../state/ducks/map-config";
 import eventEmitter from "../../utils/event-emitter";
 
-// const customControlStatePropTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   icon: PropTypes.string.isRequired,
-// };
-
-// type CustomControlProps = PropTypes.InferProps<
-//   typeof customControlStatePropTypes
-// >;
-
 type CustomControlProps = {
   onClick: () => void;
   icon: string;
@@ -92,21 +83,15 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
 }
 
 type DispatchProps = {
-  // setLeftSidebarExpanded: (isExpanded: boolean) => any;
   setLeftSidebarExpanded: typeof setLeftSidebarExpanded;
-  // updateMeasurementToolVisibility: (isVisible: boolean) => any;
   updateMeasurementToolVisibility: typeof updateMeasurementToolVisibility;
 };
-// type ParentProps = {
-//   onViewportChange: Function;
-// };
 type MapControlStateProps = {
   leftSidebarConfig: LeftSidebarConfig;
   isMeasurementToolEnabled: boolean;
   isMeasurementToolVisible: boolean;
 };
 
-// type MapControlProps = MapControlStateProps & ParentProps & DispatchProps;
 type MapControlProps = MapControlStateProps & DispatchProps;
 
 const MapControls: React.FunctionComponent<MapControlProps> = props => {

@@ -83,7 +83,6 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        // this.props.onUpdateMapViewport(stageConfig.viewport);
         eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
 
@@ -128,7 +127,6 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        // this.props.onUpdateMapViewport(stageConfig.viewport);
         eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
   }
@@ -665,7 +663,6 @@ InputForm.propTypes = {
   layout: PropTypes.string.isRequired,
   mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
-  // onUpdateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,

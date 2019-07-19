@@ -25,7 +25,6 @@ import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
   mapConfigSelector,
   mapConfigPropType,
-  // MapViewport,
   MapSourcesLoadStatus,
 } from "../../state/ducks/map-config";
 
@@ -43,10 +42,7 @@ import {
   placesPropType,
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
-import {
-  uiVisibilitySelector,
-  measurementToolVisibilitySelector,
-} from "../../state/ducks/ui";
+import { uiVisibilitySelector } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
@@ -67,8 +63,6 @@ const statePropTypes = {
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string.isRequired)
     .isRequired,
   isContentPanelVisible: PropTypes.bool.isRequired,
-  // isMapCenterpointVisible: PropTypes.bool.isRequired,
-  // isMeasurementToolVisible: PropTypes.bool.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -91,19 +85,15 @@ type DispatchProps = {
   updateMapViewport: typeof updateMapViewport;
 };
 
-// type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 type ParentProps = {
   isMapDraggedOrZoomed: boolean;
   mapContainerWidthDeclaration: string;
   mapContainerHeightDeclaration: string;
   mapContainerRef: React.RefObject<HTMLElement>;
-  // onUpdateInitialMapViewport: Function;
-  // onUpdateMapViewport: Function;
   onUpdateMapDraggedOrZoomed: Function;
   onUpdateSpotlightMaskVisibility: Function;
   onUpdateSourceLoadStatus: Function;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
-  // mapViewport: MapViewport;
 };
 
 type Props = StateProps & DispatchProps & ParentProps & RouteComponentProps<{}>;
@@ -207,10 +197,6 @@ class MainMap extends React.Component<Props, State> {
     }
 
     eventEmitter.removeEventListener("setMapViewport", this.setMapViewport);
-    // On unmount, save the current map viewport so we can restore it if we
-    // return to the map template.
-    // this.props.onUpdateInitialMapViewport(this.props.mapViewport);
-    // this.props.updateInitialMapViewport(this.props.mapViewport);
   }
 
   // This function gets called a lot, so we throttle it.
@@ -498,8 +484,6 @@ const mapStateToProps = (state): StateProps => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
-  // isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
-  // isMeasurementToolVisible: measurementToolVisibilitySelector(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapViewport: mapViewportSelector(state),

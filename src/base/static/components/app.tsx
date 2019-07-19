@@ -44,11 +44,7 @@ import {
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
 import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
-import {
-  loadMapConfig,
-  // defaultMapViewportSelector,
-  // InitialMapViewport,
-} from "../state/ducks/map-config";
+import { loadMapConfig } from "../state/ducks/map-config";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
@@ -60,7 +56,6 @@ import {
   pageExistsSelector,
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
-// import { loadMapStyle, mapViewportPropType } from "../state/ducks/map";
 import { loadMapStyle } from "../state/ducks/map";
 import { loadMapViewport } from "../state/ducks/map-viewport";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
@@ -118,7 +113,6 @@ const Fallback = () => {
 const statePropTypes = {
   appConfig: appConfigPropType,
   currentTemplate: PropTypes.string.isRequired,
-  // defaultMapViewport: mapViewportPropType,
   datasetsConfig: datasetsConfigPropType,
   datasetSlugs: PropTypes.array.isRequired,
   hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
@@ -163,8 +157,6 @@ type Props = StateProps &
   // {} means empty interface, because we are using default ReactRouter props.
   RouteComponentProps<{}>;
 
-// TODO: remove this once we remove the Mapseed global:
-declare const Mapseed: any;
 // 'process' global is injected by Webpack:
 declare const process: any;
 
@@ -176,7 +168,6 @@ interface State {
   currentLanguageCode: string;
   isInitialDataLoaded: boolean;
   isStartPageViewed: boolean;
-  // initialMapViewport: InitialMapViewport;
   defaultLanguage: Language;
   availableLanguages?: Language[];
 }
@@ -187,12 +178,6 @@ class App extends React.Component<Props, State> {
   state: State = {
     isInitialDataLoaded: false,
     isStartPageViewed: false,
-    // The `initialMapViewport` describes the viewport used when the map template
-    // mounts, including when the app first loads and when the user routes to the
-    // map template from another template. This allows us to "save" a viewport
-    // when routing away from the map template, and restore it when routing back
-    // to the map template.
-    // initialMapViewport: this.props.defaultMapViewport,
     defaultLanguage: {
       code: "en",
       label: "English",
@@ -266,10 +251,8 @@ class App extends React.Component<Props, State> {
     // Load all other ducks.
     this.props.loadAppConfig(resolvedConfig.app);
     this.props.loadDatasetsConfig(resolvedConfig.datasets);
-    // const { mapViewport, ...mapConfig } = resolvedConfig.map;
-    const mapViewport = resolvedConfig.map.mapViewport;
     this.props.loadMapConfig(resolvedConfig.map);
-    this.props.loadMapViewport(mapViewport);
+    this.props.loadMapViewport(resolvedConfig.map.mapViewport);
     this.props.loadPlaceConfig(resolvedConfig.place, user);
     this.props.loadLeftSidebarConfig(resolvedConfig.leftSidebar);
     this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
@@ -353,7 +336,6 @@ class App extends React.Component<Props, State> {
       currentLanguageCode: i18next.language,
       defaultLanguage: resolvedConfig.flavor.defaultLanguage,
       isInitialDataLoaded: true,
-      // initialMapViewport: this.props.defaultMapViewport,
     });
 
     window.addEventListener("resize", this.props.updateLayout);
@@ -441,12 +423,6 @@ class App extends React.Component<Props, State> {
     });
   };
 
-  // onUpdateInitialMapViewport = initialMapViewport => {
-  //   this.setState({
-  //     initialMapViewport,
-  //   });
-  // };
-
   onChangeLanguage = newLanguageCode => {
     i18next.changeLanguage(newLanguageCode);
     this.setState({
@@ -461,8 +437,6 @@ class App extends React.Component<Props, State> {
 
   render() {
     const sharedMapTemplateProps = {
-      // initialMapViewport: this.state.initialMapViewport,
-      // onUpdateInitialMapViewport: this.onUpdateInitialMapViewport,
       isStartPageViewed: this.state.isStartPageViewed,
       onViewStartPage: this.onViewStartPage,
       currentLanguageCode: this.state.currentLanguageCode,
@@ -669,7 +643,6 @@ type MapseedReduxState = any;
 const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
-  // defaultMapViewport: defaultMapViewportSelector(state),
   datasetSlugs: datasetSlugsSelector(state),
   datasetsConfig: datasetsConfigSelector(state),
   hasAnonAbilitiesInAnyDataset: (submissionSet, abilities) =>

@@ -157,7 +157,6 @@ class PlaceDetail extends Component {
         newViewport.zoom = featuredPlace.zoom;
       }
 
-      // this.props.onUpdateMapViewport(newViewport);
       eventEmitter.emit("setMapViewport", newViewport);
     } else if (
       this.props.focusedPlace.geometry.type === "LineString" ||
@@ -170,7 +169,6 @@ class PlaceDetail extends Component {
         { padding: 50 },
       );
 
-      // this.props.onUpdateMapViewport({
       eventEmitter.emit("setMapViewport", {
         latitude: newViewport.latitude,
         longitude: newViewport.longitude,
@@ -187,7 +185,6 @@ class PlaceDetail extends Component {
         newViewport.zoom = featuredPlace.zoom;
       }
 
-      // this.props.onUpdateMapViewport(newViewport);
       eventEmitter.emit("setMapViewport", newViewport);
     }
 
@@ -440,7 +437,6 @@ PlaceDetail.propTypes = {
   updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
-  // onUpdateMapViewport: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

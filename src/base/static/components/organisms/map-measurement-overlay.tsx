@@ -2,7 +2,6 @@
 import * as React from "react";
 import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
-// import PropTypes from "prop-types";
 import { featureCollection, point, lineString, polygon } from "@turf/helpers";
 import area from "@turf/area";
 import distance from "@turf/distance";
@@ -11,20 +10,13 @@ import WebMercatorViewport, {
   WebMercatorViewportOptions,
 } from "viewport-mercator-project";
 import { CanvasOverlay } from "react-map-gl";
-import {
-  FeatureCollection,
-  Feature,
-  Point,
-  LineString,
-  Polygon,
-} from "geojson";
+import { FeatureCollection, Point, LineString, Polygon } from "geojson";
 
 import {
   MapViewport,
   mapViewportSelector,
 } from "../../state/ducks/map-viewport";
 import {
-  mapViewportPropType,
   mapContainerDimensionsSelector,
   MapContainerDimensions,
 } from "../../state/ducks/map";
@@ -37,12 +29,6 @@ import {
   UndoIcon,
 } from "../atoms/icons";
 
-// const mapMeasurementOverlayProps = {
-//   viewport: mapViewportPropType.isRequired,
-//   width: PropTypes.number.isRequired,
-//   height: PropTypes.number.isRequired,
-// };
-
 interface GeoTransformWrapper {
   stream: GeoStream;
 }
@@ -51,22 +37,12 @@ interface ExposedCanvasOverlay extends CanvasOverlay {
   _canvas: HTMLCanvasElement;
 }
 
-// type MapMeasurementOverlayProps = PropTypes.InferProps<
-//   typeof mapMeasurementOverlayProps
-// >;
 type MeasurementToolIconProps = {
   isEnabled: boolean;
   isSelected?: boolean;
   children: any;
   onClick: any;
 };
-
-// type MapMeasurementOverlayProps = {
-//   width: number;
-//   height: number;
-// };
-
-// type Props  = MapMeasurementOverlayProps & StateProps;
 
 const MeasurementToolIcon = (props: MeasurementToolIconProps) => (
   <span
