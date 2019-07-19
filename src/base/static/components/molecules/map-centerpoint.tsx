@@ -92,7 +92,7 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
           position: absolute;
           top: 50%;
           left: 50%;
-          pointerevents: none;
+          pointer-events: none;
           z-index: 400;
           width: 100px;
           height: 100px;
@@ -124,7 +124,7 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
             opacity: ${props.isMapDraggingOrZooming ? "0.5" : "1"};
             background: transparent url(/static/css/images/marker-shadow.png) 0
               3px no-repeat scroll;
-            backgroundposition: ${props.isMapDraggingOrZooming
+            background-position: ${props.isMapDraggingOrZooming
               ? "6px -9px"
               : "0 0"};
             transition: opacity 0s, background-position 0.3s ease;
@@ -169,7 +169,7 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
             background: transparent url(/static/css/images/marker-plus.png) 0 0
               no-repeat scroll;
             position: relative;
-            z-index: 1000,
+            z-index: 1000;
             top: ${props.isMapDraggingOrZooming ? "-20px" : "3px"};
             transition: top 0.4s ease;
           `
@@ -192,7 +192,7 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
 
             "&:before": {
               // TODO: translate this string, when react-i18next is ported over:
-              content: "Drag the map",
+              content: `"${"Drag the map"}"`,
               textTransform: "uppercase",
               fontWeight: 800,
               color: "#ffff00",

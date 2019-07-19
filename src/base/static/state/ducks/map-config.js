@@ -69,12 +69,14 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOAD:
+      // eslint-disable-next-line no-case-declarations
+      const { mapViewport, ...payload } = action.payload;
       return {
         ...state,
-        ...action.payload,
+        ...payload,
         defaultMapViewport: {
           ...state.defaultMapViewport,
-          ...action.payload.mapViewport,
+          ...mapViewport,
         },
       };
     default:

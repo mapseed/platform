@@ -287,7 +287,7 @@ const MapMeasurementOverlay: React.FunctionComponent<Props> = props => {
       overlayRef.current._canvas.style.pointerEvents = "none";
     } else {
       // eslint-disable-next-line no-console
-      console.error(
+      console.warn(
         "Measurement overlay: failed to attach click event listener",
       );
     }

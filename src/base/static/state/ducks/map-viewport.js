@@ -44,6 +44,7 @@ export default (state = INITIAL_STATE, action) =>
         Object.assign(draft, action.payload);
         return;
       case UPDATE:
+        Object.assign(draft, action.payload.viewport);
         // NOTE: This is a fix for an apparent bug in react-map-gl.
         // See: https://github.com/uber/react-map-gl/issues/630
         draft.bearing = isNaN(action.payload.bearing)
@@ -57,7 +58,7 @@ export default (state = INITIAL_STATE, action) =>
         // See: https://github.com/uber/react-map-gl/issues/515
         if (
           !action.payload.scrollZoomAroundCenter ||
-          draft.zoom === action.payload.mapViewport.zoom
+          draft.zoom === action.payload.viewport.zoom
         ) {
           draft.latitude = action.payload.viewport.latitude;
           draft.longitude = action.payload.viewport.longitude;

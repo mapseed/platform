@@ -114,6 +114,7 @@ interface State {
   popupContent: string | null;
   popupLatitude: number | null;
   popupLongitude: number | null;
+  mapViewport: MapViewport;
 }
 
 // TODO: make this a reusable Layer interface:
