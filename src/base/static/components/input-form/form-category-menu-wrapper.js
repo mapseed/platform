@@ -65,7 +65,6 @@ class FormCategoryMenuWrapper extends Component {
   }
 
   componentDidMount() {
-    this.props.updateMapDraggedOrZoomed(false);
     this.props.updateMapCenterpointVisibility(true);
 
     if (this.props.placeConfig.visibleLayerGroupIds) {

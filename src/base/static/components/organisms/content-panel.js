@@ -136,7 +136,10 @@ class ContentPanel extends Component {
               layout={this.props.layout}
               mapViewport={this.props.mapViewport}
               onUpdateMapViewport={this.props.onUpdateMapViewport}
-              onUpdateMapDraggedOrZoomedByUser={this.props.onUpdateMapDraggedOrZoomedByUser}
+              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+              onUpdateMapDraggedOrZoomedByUser={
+                this.props.onUpdateMapDraggedOrZoomedByUser
+              }
             />
           )}
         </ContentPanelInnerContainer>

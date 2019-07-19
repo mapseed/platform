@@ -148,7 +148,9 @@ type ParentProps = {
   mapContainerWidthDeclaration: string;
   mapContainerHeightDeclaration: string;
   mapContainerRef: React.RefObject<HTMLElement>;
-  onUpdateMapDraggedOrZoomed: Function;
+  onUpdateInitialMapViewport: Function;
+  onUpdateMapViewport: Function;
+  onUpdateMapDraggedOrZoomedByUser: Function;
   onUpdateSourceLoadStatus: Function;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 };
@@ -429,7 +431,7 @@ class MainMap extends React.Component<Props, State> {
       this.setState({
         isMapDraggingOrZooming: false,
       });
-      this.props.onUpdateMapDraggedOrZoomed(true);
+      this.props.onUpdateMapDraggedOrZoomedByUser(true);
     }
   };
 

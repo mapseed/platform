@@ -176,7 +176,7 @@ class MapTemplate extends Component<Props, State> {
       ...this.props.initialMapViewport,
       transitionInterpolator: new FlyToInterpolator(),
     },
-    isMapDraggedOrZoomedByUser: false,
+    isMapDraggedOrZoomedByUser: true,
     isSpotlightMaskVisible: false,
     isMapTransitioning: false,
     // Sources load status terminology:
@@ -318,7 +318,8 @@ class MapTemplate extends Component<Props, State> {
 
     // TODO: refactor these into Redux.
     if (
-      this.state.isMapDraggedOrZoomedByUser !== prevState.isMapDraggedOrZoomedByUser &&
+      this.state.isMapDraggedOrZoomedByUser !==
+        prevState.isMapDraggedOrZoomedByUser &&
       this.state.isMapDraggedOrZoomedByUser
     ) {
       this.props.updateUIVisibility("spotlightMask", false);
@@ -487,7 +488,9 @@ class MapTemplate extends Component<Props, State> {
             mapViewport={this.state.mapViewport}
             onUpdateInitialMapViewport={this.props.onUpdateInitialMapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}
-            onUpdateMapDraggedOrZoomedByUser={this.onUpdateMapDraggedOrZoomedByUser}
+            onUpdateMapDraggedOrZoomedByUser={
+              this.onUpdateMapDraggedOrZoomedByUser
+            }
             onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
             onUpdateMapTransitioning={this.onUpdateMapTransitioning}
             isMapTransitioning={this.state.isMapTransitioning}
@@ -502,7 +505,9 @@ class MapTemplate extends Component<Props, State> {
             mapContainerRef={this.mapContainerRef}
             mapViewport={this.state.mapViewport}
             onUpdateMapViewport={this.onUpdateMapViewport}
-            onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
+            onUpdateMapDraggedOrZoomedByUser={
+              this.onUpdateMapDraggedOrZoomedByUser
+            }
             isMapTransitioning={this.state.isMapTransitioning}
           />
         )}
