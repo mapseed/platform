@@ -26,7 +26,7 @@ import {
   mapConfigSelector,
   mapConfigPropType,
   MapSourcesLoadStatus,
-} from "../../state/ducks/map-config";
+} from "../../state/ducks/map";
 
 import {
   default as mapViewportReducer,

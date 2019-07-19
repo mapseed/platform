@@ -13,7 +13,7 @@ import {
   measurementToolVisibilitySelector,
   updateMeasurementToolVisibility,
 } from "../../state/ducks/ui";
-import { measurementToolEnabledSelector } from "../../state/ducks/map-config";
+import { measurementToolEnabledSelector } from "../../state/ducks/map";
 import eventEmitter from "../../utils/event-emitter";
 
 type CustomControlProps = {

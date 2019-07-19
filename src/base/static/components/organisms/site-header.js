@@ -25,7 +25,7 @@ import {
 import {
   mapConfigSelector,
   mapConfigPropType,
-} from "../../state/ducks/map-config";
+} from "../../state/ducks/map";
 import {
   dashboardConfigSelector,
   dashboardConfigPropType,

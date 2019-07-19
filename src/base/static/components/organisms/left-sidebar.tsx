@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
 import { SmallTitle } from "../atoms/typography";
 
-import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
+import { MapSourcesLoadStatus } from "../../state/ducks/map";
 import {
   isLeftSidebarExpandedSelector,
   leftSidebarConfigSelector,

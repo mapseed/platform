@@ -11,7 +11,7 @@ import eventEmitter from "../../../utils/event-emitter";
 import {
   mapConfigSelector,
   mapConfigPropType,
-} from "../../../state/ducks/map-config";
+} from "../../../state/ducks/map";
 
 // TODO: Consolidate Util methods used here.
 import Util from "../../../js/utils.js";

@@ -11,7 +11,7 @@ import { uiVisibilitySelector, layoutSelector } from "../../state/ducks/ui";
 
 import { getMainContentAreaWidth } from "../../utils/layout-utils";
 import { Mixpanel } from "../../utils/mixpanel";
-import { mapConfigPropType } from "../../state/ducks/map-config";
+import { mapConfigPropType } from "../../state/ducks/map";
 
 const GeocodeAddressBarWrapper = styled(props => (
   <form onSubmit={props.onSubmit} className={props.className}>

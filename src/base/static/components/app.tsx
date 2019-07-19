@@ -44,7 +44,7 @@ import {
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
 import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
-import { loadMapConfig } from "../state/ducks/map-config";
+import { loadMapConfig } from "../state/ducks/map";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";

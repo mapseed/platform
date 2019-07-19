@@ -6,7 +6,7 @@ import filters from "./ducks/filters";
 import leftSidebarReducer from "./ducks/left-sidebar";
 
 import appConfigReducer from "./ducks/app-config";
-import mapConfigReducer from "./ducks/map-config";
+import mapConfigReducer from "./ducks/map";
 import mapViewportReducer from "./ducks/map-viewport";
 import placeConfigReducer from "./ducks/place-config";
 import featuredPlacesConfigReducer from "./ducks/featured-places-config";
