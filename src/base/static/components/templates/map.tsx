@@ -9,6 +9,8 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { translate } from "react-i18next";
 import i18next, { TranslationFunction } from "i18next";
 
+import emitter from "../../utils/event-emitter";
+
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
 import AddPlaceButton from "../molecules/add-place-button";
@@ -193,15 +195,14 @@ class MapTemplate extends Component<Props, State> {
     this.props.updateCurrentTemplate("map");
 
     const { zoom, lat, lng } = this.props.params;
-    // TODO: emit "setMapViewport" event here
-    // zoom &&
-    //   lat &&
-    //   lng &&
-    //   this.onUpdateMapViewport({
-    //     zoom: parseFloat(zoom),
-    //     lat: parseFloat(lat),
-    //     lng: parseFloat(lng),
-    //   });
+    zoom &&
+      lat &&
+      lng &&
+      emitter.emit("setMapViewport", {
+        zoom: parseFloat(zoom),
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+      });
 
     const startPageConfig = this.props.navBarConfig.find(
       navItem => navItem.start_page,
