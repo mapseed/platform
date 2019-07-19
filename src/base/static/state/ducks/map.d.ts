@@ -15,6 +15,10 @@ export type FilterableLayerGroup = {
   filterSlider: FilterSlider;
 };
 
+export type MapContainerDimensions = {
+  width: number;
+  height: number;
+};
 export type Layer = {
   id: string;
   type: string;

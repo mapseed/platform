@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import emitter from "../../utils/emitter";
-
 import "./feedback.scss";
 
 const ProgressBar = props => {

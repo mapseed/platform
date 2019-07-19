@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
 import { css, jsx } from "@emotion/core";
-import emitter from "../../utils/emitter";
+import emitter from "../../utils/event-emitter";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
 
@@ -47,19 +47,24 @@ class Survey extends Component {
     }),
   };
 
-  componentDidMount() {
-    emitter.addListener("place-detail-survey:save", () => {
-      this.setState({
-        fields: this.initializeFields(),
-        isFormSubmitting: false,
-        formValidationErrors: new Set(),
-        showValidityStatus: false,
-      });
+  savePlaceDetailSurvey() {
+    this.setState({
+      fields: this.initializeFields(),
+      isFormSubmitting: false,
+      formValidationErrors: new Set(),
+      showValidityStatus: false,
     });
   }
 
+  componentDidMount() {
+    emitter.on("place-detail-survey:save", this.savePlaceDetailSurvey);
+  }
+
   componentWillUnmount() {
-    emitter.removeAllListeners("place-detail-survey:save");
+    emitter.removeEventListener(
+      "place-detail-survey:save",
+      this.savePlaceDetailSurvey,
+    );
   }
 
   initializeFields() {

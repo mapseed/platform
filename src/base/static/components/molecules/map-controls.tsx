@@ -2,7 +2,6 @@
 import * as React from "react";
 import { NavigationControl } from "react-map-gl";
 import { jsx } from "@emotion/core";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import {
@@ -15,15 +14,12 @@ import {
   updateMeasurementToolVisibility,
 } from "../../state/ducks/ui";
 import { measurementToolEnabledSelector } from "../../state/ducks/map-config";
+import eventEmitter from "../../utils/event-emitter";
 
-const customControlStatePropTypes = {
-  onClick: PropTypes.func.isRequired,
-  icon: PropTypes.string.isRequired,
+type CustomControlProps = {
+  onClick: () => void;
+  icon: string;
 };
-
-type CustomControlProps = PropTypes.InferProps<
-  typeof customControlStatePropTypes
->;
 
 class CustomControl extends React.Component<CustomControlProps> {
   public static defaultProps = {
@@ -48,7 +44,7 @@ class CustomControl extends React.Component<CustomControlProps> {
 }
 
 type GeolocateControlProps = {
-  onViewportChange: Function;
+  onViewportChange: any;
 };
 
 // react-map-gl does not export mapboxgl's built-in geolocate control, so we
@@ -87,11 +83,8 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
 }
 
 type DispatchProps = {
-  setLeftSidebarExpanded: (isExpanded: boolean) => any;
-  updateMeasurementToolVisibility: (isVisible: boolean) => any;
-};
-type ParentProps = {
-  onViewportChange: Function;
+  setLeftSidebarExpanded: typeof setLeftSidebarExpanded;
+  updateMeasurementToolVisibility: typeof updateMeasurementToolVisibility;
 };
 type MapControlStateProps = {
   leftSidebarConfig: LeftSidebarConfig;
@@ -99,9 +92,12 @@ type MapControlStateProps = {
   isMeasurementToolVisible: boolean;
 };
 
-type MapControlProps = MapControlStateProps & ParentProps & DispatchProps;
+type MapControlProps = MapControlStateProps & DispatchProps;
 
 const MapControls: React.FunctionComponent<MapControlProps> = props => {
+  const setViewport = viewport => {
+    eventEmitter.emit("setMapViewport", viewport);
+  };
   return (
     <div
       css={{
@@ -110,10 +106,8 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
         left: "8px",
       }}
     >
-      <NavigationControl
-        onViewportChange={viewport => props.onViewportChange(viewport)}
-      />
-      <GeolocateControl onViewportChange={props.onViewportChange} />
+      <NavigationControl onViewportChange={setViewport} />
+      <GeolocateControl onViewportChange={setViewport} />
       <CustomControl
         icon={props.leftSidebarConfig.icon}
         onClick={() => props.setLeftSidebarExpanded(true)}
@@ -132,16 +126,16 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
   );
 };
 
-const mapDispatchToProps = {
-  setLeftSidebarExpanded,
-  updateMeasurementToolVisibility,
-};
-
 const mapStateToProps = (state): MapControlStateProps => ({
   leftSidebarConfig: leftSidebarConfigSelector(state),
   isMeasurementToolVisible: measurementToolVisibilitySelector(state),
   isMeasurementToolEnabled: measurementToolEnabledSelector(state),
 });
+
+const mapDispatchToProps = {
+  setLeftSidebarExpanded,
+  updateMeasurementToolVisibility,
+};
 
 export default connect<MapControlStateProps, DispatchProps>(
   mapStateToProps,

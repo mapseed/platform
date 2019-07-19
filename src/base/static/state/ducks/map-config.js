@@ -17,9 +17,6 @@ export const offlineConfigPropType = PropTypes.shape({
 export const mapConfigSelector = state => {
   return state.mapConfig;
 };
-export const defaultMapViewportSelector = state => {
-  return state.mapConfig.defaultMapViewport;
-};
 export const offlineConfigSelector = state => {
   return state.mapConfig.offlineBoundingBox;
 };
@@ -72,12 +69,14 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOAD:
+      // eslint-disable-next-line no-case-declarations
+      const { mapViewport, ...payload } = action.payload;
       return {
         ...state,
-        ...action.payload,
+        ...payload,
         defaultMapViewport: {
           ...state.defaultMapViewport,
-          ...action.payload.mapViewport,
+          ...mapViewport,
         },
       };
     default:
