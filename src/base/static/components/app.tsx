@@ -532,7 +532,7 @@ class App extends React.Component<Props, State> {
           <Route
             exact
             path="/dashboard"
-            render={() => {
+            render={props => {
               return (
                 <React.Suspense fallback={<Fallback />}>
                   <SiteHeader {...headerProps} />
@@ -541,6 +541,7 @@ class App extends React.Component<Props, State> {
                       this.props.appConfig.dataset_download
                     }
                     apiRoot={this.props.appConfig.api_root}
+                    {...props.match}
                   />
                 </React.Suspense>
               );
