@@ -57,7 +57,6 @@ import {
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
 import { loadMapStyle } from "../state/ducks/map-style";
-import { loadMapViewport } from "../state/ducks/map-viewport";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
@@ -136,7 +135,6 @@ const dispatchPropTypes = {
   loadRightSidebarConfig: PropTypes.func.isRequired,
   loadFeaturedPlacesConfig: PropTypes.func.isRequired,
   loadAppConfig: PropTypes.func.isRequired,
-  loadMapViewport: typeof loadMapViewport,
   loadFormsConfig: PropTypes.func.isRequired,
   loadSupportConfig: PropTypes.func.isRequired,
   loadPagesConfig: PropTypes.func.isRequired,
@@ -252,7 +250,6 @@ class App extends React.Component<Props, State> {
     this.props.loadAppConfig(resolvedConfig.app);
     this.props.loadDatasetsConfig(resolvedConfig.datasets);
     this.props.loadMapConfig(resolvedConfig.map);
-    this.props.loadMapViewport(resolvedConfig.map.mapViewport);
     this.props.loadPlaceConfig(resolvedConfig.place, user);
     this.props.loadLeftSidebarConfig(resolvedConfig.leftSidebar);
     this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
@@ -674,7 +671,6 @@ const mapDispatchToProps = {
   loadRightSidebarConfig,
   loadFeaturedPlacesConfig,
   loadAppConfig,
-  loadMapViewport,
   loadFormsConfig,
   loadSupportConfig,
   loadPagesConfig,

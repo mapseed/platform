@@ -1,4 +1,40 @@
-import { MapViewport } from "./map-viewport";
+import { EasingFunction } from "react-map-gl";
+import { Feature, Geometry, GeoJsonProperties } from "geojson";
+
+export const UPDATE_MAPVIEWPORT: string;
+
+export type MapViewport = {
+  minZoom: number;
+  maxZoom: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+  transitionDuration?: number;
+  // TODO: functions are not supposed to be in Redux state:
+  transitionEasing?: EasingFunction;
+};
+
+export type MapViewportDiff = {
+  minZoom?: number;
+  maxZoom?: number;
+  latitude?: number;
+  longitude?: number;
+  zoom?: number;
+  bearing?: number;
+  pitch?: number;
+  transitionDuration?: number;
+};
+
+export interface LayerFeature<
+  G extends Geometry | null = Geometry,
+  P = GeoJsonProperties
+> extends Feature {
+  layer: {
+    id: string;
+  };
+}
 
 export type FilterSliderConfig = {
   layerGroupId: string;
@@ -59,9 +95,17 @@ export type MapSourcesLoadStatus = {
 };
 
 export const mapConfigSelector: any;
+export const mapViewportSelector: (state: any) => MapViewport;
 export const loadMapConfig: (mapConfig: MapConfig) => void;
 export const geocodeAddressBarEnabledSelector: any;
 export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;
 export const mapWidgetsSelector: any;
 export const measurementToolEnabledSelector: any;
+
+declare type Action = {
+  type: string;
+  payload: any;
+};
+export const loadMapViewport: (mapViewportDiff: MapViewportDiff) => Action;
+export const updateMapViewport: (mapViewport: MapViewport) => Action;

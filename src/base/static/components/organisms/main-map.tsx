@@ -3,7 +3,7 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
 import { Map } from "mapbox-gl";
-import { Feature, GeometryObject, Geometry, GeoJsonProperties } from "geojson";
+import { GeometryObject } from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
@@ -26,16 +26,15 @@ import {
   mapConfigSelector,
   mapConfigPropType,
   MapSourcesLoadStatus,
+  LayerFeature,
 } from "../../state/ducks/map";
 
 import {
-  default as mapViewportReducer,
-  UPDATE as MAPVIEWPORT_UPDATE,
   MapViewportDiff,
   MapViewport,
   updateMapViewport,
   mapViewportSelector,
-} from "../../state/ducks/map-viewport";
+} from "../../state/ducks/map";
 import {
   activeEditPlaceIdSelector,
   filteredPlacesSelector,
@@ -51,8 +50,39 @@ import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
 
 import { Mixpanel } from "../../utils/mixpanel";
 import { FlyToInterpolator } from "react-map-gl";
+import produce from "immer";
 
 const transitionInterpolator = new FlyToInterpolator();
+
+const UPDATE_VIEWPORT = "update-viewport";
+const mapViewportReducer = (state: MapViewport, action): MapViewport =>
+  produce(state, draft => {
+    switch (action.type) {
+      case UPDATE_VIEWPORT:
+        Object.assign(draft, action.payload.viewport);
+        // NOTE: This is a fix for an apparent bug in react-map-gl.
+        // See: https://github.com/uber/react-map-gl/issues/630
+        draft.bearing = isNaN(action.payload.viewport.bearing)
+          ? draft.bearing
+          : action.payload.viewport.bearing;
+        // These checks support a "scroll zoom around center" feature (in
+        // which a zoom of the map will not change the centerpoint) that is
+        // not exposed by react-map-gl. These checks are pretty convoluted,
+        // though, so it would be great if react-map-gl could just
+        // incorporate the scroll zoom around center option natively.
+        // See: https://github.com/uber/react-map-gl/issues/515
+        if (
+          !action.payload.scrollZoomAroundCenter ||
+          draft.zoom === action.payload.viewport.zoom
+        ) {
+          draft.latitude = action.payload.viewport.latitude;
+          draft.longitude = action.payload.viewport.longitude;
+        }
+        draft.zoom = action.payload.viewport.zoom;
+        draft.pitch = action.payload.viewport.pitch;
+        return;
+    }
+  });
 
 // TODO: remove this once we remove the Mapseed global:
 declare const MAP_PROVIDER_TOKEN: string;
@@ -107,16 +137,6 @@ interface State {
   mapViewport: MapViewport;
 }
 
-// TODO: make this a reusable Layer interface:
-interface LayerFeature<
-  G extends Geometry | null = Geometry,
-  P = GeoJsonProperties
-> extends Feature {
-  layer: {
-    id: string;
-  };
-}
-
 class MainMap extends React.Component<Props, State> {
   state: State = {
     isMapLoaded: false,
@@ -168,9 +188,12 @@ class MainMap extends React.Component<Props, State> {
       this.resizeMap();
     });
 
-    eventEmitter.on("setMapViewport", viewport => {
-      this.setMapViewport(viewport);
-    });
+    eventEmitter.on(
+      "setMapViewport",
+      (viewport: MapViewportDiff): void => {
+        this.setMapViewport(viewport);
+      },
+    );
 
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
@@ -347,27 +370,23 @@ class MainMap extends React.Component<Props, State> {
     }
   };
 
-  updateMapViewport = throttle(
-    500,
-    (viewport: MapViewportDiff, scrollZoomAroundCenter: boolean): void => {
-      this.props.updateMapViewport(viewport, scrollZoomAroundCenter);
-    },
-  );
+  updateMapViewport = throttle(500, this.props.updateMapViewport);
 
   setMapViewport = (viewport: MapViewportDiff): void => {
     const scrollZoomAroundCenter = this.isMapTransitioning
       ? false
       : this.props.mapConfig.scrollZoomAroundCenter;
-    this.setState({
-      mapViewport: mapViewportReducer(this.state.mapViewport, {
-        type: MAPVIEWPORT_UPDATE,
-        payload: {
-          viewport,
-          scrollZoomAroundCenter,
-        },
-      }),
+    const newMapViewport = mapViewportReducer(this.state.mapViewport, {
+      type: UPDATE_VIEWPORT,
+      payload: {
+        viewport,
+        scrollZoomAroundCenter,
+      },
     });
-    this.updateMapViewport(viewport, scrollZoomAroundCenter);
+    this.setState({
+      mapViewport: newMapViewport,
+    });
+    this.updateMapViewport(newMapViewport);
     this.setSlippyRoute();
   };
 

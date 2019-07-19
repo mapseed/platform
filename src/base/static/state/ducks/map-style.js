@@ -83,9 +83,9 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 // SELECTORS:
 ////////////////////////////////////////////////////////////////////////////////
 
-const getStyle = state => state.map.style;
-export const layersSelector = state => state.map.layers;
-export const layerGroupsSelector = state => state.map.layerGroups;
+const getStyle = state => state.mapStyle.style;
+export const layersSelector = state => state.mapStyle.layers;
+export const layerGroupsSelector = state => state.mapStyle.layerGroups;
 
 const getPaintFromAggregators = (aggregators, layerPaint) => {
   // since 'splice', used below, is mutable, we copy the array here:
@@ -127,20 +127,21 @@ export const mapStyleSelector = createSelector(
   },
 );
 
-export const mapSourcesSelector = state => state.map.style.sources;
-export const sourcesMetadataSelector = state => state.map.sourcesMetadata;
+export const mapSourcesSelector = state => state.mapStyle.style.sources;
+export const sourcesMetadataSelector = state => state.mapStyle.sourcesMetadata;
 export const interactiveLayerIdsSelector = state =>
-  state.map.interactiveLayerIds;
-export const setMapSizeValiditySelector = state => state.map.isMapSizeValid;
+  state.mapStyle.interactiveLayerIds;
+export const setMapSizeValiditySelector = state =>
+  state.mapStyle.isMapSizeValid;
 export const mapDraggingOrZoomingSelector = state =>
-  state.map.isMapDraggingOrZooming;
+  state.mapStyle.isMapDraggingOrZooming;
 export const mapDraggedOrZoomedSelector = state =>
-  state.map.isMapDraggedOrZoomed;
+  state.mapStyle.isMapDraggedOrZoomed;
 export const mapContainerDimensionsSelector = state =>
-  state.map.mapContainerDimensions;
+  state.mapStyle.mapContainerDimensions;
 export const mapLayerPopupSelector = (layerId, state) => {
-  const metadata = Object.values(state.map.layerGroups.byId).find(layerGroup =>
-    layerGroup.layerIds.includes(layerId),
+  const metadata = Object.values(state.mapStyle.layerGroups.byId).find(
+    layerGroup => layerGroup.layerIds.includes(layerId),
   );
 
   return metadata && metadata.popupContent ? metadata.popupContent : null;
@@ -149,21 +150,26 @@ export const mapLayerPopupSelector = (layerId, state) => {
 ////////////////////////////////////////////////////////////////////////////////
 // ACTIONS:
 ////////////////////////////////////////////////////////////////////////////////
-const UPDATE_STYLE = "map/UPDATE_STYLE";
+const UPDATE_STYLE = "map-style/UPDATE_STYLE";
 const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
-  "map/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
-const UPDATE_FEATURE_IN_GEOJSON_SOURCE = "map/UPDATE_FEATURE_IN_GEOJSON_SOURCE";
+  "map-style-style/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
+const UPDATE_FEATURE_IN_GEOJSON_SOURCE =
+  "map-style/UPDATE_FEATURE_IN_GEOJSON_SOURCE";
 const CREATE_FEATURES_IN_GEOJSON_SOURCE =
-  "map/CREATE_FEATURES_IN_GEOJSON_SOURCE";
-const REMOVE_FEATURE_IN_GEOJSON_SOURCE = "map/REMOVE_FEATURE_IN_GEOJSON_SOURCE";
-const LOAD_STYLE_AND_METADATA = "map/LOAD_STYLE_AND_METADATA";
-const UPDATE_LAYER_GROUP_VISIBILITY = "map/UPDATE_LAYER_GROUP_VISIBILITY";
-const UPDATE_FOCUSED_GEOJSON_FEATURES = "map/UPDATE_FOCUSED_GEOJSON_FEATURES";
-const REMOVE_FOCUSED_GEOJSON_FEATURES = "map/REMOVE_FOCUSED_GEOJSON_FEATURES";
-const UPDATE_LAYERS = "map/UPDATE_LAYERS";
-const UPDATE_LAYER_AGGREGATORS = "map/UPDATE_LAYER_AGGREGATORS";
-const UPDATE_MAP_CONTAINER_DIMENSIONS = "map/UPDATE_MAP_CONTAINER_DIMENSIONS";
-const UPDATE_LAYER_FILTERS = "map/UPDATE_LAYER_FILTERS";
+  "map-style/CREATE_FEATURES_IN_GEOJSON_SOURCE";
+const REMOVE_FEATURE_IN_GEOJSON_SOURCE =
+  "map-style/REMOVE_FEATURE_IN_GEOJSON_SOURCE";
+const LOAD_STYLE_AND_METADATA = "map-style/LOAD_STYLE_AND_METADATA";
+const UPDATE_LAYER_GROUP_VISIBILITY = "map-style/UPDATE_LAYER_GROUP_VISIBILITY";
+const UPDATE_FOCUSED_GEOJSON_FEATURES =
+  "map-style/UPDATE_FOCUSED_GEOJSON_FEATURES";
+const REMOVE_FOCUSED_GEOJSON_FEATURES =
+  "map-style/REMOVE_FOCUSED_GEOJSON_FEATURES";
+const UPDATE_LAYERS = "map-style/UPDATE_LAYERS";
+const UPDATE_LAYER_AGGREGATORS = "map-style/UPDATE_LAYER_AGGREGATORS";
+const UPDATE_MAP_CONTAINER_DIMENSIONS =
+  "map-style/UPDATE_MAP_CONTAINER_DIMENSIONS";
+const UPDATE_LAYER_FILTERS = "map-style/UPDATE_LAYER_FILTERS";
 
 ////////////////////////////////////////////////////////////////////////////////
 // ACTION CREATORS:

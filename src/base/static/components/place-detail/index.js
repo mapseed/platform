@@ -59,7 +59,6 @@ import {
   layerGroupsSelector,
   layerGroupsPropType,
 } from "../../state/ducks/map-style";
-import { updateMapViewport } from "../../state/ducks/map-viewport";
 import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -449,8 +448,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-  updateMapViewport: (newViewport, scrollZoomAroundCenter) =>
-    dispatch(updateMapViewport(newViewport, scrollZoomAroundCenter)),
 });
 
 const mapStateToProps = state => ({

@@ -15,7 +15,7 @@ import { FeatureCollection, Point, LineString, Polygon } from "geojson";
 import {
   MapViewport,
   mapViewportSelector,
-} from "../../state/ducks/map-viewport";
+} from "../../state/ducks/map";
 import {
   mapContainerDimensionsSelector,
   MapContainerDimensions,

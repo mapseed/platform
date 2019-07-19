@@ -1,3 +1,4 @@
+import produce from "immer";
 import PropTypes from "prop-types";
 
 // PropTypes:
@@ -13,29 +14,6 @@ export const offlineConfigPropType = PropTypes.shape({
   }).isRequired,
 });
 
-// Selectors:
-export const mapConfigSelector = state => {
-  return state.mapConfig;
-};
-export const offlineConfigSelector = state => {
-  return state.mapConfig.offlineBoundingBox;
-};
-export const geocodeAddressBarEnabledSelector = state =>
-  state.mapConfig.geocodingBarEnabled;
-export const mapWidgetsSelector = state => {
-  return state.mapConfig.mapWidgets;
-};
-export const measurementToolEnabledSelector = state =>
-  state.mapConfig.measurementToolEnabled;
-
-// Actions:
-const LOAD = "map-config/LOAD";
-
-// Action creators:
-export function loadMapConfig(config) {
-  return { type: LOAD, payload: config };
-}
-
 export const mapConfigPropType = PropTypes.shape({
   measurementToolEnabled: PropTypes.bool,
   geolocationEnabled: PropTypes.bool,
@@ -50,11 +28,48 @@ export const mapConfigPropType = PropTypes.shape({
   mapWidgets: PropTypes.object.isRequired,
 }).isRequired;
 
+// Selectors:
+export const mapConfigSelector = state => {
+  return state.map;
+};
+
+export const mapViewportSelector = state => {
+  return state.map.mapViewport;
+};
+
+export const offlineConfigSelector = state => {
+  return state.map.offlineBoundingBox;
+};
+export const geocodeAddressBarEnabledSelector = state =>
+  state.map.geocodingBarEnabled;
+export const mapWidgetsSelector = state => {
+  return state.map.mapWidgets;
+};
+export const measurementToolEnabledSelector = state =>
+  state.map.measurementToolEnabled;
+
+// Actions:
+const LOAD = "map/LOAD";
+export const UPDATE_MAPVIEWPORT = "map/UPDATE_MAPVIEWPORT";
+
+// Action creators:
+export function loadMapConfig(config) {
+  return { type: LOAD, payload: config };
+}
+
+export const updateMapViewport = newMapViewport => {
+  return {
+    type: UPDATE_MAPVIEWPORT,
+    payload: newMapViewport,
+  };
+};
+
 // Reducers:
 const INITIAL_STATE = {
   measurementToolEnabled: false,
   geocodingBarEnabled: false,
   scrollZoomAroundCenter: false,
+  mapViewport: {},
   defaultMapViewport: {
     zoom: 10,
     latitude: 0,
@@ -66,20 +81,16 @@ const INITIAL_STATE = {
   mapWidgets: {},
 };
 
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case LOAD:
-      // eslint-disable-next-line no-case-declarations
-      const { mapViewport, ...payload } = action.payload;
-      return {
-        ...state,
-        ...payload,
-        defaultMapViewport: {
-          ...state.defaultMapViewport,
-          ...mapViewport,
-        },
-      };
-    default:
-      return state;
-  }
-}
+export default (state = INITIAL_STATE, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case LOAD:
+        Object.assign(draft, action.payload);
+        draft.defaultMapViewport = action.payload.mapViewport;
+        draft.mapViewport = action.payload.mapViewport;
+        return;
+      case UPDATE_MAPVIEWPORT:
+        Object.assign(draft.mapViewport, action.payload);
+        return;
+    }
+  });

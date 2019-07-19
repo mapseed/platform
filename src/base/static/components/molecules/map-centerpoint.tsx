@@ -90,7 +90,7 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
             fontFamily: theme.text.bodyFontFamily,
 
             "&:before": {
-              // TODO: translate this string, when react-i18next is ported over:
+              // TODO: translate this string, when react-i18next is upgraded to support TS:
               content: `"${"Drag the map"}"`,
               textTransform: "uppercase",
               fontWeight: 800,

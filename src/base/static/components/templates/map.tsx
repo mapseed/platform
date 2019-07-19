@@ -200,8 +200,8 @@ class MapTemplate extends Component<Props, State> {
       lng &&
       emitter.emit("setMapViewport", {
         zoom: parseFloat(zoom),
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
+        latitude: parseFloat(lat),
+        longitude: parseFloat(lng),
       });
 
     const startPageConfig = this.props.navBarConfig.find(
