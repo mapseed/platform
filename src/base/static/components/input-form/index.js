@@ -50,9 +50,7 @@ import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
-import {
-  mapViewportSelector,
-} from "../../state/ducks/map-viewport";
+import { mapViewportSelector } from "../../state/ducks/map-viewport";
 
 class InputForm extends Component {
   constructor(props) {

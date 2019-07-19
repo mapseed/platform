@@ -275,7 +275,6 @@ class MainMap extends React.Component<Props, State> {
       // Filters have been added or removed.
       this.applyFeatureFilters();
     }
-
   }
 
   parsePopupContent = (popupContent, properties) => {

@@ -161,19 +161,16 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
         />
       )}
       <span
-        css={
-          css`
-            display: block;
-            width: 25px;
-            height: 41px;
-            background: transparent url(/static/css/images/marker-plus.png) 0 0
-              no-repeat scroll;
-            position: relative;
-            z-index: 1000;
-            top: ${props.isMapDraggingOrZooming ? "-20px" : "3px"};
-            transition: top 0.4s ease;
-          `
-        }
+        css={css`
+          display: block;
+          width: 25px;
+          height: 41px;
+          background: transparent url(/static/css/images/marker-plus.png) 0 0
+            no-repeat scroll;
+          position: relative;
+          top: ${props.isMapDraggingOrZooming ? "-20px" : "3px"};
+          transition: top 0.4s ease;
+        `}
       />
       {!props.isMapDraggedOrZoomed && (
         <span
