@@ -20,7 +20,7 @@ import {
   updateMapContainerDimensions,
   mapContainerDimensionsSelector,
   mapLayerPopupSelector,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
   mapConfigSelector,

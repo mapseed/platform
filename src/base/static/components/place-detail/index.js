@@ -58,7 +58,7 @@ import {
   updateLayerGroupVisibility,
   layerGroupsSelector,
   layerGroupsPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { updateMapViewport } from "../../state/ducks/map-viewport";
 import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
 

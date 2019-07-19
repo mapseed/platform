@@ -19,7 +19,7 @@ import {
 import {
   mapContainerDimensionsSelector,
   MapContainerDimensions,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { measurementToolVisibilitySelector } from "../../state/ducks/ui";
 import { RegularText } from "../atoms/typography";
 import {

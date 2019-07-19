@@ -16,7 +16,7 @@ import {
   pageSlugSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
-import { mapViewportPropType } from "../../state/ducks/map";
+import { mapViewportPropType } from "../../state/ducks/map-style";
 import { focusedPlaceSelector, placePropType } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 

@@ -57,7 +57,7 @@ import {
   createFeaturesInGeoJSONSource,
   mapSourcesSelector,
   mapSourcesPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   updateFocusedPlaceId,
   updateScrollToResponseId,

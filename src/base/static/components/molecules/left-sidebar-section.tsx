@@ -16,7 +16,7 @@ import {
   updateLayerGroupVisibility,
   LayerGroups,
   SourcesMetadata,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   LeftSidebarSection,
   LeftSidebarOption,

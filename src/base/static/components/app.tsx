@@ -32,7 +32,7 @@ const ReportTemplate = React.lazy(() => import("./templates/report"));
 
 // @ts-ignore
 import config from "config";
-import { createFeaturesInGeoJSONSource } from "../state/ducks/map";
+import { createFeaturesInGeoJSONSource } from "../state/ducks/map-style";
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
 import {
@@ -56,7 +56,7 @@ import {
   pageExistsSelector,
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
-import { loadMapStyle } from "../state/ducks/map";
+import { loadMapStyle } from "../state/ducks/map-style";
 import { loadMapViewport } from "../state/ducks/map-viewport";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";

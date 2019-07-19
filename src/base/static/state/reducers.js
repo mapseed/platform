@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import mapReducer from "./ducks/map";
+import mapReducer from "./ducks/map-style";
 import placesReducer from "./ducks/places";
 import uiReducer from "./ducks/ui";
 import filters from "./ducks/filters";

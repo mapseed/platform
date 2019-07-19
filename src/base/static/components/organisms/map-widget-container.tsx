@@ -12,7 +12,7 @@ import {
   layerGroupsSelector,
   layersSelector,
   Layer,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   MapWidgetsConfig,
   mapWidgetsSelector,

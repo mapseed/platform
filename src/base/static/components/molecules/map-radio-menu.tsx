@@ -9,7 +9,7 @@ import {
   updateLayerAggregators,
   LayerGroups,
   Layer,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { RadioMenuConfig, RadioMenuOption } from "../../state/ducks/map-config";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";

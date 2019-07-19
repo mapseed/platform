@@ -16,7 +16,7 @@ import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
 
 import { datasetUrlSelector } from "../../state/ducks/datasets";
-import { updateLayerGroupVisibility } from "../../state/ducks/map";
+import { updateLayerGroupVisibility } from "../../state/ducks/map-style";
 
 import { RegularText } from "../atoms/typography";
 

@@ -31,7 +31,7 @@ import {
   mapViewportPropType,
   layerGroupsSelector,
   layerGroupsPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   hasAdminAbilities,
   hasGroupAbilitiesInDatasets,
