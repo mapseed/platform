@@ -153,7 +153,7 @@
     "mv": "^2.1.1",
     "optimist": "^0.6.1",
     "prettier": "^1.13.4",
-    "raf": "^3.4.0",
+    "raf": "^3.4.1",
     "s3-website": "github:mapseed/s3-website#cb2861050ba43f0538897fdd24d5f985380af38d",
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.4",
