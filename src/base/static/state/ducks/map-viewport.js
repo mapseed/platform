@@ -6,7 +6,7 @@ export const mapViewportSelector = state => {
 };
 
 const LOAD = "map-viewport/LOAD";
-const UPDATE = "map-viewport/UPDATE";
+export const UPDATE = "map-viewport/UPDATE";
 
 export const loadMapViewport = payload => {
   return {

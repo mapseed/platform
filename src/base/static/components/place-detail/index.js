@@ -68,6 +68,7 @@ import { jumpTo } from "../../utils/scroll-helpers";
 
 import { translate } from "react-i18next";
 import "./index.scss";
+import eventEmitter from "../../utils/event-emitter";
 
 const PromotionMetadataContainer = styled("div")({
   display: "flex",
@@ -157,7 +158,7 @@ class PlaceDetail extends Component {
       }
 
       // this.props.onUpdateMapViewport(newViewport);
-      this.props.updateMapViewport(newViewport);
+      eventEmitter.emit("setMapViewport", newViewport);
     } else if (
       this.props.focusedPlace.geometry.type === "LineString" ||
       this.props.focusedPlace.geometry.type === "Polygon"
@@ -170,7 +171,7 @@ class PlaceDetail extends Component {
       );
 
       // this.props.onUpdateMapViewport({
-      this.props.updateMapViewport({
+      eventEmitter.emit("setMapViewport", {
         latitude: newViewport.latitude,
         longitude: newViewport.longitude,
         transitionDuration: featuredPlace ? 3000 : 200,
@@ -187,7 +188,7 @@ class PlaceDetail extends Component {
       }
 
       // this.props.onUpdateMapViewport(newViewport);
-      this.props.updateMapViewport(newViewport);
+      eventEmitter.emit("setMapViewport", newViewport);
     }
 
     if (featuredPlace && !featuredPlace.spotlight) {
@@ -440,7 +441,6 @@ PlaceDetail.propTypes = {
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   // onUpdateMapViewport: PropTypes.func.isRequired,
-  updateMapViewport: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,6 @@
 import { EasingFunction } from "react-map-gl";
 
-export const t = "asdf";
+export const UPDATE: string;
 
 export type MapViewport = {
   minZoom: number;
@@ -26,7 +26,7 @@ export type MapViewport = {
 //   transitionDuration?: number;
 // };
 
-declare type MapViewportDiff = {
+export type MapViewportDiff = {
   minZoom?: number;
   maxZoom?: number;
   latitude?: number;
@@ -53,3 +53,9 @@ export const updateMapViewport: (
   mapViewportDiff: MapViewportDiff,
   scrollZoomAroundCenter?: boolean,
 ) => Action;
+
+declare function mapViewportReducer(
+  mapViewport: MapViewport,
+  action: Action,
+): MapViewport;
+export default mapViewportReducer;

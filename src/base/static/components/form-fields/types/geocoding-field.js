@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
+import eventEmitter from "../../../utils/event-emitter";
 
 import {
   mapConfigSelector,
@@ -16,14 +17,11 @@ import {
 import Util from "../../../js/utils.js";
 
 class GeocodingField extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isGeocoding: false,
-      isWithGeocodingError: false,
-    };
-    this.geocodingEngine = "Mapbox";
-  }
+  state = {
+    isGeocoding: false,
+    isWithGeocodingError: false,
+  };
+  geocodingEngine = "Mapbox";
 
   componentDidUpdate(prevProps, prevState) {
     this.props.isTriggeringGeocode &&
@@ -60,7 +58,7 @@ class GeocodingField extends Component {
               isWithGeocodingError: false,
             });
 
-            this.props.onUpdateMapViewport({
+            eventEmitter.emit("setMapViewport", {
               latitude: locationGeometry.coordinates[1],
               longitude: locationGeometry.coordinates[0],
               zoom: 14,
@@ -131,7 +129,6 @@ GeocodingField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
   placeholder: PropTypes.string,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   isTriggeringGeocode: PropTypes.bool,
   value: PropTypes.string,

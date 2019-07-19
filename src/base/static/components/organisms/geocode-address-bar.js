@@ -83,7 +83,6 @@ class GeocodeAddressBar extends Component {
           )}
           isTriggeringGeocode={this.state.isTriggeringGeocode}
           value={this.state.address}
-          onUpdateMapViewport={this.props.onUpdateMapViewport}
         />
       </GeocodeAddressBarWrapper>
     );
@@ -95,7 +94,6 @@ GeocodeAddressBar.propTypes = {
   isRightSidebarVisible: PropTypes.bool.isRequired,
   layout: PropTypes.string.isRequired,
   mapConfig: mapConfigPropType,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 

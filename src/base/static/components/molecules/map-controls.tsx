@@ -14,7 +14,7 @@ import {
   updateMeasurementToolVisibility,
 } from "../../state/ducks/ui";
 import { measurementToolEnabledSelector } from "../../state/ducks/map-config";
-import { updateMapViewport } from "../../state/ducks/map-viewport";
+import eventEmitter from "../../utils/event-emitter";
 
 // const customControlStatePropTypes = {
 //   onClick: PropTypes.func.isRequired,
@@ -53,7 +53,7 @@ class CustomControl extends React.Component<CustomControlProps> {
 }
 
 type GeolocateControlProps = {
-  onViewportChange: typeof updateMapViewport;
+  onViewportChange: any;
 };
 
 // react-map-gl does not export mapboxgl's built-in geolocate control, so we
@@ -96,7 +96,6 @@ type DispatchProps = {
   setLeftSidebarExpanded: typeof setLeftSidebarExpanded;
   // updateMeasurementToolVisibility: (isVisible: boolean) => any;
   updateMeasurementToolVisibility: typeof updateMeasurementToolVisibility;
-  updateMapViewport: typeof updateMapViewport;
 };
 // type ParentProps = {
 //   onViewportChange: Function;
@@ -111,6 +110,9 @@ type MapControlStateProps = {
 type MapControlProps = MapControlStateProps & DispatchProps;
 
 const MapControls: React.FunctionComponent<MapControlProps> = props => {
+  const setViewport = viewport => {
+    eventEmitter.emit("setMapViewport", viewport);
+  };
   return (
     <div
       css={{
@@ -119,10 +121,8 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
         left: "8px",
       }}
     >
-      <NavigationControl
-        onViewportChange={viewport => props.updateMapViewport(viewport)}
-      />
-      <GeolocateControl onViewportChange={props.updateMapViewport} />
+      <NavigationControl onViewportChange={setViewport} />
+      <GeolocateControl onViewportChange={setViewport} />
       <CustomControl
         icon={props.leftSidebarConfig.icon}
         onClick={() => props.setLeftSidebarExpanded(true)}
@@ -150,7 +150,6 @@ const mapStateToProps = (state): MapControlStateProps => ({
 const mapDispatchToProps = {
   setLeftSidebarExpanded,
   updateMeasurementToolVisibility,
-  updateMapViewport,
 };
 
 export default connect<MapControlStateProps, DispatchProps>(

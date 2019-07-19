@@ -6,6 +6,7 @@ import { css, jsx } from "@emotion/core";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import eventEmitter from "../../utils/event-emitter";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
@@ -51,13 +52,11 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
 import {
   mapViewportSelector,
-  updateMapViewport,
 } from "../../state/ducks/map-viewport";
 
 class InputForm extends Component {
   constructor(props) {
     super(props);
-
     this.initializeForm(props.selectedCategory);
     this.state = {
       fields: this.getNewFields(OrderedMap()),
@@ -87,7 +86,7 @@ class InputForm extends Component {
         );
       stageConfig.viewport &&
         // this.props.onUpdateMapViewport(stageConfig.viewport);
-        this.props.updateMapViewport(stageConfig.viewport);
+        eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
 
     this.selectedCategoryConfig.visibleLayerGroupIds &&
@@ -132,7 +131,7 @@ class InputForm extends Component {
         );
       stageConfig.viewport &&
         // this.props.onUpdateMapViewport(stageConfig.viewport);
-        this.props.updateMapViewport(stageConfig.viewport);
+        eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
   }
 
@@ -584,7 +583,6 @@ class InputForm extends Component {
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
-                  onUpdateMapViewport={this.props.updateMapViewport}
                 />
               ))
               .toArray()}
@@ -670,7 +668,6 @@ InputForm.propTypes = {
   mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
   // onUpdateMapViewport: PropTypes.func.isRequired,
-  updateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
@@ -714,8 +711,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
-  updateMapViewport: (newViewport, scrollZoomAroundCenter) =>
-    dispatch(updateMapViewport(newViewport, scrollZoomAroundCenter)),
 });
 
 // Export undecorated component for testing purposes.

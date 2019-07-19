@@ -126,7 +126,6 @@ class ContentPanel extends Component {
                   this.contentPanelInnerContainerRef
                 }
                 mapContainerRef={this.props.mapContainerRef}
-                onUpdateMapViewport={this.props.onUpdateMapViewport}
                 scrollToResponseId={null}
               />
             )}
@@ -135,8 +134,6 @@ class ContentPanel extends Component {
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
               isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
               layout={this.props.layout}
-              mapViewport={this.props.mapViewport}
-              onUpdateMapViewport={this.props.onUpdateMapViewport}
               updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
             />
           )}
@@ -157,8 +154,6 @@ ContentPanel.propTypes = {
   defaultLanguageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
   updateMapDraggedOrZoomed: PropTypes.func.isRequired,
