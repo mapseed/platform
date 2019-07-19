@@ -8,10 +8,7 @@ import { translate } from "react-i18next";
 import "./geocoding-field.scss";
 import eventEmitter from "../../../utils/event-emitter";
 
-import {
-  mapConfigSelector,
-  mapConfigPropType,
-} from "../../../state/ducks/map";
+import { mapConfigSelector, mapConfigPropType } from "../../../state/ducks/map";
 
 // TODO: Consolidate Util methods used here.
 import Util from "../../../js/utils.js";

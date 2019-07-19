@@ -12,10 +12,7 @@ import WebMercatorViewport, {
 import { CanvasOverlay } from "react-map-gl";
 import { FeatureCollection, Point, LineString, Polygon } from "geojson";
 
-import {
-  MapViewport,
-  mapViewportSelector,
-} from "../../state/ducks/map";
+import { MapViewport, mapViewportSelector } from "../../state/ducks/map";
 import {
   mapContainerDimensionsSelector,
   MapContainerDimensions,

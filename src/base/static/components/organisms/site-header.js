@@ -22,10 +22,7 @@ import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
-import {
-  mapConfigSelector,
-  mapConfigPropType,
-} from "../../state/ducks/map";
+import { mapConfigSelector, mapConfigPropType } from "../../state/ducks/map";
 import {
   dashboardConfigSelector,
   dashboardConfigPropType,
