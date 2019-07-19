@@ -1,5 +1,4 @@
 import produce from "immer";
-const spread = produce(Object.assign);
 
 export const mapViewportSelector = state => {
   return state.mapViewport;
@@ -36,7 +35,6 @@ const INITIAL_STATE = {
   pitch: 15,
 };
 
-// export default function reducer(state = INITIAL_STATE, action) {
 export default (state = INITIAL_STATE, action) =>
   produce(state, draft => {
     switch (action.type) {
@@ -62,20 +60,9 @@ export default (state = INITIAL_STATE, action) =>
         ) {
           draft.latitude = action.payload.viewport.latitude;
           draft.longitude = action.payload.viewport.longitude;
-          // } else if (draft.zoom === action.payload.mapViewport.zoom) {
-          //   draft.latitude = action.payload.viewport.latitude;
-          //   draft.longitude = action.payload.viewport.longitude;
         }
         draft.zoom = action.payload.viewport.zoom;
         draft.pitch = action.payload.viewport.pitch;
         return;
-      // return {
-      //   ...state,
-      //   ...action.payload,
-      //   // defaultMapViewport: {
-      //   //   ...state.defaultMapViewport,
-      //   //   ...action.payload.mapViewport,
-      //   // },
-      // };
     }
   });
