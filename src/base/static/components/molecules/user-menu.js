@@ -23,7 +23,7 @@ import {
 import {
   offlineConfigPropType,
   offlineConfigSelector,
-} from "../../state/ducks/map-config";
+} from "../../state/ducks/map";
 
 import mq from "../../../../media-queries";
 

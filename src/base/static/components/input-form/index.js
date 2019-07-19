@@ -31,7 +31,7 @@ import {
   mapViewportPropType,
   layerGroupsSelector,
   layerGroupsPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   hasAdminAbilities,
   hasGroupAbilitiesInDatasets,
@@ -50,7 +50,7 @@ import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
-import { mapViewportSelector } from "../../state/ducks/map-viewport";
+import { mapViewportSelector } from "../../state/ducks/map";
 
 class InputForm extends Component {
   constructor(props) {

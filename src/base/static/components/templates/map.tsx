@@ -52,12 +52,12 @@ import {
   mapConfigSelector,
   mapConfigPropType,
   MapSourcesLoadStatus,
-} from "../../state/ducks/map-config";
+} from "../../state/ducks/map";
 import {
   createFeaturesInGeoJSONSource,
   mapSourcesSelector,
   mapSourcesPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   updateFocusedPlaceId,
   updateScrollToResponseId,
@@ -200,8 +200,8 @@ class MapTemplate extends Component<Props, State> {
       lng &&
       emitter.emit("setMapViewport", {
         zoom: parseFloat(zoom),
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
+        latitude: parseFloat(lat),
+        longitude: parseFloat(lng),
       });
 
     const startPageConfig = this.props.navBarConfig.find(

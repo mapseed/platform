@@ -12,11 +12,8 @@ import {
   layerGroupsSelector,
   layersSelector,
   Layer,
-} from "../../state/ducks/map";
-import {
-  MapWidgetsConfig,
-  mapWidgetsSelector,
-} from "../../state/ducks/map-config";
+} from "../../state/ducks/map-style";
+import { MapWidgetsConfig, mapWidgetsSelector } from "../../state/ducks/map";
 import { layoutSelector } from "../../state/ducks/ui";
 
 type ContainerStateProps = {

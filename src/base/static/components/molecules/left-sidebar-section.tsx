@@ -16,12 +16,12 @@ import {
   updateLayerGroupVisibility,
   LayerGroups,
   SourcesMetadata,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   LeftSidebarSection,
   LeftSidebarOption,
 } from "../../state/ducks/left-sidebar";
-import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
+import { MapSourcesLoadStatus } from "../../state/ducks/map";
 
 const MapLayerSelectorContainer = styled("div")({
   display: "flex",

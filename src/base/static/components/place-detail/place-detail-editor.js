@@ -29,7 +29,7 @@ import {
   removeFeatureInGeoJSONSource,
   updateFeatureInGeoJSONSource,
   updateFocusedGeoJSONFeatures,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
 import {
   isInAtLeastOneGroup,
