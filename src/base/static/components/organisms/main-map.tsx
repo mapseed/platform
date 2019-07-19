@@ -68,7 +68,7 @@ const mapViewportReducer = (
         if (!isNaN(Number(action.payload.viewport.zoom))) {
           draft.zoom = Number(action.payload.viewport.zoom);
         }
-        if (!isNaN(Number(action.payload.viewport.pitch !== undefined))) {
+        if (!isNaN(Number(action.payload.viewport.pitch))) {
           draft.pitch = Number(action.payload.viewport.pitch);
         }
         if (!isNaN(Number(action.payload.viewport.transitionDuration))) {
