@@ -158,6 +158,7 @@ type Props = StateProps &
 // 'process' global is injected by Webpack:
 declare const process: any;
 
+// TODO: Move this out of App state:
 interface Language {
   code: string;
   label: string;
