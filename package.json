@@ -79,7 +79,7 @@
     "eventemitter3": "^4.0.0",
     "glob": "^7.1.4",
     "hoist-non-react-statics": "^3.3.0",
-    "i18next": "^10.2.2",
+    "i18next": "^17.0.6",
     "immer": "^3.1.3",
     "immutable": "^3.8.2",
     "jss": "^9.8.7",
