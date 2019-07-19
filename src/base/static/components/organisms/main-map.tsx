@@ -55,16 +55,33 @@ import produce from "immer";
 const transitionInterpolator = new FlyToInterpolator();
 
 const UPDATE_VIEWPORT = "update-viewport";
-const mapViewportReducer = (state: MapViewport, action): MapViewport =>
+const mapViewportReducer = (
+  state: MapViewport,
+  action: {
+    type: string;
+    payload: { viewport: MapViewportDiff; scrollZoomAroundCenter: boolean };
+  },
+): MapViewport =>
   produce(state, draft => {
     switch (action.type) {
       case UPDATE_VIEWPORT:
-        Object.assign(draft, action.payload.viewport);
-        // NOTE: This is a fix for an apparent bug in react-map-gl.
-        // See: https://github.com/uber/react-map-gl/issues/630
-        draft.bearing = isNaN(action.payload.viewport.bearing)
-          ? draft.bearing
-          : action.payload.viewport.bearing;
+        if (!isNaN(Number(action.payload.viewport.zoom))) {
+          draft.zoom = Number(action.payload.viewport.zoom);
+        }
+        if (!isNaN(Number(action.payload.viewport.pitch !== undefined))) {
+          draft.pitch = Number(action.payload.viewport.pitch);
+        }
+        if (!isNaN(Number(action.payload.viewport.transitionDuration))) {
+          draft.transitionDuration = Number(
+            action.payload.viewport.transitionDuration,
+          );
+        }
+        // NOTE: NaN values in our viewport.bearing will cause a crash:
+        // https://github.com/uber/react-map-gl/issues/630 (Although it's best
+        // practice to guard against them anyway)
+        if (!isNaN(Number(action.payload.viewport.bearing))) {
+          draft.bearing = Number(action.payload.viewport.bearing);
+        }
         // These checks support a "scroll zoom around center" feature (in
         // which a zoom of the map will not change the centerpoint) that is
         // not exposed by react-map-gl. These checks are pretty convoluted,
@@ -72,14 +89,17 @@ const mapViewportReducer = (state: MapViewport, action): MapViewport =>
         // incorporate the scroll zoom around center option natively.
         // See: https://github.com/uber/react-map-gl/issues/515
         if (
-          !action.payload.scrollZoomAroundCenter ||
-          draft.zoom === action.payload.viewport.zoom
+          !action.payload.scrollZoomAroundCenter &&
+          !isNaN(Number(action.payload.viewport.latitude))
         ) {
-          draft.latitude = action.payload.viewport.latitude;
-          draft.longitude = action.payload.viewport.longitude;
+          draft.latitude = Number(action.payload.viewport.latitude);
         }
-        draft.zoom = action.payload.viewport.zoom;
-        draft.pitch = action.payload.viewport.pitch;
+        if (
+          !action.payload.scrollZoomAroundCenter &&
+          !isNaN(Number(action.payload.viewport.latitude))
+        ) {
+          draft.longitude = Number(action.payload.viewport.longitude);
+        }
         return;
     }
   });
