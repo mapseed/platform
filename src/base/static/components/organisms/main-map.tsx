@@ -57,8 +57,6 @@ import { FlyToInterpolator } from "react-map-gl";
 import produce from "immer";
 
 const transitionInterpolator = new FlyToInterpolator();
-const easeInOutCubic = (x: number) =>
-  x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
 const UPDATE_VIEWPORT = "update-viewport";
 const mapViewportReducer = (
@@ -461,7 +459,6 @@ class MainMap extends React.Component<Props, State> {
           zoom={this.state.mapViewport.zoom}
           transitionDuration={this.state.mapViewport.transitionDuration}
           transitionInterpolator={transitionInterpolator}
-          transitionEasing={easeInOutCubic}
           mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
           minZoom={this.state.mapViewport.minZoom}
           maxZoom={this.state.mapViewport.maxZoom}

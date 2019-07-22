@@ -16,7 +16,6 @@ import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
 import { datasetUrlSelector } from "../../state/ducks/datasets";
 import { updateLayerGroupVisibility } from "../../state/ducks/map-style";
-import { isMapDraggedOrZoomedByUser } from "../../state/ducks/map";
 
 import { RegularText } from "../atoms/typography";
 
@@ -92,32 +91,11 @@ class FormCategoryMenuWrapper extends Component {
     return (
       <>
         {this.state.isShowingCategorySelector && (
-          <>
-            {!this.props.isMapDraggedOrZoomedByUser && (
-              <RegularText
-                css={css`
-                  background-color: ${alertBackground};
-                  display: block;
-                  color: ${getReadableColor(alertBackground)};
-                  border: 2px dotted #ffffff;
-                  border-radius: 8px;
-                  padding: 8px;
-                  margin-bottom: 8px;
-                `}
-                weight="bold"
-              >
-                {this.props.t(
-                  "dragMapAlert",
-                  "Please drag and zoom the map to set the location for your post.",
-                )}
-              </RegularText>
-            )}
-            <InputFormCategorySelector
-              onCategoryChange={this.onCategoryChange.bind(this)}
-              selectedCategory={this.state.selectedCategory}
-              visibleCategoryConfigs={this.visibleCategoryConfigs}
-            />
-          </>
+          <InputFormCategorySelector
+            onCategoryChange={this.onCategoryChange.bind(this)}
+            selectedCategory={this.state.selectedCategory}
+            visibleCategoryConfigs={this.visibleCategoryConfigs}
+          />
         )}
         {this.state.selectedCategory && (
           <InputForm
@@ -142,7 +120,6 @@ FormCategoryMenuWrapper.propTypes = {
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  isMapDraggedOrZoomedByUser: PropTypes.func.isRequired,
   layout: PropTypes.string.isRequired,
   placeConfig: PropTypes.object.isRequired,
   customHooks: PropTypes.oneOfType([
@@ -167,7 +144,6 @@ const mapStateToProps = state => ({
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
   placeConfig: placeConfigSelector(state),
-  isMapDraggedOrZoomedByUser: state => isMapDraggedOrZoomedByUser(state),
 });
 
 const mapDispatchToProps = dispatch => ({
