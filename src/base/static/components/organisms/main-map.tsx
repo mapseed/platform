@@ -74,30 +74,38 @@ const mapViewportReducer = (
         if (action.payload.viewport.transitionDuration !== undefined) {
           draft.transitionDuration = action.payload.viewport.transitionDuration;
         }
+
         // NOTE: NaN values in our viewport.bearing will cause a crash:
         // https://github.com/uber/react-map-gl/issues/630 (Although it's best
         // practice to guard against them anyway)
         if (!isNaN(Number(action.payload.viewport.bearing))) {
           draft.bearing = Number(action.payload.viewport.bearing);
         }
+
         // These checks support a "scroll zoom around center" feature (in
         // which a zoom of the map will not change the centerpoint) that is
         // not exposed by react-map-gl. These checks are pretty convoluted,
         // though, so it would be great if react-map-gl could just
         // incorporate the scroll zoom around center option natively.
         // See: https://github.com/uber/react-map-gl/issues/515
-        if (
-          !action.payload.scrollZoomAroundCenter &&
-          action.payload.viewport.latitude !== undefined
-        ) {
-          draft.latitude = action.payload.viewport.latitude;
-        }
-        if (
-          !action.payload.scrollZoomAroundCenter &&
-          action.payload.viewport.longitude !== undefined
-        ) {
-          draft.longitude = action.payload.viewport.longitude;
-        }
+        draft.latitude =
+          action.payload.viewport.latitude !== undefined &&
+          action.payload.scrollZoomAroundCenter &&
+          action.payload.viewport.zoom !== state.zoom
+            ? state.latitude
+            : action.payload.viewport.latitude
+              ? action.payload.viewport.latitude
+              : state.latitude;
+
+        draft.longitude =
+          action.payload.viewport.longitude !== undefined &&
+          action.payload.scrollZoomAroundCenter &&
+          action.payload.viewport.zoom !== state.zoom
+            ? state.longitude
+            : action.payload.viewport.longitude
+              ? action.payload.viewport.longitude
+              : state.longitude;
+
         return;
     }
   });
