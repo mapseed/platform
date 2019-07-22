@@ -89,20 +89,20 @@ const mapViewportReducer = (
         // incorporate the scroll zoom around center option natively.
         // See: https://github.com/uber/react-map-gl/issues/515
         draft.latitude =
-          action.payload.viewport.latitude !== undefined &&
           action.payload.scrollZoomAroundCenter &&
+          !action.payload.viewport.transitionDuration &&
           action.payload.viewport.zoom !== state.zoom
             ? state.latitude
-            : action.payload.viewport.latitude
+            : action.payload.viewport.latitude !== undefined
               ? action.payload.viewport.latitude
               : state.latitude;
 
         draft.longitude =
-          action.payload.viewport.longitude !== undefined &&
           action.payload.scrollZoomAroundCenter &&
+          !action.payload.viewport.transitionDuration &&
           action.payload.viewport.zoom !== state.zoom
             ? state.longitude
-            : action.payload.viewport.longitude
+            : action.payload.viewport.longitude !== undefined
               ? action.payload.viewport.longitude
               : state.longitude;
 
@@ -399,14 +399,11 @@ class MainMap extends React.Component<Props, State> {
   updateMapViewport = throttle(500, this.props.updateMapViewport);
 
   setMapViewport = (viewport: MapViewportDiff): void => {
-    const scrollZoomAroundCenter = this.isMapTransitioning
-      ? false
-      : this.props.mapConfig.scrollZoomAroundCenter;
     const newMapViewport = mapViewportReducer(this.state.mapViewport, {
       type: UPDATE_VIEWPORT,
       payload: {
         viewport,
-        scrollZoomAroundCenter,
+        scrollZoomAroundCenter: this.props.mapConfig.scrollZoomAroundCenter,
       },
     });
     this.setState({
@@ -487,8 +484,12 @@ class MainMap extends React.Component<Props, State> {
 
             this.setMapViewport(rest);
           }}
-          onTransitionStart={() => (this.isMapTransitioning = true)}
-          onTransitionEnd={() => (this.isMapTransitioning = false)}
+          onTransitionStart={() => {
+            this.isMapTransitioning = true;
+          }}
+          onTransitionEnd={() => {
+            this.isMapTransitioning = false;
+          }}
           interactiveLayerIds={this.props.interactiveLayerIds}
           mapStyle={this.props.mapStyle}
           onInteractionStateChange={this.onInteractionStateChange}
