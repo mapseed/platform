@@ -132,13 +132,9 @@ interface OwnProps {
   };
 }
 interface State {
-  isMapTransitioning: boolean;
   addPlaceButtonHeight: number;
   mapContainerHeightDeclaration: string;
   mapContainerWidthDeclaration: string;
-  mapViewport: MapViewport;
-  isMapDraggedOrZoomedByUser: boolean;
-  isSpotlightMaskVisible: boolean;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 }
 // Types were added to react-i18next is a newer version.
@@ -172,13 +168,6 @@ class MapTemplate extends Component<Props, State> {
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
     addPlaceButtonHeight: 0,
-    mapViewport: {
-      ...this.props.initialMapViewport,
-      transitionInterpolator: new FlyToInterpolator(),
-    },
-    isMapDraggedOrZoomedByUser: true,
-    isSpotlightMaskVisible: false,
-    isMapTransitioning: false,
     // Sources load status terminology:
     // ------------------------------------
     // "unloaded": The map has not yet begun to fetch data for this source.
@@ -315,74 +304,13 @@ class MapTemplate extends Component<Props, State> {
         parseInt(this.props.params.responseId),
       );
     }
-
-    // TODO: refactor these into Redux.
-    if (
-      this.state.isMapDraggedOrZoomedByUser !==
-        prevState.isMapDraggedOrZoomedByUser &&
-      this.state.isMapDraggedOrZoomedByUser
-    ) {
-      this.props.updateUIVisibility("spotlightMask", false);
-    }
   }
-
-  onUpdateMapDraggedOrZoomedByUser = isMapDraggedOrZoomedByUser => {
-    this.setState({
-      isMapDraggedOrZoomedByUser,
-    });
-  };
-
-  onUpdateSpotlightMaskVisibility = isSpotlightMaskVisible => {
-    this.setState({
-      isSpotlightMaskVisible,
-    });
-  };
 
   onUpdateSourceLoadStatus = (sourceId, loadStatus) => {
     this.setState(state => ({
       mapSourcesLoadStatus: {
         ...state.mapSourcesLoadStatus,
         [sourceId]: loadStatus,
-      },
-    }));
-  };
-
-  onUpdateMapTransitioning = isMapTransitioning => {
-    this.setState({
-      isMapTransitioning,
-    });
-  };
-
-  onUpdateMapViewport = (newMapViewport, scrollZoomAroundCenter = false) => {
-    this.setState(state => ({
-      mapViewport: {
-        ...state.mapViewport,
-        ...newMapViewport,
-        // NOTE: This is a fix for an apparent bug in react-map-gl.
-        // See: https://github.com/uber/react-map-gl/issues/630
-        bearing: isNaN(newMapViewport.bearing)
-          ? state.mapViewport.bearing
-          : newMapViewport.bearing,
-        // These checks support a "scroll zoom around center" feature (in
-        // which a zoom of the map will not change the centerpoint) that is
-        // not exposed by react-map-gl. These checks are pretty convoluted,
-        // though, so it would be great if react-map-gl could just
-        // incorporate the scroll zoom around center option natively.
-        // See: https://github.com/uber/react-map-gl/issues/515
-        latitude:
-          scrollZoomAroundCenter &&
-          newMapViewport.zoom !== state.mapViewport.zoom
-            ? state.mapViewport.latitude
-            : newMapViewport.latitude
-              ? newMapViewport.latitude
-              : state.mapViewport.latitude,
-        longitude:
-          scrollZoomAroundCenter &&
-          newMapViewport.zoom !== state.mapViewport.zoom
-            ? state.mapViewport.longitude
-            : newMapViewport.longitude
-              ? newMapViewport.longitude
-              : state.mapViewport.longitude,
       },
     }));
   };
@@ -476,7 +404,6 @@ class MapTemplate extends Component<Props, State> {
             />
           )}
           <MainMap
-            isMapDraggedOrZoomedByUser={this.state.isMapDraggedOrZoomedByUser}
             mapContainerRef={this.mapContainerRef}
             mapContainerWidthDeclaration={
               this.state.mapContainerWidthDeclaration
@@ -485,15 +412,7 @@ class MapTemplate extends Component<Props, State> {
               this.state.mapContainerHeightDeclaration
             }
             mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
-            mapViewport={this.state.mapViewport}
-            onUpdateInitialMapViewport={this.props.onUpdateInitialMapViewport}
-            onUpdateMapViewport={this.onUpdateMapViewport}
-            onUpdateMapDraggedOrZoomedByUser={
-              this.onUpdateMapDraggedOrZoomedByUser
-            }
             onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
-            onUpdateMapTransitioning={this.onUpdateMapTransitioning}
-            isMapTransitioning={this.state.isMapTransitioning}
           />
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
         </div>
@@ -503,12 +422,6 @@ class MapTemplate extends Component<Props, State> {
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}
             mapContainerRef={this.mapContainerRef}
-            mapViewport={this.state.mapViewport}
-            onUpdateMapViewport={this.onUpdateMapViewport}
-            onUpdateMapDraggedOrZoomedByUser={
-              this.onUpdateMapDraggedOrZoomedByUser
-            }
-            isMapTransitioning={this.state.isMapTransitioning}
           />
         )}
         {this.props.isAddPlaceButtonVisible &&

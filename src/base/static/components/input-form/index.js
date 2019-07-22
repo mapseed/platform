@@ -359,8 +359,6 @@ class InputForm extends Component {
       }),
     });
 
-    console.log("placeResponse", placeResponse)
-
     if (!placeResponse) {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place", "fail-to-create-place");
@@ -583,10 +581,6 @@ class InputForm extends Component {
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
-                  onUpdateMapViewport={this.props.onUpdateMapViewport}
-                  viewport={this.props.mapViewport}
-                  isMapTransitioning={this.props.isMapTransitioning}
-                  onUpdateMapDraggedOrZoomedByUser={this.props.onUpdateMapDraggedOrZoomedByUser}
                 />
               ))
               .toArray()}
@@ -663,15 +657,11 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
-  isMapTransitioning: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
-  onUpdateMapDraggedOrZoomedByUser: PropTypes.func.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,

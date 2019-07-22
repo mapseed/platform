@@ -132,14 +132,7 @@ class ContentPanel extends Component {
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
-              isMapTransitioning={this.props.isMapTransitioning}
               layout={this.props.layout}
-              mapViewport={this.props.mapViewport}
-              onUpdateMapViewport={this.props.onUpdateMapViewport}
-              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
-              onUpdateMapDraggedOrZoomedByUser={
-                this.props.onUpdateMapDraggedOrZoomedByUser
-              }
             />
           )}
         </ContentPanelInnerContainer>
@@ -153,7 +146,6 @@ ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
   focusedPlace: placePropType,
   history: PropTypes.object.isRequired,
-  isMapTransitioning: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   currentLanguageCode: PropTypes.string.isRequired,
   defaultLanguageCode: PropTypes.string.isRequired,
@@ -161,7 +153,6 @@ ContentPanel.propTypes = {
   mapContainerRef: PropTypes.object.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
-  onUpdateMapDraggedOrZoomedByUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

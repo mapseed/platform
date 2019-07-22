@@ -15,6 +15,7 @@ import { translate } from "react-i18next";
 import constants from "../../constants";
 
 import { isEditModeToggled, updateUIVisibility } from "../../state/ducks/ui";
+import { updateMapInteractionState } from "../../state/ducks/map";
 
 import "./form-field.scss";
 
@@ -75,7 +76,9 @@ class FormField extends Component {
     });
 
     if (this.props.fieldConfig.type === "lng_lat") {
-      this.props.onUpdateMapDraggedOrZoomedByUser(false);
+      this.props.updateMapInteractionState({
+        isMapDraggedOrZoomedByUser: false,
+      });
       this.props.updateSpotlightMaskVisibility(true);
     }
   }
@@ -202,6 +205,7 @@ FormField.propTypes = {
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
   updateSpotlightMaskVisibility: PropTypes.func.isRequired,
+  updateMapInteractionState: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
@@ -219,6 +223,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateMapInteractionState: newInteractionState =>
+    dispatch(updateMapInteractionState(newInteractionState)),
   updateSpotlightMaskVisibility: isVisible =>
     dispatch(updateUIVisibility("spotlightMask", isVisible)),
 });

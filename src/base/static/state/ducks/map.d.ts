@@ -27,6 +27,12 @@ export type MapViewportDiff = {
   transitionDuration?: number;
 };
 
+export type InteractionStateDiff = {
+  isMapTransitioning?: boolean;
+  isMapDraggingOrZooming?: boolean;
+  isMapDraggedOrZoomedByUser?: boolean;
+};
+
 export interface LayerFeature<
   G extends Geometry | null = Geometry,
   P = GeoJsonProperties
@@ -102,6 +108,9 @@ export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;
 export const mapWidgetsSelector: any;
 export const measurementToolEnabledSelector: any;
+export const isMapTransitioning: (state: any) => boolean;
+export const isMapDraggingOrZooming: (state: any) => boolean;
+export const isMapDraggedOrZoomedByUser: (state: any) => boolean;
 
 declare type Action = {
   type: string;
@@ -109,3 +118,6 @@ declare type Action = {
 };
 export const loadMapViewport: (mapViewportDiff: MapViewportDiff) => Action;
 export const updateMapViewport: (mapViewport: MapViewport) => Action;
+export const updateMapInteractionState: (
+  newInteractionState: InteractionStateDiff,
+) => Action;

@@ -14,9 +14,9 @@ import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
-
 import { datasetUrlSelector } from "../../state/ducks/datasets";
 import { updateLayerGroupVisibility } from "../../state/ducks/map-style";
+import { isMapDraggedOrZoomedByUser } from "../../state/ducks/map";
 
 import { RegularText } from "../atoms/typography";
 
@@ -93,7 +93,7 @@ class FormCategoryMenuWrapper extends Component {
       <>
         {this.state.isShowingCategorySelector && (
           <>
-            {!this.props.isMapDraggedOrZoomed && (
+            {!this.props.isMapDraggedOrZoomedByUser && (
               <RegularText
                 css={css`
                   background-color: ${alertBackground};
@@ -116,7 +116,6 @@ class FormCategoryMenuWrapper extends Component {
               onCategoryChange={this.onCategoryChange.bind(this)}
               selectedCategory={this.state.selectedCategory}
               visibleCategoryConfigs={this.visibleCategoryConfigs}
-              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
             />
           </>
         )}
@@ -131,9 +130,6 @@ class FormCategoryMenuWrapper extends Component {
             isMapTransitioning={this.props.isMapTransitioning}
             isSingleCategory={this.state.isSingleCategory}
             onCategoryChange={this.onCategoryChange}
-            mapViewport={this.props.mapViewport}
-            onUpdateMapViewport={this.props.onUpdateMapViewport}
-            onUpdateMapDraggedOrZoomedByUser={this.props.onUpdateMapDraggedOrZoomedByUser}
           />
         )}
       </>
@@ -146,6 +142,7 @@ FormCategoryMenuWrapper.propTypes = {
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  isMapDraggedOrZoomedByUser: PropTypes.func.isRequired,
   layout: PropTypes.string.isRequired,
   placeConfig: PropTypes.object.isRequired,
   customHooks: PropTypes.oneOfType([
@@ -153,12 +150,8 @@ FormCategoryMenuWrapper.propTypes = {
     PropTypes.objectOf(PropTypes.func),
   ]),
   containers: PropTypes.instanceOf(NodeList),
-  isMapTransitioning: PropTypes.bool.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  onUpdateMapDraggedOrZoomedByUser: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 
@@ -174,6 +167,7 @@ const mapStateToProps = state => ({
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
   placeConfig: placeConfigSelector(state),
+  isMapDraggedOrZoomedByUser: state => isMapDraggedOrZoomedByUser(state),
 });
 
 const mapDispatchToProps = dispatch => ({

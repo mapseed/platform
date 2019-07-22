@@ -1,13 +1,23 @@
 import * as React from "react";
+import { connect } from "react-redux";
 
-import { MapViewport } from "../../../state/ducks/map-config";
+import {
+  mapViewportSelector,
+  isMapTransitioning,
+  MapViewport,
+} from "../../../state/ducks/map";
 
-type Props = {
+type OwnProps = {
   onChange: Function;
-  viewport: MapViewport;
   name: string;
-  isMapTransitioning: boolean;
 };
+
+type StateProps = {
+  isMapTransitioning: boolean;
+  mapViewport: MapViewport;
+};
+
+type Props = OwnProps & StateProps;
 
 const LngLatField: React.FunctionComponent<Props> = props => {
   const isFirstUpdate = React.useRef(true);
@@ -24,14 +34,19 @@ const LngLatField: React.FunctionComponent<Props> = props => {
       }
 
       props.onChange(props.name, [
-        props.viewport.longitude,
-        props.viewport.latitude,
+        props.mapViewport.longitude,
+        props.mapViewport.latitude,
       ]);
     },
-    [props.viewport],
+    [props.mapViewport],
   );
 
   return null;
 };
 
-export default LngLatField;
+const mapStateToProps = (state): StateProps => ({
+  isMapTransitioning: isMapTransitioning(state),
+  mapViewport: mapViewportSelector(state),
+});
+
+export default connect<StateProps>(mapStateToProps)(LngLatField);
