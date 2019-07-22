@@ -65,16 +65,14 @@ const mapViewportReducer = (
   produce(state, draft => {
     switch (action.type) {
       case UPDATE_VIEWPORT:
-        if (!isNaN(Number(action.payload.viewport.zoom))) {
-          draft.zoom = Number(action.payload.viewport.zoom);
+        if (action.payload.viewport.zoom !== undefined) {
+          draft.zoom = action.payload.viewport.zoom;
         }
-        if (!isNaN(Number(action.payload.viewport.pitch))) {
-          draft.pitch = Number(action.payload.viewport.pitch);
+        if (action.payload.viewport.pitch !== undefined) {
+          draft.pitch = action.payload.viewport.pitch;
         }
-        if (!isNaN(Number(action.payload.viewport.transitionDuration))) {
-          draft.transitionDuration = Number(
-            action.payload.viewport.transitionDuration,
-          );
+        if (action.payload.viewport.transitionDuration !== undefined) {
+          draft.transitionDuration = action.payload.viewport.transitionDuration;
         }
         // NOTE: NaN values in our viewport.bearing will cause a crash:
         // https://github.com/uber/react-map-gl/issues/630 (Although it's best
@@ -90,15 +88,15 @@ const mapViewportReducer = (
         // See: https://github.com/uber/react-map-gl/issues/515
         if (
           !action.payload.scrollZoomAroundCenter &&
-          !isNaN(Number(action.payload.viewport.latitude))
+          action.payload.viewport.latitude !== undefined
         ) {
-          draft.latitude = Number(action.payload.viewport.latitude);
+          draft.latitude = action.payload.viewport.latitude;
         }
         if (
           !action.payload.scrollZoomAroundCenter &&
-          !isNaN(Number(action.payload.viewport.latitude))
+          action.payload.viewport.longitude !== undefined
         ) {
-          draft.longitude = Number(action.payload.viewport.longitude);
+          draft.longitude = action.payload.viewport.longitude;
         }
         return;
     }
