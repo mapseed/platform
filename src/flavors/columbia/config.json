@@ -632,7 +632,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 4,
+            "end_field_index": 5,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -640,8 +640,8 @@
             ]
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 6,
+            "start_field_index": 6,
+            "end_field_index": 7,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-watersheds",
@@ -649,8 +649,8 @@
             ]
           },
           {
-            "start_field_index": 7,
-            "end_field_index": 10,
+            "start_field_index": 8,
+            "end_field_index": 11,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-watersheds",
@@ -658,8 +658,8 @@
             ]
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 12,
+            "start_field_index": 12,
+            "end_field_index": 13,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-wetlands",
@@ -667,8 +667,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 14,
+            "start_field_index": 14,
+            "end_field_index": 15,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-frequently-flooded",
@@ -676,8 +676,8 @@
             ]
           },
           {
-            "start_field_index": 15,
-            "end_field_index": 16,
+            "start_field_index": 16,
+            "end_field_index": 17,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-geologic-hazard",
@@ -685,8 +685,8 @@
             ]
           },
           {
-            "start_field_index": 17,
-            "end_field_index": 18,
+            "start_field_index": 18,
+            "end_field_index": 19,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-critical-aquifer",
@@ -694,8 +694,8 @@
             ]
           },
           {
-            "start_field_index": 19,
-            "end_field_index": 20,
+            "start_field_index": 20,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-critical-conservation-areas",
@@ -703,8 +703,8 @@
             ]
           },
           {
-            "start_field_index": 21,
-            "end_field_index": 42,
+            "start_field_index": 22,
+            "end_field_index": 43,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -712,8 +712,8 @@
             ]
           },
           {
-            "start_field_index": 43,
-            "end_field_index": 58,
+            "start_field_index": 44,
+            "end_field_index": 59,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -721,8 +721,8 @@
             ]
           },
           {
-            "start_field_index": 59,
-            "end_field_index": 60,
+            "start_field_index": 60,
+            "end_field_index": 61,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -730,8 +730,8 @@
             ]
           },
           {
-            "start_field_index": 61,
-            "end_field_index": 72,
+            "start_field_index": 62,
+            "end_field_index": 73,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -741,6 +741,10 @@
         ],
         "label": "Actions",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "location_information_header",
             "type": "informational_html",

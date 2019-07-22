@@ -1282,6 +1282,10 @@
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
@@ -1450,6 +1454,10 @@
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "cover-image",
             "type": "file",
             "prompt": "Cover Image",
@@ -1546,6 +1554,10 @@
         "value": "conserve-water",
         "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -1661,6 +1673,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -1775,6 +1791,10 @@
         "label": "I will reduce wastewater pollution",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -1881,6 +1901,10 @@
         "label": "I will conserve energy",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -1979,6 +2003,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -2073,6 +2101,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -2159,6 +2191,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -2236,6 +2272,10 @@
         "value": "restore-salmon-habitat",
         "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
