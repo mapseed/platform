@@ -135,8 +135,6 @@ interface State {
   addPlaceButtonHeight: number;
   mapContainerHeightDeclaration: string;
   mapContainerWidthDeclaration: string;
-  isMapDraggedOrZoomed: boolean;
-  isSpotlightMaskVisible: boolean;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 }
 // Types were added to react-i18next is a newer version.
@@ -170,8 +168,6 @@ class MapTemplate extends Component<Props, State> {
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
     addPlaceButtonHeight: 0,
-    isMapDraggedOrZoomed: false,
-    isSpotlightMaskVisible: false,
     // Sources load status terminology:
     // ------------------------------------
     // "unloaded": The map has not yet begun to fetch data for this source.
@@ -308,27 +304,7 @@ class MapTemplate extends Component<Props, State> {
         parseInt(this.props.params.responseId),
       );
     }
-
-    // TODO: refactor these into Redux.
-    if (
-      this.state.isMapDraggedOrZoomed !== prevState.isMapDraggedOrZoomed &&
-      this.state.isMapDraggedOrZoomed
-    ) {
-      this.props.updateUIVisibility("spotlightMask", false);
-    }
   }
-
-  onUpdateMapDraggedOrZoomed = isMapDraggedOrZoomed => {
-    this.setState({
-      isMapDraggedOrZoomed,
-    });
-  };
-
-  onUpdateSpotlightMaskVisibility = isSpotlightMaskVisible => {
-    this.setState({
-      isSpotlightMaskVisible,
-    });
-  };
 
   onUpdateSourceLoadStatus = (sourceId, loadStatus) => {
     this.setState(state => ({
@@ -372,8 +348,6 @@ class MapTemplate extends Component<Props, State> {
     switch (uiConfiguration) {
       case "newPlace":
         this.props.updateUIVisibility("contentPanel", true);
-        this.props.updateUIVisibility("spotlightMask", true);
-        this.props.updateUIVisibility("mapCenterpoint", true);
         this.props.updateUIVisibility("addPlaceButton", false);
         this.props.updateContentPanelComponent("InputForm");
         break;
@@ -430,7 +404,6 @@ class MapTemplate extends Component<Props, State> {
             />
           )}
           <MainMap
-            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             mapContainerRef={this.mapContainerRef}
             mapContainerWidthDeclaration={
               this.state.mapContainerWidthDeclaration
@@ -439,10 +412,6 @@ class MapTemplate extends Component<Props, State> {
               this.state.mapContainerHeightDeclaration
             }
             mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
-            onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
-            onUpdateSpotlightMaskVisibility={
-              this.onUpdateSpotlightMaskVisibility
-            }
             onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
           />
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
@@ -450,15 +419,9 @@ class MapTemplate extends Component<Props, State> {
         {this.props.isContentPanelVisible && (
           <ContentPanel
             addPlaceButtonHeight={this.state.addPlaceButtonHeight}
-            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}
             mapContainerRef={this.mapContainerRef}
-            updateMapDraggedOrZoomed={isMapDraggedOrZoomed =>
-              this.setState({
-                isMapDraggedOrZoomed,
-              })
-            }
           />
         )}
         {this.props.isAddPlaceButtonVisible &&

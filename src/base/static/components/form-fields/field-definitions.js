@@ -33,6 +33,7 @@ import {
   NumberField,
   NumberFieldResponse,
   GeolocateField,
+  LngLatField,
 } from "./types";
 import { isWithAnyValue, isNotEmpty } from "./validators";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
@@ -43,6 +44,11 @@ const getDefaultValidator = isOptional => {
     message: "missingRequired",
   };
 };
+
+const getMapDragValidator = () => ({
+  validate: isNotEmpty,
+  message: "mapNotDragged",
+});
 
 const getPermissiveValidator = () => {
   return {
@@ -67,6 +73,17 @@ const getSharedFieldProps = (fieldConfig, context) => {
 };
 
 export default {
+  [constants.LNG_LAT_FIELD_TYPENAME]: {
+    getValidator: getMapDragValidator,
+    getComponent: (fieldConfig, context) => (
+      <LngLatField
+        {...getSharedFieldProps(fieldConfig, context)}
+        viewport={context.props.viewport}
+        isMapTransitioning={context.props.isMapTransitioning}
+      />
+    ),
+    getInitialValue: ({ value }) => value,
+  },
   [constants.TEXT_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
     getComponent: (fieldConfig, context) => (

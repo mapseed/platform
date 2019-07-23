@@ -20,6 +20,7 @@ const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
 const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
 const UPDATE_CONTENT_PANEL_COMPONENT = "ui/UPDATE_CONTENT_PANEL_COMPONENT";
 const UPDATE_LAYOUT = "ui/UPDATE_LAYOUT";
+const UPDATE_SPOTLIGHT_MASK_VISIBILITY = "ui/UPDATE_SPOTLIGHT_MASK_VISIBILITY";
 export const RESET_UI = "ui/RESET";
 
 // Action creators:
@@ -67,6 +68,12 @@ export function updateLayout() {
     payload: getLayout(),
   };
 }
+export function updateSpotlightMaskVisibility(isVisible) {
+  return {
+    type: UPDATE_SPOTLIGHT_MASK_VISIBILITY,
+    payload: isVisible,
+  };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -95,6 +102,14 @@ export default function reducer(state = INITIAL_STATE, action) {
         uiVisibility: {
           ...state.uiVisibility,
           [action.payload.uiComponentName]: action.payload.isVisible,
+        },
+      };
+    case UPDATE_SPOTLIGHT_MASK_VISIBILITY:
+      return {
+        ...state,
+        uiVisibility: {
+          ...state.uiVisibility,
+          spotlightMask: action.payload,
         },
       };
     case UPDATE_ACTIVE_PAGE:

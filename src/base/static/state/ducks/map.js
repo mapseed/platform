@@ -47,10 +47,17 @@ export const mapWidgetsSelector = state => {
 };
 export const measurementToolEnabledSelector = state =>
   state.map.measurementToolEnabled;
+export const isMapDraggingOrZooming = state =>
+  state.map.mapInteractionState.isMapDraggingOrZooming;
+export const isMapTransitioning = state =>
+  state.map.mapInteractionState.isMapTransitioning;
+export const isMapDraggedOrZoomedByUser = state =>
+  state.map.mapInteractionState.isMapDraggedOrZoomedByUser;
 
 // Actions:
 const LOAD = "map/LOAD";
 export const UPDATE_MAPVIEWPORT = "map/UPDATE_MAPVIEWPORT";
+const UPDATE_MAP_INTERACTION_STATE = "map/UPDATE_MAP_INTERACTION_STATE";
 
 // Action creators:
 export function loadMapConfig(config) {
@@ -61,6 +68,13 @@ export const updateMapViewport = newMapViewport => {
   return {
     type: UPDATE_MAPVIEWPORT,
     payload: newMapViewport,
+  };
+};
+
+export const updateMapInteractionState = newInteractionState => {
+  return {
+    type: UPDATE_MAP_INTERACTION_STATE,
+    payload: newInteractionState,
   };
 };
 
@@ -79,6 +93,11 @@ const INITIAL_STATE = {
     pitch: 15,
   },
   mapWidgets: {},
+  mapInteractionState: {
+    isMapTransitioning: false,
+    isMapDraggingOrZooming: false,
+    isMapDraggedOrZoomedByUser: true,
+  },
 };
 
 export default (state = INITIAL_STATE, action) =>
@@ -91,6 +110,9 @@ export default (state = INITIAL_STATE, action) =>
         return;
       case UPDATE_MAPVIEWPORT:
         Object.assign(draft.mapViewport, action.payload);
+        return;
+      case UPDATE_MAP_INTERACTION_STATE:
+        Object.assign(draft.mapInteractionState, action.payload);
         return;
     }
   });

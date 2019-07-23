@@ -842,6 +842,10 @@
         "label": "Featured Site",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Title:",
@@ -876,6 +880,10 @@
         "value": "geology",
         "label": "Geology",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -921,6 +929,10 @@
         "label": "History",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
@@ -963,6 +975,10 @@
         "value": "industry",
         "label": "Industry",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -1008,6 +1024,10 @@
         "label": "Culture",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Title of your post",
@@ -1050,6 +1070,10 @@
         "value": "ecology",
         "label": "Ecology",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",

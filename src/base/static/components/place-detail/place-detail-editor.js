@@ -63,6 +63,7 @@ class PlaceDetailEditor extends Component {
         field =>
           field.type !== "submit" &&
           field.type !== "informational_html" &&
+          field.type !== "lng_lat" &&
           field.isVisible,
       )
       .forEach(field => {
