@@ -1334,7 +1334,7 @@
           },
           {
             "start_field_index": 53,
-            "end_field_index": 61,
+            "end_field_index": 62,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1571,6 +1571,13 @@
             "name": "landowner_information_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Almost Done!</h2>"
+          },
+          {
+            "name": "private-final_address",
+            "type": "geocoding",
+            "placeholder": "Your address will never be shared",
+            "prompt": "Double check that your address is correct before submitting this form:",
+            "optional": true
           },
           {
             "name": "private-landowner_name",
