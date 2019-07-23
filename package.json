@@ -56,7 +56,7 @@
     "@turf/helpers": "^6.1.4",
     "@types/d3-geo": "^1.11.1",
     "@types/geojson": "^7946.0.7",
-    "@types/mapbox-gl": "^0.51.7",
+    "@types/mapbox-gl": "^0.51.11",
     "@types/prop-types": "^15.7.1",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
