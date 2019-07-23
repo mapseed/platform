@@ -595,7 +595,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 4,
+            "end_field_index": 5,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -603,8 +603,8 @@
             ]
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 8,
+            "start_field_index": 6,
+            "end_field_index": 9,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-wetlands",
@@ -612,8 +612,8 @@
             ]
           },
           {
-            "start_field_index": 9,
-            "end_field_index": 12,
+            "start_field_index": 10,
+            "end_field_index": 13,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-frequently-flooded",
@@ -621,8 +621,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 16,
+            "start_field_index": 14,
+            "end_field_index": 17,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-geologic-hazard",
@@ -630,8 +630,8 @@
             ]
           },
           {
-            "start_field_index": 17,
-            "end_field_index": 20,
+            "start_field_index": 18,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-critical-aquifer",
@@ -639,8 +639,8 @@
             ]
           },
           {
-            "start_field_index": 21,
-            "end_field_index": 24,
+            "start_field_index": 22,
+            "end_field_index": 25,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-conservation-areas",
@@ -648,8 +648,8 @@
             ]
           },
           {
-            "start_field_index": 25,
-            "end_field_index": 45,
+            "start_field_index": 26,
+            "end_field_index": 46,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -657,8 +657,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 64,
+            "start_field_index": 47,
+            "end_field_index": 65,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -666,8 +666,8 @@
             ]
           },
           {
-            "start_field_index": 65,
-            "end_field_index": 73,
+            "start_field_index": 66,
+            "end_field_index": 74,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -675,8 +675,8 @@
             ]
           },
           {
-            "start_field_index": 74,
-            "end_field_index": 91,
+            "start_field_index": 75,
+            "end_field_index": 92,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -684,8 +684,8 @@
             ]
           },
           {
-            "start_field_index": 92,
-            "end_field_index": 100,
+            "start_field_index": 93,
+            "end_field_index": 101,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -693,8 +693,8 @@
             ]
           },
           {
-            "start_field_index": 101,
-            "end_field_index": 127,
+            "start_field_index": 102,
+            "end_field_index": 128,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -702,8 +702,8 @@
             ]
           },
           {
-            "start_field_index": 128,
-            "end_field_index": 129,
+            "start_field_index": 129,
+            "end_field_index": 130,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -711,8 +711,8 @@
             ]
           },
           {
-            "start_field_index": 130,
-            "end_field_index": 142,
+            "start_field_index": 131,
+            "end_field_index": 143,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -722,6 +722,10 @@
         ],
         "label": "Actions",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "location_information_header",
             "type": "informational_html",

@@ -7,17 +7,21 @@ const TextInput = styled(props => {
   return (
     <input
       type="text"
+      name={props.name}
       aria-label={props.ariaLabel}
       className={props.className}
       placeholder={props.placeholder ? props.placeholder : ""}
       onChange={props.onChange ? props.onChange : null}
       onKeyPress={props.onKeyPress ? props.onKeyPress : null}
+      onBlur={props.onBlur ? props.onBlur : null}
+      onFocus={props.onFocus ? props.onFocus : null}
+      value={props.value}
     />
   );
 })(props => {
   const styles = {
     borderWidth: ".25em",
-    borderColor: props.theme.brand.primary,
+    borderColor: "#999",
     borderStyle: "solid",
     padding: "8px",
   };
@@ -34,7 +38,11 @@ TextInput.propTypes = {
   placeHolder: PropTypes.string,
   onChange: PropTypes.func,
   onKeyPress: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   ariaLabel: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 const TextareaInput = styled(props => {

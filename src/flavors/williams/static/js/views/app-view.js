@@ -13,7 +13,7 @@ import mapseedApiClient from "../../../../../base/static/client/mapseed-api-clie
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../../../../theme";
 
-import { setMapConfig } from "../../../../../base/static/state/ducks/map-config";
+import { setMapConfig } from "../../../../../base/static/state/ducks/map";
 import { setPlaceConfig } from "../../../../../base/static/state/ducks/place-config";
 import { setStoryConfig } from "../../../../../base/static/state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../../../../base/static/state/ducks/left-sidebar";

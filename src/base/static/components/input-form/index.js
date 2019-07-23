@@ -6,6 +6,7 @@ import { css, jsx } from "@emotion/core";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import eventEmitter from "../../utils/event-emitter";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
@@ -30,7 +31,7 @@ import {
   mapViewportPropType,
   layerGroupsSelector,
   layerGroupsPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   hasAdminAbilities,
   hasGroupAbilitiesInDatasets,
@@ -49,11 +50,11 @@ import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
+import { mapViewportSelector } from "../../state/ducks/map";
 
 class InputForm extends Component {
   constructor(props) {
     super(props);
-
     this.initializeForm(props.selectedCategory);
     this.state = {
       fields: this.getNewFields(OrderedMap()),
@@ -82,7 +83,7 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        this.props.onUpdateMapViewport(stageConfig.viewport);
+        eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
 
     this.selectedCategoryConfig.visibleLayerGroupIds &&
@@ -126,7 +127,7 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        this.props.onUpdateMapViewport(stageConfig.viewport);
+        eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
   }
 
@@ -264,11 +265,6 @@ class InputForm extends Component {
       { validationErrors: new Set(), isValid: true },
     );
 
-    if (!this.props.isMapDraggedOrZoomed) {
-      newValidationErrors.add("mapNotDragged");
-      isValid = false;
-    }
-
     if (isValid) {
       successCallback();
     } else {
@@ -298,7 +294,12 @@ class InputForm extends Component {
 
     let attrs = {
       ...this.state.fields
-        .filter(state => !!state.get("value"))
+        .filter(state => {
+          return (
+            state.get("config").get("type") !== "lng_lat" &&
+            !!state.get("value")
+          );
+        })
         .map(state => state.get("value"))
         .toJS(),
       location_type: this.selectedCategoryConfig.category,
@@ -458,7 +459,7 @@ class InputForm extends Component {
     this.props.createFeaturesInGeoJSONSource(
       // "sourceId" and a place's datasetSlug are the same thing.
       this.props.datasetSlug,
-      toClientGeoJSONFeature(placeResponse),
+      [toClientGeoJSONFeature(placeResponse)],
     );
 
     // Save autofill values as necessary.
@@ -578,7 +579,6 @@ class InputForm extends Component {
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
-                  onUpdateMapViewport={this.props.onUpdateMapViewport}
                 />
               ))
               .toArray()}
@@ -655,22 +655,16 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
-  isLeavingForm: PropTypes.bool,
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
@@ -694,6 +688,7 @@ const mapStateToProps = state => ({
   layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   placeConfig: placeConfigSelector(state),
+  mapViewport: mapViewportSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -702,8 +697,6 @@ const mapDispatchToProps = dispatch => ({
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
 });

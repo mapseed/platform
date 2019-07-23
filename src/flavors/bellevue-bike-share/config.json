@@ -193,6 +193,10 @@
         "label": "_(Bike Share Location)",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "_(Add a descriptive title:)",

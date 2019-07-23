@@ -267,6 +267,10 @@
         "label": "Sensation",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "How does it feel?",
@@ -307,6 +311,10 @@
         "label": "Idea",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "What's the concept?",
@@ -345,6 +353,10 @@
         "value": "artwork",
         "label": "Artwork",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -385,6 +397,10 @@
         "value": "event",
         "label": "Event",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",

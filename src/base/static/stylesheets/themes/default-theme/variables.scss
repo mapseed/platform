@@ -163,24 +163,6 @@ $datetime-field-autofill-background-color: $autofill-color;
 $rendered-datetime-field-margin-bottom: 5px;
 
 /*
-  geocoding-field.js
-  Geocoder
-*/
-$geocoding-field-width: 100%;
-$geocoding-field-border: 0.25em solid $secondary-color;
-$geocoding-field-padding: 0.5em 0.5em 0.5em 2.5em;
-$geocoding-field-search-icon: $icon-search;
-$geocoding-field-search-icon-color: $secondary-color;
-$geocoding-field-search-icon-font-size: 1.5em;
-$geocoding-field-spinner-icon-color: #000000;
-$geocoding-field-spinner-icon-background-color: $secondary-color;
-$geocoding-field-error-background-color: #bf6083;
-$geocoding-field-error-text-color: #ffffff;
-$geocoding-field-error-box-shadow: 2px 2px 0 #bf6083, 2px -2px 0 #bf6083,
-  -2px 2px 0 #bf6083, -2px -2px 0 #bf6083;
-$geocoding-field-error-padding: 0.25em 0.5em;
-
-/*
   big-radio-field.js
   Large radio field with label with left-aligned icon inside
 */

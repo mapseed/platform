@@ -760,6 +760,10 @@
         "value": "cycle1-projects",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "private",
             "type": "big_radio",
             "restrictToGroups": ["administrators"],
@@ -955,6 +959,10 @@
         "value": "project",
         "label": "Project Proposal",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "private",
             "type": "big_radio",
@@ -1152,6 +1160,10 @@
         "label": "Art & Culture",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Title:",
@@ -1226,6 +1238,10 @@
         "value": "parks",
         "label": "Parks & Recreation",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -1302,6 +1318,10 @@
         "label": "Streets & Sidewalks",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Title:",
@@ -1376,6 +1396,10 @@
         "value": "health",
         "label": "Health & Wellness",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -1452,6 +1476,10 @@
         "label": "Safety & Environment",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Title:",
@@ -1526,6 +1554,10 @@
         "value": "other",
         "label": "Other",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",

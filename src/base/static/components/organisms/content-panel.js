@@ -16,7 +16,7 @@ import {
   pageSlugSelector,
   uiVisibilitySelector,
 } from "../../state/ducks/ui";
-import { mapViewportPropType } from "../../state/ducks/map";
+import { mapViewportPropType } from "../../state/ducks/map-style";
 import { focusedPlaceSelector, placePropType } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 
@@ -126,18 +126,13 @@ class ContentPanel extends Component {
                   this.contentPanelInnerContainerRef
                 }
                 mapContainerRef={this.props.mapContainerRef}
-                onUpdateMapViewport={this.props.onUpdateMapViewport}
                 scrollToResponseId={null}
               />
             )}
           {this.props.contentPanelComponent === "InputForm" && (
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
-              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
               layout={this.props.layout}
-              mapViewport={this.props.mapViewport}
-              onUpdateMapViewport={this.props.onUpdateMapViewport}
-              updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
             />
           )}
         </ContentPanelInnerContainer>
@@ -151,17 +146,13 @@ ContentPanel.propTypes = {
   contentPanelComponent: PropTypes.string,
   focusedPlace: placePropType,
   history: PropTypes.object.isRequired,
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   currentLanguageCode: PropTypes.string.isRequired,
   defaultLanguageCode: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
   mapContainerRef: PropTypes.object.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   pageSelector: PropTypes.func.isRequired,
   pageSlug: PropTypes.string,
-  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

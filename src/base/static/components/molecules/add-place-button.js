@@ -7,7 +7,7 @@ import { Button } from "../atoms/buttons";
 import mq from "../../../../media-queries";
 import constants from "../../constants";
 
-import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map-config";
+import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map";
 
 const AddPlaceButtonContainer = styled(props => (
   <Button

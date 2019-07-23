@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import mapStyleReducer from "./ducks/map-style";
 import mapReducer from "./ducks/map";
 import placesReducer from "./ducks/places";
 import uiReducer from "./ducks/ui";
@@ -6,7 +7,6 @@ import filters from "./ducks/filters";
 import leftSidebarReducer from "./ducks/left-sidebar";
 
 import appConfigReducer from "./ducks/app-config";
-import mapConfigReducer from "./ducks/map-config";
 import placeConfigReducer from "./ducks/place-config";
 import featuredPlacesConfigReducer from "./ducks/featured-places-config";
 import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
@@ -27,7 +27,8 @@ const reducers = combineReducers({
   leftSidebar: leftSidebarReducer,
   filters,
   appConfig: appConfigReducer,
-  mapConfig: mapConfigReducer,
+  map: mapReducer,
+  mapStyle: mapStyleReducer,
   placeConfig: placeConfigReducer,
   featuredPlacesConfig: featuredPlacesConfigReducer,
   rightSidebarConfig: rightSidebarConfigReducer,
@@ -40,7 +41,6 @@ const reducers = combineReducers({
   datasetsConfig: datasetsConfigReducer,
   datasets: datasetsReducer,
   activity: activityReducer,
-  map: mapReducer,
   customComponentsConfig: customComponentsConfigReducer,
 });
 

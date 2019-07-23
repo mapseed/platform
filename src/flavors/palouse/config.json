@@ -638,7 +638,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 4,
+            "end_field_index": 5,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -649,8 +649,8 @@
             ]
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 6,
+            "start_field_index": 6,
+            "end_field_index": 7,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -661,8 +661,8 @@
             ]
           },
           {
-            "start_field_index": 7,
-            "end_field_index": 9,
+            "start_field_index": 8,
+            "end_field_index": 10,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -672,8 +672,8 @@
             ]
           },
           {
-            "start_field_index": 10,
-            "end_field_index": 12,
+            "start_field_index": 11,
+            "end_field_index": 13,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -683,8 +683,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 15,
+            "start_field_index": 14,
+            "end_field_index": 16,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -694,8 +694,8 @@
             ]
           },
           {
-            "start_field_index": 16,
-            "end_field_index": 18,
+            "start_field_index": 17,
+            "end_field_index": 19,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -705,8 +705,8 @@
             ]
           },
           {
-            "start_field_index": 19,
-            "end_field_index": 21,
+            "start_field_index": 20,
+            "end_field_index": 22,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -716,8 +716,8 @@
             ]
           },
           {
-            "start_field_index": 22,
-            "end_field_index": 30,
+            "start_field_index": 23,
+            "end_field_index": 31,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -727,8 +727,8 @@
             ]
           },
           {
-            "start_field_index": 31,
-            "end_field_index": 36,
+            "start_field_index": 32,
+            "end_field_index": 37,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -738,8 +738,8 @@
             ]
           },
           {
-            "start_field_index": 37,
-            "end_field_index": 42,
+            "start_field_index": 38,
+            "end_field_index": 43,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -749,8 +749,8 @@
             ]
           },
           {
-            "start_field_index": 43,
-            "end_field_index": 57,
+            "start_field_index": 44,
+            "end_field_index": 58,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -760,8 +760,8 @@
             ]
           },
           {
-            "start_field_index": 58,
-            "end_field_index": 66,
+            "start_field_index": 59,
+            "end_field_index": 67,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -771,8 +771,8 @@
             ]
           },
           {
-            "start_field_index": 67,
-            "end_field_index": 96,
+            "start_field_index": 68,
+            "end_field_index": 97,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -782,8 +782,8 @@
             ]
           },
           {
-            "start_field_index": 97,
-            "end_field_index": 107,
+            "start_field_index": 98,
+            "end_field_index": 108,
             "header": "Whitman County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -795,6 +795,10 @@
         ],
         "label": "Actions",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "location_information_header",
             "type": "informational_html",
