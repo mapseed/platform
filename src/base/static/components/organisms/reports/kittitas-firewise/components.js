@@ -137,7 +137,7 @@ const KittitasFireReadyPageHeader = props => (
         >
           Report location:
         </span>{" "}
-        {props.coords[1].toFixed(1)}° latitude / {props.coords[0].toFixed(1)}°
+        {props.address}
         longitude
       </SmallText>
     </FloatedRight>
