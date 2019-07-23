@@ -11,7 +11,6 @@ import { uiVisibilitySelector, layoutSelector } from "../../state/ducks/ui";
 
 import { getMainContentAreaWidth } from "../../utils/layout-utils";
 import { Mixpanel } from "../../utils/mixpanel";
-import { mapConfigPropType } from "../../state/ducks/map";
 
 const GeocodeAddressBarWrapper = styled(props => (
   <form onSubmit={props.onSubmit} className={props.className}>
@@ -73,7 +72,6 @@ class GeocodeAddressBar extends Component {
         layout={this.props.layout}
       >
         <GeocodingField
-          mapConfig={this.props.mapConfig}
           onKeyDown={this.onKeyDown}
           onChange={this.onChange}
           name="geocode-address-bar"
@@ -93,7 +91,6 @@ GeocodeAddressBar.propTypes = {
   isContentPanelVisible: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   layout: PropTypes.string.isRequired,
-  mapConfig: mapConfigPropType,
   t: PropTypes.func.isRequired,
 };
 

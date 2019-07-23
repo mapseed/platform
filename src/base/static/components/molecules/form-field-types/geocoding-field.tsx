@@ -10,8 +10,8 @@ import eventEmitter from "../../../utils/event-emitter";
 
 import {
   mapConfigSelector,
-  mapConfigPropType,
   mapViewportSelector,
+  MapConfig,
   MapViewport,
 } from "../../../state/ducks/map";
 import { TextInput } from "../../atoms/input";
@@ -33,7 +33,7 @@ type OwnProps = {
 
 type StateProps = {
   mapViewport: MapViewport;
-  mapConfig: mapConfigPropType;
+  mapConfig: MapConfig;
 };
 
 // Types were added to react-i18next is a newer version.
@@ -55,9 +55,11 @@ type Props = OwnProps & StateProps & TransProps;
 const GEOCODING_ENGINE = "Mapbox";
 
 const GeocodingField: React.FunctionComponent<Props> = props => {
-  const [isGeocoding, setIsGeocoding] = React.useState(false);
-  const [isWithGeocodingError, setIsWithGeocodingError] = React.useState(false);
-  const isMounted = React.useRef(true);
+  const [isGeocoding, setIsGeocoding] = React.useState<boolean>(false);
+  const [isWithGeocodingError, setIsWithGeocodingError] = React.useState<
+    boolean
+  >(false);
+  const isMounted = React.useRef<boolean>(true);
 
   const doGeocode = React.useCallback(
     () => {
@@ -94,35 +96,36 @@ const GeocodingField: React.FunctionComponent<Props> = props => {
               setIsWithGeocodingError(true);
             }
 
-            // eslint-ignore-next-line no-console
+            // eslint-disable-next-line no-console
             console.error("There was an error while geocoding: ", err);
           },
         },
       });
     },
-    [props.value],
+    [props.value, props.mapConfig],
   );
 
   // Reverse geocode on map viewport change.
+  const { mapViewport, onChange, name } = props;
   React.useEffect(
     () => {
       setIsGeocoding(true);
 
       Util[GEOCODING_ENGINE].reverseGeocode(
         {
-          lat: props.mapViewport.latitude,
-          lng: props.mapViewport.longitude,
+          lat: mapViewport.latitude,
+          lng: mapViewport.longitude,
         },
         {
           success: data => {
             const placeName =
-              // eslint-ignore-next-line camelcase
+              // eslint-disable-next-line @typescript-eslint/camelcase
               data.features && data.features[0] && data.features[0].place_name;
 
             if (placeName && isMounted.current) {
               setIsGeocoding(false);
               setIsWithGeocodingError(false);
-              props.onChange(props.name, placeName);
+              onChange(props.name, placeName);
             } else if (isMounted) {
               setIsGeocoding(false);
               setIsWithGeocodingError(true);
@@ -140,7 +143,7 @@ const GeocodingField: React.FunctionComponent<Props> = props => {
         },
       );
     },
-    [props.mapViewport],
+    [mapViewport, onChange, name],
   );
 
   React.useEffect(
@@ -149,7 +152,7 @@ const GeocodingField: React.FunctionComponent<Props> = props => {
         doGeocode();
       }
     },
-    [props.isTriggeringGeocode],
+    [props.isTriggeringGeocode, doGeocode],
   );
 
   React.useEffect(
