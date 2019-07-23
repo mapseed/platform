@@ -210,7 +210,6 @@ const KittitasFireReadyReport = props => {
         <KittitasFireReadyPageHeader
           date={props.place.created_datetime}
           address={props.place["private-address"]}
-          coords={props.place.geometry.coordinates}
         />
         <PageBody>
           <RightSidebar>
