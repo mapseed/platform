@@ -9,6 +9,7 @@ import { css, jsx } from "@emotion/core";
 import eventEmitter from "../../../utils/event-emitter";
 
 import {
+  isMapDraggingOrZooming,
   mapConfigSelector,
   mapViewportSelector,
   MapConfig,
@@ -33,6 +34,7 @@ type OwnProps = {
 type StateProps = {
   mapViewport: MapViewport;
   mapConfig: MapConfig;
+  isMapDraggingOrZooming: boolean;
 };
 
 // Types were added to react-i18next is a newer version.
@@ -62,6 +64,7 @@ const GeocodingField: React.FunctionComponent<Props> = ({
   placeholder,
   formId,
   t,
+  isMapDraggingOrZooming,
 }) => {
   const [isGeocoding, setIsGeocoding] = React.useState<boolean>(false);
   const [isWithGeocodingError, setIsWithGeocodingError] = React.useState<
@@ -117,6 +120,11 @@ const GeocodingField: React.FunctionComponent<Props> = ({
   // Reverse geocode on map viewport change.
   React.useEffect(
     () => {
+      // Only reverse geocode when the map has come to rest.
+      if (isMapDraggingOrZooming) {
+        return;
+      }
+
       setIsGeocoding(true);
 
       const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${
@@ -149,7 +157,7 @@ const GeocodingField: React.FunctionComponent<Props> = ({
           console.error("There was an error while reverse geocoding: ", err);
         });
     },
-    [mapViewport],
+    [mapViewport, isMapDraggingOrZooming],
   );
 
   React.useEffect(
@@ -260,6 +268,7 @@ GeocodingField.defaultProps = {
 const mapStateToProps = (state): any => ({
   mapViewport: mapViewportSelector(state),
   mapConfig: mapConfigSelector(state),
+  isMapDraggingOrZooming: isMapDraggingOrZooming(state),
 });
 
 export default connect<StateProps>(mapStateToProps)(
