@@ -18,8 +18,7 @@ import { TextInput } from "../../atoms/input";
 import { Button } from "../../atoms/buttons";
 import { FontAwesomeIcon } from "../../atoms/imagery";
 
-// TODO: Consolidate Util methods used here.
-import Util from "../../../js/utils.js";
+declare const MAP_PROVIDER_TOKEN: string;
 
 type OwnProps = {
   formId: string;
@@ -52,9 +51,18 @@ type TransProps = {
 
 type Props = OwnProps & StateProps & TransProps;
 
-const GEOCODING_ENGINE = "Mapbox";
-
-const GeocodingField: React.FunctionComponent<Props> = props => {
+const GeocodingField: React.FunctionComponent<Props> = ({
+  mapConfig: { geocodeBoundingBox, geocodeHint },
+  mapViewport,
+  isTriggeringGeocode,
+  value,
+  name,
+  onChange,
+  onKeyDown,
+  placeholder,
+  formId,
+  t,
+}) => {
   const [isGeocoding, setIsGeocoding] = React.useState<boolean>(false);
   const [isWithGeocodingError, setIsWithGeocodingError] = React.useState<
     boolean
@@ -66,93 +74,91 @@ const GeocodingField: React.FunctionComponent<Props> = props => {
       setIsGeocoding(true);
       setIsWithGeocodingError(false);
 
-      Util[GEOCODING_ENGINE].geocode({
-        location: props.value,
-        hint: props.mapConfig.geocodeHint,
-        bbox: props.mapConfig.geocodeBoundingBox,
-        options: {
-          success: data => {
-            const locationGeometry =
-              data.features && data.features[0] && data.features[0].geometry;
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+        value,
+      )}.json?access_token=${MAP_PROVIDER_TOKEN}${
+        geocodeHint ? "&proximity=" + geocodeHint.join(",") : ""
+      }${geocodeBoundingBox ? "&bbox=" + geocodeBoundingBox.join(",") : ""}`;
 
-            if (locationGeometry && isMounted.current) {
-              setIsGeocoding(false);
-              setIsWithGeocodingError(false);
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const locationGeometry =
+            data.features && data.features[0] && data.features[0].geometry;
 
-              eventEmitter.emit("setMapViewport", {
-                latitude: locationGeometry.coordinates[1],
-                longitude: locationGeometry.coordinates[0],
-                zoom: 14,
-                transitionDuration: 1000,
-              });
-            } else if (isMounted.current) {
-              setIsGeocoding(false);
-              setIsWithGeocodingError(true);
-            }
-          },
-          error: err => {
-            if (isMounted.current) {
-              setIsGeocoding(false);
-              setIsWithGeocodingError(true);
-            }
+          if (locationGeometry && isMounted.current) {
+            setIsGeocoding(false);
+            setIsWithGeocodingError(false);
 
-            // eslint-disable-next-line no-console
-            console.error("There was an error while geocoding: ", err);
-          },
-        },
-      });
+            eventEmitter.emit("setMapViewport", {
+              latitude: locationGeometry.coordinates[1],
+              longitude: locationGeometry.coordinates[0],
+              zoom: 14,
+              transitionDuration: 1000,
+            });
+          } else if (isMounted.current) {
+            setIsGeocoding(false);
+            setIsWithGeocodingError(true);
+          }
+        })
+        .catch(err => {
+          if (isMounted.current) {
+            setIsGeocoding(false);
+            setIsWithGeocodingError(true);
+          }
+
+          // eslint-disable-next-line no-console
+          console.error("There was an error while geocoding: ", err);
+        });
     },
-    [props.value, props.mapConfig],
+    [value, geocodeBoundingBox, geocodeHint],
   );
 
   // Reverse geocode on map viewport change.
-  const { mapViewport, onChange, name } = props;
   React.useEffect(
     () => {
       setIsGeocoding(true);
 
-      Util[GEOCODING_ENGINE].reverseGeocode(
-        {
-          lat: mapViewport.latitude,
-          lng: mapViewport.longitude,
-        },
-        {
-          success: data => {
-            const placeName =
-              // eslint-disable-next-line @typescript-eslint/camelcase
-              data.features && data.features[0] && data.features[0].place_name;
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${
+        mapViewport.longitude
+      },${mapViewport.latitude}.json?access_token=${MAP_PROVIDER_TOKEN}`;
 
-            if (placeName && isMounted.current) {
-              setIsGeocoding(false);
-              setIsWithGeocodingError(false);
-              onChange(props.name, placeName);
-            } else if (isMounted) {
-              setIsGeocoding(false);
-              setIsWithGeocodingError(true);
-            }
-          },
-          error: err => {
-            if (isMounted) {
-              setIsGeocoding(false);
-              setIsWithGeocodingError(true);
-            }
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const placeName =
+            // eslint-disable-next-line @typescript-eslint/camelcase
+            data.features && data.features[0] && data.features[0].place_name;
 
-            // eslint-disable-next-line no-console
-            console.error("There was an error while reverse geocoding: ", err);
-          },
-        },
-      );
+          if (placeName && isMounted.current) {
+            setIsGeocoding(false);
+            setIsWithGeocodingError(false);
+            onChange(name, placeName);
+          } else if (isMounted.current) {
+            setIsGeocoding(false);
+            setIsWithGeocodingError(true);
+          }
+        })
+        .catch(err => {
+          if (isMounted.current) {
+            setIsGeocoding(false);
+            setIsWithGeocodingError(true);
+          }
+
+          // eslint-disable-next-line no-console
+          console.error("There was an error while reverse geocoding: ", err);
+        });
     },
-    [mapViewport, onChange, name],
+    [mapViewport],
   );
 
   React.useEffect(
     () => {
-      if (props.isTriggeringGeocode) {
+      if (isTriggeringGeocode) {
         doGeocode();
       }
     },
-    [props.isTriggeringGeocode, doGeocode],
+    [isTriggeringGeocode, doGeocode],
   );
 
   React.useEffect(
@@ -208,16 +214,16 @@ const GeocodingField: React.FunctionComponent<Props> = props => {
           width: 100%;
           box-sizing: border-box;
         `}
-        name={props.name}
+        name={name}
         ariaLabel="Search by address"
-        placeholder={props.t(
-          `geocodingFieldPlaceholder${props.formId}${props.name}`,
-          props.placeholder,
+        placeholder={t(
+          `geocodingFieldPlaceholder${formId}${name}`,
+          placeholder,
         )}
-        value={props.value}
+        value={value}
         onBlur={doGeocode}
-        onKeyDown={e => props.onKeyDown && props.onKeyDown(e)}
-        onChange={e => props.onChange(e.target.name, e.target.value)}
+        onKeyDown={e => onKeyDown && onKeyDown(e)}
+        onChange={e => onChange(e.target.name, e.target.value)}
       />
       <div
         css={css`
@@ -239,18 +245,17 @@ const GeocodingField: React.FunctionComponent<Props> = props => {
           pointer-events: none;
         `}
       >
-        {props.t("locationNotFoundError")}
+        {t("locationNotFoundError")}
       </div>
     </div>
   );
 };
 
-// TODO
-//GeocodingField.defaultProps = {
-//  // In case the GeocodingField is used outside the input form, e.g. in the
-//  // GeocodeAddressBar:
-//  formId: "noForm",
-//};
+GeocodingField.defaultProps = {
+  // In case the GeocodingField is used outside the input form, e.g. in the
+  // GeocodeAddressBar:
+  formId: "noForm",
+};
 
 const mapStateToProps = (state): any => ({
   mapViewport: mapViewportSelector(state),

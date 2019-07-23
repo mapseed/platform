@@ -280,59 +280,6 @@ const localstorage = {
   },
 };
 
-const Mapbox = {
-  geocode: function({ location, hint, bbox, options }) {
-    const mapboxToken = Mapseed.bootstrapped.mapboxToken;
-
-    if (!mapboxToken)
-      throw "You must provide a Mapbox access token " +
-        "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
-
-    let url =
-      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-      encodeURIComponent(location) +
-      ".json?access_token=" +
-      mapboxToken;
-    if (hint) {
-      url += "&proximity=" + hint.join(",");
-    }
-    if (bbox) {
-      url += "&bbox=" + bbox.join(",");
-    }
-
-    fetch(url)
-      .then(response => response.json())
-      .then(data => options.success(data));
-  },
-  reverseGeocode: function(latLng, options) {
-    var mapboxToken = Mapseed.bootstrapped.mapboxToken,
-      lat,
-      lng;
-
-    if (!mapboxToken)
-      throw "You must provide a Mapbox access token " +
-        "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
-
-    lat = latLng.lat || latLng[0];
-    lng = latLng.lng || latLng[1];
-    options = options || {};
-    options.dataType = "json";
-    options.cache = true;
-    options.url =
-      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-      lng +
-      "," +
-      lat +
-      ".json?access_token=" +
-      mapboxToken;
-
-    fetch(options.url)
-      .then(response => response.json())
-      .then(data => options.success(data))
-      .catch(error => options.error(error));
-  },
-};
-
 export default {
   onSocialShare,
   saveAutocompleteValue,
@@ -343,5 +290,4 @@ export default {
   fileToCanvas,
   cookies,
   localstorage,
-  Mapbox,
 };
