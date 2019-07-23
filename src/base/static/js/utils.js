@@ -326,7 +326,10 @@ const Mapbox = {
       ".json?access_token=" +
       mapboxToken;
 
-    fetch(options.url);
+    fetch(options.url)
+      .then(response => response.json())
+      .then(data => options.success(data))
+      .catch(error => options.error(error));
   },
 };
 

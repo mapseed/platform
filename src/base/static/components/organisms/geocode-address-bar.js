@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { translate } from "react-i18next";
 
-import GeocodingField from "../form-fields/types/geocoding-field";
+import GeocodingField from "../molecules/form-field-types/geocoding-field";
 
 import { uiVisibilitySelector, layoutSelector } from "../../state/ducks/ui";
 
