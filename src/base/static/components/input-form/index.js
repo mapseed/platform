@@ -294,14 +294,12 @@ class InputForm extends Component {
 
     let attrs = {
       ...this.state.fields
-        .filter(
-          state => {
-            return (
-              state.get("config").get("type") !== "lng_lat" &&
-              !!state.get("value")
-            );
-          },
-        )
+        .filter(state => {
+          return (
+            state.get("config").get("type") !== "lng_lat" &&
+            !!state.get("value")
+          );
+        })
         .map(state => state.get("value"))
         .toJS(),
       location_type: this.selectedCategoryConfig.category,
