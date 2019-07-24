@@ -72,7 +72,7 @@
     },
     "mapWidgets": {
       "radioMenu": {
-        "label": "Explore Nitrogen Deposition",
+        "label": "SOURCES OF NITROGEN LOADING:",
         "layerGroupId": "nitrogen-deposition-group",
         "layerId": "nitrogen-deposition",
         "defaultSelectedOption": "all",
@@ -80,27 +80,27 @@
           {
             "id": "all",
             "aggregator": "INCY",
-            "label": "All"
-          },
-          {
-            "id": "sewerage",
-            "aggregator": "INCY_S1",
-            "label": "from sewerage"
-          },
-          {
-            "id": "urban",
-            "aggregator": "INCY_S2",
-            "label": "from urban"
-          },
-          {
-            "id": "cafo",
-            "aggregator": "INCY_S4",
-            "label": "from cafo"
+            "label": "All sources"
           },
           {
             "id": "farms",
             "aggregator": "INCY_S5",
-            "label": "from farms"
+            "label": "Farm fertilizer"
+          },
+          {
+            "id": "cafo",
+            "aggregator": "INCY_S4",
+            "label": "CAFOs (confined animal feeding operations)"
+          },
+          {
+            "id": "sewerage",
+            "aggregator": "INCY_S1",
+            "label": "Sewerage"
+          },
+          {
+            "id": "urban",
+            "aggregator": "INCY_S2",
+            "label": "Urban runoff"
           }
         ]
       }
@@ -173,13 +173,6 @@
         "type": "raster",
         "tiles": [
           "https://ecotopia.today/Mississippi/NoHeartOfFear/{z}/{x}/{y}.png"
-        ],
-        "tileSize": 256
-      },
-      "nitrogen-farm-emissions": {
-        "type": "raster",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/Nitrogen/{z}/{x}/{y}.png"
         ],
         "tileSize": 256
       },
@@ -433,6 +426,8 @@
       {
         "id": "nitrogen-deposition-group",
         "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p><strong>Watershed name:</p><p></strong>{{PNAME}}</p><p><strong>Nitrogen loading:</p><p></strong>{{INCY}}&nbsp;kg per km2</p></div>",
         "mapboxLayers": [
           {
             "id": "nitrogen-deposition",
