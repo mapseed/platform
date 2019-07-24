@@ -440,10 +440,9 @@
             "source": "nitrogen-deposition",
             "source-layer": "mississippi-nitrogen-deposition",
             "paint": {
-              "fill-opacity": 0.7,
-              "fill-color": [
-                "interpolate-hcl",
-                ["linear"],
+              "fill-color": "#c35800",
+              "fill-opacity": [
+                "step",
                 [
                   "+",
                   ["get", "INCY_S1"],
@@ -452,9 +451,25 @@
                   ["get", "INCY_S5"]
                 ],
                 0,
-                "rgba(255, 255, 255, .3)",
-                5000,
-                "#c35800"
+                200,
+                0.25,
+                500,
+                0.5,
+                1000,
+                0.75,
+                2000,
+                1
+              ],
+              "fill-outline-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                "rgba(255,255,255,0)",
+                9,
+                "rgba(255,255,255,1)",
+                12,
+                "rgba(255,255,255,0)"
               ]
             }
           }
