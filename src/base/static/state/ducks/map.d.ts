@@ -10,6 +10,7 @@ export type MapViewport = {
   zoom: number;
   bearing: number;
   pitch: number;
+  transitionDuration: number;
 };
 
 export type MapViewportDiff = {
