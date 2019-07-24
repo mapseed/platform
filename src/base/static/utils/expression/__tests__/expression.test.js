@@ -240,6 +240,22 @@ describe("Expressions", () => {
     expect(val).toEqual(true);
   });
 
+  test("> expression returns correct result", () => {
+    const exp = [">", ["get-val", "total_acres"], 12];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ place: dataset[0] });
+
+    expect(val).toEqual(true);
+  });
+
+  test("< expression returns correct result", () => {
+    const exp = ["<", ["get-val", "total_acres"], 100];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ place: dataset[0] });
+
+    expect(val).toEqual(true);
+  });
+
   test("case expression returns correct value for declared case condition", () => {
     const exp = [
       "case",
