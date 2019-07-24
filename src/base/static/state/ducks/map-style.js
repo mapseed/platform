@@ -86,14 +86,14 @@ export const layerGroupsSelector = state => state.mapStyle.layerGroups;
 
 const getPaintFromAggregators = (aggregators, layerPaint) => {
   // since 'splice', used below, is mutable, we copy the array here:
-  const fillColor = [...layerPaint["fill-color"]];
-  fillColor.splice(2, 1, [
+  const fillOpacity = [...layerPaint["fill-opacity"]];
+  fillOpacity.splice(1, 1, [
     "+",
     ...aggregators.map(aggregator => ["get", aggregator]),
   ]);
   return {
     ...layerPaint,
-    "fill-color": fillColor,
+    "fill-opacity": fillOpacity,
   };
 };
 
