@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Feature, Geometry, GeoJsonProperties } from "geojson";
 
 export const UPDATE_MAPVIEWPORT: string;
