@@ -59,6 +59,7 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
         padding: 8px;
         border-radius: 8px;
         color: #fff;
+        width: 400px;
         margin-top: 8px;
       `}
     >

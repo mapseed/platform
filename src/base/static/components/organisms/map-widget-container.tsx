@@ -41,7 +41,7 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
         bottom: 8px;
         left: 8px;
         right: ${props.layout === "desktop" ? "unset" : "8px"};
-        width: ${props.layout === "desktop" ? "400px" : "unset"};
+        width: ${props.layout === "desktop" ? "auto" : "unset"};
       `}
     >
       <React.Fragment>
