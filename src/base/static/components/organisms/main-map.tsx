@@ -3,7 +3,7 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
 import { Map } from "mapbox-gl";
-import { GeometryObject } from "geojson";
+import { GeometryObject, GeoJsonProperties } from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
@@ -316,12 +316,12 @@ class MainMap extends React.Component<Props, State> {
     }
   }
 
-  parsePopupContent = (popupContent, properties) => {
+  parsePopupContent = (popupContent: string, properties: GeoJsonProperties) => {
     // Support a Handlebars-inspired syntax for injecting feature properties
     // into popup content.
     return popupContent.replace(/{{(\w+?)}}/gi, (...args) => {
-      if (properties[args[1]]) {
-        return properties[args[1]];
+      if (properties![args[1]]) {
+        return properties![args[1]];
       } else {
         // eslint-disable-next-line no-console
         console.error(
