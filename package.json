@@ -73,7 +73,7 @@
     "d3-geo": "^1.11.6",
     "dotenv": "^8.0.0",
     "downloadjs": "^1.4.7",
-    "downshift": "^3.1.5",
+    "downshift": "^3.2.10",
     "emotion-theming": "^10.0.14",
     "eventemitter3": "^4.0.0",
     "glob": "^7.1.4",
