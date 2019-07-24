@@ -134,7 +134,7 @@ const dataset = [
   },
 ];
 
-describe("Expressions: aggregated values", () => {
+describe("Expressions", () => {
   test("get-sum calculates correct value", () => {
     const exp = ["get-sum", "total_acres"];
     const parsedExp = makeParsedExpression(exp);
@@ -150,6 +150,22 @@ describe("Expressions: aggregated values", () => {
     const val = Number(stringVal);
 
     expect(val).toEqual(14.3);
+  });
+
+  test("get-count returns correct value", () => {
+    const exp = ["get-count"];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual(4);
+  });
+
+  test("get-count returns correct value when filtered by the presence of a Place property", () => {
+    const exp = ["get-count", "total_acres"];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual(3);
   });
 
   test("get-max calculates correct value", () => {
@@ -182,5 +198,71 @@ describe("Expressions: aggregated values", () => {
     const val = parsedExp.evaluate({ dataset });
 
     expect(val).toEqual(2850);
+  });
+
+  test("get-val retrieves correct value", () => {
+    const exp = ["get-val", "total_acres"];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ place: dataset[0] });
+
+    expect(val).toEqual("33");
+  });
+
+  test("== expression with correct get-val lookup returns true", () => {
+    const exp = ["==", ["get-val", "total_acres"], "33"];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ place: dataset[0] });
+
+    expect(val).toEqual(true);
+  });
+
+  test("== expression with incorrect get-val lookup returns false", () => {
+    const exp = ["==", ["get-val", "total_acres"], "12345"];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ place: dataset[0] });
+
+    expect(val).toEqual(false);
+  });
+
+  test("!= expression with correct get-val lookup returns false", () => {
+    const exp = ["!=", ["get-val", "total_acres"], "33"];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ place: dataset[0] });
+
+    expect(val).toEqual(false);
+  });
+
+  test("!= expression with incorrect get-val lookup returns true", () => {
+    const exp = ["!=", ["get-val", "total_acres"], "12345"];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ place: dataset[0] });
+
+    expect(val).toEqual(true);
+  });
+
+  test("case expression returns correct value for declared case condition", () => {
+    const exp = [
+      "case",
+      ["==", ["get-sum", "total_acres"], 57],
+      ["literal", "case 1"],
+      ["literal", "fallback"],
+    ];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual("case 1");
+  });
+
+  test("case expression returns correct value for declared case condition", () => {
+    const exp = [
+      "case",
+      ["==", ["get-sum", "total_acres"], 12345],
+      ["literal", "case 1"],
+      ["literal", "fallback"],
+    ];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual("fallback");
   });
 });
