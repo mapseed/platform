@@ -1,40 +1,42 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 
-import makeParsedExpression from "../../../utils/expression/parse";
-import BaseTable from "./base-table";
+import makeParsedExpression, {
+  Expression,
+} from "../../../utils/expression/parse";
+import BaseTable, { Column, Row } from "./base-table";
+import { ChartLayout, Widget } from "./chart-wrapper";
+import { Place } from "../../../state/ducks/places";
 
-const freeTablePropTypes = {
-  data: PropTypes.shape({
-    columns: PropTypes.arrayOf(
-      PropTypes.shape({
-        dataKey: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        fractionalWidth: PropTypes.number.isRequired,
-      }).isRequired,
-    ).isRequired,
-    rows: PropTypes.arrayOf(
-      PropTypes.arrayOf(
-        PropTypes.shape({
-          value: PropTypes.array.isRequired,
-          label: PropTypes.string,
-          type: PropTypes.string.isRequired,
-        }).isRequired,
-      ).isRequired,
-    ).isRequired,
-  }).isRequired,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    height: PropTypes.string,
-  }).isRequired,
-  stripeColor: PropTypes.string,
+interface FreeTableColumn extends Column {
+  value: any;
+}
+
+type FreeTableData = {
+  columns: FreeTableColumn[];
+  rows: Row[];
 };
 
-type Props = PropTypes.InferProps<typeof freeTablePropTypes>;
+type FreeTableProps = {
+  data: FreeTableData;
+  header: string;
+  layout: ChartLayout;
+  stripeColor?: string;
+};
 
-const getFreeTableData = ({ places, widget, widgetState }) => {
+interface FreeTableWidget extends Widget {
+  columns: FreeTableColumn[];
+  rows: Row[];
+}
+
+const getFreeTableData = ({
+  places,
+  widget,
+  widgetState,
+}: {
+  places: Place[];
+  widget: FreeTableWidget;
+  widgetState: any;
+}) => {
   const freeTableRows = places.map(place => {
     return widget.columns.reduce((rows, column) => {
       const parsedExpression = makeParsedExpression(column.value);
@@ -46,7 +48,7 @@ const getFreeTableData = ({ places, widget, widgetState }) => {
         [column.header]: {
           type: column.type,
           value: parsedExpression
-            ? [].concat(
+            ? ([] as (string | boolean | number | Expression)[]).concat(
                 parsedExpression.evaluate({
                   place,
                   dataset: places,
@@ -73,7 +75,7 @@ const getFreeTableData = ({ places, widget, widgetState }) => {
   };
 };
 
-class FreeTable extends React.Component<Props> {
+class FreeTable extends React.Component<FreeTableProps> {
   render() {
     return (
       <BaseTable

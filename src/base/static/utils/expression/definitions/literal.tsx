@@ -1,4 +1,4 @@
-import { Expression } from "../expression";
+import { Expression } from "../parse";
 
 class Literal implements Expression {
   value: number | string | boolean;

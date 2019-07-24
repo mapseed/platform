@@ -1,42 +1,38 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 
-import makeParsedExpression from "../../../utils/expression/parse";
-import BaseTable from "./base-table";
+import makeParsedExpression, {
+  Expression,
+} from "../../../utils/expression/parse";
+import BaseTable, { Column, Row } from "./base-table";
+import { ChartLayout, Widget } from "./chart-wrapper";
+import { Place } from "../../../state/ducks/places";
 
-const fixedTablePropTypes = {
-  data: PropTypes.shape({
-    columns: PropTypes.arrayOf(
-      PropTypes.shape({
-        dataKey: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        fractionalWidth: PropTypes.number.isRequired,
-      }).isRequired,
-    ).isRequired,
-    rows: PropTypes.arrayOf(
-      PropTypes.arrayOf(
-        PropTypes.shape({
-          value: PropTypes.array.isRequired,
-          label: PropTypes.string,
-          type: PropTypes.string.isRequired,
-        }).isRequired,
-      ).isRequired,
-    ).isRequired,
-    headers: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }).isRequired,
-  header: PropTypes.string.isRequired,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    height: PropTypes.string,
-  }).isRequired,
-  stripeColor: PropTypes.string,
+type FixedTableData = {
+  columns: Column[];
+  rows: Row[];
 };
 
-type Props = PropTypes.InferProps<typeof fixedTablePropTypes>;
+type FixedTableProps = {
+  data: FixedTableData;
+  header: string;
+  layout: ChartLayout;
+  stripeColor?: string;
+};
 
-const getFixedTableData = ({ places, widget, widgetState }) => {
+interface FixedTableWidget extends Widget {
+  columns: Column[];
+  rows: Row[];
+}
+
+const getFixedTableData = ({
+  places,
+  widget,
+  widgetState,
+}: {
+  places: Place[];
+  widget: FixedTableWidget;
+  widgetState: any;
+}) => {
   const columnFilters = widget.columns.map(column => {
     if (column.filter) {
       return makeParsedExpression(column.filter);
@@ -45,16 +41,17 @@ const getFixedTableData = ({ places, widget, widgetState }) => {
 
   const fixedTableRows = widget.rows.map(row => {
     return row.cells.reduce((cells, cell, i) => {
-      const filteredDataset = places.filter(
-        place =>
-          columnFilters[i]
-            ? columnFilters[i].evaluate({
-                dataset: places,
-                place,
-                widgetState,
-              })
-            : true,
-      );
+      const filteredDataset = places.filter(place => {
+        if (columnFilters && columnFilters[i]) {
+          return columnFilters[i]!.evaluate({
+            dataset: places,
+            place,
+            widgetState,
+          });
+        }
+
+        return true;
+      });
 
       const valueExpression = makeParsedExpression(cell.value);
 
@@ -64,7 +61,7 @@ const getFixedTableData = ({ places, widget, widgetState }) => {
           type: widget.columns[i].type,
           label: cell.label,
           value: valueExpression
-            ? [].concat(
+            ? ([] as (string | boolean | number | Expression)[]).concat(
                 valueExpression.evaluate({
                   dataset: filteredDataset,
                   widgetState,
@@ -89,7 +86,7 @@ const getFixedTableData = ({ places, widget, widgetState }) => {
   };
 };
 
-class FixedTable extends React.Component<Props> {
+class FixedTable extends React.Component<FixedTableProps> {
   render() {
     return (
       <BaseTable

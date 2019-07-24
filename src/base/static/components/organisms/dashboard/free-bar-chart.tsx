@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {
   ResponsiveContainer,
   BarChart,
@@ -9,40 +8,55 @@ import {
   Label,
   Tooltip,
 } from "recharts";
+import { ChartLayout, Widget } from "./chart-wrapper";
 
 import { getFormatter, BLUE } from "../../../utils/dashboard-utils";
-import makeParsedExpression from "../../../utils/expression/parse";
+import makeParsedExpression, {
+  Expression,
+} from "../../../utils/expression/parse";
+import { Place } from "../../../state/ducks/places";
 
-const freeBarChartPropTypes = {
-  annotation: PropTypes.string,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-      sum: PropTypes.number.isRequired,
-      label: PropTypes.string,
-      percent: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  format: PropTypes.string,
-  groupValue: PropTypes.array.isRequired,
-  tooltipFormat: PropTypes.string,
-  labelFormat: PropTypes.string,
-  header: PropTypes.string.isRequired,
-  xAxisLabel: PropTypes.string,
-  yAxisLabel: PropTypes.string,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    height: PropTypes.number,
-  }).isRequired,
+type Bar = {
+  category: string;
+  count: number;
+  sum: number;
+  label?: string;
+  percent: string;
 };
 
-type Props = PropTypes.InferProps<typeof freeBarChartPropTypes>;
+type FreeBarChartProps = {
+  annotation?: string;
+  data: Bar[];
+  format?: string;
+  groupValue: Expression;
+  tooltipFormat?: string;
+  labelFormat?: string;
+  header: string;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  layout: ChartLayout;
+};
+
+type Labels = {
+  [key: string]: string;
+};
+
+interface FreeBarChartWidget extends Widget {
+  labels: Labels;
+  filter?: any;
+  groupBy: string;
+  groupValue: Expression;
+}
 
 const NULL_RESPONSE_NAME = "__no-response__";
 
-const getFreeBarChartData = ({ places, widget }) => {
+const getFreeBarChartData = ({
+  places,
+  widget,
+}: {
+  places: Place[];
+  widget: FreeBarChartWidget;
+}) => {
   const labels = {
     ...widget.labels,
     [NULL_RESPONSE_NAME]: "No response",
@@ -118,7 +132,7 @@ const getTooltipFormatter = format => {
   }
 };
 
-class FreeBarChart extends React.Component<Props> {
+class FreeBarChart extends React.Component<FreeBarChartProps> {
   render() {
     return (
       <ResponsiveContainer width="100%" height={360}>

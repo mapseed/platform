@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
-import PropTypes from "prop-types";
 
 import { SmallText, TinyTitle } from "../../atoms/typography";
 import { RadioInput } from "../../atoms/input";
@@ -12,25 +11,39 @@ import { MapseedLineChart, getLineChartData } from "./line-chart";
 import { StatSummary, getStatSummaryData } from "./stat-summary";
 import { FixedTable, getFixedTableData } from "./fixed-table";
 import { FreeTable, getFreeTableData } from "./free-table";
-import { placePropType } from "../../../state/ducks/places";
+import { Place } from "../../../state/ducks/places";
 
-const chartWrapperPropTypes = {
-  widget: PropTypes.shape({
-    header: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    layout: PropTypes.shape({
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
-      height: PropTypes.number,
-    }).isRequired,
-    widgetStateControls: PropTypes.array,
-  }).isRequired,
-  widgetIndex: PropTypes.number.isRequired,
-  timeZone: PropTypes.string.isRequired,
-  places: PropTypes.arrayOf(placePropType.isRequired).isRequired,
+export type ChartLayout = {
+  start: number;
+  end: number;
+  height?: number;
 };
 
-type Props = PropTypes.InferProps<typeof chartWrapperPropTypes>;
+type WidgetStateControlOption = {
+  value: string;
+  label: string;
+};
+
+type WidgetStateControl = {
+  defaultValue: string;
+  name: string;
+  options: WidgetStateControlOption[];
+  title?: string;
+};
+
+export interface Widget {
+  header: string;
+  type: string;
+  layout: ChartLayout;
+  widgetStateControls?: WidgetStateControl[];
+}
+
+type ChartWrapperProps = {
+  widget: Widget;
+  widgetIndex: number;
+  timeZone: string;
+  places: Place[];
+};
 
 const HEADER_HEIGHT = "56px";
 
@@ -61,7 +74,7 @@ const widgetRegistry = {
   },
 };
 
-class ChartWrapper extends React.Component<Props> {
+class ChartWrapper extends React.Component<ChartWrapperProps> {
   state = {
     widgetState: {},
   };

@@ -1,4 +1,4 @@
-import { Expression, IEvaluationContext, IParsingContext } from "../expression";
+import { Expression, EvaluationContext, ParsingContext } from "../parse";
 
 const eq = (a, b) => a === b;
 const neq = (a, b) => a !== b;
@@ -19,7 +19,7 @@ const makeComparison = (op, compareBasic) => {
 
     static parse(
       args: Expression[],
-      parsingContext: IParsingContext,
+      parsingContext: ParsingContext,
     ): Expression | null {
       const op = args[0];
       if (args.length !== 3) {
@@ -35,7 +35,7 @@ const makeComparison = (op, compareBasic) => {
       return new Comparison(lhs, rhs);
     }
 
-    evaluate(evaluationContext: IEvaluationContext): boolean {
+    evaluate(evaluationContext: EvaluationContext): boolean {
       const lhs = this.lhs.evaluate(evaluationContext);
       const rhs = this.rhs.evaluate(evaluationContext);
 

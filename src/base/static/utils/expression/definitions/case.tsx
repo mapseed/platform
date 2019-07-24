@@ -1,9 +1,9 @@
 import {
   Expression,
-  IEvaluationContext,
-  IParsingContext,
-  IParsedExpression,
-} from "../expression";
+  EvaluationContext,
+  ParsingContext,
+  ParsedExpression,
+} from "../parse";
 
 class Case implements Expression {
   branches;
@@ -14,7 +14,7 @@ class Case implements Expression {
     this.otherwise = otherwise;
   }
 
-  static parse(args: (Expression)[], parsingContext: IParsingContext) {
+  static parse(args: (Expression)[], parsingContext: ParsingContext) {
     const op = args[0];
     if (args.length < 4) {
       // eslint-disable-next-line no-console
@@ -57,7 +57,7 @@ class Case implements Expression {
     return new Case(branches, otherwise);
   }
 
-  evaluate(evaluationContext: IEvaluationContext): any {
+  evaluate(evaluationContext: EvaluationContext): any {
     for (const [test, expression] of this.branches) {
       if (test.evaluate(evaluationContext)) {
         return expression.evaluate(evaluationContext);

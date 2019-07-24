@@ -6964,7 +6964,7 @@
               "filter": [
                 "==",
                 ["get-val", "private-property_on_wildlife_conservation"],
-                "palouse"
+                "yes"
               ]
             }
           ],

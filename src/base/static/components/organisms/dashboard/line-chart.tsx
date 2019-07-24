@@ -2,7 +2,6 @@
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import moment from "moment";
-import PropTypes from "prop-types";
 import groupBy from "lodash.groupby";
 import {
   LineChart,
@@ -15,26 +14,22 @@ import {
 } from "recharts";
 
 import { BLUE } from "../../../utils/dashboard-utils";
+import { ChartLayout } from "./chart-wrapper";
+import { Place } from "../../../state/ducks/places";
 
-const mapseedLineChartPropTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      date: PropTypes.instanceOf(Date).isRequired,
-      day: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  header: PropTypes.string.isRequired,
-  yAxisLabel: PropTypes.string,
-  xAxisLabel: PropTypes.string,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    height: PropTypes.number,
-  }).isRequired,
+type LineChartPoint = {
+  date: Date;
+  day: string;
+  count: number;
 };
 
-type Props = PropTypes.InferProps<typeof mapseedLineChartPropTypes>;
+type LineChartProps = {
+  data: LineChartPoint[];
+  header: string;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  layout: ChartLayout;
+};
 
 const DATETIME_FORMAT = "MM-DD-YYYY";
 
@@ -52,7 +47,13 @@ const getDaysArray = (start, end) => {
 
 // Our line charts always assume aggregation by the `created_datetime`
 // property on Place models.
-const getLineChartData = ({ places, timeZone }) => {
+const getLineChartData = ({
+  places,
+  timeZone,
+}: {
+  places: Place[];
+  timeZone: string;
+}) => {
   // `moment` has better time zone support, so we are using it here
   // instead of `Date`.
   let minDate = moment(8640000000000000); // Sep 13, 275760
@@ -91,7 +92,13 @@ const getLineChartData = ({ places, timeZone }) => {
     });
 };
 
-const CustomDot = props => {
+type CustomDotProps = {
+  cx?: number;
+  cy?: number;
+  value?: number;
+};
+
+const CustomDot: React.FunctionComponent<CustomDotProps> = props => {
   const { cx, cy, value } = props;
 
   return (
@@ -99,7 +106,7 @@ const CustomDot = props => {
       <circle
         cx={cx}
         cy={cy}
-        r={value > 0 ? 3 : 0}
+        r={value && value > 0 ? 3 : 0}
         stroke={BLUE}
         fill="#fff"
         strokeWidth={1}
@@ -108,13 +115,7 @@ const CustomDot = props => {
   );
 };
 
-CustomDot.propTypes = {
-  cx: PropTypes.number,
-  cy: PropTypes.number,
-  value: PropTypes.number,
-};
-
-class MapseedLineChart extends React.Component<Props> {
+class MapseedLineChart extends React.Component<LineChartProps> {
   render() {
     return (
       <ResponsiveContainer

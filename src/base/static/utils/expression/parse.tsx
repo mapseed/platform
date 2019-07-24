@@ -1,38 +1,35 @@
-import PropTypes from "prop-types";
-
-import { placePropType } from "../../state/ducks/places";
+import { Place } from "../../state/ducks/places";
 import expressionRegistry from "./definitions";
-import {
-  Expression,
-  IEvaluationContext,
-  IParsingContext,
-  IParsedExpression,
-} from "./expression";
 
-type Place = PropTypes.InferProps<typeof placePropType>;
+export class EvaluationContext {
+  place?: Place;
+  dataset?: Place[];
+  widgetState?: any;
 
-class EvaluationContext implements IEvaluationContext {
-  place;
-  dataset;
-  widgetState;
-
-  setPlace(place: Place) {
+  setPlace(place?: Place): void {
     this.place = place;
   }
 
-  setDataset(dataset: Place[]) {
+  setDataset(dataset?: Place[]): void {
     this.dataset = dataset;
   }
 
-  setWidgetState(widgetState: any) {
+  setWidgetState(widgetState: any): void {
     this.widgetState = widgetState;
   }
 }
 
+export interface Expression {
+  property?: string;
+  evaluate: (
+    evaluationContext: EvaluationContext,
+  ) => number | string | boolean | Expression;
+}
+
 // A parsed expression, ready for evaluation against inputs.
-class ParsedExpression implements IParsedExpression {
-  expression;
-  evaluator;
+export class ParsedExpression {
+  expression: Expression;
+  evaluator: EvaluationContext;
 
   constructor(expression: Expression) {
     this.expression = expression;
@@ -56,8 +53,8 @@ class ParsedExpression implements IParsedExpression {
   }
 }
 
-class ParsingContext implements IParsingContext {
-  parse(expr: any): IParsedExpression | null {
+export class ParsingContext {
+  parse(expr: any, parsingContext?: ParsingContext): ParsedExpression | null {
     if (
       expr === null ||
       typeof expr === "string" ||

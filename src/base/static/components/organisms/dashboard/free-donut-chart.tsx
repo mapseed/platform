@@ -4,27 +4,39 @@ import lodashGroupBy from "lodash.groupby";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 
 import { COLORS } from "../../../utils/dashboard-utils";
+import { ChartLayout, Widget } from "./chart-wrapper";
+import { Place } from "../../../state/ducks/places";
 
-const freeDonutChartPropTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  header: PropTypes.string.isRequired,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-  }).isRequired,
+type DonutWedge = {
+  category: string;
+  label: string;
+  count: number;
 };
 
-type Props = PropTypes.InferProps<typeof freeDonutChartPropTypes>;
+type FreeDonutChartProps = {
+  data: DonutWedge[];
+  header: string;
+  layout: ChartLayout;
+};
+
+type Labels = {
+  [key: string]: string;
+};
+
+interface FreeDonutChartWidget extends Widget {
+  labels: Labels;
+  groupBy: string;
+}
 
 const NULL_RESPONSE_NAME = "__no-response__";
 
-const getFreeDonutChartData = ({ places, widget }) => {
+const getFreeDonutChartData = ({
+  places,
+  widget,
+}: {
+  places: Place[];
+  widget: FreeDonutChartWidget;
+}) => {
   // TODO: handle checkbox data.
   const grouped = places
     ? lodashGroupBy(places, place => place[widget.groupBy])
@@ -38,7 +50,7 @@ const getFreeDonutChartData = ({ places, widget }) => {
   return donutChartData;
 };
 
-class FreeDonutChart extends React.Component<Props> {
+class FreeDonutChart extends React.Component<FreeDonutChartProps> {
   renderPieChartLabel = pieProps => {
     const { label, percent, count, x, y, midAngle } = pieProps;
     let anchor = "middle";

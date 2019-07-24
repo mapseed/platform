@@ -1,28 +1,41 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
-import PropTypes from "prop-types";
 
 import { RegularText, LargeTitle } from "../../atoms/typography";
+import { ChartLayout, Widget } from "./chart-wrapper";
+import { Place } from "../../../state/ducks/places";
 
-const statSummaryPropTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      total: PropTypes.number.isRequired,
-    }).isRequired,
-  ).isRequired,
-  header: PropTypes.string.isRequired,
-  layout: PropTypes.shape({
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    height: PropTypes.number,
-  }).isRequired,
+type StatSummary = {
+  label: string;
+  total: number;
 };
 
-type Props = PropTypes.InferProps<typeof statSummaryPropTypes>;
+type StatSummaryProps = {
+  data: StatSummary[];
+  header: string;
+  layout: ChartLayout;
+};
 
-const getStatSummaryData = ({ places, widget }) => {
+type StatSummaryRow = {
+  type: string;
+  label: string;
+  properties?: {
+    [key: string]: string | boolean | number;
+  };
+};
+
+interface StatSummaryWidget extends Widget {
+  rows: StatSummaryRow[];
+}
+
+const getStatSummaryData = ({
+  places,
+  widget,
+}: {
+  places: Place[];
+  widget: StatSummaryWidget;
+}) => {
   return widget.rows.map(row => {
     if (row.type === "placeCount") {
       return {
@@ -51,7 +64,7 @@ const getStatSummaryData = ({ places, widget }) => {
           return count;
         }, 0),
       };
-    } else if (row.type === "placePropertyCount") {
+    } else if (row.type === "placePropertyCount" && row.properties) {
       const propertiesArray = Object.entries(row.properties);
 
       return {
@@ -78,7 +91,7 @@ const getStatSummaryData = ({ places, widget }) => {
   });
 };
 
-const StatSummary = (props: Props) => {
+const StatSummary = (props: StatSummaryProps) => {
   return (
     <React.Fragment>
       {props.data.map(row => (

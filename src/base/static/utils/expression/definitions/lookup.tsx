@@ -1,4 +1,4 @@
-import { Expression, IEvaluationContext } from "../expression";
+import { Expression, EvaluationContext } from "../parse";
 import { getNumericalPart } from "../../../utils/dashboard-utils";
 import makeParsedExpression from "../parse";
 
@@ -10,14 +10,14 @@ const getNumericalValsByKey = (dataset, key) => {
   }, []);
 };
 
-const getPlaceVal = (context: IEvaluationContext, property: string) => {
+const getPlaceVal = (context: EvaluationContext, property: string) => {
   const val = context.place ? context.place[property] : undefined;
 
   return typeof val === "undefined" ? null : val;
 };
 
 const getDatasetSum = (
-  context: IEvaluationContext,
+  context: EvaluationContext,
   property: string,
   placeCondition?: Expression,
 ) => {
@@ -49,13 +49,13 @@ const getDatasetSum = (
   return sum;
 };
 
-const getDatasetMean = (context: IEvaluationContext, property: string) => {
+const getDatasetMean = (context: EvaluationContext, property: string) => {
   const sum = getDatasetSum(context, property);
 
   return context.dataset ? sum / context.dataset.length : 0;
 };
 
-const getDatasetMax = (context: IEvaluationContext, property: string) => {
+const getDatasetMax = (context: EvaluationContext, property: string) => {
   const vals = context.dataset
     ? getNumericalValsByKey(context.dataset, property)
     : [];
@@ -63,7 +63,7 @@ const getDatasetMax = (context: IEvaluationContext, property: string) => {
   return Math.max(...vals);
 };
 
-const getDatasetMin = (context: IEvaluationContext, property: string) => {
+const getDatasetMin = (context: EvaluationContext, property: string) => {
   const vals = context.dataset
     ? getNumericalValsByKey(context.dataset, property)
     : [];
@@ -71,7 +71,7 @@ const getDatasetMin = (context: IEvaluationContext, property: string) => {
   return Math.min(...vals);
 };
 
-const getDatasetCount = (context: IEvaluationContext, property: string) => {
+const getDatasetCount = (context: EvaluationContext, property: string) => {
   return context.dataset
     ? // getDatasetCount counts Places in a dataset, optionally filtered by a
       // Place property.
@@ -80,7 +80,7 @@ const getDatasetCount = (context: IEvaluationContext, property: string) => {
     : 0;
 };
 
-const getWidgetState = (context: IEvaluationContext, property: string) => {
+const getWidgetState = (context: EvaluationContext, property: string) => {
   const val = context.widgetState ? context.widgetState[property] : undefined;
 
   return typeof val === "undefined" ? null : val;
@@ -114,7 +114,7 @@ const makeLookup = (op: string, lookupFn: any) => {
       return new Lookup(args[1], args[2]);
     }
 
-    evaluate(evaluationContext: IEvaluationContext) {
+    evaluate(evaluationContext: EvaluationContext) {
       return lookupFn(evaluationContext, this.property, this.placeCondition);
     }
   };

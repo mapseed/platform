@@ -1,7 +1,7 @@
-import { Expression, IEvaluationContext, IParsingContext } from "../expression";
+import { Expression, EvaluationContext, ParsingContext } from "../parse";
 import { getNumericalPart } from "../../../utils/dashboard-utils";
 
-const getSum = (context: IEvaluationContext, operands: number[]) => {
+const getSum = (context: EvaluationContext, operands: number[]) => {
   return operands.reduce((sum, operand) => {
     const val = getNumericalPart(operand);
 
@@ -16,7 +16,7 @@ const getSum = (context: IEvaluationContext, operands: number[]) => {
   }, 0);
 };
 
-const getProduct = (context: IEvaluationContext, operands: number[]) => {
+const getProduct = (context: EvaluationContext, operands: number[]) => {
   return operands.reduce((product, operand) => {
     const val = getNumericalPart(operand);
 
@@ -31,17 +31,17 @@ const getProduct = (context: IEvaluationContext, operands: number[]) => {
   }, 1);
 };
 
-const getMean = (context: IEvaluationContext, operands: number[]) => {
+const getMean = (context: EvaluationContext, operands: number[]) => {
   const sum = getSum(context, operands);
 
   return sum / operands.length;
 };
 
-const getMax = (context: IEvaluationContext, operands: number[]) => {
+const getMax = (context: EvaluationContext, operands: number[]) => {
   return Math.max(...operands);
 };
 
-const getMin = (context: IEvaluationContext, operands: number[]) => {
+const getMin = (context: EvaluationContext, operands: number[]) => {
   return Math.min(...operands);
 };
 
@@ -57,7 +57,7 @@ const makeAggregation = (op, aggregationFn) => {
 
     static parse(
       args: (Expression)[],
-      parsingContext: IParsingContext,
+      parsingContext: ParsingContext,
     ): Expression | null {
       const operands = args
         .slice(1)
@@ -73,7 +73,7 @@ const makeAggregation = (op, aggregationFn) => {
       return new Aggregation(operands, op);
     }
 
-    evaluate(evaluationContext: IEvaluationContext) {
+    evaluate(evaluationContext: EvaluationContext) {
       return aggregationFn(
         evaluationContext,
         this.operands.map(operand => operand.evaluate(evaluationContext)),

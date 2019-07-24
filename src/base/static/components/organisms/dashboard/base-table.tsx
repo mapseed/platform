@@ -15,31 +15,31 @@ import PropTypes from "prop-types";
 import { DashboardText, ExternalLink } from "../../atoms/typography";
 import { isEmailAddress, getFormatter } from "../../../utils/dashboard-utils";
 import { Badge } from "../../atoms/typography";
+import { Expression } from "../../../utils/expression/parse";
 
-const baseTablePropTypes = {
-  // NOTE: The column and row typings here represent data that has been
-  // transformed by the ETL methods in fixed-table.tsx and free-table.tsx.
-  columns: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      fractionalWidth: PropTypes.number.isRequired,
-      dataKey: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
-  rows: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.array.isRequired,
-        label: PropTypes.string,
-        type: PropTypes.string.isRequired,
-      }).isRequired,
-    ).isRequired,
-  ).isRequired,
-  stripeColor: PropTypes.string,
+export interface Column {
+  label: string;
+  type: string;
+  fractionalWidth: number;
+  dataKey: string;
+  filter?: any;
+  header: string;
+}
+
+type Cell = {
+  value: number | string | boolean | Expression;
+  label?: string;
 };
 
-type Props = PropTypes.InferProps<typeof baseTablePropTypes>;
+export type Row = {
+  cells: Cell[];
+};
+
+type BaseTableProps = {
+  columns: Column[];
+  rows: Row[];
+  stripeColor?: string;
+};
 
 const CELL_FORMAT_WEIGHTS = ["bold", "regular"];
 const CELL_FORMAT_COLORS = ["#222", "#888", "#aaa"];
@@ -58,7 +58,7 @@ const cache = new CellMeasurerCache({
   minHeight: ROW_HEIGHT,
 });
 
-class BaseTable extends React.Component<Props> {
+class BaseTable extends React.Component<BaseTableProps> {
   state: State = {
     columnPercentageWidths: {},
     tableWidth: 100, // Arbitrary initial width.
