@@ -14,7 +14,7 @@ import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -708,5 +708,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("InputForm")(InputForm)),
+  )(withTranslation("InputForm")(InputForm)),
 );

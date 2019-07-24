@@ -7,7 +7,6 @@ export default {
         body: JSON.stringify({
           text,
           target,
-          format,
         }),
       },
     );

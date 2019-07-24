@@ -2,7 +2,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { jsx } from "@emotion/core";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import {
   InternalLink,
@@ -296,4 +296,4 @@ const mapStateToProps = state => ({
   offlineBoundingBox: offlineConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(translate("UserMenu")(UserMenu));
+export default connect(mapStateToProps)(withTranslation("UserMenu")(UserMenu));

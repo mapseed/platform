@@ -3,7 +3,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import Spinner from "react-spinner";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import { jsx, css } from "@emotion/core";
 
 import { FontAwesomeIcon } from "../atoms/imagery";
@@ -107,7 +107,7 @@ const OptionSelector: React.FunctionComponent<
             },
           })}
         >
-          {props.option.title}
+          {props.t(`layerPanelOption${props.id}`, props.option.title)}
         </span>
         <LayerGroupsStatusContainer>
           {props.isLayerGroupVisible &&
@@ -132,6 +132,7 @@ const OptionSelector: React.FunctionComponent<
 type OwnProps = {
   section: LeftSidebarSection;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
+  layerPanelSectionIndex: number;
 };
 
 type StateProps = {
@@ -139,11 +140,11 @@ type StateProps = {
   sourcesMetadata: SourcesMetadata;
 };
 
-type Props = {
-  t: Function;
-  updateLayerGroupVisibility: Function;
-} & OwnProps &
-  StateProps;
+type DispatchProps = {
+  updateLayerGroupVisibility: typeof updateLayerGroupVisibility;
+};
+
+type Props = OwnProps & StateProps & DispatchProps & WithTranslation;
 
 class LeftSidebarSectionSelector extends React.Component<Props> {
   onToggleLayerGroup = layerGroup => {
@@ -164,7 +165,10 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
             margin-bottom: 16px;
           `}
         >
-          {this.props.section.title}
+          {this.props.t(
+            `layerPanelSectionTitle${this.props.layerPanelSectionIndex}`,
+            this.props.section.title,
+          )}
         </TinyTitle>
         {this.props.section.options.map(option => {
           // Assume at first that all sources consumed by layers in this
@@ -219,4 +223,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("MapLayerPanelSection")(LeftSidebarSectionSelector));
+)(withTranslation("MapLayerPanelSection")(LeftSidebarSectionSelector));

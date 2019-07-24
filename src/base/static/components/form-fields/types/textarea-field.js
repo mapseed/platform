@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import "./textarea-field.scss";
 
@@ -34,4 +34,4 @@ TextareaField.propTypes = {
   value: PropTypes.string,
 };
 
-export default translate("TextareaField")(TextareaField);
+export default withTranslation("TextareaField")(TextareaField);

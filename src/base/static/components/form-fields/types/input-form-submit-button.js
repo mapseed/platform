@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTheme } from "emotion-theming";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { Button } from "../../atoms/buttons";
 
@@ -35,5 +35,5 @@ InputFormSubmitButton.propTypes = {
 };
 
 export default withTheme(
-  translate("InputFormSubmitButton")(InputFormSubmitButton),
+  withTranslation("InputFormSubmitButton")(InputFormSubmitButton),
 );

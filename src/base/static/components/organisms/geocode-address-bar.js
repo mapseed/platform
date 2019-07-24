@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
-
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import GeocodingField from "../molecules/form-field-types/geocoding-field";
 
@@ -81,6 +80,7 @@ class GeocodeAddressBar extends Component {
           )}
           isTriggeringGeocode={this.state.isTriggeringGeocode}
           value={this.state.address}
+          reverseGeocode={false}
         />
       </GeocodeAddressBarWrapper>
     );
@@ -101,5 +101,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(
-  translate("GeocodeAddressBar")(GeocodeAddressBar),
+  withTranslation("GeocodeAddressBar")(GeocodeAddressBar),
 );

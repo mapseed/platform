@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import BigRadioField from "./big-radio-field";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import "./publish-control-toolbar.scss";
 
@@ -50,4 +50,4 @@ PublishControlToolbar.defaultProps = {
   publishedState: "isPublished",
 };
 
-export default translate("PublishControlToolbar")(PublishControlToolbar);
+export default withTranslation("PublishControlToolbar")(PublishControlToolbar);

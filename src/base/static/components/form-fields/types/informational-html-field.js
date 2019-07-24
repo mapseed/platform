@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 const InformationalHTMLField = props => {
   return (
@@ -22,4 +22,6 @@ InformationalHTMLField.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("InformationalHTMLField")(InformationalHTMLField);
+export default withTranslation("InformationalHTMLField")(
+  InformationalHTMLField,
+);

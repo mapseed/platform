@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import RadioField from "./radio-field";
 import "./big-radio-field.scss";
@@ -53,4 +53,4 @@ BigRadioField.defaultProps = {
   hasAutofill: false,
 };
 
-export default translate("BigRadioField")(BigRadioField);
+export default withTranslation("BigRadioField")(BigRadioField);

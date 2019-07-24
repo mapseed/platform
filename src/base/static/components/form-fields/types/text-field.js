@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import "./text-field.scss";
 
@@ -35,4 +35,4 @@ TextField.propTypes = {
   value: PropTypes.string,
 };
 
-export default translate("TextField")(TextField);
+export default withTranslation("TextField")(TextField);

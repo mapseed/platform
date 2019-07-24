@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
 import { SmallTitle } from "../atoms/typography";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import { MapSourcesLoadStatus } from "../../state/ducks/map";
 import {
@@ -40,7 +41,7 @@ type Props = {
   mapSourcesLoadStatus: MapSourcesLoadStatus;
   setLeftSidebarExpanded: any;
   leftSidebarConfig: LeftSidebarConfig;
-};
+} & WithTranslation;
 
 const LeftSidebar: React.FunctionComponent<Props> = props => (
   <section
@@ -75,7 +76,7 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
           marginTop: 0,
         }}
       >
-        {props.leftSidebarConfig.title}
+        {props.t("leftSidebarTitle", props.leftSidebarConfig.title)}
       </SmallTitle>
 
       {props.leftSidebarConfig.sections.length > 0 &&
@@ -84,6 +85,7 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
             <LeftSidebarSection
               key={layerPanelSectionIndex}
               section={section}
+              layerPanelSectionIndex={layerPanelSectionIndex}
               mapSourcesLoadStatus={props.mapSourcesLoadStatus}
             />
           ),
@@ -107,4 +109,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LeftSidebar);
+)(withTranslation("LeftSidebar")(LeftSidebar));

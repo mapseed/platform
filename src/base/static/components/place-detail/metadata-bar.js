@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 import { UserAvatar } from "../atoms/imagery";
 import { Time, SmallText, RegularText } from "../atoms/typography";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import {
   commentFormConfigPropType,
@@ -79,4 +79,6 @@ const mapStateToProps = state => ({
   commentFormConfig: commentFormConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(translate("MetadataBar")(MetadataBar));
+export default connect(mapStateToProps)(
+  withTranslation("MetadataBar")(MetadataBar),
+);

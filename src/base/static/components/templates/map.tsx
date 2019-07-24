@@ -6,8 +6,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { translate } from "react-i18next";
-import i18next, { TranslationFunction } from "i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import emitter from "../../utils/event-emitter";
 
@@ -137,25 +136,12 @@ interface State {
   mapContainerWidthDeclaration: string;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 }
-// Types were added to react-i18next is a newer version.
-// TODO: Use supplied types when we upgrade i18next deps.
-// See: https://github.com/i18next/react-i18next/pull/557/files
-type TransProps = {
-  i18nKey?: string;
-  count?: number;
-  parent?: React.ReactNode;
-  i18n?: i18next.i18n;
-  t?: TranslationFunction;
-  defaults?: string;
-  values?: {};
-  components?: React.ReactNode[];
-};
 
 type Props = StateProps &
   DispatchProps &
   OwnProps &
   RouteComponentProps<{}> &
-  TransProps;
+  WithTranslation;
 
 class MapTemplate extends Component<Props, State> {
   private mapContainerRef = createRef<HTMLDivElement>();
@@ -502,4 +488,4 @@ const mapDispatchToProps = {
 export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("MapTemplate")(withRouter(MapTemplate)));
+)(withTranslation("MapTemplate")(withRouter(MapTemplate)));

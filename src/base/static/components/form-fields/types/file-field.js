@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import "./file-field.scss";
 
@@ -39,4 +39,4 @@ FileField.propTypes = {
   value: PropTypes.string,
 };
 
-export default translate("FileField")(FileField);
+export default withTranslation("FileField")(FileField);

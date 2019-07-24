@@ -11,7 +11,7 @@ import { RegularText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
 import { FontAwesomeIcon } from "../atoms/imagery";
 import fieldDefinitions from "./field-definitions";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import constants from "../../constants";
 
 import { isEditModeToggled, updateUIVisibility } from "../../state/ducks/ui";
@@ -233,5 +233,5 @@ export default withTheme(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("FormField")(FormField)),
+  )(withTranslation("FormField")(FormField)),
 );

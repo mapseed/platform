@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { jsx } from "@emotion/core";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import { SiteLogo } from "../atoms/imagery";
 import { NavButton } from "../molecules/buttons";
@@ -123,7 +124,7 @@ const navItemMappings = {
   list_toggle: styled(linkProps => (
     <InternalLink
       className={linkProps.className}
-      ariaLabel={
+      aria-label={
         linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
           ? "view as a map"
           : "view as a list"
@@ -157,17 +158,14 @@ const navItemMappings = {
         },
       })}
     >
-      {/* {linkProps.t(
+      {linkProps.t(
         linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
           ? "toggleMapButton"
           : "toggleListButton",
         linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
           ? linkProps.navBarItem.show_map_button_label
           : linkProps.navBarItem.show_list_button_label,
-      )} */}
-      {linkProps.pathname === "/list" || linkProps.pathname === "/dashboard"
-        ? linkProps.navBarItem.show_map_button_label
-        : linkProps.navBarItem.show_list_button_label}
+      )}
     </InternalLink>
   ))(() => ({
     [mq[0]]: {
@@ -209,7 +207,9 @@ type Props = {
   availableLanguages?: Language[];
 } & ComponentPropTypes &
   DispatchProps &
-  RouteComponentProps<{}>;
+  RouteComponentProps<{}> &
+  WithTranslation;
+
 const SiteHeader: React.FunctionComponent<Props> = props => {
   const [isLanguageMenuVisible, setIsLanguageMenuVisible] = React.useState<
     boolean
@@ -293,8 +293,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
             <SiteLogo src={props.appConfig.logo} alt={props.appConfig.name} />
           )}
           {props.appConfig.show_name_in_header && (
-            // <SiteTitle>{props.t("siteTitle", props.appConfig.name)}</SiteTitle>
-            <SiteTitle>{props.appConfig.name}</SiteTitle>
+            <SiteTitle>{props.t("siteTitle", props.appConfig.name)}</SiteTitle>
           )}
         </InternalLink>
       </div>
@@ -320,8 +319,6 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
       >
         {props.navBarConfig.map((navBarItem, i) => {
           const NavItemComponent = navItemMappings[navBarItem.type];
-          // TODO: pass the translate function in here:
-          // t={props.t}
           return (
             <NavItemComponent
               key={i}
@@ -334,9 +331,9 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
               onClick={() => {
                 setIsHeaderExpanded(false);
               }}
+              t={props.t}
             >
-              {/* {props.t(`navBarItem${i}`, navBarItem.title)} */}
-              {navBarItem.title}
+              {props.t(`navBarItem${i}`, navBarItem.title)}
             </NavItemComponent>
           );
         })}
@@ -486,5 +483,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(SiteHeader),
+  )(withTranslation("SiteHeader")(SiteHeader)),
 );
