@@ -28,7 +28,7 @@ const getProduct = (context: IEvaluationContext, operands: number[]) => {
     }
 
     return product * val;
-  }, 0);
+  }, 1);
 };
 
 const getMean = (context: IEvaluationContext, operands: number[]) => {
