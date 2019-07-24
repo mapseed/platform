@@ -1,4 +1,3 @@
-import { EasingFunction } from "react-map-gl";
 import { Feature, Geometry, GeoJsonProperties } from "geojson";
 
 export const UPDATE_MAPVIEWPORT: string;
@@ -11,9 +10,6 @@ export type MapViewport = {
   zoom: number;
   bearing: number;
   pitch: number;
-  transitionDuration?: number;
-  // TODO: functions are not supposed to be in Redux state:
-  transitionEasing?: EasingFunction;
 };
 
 export type MapViewportDiff = {

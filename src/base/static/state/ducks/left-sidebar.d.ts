@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type LeftSidebarOption = {
   layerGroupId: string;
   title: string;

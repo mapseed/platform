@@ -13,9 +13,6 @@ export const mapViewportPropType = PropTypes.shape({
   zoom: PropTypes.number,
   pitch: PropTypes.number,
   bearing: PropTypes.number,
-  transitionInterpolator: PropTypes.object,
-  transitionDuration: PropTypes.number,
-  transitionEasing: PropTypes.func,
   minZoom: PropTypes.number.isRequired,
   maxZoom: PropTypes.number.isRequired,
 });
