@@ -10,7 +10,12 @@ import { TwitterIcon, FacebookIcon } from "./icons";
 import { FontAwesomeIcon } from "./imagery";
 import { SmallText } from "./typography";
 
-import { CHARCOAL, OFF_WHITE, getReadableColor } from "../../utils/color";
+import {
+  CHARCOAL,
+  OFF_WHITE,
+  getReadableColor,
+  lighten,
+} from "../../utils/color";
 import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
@@ -197,6 +202,15 @@ const Button = styled(props => {
     styles.border = "3px solid rgba(0, 0, 0, 0.05)";
   } else if (props.variant === "outlined") {
     styles.border = `3px solid ${props.theme.brand.primary}`;
+  } else if (props.variant === "badge") {
+    styles.backgroundColor = props.color;
+    styles.height = "32px";
+    styles.display = "flex";
+    styles.alignItems = "center";
+    styles.paddingLeft = "16px";
+    styles.paddingRight = "16px";
+    styles.borderRadius = "16px";
+    styles["&:hover"].backgroundColor = lighten(props.color, 10);
   }
 
   if (props.color === "primary") {

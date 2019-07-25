@@ -21,6 +21,7 @@ const FontAwesomeIcon = styled(props => (
     fontFamily: "Font Awesome 5 Free",
     fontSize: props.fontSize,
     color: props.color,
+    textShadow: props.textShadow,
 
     "&:hover": {
       color: props.hoverColor,
@@ -42,6 +43,7 @@ FontAwesomeIcon.defaultProps = {
   content: "fa fa-globe",
   color: "#000",
   hoverColor: "#555",
+  textShadow: "initial",
 };
 
 const SiteLogo = styled(props => {

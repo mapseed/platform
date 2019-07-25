@@ -36,6 +36,8 @@ export const activeEditPlaceIdSelector: any;
 
 export const scrollToResponseIdSelector: any;
 
+export const datasetPlacesSelector: any;
+
 // Action creators:
 export const updateScrollToResponseId: any;
 
