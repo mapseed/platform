@@ -3,8 +3,13 @@ import * as React from "react";
 import makeParsedExpression, {
   Expression,
 } from "../../../utils/expression/parse";
-import BaseTable, { Column, Row } from "./base-table";
-import { ChartLayout, Widget } from "./chart-wrapper";
+import BaseTable from "./base-table";
+import {
+  ChartLayout,
+  FixedTableWidget,
+  Column,
+  Row,
+} from "../../../state/ducks/dashboard-config";
 import { Place } from "../../../state/ducks/places";
 
 type FixedTableData = {
@@ -18,11 +23,6 @@ type FixedTableProps = {
   layout: ChartLayout;
   stripeColor?: string;
 };
-
-interface FixedTableWidget extends Widget {
-  columns: Column[];
-  rows: Row[];
-}
 
 const getFixedTableData = ({
   places,

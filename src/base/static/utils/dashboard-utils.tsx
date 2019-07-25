@@ -51,11 +51,10 @@ const defaultTooltipFormatter = (value, name, props) => {
 };
 
 const tooltipCountPercentFormatter = (value, name, props) => {
-  return countPercentFormatter(props.payload.value, props.payload.totalPlaces);
-};
-
-const countPercentFormatter = (count, totalCount) => {
-  return `${count} (${((count / totalCount) * 100).toFixed(0)}%)`;
+  return `${props.places.value} (${(
+    (props.places.value / props.payload.totalPlaces) *
+    100
+  ).toFixed(0)}%)`;
 };
 
 const dateFormatter = value => moment(value).format("MMM Do, YYYY");
@@ -113,23 +112,28 @@ const badgeFormatter = value => {
   );
 };
 
+const getTooltipFormatter = format => {
+  switch (format) {
+    case "currency":
+      return tooltipCurrencyFormatter;
+    case "count-percent":
+      return tooltipCountPercentFormatter;
+    case "count":
+    case "default":
+      return defaultTooltipFormatter;
+    default:
+      return defaultTooltipFormatter;
+  }
+};
+
 const getFormatter = format => {
   switch (format) {
     case "currency":
       return currencyFormatter;
-    case "tooltip-currency":
-      return tooltipCurrencyFormatter;
     case "truncated":
       return truncatedTextFormatter;
-    case "count-percent":
-      return countPercentFormatter;
-    case "tooltip-count-percent":
-      return tooltipCountPercentFormatter;
     case "count":
       return defaultFormatter;
-    case "tooltip-count":
-    case "tooltip-default":
-      return defaultTooltipFormatter;
     case "numeric":
       return numericFormatter;
     case "date":
@@ -171,4 +175,11 @@ const getNumericalPart = response => {
   }
 };
 
-export { COLORS, BLUE, getFormatter, getNumericalPart, isEmailAddress };
+export {
+  COLORS,
+  BLUE,
+  getFormatter,
+  getTooltipFormatter,
+  getNumericalPart,
+  isEmailAddress,
+};

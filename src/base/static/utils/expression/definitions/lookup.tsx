@@ -6,7 +6,7 @@ const getNumericalValsByKey = (dataset, key) => {
   return dataset.reduce((validVals, place) => {
     const val = getNumericalPart(place[key]);
 
-    return isNaN(val) ? validVals : [...validVals, val];
+    return isNaN(Number(val)) ? validVals : [...validVals, val];
   }, []);
 };
 
@@ -25,7 +25,7 @@ const getDatasetSum = (
     ? context.dataset.reduce((sum, place) => {
         const val = getNumericalPart(place[property]);
 
-        if (isNaN(val)) {
+        if (isNaN(Number(val))) {
           return sum;
         }
 
@@ -38,11 +38,11 @@ const getDatasetSum = (
               dataset: context.dataset,
               widgetState: context.widgetState,
             })
-            ? sum + val
+            ? sum + val!
             : sum;
         }
 
-        return sum + val;
+        return sum + val!;
       }, 0)
     : 0;
 

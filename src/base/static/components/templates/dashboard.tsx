@@ -16,7 +16,7 @@ import {
 } from "../../state/ducks/datasets-config";
 import {
   dashboardConfigSelector,
-  dashboardConfigPropType,
+  DashboardsConfig,
 } from "../../state/ducks/dashboard-config";
 import {
   appConfigSelector,
@@ -35,23 +35,20 @@ import ChartWrapper from "../organisms/dashboard/chart-wrapper";
 
 import constants from "../../constants";
 
-const statePropTypes = {
-  dashboardConfig: dashboardConfigPropType.isRequired,
-  appConfig: appConfigPropType.isRequired,
-  hasAdminAbilities: PropTypes.func.isRequired,
-  datasetPlacesSelector: PropTypes.func.isRequired,
-  placeFormsConfig: placeFormsConfigPropType.isRequired,
-  formFieldsConfig: formFieldsConfigPropType,
-  datasetsConfig: datasetsConfigPropType,
+type StateProps = {
+  dashboardConfig: DashboardsConfig;
+  appConfig: PropTypes.InferProps<typeof appConfigPropType>;
+  hasAdminAbilities: Function;
+  datasetPlacesSelector: Function;
+  placeFormsConfig: PropTypes.InferProps<typeof placeFormsConfigPropType>;
+  formFieldsConfig: PropTypes.InferProps<typeof formFieldsConfigPropType>;
+  datasetsConfig: PropTypes.InferProps<typeof datasetsConfigPropType>;
 };
 
-const ownProps = {
-  apiRoot: PropTypes.string,
-  datasetDownloadConfig: PropTypes.object,
+type OwnProps = {
+  apiRoot: string;
 };
 
-type StateProps = PropTypes.InferProps<typeof statePropTypes>;
-type OwnProps = PropTypes.InferProps<typeof ownProps>;
 type Props = StateProps & OwnProps & RouteComponentProps<{}>;
 
 interface State {
@@ -260,10 +257,7 @@ class Dashboard extends React.Component<Props, State> {
 
 type MapseedReduxState = any;
 
-const mapStateToProps = (
-  state: MapseedReduxState,
-  ownProps: OwnProps,
-): StateProps => ({
+const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   appConfig: appConfigSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   datasetPlacesSelector: datasetSlug =>
@@ -272,7 +266,6 @@ const mapStateToProps = (
   placeFormsConfig: placeFormsConfigSelector(state),
   formFieldsConfig: formFieldsConfigSelector(state),
   datasetsConfig: datasetsConfigSelector(state),
-  ...ownProps,
 });
 
 export default withRouter(

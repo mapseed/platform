@@ -537,9 +537,6 @@ class App extends React.Component<Props, State> {
                 <React.Suspense fallback={<Fallback />}>
                   <SiteHeader {...headerProps} />
                   <DashboardTemplate
-                    datasetDownloadConfig={
-                      this.props.appConfig.dataset_download
-                    }
                     apiRoot={this.props.appConfig.api_root}
                     {...props.match}
                   />

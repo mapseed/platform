@@ -16,27 +16,13 @@ import { DashboardText, ExternalLink } from "../../atoms/typography";
 import { isEmailAddress, getFormatter } from "../../../utils/dashboard-utils";
 import { Badge } from "../../atoms/typography";
 import { Expression } from "../../../utils/expression/parse";
-
-export interface Column {
-  label: string;
-  type: string;
-  fractionalWidth: number;
-  dataKey: string;
-  filter?: any;
-  header: string;
-}
-
-type Cell = {
-  value: number | string | boolean | Expression;
-  label?: string;
-};
-
-export type Row = {
-  cells: Cell[];
-};
+import {
+  Column as MapseedTableColumn,
+  Row,
+} from "../../../state/ducks/dashboard-config";
 
 type BaseTableProps = {
-  columns: Column[];
+  columns: MapseedTableColumn[];
   rows: Row[];
   stripeColor?: string;
 };

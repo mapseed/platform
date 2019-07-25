@@ -14,8 +14,8 @@ import {
 } from "recharts";
 
 import { BLUE } from "../../../utils/dashboard-utils";
-import { ChartLayout } from "./chart-wrapper";
 import { Place } from "../../../state/ducks/places";
+import { ChartLayout } from "../../../state/ducks/dashboard-config";
 
 type LineChartPoint = {
   date: Date;

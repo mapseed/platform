@@ -1,32 +1,21 @@
-import * as React from "react";
 import PropTypes from "prop-types";
+import * as React from "react";
 import lodashGroupBy from "lodash.groupby";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 
 import { COLORS } from "../../../utils/dashboard-utils";
-import { ChartLayout, Widget } from "./chart-wrapper";
+import {
+  ChartLayout,
+  FreeDonutChartWidget,
+  DonutWedge,
+} from "../../../state/ducks/dashboard-config";
 import { Place } from "../../../state/ducks/places";
-
-type DonutWedge = {
-  category: string;
-  label: string;
-  count: number;
-};
 
 type FreeDonutChartProps = {
   data: DonutWedge[];
   header: string;
   layout: ChartLayout;
 };
-
-type Labels = {
-  [key: string]: string;
-};
-
-interface FreeDonutChartWidget extends Widget {
-  labels: Labels;
-  groupBy: string;
-}
 
 const NULL_RESPONSE_NAME = "__no-response__";
 

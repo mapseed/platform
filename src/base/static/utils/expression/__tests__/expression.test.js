@@ -39,7 +39,6 @@ const dataset = [
     location_type: "observation",
     submitter: null,
     created_datetime: "2017-01-11T18:38:31.912413+00:00",
-    id: 826,
   },
   {
     geometry: { type: "Point", coordinates: [-104.9977111816, 39.7547127508] },
@@ -66,7 +65,6 @@ const dataset = [
     location_type: "observation",
     submitter: null,
     created_datetime: "2016-11-10T21:21:11.316415+00:00",
-    id: 442,
   },
   {
     geometry: { type: "Point", coordinates: [-102.9977111816, 39.7547127508] },
@@ -76,7 +74,7 @@ const dataset = [
     dataset: "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/demo",
     visible: true,
     submitter_name: "Mary",
-    id: 442,
+    id: 449,
     total_acres: 5,
     total_footage: 0,
     datasetId: "demo",
@@ -92,7 +90,6 @@ const dataset = [
     location_type: "observation",
     submitter: null,
     created_datetime: "2016-10-10T21:21:11.316415+00:00",
-    id: 449,
   },
   {
     geometry: { type: "Point", coordinates: [-89.0952801704, 30.368931909] },
@@ -130,7 +127,6 @@ const dataset = [
     location_type: "concern",
     submitter: null,
     created_datetime: "2016-09-23T00:32:39.570169+00:00",
-    id: 419,
   },
 ];
 

@@ -12,31 +12,7 @@ import { StatSummary, getStatSummaryData } from "./stat-summary";
 import { FixedTable, getFixedTableData } from "./fixed-table";
 import { FreeTable, getFreeTableData } from "./free-table";
 import { Place } from "../../../state/ducks/places";
-
-export type ChartLayout = {
-  start: number;
-  end: number;
-  height?: number;
-};
-
-type WidgetStateControlOption = {
-  value: string;
-  label: string;
-};
-
-type WidgetStateControl = {
-  defaultValue: string;
-  name: string;
-  options: WidgetStateControlOption[];
-  title?: string;
-};
-
-export interface Widget {
-  header: string;
-  type: string;
-  layout: ChartLayout;
-  widgetStateControls?: WidgetStateControl[];
-}
+import { Widget } from "../../../state/ducks/dashboard-config";
 
 type ChartWrapperProps = {
   widget: Widget;

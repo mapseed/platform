@@ -8,9 +8,16 @@ import {
   Label,
   Tooltip,
 } from "recharts";
-import { ChartLayout, Widget } from "./chart-wrapper";
+import {
+  ChartLayout,
+  FreeBarChartWidget,
+} from "../../../state/ducks/dashboard-config";
 
-import { getFormatter, BLUE } from "../../../utils/dashboard-utils";
+import {
+  getFormatter,
+  getTooltipFormatter,
+  BLUE,
+} from "../../../utils/dashboard-utils";
 import makeParsedExpression, {
   Expression,
 } from "../../../utils/expression/parse";
@@ -40,13 +47,6 @@ type FreeBarChartProps = {
 type Labels = {
   [key: string]: string;
 };
-
-interface FreeBarChartWidget extends Widget {
-  labels: Labels;
-  filter?: any;
-  groupBy: string;
-  groupValue: Expression;
-}
 
 const NULL_RESPONSE_NAME = "__no-response__";
 
@@ -117,19 +117,6 @@ const getFreeBarChartData = ({
   );
 
   return barChartData;
-};
-
-const getTooltipFormatter = format => {
-  switch (format) {
-    case "count-percent":
-      return getFormatter("tooltip-count-percent");
-    case "count":
-      return getFormatter("tooltop-count");
-    case "currency":
-      return getFormatter("tooltip-currency");
-    default:
-      return getFormatter("tooltip-default");
-  }
 };
 
 class FreeBarChart extends React.Component<FreeBarChartProps> {

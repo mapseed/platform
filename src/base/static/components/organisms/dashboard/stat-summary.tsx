@@ -3,7 +3,10 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 
 import { RegularText, LargeTitle } from "../../atoms/typography";
-import { ChartLayout, Widget } from "./chart-wrapper";
+import {
+  ChartLayout,
+  StatSummaryWidget,
+} from "../../../state/ducks/dashboard-config";
 import { Place } from "../../../state/ducks/places";
 
 type StatSummary = {
@@ -16,18 +19,6 @@ type StatSummaryProps = {
   header: string;
   layout: ChartLayout;
 };
-
-type StatSummaryRow = {
-  type: string;
-  label: string;
-  properties?: {
-    [key: string]: string | boolean | number;
-  };
-};
-
-interface StatSummaryWidget extends Widget {
-  rows: StatSummaryRow[];
-}
 
 const getStatSummaryData = ({
   places,

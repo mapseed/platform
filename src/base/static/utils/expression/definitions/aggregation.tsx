@@ -5,14 +5,14 @@ const getSum = (context: EvaluationContext, operands: number[]) => {
   return operands.reduce((sum, operand) => {
     const val = getNumericalPart(operand);
 
-    if (isNaN(val)) {
+    if (isNaN(Number(val))) {
       // eslint-disable-next-line no-console
       console.error("Error: got non-numerical operand for summation");
 
       return sum;
+    } else {
+      return sum + val!;
     }
-
-    return sum + val;
   }, 0);
 };
 
@@ -20,14 +20,14 @@ const getProduct = (context: EvaluationContext, operands: number[]) => {
   return operands.reduce((product, operand) => {
     const val = getNumericalPart(operand);
 
-    if (isNaN(val)) {
+    if (isNaN(Number(val))) {
       // eslint-disable-next-line no-console
       console.error("Error: got non-numerical operand for summation");
 
       return product;
+    } else {
+      return product * val!;
     }
-
-    return product * val;
   }, 1);
 };
 

@@ -3,13 +3,15 @@ import * as React from "react";
 import makeParsedExpression, {
   Expression,
 } from "../../../utils/expression/parse";
-import BaseTable, { Column, Row } from "./base-table";
-import { ChartLayout, Widget } from "./chart-wrapper";
+import BaseTable from "./base-table";
+import {
+  ChartLayout,
+  FreeTableWidget,
+  Column,
+  Row,
+  FreeTableColumn,
+} from "../../../state/ducks/dashboard-config";
 import { Place } from "../../../state/ducks/places";
-
-interface FreeTableColumn extends Column {
-  value: any;
-}
 
 type FreeTableData = {
   columns: FreeTableColumn[];
@@ -22,11 +24,6 @@ type FreeTableProps = {
   layout: ChartLayout;
   stripeColor?: string;
 };
-
-interface FreeTableWidget extends Widget {
-  columns: FreeTableColumn[];
-  rows: Row[];
-}
 
 const getFreeTableData = ({
   places,
