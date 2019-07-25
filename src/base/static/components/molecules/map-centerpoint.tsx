@@ -92,7 +92,10 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
             fontFamily: theme.text.bodyFontFamily,
 
             "&:before": {
-              content: `"${props.t("mapCenterpointOverlayMsg", "Drag the map")}"`,
+              content: `"${props.t(
+                "mapCenterpointOverlayMsg",
+                "Drag the map",
+              )}"`,
               textTransform: "uppercase",
               fontWeight: 800,
               color: "#ffff00",

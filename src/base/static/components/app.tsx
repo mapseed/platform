@@ -278,6 +278,7 @@ class App extends React.Component<Props, State> {
     i18next.use(initReactI18next).init({
       lng: resolvedConfig.flavor.defaultLanguage.code,
       resources: resourceBundle,
+      // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
       react: {
         // Needed to rerender components after results from Translate API are
         // returned.
