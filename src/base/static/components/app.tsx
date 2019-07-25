@@ -32,7 +32,7 @@ const ReportTemplate = React.lazy(() => import("./templates/report"));
 
 // @ts-ignore
 import config from "config";
-import { createFeaturesInGeoJSONSource } from "../state/ducks/map";
+import { createFeaturesInGeoJSONSource } from "../state/ducks/map-style";
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
 import {
@@ -44,7 +44,7 @@ import {
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
 import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
-import { loadMapConfig } from "../state/ducks/map-config";
+import { loadMapConfig } from "../state/ducks/map";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
@@ -56,8 +56,7 @@ import {
   pageExistsSelector,
 } from "../state/ducks/pages-config";
 import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
-import { loadMapStyle } from "../state/ducks/map";
-import { loadMapViewport } from "../state/ducks/map-viewport";
+import { loadMapStyle } from "../state/ducks/map-style";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
@@ -136,7 +135,6 @@ const dispatchPropTypes = {
   loadRightSidebarConfig: PropTypes.func.isRequired,
   loadFeaturedPlacesConfig: PropTypes.func.isRequired,
   loadAppConfig: PropTypes.func.isRequired,
-  loadMapViewport: typeof loadMapViewport,
   loadFormsConfig: PropTypes.func.isRequired,
   loadSupportConfig: PropTypes.func.isRequired,
   loadPagesConfig: PropTypes.func.isRequired,
@@ -160,6 +158,7 @@ type Props = StateProps &
 // 'process' global is injected by Webpack:
 declare const process: any;
 
+// TODO: Move this out of App state:
 interface Language {
   code: string;
   label: string;
@@ -252,7 +251,6 @@ class App extends React.Component<Props, State> {
     this.props.loadAppConfig(resolvedConfig.app);
     this.props.loadDatasetsConfig(resolvedConfig.datasets);
     this.props.loadMapConfig(resolvedConfig.map);
-    this.props.loadMapViewport(resolvedConfig.map.mapViewport);
     this.props.loadPlaceConfig(resolvedConfig.place, user);
     this.props.loadLeftSidebarConfig(resolvedConfig.leftSidebar);
     this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
@@ -672,7 +670,6 @@ const mapDispatchToProps = {
   loadRightSidebarConfig,
   loadFeaturedPlacesConfig,
   loadAppConfig,
-  loadMapViewport,
   loadFormsConfig,
   loadSupportConfig,
   loadPagesConfig,

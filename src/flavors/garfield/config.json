@@ -7564,7 +7564,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 4,
+            "end_field_index": 5,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7574,8 +7574,8 @@
             ]
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 6,
+            "start_field_index": 6,
+            "end_field_index": 7,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7585,8 +7585,8 @@
             ]
           },
           {
-            "start_field_index": 7,
-            "end_field_index": 9,
+            "start_field_index": 8,
+            "end_field_index": 10,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7596,8 +7596,8 @@
             ]
           },
           {
-            "start_field_index": 10,
-            "end_field_index": 12,
+            "start_field_index": 11,
+            "end_field_index": 13,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7607,8 +7607,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 15,
+            "start_field_index": 14,
+            "end_field_index": 16,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7618,8 +7618,8 @@
             ]
           },
           {
-            "start_field_index": 16,
-            "end_field_index": 18,
+            "start_field_index": 17,
+            "end_field_index": 19,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7629,8 +7629,8 @@
             ]
           },
           {
-            "start_field_index": 19,
-            "end_field_index": 21,
+            "start_field_index": 20,
+            "end_field_index": 22,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7640,8 +7640,8 @@
             ]
           },
           {
-            "start_field_index": 22,
-            "end_field_index": 24,
+            "start_field_index": 23,
+            "end_field_index": 25,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7651,8 +7651,8 @@
             ]
           },
           {
-            "start_field_index": 25,
-            "end_field_index": 33,
+            "start_field_index": 26,
+            "end_field_index": 34,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7662,8 +7662,8 @@
             ]
           },
           {
-            "start_field_index": 34,
-            "end_field_index": 39,
+            "start_field_index": 35,
+            "end_field_index": 40,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7673,8 +7673,8 @@
             ]
           },
           {
-            "start_field_index": 40,
-            "end_field_index": 45,
+            "start_field_index": 41,
+            "end_field_index": 46,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7684,8 +7684,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 51,
+            "start_field_index": 47,
+            "end_field_index": 52,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7695,8 +7695,8 @@
             ]
           },
           {
-            "start_field_index": 52,
-            "end_field_index": 69,
+            "start_field_index": 53,
+            "end_field_index": 70,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7706,8 +7706,8 @@
             ]
           },
           {
-            "start_field_index": 70,
-            "end_field_index": 102,
+            "start_field_index": 71,
+            "end_field_index": 103,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7717,8 +7717,8 @@
             ]
           },
           {
-            "start_field_index": 103,
-            "end_field_index": 114,
+            "start_field_index": 104,
+            "end_field_index": 115,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -7730,6 +7730,10 @@
         ],
         "label": "Actions",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "location_information_header",
             "type": "informational_html",

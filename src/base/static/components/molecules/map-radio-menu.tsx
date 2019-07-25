@@ -9,8 +9,8 @@ import {
   updateLayerAggregators,
   LayerGroups,
   Layer,
-} from "../../state/ducks/map";
-import { RadioMenuConfig, RadioMenuOption } from "../../state/ducks/map-config";
+} from "../../state/ducks/map-style";
+import { RadioMenuConfig, RadioMenuOption } from "../../state/ducks/map";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";

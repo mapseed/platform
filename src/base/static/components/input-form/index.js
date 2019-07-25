@@ -31,7 +31,7 @@ import {
   mapViewportPropType,
   layerGroupsSelector,
   layerGroupsPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   hasAdminAbilities,
   hasGroupAbilitiesInDatasets,
@@ -50,7 +50,7 @@ import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
-import { mapViewportSelector } from "../../state/ducks/map-viewport";
+import { mapViewportSelector } from "../../state/ducks/map";
 
 class InputForm extends Component {
   constructor(props) {
@@ -265,11 +265,6 @@ class InputForm extends Component {
       { validationErrors: new Set(), isValid: true },
     );
 
-    if (!this.props.isMapDraggedOrZoomed) {
-      newValidationErrors.add("mapNotDragged");
-      isValid = false;
-    }
-
     if (isValid) {
       successCallback();
     } else {
@@ -299,7 +294,12 @@ class InputForm extends Component {
 
     let attrs = {
       ...this.state.fields
-        .filter(state => !!state.get("value"))
+        .filter(state => {
+          return (
+            state.get("config").get("type") !== "lng_lat" &&
+            !!state.get("value")
+          );
+        })
         .map(state => state.get("value"))
         .toJS(),
       location_type: this.selectedCategoryConfig.category,
@@ -655,21 +655,16 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
-  isLeavingForm: PropTypes.bool,
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
@@ -702,8 +697,6 @@ const mapDispatchToProps = dispatch => ({
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
 });

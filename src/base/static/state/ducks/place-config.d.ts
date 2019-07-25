@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Selectors:
 export const placeConfigSelector: any;
 

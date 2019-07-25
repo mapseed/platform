@@ -3,7 +3,7 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
 import { Map } from "mapbox-gl";
-import { Feature, GeometryObject, Geometry, GeoJsonProperties } from "geojson";
+import { GeometryObject } from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
@@ -20,29 +20,32 @@ import {
   updateMapContainerDimensions,
   mapContainerDimensionsSelector,
   mapLayerPopupSelector,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
   mapConfigSelector,
   mapConfigPropType,
   MapSourcesLoadStatus,
-} from "../../state/ducks/map-config";
-
-import {
-  default as mapViewportReducer,
-  UPDATE as MAPVIEWPORT_UPDATE,
+  LayerFeature,
+  updateMapInteractionState,
+  isMapDraggingOrZooming,
+  isMapDraggedOrZoomedByUser,
+  isMapTransitioning,
   MapViewportDiff,
   MapViewport,
   updateMapViewport,
   mapViewportSelector,
-} from "../../state/ducks/map-viewport";
+} from "../../state/ducks/map";
 import {
   activeEditPlaceIdSelector,
   filteredPlacesSelector,
   placesPropType,
 } from "../../state/ducks/places";
 import { filtersSelector } from "../../state/ducks/filters";
-import { uiVisibilitySelector } from "../../state/ducks/ui";
+import {
+  uiVisibilitySelector,
+  updateSpotlightMaskVisibility,
+} from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
@@ -51,8 +54,65 @@ import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
 
 import { Mixpanel } from "../../utils/mixpanel";
 import { FlyToInterpolator } from "react-map-gl";
+import produce from "immer";
 
 const transitionInterpolator = new FlyToInterpolator();
+
+const UPDATE_VIEWPORT = "update-viewport";
+const mapViewportReducer = (
+  state: MapViewport,
+  action: {
+    type: string;
+    payload: { viewport: MapViewportDiff; scrollZoomAroundCenter: boolean };
+  },
+): MapViewport =>
+  produce(state, draft => {
+    switch (action.type) {
+      case UPDATE_VIEWPORT:
+        if (action.payload.viewport.zoom !== undefined) {
+          draft.zoom = action.payload.viewport.zoom;
+        }
+        if (action.payload.viewport.pitch !== undefined) {
+          draft.pitch = action.payload.viewport.pitch;
+        }
+        if (action.payload.viewport.transitionDuration !== undefined) {
+          draft.transitionDuration = action.payload.viewport.transitionDuration;
+        }
+
+        // NOTE: NaN values in our viewport.bearing will cause a crash:
+        // https://github.com/uber/react-map-gl/issues/630 (Although it's best
+        // practice to guard against them anyway)
+        if (!isNaN(Number(action.payload.viewport.bearing))) {
+          draft.bearing = Number(action.payload.viewport.bearing);
+        }
+
+        // These checks support a "scroll zoom around center" feature (in
+        // which a zoom of the map will not change the centerpoint) that is
+        // not exposed by react-map-gl. These checks are pretty convoluted,
+        // though, so it would be great if react-map-gl could just
+        // incorporate the scroll zoom around center option natively.
+        // See: https://github.com/uber/react-map-gl/issues/515
+        draft.latitude =
+          action.payload.scrollZoomAroundCenter &&
+          !action.payload.viewport.transitionDuration &&
+          action.payload.viewport.zoom !== state.zoom
+            ? state.latitude
+            : action.payload.viewport.latitude !== undefined
+              ? action.payload.viewport.latitude
+              : state.latitude;
+
+        draft.longitude =
+          action.payload.scrollZoomAroundCenter &&
+          !action.payload.viewport.transitionDuration &&
+          action.payload.viewport.zoom !== state.zoom
+            ? state.longitude
+            : action.payload.viewport.longitude !== undefined
+              ? action.payload.viewport.longitude
+              : state.longitude;
+
+        return;
+    }
+  });
 
 // TODO: remove this once we remove the Mapseed global:
 declare const MAP_PROVIDER_TOKEN: string;
@@ -72,6 +132,10 @@ const statePropTypes = {
   mapStyle: mapStylePropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
   datasets: datasetsPropType,
+  isMapCenterpointVisible: PropTypes.bool.isRequired,
+  isMapDraggingOrZooming: PropTypes.bool.isRequired,
+  isMapDraggedOrZoomedByUser: PropTypes.bool.isRequired,
+  isMapTransitioning: PropTypes.bool.isRequired,
 };
 
 interface StateProps extends PropTypes.InferProps<typeof statePropTypes> {
@@ -83,15 +147,14 @@ type DispatchProps = {
   updateLayers: typeof updateLayers;
   updateMapContainerDimensions: typeof updateMapContainerDimensions;
   updateMapViewport: typeof updateMapViewport;
+  updateMapInteractionState: typeof updateMapInteractionState;
+  updateSpotlightMaskVisibility: typeof updateSpotlightMaskVisibility;
 };
 
 type ParentProps = {
-  isMapDraggedOrZoomed: boolean;
   mapContainerWidthDeclaration: string;
   mapContainerHeightDeclaration: string;
   mapContainerRef: React.RefObject<HTMLElement>;
-  onUpdateMapDraggedOrZoomed: Function;
-  onUpdateSpotlightMaskVisibility: Function;
   onUpdateSourceLoadStatus: Function;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 };
@@ -100,27 +163,15 @@ type Props = StateProps & DispatchProps & ParentProps & RouteComponentProps<{}>;
 
 interface State {
   isMapLoaded: boolean;
-  isMapDraggingOrZooming: boolean;
   popupContent: string | null;
   popupLatitude: number | null;
   popupLongitude: number | null;
   mapViewport: MapViewport;
 }
 
-// TODO: make this a reusable Layer interface:
-interface LayerFeature<
-  G extends Geometry | null = Geometry,
-  P = GeoJsonProperties
-> extends Feature {
-  layer: {
-    id: string;
-  };
-}
-
 class MainMap extends React.Component<Props, State> {
   state: State = {
     isMapLoaded: false,
-    isMapDraggingOrZooming: false,
     popupContent: null,
     popupLatitude: null,
     popupLongitude: null,
@@ -130,12 +181,11 @@ class MainMap extends React.Component<Props, State> {
   private queriedFeatures: LayerFeature<GeometryObject>[] = [];
   mouseX = 0;
   mouseY = 0;
-  isMapTransitioning = false;
   mapRef: React.RefObject<InteractiveMap> = React.createRef();
   private map: Map | null = null;
 
   errorListener = evt => {
-    if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
+    if (this.props.isMapDraggingOrZooming || this.props.isMapTransitioning) {
       return;
     }
 
@@ -148,7 +198,7 @@ class MainMap extends React.Component<Props, State> {
   };
 
   sourceDataListener = evt => {
-    if (this.state.isMapDraggingOrZooming || this.isMapTransitioning) {
+    if (this.props.isMapDraggingOrZooming || this.props.isMapTransitioning) {
       return;
     }
 
@@ -168,9 +218,12 @@ class MainMap extends React.Component<Props, State> {
       this.resizeMap();
     });
 
-    eventEmitter.on("setMapViewport", viewport => {
-      this.setMapViewport(viewport);
-    });
+    eventEmitter.on(
+      "setMapViewport",
+      (viewport: MapViewportDiff): void => {
+        this.setMapViewport(viewport);
+      },
+    );
 
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
@@ -308,7 +361,7 @@ class MainMap extends React.Component<Props, State> {
     }
     const feature = this.queriedFeatures[0];
     if (
-      !this.state.isMapDraggingOrZooming &&
+      !this.props.isMapDraggingOrZooming &&
       feature &&
       feature.properties &&
       feature.properties.clientSlug
@@ -347,47 +400,41 @@ class MainMap extends React.Component<Props, State> {
     }
   };
 
-  updateMapViewport = throttle(
-    500,
-    (viewport: MapViewportDiff, scrollZoomAroundCenter: boolean): void => {
-      this.props.updateMapViewport(viewport, scrollZoomAroundCenter);
-    },
-  );
+  updateMapViewport = throttle(500, this.props.updateMapViewport);
 
   setMapViewport = (viewport: MapViewportDiff): void => {
-    const scrollZoomAroundCenter = this.isMapTransitioning
-      ? false
-      : this.props.mapConfig.scrollZoomAroundCenter;
-    this.setState({
-      mapViewport: mapViewportReducer(this.state.mapViewport, {
-        type: MAPVIEWPORT_UPDATE,
-        payload: {
-          viewport,
-          scrollZoomAroundCenter,
-        },
-      }),
+    const newMapViewport = mapViewportReducer(this.state.mapViewport, {
+      type: UPDATE_VIEWPORT,
+      payload: {
+        viewport,
+        scrollZoomAroundCenter: this.props.mapConfig.scrollZoomAroundCenter,
+      },
     });
-    this.updateMapViewport(viewport, scrollZoomAroundCenter);
+    this.setState({
+      mapViewport: newMapViewport,
+    });
+    this.updateMapViewport(newMapViewport);
     this.setSlippyRoute();
   };
 
   onInteractionStateChange = evt => {
     if (
       (evt.isDragging || evt.isZooming) &&
-      !this.state.isMapDraggingOrZooming
+      !this.props.isMapDraggingOrZooming
     ) {
-      this.setState({
+      this.props.updateMapInteractionState({
         isMapDraggingOrZooming: true,
       });
     } else if (
       !evt.isDragging &&
       !evt.isZooming &&
-      this.state.isMapDraggingOrZooming
+      this.props.isMapDraggingOrZooming
     ) {
-      this.setState({
+      this.props.updateSpotlightMaskVisibility(false);
+      this.props.updateMapInteractionState({
+        isMapDraggedOrZoomedByUser: true,
         isMapDraggingOrZooming: false,
       });
-      this.props.onUpdateMapDraggedOrZoomed(true);
     }
   };
 
@@ -412,7 +459,6 @@ class MainMap extends React.Component<Props, State> {
           zoom={this.state.mapViewport.zoom}
           transitionDuration={this.state.mapViewport.transitionDuration}
           transitionInterpolator={transitionInterpolator}
-          transitionEasing={this.state.mapViewport.transitionEasing}
           mapboxApiAccessToken={MAP_PROVIDER_TOKEN}
           minZoom={this.state.mapViewport.minZoom}
           maxZoom={this.state.mapViewport.maxZoom}
@@ -442,8 +488,12 @@ class MainMap extends React.Component<Props, State> {
 
             this.setMapViewport(rest);
           }}
-          onTransitionStart={() => (this.isMapTransitioning = true)}
-          onTransitionEnd={() => (this.isMapTransitioning = false)}
+          onTransitionStart={() =>
+            this.props.updateMapInteractionState({ isMapTransitioning: true })
+          }
+          onTransitionEnd={() =>
+            this.props.updateMapInteractionState({ isMapTransitioning: false })
+          }
           interactiveLayerIds={this.props.interactiveLayerIds}
           mapStyle={this.props.mapStyle}
           onInteractionStateChange={this.onInteractionStateChange}
@@ -468,10 +518,7 @@ class MainMap extends React.Component<Props, State> {
                 />
               </Popup>
             )}
-          <MapCenterpoint
-            isMapDraggingOrZooming={this.state.isMapDraggingOrZooming}
-            isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
-          />
+          {this.props.isMapCenterpointVisible && <MapCenterpoint />}
           {this.state.isMapLoaded && <MapControls />}
         </MapGL>
         <MapWidgetContainer />
@@ -484,6 +531,10 @@ const mapStateToProps = (state): StateProps => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
+  isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
+  isMapDraggingOrZooming: isMapDraggingOrZooming(state),
+  isMapDraggedOrZoomedByUser: isMapDraggedOrZoomedByUser(state),
+  isMapTransitioning: isMapTransitioning(state),
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapViewport: mapViewportSelector(state),
@@ -499,6 +550,8 @@ const mapDispatchToProps = {
   updateLayers,
   updateMapContainerDimensions,
   updateMapViewport,
+  updateMapInteractionState,
+  updateSpotlightMaskVisibility,
 };
 
 export default withRouter(

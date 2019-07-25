@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+declare type Action = {
+  type: string;
+  payload: any;
+};
+
 export const currentTemplateSelector: any;
 export const isEditModeToggled: any;
 // TODO: Replace this general visibility selector with UI-specific selectors.
@@ -19,3 +25,4 @@ export const updateMeasurementToolVisibility: any;
 export const updateActivePage: any;
 export const updateContentPanelComponent: any;
 export const updateLayout: any;
+export const updateSpotlightMaskVisibility: (isVisible: boolean) => Action;

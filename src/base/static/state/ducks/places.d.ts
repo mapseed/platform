@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const placesPropType: any;
 export const placePropType: any;
 

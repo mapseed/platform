@@ -14,7 +14,8 @@ import fieldDefinitions from "./field-definitions";
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
-import { isEditModeToggled } from "../../state/ducks/ui";
+import { isEditModeToggled, updateUIVisibility } from "../../state/ducks/ui";
+import { updateMapInteractionState } from "../../state/ducks/map";
 
 import "./form-field.scss";
 
@@ -73,6 +74,13 @@ class FormField extends Component {
     this.setState({
       isInitialized: true,
     });
+
+    if (this.props.fieldConfig.type === "lng_lat") {
+      this.props.updateMapInteractionState({
+        isMapDraggedOrZoomedByUser: false,
+      });
+      this.props.updateSpotlightMaskVisibility(true);
+    }
   }
 
   onChange(fieldName, fieldValue, isInitializing = false) {
@@ -126,6 +134,10 @@ class FormField extends Component {
     return (
       <div
         css={css`
+          display: ${this.props.fieldConfig.type ===
+          constants.LNG_LAT_FIELD_TYPENAME
+            ? "none"
+            : "block"};
           font-family: ${this.props.theme.text.bodyFontFamily};
           margin-bottom: 5px;
           padding: 8px;
@@ -185,13 +197,15 @@ FormField.propTypes = {
   isInitializing: PropTypes.bool,
   updatingField: PropTypes.string,
   map: PropTypes.object,
-  onClickModal: PropTypes.func.isRequired,
+  onClickModal: PropTypes.func,
   onFieldChange: PropTypes.func.isRequired,
   places: PropTypes.object,
   router: PropTypes.object,
   showValidityStatus: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
+  updateMapInteractionState: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
@@ -208,6 +222,16 @@ const mapStateToProps = state => ({
   isEditModeToggled: isEditModeToggled(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+  updateMapInteractionState: newInteractionState =>
+    dispatch(updateMapInteractionState(newInteractionState)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
+});
+
 export default withTheme(
-  connect(mapStateToProps)(translate("FormField")(FormField)),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(translate("FormField")(FormField)),
 );

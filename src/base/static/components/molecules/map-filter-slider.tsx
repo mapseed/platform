@@ -2,8 +2,8 @@
 import * as React from "react";
 import { css, jsx } from "@emotion/core";
 
-import { LayerGroup } from "../../state/ducks/map";
-import { FilterSliderConfig } from "../../state/ducks/map-config";
+import { LayerGroup } from "../../state/ducks/map-style";
+import { FilterSliderConfig } from "../../state/ducks/map";
 import { RangeInput } from "../atoms/input";
 import { RegularText } from "../atoms/typography";
 

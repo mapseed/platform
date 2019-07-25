@@ -1260,7 +1260,7 @@
           },
           {
             "start_field_index": 8,
-            "end_field_index": 10,
+            "end_field_index": 11,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1278,8 +1278,8 @@
             }
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 12,
+            "start_field_index": 12,
+            "end_field_index": 13,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1289,8 +1289,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 20,
+            "start_field_index": 14,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1300,8 +1300,8 @@
             ]
           },
           {
-            "start_field_index": 21,
-            "end_field_index": 29,
+            "start_field_index": 22,
+            "end_field_index": 30,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1311,8 +1311,8 @@
             ]
           },
           {
-            "start_field_index": 30,
-            "end_field_index": 37,
+            "start_field_index": 31,
+            "end_field_index": 38,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1322,8 +1322,8 @@
             ]
           },
           {
-            "start_field_index": 38,
-            "end_field_index": 51,
+            "start_field_index": 39,
+            "end_field_index": 52,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1333,8 +1333,8 @@
             ]
           },
           {
-            "start_field_index": 52,
-            "end_field_index": 60,
+            "start_field_index": 53,
+            "end_field_index": 62,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1393,6 +1393,10 @@
             "type": "geocoding",
             "placeholder": "Your address will never be shared",
             "optional": true
+          },
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
           },
           {
             "name": "fire_resources_information",
@@ -1567,6 +1571,13 @@
             "name": "landowner_information_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Almost Done!</h2>"
+          },
+          {
+            "name": "private-final_address",
+            "type": "geocoding",
+            "placeholder": "Your address will never be shared",
+            "prompt": "Double check that your address is correct before submitting this form:",
+            "optional": true
           },
           {
             "name": "private-landowner_name",

@@ -2,20 +2,19 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { css, jsx } from "@emotion/core";
+
 import { uiVisibilitySelector } from "../../state/ducks/ui";
+import {
+  isMapDraggingOrZooming,
+  isMapDraggedOrZoomedByUser,
+} from "../../state/ducks/map";
+
 type StateProps = {
-  isMapCenterpointVisible: boolean;
+  isMapDraggedOrZoomedByUser: boolean;
+  isMapDraggingOrZooming: boolean;
 };
 
-type Props = {
-  isMapDraggedOrZoomed: boolean;
-  isMapDraggingOrZooming: boolean;
-} & StateProps;
-
-const MapCenterpoint: React.FunctionComponent<Props> = props => {
-  if (!props.isMapCenterpointVisible) {
-    return null;
-  }
+const MapCenterpoint: React.FunctionComponent<StateProps> = props => {
   return (
     <span
       css={css`
@@ -74,7 +73,7 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
           transition: top 0.4s ease;
         `}
       />
-      {!props.isMapDraggedOrZoomed && (
+      {!props.isMapDraggedOrZoomedByUser && (
         <span
           css={theme => ({
             width: "175px",
@@ -90,7 +89,7 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
             fontFamily: theme.text.bodyFontFamily,
 
             "&:before": {
-              // TODO: translate this string, when react-i18next is ported over:
+              // TODO: translate this string, when react-i18next is upgraded to support TS:
               content: `"${"Drag the map"}"`,
               textTransform: "uppercase",
               fontWeight: 800,
@@ -109,8 +108,9 @@ const MapCenterpoint: React.FunctionComponent<Props> = props => {
   );
 };
 
-const mapStateToProps = (state: any): StateProps => ({
-  isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
+const mapStateToProps = state => ({
+  isMapDraggingOrZooming: isMapDraggingOrZooming(state),
+  isMapDraggedOrZoomedByUser: isMapDraggedOrZoomedByUser(state),
 });
 
-export default connect(mapStateToProps)(MapCenterpoint);
+export default connect<StateProps>(mapStateToProps)(MapCenterpoint);

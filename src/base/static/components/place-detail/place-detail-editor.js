@@ -29,7 +29,7 @@ import {
   removeFeatureInGeoJSONSource,
   updateFeatureInGeoJSONSource,
   updateFocusedGeoJSONFeatures,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
 import {
   isInAtLeastOneGroup,
@@ -63,6 +63,7 @@ class PlaceDetailEditor extends Component {
         field =>
           field.type !== "submit" &&
           field.type !== "informational_html" &&
+          field.type !== "lng_lat" &&
           field.isVisible,
       )
       .forEach(field => {
