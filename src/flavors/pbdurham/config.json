@@ -2048,7 +2048,6 @@
   "pages": [
     {
       "slug": "get-involved",
-      "lang": "en",
       "content": [
         "<h1>Get Involved</h1>",
         "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
@@ -2071,32 +2070,7 @@
       ]
     },
     {
-      "slug": "get-involved",
-      "lang": "es",
-      "content": [
-        "<h1>Involucrarse</h1>",
-        "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
-        "<p>¿Ya has enviado una idea? Hay muchas más formas de involucrarse en el presupuesto participativo:</p>",
-        "<p><strong>Conviértete en un delegado de presupuesto</strong></p>",
-        "<p>Los voluntarios serán reclutados para servir como los Delegados del Presupuesto. Durante el desarrollo de propuestas, estos Delegados del Presupuesto trabajarán con la comunidad y los empleados de la Ciudad de Durham para desarrollar ideas en propuestas presupuestarias. Recibirán formación y apoyo del Personal de implementación. El personal de implementación también facilitarán la comunicación para que los proyectos pueden ser desarrollado en manera oportuna.</p>",
-        "<p><strong>Asista a una asamblea de barrio</strong></p>",
-        "<p>Cada barrio tendrá una asamblea de barrio y otros eventos informales de recopilación de ideas para fomentar la participación generalizada. <a href='http://www.pbdurham.org' target='_blank'>Aún se está desarrollando la página web</a> para las próximas fechas, horarios y ubicaciones de la asamblea.</p>",
-        "<p><strong>Conéctate con nosotros</strong></p>",
-        "<a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>",
-        "<img src='/static/css/images/facebook-32.png' style='width:32px' alt='Facebook icon' />",
-        "</a>",
-        "<a href='https://twitter.com/PBDurhamNC' target='_blank'>",
-        "<img src='/static/css/images/twitter-32.png' style='width:32px' alt='Twitter icon' />",
-        "</a>",
-        "<p>¡Encuéntrenos en <a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>Facebook</a> y síganos en <a href='https://twitter.com/PBDurhamNC' target='_blank'>Twitter!</a></p>",
-        "<p><strong>Comunícate con nosotros</strong></p>",
-        "<p><strong>¿Tengo una pregunta?</strong></p>",
-        "<p>Comuníquese con Robin Baker, Coordinador de participación en el presupuesto para el presupuesto participativo de Durham, por correo electrónico a pbdurham@durhamnc.gov o llame al 984-227-3395.</p>"
-      ]
-    },
-    {
       "slug": "guidelines",
-      "lang": "en",
       "content": [
         "<div class='clearfix'>",
         "<h1>Project Idea Guidelines</h1>",
@@ -2110,23 +2084,7 @@
       ]
     },
     {
-      "slug": "guidelines",
-      "lang": "es",
-      "content": [
-        "<div class='clearfix'>",
-        "<h1>Pautas para las idea de proyecto</h1>",
-        "<div id='guidelines-video-container'>",
-        "<iframe id='guidelines-video' src='https://player.vimeo.com/video/162743651?color=ff9933&byline=0' width='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
-        "</div>",
-        "<p>Los residentes y los estudiantes de Durham de 13 años y mayores pueden generar ideas de proyectos iniciales en asambleas de colección de ideas, eventos emergentes y en línea a <a href='https://www.pbdurham.org' target='_blank'>pbdurham.org</a>.</p>",
-        "<p>Colección de ideas está abierta el 1 de noviembre hasta el 21 de diciembre.</p>",
-        "<p>Para repasar todos las directrices para el proceso, por favor lean el libro de reglas de PB (haz clic aquí).</p>",
-        "</div>"
-      ]
-    },
-    {
       "slug": "about",
-      "lang": "en",
       "content": [
         "<h1>Durham Participatory Budgeting:</h1>",
         "<h2>Put your money where your ideas are!</h2>",
@@ -2136,21 +2094,6 @@
         "<p>\"One-time projects\" are projects with one-time expenditures that address a community need. Projects can be built on City, Durham Housing Authority, and private land, upon donation. \"One-time projects\" may include physical infrastructure, technological improvements, and community enhancements. Examples of \"one-time projects\" include park improvements, computers for a community center, bus shelters, and bike-lanes. \"One-time projects\" may have some sort of associated operating cost. However, they do not require the City to hire additional staff.</p>",
         "<p>For more information on participatory budgeting in Durham, <a href='https://www.pbdurham.org' target='_blank'>Click here!</a></p>",
         "<p>For information on the nationwide movement for PB, visit the website of the <a href='http://www.participatorybudgeting.org/' target='_blank'>Participatory Budgeting Project.</a></p>"
-      ]
-    },
-    {
-      "slug": "about",
-      "lang": "es",
-      "content": [
-        "<h1>Presupuesto participativo de Durham:</h1>",
-        "<h2>¡Pon tu dinero donde están tus ideas!</h2>",
-        "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
-        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-primary btn-large'>Envíe su idea</a>",
-        "<p>El presupuesto participativo de Durham es un proceso democrático en el que los miembros de la comunidad de los tres distritos municipales deciden directamente cómo gastar $ 2.4 millones ($ 800,000 por distrito).</p>",
-        "<p>De Noviembre del 2018 a Marzo del 2019, los delegados voluntarios del presupuesto trabajarán para desarrollar estas ideas iniciales en propuestas de proyectos completos. Los residentes de Durham podrán votar en Mayo del 2019 para determinar los proyectos ganadores.</p>",
-        "<p>Proyectos de una sola vez son proyectos con gastos de una sola vez que abordan una necesidad comunitaria. Los proyectos pueden ser construido en tierra de la ciudad, La Autoridad de Vivienda de Durham (Durham Housing Authority) y tierra privada al recibir donaciones. Proyectos de una sola vez pueden incluir infraestructura física, mejoras tecnológicas y mejoras comunitarias. Ejemplos de proyectos de una sola vez incluyen mejoras del parque, las computadoras para un centro comunitario, refugios para autobuses y carriles para bicicletas. Proyectos de una sola vez pueden tener algún costo de operación asociado. Sin embargo, no requieren que la ciudad contratara personal adicional.</p>",
-        "<p>Para obtener más información sobre el presupuesto participativo en Durham, <a href='https://www.pbdurham.org' target='_blank'>¡haga clic aquí!</a></p>",
-        "<p>Para obtener información sobre el movimiento nacional de PB, visite el sitio web del <a href='http://www.participatorybudgeting.org/' target='_blank'>Proyecto de Presupuesto Participativo.</a></p>"
       ]
     }
   ],
