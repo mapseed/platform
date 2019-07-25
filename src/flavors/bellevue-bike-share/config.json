@@ -47,21 +47,29 @@
   "app": {
     "title": "Bellevue Bike Sharing",
     "name": "Bellevue Bike Sharing",
-    "show_name_in_header": true,
-    "logo": "/static/css/images/bellevue-logo.png",
+    "logo": "/static/css/images/logo.png",
     "meta_description": "_(Decide where to put dockless bike sharing in Bellevue!)",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
-        "primary": "#08626e",
-        "secondary": "#08626E"
+        "primary": "#217b87",
+        "secondary": "#217b87",
+        "accent": "#ed440e"
       },
       "bg": {
-        "default": "#fff"
+        "default": "#fff",
+        "light": "#217b87"
       },
       "text": {
-        "titleColor": "#fff"
+        "titleColor": "#fff",
+        "titleFontFamily": "PTSansBold, sans-serif",
+        "bodyFontFamily": "PTSans, sans-serif",
+        "navBarFontFamily": "PTSans, sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#217b87",
+        "addPlaceButtonHoverBackgroundColor": "#0098ad"
       }
     }
   },
@@ -265,7 +273,7 @@
           {
             "name": "submit",
             "type": "submit",
-            "label": "Put it on the map!"
+            "label": "Suggest it!"
           }
         ]
       }
@@ -348,7 +356,14 @@
       "title": "About",
       "type": "internal_link",
       "url": "/page/about",
-      "name": "overview"
+      "name": "overview",
+      "start_page": true
+    },
+    {
+      "title": "Help",
+      "type": "internal_link",
+      "url": "/page/help",
+      "name": "help"
     }
   ],
   "pages": [
@@ -356,10 +371,19 @@
       "slug": "about",
       "content": [
         "<h1>Welcome</h1>",
-        "<p>Bike sharing is coming to Bellevue! Use this map to suggest sharing locations.</p>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
+        "<p>Have you used bike share in Bellevue? Maybe you’ve seen them around?</p>",
+        "<p>The City of Bellevue is striving to make bike share easier to use while reducing the number of bikes left in places where they shouldn’t be. That’s where you come in.</p>",
+        "<p>Help us select good places in your neighborhood to designate as preferred parking areas, called “bike hubs.” A good location is one where bikes are convenient to find when you want one and out of the way when you don’t. Add your suggestions to the map and comment on locations submitted by other members of your community.</p>",
+        "<p>The Transportation Department will review every suggestion we receive, and we’ll periodically update this map to communicate the current status of a suggested bike hub location.</p>",
+        "<p>To provide more general feedback about bike share in Bellevue, take the City’s online questionnaire at [external link to come later].</p>",
+        "<p>Thanks for taking the time to participate and help make Bellevue a great place to bike.</p>",
         "<p class='btn btn-block btn-large'><a href='/new' rel='internal'>Suggest a location!</a></p>"
       ]
+    },
+    {
+      "slug": "help",
+      "content": ["<h1>Help</h1>", "<p>[Help content to come]</p>"]
     }
   ],
   "notifications": {
