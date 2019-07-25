@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { RegularText } from "../atoms/typography";
 import { FontAwesomeIcon } from "../atoms/imagery";
@@ -80,4 +80,6 @@ WarningMessagesContainer.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("WarningMessagesContainer")(WarningMessagesContainer);
+export default withTranslation("WarningMessagesContainer")(
+  WarningMessagesContainer,
+);

@@ -6,7 +6,7 @@ const BlockEmbed = Quill.import("blots/block/embed");
 const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import constants from "../../../constants";
 
@@ -265,4 +265,4 @@ RichTextareaField.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default translate("RichTextareaField")(RichTextareaField);
+export default withTranslation("RichTextareaField")(RichTextareaField);

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
 import { themePropType } from "../../state/ducks/app-config";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { getReadableColor } from "../../utils/color";
 
 import {
@@ -68,5 +68,5 @@ const mapStateToProps = state => ({
 });
 
 export default withTheme(
-  connect(mapStateToProps)(translate("MapLegendPanel")(MapLegendPanel)),
+  connect(mapStateToProps)(withTranslation("MapLegendPanel")(MapLegendPanel)),
 );

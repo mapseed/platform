@@ -10,7 +10,7 @@ import SubmitterName from "../ui-elements/submitter-name";
 import { EditorButton } from "../atoms/buttons";
 import { SmallText, Time } from "../atoms/typography";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import constants from "../../constants";
 
 import Util from "../../js/utils.js";
@@ -221,4 +221,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("SurveyResponseEditor")(SurveyResponseEditor));
+)(withTranslation("SurveyResponseEditor")(SurveyResponseEditor));

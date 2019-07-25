@@ -15,7 +15,7 @@ import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 import Util from "../../js/utils.js";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
@@ -468,5 +468,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("PlaceDetailEditor")(PlaceDetailEditor)),
+  )(withTranslation("PlaceDetailEditor")(PlaceDetailEditor)),
 );

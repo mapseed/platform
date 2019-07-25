@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { SmallText } from "../atoms/typography";
 import TagName from "./tag-name";
@@ -90,4 +90,4 @@ Tag.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("Tag")(Tag);
+export default withTranslation("Tag")(Tag);

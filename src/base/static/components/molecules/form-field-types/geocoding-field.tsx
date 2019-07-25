@@ -2,8 +2,7 @@
 import * as React from "react";
 import Spinner from "react-spinner";
 import { connect } from "react-redux";
-import { translate } from "react-i18next";
-import i18next, { TranslationFunction } from "i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import { css, jsx } from "@emotion/core";
 
 import eventEmitter from "../../../utils/event-emitter";
@@ -29,6 +28,7 @@ type OwnProps = {
   placeholder?: string;
   isTriggeringGeocode: boolean;
   value: string;
+  reverseGeocode: boolean;
 };
 
 type StateProps = {
@@ -37,21 +37,7 @@ type StateProps = {
   isMapDraggingOrZooming: boolean;
 };
 
-// Types were added to react-i18next is a newer version.
-// TODO: Use supplied types when we upgrade i18next deps.
-// See: https://github.com/i18next/react-i18next/pull/557/files
-type TransProps = {
-  i18nKey?: string;
-  count?: number;
-  parent?: React.ReactNode;
-  i18n?: i18next.i18n;
-  t?: TranslationFunction;
-  defaults?: string;
-  values?: {};
-  components?: React.ReactNode[];
-};
-
-type Props = OwnProps & StateProps & TransProps;
+type Props = OwnProps & StateProps & WithTranslation;
 
 const GeocodingField: React.FunctionComponent<Props> = ({
   mapConfig: { geocodeBoundingBox, geocodeHint },
@@ -65,6 +51,7 @@ const GeocodingField: React.FunctionComponent<Props> = ({
   formId,
   t,
   isMapDraggingOrZooming,
+  reverseGeocode,
 }) => {
   const [isGeocoding, setIsGeocoding] = React.useState<boolean>(false);
   const [isWithGeocodingError, setIsWithGeocodingError] = React.useState<
@@ -121,7 +108,7 @@ const GeocodingField: React.FunctionComponent<Props> = ({
   React.useEffect(
     () => {
       // Only reverse geocode when the map has come to rest.
-      if (isMapDraggingOrZooming) {
+      if (!reverseGeocode || isMapDraggingOrZooming) {
         return;
       }
 
@@ -263,6 +250,7 @@ GeocodingField.defaultProps = {
   // In case the GeocodingField is used outside the input form, e.g. in the
   // GeocodeAddressBar:
   formId: "noForm",
+  reverseGeocode: true,
 };
 
 const mapStateToProps = (state): any => ({
@@ -272,5 +260,5 @@ const mapStateToProps = (state): any => ({
 });
 
 export default connect<StateProps>(mapStateToProps)(
-  translate("GeocodingField")(GeocodingField),
+  withTranslation("GeocodingField")(GeocodingField),
 );

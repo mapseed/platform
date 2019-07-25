@@ -65,7 +65,7 @@ import { getCategoryConfig } from "../../utils/config-utils";
 import Util from "../../js/utils.js";
 import { jumpTo } from "../../utils/scroll-helpers";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import "./index.scss";
 import eventEmitter from "../../utils/event-emitter";
 
@@ -477,4 +477,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("PlaceDetail")(PlaceDetail));
+)(withTranslation("PlaceDetail")(PlaceDetail));

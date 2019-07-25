@@ -1342,7 +1342,6 @@
   "pages": [
     {
       "slug": "concept",
-      "lang": "en",
       "content": [
         "<p><h2>MISSISSIPPI: An Anthropocene River</h2></p>",
         "<img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/>",
@@ -1355,7 +1354,6 @@
     },
     {
       "slug": "fieldstations",
-      "lang": "en",
       "content": [
         "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",

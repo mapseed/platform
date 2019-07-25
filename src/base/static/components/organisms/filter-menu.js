@@ -8,7 +8,7 @@ import Downshift from "downshift";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
 import { connect } from "react-redux";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import {
   updateFilters,
@@ -205,4 +205,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("FilterMenu")(FilterMenu));
+)(withTranslation("FilterMenu")(FilterMenu));

@@ -3,7 +3,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, InternalLink } from "../atoms/typography";
@@ -61,4 +61,4 @@ ActivityItem.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-export default translate("ActivityItem")(ActivityItem);
+export default withTranslation("ActivityItem")(ActivityItem);

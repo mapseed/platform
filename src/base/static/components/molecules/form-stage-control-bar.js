@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
-import { translate, Trans } from "react-i18next";
+import { withTranslation, Trans } from "react-i18next";
 import { css, jsx } from "@emotion/core";
 
 import { Button } from "../atoms/buttons";
@@ -106,4 +106,4 @@ FormStageControlBar.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("FormStageControlBar")(FormStageControlBar);
+export default withTranslation("FormStageControlBar")(FormStageControlBar);

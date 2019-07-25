@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTheme } from "emotion-theming";
 import { connect } from "react-redux";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { Button } from "../atoms/buttons";
 import { supportConfigSelector } from "../../state/ducks/support-config";
@@ -54,5 +54,5 @@ const mapStateToProps = state => ({
 });
 
 export default withTheme(
-  connect(mapStateToProps)(translate("SupportButton")(SupportButton)),
+  connect(mapStateToProps)(withTranslation("SupportButton")(SupportButton)),
 );

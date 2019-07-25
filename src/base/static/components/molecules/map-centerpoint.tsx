@@ -2,6 +2,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { css, jsx } from "@emotion/core";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import { uiVisibilitySelector } from "../../state/ducks/ui";
 import {
@@ -14,7 +15,9 @@ type StateProps = {
   isMapDraggingOrZooming: boolean;
 };
 
-const MapCenterpoint: React.FunctionComponent<StateProps> = props => {
+type Props = StateProps & WithTranslation;
+
+const MapCenterpoint: React.FunctionComponent<Props> = props => {
   return (
     <span
       css={css`
@@ -89,8 +92,10 @@ const MapCenterpoint: React.FunctionComponent<StateProps> = props => {
             fontFamily: theme.text.bodyFontFamily,
 
             "&:before": {
-              // TODO: translate this string, when react-i18next is upgraded to support TS:
-              content: `"${"Drag the map"}"`,
+              content: `"${props.t(
+                "mapCenterpointOverlayMsg",
+                "Drag the map",
+              )}"`,
               textTransform: "uppercase",
               fontWeight: 800,
               color: "#ffff00",
@@ -113,4 +118,6 @@ const mapStateToProps = state => ({
   isMapDraggedOrZoomedByUser: isMapDraggedOrZoomedByUser(state),
 });
 
-export default connect<StateProps>(mapStateToProps)(MapCenterpoint);
+export default connect<StateProps>(mapStateToProps)(
+  withTranslation("MapCenterpoint")(MapCenterpoint),
+);
