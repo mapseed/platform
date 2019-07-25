@@ -24,7 +24,7 @@ import {
 import { mapConfigSelector, MapConfig } from "../../state/ducks/map";
 import {
   dashboardConfigSelector,
-  dashboardConfigPropType,
+  DashboardConfig,
 } from "../../state/ducks/dashboard-config";
 import { currentTemplateSelector, resetUi } from "../../state/ducks/ui";
 import {
@@ -180,10 +180,10 @@ const navItemMappings = {
   filter: FilterMenu,
 };
 
-const componentPropTypes = {
-  appConfig: appConfigPropType.isRequired,
-  navBarConfig: navBarConfigPropType,
-  dashboardConfig: dashboardConfigPropType,
+type ComponentPropTypes = {
+  appConfig: PropTypes.InferProps<typeof appConfigPropType>;
+  navBarConfig: PropTypes.InferProps<typeof navBarConfigPropType>;
+  dashboardConfig: DashboardConfig;
 };
 
 type DispatchProps = {
@@ -207,7 +207,7 @@ type Props = {
   resetUi: Function;
   defaultLanguage: Language;
   availableLanguages?: Language[];
-} & PropTypes.InferProps<typeof componentPropTypes> &
+} & ComponentPropTypes &
   DispatchProps &
   RouteComponentProps<{}>;
 const SiteHeader: React.FunctionComponent<Props> = props => {

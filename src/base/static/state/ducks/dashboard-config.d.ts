@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { Expression } from "../../utils/expression/parse";
 
 export type ChartLayout = {

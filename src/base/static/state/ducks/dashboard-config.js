@@ -12,6 +12,20 @@ export function loadDashboardConfig(dashboardConfig) {
   return { type: LOAD, payload: dashboardConfig };
 }
 
+// TODO: Remove this when UserMenu is ported to TS, the only place where it's
+// still needed.
+export const dashboardConfigPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    dastasetId: PropTypes.string,
+    datasetOwner: PropTypes.string,
+    surveyMetrics: PropTypes.shape({
+      categories: PropTypes.bool,
+      demographics: PropTypes.bool,
+      wards: PropTypes.bool,
+    }),
+  }),
+);
+
 const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {
