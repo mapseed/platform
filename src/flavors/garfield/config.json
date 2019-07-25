@@ -6975,7 +6975,7 @@
               "type": "numeric",
               "filter": [
                 "==",
-                ["get-val", "private-property_on_wildlife_conservation"],
+                ["get-val", "private-property_on_fish_wildlife_habitat"],
                 "yes"
               ]
             }
