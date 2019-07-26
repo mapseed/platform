@@ -110,10 +110,10 @@ const getZoom = ({ newZoom, existingZoom, maxBounds, mapBounds }) => {
   }
 
   if (
-    mapBounds.ne.lat > maxBounds.ne[1] ||
-    mapBounds.sw.lat < maxBounds.sw[1] ||
-    mapBounds.ne.lon > maxBounds.ne[0] ||
-    mapBounds.sw.lon < maxBounds.sw[0]
+    mapBounds.getNorth() > maxBounds.ne[1] ||
+    mapBounds.getSouth() < maxBounds.sw[1] ||
+    mapBounds.getEast() > maxBounds.ne[0] ||
+    mapBounds.getWest() < maxBounds.sw[0]
   ) {
     // The zoom would exceed one of the four map bounds, so return the existing
     // zoom.
