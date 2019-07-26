@@ -172,7 +172,7 @@ const mapViewportReducer = (
           existingZoom: state.zoom,
           maxBound: action.payload.maxBounds.ne[1], // Max allowed latitude.
           minBound: action.payload.maxBounds.sw[1], // Min allowed latitude.
-          boundsUpper: action.payload.mapBounds.getNorth(), // Northbounding latitude of current viewport.
+          boundsUpper: action.payload.mapBounds.getNorth(), // North bounding latitude of current viewport.
           boundsLower: action.payload.mapBounds.getSouth(), // South bounding latitude of current viewport.
         });
 
