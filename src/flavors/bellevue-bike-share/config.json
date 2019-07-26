@@ -58,7 +58,7 @@
         "accent": "#ed440e"
       },
       "bg": {
-        "default": "#fff",
+        "default": "#fff8f5",
         "light": "#217b87"
       },
       "text": {
@@ -102,6 +102,20 @@
         ],
         "tileSize": 256,
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      "western-washington-cities": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/western-washington-cities/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "bellevue-bike-network": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/bellevue-bike-network/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
       }
     },
     "layerGroups": [
@@ -126,6 +140,88 @@
             "id": "satellite-basemap",
             "type": "raster",
             "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "city-overlay",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "city-overlay",
+            "type": "fill",
+            "source": "western-washington-cities",
+            "source-layer": "western-washington-cities",
+            "filter": ["!=", ["get", "NAME"], "BELLEVUE"],
+            "paint": {
+              "fill-opacity": 0.95,
+              "fill-color": "#e9e2d9"
+            }
+          },
+          {
+            "id": "city-overlay-outline",
+            "type": "line",
+            "source": "western-washington-cities",
+            "source-layer": "western-washington-cities",
+            "filter": ["==", ["get", "NAME"], "BELLEVUE"],
+            "paint": {
+              "line-width": 4,
+              "line-opacity": 1,
+              "line-color": "#36bcce"
+            }
+          },
+          {
+            "id": "city-overlay-outline-accent",
+            "type": "line",
+            "source": "western-washington-cities",
+            "source-layer": "western-washington-cities",
+            "filter": ["==", ["get", "NAME"], "BELLEVUE"],
+            "paint": {
+              "line-width": 3,
+              "line-opacity": 1,
+              "line-color": "#217b87",
+              "line-offset": 3
+            }
+          },
+          {
+            "id": "city-overlay-labels",
+            "type": "symbol",
+            "source": "western-washington-cities",
+            "source-layer": "western-washington-cities",
+            "filter": ["!=", ["get", "NAME"], "BELLEVUE"],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1,
+              "text-color": "#222",
+              "text-opacity": 0.5
+            },
+            "layout": {
+              "text-field": ["get", "NAME"],
+              "text-font": ["Arial Unicode MS Bold"],
+              "text-size": 16,
+              "text-allow-overlap": true,
+              "text-max-width": 15,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-line-height": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "bellevue-bike-network",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "bellevue-bike-network",
+            "type": "line",
+            "source": "bellevue-bike-network",
+            "source-layer": "bellevue-bike-network",
+            "paint": {
+              "line-color": "red",
+              "line-width": 2,
+              "line-dasharray": [2, 1]
+            }
           }
         ]
       },
@@ -195,7 +291,20 @@
         ]
       },
       {
-        "title": "Data layers",
+        "title": "City data",
+        "options": [
+          {
+            "layerGroupId": "city-overlay",
+            "title": "City Overlay"
+          },
+          {
+            "layerGroupId": "bellevue-bike-network",
+            "title": "Bellevue Bike Network"
+          }
+        ]
+      },
+      {
+        "title": "Community data",
         "options": [
           {
             "layerGroupId": "bellevue-bike-share",
@@ -220,6 +329,7 @@
     "location_item_name": "location",
     "place_detail": [
       {
+        "formId": "bike-share",
         "category": "bike-share",
         "formId": "culture",
         "includeOnForm": true,
@@ -250,13 +360,14 @@
             "optional": true
           },
           {
-            "name": "private-submitted_name",
+            "name": "private-submitter_name",
             "type": "text",
             "prompt": "Your name",
             "placeholder": "Name",
             "optional": true
           },
           {
+            "name": "private-submitter_email",
             "type": "text",
             "prompt": "Your Email",
             "placeholder": "Your email address will never be shared",
@@ -266,8 +377,8 @@
           {
             "name": "my_image",
             "type": "file",
-            "prompt": "Image",
-            "label": "Add an Image",
+            "label": "Add image",
+            "prompt": "Have an image of this location? Add it!",
             "optional": true
           },
           {
@@ -310,7 +421,15 @@
           "label": "Comment"
         }
       ]
-    }
+    },
+    "places": [
+      {
+        "id": "bike-share",
+        "datasetSlug": "bellevue-bike-share",
+        "label": "Suggested Bike Share Locations",
+        "icon": "/static/css/images/markers/bike-marker.png"
+      }
+    ]
   },
   "survey": {
     "submission_type": "comments",
