@@ -92,6 +92,10 @@ const INITIAL_STATE = {
     minZoom: 1,
     pitch: 15,
   },
+  maxBounds: {
+    ne: [180, 90],
+    sw: [-180, -90],
+  },
   mapWidgets: {},
   mapInteractionState: {
     isMapTransitioning: false,
@@ -107,6 +111,9 @@ export default (state = INITIAL_STATE, action) =>
         Object.assign(draft, action.payload);
         draft.defaultMapViewport = action.payload.mapViewport;
         draft.mapViewport = action.payload.mapViewport;
+        if (action.payload.maxBounds) {
+          draft.maxBounds = action.payload.maxBounds;
+        }
         return;
       case UPDATE_MAPVIEWPORT:
         Object.assign(draft.mapViewport, action.payload);

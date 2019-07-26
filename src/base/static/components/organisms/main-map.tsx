@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { throttle } from "throttle-debounce";
 import { RouteComponentProps, withRouter } from "react-router";
 import eventEmitter from "../../utils/event-emitter";
+import { LngLatBounds } from "mapbox-gl";
 
 import {
   interactiveLayerIdsSelector,
@@ -58,12 +59,81 @@ import produce from "immer";
 
 const transitionInterpolator = new FlyToInterpolator();
 
+const getCoord = ({
+  newCoord,
+  existingCoord,
+  scrollZoomAroundCenter,
+  maxBound,
+  minBound,
+  isTransitioning,
+  newZoom,
+  existingZoom,
+  boundsUpper,
+  boundsLower,
+}) => {
+  // Check max bounds.
+  if (boundsUpper > maxBound && newCoord > existingCoord) {
+    // The new coordinate would push the bounds outside the allowed bounds, so
+    // return the existing coordinate.
+    return existingCoord;
+  } else if (boundsUpper > maxBound && newCoord < existingCoord) {
+    // The new coordinate would pull the bounds back inside the allowed bounds,
+    // so return the new coordinate.
+    return newCoord;
+  }
+
+  if (boundsLower < minBound && newCoord < existingCoord) {
+    return existingCoord;
+  } else if (boundsLower < minBound && newCoord > existingCoord) {
+    return newCoord;
+  }
+
+  // These checks support a "scroll zoom around center" feature (in
+  // which a zoom of the map will not change the centerpoint) that is
+  // not exposed by react-map-gl. These checks are pretty convoluted,
+  // though, so it would be great if react-map-gl could just
+  // incorporate the scroll zoom around center option natively.
+  // See: https://github.com/uber/react-map-gl/issues/515
+  if (scrollZoomAroundCenter && !isTransitioning && newZoom !== existingZoom) {
+    return existingCoord;
+  } else if (newCoord !== existingCoord) {
+    return newCoord;
+  } else {
+    return existingCoord;
+  }
+};
+
+const getZoom = ({ newZoom, existingZoom, maxBounds, mapBounds }) => {
+  if (newZoom > existingZoom) {
+    // A zoom in cannot exceed max bounds.
+    return newZoom;
+  }
+
+  if (
+    mapBounds.ne.lat > maxBounds.ne[1] ||
+    mapBounds.sw.lat < maxBounds.sw[1] ||
+    mapBounds.ne.lon > maxBounds.ne[0] ||
+    mapBounds.sw.lon < maxBounds.sw[0]
+  ) {
+    // The zoom would exceed one of the four map bounds, so return the existing
+    // zoom.
+    return existingZoom;
+  } else {
+    return newZoom;
+  }
+};
+
 const UPDATE_VIEWPORT = "update-viewport";
 const mapViewportReducer = (
   state: MapViewport,
   action: {
     type: string;
-    payload: { viewport: MapViewportDiff; scrollZoomAroundCenter: boolean };
+    payload: {
+      viewport: MapViewportDiff;
+      scrollZoomAroundCenter: boolean;
+      maxBounds: LngLatBounds;
+      mapBounds: LngLatBounds;
+    };
   },
 ): MapViewport =>
   produce(state, draft => {
@@ -86,29 +156,38 @@ const mapViewportReducer = (
           draft.bearing = Number(action.payload.viewport.bearing);
         }
 
-        // These checks support a "scroll zoom around center" feature (in
-        // which a zoom of the map will not change the centerpoint) that is
-        // not exposed by react-map-gl. These checks are pretty convoluted,
-        // though, so it would be great if react-map-gl could just
-        // incorporate the scroll zoom around center option natively.
-        // See: https://github.com/uber/react-map-gl/issues/515
-        draft.latitude =
-          action.payload.scrollZoomAroundCenter &&
-          !action.payload.viewport.transitionDuration &&
-          action.payload.viewport.zoom !== state.zoom
-            ? state.latitude
-            : action.payload.viewport.latitude !== undefined
-              ? action.payload.viewport.latitude
-              : state.latitude;
+        draft.zoom = getZoom({
+          newZoom: action.payload.viewport.zoom,
+          existingZoom: state.zoom,
+          maxBounds: action.payload.maxBounds,
+          mapBounds: action.payload.mapBounds,
+        });
 
-        draft.longitude =
-          action.payload.scrollZoomAroundCenter &&
-          !action.payload.viewport.transitionDuration &&
-          action.payload.viewport.zoom !== state.zoom
-            ? state.longitude
-            : action.payload.viewport.longitude !== undefined
-              ? action.payload.viewport.longitude
-              : state.longitude;
+        draft.latitude = getCoord({
+          scrollZoomAroundCenter: action.payload.scrollZoomAroundCenter,
+          isTransitioning: !!action.payload.viewport.transitionDuration,
+          newCoord: action.payload.viewport.latitude,
+          existingCoord: state.latitude,
+          newZoom: action.payload.viewport.zoom,
+          existingZoom: state.zoom,
+          maxBound: action.payload.maxBounds.ne[1], // Max allowed latitude.
+          minBound: action.payload.maxBounds.sw[1], // Min allowed latitude.
+          boundsUpper: action.payload.mapBounds.getNorth(), // Northbounding latitude of current viewport.
+          boundsLower: action.payload.mapBounds.getSouth(), // South bounding latitude of current viewport.
+        });
+
+        draft.longitude = getCoord({
+          scrollZoomAroundCenter: action.payload.scrollZoomAroundCenter,
+          isTransitioning: !!action.payload.viewport.transitionDuration,
+          newCoord: action.payload.viewport.longitude,
+          existingCoord: state.longitude,
+          newZoom: action.payload.viewport.zoom,
+          existingZoom: state.zoom,
+          maxBound: action.payload.maxBounds.ne[0], // Max allowed longitude.
+          minBound: action.payload.maxBounds.sw[0], // Min allowed longitude.
+          boundsUpper: action.payload.mapBounds.getEast(), // East bounding longitude of current viewport.
+          boundsLower: action.payload.mapBounds.getWest(), // West bounding longitude of current viewport.
+        });
 
         return;
     }
@@ -273,11 +352,11 @@ class MainMap extends React.Component<Props, State> {
   resizeMap = () => {
     const node = findDOMNode(this.props.mapContainerRef.current);
     if (node instanceof Element) {
-      const containerDims = node.getBoundingClientRect();
+      const { width, height } = node.getBoundingClientRect();
 
       this.props.updateMapContainerDimensions({
-        height: containerDims.height,
-        width: containerDims.width,
+        height,
+        width,
       });
     } else {
       // eslint-disable-next-line no-console
@@ -403,11 +482,17 @@ class MainMap extends React.Component<Props, State> {
   updateMapViewport = throttle(500, this.props.updateMapViewport);
 
   setMapViewport = (viewport: MapViewportDiff): void => {
+    if (!this.map) {
+      return;
+    }
+
     const newMapViewport = mapViewportReducer(this.state.mapViewport, {
       type: UPDATE_VIEWPORT,
       payload: {
         viewport,
         scrollZoomAroundCenter: this.props.mapConfig.scrollZoomAroundCenter,
+        mapBounds: this.map.getBounds(),
+        maxBounds: this.props.mapConfig.maxBounds,
       },
     });
     this.setState({
