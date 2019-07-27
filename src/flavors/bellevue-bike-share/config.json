@@ -103,10 +103,10 @@
         "tileSize": 256,
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
       },
-      "western-washington-cities": {
+      "bellevue-overlay": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/western-washington-cities/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/bellevue-overlay/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -144,26 +144,24 @@
         ]
       },
       {
-        "id": "city-overlay",
+        "id": "overlay",
         "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "city-overlay",
+            "id": "overlay",
             "type": "fill",
-            "source": "western-washington-cities",
-            "source-layer": "western-washington-cities",
-            "filter": ["!=", ["get", "NAME"], "BELLEVUE"],
+            "source": "bellevue-overlay",
+            "source-layer": "overlay",
             "paint": {
               "fill-opacity": 0.95,
               "fill-color": "#e9e2d9"
             }
           },
           {
-            "id": "city-overlay-outline",
+            "id": "bellevue-outline",
             "type": "line",
-            "source": "western-washington-cities",
-            "source-layer": "western-washington-cities",
-            "filter": ["==", ["get", "NAME"], "BELLEVUE"],
+            "source": "bellevue-overlay",
+            "source-layer": "bellevue",
             "paint": {
               "line-width": 4,
               "line-opacity": 1,
@@ -171,11 +169,10 @@
             }
           },
           {
-            "id": "city-overlay-outline-accent",
+            "id": "bellevue-outline-accent",
             "type": "line",
-            "source": "western-washington-cities",
-            "source-layer": "western-washington-cities",
-            "filter": ["==", ["get", "NAME"], "BELLEVUE"],
+            "source": "bellevue-overlay",
+            "source-layer": "bellevue",
             "paint": {
               "line-width": 3,
               "line-opacity": 1,
@@ -184,11 +181,19 @@
             }
           },
           {
-            "id": "city-overlay-labels",
+            "id": "overlay-labels",
             "type": "symbol",
-            "source": "western-washington-cities",
-            "source-layer": "western-washington-cities",
-            "filter": ["!=", ["get", "NAME"], "BELLEVUE"],
+            "source": "bellevue-overlay",
+            "source-layer": "overlay-labels",
+            "filter": [
+              "all",
+              ["!=", ["get", "NAME"], "Lake Sammamish"],
+              ["!=", ["get", "NAME"], "Lake Washington"],
+              ["!=", ["get", "NAME"], "Beaux Arts"],
+              ["!=", ["get", "NAME"], "Bellevue"],
+              ["!=", ["get", "NAME"], "King County"],
+              ["!=", ["get", "NAME"], "KIng County"]
+            ],
             "paint": {
               "text-halo-color": "#fff",
               "text-halo-width": 1,
@@ -198,7 +203,18 @@
             "layout": {
               "text-field": ["get", "NAME"],
               "text-font": ["Arial Unicode MS Bold"],
-              "text-size": 16,
+              "text-size": [
+                "case",
+                [
+                  "any",
+                  ["==", ["get", "NAME"], "Redmond"],
+                  ["==", ["get", "NAME"], "Issaquah"],
+                  ["==", ["get", "NAME"], "Sammamish"],
+                  ["==", ["get", "NAME"], "Seattle"]
+                ],
+                16,
+                12
+              ],
               "text-allow-overlap": true,
               "text-max-width": 15,
               "text-padding": 15,
@@ -236,7 +252,7 @@
             "source": "bellevue-bike-share",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": 0.7,
+              "icon-size": 0.5,
               "icon-anchor": "bottom",
               "icon-image": [
                 "match",
@@ -255,13 +271,13 @@
             "source": "bellevue-bike-share",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 1, 10, 0.4],
-              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
+              "icon-size": ["step", ["zoom"], 0.4, 12, 0.3],
+              "icon-anchor": ["step", ["zoom"], "center", 12, "bottom"],
               "icon-image": [
                 "step",
                 ["zoom"],
-                "dot-4bad92.png",
-                10,
+                "marker-dot-c3d5e4.png",
+                12,
                 "bike-marker.png"
               ]
             }
@@ -294,8 +310,8 @@
         "title": "City data",
         "options": [
           {
-            "layerGroupId": "city-overlay",
-            "title": "City Overlay"
+            "layerGroupId": "overlay",
+            "title": "Regional Overlay"
           },
           {
             "layerGroupId": "bellevue-bike-network",
