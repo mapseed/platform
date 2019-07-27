@@ -248,30 +248,41 @@ const MapMeasurementOverlay: React.FunctionComponent<Props> = props => {
     }
   };
 
-  React.useEffect(() => {
-    // Unless I'm missing the right way to use overlays, it seems necessary
-    // to attach a click listener here to capture clicks on the overlay.
-    // See: https://github.com/uber/react-map-gl/issues/470
-    if (overlayRef && overlayRef.current && overlayRef.current._canvas) {
-      overlayRef.current._canvas.addEventListener("click", handleOverlayClick);
-      // This direct manipulation of the `pointer-events` style property feels
-      // like a hack, but the goal is to enable clicks on the underlying map
-      // when no measurement tool is selected.
-      overlayRef.current._canvas.style.pointerEvents = "none";
-    } else {
-      // eslint-disable-next-line no-console
-      console.warn(
-        "Measurement overlay: failed to attach click event listener",
-      );
-    }
-
-    return () => {
-      overlayRef &&
+  React.useEffect(
+    () => {
+      // Unless I'm missing the right way to use overlays, it seems necessary
+      // to attach a click listener here to capture clicks on the overlay.
+      // See: https://github.com/uber/react-map-gl/issues/470
+      if (
+        props.isMeasurementToolVisible &&
+        overlayRef &&
         overlayRef.current &&
+        overlayRef.current._canvas
+      ) {
+        overlayRef.current._canvas.addEventListener(
+          "click",
+          handleOverlayClick,
+        );
+        // This direct manipulation of the `pointer-events` style property feels
+        // like a hack, but the goal is to enable clicks on the underlying map
+        // when no measurement tool is selected.
+        overlayRef.current._canvas.style.pointerEvents = "none";
+      } else if (props.isMeasurementToolVisible) {
+        // eslint-disable-next-line no-console
+        console.error(`Measurement overlay: failed to attach click listener`);
+      }
+    },
+    [props.isMeasurementToolVisible],
+  );
+
+  React.useEffect(() => {
+    return () => {
+      if (overlayRef && overlayRef.current && overlayRef.current._canvas) {
         overlayRef.current._canvas.removeEventListener(
           "click",
           handleOverlayClick,
         );
+      }
     };
   }, []);
 
