@@ -116,6 +116,18 @@
           "https://vector-tiles.mapseed.org/bellevue-bike-network/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
+      },
+      "bellevue-grid": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/bellevue-grid/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "bellevue-transit": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/bellevue-transit/{z}/{x}/{y}.pbf"
+        ]
       }
     },
     "layerGroups": [
@@ -140,6 +152,33 @@
             "id": "satellite-basemap",
             "type": "raster",
             "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "bellevue-grid",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "bellevue-025-grid",
+            "type": "line",
+            "source": "bellevue-grid",
+            "source-layer": "grid-025",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#888",
+              "line-dasharray": [2, 5]
+            }
+          },
+          {
+            "id": "bellevue-05-grid",
+            "type": "line",
+            "source": "bellevue-grid",
+            "source-layer": "grid-05",
+            "paint": {
+              "line-width": 2,
+              "line-color": "#666"
+            }
           }
         ]
       },
@@ -312,6 +351,10 @@
           {
             "layerGroupId": "overlay",
             "title": "Regional Overlay"
+          },
+          {
+            "layerGroupId": "bellevue-grid",
+            "title": "Half-mile and quarter-mile grid"
           },
           {
             "layerGroupId": "bellevue-bike-network",
@@ -499,6 +542,11 @@
       "type": "internal_link",
       "url": "/page/help",
       "name": "help"
+    },
+    {
+      "type": "list_toggle",
+      "show_list_button_label": "Show as a list",
+      "show_map_button_label": "Show on a map"
     }
   ],
   "pages": [
