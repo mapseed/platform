@@ -3,3 +3,13 @@
 header {
   border-top: 2px solid #ed440e;
 }
+
+.form-stage-header-bar {
+  display: none !important;
+}
+
+[data-field-name="transit_information"],
+[data-field-name="submission_info"] {
+  border: 0 !important;
+  padding: 0 !important;
+}
