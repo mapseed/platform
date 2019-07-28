@@ -488,7 +488,7 @@
           {
             "name": "submission_info",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What do you think?</h1><p>Drag and zoom the map to let us know where you think we should add a bike share hub! Fill out the form below to give us some more information about your suggestion:</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What do <span style='font-style:italic;'>you</span> think?</h1><p>Drag and zoom the map to let us know where you think we should add a bike share hub! Fill out the form below to give us some more information about your suggestion:</p>"
           },
           {
             "name": "title",
@@ -640,7 +640,7 @@
     {
       "slug": "about",
       "content": [
-        "<h1>Bellevue Bike Share! But Where?</h1>",
+        "<h1 style='font-style:italic;'>Bellevue Bike Share! But Where?</h1>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
         "<p>Have you used bike share in Bellevue? Maybe you’ve seen them around?</p>",
         "<p>The City of Bellevue is striving to make bike share easier to use while reducing the number of bikes left in places where they shouldn’t be. That’s where you come in.</p>",
