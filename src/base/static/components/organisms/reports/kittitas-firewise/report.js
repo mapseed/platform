@@ -283,7 +283,7 @@ const KittitasFireReadyReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 Free Onsite Risk Consultations
               </KittitasFireReadyReportSmallTitle>
               <LargeText>
@@ -307,7 +307,7 @@ const KittitasFireReadyReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 Kittitas County Community Wildfire Protection Plan
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
@@ -322,7 +322,7 @@ const KittitasFireReadyReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 Maps & Data
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
@@ -392,7 +392,7 @@ const KittitasFireReadyReport = props => {
               <ReportBodyText>
                 Based on DNR data, the forest in your area is primarily made up
                 of{" "}
-                <LargeText fontFamily="PTSansBold">{safeForestType}</LargeText>.{" "}
+                <LargeText fontFamily="PTSans">{safeForestType}</LargeText>.{" "}
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
@@ -461,16 +461,16 @@ const KittitasFireReadyReport = props => {
               <ReportBodyText>
                 According to data sources from the State of Washington, wildfire
                 risk in your area is{" "}
-                <LargeText fontFamily="PTSansBold,sans-serif">
+                <LargeText fontFamily="PTSans,sans-serif">
                   {burnRiskText}
                 </LargeText>
                 . The average number of fire starts (including starts from human
                 activity and from lightning) per year in your area is{" "}
-                <LargeText fontFamily="PTSansBold">
+                <LargeText fontFamily="PTSans">
                   {safeAvgFireStarts}
                 </LargeText>
                 . Since 1973,{" "}
-                <LargeText fontFamily="PTSansBold">
+                <LargeText fontFamily="PTSans">
                   {safeNumLargeFires}
                 </LargeText>{" "}
                 large wildfires have burned in your area.
@@ -483,7 +483,7 @@ const KittitasFireReadyReport = props => {
       <Page>
         <KittitasFireReadyPageHeader
           date={props.place.created_datetime}
-          coords={props.place.geometry.coordinates}
+          address={props.place["private-final_address"] || ""}
         />
         <PageBody>
           <RightSidebar>
@@ -491,7 +491,7 @@ const KittitasFireReadyReport = props => {
               In An Emergency...
             </KittitasFireReadyReportLargeTitle>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 Emergency Kit
               </KittitasFireReadyReportSmallTitle>
               <LargeText>
@@ -509,7 +509,7 @@ const KittitasFireReadyReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 Evacuation Levels
               </KittitasFireReadyReportSmallTitle>
               <LargeText>
@@ -521,7 +521,7 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-arrow-right"
                 >
                   <LargeText>
-                    <LargeText fontFamily="PTSansBold,sans-sefif">
+                    <LargeText fontFamily="PTSans,sans-sefif">
                       Level 1:
                     </LargeText>{" "}
                     Be ready to evacuate. Get your evacuation supplies together.
@@ -533,7 +533,7 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-arrow-right"
                 >
                   <LargeText>
-                    <LargeText fontFamily="PTSansBold,sans-sefif">
+                    <LargeText fontFamily="PTSans,sans-sefif">
                       Level 2:
                     </LargeText>{" "}
                     Be set to evacuate. You must prepare to leave at any moment.
@@ -546,7 +546,7 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-arrow-right"
                 >
                   <LargeText>
-                    <LargeText fontFamily="PTSansBold,sans-sefif">
+                    <LargeText fontFamily="PTSans,sans-sefif">
                       Level 3:
                     </LargeText>{" "}
                     Evacuate immediately.
@@ -555,7 +555,7 @@ const KittitasFireReadyReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 Kittitas County Sheriff
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
@@ -580,7 +580,7 @@ const KittitasFireReadyReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 Active Wildfires
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
@@ -595,7 +595,7 @@ const KittitasFireReadyReport = props => {
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
-              <KittitasFireReadyReportSmallTitle>
+              <KittitasFireReadyReportSmallTitle weight="bold">
                 {"Scan this code for Kittitas County Sheriff's Information:"}
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
@@ -645,15 +645,15 @@ const KittitasFireReadyReport = props => {
               <ReportBodyText>
                 The National Fire Protection Association recommends you think of
                 fire prevention in three ignition zones around your home:{" "}
-                <LargeText fontFamily="PTSansBold,sans-serif">
+                <LargeText fontFamily="PTSans,sans-serif">
                   Immediate
                 </LargeText>
                 ,{" "}
-                <LargeText fontFamily="PTSansBold,sans-serif">
+                <LargeText fontFamily="PTSans,sans-serif">
                   Intermediate
                 </LargeText>
                 , and{" "}
-                <LargeText fontFamily="PTSansBold,sans-serif">
+                <LargeText fontFamily="PTSans,sans-serif">
                   Extended
                 </LargeText>
                 .
@@ -690,7 +690,7 @@ const KittitasFireReadyReport = props => {
                       css={css`
                         font-family: Raleway, sans-serif;
                         font-style: italic;
-                        font-size: 1.2rem;
+                        font-size: 1.5rem;
                       `}
                       key={action}
                     >
@@ -702,7 +702,7 @@ const KittitasFireReadyReport = props => {
                 <LargeText
                   css={css`
                     font-family: Raleway, sans-serif;
-                    font-size: 1.2rem;
+                    font-size: 1.5rem;
                     display: block;
                     margin-left: 64px;
                     margin-bottom: 16px;
@@ -728,7 +728,7 @@ const KittitasFireReadyReport = props => {
                       css={css`
                         font-family: Raleway, sans-serif;
                         font-style: italic;
-                        font-size: 1.2rem;
+                        font-size: 1.5rem;
                       `}
                       key={action}
                     >
@@ -740,7 +740,7 @@ const KittitasFireReadyReport = props => {
                 <LargeText
                   css={css`
                     font-family: Raleway, sans-serif;
-                    font-size: 1.2rem;
+                    font-size: 1.5rem;
                     display: block;
                     margin-left: 64px;
                     margin-bottom: 16px;
@@ -755,11 +755,11 @@ const KittitasFireReadyReport = props => {
               <ReportBodyText>
                 We recommend a full onsite consultation. You can get your free
                 consultation by calling KCCD at{" "}
-                <LargeText fontFamily="PTSansBold,sans-serif">
+                <LargeText fontFamily="PTSans,sans-serif">
                   509-925-3352 x204{" "}
                 </LargeText>
                 or DNR at{" "}
-                <LargeText fontFamily="PTSansBold,sans-serif">
+                <LargeText fontFamily="PTSans,sans-serif">
                   509-925-0974
                 </LargeText>
                 .
