@@ -2,6 +2,27 @@ import { css } from "@emotion/core";
 
 // Add font faces and other global styles:
 export const globalStyles = css`
+  // We support five fonts that can be used throughout Mapseed flavors.
+  @font-face {
+    font-family: "Raleway-Light";
+    src: url("https://fonts.googleapis.com/css?family=Raleway:300&display=swap");
+  }
+  @font-face {
+    font-family: "Raleway-Regular";
+    src: url("https://fonts.googleapis.com/css?family=Raleway:500&display=swap");
+  }
+  @font-face {
+    font-family: "PTSans-Regular";
+    src: url("https://fonts.googleapis.com/css?family=PT+Sans:400&display=swap");
+  }
+  @font-face {
+    font-family: "PTSans-Bold";
+    src: url("https://fonts.googleapis.com/css?family=PT+Sans:700&display=swap");
+  }
+  @font-face {
+    font-family: "Roboto";
+    src: url("https://fonts.googleapis.com/css?family=Roboto:400&display=swap");
+  }
   // These styles are intended to mimic the styling of our Atoms on custom
   // pages.
   #mapseed-custom-page-container {

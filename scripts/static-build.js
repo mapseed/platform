@@ -200,26 +200,6 @@ try {
   throw e;
 }
 
-// Copy font files
-const baseFontsDir = path.resolve(__dirname, "../src/base");
-let fontPaths = glob
-  .sync(flavorBasePath + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)")
-  .concat(
-    glob.sync(baseFontsDir + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"),
-  );
-
-fontPaths.forEach(fontPath => {
-  try {
-    fs.copySync(
-      fontPath,
-      path.resolve(outputPath, "static/css", fontPath.split("/").slice(-1)[0]),
-    );
-  } catch (e) {
-    logError("Error copying font file: " + e);
-    throw e;
-  }
-});
-
 try {
   fs.copySync(
     path.resolve(__dirname, "../src/base/static/legacy-libs"),
