@@ -63,7 +63,7 @@ const avatarImgStyles = {
 
 const MenuButton = styled(props => {
   return (
-    <Button color="primary" className={props.classname} onClick={props.onClick}>
+    <Button color="primary" className={props.className} onClick={props.onClick}>
       {props.children}
     </Button>
   );
@@ -139,7 +139,7 @@ const Menu = styled("ul")(props => ({
 const MenuItem = styled("li")(({ theme }) => ({
   float: "left",
   width: "100%",
-  fontFamily: theme.text.fontFamily,
+  fontFamily: theme.text.navBarFontFamily,
 }));
 
 const MobileSigninLabelWrapper = styled("div")({

@@ -78,7 +78,7 @@ const FormStageControlBar = props => {
           size="regular"
           {...retreatOpts}
         >
-          <RegularText>{props.t("previousStageLinkLabel")}</RegularText>
+          <RegularText>{props.t("previousStageLinkLabel", "Back")}</RegularText>
         </Button>
         <Button
           style={{ marginLeft: "8px" }}
@@ -88,7 +88,7 @@ const FormStageControlBar = props => {
           size="regular"
           {...advanceOpts}
         >
-          <RegularText>{props.t("nextStageLinkLabel")}</RegularText>
+          <RegularText>{props.t("nextStageLinkLabel", "Next")}</RegularText>
         </Button>
       </div>
     </div>

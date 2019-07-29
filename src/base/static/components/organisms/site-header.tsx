@@ -387,6 +387,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
             ⌄
             <ul
               css={theme => ({
+                zIndex: 100,
                 backgroundColor: theme.bg.default,
                 listStyle: "none",
                 padding: 0,
