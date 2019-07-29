@@ -1,31 +1,36 @@
 import { css } from "@emotion/core";
 
 // Add font faces and other global styles:
-export const globalStyles = css`
+export const globalStyles = theme => css`
   // We support five fonts that can be used throughout Mapseed flavors.
   @font-face {
     font-family: "Raleway-Light";
-    src: url("https://fonts.googleapis.com/css?family=Raleway:300&display=swap") format("woff2");
+    src: url("https://fonts.googleapis.com/css?family=Raleway:300&display=swap")
+      format("woff2");
     font-weight: normal;
   }
   @font-face {
     font-family: "Raleway-Regular";
-    src: url("https://fonts.googleapis.com/css?family=Raleway:500&display=swap") format("woff2");
+    src: url("https://fonts.googleapis.com/css?family=Raleway:500&display=swap")
+      format("woff2");
     font-weight: normal;
   }
   @font-face {
     font-family: "PTSans-Regular";
-    src: url("https://fonts.googleapis.com/css?family=PT+Sans:400&display=swap") format("woff2");
+    src: url("https://fonts.googleapis.com/css?family=PT+Sans:400&display=swap")
+      format("woff2");
     font-weight: normal;
   }
   @font-face {
     font-family: "PTSans-Bold";
-    src: url("https://fonts.googleapis.com/css?family=PT+Sans:700&display=swap") format("woff2");
+    src: url("https://fonts.googleapis.com/css?family=PT+Sans:700&display=swap")
+      format("woff2");
     font-weight: normal;
   }
   @font-face {
     font-family: "Roboto";
-    src: url("https://fonts.googleapis.com/css?family=Roboto:400&display=swap") format("woff2");
+    src: url("https://fonts.googleapis.com/css?family=Roboto:400&display=swap")
+      format("woff2");
     font-weight: normal;
   }
   // These styles are intended to mimic the styling of our Atoms on custom
@@ -74,6 +79,7 @@ export const globalStyles = css`
     }
     p {
       font-family: ${theme.text.bodyFontFamily};
+      font-size: 1.16rem;
       margin: 0 0 16px 0;
     }
     &:after {
