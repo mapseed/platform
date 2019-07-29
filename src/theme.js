@@ -1,56 +1,7 @@
 import { css } from "@emotion/core";
 
 // Add font faces and other global styles:
-export const globalStyles = theme => css`
-  @font-face {
-    font-family: "Lithos";
-    src: url("/static/css/lithos.ttf");
-  }
-  @font-face {
-    font-family: "Bowlby";
-    src: url("/static/css/BowlbyOneSC-Regular.ttf");
-  }
-  @font-face {
-    font-family: "Josefin Sans";
-    src: url("/static/css/JosefinSans-Regular.ttf");
-  }
-  @font-face {
-    font-family: "Montserrat";
-    src: url("/static/css/Montserrat-Regular.ttf");
-  }
-  @font-face {
-    font-family: "AlfaSlabOne-Regular";
-    src: url("/static/css/AlfaSlabOne-Regular.ttf");
-  }
-  @font-face {
-    font-family: "Quicksand Regular";
-    src: url("/static/css/Quicksand-Regular.otf");
-  }
-  @font-face {
-    font-family: "proxima-nova";
-    src: url("/static/css/proximanova-regular.otf");
-  }
-  @font-face {
-    font-family: "Palanquin";
-    src: url("/static/css/palanquindark-regular.ttf");
-  }
-  @font-face {
-    font-family: "Raleway";
-    src: url("/static/css/Raleway-Regular.ttf");
-  }
-  @font-face {
-    font-family: "Raleway-ExtraLight";
-    src: url("/static/css/Raleway-ExtraLight.ttf");
-  }
-  @font-face {
-    font-family: "PTSans";
-    src: url("/static/css/PT-Sans-Regular.ttf");
-  }
-  @font-face {
-    font-family: "PTSansBold";
-    src: url("/static/css/PT-Sans-Bold.ttf");
-  }
-
+export const globalStyles = css`
   // These styles are intended to mimic the styling of our Atoms on custom
   // pages.
   #mapseed-custom-page-container {

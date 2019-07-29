@@ -45,7 +45,7 @@
         "secondary": "#fff",
         "tertiary": "#e57c04",
         "titleFontFamily": "PTSans,sans-serif",
-        "bodyFontFamily": "Raleway-ExtraLight,sans-serif"
+        "bodyFontFamily": "Raleway,sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#e57c04",
