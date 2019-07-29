@@ -40,8 +40,9 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#ef5f46",
-        "titleFontFamily": "Raleway,sans-serif",
-        "bodyFontFamily": "Raleway,sans-serif"
+        "titleFontFamily": "Raleway-Regular,sans-serif",
+        "bodyFontFamily": "Raleway-Light,sans-serif",
+        "navBarFontFamily": "PTSans-Regular, sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#115588",
@@ -2643,7 +2644,7 @@
     {
       "slug": "about",
       "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<h1 id='about-page-header'>Welcome Kittitas County Voluntary Stewards!</h1>",
         "<img src='/static/css/images/kccd-group.jpg' alt='KCCD' style='margin:8px 0 16px 0' />",
         "<p>The Kittitas County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas.</p>",
         "<div style='display:flex;align-items:center;'>",

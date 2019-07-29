@@ -359,6 +359,8 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
             onMouseOver={() => setIsLanguageMenuVisible(true)}
             onMouseOut={() => setIsLanguageMenuVisible(false)}
             css={theme => ({
+              color: theme.bg.light,
+              fontWeight: 600,
               textTransform: "uppercase",
               fontSize: "0.9rem",
               fontFamily: theme.text.navBarFontFamily,
@@ -430,6 +432,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
                       css={theme => ({
                         fontFamily: theme.text.headerBarFontFamily,
                         fontSize: "1rem",
+                        textTransform: "none",
                         textDecoration: "none",
                         width: "100%",
                         borderRadius: 0,

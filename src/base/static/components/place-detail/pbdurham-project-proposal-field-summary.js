@@ -122,6 +122,7 @@ const ScoreMsg = styled(SmallText)({
 const BigNumber = styled("span")(props => ({
   fontSize: "3rem",
   color: props.theme.brand.primary,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const RelatedIdeas = styled("div")({

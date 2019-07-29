@@ -173,7 +173,7 @@ const Button = styled(props => {
     borderRadius: "3px",
 
     "&:hover": {
-      backgroundColor: lighten(props.theme.bg.default, 40),
+      backgroundColor: lighten(props.theme.bg.default, 5),
     },
   };
 
@@ -210,7 +210,7 @@ const Button = styled(props => {
     styles.paddingLeft = "16px";
     styles.paddingRight = "16px";
     styles.borderRadius = "16px";
-    styles["&:hover"].backgroundColor = lighten(props.color, 10);
+    styles["&:hover"].backgroundColor = lighten(props.color, 5);
   }
 
   if (props.color === "primary") {
@@ -219,7 +219,7 @@ const Button = styled(props => {
     styles.backgroundColor = props.theme.brand.primary;
     styles.color = "#fff";
     styles["&:hover"].textDecoration = "none";
-    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 10);
+    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 5);
     styles["&:hover"].color = "#fff";
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;

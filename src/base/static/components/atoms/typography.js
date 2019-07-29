@@ -127,23 +127,23 @@ const TinyTitle = styled("h4")(props => ({
 // TODO: Other label types.
 const ExtraLargeLabel = styled("label")(props => ({
   fontSize: "2rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const LargeLabel = styled("label")(props => ({
   fontSize: "1.5rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const RegularLabel = styled("label")(props => ({
   fontSize: "1rem",
   lineHeight: "1.2rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const SmallLabel = styled("label")(props => ({
   fontSize: "0.7rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 RegularLabel.propTypes = {
@@ -159,7 +159,7 @@ const textHandler = (props, styles) => {
 
   switch (props.weight) {
     case "bold":
-      styles.fontWeight = 600;
+      styles.fontWeight = 800;
       break;
     case "black":
       styles.fontWeight = 900;
@@ -183,6 +183,8 @@ const textHandler = (props, styles) => {
 const LargeText = styled("span")(props => {
   const styles = {
     fontSize: "1.5rem",
+    lineHeight: "1.7rem",
+    fontWeight: "normal",
   };
   return textHandler(props, styles);
 });
@@ -190,6 +192,8 @@ const LargeText = styled("span")(props => {
 const RegularText = styled("span")(props => {
   const styles = {
     fontSize: "1rem",
+    lineHeight: "1.3rem",
+    fontWeight: "normal",
   };
   return textHandler(props, styles);
 });
@@ -197,6 +201,7 @@ const RegularText = styled("span")(props => {
 const SmallText = styled("span")(props => {
   const styles = {
     fontSize: "0.75rem",
+    lineHeight: "1.0rem",
     fontWeight: "normal",
   };
 
@@ -206,6 +211,7 @@ const SmallText = styled("span")(props => {
 const MicroText = styled("span")(props => {
   const styles = {
     fontSize: "0.6rem",
+    lineHeight: "0.8rem",
     fontWeight: "normal",
   };
 
@@ -258,7 +264,6 @@ const InternalLink = styled(props => {
 
   "&:hover": {
     textDecoration: "none",
-    color: props.theme.bg.light,
   },
 }));
 

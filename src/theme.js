@@ -27,12 +27,6 @@ export const globalStyles = theme => css`
       format("woff2");
     font-weight: normal;
   }
-  @font-face {
-    font-family: "Roboto";
-    src: url("https://fonts.googleapis.com/css?family=Roboto:400&display=swap")
-      format("woff2");
-    font-weight: normal;
-  }
   // These styles are intended to mimic the styling of our Atoms on custom
   // pages.
   #mapseed-custom-page-container {
@@ -147,12 +141,12 @@ const theme = {
     primary: "#36454f",
     secondary: "#fff",
     highlighted: "#fff",
-    headerFontFamily: "Roboto,sans-serif",
-    bodyFontFamily: "Roboto,sans-serif",
-    navBarFontFamily: "Roboto,sans-serif",
+    headerFontFamily: "Raleway-Regular,sans-serif",
+    bodyFontFamily: "Raleway-Light,sans-serif",
+    navBarFontFamily: "Raleway-Regular,sans-serif",
     textTransform: "uppercase",
     titleColor: "#aaa",
-    titleFontFamily: "Roboto,sans-serif",
+    titleFontFamily: "Raleway-Regular,sans-serif",
   },
   map: {
     addPlaceButtonBackgroundColor: "rgba(242,82,24,0.89)",
