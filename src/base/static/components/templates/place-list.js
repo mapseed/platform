@@ -3,7 +3,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -289,7 +289,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateCurrentTemplate(templateName)),
 });
 
-export default translate("PlaceList")(
+export default withTranslation("PlaceList")(
   withRouter(
     connect(
       mapStateToProps,

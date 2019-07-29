@@ -1,69 +1,15 @@
-/*
- * This CSS file follows the default Shareabouts style.css.
- * All rules herein will override the default Shareabouts styles.
- * NOTE: "With great power comes great responsibility."
- */
-
-#site-title a:link,
-#site-title a:visited {
-  display: block;
-  float: left;
-  width: 350px;
-  height: 50px;
-  overflow: hidden;
-}
-
 /* =Header
 -------------------------------------------------------------- */
-
-
-
-
-/* =Media Queries
--------------------------------------------------------------- */
-/* iphone 4 (320 x 480)*/
-
-@media only screen and (max-width: 60em) {
-  #site-title a:link,
-  #site-title a:visited {
-    width: 180px;
-    height: 25px;
-    background-size: 180px auto;
-  }
-  #place-form-type-choice {
-    padding-bottom: 1em;
-  }
-  #place-form-type-choice a.button {
-      display: block;
-      float: left;
-      width: 40%;
-      padding: .5em .5em;
-      margin: 0;
-      border: 2px solid white;
-  }
+header {
+  border-top: 2px solid #ed440e;
 }
 
-@media only screen and (max-width: 60em) {
-  #site-title a:link,
-  #site-title a:visited {
-    width: 180px;
-    height: 25px;
-    background-size: 180px auto;
-    margin: 10px 0 0 0;
-  }
+.form-stage-header-bar {
+  display: none !important;
 }
 
-@media only screen and (min-width: 768px) {
-  #place-form-type-choice a.button {
-    width: 40%;
-    font-size: 100%;
-    padding: 1em 1em;
-    margin: 0 2% 2% 0;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-}
-
-@media only screen and (min-width: 1300px) {
+[data-field-name="transit_information"],
+[data-field-name="submission_info"] {
+  border: 0 !important;
+  padding: 0 !important;
 }

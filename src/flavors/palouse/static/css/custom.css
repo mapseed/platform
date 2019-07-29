@@ -92,6 +92,7 @@ label[for="input-form-nutrient-management_no-nutrient-management"],
 label[for="input-form-soil-management_no-soil-management"] {
   padding: 0 !important;
   font-family: "Font Awesome 5 Free", sans-serif;
+  font-weight: 900;
 
   &:before {
     display: none;

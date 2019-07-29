@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 
 import {
@@ -312,7 +312,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(
-  translate("PBDurhamProjectProposalFieldSummary")(
+  withTranslation("PBDurhamProjectProposalFieldSummary")(
     PBDurhamProjectProposalFieldSummary,
   ),
 );

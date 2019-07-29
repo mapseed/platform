@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import ToggleField from "./toggle-field";
 import "./big-toggle-field.scss";
@@ -55,4 +55,4 @@ BigToggleField.propTypes = {
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default translate("BigToggleField")(BigToggleField);
+export default withTranslation("BigToggleField")(BigToggleField);

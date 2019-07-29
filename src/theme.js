@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 
 // Add font faces and other global styles:
-export const globalStyles = css`
+export const globalStyles = theme => css`
   @font-face {
     font-family: "Lithos";
     src: url("/static/css/lithos.ttf");
@@ -57,26 +57,32 @@ export const globalStyles = css`
     height: 100%;
 
     h1 {
+      font-family: ${theme.text.titleFontFamily};
       font-size: 2rem;
       margin: 0 0 16px 0;
     }
     h2 {
+      font-family: ${theme.text.titleFontFamily};
       font-size: 1.8rem;
       margin: 0 0 16px 0;
     }
     h3 {
+      font-family: ${theme.text.titleFontFamily};
       font-size: 1.5rem;
       margin: 0 0 16px 0;
     }
     h4 {
+      font-family: ${theme.text.titleFontFamily};
       font-size: 1.1rem;
       margin: 0 0 16px 0;
     }
     h5 {
+      font-family: ${theme.text.titleFontFamily};
       font-size: 1rem;
       margin: 0 0 16px 0;
     }
     h6 {
+      font-family: ${theme.text.titleFontFamily};
       font-size: 1rem;
       margin: 0 0 16px 0;
     }
@@ -86,9 +92,11 @@ export const globalStyles = css`
       margin: 0 0 10px 0;
     }
     a {
+      font-family: ${theme.text.bodyFontFamily};
       text-decoration: none;
     }
     p {
+      font-family: ${theme.text.bodyFontFamily};
       margin: 0 0 16px 0;
     }
     &:after {

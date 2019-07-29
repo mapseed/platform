@@ -120,6 +120,27 @@ CheckboxInput.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+const RadioInput = props => {
+  return (
+    <input
+      type="radio"
+      id={props.id}
+      name={props.name}
+      value={props.value}
+      onChange={props.onChange}
+      checked={props.checked}
+    />
+  );
+};
+
+RadioInput.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
+
 const NumberInput = props => {
   return (
     <input
@@ -194,6 +215,7 @@ RangeInput.propTypes = {
 
 export {
   CheckboxInput,
+  RadioInput,
   DatetimeInput,
   NumberInput,
   TextInput,

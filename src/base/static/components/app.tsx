@@ -14,7 +14,7 @@ import styled from "@emotion/styled";
 import Spinner from "react-spinner";
 import { Mixpanel } from "../utils/mixpanel";
 import i18next from "i18next";
-import { reactI18nextModule } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import resourceBundle from "../../../locales";
 
 import SiteHeader from "./organisms/site-header";
@@ -171,6 +171,12 @@ interface State {
   availableLanguages?: Language[];
 }
 
+interface ExtendedReactOptions extends i18next.ReactOptions {
+  // The official typings seem to be missing this property, added here:
+  // https://github.com/i18next/react-i18next/pull/749
+  bindI18nStore?: string | false;
+}
+
 class App extends React.Component<Props, State> {
   private unlisten?: any;
 
@@ -269,10 +275,15 @@ class App extends React.Component<Props, State> {
       this.props.updateUIVisibility("rightSidebar", true);
 
     // Set up localization.
-    i18next.use(reactI18nextModule).init({
+    i18next.use(initReactI18next).init({
       lng: resolvedConfig.flavor.defaultLanguage.code,
       resources: resourceBundle,
-      react: { wait: true },
+      // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
+      react: {
+        // Needed to rerender components after results from Translate API are
+        // returned.
+        bindI18nStore: "added",
+      } as ExtendedReactOptions,
       interpolation: { escapeValue: false },
       saveMissing: true,
       missingKeyHandler: async (lng, ns, key, fallbackValue) => {
@@ -314,7 +325,6 @@ class App extends React.Component<Props, State> {
         const response = await translationServiceClient.translate({
           text: fallbackValue,
           target: i18next.language,
-          format: "text",
         });
 
         // eslint-disable-next-line require-atomic-updates
@@ -530,15 +540,13 @@ class App extends React.Component<Props, State> {
           <Route
             exact
             path="/dashboard"
-            render={() => {
+            render={props => {
               return (
                 <React.Suspense fallback={<Fallback />}>
                   <SiteHeader {...headerProps} />
                   <DashboardTemplate
-                    datasetDownloadConfig={
-                      this.props.appConfig.dataset_download
-                    }
                     apiRoot={this.props.appConfig.api_root}
+                    {...props.match}
                   />
                 </React.Suspense>
               );

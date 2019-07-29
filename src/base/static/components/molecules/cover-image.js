@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { EditorButton } from "../atoms/buttons";
 
@@ -57,4 +57,4 @@ CoverImage.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("CoverImage")(CoverImage);
+export default withTranslation("CoverImage")(CoverImage);

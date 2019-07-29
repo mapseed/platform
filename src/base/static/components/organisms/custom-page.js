@@ -1,21 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withTranslation } from "react-i18next";
 
 import { pageSelector } from "../../state/ducks/pages-config";
 
-const CustomPage = props => (
-  <div
-    id="mapseed-custom-page-container"
-    dangerouslySetInnerHTML={{
-      __html: props.pageContent({
-        pageSlug: props.pageSlug,
-        currentLanguageCode: props.currentLanguageCode,
-        defaultLanguageCode: props.defaultLanguageCode,
-      }).content,
-    }}
-  />
-);
+const CustomPage = props => {
+  const pageContent = props.pageContent(props.pageSlug).content;
+
+  return (
+    <div
+      id="mapseed-custom-page-container"
+      dangerouslySetInnerHTML={{
+        __html: props.t(`customPage${props.pageSlug}`, pageContent),
+      }}
+    />
+  );
+};
 
 CustomPage.propTypes = {
   currentLanguageCode: PropTypes.string.isRequired,
@@ -26,8 +27,9 @@ CustomPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  pageContent: ({ pageSlug, currentLanguageCode, defaultLanguageCode }) =>
-    pageSelector({ state, pageSlug, currentLanguageCode, defaultLanguageCode }),
+  pageContent: pageSlug => pageSelector(state, pageSlug),
 });
 
-export default connect(mapStateToProps)(CustomPage);
+export default connect(mapStateToProps)(
+  withTranslation("CustomPage")(CustomPage),
+);

@@ -6,6 +6,7 @@ import { css, jsx } from "@emotion/core";
 import emitter from "../../utils/event-emitter";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
+import { withTranslation } from "react-i18next";
 
 import FormField from "../form-fields/form-field";
 import SurveyResponse from "./survey-response";
@@ -28,7 +29,6 @@ import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { createPlaceComment } from "../../state/ducks/places";
 
 import constants from "../../constants";
-import { translate } from "react-i18next";
 
 import "./survey.scss";
 
@@ -269,5 +269,5 @@ export default withTheme(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("Survey")(Survey)),
+  )(withTranslation("Survey")(Survey)),
 );

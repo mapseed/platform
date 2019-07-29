@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
-import { translate, Trans } from "react-i18next";
+import { withTranslation, Trans } from "react-i18next";
 import { css, jsx } from "@emotion/core";
 
 import { Button } from "../atoms/buttons";
@@ -78,7 +78,7 @@ const FormStageControlBar = props => {
           size="regular"
           {...retreatOpts}
         >
-          <RegularText>{props.t("previousStageLinkLabel")}</RegularText>
+          <RegularText>{props.t("previousStageLinkLabel", "Back")}</RegularText>
         </Button>
         <Button
           style={{ marginLeft: "8px" }}
@@ -88,7 +88,7 @@ const FormStageControlBar = props => {
           size="regular"
           {...advanceOpts}
         >
-          <RegularText>{props.t("nextStageLinkLabel")}</RegularText>
+          <RegularText>{props.t("nextStageLinkLabel", "Next")}</RegularText>
         </Button>
       </div>
     </div>
@@ -106,4 +106,4 @@ FormStageControlBar.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("FormStageControlBar")(FormStageControlBar);
+export default withTranslation("FormStageControlBar")(FormStageControlBar);

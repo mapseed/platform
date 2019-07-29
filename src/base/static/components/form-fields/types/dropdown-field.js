@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import "./dropdown-field.scss";
 
 const DropdownField = props => {
@@ -52,4 +52,4 @@ DropdownField.defaultProps = {
   hasAutofill: false,
 };
 
-export default translate("DropdownField")(DropdownField);
+export default withTranslation("DropdownField")(DropdownField);

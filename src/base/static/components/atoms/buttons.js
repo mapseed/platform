@@ -10,7 +10,12 @@ import { TwitterIcon, FacebookIcon } from "./icons";
 import { FontAwesomeIcon } from "./imagery";
 import { SmallText } from "./typography";
 
-import { CHARCOAL, OFF_WHITE, getReadableColor } from "../../utils/color";
+import {
+  CHARCOAL,
+  OFF_WHITE,
+  getReadableColor,
+  lighten,
+} from "../../utils/color";
 import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
@@ -168,7 +173,7 @@ const Button = styled(props => {
     borderRadius: "3px",
 
     "&:hover": {
-      color: props.theme.bg.light,
+      backgroundColor: lighten(props.theme.bg.default, 40),
     },
   };
 
@@ -197,6 +202,15 @@ const Button = styled(props => {
     styles.border = "3px solid rgba(0, 0, 0, 0.05)";
   } else if (props.variant === "outlined") {
     styles.border = `3px solid ${props.theme.brand.primary}`;
+  } else if (props.variant === "badge") {
+    styles.backgroundColor = props.color;
+    styles.height = "32px";
+    styles.display = "flex";
+    styles.alignItems = "center";
+    styles.paddingLeft = "16px";
+    styles.paddingRight = "16px";
+    styles.borderRadius = "16px";
+    styles["&:hover"].backgroundColor = lighten(props.color, 10);
   }
 
   if (props.color === "primary") {
@@ -205,7 +219,7 @@ const Button = styled(props => {
     styles.backgroundColor = props.theme.brand.primary;
     styles.color = "#fff";
     styles["&:hover"].textDecoration = "none";
-    styles["&:hover"].backgroundColor = props.theme.brand.primary;
+    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 10);
     styles["&:hover"].color = "#fff";
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;

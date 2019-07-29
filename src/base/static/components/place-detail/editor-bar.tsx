@@ -4,23 +4,8 @@ import { css, jsx } from "@emotion/core";
 
 import mq from "../../../../media-queries";
 import { EditorButton } from "../atoms/buttons";
-import { translate } from "react-i18next";
-import i18next, { TranslationFunction } from "i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import constants from "../../constants";
-
-// Types were added to react-i18next is a newer version.
-// TODO: Use supplied types when we upgrade i18next deps.
-// See: https://github.com/i18next/react-i18next/pull/557/files
-type TransProps = {
-  i18nKey?: string;
-  count?: number;
-  parent?: React.ReactNode;
-  i18n?: i18next.i18n;
-  t?: TranslationFunction;
-  defaults?: string;
-  values?: {};
-  components?: React.ReactNode[];
-};
 
 type EditorBarProps = {
   isAdmin: boolean;
@@ -33,7 +18,7 @@ type EditorBarProps = {
   isEditModeToggled: boolean;
 };
 
-type Props = TransProps & EditorBarProps;
+type Props = WithTranslation & EditorBarProps;
 
 const EditorBar: React.FunctionComponent<Props> = props => {
   return (
@@ -101,4 +86,4 @@ const EditorBar: React.FunctionComponent<Props> = props => {
   );
 };
 
-export default translate("EditorBar")(EditorBar);
+export default withTranslation("EditorBar")(EditorBar);

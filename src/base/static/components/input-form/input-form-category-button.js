@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { getReadableColor } from "../../utils/color";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -122,6 +122,6 @@ const mapStateToProps = state => ({
 
 export default withTheme(
   connect(mapStateToProps)(
-    translate("InputFormCategoryButton")(InputFormCategoryButton),
+    withTranslation("InputFormCategoryButton")(InputFormCategoryButton),
   ),
 );

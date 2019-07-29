@@ -427,7 +427,7 @@
         "id": "nitrogen-deposition-group",
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<div style='max-width: 250px'><p><strong>Watershed name:</p><p></strong>{{PNAME}}</p><p><strong>Nitrogen loading:</p><p></strong>{{INCY}}&nbsp;kg per km2</p></div>",
+        "popupContent": "<div style='max-width: 300px'><p><strong>Watershed name:</strong></p><p>{{PNAME}}</p><p><strong>Total nitrogen loading:</strong></p><p>{{INCY}}&nbsp;kg per km2 per year</p><p><strong>Anthropogenic sources:</strong></p><p>--farm fertilizer&nbsp;{{INCY_S5}}&nbsp;kg/km2</p><p>--CAFOs&nbsp;{{INCY_S4}}&nbsp;kg/km2</p><p>--sewerage&nbsp;{{INCY_S1}}&nbsp;kg/km2</p><p>--urban runoff&nbsp;{{INCY_S2}}&nbsp;kg/km2</p></div>",
         "mapboxLayers": [
           {
             "id": "nitrogen-deposition",
@@ -1342,7 +1342,6 @@
   "pages": [
     {
       "slug": "concept",
-      "lang": "en",
       "content": [
         "<p><h2>MISSISSIPPI: An Anthropocene River</h2></p>",
         "<img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/>",
@@ -1355,7 +1354,6 @@
     },
     {
       "slug": "fieldstations",
-      "lang": "en",
       "content": [
         "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
