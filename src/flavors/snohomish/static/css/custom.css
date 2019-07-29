@@ -6,15 +6,7 @@
 
 /* =Header
 -------------------------------------------------------------- */
-
-* {
-  font-family: Roboto, sans-serif;
-}
-
 .menu {
-  font-family: "Lithos", sans-serif !important;
-  letter-spacing: 1.5px !important;
-
   .btn-secondary {
     color: #02440c !important;
 
@@ -29,7 +21,6 @@
 }
 
 .list-toggle-btn {
-  font-family: "Lithos", sans-serif !important;
   letter-spacing: 1.5px !important;
   background-color: transparent !important;
   border: none !important;
@@ -220,7 +211,6 @@
   font-size: 2em !important;
   line-height: 1em !important;
   text-align: center !important;
-  font-family: "Lithos", sans-serif !important;
   font-weight: 800 !important;
   letter-spacing: 1px !important;
   color: #02440b !important;
@@ -250,7 +240,6 @@
 .mapseed-info-modal__header-content {
   color: #02440b !important;
   font-weight: 800 !important;
-  font-family: "Lithos", sans-serif !important;
   letter-spacing: 1px !important;
 }
 
@@ -295,7 +284,6 @@
   color: #02440b !important;
   font-weight: 800 !important;
   font-size: 2em !important;
-  font-family: "Lithos", sans-serif !important;
   letter-spacing: 1px !important;
   text-align: center !important;
 }
