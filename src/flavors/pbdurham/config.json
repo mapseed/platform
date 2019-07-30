@@ -62,9 +62,8 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#58585b",
-        "navBarFontFamily": "proxima-nova, sans-serif",
-        "titleFontFamily": "Josefin Sans",
-        "bodyFontFamily": "proxima-nova"
+        "titleFontFamily": "Josefin Sans, sans-serif",
+        "bodyFontFamily": "Raleway-Regular, sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#045a8b",
@@ -107,7 +106,8 @@
           "yAxisLabel": "Number of ideas",
           "layout": {
             "start": 4,
-            "end": 13
+            "end": 13,
+            "height": 350
           }
         },
         {
@@ -2086,7 +2086,7 @@
     {
       "slug": "about",
       "content": [
-        "<h1>Durham Participatory Budgeting:</h1>",
+        "<h1 style='margin-bottom:6px;'>Durham Participatory Budgeting:</h1>",
         "<h2>Put your money where your ideas are!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",

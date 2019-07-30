@@ -106,6 +106,7 @@ class FilterMenu extends React.Component {
               id="header_filter-button"
               css={theme => ({
                 fontFamily: theme.text.navBarFontFamily,
+                color: theme.bg.light,
                 fontWeight: 600,
                 marginLeft: "4px",
                 marginRight: "4px",

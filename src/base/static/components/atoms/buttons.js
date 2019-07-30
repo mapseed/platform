@@ -173,7 +173,7 @@ const Button = styled(props => {
     borderRadius: "3px",
 
     "&:hover": {
-      backgroundColor: lighten(props.theme.bg.default, 40),
+      backgroundColor: lighten(props.theme.bg.default, 5),
     },
   };
 
@@ -210,7 +210,7 @@ const Button = styled(props => {
     styles.paddingLeft = "16px";
     styles.paddingRight = "16px";
     styles.borderRadius = "16px";
-    styles["&:hover"].backgroundColor = lighten(props.color, 10);
+    styles["&:hover"].backgroundColor = lighten(props.color, 5);
   }
 
   if (props.color === "primary") {
@@ -219,21 +219,25 @@ const Button = styled(props => {
     styles.backgroundColor = props.theme.brand.primary;
     styles.color = "#fff";
     styles["&:hover"].textDecoration = "none";
-    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 10);
+    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 5);
     styles["&:hover"].color = "#fff";
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
-    styles.color = getReadableColor(styles.backgroundColor);
-    styles["&:hover"].backgroundColor = props.theme.brand.secondary;
-    styles["&:hover"].color = getReadableColor(props.theme.brand.secondary);
+    styles.color =
+      props.theme.bg.light === "#ffffff"
+        ? getReadableColor(props.theme.bg.light)
+        : "#fff";
+    styles["&:hover"].backgroundColor = lighten(props.theme.bg.light, 5);
+    styles["&:hover"].color =
+      props.theme.bg.light === "#ffffff"
+        ? getReadableColor(props.theme.brand.secondary)
+        : "#fff";
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
     styles.backgroundColor = "transparent";
     styles.color = props.theme.text.tertiary;
-    styles["&:hover"].backgroundColor = props.theme.text.secondary;
-    styles["&:hover"].color = getReadableColor(
-      styles["&:hover"].backgroundColor,
-    );
+    styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].color = "#fff";
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "black") {
     styles.backgroundColor = CHARCOAL;

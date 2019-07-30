@@ -11,14 +11,6 @@ if (!process.env.SSL_CERT_ARN) {
   throw "Set the SSL_CERT_ARN environment variable to the ARN of the AWS ACM SSL certificate associated with this flavor.";
 }
 
-// Files matching this pattern will be uploaded with their ContentEncoding
-// metadata set to `gzip`. This prevents a bug where gzipped files can be
-// deployed momentarily without a proper ContentEncoding header.
-// See: https://github.com/jalMogo/mgmt/issues/266
-const gzippedFiles = glob
-  .sync("{./www/*.html,./www/config*.js,./www/**/spritesheet.js,./www/**/*.gz}")
-  .map(file => path.relative("./www", file));
-
 // eslint-disable-next-line no-console
 console.log(`Updating website: ${process.env.DEPLOY_DOMAIN}`);
 const config = {
@@ -28,7 +20,6 @@ const config = {
   index: "index.html",
   enableCloudfront: true,
   certId: process.env.SSL_CERT_ARN,
-  gzippedFiles: gzippedFiles,
 };
 
 const s3 = new AWS.S3({ region: config.region });
@@ -99,21 +90,12 @@ function updateMetadata() {
   console.log("Updating metadata");
   let params;
 
-  // NOTE: We need to update the Cache-Control header for the index.html object,
-  // as well as any localized index objects (such as es.html, for example),
-  // so CloudFront won't cache these objects and they can fetch updated hashed
-  // CSS and JS bundles consistently. We also need to update localized config
-  // files, since these are no longer embedded in the index files directly.
   let updatePromises = glob
-    .sync("{./www/*.html,./www/config*.js}")
+    .sync("{./www/*.bundle.js,./www/*.bundle.css}")
     .map(filepath => {
       filepath = path.relative("./www", filepath);
       params = {
-        CacheControl: "no-cache, must-revalidate, max-age=0",
-        // Note that even though we set the ContentEncoding metadata in the
-        // initial file copy to S3, we have to duplicate it here because
-        // there is not metadata "amend" operation in S3.
-        ContentEncoding: "gzip",
+        CacheControl: "max-age=31536000", // One year
       };
       return copyObjectPromise(buildParams(filepath, params));
     })
@@ -126,17 +108,6 @@ function updateMetadata() {
           CacheControl: "max-age=0",
         };
         return copyObjectPromise(buildParams(relativePath, params));
-      }),
-    )
-    .concat(
-      glob.sync("./www/**/*.gz").map(filepath => {
-        // Ensure gzipped files have "Content-Encoding" set
-        filepath = path.relative("./www", filepath);
-        params = {
-          ContentEncoding: "gzip",
-          CacheControl: "max-age=31536000", // One year
-        };
-        return copyObjectPromise(buildParams(filepath, params));
       }),
     )
     .concat(

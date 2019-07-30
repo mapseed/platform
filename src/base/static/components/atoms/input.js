@@ -20,6 +20,7 @@ const TextInput = styled(props => {
   );
 })(props => {
   const styles = {
+    fontFamily: props.theme.text.bodyFontFamily,
     borderWidth: ".25em",
     borderColor: "#999",
     borderStyle: "solid",

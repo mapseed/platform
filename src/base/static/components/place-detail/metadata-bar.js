@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
+import { css, jsx } from "@emotion/core";
 
 import { UserAvatar } from "../atoms/imagery";
 import { Time, SmallText, RegularText } from "../atoms/typography";
@@ -16,36 +17,42 @@ import {
   appConfigPropType,
 } from "../../state/ducks/app-config";
 
-const MetadataBarContainer = styled("div")(props => ({
-  fontFamily: props.theme.text.bodyFontFamily,
-  position: "relative",
-  lineHeight: "0.9rem",
-}));
-
-const PlaceDetailsContainer = styled("div")({
-  marginLeft: "60px",
-  marginRight: "8px",
-});
-
-const UserAvatarContainer = styled("div")({
-  position: "absolute",
-  left: 0,
-  top: 0,
-});
-
 const MetadataBar = props => (
-  <MetadataBarContainer>
-    <UserAvatarContainer>
+  <div
+    css={theme => css`
+      font-family: ${theme.text.bodyFontFamily};
+      position: relative;
+      line-height: 0.9rem;
+    `}
+  >
+    <div
+      css={css`
+        position: absolute;
+        top: 0;
+        left: 0;
+      `}
+    >
       <UserAvatar size="large" src={props.submitterAvatarUrl} />
-    </UserAvatarContainer>
-    <PlaceDetailsContainer>
-      <div style={{ marginBottom: "3px" }}>
+    </div>
+    <div
+      css={css`
+        margin-left: 60px;
+        margin-right: 8px;
+      `}
+    >
+      <div>
         <RegularText weight="black">{props.submitterName}</RegularText>{" "}
         <RegularText>
           {props.t("placeActionText", `${props.actionText}`)}{" "}
         </RegularText>
       </div>
-      <SmallText display="block" textTransform="uppercase">
+      <SmallText
+        css={css`
+          line-height: 0.9rem;
+        `}
+        display="block"
+        textTransform="uppercase"
+      >
         {props.numComments}{" "}
         {props.numComments === 1
           ? props.t("surveyResponseName", props.commentFormConfig.response_name)
@@ -55,12 +62,18 @@ const MetadataBar = props => (
             )}
       </SmallText>
       {props.appConfig.show_timestamps && (
-        <SmallText display="block" textTransform="uppercase">
+        <SmallText
+          css={css`
+            line-height: -0.9rem;
+          `}
+          display="block"
+          textTransform="uppercase"
+        >
           <Time time={props.createdDatetime} />
         </SmallText>
       )}
-    </PlaceDetailsContainer>
-  </MetadataBarContainer>
+    </div>
+  </div>
 );
 
 MetadataBar.propTypes = {
