@@ -196,6 +196,7 @@
 }
 
 .form-stage-header-bar {
+  font-family: Raleway-Regular, sans-serif;
   position: relative !important;
   padding-left: 0 !important;
 }
@@ -305,22 +306,33 @@
 }
 
 .snohomish-num-actions {
-  font-family: Bowlby, sans-serif !important;
-  line-height: 2.1em !important;
-  font-weight: 200 !important;
-  border: 5px solid #779300 !important;
-  width: 60px !important;
-  height: 60px !important;
-  display: inline-block !important;
-  text-align: center !important;
+  color: #fff;
+  background-color: #779300;
+  font-weight: 800 !important;
+  width: 50px !important;
+  height: 50px !important;
   border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
 }
 
 .snohomish-total-actions {
+  font-family: Raleway-Regular, sans-serif !important;
+  display: flex;
+  align-items: center;
   text-transform: uppercase !important;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 16px;
+}
+
+.snohomish-stage-summary {
+  font-family: Roboto, sans-serif;
 }
 
 .snohomish-stage-action-summary {
+  font-size: 1.5rem;
   text-transform: uppercase !important;
   margin-bottom: 15px !important;
 }

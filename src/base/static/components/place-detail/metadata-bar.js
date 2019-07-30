@@ -39,7 +39,7 @@ const MetadataBar = props => (
       <UserAvatar size="large" src={props.submitterAvatarUrl} />
     </UserAvatarContainer>
     <PlaceDetailsContainer>
-      <div style={{ marginBottom: "3px" }}>
+      <div>
         <RegularText weight="black">{props.submitterName}</RegularText>{" "}
         <RegularText>
           {props.t("placeActionText", `${props.actionText}`)}{" "}
