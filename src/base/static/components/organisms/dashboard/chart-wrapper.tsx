@@ -86,15 +86,15 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
       case "fixedTable":
       case "freeTable":
       case "statSummary":
-        return "fa fa-table";
+        return "fas fa-table";
       case "lineChart":
-        return "fa fa-line-chart";
+        return "fas fa-chart-line";
       case "freeDonutChart":
-        return "fa fa-chart-pie";
+        return "fas fa-chart-pie";
       case "freeBarChart":
-        return "fa fa-chart-bar";
+        return "fas fa-chart-bar";
       default:
-        return "fa fa-table";
+        return "fas fa-table";
     }
   };
 

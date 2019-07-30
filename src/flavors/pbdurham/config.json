@@ -106,7 +106,8 @@
           "yAxisLabel": "Number of ideas",
           "layout": {
             "start": 4,
-            "end": 13
+            "end": 13,
+            "height": 350
           }
         },
         {

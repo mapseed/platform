@@ -22,7 +22,7 @@ const KittitasFireReadyReportLargeTitle = props => (
   <ReportLargeTitle
     css={css`
       color: #444;
-      font-family: PTSans, sans-serif;
+      font-family: PTSans-Regular, sans-serif;
     `}
   >
     {props.children}

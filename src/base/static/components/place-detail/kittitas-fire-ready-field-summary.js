@@ -32,7 +32,7 @@ const KittitasFireReadyFieldSummary = props => {
             width: 24px;
             height: 24px;
             color: #fff;
-            font-family: PTSansBold, sans-serif;
+            font-family: PTSans-Bold, sans-serif;
             font-size: 2rem;
             padding: 16px;
             background-color: #e57c03;

@@ -222,7 +222,7 @@ const DashboardText = styled("p")(props => ({
   margin: 0,
   padding: 0,
   textAlign: props.textAlign,
-  fontFamily: props.weight === "bold" ? "PTSansBold" : "PTSans",
+  fontFamily: props.weight === "bold" ? "PTSans-Bold" : "PTSans-Regular",
   fontSize: props.fontSize,
   color: props.color,
   textTransform: props.textTransform,

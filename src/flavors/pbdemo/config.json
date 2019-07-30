@@ -95,9 +95,8 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#58585b",
-        "navBarFontFamily": "proxima-nova, sans-serif",
-        "headerFontFamily": "Josefin Sans",
-        "bodyFontFamily": "proxima-nova"
+        "titleFontFamily": "Josefin Sans, sans-serif",
+        "bodyFontFamily": "Raleway-Regular, sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#045a8b",
@@ -117,17 +116,151 @@
   },
   "dashboard": [
     {
-      "datasetSlug": "pbdurham-projects",
-      "surveyMetrics": {
-        "wards": true,
-        "budget": true
-      }
+      "header": "PB Durham Idea Collection",
+      "isExportable": true,
+      "datasetSlug": "pbdurham",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total ideas"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Engagement",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of ideas",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        },
+        {
+          "header": "Idea collection by category",
+          "type": "freeDonutChart",
+          "groupBy": "location_type",
+          "labels": {
+            "culture": "Arts & Culture",
+            "parks": "Parks & Recreation",
+            "streets": "Streets & Sidewalks",
+            "health": "Health & Wellness",
+            "safety": "Safety & Environment",
+            "other": "Other"
+          },
+          "layout": {
+            "start": 1,
+            "end": 7
+          }
+        },
+        {
+          "header": "Demographics",
+          "type": "freeBarChart",
+          "groupBy": "private-ethnicity",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count-percent",
+          "xAxisLabel": "Ethnicity",
+          "yAxisLabel": "Count",
+          "annotation": "*race/ethinicity may not add up to 100% because of multiple choices",
+          "labels": {
+            "white": "White",
+            "indian-alaskan": "American Indian/Alaskan Native",
+            "asian": "Asian",
+            "black": "Black or African American",
+            "hispanic": "Hispanic or Latinx",
+            "hawaiian-pacific": "Native Hawaiian or Pacific Islander",
+            "other-ethnicity": "Other ethnicity"
+          },
+          "layout": {
+            "start": 7,
+            "end": 13
+          }
+        }
+      ]
     },
     {
-      "datasetSlug": "pbdurham",
-      "surveyMetrics": {
-        "categories": true
-      }
+      "header": "PB Durham Projects",
+      "isExportable": true,
+      "datasetSlug": "pbdurham-projects",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total projects"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Engagement",
+          "type": "lineChart",
+          "groupBy": "created_datetime",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of projects",
+          "layout": {
+            "start": 4,
+            "end": 13
+          }
+        },
+        {
+          "header": "Projects by Ward",
+          "type": "freeDonutChart",
+          "groupBy": "ward",
+          "labels": {
+            "ward_1": "Ward 1",
+            "ward_2": "Ward 2",
+            "ward_3": "Ward 3",
+            "citywide": "Citywide"
+          },
+          "layout": {
+            "start": 1,
+            "end": 5
+          }
+        },
+        {
+          "header": "Budget by Ward (published proposals)",
+          "type": "freeBarChart",
+          "filter": ["!=", ["get-val", "private"], true],
+          "groupBy": "ward",
+          "groupValue": ["get-sum", "staff_project_budget"],
+          "tooltipFormat": "currency",
+          "labelFormat": "currency",
+          "xAxisLabel": "Wards",
+          "labels": {
+            "ward_1": "Ward 1",
+            "ward_2": "Ward 2",
+            "ward_3": "Ward 3",
+            "citywide": "Citywide"
+          },
+          "layout": {
+            "start": 5,
+            "end": 13
+          }
+        }
+      ]
     }
   ],
   "map": {
