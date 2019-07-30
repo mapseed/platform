@@ -209,7 +209,7 @@ const KittitasFireReadyReport = props => {
       <Page>
         <KittitasFireReadyPageHeader
           date={props.place.created_datetime}
-          address={props.place["private-final_address"] || ""}
+          address={props.place["private-address"] || props.place["private-final_address"] || ""}
         />
         <PageBody>
           <RightSidebar>
@@ -486,7 +486,7 @@ const KittitasFireReadyReport = props => {
       <Page>
         <KittitasFireReadyPageHeader
           date={props.place.created_datetime}
-          address={props.place["private-final_address"] || ""}
+          address={props.place["private-address"] || props.place["private-final_address"] || ""}
         />
         <PageBody>
           <RightSidebar>
