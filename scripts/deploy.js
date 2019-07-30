@@ -99,7 +99,6 @@ function updateMetadata() {
       };
       return copyObjectPromise(buildParams(filepath, params));
     })
-    //)
     .concat(
       glob.sync("./www/service-worker.js").map(filepath => {
         const relativePath = path.relative("./www", filepath);
