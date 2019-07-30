@@ -79,16 +79,16 @@
     "cartodbEnabled": true,
     "geocodingEnabled": false,
     "mapViewport": {
-      "latitude": 47.58713,
-      "longitude": -122.15581,
-      "zoom": 11.3,
+      "latitude": 47.60652,
+      "longitude": -122.16620,
+      "zoom": 12.3,
       "pitch": 30,
-      "minZoom": 1,
+      "minZoom": 6,
       "maxZoom": 18
     },
     "maxBounds": {
-      "ne": [-122.075019, 47.66792],
-      "sw": [-122.241447, 47.524592]
+      "ne": [-121.998806, 47.709465],
+      "sw": [-122.278825, 47.496958]
     }
   },
   "mapStyle": {
@@ -633,6 +633,11 @@
       "type": "internal_link",
       "url": "/page/help",
       "name": "help"
+    },
+    {
+      "title": "Map Layers",
+      "type": "left_sidebar_toggle",
+      "component": "MapLayerPanel"
     },
     {
       "type": "list_toggle",
