@@ -111,7 +111,7 @@ const Menu = styled("ul")(props => ({
   listStyle: "none",
 
   [mq[1]]: {
-    background: "url(/static/css/images/lightpaperfibers.png)",
+    backgroundColor: "#fff",
     borderRadius: "3px",
     boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.2)",
     width: "18em",

@@ -360,12 +360,23 @@ class App extends React.Component<Props, State> {
       }
       // https://github.com/Microsoft/TypeScript/issues/299#issuecomment-474690599
       const evt = event as any;
-      const rel = evt.target.attributes.getNamedItem("rel");
-      if (rel && rel.value === "internal") {
+      const targetAttributes = evt.target.attributes;
+      const parentAttributes =
+        evt.target.parentElement && evt.target.parentElement.attributes;
+
+      if (
+        targetAttributes.getNamedItem("rel") &&
+        targetAttributes.getNamedItem("rel").value === "internal"
+      ) {
         evt.preventDefault();
-        this.props.history.push(
-          evt.target.attributes.getNamedItem("href").value,
-        );
+        this.props.history.push(targetAttributes.getNamedItem("href").value);
+      } else if (
+        parentAttributes &&
+        parentAttributes.getNamedItem("rel") &&
+        parentAttributes.getNamedItem("rel").value === "internal"
+      ) {
+        evt.preventDefault();
+        this.props.history.push(parentAttributes.getNamedItem("href").value);
       }
     });
 
