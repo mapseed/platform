@@ -154,7 +154,7 @@
     "optimist": "^0.6.1",
     "prettier": "^1.13.4",
     "raf": "^3.4.1",
-    "s3-website": "github:mapseed/s3-website#ebac37a7a88a7066753b27528c56e5511813dadb",
+    "s3-website": "github:mapseed/s3-website#1cc73823eded520c4c85b5567abe41f32a910c68",
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.4",
     "spritesmith": "^3.3.0",
