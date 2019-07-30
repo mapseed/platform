@@ -391,7 +391,11 @@ const KittitasFireReadyReport = props => {
               </KittitasFireReadySectionHeader>
               <ReportBodyText>
                 Based on DNR data, the forest in your area is primarily made up
-                of <LargeText fontFamily="PTSans-Regular">{safeForestType}</LargeText>.{" "}
+                of{" "}
+                <LargeText fontFamily="PTSans-Regular">
+                  {safeForestType}
+                </LargeText>
+                .{" "}
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
@@ -465,9 +469,13 @@ const KittitasFireReadyReport = props => {
                 </LargeText>
                 . The average number of fire starts (including starts from human
                 activity and from lightning) per year in your area is{" "}
-                <LargeText fontFamily="PTSans-Regular">{safeAvgFireStarts}</LargeText>.
-                Since 1973,{" "}
-                <LargeText fontFamily="PTSans-Regular">{safeNumLargeFires}</LargeText>{" "}
+                <LargeText fontFamily="PTSans-Regular">
+                  {safeAvgFireStarts}
+                </LargeText>
+                . Since 1973,{" "}
+                <LargeText fontFamily="PTSans-Regular">
+                  {safeNumLargeFires}
+                </LargeText>{" "}
                 large wildfires have burned in your area.
               </ReportBodyText>
             </MainPanelSection>
@@ -640,12 +648,18 @@ const KittitasFireReadyReport = props => {
               <ReportBodyText>
                 The National Fire Protection Association recommends you think of
                 fire prevention in three ignition zones around your home:{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">Immediate</LargeText>,{" "}
+                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                  Immediate
+                </LargeText>
+                ,{" "}
                 <LargeText fontFamily="PTSans-Regular,sans-serif">
                   Intermediate
                 </LargeText>
                 , and{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">Extended</LargeText>.
+                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                  Extended
+                </LargeText>
+                .
               </ReportBodyText>
               <ReportBodyText>
                 {" "}
