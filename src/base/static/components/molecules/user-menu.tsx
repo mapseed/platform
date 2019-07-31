@@ -140,7 +140,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
   const [isMenuToggled, setIsMenuToggled] = React.useState<boolean>(false);
   const isMenuOpen = isMenuToggled || props.isInMobileMode;
 
-  const [t, _] = useTranslation(["signIn", "logOut", "signedInAs"]);
+  const [t, _] = useTranslation();
   if (props.currentUser.isAuthenticated) {
     // If user is logged in
     const isDashboard = props.pathname === "/dashboard";
@@ -193,7 +193,8 @@ const UserMenu: React.FunctionComponent<Props> = props => {
           )}
           <MenuItem>
             <div>
-              <SmallText>{t("signedInAs")}</SmallText> {props.currentUser.name}
+              <SmallText>{t("signedInAs", "Signed in as")}</SmallText>{" "}
+              {props.currentUser.name}
             </div>
             <ExternalLink
               css={{
@@ -205,7 +206,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
               }}
               href={`${props.apiRoot}users/logout/`}
             >
-              {t("logOut")}
+              {t("logOut", "Log out")}
             </ExternalLink>
           </MenuItem>
         </ul>
@@ -259,7 +260,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
               },
             })}
           >
-            {t("signIn")}
+            {t("signIn", "Sign In")}
           </Button>
         )}
         <ul css={menuStyles({ isMenuOpen, isLoggedIn: false })}>
