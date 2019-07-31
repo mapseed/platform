@@ -22,7 +22,7 @@ const KittitasFireReadyReportLargeTitle = props => (
   <ReportLargeTitle
     css={css`
       color: #444;
-      font-family: PTSans-Regular, sans-serif;
+      font-family: PTSans-Bold, sans-serif;
     `}
   >
     {props.children}
@@ -136,7 +136,7 @@ const KittitasFireReadyPageHeader = props => (
             font-weight: 900;
           `}
         >
-          Report location:
+          Approximate report location:
         </span>{" "}
         {props.address}
       </SmallText>
