@@ -107,7 +107,7 @@
           }
         },
         {
-          "header": "Overview by Stewardship Category",
+          "header": "Stewardship Practices Detail",
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
           "layout": {
@@ -178,7 +178,7 @@
             {
               "cells": [
                 {
-                  "value": "Residue & Tillage Management"
+                  "value": "Conventional Farming"
                 },
                 {
                   "value": [
@@ -189,23 +189,11 @@
                       "pre-2011"
                     ],
                     [
-                      "+",
-                      [
-                        "get-sum",
-                        "conventional_till_quantity",
-                        ["<", ["get-val", "conventional_till_datetime"], 2011]
-                      ],
-                      [
-                        "get-sum",
-                        "no_till_quantity",
-                        ["<", ["get-val", "no_till_datetime"], 2011]
-                      ]
+                      "get-sum",
+                      "conventional_till_quantity",
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
-                    [
-                      "+",
-                      ["get-sum", "conventional_till_quantity"],
-                      ["get-sum", "no_till_quantity"]
-                    ]
+                    ["get-sum", "conventional_till_quantity"]
                   ],
                   "label": "acres"
                 },
@@ -218,23 +206,11 @@
                       "pre-2011"
                     ],
                     [
-                      "+",
-                      [
-                        "get-sum",
-                        "conventional_till_quantity",
-                        ["<", ["get-val", "conventional_till_datetime"], 2011]
-                      ],
-                      [
-                        "get-sum",
-                        "no_till_quantity",
-                        ["<", ["get-val", "no_till_datetime"], 2011]
-                      ]
+                      "get-sum",
+                      "conventional_till_quantity",
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
-                    [
-                      "+",
-                      ["get-sum", "conventional_till_quantity"],
-                      ["get-sum", "no_till_quantity"]
-                    ]
+                    ["get-sum", "conventional_till_quantity"]
                   ],
                   "label": "acres"
                 },
@@ -247,23 +223,11 @@
                       "pre-2011"
                     ],
                     [
-                      "+",
-                      [
-                        "get-sum",
-                        "conventional_till_quantity",
-                        ["<", ["get-val", "conventional_till_datetime"], 2011]
-                      ],
-                      [
-                        "get-sum",
-                        "no_till_quantity",
-                        ["<", ["get-val", "no_till_datetime"], 2011]
-                      ]
+                      "get-sum",
+                      "conventional_till_quantity",
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
-                    [
-                      "+",
-                      ["get-sum", "conventional_till_quantity"],
-                      ["get-sum", "no_till_quantity"]
-                    ]
+                    ["get-sum", "conventional_till_quantity"]
                   ],
                   "label": "acres"
                 },
@@ -276,68 +240,122 @@
                       "pre-2011"
                     ],
                     [
-                      "+",
-                      [
-                        "get-sum",
-                        "conventional_till_quantity",
-                        ["<", ["get-val", "conventional_till_datetime"], 2011]
-                      ],
-                      [
-                        "get-sum",
-                        "no_till_quantity",
-                        ["<", ["get-val", "no_till_datetime"], 2011]
-                      ]
+                      "get-sum",
+                      "conventional_till_quantity",
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
-                    [
-                      "+",
-                      ["get-sum", "conventional_till_quantity"],
-                      ["get-sum", "no_till_quantity"]
-                    ]
+                    ["get-sum", "conventional_till_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 7004],
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Residue & Tillage Management",
+                  "label": "No-Till/Direct Seed/2-Pass"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      ["<", ["get-val", "no_till_datetime"], 2011]
+                    ],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      ["<", ["get-val", "no_till_datetime"], 2011]
+                    ],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      ["<", ["get-val", "no_till_datetime"], 2011]
+                    ],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      ["<", ["get-val", "no_till_datetime"], 2011]
+                    ],
+                    ["get-sum", "no_till_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 4200],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    [
-                      "<=",
-                      [
-                        "+",
-                        ["get-sum", "conventional_till_quantity"],
-                        ["get-sum", "no_till_quantity"]
-                      ],
-                      ["*", 0.7, 7004]
-                    ],
+                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 4200]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    [
-                      "<",
-                      [
-                        "+",
-                        ["get-sum", "conventional_till_quantity"],
-                        ["get-sum", "no_till_quantity"]
-                      ],
-                      7004
-                    ],
+                    ["<", ["get-sum", "no_till_quantity"], 4200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [
-                      ">=",
-                      [
-                        "+",
-                        ["get-sum", "conventional_till_quantity"],
-                        ["get-sum", "no_till_quantity"]
-                      ],
-                      7004
-                    ],
+                    [">=", ["get-sum", "no_till_quantity"], 4200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 20018],
+                  "value": ["literal", 9700],
                   "label": "Acres"
                 },
                 {
@@ -350,7 +368,7 @@
                         ["get-sum", "conventional_till_quantity"],
                         ["get-sum", "no_till_quantity"]
                       ],
-                      ["*", 0.7, 20018]
+                      ["*", 0.7, 9700]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
@@ -360,7 +378,7 @@
                         ["get-sum", "conventional_till_quantity"],
                         ["get-sum", "no_till_quantity"]
                       ],
-                      20018
+                      9700
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
@@ -370,7 +388,7 @@
                         ["get-sum", "conventional_till_quantity"],
                         ["get-sum", "no_till_quantity"]
                       ],
-                      20018
+                      9700
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
