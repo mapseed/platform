@@ -40,8 +40,8 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#e57c04",
-        "titleFontFamily": "Raleway,sans-serif",
-        "bodyFontFamily": "Raleway,sans-serif"
+        "titleFontFamily": "Raleway-ExtraBold,sans-serif",
+        "bodyFontFamily": "Raleway-Regular,sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#e57c04",
@@ -534,7 +534,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 3400],
+                  "value": ["literal", 4200],
                   "label": "Acres"
                 },
                 {
@@ -542,9 +542,9 @@
                     "case",
                     ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 3400]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "no_till_quantity"], 3400],
+                    ["<", ["get-sum", "no_till_quantity"], 4200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "no_till_quantity"], 3400],
+                    [">=", ["get-sum", "no_till_quantity"], 4200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2619,7 +2619,7 @@
               "cells": [
                 {
                   "value": "Fish & Wildlife Management",
-                  "label": "Convervation Cover"
+                  "label": "Conservation Cover"
                 },
                 {
                   "value": [

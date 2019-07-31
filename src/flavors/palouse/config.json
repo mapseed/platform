@@ -40,8 +40,8 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#e57c04",
-        "titleFontFamily": "Raleway,sans-serif",
-        "bodyFontFamily": "Raleway,sans-serif"
+        "titleFontFamily": "Raleway-ExtraBold,sans-serif",
+        "bodyFontFamily": "Raleway-Regular,sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#e57c04",
@@ -1646,7 +1646,7 @@
               "cells": [
                 {
                   "value": "Habitat Management",
-                  "label": "Weed Control"
+                  "label": "Herbaceous Weed Control"
                 },
                 {
                   "value": [
