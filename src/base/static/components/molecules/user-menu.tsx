@@ -13,6 +13,8 @@ import {
 import { Button } from "../atoms/buttons";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "@emotion/styled";
+
+import { Mixpanel } from "../../utils/mixpanel";
 import {
   DashboardsConfig,
   dashboardConfigSelector,
@@ -71,7 +73,7 @@ const menuStyles = ({
     position: "absolute",
     top: "4.125em",
     right: "1em",
-    // zIndex: "2",  // is z-index valid under a media query?
+    zIndex: 2,
 
     "&:before": {
       content: '""',
@@ -165,9 +167,9 @@ const UserMenu: React.FunctionComponent<Props> = props => {
                 display: "none",
               },
 
-              // [mq[1]]: {
-              //   zIndex: "1",  // z-index not valid under media query?
-              // },
+              [mq[1]]: {
+                zIndex: 1,
+              },
             }}
             alt="profile picture"
             onClick={() => setIsMenuToggled(isMenuOpen => !isMenuOpen)}
@@ -206,6 +208,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
                 width: "100%",
               }}
               href={`${props.apiRoot}users/logout/`}
+              onClick={() => Mixpanel.track("Clicked logout button")}
             >
               {t("logOut", "Log out")}
             </ExternalLink>
@@ -257,7 +260,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
                 lineHeight: "1.5",
                 padding: "0.5em",
                 position: "relative",
-                zIndex: "3",
+                zIndex: 3,
               },
             })}
           >
@@ -269,18 +272,29 @@ const UserMenu: React.FunctionComponent<Props> = props => {
             <SocialLoginButton
               service={"google"}
               href={`${props.apiRoot}users/login/google-oauth2/`}
+              onClick={() =>
+                Mixpanel.track("Clicked login button", {
+                  service: "google-oauth2",
+                })
+              }
             >
               Google
             </SocialLoginButton>
             <SocialLoginButton
               service={"twitter"}
               href={`${props.apiRoot}users/login/twitter/`}
+              onClick={() =>
+                Mixpanel.track("Clicked login button", { service: "twitter" })
+              }
             >
               Twitter
             </SocialLoginButton>
             <SocialLoginButton
               service={"facebook"}
               href={`${props.apiRoot}users/login/facebook/`}
+              onClick={() =>
+                Mixpanel.track("Clicked login button", { service: "facebook" })
+              }
             >
               Facebook
             </SocialLoginButton>
