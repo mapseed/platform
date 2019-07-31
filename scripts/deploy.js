@@ -112,10 +112,12 @@ function updateMetadata() {
     )
     .concat(
       glob
-        .sync("./www/static/css/images/markers/spritesheet*")
+        // Assets that should not be cached, because asset names never change
+        // but the file contents do.
+        .sync(
+          "{./www/static/css/images/markers/spritesheet*,./www/index.html,./www/config.js}",
+        )
         .map(filepath => {
-          // Don't cache spritesheet assets, as they are often updated but the
-          // filename never changes.
           filepath = path.relative("./www", filepath);
           params = {
             CacheControl: "no-cache, must-revalidate, max-age=0",
