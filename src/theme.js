@@ -5,27 +5,23 @@ export const globalStyles = theme => css`
   // We support five fonts that can be used throughout Mapseed flavors.
   @font-face {
     font-family: "Raleway-Light";
-    src: url("https://fonts.googleapis.com/css?family=Raleway:300&display=swap")
-      format("woff2");
-    font-weight: normal;
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-Light.ttf");
   }
   @font-face {
     font-family: "Raleway-Regular";
-    src: url("https://fonts.googleapis.com/css?family=Raleway:500&display=swap")
-      format("woff2");
-    font-weight: normal;
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-Regular.ttf");
+  }
+  @font-face {
+    font-family: "Raleway-ExtraBold";
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-ExtraBold.ttf");
   }
   @font-face {
     font-family: "PTSans-Regular";
-    src: url("https://fonts.googleapis.com/css?family=PT+Sans:400&display=swap")
-      format("woff2");
-    font-weight: normal;
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/PTSans-Regular.ttf");
   }
   @font-face {
     font-family: "PTSans-Bold";
-    src: url("https://fonts.googleapis.com/css?family=PT+Sans:700&display=swap")
-      format("woff2");
-    font-weight: normal;
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/PTSans-Bold.ttf");
   }
   // These styles are intended to mimic the styling of our Atoms on custom
   // pages.

@@ -44,7 +44,7 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#e57c04",
-        "titleFontFamily": "Raleway-Regular,sans-serif",
+        "titleFontFamily": "Raleway-ExtraBold,sans-serif",
         "bodyFontFamily": "Raleway-Light,sans-serif",
         "navBarFontFamily": "PTSans-Regular, sans-serif"
       },
@@ -1350,7 +1350,7 @@
           {
             "name": "large_fires_header",
             "type": "informational_html",
-            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:Raleway-Regular,sans-serif;'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;font-family:Raleway-Regular,sans-serif;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>The Taylor Bridge Fire burns in 2012.</figcaption></figure>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);'>Kittitas County:</h1><h2 style='font-family:Raleway-ExtraBold,sans-serif;border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>The Taylor Bridge Fire burns in 2012.</figcaption></figure>"
           },
           {
             "name": "private-landowner_email",
@@ -1367,7 +1367,7 @@
           {
             "name": "forest_type_header",
             "type": "informational_html",
-            "content": "<h1 style='font-family:Raleway;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Changing Forest Conditions</h1>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Changing Forest Conditions</h1>"
           },
           {
             "name": "forest_type_information",
@@ -1377,7 +1377,7 @@
           {
             "name": "fire_risk_header",
             "type": "informational_html",
-            "content": "<h1 style='font-family:Raleway;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Kittitas County Wildfire Risk</h1>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Kittitas County Wildfire Risk</h1>"
           },
           {
             "name": "fire_risk_information",
@@ -1387,7 +1387,7 @@
           {
             "name": "fire_resources_header",
             "type": "informational_html",
-            "content": "<h1 style='font-family:Raleway;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom:8px;'>Kittitas County Fire Resources</h1><figure style='margin: 16px 0 24px 0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption></figure>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom:8px;'>Kittitas County Fire Resources</h1><figure style='margin: 16px 0 24px 0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption></figure>"
           },
           {
             "name": "private-address",
@@ -1568,11 +1568,10 @@
           {
             "name": "landowner_information_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Almost Done!</h2>"
+            "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Almost Done!</h2>"
           },
           {
             "name": "private-final_address",
-            "hidden_default": true,
             "type": "geocoding",
             "optional": true
           },
@@ -1647,7 +1646,7 @@
     "common_form_elements": {
       "fire_resiliency_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Your Path to Wildfire Resilience</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Your Path to Wildfire Resilience</h2>"
       },
       "fire_resiliency_information": {
         "type": "informational_html",
@@ -1655,7 +1654,7 @@
       },
       "immediate_zone_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Immediate Zone Actions</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Immediate Zone Actions</h2>"
       },
       "immediate_zone_information": {
         "type": "informational_html",
@@ -1663,7 +1662,7 @@
       },
       "intermediate_zone_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Intermediate Zone Actions</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Intermediate Zone Actions</h2>"
       },
       "intermediate_zone_information": {
         "type": "informational_html",
@@ -1671,7 +1670,7 @@
       },
       "extended_zone_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Extended Zone Actions</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Extended Zone Actions</h2>"
       },
       "extended_zone_information": {
         "type": "informational_html",
@@ -1679,7 +1678,7 @@
       },
       "evacuation_plan_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Emergency and Evacuation Planning</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Emergency and Evacuation Planning</h2>"
       },
       "clean_roofs": {
         "type": "big_radio",
