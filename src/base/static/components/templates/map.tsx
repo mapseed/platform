@@ -435,9 +435,7 @@ class MapTemplate extends Component<Props, State> {
 
 type MapseedReduxState = any;
 
-const mapStateToProps = (
-  state: MapseedReduxState,
-): StateProps => ({
+const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
     hasAnonAbilitiesInAnyDataset({
