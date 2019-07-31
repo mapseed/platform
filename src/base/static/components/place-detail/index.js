@@ -354,7 +354,8 @@ class PlaceDetail extends Component {
             createdDatetime={this.props.focusedPlace.created_datetime}
             submitterName={submitterName}
             submitterAvatarUrl={
-              this.props.focusedPlace.submitter
+              this.props.focusedPlace.submitter &&
+              this.props.focusedPlace.submitter.avatar_url
                 ? this.props.focusedPlace.submitter.avatar_url
                 : undefined
             }

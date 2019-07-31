@@ -73,6 +73,7 @@ const UserAvatar = styled(props => {
       src={avatarSrc}
       className={props.className}
       onError={() => setAvatarSrc("/static/css/images/user-50.png")}
+      onClick={props.onClick}
     />
   );
 })(props => {
@@ -103,6 +104,7 @@ const UserAvatar = styled(props => {
 UserAvatar.propTypes = {
   size: PropTypes.string,
   src: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 UserAvatar.defaultProps = {

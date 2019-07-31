@@ -2,6 +2,7 @@
 import * as React from "react";
 import { jsx, css, InterpolationWithTheme } from "@emotion/core";
 import { useTranslation } from "react-i18next";
+import { UserAvatar } from "../atoms/imagery";
 import { connect } from "react-redux";
 import {
   InternalLink,
@@ -148,7 +149,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
       <MenuContainer role="article" isMobileEnabled={props.isMobileEnabled}>
         {/* TODO: Fix this to use UserAvatar: */}
         {!props.isInMobileMode && (
-          <img
+          <UserAvatar
             css={{
               float: "right",
               width: "2.7em",
@@ -168,7 +169,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
               //   zIndex: "1",  // z-index not valid under media query?
               // },
             }}
-            alt="user profile picture"
+            alt="profile picture"
             onClick={() => setIsMenuToggled(isMenuOpen => !isMenuOpen)}
             src={props.currentUser.avatar_url}
           />
