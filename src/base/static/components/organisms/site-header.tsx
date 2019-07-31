@@ -23,10 +23,6 @@ import {
   appConfigPropType,
 } from "../../state/ducks/app-config";
 import { mapConfigSelector, MapConfig } from "../../state/ducks/map";
-import {
-  dashboardConfigSelector,
-  DashboardConfig,
-} from "../../state/ducks/dashboard-config";
 import { currentTemplateSelector, resetUi } from "../../state/ducks/ui";
 import {
   isLeftSidebarExpandedSelector,
@@ -181,7 +177,6 @@ const navItemMappings = {
 type ComponentPropTypes = {
   appConfig: PropTypes.InferProps<typeof appConfigPropType>;
   navBarConfig: PropTypes.InferProps<typeof navBarConfigPropType>;
-  dashboardConfig: DashboardConfig;
 };
 
 type DispatchProps = {
@@ -214,10 +209,11 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
   const [isLanguageMenuVisible, setIsLanguageMenuVisible] = React.useState<
     boolean
   >(false); // relevant on desktop layouts
+
+  // hack to expand the header on mobile layouts, to accommodate a side menu drawer:
   const [isHeaderExpanded, setIsHeaderExpanded] = React.useState<boolean>(
     false,
-  ); // relevant on mobile layouts
-  const [isUserMenuOpen, setIsUserMenuOpen] = React.useState<boolean>(false);
+  );
 
   const defaultMapViewport = props.mapConfig.defaultMapViewport;
   return (
@@ -299,23 +295,21 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
       </div>
       <nav
         aria-label="navigation header"
-        css={
-          {
-            [mq[0]]: {
-              display: isHeaderExpanded ? "flex" : "none",
-              flexDirection: "column",
-              width: "100%",
-              marginTop: "16px",
-              alignItems: "stretch",
-            },
-            [mq[1]]: {
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              marginLeft: "25px",
-            },
-          } as any
-        }
+        css={{
+          [mq[0]]: {
+            display: isHeaderExpanded ? "flex" : "none",
+            flexDirection: "column",
+            width: "100%",
+            marginTop: "16px",
+            alignItems: "stretch",
+          },
+          [mq[1]]: {
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            marginLeft: "25px",
+          },
+        }}
       >
         {props.navBarConfig.map((navBarItem, i) => {
           const NavItemComponent = navItemMappings[navBarItem.type];
@@ -459,10 +453,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
           apiRoot={props.appConfig.api_root}
           isInMobileMode={isHeaderExpanded}
           isMobileEnabled={!!props.appConfig.isShowingMobileUserMenu}
-          toggleMenu={() => setIsUserMenuOpen(prevState => !prevState)}
-          isMenuOpen={isUserMenuOpen || isHeaderExpanded}
           pathname={props.history.location.pathname}
-          dashboardConfig={props.dashboardConfig}
         />
       </div>
     </header>
@@ -475,7 +466,6 @@ const mapStateToProps = state => ({
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
-  dashboardConfig: dashboardConfigSelector(state),
 });
 
 const mapDispatchToProps = {

@@ -221,10 +221,10 @@ class App extends React.Component<Props, State> {
     const user = authedUser
       ? {
           token: `user:${authedUser.id}`,
-          // avatar_url and `name` are backup values that can get overidden:
-          avatar_url: "/static/css/images/user-50.png",
           name: authedUser.username,
           ...authedUser,
+          // avatar_url and `name` are backup values that can get overidden:
+          avatar_url: authedUser.avatar_url || "/static/css/images/user-50.png",
           isAuthenticated: true,
           isLoaded: true,
         }
