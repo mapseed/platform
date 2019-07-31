@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import { Expression } from "../../utils/expression/parse";
 
 export type ChartLayout = {
@@ -117,4 +115,4 @@ type DashboardConfig = {
 export type DashboardsConfig = DashboardConfig[];
 
 export const loadDashboardConfig: any;
-export const dashboardConfigSelector: any;
+export const dashboardConfigSelector: (state: any) => DashboardsConfig;

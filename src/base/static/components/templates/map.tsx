@@ -437,7 +437,6 @@ type MapseedReduxState = any;
 
 const mapStateToProps = (
   state: MapseedReduxState,
-  ownProps: OwnProps,
 ): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
