@@ -40,8 +40,8 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#61974b",
-        "titleFontFamily": "Raleway,sans-serif",
-        "bodyFontFamily": "Raleway,sans-serif"
+        "titleFontFamily": "Raleway-ExtraBold,sans-serif",
+        "bodyFontFamily": "Raleway-Regular,sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#61974b",
