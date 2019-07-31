@@ -295,23 +295,21 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
       </div>
       <nav
         aria-label="navigation header"
-        css={
-          {
-            [mq[0]]: {
-              display: isHeaderExpanded ? "flex" : "none",
-              flexDirection: "column",
-              width: "100%",
-              marginTop: "16px",
-              alignItems: "stretch",
-            },
-            [mq[1]]: {
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              marginLeft: "25px",
-            },
-          } as any
-        }
+        css={{
+          [mq[0]]: {
+            display: isHeaderExpanded ? "flex" : "none",
+            flexDirection: "column",
+            width: "100%",
+            marginTop: "16px",
+            alignItems: "stretch",
+          },
+          [mq[1]]: {
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            marginLeft: "25px",
+          },
+        }}
       >
         {props.navBarConfig.map((navBarItem, i) => {
           const NavItemComponent = navItemMappings[navBarItem.type];
