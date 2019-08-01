@@ -86,7 +86,6 @@ browserUpdate({
 
 const isFetchingTranslation = {};
 
-
 const Fallback = () => {
   return <Spinner />;
 };
