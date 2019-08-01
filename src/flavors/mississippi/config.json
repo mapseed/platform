@@ -331,7 +331,7 @@
             "source": "MissNoDriftless",
             "paint": {
               "fill-color": "#ecf7eb",
-              "fill-opacity":  [
+              "fill-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
