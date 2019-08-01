@@ -48,13 +48,10 @@ const MapRadioMenu: React.FunctionComponent<Props> = ({
     )!,
   );
 
-  React.useEffect(
-    () => {
-      const layer = layers.find(layer => layer.id === radioMenuConfig.layerId)!;
-      updateLayerAggregators(layer.id, [selectedOption.aggregator!]);
-    },
-    [radioMenuConfig.layerId, selectedOption],
-  );
+  React.useEffect(() => {
+    const layer = layers.find(layer => layer.id === radioMenuConfig.layerId)!;
+    updateLayerAggregators(layer.id, [selectedOption.aggregator!]);
+  }, [radioMenuConfig.layerId, selectedOption]);
 
   const handleChange = (event: React.ChangeEvent<unknown>): void => {
     const selectedOptionId = (event.target as HTMLInputElement).value;

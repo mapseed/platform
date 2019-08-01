@@ -59,113 +59,99 @@ const GeocodingField: React.FunctionComponent<Props> = ({
   >(false);
   const isMounted = React.useRef<boolean>(true);
 
-  const doGeocode = React.useCallback(
-    () => {
-      setIsGeocoding(true);
-      setIsWithGeocodingError(false);
+  const doGeocode = React.useCallback(() => {
+    setIsGeocoding(true);
+    setIsWithGeocodingError(false);
 
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-        value,
-      )}.json?access_token=${MAP_PROVIDER_TOKEN}${
-        geocodeHint ? "&proximity=" + geocodeHint.join(",") : ""
-      }${geocodeBoundingBox ? "&bbox=" + geocodeBoundingBox.join(",") : ""}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+      value,
+    )}.json?access_token=${MAP_PROVIDER_TOKEN}${
+      geocodeHint ? "&proximity=" + geocodeHint.join(",") : ""
+    }${geocodeBoundingBox ? "&bbox=" + geocodeBoundingBox.join(",") : ""}`;
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const locationGeometry =
-            data.features && data.features[0] && data.features[0].geometry;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const locationGeometry =
+          data.features && data.features[0] && data.features[0].geometry;
 
-          if (locationGeometry && isMounted.current) {
-            setIsGeocoding(false);
-            setIsWithGeocodingError(false);
+        if (locationGeometry && isMounted.current) {
+          setIsGeocoding(false);
+          setIsWithGeocodingError(false);
 
-            eventEmitter.emit("setMapViewport", {
-              latitude: locationGeometry.coordinates[1],
-              longitude: locationGeometry.coordinates[0],
-              zoom: 14,
-              transitionDuration: 1000,
-            });
-          } else if (isMounted.current) {
-            setIsGeocoding(false);
-            setIsWithGeocodingError(true);
-          }
-        })
-        .catch(err => {
-          if (isMounted.current) {
-            setIsGeocoding(false);
-            setIsWithGeocodingError(true);
-          }
+          eventEmitter.emit("setMapViewport", {
+            latitude: locationGeometry.coordinates[1],
+            longitude: locationGeometry.coordinates[0],
+            zoom: 14,
+            transitionDuration: 1000,
+          });
+        } else if (isMounted.current) {
+          setIsGeocoding(false);
+          setIsWithGeocodingError(true);
+        }
+      })
+      .catch(err => {
+        if (isMounted.current) {
+          setIsGeocoding(false);
+          setIsWithGeocodingError(true);
+        }
 
-          // eslint-disable-next-line no-console
-          console.error("There was an error while geocoding: ", err);
-        });
-    },
-    [value, geocodeBoundingBox, geocodeHint],
-  );
+        // eslint-disable-next-line no-console
+        console.error("There was an error while geocoding: ", err);
+      });
+  }, [value, geocodeBoundingBox, geocodeHint]);
 
   // Reverse geocode on map viewport change.
-  React.useEffect(
-    () => {
-      // Only reverse geocode when the map has come to rest.
-      if (!reverseGeocode || isMapDraggingOrZooming) {
-        return;
-      }
+  React.useEffect(() => {
+    // Only reverse geocode when the map has come to rest.
+    if (!reverseGeocode || isMapDraggingOrZooming) {
+      return;
+    }
 
-      setIsGeocoding(true);
+    setIsGeocoding(true);
 
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${
-        mapViewport.longitude
-      },${mapViewport.latitude}.json?access_token=${MAP_PROVIDER_TOKEN}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${mapViewport.longitude},${mapViewport.latitude}.json?access_token=${MAP_PROVIDER_TOKEN}`;
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const placeName =
-            // eslint-disable-next-line @typescript-eslint/camelcase
-            data.features && data.features[0] && data.features[0].place_name;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const placeName =
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          data.features && data.features[0] && data.features[0].place_name;
 
-          if (placeName && isMounted.current) {
-            setIsGeocoding(false);
-            setIsWithGeocodingError(false);
-            onChange(name, placeName);
-          } else if (isMounted.current) {
-            setIsGeocoding(false);
-            setIsWithGeocodingError(true);
-          }
-        })
-        .catch(err => {
-          if (isMounted.current) {
-            setIsGeocoding(false);
-            setIsWithGeocodingError(true);
-          }
-
-          // eslint-disable-next-line no-console
-          console.error("There was an error while reverse geocoding: ", err);
-        });
-    },
-    [mapViewport, isMapDraggingOrZooming],
-  );
-
-  React.useEffect(
-    () => {
-      if (isTriggeringGeocode) {
-        doGeocode();
-      }
-    },
-    [isTriggeringGeocode, doGeocode],
-  );
-
-  React.useEffect(
-    () => {
-      if (isWithGeocodingError) {
-        setTimeout(() => {
+        if (placeName && isMounted.current) {
+          setIsGeocoding(false);
           setIsWithGeocodingError(false);
-        }, 5000);
-      }
-    },
-    [isWithGeocodingError],
-  );
+          onChange(name, placeName);
+        } else if (isMounted.current) {
+          setIsGeocoding(false);
+          setIsWithGeocodingError(true);
+        }
+      })
+      .catch(err => {
+        if (isMounted.current) {
+          setIsGeocoding(false);
+          setIsWithGeocodingError(true);
+        }
+
+        // eslint-disable-next-line no-console
+        console.error("There was an error while reverse geocoding: ", err);
+      });
+  }, [mapViewport, isMapDraggingOrZooming]);
+
+  React.useEffect(() => {
+    if (isTriggeringGeocode) {
+      doGeocode();
+    }
+  }, [isTriggeringGeocode, doGeocode]);
+
+  React.useEffect(() => {
+    if (isWithGeocodingError) {
+      setTimeout(() => {
+        setIsWithGeocodingError(false);
+      }, 5000);
+    }
+  }, [isWithGeocodingError]);
 
   React.useEffect(() => {
     return () => {
