@@ -773,15 +773,15 @@
                 "match",
                 ["get", "location_type"],
                 "geology",
-                "Geology.png",
+                "geology.png",
                 "history",
-                "History.png",
+                "history.png",
                 "industry",
-                "Industry.png",
+                "industry.png",
                 "culture",
-                "Culture.png",
+                "culture.png",
                 "ecology",
-                "Ecology.png",
+                "ecology.png",
                 "__no-icon-image__"
               ]
             }
@@ -803,15 +803,15 @@
                   "match",
                   ["get", "location_type"],
                   "geology",
-                  "Geology.png",
+                  "geology.png",
                   "history",
-                  "History.png",
+                  "history.png",
                   "industry",
-                  "Industry.png",
+                  "industry.png",
                   "culture",
-                  "Culture.png",
+                  "culture.png",
                   "ecology",
-                  "Ecology.png",
+                  "ecology.png",
                   "__no-icon-image__"
                 ],
                 10,
@@ -819,15 +819,15 @@
                   "match",
                   ["get", "location_type"],
                   "geology",
-                  "Geology.png",
+                  "geology.png",
                   "history",
-                  "History.png",
+                  "history.png",
                   "industry",
-                  "Industry.png",
+                  "industry.png",
                   "culture",
-                  "Culture.png",
+                  "culture.png",
                   "ecology",
-                  "Ecology.png",
+                  "ecology.png",
                   "__no-icon-image__"
                 ]
               ]
@@ -978,7 +978,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Geology.png",
+        "icon_url": "/static/css/images/markers/geology.png",
         "value": "geology",
         "label": "Geology",
         "fields": [
@@ -1026,7 +1026,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/History.png",
+        "icon_url": "/static/css/images/markers/history.png",
         "value": "history",
         "label": "History",
         "fields": [
@@ -1073,7 +1073,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Industry.png",
+        "icon_url": "/static/css/images/markers/industry.png",
         "value": "industry",
         "label": "Industry",
         "fields": [
@@ -1121,7 +1121,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Culture.png",
+        "icon_url": "/static/css/images/markers/culture.png",
         "value": "culture",
         "label": "Culture",
         "fields": [
@@ -1168,7 +1168,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mississippi-input",
-        "icon_url": "/static/css/images/markers/Ecology.png",
+        "icon_url": "/static/css/images/markers/ecology.png",
         "value": "ecology",
         "label": "Ecology",
         "fields": [
@@ -1383,31 +1383,31 @@
         "id": "geology",
         "datasetId": "mississippi-input",
         "label": "Observation",
-        "icon": "/static/css/images/markers/Geology.png"
+        "icon": "/static/css/images/markers/geology.png"
       },
       {
         "id": "culture",
         "datasetId": "mississippi-input",
         "label": "Question",
-        "icon": "/static/css/images/markers/Culture.png"
+        "icon": "/static/css/images/markers/culture.png"
       },
       {
         "id": "history",
         "datasetId": "mississippi-input",
         "label": "History",
-        "icon": "/static/css/images/markers/History.png"
+        "icon": "/static/css/images/markers/history.png"
       },
       {
         "id": "industry",
         "datasetId": "mississippi-input",
         "label": "Complaint",
-        "icon": "/static/css/images/markers/Industry.png"
+        "icon": "/static/css/images/markers/industry.png"
       },
       {
         "id": "ecology",
         "datasetId": "mississippi-input",
         "label": "Ecology",
-        "icon": "/static/css/images/markers/Ecology.png"
+        "icon": "/static/css/images/markers/ecology.png"
       }
     ]
   },
@@ -1543,7 +1543,7 @@
         "placeId": 7531,
         "pan_to": [-90.65, 39.65],
         "zoom": 5,
-        "iconUrl": "/static/css/images/markers/Nitrogen.png",
+        "iconUrl": "/static/css/images/markers/nitrogen.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "nitrogen-plants-group",
