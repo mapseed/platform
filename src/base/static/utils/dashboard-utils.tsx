@@ -51,8 +51,8 @@ const defaultTooltipFormatter = (value, name, props) => {
 };
 
 const tooltipCountPercentFormatter = (value, name, props) => {
-  return `${props.places.value} (${(
-    (props.places.value / props.payload.totalPlaces) *
+  return `${props.payload.value} (${(
+    (props.payload.value / props.payload.totalPlaces) *
     100
   ).toFixed(0)}%)`;
 };

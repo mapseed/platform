@@ -22,24 +22,21 @@ type Props = OwnProps & StateProps;
 const LngLatField: React.FunctionComponent<Props> = props => {
   const isFirstUpdate = React.useRef(true);
 
-  React.useEffect(
-    () => {
-      if (isFirstUpdate.current) {
-        isFirstUpdate.current = false;
-        return;
-      }
+  React.useEffect(() => {
+    if (isFirstUpdate.current) {
+      isFirstUpdate.current = false;
+      return;
+    }
 
-      if (props.isMapTransitioning) {
-        return;
-      }
+    if (props.isMapTransitioning) {
+      return;
+    }
 
-      props.onChange(props.name, [
-        props.mapViewport.longitude,
-        props.mapViewport.latitude,
-      ]);
-    },
-    [props.mapViewport],
-  );
+    props.onChange(props.name, [
+      props.mapViewport.longitude,
+      props.mapViewport.latitude,
+    ]);
+  }, [props.mapViewport]);
 
   return null;
 };

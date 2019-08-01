@@ -123,6 +123,7 @@ class MapseedLineChart extends React.Component<LineChartProps> {
         height={this.props.layout.height ? this.props.layout.height - 75 : 250}
         css={css`
           margin: auto;
+          font-family: PTSans-Regular, sans-serif;
         `}
       >
         <LineChart margin={{ bottom: 24, top: 36 }} data={this.props.data}>

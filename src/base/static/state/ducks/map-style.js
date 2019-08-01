@@ -412,9 +412,7 @@ const INITIAL_STATE = {
     version: 8,
     name: "Mapseed",
     glyphs: "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
-    sprite: `${window.location.protocol}//${
-      window.location.host
-    }/static/css/images/markers/spritesheet`,
+    sprite: `${window.location.protocol}//${window.location.host}/static/css/images/markers/spritesheet`,
     sources: {},
   },
   layers: [],

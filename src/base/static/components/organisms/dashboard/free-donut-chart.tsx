@@ -1,5 +1,7 @@
-import PropTypes from "prop-types";
+/** @jsx jsx */
 import * as React from "react";
+import PropTypes from "prop-types";
+import { jsx, css } from "@emotion/core";
 import lodashGroupBy from "lodash.groupby";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 
@@ -78,7 +80,13 @@ class FreeDonutChart extends React.Component<FreeDonutChartProps> {
 
   render() {
     return (
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer
+        css={css`
+          font-family: PTSans-Regular, sans-serif;
+        `}
+        width="100%"
+        height={300}
+      >
         <PieChart>
           <Pie
             isAnimationActive={false}

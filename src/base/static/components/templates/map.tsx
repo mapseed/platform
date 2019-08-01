@@ -258,7 +258,8 @@ class MapTemplate extends Component<Props, State> {
     if (
       this.props.layout !== prevProps.layout ||
       this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
-      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
+      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible ||
+      this.props.isAddPlaceButtonVisible !== prevProps.isAddPlaceButtonVisible
     ) {
       this.recalculateContainerSize();
     }
@@ -435,10 +436,7 @@ class MapTemplate extends Component<Props, State> {
 
 type MapseedReduxState = any;
 
-const mapStateToProps = (
-  state: MapseedReduxState,
-  ownProps: OwnProps,
-): StateProps => ({
+const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
     hasAnonAbilitiesInAnyDataset({

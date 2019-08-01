@@ -3,10 +3,6 @@
  * All rules herein will override the default Shareabouts styles.
  * NOTE: "With great power comes great responsibility."
  */
-body {
-  font-family: PTSans, sans-serif !important;
-}
-
 header {
   border-top: 3px solid #ef5f46;
 }
@@ -27,6 +23,10 @@ header {
   &:hover {
     background-color: #93b7c9;
   }
+}
+
+[data-field-name="private-final_address"] {
+  display: none !important;
 }
 
 [data-field-type="datetime"],
@@ -102,6 +102,7 @@ header {
 }
 
 [data-field-type="informational_html"] {
+  border: 0 !important;
   padding: 0 !important;
 }
 

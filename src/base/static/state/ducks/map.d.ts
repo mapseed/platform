@@ -99,6 +99,7 @@ export type MapSourcesLoadStatus = {
 };
 
 export const mapConfigSelector: any;
+export const offlineConfigSelector: (state: any) => OfflineConfig;
 export const mapViewportSelector: (state: any) => MapViewport;
 export const loadMapConfig: (mapConfig: MapConfig) => void;
 export const geocodeAddressBarEnabledSelector: any;

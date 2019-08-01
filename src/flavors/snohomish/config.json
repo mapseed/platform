@@ -49,8 +49,9 @@
         "primary": "#fff",
         "secondary": "#fff",
         "tertiary": "#02440c",
-        "navBarFontFamily": "lithos,sans-serif",
+        "navBarFontFamily": "Roboto,sans-serif",
         "bodyFontFamily": "Roboto, sans-serif",
+        "titleFontFamily": "Raleway-Regular",
         "textTransform": "uppercase"
       },
       "bg": {

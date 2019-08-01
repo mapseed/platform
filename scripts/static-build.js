@@ -7,7 +7,6 @@ const glob = require("glob");
 const colors = require("colors");
 const Spritesmith = require("spritesmith");
 const shell = require("shelljs");
-const zlib = require("zlib");
 
 const {
   setConfigDefaults,
@@ -45,9 +44,9 @@ let jsHashedBundleName, cssHashedBundleName;
 glob.sync(outputPath + "/+(*.main.bundle.js|*.bundle.css)").forEach(path => {
   path = path.split("/");
   if (path[path.length - 1].endsWith("js")) {
-    jsHashedBundleName = path[path.length - 1] + ".gz";
+    jsHashedBundleName = path[path.length - 1];
   } else if (path[path.length - 1].endsWith("css")) {
-    cssHashedBundleName = path[path.length - 1] + ".gz";
+    cssHashedBundleName = path[path.length - 1];
   }
 });
 
@@ -166,26 +165,11 @@ const outputIndexFile = indexTemplate({
 });
 
 // Write out the localized config file.
-fs.writeFileSync(
-  path.resolve(outputPath, `config.js`),
-  process.env.NODE_ENV === "production"
-    ? zlib.gzipSync(JSON.stringify(config))
-    : JSON.stringify(config),
-);
+fs.writeFileSync(path.resolve(outputPath, `config.js`), JSON.stringify(config));
 
 // Write out final xx.html file
 const outputIndexFilename = path.resolve(outputPath, "index.html");
-
-if (isProd) {
-  try {
-    fs.writeFileSync(outputIndexFilename, zlib.gzipSync(outputIndexFile));
-  } catch (e) {
-    logError("Error gzipping and outputting index file: " + e);
-    throw e;
-  }
-} else {
-  fs.writeFileSync(outputIndexFilename, outputIndexFile);
-}
+fs.writeFileSync(outputIndexFilename, outputIndexFile);
 
 // (6) Move static image assets to the dist/ folder. Copy base project assets
 //     first, then copy flavor assets, overriding base assets as needed
@@ -215,26 +199,6 @@ try {
   logError("Error copying flavor image assets: " + e);
   throw e;
 }
-
-// Copy font files
-const baseFontsDir = path.resolve(__dirname, "../src/base");
-let fontPaths = glob
-  .sync(flavorBasePath + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)")
-  .concat(
-    glob.sync(baseFontsDir + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"),
-  );
-
-fontPaths.forEach(fontPath => {
-  try {
-    fs.copySync(
-      fontPath,
-      path.resolve(outputPath, "static/css", fontPath.split("/").slice(-1)[0]),
-    );
-  } catch (e) {
-    logError("Error copying font file: " + e);
-    throw e;
-  }
-});
 
 try {
   fs.copySync(

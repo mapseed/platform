@@ -22,7 +22,7 @@ const KittitasFireReadyReportLargeTitle = props => (
   <ReportLargeTitle
     css={css`
       color: #444;
-      font-family: PTSansBold, sans-serif;
+      font-family: PTSans-Bold, sans-serif;
     `}
   >
     {props.children}
@@ -37,9 +37,10 @@ const KittitasFireReadyReportSmallTitle = props => (
   <ReportSmallTitle
     css={css`
       font-family: ${props.weight === "bold"
-        ? "PTSansBold, sans-serif"
-        : "PTSans, sans-serif"};
-      font-style: ${props.weight === "italic" ? "italic" : "regular"};
+        ? "PTSans-Bold, sans-serif"
+        : "PTSans-Regular, sans-serif"};
+      font-style: ${props.style === "italic" ? "italic" : "normal"};
+      font-weight: normal;
     `}
   >
     {props.children}
@@ -100,7 +101,7 @@ const KittitasFireReadyPageHeader = props => (
         css={css`
           color: #444;
           text-align: right;
-          font-family: PTSansBold, sans-serif;
+          font-family: PTSans-Regular, sans-serif;
           font-size: 1.8rem;
           margin: 0;
         `}
@@ -135,7 +136,7 @@ const KittitasFireReadyPageHeader = props => (
             font-weight: 900;
           `}
         >
-          Report location:
+          Approximate report location:
         </span>{" "}
         {props.address}
       </SmallText>
@@ -145,7 +146,7 @@ const KittitasFireReadyPageHeader = props => (
 
 KittitasFireReadyPageHeader.propTypes = {
   date: PropTypes.string.isRequired,
-  coords: PropTypes.arrayOf(PropTypes.number).isRequired,
+  address: PropTypes.string.isRequired,
 };
 
 const KittitasFireReadyPageFooter = () => (

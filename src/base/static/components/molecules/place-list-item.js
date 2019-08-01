@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import { HorizontalRule } from "../atoms/layout";
 import sharePlace from "../../utils/share-place";
+import { lighten } from "../../utils/color";
 
 const PlaceBodyContainer = styled("div")({
   display: "flex",
@@ -48,13 +49,24 @@ const CommentsText = styled(props => (
     {props.children}
   </SmallText>
 ))({
-  marginTop: "8px",
+  marginTop: "4px",
 });
-const PlaceInfoButton = styled(InternalLink)({
-  alignItems: "end",
+const PlaceInfoLink = styled(InternalLink)(props => ({
+  display: "flex",
+  alignItens: "center",
+  alignSelf: "flex-start",
   marginTop: "16px",
   whiteSpace: "nowrap",
-});
+  backgroundColor: props.theme.brand.primary,
+  padding: "0.25rem 0.5rem 0.25rem 0.5rem",
+  boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
+  border: "3px solid rgba(0, 0, 0, 0.05)",
+  borderRadius: "3px",
+
+  "&:hover": {
+    backgroundColor: lighten(props.theme.brand.primary, 5),
+  },
+}));
 
 const PlaceContent = styled("div")({
   flex: "1 70%",
@@ -68,10 +80,11 @@ const PlaceSocialContainer = styled("div")({
 });
 
 const SupportText = styled(props => (
-  <SmallText noWrap={true} className={props.className}>
+  <RegularText weight="bold" noWrap={true} className={props.className}>
     {props.children}
-  </SmallText>
+  </RegularText>
 ))({
+  color: "#333",
   display: "flex",
   alignItems: "center",
   marginTop: "auto",
@@ -208,13 +221,14 @@ const PlaceListItem = props => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: "4px",
           }}
         >
           <SmallTitle>{props.place.title}</SmallTitle>
           <PlaceSocialContainer>
             <SupportText noWrap={true} textTransform="uppercase">
               <SupportHeartIcon />
-              {`${numberOfSupports} ${props.t("supportThis", "support this")}`}
+              {numberOfSupports}
             </SupportText>
             <SocialMediaButton
               icon="facebook"
@@ -241,13 +255,13 @@ const PlaceListItem = props => {
               />
             </AvatarContainer>
             <PlaceInfoContainer>
+              <RegularText weight="bold">{submitterName}</RegularText>
               <RegularText>
-                <b>{submitterName}</b>{" "}
                 {props.t(
                   "placeActionText",
                   `${props.placeConfig.action_text} this`,
                 )}{" "}
-                <b>{placeDetailConfig.label}</b>
+                {placeDetailConfig.label}
               </RegularText>
               <CommentsText>
                 {numberOfComments}{" "}
@@ -258,13 +272,17 @@ const PlaceListItem = props => {
                   `comment${numberOfComments === 1 ? "" : "s"}`,
                 )}
               </CommentsText>
-              <PlaceInfoButton
+              <PlaceInfoLink
                 href={`/${props.place.clientSlug}/${props.place.id}`}
               >
-                <Button color="secondary" size="small" variant="raised">
-                  <SmallText>{props.t("viewOnMap", "View on map")}</SmallText>
-                </Button>
-              </PlaceInfoButton>
+                <SmallText
+                  css={css`
+                    color: #fff;
+                  `}
+                >
+                  {props.t("viewOnMap", "View on map")}
+                </SmallText>
+              </PlaceInfoLink>
             </PlaceInfoContainer>
           </PlaceInfo>
           <PlaceContent>

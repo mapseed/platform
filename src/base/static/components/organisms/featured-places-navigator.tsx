@@ -31,25 +31,22 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
   const [currentPlaceId, setCurrentPlaceId] = React.useState<number | null>(
     null,
   );
-  React.useEffect(
-    () => {
-      const placeId = parseInt(props.history.location.pathname.split("/")[2]);
+  React.useEffect(() => {
+    const placeId = parseInt(props.history.location.pathname.split("/")[2]);
+    if (placeId) {
+      setCurrentPlaceId(placeId);
+    }
+    const unlisten = props.history.listen(location => {
+      const placeId = parseInt(location.pathname.split("/")[2]);
       if (placeId) {
         setCurrentPlaceId(placeId);
+      } else {
+        setCurrentPlaceId(null);
       }
-      const unlisten = props.history.listen(location => {
-        const placeId = parseInt(location.pathname.split("/")[2]);
-        if (placeId) {
-          setCurrentPlaceId(placeId);
-        } else {
-          setCurrentPlaceId(null);
-        }
-      });
+    });
 
-      return unlisten;
-    },
-    [props.history],
-  );
+    return unlisten;
+  }, [props.history]);
 
   return (
     <div

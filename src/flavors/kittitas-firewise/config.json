@@ -44,8 +44,9 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#e57c04",
-        "titleFontFamily": "PTSans,sans-serif",
-        "bodyFontFamily": "Raleway-ExtraLight,sans-serif"
+        "titleFontFamily": "Raleway-ExtraBold,sans-serif",
+        "bodyFontFamily": "Raleway-Light,sans-serif",
+        "navBarFontFamily": "PTSans-Regular, sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#e57c04",
@@ -1260,7 +1261,7 @@
           },
           {
             "start_field_index": 8,
-            "end_field_index": 11,
+            "end_field_index": 10,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1278,8 +1279,8 @@
             }
           },
           {
-            "start_field_index": 12,
-            "end_field_index": 13,
+            "start_field_index": 11,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1289,8 +1290,8 @@
             ]
           },
           {
-            "start_field_index": 14,
-            "end_field_index": 21,
+            "start_field_index": 13,
+            "end_field_index": 20,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1300,8 +1301,8 @@
             ]
           },
           {
-            "start_field_index": 22,
-            "end_field_index": 30,
+            "start_field_index": 21,
+            "end_field_index": 29,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1311,8 +1312,8 @@
             ]
           },
           {
-            "start_field_index": 31,
-            "end_field_index": 38,
+            "start_field_index": 30,
+            "end_field_index": 37,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1322,8 +1323,8 @@
             ]
           },
           {
-            "start_field_index": 39,
-            "end_field_index": 52,
+            "start_field_index": 38,
+            "end_field_index": 51,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1333,8 +1334,8 @@
             ]
           },
           {
-            "start_field_index": 53,
-            "end_field_index": 62,
+            "start_field_index": 52,
+            "end_field_index": 61,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1349,7 +1350,7 @@
           {
             "name": "large_fires_header",
             "type": "informational_html",
-            "content": "<h1 style='margin:0;color:rgba(0,0,0,0.7);font-family:PTSansBold,sans-serif;'>Kittitas County:</h1><h2 style='border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;font-family:PTSans,sans-serif;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>The Taylor Bridge Fire burns in 2012.</figcaption></figure>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);'>Kittitas County:</h1><h2 style='font-family:Raleway-ExtraBold,sans-serif;border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>The Taylor Bridge Fire burns in 2012.</figcaption></figure>"
           },
           {
             "name": "private-landowner_email",
@@ -1361,42 +1362,39 @@
           {
             "name": "large_fires_information",
             "type": "informational_html",
-            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Click on fires on the map to learn more about them, and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:30px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:30px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:PTSans,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County is in the heart of fire-prone country. 36 large fires have burned here since 1973.</p><p class='mapseed-form-stage-body' style='font-family:Raleway,sans-serif;'>Click on fires on the map to learn more about them, and use the slider in the lower left to explore the changing wildfire risk in central Washington.</p><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:8px;'><img src='/static/css/images/geologic-hazard-legend.png' alt='Map legend item' style='width:30px;'/><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires in Kittitas County</span></div><div style='display:flex;align-items:center;margin-left:32px;margin-bottom:16px;'><img src='/static/css/images/wildfire-legend.png' alt='Map legend item' style='width:30px;' /><span style='color:#777;font-style:italic;margin-left:16px;'>Large wildfires elsewhere in Washington</span></div><div style='margin-top:36px;display:grid;grid-row-gap:16px;grid-template-columns:1fr 3fr;'><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:Raleway-Regular,sans-serif;'>36</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Large wildfires started since 1973</span><span style='color:#115588;font-size:2rem;align-self:end;text-align:right;font-family:Raleway-Regular,sans-serif;'>227,533</span><span style='color:#555;align-self:end;text-transform:uppercase;padding-left:16px;font-size:1.1rem;'>Total acres burned</span></div>"
           },
           {
             "name": "forest_type_header",
             "type": "informational_html",
-            "content": "<h2 style='margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Changing Forest Conditions</h2>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Changing Forest Conditions</h1>"
           },
           {
             "name": "forest_type_information",
             "type": "informational_html",
-            "content": "<figure style='margin: 0;'><img src='/static/css/images/ponderosa-pine.jpeg' alt='Ponderosa Pine' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>Dry Ponderosa Pine forest stands increase wildfire risk.</figcaption></figure><p class='mapseed-form-stage-body'>Forest conditions are changing in central Washington. Forest stands are becoming drier, increasing the wildfire risk.</p><p class='mapseed-form-stage-body'>This map shows forest makeup throughout a large portion of Kittitas County.</p><ul><li style='display:flex;align-items:center;margin-bottom: 8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#8c510a' ></div><p style='margin: 0 0 0 8px;'>Non-forest: Rangeland with fire intervals of 5-15 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#d8b365'></div><p style='margin: 0 0 0 8px;'>Subalpine: The subalpine fir series generally occupies cold, high elevation mountain forests. Fires are typically stand replacing events at approximately 200 year intervals</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#f6e8c3'></div><p style='margin: 0 0 0 8px;'>Silver Fir: Pacific Silver fir is the dominant and climax tree species with Douglas-fir and western hemlock occurring throughout. Infrequent mixed severity fires occurring at greater than 200-500 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#f5f5f5'></div><p style='margin: 0 0 0 8px;'>Mountain Hemlock: Upper elevation forest dominated by Mountain Hemlock. Estimates of the return of wildfire are 500-1500 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#c7eae5'></div><p style='margin: 0 0 0 8px;'>Moist Mixed Conifer: Forests of grand fir, white fir, and Douglas-fir with an average fire return interval of 45-100 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#5ab4ac'></div><p style='margin: 0 0 0 8px;'>Dry Mixed Conifer: A transitional forest with increasing elevation between ponderosa pine and moist mixed-conifer. Lack of wildfire causes fill-in of understory conifers, mainly ponderosa pine, Douglas-fir, and grand fir. The wildfire return intervals are 15-25 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#01665e'></div><p style='margin: 0 0 0 8px;'>Ponderosa Pine: Straddles the line between rangelands and forest with an overstory of ponderosa pine trees and an understory of shrubs, grasses, and forbs. Wildfires were historically common in this forest type, with return intervals of 8-15 years</p></li></ul>"
+            "content": "<figure style='margin: 16px 0 0 0;'><img src='/static/css/images/ponderosa-pine.jpeg' alt='Ponderosa Pine' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>Dry Ponderosa Pine forest stands increase wildfire risk.</figcaption></figure><p class='mapseed-form-stage-body'>Forest conditions are changing in central Washington. Forest stands are becoming drier, increasing the wildfire risk.</p><p class='mapseed-form-stage-body'>This map shows forest makeup throughout a large portion of Kittitas County.</p><ul><li style='display:flex;align-items:center;margin-bottom: 8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#8c510a' ></div><p style='margin: 0 0 0 8px;'>Non-forest: Rangeland with fire intervals of 5-15 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#d8b365'></div><p style='margin: 0 0 0 8px;'>Subalpine: The subalpine fir series generally occupies cold, high elevation mountain forests. Fires are typically stand replacing events at approximately 200 year intervals</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#f6e8c3'></div><p style='margin: 0 0 0 8px;'>Silver Fir: Pacific Silver fir is the dominant and climax tree species with Douglas-fir and western hemlock occurring throughout. Infrequent mixed severity fires occurring at greater than 200-500 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#f5f5f5'></div><p style='margin: 0 0 0 8px;'>Mountain Hemlock: Upper elevation forest dominated by Mountain Hemlock. Estimates of the return of wildfire are 500-1500 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#c7eae5'></div><p style='margin: 0 0 0 8px;'>Moist Mixed Conifer: Forests of grand fir, white fir, and Douglas-fir with an average fire return interval of 45-100 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#5ab4ac'></div><p style='margin: 0 0 0 8px;'>Dry Mixed Conifer: A transitional forest with increasing elevation between ponderosa pine and moist mixed-conifer. Lack of wildfire causes fill-in of understory conifers, mainly ponderosa pine, Douglas-fir, and grand fir. The wildfire return intervals are 15-25 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#01665e'></div><p style='margin: 0 0 0 8px;'>Ponderosa Pine: Straddles the line between rangelands and forest with an overstory of ponderosa pine trees and an understory of shrubs, grasses, and forbs. Wildfires were historically common in this forest type, with return intervals of 8-15 years</p></li></ul>"
           },
           {
             "name": "fire_risk_header",
             "type": "informational_html",
-            "content": "<h2 style='margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Kittitas County Wildfire Risk</h2>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Kittitas County Wildfire Risk</h1>"
           },
           {
             "name": "fire_risk_information",
             "type": "informational_html",
-            "content": "<figure style='margin:0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County.</p><p class='mapseed-form-stage-body'>This map shows general wildfire risk: the darker the region, the higher the risk.</p><p class='mapseed-form-stage-body'>This map also shows wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
+            "content": "<figure style='margin:16px 0 0 0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County.</p><p class='mapseed-form-stage-body'>This map shows general wildfire risk: the darker the region, the higher the risk.</p><p class='mapseed-form-stage-body'>This map also shows wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
           },
           {
             "name": "fire_resources_header",
             "type": "informational_html",
-            "content": "<h2 style='margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom:8px;'>Kittitas County Fire Resources</h2><figure style='margin: 8px 0 24px 0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-size: 0.8rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption></figure>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom:8px;'>Kittitas County Fire Resources</h1><figure style='margin: 16px 0 24px 0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption></figure>"
           },
           {
             "name": "private-address",
             "type": "geocoding",
+            "reverseGeocode": false,
             "placeholder": "Your address will never be shared",
             "optional": true
-          },
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
           },
           {
             "name": "fire_resources_information",
@@ -1570,13 +1568,11 @@
           {
             "name": "landowner_information_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Almost Done!</h2>"
+            "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Almost Done!</h2>"
           },
           {
             "name": "private-final_address",
             "type": "geocoding",
-            "placeholder": "Your address will never be shared",
-            "prompt": "Double check that your address is correct before submitting this form:",
             "optional": true
           },
           {
@@ -1636,6 +1632,7 @@
           {
             "name": "other-comments",
             "prompt": "Add any additional comments about your wildfire preparedness efforts",
+            "optional": true,
             "label": "Comment",
             "type": "textarea"
           },
@@ -1650,7 +1647,7 @@
     "common_form_elements": {
       "fire_resiliency_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Your Path to Wildfire Resilience</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Your Path to Wildfire Resilience</h2>"
       },
       "fire_resiliency_information": {
         "type": "informational_html",
@@ -1658,7 +1655,7 @@
       },
       "immediate_zone_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Immediate Zone Actions</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Immediate Zone Actions</h2>"
       },
       "immediate_zone_information": {
         "type": "informational_html",
@@ -1666,7 +1663,7 @@
       },
       "intermediate_zone_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Intermediate Zone Actions</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Intermediate Zone Actions</h2>"
       },
       "intermediate_zone_information": {
         "type": "informational_html",
@@ -1674,7 +1671,7 @@
       },
       "extended_zone_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Extended Zone Actions</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Extended Zone Actions</h2>"
       },
       "extended_zone_information": {
         "type": "informational_html",
@@ -1682,7 +1679,7 @@
       },
       "evacuation_plan_header": {
         "type": "informational_html",
-        "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Emergency and Evacuation Planning</h2>"
+        "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Emergency and Evacuation Planning</h2>"
       },
       "clean_roofs": {
         "type": "big_radio",
@@ -2411,7 +2408,7 @@
     {
       "slug": "about",
       "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Kittitas County Landowners!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<h1 style='color:rgba(0,0,0,0.7)' id='about-page-header'>Welcome Kittitas County Landowners!</h1>",
         "<div style='margin: 8px 0 16px 0; position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;'><iframe style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' src='https://www.youtube.com/embed/3EbuRaOdxoM' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
         "<p>The Kittitas County Fire Adapted program is designed to educate landowners and others about wildfire risk in their communities, and about how to prepare for the next wildfire.</p>",
         "<p>Click Get Started to begin!</p>",

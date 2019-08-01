@@ -210,6 +210,8 @@ class PlaceList extends React.Component {
                     this._setSortAndFilterPlaces();
                   }
                 }}
+                name="place-list-search"
+                value={this.state.query}
                 onChange={evt => {
                   this.setState({ query: evt.target.value });
                 }}
@@ -219,9 +221,9 @@ class PlaceList extends React.Component {
                   marginLeft: "16px",
                   fontFamily: theme.text.headerFontFamily,
                 })}
-                color="secondary"
+                color="primary"
                 onClick={this._setSortAndFilterPlaces}
-                variant="contained"
+                variant="container"
               >
                 {this.props.t("search", "Search")}
               </Button>

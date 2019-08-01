@@ -2,55 +2,27 @@ import { css } from "@emotion/core";
 
 // Add font faces and other global styles:
 export const globalStyles = theme => css`
+  // We support five fonts that can be used throughout Mapseed flavors.
   @font-face {
-    font-family: "Lithos";
-    src: url("/static/css/lithos.ttf");
+    font-family: "Raleway-Light";
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-Light.ttf");
   }
   @font-face {
-    font-family: "Bowlby";
-    src: url("/static/css/BowlbyOneSC-Regular.ttf");
+    font-family: "Raleway-Regular";
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-Regular.ttf");
   }
   @font-face {
-    font-family: "Josefin Sans";
-    src: url("/static/css/JosefinSans-Regular.ttf");
+    font-family: "Raleway-ExtraBold";
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-ExtraBold.ttf");
   }
   @font-face {
-    font-family: "Montserrat";
-    src: url("/static/css/Montserrat-Regular.ttf");
+    font-family: "PTSans-Regular";
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/PTSans-Regular.ttf");
   }
   @font-face {
-    font-family: "AlfaSlabOne-Regular";
-    src: url("/static/css/AlfaSlabOne-Regular.ttf");
+    font-family: "PTSans-Bold";
+    src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/PTSans-Bold.ttf");
   }
-  @font-face {
-    font-family: "Quicksand Regular";
-    src: url("/static/css/Quicksand-Regular.otf");
-  }
-  @font-face {
-    font-family: "proxima-nova";
-    src: url("/static/css/proximanova-regular.otf");
-  }
-  @font-face {
-    font-family: "Palanquin";
-    src: url("/static/css/palanquindark-regular.ttf");
-  }
-  @font-face {
-    font-family: "Raleway";
-    src: url("/static/css/Raleway-Regular.ttf");
-  }
-  @font-face {
-    font-family: "Raleway-ExtraLight";
-    src: url("/static/css/Raleway-ExtraLight.ttf");
-  }
-  @font-face {
-    font-family: "PTSans";
-    src: url("/static/css/PT-Sans-Regular.ttf");
-  }
-  @font-face {
-    font-family: "PTSansBold";
-    src: url("/static/css/PT-Sans-Bold.ttf");
-  }
-
   // These styles are intended to mimic the styling of our Atoms on custom
   // pages.
   #mapseed-custom-page-container {
@@ -95,8 +67,11 @@ export const globalStyles = theme => css`
       font-family: ${theme.text.bodyFontFamily};
       text-decoration: none;
     }
-    p {
+    p,
+    strong,
+    em {
       font-family: ${theme.text.bodyFontFamily};
+      font-size: 1.16rem;
       margin: 0 0 16px 0;
     }
     &:after {
@@ -164,12 +139,12 @@ const theme = {
     primary: "#36454f",
     secondary: "#fff",
     highlighted: "#fff",
-    headerFontFamily: "Roboto,sans-serif",
-    bodyFontFamily: "Roboto,sans-serif",
-    navBarFontFamily: "Roboto,sans-serif",
+    headerFontFamily: "Raleway-Regular,sans-serif",
+    bodyFontFamily: "Raleway-Light,sans-serif",
+    navBarFontFamily: "Raleway-Regular,sans-serif",
     textTransform: "uppercase",
     titleColor: "#aaa",
-    titleFontFamily: "Roboto,sans-serif",
+    titleFontFamily: "Raleway-Regular,sans-serif",
   },
   map: {
     addPlaceButtonBackgroundColor: "rgba(242,82,24,0.89)",

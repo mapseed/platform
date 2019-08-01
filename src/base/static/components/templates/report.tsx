@@ -77,13 +77,10 @@ const ReportTemplate = (props: Props) => {
     }
   }
 
-  useEffect(
-    () => {
-      props.updateCurrentTemplate("report");
-      fetchPlace();
-    },
-    [parseInt(props.params.placeId)],
-  );
+  useEffect(() => {
+    props.updateCurrentTemplate("report");
+    fetchPlace();
+  }, [parseInt(props.params.placeId)]);
 
   return place && Report ? <Report place={place} /> : null;
 };

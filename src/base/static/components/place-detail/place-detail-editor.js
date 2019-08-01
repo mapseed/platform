@@ -95,12 +95,12 @@ class PlaceDetailEditor extends Component {
               field.hidden_default
                 ? false
                 : fieldConfig.has("restrictToGroups")
-                  ? this.props.isInAtLeastOneGroup(
-                      fieldConfig.get("restrictToGroups"),
-                      this.props.place.datasetSlug,
-                    ) ||
-                    this.props.hasAdminAbilities(this.props.place.datasetSlug)
-                  : true,
+                ? this.props.isInAtLeastOneGroup(
+                    fieldConfig.get("restrictToGroups"),
+                    this.props.place.datasetSlug,
+                  ) ||
+                  this.props.hasAdminAbilities(this.props.place.datasetSlug)
+                : true,
             )
             .set("trigger", field.trigger && field.trigger.trigger_value)
             .set(

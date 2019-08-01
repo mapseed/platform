@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import * as React from "react";
+import { jsx, css } from "@emotion/core";
 import {
   ResponsiveContainer,
   BarChart,
@@ -122,11 +124,17 @@ const getFreeBarChartData = ({
 class FreeBarChart extends React.Component<FreeBarChartProps> {
   render() {
     return (
-      <ResponsiveContainer width="100%" height={360}>
+      <ResponsiveContainer
+        css={css`
+          font-family: PTSans-Regular, sans-serif;
+        `}
+        width="100%"
+        height={360}
+      >
         <BarChart
           data={this.props.data}
           margin={{
-            top: 5,
+            top: 40,
             right: 30,
             left: 70,
             bottom: this.props.annotation ? 160 : 120,
