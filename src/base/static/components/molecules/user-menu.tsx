@@ -114,6 +114,9 @@ const SocialLoginButton = styled(ExternalLink)(props => {
     case "google":
       backgroundColor = "#e8433a";
       break;
+    case "discourse":
+      backgroundColor = "green";
+      break;
   }
   return {
     display: "block",
@@ -269,6 +272,9 @@ const UserMenu: React.FunctionComponent<Props> = props => {
         )}
         <ul css={menuStyles({ isMenuOpen, isLoggedIn: false })}>
           <SocialMediaMenuItem>
+            {/* TODO: refactor these into the config:
+              { buttonStyle: "google", service: "google-oauth2" }
+               */}
             <SocialLoginButton
               service={"google"}
               href={`${props.apiRoot}users/login/google-oauth2/`}
@@ -297,6 +303,15 @@ const UserMenu: React.FunctionComponent<Props> = props => {
               }
             >
               Facebook
+            </SocialLoginButton>
+            <SocialLoginButton
+              service={"discourse"}
+              href={`${props.apiRoot}users/login/discourse-hdk/`}
+              onClick={() =>
+                Mixpanel.track("Clicked login button", { service: "discourse" })
+              }
+            >
+              Discourse
             </SocialLoginButton>
           </SocialMediaMenuItem>
         </ul>
