@@ -32,6 +32,7 @@
   "app": {
     "title": "an anthropocene river",
     "name": "Mississippi",
+    "enableCookieConsent": true,
     "show_name_in_header": true,
     "isShowingMobileUserMenu": true,
     "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
