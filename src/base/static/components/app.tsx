@@ -461,8 +461,8 @@ class App extends React.Component<Props, State> {
             this.props.currentTemplate === "report"
               ? "visible"
               : this.props.layout === "desktop"
-                ? "hidden"
-                : "auto",
+              ? "hidden"
+              : "auto",
           width: "100%",
           height: "100%",
 
@@ -522,10 +522,9 @@ class App extends React.Component<Props, State> {
               path="/new"
               render={props => {
                 if (
-                  this.props.hasAnonAbilitiesInAnyDataset(
-                    "places",
-                    ["create"],
-                  ) ||
+                  this.props.hasAnonAbilitiesInAnyDataset("places", [
+                    "create",
+                  ]) ||
                   this.props.hasGroupAbilitiesInDatasets({
                     submissionSet: "places",
                     abilities: ["create"],

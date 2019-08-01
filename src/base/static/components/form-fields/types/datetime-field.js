@@ -56,9 +56,7 @@ class DatetimeField extends Component {
                   />
                   <em>
                     {this.props.t(
-                      `datetimeFieldOngoingLabel${this.props.formId}${
-                        this.props.name
-                      }`,
+                      `datetimeFieldOngoingLabel${this.props.formId}${this.props.name}`,
                       this.props.ongoingLabel,
                     )}
                   </em>
@@ -72,9 +70,7 @@ class DatetimeField extends Component {
                 classes="datetime-field__input"
                 onFocus={openCalendar}
                 placeholder={this.props.t(
-                  `datetimeFieldPlaceholder${this.props.formId}${
-                    this.props.name
-                  }`,
+                  `datetimeFieldPlaceholder${this.props.formId}${this.props.name}`,
                   this.props.placeholder || "Select a date",
                 )}
                 value={

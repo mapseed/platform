@@ -38,9 +38,7 @@ class AutocompleteComboboxField extends Component {
         <Autocomplete
           source={this.suggestions}
           placeholder={this.props.t(
-            `autocompleteFieldPlaceholder${this.props.formId}${
-              this.props.name
-            }`,
+            `autocompleteFieldPlaceholder${this.props.formId}${this.props.name}`,
             this.props.placeholder || " ",
           )}
           defaultValue={

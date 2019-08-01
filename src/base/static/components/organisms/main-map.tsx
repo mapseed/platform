@@ -98,8 +98,8 @@ const mapViewportReducer = (
           action.payload.viewport.zoom !== state.zoom
             ? state.latitude
             : action.payload.viewport.latitude !== undefined
-              ? action.payload.viewport.latitude
-              : state.latitude;
+            ? action.payload.viewport.latitude
+            : state.latitude;
 
         draft.longitude =
           action.payload.scrollZoomAroundCenter &&
@@ -107,8 +107,8 @@ const mapViewportReducer = (
           action.payload.viewport.zoom !== state.zoom
             ? state.longitude
             : action.payload.viewport.longitude !== undefined
-              ? action.payload.viewport.longitude
-              : state.longitude;
+            ? action.payload.viewport.longitude
+            : state.longitude;
 
         return;
     }
@@ -218,12 +218,9 @@ class MainMap extends React.Component<Props, State> {
       this.resizeMap();
     });
 
-    eventEmitter.on(
-      "setMapViewport",
-      (viewport: MapViewportDiff): void => {
-        this.setMapViewport(viewport);
-      },
-    );
+    eventEmitter.on("setMapViewport", (viewport: MapViewportDiff): void => {
+      this.setMapViewport(viewport);
+    });
 
     // MapboxGL fires many redundant events, so we only update load or error
     // status state if a new type of event is fired. It's necessary to attach
@@ -286,16 +283,18 @@ class MainMap extends React.Component<Props, State> {
   };
 
   applyFeatureFilters() {
-    this.props.datasets.map(dataset => dataset.slug).forEach(sourceId => {
-      this.props.updateFeaturesInGeoJSONSource(
-        sourceId,
-        createGeoJSONFromPlaces(
-          this.props.filteredPlaces.filter(
-            place => place.datasetSlug === sourceId,
-          ),
-        ).features,
-      );
-    });
+    this.props.datasets
+      .map(dataset => dataset.slug)
+      .forEach(sourceId => {
+        this.props.updateFeaturesInGeoJSONSource(
+          sourceId,
+          createGeoJSONFromPlaces(
+            this.props.filteredPlaces.filter(
+              place => place.datasetSlug === sourceId,
+            ),
+          ).features,
+        );
+      });
   }
 
   componentDidUpdate(prevProps) {

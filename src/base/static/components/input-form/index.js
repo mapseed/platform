@@ -168,11 +168,11 @@ class InputForm extends Component {
             isVisible: field.hidden_default
               ? false
               : fieldConfig.has("restrictToGroups")
-                ? this.props.isInAtLeastOneGroup(
-                    fieldConfig.get("restrictToGroups"),
-                    this.props.datasetSlug,
-                  ) || this.props.hasAdminAbilities(this.props.datasetSlug)
-                : true,
+              ? this.props.isInAtLeastOneGroup(
+                  fieldConfig.get("restrictToGroups"),
+                  this.props.datasetSlug,
+                ) || this.props.hasAdminAbilities(this.props.datasetSlug)
+              : true,
             renderKey: prevFields.has(field.name)
               ? prevFields.getIn([field.name, "renderKey"]) + "_"
               : this.selectedCategoryConfig.category + field.name,

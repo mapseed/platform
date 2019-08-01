@@ -36,9 +36,7 @@ const extractEmbeddedImages = html => {
   const imgs = node.getElementsByTagName("img");
   Array.from(imgs).forEach(img => {
     if (img.src.startsWith("data:image")) {
-      img.outerHTML = `${constants.RICH_TEXT_IMAGE_MARKUP_PREFIX}${img.name}${
-        constants.RICH_TEXT_IMAGE_MARKUP_SUFFIX
-      }`;
+      img.outerHTML = `${constants.RICH_TEXT_IMAGE_MARKUP_PREFIX}${img.name}${constants.RICH_TEXT_IMAGE_MARKUP_SUFFIX}`;
     }
   });
 

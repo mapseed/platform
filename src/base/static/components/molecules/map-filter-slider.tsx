@@ -36,18 +36,15 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
   const [sliderValue, setSliderValue] = React.useState(
     filterSliderConfig.initialValue,
   );
-  React.useEffect(
-    () => {
-      buildAndApplyMapLayerFilters({
-        filterValue: filterSliderConfig.initialValue,
-        layerIds: layerGroup.layerIds,
-        comparator: filterSliderConfig.comparator,
-        property: filterSliderConfig.property,
-        updateLayerFilters,
-      });
-    },
-    [filterSliderConfig.initialValue],
-  );
+  React.useEffect(() => {
+    buildAndApplyMapLayerFilters({
+      filterValue: filterSliderConfig.initialValue,
+      layerIds: layerGroup.layerIds,
+      comparator: filterSliderConfig.comparator,
+      property: filterSliderConfig.property,
+      updateLayerFilters,
+    });
+  }, [filterSliderConfig.initialValue]);
 
   if (!layerGroup.isVisible) {
     return null;

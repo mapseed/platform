@@ -232,9 +232,7 @@ class RichTextareaField extends Component {
           theme="snow"
           modules={this.modules}
           placeholder={this.props.t(
-            `richTextareaFieldPlaceholder${this.props.formId}${
-              this.props.name
-            }`,
+            `richTextareaFieldPlaceholder${this.props.formId}${this.props.name}`,
             this.props.placeholder || " ",
           )}
           bounds={this.props.bounds}

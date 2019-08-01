@@ -122,13 +122,15 @@ const buildMeasurementFeatureCollection = (
   }
 
   return featureCollection(
-    positions.map(position => point(position)).concat(
-      // Only add the measurement feature if we have enough positions on
-      // the map to support the given feature type.
-      numPositions >= MIN_POSITIONS[selectedTool]
-        ? featureFn(newPositions)
-        : [],
-    ),
+    positions
+      .map(position => point(position))
+      .concat(
+        // Only add the measurement feature if we have enough positions on
+        // the map to support the given feature type.
+        numPositions >= MIN_POSITIONS[selectedTool]
+          ? featureFn(newPositions)
+          : [],
+      ),
   );
 };
 
@@ -248,32 +250,26 @@ const MapMeasurementOverlay: React.FunctionComponent<Props> = props => {
     }
   };
 
-  React.useEffect(
-    () => {
-      // Unless I'm missing the right way to use overlays, it seems necessary
-      // to attach a click listener here to capture clicks on the overlay.
-      // See: https://github.com/uber/react-map-gl/issues/470
-      if (
-        props.isMeasurementToolVisible &&
-        overlayRef &&
-        overlayRef.current &&
-        overlayRef.current._canvas
-      ) {
-        overlayRef.current._canvas.addEventListener(
-          "click",
-          handleOverlayClick,
-        );
-        // This direct manipulation of the `pointer-events` style property feels
-        // like a hack, but the goal is to enable clicks on the underlying map
-        // when no measurement tool is selected.
-        overlayRef.current._canvas.style.pointerEvents = "none";
-      } else if (props.isMeasurementToolVisible) {
-        // eslint-disable-next-line no-console
-        console.error(`Measurement overlay: failed to attach click listener`);
-      }
-    },
-    [props.isMeasurementToolVisible],
-  );
+  React.useEffect(() => {
+    // Unless I'm missing the right way to use overlays, it seems necessary
+    // to attach a click listener here to capture clicks on the overlay.
+    // See: https://github.com/uber/react-map-gl/issues/470
+    if (
+      props.isMeasurementToolVisible &&
+      overlayRef &&
+      overlayRef.current &&
+      overlayRef.current._canvas
+    ) {
+      overlayRef.current._canvas.addEventListener("click", handleOverlayClick);
+      // This direct manipulation of the `pointer-events` style property feels
+      // like a hack, but the goal is to enable clicks on the underlying map
+      // when no measurement tool is selected.
+      overlayRef.current._canvas.style.pointerEvents = "none";
+    } else if (props.isMeasurementToolVisible) {
+      // eslint-disable-next-line no-console
+      console.error(`Measurement overlay: failed to attach click listener`);
+    }
+  }, [props.isMeasurementToolVisible]);
 
   React.useEffect(() => {
     return () => {
@@ -286,48 +282,42 @@ const MapMeasurementOverlay: React.FunctionComponent<Props> = props => {
     };
   }, []);
 
-  React.useEffect(
-    () => {
-      webMercatorViewport.current = getNewViewport({
-        ...props.mapViewport,
-        width: props.mapContainerDimensions.width,
-        height: props.mapContainerDimensions.height,
-      });
-    },
-    [
-      props.mapViewport,
-      props.mapContainerDimensions.width,
-      props.mapContainerDimensions.height,
-    ],
-  );
+  React.useEffect(() => {
+    webMercatorViewport.current = getNewViewport({
+      ...props.mapViewport,
+      width: props.mapContainerDimensions.width,
+      height: props.mapContainerDimensions.height,
+    });
+  }, [
+    props.mapViewport,
+    props.mapContainerDimensions.width,
+    props.mapContainerDimensions.height,
+  ]);
 
-  React.useEffect(
-    () => {
-      const { features } = measurementFeatureCollection;
-      const measurementFeature = features[features.length - 1];
-      const geometry = measurementFeature && measurementFeature.geometry;
+  React.useEffect(() => {
+    const { features } = measurementFeatureCollection;
+    const measurementFeature = features[features.length - 1];
+    const geometry = measurementFeature && measurementFeature.geometry;
 
-      if (geometry && geometry.type == "LineString") {
-        setMeasurement(
-          geometry.coordinates.reduce((total, nextCoords, i) => {
-            return (
-              i > 0 &&
-              total +
-                distance(geometry.coordinates[i - 1], nextCoords, {
-                  units: "miles",
-                })
-            );
-          }, 0) * FEET_PER_MILE,
-        );
-      } else if (geometry && geometry.type === "Polygon") {
-        // NOTE: the `area` function always returns areas in square meters.
-        setMeasurement(area(geometry) * SQUARE_METERS_PER_ACRE);
-      } else {
-        setMeasurement(0);
-      }
-    },
-    [measurementFeatureCollection],
-  );
+    if (geometry && geometry.type == "LineString") {
+      setMeasurement(
+        geometry.coordinates.reduce((total, nextCoords, i) => {
+          return (
+            i > 0 &&
+            total +
+              distance(geometry.coordinates[i - 1], nextCoords, {
+                units: "miles",
+              })
+          );
+        }, 0) * FEET_PER_MILE,
+      );
+    } else if (geometry && geometry.type === "Polygon") {
+      // NOTE: the `area` function always returns areas in square meters.
+      setMeasurement(area(geometry) * SQUARE_METERS_PER_ACRE);
+    } else {
+      setMeasurement(0);
+    }
+  }, [measurementFeatureCollection]);
 
   if (!props.isMeasurementToolVisible) {
     return null;

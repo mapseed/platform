@@ -42,9 +42,7 @@ class BigCheckboxField extends Component {
           htmlFor={this.props.id}
         >
           {this.props.t(
-            `checkboxFieldPlaceholder${this.props.formId}${this.props.name}${
-              this.props.id
-            }`,
+            `checkboxFieldPlaceholder${this.props.formId}${this.props.name}${this.props.id}`,
             this.props.label,
           )}
         </label>

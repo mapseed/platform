@@ -110,12 +110,11 @@ const OptionSelector: React.FunctionComponent<
           {props.t(`layerPanelOption${props.id}`, props.option.title)}
         </span>
         <LayerGroupsStatusContainer>
-          {props.isLayerGroupVisible &&
-            props.loadStatus === "loading" && (
-              <SpinnerContainer className="map-layer-status-spinner">
-                <Spinner style={{ width: "20px", height: "20px" }} />
-              </SpinnerContainer>
-            )}
+          {props.isLayerGroupVisible && props.loadStatus === "loading" && (
+            <SpinnerContainer className="map-layer-status-spinner">
+              <Spinner style={{ width: "20px", height: "20px" }} />
+            </SpinnerContainer>
+          )}
           {props.isLayerGroupVisible &&
             (props.loadStatus === "loaded" || props.loadStatus === "error") && (
               <LayerGroupStatusIcon
@@ -175,11 +174,10 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
           // layerGroup have loaded.
           let loadStatus = "loaded";
           const layerGroup = this.props.layerGroups.byId[option.layerGroupId];
-          const sourcesStatus = layerGroup.sourceIds.map(
-            sourceId =>
-              this.props.mapSourcesLoadStatus[sourceId]
-                ? this.props.mapSourcesLoadStatus[sourceId]
-                : "unloaded",
+          const sourcesStatus = layerGroup.sourceIds.map(sourceId =>
+            this.props.mapSourcesLoadStatus[sourceId]
+              ? this.props.mapSourcesLoadStatus[sourceId]
+              : "unloaded",
           );
 
           if (sourcesStatus.includes("error")) {
