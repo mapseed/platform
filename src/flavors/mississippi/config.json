@@ -55,20 +55,20 @@
         "bodyFontFamily": "Roboto,sans-serif"
       }
     },
-  "loginProviders": [
-    {
-      "name": "google",
-      "provider": "google-oauth2"
-    },
-    {
-      "name": "twitter",
-      "provider": "twitter"
-    },
-    {
-      "name": "facebook",
-      "provider": "facebook"
-    }
-  ]
+    "loginProviders": [
+      {
+        "name": "google",
+        "provider": "google-oauth2"
+      },
+      {
+        "name": "twitter",
+        "provider": "twitter"
+      },
+      {
+        "name": "facebook",
+        "provider": "facebook"
+      }
+    ]
   },
   "map": {
     "geolocationEnabled": true,
