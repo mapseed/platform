@@ -28,6 +28,7 @@ import {
 import { OfflineConfig, offlineConfigSelector } from "../../state/ducks/map";
 
 import mq from "../../../../media-queries";
+import { AppConfig, LoginProvider } from "../../state/ducks/app-config";
 
 type MenuContainerProps = {
   isMobileEnabled: boolean;
@@ -95,16 +96,12 @@ const MenuItem = styled("li")(({ theme }) => ({
   fontFamily: theme.text.navBarFontFamily,
 }));
 
-const SocialMediaMenuItem = styled(MenuItem)({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gridRowGap: "8px",
-  gridColumnGap: "8px",
-});
-
-const SocialLoginButton = styled(ExternalLink)(props => {
-  let backgroundColor;
-  switch (props.service) {
+const SocialLoginButton: React.FunctionComponent<{
+  loginProvider: LoginProvider;
+  apiRoot: string;
+}> = ({ loginProvider, apiRoot }) => {
+  let backgroundColor: string;
+  switch (loginProvider.name) {
     case "twitter":
       backgroundColor = "#4099ff";
       break;
@@ -118,14 +115,28 @@ const SocialLoginButton = styled(ExternalLink)(props => {
       backgroundColor = "green";
       break;
   }
-  return {
-    display: "block",
-    padding: "0.5em",
-    boxShadow: props.theme.boxShadow,
-    color: "#fff !important",
-    backgroundColor,
-  };
-});
+  return (
+    <ExternalLink
+      css={theme => ({
+        display: "block",
+        padding: "0.5em",
+        boxShadow: theme.boxShadow,
+        color: "#fff !important",
+        backgroundColor,
+      })}
+      href={`${apiRoot}users/login/${loginProvider.provider}/`}
+      onClick={() =>
+        Mixpanel.track("Clicked login button", {
+          service: loginProvider.provider,
+        })
+      }
+    >
+      {/* capitalize the first letter of the provider name: */}
+      {loginProvider.name.charAt(0).toUpperCase() +
+        loginProvider.name.substring(1)}
+    </ExternalLink>
+  );
+};
 
 type StateProps = {
   currentUser: userPropType;
@@ -137,7 +148,7 @@ type StateProps = {
 
 type Props = {
   pathname: string;
-  apiRoot: string;
+  appConfig: AppConfig;
   isMobileEnabled: boolean;
   isInMobileMode: boolean;
 } & StateProps;
@@ -210,7 +221,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
                 textTransform: "uppercase",
                 width: "100%",
               }}
-              href={`${props.apiRoot}users/logout/`}
+              href={`${props.appConfig.api_root}users/logout/`}
               onClick={() => Mixpanel.track("Clicked logout button")}
             >
               {t("logOut", "Log out")}
@@ -271,49 +282,22 @@ const UserMenu: React.FunctionComponent<Props> = props => {
           </Button>
         )}
         <ul css={menuStyles({ isMenuOpen, isLoggedIn: false })}>
-          <SocialMediaMenuItem>
-            {/* TODO: refactor these into the config:
-              { buttonStyle: "google", service: "google-oauth2" }
-               */}
-            <SocialLoginButton
-              service={"google"}
-              href={`${props.apiRoot}users/login/google-oauth2/`}
-              onClick={() =>
-                Mixpanel.track("Clicked login button", {
-                  service: "google-oauth2",
-                })
-              }
-            >
-              Google
-            </SocialLoginButton>
-            <SocialLoginButton
-              service={"twitter"}
-              href={`${props.apiRoot}users/login/twitter/`}
-              onClick={() =>
-                Mixpanel.track("Clicked login button", { service: "twitter" })
-              }
-            >
-              Twitter
-            </SocialLoginButton>
-            <SocialLoginButton
-              service={"facebook"}
-              href={`${props.apiRoot}users/login/facebook/`}
-              onClick={() =>
-                Mixpanel.track("Clicked login button", { service: "facebook" })
-              }
-            >
-              Facebook
-            </SocialLoginButton>
-            <SocialLoginButton
-              service={"discourse"}
-              href={`${props.apiRoot}users/login/discourse-hdk/`}
-              onClick={() =>
-                Mixpanel.track("Clicked login button", { service: "discourse" })
-              }
-            >
-              Discourse
-            </SocialLoginButton>
-          </SocialMediaMenuItem>
+          <MenuItem
+            css={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gridRowGap: "8px",
+              gridColumnGap: "8px",
+            }}
+          >
+            {props.appConfig.loginProviders.map(loginProvider => (
+              <SocialLoginButton
+                key={loginProvider.provider}
+                loginProvider={loginProvider}
+                apiRoot={props.appConfig.api_root}
+              />
+            ))}
+          </MenuItem>
         </ul>
       </MenuContainer>
     );

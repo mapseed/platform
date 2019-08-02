@@ -27,6 +27,11 @@ export type Theme = {
   boxShadow: string;
 };
 
+export type LoginProvider = {
+  name: "google" | "twitter" | "discourse" | "facebook";
+  provider: string; // eg: "discourse-hdk", "google-oauth2",
+};
+
 export type AppConfig = {
   title: string;
   meta_description: string;
@@ -36,7 +41,9 @@ export type AppConfig = {
   name?: string;
   time_zone: string;
   theme: Theme;
+  loginProviders: LoginProvider[];
   isShowingMobileUserMenu?: boolean;
+  enableCookieConsent: boolean;
   languages: {
     code: string;
     label: string;
