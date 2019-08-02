@@ -13,7 +13,7 @@ import browserUpdate from "browser-update";
 import styled from "@emotion/styled";
 import Spinner from "react-spinner";
 import { Mixpanel } from "../utils/mixpanel";
-import i18next from "i18next";
+import i18next, { ThirdPartyModule } from "i18next";
 import { initReactI18next } from "react-i18next";
 import resourceBundle from "../../../locales";
 
@@ -256,7 +256,7 @@ class App extends React.Component<Props, State> {
       this.props.updateUIVisibility("rightSidebar", true);
 
     // Set up localization.
-    i18next.use(initReactI18next).init({
+    i18next.use(initReactI18next as ThirdPartyModule).init({
       lng: resolvedConfig.flavor.defaultLanguage.code,
       resources: resourceBundle,
       // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
