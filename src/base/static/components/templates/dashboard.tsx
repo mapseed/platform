@@ -18,10 +18,7 @@ import {
   dashboardConfigSelector,
   DashboardsConfig,
 } from "../../state/ducks/dashboard-config";
-import {
-  appConfigSelector,
-  appConfigPropType,
-} from "../../state/ducks/app-config";
+import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
   placeFormsConfigSelector,
   placeFormsConfigPropType,
@@ -37,7 +34,7 @@ import constants from "../../constants";
 
 type StateProps = {
   dashboardConfig: DashboardsConfig;
-  appConfig: PropTypes.InferProps<typeof appConfigPropType>;
+  appConfig: AppConfig;
   hasAdminAbilities: Function;
   datasetPlacesSelector: Function;
   placeFormsConfig: PropTypes.InferProps<typeof placeFormsConfigPropType>;

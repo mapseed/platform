@@ -66,12 +66,25 @@ export function loadAppConfig(config) {
 }
 
 // Reducers:
-// TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
   title: "",
   meta_description: "",
   api_root: "",
   time_zone: "",
+  loginProviders: [
+    {
+      name: "google",
+      provider: "google-oauth2",
+    },
+    {
+      name: "twitter",
+      provider: "twitter",
+    },
+    {
+      name: "facebook",
+      provider: "facebook",
+    },
+  ],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
