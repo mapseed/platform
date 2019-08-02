@@ -147,7 +147,7 @@
     "fs-extra": "^8.1.0",
     "handlebars": "^4.1.2",
     "i18next-resource-store-loader": "^0.1.2",
-    "jest": "^24.0.0",
+    "jest": "^24.8.0",
     "jest-runner-prettier": "^0.2.7",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.8.0",
