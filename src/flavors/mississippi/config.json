@@ -197,7 +197,9 @@
       },
       "navigation": {
         "type": "raster",
-        "tiles": ["https://ecotopia.today/Mississippi/Navigation/{z}/{x}/{y}.png"],
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Navigation/{z}/{x}/{y}.png"
+        ],
         "tileSize": 256
       },
       "nitrogen-plants": {
@@ -370,7 +372,7 @@
             "source": "MissNoDriftless",
             "paint": {
               "fill-color": "#ecf7eb",
-              "fill-opacity":  [
+              "fill-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
@@ -1725,7 +1727,7 @@
       },
       {
         "placeId": 7533,
-        "pan_to": [-90.30, 38.67],
+        "pan_to": [-90.3, 38.67],
         "zoom": 9.5,
         "iconUrl": "/static/css/images/markers/Fractal4.png",
         "visibleLayerGroupIds": [
