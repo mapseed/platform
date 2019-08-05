@@ -3,7 +3,6 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import domtoimage from "dom-to-image";
 import download from "downloadjs";
-import "react-spinner/react-spinner.css";
 
 import { SmallText, TinyTitle } from "../../atoms/typography";
 import { RadioInput } from "../../atoms/input";
