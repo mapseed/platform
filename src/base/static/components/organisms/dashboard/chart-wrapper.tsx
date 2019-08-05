@@ -162,7 +162,6 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
         `}
       >
         <div
-          className="mapseed-chart-header"
           css={css`
             height: ${HEADER_HEIGHT};
             max-height: ${HEADER_HEIGHT};
