@@ -3,17 +3,18 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap, fromJS } from "immutable";
 import { css, jsx } from "@emotion/core";
-import Spinner from "react-spinner";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import eventEmitter from "../../utils/event-emitter";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
+import { Spinner } from "../atoms/imagery";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -30,7 +31,7 @@ import {
   mapViewportPropType,
   layerGroupsSelector,
   layerGroupsPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   hasAdminAbilities,
   hasGroupAbilitiesInDatasets,
@@ -49,11 +50,11 @@ import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import mapseedPDFServiceClient from "../../client/pdf-service-client";
+import { mapViewportSelector } from "../../state/ducks/map";
 
 class InputForm extends Component {
   constructor(props) {
     super(props);
-
     this.initializeForm(props.selectedCategory);
     this.state = {
       fields: this.getNewFields(OrderedMap()),
@@ -82,7 +83,7 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        this.props.onUpdateMapViewport(stageConfig.viewport);
+        eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
 
     this.selectedCategoryConfig.visibleLayerGroupIds &&
@@ -126,7 +127,7 @@ class InputForm extends Component {
           true,
         );
       stageConfig.viewport &&
-        this.props.onUpdateMapViewport(stageConfig.viewport);
+        eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
   }
 
@@ -167,11 +168,11 @@ class InputForm extends Component {
             isVisible: field.hidden_default
               ? false
               : fieldConfig.has("restrictToGroups")
-                ? this.props.isInAtLeastOneGroup(
-                    fieldConfig.get("restrictToGroups"),
-                    this.props.datasetSlug,
-                  ) || this.props.hasAdminAbilities(this.props.datasetSlug)
-                : true,
+              ? this.props.isInAtLeastOneGroup(
+                  fieldConfig.get("restrictToGroups"),
+                  this.props.datasetSlug,
+                ) || this.props.hasAdminAbilities(this.props.datasetSlug)
+              : true,
             renderKey: prevFields.has(field.name)
               ? prevFields.getIn([field.name, "renderKey"]) + "_"
               : this.selectedCategoryConfig.category + field.name,
@@ -264,11 +265,6 @@ class InputForm extends Component {
       { validationErrors: new Set(), isValid: true },
     );
 
-    if (!this.props.isMapDraggedOrZoomed) {
-      newValidationErrors.add("mapNotDragged");
-      isValid = false;
-    }
-
     if (isValid) {
       successCallback();
     } else {
@@ -298,7 +294,12 @@ class InputForm extends Component {
 
     let attrs = {
       ...this.state.fields
-        .filter(state => !!state.get("value"))
+        .filter(state => {
+          return (
+            state.get("config").get("type") !== "lng_lat" &&
+            !!state.get("value")
+          );
+        })
         .map(state => state.get("value"))
         .toJS(),
       location_type: this.selectedCategoryConfig.category,
@@ -336,6 +337,7 @@ class InputForm extends Component {
       });
 
       if (geospatialAnalysisAttrs) {
+        // eslint-disable-next-line require-atomic-updates
         attrs = {
           ...attrs,
           ...geospatialAnalysisAttrs,
@@ -457,7 +459,7 @@ class InputForm extends Component {
     this.props.createFeaturesInGeoJSONSource(
       // "sourceId" and a place's datasetSlug are the same thing.
       this.props.datasetSlug,
-      toClientGeoJSONFeature(placeResponse),
+      [toClientGeoJSONFeature(placeResponse)],
     );
 
     // Save autofill values as necessary.
@@ -505,6 +507,15 @@ class InputForm extends Component {
   getFieldsFromStage({ fields, stage }) {
     return fields.slice(stage.start_field_index - 1, stage.end_field_index);
   }
+
+  onClickModal = modalContent => {
+    this.setState({
+      isInfoModalOpen: true,
+      infoModalHeader: modalContent.header,
+      infoModalBody: modalContent.body,
+      routeOnClose: false,
+    });
+  };
 
   render() {
     return (
@@ -557,6 +568,7 @@ class InputForm extends Component {
               .map(field => (
                 <FormField
                   formId={this.selectedCategoryConfig.formId}
+                  onClickModal={this.onClickModal}
                   fieldConfig={field.get("config").toJS()}
                   disabled={this.state.isFormSubmitting}
                   fieldState={field}
@@ -567,7 +579,6 @@ class InputForm extends Component {
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
-                  onUpdateMapViewport={this.props.onUpdateMapViewport}
                 />
               ))
               .toArray()}
@@ -644,22 +655,16 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
-  isLeavingForm: PropTypes.bool,
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
   layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
   onCategoryChange: PropTypes.func,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
@@ -683,6 +688,7 @@ const mapStateToProps = state => ({
   layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   placeConfig: placeConfigSelector(state),
+  mapViewport: mapViewportSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -691,8 +697,6 @@ const mapDispatchToProps = dispatch => ({
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
 });
@@ -704,5 +708,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("InputForm")(InputForm)),
+  )(withTranslation("InputForm")(InputForm)),
 );

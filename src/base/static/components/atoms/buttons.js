@@ -4,13 +4,18 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "@emotion/styled";
 import { css, jsx } from "@emotion/core";
-import { lighten, darken } from "@material-ui/core/styles/colorManipulator";
 import { withTheme } from "emotion-theming";
 
 import { TwitterIcon, FacebookIcon } from "./icons";
 import { FontAwesomeIcon } from "./imagery";
 import { SmallText } from "./typography";
 
+import {
+  CHARCOAL,
+  OFF_WHITE,
+  getReadableColor,
+  lighten,
+} from "../../utils/color";
 import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
@@ -20,16 +25,16 @@ const EditorButton = withTheme(props => {
   let faClassname;
   if (props.type === "toggle" && props.isEditModeToggled) {
     linearGradient = "linear-gradient(#e99a00, #b97a00)";
-    faClassname = "fa fa-pencil"; // pencil icon
+    faClassname = "fas fa-edit"; // pencil icon
   } else if (props.type === "toggle") {
     linearGradient = "linear-gradient(#f0ad4e, #e99a00)";
-    faClassname = "fa fa-pencil"; // pencil icon
+    faClassname = "fas fa-edit"; // pencil icon
   } else if (props.type === "save") {
     linearGradient = "linear-gradient(#449d44, #449d44)";
-    faClassname = "fa fa-save"; // floppy disk icon
+    faClassname = "fas fa-save"; // floppy disk icon
   } else if (props.type === "remove") {
     linearGradient = "linear-gradient(#c9302c, #c9302c)";
-    faClassname = "fa fa-times"; // times (X) icon
+    faClassname = "fas fa-times"; // times (X) icon
   }
 
   return (
@@ -168,7 +173,7 @@ const Button = styled(props => {
     borderRadius: "3px",
 
     "&:hover": {
-      color: props.theme.bg.light,
+      backgroundColor: lighten(props.theme.bg.default, 5),
     },
   };
 
@@ -197,37 +202,58 @@ const Button = styled(props => {
     styles.border = "3px solid rgba(0, 0, 0, 0.05)";
   } else if (props.variant === "outlined") {
     styles.border = `3px solid ${props.theme.brand.primary}`;
+  } else if (props.variant === "badge") {
+    styles.backgroundColor = props.color;
+    styles.height = "32px";
+    styles.display = "flex";
+    styles.alignItems = "center";
+    styles.paddingLeft = "16px";
+    styles.paddingRight = "16px";
+    styles.borderRadius = "16px";
+    styles["&:hover"].backgroundColor = lighten(props.color, 5);
   }
 
   if (props.color === "primary") {
+    // NOTE: hard-coded colors here are temporary, for a description of planned
+    // themeing changes see: https://github.com/jalMogo/mgmt/issues/329
     styles.backgroundColor = props.theme.brand.primary;
-    styles.color = props.theme.text.secondary;
+    styles.color = "#fff";
     styles["&:hover"].textDecoration = "none";
-    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
-    styles["&:hover"].color = props.theme.text.secondary;
+    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 5);
+    styles["&:hover"].color = "#fff";
   } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
-    styles.color = darken(props.theme.bg.light, 0.6);
-    styles["&:hover"].backgroundColor = lighten(props.theme.brand.primary, 0.6);
-    styles["&:hover"].color = props.theme.text.secondary;
+    styles.color =
+      props.theme.bg.light === "#ffffff"
+        ? getReadableColor(props.theme.bg.light)
+        : "#fff";
+    styles["&:hover"].backgroundColor = lighten(props.theme.bg.light, 5);
+    styles["&:hover"].color =
+      props.theme.bg.light === "#ffffff"
+        ? getReadableColor(props.theme.brand.secondary)
+        : "#fff";
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
     styles.backgroundColor = "transparent";
     styles.color = props.theme.text.tertiary;
-    styles["&:hover"].color = props.theme.text.secondary;
     styles["&:hover"].backgroundColor = props.theme.brand.accent;
+    styles["&:hover"].color = "#fff";
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "black") {
-    styles.backgroundColor = "#fff";
-    styles.color = "black";
-    styles["&:hover"].color = "grey";
-    styles["&:hover"].backgroundColor = lighten("#fff", 0.6);
+    styles.backgroundColor = CHARCOAL;
+    styles.color = getReadableColor(styles.backgroundColor);
+    styles["&:hover"].backgroundColor = OFF_WHITE;
+    styles["&:hover"].color = getReadableColor(
+      styles["&:hover"].backgroundColor,
+    );
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "grey") {
     styles.backgroundColor = "#fff";
     styles.color = "grey";
     styles["&:hover"].color = "black";
-    styles["&:hover"].backgroundColor = lighten("#fff", 0.6);
+    styles["&:hover"].backgroundColor = getReadableColor(
+      styles["&:hover"].color,
+    );
     styles["&:hover"].textDecoration = "none";
   }
 

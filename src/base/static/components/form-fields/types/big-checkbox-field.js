@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { List } from "immutable";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import CheckboxField from "./checkbox-field";
 import "./big-checkbox-field.scss";
@@ -42,9 +42,7 @@ class BigCheckboxField extends Component {
           htmlFor={this.props.id}
         >
           {this.props.t(
-            `checkboxFieldPlaceholder${this.props.formId}${this.props.name}${
-              this.props.id
-            }`,
+            `checkboxFieldPlaceholder${this.props.formId}${this.props.name}${this.props.id}`,
             this.props.label,
           )}
         </label>
@@ -72,4 +70,4 @@ BigCheckboxField.defaultProps = {
   hasAutofill: false,
 };
 
-export default translate("BigCheckboxField")(BigCheckboxField);
+export default withTranslation("BigCheckboxField")(BigCheckboxField);

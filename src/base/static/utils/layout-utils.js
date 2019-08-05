@@ -44,9 +44,7 @@ const getMainContentAreaHeight = ({
   switch (layout) {
     case "desktop":
       return isGeocodeAddressBarEnabled
-        ? `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
-            constants.HEADER_HEIGHT
-          }px)`
+        ? `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${constants.HEADER_HEIGHT}px)`
         : `calc(100% - ${constants.HEADER_HEIGHT}px)`;
     case "mobile":
       // UI heights which resize the main content area:
@@ -56,9 +54,7 @@ const getMainContentAreaHeight = ({
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return `calc(60% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
-          constants.HEADER_HEIGHT
-        }px)`;
+        return `calc(60% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
@@ -76,9 +72,7 @@ const getMainContentAreaHeight = ({
         isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
-          constants.HEADER_HEIGHT
-        }px)`;
+        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&
@@ -90,17 +84,13 @@ const getMainContentAreaHeight = ({
         !isGeocodeAddressBarEnabled &&
         isAddPlaceButtonVisible
       ) {
-        return `calc(100% - ${addPlaceButtonDims.height}px - ${
-          constants.HEADER_HEIGHT
-        }px)`;
+        return `calc(100% - ${addPlaceButtonDims.height}px - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         isGeocodeAddressBarEnabled &&
         isAddPlaceButtonVisible
       ) {
-        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${
-          addPlaceButtonDims.height
-        }px - ${constants.HEADER_HEIGHT}px)`;
+        return `calc(100% - ${constants.GEOCODE_ADDRESS_BAR_HEIGHT}px - ${addPlaceButtonDims.height}px - ${constants.HEADER_HEIGHT}px)`;
       } else {
         const msg =
           "Error: could not find appropriate height declaration for main content area.";

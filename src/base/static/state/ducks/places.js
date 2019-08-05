@@ -26,6 +26,11 @@ export const placesLoadStatusSelector = state => {
 export const placesSelector = state => {
   return state.places.placeModels;
 };
+export const datasetPlacesSelector = (datasetSlug, state) => {
+  return state.places.placeModels.filter(
+    place => place.datasetSlug === datasetSlug,
+  );
+};
 
 export const filteredPlacesSelector = state => {
   const filters = state.filters;
@@ -54,12 +59,6 @@ export const focusedPlaceSelector = state =>
   state.places.placeModels.find(
     place => place.id === state.places.focusedPlaceId,
   );
-
-export const placeExists = (state, placeId) => {
-  return !!state.places.placeModels.find(
-    place => place.id === parseInt(placeId),
-  );
-};
 
 export const activeEditPlaceIdSelector = state => {
   return state.places.activeEditPlaceId;

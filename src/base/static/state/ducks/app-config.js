@@ -8,26 +8,6 @@ export const themeSelector = state => {
   return state.appConfig.theme || {};
 };
 
-export const appConfigPropType = PropTypes.shape({
-  title: PropTypes.string.isRequired,
-  meta_description: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string,
-  api_root: PropTypes.string.isRequired,
-  dataset_download: PropTypes.object,
-  name: PropTypes.string,
-  time_zone: PropTypes.string.isRequired,
-  theme: themePropType,
-  isShowingMobileUserMenu: PropTypes.bool,
-  languages: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ),
-  logo: PropTypes.string,
-  show_name_in_header: PropTypes.bool,
-});
-
 export const themePropType = PropTypes.shape({
   brand: PropTypes.shape({
     primary: PropTypes.string,
@@ -57,6 +37,26 @@ export const themePropType = PropTypes.shape({
   boxShadow: PropTypes.string,
 });
 
+export const appConfigPropType = PropTypes.shape({
+  title: PropTypes.string.isRequired,
+  meta_description: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string,
+  api_root: PropTypes.string.isRequired,
+  dataset_download: PropTypes.object,
+  name: PropTypes.string,
+  time_zone: PropTypes.string.isRequired,
+  theme: themePropType,
+  isShowingMobileUserMenu: PropTypes.bool,
+  languages: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ),
+  logo: PropTypes.string,
+  show_name_in_header: PropTypes.bool,
+});
+
 // Actions:
 const LOAD = "app/LOAD";
 
@@ -66,12 +66,25 @@ export function loadAppConfig(config) {
 }
 
 // Reducers:
-// TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
   title: "",
   meta_description: "",
   api_root: "",
   time_zone: "",
+  loginProviders: [
+    {
+      name: "google",
+      provider: "google-oauth2",
+    },
+    {
+      name: "twitter",
+      provider: "twitter",
+    },
+    {
+      name: "facebook",
+      provider: "facebook",
+    },
+  ],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

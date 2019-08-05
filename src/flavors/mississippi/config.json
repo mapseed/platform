@@ -32,6 +32,7 @@
   "app": {
     "title": "an anthropocene river",
     "name": "Mississippi",
+    "enableCookieConsent": true,
     "show_name_in_header": true,
     "isShowingMobileUserMenu": true,
     "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
@@ -53,7 +54,21 @@
         "headerFontFamily": "Roboto,sans-serif",
         "bodyFontFamily": "Roboto,sans-serif"
       }
-    }
+    },
+    "loginProviders": [
+      {
+        "name": "google",
+        "provider": "google-oauth2"
+      },
+      {
+        "name": "twitter",
+        "provider": "twitter"
+      },
+      {
+        "name": "facebook",
+        "provider": "facebook"
+      }
+    ]
   },
   "map": {
     "geolocationEnabled": true,
@@ -69,6 +84,41 @@
       "pitch": 0,
       "minZoom": 1,
       "maxZoom": 18.4
+    },
+    "mapWidgets": {
+      "radioMenu": {
+        "label": "SOURCES OF NITROGEN LOADING:",
+        "layerGroupId": "nitrogen-deposition-group",
+        "layerId": "nitrogen-deposition",
+        "defaultSelectedOption": "all",
+        "options": [
+          {
+            "id": "all",
+            "aggregator": "INCY",
+            "label": "All sources"
+          },
+          {
+            "id": "farms",
+            "aggregator": "INCY_S5",
+            "label": "Farm fertilizer"
+          },
+          {
+            "id": "cafo",
+            "aggregator": "INCY_S4",
+            "label": "CAFOs (confined animal feeding operations)"
+          },
+          {
+            "id": "sewerage",
+            "aggregator": "INCY_S1",
+            "label": "Sewerage"
+          },
+          {
+            "id": "urban",
+            "aggregator": "INCY_S2",
+            "label": "Urban runoff"
+          }
+        ]
+      }
     }
   },
   "mapStyle": {
@@ -87,6 +137,13 @@
         ],
         "tileSize": 256
       },
+      "streetsDriftless": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjym4bo802g7o1cmq3a81j8ob/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
+      },
       "mississippi-watershed": {
         "type": "raster",
         "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
@@ -96,13 +153,6 @@
         "type": "raster",
         "tiles": [
           "https://ecotopia.today/Mississippi/Confluence/{z}/{x}/{y}.png"
-        ],
-        "tileSize": 256
-      },
-      "terrain": {
-        "type": "raster",
-        "tiles": [
-          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}"
         ],
         "tileSize": 256
       },
@@ -123,7 +173,7 @@
       "topomap": {
         "type": "raster",
         "tiles": [
-          "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+          "https://ecotopia.today/Mississippi/Driftless/{z}/{x}/{y}.png"
         ],
         "tileSize": 256
       },
@@ -141,13 +191,6 @@
         ],
         "tileSize": 256
       },
-      "nitrogen-farm-emissions": {
-        "type": "raster",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/Nitrogen/{z}/{x}/{y}.png"
-        ],
-        "tileSize": 256
-      },
       "nitrogen-plants": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
@@ -155,6 +198,18 @@
       "NewMadrid": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
+      },
+      "USGSstations": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/USGSstations.geojson"
+      },
+      "GlacialMaximum": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/GlacialMaximum.geojson"
+      },
+      "MissNoDriftless": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissNoDriftless.geojson"
       },
       "InactiveCoalMines": {
         "type": "geojson",
@@ -172,11 +227,26 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
       },
-      "nitrogenloading": {
+      "nitrogen-deposition": {
         "type": "vector",
         "tiles": [
-          "https://ecotopia.today/Mississippi/MARBvectortiles/{z}/{x}/{y}.pbf"
-        ]
+          "https://vector-tiles.mapseed.org/mississippi-nitrogen-deposition/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
+      },
+      "levees": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/LeveeVectortiles/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
+      },
+      "protected": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/ProtectedVectortiles/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
       }
     },
     "layerGroups": [
@@ -242,44 +312,6 @@
         ]
       },
       {
-        "id": "nitrogenloading-group",
-        "visibleDefault": false,
-        "interactive": true,
-        "popupContent": "<div style='max-width: 250px'><p><strong>Watershed name:</p><p></strong>{{PNAME}}</p><p><strong>Nitrogen from fertilizer:</p><p></strong>{{INCY}}&nbsp;kg per square kilometer</p></div>",
-        "mapboxLayers": [
-          {
-            "id": "nitrogenloading-polygons",
-            "type": "fill",
-            "source": "nitrogenloading",
-            "source-layer": "nitrogen",
-            "paint": {
-              "fill-color": "#c35800",
-              "fill-opacity": {
-                "property": "INCY_S5",
-                "stops": [
-                  [0, 0],
-                  [200, 0.25],
-                  [500, 0.5],
-                  [1000, 0.75],
-                  [2000, 1]
-                ]
-              },
-              "fill-outline-color": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                5,
-                "rgba(255,255,255,0)",
-                9,
-                "rgba(255,255,255,1)",
-                12,
-                "rgba(255,255,255,0)"
-              ]
-            }
-          }
-        ]
-      },
-      {
         "id": "confluence-group",
         "basemap": false,
         "visibleDefault": false,
@@ -297,6 +329,30 @@
                 1,
                 16,
                 0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "MissNoDriftless-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "MissNoDriftless-labels",
+            "type": "fill",
+            "source": "MissNoDriftless",
+            "paint": {
+              "fill-color": "#ecf7eb",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5.5,
+                0,
+                6.5,
+                0.6
               ]
             }
           }
@@ -326,6 +382,62 @@
         ]
       },
       {
+        "id": "protected-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "protected",
+            "type": "fill",
+            "source": "protected",
+            "source-layer": "protected",
+            "paint": {
+              "fill-color": "#e47901",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                7,
+                0.3,
+                10,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "levees-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p>National Levee Database <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/summary'target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "levees",
+            "type": "line",
+            "source": "levees",
+            "source-layer": "levees",
+            "paint": {
+              "line-color": "#d44901",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7.5,
+                0,
+                8.5,
+                2,
+                14,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      {
         "id": "noheart-group",
         "basemap": false,
         "visibleDefault": false,
@@ -339,13 +451,39 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                4,
+                1,
                 0,
-                5,
+                4,
                 1,
                 7,
                 1,
                 8,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "GlacialMaximum-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "GlacialMaximum-labels",
+            "type": "fill",
+            "source": "GlacialMaximum",
+            "paint": {
+              "fill-pattern": "SnowTexture.png",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                4,
+                0,
+                5.5,
+                1,
+                7,
                 0
               ]
             }
@@ -365,6 +503,18 @@
         ]
       },
       {
+        "id": "streetsDriftless-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "streetsDriftless-basemap",
+            "type": "raster",
+            "source": "streetsDriftless"
+          }
+        ]
+      },
+      {
         "id": "topomap-group",
         "basemap": false,
         "visibleDefault": false,
@@ -372,19 +522,69 @@
           {
             "id": "topomap-basemap",
             "type": "raster",
-            "source": "topomap"
+            "source": "topomap",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                0,
+                14,
+                1,
+                16,
+                1,
+                18,
+                0
+              ]
+            }
           }
         ]
       },
       {
-        "id": "terrain-group",
-        "basemap": false,
+        "id": "nitrogen-deposition-group",
         "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Watershed name:</strong></p><p>{{PNAME}}</p><p><strong>Total nitrogen loading:</strong></p><p>{{INCY}}&nbsp;kg per km2 per year</p><p><strong>Anthropogenic sources:</strong></p><p>--farm fertilizer&nbsp;{{INCY_S5}}&nbsp;kg/km2</p><p>--CAFOs&nbsp;{{INCY_S4}}&nbsp;kg/km2</p><p>--sewerage&nbsp;{{INCY_S1}}&nbsp;kg/km2</p><p>--urban runoff&nbsp;{{INCY_S2}}&nbsp;kg/km2</p></div>",
         "mapboxLayers": [
           {
-            "id": "terrain-basemap",
-            "type": "raster",
-            "source": "terrain"
+            "id": "nitrogen-deposition",
+            "type": "fill",
+            "source": "nitrogen-deposition",
+            "source-layer": "mississippi-nitrogen-deposition",
+            "paint": {
+              "fill-color": "#c35800",
+              "fill-opacity": [
+                "step",
+                [
+                  "+",
+                  ["get", "INCY_S1"],
+                  ["get", "INCY_S2"],
+                  ["get", "INCY_S4"],
+                  ["get", "INCY_S5"]
+                ],
+                0,
+                200,
+                0.25,
+                500,
+                0.5,
+                1000,
+                0.75,
+                2000,
+                1
+              ],
+              "fill-outline-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                "rgba(255,255,255,0)",
+                9,
+                "rgba(255,255,255,1)",
+                12,
+                "rgba(255,255,255,0)"
+              ]
+            }
           }
         ]
       },
@@ -453,6 +653,26 @@
                 10,
                 1
               ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "USGSstations",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}<BR><img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=7' width='450'<BR><BR>Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "USGSstations-labels",
+            "type": "symbol",
+            "source": "USGSstations",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 7.5, 0.4, 10, 0.9, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gage.png"
             }
           }
         ]
@@ -621,7 +841,7 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": "center",
-              "icon-size": ["step", ["zoom"], 0.4, 9, 0.9],
+              "icon-size": ["step", ["zoom"], 0.6, 9, 1],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -691,18 +911,6 @@
             }
           }
         ]
-      },
-      {
-        "id": "nitrogen-farm-emissions-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "nitrogen-layer",
-            "type": "raster",
-            "source": "nitrogen-farm-emissions"
-          }
-        ]
       }
     ]
   },
@@ -740,8 +948,8 @@
         "title": "Nitrogen",
         "options": [
           {
-            "layerGroupId": "nitrogen-farm-emissions-group",
-            "title": "Nitrogen Details"
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition"
           },
           {
             "layerGroupId": "nitrogen-plants-group",
@@ -782,6 +990,10 @@
         "label": "Featured Site",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Title:",
@@ -816,6 +1028,10 @@
         "value": "geology",
         "label": "Geology",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -861,6 +1077,10 @@
         "label": "History",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
@@ -903,6 +1123,10 @@
         "value": "industry",
         "label": "Industry",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -948,6 +1172,10 @@
         "label": "Culture",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Title of your post",
@@ -990,6 +1218,10 @@
         "value": "ecology",
         "label": "Ecology",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -1252,7 +1484,7 @@
       "content": [
         "<p><h2>MISSISSIPPI: An Anthropocene River</h2></p>",
         "<img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/>",
-        "<p><br><strong>Mississippi: An Anthropocene River</strong> explores the vast but patchy region around the Mississippi in its changing spatio-temporal formations. The project’s aim is to make this archival landscape legible as a critical zone of habitation and long-term interaction between humans and the environment. It seeks to analyze the Anthropocene on the ground and in the field, exploring ground-truthing measures to augment the remote-sensing operations and abstract knowledge forms of Anthropocene science. Through November 2019, interdisciplinary groups of researchers, artists and stakeholders from civil society will investigate the river basin to develop local approaches to issues of planetary change and together will forge new methods of transdisciplinary research and education. The project is developed and organized by Haus der Kulturen der Welt (HKW) and the Max Planck Institute for the History of Science, Berlin (MPIWG).</p>",
+        "<p><br><strong>Mississippi: An Anthropocene River</strong> explores the vast but patchy region around the Mississippi in its changing spatio-temporal formations. The project’s aim is to make this archival landscape legible as a critical zone of habitation and long-term interaction between humans and the environment. It seeks to analyze the Anthropocene on the ground and in the field, exploring ground-truthing measures to augment the remote-sensing operations and abstract knHistoryedge forms of Anthropocene science. Through November 2019, interdisciplinary groups of researchers, artists and stakeholders from civil society will investigate the river basin to develop local approaches to issues of planetary change and together will forge new methods of transdisciplinary research and education. The project is developed and organized by Haus der Kulturen der Welt (HKW) and the Max Planck Institute for the History of Science, Berlin (MPIWG).</p>",
         "<p>The Mississippi River’s meandering path has carved out an iconic landscape in US mythology and has become a symbol for human impact. Barely a river but more of a floodplain before colonization, it was massively dredged in the 20th century. Its ecology has evolved as a constantly shifting ecosystem, a catchment of cultures, a dividing line, a water highway for resources and goods, and a sink for pollutants. From the logging and mining zones in the Upper River area to the high technology and petrochemical centers in the Delta; from the industrial agricultural landscapes of the Midwest to the “dead zones” in the Gulf of Mexico; from the historic transportation network enabling the iniquitous trade of forced human labor to the social injustices of poverty and deindustrialization today—the Mississippi is a symptom and object of investigation for the radical impact humans inflict on the Earth.</p>",
         "<p><strong>Mississippi: An Anthropocene River</strong> manifests itself in a variety of field-research activities, public forums, workshops, and travels on and along the Mississippi River. Five Anthropocene River Field Stations, distributed along the watershed from North to South, investigate, highlight, and share historical and contemporary issues of their respective region using both scientific and artistic research methods over the course of one year. <em>Sediment, Settlement, Sentiment: The Machinic River</em> (Field Station 1) addresses the uppermost part of the Mississippi river as a site of river engineering, experimentation and speculation. <em>Anthropocene Drift</em> (Field Station 2) centers on the process of biome change, contrasting the monocrop landscapes of the Corn Belt with the Driftless Area stretching across southeastern Minnesota, southwestern Wisconsin and northwestern Iowa. Anthropocene Vernacular. <em>Industry, Indigeneity, and Empire</em> (Field Station 3) explores the long and conflicted histories of settlement and domestication in the St. Louis area and the American Bottom. <em>Confluence Ecologies</em> (Field Station 4) engages with the ecologic-economic-technological infrastructures in the “Confluence Region” between Southern Illinois, Missouri and Kentucky. <em>Commodity Exploitation</em> (Field Station 5) explores identity and commerce in the in the Lower Mississippi River stretching from Memphis to Natchez. During the fall of 2019, an Anthropocene River Journey - made on canoes and vans travelling down and along the Mississippi—gathers the explorations of the various Field Stations and synthesizes them into a common framework. Travelling participants carry out their own research and provide extensive documentation, bringing the findings downstream and tying the different narratives together. In a weeklong series of experimental seminars taking place November 9–16 in New Orleans the Anthropocene River Campus: The Human Delta will mark a conceptual contraction of the specifically local approaches of the project, informed and leveraged by the research works of the Field Stations, and the planetary-scale framework of economic, ecological, and social teleconnections of the Anthropocene River. An Anthropocene River School features several linked activities, working as an exemplary platform for research practice and activism, transforming field site data into an ongoing, collaborative teaching enterprise—both on site and online.</p>",
         "<p><br></p>",
@@ -1314,14 +1546,16 @@
       {
         "placeId": 7532,
         "pan_to": [-94.0, 42.4],
-        "zoom": 5.2,
+        "zoom": 4.6,
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "mississippi-group",
+          "MissNoDriftless-group",
           "kickapoo-group",
-          "streets2-group",
           "noheart-group",
-          "mississippi-input"
+          "GlacialMaximum-group",
+          "mississippi-input",
+          "topomap-group"
         ],
         "spotlight": false
       },
@@ -1355,11 +1589,11 @@
         "placeId": 7531,
         "pan_to": [-90.65, 39.65],
         "zoom": 5,
-        "iconUrl": "/static/css/images/markers/Nitrogen.png",
+        "iconUrl": "/static/css/images/markers/nitrogen.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "nitrogen-plants-group",
-          "nitrogenloading-group",
+          "nitrogen-deposition-group",
           "streets-group",
           "mississippi-group"
         ],

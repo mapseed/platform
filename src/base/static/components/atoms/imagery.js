@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
+import ReactSpinner from "react-spinner";
+import "react-spinner/react-spinner.css";
 
 const Image = props => <img src={props.src} alt={props.alt} {...props} />;
 
@@ -18,9 +20,10 @@ const FontAwesomeIcon = styled(props => (
   <span className={`${props.className} ${props.faClassname}`} />
 ))(props => {
   const styles = {
-    fontFamily: "FontAwesome",
+    fontFamily: "Font Awesome 5 Free",
     fontSize: props.fontSize,
     color: props.color,
+    textShadow: props.textShadow,
 
     "&:hover": {
       color: props.hoverColor,
@@ -42,6 +45,7 @@ FontAwesomeIcon.defaultProps = {
   content: "fa fa-globe",
   color: "#000",
   hoverColor: "#555",
+  textShadow: "initial",
 };
 
 const SiteLogo = styled(props => {
@@ -71,6 +75,7 @@ const UserAvatar = styled(props => {
       src={avatarSrc}
       className={props.className}
       onError={() => setAvatarSrc("/static/css/images/user-50.png")}
+      onClick={props.onClick}
     />
   );
 })(props => {
@@ -101,6 +106,7 @@ const UserAvatar = styled(props => {
 UserAvatar.propTypes = {
   size: PropTypes.string,
   src: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 UserAvatar.defaultProps = {
@@ -108,6 +114,8 @@ UserAvatar.defaultProps = {
   src: "/static/css/images/user-50.png",
 };
 
+const Spinner = ({ style }) => <ReactSpinner style={style} />;
+
 export default UserAvatar;
 
-export { Image, UserAvatar, SiteLogo, FontAwesomeIcon };
+export { Image, UserAvatar, SiteLogo, FontAwesomeIcon, Spinner };

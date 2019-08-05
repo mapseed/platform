@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
+import { withTranslation } from "react-i18next";
 
-import { translate } from "react-i18next";
-
-import GeocodingField from "../form-fields/types/geocoding-field";
+import GeocodingField from "../molecules/form-field-types/geocoding-field";
 
 import { uiVisibilitySelector, layoutSelector } from "../../state/ducks/ui";
 
 import { getMainContentAreaWidth } from "../../utils/layout-utils";
 import { Mixpanel } from "../../utils/mixpanel";
-import { mapConfigPropType } from "../../state/ducks/map-config";
 
 const GeocodeAddressBarWrapper = styled(props => (
   <form onSubmit={props.onSubmit} className={props.className}>
@@ -73,7 +71,6 @@ class GeocodeAddressBar extends Component {
         layout={this.props.layout}
       >
         <GeocodingField
-          mapConfig={this.props.mapConfig}
           onKeyDown={this.onKeyDown}
           onChange={this.onChange}
           name="geocode-address-bar"
@@ -83,7 +80,7 @@ class GeocodeAddressBar extends Component {
           )}
           isTriggeringGeocode={this.state.isTriggeringGeocode}
           value={this.state.address}
-          onUpdateMapViewport={this.props.onUpdateMapViewport}
+          reverseGeocode={false}
         />
       </GeocodeAddressBarWrapper>
     );
@@ -94,8 +91,6 @@ GeocodeAddressBar.propTypes = {
   isContentPanelVisible: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   layout: PropTypes.string.isRequired,
-  mapConfig: mapConfigPropType,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 
@@ -106,5 +101,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(
-  translate("GeocodeAddressBar")(GeocodeAddressBar),
+  withTranslation("GeocodeAddressBar")(GeocodeAddressBar),
 );

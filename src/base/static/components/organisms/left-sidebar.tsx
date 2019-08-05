@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
 import { SmallTitle } from "../atoms/typography";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
+import { MapSourcesLoadStatus } from "../../state/ducks/map";
 import {
   isLeftSidebarExpandedSelector,
   leftSidebarConfigSelector,
@@ -40,13 +41,14 @@ type Props = {
   mapSourcesLoadStatus: MapSourcesLoadStatus;
   setLeftSidebarExpanded: any;
   leftSidebarConfig: LeftSidebarConfig;
-};
+} & WithTranslation;
 
 const LeftSidebar: React.FunctionComponent<Props> = props => (
   <section
     css={{
       position: "absolute",
-      zIndex: 20,
+      left: 0,
+      zIndex: 6,
       width: "250px",
       height: "100%",
       boxSizing: "border-box",
@@ -60,23 +62,21 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
         width: "100%",
         height: "100%",
         padding: "1em 1em 4em 1em",
-        overflow: "auto",
+        overflow: "scroll",
         boxSizing: "border-box",
+        "-webkit-overflow-scrolling": "touch",
 
         "&::-webkit-scrollbar": {
           display: "none",
         },
       }}
     >
-      <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
-        &#10005;
-      </CloseButton>
       <SmallTitle
         css={{
           marginTop: 0,
         }}
       >
-        {props.leftSidebarConfig.title}
+        {props.t("leftSidebarTitle", props.leftSidebarConfig.title)}
       </SmallTitle>
 
       {props.leftSidebarConfig.sections.length > 0 &&
@@ -85,11 +85,15 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
             <LeftSidebarSection
               key={layerPanelSectionIndex}
               section={section}
+              layerPanelSectionIndex={layerPanelSectionIndex}
               mapSourcesLoadStatus={props.mapSourcesLoadStatus}
             />
           ),
         )}
     </div>
+    <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
+      &#10005;
+    </CloseButton>
   </section>
 );
 
@@ -105,4 +109,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LeftSidebar);
+)(withTranslation("LeftSidebar")(LeftSidebar));

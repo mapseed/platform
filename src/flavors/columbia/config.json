@@ -40,8 +40,8 @@
       "text": {
         "secondary": "#fff",
         "tertiary": "#8b4710",
-        "titleFontFamily": "Raleway,sans-serif",
-        "bodyFontFamily": "Raleway,sans-serif"
+        "titleFontFamily": "Raleway-ExtraBold,sans-serif",
+        "bodyFontFamily": "Raleway-Regular,sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#8b4710",
@@ -49,21 +49,997 @@
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "VSP Reports - Columbia County",
+      "isExportable": true,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "columbia-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total VSP Reports"
+            },
+            {
+              "type": "placePropertyCount",
+              "label": "Total Stewardship Actions",
+              "properties": {
+                "conservation_cover": "yes",
+                "cropland_pest_management": "yes",
+                "cover_crop": "yes",
+                "crop_riparian_forest_buffer": "yes",
+                "residue_tillage_management": "yes",
+                "nutrient_management": "yes",
+                "crop_fencing": "yes",
+                "ranch_riparian_forest_buffer": "yes",
+                "ranch_fencing": "yes",
+                "stream_habitat_improvement": "yes",
+                "livestock_grazing": "yes",
+                "watering_facility": "yes"
+              }
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. VSP reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        },
+        {
+          "header": "Stewardship Practices Detail",
+          "type": "fixedTable",
+          "stripeColor": "#fbf6ed",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Stewardship category",
+              "type": "string",
+              "fractionalWidth": 2
+            },
+            {
+              "header": "Touchet Watershed",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "touchet"]
+            },
+            {
+              "header": "Tucannon Watershed",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "tucannon"]
+            },
+            {
+              "header": "Lower Snake Watershed",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "lower-snake"]
+            },
+            {
+              "header": "Countywide",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Status",
+              "type": "badge"
+            },
+            {
+              "header": "Enhanced Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Enhanced Status",
+              "type": "badge"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "Conservation Cover"
+                },
+                {
+                  "value": ["get-sum", "conservation_cover_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "conservation_cover_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "conservation_cover_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "conservation_cover_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Cropland Pest Management"
+                },
+                {
+                  "value": ["get-sum", "cropland_pest_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "cropland_pest_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "cropland_pest_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "cropland_pest_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Cover Crop"
+                },
+                {
+                  "value": ["get-sum", "cover_crop_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "cover_crop_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "cover_crop_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "cover_crop_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Cropland Riparian Forest Buffer"
+                },
+                {
+                  "value": ["get-sum", "crop_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "crop_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "crop_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "crop_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Residue and Tillage Management"
+                },
+                {
+                  "value": ["get-sum", "residue_tillage_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "residue_tillage_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "residue_tillage_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "residue_tillage_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Nutrient Management"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Cropland Fencing"
+                },
+                {
+                  "value": ["get-sum", "crop_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "crop_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "crop_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "crop_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Ranchland Riparian Forest Buffer"
+                },
+                {
+                  "value": ["get-sum", "ranch_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "ranch_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "ranch_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "ranch_riparian_forest_buffer_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Livestock Fencing"
+                },
+                {
+                  "value": ["get-sum", "ranch_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "ranch_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "ranch_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "ranch_fencing_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Stream Habitat Improvement"
+                },
+                {
+                  "value": ["get-sum", "stream_habitat_improvement_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "stream_habitat_improvement_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "stream_habitat_improvement_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "stream_habitat_improvement_amount"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Livestock Grazing"
+                },
+                {
+                  "value": ["get-sum", "livestock_grazing_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "livestock_grazing_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "livestock_grazing_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "livestock_grazing_amount"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Watering Facility"
+                },
+                {
+                  "value": ["get-sum", "watering_facility_amount"],
+                  "label": "facils."
+                },
+                {
+                  "value": ["get-sum", "watering_facility_amount"],
+                  "label": "facils."
+                },
+                {
+                  "value": ["get-sum", "watering_facility_amount"],
+                  "label": "facils."
+                },
+                {
+                  "value": ["get-sum", "watering_facility_amount"],
+                  "label": "facils."
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Facils."
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Facils."
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "header": "Landowner Summary",
+          "type": "freeTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Name and contact",
+              "type": "string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                ["get-val", "private-landowner_name"],
+                ["get-val", "private-landowner_email"],
+                ["get-val", "private-landowner_phone"]
+              ]
+            },
+            {
+              "header": "Submitted report on",
+              "type": "date",
+              "fractionalWidth": 2,
+              "value": ["get-val", "created_datetime"]
+            },
+            {
+              "header": "OK to use photos?",
+              "type": "boolean",
+              "fractionalWidth": 1,
+              "value": ["get-val", "private-use_photos"]
+            },
+            {
+              "header": "Requesting information",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "conservation_cover"], "interested"],
+                  ["literal", "Conservation Cover"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "cropland_pest_management"], "interested"],
+                  ["literal", "Cropland Pest Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "cover_crop"], "interested"],
+                  ["literal", "Cover Crop"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "crop_riparian_forest_buffer"],
+                    "interested"
+                  ],
+                  ["literal", "Cropland Riparian Forest Buffer"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "residue_tillage_management"],
+                    "interested"
+                  ],
+                  ["literal", "Residue and Tillage Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "nutrient_management"], "interested"],
+                  ["literal", "Nutrient Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "crop_fencing"], "interested"],
+                  ["literal", "Cropland Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "ranch_riprian_forest_buffer"],
+                    "interested"
+                  ],
+                  ["literal", "Ranchland Riparian Forest Buffer"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "ranch_fencing"], "interested"],
+                  ["literal", "Ranchland Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "stream_habitat_improvement"],
+                    "interested"
+                  ],
+                  ["literal", "Stream Habitat Improvements"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "livestock_grazing"], "interested"],
+                  ["literal", "Livestock Grazing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "watering_facility"], "interested"],
+                  ["literal", "Watering Facility"],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Practices Implemented",
+              "type": "unstyled-string",
+              "fractionalWidth": 3,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "conservation_cover"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Conservation Cover: "],
+                    ["get-val", "conservation_cover_amount"],
+                    ["literal", " acres"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "cropland_pest_management"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Cropland Pest Management: "],
+                    ["get-val", "cropland_pest_management_amount"],
+                    ["literal", " acres"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "cover_crop"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Cover Crop: "],
+                    ["get-val", "cover_crop_amount"],
+                    ["literal", " acres"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "crop_riparian_forest_buffer"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Cropland Riparian Forest Buffer: "],
+                    ["get-val", "crop_riparian_forest_buffer_amount"],
+                    ["literal", " feet"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "residue_tillage_management"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Residue and Tillage Management: "],
+                    ["get-val", "residue_tillage_management_amount"],
+                    ["literal", " acres"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "nutrient_management"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Nutrient Management: "],
+                    ["get-val", "nutrient_management_amount"],
+                    ["literal", " acres"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "crop_fencing"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Cropland Fencing: "],
+                    ["get-val", "crop_fencing_amount"],
+                    ["literal", " feet"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "ranch_riprian_forest_buffer"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Ranchland Riparian Forest Buffer: "],
+                    ["get-val", "ranch_riparian_forest_buffer_amount"],
+                    ["literal", " feet"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "ranch_fencing"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Ranchland Fencing: "],
+                    ["get-val", "ranch_fencing_amount"],
+                    ["literal", " feet"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stream_habitat_improvement"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Stream Habitat Improvements: "],
+                    ["get-val", "stream_habitat_improvement_amount"],
+                    ["literal", " feet"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "livestock_grazing"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Livestock Grazing: "],
+                    ["get-val", "livestock_grazing_amount"],
+                    ["literal", " acres"]
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "watering_facility"], "yes"],
+                  [
+                    "cat",
+                    ["literal", "Watering Facility: "],
+                    ["get-val", "watering_facility_amount"],
+                    ["literal", " facils."]
+                  ],
+                  ["literal", ""]
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "header": "Critical Area Summary",
+          "type": "fixedTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 7,
+            "height": 206
+          },
+          "columns": [
+            {
+              "header": "Summary type",
+              "type": "string",
+              "fractionalWidth": 2
+            },
+            {
+              "header": "Wetlands",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_wetlands"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Frequently flooded areas",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_frequently_flooded"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Hazardous areas",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_geologic_hazard"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Critical aquifers",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_critical_aquifer"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Critical conservation areas",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_critical_conservation"],
+                "yes"
+              ]
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "Number of reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "map": {
+    "measurementToolEnabled": true,
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-117.975085, 46.316023],
-    "offlineBoundingBox": {
-      "southWest": {
-        "lat": 45.979484,
-        "lng": -118.326326
-      },
-      "northEast": {
-        "lat": 46.667782,
-        "lng": -117.576393
-      }
-    },
     "scrollZoomAroundCenter": true,
     "mapViewport": {
       "latitude": 46.32066,
@@ -632,7 +1608,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 4,
+            "end_field_index": 5,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -640,8 +1616,8 @@
             ]
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 6,
+            "start_field_index": 6,
+            "end_field_index": 7,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-watersheds",
@@ -649,8 +1625,8 @@
             ]
           },
           {
-            "start_field_index": 7,
-            "end_field_index": 10,
+            "start_field_index": 8,
+            "end_field_index": 11,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-watersheds",
@@ -658,8 +1634,8 @@
             ]
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 12,
+            "start_field_index": 12,
+            "end_field_index": 13,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-wetlands",
@@ -667,8 +1643,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 14,
+            "start_field_index": 14,
+            "end_field_index": 15,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-frequently-flooded",
@@ -676,8 +1652,8 @@
             ]
           },
           {
-            "start_field_index": 15,
-            "end_field_index": 16,
+            "start_field_index": 16,
+            "end_field_index": 17,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-geologic-hazard",
@@ -685,8 +1661,8 @@
             ]
           },
           {
-            "start_field_index": 17,
-            "end_field_index": 18,
+            "start_field_index": 18,
+            "end_field_index": 19,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-critical-aquifer",
@@ -694,8 +1670,8 @@
             ]
           },
           {
-            "start_field_index": 19,
-            "end_field_index": 20,
+            "start_field_index": 20,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-critical-conservation-areas",
@@ -703,8 +1679,8 @@
             ]
           },
           {
-            "start_field_index": 21,
-            "end_field_index": 42,
+            "start_field_index": 22,
+            "end_field_index": 43,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -712,8 +1688,8 @@
             ]
           },
           {
-            "start_field_index": 43,
-            "end_field_index": 58,
+            "start_field_index": 44,
+            "end_field_index": 59,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -721,8 +1697,8 @@
             ]
           },
           {
-            "start_field_index": 59,
-            "end_field_index": 60,
+            "start_field_index": 60,
+            "end_field_index": 61,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -730,8 +1706,8 @@
             ]
           },
           {
-            "start_field_index": 61,
-            "end_field_index": 72,
+            "start_field_index": 62,
+            "end_field_index": 73,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -741,6 +1717,10 @@
         ],
         "label": "Actions",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "location_information_header",
             "type": "informational_html",
@@ -959,7 +1939,7 @@
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Critical Conservation Areas</h2><img style='height:150px;margin-left:16px;margin-top:16px;' src='/static/css/images/wildlife-conservation.jpeg' alt='Critical conservation areas' /><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical conservation areas</strong> are managed to maintain habitats of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center;justify-content:flex-end;'><em style='font-size:0.9em;text-align:right;'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
           },
           {
-            "name": "private-property_on_criticak_conservation",
+            "name": "private-property_on_critical_conservation",
             "type": "big_radio",
             "prompt": "Does your property lie on any critical conservation areas?",
             "optional": false,
@@ -1837,7 +2817,6 @@
   "pages": [
     {
       "slug": "assistance",
-      "lang": "en",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
         "<p style='margin-bottom:16px'>Your Columbia County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
@@ -1856,7 +2835,6 @@
     },
     {
       "slug": "about",
-      "lang": "en",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Columbia County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/columbia-county-fields.jpg' alt='Columbia County fields' style='margin:8px 0 16px 0' />",

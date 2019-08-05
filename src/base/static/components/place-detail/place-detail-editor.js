@@ -3,19 +3,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { Map, OrderedMap, fromJS } from "immutable";
-import Spinner from "react-spinner";
-import "react-spinner/react-spinner.css";
 import { withRouter } from "react-router";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
+import { Spinner } from "../atoms/imagery";
 
 import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 import Util from "../../js/utils.js";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
@@ -29,7 +28,7 @@ import {
   removeFeatureInGeoJSONSource,
   updateFeatureInGeoJSONSource,
   updateFocusedGeoJSONFeatures,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
 import {
   isInAtLeastOneGroup,
@@ -59,8 +58,13 @@ class PlaceDetailEditor extends Component {
     this.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
-      .filter(field => field.type !== "submit")
-      .filter(field => field.isVisible)
+      .filter(
+        field =>
+          field.type !== "submit" &&
+          field.type !== "informational_html" &&
+          field.type !== "lng_lat" &&
+          field.isVisible,
+      )
       .forEach(field => {
         const fieldConfig = fromJS(
           this.categoryConfig.fields.find(f => f.name === field.name),
@@ -90,12 +94,12 @@ class PlaceDetailEditor extends Component {
               field.hidden_default
                 ? false
                 : fieldConfig.has("restrictToGroups")
-                  ? this.props.isInAtLeastOneGroup(
-                      fieldConfig.get("restrictToGroups"),
-                      this.props.place.datasetSlug,
-                    ) ||
-                    this.props.hasAdminAbilities(this.props.place.datasetSlug)
-                  : true,
+                ? this.props.isInAtLeastOneGroup(
+                    fieldConfig.get("restrictToGroups"),
+                    this.props.place.datasetSlug,
+                  ) ||
+                  this.props.hasAdminAbilities(this.props.place.datasetSlug)
+                : true,
             )
             .set("trigger", field.trigger && field.trigger.trigger_value)
             .set(
@@ -463,5 +467,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("PlaceDetailEditor")(PlaceDetailEditor)),
+  )(withTranslation("PlaceDetailEditor")(PlaceDetailEditor)),
 );

@@ -37,11 +37,11 @@ const RightSidebar: React.FunctionComponent<Props> = props => {
   return (
     <aside
       css={{
-        zIndex: 10,
+        zIndex: 16,
         position: "absolute",
         top: constants.HEADER_HEIGHT,
         right: 0,
-        height: "100%",
+        height: `calc(100% - ${constants.HEADER_HEIGHT}px)`,
         backgroundColor: "#fff",
         width: props.isRightSidebarVisible ? "15%" : 0,
         boxShadow: "-4px 0 3px rgba(0,0,0,0.1)",

@@ -1282,6 +1282,10 @@
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
@@ -1450,6 +1454,10 @@
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "cover-image",
             "type": "file",
             "prompt": "Cover Image",
@@ -1546,6 +1554,10 @@
         "value": "conserve-water",
         "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -1661,6 +1673,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -1775,6 +1791,10 @@
         "label": "I will reduce wastewater pollution",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -1881,6 +1901,10 @@
         "label": "I will conserve energy",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -1979,6 +2003,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -2073,6 +2101,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -2159,6 +2191,10 @@
         "visibleLayerGroupIds": ["mw"],
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "address",
             "type": "common_form_element"
           },
@@ -2236,6 +2272,10 @@
         "value": "restore-salmon-habitat",
         "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -4322,7 +4362,6 @@
   "pages": [
     {
       "slug": "guide",
-      "lang": "en",
       "content": [
         "<div class='getinvolved'>",
         "<i class='fa fa-info-circle'></i>",
@@ -4376,7 +4415,6 @@
     },
     {
       "slug": "sponsors",
-      "lang": "en",
       "content": [
         "<h1>Sponsors</h1>",
         "<p>Seed funding provided by the Puget Sound Stewardship and Mitigation Fund, a community grantmaking fund created by Puget Soundkeeper Alliance and administered by the Rose Foundation for Communities and the Environment.</p>",
@@ -4389,14 +4427,12 @@
     },
     {
       "slug": "classroom",
-      "lang": "en",
       "content": [
         "<iframe src='https://docs.google.com/forms/d/e/1FAIpQLSeMZsMyb-7kRKiHc6lMeRnl96C1Tun8U2YWr7YjJz09K-S3lA/viewform?embedded=true' width='640' height='721' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>"
       ]
     },
     {
       "slug": "about",
-      "lang": "en",
       "content": [
         "<h3 style='font-family:Palanquin, sans-serif'>Classroom Impact Reporting Protocol</h3>",
         "<img style='margin-top:16px;margin-bottom:16px;width:100%;' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",

@@ -4,6 +4,7 @@ import classNames from "classnames";
 import styled from "@emotion/styled";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { darken } from "@material-ui/core/styles/colorManipulator";
 
 import "./typography.scss";
 
@@ -126,23 +127,23 @@ const TinyTitle = styled("h4")(props => ({
 // TODO: Other label types.
 const ExtraLargeLabel = styled("label")(props => ({
   fontSize: "2rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const LargeLabel = styled("label")(props => ({
   fontSize: "1.5rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const RegularLabel = styled("label")(props => ({
   fontSize: "1rem",
   lineHeight: "1.2rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const SmallLabel = styled("label")(props => ({
   fontSize: "0.7rem",
-  fontFamily: props.theme.text.titleFontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 RegularLabel.propTypes = {
@@ -158,7 +159,7 @@ const textHandler = (props, styles) => {
 
   switch (props.weight) {
     case "bold":
-      styles.fontWeight = 600;
+      styles.fontWeight = 800;
       break;
     case "black":
       styles.fontWeight = 900;
@@ -182,6 +183,8 @@ const textHandler = (props, styles) => {
 const LargeText = styled("span")(props => {
   const styles = {
     fontSize: "1.5rem",
+    lineHeight: "1.7rem",
+    fontWeight: "normal",
   };
   return textHandler(props, styles);
 });
@@ -189,6 +192,8 @@ const LargeText = styled("span")(props => {
 const RegularText = styled("span")(props => {
   const styles = {
     fontSize: "1rem",
+    lineHeight: "1.3rem",
+    fontWeight: "normal",
   };
   return textHandler(props, styles);
 });
@@ -196,6 +201,7 @@ const RegularText = styled("span")(props => {
 const SmallText = styled("span")(props => {
   const styles = {
     fontSize: "0.75rem",
+    lineHeight: "1.0rem",
     fontWeight: "normal",
   };
 
@@ -205,11 +211,34 @@ const SmallText = styled("span")(props => {
 const MicroText = styled("span")(props => {
   const styles = {
     fontSize: "0.6rem",
+    lineHeight: "0.8rem",
     fontWeight: "normal",
   };
 
   return textHandler(props, styles);
 });
+
+const DashboardText = styled("p")(props => ({
+  margin: 0,
+  padding: 0,
+  textAlign: props.textAlign,
+  fontFamily: props.weight === "bold" ? "PTSans-Bold" : "PTSans-Regular",
+  fontSize: props.fontSize,
+  color: props.color,
+  textTransform: props.textTransform,
+  marginTop: "4px",
+  marginBottom: "4px",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+}));
+
+DashboardText.defaultProps = {
+  color: "#222",
+  textAlign: "center",
+  weight: "regular",
+  textTransform: "none",
+  fontSize: "1rem",
+};
 
 const ExternalLink = styled("a")({
   textDecoration: "none",
@@ -235,7 +264,6 @@ const InternalLink = styled(props => {
 
   "&:hover": {
     textDecoration: "none",
-    color: props.theme.bg.light,
   },
 }));
 
@@ -247,6 +275,22 @@ const Time = props => <time>{moment(props.time).fromNow()}</time>;
 
 Time.propTypes = {
   time: PropTypes.string.isRequired,
+};
+
+// TODO: Dynamic badge border radius and padding to match content.
+const Badge = styled("span")(props => ({
+  backgroundColor: props.color,
+  color: darken(props.color, 0.8),
+  padding: "2px 12px 2px 12px",
+  borderRadius: "14px",
+}));
+
+Badge.defaultProps = {
+  color: "#bbb",
+};
+
+Badge.propTypes = {
+  color: PropTypes.string.isRequired,
 };
 
 export {
@@ -271,5 +315,7 @@ export {
   RegularText,
   SmallText,
   MicroText,
+  DashboardText,
   Time,
+  Badge,
 };

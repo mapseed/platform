@@ -1,7 +1,7 @@
 @import "variables";
 
 .add-attachment-button__file-field-label {
-  display: inline;
+  display: inline-block;
   color: $add-attachment-button-text-color;
   padding: $add-attachment-button-padding;
   background-color: $add-attachment-button-background-color;

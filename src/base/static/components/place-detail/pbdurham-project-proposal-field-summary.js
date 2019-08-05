@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 
 import {
@@ -122,6 +122,7 @@ const ScoreMsg = styled(SmallText)({
 const BigNumber = styled("span")(props => ({
   fontSize: "3rem",
   color: props.theme.brand.primary,
+  fontFamily: props.theme.text.bodyFontFamily,
 }));
 
 const RelatedIdeas = styled("div")({
@@ -312,7 +313,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(
-  translate("PBDurhamProjectProposalFieldSummary")(
+  withTranslation("PBDurhamProjectProposalFieldSummary")(
     PBDurhamProjectProposalFieldSummary,
   ),
 );

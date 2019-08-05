@@ -55,7 +55,7 @@ body {
 }
 
 a[class*='InternalLink-NavLink'] {
-  font-size: 1.3em;
+  font-size: 1em;
 }
 
 /* =Flow layout on about page

@@ -3,9 +3,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
 import { css, jsx } from "@emotion/core";
-import emitter from "../../utils/emitter";
+import emitter from "../../utils/event-emitter";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
+import { withTranslation } from "react-i18next";
 
 import FormField from "../form-fields/form-field";
 import SurveyResponse from "./survey-response";
@@ -28,7 +29,6 @@ import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { createPlaceComment } from "../../state/ducks/places";
 
 import constants from "../../constants";
-import { translate } from "react-i18next";
 
 import "./survey.scss";
 
@@ -47,19 +47,24 @@ class Survey extends Component {
     }),
   };
 
-  componentDidMount() {
-    emitter.addListener("place-detail-survey:save", () => {
-      this.setState({
-        fields: this.initializeFields(),
-        isFormSubmitting: false,
-        formValidationErrors: new Set(),
-        showValidityStatus: false,
-      });
+  savePlaceDetailSurvey() {
+    this.setState({
+      fields: this.initializeFields(),
+      isFormSubmitting: false,
+      formValidationErrors: new Set(),
+      showValidityStatus: false,
     });
   }
 
+  componentDidMount() {
+    emitter.on("place-detail-survey:save", this.savePlaceDetailSurvey);
+  }
+
   componentWillUnmount() {
-    emitter.removeAllListeners("place-detail-survey:save");
+    emitter.removeEventListener(
+      "place-detail-survey:save",
+      this.savePlaceDetailSurvey,
+    );
   }
 
   initializeFields() {
@@ -264,5 +269,5 @@ export default withTheme(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(translate("Survey")(Survey)),
+  )(withTranslation("Survey")(Survey)),
 );

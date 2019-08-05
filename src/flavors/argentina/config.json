@@ -355,6 +355,10 @@
         "label": "Campañas / Temas",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "Título:",
@@ -385,6 +389,10 @@
         "value": "observation",
         "label": "Observación",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -426,6 +434,10 @@
         "label": "Amenazas / conflictos",
         "fields": [
           {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
             "name": "title",
             "type": "text",
             "prompt": "¿Qué pasa?",
@@ -464,6 +476,10 @@
         "value": "idea",
         "label": "Experiencias sustentables",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -504,6 +520,10 @@
         "value": "complaint",
         "label": "Horizontes / potencialidades",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
@@ -738,7 +758,6 @@
   "pages": [
     {
       "slug": "about",
-      "lang": "es",
       "content": [
         "<h1>BIENVENIDA</h1>",
         "<p><img src='/static/css/images/Territorios.png'><br><br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una de las etapas del proyecto <em>La Tierra NØ Resistirá</em>, un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territorios.casarioarteyambiente.org'>https://territorios.casarioarteyambiente.org</a><br><br>Programación del mapa: <a href='https://mapseed.org'>https://mapseed.org</a></p>",
@@ -747,7 +766,6 @@
     },
     {
       "slug": "getinvolved",
-      "lang": "es",
       "content": [
         "<h1>INVOLUCRARSE</h1>",
         "<p><img src='/static/css/images/Participar.png'></p>",

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Autocomplete from "accessible-autocomplete/react";
 import "accessible-autocomplete/dist/accessible-autocomplete.min.css";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import "./autocomplete-combobox-field.scss";
 
@@ -38,9 +38,7 @@ class AutocompleteComboboxField extends Component {
         <Autocomplete
           source={this.suggestions}
           placeholder={this.props.t(
-            `autocompleteFieldPlaceholder${this.props.formId}${
-              this.props.name
-            }`,
+            `autocompleteFieldPlaceholder${this.props.formId}${this.props.name}`,
             this.props.placeholder || " ",
           )}
           defaultValue={
@@ -77,6 +75,6 @@ AutocompleteComboboxField.propTypes = {
   value: PropTypes.string,
 };
 
-export default translate("AutocompleteComboboxField")(
+export default withTranslation("AutocompleteComboboxField")(
   AutocompleteComboboxField,
 );

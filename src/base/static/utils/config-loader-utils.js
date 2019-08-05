@@ -2,6 +2,7 @@
 
 // Transform the place_detail section of the config to resolve
 // common_form_element references.
+
 const transformCommonFormElements = (placeDetail, commonFormElements) => {
   return placeDetail.map(category => {
     category.fields = category.fields.map(field => {
@@ -22,6 +23,7 @@ const setConfigDefaults = config => {
   // set the default values for our config:
 
   // `show_timestamps`:
+  // eslint-disable-next-line no-prototype-builtins
   if (!config.app.hasOwnProperty("show_timestamps")) {
     config.app.show_timestamps = true;
   }

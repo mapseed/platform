@@ -3,8 +3,11 @@ import { getLayout } from "../../utils/layout-utils";
 // Selectors:
 export const currentTemplateSelector = state => state.ui.currentTemplate;
 export const isEditModeToggled = state => state.ui.isEditModeToggled;
+// TODO: Replace this general visibility selector with UI-specific selectors.
 export const uiVisibilitySelector = (uiComponentName, state) =>
   state.ui.uiVisibility[uiComponentName];
+export const measurementToolVisibilitySelector = state =>
+  state.ui.uiVisibility.measurementTool;
 export const contentPanelComponentSelector = state =>
   state.ui.contentPanelComponent;
 export const pageSlugSelector = state => state.ui.activePageSlug;
@@ -17,6 +20,7 @@ const UPDATE_UI_VISIBILITY = "ui/UPDATE_UI_VISIBILITY";
 const UPDATE_ACTIVE_PAGE = "ui/UPDATE_ACTIVE_PAGE";
 const UPDATE_CONTENT_PANEL_COMPONENT = "ui/UPDATE_CONTENT_PANEL_COMPONENT";
 const UPDATE_LAYOUT = "ui/UPDATE_LAYOUT";
+const UPDATE_SPOTLIGHT_MASK_VISIBILITY = "ui/UPDATE_SPOTLIGHT_MASK_VISIBILITY";
 export const RESET_UI = "ui/RESET";
 
 // Action creators:
@@ -32,10 +36,18 @@ export function updateCurrentTemplate(templateName) {
 export function updateEditModeToggled(isToggled) {
   return { type: UPDATE_EDIT_MODE_TOGGLED, payload: isToggled };
 }
+// TODO: Replace this general visibility updater with UI-specific action
+// creators.
 export function updateUIVisibility(uiComponentName, isVisible) {
   return {
     type: UPDATE_UI_VISIBILITY,
     payload: { uiComponentName, isVisible },
+  };
+}
+export function updateMeasurementToolVisibility(isVisible) {
+  return {
+    type: UPDATE_UI_VISIBILITY,
+    payload: { uiComponentName: "measurementTool", isVisible },
   };
 }
 export function updateActivePage(pageSlug) {
@@ -56,6 +68,12 @@ export function updateLayout() {
     payload: getLayout(),
   };
 }
+export function updateSpotlightMaskVisibility(isVisible) {
+  return {
+    type: UPDATE_SPOTLIGHT_MASK_VISIBILITY,
+    payload: isVisible,
+  };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -66,6 +84,7 @@ const INITIAL_STATE = {
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,
+    measurementTool: false,
   },
   contentPanelComponent: null,
   leftSidebarComponent: null,
@@ -83,6 +102,14 @@ export default function reducer(state = INITIAL_STATE, action) {
         uiVisibility: {
           ...state.uiVisibility,
           [action.payload.uiComponentName]: action.payload.isVisible,
+        },
+      };
+    case UPDATE_SPOTLIGHT_MASK_VISIBILITY:
+      return {
+        ...state,
+        uiVisibility: {
+          ...state.uiVisibility,
+          spotlightMask: action.payload,
         },
       };
     case UPDATE_ACTIVE_PAGE:

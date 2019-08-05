@@ -61,24 +61,30 @@ const onSocialShare = ({ place, service, appConfig }) => {
 // fall back to cookies
 const saveAutocompleteValue = (name, value, days) => {
   if (typeof Storage !== "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     localstorage.save(name, value, days);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     cookies.save(name, value, days, "mapseed-");
   }
 };
 
 const getAutocompleteValue = name => {
   if (typeof Storage !== "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return localstorage.get(name);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return cookies.get(name, "mapseed-");
   }
 };
 
 const removeAutocompleteValue = name => {
   if (typeof Storage !== "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return localstorage.destroy(name);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return cookies.destroy(name, "mapseed-");
   }
 };
@@ -274,56 +280,6 @@ const localstorage = {
   },
 };
 
-const Mapbox = {
-  geocode: function({ location, hint, bbox, options }) {
-    const mapboxToken = Mapseed.bootstrapped.mapboxToken;
-
-    if (!mapboxToken)
-      throw "You must provide a Mapbox access token " +
-        "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
-
-    let url =
-      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-      encodeURIComponent(location) +
-      ".json?access_token=" +
-      mapboxToken;
-    if (hint) {
-      url += "&proximity=" + hint.join(",");
-    }
-    if (bbox) {
-      url += "&bbox=" + bbox.join(",");
-    }
-
-    fetch(url)
-      .then(response => response.json())
-      .then(data => options.success(data));
-  },
-  reverseGeocode: function(latLng, options) {
-    var mapboxToken = Mapseed.bootstrapped.mapboxToken,
-      lat,
-      lng;
-
-    if (!mapboxToken)
-      throw "You must provide a Mapbox access token " +
-        "(Mapseed.bootstrapped.mapboxToken) for geocoding to work.";
-
-    lat = latLng.lat || latLng[0];
-    lng = latLng.lng || latLng[1];
-    options = options || {};
-    options.dataType = "json";
-    options.cache = true;
-    options.url =
-      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-      lng +
-      "," +
-      lat +
-      ".json?access_token=" +
-      mapboxToken;
-
-    fetch(options.url);
-  },
-};
-
 export default {
   onSocialShare,
   saveAutocompleteValue,
@@ -334,5 +290,4 @@ export default {
   fileToCanvas,
   cookies,
   localstorage,
-  Mapbox,
 };

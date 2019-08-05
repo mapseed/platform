@@ -7,17 +7,22 @@ const TextInput = styled(props => {
   return (
     <input
       type="text"
+      name={props.name}
       aria-label={props.ariaLabel}
       className={props.className}
       placeholder={props.placeholder ? props.placeholder : ""}
       onChange={props.onChange ? props.onChange : null}
       onKeyPress={props.onKeyPress ? props.onKeyPress : null}
+      onBlur={props.onBlur ? props.onBlur : null}
+      onFocus={props.onFocus ? props.onFocus : null}
+      value={props.value}
     />
   );
 })(props => {
   const styles = {
+    fontFamily: props.theme.text.bodyFontFamily,
     borderWidth: ".25em",
-    borderColor: props.theme.brand.primary,
+    borderColor: "#999",
     borderStyle: "solid",
     padding: "8px",
   };
@@ -34,7 +39,11 @@ TextInput.propTypes = {
   placeHolder: PropTypes.string,
   onChange: PropTypes.func,
   onKeyPress: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   ariaLabel: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 const TextareaInput = styled(props => {
@@ -112,6 +121,27 @@ CheckboxInput.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+const RadioInput = props => {
+  return (
+    <input
+      type="radio"
+      id={props.id}
+      name={props.name}
+      value={props.value}
+      onChange={props.onChange}
+      checked={props.checked}
+    />
+  );
+};
+
+RadioInput.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
+
 const NumberInput = props => {
   return (
     <input
@@ -186,6 +216,7 @@ RangeInput.propTypes = {
 
 export {
   CheckboxInput,
+  RadioInput,
   DatetimeInput,
   NumberInput,
   TextInput,

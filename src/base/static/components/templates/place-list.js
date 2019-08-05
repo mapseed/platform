@@ -3,7 +3,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -95,12 +95,15 @@ class PlaceList extends React.Component {
 
   _sortAndFilterPlaces = (places, sortBy, query) => {
     // only render place surveys that are flagged with 'includeOnList':
-    const includedPlaces = places.filter(
-      place =>
-        this.props.placeConfig.place_detail.find(
-          survey => survey.category === place.location_type,
-        ).includeOnList,
-    );
+    const includedPlaces = places.filter(place => {
+      const placeDetailConfig = this.props.placeConfig.place_detail.find(
+        survey => survey.category === place.location_type,
+      );
+
+      return typeof placeDetailConfig === "undefined"
+        ? false
+        : placeDetailConfig.includeOnList;
+    });
     const filteredPlaces = query
       ? includedPlaces.filter(place => {
           return Object.values(place).some(field => {
@@ -207,6 +210,8 @@ class PlaceList extends React.Component {
                     this._setSortAndFilterPlaces();
                   }
                 }}
+                name="place-list-search"
+                value={this.state.query}
                 onChange={evt => {
                   this.setState({ query: evt.target.value });
                 }}
@@ -216,9 +221,9 @@ class PlaceList extends React.Component {
                   marginLeft: "16px",
                   fontFamily: theme.text.headerFontFamily,
                 })}
-                color="secondary"
+                color="primary"
                 onClick={this._setSortAndFilterPlaces}
-                variant="contained"
+                variant="container"
               >
                 {this.props.t("search", "Search")}
               </Button>
@@ -286,7 +291,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateCurrentTemplate(templateName)),
 });
 
-export default translate("PlaceList")(
+export default withTranslation("PlaceList")(
   withRouter(
     connect(
       mapStateToProps,

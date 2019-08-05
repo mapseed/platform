@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { FlyToInterpolator } from "react-map-gl";
-import { translate } from "react-i18next";
-import i18next, { TranslationFunction } from "i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
+
+import emitter from "../../utils/event-emitter";
 
 import MainMap from "../organisms/main-map";
 import ContentPanel from "../organisms/content-panel";
@@ -50,17 +50,14 @@ import {
   geocodeAddressBarEnabledSelector,
   mapConfigSelector,
   mapConfigPropType,
-  MapViewport,
-  InitialMapViewport,
   MapSourcesLoadStatus,
-} from "../../state/ducks/map-config";
+} from "../../state/ducks/map";
 import {
   createFeaturesInGeoJSONSource,
   mapSourcesSelector,
   mapSourcesPropType,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
-  placeExists,
   updateFocusedPlaceId,
   updateScrollToResponseId,
   loadPlaceAndSetIgnoreFlag,
@@ -101,7 +98,6 @@ const statePropTypes = {
   mapConfig: mapConfigPropType,
   navBarConfig: navBarConfigPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
-  placeExists: PropTypes.func.isRequired,
 };
 
 const dispatchPropTypes = {
@@ -122,8 +118,6 @@ interface OwnProps {
   uiConfiguration: string;
   isStartPageViewed?: boolean;
   onViewStartPage?: () => void;
-  initialMapViewport: InitialMapViewport;
-  onUpdateInitialMapViewport: (initialMapViewport: InitialMapViewport) => void;
   currentLanguageCode: string;
   defaultLanguageCode: string;
   params: {
@@ -140,30 +134,14 @@ interface State {
   addPlaceButtonHeight: number;
   mapContainerHeightDeclaration: string;
   mapContainerWidthDeclaration: string;
-  mapViewport: MapViewport;
-  isMapDraggedOrZoomed: boolean;
-  isSpotlightMaskVisible: boolean;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 }
-// Types were added to react-i18next is a newer version.
-// TODO: Use supplied types when we upgrade i18next deps.
-// See: https://github.com/i18next/react-i18next/pull/557/files
-type TransProps = {
-  i18nKey?: string;
-  count?: number;
-  parent?: React.ReactNode;
-  i18n?: i18next.i18n;
-  t?: TranslationFunction;
-  defaults?: string;
-  values?: {};
-  components?: React.ReactNode[];
-};
 
 type Props = StateProps &
   DispatchProps &
   OwnProps &
   RouteComponentProps<{}> &
-  TransProps;
+  WithTranslation;
 
 class MapTemplate extends Component<Props, State> {
   private mapContainerRef = createRef<HTMLDivElement>();
@@ -176,12 +154,6 @@ class MapTemplate extends Component<Props, State> {
     mapContainerHeightDeclaration: "",
     mapContainerWidthDeclaration: "",
     addPlaceButtonHeight: 0,
-    mapViewport: {
-      ...this.props.initialMapViewport,
-      transitionInterpolator: new FlyToInterpolator(),
-    },
-    isMapDraggedOrZoomed: false,
-    isSpotlightMaskVisible: false,
     // Sources load status terminology:
     // ------------------------------------
     // "unloaded": The map has not yet begun to fetch data for this source.
@@ -208,10 +180,10 @@ class MapTemplate extends Component<Props, State> {
     zoom &&
       lat &&
       lng &&
-      this.onUpdateMapViewport({
+      emitter.emit("setMapViewport", {
         zoom: parseFloat(zoom),
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
+        latitude: parseFloat(lat),
+        longitude: parseFloat(lng),
       });
 
     const startPageConfig = this.props.navBarConfig.find(
@@ -226,15 +198,11 @@ class MapTemplate extends Component<Props, State> {
       this.props.onViewStartPage && this.props.onViewStartPage();
     }
 
-    // When this component mounts in the PlaceDetail configuration, a couple of
-    // situations can occur:
-    //  - The requested Place is not yet available. In this case, fetch it
-    //    directly.
-    //  - The requested Place is available (such as when routing to a
-    //    PlaceDetail view from the list template). In this case, just set the
-    //    focusedPlaceId.
     const { datasetClientSlug, placeId, responseId } = this.props.params;
-    if (placeId && !this.props.placeExists(placeId)) {
+
+    // When this component mounts in the Place detail configuration, fetch the
+    // requested Place directly from the API for a better UX.
+    if (placeId) {
       const datasetConfig = this.props.datasetsConfig.find(
         c => c.clientSlug === datasetClientSlug,
       );
@@ -281,9 +249,6 @@ class MapTemplate extends Component<Props, State> {
         // The Place doesn't exist, so route back to the map.
         this.props.history.push("/");
       }
-    } else if (placeId) {
-      this.props.updateFocusedPlaceId(parseInt(placeId));
-      responseId && this.props.updateScrollToResponseId(parseInt(responseId));
     }
 
     this.recalculateContainerSize();
@@ -293,7 +258,8 @@ class MapTemplate extends Component<Props, State> {
     if (
       this.props.layout !== prevProps.layout ||
       this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
-      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible
+      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible ||
+      this.props.isAddPlaceButtonVisible !== prevProps.isAddPlaceButtonVisible
     ) {
       this.recalculateContainerSize();
     }
@@ -325,66 +291,13 @@ class MapTemplate extends Component<Props, State> {
         parseInt(this.props.params.responseId),
       );
     }
-
-    if (
-      this.state.isMapDraggedOrZoomed !== prevState.isMapDraggedOrZoomed &&
-      this.state.isMapDraggedOrZoomed
-    ) {
-      this.props.updateUIVisibility("spotlightMask", false);
-    }
   }
-
-  onUpdateMapDraggedOrZoomed = isMapDraggedOrZoomed => {
-    this.setState({
-      isMapDraggedOrZoomed,
-    });
-  };
-
-  onUpdateSpotlightMaskVisibility = isSpotlightMaskVisible => {
-    this.setState({
-      isSpotlightMaskVisible,
-    });
-  };
 
   onUpdateSourceLoadStatus = (sourceId, loadStatus) => {
     this.setState(state => ({
       mapSourcesLoadStatus: {
         ...state.mapSourcesLoadStatus,
         [sourceId]: loadStatus,
-      },
-    }));
-  };
-
-  onUpdateMapViewport = (newMapViewport, scrollZoomAroundCenter = false) => {
-    this.setState(state => ({
-      mapViewport: {
-        ...state.mapViewport,
-        ...newMapViewport,
-        // NOTE: This is a fix for an apparent bug in react-map-gl.
-        // See: https://github.com/uber/react-map-gl/issues/630
-        bearing: isNaN(newMapViewport.bearing)
-          ? state.mapViewport.bearing
-          : newMapViewport.bearing,
-        // These checks support a "scroll zoom around center" feature (in
-        // which a zoom of the map will not change the centerpoint) that is
-        // not exposed by react-map-gl. These checks are pretty convoluted,
-        // though, so it would be great if react-map-gl could just
-        // incorporate the scroll zoom around center option natively.
-        // See: https://github.com/uber/react-map-gl/issues/515
-        latitude:
-          scrollZoomAroundCenter &&
-          newMapViewport.zoom !== state.mapViewport.zoom
-            ? state.mapViewport.latitude
-            : newMapViewport.latitude
-              ? newMapViewport.latitude
-              : state.mapViewport.latitude,
-        longitude:
-          scrollZoomAroundCenter &&
-          newMapViewport.zoom !== state.mapViewport.zoom
-            ? state.mapViewport.longitude
-            : newMapViewport.longitude
-              ? newMapViewport.longitude
-              : state.mapViewport.longitude,
       },
     }));
   };
@@ -422,8 +335,6 @@ class MapTemplate extends Component<Props, State> {
     switch (uiConfiguration) {
       case "newPlace":
         this.props.updateUIVisibility("contentPanel", true);
-        this.props.updateUIVisibility("spotlightMask", true);
-        this.props.updateUIVisibility("mapCenterpoint", true);
         this.props.updateUIVisibility("addPlaceButton", false);
         this.props.updateContentPanelComponent("InputForm");
         break;
@@ -463,10 +374,7 @@ class MapTemplate extends Component<Props, State> {
     return (
       <Fragment>
         {this.props.isGeocodeAddressBarEnabled && (
-          <GeocodeAddressBar
-            mapConfig={this.props.mapConfig}
-            onUpdateMapViewport={this.onUpdateMapViewport}
-          />
+          <GeocodeAddressBar mapConfig={this.props.mapConfig} />
         )}
         <div
           css={css`
@@ -483,7 +391,6 @@ class MapTemplate extends Component<Props, State> {
             />
           )}
           <MainMap
-            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             mapContainerRef={this.mapContainerRef}
             mapContainerWidthDeclaration={
               this.state.mapContainerWidthDeclaration
@@ -492,13 +399,6 @@ class MapTemplate extends Component<Props, State> {
               this.state.mapContainerHeightDeclaration
             }
             mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
-            mapViewport={this.state.mapViewport}
-            onUpdateInitialMapViewport={this.props.onUpdateInitialMapViewport}
-            onUpdateMapViewport={this.onUpdateMapViewport}
-            onUpdateMapDraggedOrZoomed={this.onUpdateMapDraggedOrZoomed}
-            onUpdateSpotlightMaskVisibility={
-              this.onUpdateSpotlightMaskVisibility
-            }
             onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
           />
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
@@ -506,17 +406,9 @@ class MapTemplate extends Component<Props, State> {
         {this.props.isContentPanelVisible && (
           <ContentPanel
             addPlaceButtonHeight={this.state.addPlaceButtonHeight}
-            isMapDraggedOrZoomed={this.state.isMapDraggedOrZoomed}
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}
             mapContainerRef={this.mapContainerRef}
-            mapViewport={this.state.mapViewport}
-            onUpdateMapViewport={this.onUpdateMapViewport}
-            updateMapDraggedOrZoomed={isMapDraggedOrZoomed =>
-              this.setState({
-                isMapDraggedOrZoomed,
-              })
-            }
           />
         )}
         {this.props.isAddPlaceButtonVisible &&
@@ -544,10 +436,7 @@ class MapTemplate extends Component<Props, State> {
 
 type MapseedReduxState = any;
 
-const mapStateToProps = (
-  state: MapseedReduxState,
-  ownProps: OwnProps,
-): StateProps => ({
+const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAddPlacePermission:
     hasAnonAbilitiesInAnyDataset({
@@ -580,7 +469,6 @@ const mapStateToProps = (
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
   placeConfig: placeConfigSelector(state),
-  placeExists: placeId => placeExists(state, placeId),
 });
 
 const mapDispatchToProps = {
@@ -598,4 +486,4 @@ const mapDispatchToProps = {
 export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("MapTemplate")(withRouter(MapTemplate)));
+)(withTranslation("MapTemplate")(withRouter(MapTemplate)));

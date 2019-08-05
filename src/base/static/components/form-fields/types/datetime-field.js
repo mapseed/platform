@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Datetime from "react-datetime";
 import moment from "moment";
 import classNames from "classnames";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import "react-datetime/css/react-datetime.css";
 
@@ -56,9 +56,7 @@ class DatetimeField extends Component {
                   />
                   <em>
                     {this.props.t(
-                      `datetimeFieldOngoingLabel${this.props.formId}${
-                        this.props.name
-                      }`,
+                      `datetimeFieldOngoingLabel${this.props.formId}${this.props.name}`,
                       this.props.ongoingLabel,
                     )}
                   </em>
@@ -72,9 +70,7 @@ class DatetimeField extends Component {
                 classes="datetime-field__input"
                 onFocus={openCalendar}
                 placeholder={this.props.t(
-                  `datetimeFieldPlaceholder${this.props.formId}${
-                    this.props.name
-                  }`,
+                  `datetimeFieldPlaceholder${this.props.formId}${this.props.name}`,
                   this.props.placeholder || "Select a date",
                 )}
                 value={
@@ -126,4 +122,4 @@ DatetimeField.defaultProps = {
   timeFormat: false,
 };
 
-export default translate("DatetimeField")(DatetimeField);
+export default withTranslation("DatetimeField")(DatetimeField);

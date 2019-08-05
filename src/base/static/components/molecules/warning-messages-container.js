@@ -2,9 +2,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { RegularText } from "../atoms/typography";
+import { FontAwesomeIcon } from "../atoms/imagery";
 
 const errorMsgs = {
   missingRequired: "Please fill out the field(s) outlined below.",
@@ -45,19 +46,20 @@ const WarningMessagesContainer = props => {
             css={css`
               list-style: none;
               margin-bottom: 8px;
+              display: flex;
+              align-items: center;
             `}
           >
+            <FontAwesomeIcon
+              faClassname="fas fa-star"
+              color="#fff"
+              hoverColor="#fff"
+            />
             <RegularText
               css={css`
                 color: #fff;
                 font-style: italic;
-
-                &:before {
-                  font-family: FontAwesome;
-                  content: "\\f005"; /* solid star */
-                  padding-right: 5px;
-                  font-style: normal;
-                }
+                margin-left: 12px;
               `}
             >
               {props.t(
@@ -78,4 +80,6 @@ WarningMessagesContainer.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("WarningMessagesContainer")(WarningMessagesContainer);
+export default withTranslation("WarningMessagesContainer")(
+  WarningMessagesContainer,
+);

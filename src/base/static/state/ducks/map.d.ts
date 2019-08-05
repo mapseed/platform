@@ -1,88 +1,122 @@
-export const mapViewportPropType: any;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Feature, Geometry, GeoJsonProperties } from "geojson";
 
-export type FilterSlider = {
-  initialValue?: number;
+export const UPDATE_MAPVIEWPORT: string;
+
+export type MapViewport = {
+  minZoom: number;
+  maxZoom: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+  transitionDuration: number;
+};
+
+export type MapViewportDiff = {
+  minZoom?: number;
+  maxZoom?: number;
+  latitude?: number;
+  longitude?: number;
+  zoom?: number;
+  bearing?: number;
+  pitch?: number;
+  transitionDuration?: number;
+};
+
+export type InteractionStateDiff = {
+  isMapTransitioning?: boolean;
+  isMapDraggingOrZooming?: boolean;
+  isMapDraggedOrZoomedByUser?: boolean;
+};
+
+export interface LayerFeature<
+  G extends Geometry | null = Geometry,
+  P = GeoJsonProperties
+> extends Feature {
+  layer: {
+    id: string;
+  };
+}
+
+export type FilterSliderConfig = {
+  layerGroupId: string;
+  initialValue: number;
   min: number;
   max: number;
-  step?: number;
-  label?: string;
+  step: number;
+  label: string;
   property: string;
   comparator: string;
 };
 
-export type FilterableLayerGroup = {
-  layerIds: string[];
-  filterSlider: FilterSlider;
-};
-
-export const mapSourcesPropType: any;
-
-export const mapStylePropType: any;
-
-export const layerGroupsPropType: any;
-
-export type LayerGroup = {
+export type RadioMenuOption = {
+  aggregator?: string;
+  label: string;
   id: string;
-  popupContent: string;
-  // TODO: move this into it's own MapWidget config
-  filterSlider?: FilterSlider;
-  isBasemap: boolean;
-  isVisible: boolean;
-  isVisibleDefault: boolean;
-  // Mapbox layer ids which make up this layerGroup:
-  layerIds: string[];
-  // Source ids which this layerGroup consumes:
-  sourceIds: string[];
 };
 
-export type LayerGroups = {
-  byId: {
-    [id: string]: LayerGroup;
+export type RadioMenuConfig = {
+  label: string;
+  layerGroupId: string;
+  layerId: string;
+  options: RadioMenuOption[];
+  defaultSelectedOption: string;
+};
+
+export type MapWidgetsConfig = {
+  filterSlider?: FilterSliderConfig;
+  radioMenu?: RadioMenuConfig;
+};
+
+export type OfflineConfig = {
+  southWest: {
+    lat: number;
+    lng: number;
   };
-  allIds: string[];
-};
-
-export const sourcesMetadataPropType: any;
-export type SourcesMetadata = {
-  [id: string]: {
-    layerGroupIds: string[];
+  northEast: {
+    lat: number;
+    lng: number;
   };
 };
 
-export const layerGroupsSelector: any;
-export const mapStyleSelector: any;
-export const mapSourcesSelector: any;
-export const sourcesMetadataSelector: any;
-export const interactiveLayerIdsSelector: any;
-export const setMapSizeValiditySelector: any;
-export const mapDraggingOrZoomingSelector: any;
-export const mapDraggedOrZoomedSelector: any;
-export const mapContainerDimensionsSelector: any;
-export const mapLayerPopupSelector: any;
-// Return information about visible layer groups which are configured to be
-// filterable with a slider.
-export const filterableLayerGroupsSelector: any;
+export type MapConfig = {
+  geolocationEnabled: boolean;
+  geocodingBarEnabled: boolean;
+  geocodingEngine: string;
+  geocodeFieldLabel: string;
+  geocodeHint: number[];
+  geocodeBoundingBox: number[];
+  offlineBoundingBox?: OfflineConfig;
+  scrollZoomAroundCenter: boolean;
+  defaultMapViewport: MapViewport;
+  mapWidgets: MapWidgetsConfig;
+};
 
-export const updateLayerFilters: any;
+export type MapSourcesLoadStatus = {
+  [groupName: string]: string;
+};
 
-export const removeFocusedGeoJSONFeatures: any;
+export const mapConfigSelector: any;
+export const offlineConfigSelector: (state: any) => OfflineConfig;
+export const mapViewportSelector: (state: any) => MapViewport;
+export const loadMapConfig: (mapConfig: MapConfig) => void;
+export const geocodeAddressBarEnabledSelector: any;
+export const mapConfigPropType: any;
+export const defaultMapViewportSelector: any;
+export const mapWidgetsSelector: any;
+export const measurementToolEnabledSelector: any;
+export const isMapTransitioning: (state: any) => boolean;
+export const isMapDraggingOrZooming: (state: any) => boolean;
+export const isMapDraggedOrZoomedByUser: (state: any) => boolean;
 
-export const updateLayers: any;
-
-export const updateFocusedGeoJSONFeatures: any;
-
-export const updateLayerGroupVisibility: any;
-
-export const updateMapContainerDimensions: any;
-
-export const updateMapStyle: any;
-
-export const updateFeaturesInGeoJSONSource: any;
-
-export const updateFeatureInGeoJSONSource: any;
-
-export const createFeaturesInGeoJSONSource: any;
-
-export const removeFeatureInGeoJSONSource: any;
-
-export const loadMapStyle: any;
+declare type Action = {
+  type: string;
+  payload: any;
+};
+export const loadMapViewport: (mapViewportDiff: MapViewportDiff) => Action;
+export const updateMapViewport: (mapViewport: MapViewport) => Action;
+export const updateMapInteractionState: (
+  newInteractionState: InteractionStateDiff,
+) => Action;

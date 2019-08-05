@@ -40,11 +40,13 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
       const placeId = parseInt(location.pathname.split("/")[2]);
       if (placeId) {
         setCurrentPlaceId(placeId);
+      } else {
+        setCurrentPlaceId(null);
       }
     });
 
     return unlisten;
-  });
+  }, [props.history]);
 
   return (
     <div

@@ -8,12 +8,14 @@ import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
 
 import { RegularText } from "../atoms/typography";
-import { InfoModalTrigger } from "../atoms/feedback";
+import { Button } from "../atoms/buttons";
+import { FontAwesomeIcon } from "../atoms/imagery";
 import fieldDefinitions from "./field-definitions";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import constants from "../../constants";
 
-import { isEditModeToggled } from "../../state/ducks/ui";
+import { isEditModeToggled, updateUIVisibility } from "../../state/ducks/ui";
+import { updateMapInteractionState } from "../../state/ducks/map";
 
 import "./form-field.scss";
 
@@ -72,6 +74,13 @@ class FormField extends Component {
     this.setState({
       isInitialized: true,
     });
+
+    if (this.props.fieldConfig.type === "lng_lat") {
+      this.props.updateMapInteractionState({
+        isMapDraggedOrZoomedByUser: false,
+      });
+      this.props.updateSpotlightMaskVisibility(true);
+    }
   }
 
   onChange(fieldName, fieldValue, isInitializing = false) {
@@ -125,13 +134,17 @@ class FormField extends Component {
     return (
       <div
         css={css`
+          display: ${this.props.fieldConfig.type ===
+          constants.LNG_LAT_FIELD_TYPENAME
+            ? "none"
+            : "block"};
           font-family: ${this.props.theme.text.bodyFontFamily};
           margin-bottom: 5px;
           padding: 8px;
           border: ${this.props.showValidityStatus &&
           !this.props.fieldState.get("isValid")
-            ? "2px dotted #da8583"
-            : "2px solid transparent"};
+            ? "4px dotted #da8583"
+            : "4px solid transparent"};
         `}
         data-field-type={this.props.fieldConfig.type}
         data-field-name={this.props.fieldConfig.name}
@@ -153,10 +166,17 @@ class FormField extends Component {
               </span>
             </RegularText>
             {this.props.fieldConfig.modal && (
-              <InfoModalTrigger
-                classes="input-form__field-modal-trigger"
-                modalContent={this.props.fieldConfig.modal}
-              />
+              <Button
+                css={css`
+                  padding: 0;
+                  background: transparent;
+                `}
+                onClick={() => {
+                  this.props.onClickModal(this.props.fieldConfig.modal);
+                }}
+              >
+                <FontAwesomeIcon faClassname="fas fa-question-circle" />
+              </Button>
             )}
           </div>
         )}
@@ -177,12 +197,15 @@ FormField.propTypes = {
   isInitializing: PropTypes.bool,
   updatingField: PropTypes.string,
   map: PropTypes.object,
+  onClickModal: PropTypes.func,
   onFieldChange: PropTypes.func.isRequired,
   places: PropTypes.object,
   router: PropTypes.object,
   showValidityStatus: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
+  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
+  updateMapInteractionState: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
@@ -199,6 +222,16 @@ const mapStateToProps = state => ({
   isEditModeToggled: isEditModeToggled(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+  updateMapInteractionState: newInteractionState =>
+    dispatch(updateMapInteractionState(newInteractionState)),
+  updateSpotlightMaskVisibility: isVisible =>
+    dispatch(updateUIVisibility("spotlightMask", isVisible)),
+});
+
 export default withTheme(
-  connect(mapStateToProps)(translate("FormField")(FormField)),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withTranslation("FormField")(FormField)),
 );

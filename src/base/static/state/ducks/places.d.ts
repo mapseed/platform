@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const placesPropType: any;
 export const placePropType: any;
 
@@ -34,6 +35,8 @@ export const placeExists: any;
 export const activeEditPlaceIdSelector: any;
 
 export const scrollToResponseIdSelector: any;
+
+export const datasetPlacesSelector: any;
 
 // Action creators:
 export const updateScrollToResponseId: any;

@@ -2,8 +2,8 @@
 import * as React from "react";
 import { css, jsx } from "@emotion/core";
 
-import { LayerGroup } from "../../state/ducks/map";
-import { FilterSliderConfig } from "../../state/ducks/map-config";
+import { LayerGroup } from "../../state/ducks/map-style";
+import { FilterSliderConfig } from "../../state/ducks/map";
 import { RangeInput } from "../atoms/input";
 import { RegularText } from "../atoms/typography";
 
@@ -33,25 +33,22 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
   layerGroup,
   updateLayerFilters,
 }) => {
-  if (!layerGroup.isVisible) {
-    return null;
-  }
   const [sliderValue, setSliderValue] = React.useState(
     filterSliderConfig.initialValue,
   );
-  React.useEffect(
-    () => {
-      buildAndApplyMapLayerFilters({
-        filterValue: filterSliderConfig.initialValue,
-        layerIds: layerGroup.layerIds,
-        comparator: filterSliderConfig.comparator,
-        property: filterSliderConfig.property,
-        updateLayerFilters,
-      });
-    },
-    [filterSliderConfig.initialValue],
-  );
+  React.useEffect(() => {
+    buildAndApplyMapLayerFilters({
+      filterValue: filterSliderConfig.initialValue,
+      layerIds: layerGroup.layerIds,
+      comparator: filterSliderConfig.comparator,
+      property: filterSliderConfig.property,
+      updateLayerFilters,
+    });
+  }, [filterSliderConfig.initialValue]);
 
+  if (!layerGroup.isVisible) {
+    return null;
+  }
   return (
     <div
       css={css`
@@ -59,6 +56,7 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
         padding: 8px;
         border-radius: 8px;
         color: #fff;
+        width: 400px;
         margin-top: 8px;
       `}
     >

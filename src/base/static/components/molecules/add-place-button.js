@@ -7,7 +7,7 @@ import { Button } from "../atoms/buttons";
 import mq from "../../../../media-queries";
 import constants from "../../constants";
 
-import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map-config";
+import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map";
 
 const AddPlaceButtonContainer = styled(props => (
   <Button
@@ -22,7 +22,7 @@ const AddPlaceButtonContainer = styled(props => (
 ))(props => {
   return {
     position: props.layout == "desktop" ? "absolute" : "fixed",
-    zIndex: 14,
+    zIndex: 5,
     backgroundColor: props.theme.map.addPlaceButtonBackgroundColor,
     fontFamily: props.theme.text.bodyFontFamily,
 
@@ -45,16 +45,20 @@ const AddPlaceButtonContainer = styled(props => (
   };
 });
 
-const AddPlaceButton = props => (
-  <AddPlaceButtonContainer
-    className={props.className}
-    layout={props.layout}
-    onClick={props.onClick}
-    isGeocodeAddressBarEnabled={props.isGeocodeAddressBarEnabled}
-  >
-    {props.children}
-  </AddPlaceButtonContainer>
-);
+class AddPlaceButton extends React.Component {
+  render() {
+    return (
+      <AddPlaceButtonContainer
+        className={this.props.className}
+        layout={this.props.layout}
+        onClick={this.props.onClick}
+        isGeocodeAddressBarEnabled={this.props.isGeocodeAddressBarEnabled}
+      >
+        {this.props.children}
+      </AddPlaceButtonContainer>
+    );
+  }
+}
 
 AddPlaceButton.propTypes = {
   children: PropTypes.node,
@@ -68,4 +72,9 @@ const mapStateToProps = state => ({
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
 });
 
-export default connect(mapStateToProps)(AddPlaceButton);
+export default connect(
+  mapStateToProps,
+  null,
+  null,
+  { forwardRef: true },
+)(AddPlaceButton);

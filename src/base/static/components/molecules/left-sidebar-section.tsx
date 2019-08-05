@@ -1,13 +1,11 @@
 /** @jsx jsx */
 import * as React from "react";
 import { connect } from "react-redux";
-import Spinner from "react-spinner";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import { jsx, css } from "@emotion/core";
 
-import { InfoModalTrigger } from "../atoms/feedback";
-import { FontAwesomeIcon } from "../atoms/imagery";
+import { FontAwesomeIcon, Spinner } from "../atoms/imagery";
 import { HorizontalRule } from "../atoms/layout";
 import { TinyTitle } from "../atoms/typography";
 
@@ -17,12 +15,12 @@ import {
   updateLayerGroupVisibility,
   LayerGroups,
   SourcesMetadata,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import {
   LeftSidebarSection,
   LeftSidebarOption,
 } from "../../state/ducks/left-sidebar";
-import { MapSourcesLoadStatus } from "../../state/ducks/map-config";
+import { MapSourcesLoadStatus } from "../../state/ducks/map";
 
 const MapLayerSelectorContainer = styled("div")({
   display: "flex",
@@ -57,14 +55,9 @@ const LayerGroupStatusIcon = styled(props => (
   textAlign: "center",
 });
 
-const InfoModalContainer = styled("span")({
-  width: "16px",
-  height: "16px",
-});
-
 const statusIcons = {
-  loaded: "fa fa-check",
-  error: "fa fa-times",
+  loaded: "fas fa-check",
+  error: "fas fa-times",
 };
 
 const statusColors = {
@@ -113,15 +106,14 @@ const OptionSelector: React.FunctionComponent<
             },
           })}
         >
-          {props.option.title}
+          {props.t(`layerPanelOption${props.id}`, props.option.title)}
         </span>
         <LayerGroupsStatusContainer>
-          {props.isLayerGroupVisible &&
-            props.loadStatus === "loading" && (
-              <SpinnerContainer className="map-layer-status-spinner">
-                <Spinner style={{ width: "20px", height: "20px" }} />
-              </SpinnerContainer>
-            )}
+          {props.isLayerGroupVisible && props.loadStatus === "loading" && (
+            <SpinnerContainer className="map-layer-status-spinner">
+              <Spinner style={{ width: "20px", height: "20px" }} />
+            </SpinnerContainer>
+          )}
           {props.isLayerGroupVisible &&
             (props.loadStatus === "loaded" || props.loadStatus === "error") && (
               <LayerGroupStatusIcon
@@ -131,17 +123,6 @@ const OptionSelector: React.FunctionComponent<
             )}
         </LayerGroupsStatusContainer>
       </span>
-      {props.option.info && (
-        // TODO: refactor this to use ReactModal
-        <InfoModalContainer>
-          <InfoModalTrigger
-            modalContent={{
-              header: props.option.info.header,
-              body: props.option.info.body,
-            }}
-          />
-        </InfoModalContainer>
-      )}
     </MapLayerSelectorContainer>
   );
 };
@@ -149,6 +130,7 @@ const OptionSelector: React.FunctionComponent<
 type OwnProps = {
   section: LeftSidebarSection;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
+  layerPanelSectionIndex: number;
 };
 
 type StateProps = {
@@ -156,11 +138,11 @@ type StateProps = {
   sourcesMetadata: SourcesMetadata;
 };
 
-type Props = {
-  t: Function;
-  updateLayerGroupVisibility: Function;
-} & OwnProps &
-  StateProps;
+type DispatchProps = {
+  updateLayerGroupVisibility: typeof updateLayerGroupVisibility;
+};
+
+type Props = OwnProps & StateProps & DispatchProps & WithTranslation;
 
 class LeftSidebarSectionSelector extends React.Component<Props> {
   onToggleLayerGroup = layerGroup => {
@@ -181,18 +163,20 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
             margin-bottom: 16px;
           `}
         >
-          {this.props.section.title}
+          {this.props.t(
+            `layerPanelSectionTitle${this.props.layerPanelSectionIndex}`,
+            this.props.section.title,
+          )}
         </TinyTitle>
         {this.props.section.options.map(option => {
           // Assume at first that all sources consumed by layers in this
           // layerGroup have loaded.
           let loadStatus = "loaded";
           const layerGroup = this.props.layerGroups.byId[option.layerGroupId];
-          const sourcesStatus = layerGroup.sourceIds.map(
-            sourceId =>
-              this.props.mapSourcesLoadStatus[sourceId]
-                ? this.props.mapSourcesLoadStatus[sourceId]
-                : "unloaded",
+          const sourcesStatus = layerGroup.sourceIds.map(sourceId =>
+            this.props.mapSourcesLoadStatus[sourceId]
+              ? this.props.mapSourcesLoadStatus[sourceId]
+              : "unloaded",
           );
 
           if (sourcesStatus.includes("error")) {
@@ -236,4 +220,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("MapLayerPanelSection")(LeftSidebarSectionSelector));
+)(withTranslation("MapLayerPanelSection")(LeftSidebarSectionSelector));

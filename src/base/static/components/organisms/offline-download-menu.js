@@ -11,8 +11,11 @@ import {
   ModalFooter,
   modalStyles,
 } from "../atoms/layout";
-import { offlineConfigPropType } from "../../state/ducks/map-config";
-import { mapSourcesPropType, mapSourcesSelector } from "../../state/ducks/map";
+import { offlineConfigPropType } from "../../state/ducks/map";
+import {
+  mapSourcesPropType,
+  mapSourcesSelector,
+} from "../../state/ducks/map-style";
 
 import Modal from "react-modal";
 import { connect } from "react-redux";

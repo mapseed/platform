@@ -2,7 +2,6 @@
 import * as React from "react";
 import { NavigationControl } from "react-map-gl";
 import { jsx } from "@emotion/core";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import {
@@ -10,22 +9,21 @@ import {
   leftSidebarConfigSelector,
   setLeftSidebarExpanded,
 } from "../../state/ducks/left-sidebar";
+import {
+  measurementToolVisibilitySelector,
+  updateMeasurementToolVisibility,
+} from "../../state/ducks/ui";
+import { measurementToolEnabledSelector } from "../../state/ducks/map";
+import eventEmitter from "../../utils/event-emitter";
 
-const customControlStatePropTypes = {
-  setLeftSidebarExpanded: PropTypes.func.isRequired,
-  icon: PropTypes.string.isRequired,
+type CustomControlProps = {
+  onClick: () => void;
+  icon: string;
 };
-
-type CustomControlProps = PropTypes.InferProps<
-  typeof customControlStatePropTypes
->;
 
 class CustomControl extends React.Component<CustomControlProps> {
   public static defaultProps = {
     icon: "fa-info",
-  };
-  onClickControl = () => {
-    this.props.setLeftSidebarExpanded(true);
   };
 
   render() {
@@ -38,7 +36,7 @@ class CustomControl extends React.Component<CustomControlProps> {
           className={`mapboxgl-ctrl-icon ${this.props.icon}`}
           type="button"
           title="Custom control"
-          onClick={this.onClickControl}
+          onClick={this.props.onClick}
         />
       </div>
     );
@@ -46,7 +44,7 @@ class CustomControl extends React.Component<CustomControlProps> {
 }
 
 type GeolocateControlProps = {
-  onViewportChange: Function;
+  onViewportChange: any;
 };
 
 // react-map-gl does not export mapboxgl's built-in geolocate control, so we
@@ -84,24 +82,22 @@ class GeolocateControl extends React.Component<GeolocateControlProps> {
   }
 }
 
-// These are Props passed down from parent:
-
-const dispatchPropTypes = {
-  setLeftSidebarExpanded: PropTypes.func.isRequired,
+type DispatchProps = {
+  setLeftSidebarExpanded: typeof setLeftSidebarExpanded;
+  updateMeasurementToolVisibility: typeof updateMeasurementToolVisibility;
 };
-
-type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
-type ParentProps = {
-  onViewportChange: Function;
-};
-
 type MapControlStateProps = {
   leftSidebarConfig: LeftSidebarConfig;
+  isMeasurementToolEnabled: boolean;
+  isMeasurementToolVisible: boolean;
 };
 
-type MapControlProps = MapControlStateProps & ParentProps & DispatchProps;
+type MapControlProps = MapControlStateProps & DispatchProps;
 
 const MapControls: React.FunctionComponent<MapControlProps> = props => {
+  const setViewport = viewport => {
+    eventEmitter.emit("setMapViewport", viewport);
+  };
   return (
     <div
       css={{
@@ -110,25 +106,37 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
         left: "8px",
       }}
     >
-      <NavigationControl
-        onViewportChange={viewport => props.onViewportChange(viewport)}
-      />
-      <GeolocateControl onViewportChange={props.onViewportChange} />
+      <NavigationControl onViewportChange={setViewport} />
+      <GeolocateControl onViewportChange={setViewport} />
       <CustomControl
         icon={props.leftSidebarConfig.icon}
-        setLeftSidebarExpanded={props.setLeftSidebarExpanded}
+        onClick={() => props.setLeftSidebarExpanded(true)}
       />
+      {props.isMeasurementToolEnabled && (
+        <CustomControl
+          icon={"fas fa-ruler-combined"}
+          onClick={() =>
+            props.updateMeasurementToolVisibility(
+              !props.isMeasurementToolVisible,
+            )
+          }
+        />
+      )}
     </div>
   );
 };
 
-const mapDispatchToProps = {
-  setLeftSidebarExpanded,
-};
-
 const mapStateToProps = (state): MapControlStateProps => ({
   leftSidebarConfig: leftSidebarConfigSelector(state),
+  isMeasurementToolVisible: measurementToolVisibilitySelector(state),
+  isMeasurementToolEnabled: measurementToolEnabledSelector(state),
 });
+
+const mapDispatchToProps = {
+  setLeftSidebarExpanded,
+  updateMeasurementToolVisibility,
+};
+
 export default connect<MapControlStateProps, DispatchProps>(
   mapStateToProps,
   mapDispatchToProps,

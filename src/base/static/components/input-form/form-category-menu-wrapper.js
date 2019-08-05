@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { css, jsx } from "@emotion/core";
-import { translate } from "react-i18next";
-import { darken } from "@material-ui/core/styles/colorManipulator";
+import { withTranslation } from "react-i18next";
+import { getReadableColor } from "../../utils/color";
 
 import InputFormCategorySelector from "./input-form-category-selector";
 import InputForm from "../input-form";
@@ -14,12 +14,8 @@ import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
-
 import { datasetUrlSelector } from "../../state/ducks/datasets";
-import {
-  mapViewportPropType,
-  updateLayerGroupVisibility,
-} from "../../state/ducks/map";
+import { updateLayerGroupVisibility } from "../../state/ducks/map-style";
 
 import { RegularText } from "../atoms/typography";
 
@@ -68,9 +64,7 @@ class FormCategoryMenuWrapper extends Component {
   }
 
   componentDidMount() {
-    this.props.updateMapDraggedOrZoomed(false);
     this.props.updateMapCenterpointVisibility(true);
-    this.props.updateSpotlightMaskVisibility(true);
 
     if (this.props.placeConfig.visibleLayerGroupIds) {
       this.props.placeConfig.visibleLayerGroupIds.forEach(layerGroupId =>
@@ -97,33 +91,11 @@ class FormCategoryMenuWrapper extends Component {
     return (
       <>
         {this.state.isShowingCategorySelector && (
-          <>
-            {!this.props.isMapDraggedOrZoomed && (
-              <RegularText
-                css={css`
-                  background-color: ${alertBackground};
-                  display: block;
-                  color: ${darken(alertBackground, 0.8)};
-                  border: 2px dotted #ffffff;
-                  border-radius: 8px;
-                  padding: 8px;
-                  margin-bottom: 8px;
-                `}
-                weight="bold"
-              >
-                {this.props.t(
-                  "dragMapAlert",
-                  "Please drag and zoom the map to set the location for your post.",
-                )}
-              </RegularText>
-            )}
-            <InputFormCategorySelector
-              onCategoryChange={this.onCategoryChange.bind(this)}
-              selectedCategory={this.state.selectedCategory}
-              visibleCategoryConfigs={this.visibleCategoryConfigs}
-              isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
-            />
-          </>
+          <InputFormCategorySelector
+            onCategoryChange={this.onCategoryChange.bind(this)}
+            selectedCategory={this.state.selectedCategory}
+            visibleCategoryConfigs={this.visibleCategoryConfigs}
+          />
         )}
         {this.state.selectedCategory && (
           <InputForm
@@ -133,12 +105,9 @@ class FormCategoryMenuWrapper extends Component {
             selectedCategory={this.state.selectedCategory}
             datasetUrl={this.state.datasetUrl}
             datasetSlug={this.state.datasetSlug}
-            isMapDraggedOrZoomed={this.props.isMapDraggedOrZoomed}
+            isMapTransitioning={this.props.isMapTransitioning}
             isSingleCategory={this.state.isSingleCategory}
             onCategoryChange={this.onCategoryChange}
-            mapViewport={this.props.mapViewport}
-            onUpdateMapViewport={this.props.onUpdateMapViewport}
-            updateMapDraggedOrZoomed={this.props.updateMapDraggedOrZoomed}
           />
         )}
       </>
@@ -158,13 +127,8 @@ FormCategoryMenuWrapper.propTypes = {
     PropTypes.objectOf(PropTypes.func),
   ]),
   containers: PropTypes.instanceOf(NodeList),
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
-  mapViewport: mapViewportPropType.isRequired,
-  onUpdateMapViewport: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 
@@ -185,8 +149,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
@@ -194,4 +156,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("FormCategoryMenuWrapper")(FormCategoryMenuWrapper));
+)(withTranslation("FormCategoryMenuWrapper")(FormCategoryMenuWrapper));
