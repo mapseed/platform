@@ -24,6 +24,7 @@ type Labels = {
 
 export interface Widget {
   header: string;
+  isExportable?: boolean;
   type: string;
   layout: ChartLayout;
   widgetStateControls?: WidgetStateControl[];

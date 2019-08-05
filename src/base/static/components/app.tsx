@@ -10,10 +10,8 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import browserUpdate from "browser-update";
-import styled from "@emotion/styled";
-import Spinner from "react-spinner";
 import { Mixpanel } from "../utils/mixpanel";
-import i18next from "i18next";
+import i18next, { ThirdPartyModule } from "i18next";
 import { initReactI18next } from "react-i18next";
 import resourceBundle from "../../../locales";
 
@@ -25,6 +23,7 @@ import {
   updateUIVisibility,
 } from "../state/ducks/ui";
 import ShaTemplate from "./templates/sha";
+import { Spinner } from "./atoms/imagery";
 import CookieConsentBanner from "./molecules/cookie-consent-banner";
 const DashboardTemplate = React.lazy(() => import("./templates/dashboard"));
 const ListTemplate = React.lazy(() => import("./templates/place-list"));
@@ -44,7 +43,7 @@ import {
 } from "../state/ducks/datasets-config";
 import { loadDatasets } from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
-import { appConfigPropType, loadAppConfig } from "../state/ducks/app-config";
+import { AppConfig, loadAppConfig } from "../state/ducks/app-config";
 import { loadMapConfig } from "../state/ducks/map";
 import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
@@ -90,19 +89,6 @@ const Fallback = () => {
   return <Spinner />;
 };
 
-const statePropTypes = {
-  appConfig: appConfigPropType,
-  currentTemplate: PropTypes.string.isRequired,
-  datasetsConfig: datasetsConfigPropType,
-  datasetSlugs: PropTypes.array.isRequired,
-  hasAnonAbilitiesInAnyDataset: PropTypes.func.isRequired,
-  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  layout: PropTypes.string.isRequired,
-  featuredPlacesConfig: featuredPlacesConfigPropType,
-  // TODO: shape of this:
-  pageExists: PropTypes.func.isRequired,
-};
-
 const dispatchPropTypes = {
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   loadDatasets: PropTypes.func.isRequired,
@@ -127,7 +113,20 @@ const dispatchPropTypes = {
   updateLayout: PropTypes.func.isRequired,
 };
 
-type StateProps = PropTypes.InferProps<typeof statePropTypes>;
+type StateProps = {
+  appConfig: AppConfig;
+  currentTemplate: string;
+  datasetsConfig: PropTypes.InferProps<typeof datasetsConfigPropType>;
+  datasetSlugs: any[];
+  hasAnonAbilitiesInAnyDataset: Function;
+  hasGroupAbilitiesInDatasets: Function;
+  layout: string;
+  featuredPlacesConfig: PropTypes.InferProps<
+    typeof featuredPlacesConfigPropType
+  >;
+  // TODO: shape of this:
+  pageExists: Function;
+};
 
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 
@@ -256,7 +255,7 @@ class App extends React.Component<Props, State> {
       this.props.updateUIVisibility("rightSidebar", true);
 
     // Set up localization.
-    i18next.use(initReactI18next).init({
+    i18next.use(initReactI18next as ThirdPartyModule).init({
       lng: resolvedConfig.flavor.defaultLanguage.code,
       resources: resourceBundle,
       // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion

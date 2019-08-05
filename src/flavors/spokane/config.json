@@ -82,6 +82,769 @@
           }
         },
         {
+          "header": "Stewardship Practices Detail",
+          "type": "fixedTable",
+          "stripeColor": "#fbf6ed",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Stewardship category",
+              "type": "string",
+              "fractionalWidth": 2
+            },
+            {
+              "header": "Lower Spokabe WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "lower-spokane"]
+            },
+            {
+              "header": "Upper Spokane WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "upper-spokane"]
+            },
+            {
+              "header": "Little Spokane WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "little-spokane"]
+            },
+            {
+              "header": "Pend Oreille Lake WAU",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit"],
+                "pend-oreille-lake"
+              ]
+            },
+            {
+              "header": "Hangman WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "hangman"]
+            },
+            {
+              "header": "Coeur d'Alene Lake WAU",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit"],
+                "coeur-dalene-lake"
+              ]
+            },
+            {
+              "header": "Upper Crab WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "upper-crab"]
+            },
+            {
+              "header": "Palouse WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "palouse"]
+            },
+            {
+              "header": "Rock WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "rock"]
+            },
+            {
+              "header": "Countywide",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Status",
+              "type": "badge"
+            },
+            {
+              "header": "Enhanced Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Enhanced Status",
+              "type": "badge"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "No till"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Mulch till"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "mulch_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Basic Soil Tests"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Biosolids Management"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["get-sum", "biosolids_quantity"],
+                  "label": "tons"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Tons"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Tons"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Precision Soil Tests"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "precision_soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Grassed Waterways"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Riparian Forest"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Stream Crossing"
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Cross."
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Cross."
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Fencing"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Nutrient Management"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Pipeline"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            }
+          ]
+        },
+        {
           "header": "Critical Area Summary",
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
@@ -1195,7 +1958,7 @@
               },
               {
                 "label": "Upper Crab",
-                "value": "Upper Crab"
+                "value": "upper-crab"
               },
               {
                 "label": "Palouse",
@@ -2279,7 +3042,7 @@
             "trigger": {
               "trigger_value": "yes",
               "targets": [
-                "heavy_use_area_quantity",
+                "heavy_use_area_duration",
                 "heavy_use_area_description"
               ]
             },

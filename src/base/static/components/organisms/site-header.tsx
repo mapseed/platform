@@ -18,10 +18,7 @@ import {
   navBarConfigSelector,
 } from "../../state/ducks/nav-bar-config";
 import FilterMenu from "./filter-menu";
-import {
-  appConfigSelector,
-  appConfigPropType,
-} from "../../state/ducks/app-config";
+import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import { mapConfigSelector, MapConfig } from "../../state/ducks/map";
 import { currentTemplateSelector, resetUi } from "../../state/ducks/ui";
 import {
@@ -175,7 +172,6 @@ const navItemMappings = {
 };
 
 type ComponentPropTypes = {
-  appConfig: PropTypes.InferProps<typeof appConfigPropType>;
   navBarConfig: PropTypes.InferProps<typeof navBarConfigPropType>;
 };
 
@@ -191,6 +187,7 @@ interface Language {
 }
 
 type Props = {
+  appConfig: AppConfig;
   currentLanguageCode: string;
   currentTemplate: string;
   isLeftSidebarExpanded: boolean;
@@ -450,7 +447,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
           </nav>
         )}
         <UserMenu
-          apiRoot={props.appConfig.api_root}
+          appConfig={props.appConfig}
           isInMobileMode={isHeaderExpanded}
           isMobileEnabled={!!props.appConfig.isShowingMobileUserMenu}
           pathname={props.history.location.pathname}

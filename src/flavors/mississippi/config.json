@@ -54,7 +54,21 @@
         "headerFontFamily": "Roboto,sans-serif",
         "bodyFontFamily": "Roboto,sans-serif"
       }
-    }
+    },
+    "loginProviders": [
+      {
+        "name": "google",
+        "provider": "google-oauth2"
+      },
+      {
+        "name": "twitter",
+        "provider": "twitter"
+      },
+      {
+        "name": "facebook",
+        "provider": "facebook"
+      }
+    ]
   },
   "map": {
     "geolocationEnabled": true,
@@ -142,13 +156,6 @@
         ],
         "tileSize": 256
       },
-      "terrain": {
-        "type": "raster",
-        "tiles": [
-          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}"
-        ],
-        "tileSize": 256
-      },
       "oceans": {
         "type": "raster",
         "tiles": [
@@ -192,6 +199,10 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
       },
+      "USGSstations": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/USGSstations.geojson"
+      },
       "GlacialMaximum": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/GlacialMaximum.geojson"
@@ -216,16 +227,24 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
       },
-      "nitrogenloading": {
-        "type": "vector",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/MARBvectortiles/{z}/{x}/{y}.pbf"
-        ]
-      },
       "nitrogen-deposition": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/mississippi-nitrogen-deposition/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
+      },
+      "levees": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/LeveeVectortiles/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
+      },
+      "protected": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/ProtectedVectortiles/{z}/{x}/{y}.pbf"
         ],
         "maxZoom": 18
       }
@@ -287,44 +306,6 @@
                 1,
                 14,
                 0
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "nitrogenloading-group",
-        "visibleDefault": false,
-        "interactive": true,
-        "popupContent": "<div style='max-width: 250px'><p><strong>Watershed name:</p><p></strong>{{PNAME}}</p><p><strong>Nitrogen from fertilizer:</p><p></strong>{{INCY}}&nbsp;kg per square kilometer</p></div>",
-        "mapboxLayers": [
-          {
-            "id": "nitrogenloading-polygons",
-            "type": "fill",
-            "source": "nitrogenloading",
-            "source-layer": "nitrogen",
-            "paint": {
-              "fill-color": "#c35800",
-              "fill-opacity": {
-                "property": "INCY_S5",
-                "stops": [
-                  [0, 0],
-                  [200, 0.25],
-                  [500, 0.5],
-                  [1000, 0.75],
-                  [2000, 1]
-                ]
-              },
-              "fill-outline-color": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                5,
-                "rgba(255,255,255,0)",
-                9,
-                "rgba(255,255,255,1)",
-                12,
-                "rgba(255,255,255,0)"
               ]
             }
           }
@@ -395,6 +376,62 @@
                 1,
                 16,
                 0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "protected-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "protected",
+            "type": "fill",
+            "source": "protected",
+            "source-layer": "protected",
+            "paint": {
+              "fill-color": "#e47901",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                7,
+                0.3,
+                10,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "levees-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p>National Levee Database <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/summary'target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "levees",
+            "type": "line",
+            "source": "levees",
+            "source-layer": "levees",
+            "paint": {
+              "line-color": "#d44901",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7.5,
+                0,
+                8.5,
+                2,
+                14,
+                6
               ]
             }
           }
@@ -491,28 +528,16 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                11.5,
+                11,
                 0,
-                12.5,
+                14,
                 1,
                 16,
                 1,
-                18.5,
+                18,
                 0
               ]
             }
-          }
-        ]
-      },
-      {
-        "id": "terrain-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "terrain-basemap",
-            "type": "raster",
-            "source": "terrain"
           }
         ]
       },
@@ -628,6 +653,26 @@
                 10,
                 1
               ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "USGSstations",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}<BR><img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=7' width='450'<BR><BR>Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "USGSstations-labels",
+            "type": "symbol",
+            "source": "USGSstations",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 7.5, 0.4, 10, 0.9, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gage.png"
             }
           }
         ]
