@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import * as React from "react";
 import { connect } from "react-redux";
-import Spinner from "react-spinner";
 import styled from "@emotion/styled";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { jsx, css } from "@emotion/core";
 
-import { FontAwesomeIcon } from "../atoms/imagery";
+import { FontAwesomeIcon, Spinner } from "../atoms/imagery";
 import { HorizontalRule } from "../atoms/layout";
 import { TinyTitle } from "../atoms/typography";
 

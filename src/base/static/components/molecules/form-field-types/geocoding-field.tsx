@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import * as React from "react";
-import Spinner from "react-spinner";
 import { connect } from "react-redux";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { css, jsx } from "@emotion/core";
@@ -16,7 +15,7 @@ import {
 } from "../../../state/ducks/map";
 import { TextInput } from "../../atoms/input";
 import { Button } from "../../atoms/buttons";
-import { FontAwesomeIcon } from "../../atoms/imagery";
+import { FontAwesomeIcon, Spinner } from "../../atoms/imagery";
 
 declare const MAP_PROVIDER_TOKEN: string;
 

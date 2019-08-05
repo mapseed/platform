@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { Map, OrderedMap, fromJS } from "immutable";
-import Spinner from "react-spinner";
-import "react-spinner/react-spinner.css";
 import { withRouter } from "react-router";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
+import { Spinner } from "../atoms/imagery";
 
 import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
