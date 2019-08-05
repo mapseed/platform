@@ -5128,6 +5128,27 @@
               ]
             }
           ]
+        },
+        {
+          "header": "Map Promotion: Garfield County",
+          "type": "freeBarChart",
+          "groupBy": "learned_about_vsp_map",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Promotion type",
+          "yAxisLabel": "Count",
+          "annotation": "* totals may exceed total VSP report count due to multiple choices",
+          "labels": {
+            "word_of_mouth": "Word of mouth",
+            "fellow_producer": "Fellow producer",
+            "cd_staff": "Conservation District staff",
+            "grower_meeting": "Grower meeting",
+            "other": "Other"
+          },
+          "layout": {
+            "start": 7,
+            "end": 13
+          }
         }
       ]
     }
