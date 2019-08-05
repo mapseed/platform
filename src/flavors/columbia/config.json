@@ -670,7 +670,7 @@
           ]
         },
         {
-          "header": "Landowner summary",
+          "header": "Landowner Summary",
           "type": "freeTable",
           "stripeColor": "#f8f5f5",
           "layout": {
