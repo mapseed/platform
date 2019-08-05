@@ -5131,6 +5131,7 @@
         },
         {
           "header": "Map Promotion: Garfield County",
+          "isExportable": true,
           "type": "freeBarChart",
           "groupBy": "learned_about_vsp_map",
           "groupValue": ["get-count"],
