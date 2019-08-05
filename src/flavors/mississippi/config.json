@@ -67,6 +67,10 @@
       {
         "name": "facebook",
         "provider": "facebook"
+      },
+      {
+        "name": "discourse",
+        "provider": "discourse-hdk"
       }
     ]
   },
