@@ -1,10 +1,13 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
+import domtoimage from "dom-to-image";
+import download from "downloadjs";
 
 import { SmallText, TinyTitle } from "../../atoms/typography";
 import { RadioInput } from "../../atoms/input";
-import { FontAwesomeIcon } from "../../atoms/imagery";
+import { Button } from "../../atoms/buttons";
+import { FontAwesomeIcon, Spinner } from "../../atoms/imagery";
 import { FreeDonutChart, getFreeDonutChartData } from "./free-donut-chart";
 import { FreeBarChart, getFreeBarChartData } from "./free-bar-chart";
 import { MapseedLineChart, getLineChartData } from "./line-chart";
@@ -53,7 +56,9 @@ const widgetRegistry = {
 class ChartWrapper extends React.Component<ChartWrapperProps> {
   state = {
     widgetState: {},
+    isExporting: false,
   };
+  chartRef = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
     const { widgetStateControls } = this.props.widget;
@@ -98,12 +103,53 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
     }
   };
 
+  handleChartExport = () => {
+    if (!this.chartRef.current) {
+      // eslint-disable-next-line no-console
+      console.error("Chart exporter: no ref to export");
+
+      return;
+    }
+
+    this.setState({
+      isExporting: true,
+    });
+
+    const { offsetHeight, offsetWidth } = this.chartRef.current;
+
+    domtoimage
+      .toPng(this.chartRef.current, {
+        // Render at 2X size and scale back down, to improve resolution.
+        height: offsetHeight * 2,
+        width: offsetWidth * 2,
+        style: {
+          transform: `scale(2) translate(${offsetWidth / 4}px, ${offsetHeight /
+            4}px)`,
+        },
+      })
+      .then(dataUrl => {
+        download(dataUrl, "mapseed-chart.png");
+        this.setState({
+          isExporting: false,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          isExporting: false,
+        });
+
+        // eslint-disable-next-line no-console
+        console.error(error);
+      });
+  };
+
   render() {
     const { widget } = this.props;
     const WidgetComponent = widgetRegistry[widget.type].component;
 
     return (
       <div
+        ref={this.chartRef}
         css={css`
           grid-column: ${widget.layout.start} / ${widget.layout.end};
           height: ${widget.layout.height + "px" || "auto"};
@@ -141,6 +187,49 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
           >
             {widget.header}
           </TinyTitle>
+          {widget.isExportable && (
+            <div
+              css={css`
+                display: flex;
+                min-width: 20px;
+                min-height: 20px;
+                align-items: center;
+                justify-content: center;
+                float: right;
+                position: relative;
+                margin-left: 16px;
+              `}
+            >
+              {this.state.isExporting ? (
+                <div
+                  css={css`
+                    width: 20px;
+                    height: 20px;
+                  `}
+                >
+                  <Spinner style={{ width: "20px", height: "20px" }} />
+                </div>
+              ) : (
+                <Button
+                  css={css`
+                    background: none;
+                    padding: 0;
+
+                    &:hover {
+                      background: none;
+                    }
+                  `}
+                  onClick={this.handleChartExport}
+                >
+                  <FontAwesomeIcon
+                    color="#777"
+                    hoverColor="#aaa"
+                    faClassname="fas fa-file-download"
+                  />
+                </Button>
+              )}
+            </div>
+          )}
           {widget.widgetStateControls &&
             widget.widgetStateControls.map(control => {
               return (

@@ -97,6 +97,7 @@
         },
         {
           "header": "Reporting Activity",
+          "isExportable": true,
           "type": "lineChart",
           "xAxisLabel": "Date",
           "yAxisLabel": "No. VSP reports",
@@ -108,12 +109,13 @@
         },
         {
           "header": "Stewardship Practices Detail",
+          "isExportable": true,
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
           "layout": {
             "start": 1,
             "end": 13,
-            "height": 500
+            "height": 1560
           },
           "widgetStateControls": [
             {
@@ -2484,6 +2486,7 @@
         {
           "header": "Critical Area Summary",
           "type": "fixedTable",
+          "isExportable": true,
           "stripeColor": "#f8f5f5",
           "layout": {
             "start": 1,

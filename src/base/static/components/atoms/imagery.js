@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
+import ReactSpinner from "react-spinner";
+import "react-spinner/react-spinner.css";
 
 const Image = props => <img src={props.src} alt={props.alt} {...props} />;
 
@@ -112,6 +114,8 @@ UserAvatar.defaultProps = {
   src: "/static/css/images/user-50.png",
 };
 
+const Spinner = ({ style }) => <ReactSpinner style={style} />;
+
 export default UserAvatar;
 
-export { Image, UserAvatar, SiteLogo, FontAwesomeIcon };
+export { Image, UserAvatar, SiteLogo, FontAwesomeIcon, Spinner };

@@ -10,7 +10,6 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import browserUpdate from "browser-update";
-import Spinner from "react-spinner";
 import { Mixpanel } from "../utils/mixpanel";
 import i18next, { ThirdPartyModule } from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -24,6 +23,7 @@ import {
   updateUIVisibility,
 } from "../state/ducks/ui";
 import ShaTemplate from "./templates/sha";
+import { Spinner } from "./atoms/imagery";
 import CookieConsentBanner from "./molecules/cookie-consent-banner";
 const DashboardTemplate = React.lazy(() => import("./templates/dashboard"));
 const ListTemplate = React.lazy(() => import("./templates/place-list"));
