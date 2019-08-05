@@ -143,7 +143,7 @@
     "eslint-plugin-react": "~7.14.3",
     "eslint-plugin-react-hooks": "^1.6.1",
     "file-loader": "^4.1.0",
-    "fork-ts-checker-webpack-plugin": "^1.4.3",
+    "fork-ts-checker-webpack-plugin": "^1.5.0",
     "fs-extra": "^8.1.0",
     "handlebars": "^4.1.2",
     "i18next-resource-store-loader": "^0.1.2",
