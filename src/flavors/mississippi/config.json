@@ -54,7 +54,25 @@
         "headerFontFamily": "Roboto,sans-serif",
         "bodyFontFamily": "Roboto,sans-serif"
       }
-    }
+    },
+    "loginProviders": [
+      {
+        "name": "google",
+        "provider": "google-oauth2"
+      },
+      {
+        "name": "twitter",
+        "provider": "twitter"
+      },
+      {
+        "name": "facebook",
+        "provider": "facebook"
+      },
+      {
+        "name": "discourse",
+        "provider": "discourse-hdk"
+      }
+    ]
   },
   "map": {
     "geolocationEnabled": true,
