@@ -51,7 +51,7 @@
   },
   "dashboard": [
     {
-      "header": "VSP Reports",
+      "header": "VSP Reports - Garfield County",
       "isExportable": true,
       "backgroundColor": "#f5f3f0",
       "datasetSlug": "garfield-input",
@@ -96,7 +96,8 @@
           }
         },
         {
-          "header": "Reporting Activity",
+          "header": "Reporting Activity: Garfield County",
+          "isExportable": true,
           "type": "lineChart",
           "xAxisLabel": "Date",
           "yAxisLabel": "No. VSP reports",
@@ -107,13 +108,14 @@
           }
         },
         {
-          "header": "Stewardship Practices Summary",
+          "header": "Stewardship Practices Summary: Garfield County",
+          "isExportable": true,
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
           "layout": {
             "start": 1,
             "end": 13,
-            "height": 500
+            "height": 1705
           },
           "widgetStateControls": [
             {
@@ -134,7 +136,7 @@
           ],
           "columns": [
             {
-              "header": "Stewardship category",
+              "header": "Stewardship Category",
               "type": "string",
               "fractionalWidth": 2
             },
@@ -3451,6 +3453,259 @@
               "cells": [
                 {
                   "value": "Fish & Wildlife Management",
+                  "label": "Wetland Wildlife Management"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", 5],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "<=",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      ["*", 0.7, 5]
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
+                    [
+                      "<",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      5
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
+                    [
+                      ">=",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      5
+                    ],
+                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
+                    ["literal", { "label": "Not available", "color": "#aaa" }]
+                  ]
+                },
+                {
+                  "value": ["literal", 10],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "<=",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      ["*", 0.7, 10]
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
+                    [
+                      "<",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      10
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
+                    [
+                      ">=",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      10
+                    ],
+                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
+                    ["literal", { "label": "Not available", "color": "#aaa" }]
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Fish & Wildlife Management",
                   "label": "Upland Habitat Management"
                 },
                 {
@@ -3642,6 +3897,207 @@
                     ["<", ["get-sum", "upland_habitat_quantity"], 300],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [">=", ["get-sum", "upland_habitat_quantity"], 300],
+                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
+                    ["literal", { "label": "Not available", "color": "#aaa" }]
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Fish & Wildlife Management",
+                  "label": "Access Control"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "access_control_quantity",
+                      ["<", ["get-val", "access_control_datetime"], 2011]
+                    ],
+                    ["get-sum", "access_control_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", 1],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "<=",
+                      ["get-sum", "access_control_quantity"],
+                      ["*", 0.7, 1]
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
+                    ["<", ["get-sum", "access_control_quantity"], 1],
+                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
+                    [">=", ["get-sum", "access_control_quantity"], 1],
+                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
+                    ["literal", { "label": "Not available", "color": "#aaa" }]
+                  ]
+                },
+                {
+                  "value": ["literal", 4],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "<=",
+                      ["get-sum", "access_control_quantity"],
+                      ["*", 0.7, 4]
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
+                    ["<", ["get-sum", "access_control_quantity"], 4],
+                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
+                    [">=", ["get-sum", "access_control_quantity"], 4],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4153,7 +4609,7 @@
           ]
         },
         {
-          "header": "Landowner summary",
+          "header": "Landowner Summary: Garfield County",
           "type": "freeTable",
           "stripeColor": "#f8f5f5",
           "layout": {
@@ -4313,9 +4769,9 @@
             }
           ]
         },
-
         {
-          "header": "Critical Area Summary",
+          "header": "Critical Area Summary: Garfield County",
+          "isExportable": true,
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
           "layout": {
@@ -4348,20 +4804,11 @@
               ]
             },
             {
-              "header": "Frequently flooded areas",
+              "header": "Fish & wildlife conservation areas",
               "type": "numeric",
               "filter": [
                 "==",
-                ["get-val", "private-property_on_frequently_flooded"],
-                "yes"
-              ]
-            },
-            {
-              "header": "Hazardous areas",
-              "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_geologic_hazard"],
+                ["get-val", "private-property_on_fish_wildlife_habitat"],
                 "yes"
               ]
             },
@@ -4375,11 +4822,20 @@
               ]
             },
             {
-              "header": "Fish & wildlife conservation areas",
+              "header": "Hazardous areas",
               "type": "numeric",
               "filter": [
                 "==",
-                ["get-val", "private-property_on_fish_wildlife_habitat"],
+                ["get-val", "private-property_on_geologic_hazard"],
+                "yes"
+              ]
+            },
+            {
+              "header": "Frequently flooded areas",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_frequently_flooded"],
                 "yes"
               ]
             }
@@ -5111,7 +5567,7 @@
           },
           {
             "start_field_index": 71,
-            "end_field_index": 103,
+            "end_field_index": 109,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -5121,8 +5577,8 @@
             ]
           },
           {
-            "start_field_index": 104,
-            "end_field_index": 115,
+            "start_field_index": 110,
+            "end_field_index": 121,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [
@@ -6337,10 +6793,60 @@
             "hidden_default": true
           },
           {
+            "//": "=============== WETLAND WILDLIFE MANAGEMENT ==================================",
+            "name": "wetland_wildlife_management",
+            "type": "big_radio",
+            "prompt": "Wetland wildlife habitats management: creating, maintaining, or enhancing wetland habitats",
+            "label": "Wetland wildlife management",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "wetland_wildlife_management_quantity",
+                "wetland_wildlife_management_datetime"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but I'm interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "wetland_wildlife_management_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many acres?",
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "wetland_wildlife_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "Approximately when did you start managing wetland wildlife habitats?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
             "//": "=============== UPLAND HABITAT MANAGEMENT ==================",
             "name": "upland_habitat",
             "type": "big_radio",
-            "prompt": "Upland wildlife habitats management: creating, maintain, or enhancing areas to provide food, cover and habitat connectivity",
+            "prompt": "Upland wildlife habitats management: creating, maintaining, or enhancing areas to provide food, cover and habitat connectivity",
             "label": "Upland habitat management",
             "optional": true,
             "trigger": {
@@ -6379,6 +6885,53 @@
             "date_format": "YYYY",
             "display_format": "YYYY",
             "prompt": "Approximately when did you start managing upland wildlife habitats?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== ACCESS CONTROL ==================",
+            "name": "access_control",
+            "type": "big_radio",
+            "prompt": "Access control: the temporary or permanent exclusion of animals, people, vehicles, and/or equipment from an area",
+            "label": "Access control",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["access_control_quantity", "access_control_datetime"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but I'm interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "access_control_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many acres?",
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "access_control_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "Approximately when did you start controlling access to parts of your property?",
             "placeholder": "Your best estimate",
             "optional": false,
             "hidden_default": true
