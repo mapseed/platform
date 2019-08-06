@@ -99,7 +99,7 @@ const StatSummary = (props: StatSummaryProps) => {
         >
           <RegularText
             css={css`
-              color: #888;
+              color: #444;
             `}
             textTransform="uppercase"
           >
