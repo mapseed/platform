@@ -81,7 +81,14 @@ ProgressBar.propTypes = {
   total: PropTypes.number.isRequired,
 };
 const SiteLogo = styled(props => {
-  return <img id="mapseed-site-logo" src={props.src} alt={props.alt} className={props.className} />;
+  return (
+    <img
+      id="mapseed-site-logo"
+      src={props.src}
+      alt={props.alt}
+      className={props.className}
+    />
+  );
 })(() => ({
   [mq[0]]: {
     maxWidth: "250px",

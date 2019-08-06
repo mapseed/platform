@@ -1,5 +1,11 @@
 /* =Header
 -------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif !important;
+}
+
 #mapseed-site-logo {
   height: 56px !important;
   margin-left: 0 !important;

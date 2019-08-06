@@ -754,7 +754,7 @@
     {
       "slug": "about",
       "content": [
-        "<div style='display:flex; align-items:center'><img style='width:80px;max-width:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1 style='font-style:italic;'>Bellevue Bikeshare! But Where?</h1></div>",
+        "<div style='display:flex; align-items:center'><img style='width:80px;max-width:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1>Bellevue Bikeshare! But Where?</h1></div>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
         "<p>Have you used bikeshare in Bellevue? Maybe you’ve seen them around?</p>",
         "<p>The City of Bellevue is striving to make bikeshare easier to use while reducing the number of bikes left in places where they shouldn’t be. That’s where you come in.</p>",
