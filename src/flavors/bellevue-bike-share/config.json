@@ -55,10 +55,10 @@
       "brand": {
         "primary": "#217b87",
         "secondary": "#217b87",
-        "accent": "#ed440e"
+        "accent": "#b5d222"
       },
       "bg": {
-        "default": "#fff8f5",
+        "default": "#fcfeff",
         "light": "#217b87"
       },
       "text": {
@@ -159,33 +159,6 @@
         ]
       },
       {
-        "id": "bellevue-grid",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "bellevue-025-grid",
-            "type": "line",
-            "source": "bellevue-grid",
-            "source-layer": "grid-025",
-            "paint": {
-              "line-width": 1,
-              "line-color": "#888",
-              "line-dasharray": [2, 5]
-            }
-          },
-          {
-            "id": "bellevue-05-grid",
-            "type": "line",
-            "source": "bellevue-grid",
-            "source-layer": "grid-05",
-            "paint": {
-              "line-width": 1,
-              "line-color": "#666"
-            }
-          }
-        ]
-      },
-      {
         "id": "bellevue-transit",
         "visibleDefault": false,
         "mapboxLayers": [
@@ -249,6 +222,33 @@
         ]
       },
       {
+        "id": "bellevue-grid",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "bellevue-025-grid",
+            "type": "line",
+            "source": "bellevue-grid",
+            "source-layer": "grid-025",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#888",
+              "line-dasharray": [2, 5]
+            }
+          },
+          {
+            "id": "bellevue-05-grid",
+            "type": "line",
+            "source": "bellevue-grid",
+            "source-layer": "grid-05",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#666"
+            }
+          }
+        ]
+      },
+      {
         "id": "bellevue-existing-hubs",
         "visibleDefault": false,
         "mapboxLayers": [
@@ -257,6 +257,9 @@
             "type": "symbol",
             "source": "bellevue-transit",
             "source-layer": "bike-hubs",
+            "paint": {
+              "icon-opacity": 0.8
+            },
             "layout": {
               "icon-size": ["step", ["zoom"], 0.3, 12, 0.15],
               "icon-image": [
@@ -591,7 +594,7 @@
           {
             "name": "access_to_transit_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Access to transit</h1><img style='width:100%;' src='/static/css/images/walkshed-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Bike share can help people get to and from transit more quickly. By locating hubs within walking distance of frequent bus routes, buses and bike share can both be more useful.</p><p class='form-stage-text' >This map shows the quarter-mile walkshed around Bellevue's frequent transit network.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Access to transit</h1><img style='width:100%;' src='/static/css/images/walkshed-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Bikeshare can help people get to and from transit more quickly. By locating hubs within walking distance of frequent bus routes, buses and bikeshare can both be more useful.</p><p class='form-stage-text' >This map shows the quarter-mile walkshed around Bellevue's frequent transit network.</p>"
           },
           {
             "name": "lng-lat",
@@ -600,7 +603,7 @@
           {
             "name": "submission_info",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What do <span style='font-style:italic;'>you</span> think?</h1><p>Drag and zoom the map to let us know where you think we should add a bike share hub! Fill out the form below to give us some more information about your suggestion:</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What do <span style='font-style:italic;'>you</span> think?</h1><p class='form-stage-text'>Drag and zoom the map to let us know where you think we should add a bikeshare hub! Fill out the form below to give us some more information about your suggestion:</p>"
           },
           {
             "name": "title",
@@ -751,7 +754,7 @@
     {
       "slug": "about",
       "content": [
-        "<h1 style='font-style:italic;'>Bellevue Bikeshare! But Where?</h1>",
+        "<div style='display:flex; align-items:center'><img style='width:80px;max-width:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1 style='font-style:italic;'>Bellevue Bikeshare! But Where?</h1></div>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
         "<p>Have you used bikeshare in Bellevue? Maybe you’ve seen them around?</p>",
         "<p>The City of Bellevue is striving to make bikeshare easier to use while reducing the number of bikes left in places where they shouldn’t be. That’s where you come in.</p>",

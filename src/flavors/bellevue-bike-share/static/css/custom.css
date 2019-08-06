@@ -1,7 +1,8 @@
 /* =Header
 -------------------------------------------------------------- */
-header {
-  border-top: 2px solid #ed440e;
+#mapseed-site-logo {
+  height: 56px !important;
+  margin-left: 0 !important;
 }
 
 .form-stage-header-bar {
