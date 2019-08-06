@@ -164,7 +164,7 @@
     "svg-inline-loader": "^0.8.0",
     "typescript": "^3.5.3",
     "watchify": "^3.11.1",
-    "webpack": "~4.39.0",
+    "webpack": "~4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2",
     "webpack-modernizr-loader": "^5.0.0",
