@@ -71,7 +71,8 @@ export const globalStyles = theme => css`
     strong,
     em {
       font-family: ${theme.text.bodyFontFamily};
-      font-size: 1.16rem;
+      font-size: 1.15rem;
+      line-height: 1.4rem;
       margin: 0 0 16px 0;
     }
     &:after {

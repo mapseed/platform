@@ -5,7 +5,7 @@ import { withTranslation, Trans } from "react-i18next";
 import { css, jsx } from "@emotion/core";
 
 import { Button } from "../atoms/buttons";
-import { ProgressBar } from "../atoms/feedback";
+import { ProgressBar } from "../atoms/imagery";
 import { RegularText } from "../atoms/typography";
 
 const FormStageControlBar = props => {
