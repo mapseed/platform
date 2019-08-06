@@ -28,7 +28,7 @@ type BaseTableProps = {
 };
 
 const CELL_FORMAT_WEIGHTS = ["bold", "regular"];
-const CELL_FORMAT_COLORS = ["#222", "#888", "#aaa"];
+const CELL_FORMAT_COLORS = ["#222", "#444", "#666"];
 const ROW_HEIGHT = 75;
 const clamp = (arr, i) => (i > arr.length - 1 ? arr[arr.length - 1] : arr[i]);
 
@@ -149,7 +149,7 @@ class BaseTable extends React.Component<BaseTableProps> {
             <DashboardText
               textAlign={this.getCellAlignment(type)}
               textTransform="uppercase"
-              color="#aaa"
+              color="#444"
               fontSize="0.9rem"
             >
               {cellData.label}
@@ -193,7 +193,7 @@ class BaseTable extends React.Component<BaseTableProps> {
             }
             position={{ x: 0, y: 0 }}
           >
-            <DashboardText color="#aaa">{label}</DashboardText>
+            <DashboardText color="#444">{label}</DashboardText>
           </Draggable>
         )}
       </ClassNames>

@@ -129,20 +129,20 @@ class MapseedLineChart extends React.Component<LineChartProps> {
         <LineChart margin={{ bottom: 24, top: 36 }} data={this.props.data}>
           <XAxis
             dataKey="day"
-            stroke="#aaa"
+            stroke="#444"
             tickLine={false}
             tick={{ fontSize: 12 }}
           >
             <Label
               value={this.props.xAxisLabel}
-              fill="#aaa"
+              fill="#444"
               position="bottom"
             />
           </XAxis>
-          <YAxis stroke="#aaa" tickLine={false} tick={{ fontSize: 12 }}>
+          <YAxis stroke="#444" tickLine={false} tick={{ fontSize: 12 }}>
             <Label
               value={this.props.yAxisLabel}
-              fill="#aaa"
+              fill="#444"
               dx={-10}
               angle={-90}
             />
