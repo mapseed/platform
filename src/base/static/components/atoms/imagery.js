@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { useState, useEffect } from "react";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
@@ -48,6 +50,35 @@ FontAwesomeIcon.defaultProps = {
   textShadow: "initial",
 };
 
+const ProgressBar = props => {
+  return (
+    <div
+      css={css`
+        display: flex;
+        align-items: center;
+        flex: 1;
+        padding: 0 5px 0 5px;
+        background-color: #ccc;
+        height: 20px;
+        border-radius: 10px;
+      `}
+    >
+      <div
+        css={css`
+          height: 10px;
+          border-radius: 5px;
+          width: ${(props.currentProgress / props.total) * 100 + "%"};
+          background-color: ${props.theme.brand.accent};
+        `}
+      />
+    </div>
+  );
+};
+
+ProgressBar.propTypes = {
+  currentProgress: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+};
 const SiteLogo = styled(props => {
   return <img src={props.src} alt={props.alt} className={props.className} />;
 })(() => ({
@@ -118,4 +149,4 @@ const Spinner = ({ style }) => <ReactSpinner style={style} />;
 
 export default UserAvatar;
 
-export { Image, UserAvatar, SiteLogo, FontAwesomeIcon, Spinner };
+export { Image, UserAvatar, SiteLogo, FontAwesomeIcon, Spinner, ProgressBar };
