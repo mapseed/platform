@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx } from "@emotion/core";
-// import PropTypes from "prop-types";
 import { StylesProvider } from "@material-ui/styles";
 
 // This provider re-orders the CSS injections from material-ui so that
@@ -17,15 +16,7 @@ type Props = {
 };
 
 const Provider: React.FunctionComponent<Props> = props => {
-  return (
-    // <JssProvider jss={jss} generateClassName={generateClassName}>
-    <StylesProvider injectFirst>{props.children}</StylesProvider>
-    // </JssProvider>
-  );
+  return <StylesProvider injectFirst>{props.children}</StylesProvider>;
 };
-
-// Provider.propTypes = {
-//   children: PropTypes.node,
-// };
 
 export default Provider;

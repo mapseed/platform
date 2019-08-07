@@ -116,8 +116,9 @@ export const globalStyles = theme => css`
 //
 // https://github.com/emotion-js/emotion/tree/8537adc317edfbe5068b91a0e2685a4aa5822309/packages/emotion-theming#withthemecomponent-reactcomponent-function
 
-// TODO: We should start using the 'muiTheme' schema, and consolidate 'theme' into 'muiTheme' for our Emotion themes and config themes.
-// Longer-term, we should only use MuiThemes and sunset Emotion as a theme provider.
+// TODO: We should start using the 'muiTheme' schema, and consolidate 'theme'
+// into 'muiTheme' for our Emotion themes and config themes. Longer-term, we
+// should only use MuiThemes and sunset Emotion as a theme provider.
 const theme = {
   brand: {
     accent: "#0af",
