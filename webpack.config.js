@@ -15,9 +15,13 @@ if (!flavor) {
   process.exitCode = 1;
   process.exit();
 
-  console.error("Please set the FLAVOR environment variable.")
+  console.error("Please set the FLAVOR environment variable.");
 }
 
+const config = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "www/config.js")),
+  "utf8",
+);
 const isProd = process.env.NODE_ENV === "production";
 const outputPath = path.resolve(__dirname, "www");
 const gitSha = require("child_process")
@@ -51,26 +55,26 @@ module.exports = {
     // See: https://github.com/webpack/webpack/issues/7417
     publicPath: "/",
   },
-  //optimization: {
-  //  splitChunks: {
-  //    chunks: "all",
-  //    maxInitialRequests: Infinity,
-  //    cacheGroups: {
-  //      reactVendor: {
-  //        test: /[\\/]node_modules[\\/](react|react-dom|redux|react-redux)[\\/]/,
-  //        name: "reactvendor",
-  //      },
-  //      utilityVendor: {
-  //        test: /[\\/]node_modules[\\/](moment|moment-timezone)[\\/]/,
-  //        name: "utilityVendor",
-  //      },
-  //      vendor: {
-  //        test: /[\\/]node_modules[\\/](!react-bootstrap)(!moment)(!moment-timezone)(!react)(!react-dom)(!redux)(!react-redux)[\\/]/,
-  //        name: "vendor",
-  //      },
-  //    },
-  //  },
-  //},
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      maxInitialRequests: Infinity,
+      cacheGroups: {
+        reactVendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom|redux|react-redux)[\\/]/,
+          name: "reactvendor",
+        },
+        utilityVendor: {
+          test: /[\\/]node_modules[\\/](moment|moment-timezone)[\\/]/,
+          name: "utilityVendor",
+        },
+        vendor: {
+          test: /[\\/]node_modules[\\/](!react-bootstrap)(!moment)(!moment-timezone)(!react)(!react-dom)(!redux)(!react-redux)[\\/]/,
+          name: "vendor",
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       // alias for our config:
@@ -181,8 +185,10 @@ module.exports = {
         path.join(__dirname, "src/base/templates/base.hbs"),
       templateParameters: {
         flavor: process.env.FLAVOR,
-        googleAnalyticsId: process.env[flavor + "_GOOGLE_ANALYTICS_ID"],
-        googleAnalyticsDomain: process.env.GOOGLE_ANALYTICS_DOMAIN || "auto",
+        googleAnalyticsId:
+          isProd && process.env[flavor + "_GOOGLE_ANALYTICS_ID"],
+        googleAnalyticsDomain:
+          isProd && (process.env.GOOGLE_ANALYTICS_DOMAIN || "auto"),
         serviceWorkerPath: "./service-worker.js",
         config: JSON.parse(
           fs.readFileSync(path.join(__dirname, "www/config.js")),
