@@ -6,7 +6,7 @@ import LoginModal from "./login-modal";
 import { AppConfig } from "../../state/ducks/app-config";
 import { useTranslation } from "react-i18next";
 import mq from "../../../../media-queries";
-import { MuiTheme } from "../theme-provider";
+import { MuiTheme } from "../../../../theme";
 import { useTheme } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 

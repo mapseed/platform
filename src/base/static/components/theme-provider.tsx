@@ -8,31 +8,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { themePropType, themeSelector } from "../state/ducks/app-config";
 import { Global } from "@emotion/core";
 
-import baseTheme, { globalStyles } from "../../../theme";
-
-export interface MuiTheme {
-  palette: {
-    primary: {
-      main: string;
-    };
-    secondary: {
-      light: string;
-      main: string;
-      contrastText: string;
-    };
-  };
-  typography: {
-    h1: {};
-    h2: {};
-    h3: {};
-    h4: {};
-    h5: {};
-    h6: {};
-    body1: {};
-    body2: {};
-    fontFamily: {};
-  };
-}
+import baseTheme, { globalStyles, baseMuiTheme } from "../../../theme";
 
 const ThemeProvider = ({ flavorTheme, children }) => {
   const theme = {
@@ -46,49 +22,7 @@ const ThemeProvider = ({ flavorTheme, children }) => {
     text: { ...baseTheme.text, ...flavorTheme.text },
   };
 
-  const muiTheme = createMuiTheme({
-    // TODO: Start using this schema in our Config and our Emotion
-    // theme provider
-    palette: {
-      primary: {
-        // light: will be calculated from palette.primary.main,
-        main: theme.brand.primary,
-        // dark: will be calculated from palette.primary.main,
-        // contrastText: will be calculated to contrast with palette.primary.main
-      },
-      secondary: {
-        light: theme.text.highlighted,
-        main: theme.brand.secondary,
-        // dark: will be calculated from palette.secondary.main,
-        contrastText: theme.text.primary,
-      },
-      // error: will use the default color
-    },
-    typography: {
-      // Fonts configured like so:
-      // https://material-ui.com/customization/typography/#font-family
-      fontFamily: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        '"Segoe UI"',
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(","),
-      // Fonts, font sizes, etc, can be configured here:
-      // https://material-ui.com/customization/typography/#font-size
-      h5: {
-        fontFamily: "Raleway",
-      },
-      body1: {
-        fontFamily: "Raleway",
-      },
-    },
-  });
+  const muiTheme = createMuiTheme(baseMuiTheme);
 
   return (
     <EmotionThemeProvider theme={theme}>

@@ -116,9 +116,8 @@ export const globalStyles = theme => css`
 //
 // https://github.com/emotion-js/emotion/tree/8537adc317edfbe5068b91a0e2685a4aa5822309/packages/emotion-theming#withthemecomponent-reactcomponent-function
 
-// TODO: Not sure if this is the right structure for our theme. We
-// made need to shuffle it around, or research a better heuristic, until
-// we find one that works:
+// TODO: We should start using the 'muiTheme' schema, and consolidate 'theme' into 'muiTheme' for our Emotion themes and config themes.
+// Longer-term, we should only use MuiThemes and sunset Emotion as a theme provider.
 const theme = {
   brand: {
     accent: "#0af",
@@ -153,5 +152,73 @@ const theme = {
   },
   boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
 };
+
+export const baseMuiTheme = {
+  // TODO: Start using this schema in our Config and our Emotion
+  // theme provider
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: theme.brand.primary,
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      light: theme.text.highlighted,
+      main: theme.brand.secondary,
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: theme.text.primary,
+    },
+    // error: will use the default color
+  },
+  typography: {
+    // Fonts configured like so:
+    // https://material-ui.com/customization/typography/#font-family
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    // Fonts, font sizes, etc, can be configured here:
+    // https://material-ui.com/customization/typography/#font-size
+    h5: {
+      fontFamily: "Raleway",
+    },
+    body1: {
+      fontFamily: "Raleway",
+    },
+  },
+};
+
+export interface MuiTheme {
+  palette: {
+    primary: {
+      main: string;
+    };
+    secondary: {
+      light: string;
+      main: string;
+      contrastText: string;
+    };
+  };
+  typography: {
+    h1: {};
+    h2: {};
+    h3: {};
+    h4: {};
+    h5: {};
+    h6: {};
+    body1: {};
+    body2: {};
+    fontFamily: {};
+  };
+}
 
 export default theme;
