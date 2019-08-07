@@ -2,6 +2,7 @@
 import * as React from "react";
 import { jsx } from "@emotion/core";
 import Button from "@material-ui/core/Button";
+import { Button as LegacyButton } from "../atoms/buttons";
 import LoginModal from "./login-modal";
 import { AppConfig } from "../../state/ducks/app-config";
 import { useTranslation } from "react-i18next";
@@ -54,7 +55,7 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
           >{`Sign In`}</Typography>
         </Button>
       ) : (
-        <Button
+        <LegacyButton
           color="primary"
           onClick={() => setIsLoginMenuOpen(true)}
           css={theme => ({
@@ -83,7 +84,7 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
           })}
         >
           {t("signIn", "Sign In")}
-        </Button>
+        </LegacyButton>
       )}
       <LoginModal
         isOpen={isLoginMenuOpen}
