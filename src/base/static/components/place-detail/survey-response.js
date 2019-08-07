@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { UserAvatar } from "../atoms/imagery";
 import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
-import { Time, SmallText, RegularText } from "../atoms/typography";
+import { SmallText, RegularText } from "../atoms/typography";
 
 import {
   commentFormConfigPropType,
@@ -66,7 +66,9 @@ class SurveyResponse extends Component {
             />
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
-                <Time time={this.props.comment.created_datetime} />
+                <time>
+                  {moment(this.props.comment.created_datetime).fromNow()}
+                </time>
               </SmallText>
             )}
           </div>
