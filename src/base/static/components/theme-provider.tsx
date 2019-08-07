@@ -10,6 +10,30 @@ import { Global } from "@emotion/core";
 
 import baseTheme, { globalStyles } from "../../../theme";
 
+export interface MuiTheme {
+  palette: {
+    primary: {
+      main: string;
+    };
+    secondary: {
+      light: string;
+      main: string;
+      contrastText: string;
+    };
+  };
+  typography: {
+    h1: {};
+    h2: {};
+    h3: {};
+    h4: {};
+    h5: {};
+    h6: {};
+    body1: {};
+    body2: {};
+    fontFamily: {};
+  };
+}
+
 const ThemeProvider = ({ flavorTheme, children }) => {
   const theme = {
     ...baseTheme,

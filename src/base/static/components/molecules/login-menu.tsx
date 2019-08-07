@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx } from "@emotion/core";
-import { Button } from "../atoms/buttons";
+import Button from "@material-ui/core/Button";
 import LoginModal from "./login-modal";
 import { AppConfig } from "../../state/ducks/app-config";
 import { useTranslation } from "react-i18next";
 import mq from "../../../../media-queries";
-import { RegularText } from "../atoms/typography";
+import { MuiTheme } from "../theme-provider";
+import { useTheme } from "@material-ui/styles";
+import Typography from "@material-ui/core/Typography";
 
 type Props = {
   appConfig: AppConfig;
@@ -14,41 +16,44 @@ type Props = {
 };
 
 const LoginMenu: React.FunctionComponent<Props> = props => {
-  // If no user is logged in, render a button that opens the LogInModal when
-  // clicked:
   const [isLoginMenuOpen, setIsLoginMenuOpen] = React.useState<boolean>(false);
 
-  const [t, _] = useTranslation();
+  const [t] = useTranslation();
 
-  // <MenuContainer role="article" isMobileEnabled={props.isMobileEnabled}>
+  const theme = useTheme<MuiTheme>();
   return (
     <React.Fragment>
       {props.isMobileHeaderExpanded ? (
-        <div
+        <Button
           css={{
             marginLeft: "auto",
             marginRight: "10px",
-            width: "100%",
             display: "flex",
             justifyContent: "center",
+            padding: "8px 16px",
+
+            // NOTE: We are accessing the 'theme' object directly for now, until
+            // we can sort out our theming schema.
+            backgroundColor: theme.palette.secondary.main,
+            borderRadius: "40px",
+            maxWidth: "180px",
 
             [mq[0]]: {
-              // display: props.isMobileEnabled ? "block" : "none",
               marginRight: "auto",
             },
           }}
+          onClick={() => setIsLoginMenuOpen(true)}
         >
-          {/* TODO: Make this an oval-shaped button */}
-          <RegularText
-            color="tertiary"
-            height="24px"
-            weight="bold"
-            onClick={() => setIsLoginMenuOpen(true)}
-            textTransform="uppercase"
-          >{`Sign In`}</RegularText>
-        </div>
+          <Typography
+            css={{
+              color: "tertiary",
+              height: "24px",
+              weight: "bold",
+              textTransform: "uppercase",
+            }}
+          >{`Sign In`}</Typography>
+        </Button>
       ) : (
-        // TODO: refactor this button to MUI?
         <Button
           color="primary"
           onClick={() => setIsLoginMenuOpen(true)}
