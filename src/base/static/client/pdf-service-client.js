@@ -1,6 +1,5 @@
 import qs from "qs";
 import download from "downloadjs";
-import { Mixpanel } from "../utils/mixpanel";
 
 export default {
   getPDF: ({ url, filename, jwtPublic = null }) => {
@@ -24,9 +23,11 @@ export default {
         // eslint-disable-next-line no-console
         console.error("Error: Failed to generate and download report PDF:", e);
 
-        Mixpanel.track("Error", {
-          message: "failed to generate and download report PDF",
-          error: e,
+        import("../utils/mixpanel").then(mixpanel => {
+          mixpanel.Mixpanel.track("Error", {
+            message: "failed to generate and download report PDF",
+            error: e,
+          });
         });
       });
   },

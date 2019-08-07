@@ -2,7 +2,6 @@
 require("dotenv").config({ path: "src/.env" });
 const path = require("path");
 const fs = require("fs-extra");
-const Handlebars = require("handlebars");
 const glob = require("glob");
 const colors = require("colors");
 const Spritesmith = require("spritesmith");
@@ -98,11 +97,11 @@ setConfigDefaults(config);
 // (4) Compile base.hbs template
 // -----------------------------------------------------------------------------
 
-const source = fs.readFileSync(
-  path.resolve(__dirname, "../src/base/templates/base.hbs"),
-  "utf8",
-);
-const indexTemplate = Handlebars.compile(source);
+//const source = fs.readFileSync(
+//  path.resolve(__dirname, "../src/base/templates/base.hbs"),
+//  "utf8",
+//);
+//const indexTemplate = Handlebars.compile(source);
 
 // (5) Inject environment variable overrides and build the index.html file.
 // -----------------------------------------------------------------------------
@@ -144,32 +143,32 @@ config.place.place_detail = transformCommonFormElements(
   config.place.common_form_elements,
 );
 
-// Build the index-xx.html file for this language
-const outputIndexFile = indexTemplate({
-  production: isProd,
-  serviceWorkerPath: "/service-worker.js",
-  jsHashedBundleName: jsHashedBundleName,
-  cssHashedBundleName: cssHashedBundleName,
-  config: config,
-  flavor: flavor,
-  settings: {
-    mapboxToken: process.env.MAPBOX_TOKEN || "",
-    clickyAnalyticsId: process.env.CLICKY_ANALYTICS_ID || "",
-    mapQuestKey: process.env.MAPQUEST_KEY || "",
-    googleAnalyticsId: googleAnalyticsId,
-    googleAnalyticsDomain: process.env.GOOGLE_ANALYTICS_DOMAIN || "auto",
-  },
+//// Build the index-xx.html file for this language
+//const outputIndexFile = indexTemplate({
+//  production: isProd,
+//  serviceWorkerPath: "/service-worker.js",
+//  jsHashedBundleName: jsHashedBundleName,
+//  cssHashedBundleName: cssHashedBundleName,
+//  config: config,
+//  flavor: flavor,
+//  settings: {
+//    mapboxToken: process.env.MAPBOX_TOKEN || "",
+//    clickyAnalyticsId: process.env.CLICKY_ANALYTICS_ID || "",
+//    mapQuestKey: process.env.MAPQUEST_KEY || "",
+//    googleAnalyticsId: googleAnalyticsId,
+//    googleAnalyticsDomain: process.env.GOOGLE_ANALYTICS_DOMAIN || "auto",
+//  },
 
-  // TODO: fix this...
-  userTokenJson: "",
-});
+//  // TODO: fix this...
+//  userTokenJson: "",
+//});
 
 // Write out the localized config file.
 fs.writeFileSync(path.resolve(outputPath, `config.js`), JSON.stringify(config));
 
 // Write out final xx.html file
-const outputIndexFilename = path.resolve(outputPath, "index.html");
-fs.writeFileSync(outputIndexFilename, outputIndexFile);
+//const outputIndexFilename = path.resolve(outputPath, "index.html");
+//fs.writeFileSync(outputIndexFilename, outputIndexFile);
 
 // (6) Move static image assets to the dist/ folder. Copy base project assets
 //     first, then copy flavor assets, overriding base assets as needed

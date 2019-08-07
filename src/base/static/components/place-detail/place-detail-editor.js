@@ -38,7 +38,6 @@ import {
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
-import { Mixpanel } from "../../utils/mixpanel";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -155,7 +154,11 @@ class PlaceDetailEditor extends Component {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
 
-      Mixpanel.track("Updating place", { placeUrl: this.props.place.url });
+      import("../../utils/mixpanel").then(mixpanel => {
+        mixpanel.Mixpanel.track("Updating place", {
+          placeUrl: this.props.place.url,
+        });
+      });
       const placeResponse = await mapseedApiClient.place.update({
         placeUrl: this.props.place.url,
         placeData: {
@@ -252,7 +255,11 @@ class PlaceDetailEditor extends Component {
   }
 
   async removePlace() {
-    Mixpanel.track("Removing place", { placeUrl: this.props.place.url });
+    import("../../utils/mixpanel").then(mixpanel => {
+      mixpanel.Mixpanel.track("Removing place", {
+        placeUrl: this.props.place.url,
+      });
+    });
     const response = await mapseedApiClient.place.update({
       placeUrl: this.props.place.url,
       placeData: {

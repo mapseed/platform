@@ -45,7 +45,6 @@ import {
 import { jumpTo } from "../../utils/scroll-helpers";
 
 import Util from "../../js/utils.js";
-import { Mixpanel } from "../../utils/mixpanel";
 import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
@@ -283,7 +282,9 @@ class InputForm extends Component {
   onSubmit() {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
-    Mixpanel.track("Clicked place form submit");
+    import("../../utils/mixpanel").then(mixpanel => {
+      mixpanel.Mixpanel.track("Clicked place form submit");
+    });
     this.validateForm(this.submitForm);
   }
 

@@ -8,7 +8,6 @@ import { InternalLink, ExternalLink, SmallText } from "../atoms/typography";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "@emotion/styled";
 
-import { Mixpanel } from "../../utils/mixpanel";
 import {
   DashboardsConfig,
   dashboardConfigSelector,
@@ -85,6 +84,50 @@ const MenuItem = styled("li")(({ theme }) => ({
   width: "100%",
   fontFamily: theme.text.navBarFontFamily,
 }));
+
+const SocialLoginButton: React.FunctionComponent<{
+  loginProvider: LoginProvider;
+  apiRoot: string;
+}> = ({ loginProvider, apiRoot }) => {
+  let backgroundColor: string;
+  switch (loginProvider.name) {
+    case "twitter":
+      backgroundColor = "#4099ff";
+      break;
+    case "facebook":
+      backgroundColor = "#3b5998";
+      break;
+    case "google":
+      backgroundColor = "#e8433a";
+      break;
+    case "discourse":
+      backgroundColor = "green";
+      break;
+  }
+  return (
+    <ExternalLink
+      css={theme => ({
+        display: "block",
+        padding: "0.5em",
+        boxShadow: theme.boxShadow,
+        color: "#fff !important",
+        backgroundColor,
+      })}
+      href={`${apiRoot}users/login/${loginProvider.provider}/`}
+      onClick={() =>
+        import("../../utils/mixpanel").then(mixpanel => {
+          mixpanel.Mixpanel.track("Clicked login button", {
+            service: loginProvider.provider,
+          });
+        })
+      }
+    >
+      {/* capitalize the first letter of the provider name: */}
+      {loginProvider.name.charAt(0).toUpperCase() +
+        loginProvider.name.substring(1)}
+    </ExternalLink>
+  );
+};
 
 type StateProps = {
   hasAdminAbilities: Function;
