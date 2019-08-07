@@ -11,6 +11,7 @@ import { SiteLogo } from "../atoms/imagery";
 import { NavButton } from "../molecules/buttons";
 import { Button } from "../atoms/buttons";
 import UserMenu from "../molecules/user-menu";
+import LoginMenu from "../molecules/login-menu";
 import { RegularTitle, InternalLink } from "../atoms/typography";
 
 import {
@@ -27,6 +28,7 @@ import {
 } from "../../state/ducks/left-sidebar";
 import mq from "../../../../media-queries";
 import eventEmitter from "../../utils/event-emitter";
+import { userSelector, User } from "../../state/ducks/user";
 
 type NavButtonProps = {
   position: number;
@@ -190,6 +192,7 @@ type Props = {
   appConfig: AppConfig;
   currentLanguageCode: string;
   currentTemplate: string;
+  currentUser: User;
   isLeftSidebarExpanded: boolean;
   onChangeLanguage: Function;
   mapConfig: MapConfig;
@@ -208,9 +211,9 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
   >(false); // relevant on desktop layouts
 
   // hack to expand the header on mobile layouts, to accommodate a side menu drawer:
-  const [isHeaderExpanded, setIsHeaderExpanded] = React.useState<boolean>(
-    false,
-  );
+  const [isMobileHeaderExpanded, setIsMobileHeaderExpanded] = React.useState<
+    boolean
+  >(false);
 
   const defaultMapViewport = props.mapConfig.defaultMapViewport;
   return (
@@ -220,7 +223,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
         zIndex: 25,
         backgroundColor: theme.bg.default,
         display: "flex",
-        height: isHeaderExpanded ? "auto" : "56px",
+        height: isMobileHeaderExpanded ? "auto" : "56px",
         alignItems: "center",
         boxShadow: "0 2px 0 rgba(0,0,0,0.2)",
         boxSizing: "border-box",
@@ -247,7 +250,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
         <i
           className="fa fa-bars"
           onClick={() => {
-            setIsHeaderExpanded(prevState => !prevState);
+            setIsMobileHeaderExpanded(prevState => !prevState);
           }}
           css={{
             fontSize: "20px",
@@ -294,7 +297,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
         aria-label="navigation header"
         css={{
           [mq[0]]: {
-            display: isHeaderExpanded ? "flex" : "none",
+            display: isMobileHeaderExpanded ? "flex" : "none",
             flexDirection: "column",
             width: "100%",
             marginTop: "16px",
@@ -320,7 +323,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
               isLeftSidebarExpanded={props.isLeftSidebarExpanded}
               pathname={props.history.location.pathname}
               onClick={() => {
-                setIsHeaderExpanded(false);
+                setIsMobileHeaderExpanded(false);
               }}
               t={props.t}
             >
@@ -334,7 +337,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
           alignItems: "center",
 
           [mq[0]]: {
-            display: isHeaderExpanded ? "flex" : "none",
+            display: isMobileHeaderExpanded ? "flex" : "none",
             marginLeft: 0,
             width: "100%",
             flexDirection: "column",
@@ -446,12 +449,20 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
             </ul>
           </nav>
         )}
-        <UserMenu
-          appConfig={props.appConfig}
-          isInMobileMode={isHeaderExpanded}
-          isMobileEnabled={!!props.appConfig.isShowingMobileUserMenu}
-          pathname={props.history.location.pathname}
-        />
+        {props.currentUser.isAuthenticated ? (
+          <UserMenu
+            appConfig={props.appConfig}
+            currentUser={props.currentUser}
+            isInMobileMode={isMobileHeaderExpanded}
+            isMobileEnabled={!!props.appConfig.isShowingMobileUserMenu}
+            pathname={props.history.location.pathname}
+          />
+        ) : (
+          <LoginMenu
+            appConfig={props.appConfig}
+            isMobileHeaderExpanded={isMobileHeaderExpanded}
+          />
+        )}
       </div>
     </header>
   );
@@ -460,6 +471,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
+  currentUser: userSelector(state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),

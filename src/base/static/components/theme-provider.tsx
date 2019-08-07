@@ -1,4 +1,6 @@
-import React from "react";
+/** @jsx jsx */
+import * as React from "react";
+import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
@@ -21,6 +23,8 @@ const ThemeProvider = ({ flavorTheme, children }) => {
   };
 
   const muiTheme = createMuiTheme({
+    // TODO: Start using this schema in our Config and our Emotion
+    // theme provider
     palette: {
       primary: {
         // light: will be calculated from palette.primary.main,
@@ -36,7 +40,30 @@ const ThemeProvider = ({ flavorTheme, children }) => {
       },
       // error: will use the default color
     },
-    typography: {},
+    typography: {
+      // Fonts configured like so:
+      // https://material-ui.com/customization/typography/#font-family
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+      // Fonts, font sizes, etc, can be configured here:
+      // https://material-ui.com/customization/typography/#font-size
+      h5: {
+        fontFamily: "Raleway",
+      },
+      body1: {
+        fontFamily: "Raleway",
+      },
+    },
   });
 
   return (
