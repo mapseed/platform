@@ -223,7 +223,7 @@ class PlaceList extends React.Component {
                 })}
                 color="primary"
                 onClick={this._setSortAndFilterPlaces}
-                variant="container"
+                variant="contained"
               >
                 {this.props.t("search", "Search")}
               </Button>
