@@ -119,7 +119,7 @@ export const globalStyles = theme => css`
 // TODO: We should start using the 'muiTheme' schema, and consolidate 'theme'
 // into 'muiTheme' for our Emotion themes and config themes. Longer-term, we
 // should only use MuiThemes and sunset Emotion as a theme provider.
-const theme = {
+const theme: Theme = {
   brand: {
     accent: "#0af",
     primary: "#007fbf",
@@ -139,6 +139,7 @@ const theme = {
   text: {
     primary: "#36454f",
     secondary: "#fff",
+    tertiary: "#fff",
     highlighted: "#fff",
     headerFontFamily: "Raleway-Regular,sans-serif",
     bodyFontFamily: "Raleway-Light,sans-serif",
@@ -174,6 +175,7 @@ export type Theme = {
   text: {
     primary: string;
     secondary: string;
+    tertiary: string;
     highlighted: string;
     headerFontFamily: string;
     bodyFontFamily: string;
