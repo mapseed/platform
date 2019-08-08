@@ -2,7 +2,7 @@ import mixpanel from "mixpanel-browser";
 const envCheck = process.env.NODE_ENV === "production";
 
 // For testing:
-//const envCheck = true;
+// const envCheck = true;
 
 if (envCheck && !MIXPANEL_TOKEN) {
   // eslint-disable-next-line no-console
@@ -18,9 +18,7 @@ const actions = {
     if (envCheck) mixpanel.alias(id);
   },
   track: (name, props) => {
-    if (envCheck) {
-      mixpanel.track(name, props);
-    }
+    if (envCheck) mixpanel.track(name, props);
   },
   people: {
     set: props => {

@@ -68,6 +68,7 @@ import {
   getMainContentAreaWidth,
   getMainContentAreaHeight,
 } from "../../utils/layout-utils";
+import { Mixpanel } from "../../utils/mixpanel";
 
 const SpotlightMask = styled("div")({
   pointerEvents: "none",
@@ -419,9 +420,7 @@ class MapTemplate extends Component<Props, State> {
               ref={this.addPlaceButtonRef}
               layout={this.props.layout}
               onClick={() => {
-                import("../../utils/mixpanel").then(mixpanel => {
-                  mixpanel.Mixpanel.track("Click Add Place Button");
-                });
+                Mixpanel.track("Click Add Place Button");
                 this.props.history.push("/new");
               }}
             >

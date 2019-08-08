@@ -52,6 +52,7 @@ import MapControls from "../molecules/map-controls";
 import MapWidgetContainer from "../organisms/map-widget-container";
 import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
 
+import { Mixpanel } from "../../utils/mixpanel";
 import { FlyToInterpolator } from "react-map-gl";
 import produce from "immer";
 
@@ -370,9 +371,7 @@ class MainMap extends React.Component<Props, State> {
       const placeId = feature.properties.id;
       const clientSlug = feature.properties.clientSlug;
 
-      import("../../utils/mixpanel").then(mixpanel => {
-        mixpanel.Mixpanel.track("Clicked place on map", { placeId });
-      });
+      Mixpanel.track("Clicked place on map", { placeId });
 
       this.props.history.push(`/${clientSlug}/${placeId}`);
     }

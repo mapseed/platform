@@ -8,6 +8,7 @@ import { InternalLink, ExternalLink, SmallText } from "../atoms/typography";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "@emotion/styled";
 
+import { Mixpanel } from "../../utils/mixpanel";
 import {
   DashboardsConfig,
   dashboardConfigSelector,
@@ -115,10 +116,8 @@ const SocialLoginButton: React.FunctionComponent<{
       })}
       href={`${apiRoot}users/login/${loginProvider.provider}/`}
       onClick={() =>
-        import("../../utils/mixpanel").then(mixpanel => {
-          mixpanel.Mixpanel.track("Clicked login button", {
-            service: loginProvider.provider,
-          });
+        Mixpanel.track("Clicked login button", {
+          service: loginProvider.provider,
         })
       }
     >
