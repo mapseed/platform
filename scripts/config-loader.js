@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const configPreprocessor = require("./config-preprocessor");
 
 // This loader is used to preprocess the config.

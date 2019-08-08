@@ -38,7 +38,6 @@ if (!flavor) {
 
 const flavorBasePath = path.resolve(__dirname, "../src/flavors", flavor);
 
-
 // Move static image assets to the build folder. Copy base project assets
 // first, then copy flavor assets, overriding base assets as needed.
 // -----------------------------------------------------------------------------
@@ -76,7 +75,6 @@ try {
   logError("Error copying flavor libs files: " + e);
   throw e;
 }
-
 
 // Build the symbol spritesheet for Mapbox.
 // -----------------------------------------------------------------------------
