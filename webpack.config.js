@@ -190,7 +190,7 @@ module.exports = {
       templateParameters: {
         flavor: process.env.FLAVOR,
         googleAnalyticsId:
-          isProd && process.env[flavor + "_GOOGLE_ANALYTICS_ID"],
+          isProd && process.env[flavor.toUpperCase() + "_GOOGLE_ANALYTICS_ID"],
         googleAnalyticsDomain:
           isProd && (process.env.GOOGLE_ANALYTICS_DOMAIN || "auto"),
         serviceWorkerPath: "./service-worker.js",
