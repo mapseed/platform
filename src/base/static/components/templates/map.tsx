@@ -4,7 +4,7 @@ import { findDOMNode } from "react-dom";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
+import styled from "../../utils/styled";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { withTranslation, WithTranslation } from "react-i18next";
 
