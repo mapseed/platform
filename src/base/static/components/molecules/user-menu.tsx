@@ -6,7 +6,7 @@ import { UserAvatar } from "../atoms/imagery";
 import { connect } from "react-redux";
 import { InternalLink, ExternalLink, SmallText } from "../atoms/typography";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
-import styled from "@emotion/styled";
+import styled from "../../utils/styled";
 
 import { Mixpanel } from "../../utils/mixpanel";
 import {

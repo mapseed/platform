@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as React from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
+import styled from "../../utils/styled";
 import { connect } from "react-redux";
 import { jsx } from "@emotion/core";
 import { withRouter, RouteComponentProps } from "react-router-dom";

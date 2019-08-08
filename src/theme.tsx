@@ -154,6 +154,41 @@ const theme = {
   boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
 };
 
+export type Theme = {
+  brand: {
+    accent: string;
+    primary: string;
+    secondary: string;
+  };
+  bg: {
+    default: string;
+    light: string;
+    highlighted: string;
+  };
+  input: {
+    border: string;
+    padding: string;
+    autofillBgColor: string;
+    defaultBgColor: string;
+  };
+  text: {
+    primary: string;
+    secondary: string;
+    highlighted: string;
+    headerFontFamily: string;
+    bodyFontFamily: string;
+    navBarFontFamily: string;
+    textTransform: string;
+    titleColor: string;
+    titleFontFamily: string;
+  };
+  map: {
+    addPlaceButtonBackgroundColor: string;
+    addPlaceButtonHoverBackgroundColor: string;
+  };
+  boxShadow: string;
+};
+
 export const baseMuiTheme = {
   // TODO: Start using this schema in our Config and our Emotion
   // theme provider
