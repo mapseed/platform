@@ -58,7 +58,7 @@ const SocialLoginButton: React.FunctionComponent<{
       component="a"
       css={{
         backgroundColor,
-        borderRadius: "40px",
+        borderRadius: "8px",
         margin: "0 auto 16px auto",
         maxWidth: "180px",
         display: "flex",
@@ -113,7 +113,11 @@ const LoginModal: React.FunctionComponent<Props> = ({
         <Typography css={{ textAlign: "center" }} variant="h5">
           {t("signIn", "Sign In")}
         </Typography>
-        <IconButton aria-label="close" onClick={onClose}>
+        <IconButton
+          css={{ color: "#ff5e99", width: "48px", height: "48px" }}
+          aria-label="close"
+          onClick={onClose}
+        >
           {"✕"}
         </IconButton>
       </DialogTitle>

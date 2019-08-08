@@ -36,7 +36,7 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
             // NOTE: We are accessing the 'theme' object directly for now, until
             // we can sort out our theming schema.
             backgroundColor: theme.palette.secondary.main,
-            borderRadius: "40px",
+            borderRadius: "8px",
             maxWidth: "180px",
 
             [mq[0]]: {
@@ -66,6 +66,7 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
             lineHeight: "3.25",
             display: "block",
             padding: "0 0.5em",
+            marginRight: "16px",
             height: "100%",
             cursor: "pointer",
 
