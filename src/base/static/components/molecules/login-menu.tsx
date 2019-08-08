@@ -66,7 +66,7 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
             lineHeight: "3.25",
             display: "block",
             padding: "0 0.5em",
-            marginRight: "16px",
+            marginRight: "8px",
             height: "100%",
             cursor: "pointer",
 

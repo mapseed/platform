@@ -25,7 +25,7 @@ type MenuContainerProps = {
 };
 const MenuContainer = styled("nav")<MenuContainerProps>(props => ({
   marginLeft: "auto",
-  marginRight: "16px",
+  marginRight: "8px",
 
   [mq[0]]: {
     display: props.isMobileEnabled ? "block" : "none",
