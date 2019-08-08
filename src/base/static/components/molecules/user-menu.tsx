@@ -86,48 +86,6 @@ const MenuItem = styled("li")(({ theme }) => ({
   fontFamily: theme.text.navBarFontFamily,
 }));
 
-const SocialLoginButton: React.FunctionComponent<{
-  loginProvider: LoginProvider;
-  apiRoot: string;
-}> = ({ loginProvider, apiRoot }) => {
-  let backgroundColor: string;
-  switch (loginProvider.name) {
-    case "twitter":
-      backgroundColor = "#4099ff";
-      break;
-    case "facebook":
-      backgroundColor = "#3b5998";
-      break;
-    case "google":
-      backgroundColor = "#e8433a";
-      break;
-    case "discourse":
-      backgroundColor = "green";
-      break;
-  }
-  return (
-    <ExternalLink
-      css={theme => ({
-        display: "block",
-        padding: "0.5em",
-        boxShadow: theme.boxShadow,
-        color: "#fff !important",
-        backgroundColor,
-      })}
-      href={`${apiRoot}users/login/${loginProvider.provider}/`}
-      onClick={() =>
-        Mixpanel.track("Clicked login button", {
-          service: loginProvider.provider,
-        })
-      }
-    >
-      {/* capitalize the first letter of the provider name: */}
-      {loginProvider.name.charAt(0).toUpperCase() +
-        loginProvider.name.substring(1)}
-    </ExternalLink>
-  );
-};
-
 type StateProps = {
   hasAdminAbilities: Function;
   offlineBoundingBox: OfflineConfig;
