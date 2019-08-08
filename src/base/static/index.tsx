@@ -1,4 +1,6 @@
-import React from "react";
+/** @jsx jsx */
+import * as React from "react";
+import { jsx } from "@emotion/core";
 import ReactDOM from "react-dom";
 import { createStore } from "redux";
 import { BrowserRouter as Router } from "react-router-dom";

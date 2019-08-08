@@ -16,7 +16,6 @@ import {
   getReadableColor,
   lighten,
 } from "../../utils/color";
-import { LegacyIcon } from "./feedback";
 
 import "./buttons.scss";
 
@@ -281,35 +280,6 @@ Button.defaultProps = {
   variant: "unstyled",
 };
 
-const ToolbarButton = props => {
-  return (
-    <button
-      className={classNames("mapseed__toolbar-button", props.classes)}
-      type="button"
-      {...props}
-    >
-      {props.icon && (
-        <LegacyIcon
-          classes={classNames("mapseed__toolbar-button-icon", {
-            "mapseed__toolbar-button-icon--right-margin": !!props.label,
-          })}
-          icon={props.icon}
-          prefix={props.prefix}
-        />
-      )}
-      {props.label && (
-        <span className="mapseed__toolbar-button-label">{props.label}</span>
-      )}
-    </button>
-  );
-};
-ToolbarButton.propTypes = {
-  classes: PropTypes.string,
-  icon: PropTypes.string,
-  label: PropTypes.string,
-  prefix: PropTypes.string,
-};
-
 const CloseButton = styled(props => (
   <button
     aria-label="close"
@@ -333,4 +303,4 @@ const CloseButton = styled(props => (
   fontSize: "1.5em",
 });
 
-export { Button, EditorButton, ToolbarButton, IconButton, CloseButton };
+export { Button, EditorButton, IconButton, CloseButton };

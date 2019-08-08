@@ -144,19 +144,19 @@ class FreeBarChart extends React.Component<FreeBarChartProps> {
             tickFormatter={getFormatter("truncated")(12)}
             dataKey={"label"}
             angle={-45}
-            stroke="#aaa"
+            stroke="#444"
             textAnchor="end"
             interval={0}
           >
             <Label
               content={() => (
                 <g>
-                  <text x="50%" y={286} fill="#aaa" textAnchor="middle">
+                  <text x="50%" y={286} fill="#444" textAnchor="middle">
                     {this.props.xAxisLabel}
                   </text>
                   {this.props.annotation && (
                     <text
-                      fill="#aaa"
+                      fill="#444"
                       x="50%"
                       y={320}
                       fontSize=".7em"
@@ -172,13 +172,13 @@ class FreeBarChart extends React.Component<FreeBarChartProps> {
             />
           </XAxis>
           <YAxis
-            stroke="#aaa"
+            stroke="#444"
             tickFormatter={getFormatter(this.props.labelFormat)}
           >
             {this.props.yAxisLabel && (
               <Label
                 offset={10}
-                fill="#aaa"
+                fill="#444"
                 value={this.props.yAxisLabel}
                 angle={-90}
                 position="left"

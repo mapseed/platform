@@ -1,15 +1,31 @@
 /* =Header
 -------------------------------------------------------------- */
-header {
-  border-top: 2px solid #ed440e;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+#mapseed-site-logo {
+  height: 56px !important;
+  margin-left: 0 !important;
 }
 
 .form-stage-header-bar {
   display: none !important;
 }
 
-[data-field-name="transit_information"],
+[data-field-name="hub_information"],
+[data-field-name="hub_location_information"],
+[data-field-name="existing_hubs_information"],
+[data-field-name="bicycle_network_information"],
+[data-field-name="access_to_transit_information"],
 [data-field-name="submission_info"] {
   border: 0 !important;
   padding: 0 !important;
+}
+
+.form-stage-text {
+  font-size: 1.15rem;
+  line-height: 1.4rem;
 }

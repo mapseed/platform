@@ -2036,14 +2036,14 @@
                     ],
                     [
                       "get-sum",
-                      "wetland_wildlife_management",
+                      "wetland_wildlife_management_quantity",
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
                         2011
                       ]
                     ],
-                    ["get-sum", "wetland_wildlife_mangement_quantity"]
+                    ["get-sum", "wetland_wildlife_management_quantity"]
                   ],
                   "label": "acres"
                 },
@@ -2057,14 +2057,14 @@
                     ],
                     [
                       "get-sum",
-                      "wetland_wildlife_management",
+                      "wetland_wildlife_management_quantity",
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
                         2011
                       ]
                     ],
-                    ["get-sum", "wetland_wildlife_mangement_quantity"]
+                    ["get-sum", "wetland_wildlife_management_quantity"]
                   ],
                   "label": "acres"
                 },
@@ -2078,14 +2078,14 @@
                     ],
                     [
                       "get-sum",
-                      "wetland_wildlife_management",
+                      "wetland_wildlife_management_quantity",
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
                         2011
                       ]
                     ],
-                    ["get-sum", "wetland_wildlife_mangement_quantity"]
+                    ["get-sum", "wetland_wildlife_management_quantity"]
                   ],
                   "label": "acres"
                 },
@@ -2099,14 +2099,14 @@
                     ],
                     [
                       "get-sum",
-                      "wetland_wildlife_management",
+                      "wetland_wildlife_management_quantity",
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
                         2011
                       ]
                     ],
-                    ["get-sum", "wetland_wildlife_mangement_quantity"]
+                    ["get-sum", "wetland_wildlife_management_quantity"]
                   ],
                   "label": "acres"
                 },
