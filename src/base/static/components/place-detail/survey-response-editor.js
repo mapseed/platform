@@ -3,6 +3,7 @@ import { Map, OrderedMap } from "immutable";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
+import moment from "moment";
 
 import FormField from "../form-fields/form-field";
 import { UserAvatar } from "../atoms/imagery";
