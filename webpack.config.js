@@ -5,6 +5,7 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fs = require("fs-extra");
 const path = require("path");
+const configPreprocessor = require("./scripts/config-preprocessor");
 
 require("dotenv").config({ path: "src/.env" });
 
@@ -18,10 +19,6 @@ if (!flavor) {
   console.error("Please set the FLAVOR environment variable.");
 }
 
-const config = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "www/config.js")),
-  "utf8",
-);
 const isProd = process.env.NODE_ENV === "production";
 const outputPath = path.resolve(__dirname, "www");
 const gitSha = require("child_process")
@@ -60,16 +57,24 @@ module.exports = {
       chunks: "all",
       maxInitialRequests: Infinity,
       cacheGroups: {
-        reactVendor: {
+        reactReduxVendor: {
           test: /[\\/]node_modules[\\/](react|react-dom|redux|react-redux)[\\/]/,
-          name: "reactvendor",
+          name: "reactReduxVendor",
+        },
+        reactUtilityVendor: {
+          test: /[\\/]node_modules[\\/](react-draggable|react-i18next|react-modal|react-quill|react-router-dom|react-virtualized)[\\/]/,
+          name: "reactUtilityVendor",
+        },
+        mapVendor: {
+          test: /[\\/]node_modules[\\/](react-map-gl)[\\/]/,
+          name: "mapVendor",
         },
         utilityVendor: {
           test: /[\\/]node_modules[\\/](moment|moment-timezone)[\\/]/,
           name: "utilityVendor",
         },
         vendor: {
-          test: /[\\/]node_modules[\\/](!react-bootstrap)(!moment)(!moment-timezone)(!react)(!react-dom)(!redux)(!react-redux)[\\/]/,
+          test: /[\\/]node_modules[\\/](!moment)(!moment-timezone)(!react)(!react-dom)(!redux)(!react-redux)(!react-map-gl)(!react-draggable)(!react-i18next)(!react-quill)(!react-router-dom)(!react-virtualized)[\\/]/,
           name: "vendor",
         },
       },
@@ -109,7 +114,6 @@ module.exports = {
             loader: "sass-loader",
             options: {
               includePaths: [
-                path.resolve(__dirname, "./node_modules/compass-mixins/lib"),
                 path.resolve(__dirname, "./src/base/static/stylesheets/util"),
                 path.resolve(
                   __dirname,
@@ -190,8 +194,17 @@ module.exports = {
         googleAnalyticsDomain:
           isProd && (process.env.GOOGLE_ANALYTICS_DOMAIN || "auto"),
         serviceWorkerPath: "./service-worker.js",
-        config: JSON.parse(
-          fs.readFileSync(path.join(__dirname, "www/config.js")),
+        config: configPreprocessor(
+          JSON.parse(
+            fs.readFileSync(
+              path.join(
+                __dirname,
+                "src/flavors",
+                process.env.FLAVOR,
+                "config.json",
+              ),
+            ),
+          ),
           "utf8",
         ),
       },

@@ -71,7 +71,6 @@
     "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "browser-update": "^3.1.13",
     "classnames": "^2.2.5",
-    "compass-importer": "^0.4.1",
     "d3-geo": "^1.11.6",
     "dom-to-image": "^2.6.0",
     "dotenv": "^8.0.0",

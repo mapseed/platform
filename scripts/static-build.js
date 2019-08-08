@@ -7,11 +7,6 @@ const colors = require("colors");
 const Spritesmith = require("spritesmith");
 const shell = require("shelljs");
 
-const {
-  setConfigDefaults,
-  transformCommonFormElements,
-} = require("../src/base/static/utils/config-loader-utils");
-
 const verbose = true;
 const isProd = process.env.NODE_ENV === "production";
 
@@ -43,47 +38,6 @@ if (!flavor) {
 
 const flavorBasePath = path.resolve(__dirname, "../src/flavors", flavor);
 
-// Prepare the config file.
-// -----------------------------------------------------------------------------
-
-const flavorConfigPath = path.resolve(flavorBasePath, "config.json");
-const config = JSON.parse(fs.readFileSync(flavorConfigPath, "utf8"));
-setConfigDefaults(config);
-
-// Dataset urls are defined in the config. In most cases urls listed in the
-// config will be dev-api urls. If the .env defines a different dataset url
-// for a given dataset, use that value here.
-// Note that we retain the <DATASET>_SITE_URL environment variable format,
-// where dataset names map to the uppercase name with _SITE_URL appended.
-const datasetSiteUrls = {};
-Object.keys(process.env).forEach(function(key) {
-  if (key.endsWith("SITE_URL")) {
-    datasetSiteUrls[key] = process.env[key];
-  }
-});
-config.datasets.forEach((dataset, i) => {
-  if (datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"]) {
-    config.datasets[i].url =
-      datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"];
-  }
-});
-
-// The API root is defined in the config. In most cases this will be set to
-// point to the dev API. If the .env defines a different API root, use that
-// value here. Use the API_ROOT key in the .env to set a new API root. Note
-// that this replaces the old SITE_URL key.
-if (process.env.API_ROOT) {
-  config.app.api_root = process.env.API_ROOT;
-}
-
-// Resolve fields of type common_form_element.
-config.place.place_detail = transformCommonFormElements(
-  config.place.place_detail,
-  config.place.common_form_elements,
-);
-
-// Write out the config file.
-fs.writeFileSync(path.resolve(outputPath, `config.js`), JSON.stringify(config));
 
 // Move static image assets to the build folder. Copy base project assets
 // first, then copy flavor assets, overriding base assets as needed.
@@ -122,6 +76,7 @@ try {
   logError("Error copying flavor libs files: " + e);
   throw e;
 }
+
 
 // Build the symbol spritesheet for Mapbox.
 // -----------------------------------------------------------------------------
