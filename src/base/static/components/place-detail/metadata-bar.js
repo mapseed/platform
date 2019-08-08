@@ -3,9 +3,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { css, jsx } from "@emotion/core";
+import moment from "moment";
 
 import { UserAvatar } from "../atoms/imagery";
-import { Time, SmallText, RegularText } from "../atoms/typography";
+import { SmallText, RegularText } from "../atoms/typography";
 import { withTranslation } from "react-i18next";
 
 import {
@@ -69,7 +70,7 @@ const MetadataBar = props => (
           display="block"
           textTransform="uppercase"
         >
-          <Time time={props.createdDatetime} />
+          <time>{moment(props.createdDatetime).fromNow()}</time>
         </SmallText>
       )}
     </div>

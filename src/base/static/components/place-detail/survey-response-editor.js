@@ -3,12 +3,13 @@ import { Map, OrderedMap } from "immutable";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
+import moment from "moment";
 
 import FormField from "../form-fields/form-field";
 import { UserAvatar } from "../atoms/imagery";
 import SubmitterName from "../ui-elements/submitter-name";
 import { EditorButton } from "../atoms/buttons";
-import { SmallText, Time } from "../atoms/typography";
+import { SmallText } from "../atoms/typography";
 
 import { withTranslation } from "react-i18next";
 import constants from "../../constants";
@@ -182,7 +183,9 @@ class SurveyResponseEditor extends Component {
             />
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
-                <Time time={this.props.comment.created_datetime} />
+                <time>
+                  {moment(this.props.comment.created_datetime).fromNow()}
+                </time>
               </SmallText>
             )}
           </div>

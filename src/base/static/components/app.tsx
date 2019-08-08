@@ -172,32 +172,14 @@ class App extends React.Component<Props, State> {
   };
 
   async componentDidMount() {
-    // In production, use the asynchronously fetched config file so we can
-    // support a config with overridden environment variables. In development,
-    // use the imported module so we can support incremental rebuilds.
-    // TODO(goldpbear): Now that gettext is gone I think this can be simplified.
-    // We should be able to import the config directly in both prod and dev
-    // with a little more work.
-    let resolvedConfig;
-    if (process.env.NODE_ENV === "production") {
-      const configResponse = await fetch(`/config.js`);
-      resolvedConfig = await configResponse.json();
-    } else {
-      resolvedConfig = config;
-    }
-
-    const sessionJSON = await mapseedApiClient.session.get(
-      resolvedConfig.app.api_root,
-    );
+    const sessionJSON = await mapseedApiClient.session.get(config.app.api_root);
 
     if (sessionJSON) {
       Util.cookies.save("sa-api-sessionid", sessionJSON.sessionid);
     }
 
     // Fetch and load user information.
-    const authedUser = await mapseedApiClient.user.get(
-      resolvedConfig.app.api_root,
-    );
+    const authedUser = await mapseedApiClient.user.get(config.app.api_root);
     const user = authedUser
       ? {
           token: `user:${authedUser.id}`,
@@ -229,34 +211,33 @@ class App extends React.Component<Props, State> {
     this.props.loadUser(user);
 
     // Fetch and load datasets.
-    const datasetUrls = resolvedConfig.datasets.map(c => c.url);
+    const datasetUrls = config.datasets.map(c => c.url);
     const datasets = await mapseedApiClient.datasets.get(datasetUrls);
     this.props.loadDatasets(datasets);
 
     // Load all other ducks.
-    this.props.loadAppConfig(resolvedConfig.app);
-    this.props.loadDatasetsConfig(resolvedConfig.datasets);
-    this.props.loadMapConfig(resolvedConfig.map);
-    this.props.loadPlaceConfig(resolvedConfig.place, user);
-    this.props.loadLeftSidebarConfig(resolvedConfig.leftSidebar);
-    this.props.loadRightSidebarConfig(resolvedConfig.right_sidebar);
-    if (resolvedConfig.featuredPlaces) {
-      this.props.loadFeaturedPlacesConfig(resolvedConfig.featuredPlaces);
+    this.props.loadAppConfig(config.app);
+    this.props.loadDatasetsConfig(config.datasets);
+    this.props.loadMapConfig(config.map);
+    this.props.loadPlaceConfig(config.place, user);
+    this.props.loadLeftSidebarConfig(config.leftSidebar);
+    this.props.loadRightSidebarConfig(config.right_sidebar);
+    if (config.featuredPlaces) {
+      this.props.loadFeaturedPlacesConfig(config.featuredPlaces);
     }
-    this.props.loadFormsConfig(resolvedConfig.forms);
-    this.props.loadSupportConfig(resolvedConfig.support);
-    this.props.loadPagesConfig(resolvedConfig.pages);
-    this.props.loadNavBarConfig(resolvedConfig.nav_bar);
-    this.props.loadCustomComponentsConfig(resolvedConfig.custom_components);
-    this.props.loadMapStyle(resolvedConfig.mapStyle, resolvedConfig.datasets);
-    resolvedConfig.dashboard &&
-      this.props.loadDashboardConfig(resolvedConfig.dashboard);
-    resolvedConfig.right_sidebar.is_visible_default &&
+    this.props.loadFormsConfig(config.forms);
+    this.props.loadSupportConfig(config.support);
+    this.props.loadPagesConfig(config.pages);
+    this.props.loadNavBarConfig(config.nav_bar);
+    this.props.loadCustomComponentsConfig(config.custom_components);
+    this.props.loadMapStyle(config.mapStyle, config.datasets);
+    config.dashboard && this.props.loadDashboardConfig(config.dashboard);
+    config.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 
     // Set up localization.
     i18next.use(initReactI18next as ThirdPartyModule).init({
-      lng: resolvedConfig.flavor.defaultLanguage.code,
+      lng: config.flavor.defaultLanguage.code,
       resources: resourceBundle,
       // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
       react: {
@@ -269,7 +250,7 @@ class App extends React.Component<Props, State> {
       missingKeyHandler: async (lng, ns, key, fallbackValue) => {
         if (
           key !== fallbackValue &&
-          i18next.language === resolvedConfig.flavor.defaultLanguage
+          i18next.language === config.flavor.defaultLanguage
         ) {
           // Cache this string for future use.
           i18next.addResource(i18next.language, ns, key, fallbackValue);
@@ -292,7 +273,7 @@ class App extends React.Component<Props, State> {
         //     the current language is English. We expect the hard-coded default
         //     language of all non-configurable UI to be English.
         if (
-          (i18next.language === resolvedConfig.flavor.defaultLanguage.code ||
+          (i18next.language === config.flavor.defaultLanguage.code ||
             isFetchingTranslation[key] ||
             key === fallbackValue) &&
           isValidNonConfigurableI18nKey(key, i18next.language)
@@ -320,9 +301,9 @@ class App extends React.Component<Props, State> {
 
     // The config and user data are now loaded.
     this.setState({
-      availableLanguages: resolvedConfig.flavor.availableLanguages,
+      availableLanguages: config.flavor.availableLanguages,
       currentLanguageCode: i18next.language,
-      defaultLanguage: resolvedConfig.flavor.defaultLanguage,
+      defaultLanguage: config.flavor.defaultLanguage,
       isInitialDataLoaded: true,
     });
 

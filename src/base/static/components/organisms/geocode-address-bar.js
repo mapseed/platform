@@ -59,7 +59,10 @@ class GeocodeAddressBar extends Component {
     this.setState({
       isTriggeringGeocode: true,
     });
-    Mixpanel.track("Searching address", { address: this.state.address });
+
+    Mixpanel.track("Searching address", {
+      address: this.state.address,
+    });
   };
 
   render() {

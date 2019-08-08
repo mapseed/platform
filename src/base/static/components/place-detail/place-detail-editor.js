@@ -155,7 +155,9 @@ class PlaceDetailEditor extends Component {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
 
-      Mixpanel.track("Updating place", { placeUrl: this.props.place.url });
+      Mixpanel.track("Updating place", {
+        placeUrl: this.props.place.url,
+      });
       const placeResponse = await mapseedApiClient.place.update({
         placeUrl: this.props.place.url,
         placeData: {
@@ -252,7 +254,9 @@ class PlaceDetailEditor extends Component {
   }
 
   async removePlace() {
-    Mixpanel.track("Removing place", { placeUrl: this.props.place.url });
+    Mixpanel.track("Removing place", {
+      placeUrl: this.props.place.url,
+    });
     const response = await mapseedApiClient.place.update({
       placeUrl: this.props.place.url,
       placeData: {

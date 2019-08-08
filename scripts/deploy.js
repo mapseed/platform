@@ -91,7 +91,9 @@ function updateMetadata() {
   let params;
 
   let updatePromises = glob
-    .sync("{./www/*.bundle.js,./www/*.bundle.css}")
+    .sync(
+      "{./www/*.bundle.js,./www/*.bundle.css,./www/**/*.{jpg,jpeg,png},./www/legacy-libs/*.js}",
+    )
     .map(filepath => {
       filepath = path.relative("./www", filepath);
       params = {

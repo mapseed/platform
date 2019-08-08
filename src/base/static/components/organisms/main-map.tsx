@@ -370,7 +370,9 @@ class MainMap extends React.Component<Props, State> {
       // Place's detail view.
       const placeId = feature.properties.id;
       const clientSlug = feature.properties.clientSlug;
+
       Mixpanel.track("Clicked place on map", { placeId });
+
       this.props.history.push(`/${clientSlug}/${placeId}`);
     }
     if (

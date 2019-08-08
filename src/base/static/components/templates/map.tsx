@@ -10,12 +10,13 @@ import { withTranslation, WithTranslation } from "react-i18next";
 
 import emitter from "../../utils/event-emitter";
 
-import MainMap from "../organisms/main-map";
+const MainMap = React.lazy(() => import("../organisms/main-map"));
 import ContentPanel from "../organisms/content-panel";
 import AddPlaceButton from "../molecules/add-place-button";
 import LeftSidebar from "../organisms/left-sidebar";
 import RightSidebar from "../organisms/right-sidebar";
 import GeocodeAddressBar from "../organisms/geocode-address-bar";
+import Spinner from "../atoms/imagery";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import {
@@ -390,17 +391,19 @@ class MapTemplate extends Component<Props, State> {
               mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
             />
           )}
-          <MainMap
-            mapContainerRef={this.mapContainerRef}
-            mapContainerWidthDeclaration={
-              this.state.mapContainerWidthDeclaration
-            }
-            mapContainerHeightDeclaration={
-              this.state.mapContainerHeightDeclaration
-            }
-            mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
-            onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
-          />
+          <React.Suspense fallback={<Spinner />}>
+            <MainMap
+              mapContainerRef={this.mapContainerRef}
+              mapContainerWidthDeclaration={
+                this.state.mapContainerWidthDeclaration
+              }
+              mapContainerHeightDeclaration={
+                this.state.mapContainerHeightDeclaration
+              }
+              mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
+              onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
+            />
+          </React.Suspense>
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
         </div>
         {this.props.isContentPanelVisible && (
