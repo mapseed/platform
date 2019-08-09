@@ -119,7 +119,7 @@ export const globalStyles = theme => css`
 // TODO: We should start using the 'muiTheme' schema, and consolidate 'theme'
 // into 'muiTheme' for our Emotion themes and config themes. Longer-term, we
 // should only use MuiThemes and sunset Emotion as a theme provider.
-const theme = {
+const theme: Theme = {
   brand: {
     accent: "#0af",
     primary: "#007fbf",
@@ -139,6 +139,7 @@ const theme = {
   text: {
     primary: "#36454f",
     secondary: "#fff",
+    tertiary: "#fff",
     highlighted: "#fff",
     headerFontFamily: "Raleway-Regular,sans-serif",
     bodyFontFamily: "Raleway-Light,sans-serif",
@@ -152,6 +153,42 @@ const theme = {
     addPlaceButtonHoverBackgroundColor: "#ff8b61",
   },
   boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
+};
+
+export type Theme = {
+  brand: {
+    accent: string;
+    primary: string;
+    secondary: string;
+  };
+  bg: {
+    default: string;
+    light: string;
+    highlighted: string;
+  };
+  input: {
+    border: string;
+    padding: string;
+    autofillBgColor: string;
+    defaultBgColor: string;
+  };
+  text: {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    highlighted: string;
+    headerFontFamily: string;
+    bodyFontFamily: string;
+    navBarFontFamily: string;
+    textTransform: string;
+    titleColor: string;
+    titleFontFamily: string;
+  };
+  map: {
+    addPlaceButtonBackgroundColor: string;
+    addPlaceButtonHoverBackgroundColor: string;
+  };
+  boxShadow: string;
 };
 
 export const baseMuiTheme = {
@@ -193,6 +230,9 @@ export const baseMuiTheme = {
       fontFamily: "Raleway",
     },
     body1: {
+      fontFamily: "Raleway",
+    },
+    body2: {
       fontFamily: "Raleway",
     },
   },

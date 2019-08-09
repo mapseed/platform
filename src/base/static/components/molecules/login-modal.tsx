@@ -3,6 +3,8 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 import Divider from "@material-ui/core/Divider";
 import { LoginProvider, AppConfig } from "../../state/ducks/app-config";
 import {
@@ -16,6 +18,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { makeStyles, createStyles } from "@material-ui/core";
+import Link from "@material-ui/core/Link";
 
 import IconButton from "@material-ui/core/IconButton";
 import { Mixpanel } from "../../utils/mixpanel";
@@ -58,7 +62,7 @@ const SocialLoginButton: React.FunctionComponent<{
       component="a"
       css={{
         backgroundColor,
-        borderRadius: "40px",
+        borderRadius: "8px",
         margin: "0 auto 16px auto",
         maxWidth: "180px",
         display: "flex",
@@ -84,6 +88,15 @@ const SocialLoginButton: React.FunctionComponent<{
     </ListItem>
   );
 };
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    button: {
+      position: "absolute",
+    },
+  }),
+);
+
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -96,6 +109,7 @@ const LoginModal: React.FunctionComponent<Props> = ({
   appConfig,
 }) => {
   const [t, _] = useTranslation();
+  const classes = useStyles();
   return (
     <Dialog
       onClose={onClose}
@@ -110,28 +124,56 @@ const LoginModal: React.FunctionComponent<Props> = ({
         }}
         disableTypography
       >
-        <Typography css={{ textAlign: "center" }} variant="h5">
+        <Typography css={{ textAlign: "center", width: "100%" }} variant="h5">
           {t("signIn", "Sign In")}
         </Typography>
-        <IconButton aria-label="close" onClick={onClose}>
+        <IconButton
+          css={{
+            color: "#ff5e99",
+            width: "32px",
+            height: "32px",
+            margin: "8px 8px 0 0",
+            top: 0,
+            right: 0,
+          }}
+          classes={{ root: classes.button, label: classes.button }}
+          aria-label="close"
+          onClick={onClose}
+        >
           {"✕"}
         </IconButton>
       </DialogTitle>
       <Divider />
-      <List
+      <DialogContent
         css={{
           padding: "24px",
           minWidth: "240px",
         }}
       >
-        {appConfig.loginProviders.map(loginProvider => (
-          <SocialLoginButton
-            key={loginProvider.provider}
-            loginProvider={loginProvider}
-            apiRoot={appConfig.api_root}
-          />
-        ))}
-      </List>
+        <List>
+          {appConfig.loginProviders.map(loginProvider => (
+            <SocialLoginButton
+              key={loginProvider.provider}
+              loginProvider={loginProvider}
+              apiRoot={appConfig.api_root}
+            />
+          ))}
+        </List>
+        <DialogContentText
+          css={{ fontSize: ".8em" }}
+          variant="body2"
+          align="center"
+        >
+          {"By signing up, you agree to our "}
+          <Link
+            target="_blank"
+            href="https://mapseed.org/privacy"
+            underline="always"
+          >
+            {"Privacy Policy"}
+          </Link>
+        </DialogContentText>
+      </DialogContent>
     </Dialog>
   );
 };

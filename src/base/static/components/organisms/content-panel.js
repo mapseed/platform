@@ -6,8 +6,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import CustomPage from "./custom-page";
-import FormCategoryMenuWrapper from "../input-form/form-category-menu-wrapper";
-import PlaceDetail from "../place-detail";
+const FormCategoryMenuWrapper = React.lazy(() =>
+  import("../input-form/form-category-menu-wrapper"),
+);
+const PlaceDetail = React.lazy(() => import("../place-detail"));
 import constants from "../../constants";
 
 import {
@@ -19,6 +21,7 @@ import {
 import { mapViewportPropType } from "../../state/ducks/map-style";
 import { focusedPlaceSelector, placePropType } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
+import { Spinner } from "../atoms/imagery";
 
 const getLeftOffset = (isRightSidebarVisible, layout) => {
   switch (layout) {
@@ -121,19 +124,25 @@ class ContentPanel extends Component {
           )}
           {this.props.contentPanelComponent === "PlaceDetail" &&
             this.props.focusedPlace && (
-              <PlaceDetail
+              <React.Suspense fallback={<Spinner />}>
+                <PlaceDetail
+                  contentPanelInnerContainerRef={
+                    this.contentPanelInnerContainerRef
+                  }
+                  mapContainerRef={this.props.mapContainerRef}
+                  scrollToResponseId={null}
+                />
+              </React.Suspense>
+            )}
+          {this.props.contentPanelComponent === "InputForm" && (
+            <React.Suspense fallback={<Spinner />}>
+              <FormCategoryMenuWrapper
                 contentPanelInnerContainerRef={
                   this.contentPanelInnerContainerRef
                 }
-                mapContainerRef={this.props.mapContainerRef}
-                scrollToResponseId={null}
+                layout={this.props.layout}
               />
-            )}
-          {this.props.contentPanelComponent === "InputForm" && (
-            <FormCategoryMenuWrapper
-              contentPanelInnerContainerRef={this.contentPanelInnerContainerRef}
-              layout={this.props.layout}
-            />
+            </React.Suspense>
           )}
         </ContentPanelInnerContainer>
       </ContentPanelOuterContainer>
