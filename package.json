@@ -141,7 +141,7 @@
     "eslint": "^6.1.0",
     "eslint-plugin-emotion": "^10.0.14",
     "eslint-plugin-react": "~7.14.3",
-    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^4.1.0",
     "fork-ts-checker-webpack-plugin": "^1.5.0",
     "fs-extra": "^8.1.0",
