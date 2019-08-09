@@ -167,7 +167,7 @@ const LoginModal: React.FunctionComponent<Props> = ({
           {"By signing up, you agree to our "}
           <Link
             target="_blank"
-            href="https://mapseed.webflow.io/privacy"
+            href="https://mapseed.org/privacy"
             underline="always"
           >
             {"Privacy Policy"}
