@@ -232,6 +232,9 @@ export const baseMuiTheme = {
     body1: {
       fontFamily: "Raleway",
     },
+    body2: {
+      fontFamily: "Raleway",
+    },
   },
 };
 
