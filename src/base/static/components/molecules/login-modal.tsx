@@ -159,7 +159,11 @@ const LoginModal: React.FunctionComponent<Props> = ({
             />
           ))}
         </List>
-        <DialogContentText>
+        <DialogContentText
+          css={{ fontSize: ".8em" }}
+          variant="body2"
+          align="center"
+        >
           {"By signing up, you agree to our "}
           <Link
             target="_blank"
