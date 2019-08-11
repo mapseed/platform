@@ -440,7 +440,7 @@
         "basemap": false,
         "visibleDefault": true,
         "interactive": true,
-        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk 'target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
         "mapboxLayers": [
           {
             "id": "levees",

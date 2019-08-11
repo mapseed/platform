@@ -507,6 +507,7 @@ class MainMap extends React.Component<Props, State> {
               <Popup
                 latitude={this.state.popupLatitude}
                 longitude={this.state.popupLongitude}
+                closeOnClick={false}
                 onClose={() =>
                   this.setState({
                     popupContent: null,
