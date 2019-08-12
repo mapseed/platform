@@ -24,6 +24,7 @@
     "logo": "/static/css/images/logo.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
+    "thumbnail": "/static/css/images/thumbnail.png",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "isShowingMobileUserMenu": true,
     "theme": {
@@ -47,7 +48,12 @@
         "addPlaceButtonBackgroundColor": "#61974b",
         "addPlaceButtonHoverBackgroundColor": "rgb(191,213,183)"
       }
-    }
+    },
+    "sharingProviders": [
+      {
+        "type": "facebook"
+      }
+    ]
   },
   "dashboard": [
     {

@@ -32,6 +32,12 @@ export type LoginProvider = {
   provider: string; // eg: "discourse-hdk", "google-oauth2",
 };
 
+type SharingProvider = {
+  type: "twitter" | "facebook";
+};
+
+type SharingProvidersConfig = SharingProvider[];
+
 export type AppConfig = {
   title: string;
   meta_description: string;
@@ -50,11 +56,14 @@ export type AppConfig = {
   }[];
   logo: string;
   show_name_in_header?: boolean;
+  sharingProviders?: SharingProvidersConfig;
 };
 
 export const appConfigSelector: (state: any) => AppConfig;
 
 export const themeSelector: (state: any) => Theme;
+
+export const sharingProvidersSelector: (state: any) => SharingProvidersConfig;
 
 export const themePropType: any;
 
