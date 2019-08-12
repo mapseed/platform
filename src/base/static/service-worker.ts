@@ -2,9 +2,6 @@ declare const NODE_ENV: string;
 declare const PUBLIC_URL: string;
 
 export function register() {
-  //   const serviceWorkerPath = `${process.env.DEPLOY_DOMAIN}/service-worker.js`;
-  // const serviceWo
-
   if (NODE_ENV === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(PUBLIC_URL, window.location.href);
