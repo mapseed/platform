@@ -1,5 +1,5 @@
 import mixpanel from "mixpanel-browser";
-const envCheck = process.env.NODE_ENV === "production";
+const envCheck = NODE_ENV === "production";
 
 // For testing:
 // const envCheck = true;
