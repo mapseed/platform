@@ -1885,8 +1885,9 @@
             "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#999999;font-size:1.5rem;margin-right:16px;'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
           },
           {
-            "name": "address",
+            "name": "private-address",
             "type": "geocoding",
+            "reverseGeocode": false,
             "prompt": "Or, search by address:",
             "placeholder": "Your address will never be shared",
             "optional": true
@@ -1895,7 +1896,7 @@
             "//": "---------------SECTION: PRACTICE TYPES-------------------",
             "name": "agriculture_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Agriculture</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2>"
           },
           {
             "name": "practice_types",
@@ -1926,7 +1927,7 @@
             "//": "---------------SECTION: AGRICULTURE-------------------",
             "name": "agriculture_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Agriculture</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2>"
           },
           {
             "//": "=============== NO TILLL ================================",
