@@ -40,24 +40,6 @@
 
   <body>
     <div role="main" id="site-wrap"></div>
-    <script>
-      var serviceWorkerPath = "{{ serviceWorkerPath }}";
-
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function() {
-          var apiRoot = encodeURIComponent("{{config.app.api_root}}");
-          var flavor = encodeURIComponent("{{flavor}}");
-          navigator.serviceWorker
-            .register(serviceWorkerPath + "?apiRoot=" + apiRoot + "&flavor=" + flavor)
-            .then(function(registration) {
-              console.log("SW registered: ", registration);
-            })
-            .catch(function(registrationError) {
-              console.log("SW registration failed: ", registrationError);
-            });
-        });
-      }
-    </script>
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
     

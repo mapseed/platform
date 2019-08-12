@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+require("dotenv").config({ path: "src/.env" });
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");
@@ -11,6 +13,15 @@ require("dotenv").config({ path: "src/.env" });
 
 const PORT = 8000;
 const flavor = process.env.FLAVOR;
+
+const config = configPreprocessor(
+  JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "src/flavors", process.env.FLAVOR, "config.json"),
+    ),
+  ),
+  "utf8",
+);
 
 if (!flavor) {
   process.exitCode = 1;
@@ -170,10 +181,11 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": isProd
-        ? JSON.stringify("production")
-        : JSON.stringify("dev"),
+      NODE_ENV: isProd ? JSON.stringify("production") : JSON.stringify("dev"),
       MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
+      PUBLIC_URL: JSON.stringify(`https://${process.env.DEPLOY_DOMAIN}`),
+      API_ROOT: JSON.stringify(config.app.api_root),
+      FLAVOR: JSON.stringify(flavor),
       GIT_SHA: JSON.stringify(gitSha),
       MIXPANEL_TOKEN: JSON.stringify(process.env.MIXPANEL_TOKEN),
     }),
@@ -193,20 +205,7 @@ module.exports = {
           isProd && process.env[flavor.toUpperCase() + "_GOOGLE_ANALYTICS_ID"],
         googleAnalyticsDomain:
           isProd && (process.env.GOOGLE_ANALYTICS_DOMAIN || "auto"),
-        serviceWorkerPath: "./service-worker.js",
-        config: configPreprocessor(
-          JSON.parse(
-            fs.readFileSync(
-              path.join(
-                __dirname,
-                "src/flavors",
-                process.env.FLAVOR,
-                "config.json",
-              ),
-            ),
-          ),
-          "utf8",
-        ),
+        config,
       },
     }),
   ],
