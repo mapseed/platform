@@ -1766,11 +1766,22 @@
         "category": "reports",
         "submitter_editing_supported": true,
         "includeOnForm": true,
-        "submitter_editing_supported": true,
         "name": "location_type",
         "datasetSlug": "spokane-input",
         "icon_url": "/static/css/images/markers/marker-field.png",
-        "value": "demo",
+        "geospatialAnalysis": [
+          {
+            "name": "analysis_unit",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-watersheds.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NAME"
+              }
+            ]
+          }
+        ],
+        "value": "report",
         "multi_stage": [
           {
             "start_field_index": 1,
@@ -1883,55 +1894,6 @@
             "optional": true
           },
           {
-            "name": "analysis_units_header",
-            "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watersheds</h2>"
-          },
-          {
-            "name": "analysis_unit",
-            "type": "big_radio",
-            "prompt": "Of the nine watersheds on the map, in which do you primarily farm?",
-            "optional": false,
-            "content": [
-              {
-                "label": "Lower Spokane",
-                "value": "lower-spokane"
-              },
-              {
-                "label": "Upper Spokane",
-                "value": "upper-spokane"
-              },
-              {
-                "label": "Pend Oreille Lake",
-                "value": "pend-oreille-lake"
-              },
-              {
-                "label": "Little Spokane",
-                "value": "little-spokane"
-              },
-              {
-                "label": "Hangman",
-                "value": "hangman"
-              },
-              {
-                "label": "Coeur d'Alene Lake",
-                "value": "coeur-dalene-lake"
-              },
-              {
-                "label": "Upper Crab",
-                "value": "upper-crab"
-              },
-              {
-                "label": "Palouse",
-                "value": "palouse"
-              },
-              {
-                "label": "Rock",
-                "value": "rock"
-              }
-            ]
-          },
-          {
             "//": "---------------------FARMING HISTORY-------------------------",
             "name": "acres_farmed",
             "type": "number",
@@ -1944,6 +1906,12 @@
             "prompt": "How many years have you been farming?",
             "min": 0,
             "type": "number"
+          },
+          {
+            "//": "---------------SECTION: AGRICULTURE-------------------",
+            "name": "agriculture_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Agriculture</h2>"
           },
           {
             "//": "=============== NO TILLL ================================",
@@ -2352,6 +2320,88 @@
             ]
           },
           {
+            "//": "=============== BUFFERS =================================",
+            "name": "buffers",
+            "type": "big_radio",
+            "prompt": "Do you have buffers on your waterways?",
+            "label": "Buffers",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["buffer_program", "buffer_program_type"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "buffer_program",
+            "type": "big_radio",
+            "prompt": "Did you install these buffers through a program?",
+            "hidden_default": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["buffer_program_types"]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "buffer_program_types",
+            "type": "big_checkbox",
+            "prompt": "Which programs? (check all that apply)",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "NRCS CRP",
+                "value": "nrcs_crop"
+              },
+              {
+                "label": "Commodity Buffer Program",
+                "value": "commodity_buffer_program"
+              },
+              {
+                "label": "Other agency program",
+                "value": "other_agency_program"
+              }
+            ]
+          },
+          {
+            "name": "buffer_types",
+            "type": "big_checkbox",
+            "prompt": "Which types of buffers do you have on your waterways?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Riparian Forest Buffer",
+                "value": "riparian_forest_buffer"
+              },
+              {
+                "label": "Filter Strip",
+                "value": "filter_strip"
+              },
+              {
+                "label": "Grass Waterway",
+                "value": "grass_waterway"
+              }
+            ]
+          },
+          {
             "//": "=============== BIOSOLIDS =================================",
             "name": "biosolids",
             "type": "big_radio",
@@ -2730,8 +2780,14 @@
             ]
           },
           {
-            "//": "=============== STREAM CROSSING =================================",
-            "name": "stream_crossing",
+            "//": "---------------SECTION: LIVESTOCK-------------------",
+            "name": "livestock_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Livestock</h2>"
+          },
+          {
+            "//": "=============== STREAM CROSSINGS =================================",
+            "name": "stream_crossings",
             "type": "big_radio",
             "prompt": "Stream crossings",
             "label": "Stream crossings",
@@ -2740,6 +2796,7 @@
               {
                 "value": "yes",
                 "targets": [
+                  "stream_crossings_type",
                   "stream_crossing_quantity",
                   "stream_crossing_duration"
                 ]
@@ -2760,7 +2817,7 @@
               }
             ],
             "modal": {
-              "header": "Stream crossings",
+              "header": "Stream crossingss",
               "body": [
                 "NRCS code: 578",
                 "A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles."
@@ -2768,45 +2825,26 @@
             }
           },
           {
-            "name": "stream_crossing_quantity",
-            "type": "number",
-            "prompt": "How many stream crossings have you installed",
-            "min": 0,
-            "placeholder": "Approximate number",
-            "hidden_default": true,
-            "metadata": {
-              "units": "crossings"
-            }
-          },
-          {
-            "name": "stream_crossing_duration",
-            "type": "dropdown",
-            "prompt": "For how long have you been installing stream crossings?",
+            "name": "stream_crossings_type",
+            "type": "big_checkbox",
+            "prompt": "Which types of crossings have you installed? (Check all that apply)",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "Unimproved",
+                "value": "unimproved"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "Improved - Hardened",
+                "value": "improved_hardened"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "Improved - Bridge",
+                "value": "improved_bridge"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
-              },
-              {
-                "label": "21-35 years",
-                "value": "21-35"
-              },
-              {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "Improved - Culvert",
+                "value": "improved_culvert"
               }
             ]
           },
@@ -2849,16 +2887,9 @@
             }
           },
           {
-            "name": "heavy_use_area_description",
-            "type": "textarea",
-            "prompt": "Please describe your heavy use area in detail:",
-            "placeholder": "Describe your designated heavy use area",
-            "hidden_default": true
-          },
-          {
-            "name": "heavy_use_area_duration",
+            "name": "stream_crossings_duration",
             "type": "dropdown",
-            "prompt": "For how long have you had a designated heavy use areas?",
+            "prompt": "For how long have you been installing stream crossings?",
             "hidden_default": true,
             "content": [
               {
@@ -2991,19 +3022,19 @@
             ]
           },
           {
-            "//": "=============== NUTRIENT MANAGEMENT =================================",
-            "name": "nutrient_management",
+            "//": "=============== MUD AND MANURE MANAGEMENT =================================",
+            "name": "mud_manure_management",
             "type": "big_radio",
-            "prompt": "Nutrient management",
-            "label": "Nutrient management",
+            "prompt": "Mud and manure management",
+            "label": "Mud and manure management",
             "optional": true,
             "triggers": [
               {
                 "value": "yes",
                 "targets": [
-                  "nutrient_management_quantity",
-                  "nutrient_management_type",
-                  "nutrient_management_duration"
+                  "mud_manure_management_quantity",
+                  "mud_manure_management_type",
+                  "mud_manure_management_duration"
                 ]
               }
             ],
@@ -3022,17 +3053,14 @@
               }
             ],
             "modal": {
-              "header": "Nutrient management",
-              "body": [
-                "NRCS code: 590",
-                "Managing the amount (rate), source, placement (method of application), and timing of plant nutrients and soil amendments."
-              ]
+              "header": "Mud and manure management",
+              "body": ["NRCS code: ...", "..."]
             }
           },
           {
-            "name": "nutrient_management_quantity",
+            "name": "mud_manure_management_quantity",
             "type": "number",
-            "prompt": "On how many acres do you practice nutrient management?",
+            "prompt": "On how many acres do you practice mud and manure management?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -3041,30 +3069,34 @@
             }
           },
           {
-            "name": "nutrient_management_type",
-            "type": "dropdown",
-            "prompt": "Which type of nutrient management do you practice?",
+            "name": "mud_manure_management_type",
+            "type": "big_checkbox",
+            "prompt": "Which types of mud and manure management do you practice? (Check all that apply)",
             "hidden_default": true,
             "content": [
               {
-                "label": "Type A",
-                "value": "type_a"
+                "label": "Gutters and downspouts",
+                "value": "gutters_downspouts"
               },
 
               {
-                "label": "Type B",
-                "value": "type_b"
+                "label": "Heavy use area",
+                "value": "heavy_use_area"
               },
               {
-                "label": "Type C",
-                "value": "type_c"
+                "label": "Hardened stream crossings",
+                "value": "hardened_stream_crossings"
+              },
+              {
+                "label": "Waste storage",
+                "value": "waste_storage"
               }
             ]
           },
           {
-            "name": "nutrient_management_duration",
+            "name": "mud_manure_management_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been practicing nutrient management?",
+            "prompt": "For how long have you been practicing mud and manure management?",
             "hidden_default": true,
             "content": [
               {
@@ -3094,20 +3126,16 @@
             ]
           },
           {
-            "//": "=============== PIPELINE =================================",
-            "name": "pipeline",
+            "//": "=============== OFF CREEK STOCK WATERING =================================",
+            "name": "off_creek_stock_watering",
             "type": "big_radio",
-            "prompt": "Pipelines",
-            "label": "Pipelines",
+            "prompt": "Off creek stock watering",
+            "label": "Off creek stock watering",
             "optional": true,
             "triggers": [
               {
                 "value": "yes",
-                "targets": [
-                  "pipeline_quantity",
-                  "pipeline_type",
-                  "pipeline_duration"
-                ]
+                "targets": ["off_creek_stock_watering_duration"]
               }
             ],
             "content": [
@@ -3125,49 +3153,14 @@
               }
             ],
             "modal": {
-              "header": "Pipeline",
-              "body": [
-                "NRCS code: 516",
-                "Pipeline having an inside diameter of 8 inches or less to achieve one or more of the following purposes: (1) convey water from a source of supply to points of use for livestock, wildlife, or recreation; (2) reduce energy use; or (3) develop renewale energy systems (i.e., in-pipe hydropower)."
-              ]
+              "header": "Off creek stock watering",
+              "body": ["NRCS code: ...", "..."]
             }
           },
           {
-            "name": "pipeline_quantity",
-            "type": "number",
-            "prompt": "How many feet of pipeline do you maintain?",
-            "min": 0,
-            "placeholder": "Approximate footage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "pipeline_type",
+            "name": "off_creek_stock_watering_duration",
             "type": "dropdown",
-            "prompt": "Which type of pipeline do you maintain?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "Type A",
-                "value": "type_a"
-              },
-
-              {
-                "label": "Type B",
-                "value": "type_b"
-              },
-              {
-                "label": "Type C",
-                "value": "type_c"
-              }
-            ]
-          },
-          {
-            "name": "pipeline_duration",
-            "type": "dropdown",
-            "prompt": "For how long have you been installing and maintaining pipelines?",
+            "prompt": "For how long have you been maintaining off creek stock watering systems?",
             "hidden_default": true,
             "content": [
               {
@@ -3193,6 +3186,88 @@
               {
                 "label": "36 years or more",
                 "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "//": "---------------SECTION: FORESTRY-------------------",
+            "name": "forestry_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Forestry</h2>"
+          },
+          {
+            "//": "=============== FOREST MANAGEMENT =================================",
+            "name": "forest_management",
+            "type": "big_radio",
+            "prompt": "Do you have a forest you are managing?",
+            "label": "Forest management",
+            "optional": true,
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": [
+                "forest_management_stand_size",
+                "forest_management_plan"
+              ]
+            },
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_stand_size",
+            "type": "number",
+            "prompt": "How many acres is your timber stand?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "forest_management_plan",
+            "type": "big_radio",
+            "prompt": "Do you have any type of forest management plan?",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["forest_management_active_management"]
+            },
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_active_management",
+            "type": "big_radio",
+            "prompt": "Are you actively managing your forest as prescribed by your plan?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
               }
             ]
           },
@@ -3260,8 +3335,19 @@
             ]
           },
           {
+            "name": "allow_followup",
+            "type": "big_radio",
+            "optional": true,
+            "prompt": "May we follow up with you if we have any questions?",
+            "trigger": {
+              "trigger_value": "yes",
+              "targets": ["private-landowner_email", "private-landowner_phone"]
+            }
+          },
+          {
             "name": "private-landowner_email",
             "type": "text",
+            "hidden_default": true,
             "optional": true,
             "placeholder": "Your email address will never be shared",
             "prompt": "What is your email address?"
@@ -3269,35 +3355,24 @@
           {
             "name": "private-landowner_phone",
             "type": "text",
+            "hidden_default": true,
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
-            "optional": false
+            "optional": true
           },
           {
-            "name": "conservation_programs",
-            "prompt": "Have you ever been a part of, or have interest in, any of the following conservation programs? Check all that apply.",
-            "type": "big_checkbox",
+            "name": "easements",
+            "prompt": "Do you have a conservation easement?",
+            "type": "big_radio",
             "optional": true,
             "content": [
               {
-                "label": "RCPP",
-                "value": "rcpp"
+                "label": "Yes",
+                "value": "yes"
               },
               {
-                "label": "AWEP",
-                "value": "awep"
-              },
-              {
-                "label": "EQIP",
-                "value": "eqip"
-              },
-              {
-                "label": "CSP",
-                "value": "csp"
-              },
-              {
-                "label": "CCRP",
-                "value": "ccrp"
+                "label": "No",
+                "value": "no"
               }
             ]
           },
