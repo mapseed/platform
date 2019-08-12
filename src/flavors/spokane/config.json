@@ -47,7 +47,12 @@
         "addPlaceButtonBackgroundColor": "#61974b",
         "addPlaceButtonHoverBackgroundColor": "rgb(191,213,183)"
       }
-    }
+    },
+    "sharingProviders": [
+      {
+        "type": "facebook"
+      }
+    ]
   },
   "dashboard": [
     {

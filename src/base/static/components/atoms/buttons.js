@@ -102,12 +102,18 @@ EditorButton.propTypes = {
 const IconButton = styled(props => {
   let Icon;
   switch (props.icon) {
+    case "instagram":
+      Icon = InstagramIcon;
+      break;
     case "facebook":
       Icon = FacebookIcon;
       break;
-    default:
     case "twitter":
       Icon = TwitterIcon;
+      break;
+    default:
+      // eslint-disable-next-line no-console
+      console.error(`Buttons: unknown IconButton type ${props.icon}`);
       break;
   }
   return (
