@@ -1793,20 +1793,18 @@
             ]
           },
           {
-            "start_field_index": 20,
-            "end_field_index": 22,
+            "start_field_index": 6,
+            "end_field_index": 8,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-critical-conservation-areas",
               "spokane-county-outline"
             ]
           },
           {
-            "start_field_index": 23,
+            "start_field_index": 9,
             "end_field_index": 25,
             "visibleLayerGroupIds": [
               "satellite",
-              "spokane-critical-conservation-areas",
               "spokane-county-outline"
             ]
           },
@@ -1894,18 +1892,35 @@
             "optional": true
           },
           {
-            "//": "---------------------FARMING HISTORY-------------------------",
-            "name": "acres_farmed",
-            "type": "number",
-            "min": 0,
-            "prompt": "How many acres do you farm?",
-            "placeholder": "Approximate acreage"
+            "//": "---------------SECTION: PRACTICE TYPES-------------------",
+            "name": "agriculture_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Agriculture</h2>"
           },
           {
-            "name": "years_farming",
-            "prompt": "How many years have you been farming?",
-            "min": 0,
-            "type": "number"
+            "name": "practice_types",
+            "type": "big_checkbox",
+            "prompt": "Which of the following uses apply to your land? (Check all that apply)",
+            "optional": false,
+            "content": [
+              {
+                "label": "Agriculture",
+                "value": "agriculture"
+              },
+              {
+                "label": "Livestock",
+                "value": "livestock"
+              },
+              {
+                "label": "Forestry",
+                "value": "forestry"
+              }
+            ]
+          },
+          {
+            "name": "practice_types_questions",
+            "type": "informational_html",
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
           },
           {
             "//": "---------------SECTION: AGRICULTURE-------------------",
@@ -2780,6 +2795,11 @@
             ]
           },
           {
+            "name": "agriculture_questions",
+            "type": "informational_html",
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+          },
+          {
             "//": "---------------SECTION: LIVESTOCK-------------------",
             "name": "livestock_header",
             "type": "informational_html",
@@ -3190,6 +3210,11 @@
             ]
           },
           {
+            "name": "livestock_questions",
+            "type": "informational_html",
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+          },
+          {
             "//": "---------------SECTION: FORESTRY-------------------",
             "name": "forestry_header",
             "type": "informational_html",
@@ -3270,6 +3295,11 @@
                 "value": "no"
               }
             ]
+          },
+          {
+            "name": "forest_questions",
+            "type": "informational_html",
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
           },
           {
             "//": "--------------OTHER PRACTICES---------------------------",
@@ -3496,25 +3526,30 @@
   },
   "nav_bar": [
     {
-      "title": "About",
+      "title": "Start",
       "type": "internal_link",
-      "url": "/page/about",
+      "url": "/page/start",
       "start_page": true
     },
     {
-      "title": "VSP Assistance",
-      "type": "internal_link",
-      "url": "/page/assistance"
+      "title": "About",
+      "type": "external_link",
+      "url": "http://sccd.org/voluntary-stewardship-program"
     },
     {
-      "title": "Programs",
+      "title": "Contact",
       "type": "internal_link",
-      "url": "/page/programs"
+      "url": "/page/contact"
+    },
+    {
+      "title": "Funding",
+      "type": "internal_link",
+      "url": "/page/funding"
     }
   ],
   "pages": [
     {
-      "slug": "assistance",
+      "slug": "contact",
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
         "<p style='margin-bottom:16px'>Your Spokane County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
@@ -3522,63 +3557,43 @@
         "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
         "<div style='margin-bottom: 16px'>",
-        "<strong style='margin-bottom:0'>Andy Dunau</strong>",
-        "<p style='margin:0'><em>Facilitator</em></p>",
+        "<strong style='margin-bottom:0'>Doug Phelps</strong>",
         "</div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>andy@dunau.com</span></div>",
-        "</li>",
-        "<li style='margin-top:16px'>",
-        "<div style='margin-bottom: 16px'>",
-        "<strong style='margin-bottom:0'>Walt Edelen</strong>",
-        "<p style='margin:0'><em>Spokane Conservation District</em></p>",
-        "</div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i class='fas fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
-        "<div style='margin-left:16px'><i class='fas fa-phone'></i><span style='margin-left:16px'>509-535-7274, ext. 224</span></div>",
+        "<div style='color: #888; margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='color: #888; margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
         "</li>",
         "</ul>"
       ]
     },
     {
-      "slug": "about",
+      "slug": "start",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Spokane County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Share Your Stewardship</a></div></div>",
         "<img src='/static/css/images/sccd.jpg' alt='Spokane County Conservation District' style='margin:8px 0 16px 0' />",
         "<p>The Spokane County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas. By reporting your voluntary stewardship on this site, you'll help Spokane County allocate resources, and you'll help the Spokane County Conservation District learn what types of technical assistance we can provide to you.</p>",
-        "<p>Click Get Started to begin reporting your own stewardship!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Sign up for Opportunities & Assistance</a>"
       ]
     },
     {
-      "slug": "programs",
+      "slug": "funding",
       "content": [
-        "<h3 id='about-page-header'>Technical Assistance and Funding Opportunities</h3>",
-        "<p style='margin-bottom:32px'>Spokane Conservation District can assist you in applying for these opportunities.</p>",
-        "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:64px;'><span style='flex:2;margin-right:8px;'>Program</span><span style='flex:1;margin-right:8px;'>Agency</span><span style='flex:1'>Level</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>ACEP: Agriculture Conservation Easement Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>EQIP: Environmental Quality Incentives Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>HFRP: Healthy Forests Reserve Program</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>RCPP</span><span style='flex:1;margin-right:8px;'>NRCS (U.S. Department of Agriculture)</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>CSP: Conservation Stewardship Program</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>US Fish and Wildlife Service</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Conservation Reserve Enhancement Program</span><span style='flex:1;margin-right:8px;'>Farm Service Administration</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Continuous CRP</span><span style='flex:1;margin-right:8px;'>Farm Service Administration</span><span style='flex:1;'>Federal</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Commodity Buffer (Supports RCPP)</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>No till increment payment</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Voluntary Stewardship Program (VSP)</span><span style='flex:1;margin-right:8px;'>WA State Conservation Commission</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>319/Centennial Program</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Terry Husseman</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Flood Plains by Design</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Stream Flow Restoration (Rural Water Supply)</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>State Revolving Fund</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>DIF (Leftover 319 money)</span><span style='flex:1;margin-right:8px;'>WA State Department of Ecology</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>ALEA</span><span style='flex:1;margin-right:8px;'>WA State Department of Fish and Wildlife</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>State Lands for Wildlife</span><span style='flex:1;margin-right:8px;'>WA State Department of Fish and Wildlife</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>WA State Department of Natural Resources</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>Spangle, Small Grants for Research</span><span style='flex:1;margin-right:8px;'>WA State Department of Transportation</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>FFFPP (Reconnecting Spawning Activity)</span><span style='flex:1;margin-right:8px;'>RCO</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'>WWRP (Easement Acquisition)</span><span style='flex:1;margin-right:8px;'>RCO</span><span style='flex:1;'>State</span></div>",
-        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>Lands Council</span><span style='flex:1;'>Other</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:2;margin-right:8px;'> </span><span style='flex:1;margin-right:8px;'>Washington State University Extension</span><span style='flex:1;'>Other</span></div>"
+        "<h3 id='about-page-header'>Stewardship Practices Examples and Funding Opportunities</h3>",
+        "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs.</p>",
+        "<p>Contact Doug Phelps with questions:</p>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
+        "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:8px;'><span style='flex:1;margin-right:8px;'>Management Type</span><span style='flex:1;margin-right:8px;'>Conservation Practices</span><span style='flex:1'>NRCS Code</span><span style='flex:1'>Potential Funding</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage No-Till</span><span style='flex:1;margin-right:8px;'>329</span><span style='flex:1;'>$35-$50/acre (max 1,500 acres per entity)</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage Mulch-Till</span><span style='flex:1;margin-right:8px;'>345</span><span style='flex:1;'>Up to $45/acre (max 1,500 acres per entity)</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Nutrients</span><span style='flex:1;margin-right:8px;'>Soil Tests, Fertilizers and Mapping</span><span style='flex:1;margin-right:8px;'>590</span><span style='flex:1;'>Up to $28/acre (max 350 acres per entity)</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Buffers/Habitat Management</span><span style='flex:1;margin-right:8px;'>Various types of vegetated riparian buffers and streambank/shoreline stabilization</span><span style='flex:1;margin-right:8px;'>Various</span><span style='flex:1;'>$30-$500/acre (3-15 year commitments)</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Stream Crossing</span><span style='flex:1;margin-right:8px;'>578</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Heavy Use Area</span><span style='flex:1;margin-right:8px;'>561</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Fencing</span><span style='flex:1;margin-right:8px;'>382</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Waste Storage Facility</span><span style='flex:1;margin-right:8px;'>313</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Off Creek Watering</span><span style='flex:1;margin-right:8px;'>516/533/614/561/642</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Forest Stand Improvement (thinning, pruning and slash treatment)</span><span style='flex:1;margin-right:8px;'>660/666</span><span style='flex:1;'>Typically about $1,000/acre</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Tree and Shrub Establishment</span><span style='flex:1;margin-right:8px;'>612</span><span style='flex:1;'>Typically about $400/acre</span></div>"
       ]
     }
   ],
