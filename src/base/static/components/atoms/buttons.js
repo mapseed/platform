@@ -102,9 +102,6 @@ EditorButton.propTypes = {
 const IconButton = styled(props => {
   let Icon;
   switch (props.icon) {
-    case "instagram":
-      Icon = InstagramIcon;
-      break;
     case "facebook":
       Icon = FacebookIcon;
       break;

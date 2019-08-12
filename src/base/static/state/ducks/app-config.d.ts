@@ -33,7 +33,7 @@ export type LoginProvider = {
 };
 
 type SharingProvider = {
-  type: "twitter" | "facebook" | "instagram";
+  type: "twitter" | "facebook";
 };
 
 type SharingProvidersConfig = SharingProvider[];

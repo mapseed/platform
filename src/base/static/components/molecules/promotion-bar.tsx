@@ -9,7 +9,10 @@ import {
   createPlaceSupport,
   removePlaceSupport,
 } from "../../state/ducks/places";
-import { sharingProvidersSelector } from "../../state/ducks/app-config";
+import {
+  sharingProvidersSelector,
+  SharingProvidersConfig,
+} from "../../state/ducks/app-config";
 import { Support } from "../../state/ducks/support-config";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
@@ -34,6 +37,7 @@ type PromotionBarProps = {
   userToken?: string;
   placeId: number;
   placeUrl: string;
+  sharingProviders: SharingProvidersConfig;
 };
 
 class PromotionBar extends React.Component<PromotionBarProps> {
