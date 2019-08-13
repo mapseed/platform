@@ -1751,7 +1751,7 @@
           },
           {
             "start_field_index": 48,
-            "end_field_index": 63,
+            "end_field_index": 62,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1759,7 +1759,7 @@
             ]
           },
           {
-            "start_field_index": 64,
+            "start_field_index": 63,
             "end_field_index": 69,
             "visibleLayerGroupIds": [
               "satellite",
@@ -2897,7 +2897,7 @@
           {
             "name": "stream_crossing_quantity",
             "type": "number",
-            "prompt": "How many stream crossings have your installed?",
+            "prompt": "How many stream crossings have you installed?",
             "min": 0,
             "placeholder": "Approximate number",
             "hidden_default": true,
@@ -2950,7 +2950,6 @@
                 "value": "yes",
                 "targets": [
                   "fencing_quantity",
-                  "fencing_type",
                   "fencing_duration"
                 ]
               }
@@ -2987,27 +2986,6 @@
             "metadata": {
               "units": "acres"
             }
-          },
-          {
-            "name": "fencing_type",
-            "type": "dropdown",
-            "prompt": "Which type of fencing have you installed?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "Type A",
-                "value": "type_a"
-              },
-
-              {
-                "label": "Type B",
-                "value": "type_b"
-              },
-              {
-                "label": "Type C",
-                "value": "type_c"
-              }
-            ]
           },
           {
             "name": "fencing_duration",
@@ -3236,6 +3214,7 @@
                 "value": "yes",
                 "targets": [
                   "forest_management_stand_size",
+                  "forest_management_duration",
                   "forest_management_plan"
                 ]
               }
@@ -3265,6 +3244,38 @@
             "metadata": {
               "units": "acres"
             }
+          },
+          {
+            "name": "forest_management_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been managing your forest?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
           },
           {
             "name": "forest_management_plan",
