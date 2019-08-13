@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-require("dotenv").config({ path: "src/.env" });
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");

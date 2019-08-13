@@ -34,6 +34,7 @@ module.exports = {
     ga: false,
     workbox: false,
     NODE_ENV: false,
+    API_ROOT: false,
   },
   env: {
     browser: true,
