@@ -302,46 +302,46 @@
             {
               "cells": [
                 {
-                  "value": "Basic Soil Tests"
+                  "value": "Soil Tests"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "basic_soil_tests_quantity"],
+                  "value": ["get-sum", "soil_tests_quantity"],
                   "label": "acres"
                 },
                 {
@@ -415,67 +415,6 @@
                 {
                   "value": ["literal", 0],
                   "label": "Tons"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                }
-              ]
-            },
-            {
-              "cells": [
-                {
-                  "value": "Precision Soil Tests"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "precision_soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
                 },
                 {
                   "value": ["literal", { "label": "N/A", "color": "#ccc" }]
@@ -1786,21 +1725,24 @@
           {
             "start_field_index": 1,
             "end_field_index": 5,
-            "visibleLayerGroupIds": ["satellite", "spokane-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
           },
           {
             "start_field_index": 6,
             "end_field_index": 8,
-            "visibleLayerGroupIds": ["satellite", "spokane-county-outline"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
           },
           {
             "start_field_index": 9,
-            "end_field_index": 43,
-            "visibleLayerGroupIds": ["satellite", "spokane-county-outline"]
-          },
-          {
-            "start_field_index": 44,
-            "end_field_index": 52,
+            "end_field_index": 45,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1808,8 +1750,8 @@
             ]
           },
           {
-            "start_field_index": 53,
-            "end_field_index": 62,
+            "start_field_index": 46,
+            "end_field_index": 61,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1817,8 +1759,8 @@
             ]
           },
           {
-            "start_field_index": 63,
-            "end_field_index": 72,
+            "start_field_index": 62,
+            "end_field_index": 67,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1826,8 +1768,17 @@
             ]
           },
           {
-            "start_field_index": 73,
-            "end_field_index": 77,
+            "start_field_index": 68,
+            "end_field_index": 69,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 70,
+            "end_field_index": 84,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1895,7 +1846,6 @@
                   "livestock_header",
                   "livestock_questions",
                   "stream_crossing",
-                  "heavy_use_area",
                   "fencing",
                   "off_creek_stock_watering",
                   "mud_manure_management"
@@ -2181,7 +2131,7 @@
             "name": "soil_tests",
             "type": "big_radio",
             "hidden_default": true,
-            "prompt": "Do you perform soil tests?",
+            "prompt": "Do you conduct soil tests?",
             "label": "Soil tests",
             "optional": true,
             "triggers": [
@@ -2217,7 +2167,7 @@
             }
           },
           {
-            "name": "basic_soil_tests_zone_map",
+            "name": "soil_tests_zone_map",
             "type": "big_radio",
             "prompt": "Do you zone and map your fields based off of soil tests?",
             "hidden_default": true,
@@ -2233,9 +2183,9 @@
             ]
           },
           {
-            "name": "basic_soil_tests_quantity",
+            "name": "soil_tests_quantity",
             "type": "number",
-            "prompt": "On how many acres do you conduct basic soil tests?",
+            "prompt": "On how many acres do you conduct soil tests?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -2244,7 +2194,7 @@
             }
           },
           {
-            "name": "basic_soil_tests_duration",
+            "name": "soil_tests_duration",
             "type": "dropdown",
             "prompt": "For how long have you been conducting soil tests?",
             "hidden_default": true,
@@ -2288,16 +2238,16 @@
                 "value": "synthetically",
                 "targets": [
                   "synthetic_fertilization_types",
-                  "fertilization_yield_map",
-                  "fertilization_zone_map"
+                  "synthetic_fertilization_yield_map",
+                  "synthetic_fertilization_zone_map"
                 ]
               },
               {
                 "value": "organically",
                 "targets": [
                   "organic_fertilization_types",
-                  "fertilization_yield_map",
-                  "fertilization_zone_map"
+                  "organic_fertilization_yield_map",
+                  "organic_fertilization_zone_map"
                 ]
               }
             ],
@@ -2359,10 +2309,10 @@
             ]
           },
           {
-            "name": "fertilization_yield_map",
+            "name": "synthetic_fertilization_yield_map",
             "type": "big_radio",
             "hidden_default": true,
-            "prompt": "Do you base your fertilizing off of a yield map?",
+            "prompt": "Do you base your synthetic fertilizing off of a yield map?",
             "optional": true,
             "content": [
               {
@@ -2376,10 +2326,44 @@
             ]
           },
           {
-            "name": "fertilization_zone_map",
+            "name": "synthetic_fertilization_zone_map",
             "type": "big_radio",
             "hidden_default": true,
-            "prompt": "Have you developed a zone map?",
+            "prompt": "Have you developed a zone map for synthetic fertilization?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_yield_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you base your organic fertilizing off of a yield map?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_zone_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Have you developed a zone map for organic fertilization?",
             "optional": true,
             "content": [
               {
@@ -2799,7 +2783,7 @@
           },
           {
             "//": "=============== STREAM CROSSINGS =================================",
-            "name": "stream_crossings",
+            "name": "stream_crossing",
             "type": "big_radio",
             "hidden_default": true,
             "prompt": "Stream crossings",
@@ -2809,7 +2793,7 @@
               {
                 "value": "yes",
                 "targets": [
-                  "stream_crossings_type",
+                  "stream_crossing_type",
                   "stream_crossing_quantity",
                   "stream_crossing_duration"
                 ]
@@ -2838,7 +2822,7 @@
             }
           },
           {
-            "name": "stream_crossings_type",
+            "name": "stream_crossing_type",
             "type": "big_checkbox",
             "prompt": "Which types of crossings have you installed? (Check all that apply)",
             "hidden_default": true,
@@ -2862,46 +2846,18 @@
             ]
           },
           {
-            "//": "=============== HEAVY USE AREA =================================",
-            "name": "heavy_use_area",
-            "type": "big_radio",
+            "name": "stream_crossing_quantity",
+            "type": "number",
+            "prompt": "How many stream crossings have your installed?",
+            "min": 0,
+            "placeholder": "Approximate number",
             "hidden_default": true,
-            "prompt": "My operation has a designated heavy use area",
-            "label": "Heavy use area protection",
-            "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": [
-                  "heavy_use_area_duration",
-                  "heavy_use_area_description"
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "Heavy use area protection",
-              "body": [
-                "NRCS code: 561",
-                "The stabilization of areas frequently and intensively used by people, animals or vehicles by establishing vegetative cover, surfacing with suitable materials, and/or installing needed structures."
-              ]
+            "metadata": {
+              "units": "crossigs"
             }
           },
           {
-            "name": "stream_crossings_duration",
+            "name": "stream_crossing_duration",
             "type": "dropdown",
             "prompt": "For how long have you been installing stream crossings?",
             "hidden_default": true,
@@ -3306,10 +3262,10 @@
             "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
           },
           {
-            "//": "---------------SECTITION: OTHER PRACTICES-------------------",
+            "//": "---------------SECTION: OTHER PRACTICES-------------------",
             "name": "other_practices_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Forestry</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Other Stewardship Practices</h2>"
           },
           {
             "name": "other_practices_description",
@@ -3361,15 +3317,15 @@
             "name": "private-use_photos",
             "type": "big_radio",
             "prompt": "Can Spokane County VSP highlight your photos on our website?",
-            "default_value": "no",
+            "default_value": "no-use-photos",
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "use-photos"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-use-photos"
               }
             ]
           },
@@ -3380,11 +3336,21 @@
             "prompt": "May we follow up with you if we have any questions?",
             "triggers": [
               {
-                "value": "yes",
+                "value": "allow-followup",
                 "targets": [
                   "private-landowner_email",
                   "private-landowner_phone"
                 ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "allow-followup"
+              },
+              {
+                "label": "No",
+                "value": "no-allow-followup"
               }
             ]
           },
@@ -3412,11 +3378,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "easements"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-easements"
               }
             ]
           },
