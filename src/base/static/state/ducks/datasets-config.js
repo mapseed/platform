@@ -1,3 +1,4 @@
+import produce from "immer";
 import PropTypes from "prop-types";
 
 // Selectors:
@@ -70,14 +71,17 @@ export function loadDatasetsConfig(datasetsConfig) {
 }
 
 // Reducers:
-// TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = [];
 
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case LOAD:
-      return action.payload;
-    default:
-      return state;
-  }
-}
+export default (state = INITIAL_STATE, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case LOAD:
+        action.payload.map(datasetConfig => {
+          draft.push({
+            ...datasetConfig,
+            url: `${API_ROOT}smartercleanup/datasets/${datasetConfig.slug}`,
+          });
+        });
+    }
+  });

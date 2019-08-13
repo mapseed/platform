@@ -7,7 +7,6 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/columbia-input",
       "slug": "columbia-input",
       "clientSlug": "report",
       "anonymous_permissions": [

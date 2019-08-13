@@ -7,7 +7,6 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/garfield-input",
       "slug": "garfield-input",
       "clientSlug": "report",
       "anonymous_permissions": [

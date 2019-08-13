@@ -8,7 +8,6 @@
   "datasets": [
     {
       "slug": "mississippi-input",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +18,6 @@
     },
     {
       "slug": "mississippi-featured",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-featured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {

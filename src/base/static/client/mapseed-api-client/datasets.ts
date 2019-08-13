@@ -1,7 +1,12 @@
-const getDatasets = async datasetUrls => {
+import { DatasetConfig } from "../../state/ducks/datasets-config";
+import { Dataset } from "../../state/ducks/datasets";
+
+const getDatasets = async (
+  datasetConfigs: DatasetConfig[],
+): Promise<Dataset[]> => {
   return Promise.all(
-    datasetUrls.map(async datasetUrl => {
-      const response = await fetch(datasetUrl, {
+    datasetConfigs.map(async datasetConfig => {
+      const response = await fetch(datasetConfig.url, {
         credentials: "include",
       });
 
