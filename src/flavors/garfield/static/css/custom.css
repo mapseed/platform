@@ -89,6 +89,7 @@ label[for="input-form-pest-management_no-pest-management"],
 label[for="input-form-nutrient-management_no-nutrient-management"],
 label[for="input-form-water-management_no-water-management"],
 label[for="input-form-livestock-management_no-livestock-management"],
+label[for="input-form-fish-wildlife-management_no-fish-wildlife-management"],
 label[for="input-form-soil-management_no-soil-management"] {
   padding: 0 !important;
   font-family: "Font Awesome 5 Free", sans-serif;

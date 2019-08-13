@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map, OrderedMap, fromJS } from "immutable";
+import { List, Map, OrderedMap, fromJS } from "immutable";
 import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -116,18 +116,30 @@ class InputForm extends Component {
       this.selectedCategoryConfig.multi_stage &&
       this.state.currentStage !== prevState.currentStage
     ) {
-      // Configure layer visibility and set the viewport for this form stage.
       const stageConfig = this.selectedCategoryConfig.multi_stage[
         this.state.currentStage - 1
       ];
+      const stageFields = this.getFieldsFromStage({
+        fields: this.state.fields,
+        stage: stageConfig,
+      });
 
-      stageConfig.visibleLayerGroupIds &&
-        this.updateLayerGroupVisibilities(
-          stageConfig.visibleLayerGroupIds,
-          true,
-        );
-      stageConfig.viewport &&
-        eventEmitter.emit("setMapViewport", stageConfig.viewport);
+      if (!stageFields.some(field => field.get("isVisible"))) {
+        this.setState({
+          currentStage:
+            this.state.currentStage +
+            (this.state.currentStage > prevState.currentStage ? 1 : -1),
+        });
+      } else {
+        // Configure layer visibility and set the viewport for this form stage.
+        stageConfig.visibleLayerGroupIds &&
+          this.updateLayerGroupVisibilities(
+            stageConfig.visibleLayerGroupIds,
+            true,
+          );
+        stageConfig.viewport &&
+          eventEmitter.emit("setMapViewport", stageConfig.viewport);
+      }
     }
   }
 
@@ -154,13 +166,14 @@ class InputForm extends Component {
         return memo.set(
           field.name,
           Map({
-            // If this fields has a "forced_default_value", then its default
+            // If this field has a "forced_default_value", then its default
             // value will be set and sent on submission even if the field
             // remains invisible and is never rendered.
             value: fieldConfig.get("forced_default_value") || "",
             config: fieldConfig,
-            trigger: field.trigger && field.trigger.trigger_value,
-            triggerTargets: field.trigger && fromJS(field.trigger.targets),
+            triggers: fromJS(field.triggers),
+            //trigger: field.trigger && field.trigger.trigger_value,
+            //triggerTargets: field.trigger && fromJS(field.trigger.targets),
             // A field will be hidden if it is explicitly declared as
             // hidden_default in the config, or if it is restricted to a
             // group and the current user is not in that group or is not in
@@ -199,9 +212,39 @@ class InputForm extends Component {
     );
 
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get("trigger") && !isInitializing) {
-      const isVisible = fieldStatus.get("trigger") === fieldStatus.get("value");
-      this.triggerFieldVisibility(fieldStatus.get("triggerTargets"), isVisible);
+    let triggers = fieldStatus.get("triggers");
+    if (triggers && !isInitializing) {
+      const fieldValue = fieldStatus.get("value");
+      const triggeredFields = triggers.reduce((memo, trigger) => {
+        if (
+          // Fields values may be in list form, if the field type is a
+          // checkbox.
+          List.isList(fieldValue) &&
+          fieldValue.includes(trigger.get("value"))
+        ) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else if (fieldValue === trigger.get("value")) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, false);
+          });
+        }
+
+        return memo;
+      }, Map());
+
+      this.setState({
+        fields: this.state.fields.map((field, fieldName) => {
+          return triggeredFields.has(fieldName)
+            ? field.set("isVisible", triggeredFields.get(fieldName))
+            : field;
+        }),
+      });
     }
 
     this.setState(({ fields }) => ({
@@ -229,21 +272,6 @@ class InputForm extends Component {
         });
       });
     }
-  }
-
-  triggerFieldVisibility(targets, isVisible) {
-    this.setState({
-      fields: this.state.fields.map((field, fieldName) => {
-        return targets.includes(fieldName)
-          ? field
-              .set("isVisible", isVisible)
-              .set(
-                "isAutoFocusing",
-                targets.indexOf(fieldName) === 0 && isVisible,
-              )
-          : field;
-      }),
-    });
   }
 
   onAddAttachment(attachment) {
