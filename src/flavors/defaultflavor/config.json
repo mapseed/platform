@@ -8,7 +8,6 @@
   "datasets": [
     {
       "slug": "demo",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/demo",
       "clientSlug": "demo",
       "anonymous_permissions": [
         {
@@ -19,7 +18,6 @@
     },
     {
       "slug": "demo-featured",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/demo-featured",
       "clientSlug": "demo-featured",
       "anonymous_permissions": [
         {

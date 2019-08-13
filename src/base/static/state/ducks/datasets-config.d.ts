@@ -17,12 +17,14 @@ type DatasetReport = {
   filename: string;
 };
 
+export type Ability = "create" | "retrieve" | "update" | "destroy";
+
 export type DatasetConfig = {
   url: string;
   slug: string;
   clientSlug: string;
   anonymous_permissions: {
-    abilities: string[];
+    abilities: Ability[];
     submission_set: string;
   }[];
   report?: DatasetReport;
@@ -34,7 +36,7 @@ export const hasAnonAbilitiesInAnyDataset: ({
   submissionSet,
 }: {
   state: any;
-  abilities: string[];
+  abilities: Ability[];
   submissionSet: string;
 }) => boolean;
 
@@ -45,7 +47,7 @@ export const hasAnonAbilitiesInDataset: ({
   datasetSlug,
 }: {
   state: any;
-  abilities: string[];
+  abilities: Ability[];
   submissionSet: string;
   datasetSlug: string;
 }) => boolean;

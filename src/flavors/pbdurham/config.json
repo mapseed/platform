@@ -13,9 +13,7 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham",
       "slug": "pbdurham",
-      "owner": "smartercleanup",
       "clientSlug": "idea",
       "anonymous_permissions": [
         {
@@ -29,9 +27,7 @@
       ]
     },
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
-      "owner": "smartercleanup",
       "clientSlug": "project",
       "anonymous_permissions": [
         {

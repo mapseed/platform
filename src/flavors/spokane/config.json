@@ -7,7 +7,6 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/spokane-vsp/datasets/spokane-input",
       "slug": "spokane-input",
       "clientSlug": "report",
       "anonymous_permissions": [
