@@ -105,7 +105,7 @@
     "react-router-dom": "^5.0.1",
     "react-spinner": "~0.2.7",
     "react-virtualized": "^9.21.1",
-    "recharts": "^1.6.2",
+    "recharts": "^1.7.1",
     "redux": "^4.0.4",
     "reselect": "^4.0.0",
     "shelljs": "^0.8.3",
