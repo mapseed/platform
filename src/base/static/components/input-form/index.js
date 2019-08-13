@@ -116,18 +116,30 @@ class InputForm extends Component {
       this.selectedCategoryConfig.multi_stage &&
       this.state.currentStage !== prevState.currentStage
     ) {
-      // Configure layer visibility and set the viewport for this form stage.
       const stageConfig = this.selectedCategoryConfig.multi_stage[
         this.state.currentStage - 1
       ];
+      const stageFields = this.getFieldsFromStage({
+        fields: this.state.fields,
+        stage: stageConfig,
+      });
 
-      stageConfig.visibleLayerGroupIds &&
-        this.updateLayerGroupVisibilities(
-          stageConfig.visibleLayerGroupIds,
-          true,
-        );
-      stageConfig.viewport &&
-        eventEmitter.emit("setMapViewport", stageConfig.viewport);
+      if (!stageFields.some(field => field.get("isVisible"))) {
+        this.setState({
+          currentStage:
+            this.state.currentStage +
+            (this.state.currentStage > prevState.currentStage ? 1 : -1),
+        });
+      } else {
+        // Configure layer visibility and set the viewport for this form stage.
+        stageConfig.visibleLayerGroupIds &&
+          this.updateLayerGroupVisibilities(
+            stageConfig.visibleLayerGroupIds,
+            true,
+          );
+        stageConfig.viewport &&
+          eventEmitter.emit("setMapViewport", stageConfig.viewport);
+      }
     }
   }
 

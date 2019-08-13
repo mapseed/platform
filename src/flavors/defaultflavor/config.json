@@ -498,7 +498,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 3,
+            "end_field_index": 4,
             "icon_url": "/static/css/images/markers/marker-observation.png",
             "header": "Stage 1",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -506,7 +506,7 @@
             "visible_layer_ids": ["sample-json-a", "sample-vector-b"]
           },
           {
-            "start_field_index": 4,
+            "start_field_index": 5,
             "end_field_index": 7,
             "icon_url": "/static/css/images/markers/marker-question.png",
             "header": "Stage 2, With a Longer and More Complex Header than Stage 1",
@@ -515,15 +515,15 @@
           },
           {
             "start_field_index": 8,
-            "end_field_index": 10,
+            "end_field_index": 11,
             "icon_url": "",
             "header": "Stage 3",
             "visible_basemap_id": "sample-wmts",
             "visible_layer_ids": ["sample-json-b"]
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 18,
+            "start_field_index": 12,
+            "end_field_index": 19,
             "icon_url": "",
             "header": "Stage 4"
           }
@@ -556,14 +556,38 @@
             "optional": true
           },
           {
+            "name": "show_stage_2",
+            "type": "big_toggle",
+            "prompt": "Include second stage?",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["informational", "text_field", "textarea_field"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
             "name": "informational",
             "type": "informational_html",
+            "hidden_default": true,
             "prompt": "Info",
             "content": "<h1>This is some information for you.</h1><p>Hooray.</p>"
           },
           {
             "name": "text_field",
             "type": "text",
+            "hidden_default": true,
             "includeOnListItem": true,
             "autocomplete": true,
             "prompt": "Single line text field input prompt:",
@@ -578,6 +602,7 @@
           {
             "name": "textarea_field",
             "type": "textarea",
+            "hidden_default": true,
             "includeOnListItem": true,
             "autocomplete": true,
             "prompt": "Multiline textarea field input prompt:",
