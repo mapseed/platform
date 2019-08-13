@@ -1786,31 +1786,21 @@
           {
             "start_field_index": 1,
             "end_field_index": 5,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "spokane-county-outline"]
           },
           {
             "start_field_index": 6,
             "end_field_index": 8,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-county-outline"
-            ]
+            "visibleLayerGroupIds": ["satellite", "spokane-county-outline"]
           },
           {
             "start_field_index": 9,
-            "end_field_index": 25,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-county-outline"
-            ]
+            "end_field_index": 43,
+            "visibleLayerGroupIds": ["satellite", "spokane-county-outline"]
           },
           {
-            "start_field_index": 26,
-            "end_field_index": 34,
+            "start_field_index": 44,
+            "end_field_index": 52,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1818,8 +1808,8 @@
             ]
           },
           {
-            "start_field_index": 35,
-            "end_field_index": 47,
+            "start_field_index": 53,
+            "end_field_index": 62,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1827,8 +1817,8 @@
             ]
           },
           {
-            "start_field_index": 48,
-            "end_field_index": 59,
+            "start_field_index": 63,
+            "end_field_index": 72,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1836,26 +1826,8 @@
             ]
           },
           {
-            "start_field_index": 60,
-            "end_field_index": 80,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 81,
-            "end_field_index": 82,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 83,
-            "end_field_index": 99,
+            "start_field_index": 73,
+            "end_field_index": 77,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1894,7 +1866,7 @@
           },
           {
             "//": "---------------SECTION: PRACTICE TYPES-------------------",
-            "name": "agriculture_header",
+            "name": "practice_types_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2>"
           },
@@ -1903,6 +1875,41 @@
             "type": "big_checkbox",
             "prompt": "Which of the following uses apply to your land? (Check all that apply)",
             "optional": false,
+            "triggers": [
+              {
+                "value": "agriculture",
+                "targets": [
+                  "agriculture_header",
+                  "agriculture_questions",
+                  "no_till",
+                  "reduced_till",
+                  "soil_tests",
+                  "biosolids",
+                  "fertilization",
+                  "riparian_forest"
+                ]
+              },
+              {
+                "value": "livestock",
+                "targets": [
+                  "livestock_header",
+                  "livestock_questions",
+                  "stream_crossing",
+                  "heavy_use_area",
+                  "fencing",
+                  "off_creek_stock_watering",
+                  "mud_manure_management"
+                ]
+              },
+              {
+                "value": "forestry",
+                "targets": [
+                  "forest_header",
+                  "forest_questions",
+                  "forest_management"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Agriculture",
@@ -1927,12 +1934,14 @@
             "//": "---------------SECTION: AGRICULTURE-------------------",
             "name": "agriculture_header",
             "type": "informational_html",
+            "hidden_default": true,
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2>"
           },
           {
             "//": "=============== NO TILLL ================================",
             "name": "no_till",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "No till",
             "label": "No till",
             "optional": true,
@@ -2011,6 +2020,7 @@
             "//": "=============== CONVENTIONAL TILLL ================================",
             "name": "conventional_till",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Conventional till",
             "label": "Conventional till",
             "optional": true,
@@ -2091,13 +2101,16 @@
             "//": "=============== REDUCED TILLL ================================",
             "name": "reduced_till",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Reduced till",
             "label": "Reduced till",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["reduced_till_quantity", "reduced_till_duration"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["reduced_till_quantity", "reduced_till_duration"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2164,19 +2177,20 @@
             ]
           },
           {
-            "//": "=============== BASIC SOIL TESTS =================================",
-            "name": "basic_soil_tests",
+            "//": "=============== SOIL TESTS =================================",
+            "name": "soil_tests",
             "type": "big_radio",
-            "prompt": "Basic soil tests",
-            "label": "Basic soil tests",
+            "hidden_default": true,
+            "prompt": "Do you perform soil tests?",
+            "label": "Soil tests",
             "optional": true,
             "triggers": [
               {
                 "value": "yes",
                 "targets": [
-                  "basic_soil_tests_quantity",
-                  "basic_soil_tests_zone_map",
-                  "basic_soil_tests_duration"
+                  "soil_tests_quantity",
+                  "soil_tests_zone_map",
+                  "soil_tests_duration"
                 ]
               }
             ],
@@ -2195,10 +2209,10 @@
               }
             ],
             "modal": {
-              "header": "Basic soil tests",
+              "header": "Soil tests",
               "body": [
                 "NRCS code: 590",
-                "Basic soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), pH, and buffer pH every four years."
+                "Soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), pH, and buffer pH every four years."
               ]
             }
           },
@@ -2265,9 +2279,28 @@
             "//": "=============== FIELD FERTILIZATION =================================",
             "name": "fertilization",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "How do you fertilize your field?",
             "label": "Field fertilization",
             "optional": true,
+            "triggers": [
+              {
+                "value": "synthetically",
+                "targets": [
+                  "synthetic_fertilization_types",
+                  "fertilization_yield_map",
+                  "fertilization_zone_map"
+                ]
+              },
+              {
+                "value": "organically",
+                "targets": [
+                  "organic_fertilization_types",
+                  "fertilization_yield_map",
+                  "fertilization_zone_map"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Synthetically",
@@ -2280,9 +2313,31 @@
             ]
           },
           {
-            "name": "fertilization_types",
+            "name": "synthetic_fertilization_types",
             "type": "big_checkbox",
             "optional": true,
+            "hidden_default": true,
+            "prompt": "Choose all fertilization types that apply:",
+            "content": [
+              {
+                "label": "Top dress",
+                "value": "top_dress"
+              },
+              {
+                "label": "Aerial",
+                "value": "aerial"
+              },
+              {
+                "label": "Subsurface fertilization while seeding",
+                "value": "subsurface_fertilization"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_types",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
             "prompt": "Choose all fertilization types that apply:",
             "content": [
               {
@@ -2306,6 +2361,7 @@
           {
             "name": "fertilization_yield_map",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Do you base your fertilizing off of a yield map?",
             "optional": true,
             "content": [
@@ -2322,6 +2378,7 @@
           {
             "name": "fertilization_zone_map",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Have you developed a zone map?",
             "optional": true,
             "content": [
@@ -2339,13 +2396,16 @@
             "//": "=============== BUFFERS =================================",
             "name": "buffers",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Do you have buffers on your waterways?",
             "label": "Buffers",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["buffer_program", "buffer_program_type"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["buffer_program", "buffer_program_type"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2362,10 +2422,12 @@
             "type": "big_radio",
             "prompt": "Did you install these buffers through a program?",
             "hidden_default": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["buffer_program_types"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["buffer_program_types"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2400,6 +2462,7 @@
           {
             "name": "buffer_types",
             "type": "big_checkbox",
+            "hidden_default": true,
             "prompt": "Which types of buffers do you have on your waterways?",
             "optional": true,
             "content": [
@@ -2421,6 +2484,7 @@
             "//": "=============== BIOSOLIDS =================================",
             "name": "biosolids",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Biosolids management",
             "label": "Control biosolids",
             "optional": true,
@@ -2496,87 +2560,10 @@
             ]
           },
           {
-            "//": "=============== PRECISION SOIL TESTS =================================",
-            "name": "precision_soil_tests",
-            "type": "big_radio",
-            "prompt": "Precision soil tests or mapping",
-            "label": "Precision soil tests / mapping",
-            "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": [
-                  "precision_soil_tests_quantity",
-                  "precision_soil_tests_duration"
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "Precision soil tests",
-              "body": ["NRCS code: 590", "..."]
-            }
-          },
-          {
-            "name": "precision_soil_tests_quantity",
-            "type": "number",
-            "prompt": "On how many acres do you conduct precision soil tests?",
-            "min": 0,
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "precision_soil_tests_duration",
-            "type": "dropdown",
-            "prompt": "For how long have you been conducting precision soil tests or mapping?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "0-5 years",
-                "value": "0-5"
-              },
-              {
-                "label": "6-10 years",
-                "value": "6-10"
-              },
-              {
-                "label": "11-15 years",
-                "value": "11-15"
-              },
-              {
-                "label": "16-20 years",
-                "value": "16-20"
-              },
-              {
-                "label": "21-35 years",
-                "value": "21-35"
-              },
-              {
-                "label": "36 years or more",
-                "value": "36-or-more"
-              }
-            ]
-          },
-          {
             "//": "=============== GRASSED WATERWAYS =================================",
             "name": "grassed_waterways",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Grassed waterways",
             "label": "Grassed waterways",
             "optional": true,
@@ -2658,6 +2645,7 @@
             "//": "=============== COMMODITY BUFFER PROGRAM =================================",
             "name": "commodity_buffer",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "I participate in the commodity buffer program",
             "label": "Commodity buffer program",
             "optional": true,
@@ -2718,6 +2706,7 @@
             "//": "=============== RIPARIAN FOREST =================================",
             "name": "riparian_forest",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Riparian tree and shrub planting",
             "label": "Riparian forest planting",
             "optional": true,
@@ -2798,18 +2787,21 @@
           {
             "name": "agriculture_questions",
             "type": "informational_html",
+            "hidden_default": true,
             "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
           },
           {
             "//": "---------------SECTION: LIVESTOCK-------------------",
             "name": "livestock_header",
+            "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Livestock</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Livestock</h2>"
           },
           {
             "//": "=============== STREAM CROSSINGS =================================",
             "name": "stream_crossings",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Stream crossings",
             "label": "Stream crossings",
             "optional": true,
@@ -2873,6 +2865,7 @@
             "//": "=============== HEAVY USE AREA =================================",
             "name": "heavy_use_area",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "My operation has a designated heavy use area",
             "label": "Heavy use area protection",
             "optional": true,
@@ -2943,6 +2936,7 @@
             "//": "=============== FENCING =================================",
             "name": "fencing",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Fencing",
             "label": "Fencing",
             "optional": true,
@@ -3046,6 +3040,7 @@
             "//": "=============== MUD AND MANURE MANAGEMENT =================================",
             "name": "mud_manure_management",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Mud and manure management",
             "label": "Mud and manure management",
             "optional": true,
@@ -3150,6 +3145,7 @@
             "//": "=============== OFF CREEK STOCK WATERING =================================",
             "name": "off_creek_stock_watering",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Off creek stock watering",
             "label": "Off creek stock watering",
             "optional": true,
@@ -3217,24 +3213,28 @@
           },
           {
             "//": "---------------SECTION: FORESTRY-------------------",
-            "name": "forestry_header",
+            "name": "forest_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Forestry</h2>"
+            "hidden_default": true,
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Forestry</h2>"
           },
           {
             "//": "=============== FOREST MANAGEMENT =================================",
             "name": "forest_management",
             "type": "big_radio",
+            "hidden_default": true,
             "prompt": "Do you have a forest you are managing?",
             "label": "Forest management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "forest_management_stand_size",
-                "forest_management_plan"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "forest_management_stand_size",
+                  "forest_management_plan"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -3265,10 +3265,12 @@
             "name": "forest_management_plan",
             "type": "big_radio",
             "prompt": "Do you have any type of forest management plan?",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_management_active_management"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_management_active_management"]
+              }
+            ],
             "hidden_default": true,
             "content": [
               {
@@ -3300,10 +3302,16 @@
           {
             "name": "forest_questions",
             "type": "informational_html",
+            "hidden_default": true,
             "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
           },
           {
-            "//": "--------------OTHER PRACTICES---------------------------",
+            "//": "---------------SECTITION: OTHER PRACTICES-------------------",
+            "name": "other_practices_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Forestry</h2>"
+          },
+          {
             "name": "other_practices_description",
             "type": "textarea",
             "prompt": "Please describe your other stewardship practices:",
@@ -3314,7 +3322,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
           },
           {
             "name": "title",
@@ -3370,10 +3378,15 @@
             "type": "big_radio",
             "optional": true,
             "prompt": "May we follow up with you if we have any questions?",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["private-landowner_email", "private-landowner_phone"]
-            }
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "private-landowner_email",
+                  "private-landowner_phone"
+                ]
+              }
+            ]
           },
           {
             "name": "private-landowner_email",

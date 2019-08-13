@@ -43,7 +43,11 @@ ite-ha
 [data-field-type="dropdown"],
 [data-field-type="textarea"],
 [data-field-name="drag_map_info"],
-[data-field-type="geolocate"] {
+[data-field-type="geolocate"],
+[data-field-name="synthetic_fertilization_types"],
+[data-field-name="fertilization_yield_map"],
+[data-field-name="fertilization_zone_map"],
+[data-field-name="organic_fertilization_types"] {
   background-color: #efefef !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
