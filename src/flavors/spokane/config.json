@@ -2948,10 +2948,7 @@
             "triggers": [
               {
                 "value": "yes",
-                "targets": [
-                  "fencing_quantity",
-                  "fencing_duration"
-                ]
+                "targets": ["fencing_quantity", "fencing_duration"]
               }
             ],
             "content": [
