@@ -12,7 +12,7 @@ import { NavButton } from "../molecules/buttons";
 import { Button } from "../atoms/buttons";
 import UserMenu from "../molecules/user-menu";
 import LoginMenu from "../molecules/login-menu";
-import { RegularTitle, InternalLink } from "../atoms/typography";
+import { RegularTitle, InternalLink, ExternalLink } from "../atoms/typography";
 
 import {
   navBarConfigPropType,
@@ -41,17 +41,34 @@ const NavButtonWrapper = styled("div")<NavButtonProps>(props => ({
   },
 }));
 
-const NavLink = styled(props => (
-  <NavButtonWrapper position={props.position}>
-    <InternalLink
-      className={props.className}
-      href={props.href}
-      style={{ padding: "4px 8px 4px 8px" }}
-    >
-      {props.children}
-    </InternalLink>
-  </NavButtonWrapper>
-))(props => ({
+const NavLink = styled(props => {
+  let LinkType;
+  let target;
+  switch (props.type) {
+    case "external":
+      LinkType = ExternalLink;
+      target = "_blank";
+      break;
+    case "internal":
+    default:
+      LinkType = InternalLink;
+      target = "_self";
+      break;
+  }
+
+  return (
+    <NavButtonWrapper position={props.position}>
+      <LinkType
+        target={target}
+        className={props.className}
+        href={props.href}
+        style={{ padding: "4px 8px 4px 8px" }}
+      >
+        {props.children}
+      </LinkType>
+    </NavButtonWrapper>
+  );
+})(props => ({
   // TODO: Many of these style rules should eventually be moved to the Link atom.
   display: "flex",
   alignItems: "center",
@@ -93,6 +110,19 @@ const navItemMappings = {
   // eslint-disable-next-line react/display-name
   internal_link: linkProps => (
     <NavLink
+      type="internal"
+      height="24px"
+      position={linkProps.position}
+      href={linkProps.navBarItem.url}
+      ariaLabel={`navigate to: ${linkProps.navBarItem.title}`}
+    >
+      {linkProps.children}
+    </NavLink>
+  ),
+  // eslint-disable-next-line react/display-name
+  external_link: linkProps => (
+    <NavLink
+      type="external"
       height="24px"
       position={linkProps.position}
       href={linkProps.navBarItem.url}

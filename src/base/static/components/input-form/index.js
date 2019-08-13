@@ -172,8 +172,6 @@ class InputForm extends Component {
             value: fieldConfig.get("forced_default_value") || "",
             config: fieldConfig,
             triggers: fromJS(field.triggers),
-            //trigger: field.trigger && field.trigger.trigger_value,
-            //triggerTargets: field.trigger && fromJS(field.trigger.targets),
             // A field will be hidden if it is explicitly declared as
             // hidden_default in the config, or if it is restricted to a
             // group and the current user is not in that group or is not in
