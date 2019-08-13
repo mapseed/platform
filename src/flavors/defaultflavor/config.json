@@ -419,73 +419,54 @@
     "is_visible_default": true,
     "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
         "title": "Map Layers with an Extra Long Title",
-        "content": [
+        "options": [
           {
-            "id": "basemaps",
-            "title": "Basemaps",
-            "layerGroups": [
-              {
-                "id": "sample-raster-tile",
-                "title": "Sample Raster Tiles with an Extra Long Layer Title",
-                "info": {
-                  "header": "Sample raster tile layer",
-                  "body": ["Some info.)", "_(Some more info."]
-                }
-              },
-              {
-                "id": "sample-wmts",
-                "title": "Sample WMTS A"
-              },
-              {
-                "id": "sample-wms",
-                "title": "Sample WMS"
-              }
-            ]
+            "layerGroupId": "sample-raster-tile",
+            "title": "Sample Raster Tiles with an Extra Long Layer Title"
           },
           {
-            "id": "group-a",
-            "title": "Group A",
-            "layerGroups": [
-              {
-                "id": "sample-vector-a",
-                "title": "Sample vector tile A",
-                "info": {
-                  "header": "Sample vector tile layer",
-                  "body": ["Some info.)", "_(Some more info."]
-                }
-              },
-              {
-                "id": "sample-vector-b",
-                "title": "Sample vector tile B"
-              },
-              {
-                "id": "sample-json-b",
-                "title": "Sample polygonal GeoJSON"
-              }
-            ]
+            "layerGroupId": "sample-wmts",
+            "title": "Sample WMTS A"
           },
           {
-            "id": "group-b",
-            "title": "Group B",
-            "layerGroups": [
-              {
-                "id": "sample-json-a",
-                "title": "Sample point GeoJSON"
-              },
-              {
-                "id": "demo",
-                "title": "Sample Mapseed place layer A"
-              }
-            ]
+            "layerGroupId": "sample-wms",
+            "title": "Sample WMS"
+          }
+        ]
+      },
+      {
+        "title": "Group A",
+        "options": [
+          {
+            "layerGroupId": "sample-vector-a",
+            "title": "Sample vector tile A"
+          },
+          {
+            "layerGroupId": "sample-vector-b",
+            "title": "Sample vector tile B"
+          },
+          {
+            "layerGroupId": "sample-json-b",
+            "title": "Sample polygonal GeoJSON"
+          }
+        ]
+      },
+      {
+        "title": "Group B",
+        "options": [
+          {
+            "layerGroupId": "sample-json-a",
+            "title": "Sample point GeoJSON"
+          },
+          {
+            "layerGroupId": "demo",
+            "title": "Sample Mapseed place layer A"
           }
         ]
       }
@@ -556,7 +537,7 @@
             "prompt": "Title:",
             "display_prompt": "Ttile:",
             "placeholder": "Enter title...",
-            "optional": false
+            "optional": true
           },
           {
             "name": "location",
@@ -572,7 +553,7 @@
             "prompt": "Number:",
             "display_prompt": "Number:",
             "placeholder": "Enter a number...",
-            "optional": false
+            "optional": true
           },
           {
             "name": "informational",
@@ -588,7 +569,7 @@
             "prompt": "Single line text field input prompt:",
             "display_prompt": "Rendered text field:",
             "placeholder": "Enter text...",
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -602,7 +583,7 @@
             "prompt": "Multiline textarea field input prompt:",
             "display_prompt": "Rendered textarea field:",
             "placeholder": "Enter text...",
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -616,7 +597,7 @@
             "prompt": "Multiline rich textarea field input prompt:",
             "display_prompt": "Rendered rich text:",
             "placeholder": "Enter text...",
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -664,7 +645,7 @@
                 "value": "choice_e"
               }
             ],
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -698,7 +679,7 @@
                 "value": "choice_e"
               }
             ],
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -732,7 +713,7 @@
                 "value": "choice_e"
               }
             ],
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -767,7 +748,7 @@
                 "value": "choice_e"
               }
             ],
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -778,7 +759,7 @@
             "type": "datetime",
             "prompt": "Datetime field prompt:",
             "display_prompt": "Rendered datetime:",
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -811,7 +792,7 @@
                 "value": "off"
               }
             ],
-            "optional": false,
+            "optional": true,
             "modal": {
               "header": "Modal header",
               "body": ["Modal body"]
@@ -869,7 +850,7 @@
             "prompt": "Title of your observation:",
             "display_prompt": "Title:",
             "placeholder": "Enter title...",
-            "optional": false
+            "optional": true
           },
           {
             "name": "big_checkbox_field",
@@ -908,7 +889,7 @@
             "prompt": "Description:",
             "display_prompt": " ",
             "placeholder": "Enter description...",
-            "optional": false
+            "optional": true
           },
           {
             "name": "submitter_name",
@@ -974,7 +955,7 @@
             "prompt": "Title of your question:",
             "display_prompt": "Title:",
             "placeholder": "Enter title...",
-            "optional": false
+            "optional": true
           },
           {
             "name": "description",
@@ -1020,7 +1001,7 @@
             "prompt": "Title of your idea:",
             "placeholder": "Enter title...",
             "display_prompt": "Title:",
-            "optional": false
+            "optional": true
           },
           {
             "name": "description",
@@ -1029,17 +1010,19 @@
             "prompt": "Describe your idea below:",
             "display_prompt": " ",
             "placeholder": "Description...",
-            "optional": false
+            "optional": true
           },
           {
             "name": "toggle_a",
             "type": "big_toggle",
             "prompt": "On or off?",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "on",
-              "targets": ["toggle_a_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "on",
+                "targets": ["toggle_a_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "On",
@@ -1050,7 +1033,7 @@
                 "value": "off"
               }
             ],
-            "optional": false
+            "optional": true
           },
           {
             "name": "toggle_a_datetime",
@@ -1086,16 +1069,64 @@
             "hidden_default": true
           },
           {
+            "name": "checkbox_trigger",
+            "type": "big_checkbox",
+            "prompt": "Select all that apply:",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "a",
+                "targets": ["submitter_name"]
+              },
+              {
+                "value": "b",
+                "targets": ["my_image", "private-submitter_email"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Toggle submitter name",
+                "value": "a"
+              },
+              {
+                "label": "Toggle image and email",
+                "value": "b"
+              },
+              {
+                "label": "C",
+                "value": "c"
+              },
+              {
+                "label": "D",
+                "value": "d"
+              }
+            ]
+          },
+          {
             "name": "submitter_name",
-            "type": "common_form_element"
+            "type": "text",
+            "hidden_default": true,
+            "prompt": "Your name",
+            "placeholder": "Name",
+            "optional": true
           },
           {
             "name": "private-submitter_email",
-            "type": "common_form_element"
+            "type": "text",
+            "hidden_default": true,
+            "prompt": "Your Email",
+            "placeholder": "Receive email updates on your report",
+            "optional": true,
+            "sticky": true
           },
           {
             "name": "my_image",
-            "type": "common_form_element"
+            "type": "file",
+            "hidden_default": true,
+            "includeOnListItem": true,
+            "prompt": "Image",
+            "label": "Add an Image",
+            "optional": true
           },
           {
             "name": "submit",
