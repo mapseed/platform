@@ -91,7 +91,7 @@ class PlaceDetailEditor extends Component {
               // group and the current user is not in that group or is not in
               // the administrators group.
               "isVisible",
-              field.hidden_default
+              field.hidden_default && !this.props.place[field.name]
                 ? false
                 : fieldConfig.has("restrictToGroups")
                 ? this.props.isInAtLeastOneGroup(
