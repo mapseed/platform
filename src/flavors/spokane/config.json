@@ -2156,10 +2156,12 @@
             "prompt": "No till",
             "label": "No till",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["no_till_quantity", "no_till_duration"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["no_till_quantity", "no_till_duration"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2232,14 +2234,16 @@
             "prompt": "Mulch till",
             "label": "Mulch till",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "mulch_till_quantity",
-                "mulch_till_type",
-                "mulch_till_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "mulch_till_quantity",
+                  "mulch_till_type",
+                  "mulch_till_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2361,14 +2365,16 @@
             "prompt": "Basic soil tests",
             "label": "Basic soil tests",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "basic_soil_tests_quantity",
-                "basic_soil_tests_type",
-                "basic_soil_tests_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "basic_soil_tests_quantity",
+                  "basic_soil_tests_type",
+                  "basic_soil_tests_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2462,10 +2468,12 @@
             "prompt": "Biosolids management",
             "label": "Control biosolids",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["biosolids_quantity", "biosolids_duration"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["biosolids_quantity", "biosolids_duration"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2538,14 +2546,16 @@
             "prompt": "Precision soil tests or mapping",
             "label": "Precision soil tests / mapping",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "precision_soil_tests_quantity",
-                "precision_soil_tests_type",
-                "precision_soil_tests_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "precision_soil_tests_quantity",
+                  "precision_soil_tests_type",
+                  "precision_soil_tests_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2660,14 +2670,16 @@
             "prompt": "Grassed waterways",
             "label": "Grassed waterways",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "grassed_waterways_quantity",
-                "grassed_waterways_type",
-                "grassed_waterways_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "grassed_waterways_quantity",
+                  "grassed_waterways_type",
+                  "grassed_waterways_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2761,10 +2773,12 @@
             "prompt": "I participate in the commodity buffer program",
             "label": "Commodity buffer program",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["commodity_buffer_duration"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["commodity_buffer_duration"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2819,14 +2833,16 @@
             "prompt": "Riparian tree and shrub planting",
             "label": "Riparian forest planting",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "riparian_forest_quantity",
-                "riparian_forest_type",
-                "riparian_forest_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "riparian_forest_quantity",
+                  "riparian_forest_type",
+                  "riparian_forest_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2944,14 +2960,16 @@
             "prompt": "Stream crossings",
             "label": "Stream crossings",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "stream_crossing_quantity",
-                "stream_crossing_type",
-                "stream_crossing_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "stream_crossing_quantity",
+                  "stream_crossing_type",
+                  "stream_crossing_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -3045,13 +3063,15 @@
             "prompt": "My operation has a designated heavy use area",
             "label": "Heavy use area protection",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "heavy_use_area_duration",
-                "heavy_use_area_description"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "heavy_use_area_duration",
+                  "heavy_use_area_description"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -3120,14 +3140,16 @@
             "prompt": "Fencing",
             "label": "Fencing",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "fencing_quantity",
-                "fencing_type",
-                "fencing_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "fencing_quantity",
+                  "fencing_type",
+                  "fencing_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -3221,14 +3243,16 @@
             "prompt": "Nutrient management",
             "label": "Nutrient management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "nutrient_management_quantity",
-                "nutrient_management_type",
-                "nutrient_management_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "nutrient_management_quantity",
+                  "nutrient_management_type",
+                  "nutrient_management_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -3322,14 +3346,16 @@
             "prompt": "Pipelines",
             "label": "Pipelines",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pipeline_quantity",
-                "pipeline_type",
-                "pipeline_duration"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "pipeline_quantity",
+                  "pipeline_type",
+                  "pipeline_duration"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",

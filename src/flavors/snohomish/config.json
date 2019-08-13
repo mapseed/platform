@@ -590,10 +590,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_rotational-grazing-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_rotational-grazing-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Practice rotational grazing, never grazing grass below 3” deep",
@@ -622,10 +624,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_fencing-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_fencing-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Added streamside fencing to keep livestock out of waterway",
@@ -654,10 +658,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_off-stream-watering-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_off-stream-watering-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Installed an off-stream watering system",
@@ -686,10 +692,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_livestock-heavy-use-areas-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_livestock-heavy-use-areas-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Installed a heavy use or sacrifice area for livestock",
@@ -724,10 +732,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_gutters-diversion-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_gutters-diversion-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Installed gutters or water diversion to keep roof runoff away from heavily used areas",
@@ -756,10 +766,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_soil-testing-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_soil-testing-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Tested my soils to ensure proper fertilizer, manure, or lime application rates",
@@ -788,10 +800,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_manure-storage-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_manure-storage-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Installed a covered manure storage or composting bin",
@@ -820,10 +834,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_septic-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_septic-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Maintain septic systems and have them inspected regularly to make sure they are functioning properly.",
@@ -852,10 +868,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["farm_other-action", "farm_other-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["farm_other-action", "farm_other-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "OTHER",
@@ -921,10 +939,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_protected-buffers-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_protected-buffers-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Protected forest buffers around wetlands, streams, steep slopes, and bald eagle nests to protect water quality and critical wildlife areas",
@@ -953,10 +973,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_restored-buffers-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_restored-buffers-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Restored forest buffers around wetlands, streams, steep slopes, and bald eagle nests to improve water quality and critical wildlife areas",
@@ -985,10 +1007,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_left-trees-snags-etc-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_left-trees-snags-etc-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Left green trees and/or left or created snags, brush piles, downed logs, or other habitat features to improve wildlife habitat",
@@ -1017,10 +1041,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_maintain-roads-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_maintain-roads-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Maintained forest roads and stream crossings to control erosion",
@@ -1049,10 +1075,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_reduce-harvest-compaction-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_reduce-harvest-compaction-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Took steps to reduce compaction during tree harvest",
@@ -1081,10 +1109,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_fish-passage-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_fish-passage-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Replaced fish-passage barrier culverts with larger culverts or bridges",
@@ -1113,10 +1143,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_logging-slash-etc-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_logging-slash-etc-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Kept logging slash and other materials and equipment away from streams, wetlands, and slopes",
@@ -1145,10 +1177,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_stewardship-plan-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_stewardship-plan-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Created and implemented a Forest Stewardship Plan",
@@ -1177,10 +1211,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["forest_other-datetime", "forest_other-action"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_other-datetime", "forest_other-action"]
+              }
+            ],
             "content": [
               {
                 "label": "OTHER",
@@ -1245,10 +1281,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_left-slope-vegetation-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_left-slope-vegetation-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Left existing native vegetation on a slope or bank",
@@ -1277,10 +1315,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_slope-native-buffer-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_slope-native-buffer-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Planted a buffer of native trees and shrubs along slope or streamside",
@@ -1315,10 +1355,12 @@
                 "Common noxious weeds that compete with our native vegetation include blackberry, knotweed, ivy, and scotch broom."
               ]
             },
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_remove-noxious-weeds-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_remove-noxious-weeds-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Removed noxious weeds to support native plant health",
@@ -1347,10 +1389,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_left-dead-trees-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_left-dead-trees-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Left dead “habitat” trees standing for wildlife",
@@ -1379,10 +1423,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_impervious-surfaces-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_impervious-surfaces-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Minimized impervious surfaces (driveways, roofs)",
@@ -1411,10 +1457,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_relocated-slope-structures-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_relocated-slope-structures-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Re-located structures away from slopes",
@@ -1443,10 +1491,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_grass-clippings-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_grass-clippings-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Refrained from dumping grass clippings and yard debris on slopes",
@@ -1475,10 +1525,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_removed-armoring-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_removed-armoring-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Removed shoreline armoring",
@@ -1513,10 +1565,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_pet-waste-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["shoreline_pet-waste-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Pick up after my pet",
@@ -1545,10 +1599,15 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["shoreline_other-action", "shoreline_other-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "shoreline_other-action",
+                  "shoreline_other-datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "OTHER",
@@ -1619,10 +1678,12 @@
                 "A rain garden is an area that is dug out, lined with a special soil mix, and planted with the intent of infiltrating runoff from your house, driveway, or other hardened surfaces."
               ]
             },
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_rain-gardens-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_rain-gardens-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Installed a rain garden",
@@ -1651,10 +1712,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_rain-barrels-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_rain-barrels-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Installed rain barrels or cisterns",
@@ -1689,10 +1752,12 @@
                 "A rain bed combines a rain barrel system with a raised garden bed. A special gutter in the raised bed spreads water from the barrels over the garden for easy watering. Excess water from the barrels infiltrates through the bed and is dispersed over the surrounding yard where it is filtered and infiltrated."
               ]
             },
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_rain-beds-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_rain-beds-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Installed rain beds",
@@ -1727,10 +1792,12 @@
                 "Natural Yard Care can include: building healthy soil, practicing smart watering, using organic products, avoiding chemical use, mulching/composting and supporting pollinators."
               ]
             },
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_natural-yard-care-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_natural-yard-care-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Used natural yard care",
@@ -1759,10 +1826,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["general_wildlife-backyard-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["general_wildlife-backyard-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Certified my property as a Backyard Wildlife Habitat",
@@ -1791,10 +1860,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_pollinator-habitat-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_pollinator-habitat-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Created pollinator habitat by planting flowering native plants",
@@ -1823,10 +1894,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_water-conservation-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_water-conservation-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Practice water conservation",
@@ -1855,10 +1928,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_compost-mulch-soil-amendments-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_compost-mulch-soil-amendments-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Use compost/mulch/soil amendments",
@@ -1887,10 +1962,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_food-garden-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_food-garden-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Started a food garden",
@@ -1919,10 +1996,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_drainage-concerns-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_drainage-concerns-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Addressed stormwater and/or drainage concerns",
@@ -1951,10 +2030,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_pet-waste-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_pet-waste-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Pick up after my pet",
@@ -1983,10 +2064,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_septic-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_septic-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Maintain septic systems and have them inspected regularly to make sure they are functioning properly.",
@@ -2015,10 +2098,12 @@
             "type": "big_toggle",
             "prompt": " ",
             "display_prompt": " ",
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["urban_other-action", "urban_other-datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["urban_other-action", "urban_other-datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "OTHER",
