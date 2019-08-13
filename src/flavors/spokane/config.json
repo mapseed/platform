@@ -1742,7 +1742,7 @@
           },
           {
             "start_field_index": 9,
-            "end_field_index": 45,
+            "end_field_index": 47,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1750,8 +1750,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 61,
+            "start_field_index": 48,
+            "end_field_index": 63,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1759,16 +1759,7 @@
             ]
           },
           {
-            "start_field_index": 62,
-            "end_field_index": 67,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 68,
+            "start_field_index": 64,
             "end_field_index": 69,
             "visibleLayerGroupIds": [
               "satellite",
@@ -1778,7 +1769,16 @@
           },
           {
             "start_field_index": 70,
-            "end_field_index": 84,
+            "end_field_index": 71,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 72,
+            "end_field_index": 86,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1833,6 +1833,7 @@
                   "agriculture_header",
                   "agriculture_questions",
                   "no_till",
+                  "buffers",
                   "reduced_till",
                   "soil_tests",
                   "biosolids",
@@ -2387,7 +2388,12 @@
             "triggers": [
               {
                 "value": "yes",
-                "targets": ["buffer_program", "buffer_program_type"]
+                "targets": [
+                  "buffer_types",
+                  "buffer_program",
+                  "buffers_quantity",
+                  "buffers_duration"
+                ]
               }
             ],
             "content": [
@@ -2398,48 +2404,6 @@
               {
                 "label": "No",
                 "value": "no"
-              }
-            ]
-          },
-          {
-            "name": "buffer_program",
-            "type": "big_radio",
-            "prompt": "Did you install these buffers through a program?",
-            "hidden_default": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": ["buffer_program_types"]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              }
-            ]
-          },
-          {
-            "name": "buffer_program_types",
-            "type": "big_checkbox",
-            "prompt": "Which programs? (check all that apply)",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "NRCS CRP",
-                "value": "nrcs_crop"
-              },
-              {
-                "label": "Commodity Buffer Program",
-                "value": "commodity_buffer_program"
-              },
-              {
-                "label": "Other agency program",
-                "value": "other_agency_program"
               }
             ]
           },
@@ -2461,6 +2425,91 @@
               {
                 "label": "Grass Waterway",
                 "value": "grass_waterway"
+              }
+            ]
+          },
+          {
+            "name": "buffers_quantity",
+            "type": "number",
+            "prompt": "How many feet of buffers have you installed?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "buffers_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been installing buffers?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "name": "buffer_program",
+            "type": "big_radio",
+            "prompt": "Did you install these buffers through a program?",
+            "hidden_default": true,
+            "triggers": [
+              {
+                "value": "yes-program",
+                "targets": ["buffer_program_types"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes-program"
+              },
+              {
+                "label": "No",
+                "value": "no-program"
+              }
+            ]
+          },
+          {
+            "name": "buffer_program_types",
+            "type": "big_checkbox",
+            "prompt": "Which programs? (check all that apply)",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "NRCS CRP",
+                "value": "nrcs_crop"
+              },
+              {
+                "label": "Commodity Buffer Program",
+                "value": "commodity_buffer_program"
+              },
+              {
+                "label": "Other agency program",
+                "value": "other_agency_program"
               }
             ]
           },
