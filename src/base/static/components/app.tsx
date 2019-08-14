@@ -211,13 +211,14 @@ class App extends React.Component<Props, State> {
     this.props.loadUser(user);
 
     // Fetch and load datasets.
-    const datasetUrls = config.datasets.map(c => c.url);
-    const datasets = await mapseedApiClient.datasets.get(datasetUrls);
+    this.props.loadDatasetsConfig(config.datasets);
+    const datasets = await mapseedApiClient.datasets.get(
+      this.props.datasetsConfig,
+    );
     this.props.loadDatasets(datasets);
 
     // Load all other ducks.
     this.props.loadAppConfig(config.app);
-    this.props.loadDatasetsConfig(config.datasets);
     this.props.loadMapConfig(config.map);
     this.props.loadPlaceConfig(config.place, user);
     this.props.loadLeftSidebarConfig(config.leftSidebar);

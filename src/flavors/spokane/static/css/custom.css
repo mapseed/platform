@@ -11,7 +11,6 @@ body {
 header {
   border-top: 3px solid #29b1cb;
 }
-ite-ha
 /* =Input Form
 -------------------------------------------------------------- */
 /* 
@@ -43,20 +42,34 @@ ite-ha
 [data-field-type="dropdown"],
 [data-field-type="textarea"],
 [data-field-name="drag_map_info"],
-[data-field-type="geolocate"] {
+[data-field-type="geolocate"],
+[data-field-name="synthetic_fertilization_types"],
+[data-field-name="synthetic_fertilization_yield_map"],
+[data-field-name="synthetic_fertilization_zone_map"],
+[data-field-name="organic_fertilization_yield_map"],
+[data-field-name="organic_fertilization_zone_map"],
+[data-field-name="stream_crossing_type"],
+[data-field-name="buffer_program"],
+[data-field-name="buffer_program_types"],
+[data-field-name="private-landowner_email"],
+[data-field-name="mud_manure_management_type"],
+[data-field-name="buffer_types"],
+[data-field-name="forest_management_plan"],
+[data-field-name="forest_management_active_management"],
+[data-field-name="private-landowner_phone"],
+[data-field-name="soil_tests_zone_map"],
+[data-field-name="organic_fertilization_types"] {
   background-color: #efefef !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
 }
 
-[data-field-name="private-landowner_email"],
 [data-field-name="acres_farmed"],
 [data-field-name="years_farming"],
 [data-field-name="practices_description"],
 [data-field-name="stewardship_difficulties"],
-[data-field-name="private-landowner_name"],
-[data-field-name="private-landowner_phone"] {
+[data-field-name="private-landowner_name"] {
   margin-top: 15px !important;
 }
 

@@ -8,7 +8,6 @@
   "datasets": [
     {
       "slug": "argentina-input",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/argentina-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +18,6 @@
     },
     {
       "slug": "argentina-featured",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/argentina-featured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {

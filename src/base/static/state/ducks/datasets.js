@@ -125,7 +125,6 @@ export const getColorForTag = ({ state, datasetSlug, tagUrl }) =>
     .tags.find(tag => tag.url === tagUrl).color;
 
 // Reducers:
-// TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
   datasetModels: [],
   loadStatus: "unloaded",

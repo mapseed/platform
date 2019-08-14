@@ -5,24 +5,7 @@ const {
 } = require("../src/base/static/utils/config-loader-utils");
 
 module.exports = function(config) {
-  const datasetSiteUrls = {};
-
-  Object.keys(process.env).forEach(function(key) {
-    if (key.endsWith("SITE_URL")) {
-      datasetSiteUrls[key] = process.env[key];
-    }
-  });
-
   setConfigDefaults(config);
-
-  // If we have dataset urls defined in the .env file, overwrite the default
-  // urls found in the config here.
-  config.datasets.forEach((dataset, i) => {
-    if (datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"]) {
-      config.datasets[i].url =
-        datasetSiteUrls[dataset.slug.toUpperCase() + "_SITE_URL"];
-    }
-  });
 
   // The API root is defined in the config. In most cases this will be set to
   // point to the dev API. If the .env defines a different API root, use that

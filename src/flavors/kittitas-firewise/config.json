@@ -2086,22 +2086,24 @@
         "prompt": "I have an emergency kit",
         "label": "Evacuation plan",
         "optional": true,
-        "trigger": {
-          "trigger_value": "yes",
-          "targets": [
-            "food_and_water",
-            "medications",
-            "clothing",
-            "eyeglasses",
-            "car_keys_money",
-            "first_aid_kit",
-            "flashlight",
-            "radio",
-            "sanitation_supplies",
-            "documents",
-            "pet_food"
-          ]
-        },
+        "triggers": [
+          {
+            "value": "yes",
+            "targets": [
+              "food_and_water",
+              "medications",
+              "clothing",
+              "eyeglasses",
+              "car_keys_money",
+              "first_aid_kit",
+              "flashlight",
+              "radio",
+              "sanitation_supplies",
+              "documents",
+              "pet_food"
+            ]
+          }
+        ],
         "content": [
           {
             "label": "Yes",

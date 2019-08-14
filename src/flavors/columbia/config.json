@@ -7,7 +7,6 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/columbia-input",
       "slug": "columbia-input",
       "clientSlug": "report",
       "anonymous_permissions": [
@@ -1967,13 +1966,15 @@
             "prompt": "Do you participate in any conservation cover practices (establishing and maintaining long-term, permanent vegetative cover)?",
             "label": "Conservation cover",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "conservation_cover_date",
-                "conservation_cover_amount"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "conservation_cover_date",
+                  "conservation_cover_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2024,13 +2025,15 @@
             "prompt": "Do you participate in integrated pest management practices (a site-specific combination of pest prevention, pest avoidance, pest monitoring, and pest suppression strategies) on cropland?",
             "label": "Integrated pest management on cropland",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "cropland_pest_management_date",
-                "cropland_pest_management_amount"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "cropland_pest_management_date",
+                  "cropland_pest_management_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2081,10 +2084,12 @@
             "prompt": "Do you participate in any cover crop practices (using grasses, legumes, and leafy ground cover plants for seasonal vegetative cover)?",
             "label": "Cover crop",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["cover_crop_date", "cover_crop_amount"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["cover_crop_date", "cover_crop_amount"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2135,13 +2140,15 @@
             "prompt": "Do you participate in having a riparian forest buffer (an area predominantly of suitable trees and/or shrubs planted along a stream, river, lake, or other water body) on cropland?",
             "label": "Riparian forest buffer on cropland",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "crop_riparian_forest_buffer_date",
-                "crop_riparian_forest_buffer_amount"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "crop_riparian_forest_buffer_date",
+                  "crop_riparian_forest_buffer_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2192,13 +2199,15 @@
             "prompt": "Do you participate in residue and tillage management/reduced till (managing the amount, orientation, and distribution of crop and other plant residue on the soil surface year-round)?",
             "label": "Residue and tillage management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "residue_tillage_management_date",
-                "residue_tillage_management_amount"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "residue_tillage_management_date",
+                  "residue_tillage_management_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2249,13 +2258,15 @@
             "prompt": "Do you participate in nutrient management (managing the amount, source, placement, and timing of plant nutrients and soil amendments)?",
             "label": "Residue and tillage management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "nutrient_management_date",
-                "nutrient_management_amount"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "nutrient_management_date",
+                  "nutrient_management_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2306,10 +2317,12 @@
             "prompt": "Do you participate in fencing (a constructed barrier to protect animals or people) on cropland?",
             "label": "Fencing on cropland",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["crop_fencing_date", "crop_fencing_amount"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["crop_fencing_date", "crop_fencing_amount"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2366,13 +2379,15 @@
             "prompt": "Do you participate in having a riparian forest buffer (an area predominantly of suitable trees and/or shrubs planted along a stream, river, lake, or other water body) on ranchland?",
             "label": "Riparian forest buffer on ranchland",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "ranch_riparian_forest_buffer_date",
-                "ranch_riparian_forest_buffer_amount"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "ranch_riparian_forest_buffer_date",
+                  "ranch_riparian_forest_buffer_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2423,10 +2438,12 @@
             "prompt": "Do you participate in fencing (a constructed barrier to protect animals or people) on ranchland?",
             "label": "Fencing on ranchland",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["ranch_fencing_date", "ranch_fencing_amount"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["ranch_fencing_date", "ranch_fencing_amount"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2477,13 +2494,15 @@
             "prompt": "Do you participate in stream habitat improvement and management (maintaining, improving, or restoring physical, chemical and biological functions of a stream and its associated riparian zone)?",
             "label": "Stream habitat improvement and management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "stream_habitat_improvement_date",
-                "stream_habitat_improvement_amount"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "stream_habitat_improvement_date",
+                  "stream_habitat_improvement_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2534,10 +2553,15 @@
             "prompt": "Do you participate in livestock grazing (managing the harvest of vegetation with grazing and/or browsing animals and soil amendments)?",
             "label": "Livestock grazing",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["livestock_grazing_date", "livestock_grazing_amount"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "livestock_grazing_date",
+                  "livestock_grazing_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2588,10 +2612,15 @@
             "prompt": "Do you participate in having a watering facility? (a means of providing a controlled water source to livestock or wildlife)?",
             "label": "Watering facility",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["watering_facility_date", "watering_facility_amount"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "watering_facility_date",
+                  "watering_facility_amount"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",

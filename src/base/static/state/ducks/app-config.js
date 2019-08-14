@@ -8,6 +8,9 @@ export const themeSelector = state => {
   return state.appConfig.theme || {};
 };
 
+export const sharingProvidersSelector = state =>
+  state.appConfig.sharingProviders;
+
 export const themePropType = PropTypes.shape({
   brand: PropTypes.shape({
     primary: PropTypes.string,
@@ -83,6 +86,14 @@ const INITIAL_STATE = {
     {
       name: "facebook",
       provider: "facebook",
+    },
+  ],
+  sharingProviders: [
+    {
+      type: "twitter",
+    },
+    {
+      type: "facebook",
     },
   ],
 };

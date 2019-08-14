@@ -9,7 +9,7 @@ import getExtentFromGeometry from "turf-extent";
 import WebMercatorViewport from "viewport-mercator-project";
 
 import { LargeTitle } from "../atoms/typography";
-import PromotionBar from "./promotion-bar";
+import PromotionBar from "../molecules/promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
 import EditorBar from "./editor-bar";
