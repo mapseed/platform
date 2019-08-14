@@ -80,6 +80,7 @@ a[class*='InternalLink-NavLink'] {
 }
 
 .flow-layout-title {
+  display: flex;
   background-color: #FFF;
   position: absolute;
   padding: 5px;
@@ -94,6 +95,10 @@ a[class*='InternalLink-NavLink'] {
   color: #000;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.flow-layout-title > h5 {
+  margin: auto !important;
 }
 
 .flow-layout-title.flow-layout-title-middle {
