@@ -1,9 +1,12 @@
+/** @jsx jsx */
 import * as React from "react";
+import { jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import styled from "@emotion/styled";
 import SupportButton from "../molecules/support-button";
 import { IconButton } from "../atoms/buttons";
+import LoginModal from "../molecules/login-modal";
 
 import {
   createPlaceSupport,
@@ -12,12 +15,15 @@ import {
 import {
   sharingProvidersSelector,
   SharingProvidersConfig,
+  AppConfig,
 } from "../../state/ducks/app-config";
 import { Support } from "../../state/ducks/support-config";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
 import Util from "../../js/utils.js";
+import { userSelector, User } from "../../state/ducks/user";
+import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
 
 const SocialMediaButton = styled(IconButton)({
   float: "right",
@@ -28,15 +34,17 @@ const SocialMediaButton = styled(IconButton)({
 });
 
 type PromotionBarProps = {
+  appConfig: AppConfig;
   createPlaceSupport: typeof createPlaceSupport;
+  datasets: Dataset[];
   removePlaceSupport: typeof removePlaceSupport;
   isHorizontalLayout: boolean;
   numSupports: number;
   onSocialShare: Function;
   userSupport?: Support;
-  userToken?: string;
   placeId: number;
   placeUrl: string;
+  currentUser: User;
   sharingProviders: SharingProvidersConfig;
 };
 
@@ -67,7 +75,7 @@ class PromotionBar extends React.Component<PromotionBarProps> {
       const response = await mapseedApiClient.support.create(
         this.props.placeUrl,
         {
-          user_token: this.props.userToken,
+          user_token: this.props.currentUser.token,
           visible: true,
         },
       );
@@ -85,10 +93,24 @@ class PromotionBar extends React.Component<PromotionBarProps> {
   render() {
     return (
       <div>
-        <SupportButton
-          isSupported={!!this.props.userSupport}
-          numSupports={this.props.numSupports}
-          onClickSupport={this.onClickSupport}
+        <LoginModal
+          appConfig={this.props.appConfig}
+          render={openModal => (
+            <SupportButton
+              isSupported={!!this.props.userSupport}
+              numSupports={this.props.numSupports}
+              onClickSupport={() => {
+                if (
+                  !this.props.currentUser.isAuthenticated &&
+                  this.props.datasets.some(dataset => dataset.auth_required)
+                ) {
+                  openModal();
+                } else {
+                  this.onClickSupport();
+                }
+              }}
+            />
+          )}
         />
         <div>
           {this.props.sharingProviders.map(provider => (
@@ -107,6 +129,8 @@ class PromotionBar extends React.Component<PromotionBarProps> {
 
 const mapStateToProps = state => ({
   sharingProviders: sharingProvidersSelector(state),
+  datasets: datasetsSelector(state),
+  user: userSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -108,7 +108,7 @@ class Survey extends Component {
         .map(val => val.get(constants.FIELD_VALUE_KEY))
         .toJS();
       Util.log("USER", "place", "submit-comment-btn-click");
-      attrs[constants.USER_TOKEN_PROPERTY_NAME] = this.props.user.token;
+      attrs[constants.USER_TOKEN_PROPERTY_NAME] = this.props.currentUser.token;
 
       const response = await mapseedApiClient.comments.create(
         this.props.placeUrl,
@@ -193,7 +193,7 @@ class Survey extends Component {
                 onSubmit={evt => evt.preventDefault()}
                 onFocus={() => {
                   if (
-                    !this.props.user.isAuthenticated &&
+                    !this.props.currentUser.isAuthenticated &&
                     this.props.datasets.some(dataset => dataset.auth_required)
                   ) {
                     openModal();
@@ -266,7 +266,6 @@ Survey.propTypes = {
   submitter: PropTypes.object,
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

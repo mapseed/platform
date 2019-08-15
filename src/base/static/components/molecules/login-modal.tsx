@@ -100,7 +100,7 @@ const useStyles = makeStyles(() =>
 type Props = {
   appConfig: AppConfig;
   disableRestoreFocus?: boolean;
-  render: (openModal: () => void) => JSX.Element;
+  render: (openModal: () => void) => React.ReactNode;
 };
 
 const LoginModal = ({

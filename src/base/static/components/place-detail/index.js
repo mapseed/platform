@@ -363,6 +363,7 @@ class PlaceDetail extends Component {
             actionText={this.props.placeConfig.action_text}
           />
           <PromotionBar
+            appConfig={this.props.appConfig}
             isHorizontalLayout={isStoryChapter}
             numSupports={supports.length}
             onSocialShare={service =>
@@ -377,7 +378,7 @@ class PlaceDetail extends Component {
             )}
             placeUrl={this.props.focusedPlace.url}
             placeId={this.props.focusedPlace.id}
-            userToken={this.props.currentUser.token}
+            currentUser={this.props.currentUser}
           />
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
@@ -405,7 +406,6 @@ class PlaceDetail extends Component {
           comments={comments}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
           submitter={this.props.focusedPlace.submitter}
-          user={this.props.currentUser}
         />
       </PlaceDetailContainer>
     );
