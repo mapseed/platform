@@ -34,7 +34,6 @@
   "datasets": [
     {
       "slug": "bellevue-bike-share",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
       "clientSlug": "report",
       "anonymous_permissions": [
         {

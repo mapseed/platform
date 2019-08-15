@@ -16,11 +16,13 @@ import SurveyResponseEditor from "./survey-response-editor";
 import { SmallTitle, RegularText, ExternalLink } from "../atoms/typography";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
+import LoginModal from "../molecules/login-modal";
 
 import {
   commentFormConfigPropType,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
+import { datasetsSelector } from "../../state/ducks/datasets";
 import {
   appConfigSelector,
   appConfigPropType,
@@ -106,7 +108,7 @@ class Survey extends Component {
         .map(val => val.get(constants.FIELD_VALUE_KEY))
         .toJS();
       Util.log("USER", "place", "submit-comment-btn-click");
-      attrs[constants.USER_TOKEN_PROPERTY_NAME] = this.props.userToken;
+      attrs[constants.USER_TOKEN_PROPERTY_NAME] = this.props.user.token;
 
       const response = await mapseedApiClient.comments.create(
         this.props.placeUrl,
@@ -180,31 +182,45 @@ class Survey extends Component {
           />
         )}
         {this.state.canComment && (
-          <form
-            css={css`
-              margin-top: 16px;
-            `}
-            onSubmit={evt => evt.preventDefault()}
-          >
-            {this.state.fields
-              .map((fieldState, fieldName) => (
-                <FormField
-                  formId="commentForm"
-                  key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                  isInitializing={this.state.isInitializing}
-                  fieldConfig={this.props.commentFormConfig.items.find(
-                    field => field.name === fieldName,
-                  )}
-                  updatingField={this.state.updatingField}
-                  showValidityStatus={this.state.showValidityStatus}
-                  disabled={this.state.isFormSubmitting}
-                  onFieldChange={this.onFieldChange.bind(this)}
-                  fieldState={fieldState}
-                  onClickSubmit={this.onSubmit.bind(this)}
-                />
-              ))
-              .toArray()}
-          </form>
+          <LoginModal
+            appConfig={this.props.appConfig}
+            disableRestoreFocus={true}
+            render={openModal => (
+              <form
+                css={css`
+                  margin-top: 16px;
+                `}
+                onSubmit={evt => evt.preventDefault()}
+                onFocus={() => {
+                  if (
+                    !this.props.user.isAuthenticated &&
+                    this.props.datasets.some(dataset => dataset.auth_required)
+                  ) {
+                    openModal();
+                  }
+                }}
+              >
+                {this.state.fields
+                  .map((fieldState, fieldName) => (
+                    <FormField
+                      formId="commentForm"
+                      key={fieldState.get(constants.FIELD_RENDER_KEY)}
+                      isInitializing={this.state.isInitializing}
+                      fieldConfig={this.props.commentFormConfig.items.find(
+                        field => field.name === fieldName,
+                      )}
+                      updatingField={this.state.updatingField}
+                      showValidityStatus={this.state.showValidityStatus}
+                      disabled={this.state.isFormSubmitting}
+                      onFieldChange={this.onFieldChange.bind(this)}
+                      fieldState={fieldState}
+                      onClickSubmit={this.onSubmit.bind(this)}
+                    />
+                  ))
+                  .toArray()}
+              </form>
+            )}
+          />
         )}
         {this.props.currentUser.isAuthenticated && this.state.canComment ? (
           <span className="place-detail-survey__submit-user-info">
@@ -250,11 +266,12 @@ Survey.propTypes = {
   submitter: PropTypes.object,
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  userToken: PropTypes.string,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
+  datasets: datasetsSelector(state),
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
   commentFormConfig: commentFormConfigSelector(state),

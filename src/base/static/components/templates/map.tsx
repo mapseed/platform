@@ -23,6 +23,8 @@ import {
   navBarConfigSelector,
   navBarConfigPropType,
 } from "../../state/ducks/nav-bar-config";
+import { userSelector, User } from "../../state/ducks/user";
+import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
   layoutSelector,
   uiVisibilitySelector,
@@ -40,10 +42,7 @@ import {
   placeConfigPropType,
   placeConfigSelector,
 } from "../../state/ducks/place-config";
-import {
-  datasetsConfigSelector,
-  datasetsConfigPropType,
-} from "../../state/ducks/datasets-config";
+import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { isLeftSidebarExpandedSelector } from "../../state/ducks/left-sidebar";
 import { isRightSidebarEnabledSelector } from "../../state/ducks/right-sidebar-config";
@@ -69,6 +68,7 @@ import {
   getMainContentAreaHeight,
 } from "../../utils/layout-utils";
 import { Mixpanel } from "../../utils/mixpanel";
+import LoginModal from "../molecules/login-modal";
 
 const SpotlightMask = styled("div")({
   pointerEvents: "none",
@@ -83,24 +83,6 @@ const SpotlightMask = styled("div")({
   zIndex: 8,
 });
 
-const statePropTypes = {
-  datasetsConfig: datasetsConfigPropType.isRequired,
-  hasAddPlacePermission: PropTypes.bool.isRequired,
-  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  isAddPlaceButtonVisible: PropTypes.bool.isRequired,
-  isContentPanelVisible: PropTypes.bool.isRequired,
-  isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
-  isLeftSidebarExpanded: PropTypes.bool.isRequired,
-  isRightSidebarEnabled: PropTypes.bool.isRequired,
-  isRightSidebarVisible: PropTypes.bool.isRequired,
-  isSpotlightMaskVisible: PropTypes.bool.isRequired,
-  mapSources: mapSourcesPropType,
-  layout: PropTypes.string.isRequired,
-  mapConfig: mapConfigPropType,
-  navBarConfig: navBarConfigPropType.isRequired,
-  placeConfig: placeConfigPropType.isRequired,
-};
-
 const dispatchPropTypes = {
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
@@ -113,7 +95,26 @@ const dispatchPropTypes = {
   updateCurrentTemplate: PropTypes.func.isRequired,
 };
 
-type StateProps = PropTypes.InferProps<typeof statePropTypes>;
+type StateProps = {
+  appConfig: AppConfig;
+  datasets: Dataset[];
+  hasAddPlacePermission: boolean;
+  hasGroupAbilitiesInDatasets: Function;
+  isAddPlaceButtonVisible: boolean;
+  isContentPanelVisible: boolean;
+  isGeocodeAddressBarEnabled: boolean;
+  isLeftSidebarExpanded: boolean;
+  isRightSidebarEnabled: boolean;
+  isRightSidebarVisible: boolean;
+  isSpotlightMaskVisible: boolean;
+  mapSources: PropTypes.InferProps<typeof mapSourcesPropType>;
+  layout: string;
+  mapConfig: PropTypes.InferProps<typeof mapConfigPropType>;
+  navBarConfig: PropTypes.InferProps<typeof navBarConfigPropType.isRequired>;
+  placeConfig: PropTypes.InferProps<typeof placeConfigPropType.isRequired>;
+  user: User;
+};
+
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 interface OwnProps {
   uiConfiguration: string;
@@ -204,11 +205,11 @@ class MapTemplate extends Component<Props, State> {
     // When this component mounts in the Place detail configuration, fetch the
     // requested Place directly from the API for a better UX.
     if (placeId) {
-      const datasetConfig = this.props.datasetsConfig.find(
-        c => c.clientSlug === datasetClientSlug,
+      const dataset = this.props.datasets.find(
+        dataset => dataset.clientSlug === datasetClientSlug,
       );
 
-      if (!datasetConfig) {
+      if (!dataset) {
         // If we can't find a datasetConfig, it's likely because an invalid
         // clientSlug was supplied. In this case route back to the root.
         this.props.history.push("/");
@@ -216,9 +217,9 @@ class MapTemplate extends Component<Props, State> {
       }
 
       const response = await mapseedApiClient.place.getPlace({
-        datasetUrl: datasetConfig.url,
+        datasetUrl: dataset.url,
         clientSlug: datasetClientSlug,
-        datasetSlug: datasetConfig.slug,
+        datasetSlug: dataset.slug,
         placeId: parseInt(placeId),
         placeParams: {
           include_submissions: true,
@@ -226,7 +227,7 @@ class MapTemplate extends Component<Props, State> {
         },
         includePrivate: this.props.hasGroupAbilitiesInDatasets({
           abilities: ["can_access_protected"],
-          datasetSlugs: [datasetConfig.slug],
+          datasetSlugs: [dataset.slug],
           submissionSet: "places",
         }),
       });
@@ -235,7 +236,7 @@ class MapTemplate extends Component<Props, State> {
         // Add this Place to the places duck and update the map.
         this.props.loadPlaceAndSetIgnoreFlag(response);
         const { geometry, ...rest } = response;
-        this.props.createFeaturesInGeoJSONSource(datasetConfig.slug, [
+        this.props.createFeaturesInGeoJSONSource(dataset.slug, [
           {
             type: "Feature",
             geometry,
@@ -416,19 +417,33 @@ class MapTemplate extends Component<Props, State> {
         )}
         {this.props.isAddPlaceButtonVisible &&
           this.props.hasAddPlacePermission && (
-            <AddPlaceButton
-              ref={this.addPlaceButtonRef}
-              layout={this.props.layout}
-              onClick={() => {
-                Mixpanel.track("Click Add Place Button");
-                this.props.history.push("/new");
-              }}
-            >
-              {this.props.t(
-                "addPlaceButtonLabel",
-                this.props.placeConfig.add_button_label,
+            <LoginModal
+              appConfig={this.props.appConfig}
+              render={openModal => (
+                <AddPlaceButton
+                  ref={this.addPlaceButtonRef}
+                  layout={this.props.layout}
+                  onClick={() => {
+                    Mixpanel.track("Click Add Place Button");
+                    // If we aren't logged in, and one or more datasets are
+                    // auth_only, then render the login modal:
+                    if (
+                      !this.props.user.isAuthenticated &&
+                      this.props.datasets.some(dataset => dataset.auth_required)
+                    ) {
+                      openModal();
+                    } else {
+                      this.props.history.push("/new");
+                    }
+                  }}
+                >
+                  {this.props.t(
+                    "addPlaceButtonLabel",
+                    this.props.placeConfig.add_button_label,
+                  )}
+                </AddPlaceButton>
               )}
-            </AddPlaceButton>
+            />
           )}
         {this.props.layout === "desktop" &&
           this.props.isRightSidebarEnabled && <RightSidebar />}
@@ -440,7 +455,8 @@ class MapTemplate extends Component<Props, State> {
 type MapseedReduxState = any;
 
 const mapStateToProps = (state: MapseedReduxState): StateProps => ({
-  datasetsConfig: datasetsConfigSelector(state),
+  appConfig: appConfigSelector(state),
+  datasets: datasetsSelector(state),
   hasAddPlacePermission:
     hasAnonAbilitiesInAnyDataset({
       state: state,
@@ -472,6 +488,7 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
   placeConfig: placeConfigSelector(state),
+  user: userSelector(state),
 });
 
 const mapDispatchToProps = {

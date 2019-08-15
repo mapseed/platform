@@ -405,7 +405,7 @@ class PlaceDetail extends Component {
           comments={comments}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
           submitter={this.props.focusedPlace.submitter}
-          userToken={this.props.currentUser.token}
+          user={this.props.currentUser}
         />
       </PlaceDetailContainer>
     );

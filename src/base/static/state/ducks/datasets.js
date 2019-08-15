@@ -1,3 +1,4 @@
+import produce from "immer";
 import PropTypes from "prop-types";
 
 // Prop Types:
@@ -130,14 +131,11 @@ const INITIAL_STATE = {
   loadStatus: "unloaded",
 };
 
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case LOAD:
-      return {
-        ...state,
-        datasetModels: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+export default (state = INITIAL_STATE, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case LOAD:
+        draft.datasetModels = action.payload;
+        return draft;
+    }
+  });
