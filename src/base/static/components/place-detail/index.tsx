@@ -51,7 +51,7 @@ import {
   isEditModeToggled,
   layoutSelector,
   updateEditModeToggled,
-  updateUIVisibility,
+  updateSpotlightMaskVisibility,
   Layout,
 } from "../../state/ducks/ui";
 import { focusedPlaceSelector, Place } from "../../state/ducks/places";
@@ -82,10 +82,6 @@ const PromotionMetadataContainer = styled("div")({
   marginBottom: "24px",
 });
 
-// const PlaceDetailContainer = styled("div")(props => ({
-//   marginTop: props.isEditable && props.layout === "desktop" ? "58px" : 0,
-// }));
-
 type OwnProps = {
   contentPanelInnerContainerRef: React.RefObject<HTMLDivElement>;
   mapContainerRef: React.RefObject<HTMLElement>;
@@ -110,12 +106,11 @@ type StateProps = {
 };
 
 type Props = {
-  // container: HTMLElement;
   removeFocusedGeoJSONFeatures: Function;
   updateEditModeToggled: Function;
   updateFocusedGeoJSONFeatures: typeof updateFocusedGeoJSONFeatures;
   updateLayerGroupVisibility: Function;
-  updateSpotlightMaskVisibility: Function;
+  updateSpotlightMaskVisibility: typeof updateSpotlightMaskVisibility;
 } & OwnProps &
   StateProps &
   WithTranslation;
@@ -198,7 +193,6 @@ class PlaceDetail extends React.Component<Props, State> {
         latitude: featuredPlace.panTo[1],
         longitude: featuredPlace.panTo[0],
         transitionDuration: 3000,
-        // zoom: featuredPlace.zoom,
       };
       if (featuredPlace.zoom) {
         newViewport.zoom = featuredPlace.zoom;
@@ -206,7 +200,6 @@ class PlaceDetail extends React.Component<Props, State> {
 
       eventEmitter.emit("setMapViewport", newViewport);
     } else if (
-      // this.props.focusedPlace.geometry.type === "LineString"
       this.props.focusedPlace.geometry.type === "LineString" ||
       this.props.focusedPlace.geometry.type === "Polygon"
     ) {
@@ -480,17 +473,13 @@ class PlaceDetail extends React.Component<Props, State> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  removeFocusedGeoJSONFeatures: () => dispatch(removeFocusedGeoJSONFeatures()),
-  updateEditModeToggled: isToggled =>
-    dispatch(updateEditModeToggled(isToggled)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
-  updateFocusedGeoJSONFeatures: newFeatures =>
-    dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
-  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
-    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-});
+const mapDispatchToProps = {
+  removeFocusedGeoJSONFeatures,
+  updateEditModeToggled,
+  updateSpotlightMaskVisibility,
+  updateFocusedGeoJSONFeatures,
+  updateLayerGroupVisibility,
+};
 
 const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   appConfig: appConfigSelector(state),
