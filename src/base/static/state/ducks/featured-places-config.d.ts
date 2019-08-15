@@ -7,7 +7,7 @@ export type FeaturedPlace = {
   zoom?: number;
   hasCustomZoom?: boolean;
   panTo?: number[];
-  visibleLaygerGroupIds?: string[];
+  visibleLayerGroupIds?: string[];
   previous?: string;
   next?: string;
   iconUrl?: string;

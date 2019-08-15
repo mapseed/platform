@@ -14,15 +14,26 @@ export type Tag = {
 
 export const placeTagPropType: any;
 
-export type PlaceTag = {
-  id: number;
-  note?: string;
-  tag: string;
-  url: string;
-};
-
 export const datasetsPropType: any;
 
+// The Dataset as it comes back from our api:
+export type DatasetFromAPI = {
+  url: string;
+  owner: string;
+  places: {
+    length: number;
+    url: string;
+  };
+  tags: Tag[];
+  submission_sets: object; // TODO
+  display_name: string;
+  auth_required: boolean;
+  slug: string;
+};
+
+// our internal Dataset representation.
+// TODO: update serialization in apiClient, and refactor snake case to
+// camelCase.
 export type Dataset = {
   url: string;
   owner: string;
@@ -33,6 +44,8 @@ export type Dataset = {
   tags: Tag[];
   submission_sets: object; // TODO
   display_name: string;
+  auth_required: boolean;
+  clientSlug: string;
   slug: string;
 };
 

@@ -18,6 +18,7 @@ type DatasetReport = {
 };
 
 export type Ability = "create" | "retrieve" | "update" | "destroy";
+export type SubmissionSet = "comments" | "support" | "places";
 
 export type DatasetConfig = {
   url: string;
@@ -37,7 +38,7 @@ export const hasAnonAbilitiesInAnyDataset: ({
 }: {
   state: any;
   abilities: Ability[];
-  submissionSet: string;
+  submissionSet: SubmissionSet;
 }) => boolean;
 
 export const hasAnonAbilitiesInDataset: ({
@@ -48,7 +49,7 @@ export const hasAnonAbilitiesInDataset: ({
 }: {
   state: any;
   abilities: Ability[];
-  submissionSet: string;
+  submissionSet: SubmissionSet;
   datasetSlug: string;
 }) => boolean;
 

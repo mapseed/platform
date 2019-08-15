@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Feature, Point, LineString, Polygon } from "geojson";
+
+type MapseedGeometry = Point | LineString | Polygon;
+
 export const mapViewportPropType: any;
 
 export type FilterSlider = {
@@ -66,7 +70,7 @@ export type SourcesMetadata = {
   };
 };
 
-export const layerGroupsSelector: any;
+export const layerGroupsSelector: (state: any) => LayerGroups;
 export const layersSelector: any;
 export const mapStyleSelector: any;
 export const mapSourcesSelector: any;
@@ -92,7 +96,14 @@ export const updateLayerAggregators: (
   aggregators: string[],
 ) => void;
 
-export const updateFocusedGeoJSONFeatures: any;
+declare type Action = {
+  type: string;
+  payload: any;
+};
+
+export const updateFocusedGeoJSONFeatures: (
+  features: Feature<MapseedGeometry>[],
+) => Action;
 
 export const updateLayerGroupVisibility: (
   id: string,

@@ -1,3 +1,9 @@
+// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/geojson/index.d.ts
+import { Point, LineString, Polygon } from "geojson";
+import { PlaceTag, Support, Comment } from "../../models/place";
+
+type MapseedGeometry = Point | LineString | Polygon;
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const placesPropType: any;
 export const placePropType: any;
@@ -10,13 +16,20 @@ export type Place = {
   visible: boolean;
   datasetSlug: string;
   submitter_name?: string;
-  submission_sets: any;
+  submission_sets: {
+    support: Support[];
+    comments: Comment[];
+  };
   id: number;
   url: string;
   title: string;
   clientSlug: string;
   location_type: string;
   submitter?: any;
+  geometry: MapseedGeometry;
+  tags: PlaceTag[];
+  // TODO: Deprecate this, if possible:
+  story: any;
 };
 
 export const placesLoadStatusSelector: any;
@@ -28,7 +41,7 @@ export const datasetLengthSelector: any;
 
 export const placeSelector: any;
 
-export const focusedPlaceSelector: any;
+export const focusedPlaceSelector: (state: any) => Place;
 
 export const placeExists: any;
 

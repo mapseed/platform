@@ -6,6 +6,8 @@ export const isEditModeToggled = state => state.ui.isEditModeToggled;
 // TODO: Replace this general visibility selector with UI-specific selectors.
 export const uiVisibilitySelector = (uiComponentName, state) =>
   state.ui.uiVisibility[uiComponentName];
+export const rightSidebarVisibilitySelector = state =>
+  state.ui.uiVisibility.rightSidebar;
 export const measurementToolVisibilitySelector = state =>
   state.ui.uiVisibility.measurementTool;
 export const contentPanelComponentSelector = state =>
