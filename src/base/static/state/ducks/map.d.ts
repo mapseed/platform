@@ -37,7 +37,6 @@ export type InteractionStateDiff = {
   isMapDraggedOrZoomedByUser?: boolean;
 };
 
-
 export type FilterSliderConfig = {
   layerGroupId: string;
   initialValue: number;
