@@ -17,13 +17,13 @@ import {
   SharingProvidersConfig,
   AppConfig,
 } from "../../state/ducks/app-config";
-import { Support } from "../../state/ducks/support-config";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
 import Util from "../../js/utils.js";
 import { userSelector, User } from "../../state/ducks/user";
 import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
+import { Support } from "../../models/place";
 
 const SocialMediaButton = styled(IconButton)({
   float: "right",

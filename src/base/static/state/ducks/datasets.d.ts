@@ -14,13 +14,6 @@ export type Tag = {
 
 export const placeTagPropType: any;
 
-export type PlaceTag = {
-  id: number;
-  note?: string;
-  tag: string;
-  url: string;
-};
-
 export const datasetsPropType: any;
 
 // The Dataset as it comes back from our api:

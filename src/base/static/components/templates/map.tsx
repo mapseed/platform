@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import React, { Component, createRef, Fragment } from "react";
+/** @jsx jsx */
+import * as React from "react";
 import { findDOMNode } from "react-dom";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
@@ -145,9 +146,9 @@ type Props = StateProps &
   RouteComponentProps<{}> &
   WithTranslation;
 
-class MapTemplate extends Component<Props, State> {
-  private mapContainerRef = createRef<HTMLDivElement>();
-  private addPlaceButtonRef = createRef<HTMLDivElement>();
+class MapTemplate extends React.Component<Props, State> {
+  private mapContainerRef = React.createRef<HTMLDivElement>();
+  private addPlaceButtonRef = React.createRef<HTMLDivElement>();
 
   state: State = {
     // NOTE: These dimension "declarations" will be CSS strings, as set by the
@@ -374,7 +375,7 @@ class MapTemplate extends Component<Props, State> {
 
   render() {
     return (
-      <Fragment>
+      <React.Fragment>
         {this.props.isGeocodeAddressBarEnabled && (
           <GeocodeAddressBar mapConfig={this.props.mapConfig} />
         )}
@@ -447,7 +448,7 @@ class MapTemplate extends Component<Props, State> {
           )}
         {this.props.layout === "desktop" &&
           this.props.isRightSidebarEnabled && <RightSidebar />}
-      </Fragment>
+      </React.Fragment>
     );
   }
 }

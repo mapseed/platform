@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import React, { Component } from "react";
-import { findDOMNode } from "react-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import * as React from "react";
 import { css, jsx } from "@emotion/core";
+import { findDOMNode } from "react-dom";
+import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import getExtentFromGeometry from "turf-extent";
 import WebMercatorViewport from "viewport-mercator-project";
@@ -24,50 +23,58 @@ import PalouseFieldSummary from "./palouse-field-summary";
 import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
 import KittitasFireReadyFieldSummary from "./kittitas-fire-ready-field-summary";
 
-import {
-  appConfigSelector,
-  appConfigPropType,
-} from "../../state/ducks/app-config";
+import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
   commentFormConfigPropType,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
-import { supportConfigSelector } from "../../state/ducks/support-config";
-import { placeConfigSelector } from "../../state/ducks/place-config";
+import {
+  supportConfigSelector,
+  SupportConfig,
+} from "../../state/ducks/support-config";
+import {
+  placeConfigSelector,
+  PlaceConfig,
+} from "../../state/ducks/place-config";
 import {
   featuredPlacesSelector,
-  featuredPlacesPropType,
+  FeaturedPlace,
 } from "../../state/ducks/featured-places-config";
 import {
-  userPropType,
   userSelector,
   hasUserAbilitiesInPlace,
   hasGroupAbilitiesInDatasets,
   hasAdminAbilities,
+  User,
 } from "../../state/ducks/user";
 import {
   isEditModeToggled,
   layoutSelector,
   updateEditModeToggled,
   updateUIVisibility,
+  Layout,
 } from "../../state/ducks/ui";
-import { placePropType, focusedPlaceSelector } from "../../state/ducks/places";
+import { focusedPlaceSelector, Place } from "../../state/ducks/places";
 import {
   removeFocusedGeoJSONFeatures,
   updateFocusedGeoJSONFeatures,
   updateLayerGroupVisibility,
   layerGroupsSelector,
-  layerGroupsPropType,
+  LayerGroups,
 } from "../../state/ducks/map-style";
-import { customComponentsConfigSelector } from "../../state/ducks/custom-components-config";
+import {
+  customComponentsConfigSelector,
+  CustomComponentsConfig,
+} from "../../state/ducks/custom-components-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import Util from "../../js/utils.js";
 import { jumpTo } from "../../utils/scroll-helpers";
 
-import { withTranslation } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import "./index.scss";
 import eventEmitter from "../../utils/event-emitter";
+import { MapViewportDiff } from "../../state/ducks/map";
 
 const PromotionMetadataContainer = styled("div")({
   display: "flex",
@@ -75,12 +82,52 @@ const PromotionMetadataContainer = styled("div")({
   marginBottom: "24px",
 });
 
-const PlaceDetailContainer = styled("div")(props => ({
-  marginTop: props.isEditable && props.layout === "desktop" ? "58px" : 0,
-}));
+// const PlaceDetailContainer = styled("div")(props => ({
+//   marginTop: props.isEditable && props.layout === "desktop" ? "58px" : 0,
+// }));
 
-class PlaceDetail extends Component {
-  state = {
+type OwnProps = {
+  contentPanelInnerContainerRef: React.RefObject<HTMLDivElement>;
+  mapContainerRef: React.RefObject<HTMLElement>;
+  isGeocodingBarEnabled: boolean; // TODO: where are we getting this prop?
+};
+
+type StateProps = {
+  appConfig: AppConfig;
+  currentUser: User;
+  customComponents: CustomComponentsConfig;
+  focusedPlace: Place;
+  featuredPlaces: FeaturedPlace[];
+  hasAdminAbilities: Function;
+  hasGroupAbilitiesInDatasets: Function;
+  hasUserAbilitiesInPlace: Function;
+  isEditModeToggled: boolean;
+  layerGroups: LayerGroups;
+  layout: Layout;
+  commentFormConfig: commentFormConfigPropType.isRequired;
+  supportConfig: SupportConfig;
+  placeConfig: PlaceConfig;
+};
+
+type Props = {
+  // container: HTMLElement;
+  removeFocusedGeoJSONFeatures: Function;
+  updateEditModeToggled: Function;
+  updateFocusedGeoJSONFeatures: typeof updateFocusedGeoJSONFeatures;
+  updateLayerGroupVisibility: Function;
+  updateSpotlightMaskVisibility: Function;
+} & OwnProps &
+  StateProps &
+  WithTranslation;
+
+type State = {
+  isSurveyEditFormSubmitting: boolean;
+  isPlaceDetailEditable: boolean;
+  placeRequestType: string | null;
+};
+
+class PlaceDetail extends React.Component<Props, State> {
+  state: State = {
     isSurveyEditFormSubmitting: false,
     isPlaceDetailEditable: false,
     placeRequestType: null,
@@ -139,7 +186,7 @@ class PlaceDetail extends Component {
       this.props.layerGroups.allIds
         .filter(
           layerGroupId =>
-            !featuredPlace.visibleLayerGroupIds.includes(layerGroupId),
+            !featuredPlace.visibleLayerGroupIds!.includes(layerGroupId),
         )
         .forEach(layerGroupId =>
           this.props.updateLayerGroupVisibility(layerGroupId, false),
@@ -147,10 +194,11 @@ class PlaceDetail extends Component {
     }
 
     if (featuredPlace && featuredPlace.panTo) {
-      const newViewport = {
+      const newViewport: MapViewportDiff = {
         latitude: featuredPlace.panTo[1],
         longitude: featuredPlace.panTo[0],
         transitionDuration: 3000,
+        // zoom: featuredPlace.zoom,
       };
       if (featuredPlace.zoom) {
         newViewport.zoom = featuredPlace.zoom;
@@ -158,6 +206,7 @@ class PlaceDetail extends Component {
 
       eventEmitter.emit("setMapViewport", newViewport);
     } else if (
+      // this.props.focusedPlace.geometry.type === "LineString"
       this.props.focusedPlace.geometry.type === "LineString" ||
       this.props.focusedPlace.geometry.type === "Polygon"
     ) {
@@ -175,7 +224,7 @@ class PlaceDetail extends Component {
         zoom: newViewport.zoom,
       });
     } else if (this.props.focusedPlace.geometry.type === "Point") {
-      const newViewport = {
+      const newViewport: MapViewportDiff = {
         latitude: this.props.focusedPlace.geometry.coordinates[1],
         longitude: this.props.focusedPlace.geometry.coordinates[0],
         transitionDuration: featuredPlace ? 3000 : 200,
@@ -198,35 +247,50 @@ class PlaceDetail extends Component {
     this.props.updateFocusedGeoJSONFeatures([
       {
         type: "Feature",
-        geometry: {
-          type: geometry.type,
-          coordinates: geometry.coordinates,
-        },
+        geometry,
+        // Note: I *think* the above should be equivalent this existing code:
+        // geometry: {
+        //   type,
+        //   coordinates,
+        // },
         properties: rest,
       },
     ]);
   }
 
   getWebMercatorViewport() {
-    const containerDims = findDOMNode(
-      this.props.mapContainerRef.current,
-    ).getBoundingClientRect();
+    const node = findDOMNode(this.props.mapContainerRef.current);
+    if (node instanceof Element) {
+      const containerDims = node.getBoundingClientRect();
 
-    return new WebMercatorViewport({
-      width: containerDims.width,
-      height: containerDims.height,
-    });
+      return new WebMercatorViewport({
+        width: containerDims.width,
+        height: containerDims.height,
+      });
+    } else {
+      throw new Error(
+        "PlaceDetail.getWebMercatorViewport: could not find map container ref",
+      );
+    }
   }
 
   onMountTargetResponse(responseRef) {
     requestAnimationFrame(() => {
-      jumpTo({
-        contentPanelInnerContainerRef: this.props.contentPanelInnerContainerRef,
-        // TODO: Remove the magic number here.
-        scrollPosition:
-          findDOMNode(responseRef.current).getBoundingClientRect().top - 120,
-        layout: this.props.layout,
-      });
+      const node = findDOMNode(responseRef.current);
+      if (node instanceof Element) {
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          // TODO: Remove the magic number here.
+          scrollPosition: node.getBoundingClientRect().top - 120,
+          layout: this.props.layout,
+        });
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "PlaceDetail.getWebMercatorViewport: could not find response ref",
+        );
+      }
     });
   }
 
@@ -241,7 +305,7 @@ class PlaceDetail extends Component {
   }
 
   render() {
-    const isStoryChapter = !!this.props.focusedPlace.story;
+    const isStoryChapter = !!this.props.focusedPlace.story; // Can we deprecate this?
     const supports = this.props.focusedPlace.submission_sets.support;
     const comments = this.props.focusedPlace.submission_sets.comments;
     const categoryConfig = getCategoryConfig(
@@ -313,9 +377,14 @@ class PlaceDetail extends Component {
     }
 
     return (
-      <PlaceDetailContainer
-        isEditable={this.state.isPlaceDetailEditable || isTagBarEditable}
-        layout={this.props.layout}
+      <div
+        css={{
+          marginTop:
+            (this.state.isPlaceDetailEditable || isTagBarEditable) &&
+            this.props.layout === "desktop"
+              ? "58px"
+              : 0,
+        }}
       >
         {(this.state.isPlaceDetailEditable || isTagBarEditable) && (
           <EditorBar
@@ -326,7 +395,6 @@ class PlaceDetail extends Component {
             isPlaceDetailEditable={this.state.isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
             isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
-            isSubmitting={this.state.isEditFormSubmitting}
             onClickRemovePlace={() => this.setPlaceRequestType("remove")}
             onClickUpdatePlace={() => this.setPlaceRequestType("update")}
             onToggleEditMode={() => {
@@ -407,37 +475,10 @@ class PlaceDetail extends Component {
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
           submitter={this.props.focusedPlace.submitter}
         />
-      </PlaceDetailContainer>
+      </div>
     );
   }
 }
-
-PlaceDetail.propTypes = {
-  appConfig: appConfigPropType,
-  container: PropTypes.instanceOf(HTMLElement),
-  contentPanelInnerContainerRef: PropTypes.object.isRequired,
-  currentUser: userPropType,
-  customComponents: PropTypes.object.isRequired,
-  focusedPlace: placePropType,
-  featuredPlaces: featuredPlacesPropType,
-  hasAdminAbilities: PropTypes.func.isRequired,
-  hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
-  hasUserAbilitiesInPlace: PropTypes.func.isRequired,
-  isEditModeToggled: PropTypes.bool.isRequired,
-  isGeocodingBarEnabled: PropTypes.bool,
-  layerGroups: layerGroupsPropType,
-  layout: PropTypes.string.isRequired,
-  mapContainerRef: PropTypes.object.isRequired,
-  placeConfig: PropTypes.object.isRequired,
-  removeFocusedGeoJSONFeatures: PropTypes.func.isRequired,
-  supportConfig: PropTypes.object.isRequired,
-  commentFormConfig: commentFormConfigPropType.isRequired,
-  t: PropTypes.func.isRequired,
-  updateEditModeToggled: PropTypes.func.isRequired,
-  updateFocusedGeoJSONFeatures: PropTypes.func.isRequired,
-  updateLayerGroupVisibility: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = dispatch => ({
   removeFocusedGeoJSONFeatures: () => dispatch(removeFocusedGeoJSONFeatures()),
@@ -451,7 +492,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   appConfig: appConfigSelector(state),
   currentUser: userSelector(state),
   customComponents: customComponentsConfigSelector(state),
