@@ -562,33 +562,6 @@
         ]
       },
       {
-        "id": "navigation-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "navigation-labels",
-            "type": "raster",
-            "source": "navigation",
-            "paint": {
-              "raster-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                5,
-                0,
-                6,
-                1,
-                16,
-                1,
-                17,
-                0
-              ]
-            }
-          }
-        ]
-      },
-      {
         "id": "urbanized-group",
         "basemap": false,
         "visibleDefault": false,
@@ -920,6 +893,33 @@
             "id": "streets2-basemap",
             "type": "raster",
             "source": "streets2"
+          }
+        ]
+      },
+      {
+        "id": "navigation-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "navigation-labels",
+            "type": "raster",
+            "source": "navigation",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                0,
+                6,
+                1,
+                16,
+                1,
+                17,
+                0
+              ]
+            }
           }
         ]
       },
@@ -1641,42 +1641,62 @@
       "slug": "fieldstations",
       "lang": "en",
       "content": [
-        "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
-        "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/7529' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/MachinicRiver.jpg'/>",
+        "<h3>Canoes set out from Lake Itasca. Field stations greet them along the river. It all culminates with an Anthropocene Campus in New Orleans.</h3>",
+        "<p>Click the images for artworks, research and events. Open the panel on the right for additional thematic maps. Add your own material if you feel it.</p>",
+        "<figure class='flow-layout'>",
+        "<a href='/featured/7569' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/RiverJourney.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Machinic River</h3>",
+        "<h5>River Journey</h5>",
         "</figcaption>",
         "</a>",
         "</figure>",
-        "<figure class='flow-layout flow-sq flow-vert-right'>",
-        "<a href='/featured/7530' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceRegion.jpg'/>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7529' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/MachinicRiver.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Confluence Ecologies</h3>",
+        "<h5>Sediment, Settlement, Sentiment</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-right'>",
+        "<a href='/featured/7532' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/AnthropoceneDrift.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>Anthropocene Drift</h5>",
         "</figcaption>",
         "</a>",
         "</figure>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
         "<a href='/featured/7533' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/IndustryIndigeneity&Empire.jpg'/>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/IndustryIndigeneity&Empire.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Industry, Indigeneity, and Empire</h3>",
+        "<h5>Industry, Indigeneity & Empire</h5>",
         "</figcaption>",
         "</a>",
         "</figure>",
-        "<a href='/featured/7532' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/AnthropoceneDrift.jpg'/>",
+        "<figure class='flow-layout flow-sq flow-sq-right'>",
+        "<a href='/featured/7530' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/ConfluenceEcologies.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Anthropocene Drift</h3>",
+        "<h5>Confluence Ecologies</h5>",
         "</figcaption>",
-        "</a>"
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-horizontal flow-horizontal-left'>",
+        "<a href='/featured/7597' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/NOCGS.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>The Human Delta</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<p></p>"
       ]
     }
   ],
   "featuredPlaces": {
-    "header": "Field Stations/Thematic Maps",
+    "header": "Sites / Thematic Maps",
     "visibleLayerGroupIds": [
       "ocean-satellite",
       "streets-group",
@@ -1686,17 +1706,29 @@
     "order": [
       {
         "placeId": 7569,
-        "pan_to": [-93.1, 45.2],
-        "zoom": 6.5,
+        "pan_to": [-93.047, 44.886],
+        "zoom": 10.8,
         "iconUrl": "/static/css/images/markers/Fractal3.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "mississippi-group",
           "navigation-group",
-          "USGSstations-group",
-          "USACEstations-group",
           "streets2-group",
           "mississippi-input"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7598,
+        "pan_to": [-96.793, 40.178],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/gauge.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "USGSstations-group",
+          "USACEstations-group",
+          "streets2-group"
         ],
         "spotlight": false
       },
@@ -1739,6 +1771,20 @@
         "spotlight": false
       },
       {
+        "placeId": 7531,
+        "pan_to": [-96.37687, 42.32885],
+        "zoom": 4.63,
+        "iconUrl": "/static/css/images/markers/nitrogen.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "nitrogen-plants-group",
+          "nitrogen-deposition-group",
+          "streets-group",
+          "mississippi-group"
+        ],
+        "spotlight": false
+      },
+      {
         "placeId": 7530,
         "pan_to": [-89.143, 37.16],
         "zoom": 8,
@@ -1755,20 +1801,6 @@
         "spotlight": false
       },
       {
-        "placeId": 7531,
-        "pan_to": [-96.37687, 42.32885],
-        "zoom": 4.63,
-        "iconUrl": "/static/css/images/markers/nitrogen.png",
-        "visibleLayerGroupIds": [
-          "ocean-satellite",
-          "nitrogen-plants-group",
-          "nitrogen-deposition-group",
-          "streets-group",
-          "mississippi-group"
-        ],
-        "spotlight": false
-      },
-      {
         "placeId": 7538,
         "pan_to": [-93.97, 39.44],
         "zoom": 4.5,
@@ -1779,6 +1811,19 @@
           "streets-group",
           "NuclearComplex-group",
           "NuclearPlants-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7597,
+        "pan_to": [-90.12, 29.94],
+        "zoom": 12,
+        "iconUrl": "/static/css/images/markers/Fractal6.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "streets-group",
+          "mississippi-input",
+          "mississippi-group"
         ],
         "spotlight": false
       }

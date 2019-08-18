@@ -1,5 +1,5 @@
 import { DatasetConfig } from "../../state/ducks/datasets-config";
-import { Dataset } from "../../state/ducks/datasets";
+import { Dataset, DatasetFromAPI } from "../../state/ducks/datasets";
 
 const getDatasets = async (
   datasetConfigs: DatasetConfig[],
@@ -11,13 +11,14 @@ const getDatasets = async (
       });
 
       if (response.status < 200 || response.status >= 300) {
-        // eslint-disable-next-line no-console
-        console.error("Error: Failed to fetch datasets.", response.statusText);
-
-        return null;
+        throw Error(`Error: Failed to fetch datasets: ${response.statusText}`);
       }
 
-      return response.json();
+      const dataset: DatasetFromAPI = await response.json();
+      return {
+        ...dataset,
+        clientSlug: datasetConfig.clientSlug,
+      };
     }),
   );
 };

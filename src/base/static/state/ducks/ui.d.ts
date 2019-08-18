@@ -4,10 +4,13 @@ declare type Action = {
   payload: any;
 };
 
+export type Layout = "desktop" | "mobile";
+
 export const currentTemplateSelector: any;
 export const isEditModeToggled: any;
 // TODO: Replace this general visibility selector with UI-specific selectors.
 export const uiVisibilitySelector: any;
+export const rightSidebarVisibilitySelector: (state: any) => boolean;
 export const measurementToolVisibilitySelector: any;
 export const contentPanelComponentSelector: any;
 export const pageSlugSelector: any;

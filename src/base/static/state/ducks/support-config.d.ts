@@ -1,18 +1,3 @@
-import { User } from "./user";
-
-export type Support = {
-  url: string;
-  created_datetime: string;
-  update_datetime: string;
-  dataset: string;
-  id: number;
-  place: string;
-  set: string;
-  user_token: string;
-  visibile: boolean;
-  submitter?: User;
-};
-
 export type SupportConfig = {
   submission_type: "support";
   submit_btn_text: string;

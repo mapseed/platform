@@ -29,38 +29,43 @@ export const datasetsConfigPropType = PropTypes.arrayOf(
   }),
 ).isRequired;
 
+// TODO: refactor these to use Datasets, not DatasetConfigs, and move into a
+// "permissions" util.
 export const hasAnonAbilitiesInAnyDataset = ({
   state,
   abilities,
   submissionSet,
 }) =>
-  state.datasetsConfig.some(config =>
-    config.anonymous_permissions.some(
-      perm =>
-        (perm.submission_set === "*" ||
-          perm.submission_set === submissionSet) &&
-        // All the passed abilities must exist in the array of allowed
-        // abilities.
-        abilities.filter(ability => perm.abilities.includes(ability)).length ===
-          abilities.length,
-    ),
-  );
+  datasetsConfigSelector(state)
+    .filter(config => !config.auth_required)
+    .some(config =>
+      config.anonymous_permissions.some(
+        perm =>
+          (perm.submission_set === "*" ||
+            perm.submission_set === submissionSet) &&
+          // All the passed abilities must exist in the array of allowed
+          // abilities.
+          abilities.filter(ability => perm.abilities.includes(ability))
+            .length === abilities.length,
+      ),
+    );
 export const hasAnonAbilitiesInDataset = ({
   state,
   abilities,
   submissionSet,
   datasetSlug,
 }) =>
-  state.datasetsConfig.some(config =>
-    config.anonymous_permissions.some(
-      perm =>
-        config.slug === datasetSlug &&
-        (perm.submission_set === "*" ||
-          perm.submission_set === submissionSet) &&
-        abilities.filter(ability => perm.abilities.includes(ability)).length ===
-          abilities.length,
-    ),
-  );
+  datasetsConfigSelector(state)
+    .filter(config => config.slug === datasetSlug && !config.auth_required)
+    .some(config =>
+      config.anonymous_permissions.some(
+        perm =>
+          (perm.submission_set === "*" ||
+            perm.submission_set === submissionSet) &&
+          abilities.filter(ability => perm.abilities.includes(ability))
+            .length === abilities.length,
+      ),
+    );
 
 // Actions:
 const LOAD = "datasets-config/LOAD";

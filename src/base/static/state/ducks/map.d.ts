@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Feature, Geometry, GeoJsonProperties } from "geojson";
+import {
+  Feature,
+  Point,
+  Polygon,
+  LineString,
+  GeoJsonProperties,
+} from "geojson";
 
 export const UPDATE_MAPVIEWPORT: string;
 
@@ -30,15 +36,6 @@ export type InteractionStateDiff = {
   isMapDraggingOrZooming?: boolean;
   isMapDraggedOrZoomedByUser?: boolean;
 };
-
-export interface LayerFeature<
-  G extends Geometry | null = Geometry,
-  P = GeoJsonProperties
-> extends Feature {
-  layer: {
-    id: string;
-  };
-}
 
 export type FilterSliderConfig = {
   layerGroupId: string;

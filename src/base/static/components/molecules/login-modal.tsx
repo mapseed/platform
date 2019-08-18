@@ -98,83 +98,91 @@ const useStyles = makeStyles(() =>
 );
 
 type Props = {
-  isOpen: boolean;
-  onClose: () => void;
   appConfig: AppConfig;
+  disableRestoreFocus?: boolean;
+  render: (openModal: () => void) => React.ReactNode;
 };
 
-const LoginModal: React.FunctionComponent<Props> = ({
-  isOpen,
-  onClose,
+const LoginModal = ({
   appConfig,
-}) => {
-  const [t, _] = useTranslation();
+  disableRestoreFocus = false,
+  render,
+}: Props) => {
+  const [t] = useTranslation();
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const openModal = () => setIsOpen(true);
   const classes = useStyles();
   return (
-    <Dialog
-      onClose={onClose}
-      aria-labelledby="simple-dialog-title"
-      open={isOpen}
-    >
-      <DialogTitle
-        css={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+    <React.Fragment>
+      {render(openModal)}
+      <Dialog
+        onClose={() => {
+          setIsOpen(false);
         }}
-        disableTypography
+        aria-labelledby="simple-dialog-title"
+        open={isOpen}
+        disableRestoreFocus={disableRestoreFocus}
       >
-        <Typography css={{ textAlign: "center", width: "100%" }} variant="h5">
-          {t("signIn", "Sign In")}
-        </Typography>
-        <IconButton
+        <DialogTitle
           css={{
-            color: "#ff5e99",
-            width: "32px",
-            height: "32px",
-            margin: "8px 8px 0 0",
-            top: 0,
-            right: 0,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-          classes={{ root: classes.button, label: classes.button }}
-          aria-label="close"
-          onClick={onClose}
+          disableTypography
         >
-          {"✕"}
-        </IconButton>
-      </DialogTitle>
-      <Divider />
-      <DialogContent
-        css={{
-          padding: "24px",
-          minWidth: "240px",
-        }}
-      >
-        <List>
-          {appConfig.loginProviders.map(loginProvider => (
-            <SocialLoginButton
-              key={loginProvider.provider}
-              loginProvider={loginProvider}
-              apiRoot={appConfig.api_root}
-            />
-          ))}
-        </List>
-        <DialogContentText
-          css={{ fontSize: ".8em" }}
-          variant="body2"
-          align="center"
-        >
-          {"By signing up, you agree to our "}
-          <Link
-            target="_blank"
-            href="https://mapseed.org/privacy"
-            underline="always"
+          <Typography css={{ textAlign: "center", width: "100%" }} variant="h5">
+            {t("signIn", "Sign In")}
+          </Typography>
+          <IconButton
+            css={{
+              color: "#ff5e99",
+              width: "32px",
+              height: "32px",
+              margin: "8px 8px 0 0",
+              top: 0,
+              right: 0,
+            }}
+            classes={{ root: classes.button, label: classes.button }}
+            aria-label="close"
+            onClick={() => setIsOpen(false)}
           >
-            {"Privacy Policy"}
-          </Link>
-        </DialogContentText>
-      </DialogContent>
-    </Dialog>
+            {"✕"}
+          </IconButton>
+        </DialogTitle>
+        <Divider />
+        <DialogContent
+          css={{
+            padding: "24px",
+            minWidth: "240px",
+          }}
+        >
+          <List>
+            {appConfig.loginProviders.map(loginProvider => (
+              <SocialLoginButton
+                key={loginProvider.provider}
+                loginProvider={loginProvider}
+                apiRoot={appConfig.api_root}
+              />
+            ))}
+          </List>
+          <DialogContentText
+            css={{ fontSize: ".8em" }}
+            variant="body2"
+            align="center"
+          >
+            {"By signing up, you agree to our "}
+            <Link
+              target="_blank"
+              href="https://mapseed.org/privacy"
+              underline="always"
+            >
+              {"Privacy Policy"}
+            </Link>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+    </React.Fragment>
   );
 };
 
