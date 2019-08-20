@@ -254,9 +254,11 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/Nuclear_Plants.geojson"
       },
-      "nuclear-plants-timeslider": {
-        "type": "geojson",
-        "data": "https://assets.mapseed.org/geo/mississippi_nuclear-plants.geojson"
+      "mississippi-nuclear-plants": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/mississippi-nuclear-plants/{z}/{x}/{y}.pbf"
+        ]
       },
       "ActiveCoalMines": {
         "type": "geojson",
@@ -830,7 +832,8 @@
           {
             "id": "nuclear-plants-timeslider-labels",
             "type": "symbol",
-            "source": "nuclear-plants-timeslider",
+            "source": "mississippi-nuclear-plants",
+            "source-layer": "mississippi-nuclear-plants",
             "layout": {
               "icon-allow-overlap": true,
               "icon-size": 0.5,
@@ -1865,8 +1868,7 @@
           "ocean-satellite",
           "mississippi-group",
           "streets-group",
-          "NuclearComplex-group",
-          "NuclearPlants-group"
+          "nuclear-plants-timeslider-group"
         ],
         "spotlight": false
       },
