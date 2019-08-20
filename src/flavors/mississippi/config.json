@@ -8,7 +8,6 @@
   "datasets": [
     {
       "slug": "mississippi-input",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-input",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +18,6 @@
     },
     {
       "slug": "mississippi-featured",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mississippi-featured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
@@ -67,6 +65,10 @@
       {
         "name": "facebook",
         "provider": "facebook"
+      },
+      {
+        "name": "discourse",
+        "provider": "discourse-hdk"
       }
     ]
   },
@@ -118,6 +120,16 @@
             "label": "Urban runoff"
           }
         ]
+      },
+      "filterSlider": {
+        "layerGroupId": "nuclear-plants-timeslider-group",
+        "initialValue": 1942,
+        "min": 1942,
+        "max": 2015,
+        "step": 3,
+        "label": "nuclear plants over time",
+        "property": "date",
+        "comparator": "<="
       }
     }
   },
@@ -191,17 +203,36 @@
         ],
         "tileSize": 256
       },
+      "navigation": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Navigation/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
       "nitrogen-plants": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
+      },
+      "urbanized": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Urbanized.geojson"
       },
       "NewMadrid": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
       },
+      "MARBpumps": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MARBpumps.geojson"
+      },
       "USGSstations": {
         "type": "geojson",
-        "data": "https://ecotopia.today/Mississippi/Data/USGSstations.geojson"
+        "data": "https://ecotopia.today/Mississippi/Data/USGSgages.geojson"
+      },
+      "USACEstations": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/USACEgages.geojson"
       },
       "GlacialMaximum": {
         "type": "geojson",
@@ -223,9 +254,19 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/Nuclear_Plants.geojson"
       },
+      "mississippi-nuclear-plants": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/mississippi-nuclear-plants/{z}/{x}/{y}.pbf"
+        ]
+      },
       "ActiveCoalMines": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
+      },
+      "floodwalls": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Floodwalls.geojson"
       },
       "nitrogen-deposition": {
         "type": "vector",
@@ -413,7 +454,7 @@
         "basemap": false,
         "visibleDefault": true,
         "interactive": true,
-        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p>National Levee Database <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/summary'target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
         "mapboxLayers": [
           {
             "id": "levees",
@@ -431,7 +472,35 @@
                 8.5,
                 2,
                 14,
-                6
+                12
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "floodwalls-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 350px'><p><strong>Floodwall</strong></p><p>Segment and system names:</p><p>--{{SEGMENT_NAME}}<BR><BR>--{{SYSTEM_NAME}}</p><p>Floodwall height in feet: {{WALL_HEIGHT}}</p><p>National Levee Database <a href='https://levees.sec.usace.army.mil/#/levees/system/{{SYSTEM_ID}}/segments' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "floodwalls-labels",
+            "type": "line",
+            "source": "floodwalls",
+            "paint": {
+              "line-color": "#b0b0b0",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7.5,
+                0,
+                8.5,
+                2,
+                14,
+                12
               ]
             }
           }
@@ -465,32 +534,6 @@
         ]
       },
       {
-        "id": "GlacialMaximum-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "GlacialMaximum-labels",
-            "type": "fill",
-            "source": "GlacialMaximum",
-            "paint": {
-              "fill-pattern": "SnowTexture.png",
-              "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                4,
-                0,
-                5.5,
-                1,
-                7,
-                0
-              ]
-            }
-          }
-        ]
-      },
-      {
         "id": "streets-group",
         "basemap": false,
         "visibleDefault": true,
@@ -511,6 +554,92 @@
             "id": "streetsDriftless-basemap",
             "type": "raster",
             "source": "streetsDriftless"
+          }
+        ]
+      },
+      {
+        "id": "MARBpumps-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 350px'><p><strong>Pump Station</strong></p><p>{{SYSTEM_NAME}}, {{FEATURE_NAME}}</p><p>Flood source: {{FLOOD_SOURCE}}</p>{{PUMP_CONFIG}},  {{PUMP_DRIVE}}</p>Other levee features <a href='https://levees.sec.usace.army.mil/#/levees/system/{{SYSTEM_ID}}/features' target='_blank' rel='noopener noreferrer'>here</a>.",
+        "mapboxLayers": [
+          {
+            "id": "MARBpumps-labels",
+            "type": "symbol",
+            "source": "MARBpumps",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 11, 0.8],
+              "icon-anchor": "center",
+              "icon-image": "pump.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "urbanized-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "urbanized",
+            "type": "fill",
+            "source": "urbanized",
+            "paint": {
+              "fill-color": "black",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                11.5,
+                0.9,
+                17,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "USACEstations-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}. Gauge height this week:<BR><img src='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USCE&site_no={{STAID}}&parm_cd=00065&period=7' width='500'><BR>1-yr graph <a href='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USCE&site_no={{STAID}}&parm_cd=00065&period=365' target='_blank' rel='noopener noreferrer'>here</a>. Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "USACEstations-labels",
+            "type": "symbol",
+            "source": "USACEstations",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 3, 0.4, 10, 0.9, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gauge.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "USGSstations-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}. Gauge height this week:<BR><img src='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=7' width='500'><BR>1-yr graph <a href='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=365' target='_blank' rel='noopener noreferrer'>here</a>. Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "USGSstations-labels",
+            "type": "symbol",
+            "source": "USGSstations",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 3, 0.4, 10, 0.9, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gauge.png"
+            }
           }
         ]
       },
@@ -658,26 +787,6 @@
         ]
       },
       {
-        "id": "USGSstations",
-        "basemap": false,
-        "visibleDefault": true,
-        "interactive": true,
-        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}<BR><img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=7' width='450'<BR><BR>Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
-        "mapboxLayers": [
-          {
-            "id": "USGSstations-labels",
-            "type": "symbol",
-            "source": "USGSstations",
-            "layout": {
-              "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0, 7.5, 0.4, 10, 0.9, 17, 0],
-              "icon-anchor": "center",
-              "icon-image": "gage.png"
-            }
-          }
-        ]
-      },
-      {
         "id": "NuclearComplex-group",
         "basemap": false,
         "visibleDefault": false,
@@ -707,6 +816,39 @@
                 "mining.png",
                 "Operating",
                 "nuclear-operations.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "nuclear-plants-timeslider-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p>{{name}}<br><br>{{description}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "nuclear-plants-timeslider-labels",
+            "type": "symbol",
+            "source": "mississippi-nuclear-plants",
+            "source-layer": "mississippi-nuclear-plants",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 0.5,
+              "icon-anchor": "center",
+              "icon-image": [
+                "match",
+                ["get", "group"],
+                "1",
+                "1-manhattan.png",
+                "2",
+                "2-coldwar.png",
+                "3",
+                "3-reactor.png",
+                "4",
+                "4-now.png",
                 "__no-icon-image__"
               ]
             }
@@ -804,6 +946,33 @@
         ]
       },
       {
+        "id": "navigation-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "navigation-labels",
+            "type": "raster",
+            "source": "navigation",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                0,
+                6,
+                1,
+                16,
+                1,
+                17,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
         "id": "mississippi-input",
         "datasetSlug": "mississippi-input",
         "visibleDefault": true,
@@ -882,6 +1051,32 @@
         ]
       },
       {
+        "id": "GlacialMaximum-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "GlacialMaximum-labels",
+            "type": "fill",
+            "source": "GlacialMaximum",
+            "paint": {
+              "fill-pattern": "SnowTexture.png",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                4,
+                0,
+                5.5,
+                1,
+                7,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
         "id": "mississippi-featured",
         "datasetSlug": "mississippi-featured",
         "interactive": true,
@@ -954,6 +1149,16 @@
           {
             "layerGroupId": "nitrogen-plants-group",
             "title": "Nitrogen Plants"
+          }
+        ]
+      },
+      {
+        "id": "grp-nuclear",
+        "title": "Nuclear",
+        "options": [
+          {
+            "layerGroupId": "nuclear-plants-timeslider-group",
+            "title": "Nuclear Plants"
           }
         ]
       }
@@ -1495,42 +1700,62 @@
       "slug": "fieldstations",
       "lang": "en",
       "content": [
-        "<h4>Five field stations are located along the Mississippi River. Click the images to see their research.</h4>",
-        "<figure class='flow-layout flow-sq flow-sq-left'>",
-        "<a href='/featured/7529' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/MachinicRiver.jpg'/>",
+        "<h3>Canoes set out from Lake Itasca. Field stations greet them along the river. It all culminates with an Anthropocene Campus in New Orleans.</h3>",
+        "<p>Click the images for artworks, research and events. Open the panel on the right for additional thematic maps. Add your own material if you feel it.</p>",
+        "<figure class='flow-layout'>",
+        "<a href='/featured/7569' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/RiverJourney.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Machinic River</h3>",
+        "<h5>River Journey</h5>",
         "</figcaption>",
         "</a>",
         "</figure>",
-        "<figure class='flow-layout flow-sq flow-vert-right'>",
-        "<a href='/featured/7530' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/ConfluenceRegion.jpg'/>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7529' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/MachinicRiver.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Confluence Ecologies</h3>",
+        "<h5>Sediment, Settlement, Sentiment</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-right'>",
+        "<a href='/featured/7532' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/AnthropoceneDrift.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>Anthropocene Drift</h5>",
         "</figcaption>",
         "</a>",
         "</figure>",
         "<figure class='flow-layout flow-sq flow-sq-left'>",
         "<a href='/featured/7533' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/IndustryIndigeneity&Empire.jpg'/>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/IndustryIndigeneity&Empire.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Industry, Indigeneity, and Empire</h3>",
+        "<h5>Industry, Indigeneity & Empire</h5>",
         "</figcaption>",
         "</a>",
         "</figure>",
-        "<a href='/featured/7532' rel='internal'>",
-        "<img src='https://ecotopia.today/Mississippi/Images/AnthropoceneDrift.jpg'/>",
+        "<figure class='flow-layout flow-sq flow-sq-right'>",
+        "<a href='/featured/7530' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/ConfluenceEcologies.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h3>Anthropocene Drift</h3>",
+        "<h5>Confluence Ecologies</h5>",
         "</figcaption>",
-        "</a>"
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-horizontal flow-horizontal-left'>",
+        "<a href='/featured/7597' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/NOCGS.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>The Human Delta</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<p></p>"
       ]
     }
   ],
   "featuredPlaces": {
-    "header": "Sites",
+    "header": "Sites / Thematic Maps",
     "visibleLayerGroupIds": [
       "ocean-satellite",
       "streets-group",
@@ -1539,14 +1764,44 @@
     ],
     "order": [
       {
+        "placeId": 7569,
+        "pan_to": [-93.047, 44.886],
+        "zoom": 10.8,
+        "iconUrl": "/static/css/images/markers/Fractal3.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "navigation-group",
+          "streets2-group",
+          "mississippi-input"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7598,
+        "pan_to": [-96.793, 40.178],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/gauge.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "USGSstations-group",
+          "USACEstations-group",
+          "streets2-group"
+        ],
+        "spotlight": false
+      },
+      {
         "placeId": 7529,
         "zoom": 15,
+        "iconUrl": "/static/css/images/markers/Fractal1.png",
         "spotlight": false
       },
       {
         "placeId": 7532,
         "pan_to": [-94.0, 42.4],
         "zoom": 4.6,
+        "iconUrl": "/static/css/images/markers/Fractal2.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "mississippi-group",
@@ -1561,12 +1816,30 @@
       },
       {
         "placeId": 7533,
-        "pan_to": [-90.29, 38.73],
-        "zoom": 10,
+        "pan_to": [-90.3, 38.67],
+        "zoom": 9.5,
+        "iconUrl": "/static/css/images/markers/Fractal4.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
+          "urbanized-group",
+          "protected-group",
+          "levees-group",
           "mississippi-group",
           "streets2-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7531,
+        "pan_to": [-96.37687, 42.32885],
+        "zoom": 4.63,
+        "iconUrl": "/static/css/images/markers/nitrogen.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "nitrogen-plants-group",
+          "nitrogen-deposition-group",
+          "streets-group",
+          "mississippi-group"
         ],
         "spotlight": false
       },
@@ -1574,6 +1847,7 @@
         "placeId": 7530,
         "pan_to": [-89.143, 37.16],
         "zoom": 8,
+        "iconUrl": "/static/css/images/markers/Fractal5.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "confluence-group",
@@ -1586,20 +1860,6 @@
         "spotlight": false
       },
       {
-        "placeId": 7531,
-        "pan_to": [-90.65, 39.65],
-        "zoom": 5,
-        "iconUrl": "/static/css/images/markers/nitrogen.png",
-        "visibleLayerGroupIds": [
-          "ocean-satellite",
-          "nitrogen-plants-group",
-          "nitrogen-deposition-group",
-          "streets-group",
-          "mississippi-group"
-        ],
-        "spotlight": false
-      },
-      {
         "placeId": 7538,
         "pan_to": [-93.97, 39.44],
         "zoom": 4.5,
@@ -1608,8 +1868,20 @@
           "ocean-satellite",
           "mississippi-group",
           "streets-group",
-          "NuclearComplex-group",
-          "NuclearPlants-group"
+          "nuclear-plants-timeslider-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7597,
+        "pan_to": [-90.12, 29.94],
+        "zoom": 12,
+        "iconUrl": "/static/css/images/markers/Fractal6.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "streets-group",
+          "mississippi-input",
+          "mississippi-group"
         ],
         "spotlight": false
       }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classNames from "classnames";
-import { Map, OrderedMap, fromJS } from "immutable";
+import { Map, List, OrderedMap, fromJS } from "immutable";
 import { withRouter } from "react-router";
 
 import FormField from "../form-fields/form-field";
@@ -91,7 +91,7 @@ class PlaceDetailEditor extends Component {
               // group and the current user is not in that group or is not in
               // the administrators group.
               "isVisible",
-              field.hidden_default
+              field.hidden_default && !this.props.place[field.name]
                 ? false
                 : fieldConfig.has("restrictToGroups")
                 ? this.props.isInAtLeastOneGroup(
@@ -101,11 +101,7 @@ class PlaceDetailEditor extends Component {
                   this.props.hasAdminAbilities(this.props.place.datasetSlug)
                 : true,
             )
-            .set("trigger", field.trigger && field.trigger.trigger_value)
-            .set(
-              "triggerTargets",
-              field.trigger && fromJS(field.trigger.targets),
-            ),
+            .set("triggers", fromJS(field.triggers)),
         );
       });
 
@@ -155,7 +151,9 @@ class PlaceDetailEditor extends Component {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
 
-      Mixpanel.track("Updating place", { placeUrl: this.props.place.url });
+      Mixpanel.track("Updating place", {
+        placeUrl: this.props.place.url,
+      });
       const placeResponse = await mapseedApiClient.place.update({
         placeUrl: this.props.place.url,
         placeData: {
@@ -252,7 +250,9 @@ class PlaceDetailEditor extends Component {
   }
 
   async removePlace() {
-    Mixpanel.track("Removing place", { placeUrl: this.props.place.url });
+    Mixpanel.track("Removing place", {
+      placeUrl: this.props.place.url,
+    });
     const response = await mapseedApiClient.place.update({
       placeUrl: this.props.place.url,
       placeData: {
@@ -324,23 +324,41 @@ class PlaceDetailEditor extends Component {
     }
   }
 
-  triggerFieldVisibility(targets, isVisible) {
-    targets.forEach(target => {
-      const fieldStatus = this.state.fields
-        .get(target)
-        .set("isVisible", isVisible);
-
-      this.setState(({ fields }) => ({
-        fields: fields.set(target, fieldStatus),
-      }));
-    });
-  }
-
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get("trigger")) {
-      const isVisible = fieldStatus.get("trigger") === fieldStatus.get("value");
-      this.triggerFieldVisibility(fieldStatus.get("triggerTargets"), isVisible);
+    let triggers = fieldStatus.get("triggers");
+    if (triggers && !isInitializing) {
+      const fieldValue = fieldStatus.get("value");
+      const triggeredFields = triggers.reduce((memo, trigger) => {
+        if (
+          // Fields values may be in list form, if the field type is a
+          // checkbox.
+          List.isList(fieldValue) &&
+          fieldValue.includes(trigger.get("value"))
+        ) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else if (fieldValue === trigger.get("value")) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, false);
+          });
+        }
+
+        return memo;
+      }, Map());
+
+      this.setState({
+        fields: this.state.fields.map((field, fieldName) => {
+          return triggeredFields.has(fieldName)
+            ? field.set("isVisible", triggeredFields.get(fieldName))
+            : field;
+        }),
+      });
     }
 
     this.setState(({ fields }) => ({

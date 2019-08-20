@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 import styled from "@emotion/styled";
-import moment from "moment";
 import { Link } from "react-router-dom";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 
@@ -271,12 +270,6 @@ Link.propTypes = {
   href: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
 };
 
-const Time = props => <time>{moment(props.time).fromNow()}</time>;
-
-Time.propTypes = {
-  time: PropTypes.string.isRequired,
-};
-
 // TODO: Dynamic badge border radius and padding to match content.
 const Badge = styled("span")(props => ({
   backgroundColor: props.color,
@@ -316,6 +309,5 @@ export {
   SmallText,
   MicroText,
   DashboardText,
-  Time,
   Badge,
 };

@@ -1,6 +1,6 @@
 # Mapseed _(platform)_
 
-[![Build Status](https://secure.travis-ci.org/mapseed/platform.png)](http://travis-ci.org/mapseed/platform)
+[![Build Status](https://travis-ci.org/mapseed/platform.svg?branch=master)](http://travis-ci.org/mapseed/platform)
 
 > A simple, beautiful way to collect information and tell geographic stories.
 

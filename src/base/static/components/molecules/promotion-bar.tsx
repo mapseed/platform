@@ -1,19 +1,29 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+/** @jsx jsx */
+import * as React from "react";
+import { jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
 import styled from "@emotion/styled";
 import SupportButton from "../molecules/support-button";
 import { IconButton } from "../atoms/buttons";
+import LoginModal from "../molecules/login-modal";
 
 import {
   createPlaceSupport,
   removePlaceSupport,
 } from "../../state/ducks/places";
+import {
+  sharingProvidersSelector,
+  SharingProvidersConfig,
+  AppConfig,
+} from "../../state/ducks/app-config";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
 import Util from "../../js/utils.js";
+import { userSelector, User } from "../../state/ducks/user";
+import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
+import { Support } from "../../models/place";
 
 const SocialMediaButton = styled(IconButton)({
   float: "right",
@@ -23,7 +33,26 @@ const SocialMediaButton = styled(IconButton)({
   backgroundPosition: "center",
 });
 
-class PromotionBar extends Component {
+type PromotionBarProps = {
+  appConfig: AppConfig;
+  createPlaceSupport: typeof createPlaceSupport;
+  datasets: Dataset[];
+  removePlaceSupport: typeof removePlaceSupport;
+  isHorizontalLayout: boolean;
+  numSupports: number;
+  onSocialShare: Function;
+  userSupport?: Support;
+  placeId: number;
+  placeUrl: string;
+  currentUser: User;
+  sharingProviders: SharingProvidersConfig;
+};
+
+class PromotionBar extends React.Component<PromotionBarProps> {
+  static defaultProps = {
+    isHorizontalLayout: false,
+  };
+
   onClickSupport = async () => {
     if (this.props.userSupport) {
       // If we already have user support for the current user token, we should
@@ -46,7 +75,7 @@ class PromotionBar extends Component {
       const response = await mapseedApiClient.support.create(
         this.props.placeUrl,
         {
-          user_token: this.props.userToken,
+          user_token: this.props.currentUser.token,
           visible: true,
         },
       );
@@ -63,45 +92,46 @@ class PromotionBar extends Component {
 
   render() {
     return (
-      <div className="place-detail-promotion-bar">
-        <SupportButton
-          className="place-detail-promotion-bar__support-button"
-          isSupported={!!this.props.userSupport}
-          numSupports={this.props.numSupports}
-          onClickSupport={this.onClickSupport}
+      <div>
+        <LoginModal
+          appConfig={this.props.appConfig}
+          render={openModal => (
+            <SupportButton
+              isSupported={!!this.props.userSupport}
+              numSupports={this.props.numSupports}
+              onClickSupport={() => {
+                if (
+                  !this.props.currentUser.isAuthenticated &&
+                  this.props.datasets.some(dataset => dataset.auth_required)
+                ) {
+                  openModal();
+                } else {
+                  this.onClickSupport();
+                }
+              }}
+            />
+          )}
         />
         <div>
-          <SocialMediaButton
-            onClick={() => this.props.onSocialShare("facebook")}
-            icon="facebook"
-            size="small"
-          />
-          <SocialMediaButton
-            onClick={() => this.props.onSocialShare("twitter")}
-            icon="twitter"
-            size="small"
-          />
+          {this.props.sharingProviders.map(provider => (
+            <SocialMediaButton
+              key={provider.type}
+              onClick={() => this.props.onSocialShare(provider.type)}
+              icon={provider.type}
+              size="small"
+            />
+          ))}
         </div>
       </div>
     );
   }
 }
 
-PromotionBar.propTypes = {
-  createPlaceSupport: PropTypes.func.isRequired,
-  removePlaceSupport: PropTypes.func.isRequired,
-  isHorizontalLayout: PropTypes.bool.isRequired,
-  numSupports: PropTypes.number,
-  onSocialShare: PropTypes.func.isRequired,
-  userSupport: PropTypes.object,
-  userToken: PropTypes.string,
-  placeId: PropTypes.number.isRequired,
-  placeUrl: PropTypes.string.isRequired,
-};
-
-PromotionBar.defaultProps = {
-  isHorizontalLayout: false,
-};
+const mapStateToProps = state => ({
+  sharingProviders: sharingProvidersSelector(state),
+  datasets: datasetsSelector(state),
+  user: userSelector(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   createPlaceSupport: (placeId, supportData) =>
@@ -111,6 +141,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(PromotionBar);

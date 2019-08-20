@@ -2,8 +2,8 @@
 import * as React from "react";
 import { jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
-import { Map } from "mapbox-gl";
-import { GeometryObject, GeoJsonProperties } from "geojson";
+import { Map, MapboxGeoJSONFeature } from "mapbox-gl";
+import { GeoJsonProperties } from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
@@ -26,7 +26,6 @@ import {
   mapConfigSelector,
   mapConfigPropType,
   MapSourcesLoadStatus,
-  LayerFeature,
   updateMapInteractionState,
   isMapDraggingOrZooming,
   isMapDraggedOrZoomedByUser,
@@ -178,7 +177,7 @@ class MainMap extends React.Component<Props, State> {
     mapViewport: this.props.mapViewport,
   };
 
-  private queriedFeatures: LayerFeature<GeometryObject>[] = [];
+  private queriedFeatures: MapboxGeoJSONFeature[] = [];
   mouseX = 0;
   mouseY = 0;
   mapRef: React.RefObject<InteractiveMap> = React.createRef();
@@ -370,7 +369,9 @@ class MainMap extends React.Component<Props, State> {
       // Place's detail view.
       const placeId = feature.properties.id;
       const clientSlug = feature.properties.clientSlug;
+
       Mixpanel.track("Clicked place on map", { placeId });
+
       this.props.history.push(`/${clientSlug}/${placeId}`);
     }
     if (
@@ -505,6 +506,7 @@ class MainMap extends React.Component<Props, State> {
               <Popup
                 latitude={this.state.popupLatitude}
                 longitude={this.state.popupLongitude}
+                closeOnClick={false}
                 onClose={() =>
                   this.setState({
                     popupContent: null,

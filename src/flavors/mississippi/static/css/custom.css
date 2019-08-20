@@ -80,19 +80,25 @@ a[class*='InternalLink-NavLink'] {
 }
 
 .flow-layout-title {
+  display: flex;
   background-color: #FFF;
   position: absolute;
   padding: 5px;
   text-transform: uppercase;
-  font-size: 0.4em;
-  width: 75%;
-  max-width: 75%;
-  max-height: 83px;
+  font-size: 0.2em;
+  width: 85%;
+  max-width: 85%;
+  height: 50px;
+  max-height: 50px;
   text-align: center;
   opacity: 0.5;
   color: #000;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.flow-layout-title > h5 {
+  margin: auto !important;
 }
 
 .flow-layout-title.flow-layout-title-middle {
@@ -110,6 +116,19 @@ a[class*='InternalLink-NavLink'] {
 .flow-vert img {
   position: relative;
   width: 100%;
+}
+
+.flow-horizontal {
+  width: 100%;
+}
+
+.flow-horizontal img {
+  position: relative;
+  width: 100%;
+}
+
+.flow-horizontal-left {
+  float: left;
 }
 
 .flow-vert-right {

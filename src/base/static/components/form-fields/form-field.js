@@ -100,12 +100,8 @@ class FormField extends Component {
         )
         .set(constants.FIELD_VALIDITY_MESSAGE_KEY, this.validator.message)
         .set(
-          constants.FIELD_TRIGGER_VALUE_KEY,
-          this.props.fieldState.get(constants.FIELD_TRIGGER_VALUE_KEY),
-        )
-        .set(
-          constants.FIELD_TRIGGER_TARGETS_KEY,
-          this.props.fieldState.get(constants.FIELD_TRIGGER_TARGETS_KEY),
+          constants.FIELD_TRIGGERS_VALUE_KEY,
+          this.props.fieldState.get(constants.FIELD_TRIGGERS_VALUE_KEY),
         )
         .set(
           constants.FIELD_VISIBILITY_KEY,

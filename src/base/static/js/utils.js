@@ -37,7 +37,7 @@ const _getSocialUrl = (place, appConfig) => {
         place.clientSlug + "/" + place.id,
       ].join(""),
     },
-    img = document.querySelector("img[src='" + components.img + "']");
+    img = document.querySelector("img[src='" + components.img + "']") || {};
 
   components["height"] = img.height || 630;
   components["width"] = img.width || 1200;

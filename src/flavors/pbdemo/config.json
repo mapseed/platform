@@ -30,7 +30,6 @@
   "datasets": [
     {
       "slug": "pbdemo",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdemo",
       "clientSlug": "demo-idea",
       "anonymous_permissions": [
         {
@@ -41,7 +40,6 @@
     },
     {
       "slug": "pbdurham",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham",
       "clientSlug": "idea",
       "anonymous_permissions": [
         {
@@ -51,9 +49,7 @@
       ]
     },
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdemo-projects",
       "slug": "pbdemo-projects",
-      "owner": "smartercleanup",
       "clientSlug": "demo-project",
       "anonymous_permissions": [
         {
@@ -63,9 +59,7 @@
       ]
     },
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pbdurham-projects",
       "slug": "pbdurham-projects",
-      "owner": "smartercleanup",
       "clientSlug": "project",
       "anonymous_permissions": [
         {

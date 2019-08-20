@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as React from "react";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
+import styled from "../../utils/styled";
 import { jsx } from "@emotion/core";
 import { SmallTitle } from "../atoms/typography";
 import { withTranslation, WithTranslation } from "react-i18next";

@@ -940,10 +940,12 @@
             "prompt": "Gated pipe irrigation system",
             "label": "Gated pipe",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["gated_pipe_quantity", "gated_pipe_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["gated_pipe_quantity", "gated_pipe_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -987,13 +989,15 @@
             "prompt": "Handline or wheel line sprinklers",
             "label": "Handline/wheel line sprinklers",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "line_sprinklers_quantity",
-                "line_sprinklers_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "line_sprinklers_quantity",
+                  "line_sprinklers_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1037,13 +1041,15 @@
             "prompt": "Center pivot or linear sprinklers",
             "label": "Center pivot/linear sprinklers",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pivot_sprinklers_quantity",
-                "pivot_sprinklers_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "pivot_sprinklers_quantity",
+                  "pivot_sprinklers_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1087,13 +1093,15 @@
             "prompt": "Micro (drip) irrigation",
             "label": "Micro (drip) irrigation",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "micro_irrigation_quantity",
-                "micro_irrigation_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "micro_irrigation_quantity",
+                  "micro_irrigation_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1137,13 +1145,15 @@
             "prompt": "Converted open ditch to pipeline",
             "label": "Open ditch to pipeline conversion",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pipeline_irrigation_quantity",
-                "pipeline_irrigation_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "pipeline_irrigation_quantity",
+                  "pipeline_irrigation_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1187,13 +1197,15 @@
             "prompt": "Irrigation scheduling – monitoring soil moisture and adjusting water applications accordingly",
             "label": "Irrigation scheduling",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "irrigation_scheduling_quantity",
-                "irrigation_scheduling_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "irrigation_scheduling_quantity",
+                  "irrigation_scheduling_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1266,10 +1278,15 @@
             "prompt": "Anionic polyacrylamide (PAM) application to reduce irrigation-associated erosion",
             "label": "Anionic polyacrylamide application",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["polyacrylamide_quantity", "polyacrylamide_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "polyacrylamide_quantity",
+                  "polyacrylamide_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1313,10 +1330,12 @@
             "prompt": "Planting cover crops (grasses, legumes, and forbs) for seasonal vegetative cover to reduce wind and water erosion",
             "label": "Cover crop plantings",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["cover_crop_quantity", "cover_crop_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["cover_crop_quantity", "cover_crop_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1360,13 +1379,15 @@
             "prompt": "Planting permanent cover crops to reduce winter and soil erosion and to establish wildlife or pollinator habitat",
             "label": "Permanent cover crop plantings",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "permanent_cover_crop_quantity",
-                "permanent_cover_crop_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "permanent_cover_crop_quantity",
+                  "permanent_cover_crop_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1410,10 +1431,12 @@
             "prompt": "No-tillage to limit soil disturbing activities. Soil disturbance is only during planting operation.",
             "label": "No-tillage",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["no_till_quantity", "no_till_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["no_till_quantity", "no_till_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1457,10 +1480,12 @@
             "prompt": "Reduced tillage to limit soil disturbing activities. Disturbance may include entire soil surface but cannot result in an inversion of the soil profile.",
             "label": "Reduced tillage",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["reduced_till_quantity", "reduced_till_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["reduced_till_quantity", "reduced_till_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1538,10 +1563,12 @@
             "prompt": "Soil testing for use in fertilizer applications or other planet nutrients or soil amendments",
             "label": "Soil testing",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["soil_testing_quantity", "soil_testing_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["soil_testing_quantity", "soil_testing_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1585,13 +1612,15 @@
             "prompt": "Plant tissue testing or monitoring",
             "label": "Plant tissue testing",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "plant_tissue_testing_quantity",
-                "plant_tissue_testing_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "plant_tissue_testing_quantity",
+                  "plant_tissue_testing_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1664,13 +1693,15 @@
             "prompt": "Grazing management (such as rotating pastures, keeping a pocket schedule of dates in/out, or monitoring grass height)",
             "label": "Grazing management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "grazing_management_quantity",
-                "grazing_management_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "grazing_management_quantity",
+                  "grazing_management_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1714,13 +1745,15 @@
             "prompt": "Fencing for grazing management",
             "label": "Fencing for grazing management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "grazing_management_fencing_quantity",
-                "grazing_management_fencing_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "grazing_management_fencing_quantity",
+                  "grazing_management_fencing_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1764,13 +1797,15 @@
             "prompt": "Range plantings: establishment of adapted perennial or self-sustaining vegetation",
             "label": "Range plantings",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "range_plantings_quantity",
-                "range_plantings_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "range_plantings_quantity",
+                  "range_plantings_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1813,13 +1848,15 @@
             "prompt": "Watering facilities: means of providing drinking water to livestock or wildlife",
             "label": "Watering facilities",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "watering_facility_quantity",
-                "watering_facility_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "watering_facility_quantity",
+                  "watering_facility_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1862,10 +1899,12 @@
             "prompt": "Water wells: for domestic animals or wildlife",
             "label": "Water wells",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["water_wells_quantity", "water_wells_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["water_wells_quantity", "water_wells_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1937,13 +1976,15 @@
             "prompt": "Weed prevention, monitoring, and suppression",
             "label": "Weed prevention",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "weed_prevention_quantity",
-                "weed_prevention_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "weed_prevention_quantity",
+                  "weed_prevention_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -1987,13 +2028,15 @@
             "prompt": "Pest (insect) prevention, monitoring, and suppression",
             "label": "Pest prevention",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "pest_prevention_quantity",
-                "pest_prevention_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "pest_prevention_quantity",
+                  "pest_prevention_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2066,13 +2109,15 @@
             "prompt": "Conservation cover: consists of establishment of permanent vegetative cover including CRP",
             "label": "Conservation cover",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "conservation_cover_quantity",
-                "conservation_cover_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "conservation_cover_quantity",
+                  "conservation_cover_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2116,10 +2161,12 @@
             "prompt": "Tree and shrub establishment: establishing woody plants by planting seedlings or cuttings, especially along waterways",
             "label": "Tree/shrub establishment",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["tree_shrub_quantity", "tree_shrub_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["tree_shrub_quantity", "tree_shrub_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2163,10 +2210,15 @@
             "prompt": "Upland wildlife habitats management: creating, maintain, or enhancing areas to provide food, cover and habitat connectivity not along waterways",
             "label": "Upland habitat management",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["upland_habitat_quantity", "upland_habitat_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "upland_habitat_quantity",
+                  "upland_habitat_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2210,13 +2262,15 @@
             "prompt": "Fencing for riparian habitat protection",
             "label": "Fencing for riparian habitat",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "riparian_fencing_quantity",
-                "riparian_fencing_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "riparian_fencing_quantity",
+                  "riparian_fencing_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2260,10 +2314,12 @@
             "prompt": "Fish screens on irrigation diversions",
             "label": "Fish screens",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["fish_screens_quantity", "fish_screens_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["fish_screens_quantity", "fish_screens_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2307,10 +2363,12 @@
             "prompt": "Fish passages at irrigation diversions or culverts",
             "label": "Fish passages",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": ["fish_passages_quantity", "fish_passages_datetime"]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["fish_passages_quantity", "fish_passages_datetime"]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2354,13 +2412,15 @@
             "prompt": "Streambank stabilization using rock or wood structures",
             "label": "Streambank stabilization",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "streambank_stabilization_quantity",
-                "streambank_stabilization_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "streambank_stabilization_quantity",
+                  "streambank_stabilization_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
@@ -2404,13 +2464,15 @@
             "prompt": "In-stream restoration including wood structures for fish habitat",
             "label": "In-stream restoration",
             "optional": true,
-            "trigger": {
-              "trigger_value": "yes",
-              "targets": [
-                "in_stream_restoration_quantity",
-                "in_stream_restoration_datetime"
-              ]
-            },
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "in_stream_restoration_quantity",
+                  "in_stream_restoration_datetime"
+                ]
+              }
+            ],
             "content": [
               {
                 "label": "Yes",
