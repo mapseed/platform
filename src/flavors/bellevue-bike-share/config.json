@@ -203,7 +203,7 @@
             "type": "raster",
             "source": "f4",
             "paint": {
-              "raster-opacity": 0.8
+              "raster-opacity": 0.6
             }
           }
         ]
@@ -273,12 +273,44 @@
           {
             "id": "bellevue-bike-network",
             "type": "line",
+            "filter": ["!=", ["get", "FacilityType"], "Shoulders / Wide Lanes"],
             "source": "bellevue-bike-network",
             "source-layer": "bellevue-bike-network",
             "paint": {
-              "line-color": "red",
-              "line-width": 2,
-              "line-dasharray": [2, 1]
+              "line-color": [
+                "match",
+                ["get", "FacilityType"],
+                "Bicycle Lanes",
+                "#31d43c",
+                "Offstreet Path",
+                "#238b45",
+                "Sharrows",
+                "#fe9929",
+                "#fff"
+              ],
+              "line-width": [
+                "match",
+                ["get", "FacilityType"],
+                "Bicycle Lanes",
+                3,
+                "Offstreet Path",
+                2.5,
+                "Sharrows",
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "bellevue-bike-network-dashed",
+            "type": "line",
+            "filter": ["==", ["get", "FacilityType"], "Shoulders / Wide Lanes"],
+            "source": "bellevue-bike-network",
+            "source-layer": "bellevue-bike-network",
+            "paint": {
+              "line-color": "#fe9929",
+              "line-dasharray": [2, 1],
+              "line-width": 2
             }
           }
         ]
@@ -313,6 +345,8 @@
       {
         "id": "bellevue-existing-hubs",
         "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;>{{MiniHub}}</span></p></div>",
         "mapboxLayers": [
           {
             "id": "bellevue-existing-hubs",
@@ -673,7 +707,7 @@
           {
             "name": "bicycle_network_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Bicycle network</h1><img style='width:100%;' src='/static/css/images/bike-network-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Not sure where to ride? Toggle the Bike Network layer to see where bike lanes and offstreet paths are near where you want to go.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Bicycle network</h1><img style='width:100%;' src='/static/css/images/bike-network-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Not sure where to ride? Toggle the Bike Network layer to see where bike lanes and offstreet paths are near where you want to go.</p><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/bike-sharrows.jpg' alt='Bike sharrows' /><figcaption style='font-style:italic;color:#888;'>Bike sharrows</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/bike-lane.jpg' alt='Bike lane' /><figcaption style='font-style:italic;color:#888;'>Bike lane</figcaption></figure></div><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/wide-shoulder.jpg' alt='Shoulder / wide lane' />figcaption style='font-style:italic;color:#888;'>Shoulder / wide lane</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/offstreet-path.png' alt='Offstreet path' /><figcaption style='font-style:italic;color:#888;'>Offstreet path</figcaption></figure></div>"
           },
           {
             "name": "access_to_transit_information",
@@ -838,7 +872,7 @@
     {
       "slug": "about",
       "content": [
-        "<div style='display:flex; align-items:center'><img style='width:80px;max-width:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1>Bellevue Bikeshare! But Where?</h1></div>",
+        "<div style='display:flex; align-items:center'><img style='width:80px;min-width:80px;max-width:80px;height:80px;max-height:80px;min-height:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1>Bellevue Bikeshare! But Where?</h1></div>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
         "<p>Have you used bikeshare in Bellevue? Maybe you’ve seen them around?</p>",
         "<p>The City of Bellevue is striving to make bikeshare easier to use while reducing the number of bikes left in places where they shouldn’t be. That’s where you come in.</p>",

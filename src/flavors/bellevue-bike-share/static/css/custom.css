@@ -6,6 +6,15 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Montserrat", sans-serif !important;
 }
 
+figure {
+  margin: 8px 0 0 0;
+  padding: 8px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
 #mapseed-site-logo {
   height: 56px !important;
   margin-left: 0 !important;
