@@ -112,7 +112,7 @@ const getFreeBarChartData = ({
         value:
           parsedExpression &&
           parsedExpression.evaluate({ dataset: groupedPlaces }),
-        label: labels[group],
+        label: labels[group] || group,
         totalPlaces,
       };
     },
