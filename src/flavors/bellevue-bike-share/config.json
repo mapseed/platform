@@ -72,6 +72,69 @@
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "Bellevue Bikeshare - Community Reports",
+      "isExportable": false,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "bellevue-bike-share",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total Reports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        },
+        {
+          "header": "Reporting by Grid Location: 1/4-mile Grid",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "025_grid_OID",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Grid ID",
+          "yAxisLabel": "Count",
+          "layout": {
+            "start": 1,
+            "end": 13
+          }
+        },
+        {
+          "header": "Reporting by Grid Location: 1/2-mile Grid",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "05_grid_OID",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Grid ID",
+          "yAxisLabel": "Count",
+          "layout": {
+            "start": 1,
+            "end": 13
+          }
+        }
+      ]
+    }
+  ],
   "map": {
     "geolocationEnabled": false,
     "geolocationOnload": false,
@@ -488,6 +551,28 @@
         "name": "location_type",
         "datasetSlug": "bellevue-bike-share",
         "icon_url": "/static/css/images/markers/bike-marker.png",
+        "geospatialAnalysis": [
+          {
+            "name": "025_grid",
+            "type": "pointInPolygon",
+            "analysisTarget": "bellevue-025-grid.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "OID"
+              }
+            ]
+          },
+          {
+            "name": "05_grid",
+            "type": "pointInPolygon",
+            "analysisTarget": "bellevue-05-grid.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "OID"
+              }
+            ]
+          }
+        ],
         "value": "bike-share",
         "label": "Bike Share Location",
         "multi_stage": [
