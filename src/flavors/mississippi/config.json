@@ -120,6 +120,16 @@
             "label": "Urban runoff"
           }
         ]
+      },
+      "filterSlider": {
+        "layerGroupId": "nuclear-plants-timeslider-group",
+        "initialValue": 1942,
+        "min": 1942,
+        "max": 2015,
+        "step": 3,
+        "label": "nuclear plants over time",
+        "property": "date",
+        "comparator": "<="
       }
     }
   },
@@ -243,6 +253,12 @@
       "NuclearPlants": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/Nuclear_Plants.geojson"
+      },
+      "mississippi-nuclear-plants": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/mississippi-nuclear-plants/{z}/{x}/{y}.pbf"
+        ]
       },
       "ActiveCoalMines": {
         "type": "geojson",
@@ -807,6 +823,39 @@
         ]
       },
       {
+        "id": "nuclear-plants-timeslider-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p>{{name}}<br><br>{{description}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "nuclear-plants-timeslider-labels",
+            "type": "symbol",
+            "source": "mississippi-nuclear-plants",
+            "source-layer": "mississippi-nuclear-plants",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 0.5,
+              "icon-anchor": "center",
+              "icon-image": [
+                "match",
+                ["get", "group"],
+                "1",
+                "1-manhattan.png",
+                "2",
+                "2-coldwar.png",
+                "3",
+                "3-reactor.png",
+                "4",
+                "4-now.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      },
+      {
         "id": "NuclearPlants-group",
         "basemap": false,
         "visibleDefault": false,
@@ -1100,6 +1149,16 @@
           {
             "layerGroupId": "nitrogen-plants-group",
             "title": "Nitrogen Plants"
+          }
+        ]
+      },
+      {
+        "id": "grp-nuclear",
+        "title": "Nuclear",
+        "options": [
+          {
+            "layerGroupId": "nuclear-plants-timeslider-group",
+            "title": "Nuclear Plants"
           }
         ]
       }
@@ -1809,8 +1868,7 @@
           "ocean-satellite",
           "mississippi-group",
           "streets-group",
-          "NuclearComplex-group",
-          "NuclearPlants-group"
+          "nuclear-plants-timeslider-group"
         ],
         "spotlight": false
       },
