@@ -76,7 +76,7 @@
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "cartodbEnabled": true,
-    "geocodingEnabled": false,
+    "geocodingEnabled": true,
     "geocodeFieldLabel": "Enter an address...",
     "geocodeBoundingBox": [],
     "mapViewport": {
@@ -123,11 +123,11 @@
       },
       "filterSlider": {
         "layerGroupId": "nuclear-plants-timeslider-group",
-        "initialValue": 1942,
-        "min": 1942,
-        "max": 2015,
-        "step": 3,
-        "label": "nuclear plants over time",
+        "initialValue": 1944,
+        "min": 1941,
+        "max": 2019,
+        "step": 1,
+        "label": "The nuclear complex in",
         "property": "date",
         "comparator": "<="
       }
@@ -214,9 +214,12 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
       },
-      "urbanized": {
-        "type": "geojson",
-        "data": "https://ecotopia.today/Mississippi/Data/Urbanized.geojson"
+      "StLouis": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/StLouis/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
       },
       "NewMadrid": {
         "type": "geojson",
@@ -255,10 +258,8 @@
         "data": "https://ecotopia.today/Mississippi/Data/Nuclear_Plants.geojson"
       },
       "mississippi-nuclear-plants": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/mississippi-nuclear-plants/{z}/{x}/{y}.pbf"
-        ]
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/nuclear-legacy.geojson"
       },
       "ActiveCoalMines": {
         "type": "geojson",
@@ -578,32 +579,6 @@
         ]
       },
       {
-        "id": "urbanized-group",
-        "basemap": false,
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "urbanized",
-            "type": "fill",
-            "source": "urbanized",
-            "paint": {
-              "fill-color": "black",
-              "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                9,
-                0,
-                11.5,
-                0.9,
-                17,
-                0
-              ]
-            }
-          }
-        ]
-      },
-      {
         "id": "USACEstations-group",
         "basemap": false,
         "visibleDefault": false,
@@ -827,16 +802,15 @@
         "basemap": false,
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<div style='max-width: 250px'><p>{{name}}<br><br>{{description}}</p></div>",
+        "popupContent": "<div style='max-width: 300px'><p>{{name}}<br><br>{{description}}</p></div>",
         "mapboxLayers": [
           {
             "id": "nuclear-plants-timeslider-labels",
             "type": "symbol",
             "source": "mississippi-nuclear-plants",
-            "source-layer": "mississippi-nuclear-plants",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": 0.5,
+              "icon-size": 0.8,
               "icon-anchor": "center",
               "icon-image": [
                 "match",
@@ -966,6 +940,33 @@
                 16,
                 1,
                 17,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "StLouis-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "StLouis",
+            "type": "raster",
+            "source": "StLouis",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                9.8,
+                1,
+                16,
+                1,
+                17.5,
                 0
               ]
             }
@@ -1730,7 +1731,7 @@
         "<a href='/featured/7533' rel='internal'>",
         "<img src='https://ecotopia.today/Mississippi/Images/FSimages/IndustryIndigeneity&Empire.jpg'/>",
         "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
-        "<h5>Industry, Indigeneity & Empire</h5>",
+        "<h5>Anthropocene Vernacular</h5>",
         "</figcaption>",
         "</a>",
         "</figure>",
@@ -1816,16 +1817,15 @@
       },
       {
         "placeId": 7533,
-        "pan_to": [-90.3, 38.67],
-        "zoom": 9.5,
+        "pan_to": [-90.35, 38.64],
+        "zoom": 9.8,
         "iconUrl": "/static/css/images/markers/Fractal4.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
-          "urbanized-group",
-          "protected-group",
-          "levees-group",
           "mississippi-group",
-          "streets2-group"
+          "StLouis-group",
+          "mississippi-input",
+          "streets-group"
         ],
         "spotlight": false
       },
