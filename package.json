@@ -71,7 +71,6 @@
     "dom-to-image": "^2.6.0",
     "dotenv": "^8.0.0",
     "downloadjs": "^1.4.7",
-    "downshift": "^3.2.12",
     "emotion-theming": "^10.0.14",
     "eventemitter3": "^4.0.0",
     "glob": "^7.1.4",

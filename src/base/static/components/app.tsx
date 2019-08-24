@@ -60,6 +60,7 @@ import { loadMapStyle } from "../state/ducks/map-style";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
+import { loadFlavorConfig } from "../state/ducks/flavor-config";
 
 import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
@@ -110,6 +111,7 @@ const dispatchPropTypes = {
   loadMapStyle: PropTypes.func.isRequired,
   loadDashboardConfig: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
+  loadFlavorConfig: PropTypes.func.isRequired,
   updateLayout: PropTypes.func.isRequired,
 };
 
@@ -232,6 +234,7 @@ class App extends React.Component<Props, State> {
     this.props.loadNavBarConfig(config.nav_bar);
     this.props.loadCustomComponentsConfig(config.custom_components);
     this.props.loadMapStyle(config.mapStyle, config.datasets);
+    this.props.loadFlavorConfig(config.flavor);
     config.dashboard && this.props.loadDashboardConfig(config.dashboard);
     config.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
@@ -679,6 +682,7 @@ const mapDispatchToProps = {
   loadCustomComponentsConfig,
   loadMapStyle,
   loadUser,
+  loadFlavorConfig,
 };
 
 export default withRouter(
