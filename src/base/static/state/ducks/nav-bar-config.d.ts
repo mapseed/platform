@@ -11,4 +11,4 @@ export type NavBarConfig = NavBarItem[];
 
 export const navBarConfigSelector = state => NavBarConfig;
 
-export const loadNavBarConfig: (navBarConfig: NavBarCOnfig) => void;
+export const loadNavBarConfig: (navBarConfig: NavBarConfig) => void;

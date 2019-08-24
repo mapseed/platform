@@ -3607,7 +3607,6 @@
     },
     {
       "title": "Filter",
-      "enabled_label": "Filters Enabled",
       "type": "filter"
     }
   ],
