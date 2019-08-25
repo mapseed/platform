@@ -269,6 +269,10 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/Floodwalls.geojson"
       },
+      "MissUndammed": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissUndammed.geojson"
+      },
       "nitrogen-deposition": {
         "type": "vector",
         "tiles": [
@@ -444,6 +448,34 @@
                 7,
                 0.3,
                 10,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "MissUndammed-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "MissUndammed",
+            "type": "line",
+            "source": "MissUndammed",
+            "paint": {
+              "line-color": "#C2EEFB",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                0,
+                6,
+                3,
+                11,
+                3,
+                12,
                 0
               ]
             }
@@ -1673,9 +1705,9 @@
   },
   "nav_bar": [
     {
-      "title": "concept",
+      "title": "introduction",
       "type": "internal_link",
-      "url": "/page/concept"
+      "url": "/page/introduction"
     },
     {
       "title": "field stations",
@@ -1685,15 +1717,40 @@
   ],
   "pages": [
     {
-      "slug": "concept",
+      "slug": "introduction",
       "lang": "en",
       "content": [
         "<p><h2>MISSISSIPPI: An Anthropocene River</h2></p>",
-        "<img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/>",
-        "<p><br><strong>Mississippi: An Anthropocene River</strong> explores the vast but patchy region around the Mississippi in its changing spatio-temporal formations. The project’s aim is to make this archival landscape legible as a critical zone of habitation and long-term interaction between humans and the environment. It seeks to analyze the Anthropocene on the ground and in the field, exploring ground-truthing measures to augment the remote-sensing operations and abstract knHistoryedge forms of Anthropocene science. Through November 2019, interdisciplinary groups of researchers, artists and stakeholders from civil society will investigate the river basin to develop local approaches to issues of planetary change and together will forge new methods of transdisciplinary research and education. The project is developed and organized by Haus der Kulturen der Welt (HKW) and the Max Planck Institute for the History of Science, Berlin (MPIWG).</p>",
-        "<p>The Mississippi River’s meandering path has carved out an iconic landscape in US mythology and has become a symbol for human impact. Barely a river but more of a floodplain before colonization, it was massively dredged in the 20th century. Its ecology has evolved as a constantly shifting ecosystem, a catchment of cultures, a dividing line, a water highway for resources and goods, and a sink for pollutants. From the logging and mining zones in the Upper River area to the high technology and petrochemical centers in the Delta; from the industrial agricultural landscapes of the Midwest to the “dead zones” in the Gulf of Mexico; from the historic transportation network enabling the iniquitous trade of forced human labor to the social injustices of poverty and deindustrialization today—the Mississippi is a symptom and object of investigation for the radical impact humans inflict on the Earth.</p>",
-        "<p><strong>Mississippi: An Anthropocene River</strong> manifests itself in a variety of field-research activities, public forums, workshops, and travels on and along the Mississippi River. Five Anthropocene River Field Stations, distributed along the watershed from North to South, investigate, highlight, and share historical and contemporary issues of their respective region using both scientific and artistic research methods over the course of one year. <em>Sediment, Settlement, Sentiment: The Machinic River</em> (Field Station 1) addresses the uppermost part of the Mississippi river as a site of river engineering, experimentation and speculation. <em>Anthropocene Drift</em> (Field Station 2) centers on the process of biome change, contrasting the monocrop landscapes of the Corn Belt with the Driftless Area stretching across southeastern Minnesota, southwestern Wisconsin and northwestern Iowa. Anthropocene Vernacular. <em>Industry, Indigeneity, and Empire</em> (Field Station 3) explores the long and conflicted histories of settlement and domestication in the St. Louis area and the American Bottom. <em>Confluence Ecologies</em> (Field Station 4) engages with the ecologic-economic-technological infrastructures in the “Confluence Region” between Southern Illinois, Missouri and Kentucky. <em>Commodity Exploitation</em> (Field Station 5) explores identity and commerce in the in the Lower Mississippi River stretching from Memphis to Natchez. During the fall of 2019, an Anthropocene River Journey - made on canoes and vans travelling down and along the Mississippi—gathers the explorations of the various Field Stations and synthesizes them into a common framework. Travelling participants carry out their own research and provide extensive documentation, bringing the findings downstream and tying the different narratives together. In a weeklong series of experimental seminars taking place November 9–16 in New Orleans the Anthropocene River Campus: The Human Delta will mark a conceptual contraction of the specifically local approaches of the project, informed and leveraged by the research works of the Field Stations, and the planetary-scale framework of economic, ecological, and social teleconnections of the Anthropocene River. An Anthropocene River School features several linked activities, working as an exemplary platform for research practice and activism, transforming field site data into an ongoing, collaborative teaching enterprise—both on site and online.</p>",
-        "<p><br></p>",
+
+        "<p><img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/><br><em>Project participants at the kickoff event in Minneapolis, June 2018</em></p>",
+        "<p><br>This map is devoted to contemporary \"Life on the Mississippi,\" in an era when all that once seemed familiar keeps changing day by day. The images of the old river&mdash;celebrated in music, movies and the writings of Mark Twain&mdash;have given way to something different, a lot stranger and more complex, the new river of our time.</p>",
+
+        "<p>The map is part of an art and research program entitled <a href='https://www.anthropocene-curriculum.org/pages/root/related-projects/mississippi-an-anthropocene-river' target='_blank' rel='noopener noreferrer nofollow'>Mississippi: An Anthropocene River</a>, which springs from an exceptional collaboration between German and American institutions. The aim is to understand the current ecological and social conditions of the great river and its far-flung watersheds, and to express the manifold natures and cultures of its endless flow. Therefore we have put advanced cartography and scientific research into something like a geo-blog, open to highly diverse inputs. It allows those who care about the river to add their words, their images, their knowledge and their unanswered questions. By using the map, you can contribute to an experiment in collective perception.</p>",
+
+        "<p>The map works with conventional Internet browsers and mobile phones. To put something on it is easy: just zoom into the place that interests you and press the big orange button. You'll be asked to drag the map around until the yellow pin falls precisely on the spot, and then to choose one of five categories: Geology, History, Industry, Culture or Ecology. Once you have chosen, a window will appear. That one's for you.</p>",
+
+        "<p>You can enter a title and a text, and by using the little buttons in the editor you can add an image, a link, or the URL of a video that has been uploaded to YouTube or Vimeo. You can also contribute a text and image directly from your mobile phone. It's important to \"sign in\" first, by clicking the button at upper right, because then you'll be able to edit your post later on. The map is an open archive, placing your experience and understanding alongside others. Feel free to use it in wildly divergent ways.</p>",
+
+        "<p><img src='https://ecotopia.today/Mississippi/Images/RiverModel.jpg'/><br><em>Abandoned Mississippi River Model, near Jackson, MS</em></p>",
+
+        "<p>The map/archive will also tell you about the artworks and research projects carried out by those most closely involved in this adventure. To find out about them, just hit \"Field Stations.\" Each of the images you will see is linked to particular areas along the river, where groups of artists and researchers have organized their own exploratory activities. Click on the icons to find out what they have been up to, and zoom in further to gain insights about their territories.</p>",
+
+        "<p>In addition to that, you can open a longer menu by clicking on the little red arrow on the right-hand side (it only appears on larger screens, not on cell phones). There, the same field stations are interspersed with a growing number of thematic maps. These thematic maps showcase different cartographic techniques and forms of scientific or cultural research, all dealing with questions of political ecology. In other words, they show situations where social life is affected by the environment, and vice-versa.</p>",
+
+        "<p>This whole project has been sparked by the concept of the Anthropocene. It describes an era in which humanity has gained quasi-geological powers, capable of reshaping the land, the rivers and the atmosphere. These tremendous powers are often quite familiar: they can be seen in the locks, the dams, the levees, the earth-moving equipment along the shore, and above all, in the monocrop agriculture that has filled the former floodplains, offering prosperous livelihoods to millions of people. However, these familiar powers of science and industry have more recently become strange, producing unwanted consequences like hypoxic \"dead zones\" in the ocean or runway climate change. As the largest drainage basin in North America, the Mississippi-Missouri-Ohio River watershed offers a tangible example of conditions affecting the entire earth system.</p>",
+
+        "<p>Does anyone really know what's happening? We are plumbing unknown waters in this project, a bit like Mark Twain on the old Mississippi, sounding the depths for dangerous shoals. It took some courage to pilot a steamboat in those days.</p>",
+
+        "<p>Go ahead, join us in this adventure. The idea is to sound out the new river, and beyond it, the unknown world we all share.</p>",
+
+        "<p><img src='https://ecotopia.today/Mississippi/Images/Pelicans.jpg'/><br><em>White Pelicans in the current at the  Sidney A. Murray Jr. Hydroelectric Station, Louisiana</em></p>",
+        "<p><strong>Technical tip</strong></p>",
+        "<p>If you experience a problem editing your posts, it's probably because an older copy of the website is cached in your browser. Try refreshing the page, or use the ctrl-F5 key combination, or clear your recent history and that will likely solve the problem.</p>",
+        "<p><strong>About the basemap</strong></p>",
+        "<p>This project uses custom raster tiles produced by the primary map editor Brian Holmes, drawing on the USDA's <a href='https://www.nass.usda.gov/Research_and_Science/Cropland/Release' target='_blank' rel='noopener noreferrer nofollow'>2018 Cropland Data Layer</a> in particular. Roadways and other overlay information come from a specially configured <a href='https://mapbox.com' target='_blank' rel='noopener noreferrer nofollow'>Mapbox</a> layer based on <a href='https://www.openstreetmap.org' target='_blank' rel='noopener noreferrer nofollow'>Open Street Map</a> files. Areas outside the Mississippi watershed display ESRI's <a href='https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer' target='_blank' rel='noopener noreferrer nofollow'>World Ocean</a> map, and deep zooms reveal the same company's <a href='https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer' target='_blank' rel='noopener noreferrer nofollow'> World Imagery</a> layer, both of which are based on US government public domain sources. Lakes, rivers and those wonderful hotspots of biodiversity called swamps have been precisely mapped by the <a href='https://www.fws.gov/wetlands/data/Data-Download.html' target='_blank' rel='noopener noreferrer nofollow'>National Wetlands Inventory</a>. Levees, represented by orange lines that appear when you zoom in, come from the Army Corps of Engineers <a href='https://levees.sec.usace.army.mil' target='_blank' rel='noopener noreferrer nofollow'>National Levee Database</a>. Like many other features in the rest of the map, the levee lines deliver additional information when you click on them.</p>",
+
+        "<p>The software that makes all the interaction and community input possible has been developed by a Seattle-based group called <a href='https://mapseed.org' target='_blank' rel='noopener noreferrer nofollow'>Mapseed</a>. Contact them if you want to do this type of project! Any mistaken or misleading information on this map is undoubtedly due to the limited understanding of the editors, sorry. Tell us about it and we'll fix it.<BR><BR></p>",
+        "<p><strong>PROJECT SPONSORS</strong><BR><BR></p>",
         "<img src='https://ecotopia.today/Mississippi/Images/Partners.jpg'/>"
       ]
     },
@@ -1766,13 +1823,14 @@
     "order": [
       {
         "placeId": 7569,
-        "pan_to": [-93.047, 44.886],
-        "zoom": 10.8,
+        "pan_to": [-92.709, 45.457],
+        "zoom": 6.3,
         "iconUrl": "/static/css/images/markers/Fractal3.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "mississippi-group",
           "navigation-group",
+          "MissUndammed-group",
           "streets2-group",
           "mississippi-input"
         ],
@@ -1794,7 +1852,8 @@
       },
       {
         "placeId": 7529,
-        "zoom": 15,
+        "pan_to": [ -93.209, 44.962 ],
+        "zoom": 8.2,
         "iconUrl": "/static/css/images/markers/Fractal1.png",
         "spotlight": false
       },
