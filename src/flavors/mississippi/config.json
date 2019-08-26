@@ -216,9 +216,7 @@
       },
       "StLouis": {
         "type": "raster",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/StLouis/{z}/{x}/{y}.png"
-        ],
+        "tiles": ["https://ecotopia.today/Mississippi/StLouis/{z}/{x}/{y}.png"],
         "tileSize": 256
       },
       "NewMadrid": {
@@ -1852,7 +1850,7 @@
       },
       {
         "placeId": 7529,
-        "pan_to": [ -93.209, 44.962 ],
+        "pan_to": [-93.209, 44.962],
         "zoom": 8.2,
         "iconUrl": "/static/css/images/markers/Fractal1.png",
         "spotlight": false
