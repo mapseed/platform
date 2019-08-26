@@ -30,6 +30,7 @@ const ListTemplate = React.lazy(() => import("./templates/place-list"));
 const MapTemplate = React.lazy(() => import("./templates/map"));
 const ReportTemplate = React.lazy(() => import("./templates/report"));
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import config from "config";
 import { createFeaturesInGeoJSONSource } from "../state/ducks/map-style";
@@ -240,7 +241,6 @@ class App extends React.Component<Props, State> {
     i18next.use(initReactI18next as ThirdPartyModule).init({
       lng: config.flavor.defaultLanguage.code,
       resources: resourceBundle,
-      // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
       react: {
         // Needed to rerender components after results from Translate API are
         // returned.
