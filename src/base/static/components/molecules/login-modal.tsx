@@ -26,13 +26,10 @@ import { Mixpanel } from "../../utils/mixpanel";
 import { useTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
 
-interface ButtonStyleProps {
-  backgroundColor: string;
-}
-
 const useSocialButtonStyles = makeStyles({
   button: {
-    backgroundColor: (props: ButtonStyleProps) => props.backgroundColor,
+    backgroundColor: (props: { backgroundColor: string }) =>
+      props.backgroundColor,
     borderRadius: "8px",
     margin: "0 auto 16px auto",
     maxWidth: "180px",
