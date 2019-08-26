@@ -13,6 +13,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
 
 import { RegularText } from "../atoms/typography";
+import { Image } from "../atoms/imagery";
 import {
   updatePlaceFilters,
   placeFiltersSelector,
@@ -127,6 +128,19 @@ const PlaceFilterMenu: React.FunctionComponent<
                   ).length > 0
                 }
               />
+              {placeFilterConfig.icon && (
+                <Image
+                  css={css`
+                    width: 20px;
+                    max-width: 20px;
+                    min-width: 20px;
+                    height: auto;
+                    margin-right: 12px;
+                  `}
+                  src={placeFilterConfig.icon}
+                  alt={"Map marker"}
+                />
+              )}
               <ListItemText primary={placeFilterConfig.label} />
             </MenuItem>
           ))}
