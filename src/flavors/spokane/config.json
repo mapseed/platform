@@ -1764,7 +1764,7 @@
           },
           {
             "start_field_index": 9,
-            "end_field_index": 47,
+            "end_field_index": 51,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1772,8 +1772,8 @@
             ]
           },
           {
-            "start_field_index": 48,
-            "end_field_index": 62,
+            "start_field_index": 52,
+            "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1781,8 +1781,8 @@
             ]
           },
           {
-            "start_field_index": 63,
-            "end_field_index": 69,
+            "start_field_index": 67,
+            "end_field_index": 73,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1790,8 +1790,8 @@
             ]
           },
           {
-            "start_field_index": 70,
-            "end_field_index": 71,
+            "start_field_index": 74,
+            "end_field_index": 75,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1799,8 +1799,8 @@
             ]
           },
           {
-            "start_field_index": 72,
-            "end_field_index": 86,
+            "start_field_index": 76,
+            "end_field_index": 90,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -2262,7 +2262,9 @@
                 "targets": [
                   "synthetic_fertilization_types",
                   "synthetic_fertilization_yield_map",
-                  "synthetic_fertilization_zone_map"
+                  "synthetic_fertilization_zone_map",
+                  "synthetic_fertilization_quantity",
+                  "synthetic_fertilization_duration"
                 ]
               },
               {
@@ -2270,7 +2272,9 @@
                 "targets": [
                   "organic_fertilization_types",
                   "organic_fertilization_yield_map",
-                  "organic_fertilization_zone_map"
+                  "organic_fertilization_zone_map",
+                  "organic_fertilization_quantity",
+                  "organic_fertilization_duration"
                 ]
               }
             ],
@@ -2379,6 +2383,92 @@
               {
                 "label": "No",
                 "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "synthetic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use synthetic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "synthetic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been fertilizing your fields synthetically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use organic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "organic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been fertilizing your fields organically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
               }
             ]
           },
@@ -3632,7 +3722,7 @@
       "slug": "start",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Spokane County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Share Your Stewardship</a></div></div>",
-        "<img src='/static/css/images/sccd.jpg' alt='Spokane County Conservation District' style='margin:8px 0 16px 0' />",
+        "<img src='/static/css/images/tractor.jpg' alt='Tractor in Spokane County' style='margin:8px 0 16px 0' />",
         "<p>The Spokane County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas. By reporting your voluntary stewardship on this site, you'll help Spokane County allocate resources, and you'll help the Spokane County Conservation District learn what types of technical assistance we can provide to you.</p>",
         "<a href='/new' rel='internal' class='next-btn'>Sign up for Opportunities & Assistance</a>"
       ]
