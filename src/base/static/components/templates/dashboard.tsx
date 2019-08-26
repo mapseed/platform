@@ -21,9 +21,9 @@ import {
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
   placeFormsConfigSelector,
-  placeFormsConfigPropType,
+  PlaceFormsConfig,
   formFieldsConfigSelector,
-  formFieldsConfigPropType,
+  FormFieldsConfig,
 } from "../../state/ducks/forms-config";
 import { hasAdminAbilities } from "../../state/ducks/user";
 import { RegularTitle, SmallText, ExternalLink } from "../atoms/typography";
@@ -37,8 +37,8 @@ type StateProps = {
   appConfig: AppConfig;
   hasAdminAbilities: Function;
   datasetPlacesSelector: Function;
-  placeFormsConfig: PropTypes.InferProps<typeof placeFormsConfigPropType>;
-  formFieldsConfig: PropTypes.InferProps<typeof formFieldsConfigPropType>;
+  placeFormsConfig: PlaceFormsConfig;
+  formFieldsConfig: FormFieldsConfig;
   datasetsConfig: PropTypes.InferProps<typeof datasetsConfigPropType>;
 };
 

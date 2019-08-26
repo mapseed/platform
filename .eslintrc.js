@@ -45,6 +45,10 @@ module.exports = {
   },
   rules: {
     "no-console": "error",
+    "prefer-const": "warn",
+    "no-var": "warn",
+    "@typescript-eslint/ban-ts-ignore": "warn",
+    "prefer-rest-params": "warn",
     "no-unused-vars": 1,
     "react/no-find-dom-node": 0,
     "emotion/jsx-import": 2,

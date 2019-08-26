@@ -25,7 +25,7 @@ import KittitasFireReadyFieldSummary from "./kittitas-fire-ready-field-summary";
 
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
-  commentFormConfigPropType,
+  CommentFormConfig,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
 import {
@@ -100,7 +100,7 @@ type StateProps = {
   isEditModeToggled: boolean;
   layerGroups: LayerGroups;
   layout: Layout;
-  commentFormConfig: commentFormConfigPropType.isRequired;
+  commentFormConfig: CommentFormConfig;
   supportConfig: SupportConfig;
   placeConfig: PlaceConfig;
 };

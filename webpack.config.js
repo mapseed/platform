@@ -94,6 +94,12 @@ module.exports = {
     alias: {
       // alias for our config:
       config: path.resolve(__dirname, "src/flavors", flavor, "config.json"),
+      // Prevent multiple imports of @material-ui/styles:
+      "@material-ui/styles": path.resolve(
+        __dirname,
+        "node_modules",
+        "@material-ui/styles",
+      ),
     },
     extensions: [".wasm", ".mjs", ".js", ".json", ".ts", ".tsx"],
   },

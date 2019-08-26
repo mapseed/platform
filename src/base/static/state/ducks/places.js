@@ -33,17 +33,29 @@ export const datasetPlacesSelector = (datasetSlug, state) => {
 };
 
 export const filteredPlacesSelector = state => {
-  const filters = state.filters;
-  if (!state.places.placeModels || filters.length === 0) {
+  const placeFilters = state.placeFilters;
+
+  if (!state.places.placeModels || placeFilters.length === 0) {
     return state.places.placeModels;
   }
-  // a formId and a location_type are currenty equivalent
+
   return state.places.placeModels.filter(place => {
-    return !!filters.some(
-      filter =>
-        filter.formId === place.location_type &&
-        filter.datasetSlug === place.datasetSlug,
-    );
+    return placeFilters.some(placeFilter => {
+      switch (placeFilter.operator) {
+        case "includes":
+          return (
+            placeFilter.datasetSlug === place.datasetSlug &&
+            Array.isArray(place[placeFilter.placeProperty]) &&
+            place[placeFilter.placeProperty].includes(placeFilter.value)
+          );
+        case "equals":
+        default:
+          return (
+            placeFilter.datasetSlug === place.datasetSlug &&
+            place[placeFilter.placeProperty] === placeFilter.value
+          );
+      }
+    });
   });
 };
 

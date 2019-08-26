@@ -3,7 +3,30 @@
     "defaultLanguage": {
       "code": "en",
       "label": "English"
-    }
+    },
+    "placeFilters": [
+      {
+        "placeProperty": "practice_types",
+        "operator": "includes",
+        "datasetSlug": "spokane-input",
+        "value": "agriculture",
+        "label": "Agriculture actions"
+      },
+      {
+        "placeProperty": "practice_types",
+        "operator": "includes",
+        "datasetSlug": "spokane-input",
+        "value": "forestry",
+        "label": "Forestry actions"
+      },
+      {
+        "placeProperty": "practice_types",
+        "operator": "includes",
+        "datasetSlug": "spokane-input",
+        "value": "livestock",
+        "label": "Livestock actions"
+      }
+    ]
   },
   "datasets": [
     {
@@ -3546,7 +3569,7 @@
     "places": [
       {
         "id": "reports",
-        "datasetId": "spokane-input",
+        "datasetSlug": "spokane-input",
         "label": "Actions",
         "icon": "/static/css/images/markers/marker-field.png"
       }
@@ -3581,6 +3604,10 @@
       "title": "Funding",
       "type": "internal_link",
       "url": "/page/funding"
+    },
+    {
+      "title": "Filter",
+      "type": "filter"
     }
   ],
   "pages": [
