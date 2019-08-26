@@ -3,7 +3,7 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import { withTheme } from "emotion-theming";
 import { connect } from "react-redux";
-import { withTranslation } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -12,7 +12,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
 
-import { RegularText } from "../atoms/typography";
 import { Image } from "../atoms/imagery";
 import {
   updatePlaceFilters,
@@ -25,6 +24,7 @@ import {
 } from "../../state/ducks/flavor-config";
 import { NavBarItem } from "../../state/ducks/nav-bar-config";
 import mq from "../../../../media-queries";
+import { Theme } from "../../../../theme";
 
 type StateProps = {
   placeFiltersConfig: PlaceFiltersConfig;
@@ -37,9 +37,14 @@ type DispatchProps = {
 
 type OwnProps = {
   navBarItem: NavBarItem;
+  position: number;
+  theme: Theme;
 };
 
-type PlaceFilterMenuProps = StateProps & DispatchProps & OwnProps;
+type PlaceFilterMenuProps = StateProps &
+  DispatchProps &
+  OwnProps &
+  WithTranslation;
 
 const FILTER_MENU_ALL = "mapseed-place-filter-menu-all";
 const PlaceFilterMenu: React.FunctionComponent<
@@ -53,21 +58,18 @@ const PlaceFilterMenu: React.FunctionComponent<
 
     props.updatePlaceFilters(
       evt.target.value.map(filterValue => {
-        const {
-          value,
-          placeProperty,
-          operator,
-          datasetSlug,
-        } = props.placeFiltersConfig.find(
+        const placeFilterConfig = props.placeFiltersConfig.find(
           config => config.value === filterValue,
         );
 
-        return {
-          value,
-          placeProperty,
-          operator,
-          datasetSlug,
-        };
+        if (placeFilterConfig) {
+          return {
+            value: placeFilterConfig.value,
+            placeProperty: placeFilterConfig.placeProperty,
+            operator: placeFilterConfig.operator,
+            datasetSlug: placeFilterConfig.datasetSlug,
+          };
+        }
       }),
     );
   };
@@ -160,7 +162,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updatePlaceFilters(placeFilters)),
 });
 
-export default connect(
+export default connect<StateProps, DispatchProps>(
   mapStateToProps,
   mapDispatchToProps,
 )(withTheme(withTranslation("PlaceFilterMenu")(PlaceFilterMenu)));

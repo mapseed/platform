@@ -15,7 +15,7 @@ import LoginMenu from "../molecules/login-menu";
 import { RegularTitle, InternalLink, ExternalLink } from "../atoms/typography";
 
 import {
-  navBarConfigPropType,
+  NavBarConfig,
   navBarConfigSelector,
 } from "../../state/ducks/nav-bar-config";
 import PlaceFilterMenu from "./place-filter-menu";
@@ -204,7 +204,7 @@ const navItemMappings = {
 };
 
 type ComponentPropTypes = {
-  navBarConfig: PropTypes.InferProps<typeof navBarConfigPropType>;
+  navBarConfig: NavBarConfig;
 };
 
 type DispatchProps = {

@@ -2,7 +2,7 @@ type PlaceFilterConfig = {
   placeProperty: string;
   operator: "equals" | "includes";
   datasetSlug: string;
-  value: string | number | boolean;
+  value: string | number;
   label: string;
   icon?: string;
 };
