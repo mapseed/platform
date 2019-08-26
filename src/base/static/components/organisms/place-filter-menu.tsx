@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import * as React from "react";
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
+import { withTheme } from "emotion-theming";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -11,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
 
+import { RegularText } from "../atoms/typography";
 import {
   updatePlaceFilters,
   placeFiltersSelector,
@@ -21,6 +23,7 @@ import {
   PlaceFiltersConfig,
 } from "../../state/ducks/flavor-config";
 import { NavBarItem } from "../../state/ducks/nav-bar-config";
+import mq from "../../../../media-queries";
 
 type StateProps = {
   placeFiltersConfig: PlaceFiltersConfig;
@@ -38,7 +41,9 @@ type OwnProps = {
 type PlaceFilterMenuProps = StateProps & DispatchProps & OwnProps;
 
 const FILTER_MENU_ALL = "mapseed-place-filter-menu-all";
-const FilterMenu: React.FunctionComponent<PlaceFilterMenuProps> = props => {
+const PlaceFilterMenu: React.FunctionComponent<
+  PlaceFilterMenuProps
+> = props => {
   const handleChange = evt => {
     if (evt.target.value.includes(FILTER_MENU_ALL)) {
       props.updatePlaceFilters([]);
@@ -67,41 +72,67 @@ const FilterMenu: React.FunctionComponent<PlaceFilterMenuProps> = props => {
   };
 
   return (
-    <FormControl>
-      <Select
-        multiple
-        value={props.placeFilters.map(placeFilter => placeFilter.value)}
-        onChange={handleChange}
-        displayEmpty={true}
-        input={<Input id="place-filters" />}
-        renderValue={() =>
-          `${props.navBarItem.title}${
-            props.placeFilters.length > 0 ? " (on)" : ""
-          }`
+    <div
+      css={css`
+        ${[mq[0]]} {
+          text-align: center;
         }
-      >
-        <MenuItem value={FILTER_MENU_ALL}>
-          <Checkbox checked={props.placeFilters.length === 0} />
-          <ListItemText primary={props.t("filterMenuOptionAll", "All")} />
-        </MenuItem>
-        <Divider />
-        {props.placeFiltersConfig.map(placeFilterConfig => (
-          <MenuItem
-            key={placeFilterConfig.value}
-            value={placeFilterConfig.value}
-          >
-            <Checkbox
-              checked={
-                props.placeFilters.filter(
-                  placeFilter => placeFilter.value === placeFilterConfig.value,
-                ).length > 0
-              }
-            />
-            <ListItemText primary={placeFilterConfig.label} />
+        ${[mq[1]]} {
+          padding-left: 12px;
+          border-left: ${props.position > 0
+            ? "solid 1px " + props.theme.text.tertiary
+            : "none"};
+        }
+      `}
+    >
+      <FormControl>
+        <Select
+          multiple
+          disableUnderline
+          value={props.placeFilters.map(placeFilter => placeFilter.value)}
+          onChange={handleChange}
+          displayEmpty={true}
+          input={<Input id="place-filters" />}
+          renderValue={() => (
+            <span
+              css={css`
+                font-family: ${props.theme.text.navBarFontFamily};
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                color: ${props.theme.brand.primary};
+              `}
+            >
+              {`${props.navBarItem.title}${
+                props.placeFilters.length > 0 ? " (on)" : ""
+              }`}
+            </span>
+          )}
+        >
+          <MenuItem value={FILTER_MENU_ALL}>
+            <Checkbox checked={props.placeFilters.length === 0} />
+            <ListItemText primary={props.t("filterMenuOptionAll", "All")} />
           </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+          <Divider />
+          {props.placeFiltersConfig.map(placeFilterConfig => (
+            <MenuItem
+              key={placeFilterConfig.value}
+              value={placeFilterConfig.value}
+            >
+              <Checkbox
+                checked={
+                  props.placeFilters.filter(
+                    placeFilter =>
+                      placeFilter.value === placeFilterConfig.value,
+                  ).length > 0
+                }
+              />
+              <ListItemText primary={placeFilterConfig.label} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
   );
 };
 
@@ -118,4 +149,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withTranslation("FilterMenu")(FilterMenu));
+)(withTheme(withTranslation("PlaceFilterMenu")(PlaceFilterMenu)));
