@@ -812,6 +812,232 @@
           ]
         },
         {
+          "header": "Landowner summary",
+          "type": "freeTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Name and contact",
+              "type": "string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                ["get-val", "private-landowner_name"],
+                ["get-val", "private-landowner_email"],
+                ["get-val", "private-landowner_phone"]
+              ]
+            },
+            {
+              "header": "Submitted report on",
+              "type": "date",
+              "fractionalWidth": 1,
+              "value": ["get-val", "created_datetime"]
+            },
+            {
+              "header": "Implemented",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "yes"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "conventional_till"], "yes"],
+                  ["literal", "Conventional Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "yes"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_tests"], "yes"],
+                  ["literal", "Soil Tests"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fertilization"], "yes"],
+                  ["literal", "Fertilization"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "buffers"], "yes"],
+                  ["literal", "Buffers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "biosolids"], "yes"],
+                  ["literal", "Biosolids"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grassed_waterways"], "yes"],
+                  ["literal", "Grassed Waterways"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "commodity_buffer"], "yes"],
+                  ["literal", "Commodity Buffer Program"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "riparian_forest"], "yes"],
+                  ["literal", "Riparian Forest"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stream_crossing"], "yes"],
+                  ["literal", "Stream Crossing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fencing"], "yes"],
+                  ["literal", "Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mud_manure_management"], "yes"],
+                  ["literal", "Mud and Manure Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "off_creek_stock_watering"], "yes"],
+                  ["literal", "Off Creek Stock Watering"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forest_management"], "yes"],
+                  ["literal", "Forest Management"],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Interested",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "interested"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "conventional_till"], "interested"],
+                  ["literal", "Conventional Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "interested"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_tests"], "interested"],
+                  ["literal", "Soil Tests"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fertilization"], "interested"],
+                  ["literal", "Fertilization"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "buffers"], "interested"],
+                  ["literal", "Buffers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "biosolids"], "interested"],
+                  ["literal", "Biosolids"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grassed_waterways"], "interested"],
+                  ["literal", "Grassed Waterways"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "commodity_buffer"], "interested"],
+                  ["literal", "Commodity Buffer Program"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "riparian_forest"], "interested"],
+                  ["literal", "Riparian Forest"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stream_crossing"], "interested"],
+                  ["literal", "Stream Crossing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fencing"], "interested"],
+                  ["literal", "Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mud_manure_management"], "interested"],
+                  ["literal", "Mud and Manure Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "off_creek_stock_watering"], "interested"],
+                  ["literal", "Off Creek Stock Watering"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forest_management"], "interested"],
+                  ["literal", "Forest Management"],
+                  ["literal", ""]
+                ],
+                ["get-val", "other_practices_description"]
+              ]
+            }
+          ]
+        },
+        {
           "header": "Critical Area Summary",
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
@@ -898,127 +1124,6 @@
                   "value": ["get-count"],
                   "label": "Reports"
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "header": "Landowner summary",
-          "type": "freeTable",
-          "stripeColor": "#f8f5f5",
-          "layout": {
-            "start": 7,
-            "end": 13,
-            "height": 500
-          },
-          "columns": [
-            {
-              "header": "Name and contact",
-              "type": "string",
-              "fractionalWidth": 3,
-              "value": [
-                "cat",
-                ["get-val", "private-landowner_name"],
-                ["get-val", "private-landowner_email"],
-                ["get-val", "private-landowner_phone"]
-              ]
-            },
-            {
-              "header": "Submitted report on",
-              "type": "date",
-              "fractionalWidth": 2,
-              "value": ["get-val", "created_datetime"]
-            },
-            {
-              "header": "OK to use photos?",
-              "type": "boolean",
-              "fractionalWidth": 1,
-              "value": ["get-val", "private-use_photos"]
-            },
-            {
-              "header": "Requesting information",
-              "type": "unstyled-string",
-              "fractionalWidth": 2,
-              "value": [
-                "cat",
-                [
-                  "case",
-                  ["==", ["get-val", "no_till"], "interested"],
-                  ["literal", "No Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "reduced_till"], "interested"],
-                  ["literal", "Reduced Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "basic_soil_tests"], "interested"],
-                  ["literal", "Basic Soil Tests"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "biosolids"], "interested"],
-                  ["literal", "Biosolids Management"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "precision_soil_tests"], "interested"],
-                  ["literal", "Precision Soil Tests"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "grassed_waterways"], "interested"],
-                  ["literal", "Grassed Waterways"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "commodity_buffer"], "interested"],
-                  ["literal", "Commodity Buffer Program"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "riparian_forest"], "interested"],
-                  ["literal", "Riparian Forest"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "stream_crossing"], "interested"],
-                  ["literal", "Stream Crossing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "heavy_use_area"], "interested"],
-                  ["literal", "Heavy Use Area"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "fencing"], "interested"],
-                  ["literal", "Fencing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "nutrient_management"], "interested"],
-                  ["literal", "Nutrient Management"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "pipeline"], "interested"],
-                  ["literal", "Pipeline"],
-                  ["literal", ""]
-                ]
               ]
             }
           ]
@@ -2344,11 +2449,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "synthetic-yield-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-synthetic-yield-map"
               }
             ]
           },
@@ -2361,11 +2466,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "synthetic-zone-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-synthetic-zone-map"
               }
             ]
           },
@@ -2378,11 +2483,28 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "organic-yield-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-organic-yield-map"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_zone_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Have you developed a zone map for organic fertilization?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "organic-zone-map"
+              },
+              {
+                "label": "No",
+                "value": "no-organic-zone-map"
               }
             ]
           },
@@ -2469,23 +2591,6 @@
               {
                 "label": "36 years or more",
                 "value": "36-or-more"
-              }
-            ]
-          },
-          {
-            "name": "organic_fertilization_zone_map",
-            "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Have you developed a zone map for organic fertilization?",
-            "optional": true,
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
               }
             ]
           },
