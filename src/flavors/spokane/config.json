@@ -2302,11 +2302,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "soil-tests-zone-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-soil-tests-zone-map"
               }
             ]
           },
@@ -2702,11 +2702,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes-program"
+                "value": "buffer-program"
               },
               {
                 "label": "No",
-                "value": "no-program"
+                "value": "no-buffer-program"
               }
             ]
           },
@@ -3505,11 +3505,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "forest-management-plan"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-forest-management-plan"
               }
             ]
           },
@@ -3521,11 +3521,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "active-forest-management"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-active-forest-management"
               }
             ]
           },
