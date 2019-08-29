@@ -47,7 +47,7 @@
     "@emotion/styled": "^10.0.15",
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
-    "@material-ui/styles": "^4.0.0",
+    "@material-ui/styles": "^4.3.3",
     "@turf/area": "^6.0.1",
     "@turf/distance": "^6.0.1",
     "@turf/helpers": "^6.1.4",
