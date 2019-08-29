@@ -770,44 +770,6 @@
             }
           },
           {
-            "id": "kittitas-fire-districts-fill-labels",
-            "type": "symbol",
-            "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
-            "paint": {
-              "text-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                9,
-                0,
-                10,
-                1
-              ],
-              "text-color": "#5380c1",
-              "text-halo-color": "#dde7f2",
-              "text-halo-width": 20
-            },
-            "layout": {
-              "text-field": [
-                "match",
-                ["to-number", ["get", "fire_district_nbr"]],
-                100,
-                "Areas outside Fire Districts",
-                ["concat", "Fire district ", ["get", "fire_district_nbr"]]
-              ],
-              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
-              "text-size": 13,
-              "text-allow-overlap": true,
-              "text-max-width": 40,
-              "text-padding": 15,
-              "text-allow-overlap": false,
-              "text-transform": "uppercase",
-              "text-justify": "left",
-              "text-line-height": 1
-            }
-          },
-          {
             "id": "kittitas-fire-districts-labels",
             "type": "symbol",
             "filter": [
@@ -824,8 +786,7 @@
             "paint": {
               "text-color": "#5380c1",
               "text-halo-color": "#dde7f2",
-              "text-halo-width": 20,
-              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 1, 10, 0]
+              "text-halo-width": 20
             },
             "layout": {
               "text-field": [
@@ -868,7 +829,7 @@
               "text-transform": "uppercase",
               "text-justify": "left",
               "text-line-height": 1,
-              "icon-image": "marker-shield.png",
+              "icon-image": "marker-fire-district.png",
               "icon-size": 0.5
             }
           }
@@ -1246,6 +1207,7 @@
             "end_field_index": 8,
             "visibleLayerGroupIds": [
               "light-satellite",
+              "wa-state-large-fires-1973-2018",
               "wa-state-wildfire-start-sites-2008-group",
               "kittitas-burn-risk",
               "kittitas-county-outline"
@@ -1427,7 +1389,7 @@
           {
             "name": "fire_resources_information",
             "type": "informational_html",
-            "content": "<p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p><p class='mapseed-form-stage-body'>If you know your tax parcel number but not your address, go to <a href='https://gis.co.kittitas.wa.us/compas/default.aspx' target='_blank'>https://gis.co.kittitas.wa.us/compas/default.aspx</a> and enter your parcel number to find more information including the \"situs\" address.</p>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p><p class='mapseed-form-stage-body'>If you know your tax parcel number but not your address, go to <a href='https://gis.co.kittitas.wa.us/compas/default.aspx' target='_blank'>https://gis.co.kittitas.wa.us/compas/default.aspx</a> and enter your parcel number to find more information including the \"situs\" address.</p><p style='font-weight:800;'>If your property resides in a fire district, it does not guarantee that the fire district or fire department will be able to defend your property during a wildfire event.</p>"
           },
           {
             "name": "fire_resiliency_header",
