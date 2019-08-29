@@ -74,10 +74,14 @@ const GeocodingField: React.FunctionComponent<Props> = ({
         const locationGeometry =
           data.features && data.features[0] && data.features[0].geometry;
 
-        if (locationGeometry && isMounted.current) {
-          setIsGeocoding(false);
-          setIsWithGeocodingError(false);
+        if (locationGeometry) {
+          // Don't set internal state if this component has unmounted at 
+          // callback time (which can happen in a multi-stage form usage, for 
+          // example).
+          isMounted.current && setIsGeocoding(false);
+          isMounted.current && setIsWithGeocodingError(false);
 
+          // But *do* complete the map transition to the geocoded location.
           eventEmitter.emit("setMapViewport", {
             latitude: locationGeometry.coordinates[1],
             longitude: locationGeometry.coordinates[0],
