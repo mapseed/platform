@@ -109,6 +109,30 @@
               ]
             },
             {
+              "header": "Preparedness confidence",
+              "type": "badge",
+              "fractionalWidth": 1,
+              "value": [
+                "case",
+                ["==", ["get-val", "landowner_confidence"], "very_confident"],
+                ["literal", { "label": "Very confident", "color": "#2ecc71" }],
+                [
+                  "==",
+                  ["get-val", "landowner_confidence"],
+                  "somewhat_confident"
+                ],
+                [
+                  "literal",
+                  { "label": "Somewhat confident", "color": "#f1c40f" }
+                ],
+                ["==", ["get-val", "landowner_confidence"], "completed_some"],
+                ["literal", { "label": "Completed some", "color": "#e67e22" }],
+                ["==", ["get-val", "landowner_confidence"], "overwhelmed"],
+                ["literal", { "label": "Overwhelmed", "color": "#c0392b" }],
+                ["literal", { "label": "Not available", "color": "#aaa" }]
+              ]
+            },
+            {
               "header": "Submitted report on",
               "type": "date",
               "fractionalWidth": 1,
@@ -405,30 +429,6 @@
               "type": "unstyled-string",
               "fractionalWidth": 2,
               "value": ["get-val", "interested_assistance"]
-            },
-            {
-              "header": "Preparedness confidence",
-              "type": "badge",
-              "fractionalWidth": 1,
-              "value": [
-                "case",
-                ["==", ["get-val", "landowner_confidence"], "very_confident"],
-                ["literal", { "label": "Very confident", "color": "#2ecc71" }],
-                [
-                  "==",
-                  ["get-val", "landowner_confidence"],
-                  "somewhat_confident"
-                ],
-                [
-                  "literal",
-                  { "label": "Somewhat confident", "color": "#f1c40f" }
-                ],
-                ["==", ["get-val", "landowner_confidence"], "completed_some"],
-                ["literal", { "label": "Completed some", "color": "#e67e22" }],
-                ["==", ["get-val", "landowner_confidence"], "overwhelmed"],
-                ["literal", { "label": "Overwhelmed", "color": "#c0392b" }],
-                ["literal", { "label": "Not available", "color": "#aaa" }]
-              ]
             }
           ]
         }
