@@ -111,7 +111,7 @@
             {
               "header": "Submitted report on",
               "type": "date",
-              "fractionalWidth": 2,
+              "fractionalWidth": 1,
               "value": ["get-val", "created_datetime"]
             },
             {
