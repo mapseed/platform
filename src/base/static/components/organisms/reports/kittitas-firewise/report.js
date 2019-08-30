@@ -57,7 +57,7 @@ const fireDistrictInfo = {
     email: "Not available",
     phone: "509-962-7506",
   }, // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
-  "Fire District 3 (Easton)": {
+  "Easton Fire District": {
     email: "Not available",
     phone: "509-656-0121",
   },
@@ -65,27 +65,27 @@ const fireDistrictInfo = {
     email: "jwiseman@snoqualmiepassfirerescue.org",
     phone: "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
   },
-  "Fire District 6 (Ronald)": {
+  "Ronald Fire District": {
     email: "www.facebook.com/KCFPD6",
     phone: "509-649-2600",
   },
-  "CITY OF ROSLYN 57-1": {
+  "City of Roslyn Volunteer Fire Department": {
     email: "skye@inlandnet.com",
     phone: "509-649-3105",
   },
-  "CITY OF CLE ELUM 51-1": {
+  "City of Cle Elum Volunteer Fire Department": {
     email: "firechief@cityofcleelum.com",
     phone: "509-674-1748",
   },
-  "Fire District 1 (Rural Thorp)": {
+  "Rural Thorp Fire District": {
     email: "www.facebook.com/kittitascofd1",
     phone: "509-964-2435",
   },
-  "Fire District 4 (Vantage)": {
+  "Vantage Fire District": {
     email: "vantageKCFD4@gmail.com",
     phone: "Not available",
   },
-  "Kittitas Valley Fire and Rescue (Fire District 2)": {
+  "Kittitas Valley Fire and Rescue": {
     email: "www.kvfr.org/Contact_Us.aspx",
     phone: "509-933-7231",
   },
@@ -127,12 +127,25 @@ const returnIntervals = {
   "ponderosa-pine": "8-15 years",
   "non-forest-rangeland": "5-15 years",
 };
+const forestTypes = {
+  subalpine: "Subalpine",
+  "moist-mixed-conifer": "Moist Mixed Conifer",
+  "dry-forest": "Dry Forest",
+  "ponderosa-pine": "Ponderosa Pine",
+  "non-forest-rangeland": "Non-forest Rangeland",
+};
+const interestedAssistanceTypes = {
+  interested_technical_advice:
+    "Better understanding of the importance of the actions",
+  interested_financial_assistance:
+    "Financial assistance to complete the actions",
+};
 
 const KittitasFireReadyReport = props => {
   const {
     num_nearby_large_fires: numLargeFires,
     num_nearby_fire_start_sites: numFireStarts,
-    local_fire_district_fire_district_name: fireDistrictName,
+    local_fire_district_fire_distr: fireDistrictName,
     firewise_community_Community: fireAdaptedCommunity,
     burn_risk_LABEL: burnRisk,
     forest_type: forestType,
@@ -168,13 +181,21 @@ const KittitasFireReadyReport = props => {
 
   const safeAvgFireStarts = !isNaN(numFireStarts) ? numFireStarts / 10 : 0; // 10 === year range of data.
   const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
-  const safeForestType = forestType || "unknown";
+  const safeForestType = forestTypes[forestType] || "unknown";
   const safeReturnInterval = returnIntervals[forestType] || "unknown";
   const safeFireDistrictName =
     fireDistrictName === "Areas outside Fire Districts" || !fireDistrictName
       ? "You are not located in a Fire District. Contact the Fire Marshal's Office:"
       : fireDistrictName;
   const safeFireDistrictContactInfo = fireDistrictInfo[safeFireDistrictName];
+  const safeInterestedAssistance = Array.isArray(
+    props.place["interested_assistance"],
+  )
+    ? props.place["interested_assistance"].map(
+        item => interestedAssistanceTypes[item],
+      )
+    : [];
+
   const isOutsideFireAdaptedCommunity =
     !fireAdaptedCommunity || fireAdaptedCommunity === "none";
   const safeFireAdaptedCommunity = isOutsideFireAdaptedCommunity
@@ -276,7 +297,13 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-globe"
                 >
                   <ExternalLink href="https://www.facebook.com/KittitasFACC">
-                    <LargeText>www.facebook.com/KittitasFACC</LargeText>
+                    <LargeText
+                      css={css`
+                        font-size: 1.2rem;
+                      `}
+                    >
+                      www.facebook.com/KittitasFACC
+                    </LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
@@ -401,9 +428,10 @@ const KittitasFireReadyReport = props => {
                 of{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {safeForestType}
-                </LargeText>
+                </LargeText>{" "}
                 with fire return intervals of
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
+                  {" "}
                   {safeReturnInterval}.
                 </LargeText>
               </ReportBodyText>
@@ -579,7 +607,7 @@ const KittitasFireReadyReport = props => {
                   <ExternalLink href="https://twitter.com/kcsheriffoffice">
                     <LargeText
                       css={css`
-                        font-size: 0.9rem;
+                        font-size: 1.1rem;
                       `}
                     >
                       twitter.com/kcsheriffoffice
@@ -593,7 +621,7 @@ const KittitasFireReadyReport = props => {
                   <ExternalLink href="https://www.facebook.com/KittitasCountySheriff/">
                     <LargeText
                       css={css`
-                        font-size: 0.9rem;
+                        font-size: 0.95rem;
                       `}
                     >
                       www.facebook.com/KittitasCountySheriff
@@ -669,17 +697,17 @@ const KittitasFireReadyReport = props => {
                 The National Fire Protection Association recommends you think of
                 fire prevention in three ignition zones around your home:{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
-                  Immediate (0-5 feet)
-                </LargeText>
-                ,{" "}
+                  Immediate
+                </LargeText>{" "}
+                (0-5 feet) ,{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
-                  Intermediate (5-30 feet)
-                </LargeText>
-                , and{" "}
+                  Intermediate
+                </LargeText>{" "}
+                (5-30 feet) , and{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
-                  Extended (30-100 feet or 200 feet on a slope)
-                </LargeText>
-                .
+                  Extended
+                </LargeText>{" "}
+                (30-100 feet or 200 feet on a slope).
               </ReportBodyText>
               <ReportBodyText>
                 {" "}
@@ -757,6 +785,31 @@ const KittitasFireReadyReport = props => {
                   </LargeText>
                 </>
               )}
+              {safeInterestedAssistance.length > 0 && (
+                <>
+                  <ReportBodyText>
+                    You identified the following needs:
+                  </ReportBodyText>
+                  <ul>
+                    {safeInterestedAssistance.map(item => (
+                      <li>
+                        <LargeText
+                          css={css`
+                            font-family: Raleway, sans-serif;
+                            font-size: 1.5rem;
+                            display: block;
+                            margin-left: 64px;
+                            margin-bottom: 16px;
+                            font-style: italic;
+                          `}
+                        >
+                          {item}
+                        </LargeText>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
               <ReportBodyText>
                 We recommend a full onsite consultation to learn more about
                 defensible space and the programs available to you. You can get
@@ -772,7 +825,14 @@ const KittitasFireReadyReport = props => {
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
-              <ReportBodyText>
+              <ReportBodyText
+                css={css`
+                font-size: 1.2rem;
+                font-style-italic;
+                padding-top: 16px;
+                border-top: 1px dashed #cccc;
+                `}
+              >
                 Want to be part of the solution? Join the Kittitas Fire Adapted
                 Communities Coalition (K-FACC) and help us spread the word to
                 our communities! Call 925-3352 ext. 204 to be added to the

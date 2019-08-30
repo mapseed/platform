@@ -41,6 +41,9 @@ header {
 [data-field-type="geocoding"],
 [data-field-name="private-landowner_phone"],
 [data-field-name="private-landowner_name"],
+[data-field-name="landowner_confidence"],
+[data-field-name="not_completed_reasons"],
+[data-field-name="interested_assistance"],
 [data-field-name="other-comments"],
 [data-field-name="drag_map_info"],
 [data-field-type="geolocate"] {

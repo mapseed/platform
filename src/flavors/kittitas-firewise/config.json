@@ -54,21 +54,392 @@
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "Kittitas County Fire Adapted Program - Reports",
+      "isExportable": true,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "kittitas-firewise-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total Reports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "isExportable": true,
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        },
+        {
+          "header": "Landowner Summary",
+          "type": "freeTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Name and contact",
+              "type": "string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                ["get-val", "private-landowner_name"],
+                ["get-val", "private-landowner_email"],
+                ["get-val", "private-landowner_phone"]
+              ]
+            },
+            {
+              "header": "Submitted report on",
+              "type": "date",
+              "fractionalWidth": 2,
+              "value": ["get-val", "created_datetime"]
+            },
+            {
+              "header": "Completed actions",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "clean_roofs"], "yes"],
+                  ["literal", "Cleaning roofs and gutters"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "replace_shingles"], "yes"],
+                  ["literal", "Replacing or repairing shingles"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduce_embers"], "yes"],
+                  ["literal", "Reducing embers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clean_debris_attic_vents"], "yes"],
+                  ["literal", "Cleaning debris from attic vents"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "repair_screens"], "yes"],
+                  ["literal", "Repairing or replacing window screens"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "move_flammable_material"], "yes"],
+                  [
+                    "literal",
+                    "Removing flammable material from wall exteriors"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clear_vegetation"], "yes"],
+                  ["literal", "Clearing vegetation from under propane tanks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "create_fuel_breaks"], "yes"],
+                  ["literal", "Creating fuel breaks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mow_to_four_inches"], "yes"],
+                  ["literal", "Keeping lawns mowed to four inches"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_ladder_fueld"], "yes"],
+                  ["literal", "Removing ladder fuels"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_trees"], "yes"],
+                  ["literal", "Spacing trees to 18 feet"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "tree_placement"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring tree canopy is no closer than 10 feet to structures"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "small_tree_clusters"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring trees and shrubs are limited to small clusters"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "dispase_ground_debris"], "yes"],
+                  ["literal", "Disposing of ground litter and debris"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_dead_material"], "yes"],
+                  ["literal", "Removing dead plant and tree material"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_small_conifers"], "yes"],
+                  ["literal", "Removing small conifers between mature trees"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_outbuilding_vegetation"], "yes"],
+                  ["literal", "Removing vegetation adjacent to outbuildings"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_canopy_tops_30_60_feet"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring trees 30 to 60 feet from home have 12 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_canopy_tops_60_100_feet"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring trees 60 to 100 feet from home have 6 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Requesting information",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "clean_roofs"], "interested"],
+                  ["literal", "Cleaning roofs and gutters"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "replace_shingles"], "interested"],
+                  ["literal", "Replacing or repairing shingles"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduce_embers"], "interested"],
+                  ["literal", "Reducing embers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clean_debris_attic_vents"], "interested"],
+                  ["literal", "Cleaning debris from attic vents"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "repair_screens"], "interested"],
+                  ["literal", "Repairing or replacing window screens"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "move_flammable_material"], "interested"],
+                  [
+                    "literal",
+                    "Removing flammable material from wall exteriors"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clear_vegetation"], "interested"],
+                  ["literal", "Clearing vegetation from under propane tanks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "create_fuel_breaks"], "interested"],
+                  ["literal", "Creating fuel breaks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mow_to_four_inches"], "interested"],
+                  ["literal", "Keeping lawns mowed to four inches"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_ladder_fueld"], "interested"],
+                  ["literal", "Removing ladder fuels"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_trees"], "interested"],
+                  ["literal", "Spacing trees to 18 feet"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "tree_placement"], "interested"],
+                  [
+                    "literal",
+                    "Ensuring tree canopy is no closer than 10 feet to structures"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "small_tree_clusters"], "interested"],
+                  [
+                    "literal",
+                    "Ensuring trees and shrubs are limited to small clusters"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "dispase_ground_debris"], "interested"],
+                  ["literal", "Disposing of ground litter and debris"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_dead_material"], "interested"],
+                  ["literal", "Removing dead plant and tree material"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_small_conifers"], "interested"],
+                  ["literal", "Removing small conifers between mature trees"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "remove_outbuilding_vegetation"],
+                    "interested"
+                  ],
+                  ["literal", "Removing vegetation adjacent to outbuildings"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "space_canopy_tops_30_60_feet"],
+                    "interested"
+                  ],
+                  [
+                    "literal",
+                    "Ensuring trees 30 to 60 feet from home have 12 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "space_canopy_tops_60_100_feet"],
+                    "interested"
+                  ],
+                  [
+                    "literal",
+                    "Ensuring trees 60 to 100 feet from home have 6 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Requesting assistance",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": ["get-val", "interested_assistance"]
+            },
+            {
+              "header": "Preparedness confidence",
+              "type": "badge",
+              "fractionalWidth": 1,
+              "value": [
+                "case",
+                ["==", ["get-val", "landowner_confidence"], "very_confident"],
+                ["literal", { "label": "Very confident", "color": "#2ecc71" }],
+                [
+                  "==",
+                  ["get-val", "landowner_confidence"],
+                  "somewhat_confident"
+                ],
+                [
+                  "literal",
+                  { "label": "Somewhat confident", "color": "#f1c40f" }
+                ],
+                ["==", ["get-val", "landowner_confidence"], "completed_some"],
+                ["literal", { "label": "Completed some", "color": "#e67e22" }],
+                ["==", ["get-val", "landowner_confidence"], "overwhelmed"],
+                ["literal", { "label": "Overwhelmed", "color": "#c0392b" }],
+                ["literal", { "label": "Not available", "color": "#aaa" }]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "map": {
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-120.541803, 46.99644],
-    "offlineBoundingBox": {
-      "southWest": {
-        "lat": 46.709206,
-        "lng": -121.476997
-      },
-      "northEast": {
-        "lat": 47.633585,
-        "lng": -119.891353
-      }
-    },
     "mapViewport": {
       "latitude": 47.18554,
       "longitude": -120.72226,
@@ -716,7 +1087,7 @@
         "id": "kittitas-fire-districts",
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_district_name}}</em></p><p><strong>Phone: </strong><em>{{fire_district_phone}}</em></p><p><strong>Email: </strong><em>{{fire_district_email}}</em></p>",
+        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_distr}}</em></p><p><strong>Phone: </strong><em>{{phone}}</em></p><p><strong>Email: </strong><em>{{email}}</em></p>",
         "mapboxLayers": [
           {
             "id": "kittitas-fire-districts",
@@ -731,7 +1102,7 @@
                 9,
                 [
                   "match",
-                  ["get", "fire_district_name"],
+                  ["get", "fire_distr"],
                   "Areas outside Fire Districts",
                   0,
                   0.6
@@ -747,7 +1118,7 @@
             "type": "line",
             "filter": [
               "!=",
-              ["get", "fire_district_name"],
+              ["get", "fire_distr"],
               "Areas outside Fire Districts"
             ],
             "source": "kittitas-fire-districts",
@@ -774,11 +1145,7 @@
             "type": "symbol",
             "filter": [
               "all",
-              [
-                "!=",
-                ["get", "fire_district_name"],
-                "Areas outside Fire Districts"
-              ],
+              ["!=", ["get", "fire_distr"], "Areas outside Fire Districts"],
               ["==", ["geometry-type"], "Point"]
             ],
             "source": "kittitas-fire-districts",
@@ -789,11 +1156,7 @@
               "text-halo-width": 20
             },
             "layout": {
-              "text-field": [
-                "concat",
-                "Fire district ",
-                ["get", "fire_district_nbr"]
-              ],
+              "text-field": ["concat", "Fire district ", ["get", "fire_dis_1"]],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
               "text-size": 14,
               "text-max-width": 40,
@@ -802,7 +1165,7 @@
               "icon-allow-overlap": true,
               "text-anchor": [
                 "match",
-                ["to-number", ["get", "fire_district_nbr"]],
+                ["to-number", ["get", "fire_dis_1"]],
                 3,
                 "right",
                 99,
@@ -815,7 +1178,7 @@
               ],
               "text-offset": [
                 "match",
-                ["to-number", ["get", "fire_district_nbr"]],
+                ["to-number", ["get", "fire_dis_1"]],
                 3,
                 ["literal", [-1, 0]],
                 4,
@@ -1536,7 +1899,7 @@
           {
             "name": "landowner_confidence",
             "type": "big_radio",
-            "optional": true,
+            "optional": false,
             "prompt": "How do you feel about your answers to list of tasks in the area around your home?",
             "content": [
               {
@@ -1544,16 +1907,16 @@
                 "value": "very_confident"
               },
               {
-                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
-                "value": "very_confident"
+                "label": "I’m somewhat confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "value": "somewhat_confident"
               },
               {
-                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
-                "value": "very_confident"
+                "label": "I’ve completed some of these actions, but have many left to do",
+                "value": "completed_some"
               },
               {
-                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
-                "value": "very_confident"
+                "label": "I’m overwhelmed by the list of actions and concerned about my property and my neighborhood",
+                "value": "overwhelmed"
               }
             ]
           },
