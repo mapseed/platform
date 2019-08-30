@@ -1286,7 +1286,7 @@
           },
           {
             "start_field_index": 39,
-            "end_field_index": 52,
+            "end_field_index": 45,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1296,8 +1296,19 @@
             ]
           },
           {
-            "start_field_index": 53,
-            "end_field_index": 62,
+            "start_field_index": 46,
+            "end_field_index": 49,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "kittitas-fire-districts",
+              "kittitas-county-cities",
+              "kittitas-firewise-communities",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 50,
+            "end_field_index": 60,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1500,11 +1511,7 @@
             "type": "common_form_element"
           },
           {
-            "name": "evacuation_plan_header",
-            "type": "common_form_element"
-          },
-          {
-            "name": "evacuation_plan",
+            "name": "emergency_evacuation_header",
             "type": "common_form_element"
           },
           {
@@ -1512,39 +1519,11 @@
             "type": "common_form_element"
           },
           {
-            "name": "food_and_water",
+            "name": "evacuation_plan",
             "type": "common_form_element"
           },
           {
-            "name": "medications",
-            "type": "common_form_element"
-          },
-          {
-            "name": "clothing",
-            "type": "common_form_element"
-          },
-          {
-            "name": "eyeglasses",
-            "type": "common_form_element"
-          },
-          {
-            "name": "car_keys_money",
-            "type": "common_form_element"
-          },
-          {
-            "name": "first_aid_kit",
-            "type": "common_form_element"
-          },
-          {
-            "name": "flashlight",
-            "type": "common_form_element"
-          },
-          {
-            "name": "radio",
-            "type": "common_form_element"
-          },
-          {
-            "name": "sanitation_supplies",
+            "name": "emergency_kit_supplies",
             "type": "common_form_element"
           },
           {
@@ -1552,8 +1531,77 @@
             "type": "common_form_element"
           },
           {
-            "name": "pet_food",
+            "name": "evacuation_plan_pets",
             "type": "common_form_element"
+          },
+          {
+            "name": "emergency_notifications",
+            "type": "common_form_element"
+          },
+          {
+            "name": "assistance_information_header",
+            "type": "informational_html",
+            "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Technical and Financial Assistance</h2>"
+          },
+          {
+            "name": "landowner_confidence",
+            "type": "big_radio",
+            "optional": true,
+            "prompt": "How do you feel about your answers to list of tasks in the area around your home?",
+            "content": [
+              {
+                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "value": "very_confident"
+              },
+              {
+                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "value": "very_confident"
+              },
+              {
+                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "value": "very_confident"
+              },
+              {
+                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "value": "very_confident"
+              }
+            ]
+          },
+          {
+            "name": "not_completed_reasons",
+            "type": "big_checkbox",
+            "optional": true,
+            "prompt": "If you have not completed some of the tasks, why not? (check all that apply)",
+            "content": [
+              {
+                "label": "I didn’t know they were important to reducing my risk",
+                "value": "unaware_importance"
+              },
+              {
+                "label": "I am not able to do the work myself",
+                "value": "unable_do_work"
+              },
+              {
+                "label": "I can’t afford to have the work done",
+                "value": "unable_afford_work"
+              }
+            ]
+          },
+          {
+            "name": "interested_assistance",
+            "type": "big_checkbox",
+            "optional": true,
+            "prompt": "There are people and programs here to help you with assessing your property, determining next steps and securing grants to help with the financial burden of completing work. Just let us know what you need",
+            "content": [
+              {
+                "label": "I’m interested in technical advice on what my home and property need",
+                "value": "interested_technical_advice"
+              },
+              {
+                "label": "I’m interested in learning more about available financial assistance",
+                "value": "interested_financial_assistance"
+              }
+            ]
           },
           {
             "name": "landowner_information_header",
@@ -1649,7 +1697,7 @@
       },
       "immediate_zone_information": {
         "type": "informational_html",
-        "content": "<p style='font-size:1.2rem;font-style:italic'>The immediate zone extends to five feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The immediate zone extends to 5 feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
       },
       "intermediate_zone_header": {
         "type": "informational_html",
@@ -1657,7 +1705,7 @@
       },
       "intermediate_zone_information": {
         "type": "informational_html",
-        "content": "<p style='font-size:1.2rem;font-style:italic'>The intermediate zone extends between five and thirty feet from your house.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The intermediate zone extends between 5 and 30 feet from your house. In this zone, using careful landscaping or hardscaping techniques to create fuel breaks can help decrease fire behavior.</p>"
       },
       "extended_zone_header": {
         "type": "informational_html",
@@ -1665,15 +1713,15 @@
       },
       "extended_zone_information": {
         "type": "informational_html",
-        "content": "<p style='font-size:1.2rem;font-style:italic'>The extended zone extends between thirty and one hundred feet from your house.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>From your home, this zone extends out 30 to 100 feet or even 200 feet if on a slope. The goal here is not to eliminate fire but to interrupt fire’s path and keep flames smaller and on the ground.</p>"
       },
-      "evacuation_plan_header": {
+      "emergency_evacuation_header": {
         "type": "informational_html",
         "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Emergency and Evacuation Planning</h2>"
       },
       "clean_roofs": {
         "type": "big_radio",
-        "prompt": "I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers",
+        "prompt": "I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers and I keep my roof in good repair.",
         "label": "Clean roofs and gutters",
         "optional": true,
         "content": [
@@ -1682,12 +1730,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1713,7 +1761,7 @@
       },
       "reduce_embers": {
         "type": "big_radio",
-        "prompt": "I reduce embers that could pass through vents by installing 1/8 inch metal mesh screening",
+        "prompt": "I reduce embers that could pass through vents by installing 1/8 inch metal mesh screening on foundations and/or exterior attic vents.",
         "label": "Reduce embers",
         "optional": true,
         "content": [
@@ -1722,12 +1770,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1753,7 +1801,7 @@
       },
       "repair_screens": {
         "type": "big_radio",
-        "prompt": "I repair or replace damaged or loose window screens and any broken window screens or box-in areas below patios and decks with wire mesh",
+        "prompt": "I’ve screened in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating",
         "label": "Repair or replace window screens",
         "optional": true,
         "content": [
@@ -1762,18 +1810,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "move_flammable_material": {
         "type": "big_radio",
-        "prompt": "I move any flammable material away from wall exteriors and from beneath decks and porches",
+        "prompt": "I’ve moved any flammable material away from wall exteriors--mulch, flammable plants, leaves and needles, firewood piles--anything that can burn as well as anything stored underneath decks or porches.",
         "label": "Move flammable material",
         "optional": true,
         "content": [
@@ -1782,18 +1830,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "clear_vegetation": {
         "type": "big_radio",
-        "prompt": "I clear vegetation from under large stationary propane tanks",
+        "prompt": "I clear vegetation from under and in a 5-foot perimeter around my propane tank",
         "label": "Clear vegetation from propane tanks",
         "optional": true,
         "content": [
@@ -1802,18 +1850,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "create_fuel_breaks": {
         "type": "big_radio",
-        "prompt": "I create fuel breaks with driveways, walkways, paths, patios, and decks",
+        "prompt": "I’ve created fuel breaks with driveways, walkways/paths, patios, and decks",
         "label": "Create fuel breaks",
         "optional": true,
         "content": [
@@ -1822,12 +1870,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1842,18 +1890,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "remove_ladder_fuels": {
         "type": "big_radio",
-        "prompt": "I keep trees six to ten feet high pruned so a surface fire cannot reach the crown. I ensure shorter trees do not exceed one third of the overall tree height",
+        "prompt": "I prune tree limbs so the lowest branches are 6 to 10 feet above the ground to help reduce the chance of fire getting into the crowns of the trees",
         "label": "Remove ladder fuels",
         "optional": true,
         "content": [
@@ -1862,18 +1910,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "space_trees": {
         "type": "big_radio",
-        "prompt": "I space trees to have a minimum of eighteen feet between crowns, with the distance increasing with the percentage of slope",
+        "prompt": "I space trees to have a minimum of 18 feet between crowns, with the distance increasing with the percentage of slope",
         "label": "Space trees to eighteen feet",
         "optional": true,
         "content": [
@@ -1882,18 +1930,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "tree_placement": {
         "type": "big_radio",
-        "prompt": "I ensure that mature tree canopy is no closer than ten feet to the edge of structures on my property",
+        "prompt": "I ensure that mature tree canopy is no closer than ten feet to the edge of any structures on my property",
         "label": "Keep tree canopy ten feet from structures",
         "optional": true,
         "content": [
@@ -1902,18 +1950,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "small_tree_clusters": {
         "type": "big_radio",
-        "prompt": "I ensure that trees and shrubs in the intermediate zone are limited to small clusters of a few each",
+        "prompt": "I ensure that trees and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of vegetation",
         "label": "Break up continuity of vegetation",
         "optional": true,
         "content": [
@@ -1922,12 +1970,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1942,12 +1990,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1962,12 +2010,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1982,12 +2030,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -2002,18 +2050,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "space_canopy_tops_30_60_feet": {
         "type": "big_radio",
-        "prompt": "I ensure that trees 30 to 60 feet from the home have at least twelve feet between canopy tops",
+        "prompt": "I ensure that trees 30 to 60 feet from the home have at least 12 feet between canopy tops",
         "label": "Space canopy tops 30 to 60 feet from the house",
         "optional": true,
         "content": [
@@ -2022,18 +2070,18 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "space_canopy_tops_60_100_feet": {
         "type": "big_radio",
-        "prompt": "I ensure that trees 60 to 100 feet from the home have at least six feet between the canopy tops",
+        "prompt": "I ensure that trees 60 to 100 feet from the home have at least 6 feet between the canopy tops",
         "label": "Space canopy tops 60 to 100 feet from the house",
         "optional": true,
         "content": [
@@ -2042,32 +2090,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "No, but interested",
+            "label": "No, but I'm interested",
             "value": "interested"
-          }
-        ]
-      },
-      "evacuation_plan": {
-        "type": "big_radio",
-        "prompt": "I have an evacuation plan that includes escape routes, a designated family meeting location, and a communication plan",
-        "label": "Evacuation plan",
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -2080,17 +2108,11 @@
           {
             "value": "yes",
             "targets": [
-              "food_and_water",
-              "medications",
-              "clothing",
-              "eyeglasses",
-              "car_keys_money",
-              "first_aid_kit",
-              "flashlight",
-              "radio",
-              "sanitation_supplies",
+              "evacuation_plan",
+              "emergency_kit_supplies",
               "documents",
-              "pet_food"
+              "evacuation_plan_pets",
+              "emergency_notifications"
             ]
           }
         ],
@@ -2105,9 +2127,26 @@
           }
         ]
       },
-      "food_and_water": {
+      "evacuation_plan": {
         "type": "big_radio",
-        "prompt": "My kit includes a three-day supply of non-perishable food and three gallons of water per person",
+        "prompt": "I have an evacuation plan that includes escape routes (preferably 2), a designated family meeting location, and a communication plan",
+        "label": "Evacuation plan",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "emergency_kit_supplies": {
+        "type": "big_radio",
+        "prompt": "I have an emergency kit prepared with water, food, clothes, flashlight, first aid kit, etc.",
         "label": "Food and water",
         "hidden_default": true,
         "optional": true,
@@ -2119,184 +2158,12 @@
           {
             "label": "No",
             "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "medications": {
-        "type": "big_radio",
-        "prompt": "My kit includes prescriptions or special medications",
-        "label": "Prescriptions and medications",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "clothing": {
-        "type": "big_radio",
-        "prompt": "My kit includes a change of clothing for each person",
-        "label": "Change of clothing",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "eyeglasses": {
-        "type": "big_radio",
-        "prompt": "My kit includes extra eyeglasses or contact lenses",
-        "label": "Eyeglasses or contact lenses",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "car_keys_money": {
-        "type": "big_radio",
-        "prompt": "My kit includes an extra set of car keys, credit card, cash or traveler's checks",
-        "label": "Car keys and extra money",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "first_aid_kit": {
-        "type": "big_radio",
-        "prompt": "My kit includes first aid supplies",
-        "label": "First aid supplies",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "flashlight": {
-        "type": "big_radio",
-        "prompt": "My kit includes a flashlight",
-        "label": "Flashlight",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "radio": {
-        "type": "big_radio",
-        "prompt": "My kit includes a battery-powered radio and extra batteries",
-        "label": "Battery-powered radio",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "sanitation_supplies": {
-        "type": "big_radio",
-        "prompt": "My kit includes sanitation supplies",
-        "label": "Sanitation supplies",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
           }
         ]
       },
       "documents": {
         "type": "big_radio",
-        "prompt": "My kit includes copies of important documents, such as birth certificates, passports, etc.",
+        "prompt": "I have my important family documents, bank and credit card information, identification, prescriptions, etc. in one location easily accessible during an evacuation",
         "label": "Copies of documents",
         "hidden_default": true,
         "optional": true,
@@ -2308,18 +2175,14 @@
           {
             "label": "No",
             "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
           }
         ]
       },
-      "pet_food": {
+      "evacuation_plan_pets": {
         "type": "big_radio",
-        "prompt": "My kit includes pet food and water",
-        "label": "Pet food and water",
+        "prompt": "I have an evacuation plan for my pets, large animals or livestock",
         "hidden_default": true,
+        "label": "Evacuation plan",
         "optional": true,
         "content": [
           {
@@ -2333,6 +2196,23 @@
           {
             "label": "Not applicable",
             "value": "not_applicable"
+          }
+        ]
+      },
+      "emergency_notifications": {
+        "type": "big_radio",
+        "prompt": "I’ve signed up for the emergency notification system through the Kittitas County Sheriff’s Office or I know where to go for official information",
+        "label": "Food and water",
+        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
           }
         ]
       }
