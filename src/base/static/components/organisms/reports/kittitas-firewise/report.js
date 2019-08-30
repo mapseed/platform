@@ -34,6 +34,7 @@ import {
   ReportBodyText,
 } from "../../../molecules/report-components/typography";
 import { ColoredMeterChart } from "../../../molecules/report-components/charts";
+import { HorizontalRule } from "../../../atoms/layout";
 
 const getBurnRiskText = burnRisk => {
   if (burnRisk === "LOW") {
@@ -364,7 +365,7 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://kittitascountyfireready.mapseed.org">
+                  <ExternalLink href="https://kittitasfireadapted.mapseed.org">
                     <LargeText>kittitascountyfireready.mapseed.org</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
@@ -670,7 +671,7 @@ const KittitasFireReadyReport = props => {
               <KittitasFireReadySectionHeader>
                 Preparing For Wildfire
               </KittitasFireReadySectionHeader>
-              <FloatedRight width="400px">
+              <FloatedRight width="300px">
                 <figure
                   css={css`
                     margin: 0 0 16px 16px;
@@ -699,11 +700,11 @@ const KittitasFireReadyReport = props => {
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   Immediate
                 </LargeText>{" "}
-                (0-5 feet) ,{" "}
+                (0-5 feet),{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   Intermediate
                 </LargeText>{" "}
-                (5-30 feet) , and{" "}
+                (5-30 feet), and{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   Extended
                 </LargeText>{" "}
@@ -790,9 +791,14 @@ const KittitasFireReadyReport = props => {
                   <ReportBodyText>
                     You identified the following needs:
                   </ReportBodyText>
-                  <ul>
+                  <ul
+                    css={css`
+                      list-style: none;
+                      padding: 0;
+                    `}
+                  >
                     {safeInterestedAssistance.map(item => (
-                      <li>
+                      <li key={item}>
                         <LargeText
                           css={css`
                             font-family: Raleway, sans-serif;
@@ -824,20 +830,23 @@ const KittitasFireReadyReport = props => {
                 .
               </ReportBodyText>
             </MainPanelSection>
+            <HorizontalRule spacing="tiny" />
             <MainPanelSection>
-              <ReportBodyText
+              <span
                 css={css`
-                  font-size: 1rem;
+                  font-size: 1.2rem;
+                  font-family: Raleway, sans-serif;
+                  color: #888;
+                  line-height: 1.4rem;
                   font-style: italic;
                   padding-top: 16px;
-                  border-top: 1px dashed #ccc;
                 `}
               >
                 Want to be part of the solution? Join the Kittitas Fire Adapted
                 Communities Coalition (K-FACC) and help us spread the word to
                 our communities! Call 925-3352 ext. 204 to be added to the
                 mailing list.
-              </ReportBodyText>
+              </span>
             </MainPanelSection>
           </MainPanel>
           <KittitasFireReadyPageFooter />

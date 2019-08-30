@@ -75,8 +75,8 @@ const GeocodingField: React.FunctionComponent<Props> = ({
           data.features && data.features[0] && data.features[0].geometry;
 
         if (locationGeometry) {
-          // Don't set internal state if this component has unmounted at 
-          // callback time (which can happen in a multi-stage form usage, for 
+          // Don't set internal state if this component has unmounted at
+          // callback time (which can happen in a multi-stage form usage, for
           // example).
           isMounted.current && setIsGeocoding(false);
           isMounted.current && setIsWithGeocodingError(false);
