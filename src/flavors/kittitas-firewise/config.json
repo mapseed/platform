@@ -1103,7 +1103,7 @@
                 [
                   "match",
                   ["get", "fire_distr"],
-                  "Areas outside Fire Districts",
+                  "Areas Outside of Fire Districts",
                   0,
                   0.6
                 ],
@@ -1119,7 +1119,7 @@
             "filter": [
               "!=",
               ["get", "fire_distr"],
-              "Areas outside Fire Districts"
+              "Areas Outside of Fire Districts"
             ],
             "source": "kittitas-fire-districts",
             "source-layer": "kittitas-fire-districts",
@@ -1145,7 +1145,7 @@
             "type": "symbol",
             "filter": [
               "all",
-              ["!=", ["get", "fire_distr"], "Areas outside Fire Districts"],
+              ["!=", ["get", "fire_distr"], "Areas Outside of Fire Districts"],
               ["==", ["geometry-type"], "Point"]
             ],
             "source": "kittitas-fire-districts",
@@ -1156,7 +1156,7 @@
               "text-halo-width": 20
             },
             "layout": {
-              "text-field": ["concat", "Fire district ", ["get", "fire_dis_1"]],
+              "text-field": ["get", "fire_distr"],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
               "text-size": 14,
               "text-max-width": 40,
@@ -1467,7 +1467,7 @@
             "analysisTarget": "kittitas-fire-districts.geojson",
             "propertiesToPluck": [
               {
-                "name": "fire_district_name"
+                "name": "fire_distr"
               }
             ]
           },

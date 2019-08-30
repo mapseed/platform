@@ -184,7 +184,7 @@ const KittitasFireReadyReport = props => {
   const safeForestType = forestTypes[forestType] || "unknown";
   const safeReturnInterval = returnIntervals[forestType] || "unknown";
   const safeFireDistrictName =
-    fireDistrictName === "Areas outside Fire Districts" || !fireDistrictName
+    fireDistrictName === "Areas Outside of Fire Districts" || !fireDistrictName
       ? "You are not located in a Fire District. Contact the Fire Marshal's Office:"
       : fireDistrictName;
   const safeFireDistrictContactInfo = fireDistrictInfo[safeFireDistrictName];
@@ -827,10 +827,10 @@ const KittitasFireReadyReport = props => {
             <MainPanelSection>
               <ReportBodyText
                 css={css`
-                font-size: 1.2rem;
-                font-style-italic;
-                padding-top: 16px;
-                border-top: 1px dashed #cccc;
+                  font-size: 1rem;
+                  font-style: italic;
+                  padding-top: 16px;
+                  border-top: 1px dashed #ccc;
                 `}
               >
                 Want to be part of the solution? Join the Kittitas Fire Adapted

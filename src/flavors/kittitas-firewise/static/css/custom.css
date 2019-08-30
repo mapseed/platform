@@ -31,6 +31,9 @@ header {
 
 [data-field-type="datetime"],
 [data-field-name="my_image"],
+[data-field-name="landowner_confidence"],
+[data-field-name="not_completed_reasons"],
+[data-field-name="interested_assistance"],
 [data-field-type="big_toggle"],
 [data-field-type="big_radio"] {
   background-color: #efefef !important;
@@ -41,9 +44,6 @@ header {
 [data-field-type="geocoding"],
 [data-field-name="private-landowner_phone"],
 [data-field-name="private-landowner_name"],
-[data-field-name="landowner_confidence"],
-[data-field-name="not_completed_reasons"],
-[data-field-name="interested_assistance"],
 [data-field-name="other-comments"],
 [data-field-name="drag_map_info"],
 [data-field-type="geolocate"] {
@@ -123,6 +123,7 @@ header {
 }
 
 .big-toggle-field__label,
+.big-checkbox-field__label,
 .big-radio-field__label {
   margin-top: 0 !important;
   border: none !important;
@@ -148,18 +149,21 @@ input[type="number"],
 }
 
 .big-toggle-field__label--hoverable:hover:before,
+.big-checkbox-field__label--hoverable:hover:before,
 .big-radio-field__label--hoverable:hover:before {
   text-indent: 0.5em !important;
   color: #999999 !important;
 }
 
 .big-toggle-field,
+.big-checkbox-field,
 .big-radio-field {
   margin-right: 24px !important;
   margin-top: 8px !important;
 }
 
 .big-toggle-field__label:before,
+.big-checkbox-field__label:before,
 .big-radio-field__label:before {
   max-height: 2em !important;
   top: 50% !important;
@@ -187,12 +191,14 @@ input[type="number"],
 }
 
 .big-radio-field__label--toggled.big-radio-field__label--hoverable:hover:before,
+.big-checkbox-field__label--toggled.big-radio-field__label--hoverable:hover:before,
 .big-toggle-field__label--toggled.big-toggle-field__label--hoverable:hover:before,
 .datetime-field__label-ongoing--toggled.datetime-field__label-ongoing--hoverable:hover:before {
   color: #fff !important;
 }
 
 .big-toggle-field__label--toggled:before,
+.big-checkbox-field__label--toggled:before,
 .big-radio-field__label--toggled:before {
   background-color: #999999 !important;
 }
