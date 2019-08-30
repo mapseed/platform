@@ -1099,16 +1099,6 @@
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "geospatialAnalysis": [
           {
-            "name": "forest_type",
-            "type": "pointInPolygon",
-            "analysisTarget": "kittitas-forest-type.geojson",
-            "propertiesToPluck": [
-              {
-                "name": "LABEL"
-              }
-            ]
-          },
-          {
             "name": "local_fire_district",
             "type": "pointInPolygon",
             "analysisTarget": "kittitas-fire-districts.geojson",
@@ -1354,7 +1344,7 @@
               },
               {
                 "label": "Moist Mixed Conifer",
-                "value": "most-mixed-conifer"
+                "value": "moist-mixed-conifer"
               },
               {
                 "label": "Dry Forest",
@@ -1750,12 +1740,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1790,12 +1780,12 @@
             "value": "yes"
           },
           {
-            "label": "No",
-            "value": "no"
+            "label": "No, but I'm interested",
+            "value": "interested"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
