@@ -31,6 +31,9 @@ header {
 
 [data-field-type="datetime"],
 [data-field-name="my_image"],
+[data-field-name="landowner_confidence"],
+[data-field-name="not_completed_reasons"],
+[data-field-name="interested_assistance"],
 [data-field-type="big_toggle"],
 [data-field-type="big_radio"] {
   background-color: #efefef !important;
@@ -60,31 +63,19 @@ header {
 }
 
 [data-field-name="emergency_kit"],
-[data-field-name="food_and_water"],
-[data-field-name="medications"],
-[data-field-name="clothing"],
-[data-field-name="eyeglasses"],
-[data-field-name="car_keys_money"],
-[data-field-name="first_aid_kit"],
-[data-field-name="flashlight"],
-[data-field-name="radio"],
-[data-field-name="sanitation_supplies"],
+[data-field-name="evacuation_plan"],
+[data-field-name="emergency_kit_supplies"],
 [data-field-name="documents"],
-[data-field-name="pet_food"] {
+[data-field-name="evacuation_plan_pets"],
+[data-field-name="emergency_notifications"] {
   margin-bottom: 0 !important;
 }
 
-[data-field-name="food_and_water"],
-[data-field-name="medications"],
-[data-field-name="clothing"],
-[data-field-name="eyeglasses"],
-[data-field-name="car_keys_money"],
-[data-field-name="first_aid_kit"],
-[data-field-name="flashlight"],
-[data-field-name="radio"],
-[data-field-name="sanitation_supplies"],
+[data-field-name="evacuation_plan"],
+[data-field-name="emergency_kit_supplies"],
 [data-field-name="documents"],
-[data-field-name="pet_food"] {
+[data-field-name="evacuation_plan_pets"],
+[data-field-name="emergency_notifications"] {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   border-radius: 0 !important;
@@ -132,6 +123,7 @@ header {
 }
 
 .big-toggle-field__label,
+.big-checkbox-field__label,
 .big-radio-field__label {
   margin-top: 0 !important;
   border: none !important;
@@ -157,18 +149,21 @@ input[type="number"],
 }
 
 .big-toggle-field__label--hoverable:hover:before,
+.big-checkbox-field__label--hoverable:hover:before,
 .big-radio-field__label--hoverable:hover:before {
   text-indent: 0.5em !important;
   color: #999999 !important;
 }
 
 .big-toggle-field,
+.big-checkbox-field,
 .big-radio-field {
   margin-right: 24px !important;
   margin-top: 8px !important;
 }
 
 .big-toggle-field__label:before,
+.big-checkbox-field__label:before,
 .big-radio-field__label:before {
   max-height: 2em !important;
   top: 50% !important;
@@ -196,12 +191,14 @@ input[type="number"],
 }
 
 .big-radio-field__label--toggled.big-radio-field__label--hoverable:hover:before,
+.big-checkbox-field__label--toggled.big-radio-field__label--hoverable:hover:before,
 .big-toggle-field__label--toggled.big-toggle-field__label--hoverable:hover:before,
 .datetime-field__label-ongoing--toggled.datetime-field__label-ongoing--hoverable:hover:before {
   color: #fff !important;
 }
 
 .big-toggle-field__label--toggled:before,
+.big-checkbox-field__label--toggled:before,
 .big-radio-field__label--toggled:before {
   background-color: #999999 !important;
 }
