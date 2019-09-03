@@ -37,7 +37,7 @@ export type InteractionStateDiff = {
   isMapDraggedOrZoomedByUser?: boolean;
 };
 
-export type FilterSliderConfig = {
+export type MapFilterSliderConfig = {
   layerGroupId: string;
   initialValue: number;
   min: number;
@@ -103,6 +103,9 @@ export const geocodeAddressBarEnabledSelector: any;
 export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;
 export const mapWidgetsSelector: any;
+export const mapFilterSliderConfigSelector: (
+  state: any,
+) => MapFilterSliderConfig;
 export const measurementToolEnabledSelector: any;
 export const isMapTransitioning: (state: any) => boolean;
 export const isMapDraggingOrZooming: (state: any) => boolean;

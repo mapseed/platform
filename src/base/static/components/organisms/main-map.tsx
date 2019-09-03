@@ -50,6 +50,9 @@ import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
 import MapWidgetContainer from "../organisms/map-widget-container";
 import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
+import MapFilterSlider from "../molecules/map-filter-slider";
+import MapRadioMenu from "../molecules/map-radio-menu";
+import MapLegendWidget from "../molecules/map-legend-widget";
 
 import { Mixpanel } from "../../utils/mixpanel";
 import { FlyToInterpolator } from "react-map-gl";
@@ -499,7 +502,6 @@ class MainMap extends React.Component<Props, State> {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
-          <MapMeasurementOverlay />
           {this.state.popupContent &&
             this.state.popupLatitude &&
             this.state.popupLongitude && (
@@ -522,7 +524,14 @@ class MainMap extends React.Component<Props, State> {
           {this.props.isMapCenterpointVisible && <MapCenterpoint />}
           {this.state.isMapLoaded && <MapControls />}
         </MapGL>
-        <MapWidgetContainer />
+        <MapWidgetContainer position="lower-left">
+          <MapFilterSlider />
+          {/* <MapRadioMenu /> */}
+        </MapWidgetContainer>
+        <MapWidgetContainer position="lower-right">
+          {/* <MapMeasurementOverlay /> */}
+          {/* <MapLegendWidget /> */}
+        </MapWidgetContainer>
       </React.Fragment>
     );
   }

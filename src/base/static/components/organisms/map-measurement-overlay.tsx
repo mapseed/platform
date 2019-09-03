@@ -25,6 +25,7 @@ import {
   DeleteGeometryIcon,
   UndoIcon,
 } from "../atoms/icons";
+import MapWidgetBackground from "../molecules/map-widget-background";
 
 interface GeoTransformWrapper {
   stream: GeoStream;
@@ -336,19 +337,7 @@ const MapMeasurementOverlay: React.FunctionComponent<Props> = props => {
           })
         }
       />
-      <div
-        onClick={evt => evt.stopPropagation()}
-        css={css`
-          position: absolute;
-          right: 8px;
-          bottom: 8px;
-          background-color: rgba(255, 255, 255, 0.85);
-          padding: 8px;
-          border-radius: 8px;
-          width: 225px;
-          min-width: 225px;
-        `}
-      >
+      <MapWidgetBackground color="black">
         <RegularText
           css={css`
             display: block;
@@ -432,7 +421,7 @@ const MapMeasurementOverlay: React.FunctionComponent<Props> = props => {
             </MeasurementToolIcon>
           </div>
         </div>
-      </div>
+      </MapWidgetBackground>
     </React.Fragment>
   );
 };

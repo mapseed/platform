@@ -45,6 +45,8 @@ export const geocodeAddressBarEnabledSelector = state =>
 export const mapWidgetsSelector = state => {
   return state.map.mapWidgets;
 };
+export const mapFilterSliderConfigSelector = state =>
+  state.map.mapWidgets.filterSlider;
 export const measurementToolEnabledSelector = state =>
   state.map.measurementToolEnabled;
 export const isMapDraggingOrZooming = state =>

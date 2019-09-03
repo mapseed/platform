@@ -1167,7 +1167,6 @@
         ]
       }
     },
-
     "layerGroups": [
       {
         "id": "osm",
@@ -1447,6 +1446,32 @@
       {
         "id": "spokane-wetlands",
         "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#c6dbef",
+            "label": "Lacustrine Limnetic"
+          },
+          {
+            "swatch": "#9ecae1",
+            "label": "Lacustrine Littoral"
+          },
+          {
+            "swatch": "#6baed6",
+            "label": "Palustrine"
+          },
+          {
+            "swatch": "#4292c6",
+            "label": "Riverine Lower Perennial"
+          },
+          {
+            "swatch": "#2171b5",
+            "label": "Riverine Upper Perennial"
+          },
+          {
+            "swatch": "#08519c",
+            "label": "Riverine Intermittent"
+          }
+        ],
         "mapboxLayers": [
           {
             "id": "spokane-wetlands",

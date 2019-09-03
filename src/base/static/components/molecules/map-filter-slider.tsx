@@ -1,9 +1,17 @@
 /** @jsx jsx */
 import * as React from "react";
 import { css, jsx } from "@emotion/core";
+import { useSelector, useDispatch } from "react-redux";
 
 import { LayerGroup } from "../../state/ducks/map-style";
-import { FilterSliderConfig } from "../../state/ducks/map";
+import {
+  MapFilterSliderConfig,
+  mapFilterSliderConfigSelector,
+} from "../../state/ducks/map";
+import {
+  layerGroupsSelector,
+  updateLayerFilters,
+} from "../../state/ducks/map-style";
 import { RangeInput } from "../atoms/input";
 import { RegularText } from "../atoms/typography";
 
@@ -22,29 +30,30 @@ const buildAndApplyMapLayerFilters = ({
   updateLayerFilters(filters);
 };
 
-type FilterSliderProps = {
-  filterSliderConfig: FilterSliderConfig;
-  layerGroup: LayerGroup;
-  updateLayerFilters: Function;
-};
-
-const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
-  filterSliderConfig,
-  layerGroup,
-  updateLayerFilters,
-}) => {
-  const [sliderValue, setSliderValue] = React.useState(
-    filterSliderConfig.initialValue,
-  );
+const MapFilterSlider: React.FunctionComponent = () => {
+  const {
+    min,
+    max,
+    step,
+    initialValue,
+    comparator,
+    property,
+    label,
+    layerGroupId,
+  }: MapFilterSliderConfig = useSelector(mapFilterSliderConfigSelector);
+  const layerGroups = useSelector(layerGroupsSelector);
+  const layerGroup = layerGroups.byId[layerGroupId];
+  const dispatch = useDispatch();
+  const [sliderValue, setSliderValue] = React.useState(initialValue);
   React.useEffect(() => {
     buildAndApplyMapLayerFilters({
-      filterValue: filterSliderConfig.initialValue,
+      filterValue: initialValue,
       layerIds: layerGroup.layerIds,
-      comparator: filterSliderConfig.comparator,
-      property: filterSliderConfig.property,
-      updateLayerFilters,
+      comparator,
+      property,
+      updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
     });
-  }, [filterSliderConfig.initialValue]);
+  }, [initialValue]);
 
   if (!layerGroup.isVisible) {
     return null;
@@ -65,7 +74,7 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
           margin-bottom: 8px;
         `}
       >
-        <RegularText>{filterSliderConfig.label}</RegularText>{" "}
+        <RegularText>{label}</RegularText>{" "}
         <RegularText weight="black">{sliderValue}</RegularText>
       </div>
       <div
@@ -75,7 +84,7 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
           justify-content: space-between;
         `}
       >
-        <RegularText>{filterSliderConfig.min}</RegularText>
+        <RegularText>{min}</RegularText>
         <RangeInput
           css={css`
             width: 100%;
@@ -90,22 +99,23 @@ const MapFilterSlider: React.FunctionComponent<FilterSliderProps> = ({
               cursor: grabbing;
             }
           `}
-          min={filterSliderConfig.min}
-          max={filterSliderConfig.max}
-          step={filterSliderConfig.step}
+          min={min}
+          max={max}
+          step={step}
           onChange={evt => {
             buildAndApplyMapLayerFilters({
-              filterValue: parseInt(evt.target.value),
+              filterValue: Number(evt.target.value),
               layerIds: layerGroup.layerIds,
-              comparator: filterSliderConfig.comparator,
-              property: filterSliderConfig.property,
-              updateLayerFilters,
+              comparator,
+              property,
+              updateLayerFilters: filters =>
+                dispatch(updateLayerFilters(filters)),
             });
             setSliderValue(evt.target.value);
           }}
           value={sliderValue}
         />
-        <RegularText>{filterSliderConfig.max}</RegularText>
+        <RegularText>{max}</RegularText>
       </div>
     </div>
   );
