@@ -5,9 +5,7 @@ import { connect } from "react-redux";
 
 import {
   updateLayerFilters,
-  updateLayerAggregators,
   LayerGroups,
-  layersSelector,
   Layer,
 } from "../../state/ducks/map-style";
 import { MapWidgetsConfig, mapWidgetsSelector } from "../../state/ducks/map";
@@ -61,18 +59,15 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  layout: layoutSelector(state),
-  mapWidgets: mapWidgetsSelector(state),
-  layers: layersSelector(state),
-});
+//const mapStateToProps = state => ({
+//  layout: layoutSelector(state),
+//  mapWidgets: mapWidgetsSelector(state),
+//  layers: layersSelector(state),
+//});
 
-const mapDispatchToProps = {
-  updateLayerFilters,
-  updateLayerAggregators,
-};
+//const mapDispatchToProps = {
+//  updateLayerFilters,
+//  updateLayerAggregators,
+//};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MapWidgetContainer);
+export default MapWidgetContainer;

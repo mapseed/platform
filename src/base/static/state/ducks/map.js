@@ -32,11 +32,9 @@ export const mapConfigPropType = PropTypes.shape({
 export const mapConfigSelector = state => {
   return state.map;
 };
-
 export const mapViewportSelector = state => {
   return state.map.mapViewport;
 };
-
 export const offlineConfigSelector = state => {
   return state.map.offlineBoundingBox;
 };
@@ -47,6 +45,8 @@ export const mapWidgetsSelector = state => {
 };
 export const mapFilterSliderConfigSelector = state =>
   state.map.mapWidgets.filterSlider;
+export const mapRadioMenuConfigSelector = state =>
+  state.map.mapWidgets.radioMenu;
 export const measurementToolEnabledSelector = state =>
   state.map.measurementToolEnabled;
 export const isMapDraggingOrZooming = state =>

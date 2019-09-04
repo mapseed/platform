@@ -526,7 +526,7 @@ class MainMap extends React.Component<Props, State> {
         </MapGL>
         <MapWidgetContainer position="lower-left">
           <MapFilterSlider />
-          {/* <MapRadioMenu /> */}
+          <MapRadioMenu />}
         </MapWidgetContainer>
         <MapWidgetContainer position="lower-right">
           {/* <MapMeasurementOverlay /> */}

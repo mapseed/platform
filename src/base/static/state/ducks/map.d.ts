@@ -106,6 +106,7 @@ export const mapWidgetsSelector: any;
 export const mapFilterSliderConfigSelector: (
   state: any,
 ) => MapFilterSliderConfig;
+export const mapRadioMenuConfigSelector: (state: any) => RadioMenuConfig;
 export const measurementToolEnabledSelector: any;
 export const isMapTransitioning: (state: any) => boolean;
 export const isMapDraggingOrZooming: (state: any) => boolean;
