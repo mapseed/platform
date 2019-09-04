@@ -30,6 +30,7 @@ const ListTemplate = React.lazy(() => import("./templates/place-list"));
 const MapTemplate = React.lazy(() => import("./templates/map"));
 const ReportTemplate = React.lazy(() => import("./templates/report"));
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import config from "config";
 import { createFeaturesInGeoJSONSource } from "../state/ducks/map-style";
@@ -60,6 +61,7 @@ import { loadMapStyle } from "../state/ducks/map-style";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
+import { loadFlavorConfig } from "../state/ducks/flavor-config";
 
 import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
@@ -110,6 +112,7 @@ const dispatchPropTypes = {
   loadMapStyle: PropTypes.func.isRequired,
   loadDashboardConfig: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
+  loadFlavorConfig: PropTypes.func.isRequired,
   updateLayout: PropTypes.func.isRequired,
 };
 
@@ -232,6 +235,7 @@ class App extends React.Component<Props, State> {
     this.props.loadNavBarConfig(config.nav_bar);
     this.props.loadCustomComponentsConfig(config.custom_components);
     this.props.loadMapStyle(config.mapStyle, config.datasets);
+    this.props.loadFlavorConfig(config.flavor);
     config.dashboard && this.props.loadDashboardConfig(config.dashboard);
     config.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
@@ -240,7 +244,6 @@ class App extends React.Component<Props, State> {
     i18next.use(initReactI18next as ThirdPartyModule).init({
       lng: config.flavor.defaultLanguage.code,
       resources: resourceBundle,
-      // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
       react: {
         // Needed to rerender components after results from Translate API are
         // returned.
@@ -679,6 +682,7 @@ const mapDispatchToProps = {
   loadCustomComponentsConfig,
   loadMapStyle,
   loadUser,
+  loadFlavorConfig,
 };
 
 export default withRouter(

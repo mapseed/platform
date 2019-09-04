@@ -15,42 +15,21 @@ coverage.data
 
 # junk
 .DS_Store
-*~
-*#
-*flymake*
-
-# keys
-src/project/sitekey.txt
-src/project/siteurl.txt
-environment-vars.txt
 
 # IDE project settings
 .idea
 .tern-port
 
 # compiled files
-*.py[co]
 *.mo
-src/base/static/build/
-src/base/static/dist/
 staticfiles
-src/base/static/css/default.css*
 
 # environment
-env/
-.env/
 .env*
 env.backup
 .env-local
 .env-production
 node_modules/
-
-# Local project settings
-# src/project/local_settings.py
-# src/project/config.yml
-
-# sqlite database
-*.db
 
 # procedurally generated spritesheets
 spritesheet*

@@ -40,7 +40,7 @@ import {
   filteredPlacesSelector,
   placesPropType,
 } from "../../state/ducks/places";
-import { filtersSelector } from "../../state/ducks/filters";
+import { placeFiltersSelector } from "../../state/ducks/place-filters";
 import {
   uiVisibilitySelector,
   updateSpotlightMaskVisibility,
@@ -542,7 +542,7 @@ const mapStateToProps = (state): StateProps => ({
   mapContainerDimensions: mapContainerDimensionsSelector(state),
   mapLayerPopupSelector: layerId => mapLayerPopupSelector(layerId, state),
   mapStyle: mapStyleSelector(state),
-  placeFilters: filtersSelector(state),
+  placeFilters: placeFiltersSelector(state),
   datasets: datasetsSelector(state),
 });
 

@@ -15,10 +15,10 @@ import LoginMenu from "../molecules/login-menu";
 import { RegularTitle, InternalLink, ExternalLink } from "../atoms/typography";
 
 import {
-  navBarConfigPropType,
+  NavBarConfig,
   navBarConfigSelector,
 } from "../../state/ducks/nav-bar-config";
-import FilterMenu from "./filter-menu";
+import PlaceFilterMenu from "./place-filter-menu";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import { mapConfigSelector, MapConfig } from "../../state/ducks/map";
 import { currentTemplateSelector, resetUi } from "../../state/ducks/ui";
@@ -200,11 +200,11 @@ const navItemMappings = {
       display: "block",
     },
   })),
-  filter: FilterMenu,
+  filter: PlaceFilterMenu,
 };
 
 type ComponentPropTypes = {
-  navBarConfig: PropTypes.InferProps<typeof navBarConfigPropType>;
+  navBarConfig: NavBarConfig;
 };
 
 type DispatchProps = {

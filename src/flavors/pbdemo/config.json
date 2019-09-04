@@ -25,6 +25,72 @@
         "code": "fr",
         "label": "Française"
       }
+    ],
+    "placeFilters": [
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham-projects",
+        "value": "cycle1-projects",
+        "label": "Cycle 1 Winners",
+        "icon": "/static/css/images/markers/money.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham-projects",
+        "value": "projects",
+        "label": "Proposals",
+        "icon": "/static/css/images/markers/money-greyscale.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham",
+        "value": "culture",
+        "label": "Art & Culture",
+        "icon": "/static/css/images/markers/fountain.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham",
+        "value": "parks",
+        "label": "Parks & Recreation",
+        "icon": "/static/css/images/markers/tree.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham",
+        "value": "streets",
+        "label": "Streets & Sidewalks",
+        "icon": "/static/css/images/markers/street-sidewalk.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham",
+        "value": "health",
+        "label": "Health & Wellness",
+        "icon": "/static/css/images/markers/health.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham",
+        "value": "safety",
+        "label": "Safety & Environment",
+        "icon": "/static/css/images/markers/safety.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "pbdurham",
+        "value": "other",
+        "label": "Other",
+        "icon": "/static/css/images/markers/idea.png"
+      }
     ]
   },
   "datasets": [

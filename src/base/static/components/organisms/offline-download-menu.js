@@ -63,7 +63,7 @@ const fetchOfflineData = (
     ]);
 
   let fetchedRequests = 0;
-  let totalRequests = urlsToFetch.length;
+  const totalRequests = urlsToFetch.length;
   urlsToFetch.forEach(url => {
     fetch(url).finally(() => {
       fetchedRequests++;

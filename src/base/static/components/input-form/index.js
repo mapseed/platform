@@ -210,7 +210,7 @@ class InputForm extends Component {
     );
 
     // Check if this field triggers the visibility of other fields(s)
-    let triggers = fieldStatus.get("triggers");
+    const triggers = fieldStatus.get("triggers");
     if (triggers && !isInitializing) {
       const fieldValue = fieldStatus.get("value");
       const triggeredFields = triggers.reduce((memo, trigger) => {
@@ -277,7 +277,7 @@ class InputForm extends Component {
   }
 
   validateForm(successCallback) {
-    let {
+    const {
       validationErrors: newValidationErrors,
       isValid,
     } = this.getFields().reduce(

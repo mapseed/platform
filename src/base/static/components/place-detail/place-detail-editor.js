@@ -326,7 +326,7 @@ class PlaceDetailEditor extends Component {
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     // Check if this field triggers the visibility of other fields(s)
-    let triggers = fieldStatus.get("triggers");
+    const triggers = fieldStatus.get("triggers");
     if (triggers && !isInitializing) {
       const fieldValue = fieldStatus.get("value");
       const triggeredFields = triggers.reduce((memo, trigger) => {

@@ -45,7 +45,7 @@ const getRandomName = () => {
 
 class WrappedVideo extends BlockEmbed {
   static create(url) {
-    let node = super.create();
+    const node = super.create();
     node.style =
       "position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0; overflow: hidden;";
 
@@ -77,7 +77,7 @@ class ImageWithName extends Embed {
   static create(value) {
     value.name = value.name || getRandomName();
 
-    let node = super.create();
+    const node = super.create();
     node.setAttribute("alt", value.alt);
     node.setAttribute("src", value.file);
     node.setAttribute("name", value.name);
@@ -136,7 +136,7 @@ class RichTextareaField extends Component {
   }
 
   componentDidMount() {
-    let editor = this.quillEditor.getEditor();
+    const editor = this.quillEditor.getEditor();
 
     // NOTE: we create a whole new SnowTheme here so we can make use of a
     // tooltip box with custom click handler.
@@ -146,8 +146,8 @@ class RichTextareaField extends Component {
 
     // We replace the ql-action element so we can attach our own click listener
     // below.
-    let oldElt = this.snowTheme.tooltip.root.querySelector("a.ql-action"),
-      newElt = oldElt.cloneNode(true);
+    const oldElt = this.snowTheme.tooltip.root.querySelector("a.ql-action");
+    const newElt = oldElt.cloneNode(true);
     oldElt.parentNode.replaceChild(newElt, oldElt);
 
     this.snowTheme.tooltip.root
@@ -155,7 +155,7 @@ class RichTextareaField extends Component {
       .addEventListener("click", evt => {
         evt.preventDefault();
         editor.focus();
-        let url = this.snowTheme.tooltip.root.querySelector("input").value;
+        const url = this.snowTheme.tooltip.root.querySelector("input").value;
         editor.insertEmbed(
           editor.getSelection().index,
           "wrappedVideo",
