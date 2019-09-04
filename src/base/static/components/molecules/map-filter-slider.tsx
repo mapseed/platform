@@ -14,6 +14,7 @@ import {
 } from "../../state/ducks/map-style";
 import { RangeInput } from "../atoms/input";
 import { RegularText } from "../atoms/typography";
+import MapWidgetWrapper from "./map-widget-wrapper";
 
 const buildAndApplyMapLayerFilters = ({
   filterValue,
@@ -59,65 +60,60 @@ const MapFilterSlider: React.FunctionComponent = () => {
     return null;
   }
   return (
-    <div
-      css={css`
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 8px;
-        border-radius: 8px;
-        color: #fff;
-        width: 400px;
-        margin-top: 8px;
-      `}
-    >
-      <div
-        css={css`
-          margin-bottom: 8px;
-        `}
-      >
-        <RegularText>{label}</RegularText>{" "}
-        <RegularText weight="black">{sliderValue}</RegularText>
-      </div>
-      <div
-        css={css`
-          display: flex;
-          align-items: middle;
-          justify-content: space-between;
-        `}
-      >
-        <RegularText>{min}</RegularText>
-        <RangeInput
-          css={css`
-            width: 100%;
-            margin-left: 16px;
-            margin-right: 16px;
+    <MapWidgetWrapper color="black">
+      {classes => (
+        <React.Fragment>
+          <div
+            css={css`
+              margin-bottom: 8px;
+            `}
+          >
+            <RegularText>{label}</RegularText>{" "}
+            <RegularText weight="black">{sliderValue}</RegularText>
+          </div>
+          <div
+            css={css`
+              display: flex;
+              align-items: middle;
+              justify-content: space-between;
+            `}
+          >
+            <RegularText>{min}</RegularText>
+            <RangeInput
+              css={css`
+                width: 100%;
+                margin-left: 16px;
+                margin-right: 16px;
 
-            &:hover {
-              cursor: pointer;
-            }
+                &:hover {
+                  cursor: pointer;
+                }
 
-            &:active {
-              cursor: grabbing;
-            }
-          `}
-          min={min}
-          max={max}
-          step={step}
-          onChange={evt => {
-            buildAndApplyMapLayerFilters({
-              filterValue: Number(evt.target.value),
-              layerIds: layerGroup.layerIds,
-              comparator,
-              property,
-              updateLayerFilters: filters =>
-                dispatch(updateLayerFilters(filters)),
-            });
-            setSliderValue(evt.target.value);
-          }}
-          value={sliderValue}
-        />
-        <RegularText>{max}</RegularText>
-      </div>
-    </div>
+                &:active {
+                  cursor: grabbing;
+                }
+              `}
+              min={min}
+              max={max}
+              step={step}
+              onChange={evt => {
+                buildAndApplyMapLayerFilters({
+                  filterValue: Number(evt.target.value),
+                  layerIds: layerGroup.layerIds,
+                  comparator,
+                  property,
+                  updateLayerFilters: filters =>
+                    dispatch(updateLayerFilters(filters)),
+                });
+                setSliderValue(evt.target.value);
+              }}
+              value={sliderValue}
+            />
+            <RegularText>{max}</RegularText>
+          </div>
+        </React.Fragment>
+      )}
+    </MapWidgetWrapper>
   );
 };
 

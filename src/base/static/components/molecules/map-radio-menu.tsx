@@ -24,13 +24,22 @@ import MapWidgetWrapper from "./map-widget-wrapper";
 const MapRadioMenu: React.FunctionComponent<WithStyles<typeof styles>> = ({
   classes,
 }) => {
+  const mapRadioMenuConfig: RadioMenuConfig = useSelector(
+    mapRadioMenuConfigSelector,
+  );
+
+  if (!mapRadioMenuConfig) {
+    return null;
+  }
+
   const {
     layerId,
     layerGroupId,
     options,
     defaultSelectedOption,
     label,
-  }: RadioMenuConfig = useSelector(mapRadioMenuConfigSelector);
+  }: RadioMenuConfig = mapRadioMenuConfig;
+
   const layerGroups: LayerGroups = useSelector(layerGroupsSelector);
   const layerGroup = layerGroups.byId[layerGroupId];
   const layers: Layer[] = useSelector(layersSelector);
@@ -57,7 +66,7 @@ const MapRadioMenu: React.FunctionComponent<WithStyles<typeof styles>> = ({
   };
 
   return (
-    <MapWidgetBackground color="black">
+    <MapWidgetWrapper color="black">
       {classes => (
         <React.Fragment>
           <FormLabel classes={{ root: classes.label, focused: classes.label }}>
@@ -83,7 +92,7 @@ const MapRadioMenu: React.FunctionComponent<WithStyles<typeof styles>> = ({
           </RadioGroup>
         </React.Fragment>
       )}
-    </MapWidgetBackground>
+    </MapWidgetWrapper>
   );
 };
 
