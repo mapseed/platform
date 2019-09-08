@@ -2,7 +2,13 @@ import { point, lineString, polygon, featureCollection } from "@turf/helpers";
 import area from "@turf/area";
 import distance from "@turf/distance";
 import { geoPath, geoTransform, GeoStream } from "d3-geo";
-import { FeatureCollection, Point, LineString, Polygon } from "geojson";
+import {
+  FeatureCollection,
+  Feature,
+  Point,
+  LineString,
+  Polygon,
+} from "geojson";
 
 const lng2tile = (lng, zoom) => {
   return Math.floor(((lng + 180) / 360) * Math.pow(2, zoom));
@@ -25,6 +31,12 @@ function* range(start, end, step = 1) {
   for (let n = start; n < end; n += step) yield n;
 }
 
+type ZoomLngLat = {
+  zoom: number;
+  lng: number;
+  lat: number;
+};
+
 // Returns an array of absolute paths for each tile within the bounding box
 // eg: [ "/8/43/89.pbf", "/8/43/90.pbf", "/8/44/89.pbf", "/8/44/90.pbf" ]
 export const getTilePaths = (southWestPoint, northEastPoint) => {
@@ -33,7 +45,7 @@ export const getTilePaths = (southWestPoint, northEastPoint) => {
   const { lng: minLng, lat: minLat } = southWestPoint;
   const { lng: maxLng, lat: maxLat } = northEastPoint;
   let zoom;
-  const results = [];
+  const results: ZoomLngLat[] = [];
   for (zoom of range(MIN_ZOOM, MAX_ZOOM)) {
     const minLngTile = lng2tile(minLng, zoom);
     const maxLngTile = lng2tile(maxLng, zoom);
@@ -155,7 +167,7 @@ export const redraw = ({ project, ctx, featureCollection, width, height }) => {
 
 const FEET_PER_MILE = 5280;
 const SQUARE_METERS_PER_ACRE = 0.000247105;
-export const calculateMeasurement = (measurementFeature: Polygon | LineString) => {
+export const calculateMeasurement = (measurementFeature: Feature) => {
   const geometry = measurementFeature && measurementFeature.geometry;
 
   if (geometry && geometry.type == "LineString") {

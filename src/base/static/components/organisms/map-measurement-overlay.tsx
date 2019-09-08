@@ -42,16 +42,13 @@ const getNewViewport = ({
   });
 
 type MapMeasurementOverlayProps = {
-  handleMeasurementReset: Function;
-  handleUndoLastMeasurementPoint: Function;
+  handleOverlayClick: Function;
   featureCollection: FeatureCollection<Point | LineString | Polygon>;
   positions: number[][];
-  selectedTool?: string;
+  selectedTool: string | null;
 };
 
-const MapMeasurementOverlay: React.FunctionComponent = (
-  props: MapMeasurementOverlayProps,
-) => {
+const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
   const isMeasurementToolVisible: boolean = useSelector(
     measurementToolVisibilitySelector,
   );
@@ -62,25 +59,29 @@ const MapMeasurementOverlay: React.FunctionComponent = (
   const webMercatorViewport = React.useRef<WebMercatorViewport>();
   const overlayRef = React.useRef<ExposedCanvasOverlay>(null);
   const selectedTool = React.useRef<string | null>(null);
+  const { handleOverlayClick } = props;
 
   React.useEffect(() => {
     selectedTool.current = props.selectedTool;
   }, [props.selectedTool]);
 
-  const handleOverlayClick = evt => {
-    if (!selectedTool.current) {
-      return;
-    }
+  const onOverlayClick = React.useCallback(
+    evt => {
+      if (!selectedTool.current) {
+        return;
+      }
 
-    const { left, top } = evt.currentTarget.getBoundingClientRect();
-    // Get unprojected (i.e. lng/lat) coordinates from the x/y click position,
-    // relative to the overlay canvas element.
-    const unprojected =
-      webMercatorViewport.current &&
-      webMercatorViewport.current.unproject([evt.x - left, evt.y - top]);
+      const { left, top } = evt.currentTarget.getBoundingClientRect();
+      // Get unprojected (i.e. lng/lat) coordinates from the x/y click position,
+      // relative to the overlay canvas element.
+      const unprojected =
+        webMercatorViewport.current &&
+        webMercatorViewport.current.unproject([evt.x - left, evt.y - top]);
 
-    unprojected && props.handleOverlayClick(unprojected);
-  };
+      unprojected && handleOverlayClick(unprojected);
+    },
+    [handleOverlayClick],
+  );
 
   React.useEffect(() => {
     // Unless I'm missing the right way to use overlays, it seems necessary
@@ -92,7 +93,7 @@ const MapMeasurementOverlay: React.FunctionComponent = (
       overlayRef.current &&
       overlayRef.current._canvas
     ) {
-      overlayRef.current._canvas.addEventListener("click", handleOverlayClick);
+      overlayRef.current._canvas.addEventListener("click", onOverlayClick);
       // This direct manipulation of the `pointer-events` style property feels
       // like a hack, but the goal is to enable clicks on the underlying map
       // when no measurement tool is selected.
@@ -101,7 +102,7 @@ const MapMeasurementOverlay: React.FunctionComponent = (
       // eslint-disable-next-line no-console
       console.error(`Measurement overlay: failed to attach click listener`);
     }
-  }, [isMeasurementToolVisible]);
+  }, [isMeasurementToolVisible, onOverlayClick]);
 
   React.useEffect(() => {
     if (overlayRef.current) {
@@ -110,15 +111,14 @@ const MapMeasurementOverlay: React.FunctionComponent = (
   }, [props.selectedTool]);
 
   React.useEffect(() => {
+    const overlayRefCopy = overlayRef.current;
+
     return () => {
-      if (overlayRef && overlayRef.current && overlayRef.current._canvas) {
-        overlayRef.current._canvas.removeEventListener(
-          "click",
-          handleOverlayClick,
-        );
+      if (overlayRefCopy && overlayRefCopy._canvas) {
+        overlayRefCopy._canvas.removeEventListener("click", onOverlayClick);
       }
     };
-  }, []);
+  }, [handleOverlayClick]);
 
   React.useEffect(() => {
     webMercatorViewport.current = getNewViewport({

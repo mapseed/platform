@@ -8,7 +8,7 @@ import { getReadableColor } from "../../utils/color";
 
 type MapWidgetBackgroundProps = {
   color: "black" | "white";
-  children: React.ReactNode;
+  children: Function;
 };
 
 const COLORS = {
@@ -33,7 +33,12 @@ const MapWidgetBackground = (props: MapWidgetBackgroundProps) => {
   const classes = useStyles(props);
 
   return (
-    <Card classes={{ root: classes.root }}>{props.children(classes)}</Card>
+    <Card
+      onClick={evt => evt.stopPropagation()}
+      classes={{ root: classes.root }}
+    >
+      {props.children(classes)}
+    </Card>
   );
 };
 

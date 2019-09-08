@@ -35,10 +35,6 @@ const MapFilterSlider: React.FunctionComponent = () => {
     mapFilterSliderConfigSelector,
   );
 
-  if (!mapFilterSliderConfig) {
-    return null;
-  }
-
   const {
     min,
     max,
@@ -62,6 +58,10 @@ const MapFilterSlider: React.FunctionComponent = () => {
       updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
     });
   }, [initialValue, comparator, dispatch, property, layerGroup.layerIds]);
+
+  if (!mapFilterSliderConfig) {
+    return null;
+  }
 
   // TODO: Use Matrial text atoms and tie into themeing passed from
   // MapWidgetWrapper.

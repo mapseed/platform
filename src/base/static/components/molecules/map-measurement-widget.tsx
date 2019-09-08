@@ -14,7 +14,14 @@ import MapWidgetWrapper from "./map-widget-wrapper";
 import { RegularText } from "../atoms/typography";
 import { measurementToolVisibilitySelector } from "../../state/ducks/ui";
 
-type MapMeasurementWidgetProps = {};
+type MapMeasurementWidgetProps = {
+  selectedTool: string | null;
+  handleUndoLastPoint: Function;
+  handleSelectTool: Function;
+  handleReset: Function;
+  units: string | null;
+  measurement: number | null;
+};
 
 interface ExposedCanvasOverlay extends CanvasOverlay {
   _canvas: HTMLCanvasElement;
@@ -23,13 +30,13 @@ interface ExposedCanvasOverlay extends CanvasOverlay {
 type MeasurementToolIconProps = {
   isEnabled: boolean;
   isSelected?: boolean;
-  children: any;
-  onClick: any;
+  children: React.ReactNode;
+  onClick: Function;
 };
 
 const MeasurementToolIcon = (props: MeasurementToolIconProps) => (
   <span
-    onClick={props.onClick}
+    onClick={() => props.onClick()}
     css={css`
       border: 2px solid transparent;
       border-radius: 4px;

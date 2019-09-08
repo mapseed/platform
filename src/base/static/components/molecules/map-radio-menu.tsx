@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -21,16 +21,10 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import MapWidgetWrapper from "./map-widget-wrapper";
 
-const MapRadioMenu: React.FunctionComponent<WithStyles<typeof styles>> = ({
-  classes,
-}) => {
+const MapRadioMenu = () => {
   const mapRadioMenuConfig: RadioMenuConfig = useSelector(
     mapRadioMenuConfigSelector,
   );
-
-  if (!mapRadioMenuConfig) {
-    return null;
-  }
 
   const {
     layerId,
@@ -51,7 +45,7 @@ const MapRadioMenu: React.FunctionComponent<WithStyles<typeof styles>> = ({
   React.useEffect(() => {
     const layer = layers.find(layer => layer.id === layerId)!;
     dispatch(updateLayerAggregators(layer.id, [selectedOption.aggregator!]));
-  }, [layerId, selectedOption]);
+  }, [layerId, selectedOption, dispatch, layers]);
 
   if (!layerGroup.isVisible) {
     return null;
@@ -64,6 +58,10 @@ const MapRadioMenu: React.FunctionComponent<WithStyles<typeof styles>> = ({
     )!;
     setSelectedOption(newSelectedOption);
   };
+
+  if (!mapRadioMenuConfig) {
+    return null;
+  }
 
   return (
     <MapWidgetWrapper color="black">

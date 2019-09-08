@@ -63,7 +63,7 @@ export type RadioMenuConfig = {
 };
 
 export type MapWidgetsConfig = {
-  filterSlider?: FilterSliderConfig;
+  filterSlider?: MapFilterSliderConfig;
   radioMenu?: RadioMenuConfig;
 };
 

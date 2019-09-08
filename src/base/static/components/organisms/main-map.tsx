@@ -3,7 +3,13 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
 import { Map, MapboxGeoJSONFeature } from "mapbox-gl";
-import { GeoJsonProperties } from "geojson";
+import {
+  GeoJsonProperties,
+  FeatureCollection,
+  Point,
+  LineString,
+  Polygon,
+} from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
@@ -178,9 +184,9 @@ interface State {
   mapViewport: MapViewport;
   measurementTool: {
     featureCollection: FeatureCollection<Point | LineString | Polygon>;
-    selectedTool?: string;
-    measurement?: number;
-    units?: string;
+    selectedTool: string | null;
+    measurement: number | null;
+    units: string | null;
     positions: number[][];
   };
 }
@@ -209,16 +215,17 @@ class MainMap extends React.Component<Props, State> {
     const { measurementTool } = this.state;
     const newPositions = measurementTool.positions.slice(0, -1);
 
-    this.setState({
-      measurementTool: {
-        ...measurementTool,
-        positions: newPositions,
-        featureCollection: buildMeasurementFeatureCollection(
-          measurementTool.selectedTool,
-          newPositions,
-        ),
-      },
-    });
+    measurementTool.selectedTool &&
+      this.setState({
+        measurementTool: {
+          ...measurementTool,
+          positions: newPositions,
+          featureCollection: buildMeasurementFeatureCollection(
+            measurementTool.selectedTool,
+            newPositions,
+          ),
+        },
+      });
   };
 
   handleMeasurementReset = () => {
@@ -247,6 +254,11 @@ class MainMap extends React.Component<Props, State> {
 
   handleMeasurementOverlayClick = unprojected => {
     const { measurementTool } = this.state;
+
+    if (!measurementTool.selectedTool) {
+      return;
+    }
+
     const newPositions = [...measurementTool.positions, unprojected];
     const newFeatureCollection = buildMeasurementFeatureCollection(
       measurementTool.selectedTool,
@@ -254,15 +266,14 @@ class MainMap extends React.Component<Props, State> {
     );
     const { features } = newFeatureCollection;
 
-    measurementTool.selectedTool &&
-      this.setState({
-        measurementTool: {
-          ...measurementTool,
-          measurement: calculateMeasurement(features[features.length - 1]),
-          positions: newPositions,
-          featureCollection: newFeatureCollection,
-        },
-      });
+    this.setState({
+      measurementTool: {
+        ...measurementTool,
+        measurement: calculateMeasurement(features[features.length - 1]),
+        positions: newPositions,
+        featureCollection: newFeatureCollection,
+      },
+    });
   };
 
   private queriedFeatures: MapboxGeoJSONFeature[] = [];
@@ -599,7 +610,7 @@ class MainMap extends React.Component<Props, State> {
           />
           <MapWidgetContainer position="lower-left">
             <MapFilterSlider />
-            <MapRadioMenu />}
+            <MapRadioMenu />
           </MapWidgetContainer>
           <MapWidgetContainer position="lower-right">
             <MapMeasurementWidget
