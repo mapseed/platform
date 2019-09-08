@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   root: props => ({
     backgroundColor: COLORS[props.color],
     color: getReadableColor(COLORS[props.color]),
-    width: "400px",
     padding: "8px",
     borderRadius: "8px",
     marginTop: "8px",

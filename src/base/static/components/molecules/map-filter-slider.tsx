@@ -3,7 +3,6 @@ import * as React from "react";
 import { css, jsx } from "@emotion/core";
 import { useSelector, useDispatch } from "react-redux";
 
-import { LayerGroup } from "../../state/ducks/map-style";
 import {
   MapFilterSliderConfig,
   mapFilterSliderConfigSelector,
@@ -32,6 +31,14 @@ const buildAndApplyMapLayerFilters = ({
 };
 
 const MapFilterSlider: React.FunctionComponent = () => {
+  const mapFilterSliderConfig: MapFilterSliderConfig = useSelector(
+    mapFilterSliderConfigSelector,
+  );
+
+  if (!mapFilterSliderConfig) {
+    return null;
+  }
+
   const {
     min,
     max,
@@ -41,7 +48,7 @@ const MapFilterSlider: React.FunctionComponent = () => {
     property,
     label,
     layerGroupId,
-  }: MapFilterSliderConfig = useSelector(mapFilterSliderConfigSelector);
+  }: MapFilterSliderConfig = mapFilterSliderConfig;
   const layerGroups = useSelector(layerGroupsSelector);
   const layerGroup = layerGroups.byId[layerGroupId];
   const dispatch = useDispatch();
@@ -54,14 +61,13 @@ const MapFilterSlider: React.FunctionComponent = () => {
       property,
       updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
     });
-  }, [initialValue]);
+  }, [initialValue, comparator, dispatch, property, layerGroup.layerIds]);
 
-  if (!layerGroup.isVisible) {
-    return null;
-  }
+  // TODO: Use Matrial text atoms and tie into themeing passed from
+  // MapWidgetWrapper.
   return (
     <MapWidgetWrapper color="black">
-      {classes => (
+      {() => (
         <React.Fragment>
           <div
             css={css`

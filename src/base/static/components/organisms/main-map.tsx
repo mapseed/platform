@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { throttle } from "throttle-debounce";
 import { RouteComponentProps, withRouter } from "react-router";
 import eventEmitter from "../../utils/event-emitter";
+import { featureCollection } from "@turf/helpers";
 
 import {
   interactiveLayerIdsSelector,
@@ -46,10 +47,16 @@ import {
   updateSpotlightMaskVisibility,
 } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
+import {
+  buildMeasurementFeatureCollection,
+  calculateMeasurement,
+  MEASUREMENT_UNITS,
+} from "../../utils/geo";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
-import MapWidgetContainer from "../organisms/map-widget-container";
-import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
+import MapWidgetContainer from "./map-widget-container";
+import MapMeasurementOverlay from "./map-measurement-overlay";
+import MapMeasurementWidget from "../molecules/map-measurement-widget";
 import MapFilterSlider from "../molecules/map-filter-slider";
 import MapRadioMenu from "../molecules/map-radio-menu";
 import MapLegendWidget from "../molecules/map-legend-widget";
@@ -169,6 +176,13 @@ interface State {
   popupLatitude: number | null;
   popupLongitude: number | null;
   mapViewport: MapViewport;
+  measurementTool: {
+    featureCollection: FeatureCollection<Point | LineString | Polygon>;
+    selectedTool?: string;
+    measurement?: number;
+    units?: string;
+    positions: number[][];
+  };
 }
 
 class MainMap extends React.Component<Props, State> {
@@ -178,6 +192,77 @@ class MainMap extends React.Component<Props, State> {
     popupLatitude: null,
     popupLongitude: null,
     mapViewport: this.props.mapViewport,
+    measurementTool: {
+      // NOTE: The structure of this featureCollection is such that all but the
+      // last feature are Points representing clicked-on locations, and the final
+      // feature is either a LineString or a Polygon built from those points. The
+      // final feature is used for measurement purposes.
+      featureCollection: featureCollection([]),
+      selectedTool: null,
+      measurement: null,
+      units: null,
+      positions: [],
+    },
+  };
+
+  handleUndoLastMeasurementPoint = () => {
+    const { measurementTool } = this.state;
+    const newPositions = measurementTool.positions.slice(0, -1);
+
+    this.setState({
+      measurementTool: {
+        ...measurementTool,
+        positions: newPositions,
+        featureCollection: buildMeasurementFeatureCollection(
+          measurementTool.selectedTool,
+          newPositions,
+        ),
+      },
+    });
+  };
+
+  handleMeasurementReset = () => {
+    this.setState({
+      measurementTool: {
+        positions: [],
+        featureCollection: featureCollection([]),
+        selectedTool: null,
+        units: null,
+        measurement: null,
+      },
+    });
+  };
+
+  handleSelectTool = selectedTool => {
+    this.setState({
+      measurementTool: {
+        positions: [],
+        featureCollection: featureCollection([]),
+        selectedTool,
+        units: MEASUREMENT_UNITS[selectedTool],
+        measurement: 0,
+      },
+    });
+  };
+
+  handleMeasurementOverlayClick = unprojected => {
+    const { measurementTool } = this.state;
+    const newPositions = [...measurementTool.positions, unprojected];
+    const newFeatureCollection = buildMeasurementFeatureCollection(
+      measurementTool.selectedTool,
+      newPositions,
+    );
+    const { features } = newFeatureCollection;
+
+    measurementTool.selectedTool &&
+      this.setState({
+        measurementTool: {
+          ...measurementTool,
+          measurement: calculateMeasurement(features[features.length - 1]),
+          positions: newPositions,
+          featureCollection: newFeatureCollection,
+        },
+      });
   };
 
   private queriedFeatures: MapboxGeoJSONFeature[] = [];
@@ -448,6 +533,8 @@ class MainMap extends React.Component<Props, State> {
   };
 
   render() {
+    const { measurementTool } = this.state;
+
     return (
       <React.Fragment>
         <MapGL
@@ -502,6 +589,31 @@ class MainMap extends React.Component<Props, State> {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
+          <MapMeasurementOverlay
+            handleOverlayClick={unprojected =>
+              this.handleMeasurementOverlayClick(unprojected)
+            }
+            featureCollection={measurementTool.featureCollection}
+            positions={measurementTool.positions}
+            selectedTool={measurementTool.selectedTool}
+          />
+          <MapWidgetContainer position="lower-left">
+            <MapFilterSlider />
+            <MapRadioMenu />}
+          </MapWidgetContainer>
+          <MapWidgetContainer position="lower-right">
+            <MapMeasurementWidget
+              handleReset={this.handleMeasurementReset}
+              handleUndoLastPoint={this.handleUndoLastMeasurementPoint}
+              handleSelectTool={this.handleSelectTool}
+              units={measurementTool.units}
+              measurement={measurementTool.measurement}
+              selectedTool={measurementTool.selectedTool}
+            />
+            {/* <MapLegendWidget /> */}
+          </MapWidgetContainer>
+          {this.props.isMapCenterpointVisible && <MapCenterpoint />}
+          {this.state.isMapLoaded && <MapControls />}
           {this.state.popupContent &&
             this.state.popupLatitude &&
             this.state.popupLongitude && (
@@ -521,17 +633,7 @@ class MainMap extends React.Component<Props, State> {
                 />
               </Popup>
             )}
-          {this.props.isMapCenterpointVisible && <MapCenterpoint />}
-          {this.state.isMapLoaded && <MapControls />}
         </MapGL>
-        <MapWidgetContainer position="lower-left">
-          <MapFilterSlider />
-          <MapRadioMenu />}
-        </MapWidgetContainer>
-        <MapWidgetContainer position="lower-right">
-          {/* <MapMeasurementOverlay /> */}
-          {/* <MapLegendWidget /> */}
-        </MapWidgetContainer>
       </React.Fragment>
     );
   }

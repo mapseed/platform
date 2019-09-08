@@ -49,7 +49,6 @@ const MapWidgetContainer: React.FunctionComponent<ContainerProps> = props => {
         z-index: 8;
         position: absolute;
         bottom: 8px;
-        width: 50%;
         right: ${positionInfo.right};
         left: ${positionInfo.left};
       `}
