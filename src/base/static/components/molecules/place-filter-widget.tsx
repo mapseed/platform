@@ -13,7 +13,10 @@ import {
   PlaceFiltersConfig,
   visiblePlaceFiltersConfigSelector,
 } from "../../state/ducks/flavor-config";
-import { updatePlaceFilters } from "../../state/ducks/place-filters";
+import {
+  updatePlaceFilters,
+  PlaceFilter,
+} from "../../state/ducks/place-filters";
 
 const isWithoutFilters = state =>
   // Determine if the user has un-selected all filters.
@@ -54,20 +57,23 @@ const PlaceFilterWidget = () => {
       // eslint-disable-next-line
       .filter(([_, isActive]) => isActive)
       // eslint-disable-next-line
-      .map(([filterValue, _]) => {
+      .reduce((memo: PlaceFilter[], [filterValue, _]) => {
         const placeFilterConfig = visiblePlaceFiltersConfig.find(
           config => config.value === filterValue,
         );
 
-        if (placeFilterConfig) {
-          return {
-            value: placeFilterConfig.value,
-            placeProperty: placeFilterConfig.placeProperty,
-            operator: placeFilterConfig.operator,
-            datasetSlug: placeFilterConfig.datasetSlug,
-          };
-        }
-      });
+        return placeFilterConfig
+          ? [
+              ...memo,
+              {
+                value: placeFilterConfig.value,
+                placeProperty: placeFilterConfig.placeProperty,
+                operator: placeFilterConfig.operator,
+                datasetSlug: placeFilterConfig.datasetSlug,
+              },
+            ]
+          : [...memo];
+      }, []);
 
     dispatch(updatePlaceFilters(activeFilters));
   }, [state, visiblePlaceFiltersConfig, dispatch]);
