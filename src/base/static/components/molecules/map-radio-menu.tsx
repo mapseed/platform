@@ -45,7 +45,15 @@ const MapRadioMenu = () => {
   React.useEffect(() => {
     const layer = layers.find(layer => layer.id === layerId)!;
     dispatch(updateLayerAggregators(layer.id, [selectedOption.aggregator!]));
-  }, [layerId, selectedOption, dispatch, layers]);
+    // Note that `layers` is intentionally left out of the dependency array,
+    // since the combination of `useSelector` above (which always returns a
+    // new reference) and `dispatch` in this effect will cause this effect to
+    // continuously run. Leaving out the dep works because the ids on each layer
+    // do not change, and we can use the initial value of `layers` on each
+    // run of the effect without worrying that we have stale information.
+    // TODO: Leaving out the dependency is probably not correct...
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layerId, selectedOption, dispatch]);
 
   if (!layerGroup.isVisible) {
     return null;
