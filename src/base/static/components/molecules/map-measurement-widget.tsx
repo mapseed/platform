@@ -82,6 +82,7 @@ const MapMeasurementWidget = (props: MapMeasurementWidgetProps) => {
     return null;
   }
 
+  // TODO: Derive styling from MUI theme.
   return (
     <MapWidgetWrapper color="black">
       {() => (
@@ -118,7 +119,7 @@ const MapMeasurementWidget = (props: MapMeasurementWidgetProps) => {
                     handleSelectTool("create-polyline");
                 }}
               >
-                <CreatePolylineIcon />
+                <CreatePolylineIcon color="#a3c7d9" />
               </MeasurementToolIcon>
               <MeasurementToolIcon
                 isSelected={selectedTool === "create-polygon"}
@@ -127,7 +128,7 @@ const MapMeasurementWidget = (props: MapMeasurementWidgetProps) => {
                     handleSelectTool("create-polygon");
                 }}
               >
-                <CreatePolygonIcon />
+                <CreatePolygonIcon color="#a3c7d9" />
               </MeasurementToolIcon>
             </div>
             <div
@@ -140,13 +141,13 @@ const MapMeasurementWidget = (props: MapMeasurementWidgetProps) => {
                 onClick={handleUndoLastPoint}
                 isEnabled={!!selectedTool}
               >
-                <UndoIcon color={selectedTool ? "#000" : "#999"} />
+                <UndoIcon color={selectedTool ? "#a3c7d9" : "#333"} />
               </MeasurementToolIcon>
               <MeasurementToolIcon
                 onClick={handleReset}
                 isEnabled={!!selectedTool}
               >
-                <DeleteGeometryIcon color={selectedTool ? "#000" : "#999"} />
+                <DeleteGeometryIcon color={selectedTool ? "#a3c7d9" : "#333"} />
               </MeasurementToolIcon>
             </div>
           </div>
