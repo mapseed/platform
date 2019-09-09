@@ -155,6 +155,10 @@ const statePropTypes = {
   isMapDraggingOrZooming: PropTypes.bool.isRequired,
   isMapDraggedOrZoomedByUser: PropTypes.bool.isRequired,
   isMapTransitioning: PropTypes.bool.isRequired,
+  isWithMapFilterSlider: PropTypes.bool.isRequired,
+  isWithMapRadioMenu: PropTypes.bool.isRequired,
+  isWithMapMeasurementWidget: PropTypes.bool.isRequired,
+  isWithMapLegendWidget: PropTypes.bool.isRequired,
 };
 
 interface StateProps extends PropTypes.InferProps<typeof statePropTypes> {

@@ -103,10 +103,12 @@ export const geocodeAddressBarEnabledSelector: any;
 export const mapConfigPropType: any;
 export const defaultMapViewportSelector: any;
 export const mapWidgetsSelector: any;
+export const isWithMapFilterSliderSelector: (state: any) => boolean;
 export const mapFilterSliderConfigSelector: (
   state: any,
 ) => MapFilterSliderConfig;
 export const mapRadioMenuConfigSelector: (state: any) => RadioMenuConfig;
+export const isWithMapRadioMenuSelector: (state: any) => boolean;
 export const measurementToolEnabledSelector: any;
 export const isMapTransitioning: (state: any) => boolean;
 export const isMapDraggingOrZooming: (state: any) => boolean;

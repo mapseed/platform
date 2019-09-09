@@ -6,7 +6,13 @@ import WebMercatorViewport, {
   WebMercatorViewportOptions,
 } from "viewport-mercator-project";
 import { CanvasOverlay } from "react-map-gl";
-import { FeatureCollection, Point, LineString, Polygon } from "geojson";
+import {
+  FeatureCollection,
+  Point,
+  LineString,
+  Polygon,
+  Position,
+} from "geojson";
 
 import { MapViewport, mapViewportSelector } from "../../state/ducks/map";
 import {
@@ -42,9 +48,9 @@ const getNewViewport = ({
   });
 
 type MapMeasurementOverlayProps = {
-  handleOverlayClick: Function;
+  handleOverlayClick: (unprojected: Position) => void;
   featureCollection: FeatureCollection<Point | LineString | Polygon>;
-  positions: number[][];
+  positions: Position[];
   selectedTool: string | null;
 };
 
@@ -59,13 +65,23 @@ const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
   const webMercatorViewport = React.useRef<WebMercatorViewport>();
   const overlayRef = React.useRef<ExposedCanvasOverlay>(null);
   const selectedTool = React.useRef<string | null>(null);
-  const { handleOverlayClick } = props;
+  // NOTE: We memoize `props.handleOverlayClick` to maintain referential
+  // equality between renders, since `handleOverlayClickMemo` is a dependecy of
+  // the effect that attaches the click listener to the overlay's underlying
+  // canvas element.
+  // TODO: This all feels convoluted, and it's due to the need to attach a
+  // listener directly to the canvas element. Maybe there is a better way that
+  // doesn't involve direct manipulation of the overlay's canvas?
+  const handleOverlayClickMemo = React.useCallback(
+    props.handleOverlayClick,
+    [],
+  );
 
   React.useEffect(() => {
     selectedTool.current = props.selectedTool;
   }, [props.selectedTool]);
 
-  const onOverlayClick = React.useCallback(
+  const handleOverlayClick = React.useCallback(
     evt => {
       if (!selectedTool.current) {
         return;
@@ -78,9 +94,9 @@ const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
         webMercatorViewport.current &&
         webMercatorViewport.current.unproject([evt.x - left, evt.y - top]);
 
-      unprojected && handleOverlayClick(unprojected);
+      unprojected && handleOverlayClickMemo(unprojected);
     },
-    [handleOverlayClick],
+    [handleOverlayClickMemo],
   );
 
   React.useEffect(() => {
@@ -93,7 +109,7 @@ const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
       overlayRef.current &&
       overlayRef.current._canvas
     ) {
-      overlayRef.current._canvas.addEventListener("click", onOverlayClick);
+      overlayRef.current._canvas.addEventListener("click", handleOverlayClick);
       // This direct manipulation of the `pointer-events` style property feels
       // like a hack, but the goal is to enable clicks on the underlying map
       // when no measurement tool is selected.
@@ -102,7 +118,7 @@ const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
       // eslint-disable-next-line no-console
       console.error(`Measurement overlay: failed to attach click listener`);
     }
-  }, [isMeasurementToolVisible, onOverlayClick]);
+  }, [isMeasurementToolVisible, handleOverlayClick]);
 
   React.useEffect(() => {
     if (overlayRef.current) {
@@ -115,7 +131,7 @@ const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
 
     return () => {
       if (overlayRefCopy && overlayRefCopy._canvas) {
-        overlayRefCopy._canvas.removeEventListener("click", onOverlayClick);
+        overlayRefCopy._canvas.removeEventListener("click", handleOverlayClick);
       }
     };
   }, [handleOverlayClick]);

@@ -3,7 +3,11 @@ import * as React from "react";
 import { css, jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
 
-import { layerGroupsSelector, LayerGroups } from "../../state/ducks/map-style";
+import {
+  layerGroupsSelector,
+  LayerGroups,
+  LegendItem,
+} from "../../state/ducks/map-style";
 import MapWidgetWrapper from "./map-widget-wrapper";
 import { RegularText } from "../atoms/typography";
 
@@ -23,26 +27,27 @@ const MapLegendWidget = () => {
         <React.Fragment>
           {legendGroups.map((legendGroup, i) => (
             <div key={i}>
-              {legendGroup.map(legendItem => (
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 4px;
-                  `}
-                  key={legendItem.swatch}
-                >
+              {legendGroup &&
+                legendGroup.map((legendItem: LegendItem) => (
                   <div
                     css={css`
-                      margin-right: 8px;
-                      width: 20px;
-                      height: 20px;
-                      background-color: ${legendItem.swatch};
+                      display: flex;
+                      align-items: center;
+                      margin-bottom: 4px;
                     `}
-                  />
-                  <RegularText>{legendItem.label}</RegularText>
-                </div>
-              ))}
+                    key={legendItem.swatch}
+                  >
+                    <div
+                      css={css`
+                        margin-right: 8px;
+                        width: 20px;
+                        height: 20px;
+                        background-color: ${legendItem.swatch};
+                      `}
+                    />
+                    <RegularText>{legendItem.label}</RegularText>
+                  </div>
+                ))}
             </div>
           ))}
         </React.Fragment>

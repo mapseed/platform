@@ -33,12 +33,7 @@ const MapWidgetWrapper = (props: MapWidgetWrapperProps) => {
   const classes = useStyles(props);
 
   return (
-    <Card
-      onClick={evt => evt.stopPropagation()}
-      classes={{ root: classes.root }}
-    >
-      {props.children(classes)}
-    </Card>
+    <Card classes={{ root: classes.root }}>{props.children(classes)}</Card>
   );
 };
 
