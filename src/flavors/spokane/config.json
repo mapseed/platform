@@ -388,46 +388,6 @@
                   "value": "Biosolids Management"
                 },
                 {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
                   "value": ["literal", 0],
                   "label": "Tons"
                 },
@@ -812,6 +772,220 @@
           ]
         },
         {
+          "header": "Landowner summary",
+          "type": "freeTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Name and contact",
+              "type": "string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                ["get-val", "private-landowner_name"],
+                ["get-val", "private-landowner_email"],
+                ["get-val", "private-landowner_phone"]
+              ]
+            },
+            {
+              "header": "Submitted report on",
+              "type": "date",
+              "fractionalWidth": 1,
+              "value": ["get-val", "created_datetime"]
+            },
+            {
+              "header": "Implemented",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "yes"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "conventional_till"], "yes"],
+                  ["literal", "Conventional Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "yes"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_tests"], "yes"],
+                  ["literal", "Soil Tests"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fertilization"], "yes"],
+                  ["literal", "Fertilization"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "buffers"], "yes"],
+                  ["literal", "Buffers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grassed_waterways"], "yes"],
+                  ["literal", "Grassed Waterways"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "commodity_buffer"], "yes"],
+                  ["literal", "Commodity Buffer Program"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "riparian_forest"], "yes"],
+                  ["literal", "Wildlife Habitat Enhancements"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stream_crossing"], "yes"],
+                  ["literal", "Stream Crossing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fencing"], "yes"],
+                  ["literal", "Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mud_manure_management"], "yes"],
+                  ["literal", "Mud and Manure Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "off_creek_stock_watering"], "yes"],
+                  ["literal", "Off Creek Stock Watering"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forest_management"], "yes"],
+                  ["literal", "Forest Management"],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Interested",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "interested"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "conventional_till"], "interested"],
+                  ["literal", "Conventional Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "interested"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_tests"], "interested"],
+                  ["literal", "Soil Tests"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fertilization"], "interested"],
+                  ["literal", "Fertilization"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "buffers"], "interested"],
+                  ["literal", "Buffers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grassed_waterways"], "interested"],
+                  ["literal", "Grassed Waterways"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "commodity_buffer"], "interested"],
+                  ["literal", "Commodity Buffer Program"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "riparian_forest"], "interested"],
+                  ["literal", "Wildlife Habitat Enhancements"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stream_crossing"], "interested"],
+                  ["literal", "Stream Crossing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fencing"], "interested"],
+                  ["literal", "Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mud_manure_management"], "interested"],
+                  ["literal", "Mud and Manure Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "off_creek_stock_watering"], "interested"],
+                  ["literal", "Off Creek Stock Watering"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forest_management"], "interested"],
+                  ["literal", "Forest Management"],
+                  ["literal", ""]
+                ],
+                ["get-val", "other_practices_description"]
+              ]
+            }
+          ]
+        },
+        {
           "header": "Critical Area Summary",
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
@@ -898,127 +1072,6 @@
                   "value": ["get-count"],
                   "label": "Reports"
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "header": "Landowner summary",
-          "type": "freeTable",
-          "stripeColor": "#f8f5f5",
-          "layout": {
-            "start": 7,
-            "end": 13,
-            "height": 500
-          },
-          "columns": [
-            {
-              "header": "Name and contact",
-              "type": "string",
-              "fractionalWidth": 3,
-              "value": [
-                "cat",
-                ["get-val", "private-landowner_name"],
-                ["get-val", "private-landowner_email"],
-                ["get-val", "private-landowner_phone"]
-              ]
-            },
-            {
-              "header": "Submitted report on",
-              "type": "date",
-              "fractionalWidth": 2,
-              "value": ["get-val", "created_datetime"]
-            },
-            {
-              "header": "OK to use photos?",
-              "type": "boolean",
-              "fractionalWidth": 1,
-              "value": ["get-val", "private-use_photos"]
-            },
-            {
-              "header": "Requesting information",
-              "type": "unstyled-string",
-              "fractionalWidth": 2,
-              "value": [
-                "cat",
-                [
-                  "case",
-                  ["==", ["get-val", "no_till"], "interested"],
-                  ["literal", "No Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "reduced_till"], "interested"],
-                  ["literal", "Reduced Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "basic_soil_tests"], "interested"],
-                  ["literal", "Basic Soil Tests"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "biosolids"], "interested"],
-                  ["literal", "Biosolids Management"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "precision_soil_tests"], "interested"],
-                  ["literal", "Precision Soil Tests"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "grassed_waterways"], "interested"],
-                  ["literal", "Grassed Waterways"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "commodity_buffer"], "interested"],
-                  ["literal", "Commodity Buffer Program"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "riparian_forest"], "interested"],
-                  ["literal", "Riparian Forest"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "stream_crossing"], "interested"],
-                  ["literal", "Stream Crossing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "heavy_use_area"], "interested"],
-                  ["literal", "Heavy Use Area"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "fencing"], "interested"],
-                  ["literal", "Fencing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "nutrient_management"], "interested"],
-                  ["literal", "Nutrient Management"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "pipeline"], "interested"],
-                  ["literal", "Pipeline"],
-                  ["literal", ""]
-                ]
               ]
             }
           ]
@@ -1764,7 +1817,7 @@
           },
           {
             "start_field_index": 9,
-            "end_field_index": 47,
+            "end_field_index": 51,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1772,8 +1825,8 @@
             ]
           },
           {
-            "start_field_index": 48,
-            "end_field_index": 62,
+            "start_field_index": 52,
+            "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1781,8 +1834,8 @@
             ]
           },
           {
-            "start_field_index": 63,
-            "end_field_index": 69,
+            "start_field_index": 67,
+            "end_field_index": 74,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1790,8 +1843,8 @@
             ]
           },
           {
-            "start_field_index": 70,
-            "end_field_index": 71,
+            "start_field_index": 75,
+            "end_field_index": 76,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1799,8 +1852,8 @@
             ]
           },
           {
-            "start_field_index": 72,
-            "end_field_index": 86,
+            "start_field_index": 77,
+            "end_field_index": 91,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1817,7 +1870,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-your-property.jpg' alt='Your property section'/></figure>"
           },
           {
             "name": "location_why",
@@ -1841,7 +1894,7 @@
             "//": "---------------SECTION: PRACTICE TYPES-------------------",
             "name": "practice_types_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-land-use.jpg' alt='Practice types section'/></figure>"
           },
           {
             "name": "practice_types",
@@ -1858,7 +1911,6 @@
                   "buffers",
                   "reduced_till",
                   "soil_tests",
-                  "biosolids",
                   "fertilization",
                   "riparian_forest"
                 ]
@@ -1908,7 +1960,7 @@
             "name": "agriculture_header",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-agriculture.png' alt='Agriculture section'/></figure>"
           },
           {
             "//": "=============== NO TILLL ================================",
@@ -1941,8 +1993,9 @@
             "modal": {
               "header": "No till",
               "body": [
-                "NRCS code: 329",
-                "No till consists of one pass seed and fertilizer placement"
+                "<img style='width: 50%;' src='/static/css/images/practice-no-till.jpg' alt='No till' />",
+                "<p>NRCS code: 329</p>",
+                "<p>No till consists of one pass seed and fertilizer placement.</p>"
               ]
             }
           },
@@ -2020,7 +2073,7 @@
                 "value": "interested"
               }
             ],
-            "modal": {
+            "</p>modal": {
               "header": "Conventional till",
               "body": [
                 "This practice consists of multiple tillage passes with soil inversion and seed bed preparation"
@@ -2101,8 +2154,9 @@
             "modal": {
               "header": "Reduced till",
               "body": [
-                "NRCS code: ...",
-                "This practice consists of seed and fertilizer placement while allowing the majority of crop residue and stubble to remain on the ground"
+                "<img style='width: 50%;' src='/static/css/images/practice-reduced-till.jpg' alt='Reduced till' />",
+                "<p>NRCS code: 345</p>",
+                "<p>This practice consists of seed and fertilizer placement while allowing the majority of crop residue and stubble to remain on the ground.<p>"
               ]
             }
           },
@@ -2184,8 +2238,9 @@
             "modal": {
               "header": "Soil tests",
               "body": [
-                "NRCS code: 590",
-                "Soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), pH, and buffer pH every four years."
+                "<img style='width: 50%;' src='/static/css/images/practice-soil-tests.jpg' alt='Soil tests' />",
+                "<p>NRCS code: 590</p>",
+                "<p>Soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), pH, and buffer pH every four years.</p>"
               ]
             }
           },
@@ -2197,11 +2252,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "soil-tests-zone-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-soil-tests-zone-map"
               }
             ]
           },
@@ -2262,7 +2317,9 @@
                 "targets": [
                   "synthetic_fertilization_types",
                   "synthetic_fertilization_yield_map",
-                  "synthetic_fertilization_zone_map"
+                  "synthetic_fertilization_zone_map",
+                  "synthetic_fertilization_quantity",
+                  "synthetic_fertilization_duration"
                 ]
               },
               {
@@ -2270,7 +2327,9 @@
                 "targets": [
                   "organic_fertilization_types",
                   "organic_fertilization_yield_map",
-                  "organic_fertilization_zone_map"
+                  "organic_fertilization_zone_map",
+                  "organic_fertilization_quantity",
+                  "organic_fertilization_duration"
                 ]
               }
             ],
@@ -2282,8 +2341,19 @@
               {
                 "label": "Organically",
                 "value": "organically"
+              },
+              {
+                "label": "Not applicable",
+                "value": "not-applicable"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Fertilization",
+              "body": [
+                "<img style='width: 50%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' />",
+                "<p>NRCS code: 590</p>"
+              ]
+            }
           },
           {
             "name": "synthetic_fertilization_types",
@@ -2340,11 +2410,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "synthetic-yield-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-synthetic-yield-map"
               }
             ]
           },
@@ -2357,11 +2427,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "synthetic-zone-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-synthetic-zone-map"
               }
             ]
           },
@@ -2374,11 +2444,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "organic-yield-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-organic-yield-map"
               }
             ]
           },
@@ -2391,11 +2461,97 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "organic-zone-map"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-organic-zone-map"
+              }
+            ]
+          },
+          {
+            "name": "synthetic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use synthetic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "synthetic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been fertilizing your fields synthetically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use organic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "organic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "For how long have you been fertilizing your fields organically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "0-5 years",
+                "value": "0-5"
+              },
+              {
+                "label": "6-10 years",
+                "value": "6-10"
+              },
+              {
+                "label": "11-15 years",
+                "value": "11-15"
+              },
+              {
+                "label": "16-20 years",
+                "value": "16-20"
+              },
+              {
+                "label": "21-35 years",
+                "value": "21-35"
+              },
+              {
+                "label": "36 years or more",
+                "value": "36-or-more"
               }
             ]
           },
@@ -2412,6 +2568,7 @@
                 "value": "yes",
                 "targets": [
                   "buffer_types",
+                  "other_buffer_type",
                   "buffer_program",
                   "buffers_quantity",
                   "buffers_duration"
@@ -2426,8 +2583,19 @@
               {
                 "label": "No",
                 "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Buffers",
+              "body": [
+                "<img style='width: 50%;' src='/static/css/images/practice-buffers.jpg' alt='Buffers' />",
+                "<p>NRCS codes: 342, 391, 580, 386, 393</p>"
+              ]
+            }
           },
           {
             "name": "buffer_types",
@@ -2449,6 +2617,35 @@
                 "value": "grass_waterway"
               }
             ]
+          },
+          {
+            "name": "other_buffer_type",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have any other types of buffers on your property?",
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["other_buffer_type_description"]
+              }
+            ],
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "other_buffer_type_description",
+            "type": "textarea",
+            "prompt": "Please describe your other buffer(s)",
+            "hidden_default": true
           },
           {
             "name": "buffers_quantity",
@@ -2507,11 +2704,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes-program"
+                "value": "buffer-program"
               },
               {
                 "label": "No",
-                "value": "no-program"
+                "value": "no-buffer-program"
               }
             ]
           },
@@ -2532,85 +2729,6 @@
               {
                 "label": "Other agency program",
                 "value": "other_agency_program"
-              }
-            ]
-          },
-          {
-            "//": "=============== BIOSOLIDS =================================",
-            "name": "biosolids",
-            "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Biosolids management",
-            "label": "Control biosolids",
-            "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": ["biosolids_quantity", "biosolids_duration"]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "Biosolids",
-              "body": [
-                "NRCS code: 590",
-                "Municipal and, especially, industrial biosolids can be sources of heavy metals."
-              ]
-            }
-          },
-          {
-            "name": "biosolids_quantity",
-            "type": "number",
-            "prompt": "How many tons of biosolids do you manage?",
-            "min": 0,
-            "placeholder": "Approximate tonnage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "tons"
-            }
-          },
-          {
-            "name": "biosolids_duration",
-            "type": "dropdown",
-            "prompt": "For how long have you been managing biosolids?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "0-5 years",
-                "value": "0-5"
-              },
-              {
-                "label": "6-10 years",
-                "value": "6-10"
-              },
-              {
-                "label": "11-15 years",
-                "value": "11-15"
-              },
-              {
-                "label": "16-20 years",
-                "value": "16-20"
-              },
-              {
-                "label": "21-35 years",
-                "value": "21-35"
-              },
-              {
-                "label": "36 years or more",
-                "value": "36-or-more"
               }
             ]
           },
@@ -2648,8 +2766,8 @@
             "modal": {
               "header": "Grassed waterways",
               "body": [
-                "NRCS code: 412",
-                "A grassed waterway is a shaped or graded channel that is established with suitable vegetation to convey surface water at a non-erosive velocity using a broad and shallow cross section to a stable outlet."
+                "<p>NRCS code: 412</p>",
+                "<p>A grassed waterway is a shaped or graded channel that is established with suitable vegetation to convey surface water at a non-erosive velocity using a broad and shallow cross section to a stable outlet.</p>"
               ]
             }
           },
@@ -2758,19 +2876,20 @@
             ]
           },
           {
-            "//": "=============== RIPARIAN FOREST =================================",
+            "//": "=============== RIPARIAN FOREST (AKA WILDLIFE HABITAT ENHANCEMENTS) =================================",
             "name": "riparian_forest",
             "type": "big_radio",
             "hidden_default": true,
-            "prompt": "Riparian tree and shrub planting",
-            "label": "Riparian forest planting",
+            "prompt": "Do you have any wildlife habitat enhancements on your property?",
+            "label": "Wildlife habitat enhancements",
             "optional": true,
             "triggers": [
               {
                 "value": "yes",
                 "targets": [
                   "riparian_forest_quantity",
-                  "riparian_forest_duration"
+                  "riparian_forest_duration",
+                  "riparian_forest_description"
                 ]
               }
             ],
@@ -2789,17 +2908,18 @@
               }
             ],
             "modal": {
-              "header": "Riparian forest",
+              "header": "Wildlife habitat enhancements",
               "body": [
-                "NRCS code: 391",
-                "A corridor of trees and/or shrubs planted adjacent to a river, stream, wetland or water body. The planting is of sufficient width and up-gradient and near the water body to insure adequate functioning for the desired purpose."
+                "<img style='width:50%;' src='/static/css/images/practice-habitat-enhancements.jpg' alt='Wildlife habitat enhancements' />",
+                "<p>NRCS codes: 395, 420, 644, 645</p>",
+                "<p>A corridor of trees and/or shrubs planted adjacent to a river, stream, wetland or water body. The planting is of sufficient width and up-gradient and near the water body to insure adequate functioning for the desired purpose.</p>"
               ]
             }
           },
           {
             "name": "riparian_forest_quantity",
             "type": "number",
-            "prompt": "How many acres of riparian forest have you planted?",
+            "prompt": "How many acres of wildlife habitat have you enhanced?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -2810,7 +2930,7 @@
           {
             "name": "riparian_forest_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been planting riparian forests?",
+            "prompt": "For how long have you been enhancing wildlife habitat?",
             "hidden_default": true,
             "content": [
               {
@@ -2840,6 +2960,13 @@
             ]
           },
           {
+            "name": "riparian_forest_description",
+            "type": "textarea",
+            "prompt": "Please describe your wildlife habitat enhancements:",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
             "name": "agriculture_questions",
             "type": "informational_html",
             "hidden_default": true,
@@ -2850,7 +2977,7 @@
             "name": "livestock_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Livestock</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Livestock</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-livestock.jpg' alt='Livestock section'/></figure>"
           },
           {
             "//": "=============== STREAM CROSSINGS =================================",
@@ -2885,10 +3012,11 @@
               }
             ],
             "modal": {
-              "header": "Stream crossingss",
+              "header": "Stream crossings",
               "body": [
-                "NRCS code: 578",
-                "A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles."
+                "<img style='width: 50%;' src='/static/css/images/practice-stream-crossings.jpg' alt='Stream crossings' />",
+                "<p>NRCS code: 578</p>",
+                "<p>A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles.</p>"
               ]
             }
           },
@@ -2990,8 +3118,9 @@
             "modal": {
               "header": "Fencing",
               "body": [
-                "NRCS code: 382",
-                "There are many different purposes for and types of fences. Generally, fences shall be appropriately planned, designed, and installed to control the animal(s), vehicles, or people of concern."
+                "<img style='width: 50%;' src='/static/css/images/practice-fencing.jpg' alt='Fencing' />",
+                "<p>NRCS code: 382</p>",
+                "<p>There are many different purposes for and types of fences. Generally, fences shall be appropriately planned, designed, and installed to control the animal(s), vehicles, or people of concern.</p>"
               ]
             }
           },
@@ -3072,7 +3201,10 @@
             ],
             "modal": {
               "header": "Mud and manure management",
-              "body": ["NRCS code: ...", "..."]
+              "body": [
+                "<img style='width: 50%;' src='/static/css/images/practice-mud-manure-management.jpg' alt='Mud and manure management' />",
+                "<p>NRCS code: 561</p>"
+              ]
             }
           },
           {
@@ -3173,7 +3305,10 @@
             ],
             "modal": {
               "header": "Off creek stock watering",
-              "body": ["NRCS code: ...", "..."]
+              "body": [
+                "<img style='width: 50%;' src='/static/css/images/practice-off-creek-watering.jpg' alt='Off creek stock watering' />",
+                "<p>NRCS codes: 516, 533, 614, 561, 642</p>"
+              ]
             }
           },
           {
@@ -3218,7 +3353,7 @@
             "name": "forest_header",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Forestry</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Forestry</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-forestry.jpg' alt='Forestry section'/></figure>"
           },
           {
             "//": "=============== FOREST MANAGEMENT =================================",
@@ -3232,6 +3367,7 @@
               {
                 "value": "yes",
                 "targets": [
+                  "forest_management_description",
                   "forest_management_stand_size",
                   "forest_management_duration",
                   "forest_management_plan"
@@ -3252,6 +3388,13 @@
                 "value": "interested"
               }
             ]
+          },
+          {
+            "name": "forest_management_description",
+            "type": "textarea",
+            "hidden_default": true,
+            "prompt": "Please describe:",
+            "optional": true
           },
           {
             "name": "forest_management_stand_size",
@@ -3310,11 +3453,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "forest-management-plan"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-forest-management-plan"
               }
             ]
           },
@@ -3326,11 +3469,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "active-forest-management"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-active-forest-management"
               }
             ]
           },
@@ -3344,7 +3487,7 @@
             "//": "---------------SECTION: OTHER PRACTICES-------------------",
             "name": "other_practices_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Other Stewardship Practices</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Other Stewardship Practices</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-other-stewardship-practices.jpg' alt='Other practices section'/></figure>"
           },
           {
             "name": "other_practices_description",
@@ -3357,25 +3500,25 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure><p style='font-size:1.2rem;'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
           },
           {
             "name": "title",
             "type": "text",
-            "prompt": "What is your farm's name? If you choose to share the name it will appear on the map.",
+            "prompt": "What is your farm's name?",
             "optional": true
           },
           {
             "name": "my_image",
             "type": "file",
-            "prompt": "Show your stewardship practices! Upload photos before, during, or after you implemented your stewardship practices:",
+            "prompt": "Upload photos before, during or after you implemented your stewardship practices:",
             "label": "Upload photos",
             "optional": true
           },
           {
             "name": "practices_description",
             "type": "textarea",
-            "prompt": "Add a description of your stewardship practices!",
+            "prompt": "Add a description of your stewardship practices",
             "display_prompt": "Description:",
             "optional": true
           },
@@ -3510,7 +3653,7 @@
           {
             "name": "private",
             "type": "big_radio",
-            "prompt": "Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public. (Your address and other property identifying information will not be published.)",
+            "prompt": "Place your pin on the map? (Your address and other property identifying information will not be published.)",
             "default_value": "yes",
             "content": [
               {
@@ -3527,7 +3670,7 @@
           {
             "name": "submit",
             "type": "submit",
-            "label": "Submit!"
+            "label": "Submit"
           }
         ]
       }
@@ -3616,23 +3759,22 @@
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
         "<p style='margin-bottom:16px'>Your Spokane County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
-        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:",
-        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
-        "<li>",
-        "<div style='margin-bottom: 16px'>",
-        "<strong style='margin-bottom:0'>Doug Phelps</strong>",
-        "</div>",
-        "<div style='color: #888; margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
-        "<div style='color: #888; margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
-        "</li>",
-        "</ul>"
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:</p>",
+        "<div style='margin-bottom:4px;margin-top:24px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
       ]
     },
     {
       "slug": "start",
       "content": [
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Spokane County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Share Your Stewardship</a></div></div>",
-        "<img src='/static/css/images/sccd.jpg' alt='Spokane County Conservation District' style='margin:8px 0 16px 0' />",
+        "<img src='/static/css/images/tractor.jpg' alt='Tractor in Spokane County' style='margin:8px 0 16px 0' />",
         "<p>The Spokane County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas. By reporting your voluntary stewardship on this site, you'll help Spokane County allocate resources, and you'll help the Spokane County Conservation District learn what types of technical assistance we can provide to you.</p>",
         "<a href='/new' rel='internal' class='next-btn'>Sign up for Opportunities & Assistance</a>"
       ]
@@ -3642,7 +3784,13 @@
       "content": [
         "<h3 id='about-page-header'>Stewardship Practices Examples and Funding Opportunities</h3>",
         "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs.</p>",
-        "<p>Contact Doug Phelps with questions:</p>",
+        "<p>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
         "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
         "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
         "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:8px;'><span style='flex:1;margin-right:8px;'>Management Type</span><span style='flex:1;margin-right:8px;'>Conservation Practices</span><span style='flex:1'>NRCS Code</span><span style='flex:1'>Potential Funding</span></div>",

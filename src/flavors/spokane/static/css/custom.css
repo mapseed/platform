@@ -38,9 +38,7 @@ header {
 }
 
 [data-field-type="geocoding"],
-[data-field-type="text"],
 [data-field-type="dropdown"],
-[data-field-type="textarea"],
 [data-field-name="drag_map_info"],
 [data-field-type="geolocate"],
 [data-field-name="synthetic_fertilization_types"],
@@ -58,6 +56,15 @@ header {
 [data-field-name="forest_management_active_management"],
 [data-field-name="private-landowner_phone"],
 [data-field-name="soil_tests_zone_map"],
+[data-field-name="other_practices_description"],
+[data-field-name="title"],
+[data-field-name="practices_description"],
+[data-field-name="stewardship_difficulties"],
+[data-field-name="private-landowner_name"],
+[data-field-name="other_buffer_type"],
+[data-field-name="other_buffer_type_description"],
+[data-field-name="riparian_forest_description"],
+[data-field-name="forest_management_description"],
 [data-field-name="organic_fertilization_types"] {
   background-color: #efefef !important;
   margin-top: 0 !important;
