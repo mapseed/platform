@@ -1479,15 +1479,6 @@
             "source": "spokane-wetlands",
             "source-layer": "spokane-wetlands",
             "paint": {
-              "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                9,
-                0.9,
-                14,
-                0.6
-              ],
               "fill-color": [
                 "match",
                 ["get", "SYSSUB"],

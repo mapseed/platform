@@ -59,10 +59,6 @@ const MapRadioMenu = () => {
     setSelectedOption(newSelectedOption);
   };
 
-  if (!mapRadioMenuConfig) {
-    return null;
-  }
-
   return (
     <MapWidgetWrapper color="black">
       {classes => (

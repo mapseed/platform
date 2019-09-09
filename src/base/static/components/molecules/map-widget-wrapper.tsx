@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/styles";
 
 import { getReadableColor } from "../../utils/color";
 
-type MapWidgetBackgroundProps = {
+type MapWidgetWrapperProps = {
   color: "black" | "white";
   children: Function;
 };
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   }),
 });
 
-const MapWidgetBackground = (props: MapWidgetBackgroundProps) => {
+const MapWidgetWrapper = (props: MapWidgetWrapperProps) => {
   const classes = useStyles(props);
 
   return (
@@ -42,4 +42,4 @@ const MapWidgetBackground = (props: MapWidgetBackgroundProps) => {
   );
 };
 
-export default MapWidgetBackground;
+export default MapWidgetWrapper;

@@ -27,6 +27,7 @@ import {
   updateMapContainerDimensions,
   mapContainerDimensionsSelector,
   mapLayerPopupSelector,
+  isWithMapLegendWidgetSelector,
 } from "../../state/ducks/map-style";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
@@ -41,6 +42,9 @@ import {
   MapViewport,
   updateMapViewport,
   mapViewportSelector,
+  isWithMapRadioMenuSelector,
+  isWithMapFilterSliderSelector,
+  measurementToolEnabledSelector,
 } from "../../state/ducks/map";
 import {
   activeEditPlaceIdSelector,
@@ -609,19 +613,21 @@ class MainMap extends React.Component<Props, State> {
             selectedTool={measurementTool.selectedTool}
           />
           <MapWidgetContainer position="lower-left">
-            <MapFilterSlider />
-            <MapRadioMenu />
+            {this.props.isWithMapFilterSlider && <MapFilterSlider />}
+            {this.props.isWithMapRadioMenu && <MapRadioMenu />}
           </MapWidgetContainer>
           <MapWidgetContainer position="lower-right">
-            <MapMeasurementWidget
-              handleReset={this.handleMeasurementReset}
-              handleUndoLastPoint={this.handleUndoLastMeasurementPoint}
-              handleSelectTool={this.handleSelectTool}
-              units={measurementTool.units}
-              measurement={measurementTool.measurement}
-              selectedTool={measurementTool.selectedTool}
-            />
-            {/* <MapLegendWidget /> */}
+            {this.props.isWithMapMeasurementWidget && (
+              <MapMeasurementWidget
+                handleReset={this.handleMeasurementReset}
+                handleUndoLastPoint={this.handleUndoLastMeasurementPoint}
+                handleSelectTool={this.handleSelectTool}
+                units={measurementTool.units}
+                measurement={measurementTool.measurement}
+                selectedTool={measurementTool.selectedTool}
+              />
+            )}
+            {this.props.isWithMapLegendWidget && <MapLegendWidget />}
           </MapWidgetContainer>
           {this.props.isMapCenterpointVisible && <MapCenterpoint />}
           {this.state.isMapLoaded && <MapControls />}
@@ -666,6 +672,10 @@ const mapStateToProps = (state): StateProps => ({
   mapStyle: mapStyleSelector(state),
   placeFilters: placeFiltersSelector(state),
   datasets: datasetsSelector(state),
+  isWithMapFilterSlider: isWithMapFilterSliderSelector(state),
+  isWithMapRadioMenu: isWithMapRadioMenuSelector(state),
+  isWithMapMeasurementWidget: measurementToolEnabledSelector(state),
+  isWithMapLegendWidget: isWithMapLegendWidgetSelector(state),
 });
 
 const mapDispatchToProps = {

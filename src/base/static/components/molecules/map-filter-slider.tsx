@@ -57,9 +57,9 @@ const MapFilterSlider: React.FunctionComponent = () => {
       property,
       updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
     });
-  }, [initialValue, comparator, dispatch, property, layerGroup.layerIds]);
+  }, [initialValue, comparator, dispatch, property, layerGroup]);
 
-  if (!mapFilterSliderConfig) {
+  if (!layerGroup || !layerGroup.isVisible) {
     return null;
   }
 
