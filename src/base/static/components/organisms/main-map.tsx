@@ -9,6 +9,7 @@ import {
   Point,
   LineString,
   Polygon,
+  Position,
 } from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
@@ -198,7 +199,7 @@ interface State {
     selectedTool: string | null;
     measurement: number | null;
     units: string | null;
-    positions: number[][];
+    positions: Position[];
   };
 }
 
