@@ -388,46 +388,6 @@
                   "value": "Biosolids Management"
                 },
                 {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
-                  "value": ["get-sum", "biosolids_quantity"],
-                  "label": "tons"
-                },
-                {
                   "value": ["literal", 0],
                   "label": "Tons"
                 },
@@ -882,12 +842,6 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "biosolids"], "yes"],
-                  ["literal", "Biosolids"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
                   ["==", ["get-val", "grassed_waterways"], "yes"],
                   ["literal", "Grassed Waterways"],
                   ["literal", ""]
@@ -901,7 +855,7 @@
                 [
                   "case",
                   ["==", ["get-val", "riparian_forest"], "yes"],
-                  ["literal", "Riparian Forest"],
+                  ["literal", "Wildlife Habitat Enhancements"],
                   ["literal", ""]
                 ],
                 [
@@ -980,12 +934,6 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "biosolids"], "interested"],
-                  ["literal", "Biosolids"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
                   ["==", ["get-val", "grassed_waterways"], "interested"],
                   ["literal", "Grassed Waterways"],
                   ["literal", ""]
@@ -999,7 +947,7 @@
                 [
                   "case",
                   ["==", ["get-val", "riparian_forest"], "interested"],
-                  ["literal", "Riparian Forest"],
+                  ["literal", "Wildlife Habitat Enhancements"],
                   ["literal", ""]
                 ],
                 [
@@ -1887,7 +1835,7 @@
           },
           {
             "start_field_index": 67,
-            "end_field_index": 73,
+            "end_field_index": 74,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1895,8 +1843,8 @@
             ]
           },
           {
-            "start_field_index": 74,
-            "end_field_index": 75,
+            "start_field_index": 75,
+            "end_field_index": 76,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1904,8 +1852,8 @@
             ]
           },
           {
-            "start_field_index": 76,
-            "end_field_index": 90,
+            "start_field_index": 77,
+            "end_field_index": 91,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1922,7 +1870,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-your-property.jpg' alt='Your property section'/></figure>"
           },
           {
             "name": "location_why",
@@ -1946,7 +1894,7 @@
             "//": "---------------SECTION: PRACTICE TYPES-------------------",
             "name": "practice_types_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-land-use.jpg' alt='Practice types section'/></figure>"
           },
           {
             "name": "practice_types",
@@ -1963,7 +1911,6 @@
                   "buffers",
                   "reduced_till",
                   "soil_tests",
-                  "biosolids",
                   "fertilization",
                   "riparian_forest"
                 ]
@@ -2013,7 +1960,7 @@
             "name": "agriculture_header",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-agriculture.png' alt='Agriculture section'/></figure>"
           },
           {
             "//": "=============== NO TILLL ================================",
@@ -2391,6 +2338,10 @@
               {
                 "label": "Organically",
                 "value": "organically"
+              },
+              {
+                "label": "Not applicable",
+                "value": "not-applicable"
               }
             ]
           },
@@ -2607,6 +2558,7 @@
                 "value": "yes",
                 "targets": [
                   "buffer_types",
+                  "other_buffer_type",
                   "buffer_program",
                   "buffers_quantity",
                   "buffers_duration"
@@ -2621,6 +2573,10 @@
               {
                 "label": "No",
                 "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
               }
             ]
           },
@@ -2644,6 +2600,35 @@
                 "value": "grass_waterway"
               }
             ]
+          },
+          {
+            "name": "other_buffer_type",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have any other types of buffers on your property?",
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["other_buffer_type_description"]
+              }
+            ],
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "other_buffer_type_description",
+            "type": "textarea",
+            "prompt": "Please describe your other buffer(s)",
+            "hidden_default": true
           },
           {
             "name": "buffers_quantity",
@@ -2727,85 +2712,6 @@
               {
                 "label": "Other agency program",
                 "value": "other_agency_program"
-              }
-            ]
-          },
-          {
-            "//": "=============== BIOSOLIDS =================================",
-            "name": "biosolids",
-            "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Biosolids management",
-            "label": "Control biosolids",
-            "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": ["biosolids_quantity", "biosolids_duration"]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ],
-            "modal": {
-              "header": "Biosolids",
-              "body": [
-                "NRCS code: 590",
-                "Municipal and, especially, industrial biosolids can be sources of heavy metals."
-              ]
-            }
-          },
-          {
-            "name": "biosolids_quantity",
-            "type": "number",
-            "prompt": "How many tons of biosolids do you manage?",
-            "min": 0,
-            "placeholder": "Approximate tonnage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "tons"
-            }
-          },
-          {
-            "name": "biosolids_duration",
-            "type": "dropdown",
-            "prompt": "For how long have you been managing biosolids?",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "0-5 years",
-                "value": "0-5"
-              },
-              {
-                "label": "6-10 years",
-                "value": "6-10"
-              },
-              {
-                "label": "11-15 years",
-                "value": "11-15"
-              },
-              {
-                "label": "16-20 years",
-                "value": "16-20"
-              },
-              {
-                "label": "21-35 years",
-                "value": "21-35"
-              },
-              {
-                "label": "36 years or more",
-                "value": "36-or-more"
               }
             ]
           },
@@ -2953,19 +2859,20 @@
             ]
           },
           {
-            "//": "=============== RIPARIAN FOREST =================================",
+            "//": "=============== RIPARIAN FOREST (AKA WILDLIFE HABITAT ENHANCEMENTS) =================================",
             "name": "riparian_forest",
             "type": "big_radio",
             "hidden_default": true,
-            "prompt": "Riparian tree and shrub planting",
-            "label": "Riparian forest planting",
+            "prompt": "Do you have any wildlife habitat enhancements on your property?",
+            "label": "Wildlife habitat enhancements",
             "optional": true,
             "triggers": [
               {
                 "value": "yes",
                 "targets": [
                   "riparian_forest_quantity",
-                  "riparian_forest_duration"
+                  "riparian_forest_duration",
+                  "riparian_forest_description"
                 ]
               }
             ],
@@ -2984,7 +2891,7 @@
               }
             ],
             "modal": {
-              "header": "Riparian forest",
+              "header": "Wildlife habitat enhancements",
               "body": [
                 "NRCS code: 391",
                 "A corridor of trees and/or shrubs planted adjacent to a river, stream, wetland or water body. The planting is of sufficient width and up-gradient and near the water body to insure adequate functioning for the desired purpose."
@@ -2994,7 +2901,7 @@
           {
             "name": "riparian_forest_quantity",
             "type": "number",
-            "prompt": "How many acres of riparian forest have you planted?",
+            "prompt": "How many acres of wildlife habitat have you enhanced?",
             "min": 0,
             "placeholder": "Approximate acreage",
             "hidden_default": true,
@@ -3005,7 +2912,7 @@
           {
             "name": "riparian_forest_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been planting riparian forests?",
+            "prompt": "For how long have you been enhancing wildlife habitat?",
             "hidden_default": true,
             "content": [
               {
@@ -3035,6 +2942,13 @@
             ]
           },
           {
+            "name": "riparian_forest_description",
+            "type": "textarea",
+            "prompt": "Please describe your wildlife habitat enhancements:",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
             "name": "agriculture_questions",
             "type": "informational_html",
             "hidden_default": true,
@@ -3045,7 +2959,7 @@
             "name": "livestock_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Livestock</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Livestock</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-livestock.jpg' alt='Livestock section'/></figure>"
           },
           {
             "//": "=============== STREAM CROSSINGS =================================",
@@ -3413,7 +3327,7 @@
             "name": "forest_header",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Forestry</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Forestry</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-forestry.jpg' alt='Forestry section'/></figure>"
           },
           {
             "//": "=============== FOREST MANAGEMENT =================================",
@@ -3427,6 +3341,7 @@
               {
                 "value": "yes",
                 "targets": [
+                  "forest_management_description",
                   "forest_management_stand_size",
                   "forest_management_duration",
                   "forest_management_plan"
@@ -3447,6 +3362,13 @@
                 "value": "interested"
               }
             ]
+          },
+          {
+            "name": "forest_management_description",
+            "type": "textarea",
+            "hidden_default": true,
+            "prompt": "Please describe:",
+            "optional": true
           },
           {
             "name": "forest_management_stand_size",
@@ -3539,7 +3461,7 @@
             "//": "---------------SECTION: OTHER PRACTICES-------------------",
             "name": "other_practices_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Other Stewardship Practices</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Other Stewardship Practices</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-other-stewardship-practices.jpg' alt='Other practices section'/></figure>"
           },
           {
             "name": "other_practices_description",
@@ -3552,25 +3474,25 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed!</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed</h2><p style='font-size:1.2rem'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/heade-almost-completed.jpg' alt='Additional info section'/></figure>"
           },
           {
             "name": "title",
             "type": "text",
-            "prompt": "What is your farm's name? If you choose to share the name it will appear on the map.",
+            "prompt": "What is your farm's name?",
             "optional": true
           },
           {
             "name": "my_image",
             "type": "file",
-            "prompt": "Show your stewardship practices! Upload photos before, during, or after you implemented your stewardship practices:",
+            "prompt": "Upload photos before, during or after you implemented your stewardship practices",
             "label": "Upload photos",
             "optional": true
           },
           {
             "name": "practices_description",
             "type": "textarea",
-            "prompt": "Add a description of your stewardship practices!",
+            "prompt": "Add a description of your stewardship practices",
             "display_prompt": "Description:",
             "optional": true
           },
@@ -3705,7 +3627,7 @@
           {
             "name": "private",
             "type": "big_radio",
-            "prompt": "Would you be willing to share your stewardship story with the public? Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public. (Your address and other property identifying information will not be published.)",
+            "prompt": "Place your pin on the map? (Your address and other property identifying information will not be published.)",
             "default_value": "yes",
             "content": [
               {
@@ -3722,7 +3644,7 @@
           {
             "name": "submit",
             "type": "submit",
-            "label": "Submit!"
+            "label": "Submit"
           }
         ]
       }
@@ -3811,16 +3733,15 @@
       "content": [
         "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
         "<p style='margin-bottom:16px'>Your Spokane County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
-        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:",
-        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
-        "<li>",
-        "<div style='margin-bottom: 16px'>",
-        "<strong style='margin-bottom:0'>Doug Phelps</strong>",
-        "</div>",
-        "<div style='color: #888; margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
-        "<div style='color: #888; margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
-        "</li>",
-        "</ul>"
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:</p>",
+        "<div style='margin-bottom:4px;margin-top:24px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
       ]
     },
     {
@@ -3837,7 +3758,13 @@
       "content": [
         "<h3 id='about-page-header'>Stewardship Practices Examples and Funding Opportunities</h3>",
         "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs.</p>",
-        "<p>Contact Doug Phelps with questions:</p>",
+        "<p>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
         "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
         "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
         "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:8px;'><span style='flex:1;margin-right:8px;'>Management Type</span><span style='flex:1;margin-right:8px;'>Conservation Practices</span><span style='flex:1'>NRCS Code</span><span style='flex:1'>Potential Funding</span></div>",
