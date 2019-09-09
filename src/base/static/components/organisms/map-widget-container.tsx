@@ -29,7 +29,7 @@ const MapWidgetContainer = (props: MapWidgetContainerProps) => {
   return (
     <div
       css={css`
-        z-index: 8;
+        z-index: 2;
         position: absolute;
         bottom: 8px;
         right: ${positionInfo.right};

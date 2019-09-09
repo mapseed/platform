@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx } from "@emotion/core";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -10,15 +10,13 @@ import Divider from "@material-ui/core/Divider";
 
 import MapWidgetWrapper from "./map-widget-wrapper";
 import {
-  placeFiltersConfigSelector,
   PlaceFiltersConfig,
+  visiblePlaceFiltersConfigSelector,
 } from "../../state/ducks/flavor-config";
-import {
-  updatePlaceFilters,
-  PlaceFilter,
-} from "../../state/ducks/place-filters";
+import { updatePlaceFilters } from "../../state/ducks/place-filters";
 
 const isWithoutFilters = state =>
+  // Determine if the user has un-selected all filters.
   !Object.values(state).some(filterOptionState => filterOptionState);
 
 const resetFilters = placeFiltersConfig =>
@@ -32,11 +30,19 @@ const resetFilters = placeFiltersConfig =>
 
 const FILTER_MENU_ALL = "mapseed-place-filter-menu-widget-all";
 const PlaceFilterWidget = () => {
-  const placeFiltersConfig: PlaceFiltersConfig = useSelector(
-    placeFiltersConfigSelector,
+  // Because `visiblePlaceFiltersConfig` is a dep of a `useEffect` hook below,
+  // use `shallowEqual` comparison to prevent a referential equality comparison
+  // between renders, mimicking the behavior of `connect()`. Using referential
+  // equality here throws the component into an infinite render loop.
+  // See: https://react-redux.js.org/next/api/hooks#equality-comparisons-and-updates
+  const visiblePlaceFiltersConfig: PlaceFiltersConfig = useSelector(
+    visiblePlaceFiltersConfigSelector,
+    shallowEqual,
   );
   const dispatch = useDispatch();
-  const [state, setState] = React.useState(resetFilters(placeFiltersConfig));
+  const [state, setState] = React.useState(
+    resetFilters(visiblePlaceFiltersConfig),
+  );
 
   React.useEffect(() => {
     if (isWithoutFilters(state)) {
@@ -49,7 +55,7 @@ const PlaceFilterWidget = () => {
       .filter(([_, isActive]) => isActive)
       // eslint-disable-next-line
       .map(([filterValue, _]) => {
-        const placeFilterConfig = placeFiltersConfig.find(
+        const placeFilterConfig = visiblePlaceFiltersConfig.find(
           config => config.value === filterValue,
         );
 
@@ -64,7 +70,7 @@ const PlaceFilterWidget = () => {
       });
 
     dispatch(updatePlaceFilters(activeFilters));
-  }, [state, placeFiltersConfig, dispatch]);
+  }, [state, visiblePlaceFiltersConfig, dispatch]);
 
   const handleChange = evt => {
     const { value, checked } = evt.target;
@@ -72,7 +78,7 @@ const PlaceFilterWidget = () => {
     if (value === FILTER_MENU_ALL) {
       dispatch(updatePlaceFilters([]));
       setState({
-        ...resetFilters(placeFiltersConfig),
+        ...resetFilters(visiblePlaceFiltersConfig),
       });
 
       return;
@@ -83,6 +89,10 @@ const PlaceFilterWidget = () => {
       [value]: checked,
     });
   };
+
+  if (visiblePlaceFiltersConfig.length === 0) {
+    return null;
+  }
 
   return (
     <MapWidgetWrapper color="black">
@@ -100,7 +110,7 @@ const PlaceFilterWidget = () => {
               label="All"
             />
             <Divider />
-            {placeFiltersConfig.map(placeFilterConfig => (
+            {visiblePlaceFiltersConfig.map(placeFilterConfig => (
               <FormControlLabel
                 key={placeFilterConfig.value}
                 control={

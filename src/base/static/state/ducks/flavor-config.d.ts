@@ -14,7 +14,8 @@ type FlavorConfig = {
 };
 
 export const placeFiltersConfigSelector: (state: any) => PlaceFiltersConfig;
-
+export const visiblePlaceFiltersConfigSelector: (
+  state: any,
+) => PlaceFiltersConfig;
 export const isWithPlaceFilterWidgetSelector: (state: any) => boolean;
-
 export const loadFlavorConfig: (config: FlavorConfig) => void;

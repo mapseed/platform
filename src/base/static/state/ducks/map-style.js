@@ -84,9 +84,6 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 const getStyle = state => state.mapStyle.style;
 export const layersSelector = state => state.mapStyle.layers;
 export const layerGroupsSelector = state => state.mapStyle.layerGroups;
-export const activeLayerLegendsSelector = state =>
-  state.mapStyle.layerGroups.filter(layerGroup => layerGroup.isVisible);
-
 const getPaintFromAggregators = (aggregators, layerPaint) => {
   // since 'splice', used below, is mutable, we copy the array here:
   const fillOpacity = [...layerPaint["fill-opacity"]];

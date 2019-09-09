@@ -619,24 +619,6 @@ class MainMap extends React.Component<Props, State> {
             positions={measurementTool.positions}
             selectedTool={measurementTool.selectedTool}
           />
-          <MapWidgetContainer position="lower-left">
-            {this.props.isWithMapFilterSlider && <MapFilterSlider />}
-            {this.props.isWithMapRadioMenu && <MapRadioMenu />}
-            {this.props.isWithPlaceFilterWidget && <PlaceFilterWidget />}
-          </MapWidgetContainer>
-          <MapWidgetContainer position="lower-right">
-            {this.props.isWithMapMeasurementWidget && (
-              <MapMeasurementWidget
-                handleReset={this.handleMeasurementReset}
-                handleUndoLastPoint={this.handleUndoLastMeasurementPoint}
-                handleSelectTool={this.handleSelectTool}
-                units={measurementTool.units}
-                measurement={measurementTool.measurement}
-                selectedTool={measurementTool.selectedTool}
-              />
-            )}
-            {this.props.isWithMapLegendWidget && <MapLegendWidget />}
-          </MapWidgetContainer>
           {this.props.isMapCenterpointVisible && <MapCenterpoint />}
           {this.state.isMapLoaded && <MapControls />}
           {this.state.popupContent &&
@@ -659,6 +641,24 @@ class MainMap extends React.Component<Props, State> {
               </Popup>
             )}
         </MapGL>
+        <MapWidgetContainer position="lower-left">
+          {this.props.isWithMapFilterSlider && <MapFilterSlider />}
+          {this.props.isWithMapRadioMenu && <MapRadioMenu />}
+          {this.props.isWithPlaceFilterWidget && <PlaceFilterWidget />}
+        </MapWidgetContainer>
+        <MapWidgetContainer position="lower-right">
+          {this.props.isWithMapMeasurementWidget && (
+            <MapMeasurementWidget
+              handleReset={this.handleMeasurementReset}
+              handleUndoLastPoint={this.handleUndoLastMeasurementPoint}
+              handleSelectTool={this.handleSelectTool}
+              units={measurementTool.units}
+              measurement={measurementTool.measurement}
+              selectedTool={measurementTool.selectedTool}
+            />
+          )}
+          {this.props.isWithMapLegendWidget && <MapLegendWidget />}
+        </MapWidgetContainer>
       </React.Fragment>
     );
   }
