@@ -3058,7 +3058,7 @@
             "placeholder": "Approximate number",
             "hidden_default": true,
             "metadata": {
-              "units": "crossigs"
+              "units": "crossings"
             }
           },
           {
