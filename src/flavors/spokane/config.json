@@ -1504,6 +1504,16 @@
       {
         "id": "spokane-frequently-flooded",
         "visibleDefault": false,
+        "legend": [
+          {
+            "icon": "/static/css/images/hash-fill-88b9ff-legend.png",
+            "label": "100 year floodplain"
+          },
+          {
+            "icon": "/static/css/images/frequently-flooded-legend.png",
+            "label": "500 year floodplain"
+          }
+        ],
         "mapboxLayers": [
           {
             "id": "spokane-frequently-flooded",
