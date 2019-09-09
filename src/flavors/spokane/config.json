@@ -4,6 +4,7 @@
       "code": "en",
       "label": "English"
     },
+    "usePlaceFilterWidget": true,
     "placeFilters": [
       {
         "placeProperty": "practice_types",
@@ -3767,10 +3768,6 @@
       "title": "Funding",
       "type": "internal_link",
       "url": "/page/funding"
-    },
-    {
-      "title": "Filter",
-      "type": "filter"
     }
   ],
   "pages": [

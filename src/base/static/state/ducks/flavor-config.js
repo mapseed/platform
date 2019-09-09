@@ -4,6 +4,9 @@
 // Selectors:
 export const placeFiltersConfigSelector = state =>
   state.flavorConfig.placeFilters;
+export const isWithPlaceFilterWidgetSelector = state =>
+  state.flavorConfig.placeFilters.length > 0 &&
+  state.flavorConfig.usePlaceFilterWidget;
 
 // Actions:
 const LOAD = "flavorConfig/LOAD";
@@ -15,6 +18,7 @@ export function loadFlavorConfig(config) {
 
 // Reducers:
 const INITIAL_STATE = {
+  usePlaceFilterWidget: false,
   placeFilters: [],
 };
 

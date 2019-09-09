@@ -18,6 +18,7 @@ import { RouteComponentProps, withRouter } from "react-router";
 import eventEmitter from "../../utils/event-emitter";
 import { featureCollection } from "@turf/helpers";
 
+import { isWithPlaceFilterWidgetSelector } from "../../state/ducks/flavor-config";
 import {
   interactiveLayerIdsSelector,
   mapStyleSelector,
@@ -70,6 +71,7 @@ import MapMeasurementWidget from "../molecules/map-measurement-widget";
 import MapFilterSlider from "../molecules/map-filter-slider";
 import MapRadioMenu from "../molecules/map-radio-menu";
 import MapLegendWidget from "../molecules/map-legend-widget";
+import PlaceFilterWidget from "../molecules/place-filter-widget";
 
 import { Mixpanel } from "../../utils/mixpanel";
 import { FlyToInterpolator } from "react-map-gl";
@@ -159,6 +161,7 @@ const statePropTypes = {
   isWithMapRadioMenu: PropTypes.bool.isRequired,
   isWithMapMeasurementWidget: PropTypes.bool.isRequired,
   isWithMapLegendWidget: PropTypes.bool.isRequired,
+  isWithPlaceFilterWidget: PropTypes.bool.isRequired,
 };
 
 interface StateProps extends PropTypes.InferProps<typeof statePropTypes> {
@@ -619,6 +622,7 @@ class MainMap extends React.Component<Props, State> {
           <MapWidgetContainer position="lower-left">
             {this.props.isWithMapFilterSlider && <MapFilterSlider />}
             {this.props.isWithMapRadioMenu && <MapRadioMenu />}
+            {this.props.isWithPlaceFilterWidget && <PlaceFilterWidget />}
           </MapWidgetContainer>
           <MapWidgetContainer position="lower-right">
             {this.props.isWithMapMeasurementWidget && (
@@ -680,6 +684,7 @@ const mapStateToProps = (state): StateProps => ({
   isWithMapRadioMenu: isWithMapRadioMenuSelector(state),
   isWithMapMeasurementWidget: measurementToolEnabledSelector(state),
   isWithMapLegendWidget: isWithMapLegendWidgetSelector(state),
+  isWithPlaceFilterWidget: isWithPlaceFilterWidgetSelector(state),
 });
 
 const mapDispatchToProps = {
