@@ -43,7 +43,8 @@ export const mapStylePropType: any;
 export const layerGroupsPropType: any;
 
 export type LegendItem = {
-  swatch: string;
+  icon?: string;
+  swatch?: string;
   label: string;
 };
 
