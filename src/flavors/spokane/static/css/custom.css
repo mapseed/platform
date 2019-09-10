@@ -65,6 +65,10 @@ header {
 [data-field-name="other_buffer_type_description"],
 [data-field-name="riparian_forest_description"],
 [data-field-name="forest_management_description"],
+[data-field-name="my_image"],
+[data-field-name="private-use_photos"],
+[data-field-name="title"],
+[data-field-name="private"],
 [data-field-name="organic_fertilization_types"] {
   background-color: #efefef !important;
   margin-top: 0 !important;

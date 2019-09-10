@@ -125,7 +125,7 @@
               "fractionalWidth": 2
             },
             {
-              "header": "Lower Spokabe WAU",
+              "header": "Lower Spokane WAU",
               "type": "numeric",
               "filter": ["==", ["get-val", "analysis_unit"], "lower-spokane"]
             },
@@ -376,27 +376,6 @@
                 {
                   "value": ["literal", 0],
                   "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                }
-              ]
-            },
-            {
-              "cells": [
-                {
-                  "value": "Biosolids Management"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Tons"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Tons"
                 },
                 {
                   "value": ["literal", { "label": "N/A", "color": "#ccc" }]
@@ -1853,7 +1832,7 @@
           },
           {
             "start_field_index": 77,
-            "end_field_index": 91,
+            "end_field_index": 92,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -2073,10 +2052,10 @@
                 "value": "interested"
               }
             ],
-            "</p>modal": {
+            "modal": {
               "header": "Conventional till",
               "body": [
-                "This practice consists of multiple tillage passes with soil inversion and seed bed preparation"
+                "<p>This practice consists of multiple tillage passes with soil inversion and seed bed preparation.</p>"
               ]
             }
           },
@@ -2625,7 +2604,7 @@
             "prompt": "Do you have any other types of buffers on your property?",
             "triggers": [
               {
-                "value": "yes",
+                "value": "yes-other-buffers",
                 "targets": ["other_buffer_type_description"]
               }
             ],
@@ -2633,11 +2612,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "yes"
+                "value": "yes-other-buffers"
               },
               {
                 "label": "No",
-                "value": "no"
+                "value": "no-other-buffers"
               }
             ]
           },
@@ -3503,19 +3482,6 @@
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure><p style='font-size:1.2rem;'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
           },
           {
-            "name": "title",
-            "type": "text",
-            "prompt": "What is your farm's name?",
-            "optional": true
-          },
-          {
-            "name": "my_image",
-            "type": "file",
-            "prompt": "Upload photos before, during or after you implemented your stewardship practices:",
-            "label": "Upload photos",
-            "optional": true
-          },
-          {
             "name": "practices_description",
             "type": "textarea",
             "prompt": "Add a description of your stewardship practices",
@@ -3536,9 +3502,40 @@
             "optional": false
           },
           {
+            "name": "share_story",
+            "type": "big_radio",
+            "prompt": "Can Spokane County VSP share your stewardship story with the public?",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes-share",
+                "targets": ["private-use_photos", "my_image", "title"]
+              }
+            ],
+            "content": [
+              {
+                "value": "yes-share",
+                "label": "Yes"
+              },
+              {
+                "value": "no-share",
+                "label": "No"
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "hidden_default": true,
+            "prompt": "Upload photos before, during or after you implemented your stewardship practices:",
+            "label": "Upload photos",
+            "optional": true
+          },
+          {
             "name": "private-use_photos",
             "type": "big_radio",
             "prompt": "Can Spokane County VSP highlight your photos on our website?",
+            "hidden_default": true,
             "default_value": "no-use-photos",
             "content": [
               {
@@ -3550,6 +3547,13 @@
                 "value": "no-use-photos"
               }
             ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "hidden_default": true,
+            "prompt": "What is your farm's name?",
+            "optional": true
           },
           {
             "name": "allow_followup",
