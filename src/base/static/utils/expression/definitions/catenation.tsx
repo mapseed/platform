@@ -1,27 +1,54 @@
 import { Expression, EvaluationContext, ParsingContext } from "../parse";
 
-class Cat implements Expression {
-  operands: any;
+const OPERANDS_SLICE_INDICES = {
+  cat: 1,
+  "cat-join": 2,
+};
 
-  constructor(operands: any) {
-    this.operands = operands;
-  }
+const makeCat = (op: string) => {
+  return class Cat implements Expression {
+    operands: any;
+    joinString: string | null;
+    type: string;
 
-  static parse(args: any, parsingContext: ParsingContext) {
-    const operands = args
-      .slice(1)
-      .map(operand => parsingContext.parse(operand, parsingContext));
+    constructor(joinString: string | null, operands: any) {
+      this.operands = operands;
+      this.joinString = joinString;
+      this.type = op;
+    }
 
-    return new Cat(operands);
-  }
+    static parse(args: any, parsingContext: ParsingContext) {
+      if (op === "cat-join" && typeof args[1] !== "string") {
+        // eslint-disable-next-line no-console
+        console.error(
+          `Error: expected second argument to be a join string for "${op}"`,
+        );
 
-  evaluate(evaluationContext: EvaluationContext) {
-    return this.operands.reduce((result, operand) => {
-      const val = operand.evaluate(evaluationContext);
+        return null;
+      }
 
-      return val ? [...result, val] : result;
-    }, []);
-  }
-}
+      const operands = args
+        .slice(OPERANDS_SLICE_INDICES[op])
+        .map(operand => parsingContext.parse(operand, parsingContext));
 
-export default Cat;
+      if (op === "cat-join") {
+        return new Cat(args[1], operands);
+      }
+
+      return new Cat(null, operands);
+    }
+
+    evaluate(evaluationContext: EvaluationContext) {
+      const catResult = this.operands.reduce((result, operand) => {
+        const val = operand.evaluate(evaluationContext);
+
+        return val ? [...result, val] : result;
+      }, []);
+
+      return op === "cat-join" ? catResult.join(this.joinString) : catResult;
+    }
+  };
+};
+
+export const Cat = makeCat("cat");
+export const CatJoin = makeCat("cat-join");

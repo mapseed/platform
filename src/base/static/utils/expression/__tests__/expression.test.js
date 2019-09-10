@@ -156,8 +156,8 @@ describe("Expressions", () => {
     expect(val).toEqual(4);
   });
 
-  test("get-count returns correct value when filtered by the presence of a Place property", () => {
-    const exp = ["get-count", "total_acres"];
+  test("get-count returns correct value when filtered by an Expression", () => {
+    const exp = ["get-count", [">", ["get-val", "total_acres"], 0]];
     const parsedExp = makeParsedExpression(exp);
     const val = parsedExp.evaluate({ dataset });
 
@@ -276,5 +276,26 @@ describe("Expressions", () => {
     const val = parsedExp.evaluate({ dataset });
 
     expect(val).toEqual("fallback");
+  });
+
+  test("cat expression returns correct value", () => {
+    const exp = ["cat", ["get-sum", "total_acres"], ["literal", "Total acres"]];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual([57, "Total acres"]);
+  });
+
+  test("cat-join expression returns correct value", () => {
+    const exp = [
+      "cat-join",
+      " ",
+      ["get-sum", "total_acres"],
+      ["literal", "Total acres"],
+    ];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual("57 Total acres");
   });
 });
