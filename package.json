@@ -91,7 +91,7 @@
     "react-cookie-consent": "^2.5.0",
     "react-datetime": "~2.16.3",
     "react-dom": "~16.9.0",
-    "react-draggable": "^3.3.2",
+    "react-draggable": "^4.0.3",
     "react-i18next": "~10.12.3",
     "react-map-gl": "^5.0.10",
     "react-modal": "~3.10.1",
