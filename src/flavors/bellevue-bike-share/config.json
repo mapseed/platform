@@ -683,7 +683,7 @@
           },
           {
             "start_field_index": 6,
-            "end_field_index": 13,
+            "end_field_index": 14,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-transit",
@@ -740,9 +740,29 @@
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "Why does this location need bike sharing?",
+            "prompt": "Why does this location need bikeshare parking?",
             "placeholder": "...",
             "optional": true
+          },
+          {
+            "name": "live_work_visit",
+            "type": "big_checkbox",
+            "prompt": "Regarding your bikeshare parking request, check all that apply:",
+            "optional": true,
+            "content": [
+              {
+                "label": "I live nearby",
+                "value": "live_nearby"
+              },
+              {
+                "label": "I work nearby",
+                "value": "work_nearby"
+              },
+              {
+                "label": "I visit often",
+                "value": "visit_often"
+              }
+            ]
           },
           {
             "name": "private-submitter_name",
@@ -864,6 +884,12 @@
       "start_page": true
     },
     {
+      "title": "FAQ",
+      "type": "internal_link",
+      "url": "/page/faq",
+      "name": "faq"
+    },
+    {
       "title": "Map Layers",
       "type": "left_sidebar_toggle",
       "component": "MapLayerPanel"
@@ -888,6 +914,10 @@
         "<p>Thanks for taking the time to participate and help make Bellevue a great place to bike.</p>",
         "<p class='btn btn-block btn-large'><a href='/new' rel='internal'>Request bikeshare parking!</a></p>"
       ]
+    },
+    {
+      "slug": "faq",
+      "content": ["<p>FAQ content to come...</p>"]
     }
   ],
   "notifications": {

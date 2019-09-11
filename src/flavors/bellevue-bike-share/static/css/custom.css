@@ -1,8 +1,13 @@
 /* =Header
 -------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css?family=Montserrat:700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:700&display=swap");
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Montserrat", sans-serif !important;
 }
 
@@ -32,6 +37,14 @@ figure {
 [data-field-name="submission_info"] {
   border: 0 !important;
   padding: 0 !important;
+}
+
+.big-checkbox-field__label--toggled {
+  border: 2px solid #b5d222 !important;
+
+  &:before {
+    background-color: #b5d222 !important;
+  }
 }
 
 .form-stage-text {
