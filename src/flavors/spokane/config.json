@@ -4,6 +4,7 @@
       "code": "en",
       "label": "English"
     },
+    "usePlaceFilterWidget": true,
     "placeFilters": [
       {
         "placeProperty": "practice_types",
@@ -1167,7 +1168,6 @@
         ]
       }
     },
-
     "layerGroups": [
       {
         "id": "osm",
@@ -1447,6 +1447,32 @@
       {
         "id": "spokane-wetlands",
         "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#c6dbef",
+            "label": "Lacustrine Limnetic"
+          },
+          {
+            "swatch": "#9ecae1",
+            "label": "Lacustrine Littoral"
+          },
+          {
+            "swatch": "#6baed6",
+            "label": "Palustrine"
+          },
+          {
+            "swatch": "#4292c6",
+            "label": "Riverine Lower Perennial"
+          },
+          {
+            "swatch": "#2171b5",
+            "label": "Riverine Upper Perennial"
+          },
+          {
+            "swatch": "#08519c",
+            "label": "Riverine Intermittent"
+          }
+        ],
         "mapboxLayers": [
           {
             "id": "spokane-wetlands",
@@ -1454,15 +1480,6 @@
             "source": "spokane-wetlands",
             "source-layer": "spokane-wetlands",
             "paint": {
-              "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                9,
-                0.9,
-                14,
-                0.6
-              ],
               "fill-color": [
                 "match",
                 ["get", "SYSSUB"],
@@ -1487,6 +1504,16 @@
       {
         "id": "spokane-frequently-flooded",
         "visibleDefault": false,
+        "legend": [
+          {
+            "icon": "/static/css/images/hash-fill-88b9ff-legend.png",
+            "label": "100 year floodplain"
+          },
+          {
+            "icon": "/static/css/images/frequently-flooded-legend.png",
+            "label": "500 year floodplain"
+          }
+        ],
         "mapboxLayers": [
           {
             "id": "spokane-frequently-flooded",
@@ -3031,7 +3058,7 @@
             "placeholder": "Approximate number",
             "hidden_default": true,
             "metadata": {
-              "units": "crossigs"
+              "units": "crossings"
             }
           },
           {
@@ -3751,10 +3778,6 @@
       "title": "Funding",
       "type": "internal_link",
       "url": "/page/funding"
-    },
-    {
-      "title": "Filter",
-      "type": "filter"
     }
   ],
   "pages": [
