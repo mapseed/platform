@@ -160,7 +160,7 @@ const isEmailAddress = text => {
 const getNumericalPart = response => {
   if (typeof response !== "number" && typeof response !== "string") {
     // Don't attempt to pull a number out of arrays, objects, or booleans.
-    return;
+    return undefined;
   }
 
   if (typeof response === "number") {
@@ -169,7 +169,7 @@ const getNumericalPart = response => {
 
   const match = /([0-9,.]+)/.exec(response.trim());
   if (!match) {
-    return;
+    return undefined;
   } else {
     return Number(match[1].replace(",", ""));
   }

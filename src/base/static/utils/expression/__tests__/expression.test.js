@@ -298,4 +298,47 @@ describe("Expressions", () => {
 
     expect(val).toEqual("57 Total acres");
   });
+
+  test("< does not coerce null to 0", () => {
+    const exp = ["<", null, 45];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual(false);
+  });
+
+  test("> does not coerce null to 0", () => {
+    const exp = [">", null, -45];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    expect(val).toEqual(false);
+  });
+
+  test("< correctly coerces and compares numerical values", () => {
+    const exp = ["<", "45", 46];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+    const exp2 = ["<", "45.50", "46.60"];
+    const parsedExp2 = makeParsedExpression(exp2);
+    const val2 = parsedExp2.evaluate({ dataset });
+
+    expect(val).toEqual(true);
+    expect(val2).toEqual(true);
+  });
+
+  test("> correctly coerces and compares numerical values", () => {
+    const exp = [">", "45", 44];
+    const parsedExp = makeParsedExpression(exp);
+    const val = parsedExp.evaluate({ dataset });
+
+
+    const exp2 = [">", "45.50", "$44.10"];
+    const parsedExp2 = makeParsedExpression(exp2);
+    const val2 = parsedExp2.evaluate({ dataset });
+
+    expect(val).toEqual(true);
+    expect(val2).toEqual(true);
+  });
 });

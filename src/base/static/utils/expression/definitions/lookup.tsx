@@ -10,11 +10,8 @@ const getNumericalValsByKey = (dataset, key) => {
   }, []);
 };
 
-const getPlaceVal = (context: EvaluationContext, property: string) => {
-  const val = context.place ? context.place[property] : undefined;
-
-  return typeof val === "undefined" ? null : val;
-};
+const getPlaceVal = (context: EvaluationContext, property: string) =>
+  context.place ? context.place[property] : undefined;
 
 const getDatasetSum = (
   context: EvaluationContext,
