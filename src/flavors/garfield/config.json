@@ -204,7 +204,28 @@
             {
               "cells": [
                 {
-                  "value": "Conventional Farming"
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Conventional Farming ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "conventional_till_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "conventional_till_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ]
                 },
                 {
                   "value": [
@@ -378,7 +399,25 @@
             {
               "cells": [
                 {
-                  "value": "Residue & Tillage Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Residue & Tillage Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "no_till_datetime"], 2011]
+                      ],
+                      ["get-count", [">", ["get-val", "no_till_datetime"], 0]]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "No-Till/Direct Seed/2-Pass"
                 },
                 {
@@ -595,7 +634,28 @@
             {
               "cells": [
                 {
-                  "value": "Pest Management"
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Pest Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "pest_management_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "pest_management_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ]
                 },
                 {
                   "value": [
@@ -795,7 +855,28 @@
             {
               "cells": [
                 {
-                  "value": "Nutrient Management"
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Nutrient Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "nutrient_management_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ]
                 },
                 {
                   "value": [
@@ -995,7 +1076,28 @@
             {
               "cells": [
                 {
-                  "value": "Water Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Water Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "irrigation_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "irrigation_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Irrigation"
                 },
                 {
@@ -1188,7 +1290,28 @@
             {
               "cells": [
                 {
-                  "value": "Livestock Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Livestock Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "prescribed_grazing_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Prescribed Grazing"
                 },
                 {
@@ -1389,7 +1512,28 @@
             {
               "cells": [
                 {
-                  "value": "Livestock Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Livestock Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "range_plantings_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "range_plantings_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Range Plantings"
                 },
                 {
@@ -1590,7 +1734,28 @@
             {
               "cells": [
                 {
-                  "value": "Livestock Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Livestock Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "watering_facility_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "watering_facility_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Watering Facilities"
                 },
                 {
@@ -1791,7 +1956,28 @@
             {
               "cells": [
                 {
-                  "value": "Livestock Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Livestock Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "water_wells_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "water_wells_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Watering Wells"
                 },
                 {
@@ -1984,7 +2170,25 @@
             {
               "cells": [
                 {
-                  "value": "Livestock Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Livestock Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "fencing_datetime"], 2011]
+                      ],
+                      ["get-count", [">", ["get-val", "fencing_datetime"], 0]]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Fencing"
                 },
                 {
@@ -2177,7 +2381,36 @@
             {
               "cells": [
                 {
-                  "value": "Soil Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Soil Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "pasture_hayland_planting_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">",
+                          ["get-val", "pasture_hayland_planting_datetime"],
+                          0
+                        ]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Pasture/Hayland Planting"
                 },
                 {
@@ -2426,7 +2659,28 @@
             {
               "cells": [
                 {
-                  "value": "Soil Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Soil Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "cover_crop_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "cover_crop_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Cover Crop"
                 },
                 {
@@ -2619,7 +2873,28 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "conservation_cover_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Conservation Cover"
                 },
                 {
@@ -2820,7 +3095,32 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "critical_area_planting_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "critical_area_planting_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Critical Area Planting"
                 },
                 {
@@ -3057,7 +3357,28 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "weed_control_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "weed_control_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Herbaceous Weed Control"
                 },
                 {
@@ -3258,7 +3579,28 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "tree_shrub_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Tree/Shrub Planting"
                 },
                 {
@@ -3451,7 +3793,36 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "wetland_wildlife_management_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">",
+                          ["get-val", "wetland_wildlife_management_datetime"],
+                          0
+                        ]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Wetland Wildlife Management"
                 },
                 {
@@ -3644,7 +4015,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 5],
+                  "value": ["literal", 1],
                   "label": "Acres"
                 },
                 {
@@ -3653,26 +4024,26 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 5]
+                      ["*", 0.7, 1]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      1
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      1
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 10],
+                  "value": ["literal", 2],
                   "label": "Acres"
                 },
                 {
@@ -3681,19 +4052,19 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 10]
+                      ["*", 0.7, 2]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      2
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      2
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -3704,7 +4075,28 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "upland_habitat_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Upland Habitat Management"
                 },
                 {
@@ -3905,7 +4297,28 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "access_control_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "access_control_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Access Control"
                 },
                 {
@@ -4106,7 +4519,36 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "stream_habitat_improvements_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">",
+                          ["get-val", "stream_habitat_improvements_datetime"],
+                          0
+                        ]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Instream Habitat"
                 },
                 {
@@ -4359,7 +4801,32 @@
             {
               "cells": [
                 {
-                  "value": "Fish & Wildlife Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Fish & Wildlife Management ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "streambank_protections_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "streambank_protections_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ],
                   "label": "Streambank Protection"
                 },
                 {

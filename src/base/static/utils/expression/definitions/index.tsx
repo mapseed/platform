@@ -17,7 +17,7 @@ import {
   GetWidgetState,
 } from "./lookup";
 import { Product, Sum, Mean, Max, Min } from "./aggregation";
-import Cat from "./catenation";
+import { Cat, CatJoin } from "./catenation";
 import Case from "./case";
 
 export default {
@@ -41,5 +41,6 @@ export default {
   max: Max,
   min: Min,
   cat: Cat,
+  "cat-join": CatJoin,
   case: Case,
 };

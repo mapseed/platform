@@ -20,7 +20,7 @@ export class EvaluationContext {
 }
 
 export interface Expression {
-  property?: string;
+  property?: string | null;
   evaluate: (
     evaluationContext: EvaluationContext,
   ) => number | string | boolean | Expression;
