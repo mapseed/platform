@@ -763,7 +763,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 903],
+                  "value": ["literal", 750],
                   "label": "Acres"
                 },
                 {
@@ -772,18 +772,18 @@
                     [
                       "<=",
                       ["get-sum", "managed_grazing_quantity"],
-                      ["*", 0.7, 903]
+                      ["*", 0.7, 750]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "managed_grazing_quantity"], 903],
+                    ["<", ["get-sum", "managed_grazing_quantity"], 750],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "managed_grazing_quantity"], 903],
+                    [">=", ["get-sum", "managed_grazing_quantity"], 750],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 3613],
+                  "value": ["literal", 3150],
                   "label": "Acres"
                 },
                 {
@@ -792,12 +792,12 @@
                     [
                       "<=",
                       ["get-sum", "managed_grazing_quantity"],
-                      ["*", 0.7, 3613]
+                      ["*", 0.7, 3150]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "managed_grazing_quantity"], 3613],
+                    ["<", ["get-sum", "managed_grazing_quantity"], 3150],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "managed_grazing_quantity"], 3613],
+                    [">=", ["get-sum", "managed_grazing_quantity"], 3150],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -900,7 +900,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 450],
+                  "value": ["literal", 100],
                   "label": "Acres"
                 },
                 {
@@ -909,18 +909,18 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 450]
+                      ["*", 0.7, 100]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 450],
+                    ["<", ["get-sum", "range_plantings_quantity"], 100],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 450],
+                    [">=", ["get-sum", "range_plantings_quantity"], 100],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 1806.5],
+                  "value": ["literal", 2000],
                   "label": "Acres"
                 },
                 {
@@ -929,12 +929,12 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 1806.5]
+                      ["*", 0.7, 2000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 1806.5],
+                    ["<", ["get-sum", "range_plantings_quantity"], 2000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 1806.5],
+                    [">=", ["get-sum", "range_plantings_quantity"], 2000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2460,7 +2460,7 @@
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 5],
+                  "value": ["literal", 2],
                   "label": "Acres"
                 },
                 {
@@ -2469,26 +2469,26 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 5]
+                      ["*", 0.7, 2]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      2
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      2
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 10],
+                  "value": ["literal", 4],
                   "label": "Acres"
                 },
                 {
@@ -2497,19 +2497,19 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 10]
+                      ["*", 0.7, 4]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      4
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      4
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
