@@ -186,7 +186,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Conventional Farming ("],
+                    ["literal", "Conventional Farming: "],
                     [
                       "case",
                       [
@@ -202,8 +202,7 @@
                         "get-count",
                         [">", ["get-val", "conventional_till_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ]
                 },
                 {
@@ -296,7 +295,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Residue & Tillage Management ("],
+                    ["literal", "Residue & Tillage Management: "],
                     [
                       "case",
                       [
@@ -309,8 +308,7 @@
                         ["<", ["get-val", "no_till_datetime"], 2011]
                       ],
                       ["get-count", [">", ["get-val", "no_till_datetime"], 0]]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "No-Till/Direct Seed/2-Pass"
                 },
@@ -422,7 +420,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Pest Management ("],
+                    ["literal", "Pest Management: "],
                     [
                       "case",
                       [
@@ -438,8 +436,7 @@
                         "get-count",
                         [">", ["get-val", "pest_management_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ]
                 },
                 {
@@ -558,7 +555,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Nutrient Management ("],
+                    ["literal", "Nutrient Management: "],
                     [
                       "case",
                       [
@@ -574,8 +571,7 @@
                         "get-count",
                         [">", ["get-val", "nutrient_management_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ]
                 },
                 {
@@ -694,7 +690,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Range Management ("],
+                    ["literal", "Range Management: "],
                     [
                       "case",
                       [
@@ -710,8 +706,7 @@
                         "get-count",
                         [">", ["get-val", "managed_grazing_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Managed Grazing"
                 },
@@ -831,7 +826,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Range Management ("],
+                    ["literal", "Range Management: "],
                     [
                       "case",
                       [
@@ -847,8 +842,7 @@
                         "get-count",
                         [">", ["get-val", "range_plantings_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Range Plantings"
                 },
@@ -968,7 +962,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Range Management ("],
+                    ["literal", "Range Management: "],
                     [
                       "case",
                       [
@@ -984,8 +978,7 @@
                         "get-count",
                         [">", ["get-val", "watering_facility_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Watering Facilities"
                 },
@@ -1105,7 +1098,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Range Management ("],
+                    ["literal", "Range Management: "],
                     [
                       "case",
                       [
@@ -1121,8 +1114,7 @@
                         "get-count",
                         [">", ["get-val", "water_wells_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Water Wells"
                 },
@@ -1234,7 +1226,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Soil Management ("],
+                    ["literal", "Soil Management: "],
                     [
                       "case",
                       [
@@ -1258,8 +1250,7 @@
                           0
                         ]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Conservation Crop Rotation"
                 },
@@ -1411,7 +1402,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Soil Management ("],
+                    ["literal", "Soil Management: "],
                     [
                       "case",
                       [
@@ -1427,8 +1418,7 @@
                         "get-count",
                         [">", ["get-val", "cover_crop_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Cover Crops"
                 },
@@ -1540,7 +1530,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Soil Management ("],
+                    ["literal", "Soil Management: "],
                     [
                       "case",
                       [
@@ -1553,8 +1543,7 @@
                         ["<", ["get-val", "mulching_datetime"], 2011]
                       ],
                       ["get-count", [">", ["get-val", "mulching_datetime"], 0]]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Mulching"
                 },
@@ -1666,7 +1655,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -1682,8 +1671,7 @@
                         "get-count",
                         [">", ["get-val", "conservation_cover_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Conservation Cover"
                 },
@@ -1803,7 +1791,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -1823,8 +1811,7 @@
                         "get-count",
                         [">", ["get-val", "critical_area_planting_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Critical Area Planting"
                 },
@@ -1964,7 +1951,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -1980,8 +1967,7 @@
                         "get-count",
                         [">", ["get-val", "grassed_waterways_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Grassed Waterways"
                 },
@@ -2101,7 +2087,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -2117,8 +2103,7 @@
                         "get-count",
                         [">", ["get-val", "weed_control_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Herbaceous Weed Control"
                 },
@@ -2238,7 +2223,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -2254,8 +2239,7 @@
                         "get-count",
                         [">", ["get-val", "tree_shrub_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Tree/Shrub Planting"
                 },
@@ -2367,7 +2351,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -2391,8 +2375,7 @@
                           0
                         ]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Wetland Wildlife Management"
                 },
@@ -2544,7 +2527,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -2560,8 +2543,7 @@
                         "get-count",
                         [">", ["get-val", "upland_habitat_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Upland Habitat"
                 },
@@ -2681,7 +2663,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -2697,8 +2679,7 @@
                         "get-count",
                         [">", ["get-val", "hedgerow_planting_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Hedgerow Planting"
                 },
@@ -2818,7 +2799,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -2834,8 +2815,7 @@
                         "get-count",
                         [">", ["get-val", "open_channel_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Open Channel"
                 },
@@ -2955,7 +2935,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -2968,8 +2948,7 @@
                         ["<", ["get-val", "fencing_datetime"], 2011]
                       ],
                       ["get-count", [">", ["get-val", "fencing_datetime"], 0]]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Fencing"
                 },
@@ -3081,7 +3060,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -3097,8 +3076,7 @@
                         "get-count",
                         [">", ["get-val", "instream_habitat_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Instream Habitat Improvement"
                 },
@@ -3218,7 +3196,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Habitat Management ("],
+                    ["literal", "Habitat Management: "],
                     [
                       "case",
                       [
@@ -3238,8 +3216,7 @@
                         "get-count",
                         [">", ["get-val", "streambank_protection_datetime"], 0]
                       ]
-                    ],
-                    ["literal", " producers)"]
+                    ]
                   ],
                   "label": "Streambank Protection"
                 },
