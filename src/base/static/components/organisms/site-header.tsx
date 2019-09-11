@@ -135,7 +135,7 @@ const navItemMappings = {
   left_sidebar_toggle: linkProps => (
     <NavButtonWrapper position={linkProps.position}>
       <NavButton
-        color={"tertiary"}
+        color={"secondary"}
         ariaLabel={`open the ${linkProps.navBarItem.title} menu`}
         onClick={() => {
           linkProps.onClick();
