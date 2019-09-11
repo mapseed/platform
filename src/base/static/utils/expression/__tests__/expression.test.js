@@ -333,7 +333,6 @@ describe("Expressions", () => {
     const parsedExp = makeParsedExpression(exp);
     const val = parsedExp.evaluate({ dataset });
 
-
     const exp2 = [">", "45.50", "$44.10"];
     const parsedExp2 = makeParsedExpression(exp2);
     const val2 = parsedExp2.evaluate({ dataset });

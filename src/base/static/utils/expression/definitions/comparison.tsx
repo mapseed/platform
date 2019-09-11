@@ -1,7 +1,7 @@
 import { Expression, EvaluationContext, ParsingContext } from "../parse";
 import { getNumericalPart } from "../../dashboard-utils";
 
-// TODO: Add a `to-number` Expression that leverages the `getNumericalPart` 
+// TODO: Add a `to-number` Expression that leverages the `getNumericalPart`
 // helper to support numerical coercion in Value Expressions, such that we
 // could, if we wanted, write expressions that allow strict equality
 // comparisons between numbers and string representations of numbers.
@@ -13,10 +13,10 @@ const neq = (a, b) => a !== b;
 // returned from other expressions into `undefined`, so we prevent false
 // positives from using `null` in inequality comparisons (e.g. `null < 23`
 // evaluates to `true` since `null` is treated as 0 in comparisons).
-const lt = (a, b) => getNumericalPart(a) < getNumericalPart(b);
-const gt = (a, b) => getNumericalPart(a) > getNumericalPart(b);
-const lteq = (a, b) => getNumericalPart(a) <= getNumericalPart(b);
-const gteq = (a, b) => getNumericalPart(a) >= getNumericalPart(b);
+const lt = (a, b) => getNumericalPart(a)! < getNumericalPart(b)!;
+const gt = (a, b) => getNumericalPart(a)! > getNumericalPart(b)!;
+const lteq = (a, b) => getNumericalPart(a)! <= getNumericalPart(b)!;
+const gteq = (a, b) => getNumericalPart(a)! >= getNumericalPart(b)!;
 
 const makeComparison = (op, compareBasic) => {
   return class Comparison implements Expression {
