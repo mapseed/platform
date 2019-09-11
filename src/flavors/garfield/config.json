@@ -4015,7 +4015,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 5],
+                  "value": ["literal", 1],
                   "label": "Acres"
                 },
                 {
@@ -4024,26 +4024,26 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 5]
+                      ["*", 0.7, 1]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      1
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      1
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 10],
+                  "value": ["literal", 2],
                   "label": "Acres"
                 },
                 {
@@ -4052,19 +4052,19 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 10]
+                      ["*", 0.7, 2]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      2
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      2
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
