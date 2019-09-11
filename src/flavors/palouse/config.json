@@ -183,7 +183,28 @@
             {
               "cells": [
                 {
-                  "value": "Conventional Farming"
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Conventional Farming ("],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "conventional_till_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "conventional_till_datetime"], 0]
+                      ]
+                    ],
+                    ["literal", " producers)"]
+                  ]
                 },
                 {
                   "value": [
