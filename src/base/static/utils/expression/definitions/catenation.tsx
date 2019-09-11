@@ -42,9 +42,7 @@ const makeCat = (op: string) => {
       const catResult = this.operands.reduce((result, operand) => {
         const val = operand.evaluate(evaluationContext);
 
-        return typeof val === null || typeof val === undefined
-          ? val
-          : [...result, val];
+        return val || val === 0 ? [...result, val] : result;
       }, []);
 
       return op === "cat-join" ? catResult.join(this.joinString) : catResult;
