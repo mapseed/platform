@@ -1213,7 +1213,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Range Management ("],
+                    ["literal", "Soil Management ("],
                     [
                       "case",
                       [
@@ -1390,7 +1390,7 @@
                   "value": [
                     "cat-join",
                     "",
-                    ["literal", "Range Management ("],
+                    ["literal", "Soil Management ("],
                     [
                       "case",
                       [
