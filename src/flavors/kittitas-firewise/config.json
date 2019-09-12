@@ -513,7 +513,7 @@
       "kittitas-forest-type": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-forest-type/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-forest-type-ver-2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -708,25 +708,23 @@
             "id": "kittitas-forest-type",
             "type": "fill",
             "source": "kittitas-forest-type",
-            "source-layer": "kittitas-forest-type",
+            "source-layer": "kittitas-forest-type-ver-2",
             "paint": {
-              "fill-opacity": 0.5,
+              "fill-opacity": 0.8,
               "fill-color": [
                 "match",
-                ["get", "LABEL"],
-                "Non-Forest",
+                ["get", "newlabel"],
+                "Rangeland - Shrubland",
                 "#8c510a",
-                "Sup-Alpine",
-                "#d8b365",
-                "Silver Fir",
+                "Agriculture",
                 "#f6e8c3",
-                "Mtn Hemlock",
-                "#f5f5f5",
-                "Moist Mix Conifer",
+                "Developed and/or Disturbed Surface",
                 "#c7eae5",
-                "Dry Mix Conifer",
+                "Dry Mixed Conifer",
+                "#d8b365",
+                "Mixed Conifer",
                 "#5ab4ac",
-                "Ponderosa Pine",
+                "Subalpine - Mixed Conifer",
                 "#01665e",
                 "#fff"
               ]
