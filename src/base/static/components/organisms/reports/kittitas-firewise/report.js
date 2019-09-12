@@ -833,7 +833,7 @@ const KittitasFireReadyReport = props => {
                 margin-left: 40px;
               `}
             >
-              <HorizontalRule spacing="tiny" />
+              <HorizontalRule spacing="medium" />
               <span
                 css={css`
                   font-size: 1.2rem;
