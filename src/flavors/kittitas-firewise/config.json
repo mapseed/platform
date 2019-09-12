@@ -507,7 +507,7 @@
       "kittitas-fire-districts": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-fire-districts-ver-2/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-county-fire-districts-ver-2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -1140,13 +1140,13 @@
         "id": "kittitas-fire-districts",
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_distr}}</em></p><p><strong>Phone: </strong><em>{{phone}}</em></p><p><strong>Email: </strong><em>{{email}}</em></p>",
+        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_distr}}</em></p><p><strong>Phone: </strong><em>{{phone}}</em></p><p><strong>Social media: </strong><em><a href={{email}} target='_blank'>{{email}}</a></em></p>",
         "mapboxLayers": [
           {
             "id": "kittitas-fire-districts",
             "type": "fill",
             "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts-ver-2",
             "paint": {
               "fill-opacity": [
                 "interpolate",
@@ -1175,7 +1175,7 @@
               "Areas Outside of Fire Districts"
             ],
             "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts-ver-2",
             "paint": {
               "line-color": "#fff",
               "line-color": [
@@ -1202,7 +1202,7 @@
               ["==", ["geometry-type"], "Point"]
             ],
             "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts-ver-2",
             "paint": {
               "text-color": "#5380c1",
               "text-halo-color": "#dde7f2",
