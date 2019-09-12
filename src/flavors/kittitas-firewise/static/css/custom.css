@@ -62,26 +62,6 @@ header {
   margin-top: 15px !important;
 }
 
-[data-field-name="emergency_kit"],
-[data-field-name="evacuation_plan"],
-[data-field-name="emergency_kit_supplies"],
-[data-field-name="documents"],
-[data-field-name="evacuation_plan_pets"],
-[data-field-name="emergency_notifications"] {
-  margin-bottom: 0 !important;
-}
-
-[data-field-name="evacuation_plan"],
-[data-field-name="emergency_kit_supplies"],
-[data-field-name="documents"],
-[data-field-name="evacuation_plan_pets"],
-[data-field-name="emergency_notifications"] {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  border-radius: 0 !important;
-  padding-left: 40px !important;
-}
-
 [data-field-type="geolocate"] {
   button {
     background-color: #efefef !important;
