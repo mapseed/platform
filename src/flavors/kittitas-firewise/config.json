@@ -436,6 +436,7 @@
     }
   ],
   "map": {
+    "measurementToolEnabled": true,
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
@@ -1692,7 +1693,7 @@
           },
           {
             "start_field_index": 39,
-            "end_field_index": 45,
+            "end_field_index": 44,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1702,8 +1703,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 49,
+            "start_field_index": 45,
+            "end_field_index": 48,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1713,8 +1714,8 @@
             ]
           },
           {
-            "start_field_index": 50,
-            "end_field_index": 60,
+            "start_field_index": 49,
+            "end_field_index": 59,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1746,7 +1747,7 @@
           {
             "name": "forest_type_header",
             "type": "informational_html",
-            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0 0 16px 0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Changing Forest Conditions</h1>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0 0 16px 0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Forest Type</h1>"
           },
           {
             "name": "forest_type",
@@ -1779,7 +1780,7 @@
           {
             "name": "forest_type_information",
             "type": "informational_html",
-            "content": "<div style='margin:42px 0 16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin:0 16px 0 0;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Subalpine:</span> Subalpine fir generally occupies colder, higher elevation mountain forests. Fires are typically stand-replacing events at approximately 200-year or greater intervals. When wildfire occurs, this forest is more susceptible to high intensity crown fires.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/subalpine-fir.png' alt='Subalpine fir' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Subalpine forest type (Credit: The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>200+ years</span></div><div style='background-color:#ccc;height:10px;border-radius:5px;margin:0 16px;'><div style='background-color:#fed976;height:10px;border-radius:5px;'></div></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Moist Mix Conifer:</span> Forests of grand fir, white fir, and Douglas-fir with an average fire return interval of 45-100 years. When wildfire occurs in this forest type it can vary from medium to high severity.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/moist-mix-conifer.png' alt='Moist mix conifer' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Moist Mix Conifer forest type (Credit: The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>45-100 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #ffab6e, #ffab6e 10px, #ffd7ba 10px, #ffd7ba 20px);width:50%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#fd8d3c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:22.5%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Dry Forest:</span> A forest dominated by ponderosa pine, with understory conifers like Douglas Fir and Grand Fir. Lack of wildfire can result in dense stands highly susceptible to medium to high intensity fires. The wildfire return intervals are 15-25 years.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/dry-forest.png' alt='Dry forest' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Dry Forest forest type (Credit: John Marshall Photography (c) The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>15-25 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:12.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:7.5%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Ponderosa Pine:</span> Straddles the line between rangelands and forest with an overstory of ponderosa pine trees and an understory of shrubs, grasses, and forbs. Wildfires were historically common in this forest type, with return intervals of 8-15 years.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/ponderosa-pine.png' alt='Ponderosa pine' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Ponderosa Pine forest type</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>8-15 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:7.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:4%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Non-forest Rangeland:</span> Rangeland (shrub steppe with sagebrush and grasses) with fire intervals of 5-15 years. When wildfire occurs in this land cover type, the severity is dependent on the vegetation density and weather (wind-driven).</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/non-forest-rangeland.png' alt='Non-forest rangeland' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Non-forest Rangeland (Credit: KCCD)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>5-15 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:7.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:2.5%;'></span></div></div>"
+            "content": "<div style='margin:42px 0 16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin:0 16px 0 0;'><span style='color:red;width:20px;height:20px;' /><span style='font-family:Raleway-ExtraBold,sans-serif;'>Subalpine:</span> Subalpine fir generally occupies colder, higher elevation mountain forests. Fires are typically stand-replacing events at approximately 200-year or greater intervals. When wildfire occurs, this forest is more susceptible to high intensity crown fires.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/subalpine-fir.png' alt='Subalpine fir' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Subalpine forest type (Credit: The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>200+ years</span></div><div style='background-color:#ccc;height:10px;border-radius:5px;margin:0 16px;'><div style='background-color:#fed976;height:10px;border-radius:5px;'></div></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Moist Mix Conifer:</span> Forests of grand fir, white fir, and Douglas-fir with an average fire return interval of 45-100 years. When wildfire occurs in this forest type it can vary from medium to high severity.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/moist-mix-conifer.png' alt='Moist mix conifer' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Moist Mix Conifer forest type (Credit: The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>45-100 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #ffab6e, #ffab6e 10px, #ffd7ba 10px, #ffd7ba 20px);width:50%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#fd8d3c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:22.5%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Dry Forest:</span> A forest dominated by ponderosa pine, with understory conifers like Douglas Fir and Grand Fir. Lack of wildfire can result in dense stands highly susceptible to medium to high intensity fires. The wildfire return intervals are 15-25 years.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/dry-forest.png' alt='Dry forest' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Dry Forest forest type (Credit: John Marshall Photography (c) The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>15-25 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:12.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:7.5%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Ponderosa Pine:</span> Straddles the line between rangelands and forest with an overstory of ponderosa pine trees and an understory of shrubs, grasses, and forbs. Wildfires were historically common in this forest type, with return intervals of 8-15 years.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/ponderosa-pine.png' alt='Ponderosa pine' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Ponderosa Pine forest type</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>8-15 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:7.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:4%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Non-forest Rangeland:</span> Rangeland (shrub steppe with sagebrush and grasses) with fire intervals of 5-15 years. When wildfire occurs in this land cover type, the severity is dependent on the vegetation density and weather (wind-driven).</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/non-forest-rangeland.png' alt='Non-forest rangeland' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Non-forest Rangeland (Credit: KCCD)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>5-15 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:7.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:2.5%;'></span></div></div>"
           },
           {
             "name": "fire_risk_header",
@@ -1921,10 +1922,6 @@
             "type": "common_form_element"
           },
           {
-            "name": "emergency_kit",
-            "type": "common_form_element"
-          },
-          {
             "name": "evacuation_plan",
             "type": "common_form_element"
           },
@@ -2048,7 +2045,7 @@
             "type": "text",
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
-            "optional": false
+            "optional": true
           },
           {
             "name": "private-use_photos",
@@ -2136,8 +2133,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2156,8 +2153,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2167,7 +2164,7 @@
       },
       "reduce_embers": {
         "type": "big_radio",
-        "prompt": "I reduce embers that could pass through vents by installing 1/8 inch metal mesh screening on foundations and/or exterior attic vents.",
+        "prompt": "I’ve installed 1/8 inch metal mesh screening on foundation vents and/or exterior attic vents.",
         "label": "Reduce embers",
         "optional": true,
         "content": [
@@ -2176,8 +2173,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2196,8 +2193,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2216,8 +2213,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2236,8 +2233,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2256,8 +2253,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2276,8 +2273,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2296,8 +2293,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2316,8 +2313,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2336,8 +2333,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2356,8 +2353,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2376,8 +2373,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2396,8 +2393,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2416,8 +2413,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2436,8 +2433,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2456,8 +2453,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2476,8 +2473,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2496,8 +2493,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2505,39 +2502,10 @@
           }
         ]
       },
-      "emergency_kit": {
-        "type": "big_radio",
-        "prompt": "I have an emergency kit",
-        "label": "Evacuation plan",
-        "optional": true,
-        "triggers": [
-          {
-            "value": "yes",
-            "targets": [
-              "evacuation_plan",
-              "emergency_kit_supplies",
-              "documents",
-              "evacuation_plan_pets",
-              "emergency_notifications"
-            ]
-          }
-        ],
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          }
-        ]
-      },
       "evacuation_plan": {
         "type": "big_radio",
         "prompt": "I have an evacuation plan that includes escape routes (preferably 2), a designated family meeting location, and a communication plan",
         "label": "Evacuation plan",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
@@ -2554,7 +2522,6 @@
         "type": "big_radio",
         "prompt": "I have an emergency kit prepared with water, food, clothes, flashlight, first aid kit, etc.",
         "label": "Food and water",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
@@ -2571,7 +2538,6 @@
         "type": "big_radio",
         "prompt": "I have my important family documents, bank and credit card information, identification, prescriptions, etc. in one location easily accessible during an evacuation",
         "label": "Copies of documents",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
@@ -2587,7 +2553,6 @@
       "evacuation_plan_pets": {
         "type": "big_radio",
         "prompt": "I have an evacuation plan for my pets, large animals or livestock",
-        "hidden_default": true,
         "label": "Evacuation plan",
         "optional": true,
         "content": [
@@ -2609,7 +2574,6 @@
         "type": "big_radio",
         "prompt": "I’ve signed up for the emergency notification system through the Kittitas County Sheriff’s Office or I know where to go for official information",
         "label": "Food and water",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
