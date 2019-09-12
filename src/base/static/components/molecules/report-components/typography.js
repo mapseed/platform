@@ -40,6 +40,7 @@ ReportSmallTitle.propTypes = {
 
 const BigStat = props => (
   <LargeTitle
+    className={props.className}
     css={css`
       flex: 1;
       font-size: 3rem;
@@ -51,6 +52,7 @@ const BigStat = props => (
 );
 
 BigStat.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

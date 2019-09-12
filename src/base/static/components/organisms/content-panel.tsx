@@ -122,11 +122,6 @@ const ContentPanel = (props: Props) => {
           }px 15px`,
           boxSizing: "border-box",
           scrollbarWidth: "none",
-
-          "::-webkit-scrollbar": {
-            width: 0,
-            height: 0,
-          },
         }}
         ref={contentPanelInnerContainerRef}
       >

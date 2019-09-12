@@ -55,43 +55,43 @@ const getBurnRiskText = burnRisk => {
 // https://www.co.kittitas.wa.us/cds/firemarshal/local-fire-districts.aspx
 const fireDistrictInfo = {
   "You are not located in a Fire District. Contact the Fire Marshal's Office:": {
-    email: "Not available",
+    email: "bit.ly/2kH8HUj",
     phone: "509-962-7506",
   }, // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
   "Easton Fire District": {
-    email: "Not available",
+    email: "bit.ly/2mafJRO",
     phone: "509-656-0121",
   },
   "Snoqualmie Pass Fire and Rescue": {
-    email: "jwiseman@snoqualmiepassfirerescue.org",
+    email: "bit.ly/2mafpCA",
     phone: "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
   },
   "Ronald Fire District": {
-    email: "www.facebook.com/KCFPD6",
+    email: "bit.ly/2kKep7Z",
     phone: "509-649-2600",
   },
   "City of Roslyn Volunteer Fire Department": {
-    email: "skye@inlandnet.com",
+    email: "bit.ly/2kHQSVa",
     phone: "509-649-3105",
   },
   "City of Cle Elum Volunteer Fire Department": {
-    email: "firechief@cityofcleelum.com",
+    email: "bit.ly/2lTvVGT",
     phone: "509-674-1748",
   },
   "Rural Thorp Fire District": {
-    email: "www.facebook.com/kittitascofd1",
+    email: "bit.ly/2kjayi2",
     phone: "509-964-2435",
   },
   "Vantage Fire District": {
-    email: "vantageKCFD4@gmail.com",
+    email: "bit.ly/2kIsfrs",
     phone: "Not available",
   },
   "Kittitas Valley Fire and Rescue": {
-    email: "www.kvfr.org/Contact_Us.aspx",
+    email: "bit.ly/2kadOvU",
     phone: "509-933-7231",
   },
   "Fire District 7 (Cle Elum)": {
-    email: "office@kcfd7.com",
+    email: "bit.ly/2lLj1ei",
     phone: "509-933-7235",
   },
 };
@@ -268,7 +268,9 @@ const KittitasFireReadyReport = props => {
                       color="#444"
                       faClassname="fas fa-globe"
                     >
-                      <ExternalLink>
+                      <ExternalLink
+                        href={"http://" + safeFireDistrictContactInfo.email}
+                      >
                         <LargeText>
                           {safeFireDistrictContactInfo.email}
                         </LargeText>
@@ -298,21 +300,15 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-globe"
                 >
                   <ExternalLink href="https://www.facebook.com/KittitasFACC">
-                    <LargeText
-                      css={css`
-                        font-size: 1.2rem;
-                      `}
-                    >
-                      www.facebook.com/KittitasFACC
-                    </LargeText>
+                    <LargeText>bit.ly/2kxACWU</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://fireadaptedwashington.org">
-                    <LargeText>fireadaptedwashington.org</LargeText>
+                  <ExternalLink href="http://bit.ly/2lOUAMT">
+                    <LargeText>bit.ly/2lOUAMT</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -331,13 +327,13 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>509-925-0974 (DNR)</LargeText>
+                  <LargeText>509-925-3352 x204 (KCCD)</LargeText>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>509-925-3352 x204 (KCCD)</LargeText>
+                  <LargeText>509-925-0974 (DNR)</LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
@@ -365,8 +361,8 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://kittitasfireadapted.mapseed.org">
-                    <LargeText>kittitascountyfireready.mapseed.org</LargeText>
+                  <ExternalLink href="http://bit.ly/2lLmols">
+                    <LargeText>bit.ly/2lLmols</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
@@ -374,8 +370,8 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-info-circle"
                 >
                   <LargeText>
-                    Visit Kittitas County’s Fire Ready map to explore fire risk
-                    and other critical data
+                    Visit Kittitas County’s Fire Adapted map to explore fire
+                    risk and other critical data
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -401,7 +397,7 @@ const KittitasFireReadyReport = props => {
                   />
                   <figcaption>
                     <RegularText>
-                      <em>The Table Mountain Fire burns in 2012.</em>
+                      <em>The Table Mountain Fire burning in 2012.</em>
                     </RegularText>
                   </figcaption>
                 </figure>
@@ -459,7 +455,7 @@ const KittitasFireReadyReport = props => {
                     <RegularText
                       css={css`
                         font-style: italic;
-                        color: #666;
+                        color: #222;
                       `}
                     >
                       General wildfire risk in your area
@@ -468,13 +464,20 @@ const KittitasFireReadyReport = props => {
                 </FlexCentered>
                 <FlexCentered>
                   <FlexItem flex="2">
-                    <BigStat>{safeAvgFireStarts}</BigStat>
+                    <BigStat
+                      css={css`
+                        text-align: right;
+                        padding-right: 32px;
+                      `}
+                    >
+                      {safeAvgFireStarts}
+                    </BigStat>
                   </FlexItem>
                   <FlexItem flex="1">
                     <RegularText
                       css={css`
                         font-style: italic;
-                        color: #666;
+                        color: #222;
                       `}
                     >
                       Average fire starts in your area per year
@@ -483,13 +486,20 @@ const KittitasFireReadyReport = props => {
                 </FlexCentered>
                 <FlexCentered>
                   <FlexItem flex="2">
-                    <BigStat>{safeNumLargeFires}</BigStat>
+                    <BigStat
+                      css={css`
+                        text-align: right;
+                        padding-right: 32px;
+                      `}
+                    >
+                      {safeNumLargeFires}
+                    </BigStat>
                   </FlexItem>
                   <FlexItem flex="1">
                     <RegularText
                       css={css`
                         font-style: italic;
-                        color: #666;
+                        color: #222;
                       `}
                     >
                       Number of large wildfires in your area since 1973
@@ -605,28 +615,16 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://twitter.com/kcsheriffoffice">
-                    <LargeText
-                      css={css`
-                        font-size: 1.1rem;
-                      `}
-                    >
-                      twitter.com/kcsheriffoffice
-                    </LargeText>
+                  <ExternalLink href="http://bit.ly/2mfXdaT">
+                    <LargeText>bit.ly/2mfXdaT</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://www.facebook.com/KittitasCountySheriff/">
-                    <LargeText
-                      css={css`
-                        font-size: 0.95rem;
-                      `}
-                    >
-                      www.facebook.com/KittitasCountySheriff
-                    </LargeText>
+                  <ExternalLink href="http://bit.ly/2lST0JL">
+                    <LargeText>bit.ly/2lST0JL</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -640,8 +638,8 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://inciweb.nwcg.gov">
-                    <LargeText>inciweb.nwcg.gov</LargeText>
+                  <ExternalLink href="http://bit.ly/2lST7Fb">
+                    <LargeText>bit.ly/2lST7Fb</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -830,8 +828,12 @@ const KittitasFireReadyReport = props => {
                 .
               </ReportBodyText>
             </MainPanelSection>
-            <HorizontalRule spacing="tiny" />
-            <MainPanelSection>
+            <div
+              css={css`
+                margin-left: 40px;
+              `}
+            >
+              <HorizontalRule spacing="medium" />
               <span
                 css={css`
                   font-size: 1.2rem;
@@ -840,6 +842,7 @@ const KittitasFireReadyReport = props => {
                   line-height: 1.4rem;
                   font-style: italic;
                   padding-top: 16px;
+                  margin-top: 8px;
                 `}
               >
                 Want to be part of the solution? Join the Kittitas Fire Adapted
@@ -847,7 +850,7 @@ const KittitasFireReadyReport = props => {
                 our communities! Call 925-3352 ext. 204 to be added to the
                 mailing list.
               </span>
-            </MainPanelSection>
+            </div>
           </MainPanel>
           <KittitasFireReadyPageFooter />
         </PageBody>
