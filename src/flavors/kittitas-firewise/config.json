@@ -506,7 +506,7 @@
       "kittitas-fire-districts": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-fire-districts/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-fire-districts-ver-2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -521,6 +521,12 @@
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/kittitas-county-cities/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-county-cities-fire-risk": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-county-cities-fire-risk/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-firewise-communities": {
@@ -1057,6 +1063,54 @@
         ]
       },
       {
+        "id": "kittitas-county-cities-fire-risk",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kittitas-county-cities-fire-risk",
+            "type": "fill",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "fill-color": "#fee08b",
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk-labels",
+            "type": "symbol",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "text-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ],
+              "text-color": "#666",
+              "text-halo-color": "#eee",
+              "text-halo-width": 20
+            },
+            "layout": {
+              "text-field": ["concat", "City of ", ["get", "city_name"]],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 13,
+              "text-allow-overlap": true,
+              "text-max-width": 40,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-transform": "uppercase",
+              "text-justify": "left",
+              "text-line-height": 1
+            }
+          }
+        ]
+      },
+      {
         "id": "kittitas-county-outline",
         "visibleDefault": true,
         "mapboxLayers": [
@@ -1561,6 +1615,7 @@
               "wa-state-large-fires-1973-2018",
               "wa-state-wildfire-start-sites-2008-group",
               "kittitas-burn-risk",
+              "kittitas-county-cities-fire-risk",
               "kittitas-county-outline"
             ],
             "viewport": {
@@ -1734,7 +1789,7 @@
           {
             "name": "fire_risk_information",
             "type": "informational_html",
-            "content": "<figure style='margin:16px 0 0 0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County. The probability of wildfire is based on historical fires, vegetation and public safety.</p><div style='display:flex;align-items:center;'><div style='flex:1;border-right:1px solid #ddd;margin-right:24px;'><div style='margin-left:16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d73027;margin-right:12px;opacity:0.8;'></div><p style='color:#888;margin:0;'><em>Severe risk</em></p></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#f46d43;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fdae61;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fee08b;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d9ef8b;margin-right:12px;opacity:0.8'></div><p style='color:#888;margin:0;'><em>Low risk</em></p></div></div><div style='flex:2;'><p class='mapseed-form-stage-body' style='margin:0;'>This map shows general wildfire risk. Wind-blown embers generated during wildfires are the single biggest hazard wildfires pose to homes. So Look at the risk level not just where your home is located but at least in a one mile radius to better understand your risk from these burning pieces of airborne wood and/or vegetation.</p></div></div><p class='mapseed-form-stage-body'>This map also shows large wildfires and individual wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
+            "content": "<figure style='margin:16px 0 0 0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County. The probability of wildfire is based on historical fires, vegetation and public safety.</p><div style='display:flex;align-items:center;'><div style='flex:1;border-right:1px solid #ddd;margin-right:24px;'><div style='margin-left:16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d73027;margin-right:12px;opacity:0.8;'></div><p style='color:#888;margin:0;'><em>Severe risk</em></p></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#f46d43;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fdae61;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fee08b;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d9ef8b;margin-right:12px;opacity:0.8'></div><p style='color:#888;margin:0;'><em>Low risk</em></p></div></div><div style='flex:2;'><p class='mapseed-form-stage-body' style='margin:0;'>This map shows general wildfire probability. Wind-blown embers generated during wildfires are the single biggest hazard wildfires pose to homes. Look at the risk level not just where your home is located but at least in a one mile radius to better understand your risk from these burning pieces of airborne wood and/or vegetation.</p></div></div><p class='mapseed-form-stage-body'>This map also shows large wildfires and individual wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
           },
           {
             "name": "fire_resources_header",
