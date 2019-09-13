@@ -408,7 +408,7 @@ const KittitasFireReadyReport = props => {
               </ReportBodyText>
               <ReportBodyText>
                 This report summarizes the wildfire risk in the vicinity of your
-                property, as reported on the Kittitas County Fire Ready map.
+                property, as reported on the Kittitas County Fire Adapted map.
               </ReportBodyText>
               <ReportBodyText>
                 Even if the fire risk in your area appears low, be aware that
@@ -429,8 +429,13 @@ const KittitasFireReadyReport = props => {
                 with fire return intervals of
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {" "}
-                  {safeReturnInterval}.
+                  {safeReturnInterval}.{" "}
                 </LargeText>
+                Learn more about forest types here:{" "}
+                <ExternalLink href="http://bit.ly/2lK4hMB">
+                  bit.ly/2lK4hMB
+                </ExternalLink>
+                .
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>

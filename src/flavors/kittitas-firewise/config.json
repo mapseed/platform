@@ -766,6 +766,58 @@
                 "#fff"
               ]
             }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk",
+            "type": "fill",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "fill-color": "#fdae61",
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk-outline",
+            "type": "line",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "line-color": "#555",
+              "line-opacity": 0.6
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk-labels",
+            "type": "symbol",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "text-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ],
+              "text-color": "#666",
+              "text-halo-color": "#eee",
+              "text-halo-width": 20
+            },
+            "layout": {
+              "text-field": ["concat", "City of ", ["get", "city_name"]],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 13,
+              "text-allow-overlap": true,
+              "text-max-width": 40,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-transform": "uppercase",
+              "text-justify": "left",
+              "text-line-height": 1
+            }
           }
         ]
       },
@@ -1059,54 +1111,6 @@
                 9,
                 0.7
               ]
-            }
-          }
-        ]
-      },
-      {
-        "id": "kittitas-county-cities-fire-risk",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "kittitas-county-cities-fire-risk",
-            "type": "fill",
-            "source": "kittitas-county-cities-fire-risk",
-            "source-layer": "kittitas-county-cities-fire-risk",
-            "paint": {
-              "fill-color": "#fee08b",
-              "fill-opacity": 0.9
-            }
-          },
-          {
-            "id": "kittitas-county-cities-fire-risk-labels",
-            "type": "symbol",
-            "source": "kittitas-county-cities-fire-risk",
-            "source-layer": "kittitas-county-cities-fire-risk",
-            "paint": {
-              "text-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                9,
-                0,
-                10,
-                1
-              ],
-              "text-color": "#666",
-              "text-halo-color": "#eee",
-              "text-halo-width": 20
-            },
-            "layout": {
-              "text-field": ["concat", "City of ", ["get", "city_name"]],
-              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
-              "text-size": 13,
-              "text-allow-overlap": true,
-              "text-max-width": 40,
-              "text-padding": 15,
-              "text-allow-overlap": false,
-              "text-transform": "uppercase",
-              "text-justify": "left",
-              "text-line-height": 1
             }
           }
         ]
@@ -1616,7 +1620,6 @@
               "wa-state-large-fires-1973-2018",
               "wa-state-wildfire-start-sites-2008-group",
               "kittitas-burn-risk",
-              "kittitas-county-cities-fire-risk",
               "kittitas-county-outline"
             ],
             "viewport": {
