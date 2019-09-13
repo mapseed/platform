@@ -523,8 +523,7 @@ const KittitasFireReadyReport = props => {
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {burnRiskText}
                 </LargeText>
-                . The average number of fire starts (including starts from human
-                activity and from lightning) per year in your area is{" "}
+                . The average number of fire starts per year in your area is{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {safeAvgFireStarts}
                 </LargeText>
@@ -553,9 +552,7 @@ const KittitasFireReadyReport = props => {
               <KittitasFireReadyReportSmallTitle weight="bold">
                 Emergency Kit
               </KittitasFireReadyReportSmallTitle>
-              <LargeText>
-                Review this emergency preparedness checklist.
-              </LargeText>
+              <LargeText>Review this checklist:</LargeText>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -718,10 +715,9 @@ const KittitasFireReadyReport = props => {
               </ReportBodyText>
               <ReportBodyText>
                 {" "}
-                Start your preparedness efforts in the Immediate zone, closest
-                to your house. Focus on the removal of flammable vegetation, and
-                incorporating nonflammable constructions methods whenever
-                possible.
+                Start your preparedness efforts in the Immediate zone. Focus on
+                the removal of flammable vegetation, and incorporating
+                nonflammable constructions methods whenever possible.
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
