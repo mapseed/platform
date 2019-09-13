@@ -4,6 +4,17 @@
 // Selectors:
 export const placeFiltersConfigSelector = state =>
   state.flavorConfig.placeFilters;
+// Return only filter configs for map layers that are currently visible.
+export const visiblePlaceFiltersConfigSelector = state => {
+  return state.flavorConfig.placeFilters.filter(
+    placeFilterConfig =>
+      state.mapStyle.layerGroups.byId[placeFilterConfig.datasetSlug].isVisible,
+  );
+};
+
+export const isWithPlaceFilterWidgetSelector = state =>
+  state.flavorConfig.placeFilters.length > 0 &&
+  state.flavorConfig.usePlaceFilterWidget;
 
 // Actions:
 const LOAD = "flavorConfig/LOAD";
@@ -15,6 +26,7 @@ export function loadFlavorConfig(config) {
 
 // Reducers:
 const INITIAL_STATE = {
+  usePlaceFilterWidget: false,
   placeFilters: [],
 };
 

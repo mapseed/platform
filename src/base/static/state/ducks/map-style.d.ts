@@ -42,6 +42,12 @@ export const mapStylePropType: any;
 
 export const layerGroupsPropType: any;
 
+export type LegendItem = {
+  icon?: string;
+  swatch?: string;
+  label: string;
+};
+
 export type LayerGroup = {
   id: string;
   popupContent: string;
@@ -54,6 +60,7 @@ export type LayerGroup = {
   layerIds: string[];
   // Source ids which this layerGroup consumes:
   sourceIds: string[];
+  legend?: LegendItem[];
 };
 
 export type LayerGroups = {
@@ -81,6 +88,7 @@ export const mapDraggingOrZoomingSelector: any;
 export const mapDraggedOrZoomedSelector: any;
 export const mapContainerDimensionsSelector: any;
 export const mapLayerPopupSelector: any;
+export const isWithMapLegendWidgetSelector: (state: any) => boolean;
 // Return information about visible layer groups which are configured to be
 // filterable with a slider.
 export const filterableLayerGroupsSelector: any;

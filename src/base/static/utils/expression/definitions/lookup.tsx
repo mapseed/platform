@@ -10,11 +10,8 @@ const getNumericalValsByKey = (dataset, key) => {
   }, []);
 };
 
-const getPlaceVal = (context: EvaluationContext, property: string) => {
-  const val = context.place ? context.place[property] : undefined;
-
-  return typeof val === "undefined" ? null : val;
-};
+const getPlaceVal = (context: EvaluationContext, property: string) =>
+  context.place ? context.place[property] : undefined;
 
 const getDatasetSum = (
   context: EvaluationContext,
@@ -71,12 +68,30 @@ const getDatasetMin = (context: EvaluationContext, property: string) => {
   return Math.min(...vals);
 };
 
-const getDatasetCount = (context: EvaluationContext, property: string) => {
+const getDatasetCount = (
+  context: EvaluationContext,
+  property: null,
+  placeCondition?: Expression,
+) => {
   return context.dataset
-    ? // getDatasetCount counts Places in a dataset, optionally filtered by a
-      // Place property.
-      context.dataset.filter(place => (property ? place[property] : true))
-        .length
+    ? // getDatasetCount counts Places in a dataset, optionally filtered by an
+      // Expression.
+      context.dataset.filter(place => {
+        if (placeCondition) {
+          const conditionExpression = makeParsedExpression(placeCondition);
+
+          return (
+            conditionExpression &&
+            conditionExpression.evaluate({
+              place,
+              dataset: context.dataset,
+              widgetState: context.widgetState,
+            })
+          );
+        }
+
+        return true;
+      }).length
     : 0;
 };
 
@@ -88,11 +103,11 @@ const getWidgetState = (context: EvaluationContext, property: string) => {
 
 const makeLookup = (op: string, lookupFn: any) => {
   return class Lookup implements Expression {
-    property: string;
+    property: string | null;
     placeCondition?: Expression;
     type: string;
 
-    constructor(property: string, placeCondition?: Expression) {
+    constructor(property: string | null, placeCondition?: Expression) {
       this.property = property;
       this.placeCondition = placeCondition;
       this.type = op;
@@ -109,6 +124,10 @@ const makeLookup = (op: string, lookupFn: any) => {
         console.error(`Error: expected one or two arguments for "${op}"`);
 
         return null;
+      }
+
+      if (op === "get-count") {
+        return new Lookup(null, args[1]);
       }
 
       return new Lookup(args[1], args[2]);

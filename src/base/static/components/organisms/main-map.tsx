@@ -3,14 +3,23 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
 import { Map, MapboxGeoJSONFeature } from "mapbox-gl";
-import { GeoJsonProperties } from "geojson";
+import {
+  GeoJsonProperties,
+  FeatureCollection,
+  Point,
+  LineString,
+  Polygon,
+  Position,
+} from "geojson";
 import PropTypes from "prop-types";
 import MapGL, { Popup, InteractiveMap } from "react-map-gl";
 import { connect } from "react-redux";
 import { throttle } from "throttle-debounce";
 import { RouteComponentProps, withRouter } from "react-router";
 import eventEmitter from "../../utils/event-emitter";
+import { featureCollection } from "@turf/helpers";
 
+import { isWithPlaceFilterWidgetSelector } from "../../state/ducks/flavor-config";
 import {
   interactiveLayerIdsSelector,
   mapStyleSelector,
@@ -20,6 +29,7 @@ import {
   updateMapContainerDimensions,
   mapContainerDimensionsSelector,
   mapLayerPopupSelector,
+  isWithMapLegendWidgetSelector,
 } from "../../state/ducks/map-style";
 import { datasetsSelector, datasetsPropType } from "../../state/ducks/datasets";
 import {
@@ -34,6 +44,9 @@ import {
   MapViewport,
   updateMapViewport,
   mapViewportSelector,
+  isWithMapRadioMenuSelector,
+  isWithMapFilterSliderSelector,
+  measurementToolEnabledSelector,
 } from "../../state/ducks/map";
 import {
   activeEditPlaceIdSelector,
@@ -46,10 +59,20 @@ import {
   updateSpotlightMaskVisibility,
 } from "../../state/ducks/ui";
 import { createGeoJSONFromPlaces } from "../../utils/place-utils";
+import {
+  buildMeasurementFeatureCollection,
+  calculateMeasurement,
+  MEASUREMENT_UNITS,
+} from "../../utils/geo";
 import MapCenterpoint from "../molecules/map-centerpoint";
 import MapControls from "../molecules/map-controls";
-import MapWidgetContainer from "../organisms/map-widget-container";
-import MapMeasurementOverlay from "../organisms/map-measurement-overlay";
+import MapWidgetContainer from "./map-widget-container";
+import MapMeasurementOverlay from "./map-measurement-overlay";
+import MapMeasurementWidget from "../molecules/map-measurement-widget";
+import MapFilterSlider from "../molecules/map-filter-slider";
+import MapRadioMenu from "../molecules/map-radio-menu";
+import MapLegendWidget from "../molecules/map-legend-widget";
+import PlaceFilterWidget from "../molecules/place-filter-widget";
 
 import { Mixpanel } from "../../utils/mixpanel";
 import { FlyToInterpolator } from "react-map-gl";
@@ -135,6 +158,11 @@ const statePropTypes = {
   isMapDraggingOrZooming: PropTypes.bool.isRequired,
   isMapDraggedOrZoomedByUser: PropTypes.bool.isRequired,
   isMapTransitioning: PropTypes.bool.isRequired,
+  isWithMapFilterSlider: PropTypes.bool.isRequired,
+  isWithMapRadioMenu: PropTypes.bool.isRequired,
+  isWithMapMeasurementWidget: PropTypes.bool.isRequired,
+  isWithMapLegendWidget: PropTypes.bool.isRequired,
+  isWithPlaceFilterWidget: PropTypes.bool.isRequired,
 };
 
 interface StateProps extends PropTypes.InferProps<typeof statePropTypes> {
@@ -166,6 +194,13 @@ interface State {
   popupLatitude: number | null;
   popupLongitude: number | null;
   mapViewport: MapViewport;
+  measurementTool: {
+    featureCollection: FeatureCollection<Point | LineString | Polygon>;
+    selectedTool: string | null;
+    measurement: number | null;
+    units: string | null;
+    positions: Position[];
+  };
 }
 
 class MainMap extends React.Component<Props, State> {
@@ -175,6 +210,82 @@ class MainMap extends React.Component<Props, State> {
     popupLatitude: null,
     popupLongitude: null,
     mapViewport: this.props.mapViewport,
+    measurementTool: {
+      // NOTE: The structure of this featureCollection is such that all but the
+      // last feature are Points representing clicked-on locations, and the final
+      // feature is either a LineString or a Polygon built from those points. The
+      // final feature is used for measurement purposes.
+      featureCollection: featureCollection([]),
+      selectedTool: null,
+      measurement: null,
+      units: null,
+      positions: [],
+    },
+  };
+
+  handleUndoLastMeasurementPoint = () => {
+    const { measurementTool } = this.state;
+    const newPositions = measurementTool.positions.slice(0, -1);
+
+    measurementTool.selectedTool &&
+      this.setState({
+        measurementTool: {
+          ...measurementTool,
+          positions: newPositions,
+          featureCollection: buildMeasurementFeatureCollection(
+            measurementTool.selectedTool,
+            newPositions,
+          ),
+        },
+      });
+  };
+
+  handleMeasurementReset = () => {
+    this.setState({
+      measurementTool: {
+        positions: [],
+        featureCollection: featureCollection([]),
+        selectedTool: null,
+        units: null,
+        measurement: null,
+      },
+    });
+  };
+
+  handleSelectTool = selectedTool => {
+    this.setState({
+      measurementTool: {
+        positions: [],
+        featureCollection: featureCollection([]),
+        selectedTool,
+        units: MEASUREMENT_UNITS[selectedTool],
+        measurement: 0,
+      },
+    });
+  };
+
+  handleMeasurementOverlayClick = unprojected => {
+    const { measurementTool } = this.state;
+
+    if (!measurementTool.selectedTool) {
+      return;
+    }
+
+    const newPositions = [...measurementTool.positions, unprojected];
+    const newFeatureCollection = buildMeasurementFeatureCollection(
+      measurementTool.selectedTool,
+      newPositions,
+    );
+    const { features } = newFeatureCollection;
+
+    this.setState({
+      measurementTool: {
+        ...measurementTool,
+        measurement: calculateMeasurement(features[features.length - 1]),
+        positions: newPositions,
+        featureCollection: newFeatureCollection,
+      },
+    });
   };
 
   private queriedFeatures: MapboxGeoJSONFeature[] = [];
@@ -445,6 +556,8 @@ class MainMap extends React.Component<Props, State> {
   };
 
   render() {
+    const { measurementTool } = this.state;
+
     return (
       <React.Fragment>
         <MapGL
@@ -499,7 +612,16 @@ class MainMap extends React.Component<Props, State> {
           onInteractionStateChange={this.onInteractionStateChange}
           onLoad={this.onMapLoad}
         >
-          <MapMeasurementOverlay />
+          <MapMeasurementOverlay
+            handleOverlayClick={unprojected =>
+              this.handleMeasurementOverlayClick(unprojected)
+            }
+            featureCollection={measurementTool.featureCollection}
+            positions={measurementTool.positions}
+            selectedTool={measurementTool.selectedTool}
+          />
+          {this.props.isMapCenterpointVisible && <MapCenterpoint />}
+          {this.state.isMapLoaded && <MapControls />}
           {this.state.popupContent &&
             this.state.popupLatitude &&
             this.state.popupLongitude && (
@@ -519,10 +641,25 @@ class MainMap extends React.Component<Props, State> {
                 />
               </Popup>
             )}
-          {this.props.isMapCenterpointVisible && <MapCenterpoint />}
-          {this.state.isMapLoaded && <MapControls />}
         </MapGL>
-        <MapWidgetContainer />
+        <MapWidgetContainer position="lower-left">
+          {this.props.isWithMapFilterSlider && <MapFilterSlider />}
+          {this.props.isWithMapRadioMenu && <MapRadioMenu />}
+          {this.props.isWithPlaceFilterWidget && <PlaceFilterWidget />}
+        </MapWidgetContainer>
+        <MapWidgetContainer position="lower-right">
+          {this.props.isWithMapMeasurementWidget && (
+            <MapMeasurementWidget
+              handleReset={this.handleMeasurementReset}
+              handleUndoLastPoint={this.handleUndoLastMeasurementPoint}
+              handleSelectTool={this.handleSelectTool}
+              units={measurementTool.units}
+              measurement={measurementTool.measurement}
+              selectedTool={measurementTool.selectedTool}
+            />
+          )}
+          {this.props.isWithMapLegendWidget && <MapLegendWidget />}
+        </MapWidgetContainer>
       </React.Fragment>
     );
   }
@@ -544,6 +681,11 @@ const mapStateToProps = (state): StateProps => ({
   mapStyle: mapStyleSelector(state),
   placeFilters: placeFiltersSelector(state),
   datasets: datasetsSelector(state),
+  isWithMapFilterSlider: isWithMapFilterSliderSelector(state),
+  isWithMapRadioMenu: isWithMapRadioMenuSelector(state),
+  isWithMapMeasurementWidget: measurementToolEnabledSelector(state),
+  isWithMapLegendWidget: isWithMapLegendWidgetSelector(state),
+  isWithPlaceFilterWidget: isWithPlaceFilterWidgetSelector(state),
 });
 
 const mapDispatchToProps = {

@@ -436,6 +436,7 @@
     }
   ],
   "map": {
+    "measurementToolEnabled": true,
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
@@ -506,14 +507,14 @@
       "kittitas-fire-districts": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-fire-districts/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-county-fire-districts-ver-2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
       "kittitas-forest-type": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-forest-type/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-forest-type-ver-2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -521,6 +522,12 @@
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/kittitas-county-cities/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-county-cities-fire-risk": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-county-cities-fire-risk/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-firewise-communities": {
@@ -708,25 +715,23 @@
             "id": "kittitas-forest-type",
             "type": "fill",
             "source": "kittitas-forest-type",
-            "source-layer": "kittitas-forest-type",
+            "source-layer": "kittitas-forest-type-ver-2",
             "paint": {
-              "fill-opacity": 0.5,
+              "fill-opacity": 0.8,
               "fill-color": [
                 "match",
-                ["get", "LABEL"],
-                "Non-Forest",
+                ["get", "newlabel"],
+                "Rangeland - Shrubland",
                 "#8c510a",
-                "Sup-Alpine",
-                "#d8b365",
-                "Silver Fir",
+                "Agriculture",
                 "#f6e8c3",
-                "Mtn Hemlock",
-                "#f5f5f5",
-                "Moist Mix Conifer",
+                "Developed and/or Disturbed Surface",
                 "#c7eae5",
-                "Dry Mix Conifer",
+                "Dry Mixed Conifer",
+                "#d8b365",
+                "Mixed Conifer",
                 "#5ab4ac",
-                "Ponderosa Pine",
+                "Subalpine - Mixed Conifer",
                 "#01665e",
                 "#fff"
               ]
@@ -760,6 +765,58 @@
                 "#d73027",
                 "#fff"
               ]
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk",
+            "type": "fill",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "fill-color": "#fdae61",
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk-outline",
+            "type": "line",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "line-color": "#555",
+              "line-opacity": 0.6
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk-labels",
+            "type": "symbol",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "text-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ],
+              "text-color": "#666",
+              "text-halo-color": "#eee",
+              "text-halo-width": 20
+            },
+            "layout": {
+              "text-field": ["concat", "City of ", ["get", "city_name"]],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 13,
+              "text-allow-overlap": true,
+              "text-max-width": 40,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-transform": "uppercase",
+              "text-justify": "left",
+              "text-line-height": 1
             }
           }
         ]
@@ -1087,13 +1144,13 @@
         "id": "kittitas-fire-districts",
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_distr}}</em></p><p><strong>Phone: </strong><em>{{phone}}</em></p><p><strong>Email: </strong><em>{{email}}</em></p>",
+        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_distr}}</em></p><p><strong>Phone: </strong><em>{{phone}}</em></p><p><strong>Social media: </strong><em><a href={{email}} target='_blank'>{{email}}</a></em></p>",
         "mapboxLayers": [
           {
             "id": "kittitas-fire-districts",
             "type": "fill",
             "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts-ver-2",
             "paint": {
               "fill-opacity": [
                 "interpolate",
@@ -1122,7 +1179,7 @@
               "Areas Outside of Fire Districts"
             ],
             "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts-ver-2",
             "paint": {
               "line-color": "#fff",
               "line-color": [
@@ -1149,7 +1206,7 @@
               ["==", ["geometry-type"], "Point"]
             ],
             "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
+            "source-layer": "kittitas-fire-districts-ver-2",
             "paint": {
               "text-color": "#5380c1",
               "text-halo-color": "#dde7f2",
@@ -1639,7 +1696,7 @@
           },
           {
             "start_field_index": 39,
-            "end_field_index": 45,
+            "end_field_index": 44,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1649,8 +1706,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 49,
+            "start_field_index": 45,
+            "end_field_index": 48,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1660,8 +1717,8 @@
             ]
           },
           {
-            "start_field_index": 50,
-            "end_field_index": 60,
+            "start_field_index": 49,
+            "end_field_index": 59,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1693,7 +1750,7 @@
           {
             "name": "forest_type_header",
             "type": "informational_html",
-            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0 0 16px 0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Changing Forest Conditions</h1>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0 0 16px 0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Forest Type</h1>"
           },
           {
             "name": "forest_type",
@@ -1736,7 +1793,7 @@
           {
             "name": "fire_risk_information",
             "type": "informational_html",
-            "content": "<figure style='margin:16px 0 0 0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County. The probability of wildfire is based on historical fires, vegetation and public safety.</p><div style='display:flex;align-items:center;'><div style='flex:1;border-right:1px solid #ddd;margin-right:24px;'><div style='margin-left:16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d73027;margin-right:12px;opacity:0.8;'></div><p style='color:#888;margin:0;'><em>Severe risk</em></p></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#f46d43;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fdae61;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fee08b;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d9ef8b;margin-right:12px;opacity:0.8'></div><p style='color:#888;margin:0;'><em>Low risk</em></p></div></div><div style='flex:2;'><p class='mapseed-form-stage-body' style='margin:0;'>This map shows general wildfire risk. Wind-blown embers generated during wildfires are the single biggest hazard wildfires pose to homes. So Look at the risk level not just where your home is located but at least in a one mile radius to better understand your risk from these burning pieces of airborne wood and/or vegetation.</p></div></div><p class='mapseed-form-stage-body'>This map also shows large wildfires and individual wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
+            "content": "<figure style='margin:16px 0 0 0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County. The probability of wildfire is based on historical fires, vegetation and public safety.</p><div style='display:flex;align-items:center;'><div style='flex:1;border-right:1px solid #ddd;margin-right:24px;'><div style='margin-left:16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d73027;margin-right:12px;opacity:0.8;'></div><p style='color:#888;margin:0;'><em>Severe risk</em></p></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#f46d43;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fdae61;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fee08b;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d9ef8b;margin-right:12px;opacity:0.8'></div><p style='color:#888;margin:0;'><em>Low risk</em></p></div></div><div style='flex:2;'><p class='mapseed-form-stage-body' style='margin:0;'>This map shows general wildfire probability. Wind-blown embers generated during wildfires are the single biggest hazard wildfires pose to homes. Look at the risk level not just where your home is located but at least in a one mile radius to better understand your risk from these burning pieces of airborne wood and/or vegetation.</p></div></div><p class='mapseed-form-stage-body'>This map also shows large wildfires and individual wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
           },
           {
             "name": "fire_resources_header",
@@ -1868,10 +1925,6 @@
             "type": "common_form_element"
           },
           {
-            "name": "emergency_kit",
-            "type": "common_form_element"
-          },
-          {
             "name": "evacuation_plan",
             "type": "common_form_element"
           },
@@ -1995,7 +2048,7 @@
             "type": "text",
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
-            "optional": false
+            "optional": true
           },
           {
             "name": "private-use_photos",
@@ -2083,8 +2136,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2103,8 +2156,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2114,7 +2167,7 @@
       },
       "reduce_embers": {
         "type": "big_radio",
-        "prompt": "I reduce embers that could pass through vents by installing 1/8 inch metal mesh screening on foundations and/or exterior attic vents.",
+        "prompt": "I’ve installed 1/8 inch metal mesh screening on foundation vents and/or exterior attic vents.",
         "label": "Reduce embers",
         "optional": true,
         "content": [
@@ -2123,8 +2176,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2143,8 +2196,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2163,8 +2216,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2183,8 +2236,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2203,8 +2256,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2223,8 +2276,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2243,8 +2296,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2263,8 +2316,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2283,8 +2336,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2303,8 +2356,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2323,8 +2376,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2343,8 +2396,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2363,8 +2416,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2383,8 +2436,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2403,8 +2456,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2423,8 +2476,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2443,8 +2496,8 @@
             "value": "yes"
           },
           {
-            "label": "No, but I'm interested",
-            "value": "interested"
+            "label": "No",
+            "value": "no"
           },
           {
             "label": "Not applicable",
@@ -2452,39 +2505,10 @@
           }
         ]
       },
-      "emergency_kit": {
-        "type": "big_radio",
-        "prompt": "I have an emergency kit",
-        "label": "Evacuation plan",
-        "optional": true,
-        "triggers": [
-          {
-            "value": "yes",
-            "targets": [
-              "evacuation_plan",
-              "emergency_kit_supplies",
-              "documents",
-              "evacuation_plan_pets",
-              "emergency_notifications"
-            ]
-          }
-        ],
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          }
-        ]
-      },
       "evacuation_plan": {
         "type": "big_radio",
         "prompt": "I have an evacuation plan that includes escape routes (preferably 2), a designated family meeting location, and a communication plan",
         "label": "Evacuation plan",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
@@ -2501,7 +2525,6 @@
         "type": "big_radio",
         "prompt": "I have an emergency kit prepared with water, food, clothes, flashlight, first aid kit, etc.",
         "label": "Food and water",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
@@ -2518,7 +2541,6 @@
         "type": "big_radio",
         "prompt": "I have my important family documents, bank and credit card information, identification, prescriptions, etc. in one location easily accessible during an evacuation",
         "label": "Copies of documents",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
@@ -2534,7 +2556,6 @@
       "evacuation_plan_pets": {
         "type": "big_radio",
         "prompt": "I have an evacuation plan for my pets, large animals or livestock",
-        "hidden_default": true,
         "label": "Evacuation plan",
         "optional": true,
         "content": [
@@ -2556,7 +2577,6 @@
         "type": "big_radio",
         "prompt": "I’ve signed up for the emergency notification system through the Kittitas County Sheriff’s Office or I know where to go for official information",
         "label": "Food and water",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {

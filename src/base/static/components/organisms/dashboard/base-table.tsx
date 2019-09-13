@@ -69,6 +69,13 @@ class BaseTable extends React.Component<BaseTableProps> {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    // Reset dynamic table row heights when this component updates, as new table
+    // data may invalidate cached dynamic row heights.
+    // See: https://github.com/bvaughn/react-virtualized/issues/1202
+    cache.clearAll();
+  }
+
   onResize = ({ width }) => {
     this.setState({
       tableWidth: width,
