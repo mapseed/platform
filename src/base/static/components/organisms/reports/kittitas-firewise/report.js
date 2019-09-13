@@ -518,8 +518,8 @@ const KittitasFireReadyReport = props => {
                 Wildfire risk varies by location throughout Kittitas County.
               </ReportBodyText>
               <ReportBodyText>
-                According to data sources from the State of Washington, wildfire
-                risk in your area is{" "}
+                According to State of Washington data, wildfire risk in your
+                area is{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {burnRiskText}
                 </LargeText>
