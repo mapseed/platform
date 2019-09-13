@@ -650,7 +650,7 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle weight="bold">
-                Scan this code to sign up for Kittitas County Sheriff's
+                Scan this code to sign up for Kittitas County Sheriff&apos;s
                 Emergency Notifications:
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
