@@ -136,9 +136,8 @@ const KittitasFireReadyPageHeader = props => (
             font-weight: 900;
           `}
         >
-          Approximate report location:
-        </span>{" "}
-        {props.address}
+          Approximate report location: {props.address}
+        </span>
       </SmallText>
     </FloatedRight>
   </PageHeader>
