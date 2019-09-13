@@ -58,19 +58,19 @@ const fireDistrictInfo = {
     email: "bit.ly/2kH8HUj",
     phone: "509-962-7506",
   }, // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
-  "Easton Fire District": {
+  "Fire District #3 (Easton)": {
     email: "bit.ly/2mafJRO",
     phone: "509-656-0121",
   },
-  "Snoqualmie Pass Fire and Rescue": {
+  "Fire District #51 (Snoqualmie Pass)": {
     email: "bit.ly/2mafpCA",
     phone: "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
   },
-  "Ronald Fire District": {
+  "Fire District #6 (Ronald)": {
     email: "bit.ly/2kKep7Z",
     phone: "509-649-2600",
   },
-  "City of Roslyn Volunteer Fire Department": {
+  "Roslyn Fire Department": {
     email: "bit.ly/2kHQSVa",
     phone: "509-649-3105",
   },
@@ -78,19 +78,19 @@ const fireDistrictInfo = {
     email: "bit.ly/2lTvVGT",
     phone: "509-674-1748",
   },
-  "Rural Thorp Fire District": {
+  "Fire District #1 (Thorp)": {
     email: "bit.ly/2kjayi2",
     phone: "509-964-2435",
   },
-  "Vantage Fire District": {
+  "Fire District #4 (Vantage)": {
     email: "bit.ly/2kIsfrs",
     phone: "Not available",
   },
-  "Kittitas Valley Fire and Rescue": {
+  "Kittitas Valley Fire and Rescue/Fire District #2": {
     email: "bit.ly/2kadOvU",
     phone: "509-933-7231",
   },
-  "Fire District 7 (Cle Elum)": {
+  "Cle Elum Fire Department": {
     email: "bit.ly/2lLj1ei",
     phone: "509-933-7235",
   },
@@ -485,7 +485,8 @@ const KittitasFireReadyReport = props => {
                         color: #222;
                       `}
                     >
-                      Average fire starts in your area per year
+                      Average fire starts per year within a 1-mile radius of
+                      your location
                     </RegularText>
                   </FlexItem>
                 </FlexCentered>
@@ -507,7 +508,8 @@ const KittitasFireReadyReport = props => {
                         color: #222;
                       `}
                     >
-                      Number of large wildfires in your area since 1973
+                      Number of large wildfires over 100 acres within a 1-mile
+                      radius of your location since 1973
                     </RegularText>
                   </FlexItem>
                 </FlexCentered>
@@ -613,12 +615,12 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle weight="bold">
-                Kittitas County Sheriff
+                Follow Kittitas County Sheriff on Social Media
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
-                  faClassname="fas fa-globe"
+                  faClassname="fab fa-twitter"
                 >
                   <ExternalLink href="http://bit.ly/2mfXdaT">
                     <LargeText>bit.ly/2mfXdaT</LargeText>
@@ -626,7 +628,7 @@ const KittitasFireReadyReport = props => {
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
-                  faClassname="fas fa-globe"
+                  faClassname="fab fa-facebook"
                 >
                   <ExternalLink href="http://bit.ly/2lST0JL">
                     <LargeText>bit.ly/2lST0JL</LargeText>
@@ -651,7 +653,8 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle weight="bold">
-                {"Scan this code for Kittitas County Sheriff's Information:"}
+                Scan this code to sign up for Kittitas County Sheriff's
+                Emergency Notifications:
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
@@ -711,7 +714,7 @@ const KittitasFireReadyReport = props => {
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   Extended
                 </LargeText>{" "}
-                (30-100 feet or 200 feet on a slope).
+                (30-100 feet or 200 feet in or near steeper terrain).
               </ReportBodyText>
               <ReportBodyText>
                 {" "}
@@ -851,9 +854,9 @@ const KittitasFireReadyReport = props => {
                 `}
               >
                 Want to be part of the solution? Join the Kittitas Fire Adapted
-                Communities Coalition (K-FACC) and help us spread the word to
-                our communities! Call 925-3352 ext. 204 to be added to the
-                mailing list.
+                Communities Coalition (KFACC) and help us spread the word to our
+                communities! Call 925-3352 ext. 204 to be added to the mailing
+                list.
               </span>
             </div>
           </MainPanel>
