@@ -408,7 +408,7 @@ const KittitasFireReadyReport = props => {
               </ReportBodyText>
               <ReportBodyText>
                 This report summarizes the wildfire risk in the vicinity of your
-                property, as reported on the Kittitas County Fire Ready map.
+                property, as reported on the Kittitas County Fire Adapted map.
               </ReportBodyText>
               <ReportBodyText>
                 Even if the fire risk in your area appears low, be aware that
