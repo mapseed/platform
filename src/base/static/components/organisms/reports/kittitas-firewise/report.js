@@ -429,8 +429,13 @@ const KittitasFireReadyReport = props => {
                 with fire return intervals of
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {" "}
-                  {safeReturnInterval}.
+                  {safeReturnInterval}.{" "}
                 </LargeText>
+                Learn more about forest types here:{" "}
+                <ExternalLink href="http://bit.ly/2lK4hMB">
+                  bit.ly/2lK4hMB
+                </ExternalLink>
+                .
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
