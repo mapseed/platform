@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
-import { NavigationControl } from "react-map-gl";
+import { NavigationControl, GeolocateControl } from "react-map-gl";
 import { jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
@@ -43,49 +43,11 @@ class CustomControl extends React.Component<CustomControlProps> {
   }
 }
 
-type GeolocateControlProps = {
-  onViewportChange: any;
-};
-
-// react-map-gl does not export mapboxgl's built-in geolocate control, so we
-// need to build our own here.
-class GeolocateControl extends React.Component<GeolocateControlProps> {
-  onClickGeolocateControl = () => {
-    // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
-    navigator.geolocation.getCurrentPosition(position => {
-      this.props.onViewportChange({
-        longitude: position.coords.longitude,
-        latitude: position.coords.latitude,
-      });
-    });
-
-    // TODO: Geolocate error handling.
-    // TODO: Set zoom on geolocate? Add pulsating marker?
-  };
-
-  render() {
-    // If geolocation is not supported, do not render the geolocate control.
-    // This mirrors the default mapboxgl behavior.
-    return "geolocation" in navigator ? (
-      <div
-        className="mapboxgl-ctrl mapboxgl-ctrl-group"
-        style={{ marginTop: "8px" }}
-      >
-        <button
-          className="mapboxgl-ctrl-icon mapboxgl-ctrl-geolocate"
-          type="button"
-          title="Geolocate"
-          onClick={this.onClickGeolocateControl}
-        />
-      </div>
-    ) : null;
-  }
-}
-
 type DispatchProps = {
   setLeftSidebarExpanded: typeof setLeftSidebarExpanded;
   updateMeasurementToolVisibility: typeof updateMeasurementToolVisibility;
 };
+
 type MapControlStateProps = {
   leftSidebarConfig: LeftSidebarConfig;
   isMeasurementToolEnabled: boolean;
@@ -107,7 +69,13 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
       }}
     >
       <NavigationControl onViewportChange={setViewport} />
-      <GeolocateControl onViewportChange={setViewport} />
+      <GeolocateControl
+        trackUserLocation={true}
+        positionOptions={{ enableHighAccuracy: true, timeout: 6000 }}
+        style={{
+          marginTop: "8px",
+        }}
+      />
       <CustomControl
         icon={props.leftSidebarConfig.icon}
         onClick={() => props.setLeftSidebarExpanded(true)}
