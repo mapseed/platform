@@ -18,6 +18,7 @@ import {
   PlaceFilter,
 } from "../../state/ducks/place-filters";
 
+const UNFILTERED_VALUE = "__MAPSEED_UNFILTERED__";
 const isWithoutFilters = state =>
   // Determine if the user has un-selected all filters.
   !Object.values(state).some(filterOptionState => filterOptionState);
@@ -31,7 +32,6 @@ const resetFilters = placeFiltersConfig =>
     {},
   );
 
-const FILTER_MENU_ALL = "mapseed-place-filter-menu-widget-all";
 const PlaceFilterWidget = () => {
   // Because `visiblePlaceFiltersConfig` is a dep of a `useEffect` hook below,
   // use `shallowEqual` comparison to prevent a referential equality comparison
@@ -44,12 +44,22 @@ const PlaceFilterWidget = () => {
   );
   const dispatch = useDispatch();
   const [state, setState] = React.useState(
-    resetFilters(visiblePlaceFiltersConfig),
+    visiblePlaceFiltersConfig.reduce(
+      (memo, { value, setDefault = false }) => ({
+        ...memo,
+        [value]: setDefault,
+      }),
+      {},
+    ),
   );
 
   React.useEffect(() => {
     if (isWithoutFilters(state)) {
-      dispatch(updatePlaceFilters([]));
+      setState({
+        ...state,
+        [UNFILTERED_VALUE]: true,
+      });
+
       return;
     }
 
@@ -58,9 +68,12 @@ const PlaceFilterWidget = () => {
       .filter(([_, isActive]) => isActive)
       // eslint-disable-next-line
       .reduce((memo: PlaceFilter[], [filterValue, _]) => {
-        const placeFilterConfig = visiblePlaceFiltersConfig.find(
-          config => config.value === filterValue,
-        );
+        const placeFilterConfig =
+          filterValue === UNFILTERED_VALUE
+            ? {}
+            : visiblePlaceFiltersConfig.find(
+                config => config.value === filterValue,
+              );
 
         return placeFilterConfig
           ? [
@@ -81,18 +94,10 @@ const PlaceFilterWidget = () => {
   const handleChange = evt => {
     const { value, checked } = evt.target;
 
-    if (value === FILTER_MENU_ALL) {
-      dispatch(updatePlaceFilters([]));
-      setState({
-        ...resetFilters(visiblePlaceFiltersConfig),
-      });
-
-      return;
-    }
-
     setState({
       ...state,
       [value]: checked,
+      [UNFILTERED_VALUE]: false,
     });
   };
 
@@ -105,17 +110,6 @@ const PlaceFilterWidget = () => {
       {() => (
         <FormControl component="fieldset">
           <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isWithoutFilters(state)}
-                  onChange={handleChange}
-                  value={FILTER_MENU_ALL}
-                />
-              }
-              label="All"
-            />
-            <Divider />
             {visiblePlaceFiltersConfig.map(placeFilterConfig => (
               <FormControlLabel
                 key={placeFilterConfig.value}

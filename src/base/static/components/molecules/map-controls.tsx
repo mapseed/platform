@@ -1,11 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
-import {
-  NavigationControl,
-  GeolocateControl,
-  GeolocateControlProps,
-  BaseControl,
-} from "react-map-gl";
+import { NavigationControl, GeolocateControl } from "react-map-gl";
 import { jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
@@ -33,10 +28,10 @@ type StyleProp = {
 type GeolocateControlWithStyleProps = StyleProp & GeolocateControlProps;
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38417
-class GeolocateControlWithStyle extends BaseControl<
-  GeolocateControlWithStyleProps,
-  HTMLDivElement
-> {}
+//class GeolocateControlWithStyle extends BaseControl<
+//  GeolocateControlWithStyleProps,
+//  HTMLDivElement
+//> {}
 
 class CustomControl extends React.Component<CustomControlProps> {
   public static defaultProps = {
@@ -86,7 +81,7 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
       }}
     >
       <NavigationControl onViewportChange={setViewport} />
-      <GeolocateControlWithStyle
+      <GeolocateControl
         trackUserLocation={true}
         positionOptions={{ enableHighAccuracy: true, timeout: 6000 }}
         style={{

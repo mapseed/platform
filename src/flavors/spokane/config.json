@@ -11,21 +11,24 @@
         "operator": "includes",
         "datasetSlug": "spokane-input",
         "value": "agriculture",
-        "label": "Agricultural stewardship"
+        "label": "Agricultural stewardship",
+        "setDefault": true
       },
       {
         "placeProperty": "practice_types",
         "operator": "includes",
         "datasetSlug": "spokane-input",
         "value": "forestry",
-        "label": "Forestry stewardship"
+        "label": "Forestry stewardship",
+        "setDefault": true
       },
       {
         "placeProperty": "practice_types",
         "operator": "includes",
         "datasetSlug": "spokane-input",
         "value": "livestock",
-        "label": "Livestock stewardship"
+        "label": "Livestock stewardship",
+        "setDefault": true
       }
     ]
   },
