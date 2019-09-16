@@ -13,5 +13,5 @@
     "esModuleInterop": true,
     "lib": ["es6", "dom", "es2017", "dom.iterable", "scripthost"]
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "./scripts/*"]
 }
