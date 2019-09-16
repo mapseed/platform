@@ -11,21 +11,21 @@
         "operator": "includes",
         "datasetSlug": "spokane-input",
         "value": "agriculture",
-        "label": "Agriculture actions"
+        "label": "Agricultural stewardship"
       },
       {
         "placeProperty": "practice_types",
         "operator": "includes",
         "datasetSlug": "spokane-input",
         "value": "forestry",
-        "label": "Forestry actions"
+        "label": "Forestry stewardship"
       },
       {
         "placeProperty": "practice_types",
         "operator": "includes",
         "datasetSlug": "spokane-input",
         "value": "livestock",
-        "label": "Livestock actions"
+        "label": "Livestock stewardship"
       }
     ]
   },
@@ -959,8 +959,7 @@
                   ["==", ["get-val", "forest_management"], "interested"],
                   ["literal", "Forest Management"],
                   ["literal", ""]
-                ],
-                ["get-val", "other_practices_description"]
+                ]
               ]
             }
           ]
@@ -1653,9 +1652,23 @@
       },
       {
         "id": "spokane-input",
+        "datasetSlug": "spokane-input",
         "visibleDefault": true,
         "interactive": true,
-        "datasetSlug": "spokane-input",
+        "legend": [
+          {
+            "icon": "/static/css/images/markers/marker-field.png",
+            "label": "Agricultural stewardship"
+          },
+          {
+            "icon": "/static/css/images/markers/marker-forest.png",
+            "label": "Forestry stewardship"
+          },
+          {
+            "icon": "/static/css/images/markers/marker-livestock.png",
+            "label": "Livestock stewardship"
+          }
+        ],
         "mapboxFocusedLayers": [
           {
             "id": "spokane-input-focused",
@@ -1666,10 +1679,14 @@
               "icon-anchor": "bottom",
               "icon-image": [
                 "match",
-                ["get", "location_type"],
-                "reports",
+                ["at", 0, ["get", "practice_types"]],
+                "agriculture",
                 "marker-field.png",
-                "__no-icon-image__"
+                "livestock",
+                "marker-livestock.png",
+                "forestry",
+                "marker-forest.png",
+                "marker-forest.png"
               ],
               "icon-allow-overlap": true
             }
@@ -1682,7 +1699,17 @@
             "source": "spokane-input",
             "layout": {
               "icon-anchor": "bottom",
-              "icon-image": "marker-field.png",
+              "icon-image": [
+                "match",
+                ["at", 0, ["get", "practice_types"]],
+                "agriculture",
+                "marker-field.png",
+                "livestock",
+                "marker-livestock.png",
+                "forestry",
+                "marker-forest.png",
+                "marker-forest.png"
+              ],
               "icon-size": ["step", ["zoom"], 0.3, 11, 0.4, 16, 0.5],
               "icon-allow-overlap": true
             }
@@ -1850,16 +1877,7 @@
           },
           {
             "start_field_index": 75,
-            "end_field_index": 76,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "spokane-input",
-              "spokane-county-outline"
-            ]
-          },
-          {
-            "start_field_index": 77,
-            "end_field_index": 92,
+            "end_field_index": 91,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -1999,9 +2017,7 @@
             "modal": {
               "header": "No till",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-no-till.jpg' alt='No till' />",
-                "<p>NRCS code: 329</p>",
-                "<p>No till consists of one pass seed and fertilizer placement.</p>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-no-till.jpg' alt='No till' /><p><strong>NRCS code:</strong> 329</p><p>No till consists of one pass seed and fertilizer placement.</p></div>"
               ]
             }
           },
@@ -2082,7 +2098,7 @@
             "modal": {
               "header": "Conventional till",
               "body": [
-                "<p>This practice consists of multiple tillage passes with soil inversion and seed bed preparation.</p>"
+                "<div style='width:300px;'><p>This practice consists of multiple tillage passes with soil inversion and seed bed preparation.</p></div>"
               ]
             }
           },
@@ -2160,9 +2176,7 @@
             "modal": {
               "header": "Reduced till",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-reduced-till.jpg' alt='Reduced till' />",
-                "<p>NRCS code: 345</p>",
-                "<p>This practice consists of seed and fertilizer placement while allowing the majority of crop residue and stubble to remain on the ground.<p>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-reduced-till.jpg' alt='Reduced till' /><p><strong>NRCS code:</strong> 345</p><p>This practice consists of seed and fertilizer placement while allowing the majority of crop residue and stubble to remain on the ground.<p></div>"
               ]
             }
           },
@@ -2244,9 +2258,7 @@
             "modal": {
               "header": "Soil tests",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-soil-tests.jpg' alt='Soil tests' />",
-                "<p>NRCS code: 590</p>",
-                "<p>Soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), pH, and buffer pH every four years.</p>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-soil-tests.jpg' alt='Soil tests' /><p><strong>NRCS code:</strong> 590</p><p>Soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), and pH every four years.</p></div>"
               ]
             }
           },
@@ -2356,8 +2368,7 @@
             "modal": {
               "header": "Fertilization",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' />",
-                "<p>NRCS code: 590</p>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
               ]
             }
           },
@@ -2598,8 +2609,7 @@
             "modal": {
               "header": "Buffers",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-buffers.jpg' alt='Buffers' />",
-                "<p>NRCS codes: 342, 391, 580, 386, 393</p>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
               ]
             }
           },
@@ -2772,8 +2782,7 @@
             "modal": {
               "header": "Grassed waterways",
               "body": [
-                "<p>NRCS code: 412</p>",
-                "<p>A grassed waterway is a shaped or graded channel that is established with suitable vegetation to convey surface water at a non-erosive velocity using a broad and shallow cross section to a stable outlet.</p>"
+                "<div style='width:300px'><p><strong>NRCS code:</strong> 412</p><p>A grassed waterway is a shaped or graded channel that is established with suitable vegetation to convey surface water at a non-erosive velocity using a broad and shallow cross section to a stable outlet.</p></div>"
               ]
             }
           },
@@ -2914,11 +2923,9 @@
               }
             ],
             "modal": {
-              "header": "Wildlife habitat enhancements",
+              "header": "Habitat enhancements",
               "body": [
-                "<img style='width:50%;' src='/static/css/images/practice-habitat-enhancements.jpg' alt='Wildlife habitat enhancements' />",
-                "<p>NRCS codes: 395, 420, 644, 645</p>",
-                "<p>A corridor of trees and/or shrubs planted adjacent to a river, stream, wetland or water body. The planting is of sufficient width and up-gradient and near the water body to insure adequate functioning for the desired purpose.</p>"
+                "<div style='width: 300px'><img style='width:100%;' src='/static/css/images/practice-habitat-enhancements.jpg' alt='Wildlife habitat enhancements' /><p><strong>NRCS codes:</strong> 395, 420, 644, 645</p><p>A corridor of trees and/or shrubs planted adjacent to a river, stream, wetland or water body. The planting is of sufficient width and up-gradient and near the water body to insure adequate functioning for the desired purpose.</p></div>"
               ]
             }
           },
@@ -3020,9 +3027,7 @@
             "modal": {
               "header": "Stream crossings",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-stream-crossings.jpg' alt='Stream crossings' />",
-                "<p>NRCS code: 578</p>",
-                "<p>A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles.</p>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-stream-crossings.jpg' alt='Stream crossings' /><p><strong>NRCS code:</strong> 578</p><p>A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles.</p></div>"
               ]
             }
           },
@@ -3124,9 +3129,7 @@
             "modal": {
               "header": "Fencing",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-fencing.jpg' alt='Fencing' />",
-                "<p>NRCS code: 382</p>",
-                "<p>There are many different purposes for and types of fences. Generally, fences shall be appropriately planned, designed, and installed to control the animal(s), vehicles, or people of concern.</p>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fencing.jpg' alt='Fencing' /><p><strong>NRCS code:</strong> 382</p><p>There are many different purposes for and types of fences. Generally, fences shall be appropriately planned, designed, and installed to control animals, vehicles, or people.</p></div>"
               ]
             }
           },
@@ -3208,8 +3211,7 @@
             "modal": {
               "header": "Mud and manure management",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-mud-manure-management.jpg' alt='Mud and manure management' />",
-                "<p>NRCS code: 561</p>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-mud-manure-management.jpg' alt='Mud and manure management' /><p><strong>NRCS code:</strong> 561</p><p>Heavy Use Area Protection is used to stabilize a ground surface that is frequently and intensively used by people, animals, or vehicles.</p></div>"
               ]
             }
           },
@@ -3312,8 +3314,7 @@
             "modal": {
               "header": "Off creek stock watering",
               "body": [
-                "<img style='width: 50%;' src='/static/css/images/practice-off-creek-watering.jpg' alt='Off creek stock watering' />",
-                "<p>NRCS codes: 516, 533, 614, 561, 642</p>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-off-creek-watering.jpg' alt='Off creek stock watering' /><p><strong>NRCS codes:</strong> 516, 533, 614, 561, 642</p><p>A means of providing drinking water to livestock away from streams and wetlands.</p></div>"
               ]
             }
           },
@@ -3393,7 +3394,13 @@
                 "label": "No, but interested",
                 "value": "interested"
               }
-            ]
+            ],
+            "modal": {
+              "header": "Forest management",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-forest-management.jpg' alt='Forest management' /><p><strong>NRCS codes:</strong> 612, 660, 666</p><p>Management practices can include planning, planting, pruning and the removal of undesirable vegetation.</p></div>"
+              ]
+            }
           },
           {
             "name": "forest_management_description",
@@ -3490,23 +3497,10 @@
             "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
           },
           {
-            "//": "---------------SECTION: OTHER PRACTICES-------------------",
-            "name": "other_practices_header",
-            "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Other Stewardship Practices</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-other-stewardship-practices.jpg' alt='Other practices section'/></figure>"
-          },
-          {
-            "name": "other_practices_description",
-            "type": "textarea",
-            "prompt": "Please describe your other stewardship practices:",
-            "placeholder": "Description...",
-            "optional": true
-          },
-          {
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure><p style='font-size:1.2rem;'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure>"
           },
           {
             "name": "practices_description",
@@ -3697,6 +3691,11 @@
               }
             ],
             "optional": true
+          },
+          {
+            "name": "thank_you",
+            "type": "informational_html",
+            "content": "<p style='font-size:1.2rem;'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
           },
           {
             "name": "submit",
