@@ -5,6 +5,7 @@ type PlaceFilterConfig = {
   value: string | number;
   label: string;
   icon?: string;
+  setDefault?: boolean;
 };
 
 type PlaceFiltersConfig = PlaceFilterConfig[];

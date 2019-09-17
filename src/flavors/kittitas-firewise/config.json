@@ -1533,7 +1533,7 @@
             "type": "aggregatePointsInBuffer",
             "analysisTarget": "kittitas-wildfire-start-sites-2008-2018.geojson",
             "buffer": {
-              "distance": 1,
+              "distance": 10,
               "units": "miles"
             },
             "aggregator": {
@@ -1545,7 +1545,7 @@
             "type": "aggregatePolygonsOverlappingBuffer",
             "analysisTarget": "kittitas-large-fires-1973-2018-100-acres-plus-simplified.geojson",
             "buffer": {
-              "distance": 1,
+              "distance": 10,
               "units": "miles"
             },
             "aggregator": {

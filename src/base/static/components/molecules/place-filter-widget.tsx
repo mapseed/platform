@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import * as React from "react";
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import MapWidgetWrapper from "./map-widget-wrapper";
 import {
@@ -16,23 +17,16 @@ import {
 import {
   updatePlaceFilters,
   PlaceFilter,
+  PlaceFilterOperator,
 } from "../../state/ducks/place-filters";
+import { RegularText } from "../atoms/typography";
 
+const UNFILTERED_VALUE = "__MAPSEED_UNFILTERED__";
 const isWithoutFilters = state =>
   // Determine if the user has un-selected all filters.
   !Object.values(state).some(filterOptionState => filterOptionState);
 
-const resetFilters = placeFiltersConfig =>
-  placeFiltersConfig.reduce(
-    (memo, { value }) => ({
-      ...memo,
-      [value]: false,
-    }),
-    {},
-  );
-
-const FILTER_MENU_ALL = "mapseed-place-filter-menu-widget-all";
-const PlaceFilterWidget = () => {
+const PlaceFilterWidget = (props: WithTranslation) => {
   // Because `visiblePlaceFiltersConfig` is a dep of a `useEffect` hook below,
   // use `shallowEqual` comparison to prevent a referential equality comparison
   // between renders, mimicking the behavior of `connect()`. Using referential
@@ -44,12 +38,22 @@ const PlaceFilterWidget = () => {
   );
   const dispatch = useDispatch();
   const [state, setState] = React.useState(
-    resetFilters(visiblePlaceFiltersConfig),
+    visiblePlaceFiltersConfig.reduce(
+      (memo, { value, setDefault = false }) => ({
+        ...memo,
+        [value]: setDefault,
+      }),
+      {},
+    ),
   );
 
   React.useEffect(() => {
     if (isWithoutFilters(state)) {
-      dispatch(updatePlaceFilters([]));
+      setState({
+        ...state,
+        [UNFILTERED_VALUE]: true,
+      });
+
       return;
     }
 
@@ -58,9 +62,19 @@ const PlaceFilterWidget = () => {
       .filter(([_, isActive]) => isActive)
       // eslint-disable-next-line
       .reduce((memo: PlaceFilter[], [filterValue, _]) => {
-        const placeFilterConfig = visiblePlaceFiltersConfig.find(
-          config => config.value === filterValue,
-        );
+        const placeFilterConfig =
+          filterValue === UNFILTERED_VALUE
+            ? // When no filters are applied, pass an empty filter that will
+              // cause all Places to be filtered out.
+              {
+                operator: "equals" as PlaceFilterOperator,
+                datasetSlug: "",
+                placeProperty: "",
+                value: "",
+              }
+            : visiblePlaceFiltersConfig.find(
+                config => config.value === filterValue,
+              );
 
         return placeFilterConfig
           ? [
@@ -81,18 +95,10 @@ const PlaceFilterWidget = () => {
   const handleChange = evt => {
     const { value, checked } = evt.target;
 
-    if (value === FILTER_MENU_ALL) {
-      dispatch(updatePlaceFilters([]));
-      setState({
-        ...resetFilters(visiblePlaceFiltersConfig),
-      });
-
-      return;
-    }
-
     setState({
       ...state,
       [value]: checked,
+      [UNFILTERED_VALUE]: false,
     });
   };
 
@@ -103,37 +109,38 @@ const PlaceFilterWidget = () => {
   return (
     <MapWidgetWrapper color="black">
       {() => (
-        <FormControl component="fieldset">
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isWithoutFilters(state)}
-                  onChange={handleChange}
-                  value={FILTER_MENU_ALL}
+        <React.Fragment>
+          <RegularText
+            weight="bold"
+            css={css`
+              display: flex;
+              margin-bottom: 8px;
+            `}
+          >
+            {props.t("placeFilterWidgetShowLabel", "Show:")}
+          </RegularText>
+          <Divider />
+          <FormControl component="fieldset">
+            <FormGroup>
+              {visiblePlaceFiltersConfig.map(placeFilterConfig => (
+                <FormControlLabel
+                  key={placeFilterConfig.value}
+                  control={
+                    <Checkbox
+                      checked={state[placeFilterConfig.value]}
+                      onChange={handleChange}
+                      value={placeFilterConfig.value}
+                    />
+                  }
+                  label={placeFilterConfig.label}
                 />
-              }
-              label="All"
-            />
-            <Divider />
-            {visiblePlaceFiltersConfig.map(placeFilterConfig => (
-              <FormControlLabel
-                key={placeFilterConfig.value}
-                control={
-                  <Checkbox
-                    checked={state[placeFilterConfig.value]}
-                    onChange={handleChange}
-                    value={placeFilterConfig.value}
-                  />
-                }
-                label={placeFilterConfig.label}
-              />
-            ))}
-          </FormGroup>
-        </FormControl>
+              ))}
+            </FormGroup>
+          </FormControl>
+        </React.Fragment>
       )}
     </MapWidgetWrapper>
   );
 };
 
-export default PlaceFilterWidget;
+export default withTranslation("PlaceFilterWidget")(PlaceFilterWidget);
