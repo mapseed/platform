@@ -64,7 +64,7 @@ const PlaceFilterWidget = (props: WithTranslation) => {
       .reduce((memo: PlaceFilter[], [filterValue, _]) => {
         const placeFilterConfig =
           filterValue === UNFILTERED_VALUE
-            ? // When no filters are applied, pass an empty filter that eill
+            ? // When no filters are applied, pass an empty filter that will
               // cause all Places to be filtered out.
               {
                 operator: "equals" as PlaceFilterOperator,
