@@ -25,7 +25,7 @@
   "app": {
     "title": "Kittitas County Fire Adapted Program",
     "name": "Kittitas County Fire Adapted Program",
-    "logo": "/static/css/images/logo.png",
+    "logo": "/static/css/images/logo-new.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
