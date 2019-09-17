@@ -2612,7 +2612,7 @@
             "modal": {
               "header": "Buffers",
               "body": [
-                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers-new.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
               ]
             }
           },
@@ -3030,7 +3030,7 @@
             "modal": {
               "header": "Stream crossings",
               "body": [
-                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-stream-crossings.jpg' alt='Stream crossings' /><p><strong>NRCS code:</strong> 578</p><p>A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles.</p></div>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-stream-crossings-new.jpg' alt='Stream crossings' /><p><strong>NRCS code:</strong> 578</p><p>A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles.</p></div>"
               ]
             }
           },
@@ -3214,7 +3214,7 @@
             "modal": {
               "header": "Mud and manure management",
               "body": [
-                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-mud-manure-management.jpg' alt='Mud and manure management' /><p><strong>NRCS code:</strong> 561</p><p>Heavy Use Area Protection is used to stabilize a ground surface that is frequently and intensively used by people, animals, or vehicles.</p></div>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-mud-manure-management-new.jpg' alt='Mud and manure management' /><p><strong>NRCS code:</strong> 561</p><p>Heavy Use Area Protection is used to stabilize a ground surface that is frequently and intensively used by people, animals, or vehicles.</p></div>"
               ]
             }
           },
