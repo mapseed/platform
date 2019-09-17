@@ -163,7 +163,7 @@
     "watchify": "^3.11.1",
     "webpack": "~4.40.0",
     "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0",
+    "webpack-dev-server": "^3.8.1",
     "webpack-modernizr-loader": "^5.0.0",
     "workbox-webpack-plugin": "^4.3.1",
     "yaml-loader": "^0.5.0"
