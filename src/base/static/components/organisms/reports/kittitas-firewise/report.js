@@ -485,7 +485,7 @@ const KittitasFireReadyReport = props => {
                         color: #222;
                       `}
                     >
-                      Average fire starts per year within a 1-mile radius of
+                      Average fire starts per year within a 10-mile radius of
                       your location
                     </RegularText>
                   </FlexItem>
@@ -508,7 +508,7 @@ const KittitasFireReadyReport = props => {
                         color: #222;
                       `}
                     >
-                      Number of large wildfires over 100 acres within a 1-mile
+                      Number of large wildfires over 100 acres within a 10-mile
                       radius of your location since 1973
                     </RegularText>
                   </FlexItem>
