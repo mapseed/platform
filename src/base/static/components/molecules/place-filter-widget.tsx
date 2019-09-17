@@ -7,6 +7,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import MapWidgetWrapper from "./map-widget-wrapper";
 import {
@@ -25,7 +26,7 @@ const isWithoutFilters = state =>
   // Determine if the user has un-selected all filters.
   !Object.values(state).some(filterOptionState => filterOptionState);
 
-const PlaceFilterWidget = () => {
+const PlaceFilterWidget = (props: WithTranslation) => {
   // Because `visiblePlaceFiltersConfig` is a dep of a `useEffect` hook below,
   // use `shallowEqual` comparison to prevent a referential equality comparison
   // between renders, mimicking the behavior of `connect()`. Using referential
@@ -116,7 +117,7 @@ const PlaceFilterWidget = () => {
               margin-bottom: 8px;
             `}
           >
-            Show:
+            {props.t("placeFilterWidgetShowLabel", "Show:")}
           </RegularText>
           <Divider />
           <FormControl component="fieldset">
@@ -142,4 +143,4 @@ const PlaceFilterWidget = () => {
   );
 };
 
-export default PlaceFilterWidget;
+export default withTranslation("PlaceFilterWidget")(PlaceFilterWidget);
