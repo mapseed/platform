@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -18,20 +18,12 @@ import {
   PlaceFilter,
   PlaceFilterOperator,
 } from "../../state/ducks/place-filters";
+import { RegularText } from "../atoms/typography";
 
 const UNFILTERED_VALUE = "__MAPSEED_UNFILTERED__";
 const isWithoutFilters = state =>
   // Determine if the user has un-selected all filters.
   !Object.values(state).some(filterOptionState => filterOptionState);
-
-const resetFilters = placeFiltersConfig =>
-  placeFiltersConfig.reduce(
-    (memo, { value }) => ({
-      ...memo,
-      [value]: false,
-    }),
-    {},
-  );
 
 const PlaceFilterWidget = () => {
   // Because `visiblePlaceFiltersConfig` is a dep of a `useEffect` hook below,
@@ -116,23 +108,35 @@ const PlaceFilterWidget = () => {
   return (
     <MapWidgetWrapper color="black">
       {() => (
-        <FormControl component="fieldset">
-          <FormGroup>
-            {visiblePlaceFiltersConfig.map(placeFilterConfig => (
-              <FormControlLabel
-                key={placeFilterConfig.value}
-                control={
-                  <Checkbox
-                    checked={state[placeFilterConfig.value]}
-                    onChange={handleChange}
-                    value={placeFilterConfig.value}
-                  />
-                }
-                label={placeFilterConfig.label}
-              />
-            ))}
-          </FormGroup>
-        </FormControl>
+        <React.Fragment>
+          <RegularText
+            weight="bold"
+            css={css`
+              display: flex;
+              margin-bottom: 8px;
+            `}
+          >
+            Show:
+          </RegularText>
+          <Divider />
+          <FormControl component="fieldset">
+            <FormGroup>
+              {visiblePlaceFiltersConfig.map(placeFilterConfig => (
+                <FormControlLabel
+                  key={placeFilterConfig.value}
+                  control={
+                    <Checkbox
+                      checked={state[placeFilterConfig.value]}
+                      onChange={handleChange}
+                      value={placeFilterConfig.value}
+                    />
+                  }
+                  label={placeFilterConfig.label}
+                />
+              ))}
+            </FormGroup>
+          </FormControl>
+        </React.Fragment>
       )}
     </MapWidgetWrapper>
   );
