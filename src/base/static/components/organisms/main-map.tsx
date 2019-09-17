@@ -393,8 +393,6 @@ class MainMap extends React.Component<Props, State> {
   };
 
   applyFeatureFilters() {
-    console.log("this.props.filteredPlaces", this.props.filteredPlaces);
-
     this.props.datasets
       .map(dataset => dataset.slug)
       .forEach(sourceId => {

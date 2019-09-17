@@ -16,6 +16,7 @@ import {
 import {
   updatePlaceFilters,
   PlaceFilter,
+  PlaceFilterOperator,
 } from "../../state/ducks/place-filters";
 
 const UNFILTERED_VALUE = "__MAPSEED_UNFILTERED__";
@@ -70,7 +71,14 @@ const PlaceFilterWidget = () => {
       .reduce((memo: PlaceFilter[], [filterValue, _]) => {
         const placeFilterConfig =
           filterValue === UNFILTERED_VALUE
-            ? {}
+            ? // When no filters are applied, pass an empty filter that eill
+              // cause all Places to be filtered out.
+              {
+                operator: "equals" as PlaceFilterOperator,
+                datasetSlug: "",
+                placeProperty: "",
+                value: "",
+              }
             : visiblePlaceFiltersConfig.find(
                 config => config.value === filterValue,
               );

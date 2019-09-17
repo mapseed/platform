@@ -1,6 +1,10 @@
 /** @jsx jsx */
 import * as React from "react";
-import { NavigationControl, GeolocateControl } from "react-map-gl";
+import {
+  NavigationControl,
+  GeolocateControl,
+  GeolocateControlProps,
+} from "react-map-gl";
 import { jsx } from "@emotion/core";
 import { connect } from "react-redux";
 
@@ -21,17 +25,13 @@ type CustomControlProps = {
   icon: string;
 };
 
-type StyleProp = {
-  style?: React.CSSProperties;
-};
-
-type GeolocateControlWithStyleProps = StyleProp & GeolocateControlProps;
-
 // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38417
-//class GeolocateControlWithStyle extends BaseControl<
-//  GeolocateControlWithStyleProps,
-//  HTMLDivElement
-//> {}
+// TODO: Remove this when react-map-gl's types are updated.
+declare module "react-map-gl" {
+  export interface GeolocateControlProps {
+    style?: React.CSSProperties;
+  }
+}
 
 class CustomControl extends React.Component<CustomControlProps> {
   public static defaultProps = {
