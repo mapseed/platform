@@ -307,6 +307,10 @@ class InputForm extends Component {
   }
 
   onSubmit() {
+    if (this.state.isFormSubmitting) {
+      return;
+    }
+
     Util.log("USER", "new-place", "submit-place-btn-click");
 
     Mixpanel.track("Clicked place form submit");
