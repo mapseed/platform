@@ -9,7 +9,7 @@ import WebMercatorViewport from "viewport-mercator-project";
 
 import { LargeTitle } from "../atoms/typography";
 import PromotionBar from "../molecules/promotion-bar";
-import MetadataBar from "./metadata-bar";
+import MetadataBar from "../molecules/metadata-bar";
 import Survey from "./survey";
 import EditorBar from "./editor-bar";
 import TagBar from "../organisms/tag-bar";
@@ -412,6 +412,7 @@ class PlaceDetail extends React.Component<Props, State> {
         </LargeTitle>
         <PromotionMetadataContainer>
           <MetadataBar
+            label={categoryConfig.label}
             createdDatetime={this.props.focusedPlace.created_datetime}
             submitterName={submitterName}
             submitterAvatarUrl={
