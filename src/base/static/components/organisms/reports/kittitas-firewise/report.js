@@ -55,43 +55,43 @@ const getBurnRiskText = burnRisk => {
 // https://www.co.kittitas.wa.us/cds/firemarshal/local-fire-districts.aspx
 const fireDistrictInfo = {
   "You are not located in a Fire District. Contact the Fire Marshal's Office:": {
-    email: "bit.ly/2kH8HUj",
+    website: "bit.ly/2kH8HUj",
     phone: "509-962-7506",
   }, // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
   "Fire District #3 (Easton)": {
-    email: "bit.ly/2mafJRO",
+    website: "bit.ly/2mafJRO",
     phone: "509-656-0121",
   },
   "Fire District #51 (Snoqualmie Pass)": {
-    email: "bit.ly/2mafpCA",
+    website: "bit.ly/2mafpCA",
     phone: "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
   },
   "Fire District #6 (Ronald)": {
-    email: "bit.ly/2kKep7Z",
+    website: "bit.ly/2kKep7Z",
     phone: "509-649-2600",
   },
   "Roslyn Fire Department": {
-    email: "bit.ly/2kHQSVa",
+    website: "bit.ly/2kHQSVa",
     phone: "509-649-3105",
   },
   "City of Cle Elum Volunteer Fire Department": {
-    email: "bit.ly/2lTvVGT",
+    website: "bit.ly/2lTvVGT",
     phone: "509-674-1748",
   },
   "Fire District #1 (Thorp)": {
-    email: "bit.ly/2kjayi2",
+    website: "bit.ly/2kjayi2",
     phone: "509-964-2435",
   },
   "Fire District #4 (Vantage)": {
-    email: "bit.ly/2kIsfrs",
+    website: "bit.ly/2kIsfrs",
     phone: "Not available",
   },
   "Kittitas Valley Fire and Rescue/Fire District #2": {
-    email: "bit.ly/2kadOvU",
+    website: "bit.ly/2kadOvU",
     phone: "509-933-7231",
   },
   "Cle Elum Fire Department": {
-    email: "bit.ly/2lLj1ei",
+    website: "bit.ly/2lLj1ei",
     phone: "509-933-7235",
   },
 };
@@ -266,13 +266,17 @@ const KittitasFireReadyReport = props => {
                     </ContentWithFontAwesomeIcon>
                     <ContentWithFontAwesomeIcon
                       color="#444"
-                      faClassname="fas fa-globe"
+                      faClassname={
+                        safeFireDistrictContactInfo.website === "bit.ly/2kH8HUj"
+                          ? "fas fa-globe"
+                          : "fab fa-facebook"
+                      }
                     >
                       <ExternalLink
-                        href={"http://" + safeFireDistrictContactInfo.email}
+                        href={"http://" + safeFireDistrictContactInfo.website}
                       >
                         <LargeText>
-                          {safeFireDistrictContactInfo.email}
+                          {safeFireDistrictContactInfo.website}
                         </LargeText>
                       </ExternalLink>
                     </ContentWithFontAwesomeIcon>
@@ -297,9 +301,9 @@ const KittitasFireReadyReport = props => {
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
-                  faClassname="fas fa-globe"
+                  faClassname="fab fa-facebook"
                 >
-                  <ExternalLink href="https://www.facebook.com/KittitasFACC">
+                  <ExternalLink href="http://bit.ly/2kxACWU">
                     <LargeText>bit.ly/2kxACWU</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
