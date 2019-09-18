@@ -52,6 +52,7 @@ import {
   layoutSelector,
   updateEditModeToggled,
   updateSpotlightMaskVisibility,
+  rightSidebarVisibilitySelector,
   Layout,
 } from "../../state/ducks/ui";
 import { focusedPlaceSelector, Place } from "../../state/ducks/places";
@@ -98,6 +99,7 @@ type StateProps = {
   hasGroupAbilitiesInDatasets: Function;
   hasUserAbilitiesInPlace: Function;
   isEditModeToggled: boolean;
+  isRightSidebarVisible: boolean;
   layerGroups: LayerGroups;
   layout: Layout;
   commentFormConfig: CommentFormConfig;
@@ -384,6 +386,8 @@ class PlaceDetail extends React.Component<Props, State> {
             isAdmin={this.props.hasAdminAbilities(
               this.props.focusedPlace.datasetSlug,
             )}
+            isRightSidebarVisible={this.props.isRightSidebarVisible}
+            layout={this.props.layout}
             isEditModeToggled={this.props.isEditModeToggled}
             isPlaceDetailEditable={this.state.isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
@@ -499,6 +503,7 @@ const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
     hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
   isEditModeToggled: isEditModeToggled(state),
+  isRightSidebarVisible: rightSidebarVisibilitySelector(state),
   layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   commentFormConfig: commentFormConfigSelector(state),

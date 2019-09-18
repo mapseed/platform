@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import * as React from "react";
 import { css, jsx } from "@emotion/core";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import mq from "../../../../media-queries";
 import { EditorButton } from "../atoms/buttons";
-import { withTranslation, WithTranslation } from "react-i18next";
 import constants from "../../constants";
 
 type EditorBarProps = {
@@ -16,9 +16,19 @@ type EditorBarProps = {
   onClickUpdatePlace: Function;
   onClickRemovePlace: Function;
   isEditModeToggled: boolean;
+  isRightSidebarVisible: boolean;
+  layout: string;
 };
 
 type Props = WithTranslation & EditorBarProps;
+
+const getLeftOffset = (layout, isRightSidebarVisible) => {
+  if (layout === "mobile") {
+    return "8px";
+  }
+
+  return isRightSidebarVisible ? "calc(45% + 8px)" : "calc(60% + 8px)";
+};
 
 const EditorBar: React.FunctionComponent<Props> = props => {
   return (
@@ -34,7 +44,7 @@ const EditorBar: React.FunctionComponent<Props> = props => {
           padding-top: 15px;
           border-bottom: 2px solid #ddd;
           width: calc(40% - 20px);
-          right: 10px;
+          left: ${getLeftOffset(props.layout, props.isRightSidebarVisible)};
           top: ${constants.HEADER_HEIGHT}px;
         }
       `}
