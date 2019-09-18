@@ -168,32 +168,33 @@ const GeocodingField: React.FunctionComponent<Props> = ({
         position: relative;
       `}
     >
-      {isGeocoding && (
-        <Spinner style={{ left: "20px", width: "30px", height: "30px" }} />
-      )}
-      {!isGeocoding && (
-        <Button
-          css={css`
-            position: absolute;
-            padding: 0;
-            cursor: pointer;
-            left: 12px;
-            top: 5px;
-            font-size: 20px;
-            margin-top: 4px;
+      {isGeocoding && <Spinner />}
+      <Button
+        css={css`
+          position: absolute;
+          padding: 0;
+          cursor: pointer;
+          left: 12px;
+          top: 5px;
+          font-size: 20px;
+          margin-top: 4px;
+          background: none;
+
+          &:hover {
             background: none;
-          `}
-          onClick={doGeocode}
-        >
-          <FontAwesomeIcon
-            color="#888"
-            hoverColor="#aaa"
-            faClassname="fas fa-search"
-          />
-        </Button>
-      )}
+          }
+        `}
+        onClick={doGeocode}
+      >
+        <FontAwesomeIcon
+          color={isGeocoding ? "#ddd" : "#888"}
+          hoverColor="#aaa"
+          faClassname="fas fa-search"
+        />
+      </Button>
       <TextInput
         css={css`
+          color: ${isGeocoding ? "#ddd" : "initial"};
           padding-left: 35px;
           width: 100%;
           box-sizing: border-box;

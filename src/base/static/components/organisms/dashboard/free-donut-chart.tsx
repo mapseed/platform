@@ -46,28 +46,29 @@ class FreeDonutChart extends React.Component<FreeDonutChartProps> {
     const { label, percent, count, x, y, midAngle } = pieProps;
     let anchor = "middle";
     let dx = 0;
-    let dy = 0;
 
     // Arrange labels nicely around the donut.
-    if (midAngle >= 295 || midAngle <= 65) {
-      // Right section of donut.
+    if (midAngle >= 270) {
+      // SE quadrant of donut.
       dx = 5;
       anchor = "start";
-    } else if (midAngle > 65 && midAngle < 115) {
-      // Top section.
-      dy = -24;
-    } else if (midAngle >= 115 && midAngle < 245) {
-      // Left section.
+    } else if (midAngle >= 180 && midAngle < 270) {
+      // SW quadrant.
+      dx = -5;
+      anchor = "end";
+    } else if (midAngle >= 90 && midAngle < 180) {
+      // NW quadrant.
       dx = -5;
       anchor = "end";
     } else {
-      // Bottom section.
-      dy = 15;
+      // NE quadrant.
+      dx = 5;
+      anchor = "start";
     }
 
     return (
       <text x={x} y={y}>
-        <tspan x={x} dx={dx} dy={dy} fill="#888" textAnchor={anchor}>
+        <tspan x={x} dx={dx} dy={0} fill="#888" textAnchor={anchor}>
           {label}
         </tspan>
         <tspan x={x} dx={dx} dy={15} textAnchor={anchor} fill="#222">

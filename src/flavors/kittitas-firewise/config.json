@@ -1576,7 +1576,7 @@
           }
         ],
         "value": "landowner",
-        "label": "I am a landowner in Kittitas County",
+        "label": "Fire Adapted Report",
         "multi_stage": [
           {
             "start_field_index": 1,

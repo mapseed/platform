@@ -9,7 +9,7 @@ import WebMercatorViewport from "viewport-mercator-project";
 
 import { LargeTitle } from "../atoms/typography";
 import PromotionBar from "../molecules/promotion-bar";
-import MetadataBar from "./metadata-bar";
+import MetadataBar from "../molecules/metadata-bar";
 import Survey from "./survey";
 import EditorBar from "./editor-bar";
 import TagBar from "../organisms/tag-bar";
@@ -52,6 +52,7 @@ import {
   layoutSelector,
   updateEditModeToggled,
   updateSpotlightMaskVisibility,
+  rightSidebarVisibilitySelector,
   Layout,
 } from "../../state/ducks/ui";
 import { focusedPlaceSelector, Place } from "../../state/ducks/places";
@@ -98,6 +99,7 @@ type StateProps = {
   hasGroupAbilitiesInDatasets: Function;
   hasUserAbilitiesInPlace: Function;
   isEditModeToggled: boolean;
+  isRightSidebarVisible: boolean;
   layerGroups: LayerGroups;
   layout: Layout;
   commentFormConfig: CommentFormConfig;
@@ -384,6 +386,8 @@ class PlaceDetail extends React.Component<Props, State> {
             isAdmin={this.props.hasAdminAbilities(
               this.props.focusedPlace.datasetSlug,
             )}
+            isRightSidebarVisible={this.props.isRightSidebarVisible}
+            layout={this.props.layout}
             isEditModeToggled={this.props.isEditModeToggled}
             isPlaceDetailEditable={this.state.isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
@@ -412,6 +416,7 @@ class PlaceDetail extends React.Component<Props, State> {
         </LargeTitle>
         <PromotionMetadataContainer>
           <MetadataBar
+            label={categoryConfig.label}
             createdDatetime={this.props.focusedPlace.created_datetime}
             submitterName={submitterName}
             submitterAvatarUrl={
@@ -498,6 +503,7 @@ const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
     hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
   isEditModeToggled: isEditModeToggled(state),
+  isRightSidebarVisible: rightSidebarVisibilitySelector(state),
   layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   commentFormConfig: commentFormConfigSelector(state),

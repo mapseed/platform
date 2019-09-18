@@ -1,24 +1,36 @@
 /** @jsx jsx */
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { css, jsx } from "@emotion/core";
 import moment from "moment";
 
 import { UserAvatar } from "../atoms/imagery";
 import { SmallText, RegularText } from "../atoms/typography";
-import { withTranslation } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 import {
-  commentFormConfigPropType,
   commentFormConfigSelector,
+  CommentFormConfig,
 } from "../../state/ducks/forms-config";
-import {
-  appConfigSelector,
-  appConfigPropType,
-} from "../../state/ducks/app-config";
+import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 
-const MetadataBar = props => (
+type OwnProps = {
+  actionText: string;
+  createdDatetime: string;
+  label: string;
+  numComments: number;
+  submitterName: string;
+  submitterAvatarUrl?: string;
+};
+
+type StateProps = {
+  appConfig: AppConfig;
+  commentFormConfig: CommentFormConfig;
+};
+
+type MetadataBarProps = OwnProps & StateProps & WithTranslation;
+
+const MetadataBar = (props: MetadataBarProps) => (
   <div
     css={theme => css`
       font-family: ${theme.text.bodyFontFamily};
@@ -45,6 +57,7 @@ const MetadataBar = props => (
         <RegularText weight="black">{props.submitterName}</RegularText>{" "}
         <RegularText>
           {props.t("placeActionText", `${props.actionText}`)}{" "}
+          {props.t("this", "this")} {props.label}
         </RegularText>
       </div>
       <SmallText
@@ -77,18 +90,7 @@ const MetadataBar = props => (
   </div>
 );
 
-MetadataBar.propTypes = {
-  appConfig: appConfigPropType.isRequired,
-  actionText: PropTypes.string.isRequired,
-  createdDatetime: PropTypes.string.isRequired,
-  numComments: PropTypes.number.isRequired,
-  submitterName: PropTypes.string.isRequired,
-  submitterAvatarUrl: PropTypes.string,
-  t: PropTypes.func.isRequired,
-  commentFormConfig: commentFormConfigPropType.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any): StateProps => ({
   appConfig: appConfigSelector(state),
   commentFormConfig: commentFormConfigSelector(state),
 });

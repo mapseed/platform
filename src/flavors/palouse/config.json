@@ -5832,7 +5832,7 @@
             ]
           }
         ],
-        "label": "Actions",
+        "label": "VSP Report",
         "fields": [
           {
             "name": "lng-lat",
