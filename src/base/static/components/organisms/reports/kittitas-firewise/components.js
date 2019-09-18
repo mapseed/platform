@@ -89,7 +89,7 @@ KittitasFireReadySectionHeader.propTypes = {
 const KittitasFireReadyPageHeader = props => (
   <PageHeader
     backgroundColor="rgba(229, 207, 207, 0.4)"
-    logoSrc="/static/css/images/logo.png"
+    logoSrc="/static/css/images/logo-new.png"
   >
     <FloatedRight
       css={css`
