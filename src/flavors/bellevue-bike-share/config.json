@@ -46,6 +46,7 @@
   "app": {
     "title": "Bellevue Bike Sharing",
     "name": "Bellevue Bike Sharing",
+    "flavorSlug": "bellevue-bike-share",
     "logo": "/static/css/images/logo-3.png",
     "meta_description": "Decide where to put dockless bike sharing in Bellevue!",
     "meta_author": "mapseed.org",

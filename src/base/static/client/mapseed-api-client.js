@@ -7,6 +7,7 @@ import placeTagsClient from "./mapseed-api-client/place-tags";
 import sessionClient from "./mapseed-api-client/session";
 import supportClient from "./mapseed-api-client/support";
 import userClient from "./mapseed-api-client/user";
+import flavorClient from "./mapseed-api-client/flavor";
 
 export default {
   activity: activityClient,
@@ -18,4 +19,5 @@ export default {
   session: sessionClient,
   support: supportClient,
   user: userClient,
+  flavor: flavorClient,
 };

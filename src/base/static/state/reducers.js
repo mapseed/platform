@@ -21,6 +21,7 @@ import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
 import customComponentsConfigReducer from "./ducks/custom-components-config";
 import flavorConfigReducer from "./ducks/flavor-config";
+import formsReducer from "./ducks/forms";
 
 const reducers = combineReducers({
   places: placesReducer,
@@ -44,6 +45,7 @@ const reducers = combineReducers({
   activity: activityReducer,
   customComponentsConfig: customComponentsConfigReducer,
   flavorConfig: flavorConfigReducer,
+  forms: formsReducer,
 });
 
 export default reducers;
