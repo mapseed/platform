@@ -62,6 +62,7 @@ import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
 import { loadUser } from "../state/ducks/user";
 import { loadFlavorConfig } from "../state/ducks/flavor-config";
+import { loadForms } from "../state/ducks/forms";
 
 import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
@@ -348,6 +349,18 @@ class App extends React.Component<Props, State> {
     this.unlisten = this.props.history.listen(location => {
       recordGoogleAnalyticsHit(location.pathname);
     });
+
+    // Fetch and load flavor information.
+    const flavor = await mapseedApiClient.flavor.get(
+      config.app.api_root,
+      config.app.flavorSlug,
+    );
+
+    if (flavor) {
+      this.props.loadForms(flavor.forms);
+    } else {
+      Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
+    }
 
     // Fetch and load Places.
     this.props.updatePlacesLoadStatus("loading");
@@ -675,6 +688,7 @@ const mapDispatchToProps = {
   loadRightSidebarConfig,
   loadFeaturedPlacesConfig,
   loadAppConfig,
+  loadForms,
   loadFormsConfig,
   loadSupportConfig,
   loadPagesConfig,

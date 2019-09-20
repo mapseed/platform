@@ -5,6 +5,7 @@ import { CloseButton } from "../atoms/buttons";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
+import Form from "./form";
 import CustomPage from "./custom-page";
 const FormCategoryMenuWrapper = React.lazy(() =>
   import("../input-form/form-category-menu-wrapper"),
@@ -19,6 +20,7 @@ import {
   Layout,
   rightSidebarVisibilitySelector,
 } from "../../state/ducks/ui";
+import { placeFormSelector } from "../../state/ducks/forms";
 import { focusedPlaceSelector, Place } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 import { LoadingBar } from "../atoms/imagery";
@@ -144,10 +146,11 @@ const ContentPanel = (props: Props) => {
         )}
         {props.contentPanelComponent === "InputForm" && (
           <React.Suspense fallback={<LoadingBar />}>
-            <FormCategoryMenuWrapper
+            <Form fields={props.placeForm} />
+            {/* <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               layout={props.layout}
-            />
+            /> */}
           </React.Suspense>
         )}
       </div>
@@ -162,6 +165,7 @@ const mapStateToProps = (state: any) => ({
   layout: layoutSelector(state),
   pageSelector: (slug, lang) => pageSelector({ state, slug, lang }),
   pageSlug: pageSlugSelector(state),
+  placeForm: placeFormSelector(state),
 });
 
 export default withRouter(connect(mapStateToProps)(ContentPanel));
