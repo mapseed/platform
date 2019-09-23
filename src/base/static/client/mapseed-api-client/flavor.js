@@ -1,12 +1,15 @@
 const TEMP = {
+  id: 888,
   forms: [
     {
+      id: 1,
       label: "bellevue-bike-share",
       is_enabled: true,
       dataset:
         "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
       stages: [
         {
+          id: 5,
           visible_layer_groups: [
             {
               label: "f4",
@@ -40,6 +43,7 @@ const TEMP = {
           order: 1,
         },
         {
+          id: 6,
           visible_layer_groups: [
             {
               label: "f4",
@@ -76,6 +80,7 @@ const TEMP = {
           order: 2,
         },
         {
+          id: 7,
           visible_layer_groups: [
             {
               label: "f4",
@@ -115,6 +120,7 @@ const TEMP = {
           order: 3,
         },
         {
+          id: 8,
           visible_layer_groups: [
             {
               label: "f4",
@@ -154,6 +160,7 @@ const TEMP = {
           order: 4,
         },
         {
+          id: 9,
           visible_layer_groups: [
             {
               label: "f4",
@@ -184,6 +191,7 @@ const TEMP = {
           order: 5,
         },
         {
+          id: 10,
           visible_layer_groups: [
             {
               label: "f4",
@@ -208,7 +216,7 @@ const TEMP = {
           modules: [
             {
               id: 59,
-              latlngfield: {
+              lnglatfield: {
                 key: "n/a",
                 prompt: "",
                 label: "",
@@ -227,20 +235,6 @@ const TEMP = {
                 label: "submission_info",
               },
               order: 2,
-              visible: true,
-            },
-            {
-              id: 61,
-              textfield: {
-                key: "title",
-                prompt: "Add a descriptive title:",
-                label: "Title:",
-                private: false,
-                required: false,
-                placeholder: "Enter title...",
-                variant: "",
-              },
-              order: 3,
               visible: true,
             },
             {

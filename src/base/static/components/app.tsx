@@ -357,7 +357,7 @@ class App extends React.Component<Props, State> {
     );
 
     if (flavor) {
-      this.props.loadForms(flavor.forms);
+      this.props.loadForms(flavor);
     } else {
       Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
     }

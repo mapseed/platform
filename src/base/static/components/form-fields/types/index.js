@@ -19,7 +19,6 @@ export { default as DropdownField } from "./dropdown-field";
 export { default as FileField } from "./file-field";
 export { default as RadioField } from "./radio-field";
 export { default as RangeField } from "./range-field";
-export { default as TextField } from "./text-field";
 export { default as TextareaField } from "./textarea-field";
 export { default as ToggleField } from "./toggle-field";
 export { default as AddAttachmentButton } from "./add-attachment-button";
@@ -37,7 +36,6 @@ export { default as InputFormSubmitButton } from "./input-form-submit-button";
 export { default as PublishControlToolbar } from "./publish-control-toolbar";
 export { default as RangeSliderWithLabel } from "./range-slider-with-label";
 export { default as RichTextareaField } from "./rich-textarea-field";
-export { default as InformationalHTMLField } from "./informational-html-field";
 export {
   default as NumberField,
 } from "../../molecules/form-field-types/number-field";
