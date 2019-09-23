@@ -86,7 +86,7 @@
     "node-env-file": "^0.1.7",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
-    "qs": "^6.8.0",
+    "qs": "^6.9.0",
     "react": "^16.9.0",
     "react-cookie-consent": "^2.5.0",
     "react-datetime": "~2.16.3",
