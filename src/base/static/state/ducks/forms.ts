@@ -64,30 +64,32 @@ export type CommentForm = {}; // TODO
 export type Form = PlaceForm | CommentForm;
 
 // Selectors:
-const moduleSelector = (state, moduleId) =>
-  state.forms.entities.modules[moduleId];
-
-const stageSelector = (state, stageId) => state.forms.entities.stages[stageId];
-
-export const placeFormSelector = state => {
+const formModulesSelector = state => state.forms.entities.modules;
+const formStagesSelector = state => state.forms.entities.stages;
+const placeFormIdSelector = state =>
   // TODO: Eventually the comment form may be sent along with the Place form.
   // For now, we assume there is a single form in the `forms` array and that
   // form is the Place form.
-  const placeFormId = state.forms.entities.flavor[state.forms.result].forms[0];
-  const placeForm = state.forms.entities.form[placeFormId];
+  state.forms.entities.flavor[state.forms.result].forms[0];
+const flattenedPlaceFormSelector = state =>
+  state.forms.entities.form[placeFormIdSelector(state)];
 
-  return {
-    ...placeForm,
-    stages: placeForm.stages.map(stageId => {
-      const stage = stageSelector(state, stageId);
+export const placeFormSelector = createSelector(
+  [formStagesSelector, formModulesSelector, flattenedPlaceFormSelector],
+  (formStages, formModules, placeForm) => {
+    return {
+      ...placeForm,
+      stages: placeForm.stages.map(stageId => {
+        const stage = formStages[stageId];
 
-      return {
-        ...stage,
-        modules: stage.modules.map(moduleId => moduleSelector(state, moduleId)),
-      };
-    }),
-  };
-};
+        return {
+          ...stage,
+          modules: stage.modules.map(moduleId => formModules[moduleId]),
+        };
+      }),
+    };
+  },
+);
 
 // Actions:
 const LOAD = "forms/LOAD";
