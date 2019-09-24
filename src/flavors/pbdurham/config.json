@@ -948,7 +948,7 @@
         "includeOnForm": false,
         "includeOnList": true,
         "datasetSlug": "pbdurham-projects",
-        "label": "Cycle 1 Winners",
+        "label": "Cycle 1 Winner",
         "icon_url": "/static/css/images/markers/money.png",
         "name": "location_type",
         "value": "cycle1-projects",

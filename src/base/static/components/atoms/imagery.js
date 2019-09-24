@@ -5,8 +5,7 @@ import { withTheme } from "emotion-theming";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
-import ReactSpinner from "react-spinner";
-import "react-spinner/react-spinner.css";
+import BarLoader from "react-spinners/BarLoader";
 
 const Image = props => <img src={props.src} alt={props.alt} {...props} />;
 
@@ -153,7 +152,19 @@ UserAvatar.defaultProps = {
   src: "/static/css/images/user-50.png",
 };
 
-const Spinner = ({ style }) => <ReactSpinner style={style} />;
+// TODO: Color this with the theme's accent color?
+const Spinner = ({ size = 20, color = "#666" }) => (
+  <div
+    css={css`
+      width: 100px;
+      position: absolute;
+      left: calc(50% - 50px);
+      top: 50%;
+    `}
+  >
+    <BarLoader sizeUnit="px" size={size} color={color} />
+  </div>
+);
 
 export default UserAvatar;
 

@@ -11,13 +11,13 @@ import { Badge } from "../components/atoms/typography";
 const BLUE = "#377eb8";
 const COLORS = [
   "#e41a1c",
+  BLUE,
   "#4daf4a",
   "#984ea3",
   "#ff7f00",
-  "#ffff33",
-  BLUE,
   "#a65628",
   "#f781bf",
+  "#999999",
 ];
 
 const currencyFormatter = value =>

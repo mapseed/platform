@@ -241,6 +241,10 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
       },
+      "DamRemoval": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/DamRemoval.geojson"
+      },
       "MARBpumps": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/MARBpumps.geojson"
@@ -671,9 +675,9 @@
                 0,
                 4,
                 0.8,
-                13,
-                1,
-                14,
+                10,
+                0.8,
+                12,
                 0
               ]
             }
@@ -899,6 +903,40 @@
               "icon-size": ["step", ["zoom"], 0, 7, 0.6],
               "icon-anchor": "center",
               "icon-image": "MapPin.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "DamRemoval-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><strong>{{Dam_Name}}</strong>, {{River}}, {{State}}<br><br>Height: {{Dam_Height_ft}} ft.<br><br>Year built:  {{Year_Built}}. Year removed: {{Year_Removed}}.<br><br>{{Description}}</div>",
+        "mapboxLayers": [
+          {
+            "id": "DamRemoval-labels",
+            "type": "symbol",
+            "source": "DamRemoval",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0,
+                4,
+                0.2,
+                5,
+                0.3,
+                7,
+                0.6,
+                14,
+                0.6,
+                15,
+                0
+              ],
+              "icon-anchor": "center",
+              "icon-image": "scissors.png"
             }
           }
         ]
@@ -1273,7 +1311,19 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": "center",
-              "icon-size": ["step", ["zoom"], 0.35, 7, 0.5, 8, 0.6, 9, 1],
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0.3,
+                5,
+                0.4,
+                7,
+                0.5,
+                8,
+                0.6,
+                9,
+                1
+              ],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -3802,11 +3852,11 @@
         "<p><img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/><br><em>Project participants at the kickoff event in Minneapolis, June 2018</em></p>",
         "<p><br>This map is devoted to contemporary \"Life on the Mississippi,\" in an era when all that once seemed familiar keeps changing day by day. The mythical image of the river&mdash;celebrated in paintings, musicals, movies and the writings of Mark Twain&mdash;has given way to something different, a lot stranger and more intractable, the Mississippi of our time.</p>",
 
-        "<p>It's a new river, and it's an ancient one. The fading of the nineteenth-century myth reveals the continuous presence of Indigenous cultures throughout the Mississippi watershed, not just in history, but in the present. We acknowledge that these lands were and still are inhabited by Native peoples who were unjustly displaced by force. We acknowledge the wrongs of the past, and the need for deep transformations in the laws, institutions and ethics that govern the use of this land today. As part of that acknowledgement, the names of almost a hundred overlapping Indigenous territories have been inscribed on the first page of the map (zoom into see them all). Deeper explorations of settler-colonial violence and unbearable racism toward peoples of color appear in subsequent sections, as part of much larger efforts to achieve social and racial justice. These issues are inseparable from ecological ones. The point is to find another way of living.</p>",
+        "<p>It's a new river, and it's an ancient one. The fading of the nineteenth-century myth reveals the continuous presence of Indigenous cultures throughout the Mississippi watershed, not just in history, but in the present. We acknowledge that these lands were and still are inhabited by Native peoples who were unjustly displaced by force. We acknowledge the wrongs of the past, and the need for deep transformations in the laws, institutions and ethics that govern the use of this land today. As part of that acknowledgement, the names of almost a hundred overlapping Indigenous territories have been inscribed on the first page of the map (zoom into see them all). In many cases, both traditional lands and Oaklahoma resettlement areas are indicated. Deeper explorations of settler-colonial violence and unbearable racism toward peoples of color appear in subsequent sections of the map, as part of much larger efforts to achieve social and racial justice. These issues are inseparable from ecological ones. The point is to find another way of living.</p>",
 
         "<p>What's \"new\" about today's river is not just monocrop agriculture or industrial ruins or climate change. The new thing, for those who care, is a dawning awareness of what made the tragedies of modern development inevitable&mdash;but not acceptable any longer.</p>",
 
-        "<p>This map is part of an art and research program entitled <a href='https://www.anthropocene-curriculum.org/pages/root/related-projects/mississippi-an-anthropocene-river' target='_blank' rel='noopener noreferrer nofollow'>Mississippi: An Anthropocene River</a>, which springs from an unique collaboration between German and American institutions, energized by lots of inhabitants on the ground. The aim is to understand the current ecological and social conditions of the great river and its far-flung watersheds, to probe its settler-colonial and industrial histories and to express the manifold nature/cultures of its endless flow. Therefore we have put advanced cartography, earth science and cultural research into something like a geo-blog, open to highly diverse inputs. It allows those who care about the river to add their words, images, knowledge and unanswered questions. By using the map, you can contribute to an experiment in collective perception.</p>",
+        "<p>This map is part of an art and research program entitled <a href='https://www.anthropocene-curriculum.org/pages/root/related-projects/mississippi-an-anthropocene-river' target='_blank' rel='noopener noreferrer nofollow'>Mississippi: An Anthropocene River</a>, which springs from a unique collaboration between German and American institutions, energized by lots of inhabitants on the ground. The aim is to understand the current ecological and social conditions of the great river and its far-flung watersheds, to probe its settler-colonial and industrial histories and to express the manifold nature/cultures of its endless flow. Therefore we have put advanced cartography, earth science and cultural research into something like a geo-blog, open to highly diverse inputs. It allows those who care about the river to add their words, images, knowledge and unanswered questions. By using the map, you can contribute to an experiment in collective perception.</p>",
 
         "<p>The map works with conventional Internet browsers as well as mobile phones. To put something on it is easy: just zoom into the place that interests you and press the big orange button. You'll be asked to drag the map around until the yellow pin falls precisely on the spot, and then to choose among some forty different categories. Once you have chosen, a window will appear. That one's for you.</p>",
 
@@ -3947,6 +3997,13 @@
         "pan_to": [-93.209, 44.962],
         "zoom": 8.2,
         "iconUrl": "/static/css/images/markers/Fractal1.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "DamRemoval-group",
+          "mississippi-input",
+          "streets-group"
+        ],
         "spotlight": false
       },
       {

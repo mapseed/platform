@@ -614,7 +614,7 @@
           }
         ],
         "value": "bike-share",
-        "label": "Bike Share Location",
+        "label": "Bike Share Request",
         "multi_stage": [
           {
             "start_field_index": 1,

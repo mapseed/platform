@@ -89,7 +89,7 @@ KittitasFireReadySectionHeader.propTypes = {
 const KittitasFireReadyPageHeader = props => (
   <PageHeader
     backgroundColor="rgba(229, 207, 207, 0.4)"
-    logoSrc="/static/css/images/logo.png"
+    logoSrc="/static/css/images/logo-new.png"
   >
     <FloatedRight
       css={css`
@@ -136,9 +136,8 @@ const KittitasFireReadyPageHeader = props => (
             font-weight: 900;
           `}
         >
-          Approximate report location:
-        </span>{" "}
-        {props.address}
+          Approximate report location: {props.address}
+        </span>
       </SmallText>
     </FloatedRight>
   </PageHeader>
