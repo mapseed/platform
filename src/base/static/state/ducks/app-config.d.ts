@@ -57,6 +57,7 @@ export type AppConfig = {
   logo: string;
   show_name_in_header?: boolean;
   sharingProviders?: SharingProvidersConfig;
+  show_timestamps?: boolean;
 };
 
 export const appConfigSelector: (state: any) => AppConfig;

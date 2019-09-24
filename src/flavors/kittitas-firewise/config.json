@@ -25,7 +25,7 @@
   "app": {
     "title": "Kittitas County Fire Adapted Program",
     "name": "Kittitas County Fire Adapted Program",
-    "logo": "/static/css/images/logo.png",
+    "logo": "/static/css/images/logo-new.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
@@ -54,21 +54,393 @@
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "Kittitas County Fire Adapted Program - Reports",
+      "isExportable": true,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "kittitas-firewise-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total Reports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "isExportable": true,
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        },
+        {
+          "header": "Landowner Summary",
+          "type": "freeTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Name and contact",
+              "type": "string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                ["get-val", "private-landowner_name"],
+                ["get-val", "private-landowner_email"],
+                ["get-val", "private-landowner_phone"]
+              ]
+            },
+            {
+              "header": "Preparedness confidence",
+              "type": "badge",
+              "fractionalWidth": 1,
+              "value": [
+                "case",
+                ["==", ["get-val", "landowner_confidence"], "very_confident"],
+                ["literal", { "label": "Very confident", "color": "#2ecc71" }],
+                [
+                  "==",
+                  ["get-val", "landowner_confidence"],
+                  "somewhat_confident"
+                ],
+                [
+                  "literal",
+                  { "label": "Somewhat confident", "color": "#f1c40f" }
+                ],
+                ["==", ["get-val", "landowner_confidence"], "completed_some"],
+                ["literal", { "label": "Completed some", "color": "#e67e22" }],
+                ["==", ["get-val", "landowner_confidence"], "overwhelmed"],
+                ["literal", { "label": "Overwhelmed", "color": "#c0392b" }],
+                ["literal", { "label": "Not available", "color": "#aaa" }]
+              ]
+            },
+            {
+              "header": "Submitted report on",
+              "type": "date",
+              "fractionalWidth": 1,
+              "value": ["get-val", "created_datetime"]
+            },
+            {
+              "header": "Completed actions",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "clean_roofs"], "yes"],
+                  ["literal", "Cleaning roofs and gutters"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "replace_shingles"], "yes"],
+                  ["literal", "Replacing or repairing shingles"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduce_embers"], "yes"],
+                  ["literal", "Reducing embers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clean_debris_attic_vents"], "yes"],
+                  ["literal", "Cleaning debris from attic vents"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "repair_screens"], "yes"],
+                  ["literal", "Repairing or replacing window screens"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "move_flammable_material"], "yes"],
+                  [
+                    "literal",
+                    "Removing flammable material from wall exteriors"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clear_vegetation"], "yes"],
+                  ["literal", "Clearing vegetation from under propane tanks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "create_fuel_breaks"], "yes"],
+                  ["literal", "Creating fuel breaks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mow_to_four_inches"], "yes"],
+                  ["literal", "Keeping lawns mowed to four inches"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_ladder_fueld"], "yes"],
+                  ["literal", "Removing ladder fuels"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_trees"], "yes"],
+                  ["literal", "Spacing trees to 18 feet"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "tree_placement"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring tree canopy is no closer than 10 feet to structures"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "small_tree_clusters"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring trees and shrubs are limited to small clusters"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "dispase_ground_debris"], "yes"],
+                  ["literal", "Disposing of ground litter and debris"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_dead_material"], "yes"],
+                  ["literal", "Removing dead plant and tree material"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_small_conifers"], "yes"],
+                  ["literal", "Removing small conifers between mature trees"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_outbuilding_vegetation"], "yes"],
+                  ["literal", "Removing vegetation adjacent to outbuildings"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_canopy_tops_30_60_feet"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring trees 30 to 60 feet from home have 12 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_canopy_tops_60_100_feet"], "yes"],
+                  [
+                    "literal",
+                    "Ensuring trees 60 to 100 feet from home have 6 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Requesting information",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "clean_roofs"], "interested"],
+                  ["literal", "Cleaning roofs and gutters"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "replace_shingles"], "interested"],
+                  ["literal", "Replacing or repairing shingles"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduce_embers"], "interested"],
+                  ["literal", "Reducing embers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clean_debris_attic_vents"], "interested"],
+                  ["literal", "Cleaning debris from attic vents"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "repair_screens"], "interested"],
+                  ["literal", "Repairing or replacing window screens"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "move_flammable_material"], "interested"],
+                  [
+                    "literal",
+                    "Removing flammable material from wall exteriors"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "clear_vegetation"], "interested"],
+                  ["literal", "Clearing vegetation from under propane tanks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "create_fuel_breaks"], "interested"],
+                  ["literal", "Creating fuel breaks"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mow_to_four_inches"], "interested"],
+                  ["literal", "Keeping lawns mowed to four inches"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_ladder_fueld"], "interested"],
+                  ["literal", "Removing ladder fuels"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "space_trees"], "interested"],
+                  ["literal", "Spacing trees to 18 feet"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "tree_placement"], "interested"],
+                  [
+                    "literal",
+                    "Ensuring tree canopy is no closer than 10 feet to structures"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "small_tree_clusters"], "interested"],
+                  [
+                    "literal",
+                    "Ensuring trees and shrubs are limited to small clusters"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "dispase_ground_debris"], "interested"],
+                  ["literal", "Disposing of ground litter and debris"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_dead_material"], "interested"],
+                  ["literal", "Removing dead plant and tree material"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "remove_small_conifers"], "interested"],
+                  ["literal", "Removing small conifers between mature trees"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "remove_outbuilding_vegetation"],
+                    "interested"
+                  ],
+                  ["literal", "Removing vegetation adjacent to outbuildings"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "space_canopy_tops_30_60_feet"],
+                    "interested"
+                  ],
+                  [
+                    "literal",
+                    "Ensuring trees 30 to 60 feet from home have 12 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "space_canopy_tops_60_100_feet"],
+                    "interested"
+                  ],
+                  [
+                    "literal",
+                    "Ensuring trees 60 to 100 feet from home have 6 feet between canopy tops"
+                  ],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Requesting assistance",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": ["get-val", "interested_assistance"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "map": {
+    "measurementToolEnabled": true,
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-120.541803, 46.99644],
-    "offlineBoundingBox": {
-      "southWest": {
-        "lat": 46.709206,
-        "lng": -121.476997
-      },
-      "northEast": {
-        "lat": 47.633585,
-        "lng": -119.891353
-      }
-    },
     "mapViewport": {
       "latitude": 47.18554,
       "longitude": -120.72226,
@@ -79,7 +451,7 @@
     },
     "mapWidgets": {
       "filterSlider": {
-        "layerGroupId": "wa-state-large-fires-1973-2018",
+        "layerGroupId": "wa-state-large-fires-1973-2018-100-acres-plus",
         "initialValue": 2018,
         "min": 1973,
         "max": 2018,
@@ -135,14 +507,14 @@
       "kittitas-fire-districts": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-fire-districts/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-county-fire-districts-ver-3/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
       "kittitas-forest-type": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-forest-type/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-forest-type-ver-2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -150,6 +522,12 @@
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/kittitas-county-cities/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "kittitas-county-cities-fire-risk": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/kittitas-county-cities-fire-risk/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-firewise-communities": {
@@ -166,10 +544,10 @@
         ],
         "maxzoom": 16
       },
-      "wa-state-large-fires-1973-2018": {
+      "wa-state-large-fires-1973-2018-100-acres-plus": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/wa-state-large-fires-1973-2018/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/wa-state-large-fires-1973-2018-100-acres-plus/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-county-outline": {
@@ -337,25 +715,23 @@
             "id": "kittitas-forest-type",
             "type": "fill",
             "source": "kittitas-forest-type",
-            "source-layer": "kittitas-forest-type",
+            "source-layer": "kittitas-forest-type-ver-2",
             "paint": {
-              "fill-opacity": 0.5,
+              "fill-opacity": 0.8,
               "fill-color": [
                 "match",
-                ["get", "LABEL"],
-                "Non-Forest",
+                ["get", "newlabel"],
+                "Rangeland - Shrubland",
                 "#8c510a",
-                "Sup-Alpine",
-                "#d8b365",
-                "Silver Fir",
+                "Agriculture",
                 "#f6e8c3",
-                "Mtn Hemlock",
-                "#f5f5f5",
-                "Moist Mix Conifer",
+                "Developed and/or Disturbed Surface",
                 "#c7eae5",
-                "Dry Mix Conifer",
+                "Dry Mixed Conifer",
+                "#d8b365",
+                "Mixed Conifer",
                 "#5ab4ac",
-                "Ponderosa Pine",
+                "Subalpine - Mixed Conifer",
                 "#01665e",
                 "#fff"
               ]
@@ -373,37 +749,89 @@
             "source": "kittitas-burn-risk",
             "source-layer": "kittitas-burn-risk",
             "paint": {
-              "fill-opacity": 0.5,
+              "fill-opacity": 0.8,
               "fill-color": [
                 "match",
                 ["get", "LABEL"],
                 "LOW",
-                "#ffffb2",
+                "#d9ef8b",
                 "MEDIUM",
-                "#fed976",
+                "#fee08b",
                 "HIGH",
-                "#feb24c",
+                "#fdae61",
                 "VERY HIGH",
-                "#fd8d3c",
+                "#f46d43",
                 "EXTREME",
-                "#bd0026",
+                "#d73027",
                 "#fff"
               ]
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk",
+            "type": "fill",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "fill-color": "#fdae61",
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk-outline",
+            "type": "line",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "line-color": "#555",
+              "line-opacity": 0.6
+            }
+          },
+          {
+            "id": "kittitas-county-cities-fire-risk-labels",
+            "type": "symbol",
+            "source": "kittitas-county-cities-fire-risk",
+            "source-layer": "kittitas-county-cities-fire-risk",
+            "paint": {
+              "text-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ],
+              "text-color": "#666",
+              "text-halo-color": "#eee",
+              "text-halo-width": 20
+            },
+            "layout": {
+              "text-field": ["concat", "City of ", ["get", "city_name"]],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 13,
+              "text-allow-overlap": true,
+              "text-max-width": 40,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-transform": "uppercase",
+              "text-justify": "left",
+              "text-line-height": 1
             }
           }
         ]
       },
       {
-        "id": "wa-state-large-fires-1973-2018",
+        "id": "wa-state-large-fires-1973-2018-100-acres-plus",
         "visibleDefault": false,
         "interactive": true,
         "popupContent": "<p><strong>Fire name: </strong><em>{{FIRENAME}}</em></p><p><strong>Year: </strong><em>{{YEAR}}</em></p><p><strong>Cause: </strong><em>{{CAUSE}}</em></p>",
         "mapboxLayers": [
           {
-            "id": "wa-state-large-fires-1973-2018",
+            "id": "wa-state-large-fires-1973-2018-100-acres-plus",
             "type": "fill",
-            "source": "wa-state-large-fires-1973-2018",
-            "source-layer": "wa-state-large-fires-1973-2018",
+            "source": "wa-state-large-fires-1973-2018-100-acres-plus",
+            "source-layer": "wa-state-large-fires-1973-2018-100-acres-plus",
             "paint": {
               "fill-pattern": [
                 "match",
@@ -498,10 +926,10 @@
             }
           },
           {
-            "id": "wa-state-large-fires-1973-2018-outline",
+            "id": "wa-state-large-fires-1973-2018-100-acres-plus-outline",
             "type": "line",
-            "source": "wa-state-large-fires-1973-2018",
-            "source-layer": "wa-state-large-fires-1973-2018",
+            "source": "wa-state-large-fires-1973-2018-100-acres-plus",
+            "source-layer": "wa-state-large-fires-1973-2018-100-acres-plus",
             "paint": {
               "line-color": [
                 "match",
@@ -716,7 +1144,7 @@
         "id": "kittitas-fire-districts",
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_district_name}}</em></p><p><strong>Phone: </strong><em>{{fire_district_phone}}</em></p><p><strong>Email: </strong><em>{{fire_district_email}}</em></p>",
+        "popupContent": "<p><strong>Fire district: </strong><em>{{fire_distr}}</em></p><p><strong>Phone: </strong><em>{{phone}}</em></p><p><strong>Social media: </strong><em><a href={{email}} target='_blank'>{{email}}</a></em></p>",
         "mapboxLayers": [
           {
             "id": "kittitas-fire-districts",
@@ -731,8 +1159,8 @@
                 9,
                 [
                   "match",
-                  ["get", "fire_district_name"],
-                  "Areas outside Fire Districts",
+                  ["get", "fire_distr"],
+                  "Areas Outside of Fire Districts",
                   0,
                   0.6
                 ],
@@ -747,8 +1175,8 @@
             "type": "line",
             "filter": [
               "!=",
-              ["get", "fire_district_name"],
-              "Areas outside Fire Districts"
+              ["get", "fire_distr"],
+              "Areas Outside of Fire Districts"
             ],
             "source": "kittitas-fire-districts",
             "source-layer": "kittitas-fire-districts",
@@ -770,53 +1198,11 @@
             }
           },
           {
-            "id": "kittitas-fire-districts-fill-labels",
-            "type": "symbol",
-            "source": "kittitas-fire-districts",
-            "source-layer": "kittitas-fire-districts",
-            "paint": {
-              "text-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                9,
-                0,
-                10,
-                1
-              ],
-              "text-color": "#5380c1",
-              "text-halo-color": "#dde7f2",
-              "text-halo-width": 20
-            },
-            "layout": {
-              "text-field": [
-                "match",
-                ["to-number", ["get", "fire_district_nbr"]],
-                100,
-                "Areas outside Fire Districts",
-                ["concat", "Fire district ", ["get", "fire_district_nbr"]]
-              ],
-              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
-              "text-size": 13,
-              "text-allow-overlap": true,
-              "text-max-width": 40,
-              "text-padding": 15,
-              "text-allow-overlap": false,
-              "text-transform": "uppercase",
-              "text-justify": "left",
-              "text-line-height": 1
-            }
-          },
-          {
             "id": "kittitas-fire-districts-labels",
             "type": "symbol",
             "filter": [
               "all",
-              [
-                "!=",
-                ["get", "fire_district_name"],
-                "Areas outside Fire Districts"
-              ],
+              ["!=", ["get", "fire_distr"], "Areas Outside of Fire Districts"],
               ["==", ["geometry-type"], "Point"]
             ],
             "source": "kittitas-fire-districts",
@@ -824,15 +1210,10 @@
             "paint": {
               "text-color": "#5380c1",
               "text-halo-color": "#dde7f2",
-              "text-halo-width": 20,
-              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 1, 10, 0]
+              "text-halo-width": 20
             },
             "layout": {
-              "text-field": [
-                "concat",
-                "Fire district ",
-                ["get", "fire_district_nbr"]
-              ],
+              "text-field": ["get", "fire_distr"],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
               "text-size": 14,
               "text-max-width": 40,
@@ -841,7 +1222,7 @@
               "icon-allow-overlap": true,
               "text-anchor": [
                 "match",
-                ["to-number", ["get", "fire_district_nbr"]],
+                ["to-number", ["get", "fire_dis_1"]],
                 3,
                 "right",
                 99,
@@ -854,7 +1235,7 @@
               ],
               "text-offset": [
                 "match",
-                ["to-number", ["get", "fire_district_nbr"]],
+                ["to-number", ["get", "fire_dis_1"]],
                 3,
                 ["literal", [-1, 0]],
                 4,
@@ -868,7 +1249,7 @@
               "text-transform": "uppercase",
               "text-justify": "left",
               "text-line-height": 1,
-              "icon-image": "marker-shield.png",
+              "icon-image": "marker-fire-district.png",
               "icon-size": 0.5
             }
           }
@@ -1079,7 +1460,7 @@
             "title": "Wildfire Start Sites"
           },
           {
-            "layerGroupId": "wa-state-large-fires-1973-2018",
+            "layerGroupId": "wa-state-large-fires-1973-2018-100-acres-plus",
             "title": "Large Wildfires"
           },
           {
@@ -1138,22 +1519,12 @@
         "icon_url": "/static/css/images/markers/map-pin-marker-red.png",
         "geospatialAnalysis": [
           {
-            "name": "forest_type",
-            "type": "pointInPolygon",
-            "analysisTarget": "kittitas-forest-type.geojson",
-            "propertiesToPluck": [
-              {
-                "name": "LABEL"
-              }
-            ]
-          },
-          {
             "name": "local_fire_district",
             "type": "pointInPolygon",
-            "analysisTarget": "kittitas-fire-districts.geojson",
+            "analysisTarget": "kittitas-fire-districts-ver-3.geojson",
             "propertiesToPluck": [
               {
-                "name": "fire_district_name"
+                "name": "fire_distr"
               }
             ]
           },
@@ -1172,7 +1543,7 @@
           {
             "name": "num_nearby_large_fires",
             "type": "aggregatePolygonsOverlappingBuffer",
-            "analysisTarget": "kittitas-large-fires-1973-2018-simplified.geojson",
+            "analysisTarget": "kittitas-large-fires-1973-2018-100-acres-plus-simplified.geojson",
             "buffer": {
               "distance": 10,
               "units": "miles"
@@ -1205,14 +1576,14 @@
           }
         ],
         "value": "landowner",
-        "label": "I am a landowner in Kittitas County",
+        "label": "Fire Adapted Report",
         "multi_stage": [
           {
             "start_field_index": 1,
             "end_field_index": 3,
             "visibleLayerGroupIds": [
               "light-satellite",
-              "wa-state-large-fires-1973-2018",
+              "wa-state-large-fires-1973-2018-100-acres-plus",
               "kittitas-county-outline"
             ],
             "viewport": {
@@ -1225,7 +1596,7 @@
           },
           {
             "start_field_index": 4,
-            "end_field_index": 5,
+            "end_field_index": 6,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-forest-type",
@@ -1242,10 +1613,11 @@
             }
           },
           {
-            "start_field_index": 6,
-            "end_field_index": 7,
+            "start_field_index": 7,
+            "end_field_index": 8,
             "visibleLayerGroupIds": [
               "light-satellite",
+              "wa-state-large-fires-1973-2018-100-acres-plus",
               "wa-state-wildfire-start-sites-2008-group",
               "kittitas-burn-risk",
               "kittitas-county-outline"
@@ -1260,8 +1632,8 @@
             }
           },
           {
-            "start_field_index": 8,
-            "end_field_index": 10,
+            "start_field_index": 9,
+            "end_field_index": 11,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1279,8 +1651,8 @@
             }
           },
           {
-            "start_field_index": 11,
-            "end_field_index": 12,
+            "start_field_index": 12,
+            "end_field_index": 13,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1290,8 +1662,8 @@
             ]
           },
           {
-            "start_field_index": 13,
-            "end_field_index": 20,
+            "start_field_index": 14,
+            "end_field_index": 21,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1301,8 +1673,8 @@
             ]
           },
           {
-            "start_field_index": 21,
-            "end_field_index": 29,
+            "start_field_index": 22,
+            "end_field_index": 30,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1312,8 +1684,8 @@
             ]
           },
           {
-            "start_field_index": 30,
-            "end_field_index": 37,
+            "start_field_index": 31,
+            "end_field_index": 38,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1323,8 +1695,8 @@
             ]
           },
           {
-            "start_field_index": 38,
-            "end_field_index": 51,
+            "start_field_index": 39,
+            "end_field_index": 44,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1334,8 +1706,19 @@
             ]
           },
           {
-            "start_field_index": 52,
-            "end_field_index": 61,
+            "start_field_index": 45,
+            "end_field_index": 48,
+            "visibleLayerGroupIds": [
+              "light-satellite",
+              "kittitas-fire-districts",
+              "kittitas-county-cities",
+              "kittitas-firewise-communities",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 49,
+            "end_field_index": 59,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
@@ -1350,7 +1733,7 @@
           {
             "name": "large_fires_header",
             "type": "informational_html",
-            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);'>Kittitas County:</h1><h2 style='font-family:Raleway-ExtraBold,sans-serif;border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/taylor-bridge-fire.jpg' alt='Taylor Bridge fire' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>The Taylor Bridge Fire burns in 2012.</figcaption></figure>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);'>Kittitas County:</h1><h2 style='font-family:Raleway-ExtraBold,sans-serif;border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/table-mountain-fire.jpg' alt='Table Mountain fire' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>The Table Mountain Fire burns in 2012.</figcaption></figure>"
           },
           {
             "name": "private-landowner_email",
@@ -1367,12 +1750,40 @@
           {
             "name": "forest_type_header",
             "type": "informational_html",
-            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Changing Forest Conditions</h1>"
+            "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0 0 16px 0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Forest Type</h1>"
+          },
+          {
+            "name": "forest_type",
+            "type": "big_radio",
+            "prompt": "On your land, which forest type is predominant? (See below for descriptions and images of forest types.)",
+            "optional": false,
+            "content": [
+              {
+                "label": "Subalpine",
+                "value": "subalpine"
+              },
+              {
+                "label": "Moist Mixed Conifer",
+                "value": "moist-mixed-conifer"
+              },
+              {
+                "label": "Dry Forest",
+                "value": "dry-forest"
+              },
+              {
+                "label": "Ponderosa Pine",
+                "value": "ponderosa-pine"
+              },
+              {
+                "label": "Non-forest Rangeland",
+                "value": "non-forest-rangeland"
+              }
+            ]
           },
           {
             "name": "forest_type_information",
             "type": "informational_html",
-            "content": "<figure style='margin: 16px 0 0 0;'><img src='/static/css/images/ponderosa-pine.jpeg' alt='Ponderosa Pine' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>Dry Ponderosa Pine forest stands increase wildfire risk.</figcaption></figure><p class='mapseed-form-stage-body'>Forest conditions are changing in central Washington. Forest stands are becoming drier, increasing the wildfire risk.</p><p class='mapseed-form-stage-body'>This map shows forest makeup throughout a large portion of Kittitas County.</p><ul><li style='display:flex;align-items:center;margin-bottom: 8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#8c510a' ></div><p style='margin: 0 0 0 8px;'>Non-forest: Rangeland with fire intervals of 5-15 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#d8b365'></div><p style='margin: 0 0 0 8px;'>Subalpine: The subalpine fir series generally occupies cold, high elevation mountain forests. Fires are typically stand replacing events at approximately 200 year intervals</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#f6e8c3'></div><p style='margin: 0 0 0 8px;'>Silver Fir: Pacific Silver fir is the dominant and climax tree species with Douglas-fir and western hemlock occurring throughout. Infrequent mixed severity fires occurring at greater than 200-500 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#f5f5f5'></div><p style='margin: 0 0 0 8px;'>Mountain Hemlock: Upper elevation forest dominated by Mountain Hemlock. Estimates of the return of wildfire are 500-1500 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#c7eae5'></div><p style='margin: 0 0 0 8px;'>Moist Mixed Conifer: Forests of grand fir, white fir, and Douglas-fir with an average fire return interval of 45-100 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#5ab4ac'></div><p style='margin: 0 0 0 8px;'>Dry Mixed Conifer: A transitional forest with increasing elevation between ponderosa pine and moist mixed-conifer. Lack of wildfire causes fill-in of understory conifers, mainly ponderosa pine, Douglas-fir, and grand fir. The wildfire return intervals are 15-25 years</p></li><li style='display:flex;align-items:center;margin-bottom:8px;'><div style='width:20px;min-width:20px;height:20px;background-color:#01665e'></div><p style='margin: 0 0 0 8px;'>Ponderosa Pine: Straddles the line between rangelands and forest with an overstory of ponderosa pine trees and an understory of shrubs, grasses, and forbs. Wildfires were historically common in this forest type, with return intervals of 8-15 years</p></li></ul>"
+            "content": "<div style='margin:42px 0 16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin:0 16px 0 0;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Subalpine:</span> Subalpine fir generally occupies colder, higher elevation mountain forests. Fires are typically stand-replacing events at approximately 200-year or greater intervals. When wildfire occurs, this forest is more susceptible to high intensity crown fires.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/subalpine-fir.png' alt='Subalpine fir' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Subalpine forest type (Credit: The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>200+ years</span></div><div style='background-color:#ccc;height:10px;border-radius:5px;margin:0 16px;'><div style='background-color:#fed976;height:10px;border-radius:5px;'></div></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Moist Mix Conifer:</span> Forests of grand fir, white fir, and Douglas-fir with an average fire return interval of 45-100 years. When wildfire occurs in this forest type it can vary from medium to high severity.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/moist-mix-conifer.png' alt='Moist mix conifer' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Moist Mix Conifer forest type (Credit: The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>45-100 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #ffab6e, #ffab6e 10px, #ffd7ba 10px, #ffd7ba 20px);width:50%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#fd8d3c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:22.5%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Dry Forest:</span> A forest dominated by ponderosa pine, with understory conifers like Douglas Fir and Grand Fir. Lack of wildfire can result in dense stands highly susceptible to medium to high intensity fires. The wildfire return intervals are 15-25 years.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/dry-forest.png' alt='Dry forest' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Dry Forest forest type (Credit: John Marshall Photography (c) The Nature Conservancy)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>15-25 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:12.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:7.5%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Ponderosa Pine:</span> Straddles the line between rangelands and forest with an overstory of ponderosa pine trees and an understory of shrubs, grasses, and forbs. Wildfires were historically common in this forest type, with return intervals of 8-15 years.</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/ponderosa-pine.png' alt='Ponderosa pine' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Ponderosa Pine forest type</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>8-15 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:7.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:4%;'></span></div></div><hr style='border:0;border-bottom:1px dashed #888;margin-top:24px;' /><div style='margin:16px 0;padding:0 16px 0 16px;display:flex;align-items:center;'><p style='flex:1;margin-right:16px;'><span style='font-family:Raleway-ExtraBold,sans-serif;'>Non-forest Rangeland:</span> Rangeland (shrub steppe with sagebrush and grasses) with fire intervals of 5-15 years. When wildfire occurs in this land cover type, the severity is dependent on the vegetation density and weather (wind-driven).</p><figure style='flex:1;margin:0;'><img style='max-width:100%' src='/static/css/images/non-forest-rangeland.png' alt='Non-forest rangeland' /><figcaption style='font-size:0.8rem;color:#666;'><em>Example of Non-forest Rangeland (Credit: KCCD)</em></figcaption></figure></div><div style='display:flex;align-items:baseline;margin:0 16px 4px 16px;'><span style='font-size:0.9rem;text-transform:uppercase;color:#888;'>Fire return interval</span><span style='font-family:Raleway-ExtraBold,sans-serif;color:#666;font-size:1.2rem;margin-left:auto;'>5-15 years</span></div><div style='background-color:#eee;height:10px;border-radius:5px;margin:0 16px;position:relative;'><span style='position:absolute;top:0;left:0;background:repeating-linear-gradient(-45deg, #de4547, #de4547 10px, #e8aaab 10px, #e8aaab 20px);width:7.5%;height:10px;border-radius:5px;opacity:0.6;'></span><span style='position:absolute;top:0;left:0;background-color:#e31a1c;height:10px;border-top-left-radius:5px;border-bottom-left-radius:5px;width:2.5%;'></span></div></div>"
           },
           {
             "name": "fire_risk_header",
@@ -1382,7 +1793,7 @@
           {
             "name": "fire_risk_information",
             "type": "informational_html",
-            "content": "<figure style='margin:16px 0 0 0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County.</p><p class='mapseed-form-stage-body'>This map shows general wildfire risk: the darker the region, the higher the risk.</p><p class='mapseed-form-stage-body'>This map also shows wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
+            "content": "<figure style='margin:16px 0 0 0;'><img src='/static/css/images/wildfire-3.jpg' alt='Wildfire burning' style='width: 100%;' /></figure><p class='mapseed-form-stage-body'>Wildfire risk varies throughout Kittitas County. The probability of wildfire is based on historical fires, vegetation and public safety.</p><div style='display:flex;align-items:center;'><div style='flex:1;border-right:1px solid #ddd;margin-right:24px;'><div style='margin-left:16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d73027;margin-right:12px;opacity:0.8;'></div><p style='color:#888;margin:0;'><em>Severe risk</em></p></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#f46d43;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fdae61;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#fee08b;margin-right:12px;opacity:0.8;'></div></div><div style='margin:16px 0 0 16px;display:flex;align-items:center;'><div style='width:20px;height:20px;background-color:#d9ef8b;margin-right:12px;opacity:0.8'></div><p style='color:#888;margin:0;'><em>Low risk</em></p></div></div><div style='flex:2;'><p class='mapseed-form-stage-body' style='margin:0;'>This map shows general wildfire probability. Wind-blown embers generated during wildfires are the single biggest hazard wildfires pose to homes. Look at the risk level not just where your home is located but at least in a one mile radius to better understand your risk from these burning pieces of airborne wood and/or vegetation.</p></div></div><p class='mapseed-form-stage-body'>This map also shows large wildfires and individual wildfire start sites from the last several years. Click on a start site to learn more about it.</p>"
           },
           {
             "name": "fire_resources_header",
@@ -1399,7 +1810,7 @@
           {
             "name": "fire_resources_information",
             "type": "informational_html",
-            "content": "<p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p><p class='mapseed-form-stage-body'>If you know your tax parcel number but not your address, go to <a href='https://gis.co.kittitas.wa.us/compas/default.aspx' target='_blank'>https://gis.co.kittitas.wa.us/compas/default.aspx</a> and enter your parcel number to find more information including the \"situs\" address.</p>"
+            "content": "<p class='mapseed-form-stage-body'>Kittitas County has numerous fire resources you should be aware of, including fire districts and <a target='_blank' href='https://www.nfpa.org/Public-Education/By-topic/Wildfire/Firewise-USA'>Firewise USA communities.</a></p><p class='mapseed-form-stage-body'>Search for your address above (or zoom and scroll the map) to explore resources in your area.</p><p class='mapseed-form-stage-body'>If you know your tax parcel number but not your address, go to <a href='https://gis.co.kittitas.wa.us/compas/default.aspx' target='_blank'>https://gis.co.kittitas.wa.us/compas/default.aspx</a> and enter your parcel number to find more information including the \"situs\" address.</p><p style='font-weight:800;'>If your property resides in a fire district, it does not guarantee that the fire district or fire department will be able to defend your property during a wildfire event.</p>"
           },
           {
             "name": "fire_resiliency_header",
@@ -1510,7 +1921,7 @@
             "type": "common_form_element"
           },
           {
-            "name": "evacuation_plan_header",
+            "name": "emergency_evacuation_header",
             "type": "common_form_element"
           },
           {
@@ -1518,43 +1929,7 @@
             "type": "common_form_element"
           },
           {
-            "name": "emergency_kit",
-            "type": "common_form_element"
-          },
-          {
-            "name": "food_and_water",
-            "type": "common_form_element"
-          },
-          {
-            "name": "medications",
-            "type": "common_form_element"
-          },
-          {
-            "name": "clothing",
-            "type": "common_form_element"
-          },
-          {
-            "name": "eyeglasses",
-            "type": "common_form_element"
-          },
-          {
-            "name": "car_keys_money",
-            "type": "common_form_element"
-          },
-          {
-            "name": "first_aid_kit",
-            "type": "common_form_element"
-          },
-          {
-            "name": "flashlight",
-            "type": "common_form_element"
-          },
-          {
-            "name": "radio",
-            "type": "common_form_element"
-          },
-          {
-            "name": "sanitation_supplies",
+            "name": "emergency_kit_supplies",
             "type": "common_form_element"
           },
           {
@@ -1562,8 +1937,77 @@
             "type": "common_form_element"
           },
           {
-            "name": "pet_food",
+            "name": "evacuation_plan_pets",
             "type": "common_form_element"
+          },
+          {
+            "name": "emergency_notifications",
+            "type": "common_form_element"
+          },
+          {
+            "name": "assistance_information_header",
+            "type": "informational_html",
+            "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Technical and Financial Assistance</h2>"
+          },
+          {
+            "name": "landowner_confidence",
+            "type": "big_radio",
+            "optional": false,
+            "prompt": "How do you feel about your answers to list of tasks in the area around your home?",
+            "content": [
+              {
+                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "value": "very_confident"
+              },
+              {
+                "label": "I’m somewhat confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "value": "somewhat_confident"
+              },
+              {
+                "label": "I’ve completed some of these actions, but have many left to do",
+                "value": "completed_some"
+              },
+              {
+                "label": "I’m overwhelmed by the list of actions and concerned about my property and my neighborhood",
+                "value": "overwhelmed"
+              }
+            ]
+          },
+          {
+            "name": "not_completed_reasons",
+            "type": "big_checkbox",
+            "optional": true,
+            "prompt": "If you have not completed some of the tasks, why not? (check all that apply)",
+            "content": [
+              {
+                "label": "I didn’t know they were important to reducing my risk",
+                "value": "unaware_importance"
+              },
+              {
+                "label": "I am not able to do the work myself",
+                "value": "unable_do_work"
+              },
+              {
+                "label": "I can’t afford to have the work done",
+                "value": "unable_afford_work"
+              }
+            ]
+          },
+          {
+            "name": "interested_assistance",
+            "type": "big_checkbox",
+            "optional": true,
+            "prompt": "There are people and programs here to help you with assessing your property, determining next steps and securing grants to help with the financial burden of completing work. Just let us know what you need",
+            "content": [
+              {
+                "label": "I’m interested in technical advice on what my home and property need",
+                "value": "interested_technical_advice"
+              },
+              {
+                "label": "I’m interested in learning more about available financial assistance",
+                "value": "interested_financial_assistance"
+              }
+            ]
           },
           {
             "name": "landowner_information_header",
@@ -1604,7 +2048,7 @@
             "type": "text",
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
-            "optional": false
+            "optional": true
           },
           {
             "name": "private-use_photos",
@@ -1659,7 +2103,7 @@
       },
       "immediate_zone_information": {
         "type": "informational_html",
-        "content": "<p style='font-size:1.2rem;font-style:italic'>The immediate zone extends to five feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The immediate zone extends to 5 feet from your house. This zone is the most vulnerable to embers. Start here with your fire resiliency efforts.</p>"
       },
       "intermediate_zone_header": {
         "type": "informational_html",
@@ -1667,7 +2111,7 @@
       },
       "intermediate_zone_information": {
         "type": "informational_html",
-        "content": "<p style='font-size:1.2rem;font-style:italic'>The intermediate zone extends between five and thirty feet from your house.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>The intermediate zone extends between 5 and 30 feet from your house. In this zone, using careful landscaping or hardscaping techniques to create fuel breaks can help decrease fire behavior.</p>"
       },
       "extended_zone_header": {
         "type": "informational_html",
@@ -1675,15 +2119,15 @@
       },
       "extended_zone_information": {
         "type": "informational_html",
-        "content": "<p style='font-size:1.2rem;font-style:italic'>The extended zone extends between thirty and one hundred feet from your house.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>From your home, this zone extends out 30 to 100 feet or even 200 feet if on a slope. The goal here is not to eliminate fire but to interrupt fire’s path and keep flames smaller and on the ground.</p>"
       },
-      "evacuation_plan_header": {
+      "emergency_evacuation_header": {
         "type": "informational_html",
         "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Emergency and Evacuation Planning</h2>"
       },
       "clean_roofs": {
         "type": "big_radio",
-        "prompt": "I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers",
+        "prompt": "I clean roofs and gutters of dead leaves, debris and pine needles that could catch embers and I keep my roof in good repair.",
         "label": "Clean roofs and gutters",
         "optional": true,
         "content": [
@@ -1696,8 +2140,8 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1716,14 +2160,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "reduce_embers": {
         "type": "big_radio",
-        "prompt": "I reduce embers that could pass through vents by installing 1/8 inch metal mesh screening",
+        "prompt": "I’ve installed 1/8 inch metal mesh screening on foundation vents and/or exterior attic vents.",
         "label": "Reduce embers",
         "optional": true,
         "content": [
@@ -1736,8 +2180,8 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1756,14 +2200,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "repair_screens": {
         "type": "big_radio",
-        "prompt": "I repair or replace damaged or loose window screens and any broken window screens or box-in areas below patios and decks with wire mesh",
+        "prompt": "I’ve screened in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating",
         "label": "Repair or replace window screens",
         "optional": true,
         "content": [
@@ -1776,14 +2220,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "move_flammable_material": {
         "type": "big_radio",
-        "prompt": "I move any flammable material away from wall exteriors and from beneath decks and porches",
+        "prompt": "I’ve moved any flammable material away from wall exteriors--mulch, flammable plants, leaves and needles, firewood piles--anything that can burn as well as anything stored underneath decks or porches.",
         "label": "Move flammable material",
         "optional": true,
         "content": [
@@ -1796,14 +2240,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "clear_vegetation": {
         "type": "big_radio",
-        "prompt": "I clear vegetation from under large stationary propane tanks",
+        "prompt": "I clear vegetation from under and in a 5-foot perimeter around my propane tank",
         "label": "Clear vegetation from propane tanks",
         "optional": true,
         "content": [
@@ -1816,14 +2260,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "create_fuel_breaks": {
         "type": "big_radio",
-        "prompt": "I create fuel breaks with driveways, walkways, paths, patios, and decks",
+        "prompt": "I’ve created fuel breaks with driveways, walkways/paths, patios, and decks",
         "label": "Create fuel breaks",
         "optional": true,
         "content": [
@@ -1836,8 +2280,8 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1856,14 +2300,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "remove_ladder_fuels": {
         "type": "big_radio",
-        "prompt": "I keep trees six to ten feet high pruned so a surface fire cannot reach the crown. I ensure shorter trees do not exceed one third of the overall tree height",
+        "prompt": "I prune tree limbs so the lowest branches are 6 to 10 feet above the ground to help reduce the chance of fire getting into the crowns of the trees",
         "label": "Remove ladder fuels",
         "optional": true,
         "content": [
@@ -1876,14 +2320,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "space_trees": {
         "type": "big_radio",
-        "prompt": "I space trees to have a minimum of eighteen feet between crowns, with the distance increasing with the percentage of slope",
+        "prompt": "I space trees to have a minimum of 18 feet between crowns, with the distance increasing with the percentage of slope",
         "label": "Space trees to eighteen feet",
         "optional": true,
         "content": [
@@ -1896,14 +2340,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "tree_placement": {
         "type": "big_radio",
-        "prompt": "I ensure that mature tree canopy is no closer than ten feet to the edge of structures on my property",
+        "prompt": "I ensure that mature tree canopy is no closer than ten feet to the edge of any structures on my property",
         "label": "Keep tree canopy ten feet from structures",
         "optional": true,
         "content": [
@@ -1916,14 +2360,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "small_tree_clusters": {
         "type": "big_radio",
-        "prompt": "I ensure that trees and shrubs in the intermediate zone are limited to small clusters of a few each",
+        "prompt": "I ensure that trees and shrubs in the intermediate zone are limited to small clusters of a few each to break up the continuity of vegetation",
         "label": "Break up continuity of vegetation",
         "optional": true,
         "content": [
@@ -1936,8 +2380,8 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1956,8 +2400,8 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1976,8 +2420,8 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -1996,8 +2440,8 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
@@ -2016,14 +2460,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "space_canopy_tops_30_60_feet": {
         "type": "big_radio",
-        "prompt": "I ensure that trees 30 to 60 feet from the home have at least twelve feet between canopy tops",
+        "prompt": "I ensure that trees 30 to 60 feet from the home have at least 12 feet between canopy tops",
         "label": "Space canopy tops 30 to 60 feet from the house",
         "optional": true,
         "content": [
@@ -2036,14 +2480,14 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "space_canopy_tops_60_100_feet": {
         "type": "big_radio",
-        "prompt": "I ensure that trees 60 to 100 feet from the home have at least six feet between the canopy tops",
+        "prompt": "I ensure that trees 60 to 100 feet from the home have at least 6 feet between the canopy tops",
         "label": "Space canopy tops 60 to 100 feet from the house",
         "optional": true,
         "content": [
@@ -2056,54 +2500,16 @@
             "value": "no"
           },
           {
-            "label": "No, but interested",
-            "value": "interested"
+            "label": "Not applicable",
+            "value": "not_applicable"
           }
         ]
       },
       "evacuation_plan": {
         "type": "big_radio",
-        "prompt": "I have an evacuation plan that includes escape routes, a designated family meeting location, and a communication plan",
+        "prompt": "I have an evacuation plan that includes escape routes (preferably 2), a designated family meeting location, and a communication plan",
         "label": "Evacuation plan",
         "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "No, but interested",
-            "value": "interested"
-          }
-        ]
-      },
-      "emergency_kit": {
-        "type": "big_radio",
-        "prompt": "I have an emergency kit",
-        "label": "Evacuation plan",
-        "optional": true,
-        "triggers": [
-          {
-            "value": "yes",
-            "targets": [
-              "food_and_water",
-              "medications",
-              "clothing",
-              "eyeglasses",
-              "car_keys_money",
-              "first_aid_kit",
-              "flashlight",
-              "radio",
-              "sanitation_supplies",
-              "documents",
-              "pet_food"
-            ]
-          }
-        ],
         "content": [
           {
             "label": "Yes",
@@ -2115,11 +2521,10 @@
           }
         ]
       },
-      "food_and_water": {
+      "emergency_kit_supplies": {
         "type": "big_radio",
-        "prompt": "My kit includes a three-day supply of non-perishable food and three gallons of water per person",
+        "prompt": "I have an emergency kit prepared with water, food, clothes, flashlight, first aid kit, etc.",
         "label": "Food and water",
-        "hidden_default": true,
         "optional": true,
         "content": [
           {
@@ -2129,186 +2534,29 @@
           {
             "label": "No",
             "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "medications": {
-        "type": "big_radio",
-        "prompt": "My kit includes prescriptions or special medications",
-        "label": "Prescriptions and medications",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "clothing": {
-        "type": "big_radio",
-        "prompt": "My kit includes a change of clothing for each person",
-        "label": "Change of clothing",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "eyeglasses": {
-        "type": "big_radio",
-        "prompt": "My kit includes extra eyeglasses or contact lenses",
-        "label": "Eyeglasses or contact lenses",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "car_keys_money": {
-        "type": "big_radio",
-        "prompt": "My kit includes an extra set of car keys, credit card, cash or traveler's checks",
-        "label": "Car keys and extra money",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "first_aid_kit": {
-        "type": "big_radio",
-        "prompt": "My kit includes first aid supplies",
-        "label": "First aid supplies",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "flashlight": {
-        "type": "big_radio",
-        "prompt": "My kit includes a flashlight",
-        "label": "Flashlight",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "radio": {
-        "type": "big_radio",
-        "prompt": "My kit includes a battery-powered radio and extra batteries",
-        "label": "Battery-powered radio",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
-          }
-        ]
-      },
-      "sanitation_supplies": {
-        "type": "big_radio",
-        "prompt": "My kit includes sanitation supplies",
-        "label": "Sanitation supplies",
-        "hidden_default": true,
-        "optional": true,
-        "content": [
-          {
-            "label": "Yes",
-            "value": "yes"
-          },
-          {
-            "label": "No",
-            "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
           }
         ]
       },
       "documents": {
         "type": "big_radio",
-        "prompt": "My kit includes copies of important documents, such as birth certificates, passports, etc.",
+        "prompt": "I have my important family documents, bank and credit card information, identification, prescriptions, etc. in one location easily accessible during an evacuation",
         "label": "Copies of documents",
-        "hidden_default": true,
+        "optional": true,
+        "content": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      "evacuation_plan_pets": {
+        "type": "big_radio",
+        "prompt": "I have an evacuation plan for my pets, large animals or livestock",
+        "label": "Evacuation plan",
         "optional": true,
         "content": [
           {
@@ -2325,11 +2573,10 @@
           }
         ]
       },
-      "pet_food": {
+      "emergency_notifications": {
         "type": "big_radio",
-        "prompt": "My kit includes pet food and water",
-        "label": "Pet food and water",
-        "hidden_default": true,
+        "prompt": "I’ve signed up for the emergency notification system through the Kittitas County Sheriff’s Office or I know where to go for official information",
+        "label": "Food and water",
         "optional": true,
         "content": [
           {
@@ -2339,10 +2586,6 @@
           {
             "label": "No",
             "value": "no"
-          },
-          {
-            "label": "Not applicable",
-            "value": "not_applicable"
           }
         ]
       }

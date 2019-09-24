@@ -34,6 +34,7 @@ import {
   ReportBodyText,
 } from "../../../molecules/report-components/typography";
 import { ColoredMeterChart } from "../../../molecules/report-components/charts";
+import { HorizontalRule } from "../../../atoms/layout";
 
 const getBurnRiskText = burnRisk => {
   if (burnRisk === "LOW") {
@@ -54,43 +55,43 @@ const getBurnRiskText = burnRisk => {
 // https://www.co.kittitas.wa.us/cds/firemarshal/local-fire-districts.aspx
 const fireDistrictInfo = {
   "You are not located in a Fire District. Contact the Fire Marshal's Office:": {
-    email: "Not available",
+    website: "bit.ly/2kH8HUj",
     phone: "509-962-7506",
   }, // https://www.co.kittitas.wa.us/cds/firemarshal/default.aspx
-  "Fire District 3 (Easton)": {
-    email: "Not available",
+  "Fire District #3 (Easton)": {
+    website: "bit.ly/2mafJRO",
     phone: "509-656-0121",
   },
-  "Snoqualmie Pass Fire and Rescue": {
-    email: "jwiseman@snoqualmiepassfirerescue.org",
+  "Fire District #51 (Snoqualmie Pass)": {
+    website: "bit.ly/2mafpCA",
     phone: "425-434-6333", // http://www.snoqualmiepassfirerescue.org/Contact%20Us.html
   },
-  "Fire District 6 (Ronald)": {
-    email: "www.facebook.com/KCFPD6",
+  "Fire District #6 (Ronald)": {
+    website: "bit.ly/2kKep7Z",
     phone: "509-649-2600",
   },
-  "CITY OF ROSLYN 57-1": {
-    email: "skye@inlandnet.com",
+  "Roslyn Fire Department": {
+    website: "bit.ly/2kHQSVa",
     phone: "509-649-3105",
   },
-  "CITY OF CLE ELUM 51-1": {
-    email: "firechief@cityofcleelum.com",
+  "City of Cle Elum Volunteer Fire Department": {
+    website: "bit.ly/2lTvVGT",
     phone: "509-674-1748",
   },
-  "Fire District 1 (Rural Thorp)": {
-    email: "www.facebook.com/kittitascofd1",
+  "Fire District #1 (Thorp)": {
+    website: "bit.ly/2kjayi2",
     phone: "509-964-2435",
   },
-  "Fire District 4 (Vantage)": {
-    email: "vantageKCFD4@gmail.com",
+  "Fire District #4 (Vantage)": {
+    website: "bit.ly/2kIsfrs",
     phone: "Not available",
   },
-  "Kittitas Valley Fire and Rescue (Fire District 2)": {
-    email: "www.kvfr.org/Contact_Us.aspx",
+  "Kittitas Valley Fire and Rescue/Fire District #2": {
+    website: "bit.ly/2kadOvU",
     phone: "509-933-7231",
   },
-  "Fire District 7 (Cle Elum)": {
-    email: "office@kcfd7.com",
+  "Cle Elum Fire Department": {
+    website: "bit.ly/2lLj1ei",
     phone: "509-933-7235",
   },
 };
@@ -120,20 +121,41 @@ const actionDescriptions = {
   move_flammable_material: "Moving flammable material away from wall exteriors",
   create_fuel_breaks: "Creating fuel breaks",
 };
+const returnIntervals = {
+  subalpine: "200+ years",
+  "moist-mixed-conifer": "45-100 years",
+  "dry-forest": "15-25 years",
+  "ponderosa-pine": "8-15 years",
+  "non-forest-rangeland": "5-15 years",
+};
+const forestTypes = {
+  subalpine: "Subalpine",
+  "moist-mixed-conifer": "Moist Mixed Conifer",
+  "dry-forest": "Dry Forest",
+  "ponderosa-pine": "Ponderosa Pine",
+  "non-forest-rangeland": "Non-forest Rangeland",
+};
+const interestedAssistanceTypes = {
+  interested_technical_advice:
+    "Better understanding of the importance of the actions",
+  interested_financial_assistance:
+    "Financial assistance to complete the actions",
+};
 
 const KittitasFireReadyReport = props => {
   const {
     num_nearby_large_fires: numLargeFires,
     num_nearby_fire_start_sites: numFireStarts,
-    local_fire_district_fire_district_name: fireDistrictName,
+    local_fire_district_fire_distr: fireDistrictName,
     firewise_community_Community: fireAdaptedCommunity,
     burn_risk_LABEL: burnRisk,
-    forest_type_LABEL: forestType,
+    forest_type: forestType,
   } = props.place;
 
-  // The actions in these lists should ideally be listed in order of
+  // TODO: The actions in these lists should ideally be listed in order of
   // importance.
-  const vegetationActions = [
+  const relevantActions = [
+    "reduce_embers",
     "clear_vegetation",
     "mow_to_four_inches",
     "remove_ladder_fuels",
@@ -146,28 +168,35 @@ const KittitasFireReadyReport = props => {
     "remove_outbuilding_vegetation",
     "space_canopy_tops_30_60_feet",
     "space_canopy_tops_60_100_feet",
-  ]
-    .filter(action => props.place[action] === "yes")
-    .slice(0, 2);
-  const buildingActions = [
     "clean_roofs",
     "replace_shingles",
-    "reduce_embers",
     "clean_debris_attic_vents",
     "repair_screens",
     "create_fuel_breaks",
     "move_flammable_material",
-  ]
-    .filter(action => props.place[action] === "yes")
-    .slice(0, 2);
+  ].filter(action => props.place[action] !== "not_applicable");
+  const numRelevantActions = relevantActions.length;
+  const numCompletedActions = relevantActions.filter(
+    action => props.place[action] === "yes",
+  ).length;
+
   const safeAvgFireStarts = !isNaN(numFireStarts) ? numFireStarts / 10 : 0; // 10 === year range of data.
   const safeNumLargeFires = !isNaN(numLargeFires) ? numLargeFires : 0;
-  const safeForestType = forestType || "unknown";
+  const safeForestType = forestTypes[forestType] || "unknown";
+  const safeReturnInterval = returnIntervals[forestType] || "unknown";
   const safeFireDistrictName =
-    fireDistrictName === "Areas outside Fire Districts" || !fireDistrictName
+    fireDistrictName === "Areas Outside of Fire Districts" || !fireDistrictName
       ? "You are not located in a Fire District. Contact the Fire Marshal's Office:"
       : fireDistrictName;
   const safeFireDistrictContactInfo = fireDistrictInfo[safeFireDistrictName];
+  const safeInterestedAssistance = Array.isArray(
+    props.place["interested_assistance"],
+  )
+    ? props.place["interested_assistance"].map(
+        item => interestedAssistanceTypes[item],
+      )
+    : [];
+
   const isOutsideFireAdaptedCommunity =
     !fireAdaptedCommunity || fireAdaptedCommunity === "none";
   const safeFireAdaptedCommunity = isOutsideFireAdaptedCommunity
@@ -237,11 +266,17 @@ const KittitasFireReadyReport = props => {
                     </ContentWithFontAwesomeIcon>
                     <ContentWithFontAwesomeIcon
                       color="#444"
-                      faClassname="fas fa-globe"
+                      faClassname={
+                        safeFireDistrictContactInfo.website === "bit.ly/2kH8HUj"
+                          ? "fas fa-globe"
+                          : "fab fa-facebook"
+                      }
                     >
-                      <ExternalLink>
+                      <ExternalLink
+                        href={"http://" + safeFireDistrictContactInfo.website}
+                      >
                         <LargeText>
-                          {safeFireDistrictContactInfo.email}
+                          {safeFireDistrictContactInfo.website}
                         </LargeText>
                       </ExternalLink>
                     </ContentWithFontAwesomeIcon>
@@ -266,18 +301,18 @@ const KittitasFireReadyReport = props => {
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
-                  faClassname="fas fa-globe"
+                  faClassname="fab fa-facebook"
                 >
-                  <ExternalLink href="https://www.facebook.com/KittitasFACC">
-                    <LargeText>www.facebook.com/KittitasFACC</LargeText>
+                  <ExternalLink href="http://bit.ly/2kxACWU">
+                    <LargeText>bit.ly/2kxACWU</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://fireadaptedwashington.org">
-                    <LargeText>fireadaptedwashington.org</LargeText>
+                  <ExternalLink href="http://bit.ly/2lOUAMT">
+                    <LargeText>bit.ly/2lOUAMT</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -296,13 +331,13 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>509-925-0974 (DNR)</LargeText>
+                  <LargeText>509-925-3352 x204 (KCCD)</LargeText>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>509-925-3352 x204 (KCCD)</LargeText>
+                  <LargeText>509-925-0974 (DNR)</LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
@@ -330,8 +365,8 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://kittitascountyfireready.mapseed.org">
-                    <LargeText>kittitascountyfireready.mapseed.org</LargeText>
+                  <ExternalLink href="http://bit.ly/2lLmols">
+                    <LargeText>bit.ly/2lLmols</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
@@ -339,8 +374,8 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-info-circle"
                 >
                   <LargeText>
-                    Visit Kittitas County’s Fire Ready map to explore fire risk
-                    and other critical data
+                    Visit Kittitas County’s Fire Adapted map to explore fire
+                    risk and other critical data
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -361,12 +396,12 @@ const KittitasFireReadyReport = props => {
                     css={css`
                       width: 100%;
                     `}
-                    src="/static/css/images/taylor-bridge-fire.jpg"
-                    alt="Taylor Bridge Fire"
+                    src="/static/css/images/table-mountain-fire.jpg"
+                    alt="Table Mountain Fire"
                   />
                   <figcaption>
                     <RegularText>
-                      <em>The Taylor Bridge Fire burns in 2012.</em>
+                      <em>The Table Mountain Fire burning in 2012.</em>
                     </RegularText>
                   </figcaption>
                 </figure>
@@ -377,12 +412,12 @@ const KittitasFireReadyReport = props => {
               </ReportBodyText>
               <ReportBodyText>
                 This report summarizes the wildfire risk in the vicinity of your
-                property, as reported on the Kittitas County Fire Ready map.
+                property, as reported on the Kittitas County Fire Adapted map.
               </ReportBodyText>
               <ReportBodyText>
-                Even if the fire risk in your area is low, be aware that all
-                locations in Kittitas County experience some level of wildfire
-                risk.
+                Even if the fire risk in your area appears low, be aware that
+                all locations in Kittitas County are at risk from embers created
+                by a wildfire.
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
@@ -390,12 +425,21 @@ const KittitasFireReadyReport = props => {
                 Know Your Forest
               </KittitasFireReadySectionHeader>
               <ReportBodyText>
-                Based on DNR data, the forest in your area is primarily made up
+                You reported that the forest in your area is primarily made up
                 of{" "}
-                <LargeText fontFamily="PTSans-Regular">
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {safeForestType}
+                </LargeText>{" "}
+                with fire return intervals of
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
+                  {" "}
+                  {safeReturnInterval}.{" "}
                 </LargeText>
-                .{" "}
+                Learn more about forest types here:{" "}
+                <ExternalLink href="http://bit.ly/2lK4hMB">
+                  bit.ly/2lK4hMB
+                </ExternalLink>
+                .
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
@@ -420,7 +464,7 @@ const KittitasFireReadyReport = props => {
                     <RegularText
                       css={css`
                         font-style: italic;
-                        color: #aaa;
+                        color: #222;
                       `}
                     >
                       General wildfire risk in your area
@@ -429,31 +473,47 @@ const KittitasFireReadyReport = props => {
                 </FlexCentered>
                 <FlexCentered>
                   <FlexItem flex="2">
-                    <BigStat>{safeAvgFireStarts}</BigStat>
+                    <BigStat
+                      css={css`
+                        text-align: right;
+                        padding-right: 32px;
+                      `}
+                    >
+                      {safeAvgFireStarts}
+                    </BigStat>
                   </FlexItem>
                   <FlexItem flex="1">
                     <RegularText
                       css={css`
                         font-style: italic;
-                        color: #aaa;
+                        color: #222;
                       `}
                     >
-                      Average fire starts in your area per year
+                      Average fire starts per year within a 10-mile radius of
+                      your location
                     </RegularText>
                   </FlexItem>
                 </FlexCentered>
                 <FlexCentered>
                   <FlexItem flex="2">
-                    <BigStat>{safeNumLargeFires}</BigStat>
+                    <BigStat
+                      css={css`
+                        text-align: right;
+                        padding-right: 32px;
+                      `}
+                    >
+                      {safeNumLargeFires}
+                    </BigStat>
                   </FlexItem>
                   <FlexItem flex="1">
                     <RegularText
                       css={css`
                         font-style: italic;
-                        color: #aaa;
+                        color: #222;
                       `}
                     >
-                      Number of large wildfires in your area since 1973
+                      Number of large wildfires over 100 acres within a 10-mile
+                      radius of your location since 1973
                     </RegularText>
                   </FlexItem>
                 </FlexCentered>
@@ -462,18 +522,17 @@ const KittitasFireReadyReport = props => {
                 Wildfire risk varies by location throughout Kittitas County.
               </ReportBodyText>
               <ReportBodyText>
-                According to data sources from the State of Washington, wildfire
-                risk in your area is{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                According to State of Washington data, wildfire risk in your
+                area is{" "}
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {burnRiskText}
                 </LargeText>
-                . The average number of fire starts (including starts from human
-                activity and from lightning) per year in your area is{" "}
-                <LargeText fontFamily="PTSans-Regular">
+                . The average number of fire starts per year in your area is{" "}
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {safeAvgFireStarts}
                 </LargeText>
                 . Since 1973,{" "}
-                <LargeText fontFamily="PTSans-Regular">
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   {safeNumLargeFires}
                 </LargeText>{" "}
                 large wildfires have burned in your area.
@@ -497,9 +556,7 @@ const KittitasFireReadyReport = props => {
               <KittitasFireReadyReportSmallTitle weight="bold">
                 Emergency Kit
               </KittitasFireReadyReportSmallTitle>
-              <LargeText>
-                Review this emergency preparedness checklist.
-              </LargeText>
+              <LargeText>Review this checklist:</LargeText>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -559,25 +616,23 @@ const KittitasFireReadyReport = props => {
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle weight="bold">
-                Kittitas County Sheriff
+                Follow Kittitas County Sheriff on Social Media
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
                   color="#444"
-                  faClassname="fas fa-globe"
+                  faClassname="fab fa-twitter"
                 >
-                  <ExternalLink href="https://twitter.com/kcsheriffoffice">
-                    <LargeText>twitter.com/kcsheriffoffice</LargeText>
+                  <ExternalLink href="http://bit.ly/2mfXdaT">
+                    <LargeText>bit.ly/2mfXdaT</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
-                  faClassname="fas fa-globe"
+                  faClassname="fab fa-facebook"
                 >
-                  <ExternalLink href="https://www.facebook.com/KittitasCountySheriff/">
-                    <LargeText>
-                      www.facebook.com/KittitasCountySheriff
-                    </LargeText>
+                  <ExternalLink href="http://bit.ly/2lST0JL">
+                    <LargeText>bit.ly/2lST0JL</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
@@ -591,15 +646,16 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-globe"
                 >
-                  <ExternalLink href="https://inciweb.nwcg.gov">
-                    <LargeText>inciweb.nwcg.gov</LargeText>
+                  <ExternalLink href="http://bit.ly/2lST7Fb">
+                    <LargeText>bit.ly/2lST7Fb</LargeText>
                   </ExternalLink>
                 </ContentWithFontAwesomeIcon>
               </SidebarResourceList>
             </SidebarSection>
             <SidebarSection>
               <KittitasFireReadyReportSmallTitle weight="bold">
-                {"Scan this code for Kittitas County Sheriff's Information:"}
+                Scan this code to sign up for Kittitas County Sheriff&apos;s
+                Emergency Notifications:
               </KittitasFireReadyReportSmallTitle>
               <SidebarResourceList>
                 <ContentWithFontAwesomeIcon
@@ -622,7 +678,7 @@ const KittitasFireReadyReport = props => {
               <KittitasFireReadySectionHeader>
                 Preparing For Wildfire
               </KittitasFireReadySectionHeader>
-              <FloatedRight width="400px">
+              <FloatedRight width="300px">
                 <figure
                   css={css`
                     margin: 0 0 16px 16px;
@@ -632,8 +688,8 @@ const KittitasFireReadyReport = props => {
                     css={css`
                       width: 100%;
                     `}
-                    src="/static/css/images/fire-zones.jpg"
-                    alt="Taylor Bridge Fire"
+                    src="/static/css/images/defensible-space.jpg"
+                    alt="Defensible space around a home"
                   />
                   <figcaption>
                     <RegularText>
@@ -648,126 +704,161 @@ const KittitasFireReadyReport = props => {
               <ReportBodyText>
                 The National Fire Protection Association recommends you think of
                 fire prevention in three ignition zones around your home:{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   Immediate
-                </LargeText>
-                ,{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                </LargeText>{" "}
+                (0-5 feet),{" "}
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   Intermediate
-                </LargeText>
-                , and{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                </LargeText>{" "}
+                (5-30 feet), and{" "}
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   Extended
-                </LargeText>
-                .
+                </LargeText>{" "}
+                (30-100 feet or 200 feet in or near steeper terrain).
               </ReportBodyText>
               <ReportBodyText>
                 {" "}
-                Start your preparedness efforts in the Immediate zone, closest
-                to your house. Focus on the removal of flammable vegetation, and
-                incorporating nonflammable constructions methods whenever
-                possible.
+                Start your preparedness efforts in the Immediate zone. Focus on
+                the removal of flammable vegetation, and incorporating
+                nonflammable constructions methods whenever possible.
               </ReportBodyText>
             </MainPanelSection>
             <MainPanelSection>
               <KittitasFireReadySectionHeader>
                 Reviewing Your Preparedness
               </KittitasFireReadySectionHeader>
-              {(vegetationActions.length > 0 || buildingActions.length > 0) && (
-                <ReportBodyText>
-                  It looks like you’ve done some great preparation work! Here’s
-                  a quick review.
-                </ReportBodyText>
+              {numCompletedActions === 0 && (
+                <>
+                  <ReportBodyText>
+                    Looks like you could use some help with your defensible
+                    space.
+                  </ReportBodyText>
+                  <LargeText
+                    css={css`
+                      font-family: Raleway, sans-serif;
+                      font-size: 1.5rem;
+                      display: block;
+                      margin-left: 64px;
+                      margin-bottom: 16px;
+                      font-style: italic;
+                    `}
+                  >
+                    Schedule an onsite consultation to learn how to minimize
+                    your risk through vegetation control on your property.
+                  </LargeText>
+                </>
               )}
-              <ReportBodyText>
-                You control vegetation on your property by:
-              </ReportBodyText>
-              {vegetationActions.length > 0 ? (
-                <ul
-                  css={css`
-                    padding-left: 80px;
-                  `}
-                >
-                  {vegetationActions.map(action => (
-                    <li
+              {numCompletedActions > 0 &&
+                numCompletedActions < numRelevantActions && (
+                  <>
+                    <ReportBodyText>
+                      Looks like you have a good start on improving your
+                      defensible space.
+                    </ReportBodyText>
+                    <LargeText
                       css={css`
                         font-family: Raleway, sans-serif;
-                        font-style: italic;
                         font-size: 1.5rem;
+                        display: block;
+                        margin-left: 64px;
+                        margin-bottom: 16px;
+                        font-style: italic;
                       `}
-                      key={action}
                     >
-                      {actionDescriptions[action]}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <LargeText
-                  css={css`
-                    font-family: Raleway, sans-serif;
-                    font-size: 1.5rem;
-                    display: block;
-                    margin-left: 64px;
-                    margin-bottom: 16px;
-                    font-style: italic;
-                  `}
-                >
-                  Schedule an onsite consultation to learn how to minimize your
-                  risk through vegetation control on your property.
-                </LargeText>
+                      Schedule a free onsite consultation to learn more about
+                      improving your defensible space and minimizing your risk.
+                    </LargeText>
+                  </>
+                )}
+              {numCompletedActions === numRelevantActions && (
+                <>
+                  <ReportBodyText>
+                    You’re doing a great job with your defensible space.
+                  </ReportBodyText>
+                  <LargeText
+                    css={css`
+                      font-family: Raleway, sans-serif;
+                      font-size: 1.5rem;
+                      display: block;
+                      margin-left: 64px;
+                      margin-bottom: 16px;
+                      font-style: italic;
+                    `}
+                  >
+                    Schedule a free on-site consultation to confirm your great
+                    work and consider sharing your success with your
+                    neighborhood.
+                  </LargeText>
+                </>
+              )}
+              {safeInterestedAssistance.length > 0 && (
+                <>
+                  <ReportBodyText>
+                    You identified the following needs:
+                  </ReportBodyText>
+                  <ul
+                    css={css`
+                      list-style: none;
+                      padding: 0;
+                    `}
+                  >
+                    {safeInterestedAssistance.map(item => (
+                      <li key={item}>
+                        <LargeText
+                          css={css`
+                            font-family: Raleway, sans-serif;
+                            font-size: 1.5rem;
+                            display: block;
+                            margin-left: 64px;
+                            margin-bottom: 16px;
+                            font-style: italic;
+                          `}
+                        >
+                          {item}
+                        </LargeText>
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
               <ReportBodyText>
-                You incorporate fire-resistant building materials and techniques
-                by:
-              </ReportBodyText>
-              {buildingActions.length > 0 ? (
-                <ul
-                  css={css`
-                    padding-left: 80px;
-                  `}
-                >
-                  {buildingActions.map(action => (
-                    <li
-                      css={css`
-                        font-family: Raleway, sans-serif;
-                        font-style: italic;
-                        font-size: 1.5rem;
-                      `}
-                      key={action}
-                    >
-                      {actionDescriptions[action]}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <LargeText
-                  css={css`
-                    font-family: Raleway, sans-serif;
-                    font-size: 1.5rem;
-                    display: block;
-                    margin-left: 64px;
-                    margin-bottom: 16px;
-                    font-style: italic;
-                  `}
-                >
-                  Schedule an onsite consultation to learn how to minimize your
-                  risk through the use of fire-resistant building materials and
-                  techniques.
-                </LargeText>
-              )}
-              <ReportBodyText>
-                We recommend a full onsite consultation. You can get your free
-                consultation by calling KCCD at{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                We recommend a full onsite consultation to learn more about
+                defensible space and the programs available to you. You can get
+                your free consultation by calling KCCD at{" "}
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   509-925-3352 x204{" "}
                 </LargeText>
                 or DNR at{" "}
-                <LargeText fontFamily="PTSans-Regular,sans-serif">
+                <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
                   509-925-0974
                 </LargeText>
                 .
               </ReportBodyText>
             </MainPanelSection>
+            <div
+              css={css`
+                margin-left: 40px;
+              `}
+            >
+              <HorizontalRule spacing="medium" />
+              <span
+                css={css`
+                  font-size: 1.2rem;
+                  font-family: Raleway, sans-serif;
+                  color: #888;
+                  line-height: 1.4rem;
+                  font-style: italic;
+                  padding-top: 16px;
+                  margin-top: 8px;
+                `}
+              >
+                Want to be part of the solution? Join the Kittitas Fire Adapted
+                Communities Coalition (KFACC) and help us spread the word to our
+                communities! Call 925-3352 ext. 204 to be added to the mailing
+                list.
+              </span>
+            </div>
           </MainPanel>
           <KittitasFireReadyPageFooter />
         </PageBody>

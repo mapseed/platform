@@ -11,13 +11,13 @@ import { Badge } from "../components/atoms/typography";
 const BLUE = "#377eb8";
 const COLORS = [
   "#e41a1c",
+  BLUE,
   "#4daf4a",
   "#984ea3",
   "#ff7f00",
-  "#ffff33",
-  BLUE,
   "#a65628",
   "#f781bf",
+  "#999999",
 ];
 
 const currencyFormatter = value =>
@@ -160,7 +160,7 @@ const isEmailAddress = text => {
 const getNumericalPart = response => {
   if (typeof response !== "number" && typeof response !== "string") {
     // Don't attempt to pull a number out of arrays, objects, or booleans.
-    return;
+    return undefined;
   }
 
   if (typeof response === "number") {
@@ -169,7 +169,7 @@ const getNumericalPart = response => {
 
   const match = /([0-9,.]+)/.exec(response.trim());
   if (!match) {
-    return;
+    return undefined;
   } else {
     return Number(match[1].replace(",", ""));
   }

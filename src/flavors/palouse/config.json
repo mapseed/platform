@@ -133,6 +133,10 @@
                 {
                   "value": "pre-2011",
                   "label": "Pre-2011"
+                },
+                {
+                  "value": "2011-and-later",
+                  "label": "2011 and later"
                 }
               ]
             }
@@ -183,7 +187,36 @@
             {
               "cells": [
                 {
-                  "value": "Conventional Farming"
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Conventional Farming: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "conventional_till_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "conventional_till_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "conventional_till_datetime"], 0]
+                      ]
+                    ]
+                  ]
                 },
                 {
                   "value": [
@@ -197,6 +230,16 @@
                       "get-sum",
                       "conventional_till_quantity",
                       ["<", ["get-val", "conventional_till_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conventional_till_quantity",
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -215,6 +258,16 @@
                       "conventional_till_quantity",
                       ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conventional_till_quantity",
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
+                    ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
                   "label": "acres"
@@ -232,6 +285,16 @@
                       "conventional_till_quantity",
                       ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conventional_till_quantity",
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
+                    ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
                   "label": "acres"
@@ -248,6 +311,16 @@
                       "get-sum",
                       "conventional_till_quantity",
                       ["<", ["get-val", "conventional_till_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conventional_till_quantity",
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -272,7 +345,33 @@
             {
               "cells": [
                 {
-                  "value": "Residue & Tillage Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Residue & Tillage Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "no_till_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "no_till_datetime"], 2011]
+                      ],
+                      ["get-count", [">", ["get-val", "no_till_datetime"], 0]]
+                    ]
+                  ],
                   "label": "No-Till/Direct Seed/2-Pass"
                 },
                 {
@@ -288,6 +387,16 @@
                       "no_till_quantity",
                       ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      [">=", ["get-val", "no_till_datetime"], 2011]
+                    ],
                     ["get-sum", "no_till_quantity"]
                   ],
                   "label": "acres"
@@ -305,6 +414,16 @@
                       "no_till_quantity",
                       ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      [">=", ["get-val", "no_till_datetime"], 2011]
+                    ],
                     ["get-sum", "no_till_quantity"]
                   ],
                   "label": "acres"
@@ -322,6 +441,16 @@
                       "no_till_quantity",
                       ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      [">=", ["get-val", "no_till_datetime"], 2011]
+                    ],
                     ["get-sum", "no_till_quantity"]
                   ],
                   "label": "acres"
@@ -338,6 +467,16 @@
                       "get-sum",
                       "no_till_quantity",
                       ["<", ["get-val", "no_till_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "no_till_quantity",
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -380,7 +519,36 @@
             {
               "cells": [
                 {
-                  "value": "Pest Management"
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Pest Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "pest_management_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "pest_management_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "pest_management_datetime"], 0]
+                      ]
+                    ]
+                  ]
                 },
                 {
                   "value": [
@@ -394,6 +562,16 @@
                       "get-sum",
                       "pest_management_quantity",
                       ["<", ["get-val", "pest_management_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "pest_management_quantity",
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -412,6 +590,16 @@
                       "pest_management_quantity",
                       ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "pest_management_quantity",
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
+                    ],
                     ["get-sum", "pest_management_quantity"]
                   ],
                   "label": "acres"
@@ -429,6 +617,16 @@
                       "pest_management_quantity",
                       ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "pest_management_quantity",
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
+                    ],
                     ["get-sum", "pest_management_quantity"]
                   ],
                   "label": "acres"
@@ -445,6 +643,16 @@
                       "get-sum",
                       "pest_management_quantity",
                       ["<", ["get-val", "pest_management_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "pest_management_quantity",
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -495,7 +703,40 @@
             {
               "cells": [
                 {
-                  "value": "Nutrient Management"
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Nutrient Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">=",
+                          ["get-val", "nutrient_management_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "nutrient_management_datetime"], 0]
+                      ]
+                    ]
+                  ]
                 },
                 {
                   "value": [
@@ -509,6 +750,16 @@
                       "get-sum",
                       "nutrient_management_quantity",
                       ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "nutrient_management_quantity",
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -527,6 +778,16 @@
                       "nutrient_management_quantity",
                       ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "nutrient_management_quantity",
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
+                    ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
                   "label": "acres"
@@ -544,6 +805,16 @@
                       "nutrient_management_quantity",
                       ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "nutrient_management_quantity",
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
+                    ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
                   "label": "acres"
@@ -560,6 +831,16 @@
                       "get-sum",
                       "nutrient_management_quantity",
                       ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "nutrient_management_quantity",
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -610,7 +891,36 @@
             {
               "cells": [
                 {
-                  "value": "Range Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Range Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "managed_grazing_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Managed Grazing"
                 },
                 {
@@ -626,39 +936,15 @@
                       "managed_grazing_quantity",
                       ["<", ["get-val", "managed_grazing_datetime"], 2011]
                     ],
-                    ["get-sum", "managed_grazing_quantity"]
-                  ],
-                  "label": "Acres"
-                },
-                {
-                  "value": [
-                    "case",
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "2011-and-later"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
-                    ],
-                    ["get-sum", "managed_grazing_quantity"]
-                  ],
-                  "label": "Acres"
-                },
-                {
-                  "value": [
-                    "case",
-                    [
-                      "==",
-                      ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
-                    ],
-                    [
-                      "get-sum",
-                      "managed_grazing_quantity",
-                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "managed_grazing_quantity"]
                   ],
@@ -677,12 +963,76 @@
                       "managed_grazing_quantity",
                       ["<", ["get-val", "managed_grazing_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "managed_grazing_quantity",
+                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                    ],
                     ["get-sum", "managed_grazing_quantity"]
                   ],
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 903],
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "managed_grazing_quantity",
+                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "managed_grazing_quantity",
+                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                    ],
+                    ["get-sum", "managed_grazing_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "managed_grazing_quantity",
+                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "managed_grazing_quantity",
+                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                    ],
+                    ["get-sum", "managed_grazing_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", 750],
                   "label": "Acres"
                 },
                 {
@@ -691,18 +1041,18 @@
                     [
                       "<=",
                       ["get-sum", "managed_grazing_quantity"],
-                      ["*", 0.7, 903]
+                      ["*", 0.7, 750]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "managed_grazing_quantity"], 903],
+                    ["<", ["get-sum", "managed_grazing_quantity"], 750],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "managed_grazing_quantity"], 903],
+                    [">=", ["get-sum", "managed_grazing_quantity"], 750],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 3613],
+                  "value": ["literal", 3150],
                   "label": "Acres"
                 },
                 {
@@ -711,12 +1061,12 @@
                     [
                       "<=",
                       ["get-sum", "managed_grazing_quantity"],
-                      ["*", 0.7, 3613]
+                      ["*", 0.7, 3150]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "managed_grazing_quantity"], 3613],
+                    ["<", ["get-sum", "managed_grazing_quantity"], 3150],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "managed_grazing_quantity"], 3613],
+                    [">=", ["get-sum", "managed_grazing_quantity"], 3150],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -726,7 +1076,36 @@
             {
               "cells": [
                 {
-                  "value": "Range Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Range Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "range_plantings_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "range_plantings_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "range_plantings_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Range Plantings"
                 },
                 {
@@ -742,39 +1121,15 @@
                       "range_plantings_quantity",
                       ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
-                    ["get-sum", "range_plantings_quantity"]
-                  ],
-                  "label": "Acres"
-                },
-                {
-                  "value": [
-                    "case",
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "2011-and-later"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2011]
-                    ],
-                    ["get-sum", "range_plantings_quantity"]
-                  ],
-                  "label": "Acres"
-                },
-                {
-                  "value": [
-                    "case",
-                    [
-                      "==",
-                      ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
-                    ],
-                    [
-                      "get-sum",
-                      "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2011]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -793,12 +1148,76 @@
                       "range_plantings_quantity",
                       ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "range_plantings_quantity",
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
+                    ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 450],
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "range_plantings_quantity",
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "range_plantings_quantity",
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
+                    ],
+                    ["get-sum", "range_plantings_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "range_plantings_quantity",
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "range_plantings_quantity",
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
+                    ],
+                    ["get-sum", "range_plantings_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", 100],
                   "label": "Acres"
                 },
                 {
@@ -807,18 +1226,18 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 450]
+                      ["*", 0.7, 100]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 450],
+                    ["<", ["get-sum", "range_plantings_quantity"], 100],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 450],
+                    [">=", ["get-sum", "range_plantings_quantity"], 100],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 1806.5],
+                  "value": ["literal", 2000],
                   "label": "Acres"
                 },
                 {
@@ -827,12 +1246,12 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 1806.5]
+                      ["*", 0.7, 2000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 1806.5],
+                    ["<", ["get-sum", "range_plantings_quantity"], 2000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 1806.5],
+                    [">=", ["get-sum", "range_plantings_quantity"], 2000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -842,7 +1261,36 @@
             {
               "cells": [
                 {
-                  "value": "Range Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Range Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "watering_facility_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "watering_facility_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "watering_facility_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Watering Facilities"
                 },
                 {
@@ -858,6 +1306,16 @@
                       "watering_facility_quantity",
                       ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "watering_facility_quantity",
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
+                    ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
                   "label": "Facils."
@@ -875,6 +1333,16 @@
                       "watering_facility_quantity",
                       ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "watering_facility_quantity",
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
+                    ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
                   "label": "Facils."
@@ -892,6 +1360,16 @@
                       "watering_facility_quantity",
                       ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "watering_facility_quantity",
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
+                    ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
                   "label": "Facils."
@@ -908,6 +1386,16 @@
                       "get-sum",
                       "watering_facility_quantity",
                       ["<", ["get-val", "watering_facility_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "watering_facility_quantity",
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -958,7 +1446,36 @@
             {
               "cells": [
                 {
-                  "value": "Range Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Range Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "water_wells_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "water_wells_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "water_wells_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Water Wells"
                 },
                 {
@@ -974,6 +1491,16 @@
                       "water_wells_quantity",
                       ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "water_wells_quantity",
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                    ],
                     ["get-sum", "water_wells_quantity"]
                   ],
                   "label": "Wells"
@@ -991,6 +1518,16 @@
                       "water_wells_quantity",
                       ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "water_wells_quantity",
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                    ],
                     ["get-sum", "water_wells_quantity"]
                   ],
                   "label": "Wells"
@@ -1008,6 +1545,16 @@
                       "water_wells_quantity",
                       ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "water_wells_quantity",
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                    ],
                     ["get-sum", "water_wells_quantity"]
                   ],
                   "label": "Wells"
@@ -1024,6 +1571,16 @@
                       "get-sum",
                       "water_wells_quantity",
                       ["<", ["get-val", "water_wells_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "water_wells_quantity",
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -1066,7 +1623,48 @@
             {
               "cells": [
                 {
-                  "value": "Soil Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Soil Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "conservation_crop_rotation_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">=",
+                          ["get-val", "conservation_crop_rotation_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">",
+                          ["get-val", "conservation_crop_rotation_datetime"],
+                          0
+                        ]
+                      ]
+                    ]
+                  ],
                   "label": "Conservation Crop Rotation"
                 },
                 {
@@ -1086,23 +1684,16 @@
                         2011
                       ]
                     ],
-                    ["get-sum", "conservation_crop_rotation_quantity"]
-                  ],
-                  "label": "Acres"
-                },
-                {
-                  "value": [
-                    "case",
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "2011-and-later"
                     ],
                     [
                       "get-sum",
                       "conservation_crop_rotation_quantity",
                       [
-                        "<",
+                        ">=",
                         ["get-val", "conservation_crop_rotation_datetime"],
                         2011
                       ]
@@ -1128,6 +1719,20 @@
                         2011
                       ]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_crop_rotation_quantity",
+                      [
+                        ">=",
+                        ["get-val", "conservation_crop_rotation_datetime"],
+                        2011
+                      ]
+                    ],
                     ["get-sum", "conservation_crop_rotation_quantity"]
                   ],
                   "label": "Acres"
@@ -1145,6 +1750,55 @@
                       "conservation_crop_rotation_quantity",
                       [
                         "<",
+                        ["get-val", "conservation_crop_rotation_datetime"],
+                        2011
+                      ]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_crop_rotation_quantity",
+                      [
+                        ">=",
+                        ["get-val", "conservation_crop_rotation_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "conservation_crop_rotation_quantity"]
+                  ],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_crop_rotation_quantity",
+                      [
+                        "<",
+                        ["get-val", "conservation_crop_rotation_datetime"],
+                        2011
+                      ]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_crop_rotation_quantity",
+                      [
+                        ">=",
                         ["get-val", "conservation_crop_rotation_datetime"],
                         2011
                       ]
@@ -1214,7 +1868,36 @@
             {
               "cells": [
                 {
-                  "value": "Soil Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Soil Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "cover_crop_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "cover_crop_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "cover_crop_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Cover Crops"
                 },
                 {
@@ -1230,6 +1913,16 @@
                       "cover_crop_quantity",
                       ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "cover_crop_quantity",
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
+                    ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
                   "label": "acres"
@@ -1247,6 +1940,16 @@
                       "cover_crop_quantity",
                       ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "cover_crop_quantity",
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
+                    ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
                   "label": "acres"
@@ -1264,6 +1967,16 @@
                       "cover_crop_quantity",
                       ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "cover_crop_quantity",
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
+                    ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
                   "label": "acres"
@@ -1280,6 +1993,16 @@
                       "get-sum",
                       "cover_crop_quantity",
                       ["<", ["get-val", "cover_crop_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "cover_crop_quantity",
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -1322,7 +2045,33 @@
             {
               "cells": [
                 {
-                  "value": "Soil Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Soil Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "mulching_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "mulching_datetime"], 2011]
+                      ],
+                      ["get-count", [">", ["get-val", "mulching_datetime"], 0]]
+                    ]
+                  ],
                   "label": "Mulching"
                 },
                 {
@@ -1338,6 +2087,16 @@
                       "mulching_quantity",
                       ["<", ["get-val", "mulching_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "mulching_quantity",
+                      [">=", ["get-val", "mulching_datetime"], 2011]
+                    ],
                     ["get-sum", "mulching_quantity"]
                   ],
                   "label": "acres"
@@ -1355,6 +2114,16 @@
                       "mulching_quantity",
                       ["<", ["get-val", "mulching_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "mulching_quantity",
+                      [">=", ["get-val", "mulching_datetime"], 2011]
+                    ],
                     ["get-sum", "mulching_quantity"]
                   ],
                   "label": "acres"
@@ -1372,6 +2141,16 @@
                       "mulching_quantity",
                       ["<", ["get-val", "mulching_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "mulching_quantity",
+                      [">=", ["get-val", "mulching_datetime"], 2011]
+                    ],
                     ["get-sum", "mulching_quantity"]
                   ],
                   "label": "acres"
@@ -1388,6 +2167,16 @@
                       "get-sum",
                       "mulching_quantity",
                       ["<", ["get-val", "mulching_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "mulching_quantity",
+                      [">=", ["get-val", "mulching_datetime"], 2011]
                     ],
                     ["get-sum", "mulching_quantity"]
                   ],
@@ -1430,7 +2219,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "conservation_cover_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Conservation Cover"
                 },
                 {
@@ -1446,6 +2264,16 @@
                       "conservation_cover_quantity",
                       ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_cover_quantity",
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                    ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
                   "label": "acres"
@@ -1463,6 +2291,16 @@
                       "conservation_cover_quantity",
                       ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_cover_quantity",
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                    ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
                   "label": "acres"
@@ -1480,6 +2318,16 @@
                       "conservation_cover_quantity",
                       ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_cover_quantity",
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                    ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
                   "label": "acres"
@@ -1496,6 +2344,16 @@
                       "get-sum",
                       "conservation_cover_quantity",
                       ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "conservation_cover_quantity",
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -1546,7 +2404,44 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "critical_area_planting_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">=",
+                          ["get-val", "critical_area_planting_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "critical_area_planting_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Critical Area Planting"
                 },
                 {
@@ -1566,23 +2461,16 @@
                         2011
                       ]
                     ],
-                    ["get-sum", "critical_area_planting_quantity"]
-                  ],
-                  "label": "acres"
-                },
-                {
-                  "value": [
-                    "case",
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "2011-and-later"
                     ],
                     [
                       "get-sum",
                       "critical_area_planting_quantity",
                       [
-                        "<",
+                        ">=",
                         ["get-val", "critical_area_planting_datetime"],
                         2011
                       ]
@@ -1608,6 +2496,20 @@
                         2011
                       ]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "critical_area_planting_quantity",
+                      [
+                        ">=",
+                        ["get-val", "critical_area_planting_datetime"],
+                        2011
+                      ]
+                    ],
                     ["get-sum", "critical_area_planting_quantity"]
                   ],
                   "label": "acres"
@@ -1625,6 +2527,55 @@
                       "critical_area_planting_quantity",
                       [
                         "<",
+                        ["get-val", "critical_area_planting_datetime"],
+                        2011
+                      ]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "critical_area_planting_quantity",
+                      [
+                        ">=",
+                        ["get-val", "critical_area_planting_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "critical_area_planting_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "critical_area_planting_quantity",
+                      [
+                        "<",
+                        ["get-val", "critical_area_planting_datetime"],
+                        2011
+                      ]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "critical_area_planting_quantity",
+                      [
+                        ">=",
                         ["get-val", "critical_area_planting_datetime"],
                         2011
                       ]
@@ -1682,7 +2633,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "grassed_waterways_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "grassed_waterways_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Grassed Waterways"
                 },
                 {
@@ -1698,6 +2678,16 @@
                       "grassed_waterways_quantity",
                       ["<", ["get-val", "grassed_waterways_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "grassed_waterways_quantity",
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                    ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
                   "label": "feet"
@@ -1715,6 +2705,16 @@
                       "grassed_waterways_quantity",
                       ["<", ["get-val", "grassed_waterways_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "grassed_waterways_quantity",
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                    ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
                   "label": "feet"
@@ -1732,6 +2732,16 @@
                       "grassed_waterways_quantity",
                       ["<", ["get-val", "grassed_waterways_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "grassed_waterways_quantity",
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                    ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
                   "label": "feet"
@@ -1748,6 +2758,16 @@
                       "get-sum",
                       "grassed_waterways_quantity",
                       ["<", ["get-val", "grassed_waterways_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "grassed_waterways_quantity",
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
                     ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
@@ -1798,7 +2818,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "weed_control_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "weed_control_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "weed_control_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Herbaceous Weed Control"
                 },
                 {
@@ -1814,6 +2863,16 @@
                       "weed_control_quantity",
                       ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "weed_control_quantity",
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
+                    ],
                     ["get-sum", "weed_control_quantity"]
                   ],
                   "label": "acres"
@@ -1831,6 +2890,16 @@
                       "weed_control_quantity",
                       ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "weed_control_quantity",
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
+                    ],
                     ["get-sum", "weed_control_quantity"]
                   ],
                   "label": "acres"
@@ -1848,6 +2917,16 @@
                       "weed_control_quantity",
                       ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "weed_control_quantity",
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
+                    ],
                     ["get-sum", "weed_control_quantity"]
                   ],
                   "label": "acres"
@@ -1864,6 +2943,16 @@
                       "get-sum",
                       "weed_control_quantity",
                       ["<", ["get-val", "weed_control_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "weed_control_quantity",
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -1914,7 +3003,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "tree_shrub_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Tree/Shrub Planting"
                 },
                 {
@@ -1930,6 +3048,16 @@
                       "tree_shrub_quantity",
                       ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "tree_shrub_quantity",
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                    ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
                   "label": "acres"
@@ -1947,6 +3075,16 @@
                       "tree_shrub_quantity",
                       ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "tree_shrub_quantity",
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                    ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
                   "label": "acres"
@@ -1964,6 +3102,16 @@
                       "tree_shrub_quantity",
                       ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "tree_shrub_quantity",
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                    ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
                   "label": "acres"
@@ -1980,6 +3128,16 @@
                       "get-sum",
                       "tree_shrub_quantity",
                       ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "tree_shrub_quantity",
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -2022,7 +3180,48 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "wetland_wildlife_management_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">=",
+                          ["get-val", "wetland_wildlife_management_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">",
+                          ["get-val", "wetland_wildlife_management_datetime"],
+                          0
+                        ]
+                      ]
+                    ]
+                  ],
                   "label": "Wetland Wildlife Management"
                 },
                 {
@@ -2042,23 +3241,16 @@
                         2011
                       ]
                     ],
-                    ["get-sum", "wetland_wildlife_management_quantity"]
-                  ],
-                  "label": "acres"
-                },
-                {
-                  "value": [
-                    "case",
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "2011-and-later"
                     ],
                     [
                       "get-sum",
                       "wetland_wildlife_management_quantity",
                       [
-                        "<",
+                        ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
                         2011
                       ]
@@ -2084,6 +3276,20 @@
                         2011
                       ]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        ">=",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
                   ],
                   "label": "acres"
@@ -2105,12 +3311,61 @@
                         2011
                       ]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        ">=",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 5],
+                  "value": [
+                    "case",
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "pre-2011"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        "<",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "wetland_wildlife_management_quantity",
+                      [
+                        ">=",
+                        ["get-val", "wetland_wildlife_management_datetime"],
+                        2011
+                      ]
+                    ],
+                    ["get-sum", "wetland_wildlife_management_quantity"]
+                  ],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 2],
                   "label": "Acres"
                 },
                 {
@@ -2119,26 +3374,26 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 5]
+                      ["*", 0.7, 2]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      2
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      5
+                      2
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 10],
+                  "value": ["literal", 4],
                   "label": "Acres"
                 },
                 {
@@ -2147,19 +3402,19 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 10]
+                      ["*", 0.7, 4]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      4
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      10
+                      4
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -2170,7 +3425,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "upland_habitat_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Upland Habitat"
                 },
                 {
@@ -2186,6 +3470,16 @@
                       "upland_habitat_quantity",
                       ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "upland_habitat_quantity",
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                    ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
                   "label": "acres"
@@ -2203,6 +3497,16 @@
                       "upland_habitat_quantity",
                       ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "upland_habitat_quantity",
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                    ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
                   "label": "acres"
@@ -2220,6 +3524,16 @@
                       "upland_habitat_quantity",
                       ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "upland_habitat_quantity",
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                    ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
                   "label": "acres"
@@ -2236,6 +3550,16 @@
                       "get-sum",
                       "upland_habitat_quantity",
                       ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "upland_habitat_quantity",
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -2286,7 +3610,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "hedgerow_planting_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Hedgerow Planting"
                 },
                 {
@@ -2302,6 +3655,16 @@
                       "hedgerow_planting_quantity",
                       ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "hedgerow_planting_quantity",
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                    ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
                   "label": "feet"
@@ -2319,6 +3682,16 @@
                       "hedgerow_planting_quantity",
                       ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "hedgerow_planting_quantity",
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                    ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
                   "label": "feet"
@@ -2336,6 +3709,16 @@
                       "hedgerow_planting_quantity",
                       ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "hedgerow_planting_quantity",
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                    ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
                   "label": "feet"
@@ -2352,6 +3735,16 @@
                       "get-sum",
                       "hedgerow_planting_quantity",
                       ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "hedgerow_planting_quantity",
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
                     ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
@@ -2402,7 +3795,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "open_channel_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "open_channel_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "open_channel_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Open Channel"
                 },
                 {
@@ -2418,6 +3840,16 @@
                       "open_channel_quantity",
                       ["<", ["get-val", "open_channel_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "open_channel_quantity",
+                      [">=", ["get-val", "open_channel_datetime"], 2011]
+                    ],
                     ["get-sum", "open_channel_quantity"]
                   ],
                   "label": "feet"
@@ -2435,6 +3867,16 @@
                       "open_channel_quantity",
                       ["<", ["get-val", "open_channel_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "open_channel_quantity",
+                      [">=", ["get-val", "open_channel_datetime"], 2011]
+                    ],
                     ["get-sum", "open_channel_quantity"]
                   ],
                   "label": "feet"
@@ -2452,6 +3894,16 @@
                       "open_channel_quantity",
                       ["<", ["get-val", "open_channel_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "open_channel_quantity",
+                      [">=", ["get-val", "open_channel_datetime"], 2011]
+                    ],
                     ["get-sum", "open_channel_quantity"]
                   ],
                   "label": "feet"
@@ -2468,6 +3920,16 @@
                       "get-sum",
                       "open_channel_quantity",
                       ["<", ["get-val", "open_channel_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "open_channel_quantity",
+                      [">=", ["get-val", "open_channel_datetime"], 2011]
                     ],
                     ["get-sum", "open_channel_quantity"]
                   ],
@@ -2518,7 +3980,33 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "fencing_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "fencing_datetime"], 2011]
+                      ],
+                      ["get-count", [">", ["get-val", "fencing_datetime"], 0]]
+                    ]
+                  ],
                   "label": "Fencing"
                 },
                 {
@@ -2534,6 +4022,16 @@
                       "fencing_quantity",
                       ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "fencing_quantity",
+                      [">=", ["get-val", "fencing_datetime"], 2011]
+                    ],
                     ["get-sum", "fencing_quantity"]
                   ],
                   "label": "feet"
@@ -2551,6 +4049,16 @@
                       "fencing_quantity",
                       ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "fencing_quantity",
+                      [">=", ["get-val", "fencing_datetime"], 2011]
+                    ],
                     ["get-sum", "fencing_quantity"]
                   ],
                   "label": "feet"
@@ -2568,6 +4076,16 @@
                       "fencing_quantity",
                       ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "fencing_quantity",
+                      [">=", ["get-val", "fencing_datetime"], 2011]
+                    ],
                     ["get-sum", "fencing_quantity"]
                   ],
                   "label": "feet"
@@ -2584,6 +4102,16 @@
                       "get-sum",
                       "fencing_quantity",
                       ["<", ["get-val", "fencing_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "fencing_quantity",
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -2626,7 +4154,36 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        ["<", ["get-val", "instream_habitat_datetime"], 2011]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "instream_habitat_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Instream Habitat Improvement"
                 },
                 {
@@ -2642,6 +4199,16 @@
                       "instream_habitat_quantity",
                       ["<", ["get-val", "instream_habitat_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "instream_habitat_quantity",
+                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                    ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
                   "label": "structs."
@@ -2659,6 +4226,16 @@
                       "instream_habitat_quantity",
                       ["<", ["get-val", "instream_habitat_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "instream_habitat_quantity",
+                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                    ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
                   "label": "structs."
@@ -2676,6 +4253,16 @@
                       "instream_habitat_quantity",
                       ["<", ["get-val", "instream_habitat_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "instream_habitat_quantity",
+                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                    ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
                   "label": "structs."
@@ -2692,6 +4279,16 @@
                       "get-sum",
                       "instream_habitat_quantity",
                       ["<", ["get-val", "instream_habitat_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "instream_habitat_quantity",
+                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
@@ -2742,7 +4339,44 @@
             {
               "cells": [
                 {
-                  "value": "Habitat Management",
+                  "value": [
+                    "cat-join",
+                    "",
+                    ["literal", "Habitat Management: "],
+                    [
+                      "case",
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "pre-2011"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "streambank_protection_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "==",
+                        ["get-widget-state", "vsp-summary-date-range"],
+                        "2011-and-later"
+                      ],
+                      [
+                        "get-count",
+                        [
+                          ">=",
+                          ["get-val", "streambank_protection_datetime"],
+                          2011
+                        ]
+                      ],
+                      [
+                        "get-count",
+                        [">", ["get-val", "streambank_protection_datetime"], 0]
+                      ]
+                    ]
+                  ],
                   "label": "Streambank Protection"
                 },
                 {
@@ -2758,6 +4392,20 @@
                       "streambank_protection_quantity",
                       ["<", ["get-val", "streambank_protection_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "streambank_protection_quantity",
+                      [
+                        ">=",
+                        ["get-val", "streambank_protection_datetime"],
+                        2011
+                      ]
+                    ],
                     ["get-sum", "streambank_protection_quantity"]
                   ],
                   "label": "feet"
@@ -2775,6 +4423,20 @@
                       "streambank_protection_quantity",
                       ["<", ["get-val", "streambank_protection_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "streambank_protection_quantity",
+                      [
+                        ">=",
+                        ["get-val", "streambank_protection_datetime"],
+                        2011
+                      ]
+                    ],
                     ["get-sum", "streambank_protection_quantity"]
                   ],
                   "label": "feet"
@@ -2792,6 +4454,20 @@
                       "streambank_protection_quantity",
                       ["<", ["get-val", "streambank_protection_datetime"], 2011]
                     ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "streambank_protection_quantity",
+                      [
+                        ">=",
+                        ["get-val", "streambank_protection_datetime"],
+                        2011
+                      ]
+                    ],
                     ["get-sum", "streambank_protection_quantity"]
                   ],
                   "label": "feet"
@@ -2808,6 +4484,20 @@
                       "get-sum",
                       "streambank_protection_quantity",
                       ["<", ["get-val", "streambank_protection_datetime"], 2011]
+                    ],
+                    [
+                      "==",
+                      ["get-widget-state", "vsp-summary-date-range"],
+                      "2011-and-later"
+                    ],
+                    [
+                      "get-sum",
+                      "streambank_protection_quantity",
+                      [
+                        ">=",
+                        ["get-val", "streambank_protection_datetime"],
+                        2011
+                      ]
                     ],
                     ["get-sum", "streambank_protection_quantity"]
                   ],
@@ -4142,7 +5832,7 @@
             ]
           }
         ],
-        "label": "Actions",
+        "label": "VSP Report",
         "fields": [
           {
             "name": "lng-lat",

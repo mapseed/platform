@@ -22,7 +22,7 @@ import Spinner from "../atoms/imagery";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import {
   navBarConfigSelector,
-  navBarConfigPropType,
+  NavBarConfig,
 } from "../../state/ducks/nav-bar-config";
 import { userSelector, User } from "../../state/ducks/user";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
@@ -111,7 +111,7 @@ type StateProps = {
   mapSources: PropTypes.InferProps<typeof mapSourcesPropType>;
   layout: string;
   mapConfig: PropTypes.InferProps<typeof mapConfigPropType>;
-  navBarConfig: PropTypes.InferProps<typeof navBarConfigPropType.isRequired>;
+  navBarConfig: NavBarConfig;
   placeConfig: PropTypes.InferProps<typeof placeConfigPropType.isRequired>;
   user: User;
 };
@@ -195,6 +195,7 @@ class MapTemplate extends React.Component<Props, State> {
     if (
       this.props.uiConfiguration === "map" &&
       startPageConfig &&
+      startPageConfig.url &&
       !this.props.isStartPageViewed
     ) {
       this.props.history.push(startPageConfig.url);

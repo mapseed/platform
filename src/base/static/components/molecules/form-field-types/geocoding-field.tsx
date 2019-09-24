@@ -74,10 +74,14 @@ const GeocodingField: React.FunctionComponent<Props> = ({
         const locationGeometry =
           data.features && data.features[0] && data.features[0].geometry;
 
-        if (locationGeometry && isMounted.current) {
-          setIsGeocoding(false);
-          setIsWithGeocodingError(false);
+        if (locationGeometry) {
+          // Don't set internal state if this component has unmounted at
+          // callback time (which can happen in a multi-stage form usage, for
+          // example).
+          isMounted.current && setIsGeocoding(false);
+          isMounted.current && setIsWithGeocodingError(false);
 
+          // But *do* complete the map transition to the geocoded location.
           eventEmitter.emit("setMapViewport", {
             latitude: locationGeometry.coordinates[1],
             longitude: locationGeometry.coordinates[0],
@@ -164,32 +168,33 @@ const GeocodingField: React.FunctionComponent<Props> = ({
         position: relative;
       `}
     >
-      {isGeocoding && (
-        <Spinner style={{ left: "20px", width: "30px", height: "30px" }} />
-      )}
-      {!isGeocoding && (
-        <Button
-          css={css`
-            position: absolute;
-            padding: 0;
-            cursor: pointer;
-            left: 12px;
-            top: 5px;
-            font-size: 20px;
-            margin-top: 4px;
+      {isGeocoding && <Spinner />}
+      <Button
+        css={css`
+          position: absolute;
+          padding: 0;
+          cursor: pointer;
+          left: 12px;
+          top: 5px;
+          font-size: 20px;
+          margin-top: 4px;
+          background: none;
+
+          &:hover {
             background: none;
-          `}
-          onClick={doGeocode}
-        >
-          <FontAwesomeIcon
-            color="#888"
-            hoverColor="#aaa"
-            faClassname="fas fa-search"
-          />
-        </Button>
-      )}
+          }
+        `}
+        onClick={doGeocode}
+      >
+        <FontAwesomeIcon
+          color={isGeocoding ? "#ddd" : "#888"}
+          hoverColor="#aaa"
+          faClassname="fas fa-search"
+        />
+      </Button>
       <TextInput
         css={css`
+          color: ${isGeocoding ? "#ddd" : "initial"};
           padding-left: 35px;
           width: 100%;
           box-sizing: border-box;

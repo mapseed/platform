@@ -68,7 +68,7 @@ export default ({
     appMetaDescription,
     appThumbnail,
   });
-  let url =
+  const url =
     service === "facebook"
       ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
       : `https://twitter.com/intent/tweet?url=${shareUrl}`;

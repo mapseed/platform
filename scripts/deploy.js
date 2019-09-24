@@ -90,7 +90,7 @@ function updateMetadata() {
   console.log("Updating metadata");
   let params;
 
-  let updatePromises = glob
+  const updatePromises = glob
     .sync(
       "{./www/*.bundle.js,./www/*.bundle.css,./www/**/*.{jpg,jpeg,png},./www/legacy-libs/*.js}",
     )
@@ -135,7 +135,7 @@ createPromise(config)
   .then(website => {
     // eslint-disable-next-line no-console
     console.log("Getting cloudfront config");
-    let distConfig = getDistributionConfigPromise({
+    const distConfig = getDistributionConfigPromise({
       Id: website.cloudfront.Distribution.Id,
     });
     return Promise.all([Promise.resolve(website), distConfig]);
@@ -143,7 +143,7 @@ createPromise(config)
   .then(([website, response]) => {
     // eslint-disable-next-line no-console
     console.log("Updating cloudfront config");
-    let config = response.DistributionConfig;
+    const config = response.DistributionConfig;
     config.CustomErrorResponses = {
       Quantity: 1,
       Items: [

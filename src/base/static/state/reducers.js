@@ -3,7 +3,7 @@ import mapStyleReducer from "./ducks/map-style";
 import mapReducer from "./ducks/map";
 import placesReducer from "./ducks/places";
 import uiReducer from "./ducks/ui";
-import filters from "./ducks/filters";
+import placeFiltersReducer from "./ducks/place-filters";
 import leftSidebarReducer from "./ducks/left-sidebar";
 
 import appConfigReducer from "./ducks/app-config";
@@ -20,12 +20,13 @@ import datasetsConfigReducer from "./ducks/datasets-config";
 import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
 import customComponentsConfigReducer from "./ducks/custom-components-config";
+import flavorConfigReducer from "./ducks/flavor-config";
 
 const reducers = combineReducers({
   places: placesReducer,
   ui: uiReducer,
   leftSidebar: leftSidebarReducer,
-  filters,
+  placeFilters: placeFiltersReducer,
   appConfig: appConfigReducer,
   map: mapReducer,
   mapStyle: mapStyleReducer,
@@ -42,6 +43,7 @@ const reducers = combineReducers({
   datasets: datasetsReducer,
   activity: activityReducer,
   customComponentsConfig: customComponentsConfigReducer,
+  flavorConfig: flavorConfigReducer,
 });
 
 export default reducers;

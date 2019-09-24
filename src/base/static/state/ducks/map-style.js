@@ -84,7 +84,6 @@ export const sourcesMetadataPropType = PropTypes.objectOf(
 const getStyle = state => state.mapStyle.style;
 export const layersSelector = state => state.mapStyle.layers;
 export const layerGroupsSelector = state => state.mapStyle.layerGroups;
-
 const getPaintFromAggregators = (aggregators, layerPaint) => {
   // since 'splice', used below, is mutable, we copy the array here:
   const fillOpacity = [...layerPaint["fill-opacity"]];
@@ -144,6 +143,10 @@ export const mapLayerPopupSelector = (layerId, state) => {
 
   return metadata && metadata.popupContent ? metadata.popupContent : null;
 };
+export const isWithMapLegendWidgetSelector = state =>
+  Object.values(state.mapStyle.layerGroups.byId).some(layerGroup => {
+    return layerGroup.legend;
+  });
 
 ////////////////////////////////////////////////////////////////////////////////
 // ACTIONS:
@@ -334,6 +337,7 @@ export function loadMapStyle(mapStyleConfig, datasetsConfig) {
       ...memo,
       [layerGroup.id]: {
         id: layerGroup.id,
+        legend: layerGroup.legend,
         popupContent: layerGroup.popupContent,
         filterSlider: layerGroup.filterSlider,
         isBasemap: !!layerGroup.basemap,

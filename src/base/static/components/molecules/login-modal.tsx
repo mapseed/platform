@@ -26,10 +26,25 @@ import { Mixpanel } from "../../utils/mixpanel";
 import { useTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
 
-const SocialLoginButton: React.FunctionComponent<{
+const useSocialButtonStyles = makeStyles({
+  button: {
+    backgroundColor: (props: { backgroundColor: string }) =>
+      props.backgroundColor,
+    borderRadius: "8px",
+    margin: "0 auto 16px auto",
+    maxWidth: "180px",
+    display: "flex",
+    justifyContent: "center",
+  },
+});
+
+const SocialLoginButton = ({
+  loginProvider,
+  apiRoot,
+}: {
   loginProvider: LoginProvider;
   apiRoot: string;
-}> = ({ loginProvider, apiRoot }) => {
+}) => {
   let backgroundColor: string;
   let SocialIcon: React.ReactType;
   switch (loginProvider.name) {
@@ -56,17 +71,14 @@ const SocialLoginButton: React.FunctionComponent<{
       SocialIcon = MuiTwitterIcon;
   }
 
+  const classes = useSocialButtonStyles({ backgroundColor });
+
   return (
     <ListItem
       button
       component="a"
-      css={{
-        backgroundColor,
-        borderRadius: "8px",
-        margin: "0 auto 16px auto",
-        maxWidth: "180px",
-        display: "flex",
-        justifyContent: "center",
+      classes={{
+        button: classes.button,
       }}
       href={`${apiRoot}users/login/${loginProvider.provider}/`}
       onClick={() =>

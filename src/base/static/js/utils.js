@@ -16,7 +16,7 @@ const _buildSharingQuerystring = components => {
 };
 
 const _getSocialUrl = (place, appConfig) => {
-  var shareUrl = "http://social.mapseed.org",
+  const shareUrl = "http://social.mapseed.org",
     components = {
       title: place.title || place.name || appConfig.title,
       desc: place.description || appConfig.meta_description,
@@ -49,7 +49,7 @@ const _getSocialUrl = (place, appConfig) => {
 
 const onSocialShare = ({ place, service, appConfig }) => {
   _getSocialUrl(place, appConfig).then(shareUrl => {
-    let url =
+    const url =
       service === "facebook"
         ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
         : `https://twitter.com/intent/tweet?url=${shareUrl}`;
@@ -97,6 +97,7 @@ const prepareCustomUrl = url => {
 // Event and State Logging
 
 const log = function() {
+  // eslint-disable-next-line prefer-rest-params
   const args = Array.prototype.slice.call(arguments, 0);
 
   // eslint-disable-next-line
@@ -107,10 +108,10 @@ const log = function() {
 // File and Image Handling
 
 const _fixImageOrientation = (canvas, orientation) => {
-  var rotated = document.createElement("canvas"),
-    ctx = rotated.getContext("2d"),
-    width = canvas.width,
-    height = canvas.height;
+  const rotated = document.createElement("canvas");
+  const ctx = rotated.getContext("2d");
+  const width = canvas.width;
+  const height = canvas.height;
 
   switch (orientation) {
     case 5:
@@ -186,7 +187,7 @@ const fileToCanvas = (file, callback, options) => {
       file,
       function(canvas) {
         // rotate the image, if needed
-        var rotated = _fixImageOrientation(canvas, orientation);
+        const rotated = _fixImageOrientation(canvas, orientation);
         callback(rotated);
       },
       options,
@@ -204,7 +205,7 @@ const cookies = {
     prefix = prefix || "";
     name = prefix + name;
     if (days) {
-      var date = new Date();
+      const date = new Date();
       date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
       expires = "; expires=" + date.toGMTString();
     } else {
@@ -216,8 +217,8 @@ const cookies = {
     prefix = prefix || "";
     const nameEQ = prefix + name + "=";
     const ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
       while (c.charAt(0) === " ") {
         c = c.substring(1, c.length);
       }
@@ -235,7 +236,7 @@ const cookies = {
 const LOCALSTORAGE_PREFIX = "mapseed-";
 const localstorage = {
   save: function(name, value, days) {
-    var expDate = new Date();
+    const expDate = new Date();
     expDate.setTime(expDate.getTime() + days * 24 * 60 * 60 * 1000);
     try {
       localStorage.setItem(
@@ -251,8 +252,8 @@ const localstorage = {
   },
   get: function(name) {
     name = LOCALSTORAGE_PREFIX + name;
-    let now = new Date().getTime(),
-      item = {};
+    const now = new Date().getTime();
+    let item = {};
     try {
       item = JSON.parse(localStorage.getItem(name)) || {};
     } catch (e) {
