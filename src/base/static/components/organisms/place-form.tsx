@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Form from "./form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import { PlaceForm } from "../../state/ducks/forms";
+import { MapViewport } from "../../state/ducks/map";
 import { layoutSelector, Layout } from "../../state/ducks/ui";
 import eventEmitter from "../../utils/event-emitter";
 

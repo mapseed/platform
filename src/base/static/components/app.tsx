@@ -105,6 +105,7 @@ const dispatchPropTypes = {
   loadRightSidebarConfig: PropTypes.func.isRequired,
   loadFeaturedPlacesConfig: PropTypes.func.isRequired,
   loadAppConfig: PropTypes.func.isRequired,
+  loadForms: PropTypes.func.isRequired,
   loadFormsConfig: PropTypes.func.isRequired,
   loadSupportConfig: PropTypes.func.isRequired,
   loadPagesConfig: PropTypes.func.isRequired,

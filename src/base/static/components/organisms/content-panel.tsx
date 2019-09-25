@@ -24,6 +24,7 @@ import { placeFormSelector } from "../../state/ducks/forms";
 import { focusedPlaceSelector, Place } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 import { LoadingBar } from "../atoms/imagery";
+import { PlaceForm } from "../../state/ducks/forms";
 
 const getLeftOffset = (isRightSidebarVisible, layout) => {
   switch (layout) {
@@ -48,6 +49,7 @@ type Props = {
   layout: Layout;
   pageSelector: Function;
   pageSlug: string;
+  placeForm: PlaceForm;
 } & OwnProps &
   RouteComponentProps<{}>;
 

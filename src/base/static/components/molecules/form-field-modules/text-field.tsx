@@ -10,6 +10,7 @@ type OwnProps = {
   required: boolean;
   placeholder?: string;
   value: string;
+  onChange: (evt: React.ChangeEvent) => void;
 };
 
 type TextFieldProps = OwnProps & WithTranslation;
