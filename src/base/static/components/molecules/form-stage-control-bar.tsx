@@ -10,12 +10,13 @@ import { RegularText } from "../atoms/typography";
 
 const FormStageControlBar = props => {
   const { currentStage, numStages } = props;
+  const adjustedStage = currentStage + 1;
   const advanceOpts = {};
   const retreatOpts = {};
-  if (props.currentStage !== props.numStages) {
+  if (adjustedStage !== props.numStages) {
     advanceOpts.onClick = props.onClickAdvanceStage;
   }
-  if (!(props.isSingleCategory && props.currentStage === 1)) {
+  if (!(props.isSingleCategory && props.currentStage === 0)) {
     retreatOpts.onClick = props.onClickRetreatStage;
   }
 
@@ -56,7 +57,7 @@ const FormStageControlBar = props => {
           weight="bold"
         >
           <Trans i18nKey="progressCounter">
-            Page {{ currentStage }} of {{ numStages }}
+            Page {{adjustedStage}} of {{numStages}}
           </Trans>
         </RegularText>
       )}
@@ -68,11 +69,11 @@ const FormStageControlBar = props => {
       >
         <ProgressBar
           total={props.numStages}
-          currentProgress={props.currentStage}
+          currentProgress={adjustedStage}
         />
         <Button
           style={{ marginLeft: "8px" }}
-          disabled={props.isSingleCategory && props.currentStage === 1}
+          disabled={props.isSingleCategory && props.currentStage === 0}
           variant="flat"
           color="primary"
           size="regular"
@@ -82,7 +83,7 @@ const FormStageControlBar = props => {
         </Button>
         <Button
           style={{ marginLeft: "8px" }}
-          disabled={props.currentStage === props.numStages}
+          disabled={adjustedStage === props.numStages}
           variant="flat"
           color="primary"
           size="regular"

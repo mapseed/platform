@@ -1,5 +1,6 @@
 import { normalize, schema } from "normalizr";
 import { createSelector } from "reselect";
+import camelcaseKeys from "camelcase-keys";
 
 import { MapViewport } from "./map";
 
@@ -29,7 +30,6 @@ type FormModuleTypes = {
   htmlmodule: HTMLModule;
   textfield: FormField;
   filefield: FormField;
-  latlngfield: FormField; // TODO: Should be lnglatfield instead
   submitbuttonmodule: SubmitButtonModule;
 };
 
@@ -109,7 +109,7 @@ const flavorSchema = new schema.Entity("flavor", {
 export function loadForms(flavor) {
   return {
     type: LOAD,
-    payload: normalize(flavor, flavorSchema),
+    payload: camelcaseKeys(normalize(flavor, flavorSchema), { deep: true }),
   };
 }
 

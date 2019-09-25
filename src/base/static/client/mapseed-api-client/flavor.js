@@ -100,7 +100,7 @@ const TEMP = {
             zoom: 14.9,
             latitude: 47.6145,
             longitude: -122.19668,
-            transition_duration: null,
+            transition_duration: 1500,
             bearing: null,
             pitch: 30,
             stage: 14,
@@ -140,7 +140,7 @@ const TEMP = {
             zoom: 11.3,
             latitude: 47.58713,
             longitude: -122.15581,
-            transition_duration: null,
+            transition_duration: 1500,
             bearing: null,
             pitch: 30,
             stage: 15,
@@ -214,19 +214,6 @@ const TEMP = {
           ],
           map_viewport: null,
           modules: [
-            {
-              id: 59,
-              lnglatfield: {
-                key: "n/a",
-                prompt: "",
-                label: "",
-                private: false,
-                required: true,
-                validate: false,
-              },
-              order: 1,
-              visible: true,
-            },
             {
               id: 60,
               htmlmodule: {

@@ -1,5 +1,5 @@
 {
   "nextStageLinkLabel": "Next",
   "previousStageLinkLabel": "Back",
-  "progressCounter": "Page <1>{{currentStage}}</1> of <3>{{numStages}}</3>"
+  "progressCounter": "Page <1>{{adjustedStage}}</1> of <3>{{numStages}}</3>"
 }
