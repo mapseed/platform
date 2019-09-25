@@ -11,14 +11,6 @@ import { RegularText } from "../atoms/typography";
 const FormStageControlBar = props => {
   const { currentStage, numStages } = props;
   const adjustedStage = currentStage + 1;
-  const advanceOpts = {};
-  const retreatOpts = {};
-  if (adjustedStage !== props.numStages) {
-    advanceOpts.onClick = props.onClickAdvanceStage;
-  }
-  if (!(props.isSingleCategory && props.currentStage === 0)) {
-    retreatOpts.onClick = props.onClickRetreatStage;
-  }
 
   let leftPosition;
   if (props.layout === "desktop" && props.isRightSidebarVisible) {
@@ -57,7 +49,7 @@ const FormStageControlBar = props => {
           weight="bold"
         >
           <Trans i18nKey="progressCounter">
-            Page {{adjustedStage}} of {{numStages}}
+            Page {{ adjustedStage }} of {{ numStages }}
           </Trans>
         </RegularText>
       )}
@@ -67,17 +59,14 @@ const FormStageControlBar = props => {
           align-items: center;
         `}
       >
-        <ProgressBar
-          total={props.numStages}
-          currentProgress={adjustedStage}
-        />
+        <ProgressBar total={props.numStages} currentProgress={adjustedStage} />
         <Button
           style={{ marginLeft: "8px" }}
-          disabled={props.isSingleCategory && props.currentStage === 0}
+          disabled={props.adjustedStage === 1}
           variant="flat"
           color="primary"
           size="regular"
-          {...retreatOpts}
+          onClick={props.onClickRetreatStage}
         >
           <RegularText>{props.t("previousStageLinkLabel", "Back")}</RegularText>
         </Button>
@@ -87,7 +76,7 @@ const FormStageControlBar = props => {
           variant="flat"
           color="primary"
           size="regular"
-          {...advanceOpts}
+          onClick={props.onClickAdvanceStage}
         >
           <RegularText>{props.t("nextStageLinkLabel", "Next")}</RegularText>
         </Button>

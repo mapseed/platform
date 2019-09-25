@@ -4,7 +4,8 @@ import camelcaseKeys from "camelcase-keys";
 
 import { MapViewport } from "./map";
 
-interface FormField {
+// Types:
+interface BaseFormField {
   key: string;
   private: boolean;
   required: boolean;
@@ -15,46 +16,48 @@ interface FormField {
   //validate?: boolean // ??
 }
 
-// Types:
-type HTMLModule = {
-  content: string;
-  label?: string;
-};
-
-type SubmitButtonModule = {
-  label: string;
-};
-
-// TODO: other module types
-type FormModuleTypes = {
-  htmlmodule: HTMLModule;
-  textfield: FormField;
-  filefield: FormField;
-  submitbuttonmodule: SubmitButtonModule;
-};
-
-type FormModuleNames = keyof FormModuleTypes;
-
-interface FormModuleType<T> {
-  [T: FormModuleNames]: FormModuleTypes[T];
-}
-
-export type FormModule = {
+interface BaseFormModule {
   id: number;
   order: number;
   visible: boolean;
-  [FormModuleNames]: FormModuleType<string>;
-};
+}
+
+interface HTMLModule extends BaseFormModule {
+  htmlmodule: {
+    content: string;
+    label?: string;
+  };
+}
+
+interface SubmitButtonModule extends BaseFormModule {
+  submitbuttonmodule: {
+    label: string;
+  };
+}
+
+interface FileField extends BaseFormModule {
+  filefield: BaseFormField;
+}
+
+interface TextField extends BaseFormModule {
+  textfield: BaseFormField;
+}
+
+export type FormModule =
+  | HTMLModule
+  | SubmitButtonModule
+  | FileField
+  | TextField;
 
 export type PlaceFormStage = {
-  visible_layer_groups: { label: string }[];
-  map_viewport: MapViewport;
+  visibleLayerGroups: string[];
+  mapViewport: MapViewport;
   modules: FormModule[];
 };
 
 export type PlaceForm = {
   label: string;
-  is_enabled: boolean;
+  isEnabled: boolean;
   dataset: string;
   stages: PlaceFormStage[];
 };

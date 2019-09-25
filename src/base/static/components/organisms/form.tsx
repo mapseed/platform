@@ -10,7 +10,7 @@ import SubmitButtonModule from "../molecules/form-field-modules/submit-button-mo
 import LngLatField from "../molecules/form-field-modules/lng-lat-field";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 
-import { Form } from "../../state/ducks/form";
+import { Form, FormModule } from "../../state/ducks/forms";
 
 // TODO:
 //  - visibility triggering
@@ -19,9 +19,11 @@ import { Form } from "../../state/ducks/form";
 //  - admin-only fields
 
 type FormProps = {
-  //modules: FormModule[];
-  onSubmit: Function; // TODO
+  modules: FormModule[];
+  //onSubmit: Function; // TODO
 };
+
+const UnknownModule = () => null;
 
 const getModule = formModule => {
   if (formModule.htmlmodule) {
@@ -35,12 +37,12 @@ const getModule = formModule => {
     };
   } else if (formModule.filefield) {
     return { moduleType: "filefield", Module: FileField };
+  } else {
+    // eslint-disable-next-line no-console
+    console.error(`Error: unknown form module with id ${formModule.id}`);
+
+    return { moduleType: "unknownmodule", Module: UnknownModule };
   }
-
-  // eslint-disable-next-line no-console
-  console.error(`Error: unknown form module with id ${formModule.id}`);
-
-  return null;
 };
 
 // TODO: Save all form state to Redux on unmount, as a backup.
@@ -50,6 +52,7 @@ const MapseedForm = (props: FormProps) => {
   return (
     <Formik
       onSubmit={() => console.log("SUBMIT")}
+      initialValues={{}}
       render={formikProps => {
         return (
           <FormikForm>
