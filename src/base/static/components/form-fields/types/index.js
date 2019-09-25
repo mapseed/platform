@@ -29,22 +29,10 @@ export { default as BigCheckboxField } from "./big-checkbox-field";
 export { default as BigRadioField } from "./big-radio-field";
 export { default as BigToggleField } from "./big-toggle-field";
 export { default as DatetimeField } from "./datetime-field";
-export {
-  default as GeocodingField,
-} from "../../molecules/form-field-types/geocoding-field";
 export { default as InputFormSubmitButton } from "./input-form-submit-button";
 export { default as PublishControlToolbar } from "./publish-control-toolbar";
 export { default as RangeSliderWithLabel } from "./range-slider-with-label";
 export { default as RichTextareaField } from "./rich-textarea-field";
 export {
-  default as NumberField,
-} from "../../molecules/form-field-types/number-field";
-export {
   default as NumberFieldResponse,
 } from "../../molecules/place-detail-fields/number";
-export {
-  default as GeolocateField,
-} from "../../molecules/form-field-types/geolocate-field";
-export {
-  default as LngLatField,
-} from "../../molecules/form-field-types/lng-lat-field";

@@ -5,12 +5,12 @@ import { CloseButton } from "../atoms/buttons";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import Form from "./form";
 import CustomPage from "./custom-page";
 const FormCategoryMenuWrapper = React.lazy(() =>
   import("../input-form/form-category-menu-wrapper"),
 );
 const PlaceDetail = React.lazy(() => import("../place-detail"));
+const PlaceForm = React.lazy(() => import("./place-form"));
 import constants from "../../constants";
 
 import {
@@ -146,7 +146,7 @@ const ContentPanel = (props: Props) => {
         )}
         {props.contentPanelComponent === "InputForm" && (
           <React.Suspense fallback={<LoadingBar />}>
-            <Form form={props.placeForm} />
+            <PlaceForm placeForm={props.placeForm} />
             {/* <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               layout={props.layout}
