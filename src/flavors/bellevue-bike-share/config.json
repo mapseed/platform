@@ -188,7 +188,7 @@
       "bellevue-transit": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/bellevue-transit/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/bellevue-transit-ver-2/{z}/{x}/{y}.pbf"
         ]
       }
     },
@@ -346,7 +346,7 @@
         "id": "bellevue-existing-hubs",
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{MiniHub}}</span></p></div>",
+        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{MiniHub}}</span></p></div><img style='width: 200px; max-width:200px;' src='{{PicURL}}' alt='Existing bike hub' />",
         "mapboxLayers": [
           {
             "id": "bellevue-existing-hubs",

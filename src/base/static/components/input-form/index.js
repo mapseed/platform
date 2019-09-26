@@ -12,7 +12,7 @@ import WarningMessagesContainer from "../molecules/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
-import { Spinner } from "../atoms/imagery";
+import { LoadingBar } from "../atoms/imagery";
 
 import { withTranslation } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
@@ -613,7 +613,7 @@ class InputForm extends Component {
               ))
               .toArray()}
           </form>
-          {this.state.isFormSubmitting && <Spinner />}
+          {this.state.isFormSubmitting && <LoadingBar />}
 
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageControlBar
