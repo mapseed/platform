@@ -346,7 +346,7 @@
         "id": "bellevue-existing-hubs",
         "visibleDefault": false,
         "interactive": true,
-        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{MiniHub}}</span></p></div><img style='width: 200px; max-width:200px;' src='{{PicURL}}' alt='Existing bike hub' />",
+        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{MiniHub}}</span></p></div><img style='width: 200px; max-width:200px;' src='{{PicURL}}' alt='Existing bike hub' onerror='this.style.display=\"none\"' />",
         "mapboxLayers": [
           {
             "id": "bellevue-existing-hubs",
@@ -618,19 +618,8 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 1,
-            "visibleLayerGroupIds": ["f4", "overlay"],
-            "viewport": {
-              "latitude": 47.58713,
-              "longitude": -122.15581,
-              "zoom": 11.3,
-              "pitch": 30
-            }
-          },
-          {
-            "start_field_index": 2,
             "end_field_index": 2,
-            "visibleLayerGroupIds": ["f4", "bellevue-grid", "overlay"],
+            "visibleLayerGroupIds": ["f4", "overlay"],
             "viewport": {
               "latitude": 47.58713,
               "longitude": -122.15581,
@@ -641,6 +630,17 @@
           {
             "start_field_index": 3,
             "end_field_index": 3,
+            "visibleLayerGroupIds": ["f4", "bellevue-grid", "overlay"],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 4,
+            "end_field_index": 4,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-grid",
@@ -656,8 +656,8 @@
             }
           },
           {
-            "start_field_index": 4,
-            "end_field_index": 4,
+            "start_field_index": 5,
+            "end_field_index": 5,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-grid",
@@ -672,8 +672,8 @@
             }
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 5,
+            "start_field_index": 6,
+            "end_field_index": 6,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-grid",
@@ -682,8 +682,8 @@
             ]
           },
           {
-            "start_field_index": 6,
-            "end_field_index": 14,
+            "start_field_index": 7,
+            "end_field_index": 15,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-transit",
@@ -695,6 +695,25 @@
           }
         ],
         "fields": [
+          {
+            "name": "skip_to_questionnaire",
+            "type": "big_toggle",
+            "prompt": " ",
+            "advance_to_arbitrary_stage": {
+               "value": "skip",
+               "stage": 6
+            },
+            "content": [
+              {
+                "label": "Skip the introduction, I'm ready to request bikeshare parking! ",
+                "value": "skip"
+              },
+              {
+                "label": "Skip the introduction, I'm ready to request bikeshare parking! ",
+                "value": "no-skip"
+              }
+            ]
+          },
           {
             "name": "hub_information",
             "type": "informational_html",

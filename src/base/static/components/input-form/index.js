@@ -189,6 +189,7 @@ class InputForm extends Component {
               : this.selectedCategoryConfig.category + field.name,
             isAutoFocusing: prevFields.get("isAutoFocusing"),
             advanceStage: field.advance_stage_on_value,
+            advanceToArbitraryStage: field.advance_to_arbitrary_stage,
           }),
         );
       }, OrderedMap());
@@ -265,6 +266,28 @@ class InputForm extends Component {
         });
         this.setState({
           currentStage: this.state.currentStage + 1,
+          showValidityStatus: false,
+          formValidationErrors: new Set(),
+        });
+      });
+    }
+
+    // Check if this field should advance to an arbitrary stage.
+    if (
+      fieldStatus.get("advanceToArbitraryStage") &&
+      fieldStatus.get("advanceToArbitraryStage").value ===
+        fieldStatus.get("value") &&
+      !isInitializing
+    ) {
+      this.validateForm(() => {
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          scrollPosition: 0,
+          layout: this.props.layout,
+        });
+        this.setState({
+          currentStage: fieldStatus.get("advanceToArbitraryStage").stage,
           showValidityStatus: false,
           formValidationErrors: new Set(),
         });

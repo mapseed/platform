@@ -39,6 +39,29 @@ figure {
   padding: 0 !important;
 }
 
+[data-field-name="skip_to_questionnaire"] {
+  padding: 0 0 16px 0;
+  margin: 0 0 16px 0;
+  border-bottom: 1px solid #ddd;
+
+  .input-form__field-prompt-container {
+    display: none;
+  }
+}
+
+label[for="input-form-skip_to_questionnaire"] {
+  color: #217b87 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  font-family: "Font Awesome 5 Free", sans-serif;
+  font-weight: 900;
+
+  &:before {
+    display: none;
+  }
+}
+
 .big-checkbox-field__label--toggled {
   border: 2px solid #b5d222 !important;
 
