@@ -8,7 +8,7 @@ import { withRouter } from "react-router";
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
-import { Spinner } from "../atoms/imagery";
+import { LoadingBar } from "../atoms/imagery";
 
 import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
@@ -415,7 +415,7 @@ class PlaceDetailEditor extends Component {
               />
             ))
             .toArray()}
-          {this.state.isNetworkRequestInFlight && <Spinner />}
+          {this.state.isNetworkRequestInFlight && <LoadingBar />}
         </form>
       </div>
     );

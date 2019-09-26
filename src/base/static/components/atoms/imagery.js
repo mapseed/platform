@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
 import BarLoader from "react-spinners/BarLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Image = props => <img src={props.src} alt={props.alt} {...props} />;
 
@@ -152,8 +153,7 @@ UserAvatar.defaultProps = {
   src: "/static/css/images/user-50.png",
 };
 
-// TODO: Color this with the theme's accent color?
-const Spinner = ({ size = 20, color = "#666" }) => (
+const LoadingBar = ({ size = 20, color = "#666" }) => (
   <div
     css={css`
       width: 100px;
@@ -166,6 +166,19 @@ const Spinner = ({ size = 20, color = "#666" }) => (
   </div>
 );
 
+// TODO: Color this with the theme's accent color?
+const LoadingSpinner = ({ size = 20, color = "#666" }) => (
+  <ClipLoader sizeUnit="px" size={size} color={color} />
+);
+
 export default UserAvatar;
 
-export { Image, UserAvatar, SiteLogo, FontAwesomeIcon, Spinner, ProgressBar };
+export {
+  Image,
+  UserAvatar,
+  SiteLogo,
+  FontAwesomeIcon,
+  LoadingBar,
+  ProgressBar,
+  LoadingSpinner,
+};

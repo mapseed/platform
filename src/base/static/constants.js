@@ -59,6 +59,7 @@ export default {
   FIELD_TRIGGERS_VALUE_KEY: "triggers",
   FIELD_AUTO_FOCUS_KEY: "isAutoFocusing",
   FIELD_ADVANCE_STAGE_ON_VALUE_KEY: "advanceStage",
+  FIELD_ADVANCE_TO_ARBITRARY_STAGE_ON_VALUE_KEY: "advanceToArbitraryStage",
 
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",

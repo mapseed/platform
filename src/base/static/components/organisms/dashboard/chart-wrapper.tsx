@@ -7,7 +7,7 @@ import download from "downloadjs";
 import { SmallText, TinyTitle } from "../../atoms/typography";
 import { RadioInput } from "../../atoms/input";
 import { Button } from "../../atoms/buttons";
-import { FontAwesomeIcon, Spinner } from "../../atoms/imagery";
+import { FontAwesomeIcon, LoadingBar } from "../../atoms/imagery";
 import { FreeDonutChart, getFreeDonutChartData } from "./free-donut-chart";
 import { FreeBarChart, getFreeBarChartData } from "./free-bar-chart";
 import { MapseedLineChart, getLineChartData } from "./line-chart";
@@ -207,7 +207,7 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
                     height: 20px;
                   `}
                 >
-                  <Spinner style={{ width: "20px", height: "20px" }} />
+                  <LoadingBar />
                 </div>
               ) : (
                 <Button
