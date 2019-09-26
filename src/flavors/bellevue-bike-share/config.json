@@ -46,7 +46,7 @@
   "app": {
     "title": "Bellevue Bike Sharing",
     "name": "Bellevue Bike Sharing",
-    "logo": "/static/css/images/logo-2.png",
+    "logo": "/static/css/images/logo-3.png",
     "meta_description": "_(Decide where to put dockless bike sharing in Bellevue!)",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
@@ -700,8 +700,8 @@
             "type": "big_toggle",
             "prompt": " ",
             "advance_to_arbitrary_stage": {
-               "value": "skip",
-               "stage": 6
+              "value": "skip",
+              "stage": 6
             },
             "content": [
               {
@@ -929,7 +929,7 @@
         "<p>The City of Bellevue is striving to make bikeshare easier to use while reducing the number of bikes left in places where they shouldn’t be. That’s where you come in.</p>",
         "<p>Help us select good places in your neighborhood to designate as preferred parking areas, called “bike hubs.” A good location is one where bikes are convenient to find when you want one and out of the way when you don’t. Add your suggestions to the map and comment on locations submitted by other members of your community.</p>",
         "<p>The Transportation Department will review every suggestion we receive, and we’ll periodically update this map to communicate the current status of a suggested bike hub location.</p>",
-        "<p>To provide more general feedback about bikeshare in Bellevue, take the City’s online questionnaire at [external link to come later].</p>",
+        "<p>To provide more general feedback about bikeshare in Bellevue, take the City’s online questionnaire at <a href='https://www.surveymonkey.com/r/bellevuebikeshare' target='_blank'>https://www.surveymonkey.com/r/bellevuebikeshare</a>.</p>",
         "<p>Thanks for taking the time to participate and help make Bellevue a great place to bike.</p>",
         "<p class='btn btn-block btn-large'><a href='/new' rel='internal'>Request bikeshare parking!</a></p>"
       ]
