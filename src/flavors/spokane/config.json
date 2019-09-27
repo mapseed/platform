@@ -985,47 +985,27 @@
             {
               "header": "Wetlands",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_wetlands"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_wetlands"], true]
             },
             {
               "header": "Frequently flooded areas",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_frequently_flooded"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_frequently_flooded"], true]
             },
             {
               "header": "Hazardous areas",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_geologic_hazard"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_geologic_hazard"], true]
             },
             {
               "header": "Critical aquifers",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_critical_aquifer"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_critical_aquifer"], true]
             },
             {
               "header": "Critical conservation areas",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_critical_conservation"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_critical_conservation"], true]
             }
           ],
           "rows": [
@@ -1829,6 +1809,31 @@
                 "name": "NAME"
               }
             ]
+          },
+          {
+            "name": "on_frequently_flooded",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-frequently-flooded.geojson"
+          },
+          {
+            "name": "on_critical_conservation",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-critical-conservation-areas.geojson"
+          },
+          {
+            "name": "on_geologic_hazard",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-geologic-hazard.geojson"
+          },
+          {
+            "name": "on_critical_aquifer",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-critical-aquifer.geojson"
+          },
+          {
+            "name": "on_wetlands",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-wetlands.geojson"
           }
         ],
         "value": "VSP Report",
@@ -2038,32 +2043,48 @@
           {
             "name": "no_till_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been practicing no till?",
+            "prompt": "When did you begin practicing no till?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2119,32 +2140,48 @@
           {
             "name": "conventinal_till_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using conventional till techniques?",
+            "prompt": "When did you begin practicing conventional till techniques?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2197,32 +2234,48 @@
           {
             "name": "reduced_till_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using reduced till techniques?",
+            "prompt": "When did you begin practicing reduced till techniques?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2295,32 +2348,48 @@
           {
             "name": "soil_tests_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been conducting soil tests?",
+            "prompt": "When did you begin conducting soil tests?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2503,32 +2572,48 @@
           {
             "name": "synthetic_fertilization_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been fertilizing your fields synthetically?",
+            "prompt": "When did you begin fertilizing your fields synthetically?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2546,32 +2631,48 @@
           {
             "name": "organic_fertilization_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been fertilizing your fields organically?",
+            "prompt": "When did you begin fertilizing your fields organically?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2680,32 +2781,48 @@
           {
             "name": "buffers_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been installing buffers?",
+            "prompt": "When did you begin installing buffers?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2716,14 +2833,14 @@
             "hidden_default": true,
             "triggers": [
               {
-                "value": "yes-program",
+                "value": "yes-buffer-program",
                 "targets": ["buffer_program_types"]
               }
             ],
             "content": [
               {
                 "label": "Yes",
-                "value": "buffer-program"
+                "value": "yes-buffer-program"
               },
               {
                 "label": "No",
@@ -2803,32 +2920,48 @@
           {
             "name": "grassed_waterways_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using grassed waterways?",
+            "prompt": "When did you begin installing grassed waterways?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2864,32 +2997,48 @@
           {
             "name": "commodity_buffer_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been participating in the commodity buffer program?",
+            "prompt": "When did you begin participating in the commodity buffer program?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2946,32 +3095,48 @@
           {
             "name": "riparian_forest_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been enhancing wildlife habitat?",
+            "prompt": "When did you begin enhancing wildlife habitats?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3072,32 +3237,48 @@
           {
             "name": "stream_crossing_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been installing stream crossings?",
+            "prompt": "When did you begin installing stream crossings?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3150,32 +3331,48 @@
           {
             "name": "fencing_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been installing and maintaining fencing?",
+            "prompt": "When did you begin installing and maintaining fencing?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3257,32 +3454,48 @@
           {
             "name": "mud_manure_management_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been practicing mud and manure management?",
+            "prompt": "When did you begin practicing mud and manure management?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3324,32 +3537,48 @@
           {
             "name": "off_creek_stock_watering_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been maintaining off creek stock watering systems?",
+            "prompt": "When did you begin maintaining off creek stock watering systems?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3426,32 +3655,48 @@
           {
             "name": "forest_management_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been managing your forest?",
+            "prompt": "When did you begin managing your forest?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
