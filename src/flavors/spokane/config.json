@@ -131,17 +131,17 @@
             {
               "header": "Lower Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "lower-spokane"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Lower Spokane"]
             },
             {
               "header": "Upper Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "upper-spokane"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Upper Spokane"]
             },
             {
               "header": "Little Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "little-spokane"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Little Spokane"]
             },
             {
               "header": "Pend Oreille Lake WAU",
@@ -149,13 +149,13 @@
               "filter": [
                 "==",
                 ["get-val", "analysis_unit_NAME"],
-                "pend-oreille-lake"
+                "Pend Oreille Lake"
               ]
             },
             {
               "header": "Hangman WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "hangman"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Hangman"]
             },
             {
               "header": "Coeur d'Alene Lake WAU",
@@ -163,23 +163,23 @@
               "filter": [
                 "==",
                 ["get-val", "analysis_unit_NAME"],
-                "coeur-dalene-lake"
+                "Coeur d'Alene Lake"
               ]
             },
             {
               "header": "Upper Crab WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "upper-crab"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Upper Crab"]
             },
             {
               "header": "Palouse WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "palouse"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Palouse"]
             },
             {
               "header": "Rock WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "rock"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Rock"]
             },
             {
               "header": "Countywide",
