@@ -7,9 +7,49 @@
   },
   "dashboard": [
     {
-      "header": "An Anthropocene River: Summary",
+      "header": "An Anthropocene River: Posting Summary",
       "isExportable": true,
       "datasetSlug": "mississippi-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total posts"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Posting history",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of posts",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    },
+    {
+      "header": "An Anthropocene River: Featured Posting Summary",
+      "isExportable": true,
+      "datasetSlug": "mississippi-featured",
       "widgets": [
         {
           "header": "Overview",
