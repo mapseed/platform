@@ -12,7 +12,8 @@
         "datasetSlug": "spokane-input",
         "value": "agriculture",
         "label": "Agricultural stewardship",
-        "setDefault": true
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-field.png"
       },
       {
         "placeProperty": "practice_types",
@@ -20,7 +21,8 @@
         "datasetSlug": "spokane-input",
         "value": "forestry",
         "label": "Forestry stewardship",
-        "setDefault": true
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-forest.png"
       },
       {
         "placeProperty": "practice_types",
@@ -28,7 +30,8 @@
         "datasetSlug": "spokane-input",
         "value": "livestock",
         "label": "Livestock stewardship",
-        "setDefault": true
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-livestock.png"
       }
     ]
   },
@@ -131,17 +134,29 @@
             {
               "header": "Lower Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Lower Spokane"]
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Lower Spokane"
+              ]
             },
             {
               "header": "Upper Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Upper Spokane"]
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Upper Spokane"
+              ]
             },
             {
               "header": "Little Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Little Spokane"]
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Little Spokane"
+              ]
             },
             {
               "header": "Pend Oreille Lake WAU",
@@ -1638,20 +1653,6 @@
         "datasetSlug": "spokane-input",
         "visibleDefault": true,
         "interactive": true,
-        "legend": [
-          {
-            "icon": "/static/css/images/markers/marker-field.png",
-            "label": "Agricultural stewardship"
-          },
-          {
-            "icon": "/static/css/images/markers/marker-forest.png",
-            "label": "Forestry stewardship"
-          },
-          {
-            "icon": "/static/css/images/markers/marker-livestock.png",
-            "label": "Livestock stewardship"
-          }
-        ],
         "mapboxFocusedLayers": [
           {
             "id": "spokane-input-focused",
@@ -1693,7 +1694,7 @@
                 "marker-forest.png",
                 "marker-forest.png"
               ],
-              "icon-size": ["step", ["zoom"], 0.3, 11, 0.4, 16, 0.5],
+              "icon-size": ["step", ["zoom"], 0.2, 11, 0.3, 16, 0.4],
               "icon-allow-overlap": true
             }
           }
@@ -3853,7 +3854,7 @@
             "name": "private-landowner_email",
             "type": "text",
             "hidden_default": true,
-            "optional": true,
+            "optional": false,
             "placeholder": "Your email address will never be shared",
             "prompt": "What is your email address?"
           },
@@ -3979,6 +3980,12 @@
           "name": "submitter_name",
           "placeholder": "Name is optional",
           "optional": true
+        },
+        {
+          "prompt": " ",
+          "type": "text",
+          "name": "comment_verification_email",
+          "default_value": "tcroxson@gmail.com"
         },
         {
           "type": "submit",
