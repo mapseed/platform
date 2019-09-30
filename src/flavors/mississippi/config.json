@@ -5,6 +5,48 @@
       "label": "English"
     }
   },
+  "dashboard": [
+    {
+      "header": "An Anthropocene River: Summary",
+      "isExportable": true,
+      "datasetSlug": "mississippi-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total posts"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Posting history",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of posts",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    }
+  ],
   "datasets": [
     {
       "slug": "mississippi-input",
