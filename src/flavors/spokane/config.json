@@ -3982,12 +3982,6 @@
           "optional": true
         },
         {
-          "prompt": " ",
-          "type": "text",
-          "name": "comment_verification_email",
-          "default_value": "tcroxson@gmail.com"
-        },
-        {
           "type": "submit",
           "name": "submit",
           "label": "Comment"
