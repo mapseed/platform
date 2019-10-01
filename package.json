@@ -136,7 +136,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "~1.14.0",
     "enzyme-to-json": "^3.4.0",
-    "eslint": "^6.5.0",
+    "eslint": "^6.5.1",
     "eslint-plugin-emotion": "^10.0.14",
     "eslint-plugin-react": "~7.14.3",
     "eslint-plugin-react-hooks": "^2.1.1",
