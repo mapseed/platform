@@ -297,9 +297,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.support = place.submission_sets.support.concat(
-              action.payload.supportData,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                support: place.submission_sets.support.concat(
+                  action.payload.supportData,
+                ),
+              },
+            };
           }
 
           return place;
@@ -310,9 +316,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.support = place.submission_sets.support.filter(
-              support => support.id !== action.payload.supportId,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                support: place.submission_sets.support.filter(
+                  support => support.id !== action.payload.supportId,
+                ),
+              },
+            };
           }
 
           return place;
@@ -323,9 +335,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.comments = place.submission_sets.comments.concat(
-              action.payload.commentData,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                comments: place.submission_sets.comments.concat(
+                  action.payload.commentData,
+                ),
+              },
+            };
           }
 
           return place;
@@ -336,9 +354,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.comments = place.submission_sets.comments.filter(
-              comment => comment.id !== action.payload.commentId,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                comments: place.submission_sets.comments.filter(
+                  comment => comment.id !== action.payload.commentId,
+                ),
+              },
+            };
           }
 
           return place;
@@ -349,15 +373,19 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.comments = place.submission_sets.comments.map(
-              comment => {
-                if (comment.id === action.payload.commentData.id) {
-                  comment = action.payload.commentData;
-                }
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                comments: place.submission_sets.comments.map(comment => {
+                  if (comment.id === action.payload.commentData.id) {
+                    comment = action.payload.commentData;
+                  }
 
-                return comment;
+                  return comment;
+                }),
               },
-            );
+            };
           }
 
           return place;

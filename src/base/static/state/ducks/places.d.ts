@@ -47,7 +47,7 @@ export const placeExists: any;
 
 export const activeEditPlaceIdSelector: any;
 
-export const scrollToResponseIdSelector: any;
+export const scrollToResponseIdSelector: (state: any) => number;
 
 export const datasetPlacesSelector: any;
 
