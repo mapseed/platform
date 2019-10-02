@@ -9,7 +9,7 @@ import { withTheme } from "emotion-theming";
 import { withTranslation } from "react-i18next";
 
 import FormField from "../form-fields/form-field";
-import SurveyResponse from "./survey-response";
+import SurveyResponse from "../molecules/survey-response";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
 import { UserAvatar } from "../atoms/imagery";
 import SurveyResponseEditor from "./survey-response-editor";
