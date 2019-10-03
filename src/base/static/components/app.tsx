@@ -23,7 +23,7 @@ import {
   updateUIVisibility,
 } from "../state/ducks/ui";
 import ShaTemplate from "./templates/sha";
-import { Spinner } from "./atoms/imagery";
+import { LoadingBar } from "./atoms/imagery";
 import CookieConsentBanner from "./molecules/cookie-consent-banner";
 const DashboardTemplate = React.lazy(() => import("./templates/dashboard"));
 const ListTemplate = React.lazy(() => import("./templates/place-list"));
@@ -88,7 +88,7 @@ browserUpdate({
 const isFetchingTranslation = {};
 
 const Fallback = () => {
-  return <Spinner />;
+  return <LoadingBar />;
 };
 
 const dispatchPropTypes = {
@@ -434,7 +434,7 @@ class App extends React.Component<Props, State> {
     };
 
     if (!this.state.isInitialDataLoaded) {
-      return <Spinner />;
+      return <LoadingBar />;
     }
     return (
       <div

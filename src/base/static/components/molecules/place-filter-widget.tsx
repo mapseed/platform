@@ -8,6 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { Image } from "../atoms/imagery";
 
 import MapWidgetWrapper from "./map-widget-wrapper";
 import {
@@ -123,17 +124,40 @@ const PlaceFilterWidget = (props: WithTranslation) => {
           <FormControl component="fieldset">
             <FormGroup>
               {visiblePlaceFiltersConfig.map(placeFilterConfig => (
-                <FormControlLabel
+                <div
                   key={placeFilterConfig.value}
-                  control={
-                    <Checkbox
-                      checked={state[placeFilterConfig.value]}
-                      onChange={handleChange}
-                      value={placeFilterConfig.value}
+                  css={css`
+                    display: flex;
+                    align-items: center;
+                  `}
+                >
+                  <FormControlLabel
+                    style={{
+                      marginRight: "8px",
+                    }}
+                    control={
+                      <Checkbox
+                        style={{
+                          padding: "2px 8px 2px 8px",
+                        }}
+                        checked={state[placeFilterConfig.value]}
+                        onChange={handleChange}
+                        value={placeFilterConfig.value}
+                      />
+                    }
+                    label={placeFilterConfig.label}
+                  ></FormControlLabel>
+                  {placeFilterConfig.icon && (
+                    <Image
+                      css={css`
+                        width: 20px;
+                        max-width: 20px;
+                      `}
+                      src={placeFilterConfig.icon}
+                      alt="Map icon"
                     />
-                  }
-                  label={placeFilterConfig.label}
-                />
+                  )}
+                </div>
               ))}
             </FormGroup>
           </FormControl>

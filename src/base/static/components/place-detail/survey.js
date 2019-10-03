@@ -9,11 +9,13 @@ import { withTheme } from "emotion-theming";
 import { withTranslation } from "react-i18next";
 
 import FormField from "../form-fields/form-field";
-import SurveyResponse from "./survey-response";
+import SurveyResponse from "../molecules/survey-response";
 import WarningMessagesContainer from "../molecules/warning-messages-container";
 import { UserAvatar } from "../atoms/imagery";
 import SurveyResponseEditor from "./survey-response-editor";
 import { SmallTitle, RegularText, ExternalLink } from "../atoms/typography";
+import { LoadingBar } from "../atoms/imagery";
+import { HorizontalRule } from "../atoms/layout";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 import LoginModal from "../molecules/login-modal";
@@ -94,6 +96,14 @@ class Survey extends Component {
   }
 
   async onSubmit() {
+    if (this.state.isFormSubmitting) {
+      return;
+    }
+
+    this.setState({
+      isFormSubmitting: true,
+    });
+
     const newValidationErrors = this.state.fields
       .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
       .reduce((newValidationErrors, invalidField) => {
@@ -115,8 +125,15 @@ class Survey extends Component {
         attrs,
       );
 
+      this.setState({
+        isFormSubmitting: false,
+      });
+
       if (response) {
         this.props.createPlaceComment(this.props.placeId, response);
+        this.setState({
+          fields: this.initializeFields(),
+        });
       } else {
         alert("Oh dear. It looks like that didn't save. Please try again.");
         Util.log("USER", "place", "fail-to-submit-comment");
@@ -125,6 +142,7 @@ class Survey extends Component {
       this.setState({
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
+        isFormSubmitting: false,
       });
     }
   }
@@ -186,39 +204,48 @@ class Survey extends Component {
             appConfig={this.props.appConfig}
             disableRestoreFocus={true}
             render={openModal => (
-              <form
+              <div
                 css={css`
-                  margin-top: 16px;
+                  position: relative;
                 `}
-                onSubmit={evt => evt.preventDefault()}
-                onFocus={() => {
-                  if (
-                    !this.props.currentUser.isAuthenticated &&
-                    this.props.datasets.some(dataset => dataset.auth_required)
-                  ) {
-                    openModal();
-                  }
-                }}
               >
-                {this.state.fields
-                  .map((fieldState, fieldName) => (
-                    <FormField
-                      formId="commentForm"
-                      key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                      isInitializing={this.state.isInitializing}
-                      fieldConfig={this.props.commentFormConfig.items.find(
-                        field => field.name === fieldName,
-                      )}
-                      updatingField={this.state.updatingField}
-                      showValidityStatus={this.state.showValidityStatus}
-                      disabled={this.state.isFormSubmitting}
-                      onFieldChange={this.onFieldChange.bind(this)}
-                      fieldState={fieldState}
-                      onClickSubmit={this.onSubmit.bind(this)}
-                    />
-                  ))
-                  .toArray()}
-              </form>
+                <HorizontalRule spacing="tiny" />
+                {this.state.isFormSubmitting && <LoadingBar />}
+                <form
+                  css={css`
+                    opacity: ${this.state.isFormSubmitting ? 0.3 : 1.0};
+                    margin-top: 16px;
+                  `}
+                  onSubmit={evt => evt.preventDefault()}
+                  onFocus={() => {
+                    if (
+                      !this.props.currentUser.isAuthenticated &&
+                      this.props.datasets.some(dataset => dataset.auth_required)
+                    ) {
+                      openModal();
+                    }
+                  }}
+                >
+                  {this.state.fields
+                    .map((fieldState, fieldName) => (
+                      <FormField
+                        formId="commentForm"
+                        key={fieldState.get(constants.FIELD_RENDER_KEY)}
+                        isInitializing={this.state.isInitializing}
+                        fieldConfig={this.props.commentFormConfig.items.find(
+                          field => field.name === fieldName,
+                        )}
+                        updatingField={this.state.updatingField}
+                        showValidityStatus={this.state.showValidityStatus}
+                        disabled={this.state.isFormSubmitting}
+                        onFieldChange={this.onFieldChange.bind(this)}
+                        fieldState={fieldState}
+                        onClickSubmit={this.onSubmit.bind(this)}
+                      />
+                    ))
+                    .toArray()}
+                </form>
+              </div>
             )}
           />
         )}

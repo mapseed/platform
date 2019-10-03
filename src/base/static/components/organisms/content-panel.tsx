@@ -21,7 +21,7 @@ import {
 } from "../../state/ducks/ui";
 import { focusedPlaceSelector, Place } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
-import { Spinner } from "../atoms/imagery";
+import { LoadingBar } from "../atoms/imagery";
 
 const getLeftOffset = (isRightSidebarVisible, layout) => {
   switch (layout) {
@@ -134,7 +134,7 @@ const ContentPanel = (props: Props) => {
           />
         )}
         {props.contentPanelComponent === "PlaceDetail" && props.focusedPlace && (
-          <React.Suspense fallback={<Spinner />}>
+          <React.Suspense fallback={<LoadingBar />}>
             <PlaceDetail
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               mapContainerRef={props.mapContainerRef}
@@ -143,7 +143,7 @@ const ContentPanel = (props: Props) => {
           </React.Suspense>
         )}
         {props.contentPanelComponent === "InputForm" && (
-          <React.Suspense fallback={<Spinner />}>
+          <React.Suspense fallback={<LoadingBar />}>
             <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               layout={props.layout}

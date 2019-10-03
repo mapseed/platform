@@ -12,7 +12,7 @@ import WarningMessagesContainer from "../molecules/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
-import { Spinner } from "../atoms/imagery";
+import { LoadingBar } from "../atoms/imagery";
 
 import { withTranslation } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
@@ -189,6 +189,7 @@ class InputForm extends Component {
               : this.selectedCategoryConfig.category + field.name,
             isAutoFocusing: prevFields.get("isAutoFocusing"),
             advanceStage: field.advance_stage_on_value,
+            advanceToArbitraryStage: field.advance_to_arbitrary_stage,
           }),
         );
       }, OrderedMap());
@@ -265,6 +266,28 @@ class InputForm extends Component {
         });
         this.setState({
           currentStage: this.state.currentStage + 1,
+          showValidityStatus: false,
+          formValidationErrors: new Set(),
+        });
+      });
+    }
+
+    // Check if this field should advance to an arbitrary stage.
+    if (
+      fieldStatus.get("advanceToArbitraryStage") &&
+      fieldStatus.get("advanceToArbitraryStage").value ===
+        fieldStatus.get("value") &&
+      !isInitializing
+    ) {
+      this.validateForm(() => {
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          scrollPosition: 0,
+          layout: this.props.layout,
+        });
+        this.setState({
+          currentStage: fieldStatus.get("advanceToArbitraryStage").stage,
           showValidityStatus: false,
           formValidationErrors: new Set(),
         });
@@ -613,7 +636,7 @@ class InputForm extends Component {
               ))
               .toArray()}
           </form>
-          {this.state.isFormSubmitting && <Spinner />}
+          {this.state.isFormSubmitting && <LoadingBar />}
 
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageControlBar

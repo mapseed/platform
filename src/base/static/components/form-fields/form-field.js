@@ -115,6 +115,12 @@ class FormField extends Component {
           constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY,
           this.props.fieldState.get(constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY),
         )
+        .set(
+          constants.FIELD_ADVANCE_TO_ARBITRARY_STAGE_ON_VALUE_KEY,
+          this.props.fieldState.get(
+            constants.FIELD_ADVANCE_TO_ARBITRARY_STAGE_ON_VALUE_KEY,
+          ),
+        )
         .set("config", this.props.fieldState.get("config")),
       isInitializing: isInitializing,
     });

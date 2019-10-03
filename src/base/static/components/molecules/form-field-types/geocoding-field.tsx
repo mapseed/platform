@@ -15,7 +15,7 @@ import {
 } from "../../../state/ducks/map";
 import { TextInput } from "../../atoms/input";
 import { Button } from "../../atoms/buttons";
-import { FontAwesomeIcon, Spinner } from "../../atoms/imagery";
+import { FontAwesomeIcon, LoadingBar } from "../../atoms/imagery";
 
 declare const MAP_PROVIDER_TOKEN: string;
 
@@ -168,7 +168,7 @@ const GeocodingField: React.FunctionComponent<Props> = ({
         position: relative;
       `}
     >
-      {isGeocoding && <Spinner />}
+      {isGeocoding && <LoadingBar />}
       <Button
         css={css`
           position: absolute;
