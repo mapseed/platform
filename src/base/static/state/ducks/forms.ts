@@ -97,8 +97,53 @@ export const placeFormSelector = createSelector(
 // Actions:
 const LOAD = "forms/LOAD";
 
+const getModuleType = formModule => {
+  if (formModule.htmlmodule) {
+    return "htmlmodule";
+  } else if (formModule.textfield) {
+    return "textfield";
+  } else if (formModule.submitbuttonmodule) {
+    return "submitbuttonmodule";
+  } else if (formModule.filefield) {
+    return "filefield";
+  } else {
+    // eslint-disable-next-line no-console
+    console.error(
+      `[Forms duck]: ERROR: encountered unknown form module with id ${formModule.id}`,
+    );
+
+    return "unknownmodule";
+  }
+};
+
+const formModuleProcessStrategy = formModule => {
+  // Normalize module configs keyed by module name to the following format:
+  // {
+  //   id: 123,
+  //   type: "textfield"
+  //   config: {
+  //     prompt: "xyz",
+  //     ...etc
+  //   }
+  // }
+  const moduleType = getModuleType(formModule);
+
+  return {
+    type: moduleType,
+    config: formModule[moduleType],
+    id: formModule.id,
+    visible: formModule.visible,
+  };
+};
+
 // Action creators:
-const formModuleSchema = new schema.Entity("modules");
+const formModuleSchema = new schema.Entity(
+  "modules",
+  {},
+  {
+    processStrategy: formModuleProcessStrategy,
+  },
+);
 const formStageSchema = new schema.Entity("stages", {
   modules: [formModuleSchema],
 });

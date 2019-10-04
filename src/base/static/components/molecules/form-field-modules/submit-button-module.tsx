@@ -6,7 +6,7 @@ type SubmitButtonModuleProps = {
 };
 
 const SubmitButtonModule = (props: SubmitButtonModuleProps) => {
-  return <div>SUBMIT BUTTON MODULE</div>;
+  return <button type="submit">SUBMIT</button>;
 };
 
 export default SubmitButtonModule;

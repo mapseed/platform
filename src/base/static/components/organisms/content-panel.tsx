@@ -10,7 +10,7 @@ const FormCategoryMenuWrapper = React.lazy(() =>
   import("../input-form/form-category-menu-wrapper"),
 );
 const PlaceDetail = React.lazy(() => import("../place-detail"));
-const PlaceForm = React.lazy(() => import("./place-form"));
+const MapseedPlaceForm = React.lazy(() => import("./place-form"));
 import constants from "../../constants";
 
 import {
@@ -148,7 +148,7 @@ const ContentPanel = (props: Props) => {
         )}
         {props.contentPanelComponent === "InputForm" && (
           <React.Suspense fallback={<LoadingBar />}>
-            <PlaceForm placeForm={props.placeForm} />
+            <MapseedPlaceForm placeForm={props.placeForm} />
             {/* <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               layout={props.layout}
