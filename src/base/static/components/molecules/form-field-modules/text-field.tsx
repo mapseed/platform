@@ -16,13 +16,13 @@ type OwnProps = {
 type TextFieldProps = OwnProps & WithTranslation;
 
 const TextField = (props: TextFieldProps) => {
-  console.log("TextField props:", props);
+  const { field } = props;
 
   return (
     <MuiTextField
-      name={"dsfsd"}
-      value={props.value}
-      onChange={props.onChange}
+      name={field.name}
+      value={field.value}
+      onChange={field.onChange}
       placeholder={props.t(
         `textFieldLabel${props.moduleId}`,
         props.placeholder,
@@ -31,4 +31,5 @@ const TextField = (props: TextFieldProps) => {
   );
 };
 
+// TODO: useTranslation
 export default withTranslation("TextField")(TextField);

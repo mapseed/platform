@@ -1,15 +1,32 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
+import { Formik } from "formik";
 
-import Form from "./form";
+import BaseForm from "./base-form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
-import { PlaceForm } from "../../state/ducks/forms";
+import { PlaceForm, Form } from "../../state/ducks/forms";
 import { MapViewport } from "../../state/ducks/map";
 import { layoutSelector, Layout } from "../../state/ducks/ui";
 import eventEmitter from "../../utils/event-emitter";
 
 type PlaceFormProps = {
   placeForm: PlaceForm;
+};
+
+const getModuleName = (id: number, key: string) => (key ? key : `field-${id}`);
+
+const calculateInitialValues = (form: Form) => {
+  return form.stages
+    .reduce((formModules, stage) => formModules.concat(stage.modules), [])
+    .reduce((initialValues, { id, config }) => {
+      return {
+        ...initialValues,
+        // TODO: other default value use cases:
+        //   - load from form state dump
+        //   - editor
+        [getModuleName(id)]: config.defaultValue || "",
+      };
+    }, {});
 };
 
 const MapseedPlaceForm = (props: PlaceFormProps) => {
@@ -41,7 +58,14 @@ const MapseedPlaceForm = (props: PlaceFormProps) => {
 
   return (
     <div>
-      <Form modules={props.placeForm.stages[currentStage].modules} />
+      <Formik
+        onSubmit={values => console.log(JSON.stringify(values, null, 2))}
+        initialValues={calculateInitialValues(props.placeForm)}
+        render={() => (
+          <BaseForm modules={props.placeForm.stages[currentStage].modules} />
+        )}
+      />
+
       <FormStageControlBar
         layout={layout}
         onClickAdvanceStage={onClickAdvanceStage}
