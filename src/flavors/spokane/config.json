@@ -13,7 +13,7 @@
         "value": "agriculture",
         "label": "Agricultural stewardship",
         "setDefault": true,
-        "icon": "/static/css/images/markers/marker-field.png"
+        "icon": "/static/css/images/markers/marker-agriculture.png"
       },
       {
         "placeProperty": "practice_types",
@@ -22,7 +22,7 @@
         "value": "forestry",
         "label": "Forestry stewardship",
         "setDefault": true,
-        "icon": "/static/css/images/markers/marker-forest.png"
+        "icon": "/static/css/images/markers/marker-forestry.png"
       },
       {
         "placeProperty": "practice_types",
@@ -1659,20 +1659,124 @@
             "type": "symbol",
             "source": "spokane-input",
             "layout": {
-              "icon-size": 0.5,
+              "icon-size": 0.4,
               "icon-anchor": "bottom",
               "icon-image": [
-                "match",
-                ["at", 0, ["get", "practice_types"]],
-                "agriculture",
-                "marker-field.png",
-                "livestock",
+                "case",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
+                ],
+                "marker-agriculture.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
+                ],
                 "marker-livestock.png",
-                "forestry",
-                "marker-forest.png",
-                "marker-forest.png"
-              ],
-              "icon-allow-overlap": true
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
+                ],
+                "marker-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ]
+                ],
+                "marker-livestock-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock-forestry.png",
+                "marker-agriculture.png"
+              ]
             }
           }
         ],
@@ -1684,15 +1788,120 @@
             "layout": {
               "icon-anchor": "bottom",
               "icon-image": [
-                "match",
-                ["at", 0, ["get", "practice_types"]],
-                "agriculture",
-                "marker-field.png",
-                "livestock",
+                "case",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
+                ],
+                "marker-agriculture.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
+                ],
                 "marker-livestock.png",
-                "forestry",
-                "marker-forest.png",
-                "marker-forest.png"
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
+                ],
+                "marker-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ]
+                ],
+                "marker-livestock-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock-forestry.png",
+                "marker-agriculture.png"
               ],
               "icon-size": ["step", ["zoom"], 0.2, 11, 0.3, 16, 0.4],
               "icon-allow-overlap": true
