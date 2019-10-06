@@ -317,9 +317,7 @@
       },
       "hypoxia": {
         "type": "raster",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/Hypoxia/{z}/{x}/{y}.png"
-        ],
+        "tiles": ["https://ecotopia.today/Mississippi/Hypoxia/{z}/{x}/{y}.png"],
         "tileSize": 256
       },
       "navigation": {
