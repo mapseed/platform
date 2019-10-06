@@ -51,6 +51,8 @@ figure {
 [data-field-name="existing_hubs_information"],
 [data-field-name="bicycle_network_information"],
 [data-field-name="access_to_transit_information"],
+[data-field-name="request_bikeshare_parking"],
+[data-field-name="map_use"],
 [data-field-name="submission_info"] {
   border: 0 !important;
   padding: 0 !important;
@@ -62,7 +64,7 @@ figure {
 [data-field-name="skip_to_questionnaire"] {
   padding: 0 0 16px 0;
   margin: 0 0 16px 0;
-  display: flex;
+  display: flex !important;
   justify-content: center;
 
   .input-form__field-prompt-container {
