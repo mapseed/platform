@@ -991,7 +991,10 @@
     },
     {
       "slug": "faq",
-      "content": ["<p>FAQ content to come...</p>"]
+      "content": [
+        "<h1>FAQ</h1>",
+        "<p>For information explaining what bike share is and how to use it, visit the City's Frequently Asked Questions guide: <a target='_blank' href='http://bit.ly/2IwmA0b'>http://bit.ly/2IwmA0b</a></p>"
+      ]
     }
   ],
   "notifications": {
