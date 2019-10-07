@@ -20,3 +20,8 @@ export const lighten = (color, lightness) => {
   const tc = tinycolor(color);
   return tc.lighten(lightness).toString();
 };
+
+export const darken = (color, darkness) => {
+  const tc = tinycolor(color);
+  return tc.darken(darkness).toString();
+};

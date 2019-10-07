@@ -1,5 +1,7 @@
 import { css } from "@emotion/core";
 
+import { lighten, darken, getReadableColor } from "./base/static/utils/color";
+
 // Add font faces and other global styles:
 export const globalStyles = theme => css`
   // We support five fonts that can be used throughout Mapseed flavors.
@@ -196,44 +198,67 @@ export const baseMuiTheme = {
   // theme provider
   palette: {
     primary: {
-      // light: will be calculated from palette.primary.main,
-      main: theme.brand.primary,
-      // dark: will be calculated from palette.primary.main,
-      // contrastText: will be calculated to contrast with palette.primary.main
+      main: "#007fbf",
+      light: lighten("#007fbf", 10),
+      dark: darken("#007fbf", 10),
+      contrastText: getReadableColor("#007fbf"),
     },
     secondary: {
-      light: theme.text.highlighted,
-      main: theme.brand.secondary,
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: theme.text.primary,
+      main: "#a3c7d9",
+      light: lighten("#a3c7d9", 10),
+      dark: darken("#a3c7d9", 10),
+      contrastText: getReadableColor("#a3c7d9"),
     },
-    // error: will use the default color
+    accent: {
+      main: "#0af",
+      light: lighten("#0af", 10),
+      dark: darken("#0af", 10),
+      contrastText: getReadableColor("#0af"),
+    },
+    error: {
+      main: "#dc3545",
+      light: lighten("#dc3545", 10),
+      dark: darken("#dc3545", 10),
+      contrastText: getReadableColor("#dc3545"),
+    },
   },
   typography: {
     // Fonts configured like so:
     // https://material-ui.com/customization/typography/#font-family
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
+    fontFamily: "PTSans,sans-serif",
     // Fonts, font sizes, etc, can be configured here:
     // https://material-ui.com/customization/typography/#font-size
+    h1: {
+      fontFamily: "Raleway-ExtraBold,sans-serif",
+      fontSize: "2rem",
+    },
+    h2: {
+      fontFamily: "Raleway-ExtraBold,sans-serif",
+      fontSize: "1.8rem",
+    },
+    h3: {
+      fontFamily: "Raleway-ExtraBold,sans-serif",
+      fontSize: "1.5rem",
+    },
+    h4: {
+      fontFamily: "Raleway-ExtraBold,sans-serif",
+      fontSize: "1.2rem",
+    },
     h5: {
-      fontFamily: "Raleway",
+      fontFamily: "Raleway-Regular,sans-serif",
+      fontSize: "1.2rem",
+    },
+    h6: {
+      fontFamily: "Raleway-Regular,sans-serif",
+      fontSize: "1.2rem",
     },
     body1: {
-      fontFamily: "Raleway",
+      fontFamily: "PTSans,sans-serif",
+      fontSize: "1.1rem",
     },
     body2: {
-      fontFamily: "Raleway",
+      fontFamily: "PTSans,sans-serif",
+      fontSize: "1rem",
     },
   },
 };
@@ -250,15 +275,39 @@ export interface MuiTheme {
     };
   };
   typography: {
-    h1: {};
-    h2: {};
-    h3: {};
-    h4: {};
-    h5: {};
-    h6: {};
-    body1: {};
-    body2: {};
-    fontFamily: {};
+    h1: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    h2: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    h3: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    h4: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    h5: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    h6: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    body1: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    body2: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    fontFamily: string;
   };
 }
 
